@@ -1,3 +1,33 @@
+# Surf Forecast Lab v0.6
+
+The current app is a portable React + TypeScript + Vite project. This increment adds public surf-rating categories, independent reliability, and a lazy interactive geographic map while preserving the original forecast providers, quiver, profile, demo, simulation and browser storage.
+
+## Run locally
+
+Use Node.js 22.18+ (Node 24 recommended and tested).
+
+```sh
+npm ci
+npm run dev
+npm test
+npm run build
+```
+
+Vite serves the development app; deploy `dist/` after building. No Astra-only runtime, account or API key is required for the default preview. Existing `.openai/hosting.json` identifies the current private Site: preserve it when continuing that Site. Give a separate copy its own deployment identity before publishing elsewhere.
+
+Public forecasts and OpenStreetMap tiles require internet access. NOAA NDBC browser CORS limitations retain the explicitly historical observation fallback. Missing nearshore calibration withholds real surf ratings and breaking-wave estimates. Source and unit labels remain inspectable. Browser boards/preferences are separate from source exports; use Profile → Data management → Export JSON to move them.
+
+- [v0.6 development handoff](docs/development-handoff-v6.md)
+- [Provisional rating rules and reliability](docs/rating-engine-v6.md)
+- [Map data, point-layer limitations, dependencies and licenses](docs/map-data-sources-v6.md)
+- [Original data integration verification](docs/data-integration-verification.md)
+
+The optional `.env.example` documents public basemap settings. Never place secret tokens in client-side VITE variables. No setup is required to use the default basemap.
+
+---
+
+## Earlier project notes
+
 # Surf Forecast Lab v0.3
 
 React + TypeScript + Vite. Original minimal forecasting prototype with no runtime APIs, AI services, app authentication, or external assets. The hosted Site retains its existing private audience.
