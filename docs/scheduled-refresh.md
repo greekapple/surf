@@ -1,3 +1,9 @@
+# v0.11 operational boundary
+
+The approved v0.10 Site was deployed after the historical stabilization notes below. v0.11 remains local and retains the same backend revision 0.10 / API contract 0.8. Current Site metadata shows the original single refresh schedule enabled (00:05/06:05/12:05/18:05 America/Los_Angeles). No new run, successful persistent readback, hosted freshness, scheduler change or v0.11 deployment was verified/performed during this work. An enabled schedule is not evidence of successful execution. No duplicate job was created.
+
+---
+
 # v0.10 local stabilization status
 
 This section supersedes operational claims below for the current local release candidate. The existing automation and its schedule have not been modified. No hosted refresh, cloud cache/history write or deployment was authorized or performed during the resumed v0.10 stabilization pass. Scheduler execution, successful completion, persisted output and fresh provider data were **not reverified**. Earlier v0.9 notes are historical evidence only.

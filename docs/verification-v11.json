@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-20",
+  "sourceBase": "541a1d00d98eaa879992a148a4c432042419f763",
+  "frontend": "0.11",
+  "backendRevision": "0.10",
+  "apiContract": "0.8",
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit": 0,
+      "seconds": 1.576
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit": 0,
+      "seconds": 12.05
+    },
+    {
+      "command": [
+        "node",
+        "scripts/verify-worker.mjs"
+      ],
+      "exit": 0,
+      "seconds": 0.346
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 0.018
+    }
+  ],
+  "tests": 130,
+  "browserAcceptance": "Partial; see root handoff matrix",
+  "hostedV11": "Not deployed or verified",
+  "cloudDataWrites": false,
+  "schedulerChanged": false
+}

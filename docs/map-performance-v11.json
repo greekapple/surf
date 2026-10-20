@@ -1,0 +1,19 @@
+{
+  "scope": "Local Node native-cell normalization and bounded-cache microbenchmark; not browser rendering",
+  "node": "v24.19.0",
+  "iterations": 1000,
+  "nativeCells": 81,
+  "validAt": "2026-10-20T00:00:00Z",
+  "medianMs": 0.051954999999992424,
+  "p95Ms": 0.24315100000001166,
+  "cache": {
+    "frames": 32,
+    "hits": 32,
+    "misses": 0,
+    "cells": 2592
+  },
+  "uniqueFrameJSONBytes": 3178,
+  "browserDrawAndSwitchTiming": "Not measured: browser transport timed out",
+  "browserCanvasAllocation": "Instrumented in DOM data-spatial-canvas-bytes; not captured; excludes basemap/JS/driver memory",
+  "physicalDeviceMemoryAndFPS": "Not measured"
+}

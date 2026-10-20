@@ -1,0 +1,166 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> surf-prototype@0.1.0 test
+> node --experimental-strip-types --test src/tests/*.test.ts
+
+✔ deterministic ranking and normalized scores (56.007397ms)
+✔ Hawaiian display and physical units never affect scores (22.423108ms)
+✔ beginner never receives expert-only or reef breaks (3.774327ms)
+✔ empty quiver gives no fabricated board (1.70114ms)
+✔ large day provides no beginner session (2.524141ms)
+✔ comfort and unknown hazards override high board score (2.483938ms)
+✔ board explanations and actual factors agree (0.616796ms)
+✔ time selection changes forecasts and recommendations (0.833977ms)
+✔ shore-relative wind orientation (0.947616ms)
+✔ dimension parsing and validation (1.937063ms)
+✔ board add edit delete and profile changes persist (1.195273ms)
+✔ corrupt storage and quota failures are visible (0.436574ms)
+✔ seven full days contain unique spot/day/hour records (5.940011ms)
+✔ SQI uses exact prescribed weighted factors and normalized scores (8.3488ms)
+✔ SQI is independent of profiles and boards; Personal Match can change separately (28.821789ms)
+✔ essential missing data withholds SQI without renormalization (0.796529ms)
+✔ missing-data sample is excluded from personal ranking (0.574848ms)
+✔ strong offshore wind loses quality and size is not monotonically rewarded (0.341694ms)
+✔ sample dataset contains both poor and high SQI (6.120075ms)
+✔ day summaries derive only from supplied records (0.377528ms)
+✔ simulation isolates nested records and changes SQI (5.459029ms)
+✔ backup validates deeply and preserves original v1 fields (3.125646ms)
+✔ no suitable board still permits eligible spot/time recommendation (0.877391ms)
+✔ spot comparison records share a single timestamp (0.37479ms)
+✔ navigation restores section positions and explicit new-forecast openings can reset scroll (2.001594ms)
+✔ hour selection returns one exact record used by all forecast sections (0.290743ms)
+✔ day selection preserves the available Pacific hour, falling back only to a supplied record (30.312242ms)
+✔ spot switching preserves exact time without borrowing another spot or hour (0.252367ms)
+✔ initial selection chooses the first supplied future record and explicit past selections stay selected (0.339037ms)
+✔ loading, unavailable and refresh states do not confuse missing data with a prior spot forecast (0.218947ms)
+✔ measurement preferences preserve offshore and tide conventions while converting breaking height (0.31063ms)
+✔ comparison selections toggle, cap saved boards at two and handle the empty state (1.738121ms)
+✔ unavailable values sort last without turning unknown quality into zero (0.503212ms)
+✔ simulation values stay separate from the selected regional forecast and reset to originals (1.291409ms)
+✔ direction compass uses source bearings north, east, south, west (0.906182ms)
+✔ map frames select exact shared instants and preserve missing spot data (1.459024ms)
+✔ point layers show actual values and provider grid locations, with no continuous surface (1.223179ms)
+✔ layer and component switches preserve raw units and omit missing measurements (0.715437ms)
+✔ tide map uses one attributed regional station and never spreads beach samples (2.53354ms)
+✔ map unit preferences never apply Hawaiian scale to offshore, swell or tide (0.419546ms)
+✔ playback advances only through supplied instants, including gaps, and ends without fabricated frames (0.262126ms)
+✔ unknown provider coordinates remain explicit and malformed coordinates are rejected (2.790051ms)
+✔ swell-height experiments isolate copies and retain correct simulated canonical units (2.422136ms)
+✔ optional server adapter only serves its fixed public station and caches upstream retrieval time (16.686067ms)
+✔ optional buoy service reports failure and rejects malformed provider content (2.974207ms)
+✔ provider requests use UTC epochs, explicit wind units and offshore query coordinates (2.247595ms)
+✔ marine units normalize once, with no face-height conversion (2.076727ms)
+✔ exact UTC joins never invent or carry wind values between records (8.826142ms)
+✔ unsupported units and missing providers are explicit (1.25047ms)
+✔ Pacific date grouping and DST retain distinct UTC instants (23.766151ms)
+✔ NOAA tide datum, timestamps and trends stay station-specific (0.988992ms)
+✔ observed water levels remain observations with provider quality notes (0.353325ms)
+✔ NDBC MM remains missing; per-measurement timestamps and native units survive (2.837362ms)
+✔ real records cannot borrow illustrative profiles to manufacture SQI or personal match (3.683463ms)
+✔ verified test profile produces a deterministic weighted SQI and high wind is penalized (2.5026ms)
+✔ experiment edits copies only, preserving source attribution and all original values (1.541357ms)
+✔ rate limits and error payloads are surfaced, not cached as success (6.791385ms)
+✔ request cache prevents duplicate successful reads (0.648526ms)
+✔ freshness labels derive from timestamps and do not call old measurements real-time (0.222259ms)
+✔ 429 retry window prevents repeated provider requests (0.813767ms)
+✔ high/low predictions retain actual NOAA event times rather than inferred hourly extrema (0.991454ms)
+✔ real offshore inputs produce provisional ratings at each initial spot without breaking estimates (17.191845ms)
+✔ essential missing and mismatched timestamps return Unrated, optional missing factors stay explicit (1.908158ms)
+✔ zero offshore energy is Poor potential and never observational Flat (0.458574ms)
+✔ severe wind lowers provisional score and simulation remains isolated (1.311589ms)
+✔ provisional explanations reflect weighted factors and stale evidence stays limited (0.858472ms)
+✔ shared collection selects only saved records and survives sorting/deletion without cloned visual records (2.718742ms)
+✔ desktop gallery is bounded, always includes selection and retains original references (1.405171ms)
+✔ mobile swipe accepts deliberate horizontal gestures, preserving vertical scroll and taps (0.267583ms)
+✔ dimension labels keep saved precision and physical units, independent of Hawaiian surf display (0.929021ms)
+✔ existing front photos and optional back photos remain compatible with v1 JSON and safe imports (6.948633ms)
+✔ Medium and unknown rocker are neutral; malformed dimensions withhold board advice (2.143808ms)
+✔ wave headlines round single offshore measurements as points, never invented surf ranges (1.02176ms)
+✔ only supplied breaking ranges with a documented method render as ranges; raw values do not mutate (1.832187ms)
+✔ v0.6 rating vocabulary uses every exact classification boundary (2.24886ms)
+✔ missing and invalid factors remain UNRATED, never FLAT or zero quality (1.329109ms)
+✔ FLAT overrides favorable factors only with exact reliable breaking evidence (0.493671ms)
+✔ EPIC requires exceptional potential and high reliability, not offshore wind alone (0.5777ms)
+✔ supported wind and wave-potential interactions cap strong averages deterministically (1.237214ms)
+✔ reliability is independent of surf quality and uses no confidence percentage (0.352844ms)
+✔ explanations, original contributions, final score and interaction caps remain consistent (0.446873ms)
+✔ current real profiles remain UNRATED despite working offshore model inputs (6.707098ms)
+✔ new public ratings do not mutate the preserved SQI, profiles, forecasts or quiver (1.648529ms)
+✔ zero breaking-wave input cannot receive favorable quality without rideability evidence (0.646929ms)
+✔ verified flat evidence resolves the zero-height rideability requirement (0.857307ms)
+✔ calibrated tier requires a documented nearshore method and positive validation evidence (0.588613ms)
+✔ fixed service providers are bounded and cannot forward arbitrary URLs (13.223073ms)
+✔ persistent provider caching survives a new service instance and keeps original retrieval timestamps (14.034304ms)
+✔ upstream failure retains cached payload and timestamp with an explicit stale warning (13.194002ms)
+✔ simultaneous requests deduplicate and malformed success is not cached (14.668687ms)
+✔ regional service returns only exact grid frames, including gaps (5.071416ms)
+✔ refresh writes status and raw verification history; reads and cross-origin writes are rejected (15.735707ms)
+✔ portable Worker serves embedded assets, SPA navigation and accurate missing-file responses (1.698178ms)
+✔ spatial source is a genuine regional native grid, distinct from spot measurements (3.164205ms)
+✔ native coordinates, null ocean/land cells, units and exact forecast timestamps survive normalization (1.761147ms)
+✔ GFS wind vectors use meteorological FROM bearings and 3-hourly actual frame times (0.787099ms)
+✔ heatmap, arrow, animation, markers and opacity preferences persist independently without touching board storage (2.546286ms)
+✔ each spatial variable has its own numerical color scale and accurate physical units (0.954798ms)
+✔ spatial frame cache deduplicates reads and failures are surfaced without caching success (7.250441ms)
+✔ cancelling one subscriber preserves a shared request; abandoned and obsolete results reject (7.496493ms)
+✔ saved grids retain original retrieval and only serve exact valid frames, never shifted stale data (1.045002ms)
+✔ CDIP nowcast retains actual time, native provenance and QC, with one metric conversion (3.865273ms)
+✔ optional name and raster board photo round-trip without losing old v1 records (5.263474ms)
+✔ upcoming windows select only supplied future records, supported scores and separated times (17.450442ms)
+✔ saved volume, category and intended conditions affect supported board heuristics, never general ratings (1.545719ms)
+✔ nearshore adapter rejects changed units and unaccepted quality flags instead of guessing (0.527083ms)
+✔ Retry-After respects numeric and HTTP-date cooldowns without inventing seconds (2.151168ms)
+✔ 429 cooldown is durable across Worker instances and shared across the weather origin (14.120288ms)
+✔ bounded retry with jitter retries a transient 503 once, but never loops on 404 (3.863966ms)
+✔ timeouts preserve old records, label stale and survive diagnostics readback (3.533243ms)
+✔ conditional validation keeps original retrieval and reuses its validation TTL (2.127785ms)
+✔ regional query uses actual dataset coverage without shifting valid frames (0.809076ms)
+✔ server stale JSON remains saved in normalized measurements and cannot look live (1.043104ms)
+✔ window grouping breaks at missing ratings, duplicates and gaps; never merges different spots (21.168927ms)
+✔ verification calculates signed bias, MAE, sample period, coverage and supplied lead time (1.011116ms)
+✔ verification excludes different quantities, datums, locations, depths and times (0.521664ms)
+✔ verification deduplicates the same forecast vintage, retains missing counts and validates imports (0.614522ms)
+✔ local calibration has no transferable coefficients and no invented breaking estimate (0.187232ms)
+✔ normalized frame cache is bounded, LRU, time-aware and preserves original valid time (0.424447ms)
+✔ 503 Retry-After defers the request durably instead of retrying before the provider allows (1.533673ms)
+✔ malformed upstream JSON is an invalid payload and is not retried as a network error (0.934403ms)
+✔ diagnostics are read-only and local memory preview never claims durable persistence (1.49247ms)
+✔ verification excludes backfilled and future-issued forecasts and handles malformed roots plainly (0.518455ms)
+✔ Wave Scale has exact metric trough-to-crest dimensions at every slider step (2.296151ms)
+✔ Wave Scale reference and framing stay fixed across all preset endpoints (0.283778ms)
+✔ Wave Scale rejects invalid sizes and keeps unit formatting independent of geometry (3.461964ms)
+✔ Home selects current supplied hour, keeps favorite preference, and never falls back to history (1.171983ms)
+✔ Home never promotes demo boards to owned-board advice or substitutes offshore height for face (0.86311ms)
+✔ Window timelines split at Pacific midnight without inventing daylight or tide suitability (23.404358ms)
+✔ Forecast freshness labels never call future or invalid retrieval clocks live data (0.330554ms)
+ℹ tests 130
+ℹ suites 0
+ℹ pass 130
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1256.957287
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> surf-prototype@0.1.0 build
+> tsc --noEmit && vite build && node scripts/build-worker.mjs
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 121 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                            0.56 kB │ gzip:   0.38 kB
+dist/assets/MapCanvas-CIGW-MKW.css        15.61 kB │ gzip:   6.46 kB
+dist/assets/QuiverPage-BtVOzgJF.css       16.65 kB │ gzip:   4.20 kB
+dist/assets/index-DMO2sTXn.css            91.08 kB │ gzip:  18.43 kB
+dist/assets/BoardVisual-CQjQdf1w.js        4.75 kB │ gzip:   2.22 kB
+dist/assets/DataDiagnostics-BP0Y-_lo.js    8.55 kB │ gzip:   3.53 kB
+dist/assets/ProfilePage-BYxPwsUe.js       11.71 kB │ gzip:   4.02 kB
+dist/assets/QuiverPage-COl13b35.js        24.39 kB │ gzip:   7.71 kB
+dist/assets/MapCanvas-BFJQ62Mr.js        157.18 kB │ gzip:  46.55 kB
+dist/assets/index-Dq_YhYCO.js            389.98 kB │ gzip: 121.68 kB
+✓ built in 3.71s
+Built portable Worker with 20 embedded assets; React/Vite retained.
+Generated Worker ESM validated: HTML, hashed assets, API, missing assets and R2 manifest.

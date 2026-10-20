@@ -1,3 +1,9 @@
+# Wave Scale status in v0.11
+
+The first educational implementation now exists in `src/education/waveScale.ts` and `src/components/WaveScale.tsx`. See `v11-architecture.md` for fixed metric dimensions, conventions and extension boundaries. Preset/units/keyboard interactions were checked on desktop, narrow CSS-viewport layout was inspected, and geometry tests pass. Broader mobile/assistive/reduced-motion acceptance and expert review remain pending. The specification below is retained as the original design intent, not evidence that every future capability is implemented.
+
+---
+
 # WAVE SCALE — future educational feature, not implemented in v0.9
 
 Goal: explain breaking-wave face height using a consistently scaled human reference. Keep this educational surface separate from actual forecasts. Label synthetic geometry and scenarios as illustration, never live surf.

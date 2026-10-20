@@ -8,3 +8,5 @@ assert.equal((await worker.fetch(new Request("https://surf.test/qa-v09.html"),{}
 assert.equal((await worker.fetch(new Request("https://surf.test/qa-v10.html"),{})).status,404);
 assert.equal((await worker.fetch(new Request("https://surf.test/qa-v10-final.html"),{})).status,404);
 assert.equal((await(await worker.fetch(new Request('https://surf.test/api/health'),{})).json()).revision,'0.10');
+
+assert.equal((await worker.fetch(new Request("https://surf.test/qa-v11.html"),{})).status,404);
