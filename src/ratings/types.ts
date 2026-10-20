@@ -19,6 +19,7 @@ export interface RatingContext {
 }
 export interface Reliability {category:ReliabilityCategory;reasons:string[];horizonHours:number|null;assessedAt:string}
 export interface SurfRating extends SurfQuality {
+ tier?:'Provisional'|'Calibrated';validAt?:string;
  category:RatingCategory;baseScore:number|null;explanation:string;constraints:string[];
  reliability:Reliability;mode:RatingContext['mode'];sources:SourceInfo[];experimental:true;
 }

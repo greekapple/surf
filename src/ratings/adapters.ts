@@ -5,7 +5,10 @@ import {evidenceQuality} from '../ocean/quality.ts';
 import {evidenceSpot} from '../ocean/spots.ts';
 import {calibrationForSpot} from '../ocean/calibration.ts';
 import {rateQuality,unverifiedCalibration} from './engine.ts';
+import {provisionalRating} from './provisional.ts';
 export function rateOcean(s:SpotEvidence,r:OceanRecord,now=Date.now()){
+ const calibrated=calibrationForSpot(s);
+ if(calibrated.status!=='validated'||!calibrated.nearshoreMethod||!calibrated.validation||calibrated.validation.sampleCount<=0)return provisionalRating(s,r,now);
  const required=[['Offshore wave height',r.offshore],['Primary swell height',r.primary.height],['Primary swell period',r.primary.period],['Primary swell direction',r.primary.direction],['Wind speed',r.windSpeed],['Wind direction',r.windDirection],['Regional tide',r.tide],['Breaking-wave estimate',r.face],['Local organization',r.organization]] as const;
  return rateQuality(evidenceQuality(s,r),{mode:r.mode==='simulation'?'simulation':'retrieved',validAt:r.timestamp,now,breakingHeightFt:r.face.value,calibration:calibrationForSpot(s),sources:required.map(([,m])=>m.source),missingInputs:required.filter(([,m])=>m.value===null).map(([label])=>label)});
 }

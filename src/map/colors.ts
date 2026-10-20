@@ -1,0 +1,6 @@
+import type {SpatialFrame} from './spatial.ts';
+import type {UserProfile} from '../models/index.ts';
+export function colorScale(unit:SpatialFrame['unit']){return unit==='m'?[0,.5,1,2,3,5,8]:unit==='s'?[0,5,8,11,14,18,24]:unit==='m/s'?[0,2,5,8,12,18,25]:[0,60,120,180,240,300,360];}
+const colors=['#223c8e','#317cb5','#46b6b2','#81be6b','#e9cf64','#d67556','#9b437e'];
+export function forecastColor(value:number,unit:SpatialFrame['unit']){const stops=colorScale(unit),v=Math.max(stops[0],Math.min(stops.at(-1)!,value));let i=stops.findIndex((n,j)=>j>0&&v<=n)-1;i=Math.max(0,i);const t=(v-stops[i])/(stops[i+1]-stops[i]);const rgb=(hex:string)=>[1,3,5].map(j=>parseInt(hex.slice(j,j+2),16));const palette=unit==='deg'?['#223c8e','#317cb5','#46b6b2','#81be6b','#e9cf64','#9b437e','#223c8e']:colors;const a=rgb(palette[i]),b=rgb(palette[i+1]);return `rgb(${a.map((n,j)=>Math.round(n+(b[j]-n)*t)).join(',')})`;}
+export function legendValue(value:number,unit:SpatialFrame['unit'],p:UserProfile){return unit==='m'?`${(p.heightUnit==='ft'?value/.3048:value).toFixed(1)} ${p.heightUnit}`:unit==='m/s'?`${(value*(p.windUnit==='mph'?2.2369362921:p.windUnit==='kn'?1.9438444924:3.6)).toFixed(0)} ${p.windUnit}`:`${value} ${unit==='deg'?'°':unit}`;}

@@ -1,3 +1,15 @@
+# SURF v0.7 — provisional ratings and regional forecast fields
+
+Incremental update; prior implementation notes follow below. Start with [v0.7 handoff](docs/development-handoff-v7.md), [rating rules](docs/rating-engine-v7.md) and [map sources/connection limits](docs/map-data-sources-v7.md).
+
+`npm ci` · `npm test` · `npm run dev` · `npm run build`
+
+Regional maps attempt NOAA ERDDAP retrieval, then use **explicitly labeled genuine dated model snapshots** when direct access fails. Included snapshots cover 2026-10-20 through 2026-10-23 UTC; they are not a live browser connection and are never shifted into future times. Refresh using `python3 scripts/refresh-spatial.py --hours 72`, then rebuild/deploy. Real spot forecasts remain independent.
+
+No current spot rating is calibrated. No offshore-to-breaking height conversion. Optional server buoy adapter is provided but not deployed with the static Site. Existing quiver/profile JSON and storage compatibility preserved.
+
+---
+
 # Surf Forecast Lab v0.6
 
 The current app is a portable React + TypeScript + Vite project. This increment adds public surf-rating categories, independent reliability, and a lazy interactive geographic map while preserving the original forecast providers, quiver, profile, demo, simulation and browser storage.

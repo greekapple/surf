@@ -2,7 +2,7 @@ import type {Forecast,UserProfile} from '../models/index.ts';
 import type {SpotEvidence,Measurement} from '../ocean/types.ts';
 import type {ForecastPoint,MapLayer,MapReading,MapVariable} from './types.ts';
 import {height,wind,compass} from '../utils/units.ts';
-export const mapVariables:Record<MapLayer,MapVariable[]>={SWELL:['Height','Period','Direction'],WIND:['Speed','Direction','Gusts'],WAVES:['Offshore Hs','Breaking-wave estimate'],TIDE:['Station height']};
+export const mapVariables:Record<MapLayer,MapVariable[]>={SWELL:['Height','Period','Direction'],WIND:['Speed','Direction','Gusts'],WAVES:['Offshore Hs','Period','Direction','Breaking-wave estimate'],TIDE:['Station height','High/low predictions']};
 /** NOAA station metadata checked 2026-10-20; source is retained with the map data. */
 export const tideStation={id:'9414290',name:'San Francisco',latitude:37.806305,longitude:-122.46589,url:'https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9414290.json'};
 export function exactFrame(records:Forecast[],time:string|null,spotIds:string[]){return time?records.filter(f=>f.timestamp===time&&spotIds.includes(f.spotId)):[];}
@@ -20,6 +20,7 @@ export function layerReading(f:Forecast,layer:MapLayer,variable:MapVariable,seco
   if(variable==='Direction'){unit='deg';value=direction;measurement=r?.windDirection??null;label='Wind direction from';}
   else {unit='mph';measurement=(variable==='Gusts'?r?.gusts:r?.windSpeed)??null;value=r?measurement?.value??null:f.availability.wind?(variable==='Gusts'?f.wind.gusts??null:f.wind.speed):null;label=variable==='Gusts'?'Wind gusts':'Wind speed';}
  }else if(layer==='WAVES'){
+  if(variable==='Period'||variable==='Direction')return {value:null,unit:variable==='Period'?'s':'deg',label:variable==='Period'?'Combined peak wave period (regional grid only)':'Combined peak wave direction (regional grid only)',direction:null,period:null,measurement:null,breaking:false};
   breaking=variable==='Breaking-wave estimate';measurement=(breaking?r?.face:r?.offshore)??null;value=r?measurement?.value??null:breaking?(f.availability.face?f.face:null):Number.isFinite(f.offshore)?f.offshore:null;label=breaking?'Breaking-wave estimate':'Offshore significant wave height';
  }else{measurement=r?.tide??null;value=r?r.tide.value:null;label='NOAA station tide · MLLW';}
  return {value:value!==null&&Number.isFinite(value)?value:null,unit,label,direction,period,measurement,breaking};

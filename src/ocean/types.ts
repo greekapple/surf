@@ -6,4 +6,5 @@ export interface OceanRecord {spotId:string;timestamp:string;offshore:Measuremen
 export interface SpotEvidence {id:string;name:string;region:string;location:string;latitude:number;longitude:number;marineLatitude:number;marineLongitude:number;queryNote:string;breakType:string|null;difficulty:'Expert'|null;orientation:number|null;idealSwell:number|null;periodRange:[number,number]|null;tidePreferences:string[]|null;faceRange:[number,number]|null;hazards:string[]|null;hazardsComplete:boolean;sources:{url:string;description:string}[];checkedOn:string}
 export interface ConnectionStatus {id:string;provider:string;state:'connected'|'partial'|'unavailable'|'loading';message:string;checkedAt:string;url:string;retryAfter?:number}
 export interface ObservationSet {station:string;location:string;values:Record<string,Measurement>;delivery:'direct'|'saved'}
-export interface OceanBundle {records:OceanRecord[];statuses:ConnectionStatus[];buoy:ObservationSet|null;waterLevel:ObservationSet|null;loadedAt:string}
+export interface TidePrediction {timestamp:string;height:Measurement;type:'High'|'Low'}
+export interface OceanBundle {records:OceanRecord[];statuses:ConnectionStatus[];buoy:ObservationSet|null;waterLevel:ObservationSet|null;loadedAt:string;extrema?:TidePrediction[]}

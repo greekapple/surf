@@ -8,8 +8,8 @@
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:50:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T04:50:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
@@ -20,13 +20,13 @@
       }
     },
     "Dominant wave period": {
-      "value": 12,
+      "value": 11,
       "unit": "s",
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:50:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T04:50:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
@@ -37,13 +37,13 @@
       }
     },
     "Mean wave direction": {
-      "value": 282,
+      "value": 294,
       "unit": "deg",
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:50:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T04:50:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
@@ -54,13 +54,13 @@
       }
     },
     "Wind speed": {
-      "value": 13.4216177526,
+      "value": 6.7108088763,
       "unit": "mph",
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:50:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T05:00:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
@@ -71,13 +71,13 @@
       }
     },
     "Wind direction": {
-      "value": 300,
+      "value": 290,
       "unit": "deg",
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:50:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T05:00:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
@@ -88,13 +88,13 @@
       }
     },
     "Wind gust": {
-      "value": 15.658554044699999,
+      "value": 8.9477451684,
       "unit": "mph",
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:50:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T05:00:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
@@ -110,8 +110,8 @@
       "source": {
         "provider": "NOAA NDBC 46026",
         "kind": "observation",
-        "validAt": "2026-10-20T01:40:00.000Z",
-        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "validAt": "2026-10-20T05:00:00.000Z",
+        "retrievedAt": "2026-10-20T05:31:21.666436+00:00",
         "issuedAt": null,
         "updatedAt": null,
         "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",

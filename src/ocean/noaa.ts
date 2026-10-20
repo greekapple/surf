@@ -1,10 +1,15 @@
-import type {Measurement,ObservationSet,SourceInfo,OceanRecord} from './types.ts';
+import type {Measurement,ObservationSet,SourceInfo,OceanRecord,TidePrediction} from './types.ts';
 import {utcTime} from './time.ts';
 export const buoyURL='https://www.ndbc.noaa.gov/data/realtime2/46026.txt';
 export const tideURL=(product:'predictions'|'water_level',start:Date=new Date())=>{const params:Record<string,string>={product,station:'9414290',datum:'MLLW',time_zone:'gmt',units:'english',format:'json',application:'SurfForecastPreview'};if(product==='predictions'){params.begin_date=start.toISOString().slice(0,10).replaceAll('-','');params.range='192';params.interval='h'}else params.date='latest';return `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?${new URLSearchParams(params)}`};
 export function normalizeTides(payload:any,retrievedAt:string,url:string):Map<string,Measurement>{
  const rows=Array.isArray(payload?.predictions)?payload.predictions:[],map=new Map<string,Measurement>();
  for(const row of rows){const timestamp=typeof row.t==='string'?utcTime(row.t):null;const value=typeof row.v==='string'&&row.v.trim()!==''?Number(row.v):NaN;if(!timestamp||!Number.isFinite(value))continue;map.set(timestamp,{value,unit:'ft',source:{provider:'NOAA CO-OPS 9414290',kind:'forecast',validAt:timestamp,retrievedAt,issuedAt:null,updatedAt:null,url,nativeUnit:'ft MLLW',location:'San Francisco station 9414290; regional reference, not a beach tide',delivery:'direct',notes:'Astronomical tide prediction at station, relative to MLLW. Local beach tide and surf compatibility are uncalibrated.'}})}return map;
+}
+export function tideExtremaURL(start=new Date()){const url=new URL(tideURL('predictions',start));url.searchParams.set('interval','hilo');return url.toString()}
+export function normalizeTideExtrema(payload:any,retrievedAt:string,url:string):TidePrediction[]{
+ const heights=normalizeTides(payload,retrievedAt,url);
+ return (Array.isArray(payload?.predictions)?payload.predictions:[]).flatMap((row:any)=>{const timestamp=typeof row.t==='string'?utcTime(row.t):null,height=timestamp?heights.get(timestamp):null;return timestamp&&height&&(row.type==='H'||row.type==='L')?[{timestamp,height,type:row.type==='H'?'High':'Low'} as TidePrediction]:[]}).sort((a:TidePrediction,b:TidePrediction)=>a.timestamp.localeCompare(b.timestamp));
 }
 export function attachTides(records:OceanRecord[],tides:Map<string,Measurement>){return records.map(r=>{const tide=tides.get(r.timestamp);if(!tide)return r;const next=tides.get(new Date(Date.parse(r.timestamp)+3600000).toISOString());const previous=tides.get(new Date(Date.parse(r.timestamp)-3600000).toISOString());const difference=next?.value!=null?next.value-tide.value!:previous?.value!=null?tide.value!-previous.value:null;return {...r,tide,tideTrend:difference===null||Math.abs(difference)<.01?'Unknown':difference>0?'Rising':'Falling'} as OceanRecord})}
 export function normalizeWaterLevel(payload:any,retrievedAt:string,url:string):ObservationSet|null{
