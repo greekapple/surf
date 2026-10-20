@@ -1,3 +1,13 @@
+# SURF v0.8 — forecasts and equipment
+
+Start with [v0.8 architecture and connection limits](docs/v08-architecture.md) and [scheduled refresh instructions](docs/scheduled-refresh.md). React/TypeScript/Vite, existing ratings/map, saved boards and v1 JSON storage are preserved. New Home, Quiver showroom/photos and Personal hub use the same underlying data.
+
+`npm ci` · `npm test` · `npm run dev` · `npm run build`
+
+The production build now emits a portable Worker ESM with a BUCKET R2 binding, public forecast ingestion, persistent caches and raw verification history. The hosted schedule must be verified separately. Open-Meteo, NOAA station and CDIP numeric source handlers were tested; NOAA ERDDAP returned HTTP 503 during the latest source-handler check. Regional dated fallback grids remain clearly labeled. No breaking-wave conversion or calibrated accuracy claim is made. Earlier notes below describe prior versions and are historical.
+
+---
+
 # SURF v0.7 — provisional ratings and regional forecast fields
 
 Incremental update; prior implementation notes follow below. Start with [v0.7 handoff](docs/development-handoff-v7.md), [rating rules](docs/rating-engine-v7.md) and [map sources/connection limits](docs/map-data-sources-v7.md).

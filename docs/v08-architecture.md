@@ -1,0 +1,31 @@
+# SURF v0.8 development handoff
+
+React + TypeScript + Vite, existing Git history, forecast map, ratings and v1 local storage retained. Home, Quiver and Personal have shared editorial styles; Quiver and Personal are lazy loaded. All boards come from the same saved records. Photos are optional, raster-only, optimized on-device, bounded to 350 KB and included in JSON backups. No photos or profiles enter the forecast cache.
+
+## Run and deploy
+
+`npm install`, `npm test`, `npm run dev`, `npm run build`. Node 24+ is required by the current `--use-env-proxy` development command. The frontend remains conventional React/Vite. Build emits one portable Worker ESM script at `dist/server/index.js` with embedded static assets; `.openai/hosting.json` declares the existing Site and `BUCKET` R2 binding. Sites provisions this binding. An alternate Worker host must bind its own R2-compatible bucket. Static-only deployment can use Vite output before the Worker bundling step, but it loses the server and unattended refresh.
+
+Provider URLs are fixed on the server, not a generic proxy. `/api/provider?key=...`, `/api/grid?field=...&time=...`, `/api/health`, POST `/api/refresh`. Point and regional data use bounded ingestion and deduplication; last successful raw payloads and original retrieval timestamps survive in R2. Refresh also writes a timestamped raw verification archive and status manifest. Model issuance is null where not supplied. No provider response-generation time is called model issuance.
+
+Production uses the same-origin service first, then explicit browser provider fallback. Development defaults to browser point fetching because the managed preview process cannot reach the upstream network here; its local adapter has an in-memory test bucket, not durable storage. `VITE_FORECAST_SERVICE=on` opts into the service during development; `off` opts out in any build. Optional legacy `VITE_NOAA_PROXY_URL` remains supported for the fixed station. Browser refresh checks every ten minutes while visible; a hosted schedule is required for closed-page refresh.
+
+The current Site is owner-private and Sites dispatch supplies the authorization boundary. `/api/refresh` rejects cross-origin browser writes; optional server `REFRESH_TOKEN` enables bearer verification on another host. On an unauthenticated public deployment configure this secret or equivalent service authorization before exposing the writer. Do not put service credentials in frontend VITE variables. The shared cache contains only public ocean products.
+
+## Nearshore research, checked 2026-10-20
+
+CDIP MOP Ocean Beach transect **SF023** official profile: https://cdip.ucsd.edu/mops/?mop=SF023&xitem=info . Location 37.74811, -122.51886; modeled depth 10 m, shore-normal 263.49 degrees. One transect is not a universal orientation of the beach. Public numeric point CSV successfully fetched from https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/model/MOP_alongshore/SF023_nowcast.nc . Requested hourly waveHs, waveTp, waveDp and waveFlagPrimary with bounded time_start/time_end. Only primary QC=1 is accepted. Native meters become feet once. Records keep exact valid times; unmatched nowcast context is labeled separately and never placed into a future forecast or rating.
+
+Official `.das` metadata declares MOP version 1.1, hourly output, model output (not observation), and redistribution/use without restriction. Dataset issuance in that metadata was 2026-10-20T05:16:29Z, with latest supplied point record 04:00Z in the tested subset. Runtime CSV does not supply issuance; it stays unknown. This is nearshore modeled significant wave height, not breaking-wave height. No physically unsupported conversion is used.
+
+NOAA NWPS MTR regional SWAN product verified: https://polar.ncep.noaa.gov/nwps/ . Regional domains can use approximately 1.8 km–500 m resolution; local numeric coverage/resolution is not asserted. MTR image product is accessible, numeric GRIB ingestion remains future work. Official CDIP SM406 Pacifica reference is at 37.63560, -122.50990, depth 15 m and normal 270 degrees, north of Linda Mar. It is not assigned to Linda Mar. Verified Bolinas local transect, bathymetry, sheltering, swell window and tide response remain unavailable. Existing high-resolution automatic wind selection is labeled by provider; no unsupported HRRR coverage is claimed.
+
+## Ratings and recommendations
+
+Preserved official categories and calibrated/provisional distinction. Real data currently supports experimental offshore potential, with local missing factors explicit. Ocean Beach shore-relative wind now uses the approximate verified transect normal. Calibrated local surf quality remains unavailable; no observed rideability or breaking-wave calibration has occurred. Nearshore context does not create personal suitability. General rating is independent of boards/profile. Real board recommendations remain limited where breaking height and wave character are absent; simulation is separately labeled. Changing saved volume, dimensions, category and configured intended conditions affects the heuristics that use them. Photos and displayed selection do not alter scores.
+
+Forecast archives prepare historical verification with provider key/spot identity, raw predictions/observations, valid timestamps in provider payloads, retrievedAt, model and issuedAt where supplied. No accuracy claim follows from collecting these records. Next validation step: pair archived valid instants with independent observations and reviewed local surf reports; measure bias/error by horizon and break, document sample counts before calibration.
+
+## Future extensions only
+
+`src/models/future.ts` defines camera, temporary wave-event and session contracts outside persisted v1 data. A future permitted camera feed would enter a separate observation adapter with timestamps/method versions/QC, not overwrite forecasts. Prefer action framing with short-lived event track IDs; no face recognition or persistent person identity. Permissions, retention, access and consent must precede deployment. Crowded-feed ambiguity remains unresolved. A future sensor adapter can produce reviewed ride events from IMU/GPS/manual sources; no final hardware, accurate counting or camera stream exists in v0.8. No empty navigation pages or hardware dependencies were added.

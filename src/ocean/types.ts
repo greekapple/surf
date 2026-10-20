@@ -7,4 +7,4 @@ export interface SpotEvidence {id:string;name:string;region:string;location:stri
 export interface ConnectionStatus {id:string;provider:string;state:'connected'|'partial'|'unavailable'|'loading';message:string;checkedAt:string;url:string;retryAfter?:number}
 export interface ObservationSet {station:string;location:string;values:Record<string,Measurement>;delivery:'direct'|'saved'}
 export interface TidePrediction {timestamp:string;height:Measurement;type:'High'|'Low'}
-export interface OceanBundle {records:OceanRecord[];statuses:ConnectionStatus[];buoy:ObservationSet|null;waterLevel:ObservationSet|null;loadedAt:string;extrema?:TidePrediction[]}
+export interface OceanBundle {records:OceanRecord[];statuses:ConnectionStatus[];buoy:ObservationSet|null;waterLevel:ObservationSet|null;loadedAt:string;extrema?:TidePrediction[];nearshore?:import('./nearshore.ts').NearshoreRecord[]}

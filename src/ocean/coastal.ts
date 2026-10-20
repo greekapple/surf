@@ -1,0 +1,6 @@
+/** Verified model-reference metadata, not a nearshore-to-breaking conversion. */
+export const coastalCoverage={
+ 'spot-2':{candidate:'CDIP MOP SF023, Ocean Beach',status:'Numeric point nowcast connected; QC-filtered model context at one transect',latitude:37.74811,longitude:-122.51886,depthM:10,shoreNormal:263.49,url:'https://cdip.ucsd.edu/mops/?mop=SF023&xitem=info',notes:'One modeled transect near Ocean Beach, not a universal break orientation or observed face height.'},
+ 'spot-0':{candidate:'NOAA NWPS MTR SWAN regional domain',status:'Regional product exists; local numeric coverage not verified',latitude:null,longitude:null,depthM:null,shoreNormal:null,url:'https://polar.ncep.noaa.gov/nwps/nwpsloop.php?site=MTR',notes:'No nearby transect is assumed to represent Bolinas sheltering or breaking waves.'},
+ 'spot-3':{candidate:'CDIP MOP SM406, Pacifica regional reference',status:'Candidate location verified north of Linda Mar; not substituted for this break',latitude:37.63560,longitude:-122.50990,depthM:15,shoreNormal:270,url:'https://cdip.ucsd.edu/mops/?mop=SM406&xitem=info',notes:'This transect is north of the selected beach; its orientation and wave height are not assigned to Linda Mar.'}
+} as const;

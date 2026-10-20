@@ -1,0 +1,146 @@
+{
+  "environment": "CLI source handler; not hosted deployment or scheduler proof",
+  "attemptedAt": "2026-10-20T06:20:55.595Z",
+  "persistent": false,
+  "results": [
+    {
+      "key": "marine-spot-0",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:31.681Z",
+      "issuedAt": null,
+      "model": "Open-Meteo automatic marine model",
+      "sourceURL": "https://marine-api.open-meteo.com/v1/marine?latitude=37.88&longitude=-122.73&hourly=wave_height%2Cswell_wave_height%2Cswell_wave_direction%2Cswell_wave_period%2Csecondary_swell_wave_height%2Csecondary_swell_wave_direction%2Csecondary_swell_wave_period%2Csea_surface_temperature&timezone=GMT&timeformat=unixtime&forecast_days=7",
+      "warning": null
+    },
+    {
+      "key": "marine-spot-3",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:31.799Z",
+      "issuedAt": null,
+      "model": "Open-Meteo automatic marine model",
+      "sourceURL": "https://marine-api.open-meteo.com/v1/marine?latitude=37.6&longitude=-122.57&hourly=wave_height%2Cswell_wave_height%2Cswell_wave_direction%2Cswell_wave_period%2Csecondary_swell_wave_height%2Csecondary_swell_wave_direction%2Csecondary_swell_wave_period%2Csea_surface_temperature&timezone=GMT&timeformat=unixtime&forecast_days=7",
+      "warning": null
+    },
+    {
+      "key": "marine-spot-2",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:32.023Z",
+      "issuedAt": null,
+      "model": "Open-Meteo automatic marine model",
+      "sourceURL": "https://marine-api.open-meteo.com/v1/marine?latitude=37.75&longitude=-122.6&hourly=wave_height%2Cswell_wave_height%2Cswell_wave_direction%2Cswell_wave_period%2Csecondary_swell_wave_height%2Csecondary_swell_wave_direction%2Csecondary_swell_wave_period%2Csea_surface_temperature&timezone=GMT&timeformat=unixtime&forecast_days=7",
+      "warning": null
+    },
+    {
+      "key": "weather-spot-2",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:32.340Z",
+      "issuedAt": null,
+      "model": "Open-Meteo automatic weather model",
+      "sourceURL": "https://api.open-meteo.com/v1/forecast?latitude=37.759&longitude=-122.51&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=mph&timezone=GMT&timeformat=unixtime&forecast_days=7",
+      "warning": null
+    },
+    {
+      "key": "weather-spot-3",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:32.347Z",
+      "issuedAt": null,
+      "model": "Open-Meteo automatic weather model",
+      "sourceURL": "https://api.open-meteo.com/v1/forecast?latitude=37.6&longitude=-122.5&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=mph&timezone=GMT&timeformat=unixtime&forecast_days=7",
+      "warning": null
+    },
+    {
+      "key": "weather-spot-0",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:32.407Z",
+      "issuedAt": null,
+      "model": "Open-Meteo automatic weather model",
+      "sourceURL": "https://api.open-meteo.com/v1/forecast?latitude=37.90835046&longitude=-122.682137&hourly=wind_speed_10m%2Cwind_direction_10m%2Cwind_gusts_10m&wind_speed_unit=mph&timezone=GMT&timeformat=unixtime&forecast_days=7",
+      "warning": null
+    },
+    {
+      "key": "tides",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:35.408Z",
+      "issuedAt": null,
+      "model": "NOAA station product",
+      "sourceURL": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9414290&datum=MLLW&time_zone=gmt&units=english&format=json&application=SURF&product=predictions&begin_date=20261020&range=192&interval=h",
+      "warning": null
+    },
+    {
+      "key": "level",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:35.465Z",
+      "issuedAt": null,
+      "model": "NOAA station product",
+      "sourceURL": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9414290&datum=MLLW&time_zone=gmt&units=english&format=json&application=SURF&product=water_level&date=latest",
+      "warning": null
+    },
+    {
+      "key": "tide-extrema",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:35.483Z",
+      "issuedAt": null,
+      "model": "NOAA station product",
+      "sourceURL": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9414290&datum=MLLW&time_zone=gmt&units=english&format=json&application=SURF&product=predictions&begin_date=20261020&range=192&interval=hilo",
+      "warning": null
+    },
+    {
+      "key": "buoy",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:36.006Z",
+      "issuedAt": null,
+      "model": "NOAA station product",
+      "sourceURL": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+      "warning": null
+    },
+    {
+      "key": "nearshore-SF023",
+      "state": "available",
+      "retrievedAt": "2026-10-20T06:20:38.821Z",
+      "issuedAt": null,
+      "model": "CDIP MOP SF023 nowcast",
+      "sourceURL": "https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/model/MOP_alongshore/SF023_nowcast.nc?var=waveHs%2CwaveTp%2CwaveDp%2CwaveFlagPrimary&time_start=2026-10-19T06%3A20%3A26.035Z&time_end=2026-10-21T06%3A20%3A26.035Z&accept=csv",
+      "warning": null
+    },
+    {
+      "key": "grid-Tdir",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-Thgt",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-shgt",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-Tper",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-sper",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-vgrd10m",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-ugrd10m",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    },
+    {
+      "key": "grid-sdir",
+      "state": "unavailable",
+      "message": "Provider HTTP 503"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import {validBoardPhoto} from './boardPhoto.ts';
 import {defaultProfile,demoBoards,spots} from '../data/demo.ts';
 import {boardTypes,type UserProfile,type Surfboard,type SurfSession} from '../models/index.ts';
 import {validDimensions} from './units.ts';
@@ -15,12 +16,14 @@ export function validateState(raw:unknown):AppState{
  for(const [key,values] of Object.entries({skill:['Beginner','Intermediate','Expert'],region:['All regions',...new Set(spots.map(s=>s.region))],scale:['Face height','Hawaiian'],heightUnit:['ft','m'],windUnit:['mph','kn','km/h'],style:['All-around','Performance surfing','Cruising','Longboarding','Small-wave surfing'],breakType:['Any','Beach','Point','Reef'],character:['Any','Soft','Peaky','Steep','Powerful']}))if(!values.includes(String(p[key as keyof UserProfile])))return fail(`Invalid profile field: ${key}.`);
  if(![p.minWave,p.maxWave,p.comfort].every(v=>number(v,0,40))||p.minWave>p.maxWave)return fail('Invalid wave preferences.');
  if(typeof p.onboarded!=='boolean'||typeof p.personalization!=='boolean'||!Array.isArray(p.preferredBoards)||!p.preferredBoards.every(v=>boardTypes.includes(v)))return fail('Invalid personalization settings.');
+ if(p.displayName!==undefined&&!text(p.displayName,60))return fail('Invalid display name.');
  const ids=new Set<string>();
  for(const value of raw.boards){if(!object(value))return fail('Invalid board.');const b=value as unknown as Surfboard;
- if(![b.id,b.name,b.manufacturer,b.model].every(v=>text(v,100)&&v.trim().length>0)||ids.has(b.id)||!boardTypes.includes(b.type)||typeof b.favorite!=='boolean'||!validDimensions(b.length,b.width,b.thickness,b.volume))return fail('Invalid board identity, type, or dimensions.');ids.add(b.id);
+ if(![b.id,b.name].every(v=>text(v,100)&&v.trim().length>0)||![b.manufacturer,b.model].every(v=>text(v,100))||ids.has(b.id)||!boardTypes.includes(b.type)||typeof b.favorite!=='boolean'||!validDimensions(b.length,b.width,b.thickness,b.volume))return fail('Invalid board identity, type, or dimensions.');ids.add(b.id);
  for(const key of ['tail','fins','construction','rocker','rails','character','notes','catalogId','specificationSource'] as const)if(b[key]!==undefined&&!text(b[key]))return fail(`Invalid board ${key}.`);
  for(const v of [b.minWave,b.maxWave])if(v!==undefined&&!number(v,0,40))return fail('Invalid board wave range.');
  if(b.minWave!==undefined&&b.maxWave!==undefined&&b.minWave>b.maxWave)return fail('Board wave range is reversed.');
+ if(b.photoDataURL!==undefined&&!validBoardPhoto(b.photoDataURL))return fail('Invalid board photo; only bounded local JPEG, PNG and WebP images are supported.');
  if(b.demo!==undefined&&typeof b.demo!=='boolean')return fail('Invalid demo marker.');
  }
  if(!raw.favorites.every(v=>typeof v==='string'&&spots.some(s=>s.id===v)))return fail('Unknown favorite spot.');

@@ -1,6 +1,6 @@
 import type {MapLayer,MapVariable} from './types.ts';
 export interface SpatialCell {lat:number;lon:number;value:number|null;direction:number|null;speed:number|null}
-export interface SpatialFrame {cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved'}
+export interface SpatialFrame {cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
 export const erddap='https://upwell.pfeg.noaa.gov/erddap/griddap/';
 export interface SpatialSpec {dataset:string;scalar:string;direction:string|null;unit:SpatialFrame['unit'];wind:boolean;validAt:string}
 /** Bounded native 0.5-degree regional subset. Never derived from surf-spot points. */
@@ -16,7 +16,7 @@ export function snapshotAt(payload:Table&{snapshot?:{retrievedAt:string;dataset:
  if(!meta||meta.delivery!=='saved'||meta.dataset!==spec.dataset||meta.field!==field||!Number.isFinite(Date.parse(meta.retrievedAt))||!meta.url.startsWith(erddap+spec.dataset+'.json?')||!table||table.rows.length>12000)throw new Error('Invalid saved spatial snapshot.');
  const ti=table.columnNames.indexOf('time');if(ti<0)throw new Error('Saved grid timestamp missing.');
  const rows=table.rows.filter(r=>Date.parse(String(r[ti]))===Date.parse(spec.validAt));if(!rows.length)throw new Error('Saved grid has no frame at this layer time; expired snapshots are not shifted.');
- return {data:{table:{...table,rows}},retrievedAt:meta.retrievedAt,url:meta.url,delivery:'saved' as const};
+ return {data:{table:{...table,rows}},retrievedAt:meta.retrievedAt,url:meta.url,delivery:'saved' as const,transport:'snapshot' as const};
 }
 /** Reject the provider's nearest-time substitution and inconsistent units or bounds. */
 export function normalizeGrid(payload:Table,field:string,spec:SpatialSpec):Map<string,{lat:number;lon:number;value:number|null}> {
@@ -48,7 +48,7 @@ const snapshots=new Map<string,Promise<any>>();
 export function retrySpatialConnection(){directUnavailableUntil=0;}
 async function loadField(spec:SpatialSpec,field:string,signal:AbortSignal){
  const url=gridURL(spec,field);
- try{if(directUnavailableUntil>Date.now())throw new Error('Direct regional connection unavailable in this browser.');const result=await fetchGrid(url,signal);return {...result,url,delivery:'direct' as const};}
+ try{if(typeof window!=='undefined'&&import.meta.env?.VITE_FORECAST_SERVICE!=='off'&&(import.meta.env?.PROD||import.meta.env?.VITE_FORECAST_SERVICE==='on')){try{const server=await fetch('/api/grid?'+new URLSearchParams({field,time:spec.validAt}),{signal});if(server.ok){const body=await server.json();if(body.payload?.table&&Number.isFinite(Date.parse(body.retrievedAt)))return {data:body.payload,retrievedAt:body.retrievedAt,url:body.sourceURL,transport:'server' as const,delivery:body.cache==='stale'?'saved' as const:'direct' as const};}}catch{if(signal.aborted)throw new DOMException('Aborted','AbortError')}}if(directUnavailableUntil>Date.now())throw new Error('Direct regional connection unavailable in this browser.');const result=await fetchGrid(url,signal);return {...result,url,delivery:'direct' as const,transport:'browser' as const};}
  catch(error){if(signal.aborted)throw error;directUnavailableUntil=Date.now()+60000;const filename=spec.dataset+'-'+field+'.json';let promise=snapshots.get(filename);
  if(!promise){promise=fetch('/spatial/'+filename).then(async r=>{if(!r.ok)throw new Error('No saved regional grid for this variable.');return r.json()});snapshots.set(filename,promise);promise.catch(()=>snapshots.delete(filename));}
  const payload=await promise;if(signal.aborted)throw new DOMException('Aborted','AbortError');return snapshotAt(payload,spec,field);}
@@ -58,6 +58,6 @@ export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<S
  if(results[0].status==='rejected')throw results[0].reason;
  if(spec.wind&&results.some(r=>r.status==='rejected'))throw new Error('Both GFS wind components are required for a valid vector field.');
  const supplied=results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),scalar=results[0].value,vector=supplied.find(r=>r.field===spec.direction);const cells=[...scalar.values].map(([key,c])=>{const v=vector?.values.get(key)?.value??null;if(spec.wind){const w=c.value===null||v===null?null:windVector(c.value,v);return {lat:c.lat,lon:c.lon,value:spec.unit==='deg'?w?.direction??null:w?.speed??null,direction:w?.direction??null,speed:w?.speed??null};}return {...c,direction:v,speed:null}});
- const saved=supplied.some(r=>r.delivery==='saved');
- return {cells,unit:spec.unit,resolution:.5,validAt:spec.validAt,retrievedAt:supplied.map(r=>r.retrievedAt).sort()[0],provider:spec.wind?'NOAA/NCEP GFS via NOAA ERDDAP':'PacIOOS / University of Hawaiʻi WW3 via NOAA ERDDAP',url:scalar.url,variable:spec.scalar,delivery:saved?'saved':'direct',warnings:[...(saved?['Direct grid connection unavailable; using genuine dated model snapshots, not a live browser connection.']:[]),...(results.some(r=>r.status==='rejected')?['Regional direction field unavailable; scalar heatmap retained.']:[])]};
+ const saved=supplied.some(r=>r.delivery==='saved'),transport=supplied.some(r=>r.transport==='snapshot')?'snapshot':supplied.some(r=>r.transport==='server')?'server':'browser';
+ return {cells,unit:spec.unit,resolution:.5,validAt:spec.validAt,retrievedAt:supplied.map(r=>r.retrievedAt).sort()[0],provider:spec.wind?'NOAA/NCEP GFS via NOAA ERDDAP':'PacIOOS / University of Hawaiʻi WW3 via NOAA ERDDAP',url:scalar.url,variable:spec.scalar,delivery:saved?'saved':'direct',transport,warnings:[...(saved?[transport==='server'?'Provider refresh failed; cached model data retains its original timestamps.':'Direct grid connection unavailable; using genuine dated model snapshots, not a live browser connection.']:[]),...(results.some(r=>r.status==='rejected')?['Regional direction field unavailable; scalar heatmap retained.']:[])]};
 }
