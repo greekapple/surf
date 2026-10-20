@@ -1,3 +1,15 @@
+# SURF v0.9 — Quiver Showroom 2.0
+
+Continue from [the v0.9 handoff](docs/v09-handoff.md) and [browser verification](docs/usability-verification-v9.md). Existing v0.8 server, cache, history, map and local records are preserved. Desktop gallery and mobile swipe inspector share selection/editing/recommendations; optional back photos use the existing safe local raster pipeline. Wave-height headlines keep offshore, nearshore and breaking semantics distinct.
+
+`npm ci` · `npm run dev` · `npm test` · `npm run build`
+
+106 tests pass. Production emits the same portable Worker ESM with the existing R2 binding. Hosted manual refresh/readback succeeded; weather429 and regional timeouts remain explicit. The existing scheduled task is enabled, with execution still unverified at the recorded inspection. No calibrated breaking-height range is invented. [Future Wave Scale specification](docs/wave-scale-future.md) is documentation only.
+
+Earlier release notes below are historical.
+
+---
+
 # SURF v0.8 — forecasts and equipment
 
 Start with [v0.8 architecture and connection limits](docs/v08-architecture.md) and [scheduled refresh instructions](docs/scheduled-refresh.md). React/TypeScript/Vite, existing ratings/map, saved boards and v1 JSON storage are preserved. New Home, Quiver showroom/photos and Personal hub use the same underlying data.

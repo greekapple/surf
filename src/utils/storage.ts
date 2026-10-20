@@ -23,7 +23,7 @@ export function validateState(raw:unknown):AppState{
  for(const key of ['tail','fins','construction','rocker','rails','character','notes','catalogId','specificationSource'] as const)if(b[key]!==undefined&&!text(b[key]))return fail(`Invalid board ${key}.`);
  for(const v of [b.minWave,b.maxWave])if(v!==undefined&&!number(v,0,40))return fail('Invalid board wave range.');
  if(b.minWave!==undefined&&b.maxWave!==undefined&&b.minWave>b.maxWave)return fail('Board wave range is reversed.');
- if(b.photoDataURL!==undefined&&!validBoardPhoto(b.photoDataURL))return fail('Invalid board photo; only bounded local JPEG, PNG and WebP images are supported.');
+ if([b.photoDataURL,b.backPhotoDataURL].some(v=>v!==undefined&&!validBoardPhoto(v)))return fail('Invalid board photo; only bounded local JPEG, PNG and WebP images are supported.');
  if(b.demo!==undefined&&typeof b.demo!=='boolean')return fail('Invalid demo marker.');
  }
  if(!raw.favorites.every(v=>typeof v==='string'&&spots.some(s=>s.id===v)))return fail('Unknown favorite spot.');

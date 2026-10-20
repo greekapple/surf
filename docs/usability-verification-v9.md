@@ -1,0 +1,17 @@
+# v0.9 verification notes
+
+Baseline:98 tests, TypeScript and Vite/Worker build passed before edits. Expanded suite:106 tests pass, retaining every original test. Tests include shared saved-reference selection/sorting/deletion, bounded gallery, deliberate horizontal gestures versus vertical scrolling/taps, exact fractional specifications and physical conversion, legacy front-photo and optional back-photo v1 backups, safe-photo rejection, neutral Medium rocker, missing dimensions, semantic height formatting and explicit supported ranges. Existing provider/cache, map-toggle, timeline, profile and rating-independence tests remain passing.
+
+Actual browser checks in the managed preview:
+
+- Desktop gallery selects Everyday driver and updates inspector to its actual6′0″ ×19.5″ ×2.5″,30L data. Dimensions overlays match saved values and disclose illustrative guides/no calibrated side profile. Overview/mode selection uses the same board.
+- Created only a disposable QA board:5′10.125″ ×19.375″ ×2.3125″,29.75L, optional manufacturer/model blank, Midlength category. Uploaded front and back test JPEGs through the existing optimization path. Saved, reloaded, selected the same record and toggled to its actual supplied back photo.
+- Edited the disposable board, removed its back photo and changed volume to32.5L. Other fractional dimensions remained unchanged. Compared it to Everyday driver; saved measurements, category, fins and missing intended fields displayed correctly. Deleted only this disposable record; four preexisting boards remained and comparison removed the deleted record. No reset/import overwrite or deletion of original boards.
+- Unit preference changed to metric: an existing Fish displayed177.8cm length,53.34cm width,6.6675cm thickness,36L. Restored ft; raw specifications and general ratings did not change. JSON round-trips of photos and names are covered by focused tests.
+- In390px responsive iframe, a horizontal drag gesture on the viewer changed Small-day fish to Easy cruiser. Previous/next alternative advanced to Everyday driver. Tablet900px resize kept Easy cruiser and active Dimensions mode in the shared model. Details sheet expanded and exposed the actual measurements/edit/compare actions.
+- Two saved-board comparisons stack at the same x coordinate and width309px on mobile, rather than overflowing in a desktop table. Document width equals viewport width at narrow360px (345px content after scrollbar) and phone390px (375px content). Desktop and tablet visual checks use the same React app.
+- Existing map opens with native forecast fields/fallback source labeling. Heatmap off leaves direction arrows on; opacity disables separately. Next forecast record advances shared time and spot preview/rating to2:00AM Pacific, with offshore point≈4ft correctly labeled. Heatmap restored afterward.
+
+These are browser/iframe checks, not tests on physical phones or a validation of forecast accuracy. No camera/sensor hardware exists. Actual user photos/manufacturer cutouts and very large personal quivers were not visually tested; bounded gallery rendering limits scene SVGs to five boards while jump/Compact access retains the full collection.
+
+Hosted service was exercised separately through intended private service access: manual POST refresh and independent persistent GET readback succeeded, see hosted-verification-v9.json. Weather429 and regional timeouts remain explicit. Linked schedule enabled; no recorded execution at inspection. Manual success is not a successful scheduled run.
