@@ -45,7 +45,7 @@ export async function fetchGrid(url:string,signal:AbortSignal,fetcher:typeof fet
 }
 let directUnavailableUntil=0;
 const snapshots=new Map<string,Promise<any>>();
-export function retrySpatialConnection(){directUnavailableUntil=0;}
+export function retrySpatialConnection(){directUnavailableUntil=0;normalizedFrames.clear();}
 async function loadField(spec:SpatialSpec,field:string,signal:AbortSignal){
  const url=gridURL(spec,field);
  try{if(typeof window!=='undefined'&&import.meta.env?.VITE_FORECAST_SERVICE!=='off'&&(import.meta.env?.PROD||import.meta.env?.VITE_FORECAST_SERVICE==='on')){try{const server=await fetch('/api/grid?'+new URLSearchParams({field,time:spec.validAt}),{signal});if(server.ok){const body=await server.json();if(body.payload?.table&&Number.isFinite(Date.parse(body.retrievedAt)))return {data:body.payload,retrievedAt:body.retrievedAt,url:body.sourceURL,transport:'server' as const,delivery:body.cache==='stale'?'saved' as const:'direct' as const};}}catch{if(signal.aborted)throw new DOMException('Aborted','AbortError')}}if(directUnavailableUntil>Date.now())throw new Error('Direct regional connection unavailable in this browser.');const result=await fetchGrid(url,signal);return {...result,url,delivery:'direct' as const,transport:'browser' as const};}
@@ -53,11 +53,23 @@ async function loadField(spec:SpatialSpec,field:string,signal:AbortSignal){
  if(!promise){promise=fetch('/spatial/'+filename).then(async r=>{if(!r.ok)throw new Error('No saved regional grid for this variable.');return r.json()});snapshots.set(filename,promise);promise.catch(()=>snapshots.delete(filename));}
  const payload=await promise;if(signal.aborted)throw new DOMException('Aborted','AbortError');return snapshotAt(payload,spec,field);}
 }
-export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
+async function loadSpatialUncached(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  const fields=[...new Set([spec.scalar,...(spec.direction?[spec.direction]:[])])];const results=await Promise.allSettled(fields.map(async field=>{const result=await loadField(spec,field,signal);return {field,...result,values:normalizeGrid(result.data,field,spec)}}));
  if(results[0].status==='rejected')throw results[0].reason;
  if(spec.wind&&results.some(r=>r.status==='rejected'))throw new Error('Both GFS wind components are required for a valid vector field.');
  const supplied=results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),scalar=results[0].value,vector=supplied.find(r=>r.field===spec.direction);const cells=[...scalar.values].map(([key,c])=>{const v=vector?.values.get(key)?.value??null;if(spec.wind){const w=c.value===null||v===null?null:windVector(c.value,v);return {lat:c.lat,lon:c.lon,value:spec.unit==='deg'?w?.direction??null:w?.speed??null,direction:w?.direction??null,speed:w?.speed??null};}return {...c,direction:v,speed:null}});
  const saved=supplied.some(r=>r.delivery==='saved'),transport=supplied.some(r=>r.transport==='snapshot')?'snapshot':supplied.some(r=>r.transport==='server')?'server':'browser';
  return {cells,unit:spec.unit,resolution:.5,validAt:spec.validAt,retrievedAt:supplied.map(r=>r.retrievedAt).sort()[0],provider:spec.wind?'NOAA/NCEP GFS via NOAA ERDDAP':'PacIOOS / University of Hawaiʻi WW3 via NOAA ERDDAP',url:scalar.url,variable:spec.scalar,delivery:saved?'saved':'direct',transport,warnings:[...(saved?[transport==='server'?'Provider refresh failed; cached model data retains its original timestamps.':'Direct grid connection unavailable; using genuine dated model snapshots, not a live browser connection.']:[]),...(results.some(r=>r.status==='rejected')?['Regional direction field unavailable; scalar heatmap retained.']:[])]};
+}
+
+/** Cache normalized frames as well as HTTP payloads; bounded independently of personal data. */
+export function createFrameCache(limit=32,ttl=600000){
+ const frames=new Map<string,{frame:SpatialFrame;expires:number}>();let hits=0,misses=0;
+ return {clear(){frames.clear();},get(key:string,now=Date.now()){const old=frames.get(key);if(old&&old.expires>now){hits++;frames.delete(key);frames.set(key,old);return old.frame;}if(old)frames.delete(key);misses++;return null;},set(key:string,frame:SpatialFrame,now=Date.now()){frames.set(key,{frame,expires:now+ttl});while(frames.size>limit)frames.delete(frames.keys().next().value!);},stats:()=>({frames:frames.size,hits,misses,cells:[...frames.values()].reduce((n,x)=>n+x.frame.cells.length,0)})};
+}
+const normalizedFrames=createFrameCache();
+export const spatialCacheStats=()=>normalizedFrames.stats();
+export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
+ if(signal.aborted)throw new DOMException('Aborted','AbortError');const key=JSON.stringify(spec),cached=normalizedFrames.get(key);if(cached)return cached;
+ const frame=await loadSpatialUncached(spec,signal);if(signal.aborted)throw new DOMException('Aborted','AbortError');normalizedFrames.set(key,frame);return frame;
 }

@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-20T17:57:57.506925+00:00",
+  "sourceMatchesPreviousExportAtStart": {
+    "files": 163,
+    "matched": true
+  },
+  "preview": {
+    "local": "opened and v0.10 confirmed",
+    "url": "http://terminal.local:4173/",
+    "userAccessible": false,
+    "blocker": "managed preview is internal; current source was not authorized for deployment",
+    "siteIdentity": "appgprj_6ad2636508948191bfa3a9a7f22663e3",
+    "publishedHostingVersion": 8
+  },
+  "tests": {
+    "passed": 123,
+    "failed": 0
+  },
+  "productionBuild": {
+    "typescript": "passed",
+    "vite": "passed",
+    "modules": 115,
+    "workerBundling": "passed",
+    "embeddedAssets": 20
+  },
+  "generatedWorkerSmoke": "passed including final QA path 404",
+  "browser": {
+    "status": "partial; stopped after transport timeout and one failed read-only recovery",
+    "homeFavorites": "passed; restored",
+    "profileRegionPersistence": "passed; restored",
+    "forecastTimeSourceSemantics": "passed",
+    "cdipSeparateNowcastSemantics": "passed",
+    "desktopQuiverCreationPhotosDimensionsComparison": "passed using disposable board",
+    "photoReloadEditing": "unconfirmed",
+    "mobileReinspection": "not completed this pass; prior v0.10 evidence retained",
+    "jsonImportReplace": "not completed in browser this pass; automated validation passes",
+    "disposableRecord": "V10 Final QA disposable may remain in internal preview only; originals untouched",
+    "backupBeforeTesting": "export succeeded; retained outside source"
+  },
+  "hosted": {
+    "deployed": false,
+    "forecastCloudWrite": false,
+    "schedulerChanged": false,
+    "freshProviderRunVerified": false,
+    "persistentReadbackVerified": false
+  },
+  "gitHistoryChanged": false,
+  "newV11Features": false,
+  "screenshots": "prior successful real v0.10 captures retained, no new capture after browser timeout"
+}

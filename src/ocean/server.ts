@@ -12,3 +12,5 @@ export const sourceMetadata=(url:string)=>metadata.get(url);
 export function rememberRetrieval(url:string,value:RetrievalMetadata){metadata.set(url,value)}
 
 export function forgetRetrieval(url:string){metadata.delete(url)}
+
+export function staleSource(url:string){return [...metadata.values()].some(m=>m.sourceURL===url&&m.cache==='stale')}

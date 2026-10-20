@@ -1,3 +1,57 @@
+# SURF v0.10 — forecast reliability and Map 2.0
+
+This is the recovered React + TypeScript + Vite application, stabilized incrementally on v0.9. It retains the desktop/mobile Quiver showroom, boards/photos, recommendations, personal settings, provider adapters, official rating categories, Leaflet layers and v1 backups.
+
+**Local release candidate; not deployed.** The recovery ZIP and original source checkpoint are preserved. No Git commits, pushes, migration or hosted forecast writes were performed for this stabilization pass. See [final v0.10 handoff](docs/v10-final-handoff.md) for the latest verification results and remaining limits. The earlier [stabilization handoff](docs/v10-handoff.md) is retained as historical evidence.
+
+## Viewing v0.10 versus the hosted website
+
+The working tree is v0.10 and uses the existing SURF Site identity. The managed development preview is `http://terminal.local:4173/`, accessible only inside the QA environment. It is not a public or user-accessible share link. The regular hosted Site remains at its last published version because deployment was explicitly withheld. No second Site or deployment was created to work around that boundary.
+
+To inspect this exported source, use a Node 24-enabled development environment and follow the commands below; open the local URL printed by Vite. A school-managed computer that cannot run Node/Terminal will need a supported development environment or an explicitly authorized update of the existing private Site. Do not claim the deployed version contains local v0.10 changes until the exact source is approved, published and checked.
+
+The latest inspection confirmed Home favorites, profile persistence, forecast/source/CDIP semantics and desktop Quiver creation/photos/dimensions/comparison before browser transport became unresponsive. New mobile and photo-reload checks were not completed; earlier v0.10 narrow-layout evidence is retained separately. See the final handoff for scope and the disposable internal-preview QA record.
+
+## Reproduce locally
+
+Use Node 24+ (tested with 24.19.0) and npm. A lockfile is included.
+
+```sh
+npm ci
+npm run dev
+npm test
+npm run build
+node scripts/verify-worker.mjs
+```
+
+Development serves the React UI and an optional same-origin API. Development normally uses browser point retrieval because upstream access from the managed preview process can fail. Its optional API cache is temporary memory and reports `persistent:false`. Public-data calls can be rate-limited or blocked; they are never replaced with unlabeled demo values.
+
+`npm run build` checks TypeScript, builds Vite, then bundles a portable ESM Worker with embedded assets at `dist/server/index.js`. After bundling, `dist` contains `server/` and `.openai/`; that is intentional, not missing frontend output. `node scripts/verify-worker.mjs` checks this final Worker without making upstream calls.
+
+## Configuration and portability
+
+Copy the nonsecret `.env.example` to a local environment file if needed. `VITE_` values are public build-time settings; never put tokens in them. Production uses the same-origin service unless explicitly disabled. A different Worker host needs its own R2-compatible `BUCKET` binding, server-side refresh authorization and HTTP scheduler. Preserve `.openai/hosting.json` only when continuing this exact Site. Source export does not migrate hosting or transfer credentials.
+
+- [v0.10 architecture and setup](docs/v10-architecture.md)
+- [Forecast verification schema, matching and limits](docs/forecast-verification.md)
+- [Scheduled refresh procedure and verification boundary](docs/scheduled-refresh.md)
+- [Final v0.10 handoff](docs/v10-handoff.md)
+- [Future Wave Scale specification](docs/wave-scale-future.md) — documentation only
+
+## What changed
+
+Durable provider cooldowns, Retry-After handling, bounded retries/concurrency, conditional validation and explicit stale fallback; read-only data-health diagnostics; a less cluttered map with separate heatmap/arrows/flow/markers and opacity; exact-time playback; bounded regional-frame caching; contiguous offshore-potential windows; and an initial local forecast-verification workbench.
+
+Ratings remain experimental offshore assessments. CDIP SF023 is nearshore modeled significant wave height at approximately 10 m depth, not observed breaking-face height. No new breaking-wave conversion or invented confidence percentage was added. Regional fallback snapshots retain their real October 20–23 UTC valid times; unavailable frames are not moved into the present.
+
+## User data and backups
+
+The `surf-prototype-v1` localStorage key and version 1 JSON format are unchanged. Board photos and preferences stay in the browser. Map preferences use `surf-map-v2` separately. Use Personal → Data management → Export JSON to transfer user data. A source ZIP does not include the user's browser records, hosted R2 cache/history or platform secrets.
+
+Earlier release notes below are historical and may describe prior hosting/test results.
+
+---
+
 # SURF v0.9 — Quiver Showroom 2.0
 
 Continue from [the v0.9 handoff](docs/v09-handoff.md) and [browser verification](docs/usability-verification-v9.md). Existing v0.8 server, cache, history, map and local records are preserved. Desktop gallery and mobile swipe inspector share selection/editing/recommendations; optional back photos use the existing safe local raster pipeline. Wave-height headlines keep offshore, nearshore and breaking semantics distinct.

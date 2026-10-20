@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-10-20T17:39:34.242041+00:00",
+  "scope": "local only; no deployment, hosted refresh, scheduler change, Git commit or push",
+  "snapshotSourceFilesCompared": 156,
+  "snapshotMatchedBeforeEdits": true,
+  "recoveryZIPsha256": "40f2c8488e7e9e514eeadc93059f57473d9b5208a803a4fd6e656dd1a628ac19",
+  "checkpointSHA256": "6d3935d168720278f807e5a52436c6bb07b52afbc43d71ca6b3c2b3f1fa4fa91",
+  "gitHead": "d045226d50ab1bd75cf7899a5cc41f16c843c7d1",
+  "node": "24.19.0",
+  "tests": {
+    "total": 123,
+    "passed": 123,
+    "failed": 0
+  },
+  "build": {
+    "typescript": "passed",
+    "vite": "passed",
+    "modules": 115,
+    "workerBundling": "passed",
+    "embeddedAssets": 20,
+    "generatedWorkerSmoke": "passed",
+    "temporaryQAExcluded": "passed"
+  },
+  "browser": {
+    "desktopViewportWidth": 1363,
+    "desktopDocumentWidth": 1348,
+    "mobileIframeWidth": 390,
+    "mobileContentViewportWidth": 375,
+    "mobileDocumentWidth": 375,
+    "physicalDevice": false,
+    "independentHeatmapAndArrows": "passed",
+    "opacityCanvasChange": ".62 to .01 to .99 via keyboard; verified canvas styles",
+    "playback": "12:00 PM to 4:00 PM; pause succeeded; field and spot time matched",
+    "selectedSpots": "Bolinas and Linda Mar retain shared timestamp",
+    "windFlow": "heatmap, arrows and flow all present independently",
+    "missingFrame": "Oct 26 field unavailable, no canvases; point forecasts retained",
+    "fieldSource": "genuine dated NOAA ERDDAP saved model grids, explicitly labeled",
+    "localDiagnostics": "19 unavailable service-cache rows; persistent false; browser retrievals separate",
+    "selectedMarkerBounds": "x=228..344 within map x=17..358 after padding correction",
+    "desktopPanelContrast": "rgb(240, 248, 242) verified after correction",
+    "screenshotLimit": "Full-page capture timed out; viewport desktop/mobile captures succeeded. Mobile screenshot predates final marker-padding/contrast fix; corrected marker bounds checked afterward.",
+    "inputLimit": "Some mouse/key dispatches timed out; switched to bounded keyboard/read checks; no touch-device claim"
+  },
+  "hosted": {
+    "deployment": "not performed",
+    "cloudForecastWrites": "not performed",
+    "scheduledRun": "not reverified",
+    "r2Readback": "not reverified",
+    "providerOutageResolution": "not claimed"
+  }
+}

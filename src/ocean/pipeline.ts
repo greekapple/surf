@@ -1,5 +1,5 @@
 import {nearshoreURL,normalizeNearshore} from './nearshore.ts';
-import {sourceMetadata} from './server.ts';
+import {sourceMetadata,staleSource} from './server.ts';
 import {evidenceSpots} from './spots.ts';
 import {request,ProviderError} from './request.ts';
 import {marineURL,weatherURL,normalizeOpenMeteo} from './openMeteo.ts';
@@ -23,6 +23,10 @@ export async function loadOcean(onStatus?:(s:ConnectionStatus)=>void):Promise<Oc
  let observation:ObservationSet|null=proxyURL?(proxyValid?normalizeBuoy(buoy.text,buoy.retrievedAt):null):buoy?normalizeBuoy(buoy,sourceMetadata(buoyURL)?.retrievedAt??loadedAt):null;
  if(!observation){const status=statuses.find(s=>s.id==='buoy');if(status?.state==='connected'){status.state='unavailable';status.message='Response contains no valid recent station observations.';onStatus?.(status)}}
  if(!observation){try{const snapshot=await request('/observations/ndbc-46026.json');if(snapshot?.station==='46026'&&snapshot.delivery==='saved'&&snapshot.values&&Object.values(snapshot.values).every((v:any)=>v?.source?.provider==='NOAA NDBC 46026'&&v?.source?.delivery==='saved'&&Number.isFinite(v.value)&&Number.isFinite(Date.parse(v.source.validAt)))){observation=snapshot;const status=statuses.find(s=>s.id==='buoy');if(status){status.state='partial';status.message+=' Showing a separately labeled saved observation; it is not a live browser connection.';onStatus?.(status)}}}catch{/* No hidden demo fallback. */}}
- return {nearshore:nearshore?normalizeNearshore(nearshore,sourceMetadata(nearshoreRequest)?.retrievedAt??loadedAt,sourceMetadata(nearshoreRequest)?.sourceURL??nearshoreRequest):[],extrema:normalizeTideExtrema(extrema,sourceMetadata(extremaRequest)?.retrievedAt??loadedAt,sourceMetadata(extremaRequest)?.sourceURL??extremaRequest),records:attachTides(spotData.flat(),normalizeTides(tides,sourceMetadata(tideRequest)?.retrievedAt??loadedAt,sourceMetadata(tideRequest)?.sourceURL??tideRequest)),statuses,buoy:observation,waterLevel:normalizeWaterLevel(level,sourceMetadata(levelRequest)?.retrievedAt??loadedAt,sourceMetadata(levelRequest)?.sourceURL??levelRequest),loadedAt};})();
+ const bundle:OceanBundle={nearshore:nearshore?normalizeNearshore(nearshore,sourceMetadata(nearshoreRequest)?.retrievedAt??loadedAt,sourceMetadata(nearshoreRequest)?.sourceURL??nearshoreRequest):[],extrema:normalizeTideExtrema(extrema,sourceMetadata(extremaRequest)?.retrievedAt??loadedAt,sourceMetadata(extremaRequest)?.sourceURL??extremaRequest),records:attachTides(spotData.flat(),normalizeTides(tides,sourceMetadata(tideRequest)?.retrievedAt??loadedAt,sourceMetadata(tideRequest)?.sourceURL??tideRequest)),statuses,buoy:observation,waterLevel:normalizeWaterLevel(level,sourceMetadata(levelRequest)?.retrievedAt??loadedAt,sourceMetadata(levelRequest)?.sourceURL??levelRequest),loadedAt};
+ // Text/station adapters also retain server stale delivery, not just JSON point forecasts.
+ const label=(value:unknown):void=>{if(!value||typeof value!=='object')return;const x=value as Record<string,any>;if(x.source?.url&&staleSource(x.source.url))x.source.delivery='saved';for(const [key,child] of Object.entries(x))if(key!=='source')label(child)};label(bundle);
+ if(bundle.buoy&&Object.values(bundle.buoy.values).some(m=>m.source.delivery==='saved'))bundle.buoy.delivery='saved';
+ return bundle;})();
  try{return await bundlePromise}catch(error){bundlePromise=null;expiry=0;throw error}
 }

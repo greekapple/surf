@@ -1,3 +1,13 @@
+# v0.10 local stabilization status
+
+This section supersedes operational claims below for the current local release candidate. The existing automation and its schedule have not been modified. No hosted refresh, cloud cache/history write or deployment was authorized or performed during the resumed v0.10 stabilization pass. Scheduler execution, successful completion, persisted output and fresh provider data were **not reverified**. Earlier v0.9 notes are historical evidence only.
+
+The full local build includes Worker revision 0.10 while retaining API contract version 0.8. `/api/diagnostics` is now a read-only endpoint. The Vite preview uses temporary memory and explicitly reports `persistent:false`; it does not prove hosted R2 persistence. Provider failures/cooldowns and Retry-After are handled by the service, so future scheduled runs must respect the returned retry windows rather than repeatedly invoke refresh. Compact schema-2 history references immutable retrieval snapshots; legacy history remains untouched. Retention still requires review.
+
+The procedure below is for a future authorized hosted verification or existing scheduled run. Do not execute its POST step merely to inspect status, and do not include any token in source or exported files.
+
+---
+
 # Unattended SURF data refresh
 
 Site project `appgprj_6ad2636508948191bfa3a9a7f22663e3`; preserve its owner-private audience. Scheduled work refreshes public ocean data, never rebuilds/deploys source and never reads user profiles/photos.
