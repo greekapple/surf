@@ -1,6 +1,6 @@
-# Surf functional prototype
+# Surf Forecast Lab v0.3
 
-React + TypeScript + Vite, browser-local persistence, no runtime APIs or AI services.
+React + TypeScript + Vite. Original minimal forecasting prototype with no runtime APIs, AI services, app authentication, or external assets. The hosted Site retains its existing private audience.
 
 ## Run
 
@@ -9,18 +9,35 @@ React + TypeScript + Vite, browser-local persistence, no runtime APIs or AI serv
 - `npm test` (Node 22+ with TypeScript stripping)
 - `npm run build`
 
-## Implemented
+## Forecast first
 
-Five main sections; onboarding and profile preferences; 10 illustrative California spots; 3 fixed sample days at five Pacific timestamps; board CRUD, details, sorting, favorites and comparison; forecast/time and spot comparison; deterministic gated spot/time/board ranking; rule-based explanations and visible score factors; physical display units and approximate Hawaiian scale; localStorage persistence, recovery warning, backup export and confirmed reset.
+10 illustrative California breaks, 7 fixed sample days, 5 timestamps per day. Forecast opens without onboarding. Spot tabs, seven-day outlook, hour slider, selectable swell components, shore-relative wind, gusts, interactive tide sample markers, temperature, and full source/issue/valid/update metadata. No missing hours or tide extrema are invented.
 
-The optional session log is deferred. No live providers, verified spot characteristics, catalog, accounts, or cloud database are connected. `src/services/provider.ts` contains a future provider contract. Demo dates deliberately do not follow the clock. Tail/fins are retained but unscored pending reliable model-specific relationships. No validated forecast accuracy or safety claims are made.
+Today and Explore provide regional sorting, search, filters, favorites, and compact three-spot comparison. Dates intentionally remain the fixed October 16–22, 2026 demonstration week.
 
-## Scoring
+## Separate scores
 
-See `src/recommendation/engine.ts` and the in-app Profile page. Hard constraints precede ranking. Spot conditions and board characteristics remain separate. Display conversion never mutates canonical feet/mph inputs. Empty quivers get explicitly labeled spot-only results.
+- `recommendation/sqi.ts`: independent Surf Quality Index (SQI), break-specific weights 25/25/15/15/20. Missing essential availability flags or input values withhold SQI; no hidden renormalization.
+- `recommendation/personal.ts`: optional Personal Match, with experience/comfort/hazard/access exclusions first. It never mutates SQI.
+- `recommendation/board.ts`: saved-board fit with documented 30/25/20/15/10 factors.
+- `recommendation/combined.ts`: Personal Match 65% + board fit 35%, with spot/time-only fallback when there is no suitable board or the quiver is empty.
+
+Heuristics are deterministic and unvalidated, not accuracy or safety guarantees. Offshore wind is penalized at high speeds. Tail/fins are stored but not scored without reliable model-specific rules.
+
+## Persistence and simulation
+
+The v1 localStorage key and existing boards/preferences are preserved. New personalization defaults to off. Import validates profile enums, dimension bounds, IDs, wave ranges and favorites, then asks for explicit replacement confirmation. Recovery blocks overwriting unreadable existing data. Export and reset remain available.
+
+Simulation copies nested forecast data and resets on a change of spot/day/hour. It never writes provider records or browser-persisted forecasts. Original day/hour timelines and the tide sample curve retain original values and their labels. Edited overview/rating and optional recommendations are marked “Simulation — Not Actual Forecast”.
+
+## Future structure
+
+`services/provider.ts` retains the forecast adapter. Forecast metadata and availability, optional tertiary swell, supplied tide extrema, and AccuracyRecord types support future sources and archived predictions-versus-observations. No live connections or verified spot characteristics are present.
 
 ## Verification
 
-12 automated tests cover deterministic ranking, conversions and score invariance, skill exclusions, empty quiver, large-day rejection, comfort and unknown hazards, explanations, time selection, shore-relative wind, dimensions, CRUD state persistence, and storage errors. Production TypeScript/Vite build passes. Browser QA could not run because the managed cloud browser blocked the internal preview origin.
+24 automated tests: weighted SQI calculations and missing data, score/profile independence, seven-day record uniqueness, summary and comparison time consistency, display conversion invariance, personal filtering, empty/no-fit quivers, board logic, isolated simulation, backup validation/migration, persistence and storage errors.
 
-Original specification: `docs/build-specification.md`.
+Desktop browser checks: five-page navigation; face/Hawaiian invariance; timestamp synchronization with wind/tide/rating; score-factor expansion; simulation recalculation/reset; fractional board creation/edit/refresh persistence/delete confirmation; three-spot comparison; optional beginner matching excluding expert breaks. Production TypeScript/Vite build passes. Responsive CSS is implemented; a separate mobile viewport check was not available.
+
+Specifications: `docs/build-specification.md` (original) and `docs/build-specification-v3.md` (current).
