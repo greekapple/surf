@@ -6,6 +6,7 @@ const factor=(name:string,score:number,weight:number,reason:string):Factor=>({na
 export const boardRanges:Record<string,[number,number,string[],number]>={
 'Performance shortboard':[3,8,['Steep','Peaky','Powerful'],1],'Everyday shortboard':[2,7,['Peaky','Steep'],1],Groveler:[1,4,['Soft','Peaky'],1],Fish:[1,5,['Soft','Peaky'],1],Hybrid:[1,6,['Soft','Peaky'],1],Midlength:[1,6,['Soft','Peaky'],0],Funboard:[1,5,['Soft','Peaky'],0],Longboard:[.5,5,['Soft'],0],'Step-up':[5,12,['Steep','Powerful'],2],Gun:[10,25,['Powerful'],2],'Soft-top':[.5,4,['Soft'],0],Other:[1,6,['Soft','Peaky'],1]};
 export function scoreBoard(board:Surfboard,f:Forecast,p:UserProfile):BoardRecommendation {
+ if(f.availability?.face===false||!Number.isFinite(f.face)||!f.character||f.character==='Unknown')return {board,score:0,eligible:false,limited:true,factors:[]};
  const [lo,hi,characters,skill]=boardRanges[board.type];const min=board.minWave??lo,max=board.maxWave??hi;
  const distance=f.face<min?min-f.face:f.face>max?f.face-max:0;
  const size=clamp(100-distance*30);

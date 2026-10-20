@@ -1,0 +1,13 @@
+import {useNow} from '../hooks/useNow';
+import type {Measurement} from '../ocean/types';
+import type {UserProfile} from '../models/index';
+import {height,wind,compass} from '../utils/units';
+import {localTime,ageLabel} from '../ocean/time';
+export function measurementText(m:Measurement,p:UserProfile,breaking=false){if(m.value===null)return 'Unavailable';return m.unit==='ft'?height(m.value,p,breaking):m.unit==='mph'?wind(m.value,p):m.unit==='deg'?`${compass(m.value)} · ${m.value.toFixed(0)}°`:m.unit==='s'?`${m.value.toFixed(1)} s`:m.unit==='F'?`${m.value.toFixed(1)}°F / ${((m.value-32)*5/9).toFixed(1)}°C`:`${m.value.toFixed(0)}/100`}
+export function sourceStatus(m:Measurement,now=Date.now()){
+ if(m.value===null)return 'Data unavailable';if(m.source.kind==='simulation')return 'Simulation — Not Actual Forecast';
+ if(m.source.delivery==='saved')return m.source.kind==='observation'?'Saved observation':'Saved forecast';
+ if(m.source.kind==='observation'){const age=now-Date.parse(m.source.validAt);return age>=-300000&&age<=7200000?'Recent observation':'Older observation'}
+ if(Date.parse(m.source.validAt)<now-3600000)return 'Forecast · past valid time';return now-Date.parse(m.source.retrievedAt)<3600000?'Live forecast data':'Saved forecast';
+}
+export function SourceMeasurement({label,m,p,breaking=false}:{label:string;m:Measurement;p:UserProfile;breaking?:boolean}){const now=useNow();return <div className="source-measurement"><span className="metric-label">{label}</span><strong>{measurementText(m,p,breaking)}</strong><small>{sourceStatus(m,now)}</small><details><summary>Source details</summary><dl><div><dt>Provider / type</dt><dd>{m.source.provider} / {m.source.kind}</dd></div><div><dt>Valid time</dt><dd>{localTime(m.source.validAt)}<br/>{m.source.validAt}</dd></div><div><dt>Retrieved</dt><dd>{localTime(m.source.retrievedAt)} · {ageLabel(m.source.retrievedAt,now)}</dd></div><div><dt>Observation age</dt><dd>{m.source.kind==='observation'?ageLabel(m.source.validAt,now):'Not an observation'}</dd></div><div><dt>Model issue / provider update</dt><dd>{m.source.issuedAt??'Not supplied'} / {m.source.updatedAt??'Not supplied'}</dd></div><div><dt>Original units → stored units</dt><dd>{m.source.nativeUnit||'Not supplied'} → {m.unit}</dd></div><div><dt>Location</dt><dd>{m.source.location}</dd></div></dl>{m.reason&&<p>{m.reason}</p>}{m.source.notes&&<p>{m.source.notes}</p>}<a href={m.source.url} target="_blank" rel="noreferrer">Provider endpoint ↗</a></details></div>}

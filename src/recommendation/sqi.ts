@@ -1,12 +1,16 @@
+import {evidenceQuality,evidenceWindRelationship} from '../ocean/quality.ts';
+import {evidenceSpot} from '../ocean/spots.ts';
 import type {Forecast,SurfSpot,SurfQuality,QualityFactor} from '../models/index.ts';
 import {angle} from '../utils/units.ts';
 export const sqiWeights={swell:.25,wind:.25,tide:.15,size:.15,organization:.2};
 export const clamp=(n:number)=>Math.max(0,Math.min(100,n));
-export function windRelationship(s:SurfSpot,f:Pick<Forecast,'wind'|'availability'>){
+export function windRelationship(s:SurfSpot,f:Pick<Forecast,'wind'|'availability'> & {evidence?:Forecast['evidence']}){
+ if(f.evidence)return evidenceWindRelationship(evidenceSpot(f.evidence.spotId),f.evidence);
  if(f.availability?.wind===false||!Number.isFinite(f.wind?.direction))return 'Unknown';
  return angle(f.wind.direction,s.seaward+180)<45?'Offshore':angle(f.wind.direction,s.seaward)<45?'Onshore':'Cross-shore';
 }
 export function windQuality(s:SurfSpot,f:Forecast):number|null{
+ if(f.evidence)return evidenceQuality(evidenceSpot(f.evidence.spotId),f.evidence).factors[1].score;
  if(f.availability?.wind===false||!Number.isFinite(f.wind?.speed)||!Number.isFinite(f.wind?.direction))return null;
  const relation=windRelationship(s,f),speed=f.wind.speed;
  // Offshore wind loses quality at high speeds, too. Gusts add a separate penalty.
@@ -15,6 +19,7 @@ export function windQuality(s:SurfSpot,f:Forecast):number|null{
 }
 export function qualityLabel(score:number|null){return score===null?'Unavailable':score<20?'Very poor':score<40?'Poor':score<60?'Mixed':score<80?'Good':'Excellent'}
 export function calculateSQI(s:SurfSpot,f:Partial<Forecast>):SurfQuality{
+ if(f.evidence)return evidenceQuality(evidenceSpot(f.evidence.spotId),f.evidence);
  const available=f.availability;
  const factors:QualityFactor[]=[];
  const add=(name:string,score:number|null,weight:number,reason:string)=>factors.push({name,score:score===null?null:clamp(score),weight,reason});

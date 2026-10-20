@@ -1,0 +1,126 @@
+{
+  "station": "46026",
+  "location": "Offshore San Francisco buoy",
+  "values": {
+    "Offshore significant height": {
+      "value": 5.2493438320209975,
+      "unit": "ft",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:50:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "m",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    },
+    "Dominant wave period": {
+      "value": 12,
+      "unit": "s",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:50:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "s",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    },
+    "Mean wave direction": {
+      "value": 282,
+      "unit": "deg",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:50:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "deg true",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    },
+    "Wind speed": {
+      "value": 13.4216177526,
+      "unit": "mph",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:50:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "m/s",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    },
+    "Wind direction": {
+      "value": 300,
+      "unit": "deg",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:50:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "deg true",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    },
+    "Wind gust": {
+      "value": 15.658554044699999,
+      "unit": "mph",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:50:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "m/s",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    },
+    "Water temperature": {
+      "value": 60.440000000000005,
+      "unit": "F",
+      "source": {
+        "provider": "NOAA NDBC 46026",
+        "kind": "observation",
+        "validAt": "2026-10-20T01:40:00.000Z",
+        "retrievedAt": "2026-10-20T02:10:50.031Z",
+        "issuedAt": null,
+        "updatedAt": null,
+        "url": "https://www.ndbc.noaa.gov/data/realtime2/46026.txt",
+        "nativeUnit": "°C",
+        "location": "Offshore buoy 46026, about 18 NM west of San Francisco; regional context only",
+        "delivery": "saved",
+        "notes": "Latest non-missing value per measurement in the last 24 h. Each value retains its own timestamp. Not breaking-wave height or a primary-swell component."
+      }
+    }
+  },
+  "delivery": "saved"
+}

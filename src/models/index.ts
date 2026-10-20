@@ -1,3 +1,4 @@
+import type {OceanRecord} from '../ocean/types.ts';
 export type Skill = 'Beginner'|'Intermediate'|'Expert';
 export const boardTypes = ['Performance shortboard','Everyday shortboard','Groveler','Fish','Hybrid','Midlength','Funboard','Longboard','Step-up','Gun','Soft-top','Other'] as const;
 export type BoardType = typeof boardTypes[number];
@@ -7,7 +8,7 @@ export interface SurfSpot {id:string; name:string; region:string; type:'Beach'|'
 export interface SwellComponent {height:number; direction:number; period:number}
 export interface WindConditions {speed:number; direction:number;gusts?:number|null}
 export interface TideConditions {height:number; stage:string;trend?:string;extrema?:{timestamp:string;height:number;type:"High"|"Low"}[]}
-export interface Forecast {spotId:string; timestamp:string; day:number; hour:number; face:number; offshore:number; primary:SwellComponent; secondary:SwellComponent|null; wind:WindConditions; tide:TideConditions; character:string; confidence:'Demo'; source:string; updatedAt:string; model:string; horizon:number; quality:string[];tertiary?:SwellComponent|null;waterTempF?:number|null;issuedAt:string;kind:"prediction"|"observation";availability:Availability;organization:number}
+export interface Forecast {spotId:string; timestamp:string; day:number; hour:number; face:number; offshore:number; primary:SwellComponent; secondary:SwellComponent|null; wind:WindConditions; tide:TideConditions; character:string; confidence:'Demo'; source:string; updatedAt:string; model:string; horizon:number; quality:string[];tertiary?:SwellComponent|null;waterTempF?:number|null;issuedAt:string;kind:"prediction"|"observation";availability:Availability;organization:number;evidence?:OceanRecord}
 export type ForecastTimeSlot = Forecast;
 export interface Factor {name:string; score:number; weight:number; reason:string}
 export interface SpotRecommendation {spot:SurfSpot; forecast:Forecast; score:number; eligible:boolean; exclusions:string[]; factors:Factor[]}

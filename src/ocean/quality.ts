@@ -1,0 +1,15 @@
+import type {OceanRecord,SpotEvidence} from './types.ts';
+import type {SurfQuality,QualityFactor} from '../models/index.ts';
+import {angle} from '../utils/units.ts';
+const bounded=(n:number)=>Math.max(0,Math.min(100,n));
+export const evidenceWeights={swell:.25,wind:.25,tide:.15,size:.15,organization:.2};
+export function evidenceWindRelationship(spot:SpotEvidence,record:OceanRecord){const d=record.windDirection.value;if(spot.orientation===null||d===null)return 'Unknown';return angle(d,spot.orientation+180)<45?'Offshore':angle(d,spot.orientation)<45?'Onshore':'Cross-shore'}
+export function evidenceQuality(spot:SpotEvidence,r:OceanRecord,weights=evidenceWeights):SurfQuality{
+ const swell=r.primary.direction.value===null||spot.idealSwell===null?null:bounded(100-angle(r.primary.direction.value,spot.idealSwell)*.85);
+ const relation=evidenceWindRelationship(spot,r);
+ const wind=relation==='Unknown'||r.windSpeed.value===null?null:bounded(100-r.windSpeed.value*(relation==='Offshore'?1.6:relation==='Onshore'?4:2.8)-Math.max(0,(r.gusts.value??r.windSpeed.value)-r.windSpeed.value-5)*1.5);
+ const tide=r.tide.value===null||!spot.tidePreferences||r.tideTrend==='Unknown'?null:spot.tidePreferences.includes(r.tideTrend)?100:35;
+ const size=r.face.value===null||!spot.faceRange?null:bounded(100-Math.max(spot.faceRange[0]-r.face.value,r.face.value-spot.faceRange[1],0)*22);
+ const factors:QualityFactor[]=[{name:'Swell alignment',weight:weights.swell,score:swell,reason:swell===null?'Verified break exposure and/or swell direction unavailable.':'Angle to the verified exposure; 0.85 points deducted per degree of mismatch.'},{name:'Wind quality',weight:weights.wind,score:wind,reason:wind===null?'Coastline orientation and/or wind data not verified; no shore-relative score assigned.':`${relation} wind; speed and excess gust penalties apply, including for offshore winds.`},{name:'Tide compatibility',weight:weights.tide,score:tide,reason:tide===null?'A regional gauge prediction does not establish verified local tide preferences.':'Verified stage preference match: 100; mismatch: 35.'},{name:'Break-specific wave size',weight:weights.size,score:size,reason:size===null?'No defensible breaking-wave estimate and/or calibrated break-size range.':'100 inside the calibrated range; 22 points deducted per foot outside.'},{name:'Expected organization',weight:weights.organization,score:r.organization.value,reason:r.organization.value===null?'Offshore bulk wave statistics do not establish breaking-wave organization.':'Requires a supported local observation or calibrated model.'}];
+ const missing=factors.filter(f=>f.score===null).map(f=>f.name);const score=missing.length?null:Math.round(factors.reduce((n,f)=>n+f.score!*f.weight,0));return {score,label:score===null?'Insufficient data':score<20?'Very poor':score<40?'Poor':score<60?'Mixed':score<80?'Good':'Excellent',factors,missing,positive:factors.filter(f=>f.score!==null&&f.score>=75).map(f=>f.name),negative:factors.filter(f=>f.score!==null&&f.score<60).map(f=>f.name)};
+}

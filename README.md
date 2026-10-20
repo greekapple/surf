@@ -41,3 +41,11 @@ Simulation copies nested forecast data and resets on a change of spot/day/hour. 
 Desktop browser checks: five-page navigation; face/Hawaiian invariance; timestamp synchronization with wind/tide/rating; score-factor expansion; simulation recalculation/reset; fractional board creation/edit/refresh persistence/delete confirmation; three-spot comparison; optional beginner matching excluding expert breaks. Production TypeScript/Vite build passes. Responsive CSS is implemented; a separate mobile viewport check was not available.
 
 Specifications: `docs/build-specification.md` (original) and `docs/build-specification-v3.md` (current).
+
+## v0.4 — Retrieved ocean data preview
+
+Default Retrieved mode adds `src/ocean/` provider adapters, nullable measurements, independent provenance, exact UTC joins and source/freshness UI for Ocean Beach, Bolinas and Linda Mar. Open-Meteo provides marine/weather model forecasts; NOAA CO-OPS supplies a clearly regional San Francisco station tide reference and separate latest water-level observation. NDBC's browser CORS limitation is reported with an explicitly saved observation fallback. The public API providers may impose rate limits or availability restrictions; no keys or private user data are sent.
+
+No uncalibrated local breaking height, swell exposure, orientation, tide preference or wave-shape input is invented. SQI and Your Match remain insufficient where required inputs are missing. Original demonstration examples remain separate. Smart Quiver CRUD/comparison/persistence remain intact; real board recommendations are withheld without essential local wave inputs. Experiment board fit uses explicitly hypothetical inputs only.
+
+Manual endpoint verification: `node --experimental-strip-types scripts/check-ocean-providers.mjs`. See `docs/data-integration-verification.md` for successful connections, browser limits and QA scope. `public/observations/ndbc-46026.json` is a dated NOAA observation snapshot, never a live feed. The v0.3 verification and behavior above describe Demonstration mode.
