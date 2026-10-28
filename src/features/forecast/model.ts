@@ -185,3 +185,9 @@ export function bandOf(category: string): Band {
 /** Rating band of one legacy record at a spot, using the existing provisional engine. */
 export const band = (f: Forecast, spot: SurfSpot, now = Date.now()) => bandOf(rateForecast(spot, f, now).category);
 export const titleCase = (s: string) => s.toLowerCase().replace(/(^|\s)\w/g, (m) => m.toUpperCase());
+/** Factual 6-hour trend of the plotted height (offshore Hs, or the demonstration face). */
+export function trendOf(series: HourSample[], i: number): 'building' | 'easing' | 'steady' | 'unknown' {
+  const a = series[i]?.heightFt, b = series[Math.min(series.length - 1, i + 6)]?.heightFt;
+  if (a === null || a === undefined || b === null || b === undefined) return 'unknown';
+  return b - a > 0.4 ? 'building' : a - b > 0.4 ? 'easing' : 'steady';
+}
