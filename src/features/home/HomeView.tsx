@@ -106,12 +106,13 @@ export function HomeView({section, go}: ViewProps) {
 
       <section className="card span-8" aria-label="Next 24 hours">
         <div className="card-h"><h2>Next 24 hours</h2><button className="btn" onClick={() => go('forecast')}>Timeline</button></div>
-        <ol className="hours" style={{gridAutoFlow: 'column', gridAutoColumns: 'minmax(64px, 1fr)', overflowX: 'auto'}}>
+        <ol className="strip">
           {series.filter((h) => Date.parse(h.timestamp) >= nowH).slice(0, 24).filter((_, k) => k % 3 === 0).map((h) => (
-            <li key={h.timestamp}><button onClick={() => { view.selectTime(h.timestamp); go('forecast'); }} style={{display: 'grid', justifyItems: 'center', gap: 4}}>
-              <span className="t">{hourLabel(h.timestamp)}</span><span className="qdot" style={{background: BAND_COLOR[bandOf(h.rating.category)]}} />
-              <span><b>{ht(h.heightFt, p)}</b></span>
-              <span>{Number.isFinite(h.forecast.wind.direction) ? <DirArrow from={h.forecast.wind.direction} size={13} color={windColor(h.forecast.wind.speed)} /> : null}{windVal(h.forecast.wind.speed, p)}</span>
+            <li key={h.timestamp}><button onClick={() => { view.selectTime(h.timestamp); go('forecast'); }} aria-label={`${hourLabel(h.timestamp)}: ${titleCase(h.rating.category)}, ${ht(h.heightFt, p)} ${p.heightUnit} offshore, wind ${windVal(h.forecast.wind.speed, p)} ${p.windUnit}`}>
+              <span className="t">{hourLabel(h.timestamp)}</span>
+              <span className="qdot" style={{background: BAND_COLOR[bandOf(h.rating.category)], width: '100%', height: 4, borderRadius: 2}} />
+              <span className="h">{ht(h.heightFt, p)}</span>
+              <span className="w">{Number.isFinite(h.forecast.wind.direction) && <DirArrow from={h.forecast.wind.direction} size={12} color={windColor(h.forecast.wind.speed)} />}{windVal(h.forecast.wind.speed, p)}</span>
             </button></li>
           ))}
         </ol>

@@ -19,7 +19,8 @@ const sample = (pts: number[][]) => new THREE.CatmullRomCurve3(pts.map(([z, y]) 
 const UB = sample(BREAK), US = sample(SHOULDER);
 const CREST = UB.reduce((b, p, i) => (p.y > UB[b].y ? i : b), 0);
 /** Peak tapering to a shoulder; `peel` 0 = breaking section, 1 = unbroken shoulder. */
-const heightAt = (x: number, H: number) => H * (0.6 + 0.4 * Math.exp(-((x / 11) ** 2)));
+// Ends taper smoothly into the sea so the mesh never shows a cut cross-section.
+const heightAt = (x: number, H: number) => H * (0.6 + 0.4 * Math.exp(-((x / 11) ** 2))) * (1 - THREE.MathUtils.smoothstep(Math.abs(x), 20, XMAX));
 const peelAt = (x: number) => THREE.MathUtils.smoothstep(x, -6, 14);
 const unitAt = (j: number, x: number, out: THREE.Vector3) => out.copy(UB[j]).lerp(US[j], peelAt(x));
 
@@ -86,7 +87,8 @@ export class WaveScene {
     for (let i = 0; i < NX - 1; i++) for (let j = 0; j < NZ - 1; j++) { const a = i * NZ + j, b = a + NZ; idx.push(a, b, a + 1, b, b + 1, a + 1); }
     this.waveGeo.setIndex(idx);
     // Physical water: vertex colour for depth/foam, clearcoat for the glassy face, sheen at grazing angles.
-    this.wave = new THREE.Mesh(this.waveGeo, new THREE.MeshPhysicalMaterial({vertexColors: true, roughness: 0.22, metalness: 0.02, clearcoat: 0.8, clearcoatRoughness: 0.18, sheen: 0.5, sheenColor: new THREE.Color(0x9fdcf5), side: THREE.DoubleSide}));
+    // FrontSide: double-sided rendering depth-fights where the lip folds back over the face.
+    this.wave = new THREE.Mesh(this.waveGeo, new THREE.MeshPhysicalMaterial({vertexColors: true, roughness: 0.22, metalness: 0.02, clearcoat: 0.8, clearcoatRoughness: 0.18, sheen: 0.5, sheenColor: new THREE.Color(0x9fdcf5), side: THREE.FrontSide}));
     sc.add(this.wave);
 
     this.rider = riderFigure();
@@ -178,7 +180,8 @@ export class WaveScene {
   private viewFor(name: View, Hm: number) {
     const h = heightAt(XS, Hm), V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
     if (this.s.mode === 'paddle' && name === 'front') { const zp = 1.8 * h + 2.2; return {pos: V(XS + 2, 1.5 + 0.18 * h, zp + 5 + 0.5 * h), target: V(XS - 1, 0.4 * h, 0.4 * h)}; }
-    if (name === 'profile') return {pos: V(XS + 16 + 1.4 * h, 0.55 * h + 1.2, 0.45 * h + 0.6), target: V(XS - 1, 0.45 * h, 0.35 * h)};
+    // From the channel beyond the tapered shoulder, looking back along the crest at the peak's silhouette.
+    if (name === 'profile') return {pos: V(XS + 12 + 1.6 * h, 0.9 * h + 1.6, 1.2 * h + 4), target: V(XS, 0.5 * h, 0.25 * h)};
     if (name === 'above') return {pos: V(XS + 9 + h, 2.1 * h + 7, 2.3 * h + 12), target: V(XS, 0.3 * h, 0.2 * h)};
     return {pos: V(XS + 3, 1.6 + 0.22 * h, 1.9 * h + 8), target: V(XS, 0.48 * h, 0.3 * h)};
   }

@@ -78,7 +78,7 @@ function Sources() {
       </tbody></table>
       {o.bundle?.buoy && (
         <div><p><b>Observation</b> · NOAA NDBC 46026 buoy {o.bundle.buoy.delivery === 'saved' ? <span className="chip demo">saved historical, not live</span> : <span className="chip off">observed</span>}</p>
-          <p className="fine">{Object.entries(o.bundle.buoy.values).slice(0, 5).map(([k, m]) => `${k} ${m.value ?? '—'} ${m.unit}`).join(' · ')}{Object.values(o.bundle.buoy.values)[0] ? ` · valid ${timeLabelPT(Object.values(o.bundle.buoy.values)[0].source.validAt)}` : ''}</p></div>
+          <p className="fine">{Object.entries(o.bundle.buoy.values).slice(0, 5).map(([k, m]) => `${k} ${typeof m.value === 'number' ? +m.value.toFixed(1) : m.value ?? '—'} ${m.unit}`).join(' · ')}{Object.values(o.bundle.buoy.values)[0] ? ` · valid ${timeLabelPT(Object.values(o.bundle.buoy.values)[0].source.validAt)}` : ''}</p></div>
       )}
     </div>
   );
