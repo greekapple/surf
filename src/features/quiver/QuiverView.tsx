@@ -26,7 +26,14 @@ export function BoardOutline({b, scale = 3.4, color = '#f2f8fc'}: {b: Pick<Surfb
   );
 }
 
-const inches = (v: number) => `${Math.floor(v)}${v % 1 ? ` ${Math.round((v % 1) * 16)}/16` : ''}″`;
+const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
+/** Whole inches plus the fraction in lowest sixteenths (2.625 → 2 5/8″). */
+const inches = (v: number) => {
+  let w = Math.floor(v), n = Math.round((v - w) * 16);
+  if (n === 16) { w += 1; n = 0; }
+  const g = gcd(n, 16);
+  return `${w}${n ? ` ${n / g}/${16 / g}` : ''}″`;
+};
 const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortboard' as BoardType, length: `6'0"`, width: '19 1/4', thickness: '2 1/2', volume: '30', fins: 'Thruster', tail: '', notes: ''};
 
 function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void}) {
@@ -100,7 +107,7 @@ export function QuiverView({section, go}: ViewProps) {
           <div className="card-h"><h2>My boards · {boards.length}</h2><button className="btn primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />Add board</button></div>
           <div className="boards">{boards.map((b) => (
             <button key={b.id} className="board" aria-pressed={b.id === sel?.id} onClick={() => select(b.id)} aria-label={`${b.name}, ${lengthLabel(b.length)}`}>
-              <span className="stage"><span style={{transform: 'rotate(90deg)'}}><BoardOutline b={b} scale={170 / Math.max(b.length, 72)} /></span></span>
+              <span className="stage"><span style={{transform: 'rotate(90deg)'}}><BoardOutline b={b} scale={180 / 120} /></span></span>
               <span className="meta"><b>{b.name}</b><span>{lengthLabel(b.length)} × {inches(b.width)} · {b.volume} L{b.demo ? ' · example' : ''}</span></span>
             </button>
           ))}</div>
