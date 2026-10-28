@@ -20,10 +20,11 @@ Surfers checking on a phone at dawn in a beach parking lot (flat fog light, cold
 Home · Forecast · Explore · Quiver · Wave Scale · Personal (each with sections; see `src/app/routes.ts`).
 
 ## Brand commitments
-- Provisional brand SWELLO in the UI; repository, packages and hosting stay named SURF until renamed with approval.
-- Visual direction: instrument-first dark UI where one selected spot and hour drive every module; credited location photography (Wikimedia Commons, licences in `src/ui/photos.ts`).
-- Typography: system UI with tabular numerals; no condensed or editorial display faces.
-- No teal-heavy palettes, glassmorphism, decorative gradients, or marketing slogans.
+- Provisional brand SWELLO (wordmark "Swello") in the UI; repository, packages and hosting stay named SURF until renamed with approval.
+- Visual direction "coast bulletin" (from the Home redesign, 2026-10-28): the forecast read as a plain sentence over authentic, credited location photography; data graphics set directly on a cool fog ground rather than in cards; dense instrument views (Forecast timeline) stay dark until each area is redesigned.
+- Typography: Archivo (SIL OFL, self-hosted in `public/fonts`), one family; expanded widths for display, normal width with tabular numerals for data.
+- Colour: fog ground, Pacific ink, one International Orange accent for navigation state and links; rating colours are semantic only. No teal-heavy palettes, glassmorphism, decorative gradients, eyebrow labels or marketing slogans.
+- Earlier SURF/SWELLO screenshots, mockups and the 9C/10C card dashboard are historical references, not visual targets.
 
 ## Constraints
 React 19, TypeScript, Vite 7, Leaflet; no new runtime dependencies without approval. Must work on an 8 GB Apple Silicon Mac and on phones; WCAG AA contrast, 44 px touch targets, reduced-motion support.

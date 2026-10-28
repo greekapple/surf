@@ -110,9 +110,19 @@ export function DataBadge() {
 }
 
 export function TopNav({area, section, go}: {area: Area; section: string; go: Go}) {
+  // On the Home overview the bar sits clear over the photograph until the page scrolls.
+  const hero = area === 'home' && section === '';
+  const [over, setOver] = useState(hero);
+  useEffect(() => {
+    if (!hero) { setOver(false); return; }
+    const on = () => setOver(scrollY < innerHeight * 0.55);
+    on();
+    addEventListener('scroll', on, {passive: true});
+    return () => removeEventListener('scroll', on);
+  }, [hero]);
   return (
-    <header className="topnav">
-      <a className="wordmark" aria-label="SWELLO home" {...linkProps(go, 'home')}>SWELLO</a>
+    <header className={`topnav${over ? ' over' : ''}`}>
+      <a className="wordmark" aria-label="Swello home" {...linkProps(go, 'home')}>Swello</a>
       <nav aria-label="Primary"><ul className="areas">
         {AREAS.map((def) => <AreaMenu key={def.id} def={def} current={def.id === area} section={section} go={go} />)}
       </ul></nav>

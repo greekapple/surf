@@ -1,4 +1,13 @@
 /* SWELLO tokens (Obsidian 04-Visual-Design-System). */
+/* Archivo (SIL OFL 1.1, public/fonts/Archivo-OFL.txt): one family, width axis 62–125% for display. */
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   --bg: #070c11;
   --s1: #0c141b;
@@ -20,7 +29,11 @@
   --warn: #e0a458;
   --bad: #e07a6a;
   --accent: #8ccfff;
-  --sans: system-ui, -apple-system, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
+  --signal: #ff5a1f; /* International Orange: navigation state and the one accent on Home */
+  --ink: #0e1a22;
+  --fog: #e6eaea;
+  --sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --wide: 118%;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
   --ease: cubic-bezier(.2, .8, .2, 1);
   --r1: 8px;
@@ -41,7 +54,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; }
 svg { overflow: visible; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-::selection { background: var(--hs); color: #fff; }
+::selection { background: var(--signal); color: var(--ink); }
 * { scrollbar-width: thin; scrollbar-color: var(--s3) transparent; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) {

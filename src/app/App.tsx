@@ -22,8 +22,8 @@ export default function App() {
       <div className="shell">
         <a className="skip" href="#main">Skip to content</a>
         <TopNav area={area} section={section} go={navigate} />
-        <main id="main" className="page">
-          <SubNav area={area} section={section} go={navigate} />
+        <main id="main" className={area === 'home' ? 'page page-home' : 'page'}>
+          {area !== 'home' && <SubNav area={area} section={section} go={navigate} />}
           <ErrorBoundary key={area} label={label}>
             {area === 'home' && <HomeView section={section} go={navigate} />}
             {area === 'forecast' && <ForecastView section={section} go={navigate} />}
