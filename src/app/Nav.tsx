@@ -4,6 +4,7 @@ import {useSwello} from './store';
 import {Icon} from '../ui/Icon';
 import {BAND_COLOR, band} from '../features/forecast/model';
 import {timeLabelPT} from '../features/forecast/format';
+import {ht} from '../features/forecast/helpers';
 
 type Go = (area: Area, section?: string) => void;
 const linkProps = (go: Go, area: Area, section = '') => ({
@@ -84,7 +85,7 @@ export function SpotPicker() {
                 <button role="option" aria-selected={s.id === spot.id} onClick={() => { setSpot(s.id); setOpen(false); }}>
                   <span className="qdot" style={{background: rec ? BAND_COLOR[band(rec, s)] : 'var(--poor)'}} />
                   <span><b>{s.name}</b><small>{s.region}</small></span>
-                  <span>{rec && Number.isFinite(rec.offshore) ? `${rec.offshore.toFixed(1)} ft` : '—'}</span>
+                  <span>{rec && Number.isFinite(rec.offshore) ? `${ht(rec.offshore, data.state.profile)} ${data.state.profile.heightUnit} Hs` : '—'}</span>
                 </button>
                 <button className="star" aria-pressed={fav.includes(s.id)} aria-label={`${fav.includes(s.id) ? 'Remove' : 'Add'} ${s.name} ${fav.includes(s.id) ? 'from' : 'to'} favourites`} onClick={() => data.favorite(s.id)}>
                   <Icon name="star" size={16} />

@@ -88,7 +88,7 @@ function Compare({onPick}: {onPick: (id: string) => void}) {
   const {view, spotOptions, data, now, spot} = useSwello();
   const p = data.state.profile, t = view.selectedTime;
   return (
-    <table className="cmp"><thead><tr><th>Spot</th><th>Rating</th><th>Offshore Hs</th><th>Primary swell</th><th>Wind</th><th>Best daylight (24 h)</th><th /></tr></thead><tbody>
+    <table className="cmp"><thead><tr><th>Spot</th><th>Rating (provisional)</th><th>Offshore Hs</th><th>Primary swell</th><th>Wind</th><th>Best daylight (24 h)</th><th /></tr></thead><tbody>
       {spotOptions.map((s) => {
         const recs = view.mapRecords.filter((r) => r.spotId === s.id);
         const f = recs.find((r) => r.timestamp === t);
