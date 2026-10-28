@@ -174,3 +174,14 @@ export function fullTimeLabel(iso: string) {
     timeZoneName: 'short',
   }).format(new Date(iso));
 }
+
+export type Band = 'good' | 'fair' | 'poor' | 'none';
+export const BAND_COLOR: Record<Band, string> = {good: '#47c47e', fair: '#c7b25b', poor: '#3c4954', none: '#2a343c'};
+export function bandOf(category: string): Band {
+  if (['EPIC', 'FIRING', 'GOOD', 'SOLID'].includes(category)) return 'good';
+  if (['NOT BAD', 'SURFABLE'].includes(category)) return 'fair';
+  return category === 'UNRATED' ? 'none' : 'poor';
+}
+/** Rating band of one legacy record at a spot, using the existing provisional engine. */
+export const band = (f: Forecast, spot: SurfSpot, now = Date.now()) => bandOf(rateForecast(spot, f, now).category);
+export const titleCase = (s: string) => s.toLowerCase().replace(/(^|\s)\w/g, (m) => m.toUpperCase());

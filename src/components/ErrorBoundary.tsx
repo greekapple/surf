@@ -1,2 +1,0 @@
-import {Component,type ReactNode} from 'react';
-export class ErrorBoundary extends Component<{children:ReactNode;label?:string},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true}}render(){return this.state.failed?<section className="panel warning" role="alert"><h2>{this.props.label??'This view could not load'}</h2><p>Your saved data is unchanged. Try reloading this view; the forecast and list remain available.</p><button onClick={()=>this.setState({failed:false})}>Retry view</button></section>:this.props.children}}

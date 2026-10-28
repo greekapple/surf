@@ -1,2 +1,0 @@
-import type {Factor} from '../models/index';
-export function Score({factors}:{factors:Factor[]}){if(!factors.length)return <p className="small">No score calculated: essential forecast inputs are unavailable.</p>;return <details><summary>How this score works</summary><div className="table-wrap"><table><thead><tr><th>Factor</th><th>Score</th><th>Weight</th><th>Explanation</th></tr></thead><tbody>{factors.map(f=><tr key={f.name}><td>{f.name}</td><td>{f.score.toFixed(0)}</td><td>{Math.round(f.weight*100)}%</td><td>{f.reason}</td></tr>)}</tbody></table></div></details>}

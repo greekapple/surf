@@ -1,6 +1,0 @@
-import {bearingPoint} from '../utils/interaction';
-import {compass} from '../utils/units';
-export function DirectionCompass({degrees,label}:{degrees:number|null;label:string}){
- const from=degrees===null?null:bearingPoint(degrees,30),end=degrees===null?null:bearingPoint(degrees,-8);
- return <figure className="direction-compass"><svg viewBox="0 0 100 100" role="img" aria-label={degrees===null?`${label} direction unavailable`:`${label} from ${compass(degrees)}, ${degrees.toFixed(0)} degrees`}><circle cx="50" cy="50" r="33" fill="none" stroke="#ced7cb"/><path d="M50 17V83M17 50H83" stroke="#e2e6dd"/><text x="50" y="11" textAnchor="middle">N</text><text x="93" y="54" textAnchor="middle">E</text><text x="50" y="98" textAnchor="middle">S</text><text x="7" y="54" textAnchor="middle">W</text>{from&&end?<g><line x1={from.x} y1={from.y} x2={end.x} y2={end.y} stroke="#315d4b" strokeWidth="3"/><path transform={`rotate(${degrees} 50 50)`} d="M44 50L50 59L56 50" fill="none" stroke="#315d4b" strokeWidth="3"/><circle cx={from.x} cy={from.y} r="4" fill="#b07d2e"/></g>:<text x="50" y="55" textAnchor="middle">?</text>}</svg><figcaption>{degrees===null?'Direction unavailable':`From ${compass(degrees)} · ${degrees.toFixed(0)}°`}</figcaption></figure>;
-}

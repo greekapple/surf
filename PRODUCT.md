@@ -17,11 +17,12 @@ Surfers checking on a phone at dawn in a beach parking lot (flat fog light, cold
 - Spots with retrieved data: Ocean Beach, Bolinas, Linda Mar. Tide data comes from one regional station (San Francisco 9414290, MLLW).
 
 ## Destinations
-Forecast (verdict, timeline, charts) · Explore (map) · Quiver (boards and fit) · Scale (surfer-to-wave viewer) · Settings (units, scale, data mode).
+Home · Forecast · Explore · Quiver · Wave Scale · Personal (each with sections; see `src/app/routes.ts`).
 
 ## Brand commitments
-- Visual world: "Fog & Signal" (see `docs/design/direction-contract.md`).
-- Typography: Archivo variable (OFL-1.1, self-hosted in `public/fonts/`) for display and numerals; system UI stack for text.
+- Provisional brand SWELLO in the UI; repository, packages and hosting stay named SURF until renamed with approval.
+- Visual direction: instrument-first dark UI where one selected spot and hour drive every module; credited location photography (Wikimedia Commons, licences in `src/ui/photos.ts`).
+- Typography: system UI with tabular numerals; no condensed or editorial display faces.
 - No teal-heavy palettes, glassmorphism, decorative gradients, or marketing slogans.
 
 ## Constraints
