@@ -49,18 +49,28 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const n = series.length;
   const target: [number, number] = dayIndex !== null && days[dayIndex] ? [days[dayIndex].start - 0.5, days[dayIndex].end + 0.5] : [0, Math.max(1, n - 1)];
   const [a, b] = useAnimatedRange(target);
-  const G = 38, PAD = 10, inner = W - G - PAD, pxh = inner / (b - a);
+  const G = 44, PAD = 12, inner = W - G - PAD, pxh = inner / (b - a);
   const X = (i: number) => G + (i - a) * pxh;
   const max = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0))) * 1.12;
-  const Y = (v: number) => 168 - (v / max) * 142;
+  const BASE = 168, RB = 178, WY = 208, yStep = max > 8 ? 2 : 1, Y = (v: number) => BASE - (v / max) * 140;
+  const lastTick = Math.floor(max / yStep) * yStep;
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
-  const TY = (v: number) => height - 26 - ((v - tLo) / (tHi - tLo || 1)) * 34;
+  const TY = (v: number) => height - 26 - ((v - tLo) / (tHi - tLo || 1)) * 26;
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
   const sel = Math.max(0, series.findIndex((h) => h.timestamp === selectedTime));
   const i0 = Math.max(0, Math.floor(a) - 1), i1 = Math.min(n - 1, Math.ceil(b) + 1);
   const vis = series.slice(i0, i1 + 1);
+  const hsPath = monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.heightFt ?? 0)]));
+  /** Day peaks of the primary swell, labelled with period (only where the day is wide enough to read). */
+  const peaks = days.flatMap((d) => {
+    let best = -1;
+    for (let i = d.start; i <= d.end; i++) { const pr = series[i]?.forecast.primary; if (pr && Number.isFinite(pr.period) && (best < 0 || pr.height > series[best].forecast.primary!.height)) best = i; }
+    if (best < 0 || (d.end - d.start + 1) * pxh < 70) return [];
+    const x = X(best);
+    return x > G + 12 && x < W - PAD - 12 ? [{h: series[best], i: best}] : [];
+  }).filter((pk, k, all) => k === 0 || (pk.i - all[k - 1].i) * pxh > 40);
   const [lat, lon] = spotLatLon(spot);
   const nowI = series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
 
@@ -95,63 +105,65 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
       aria-valuemin={0} aria-valuemax={n - 1} aria-valuenow={sel}
       aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, offshore ${ht(selH.heightFt, p)} ${u}, ${titleCase(selH.rating.category)}` : ''}
       onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => (drag.current = false)} onPointerLeave={() => !drag.current && setHover(null)} onKeyDown={onKey}>
-      <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true">
+      <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
-          <linearGradient id="gHs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs-hi)" stopOpacity="0.55" /><stop offset="1" stopColor="var(--hs)" stopOpacity="0.05" /></linearGradient>
+          <linearGradient id="gHs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs-hi)" stopOpacity="0.42" /><stop offset="1" stopColor="var(--hs)" stopOpacity="0.04" /></linearGradient>
           <clipPath id="tlclip"><rect x={G} y={0} width={inner} height={height} /></clipPath>
         </defs>
+        {Array.from({length: Math.floor(max / yStep) + 1}, (_, k) => k * yStep).map((v) =>
+          <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 6} y={Y(v) + 4} textAnchor="end">{ht(v, p, u === 'm' ? 1 : 0)}{v === lastTick ? ` ${u}` : ''}</text></g>)}
         <g clipPath="url(#tlclip)">
           {days.map((d: Day, k) => {
             const {rise, set} = sunTimes(d.t, lat, lon);
             const prev = sunTimes(new Date(Date.parse(d.t) - 86400000).toISOString(), lat, lon).set;
             return <g key={d.key}>
-              <rect x={XT(prev)} y={18} width={Math.max(0, XT(rise) - XT(prev))} height={height - 34} fill="var(--ch-night)" />
-              {k === days.length - 1 && <rect x={XT(set)} y={18} width={inner} height={height - 34} fill="var(--ch-night)" />}
-              <line x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={height - 14} stroke="var(--ch-div)" />
+              <rect x={XT(prev)} y={20} width={Math.max(0, XT(rise) - XT(prev))} height={height - 36} fill="var(--ch-night)" />
+              {k === days.length - 1 && <rect x={XT(set)} y={20} width={inner} height={height - 36} fill="var(--ch-night)" />}
+              <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={height - 16} />
               {(d.end - d.start + 1) * pxh > 64 && X(d.end + 0.5) - Math.max(X(d.start - 0.5), G) > 70 &&
-                <text x={Math.max(X(d.start - 0.5), G) + 6} y={12} fontSize={11} fontWeight={600} fill="var(--text)">{weekdayPT(d.t)} {dayNumPT(d.t)}</text>}
+                <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={13}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>}
             </g>;
           })}
-          <path d={`${monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.heightFt ?? 0)]))} L${X(i1)},168 L${X(i0)},168Z`} fill="url(#gHs)" />
-          <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.heightFt ?? 0)]))} fill="none" stroke="var(--hs-hi)" strokeWidth={2} />
-          <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.forecast.primary?.height ?? 0)]))} fill="none" stroke="var(--sw1)" strokeWidth={1.4} opacity={0.9} />
-          {vis.some((h) => h.forecast.secondary) && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.forecast.secondary?.height ?? 0)]))} fill="none" stroke="var(--sw2)" strokeWidth={1.3} strokeDasharray="4 3" />}
-          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={176} width={pxh + 0.5} height={9} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
+          <path d={`${hsPath} L${X(i1)},${BASE} L${X(i0)},${BASE}Z`} fill="url(#gHs)" />
+          <path d={hsPath} fill="none" stroke="var(--hs-hi)" strokeWidth={1.75} strokeLinejoin="round" />
+          <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.forecast.primary?.height ?? 0)]))} fill="none" stroke="var(--sw1)" strokeWidth={1.25} opacity={0.9} />
+          {vis.some((h) => h.forecast.secondary) && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.forecast.secondary?.height ?? 0)]))} fill="none" stroke="var(--sw2)" strokeWidth={1.1} strokeDasharray="4 3" />}
+          {peaks.map(({h, i}) => <g key={`pk${h.timestamp}`}><circle cx={X(i)} cy={Y(h.forecast.primary!.height)} r={2.4} fill="var(--sw1)" />
+            <text className="tl-pk" x={X(i)} y={Y(h.forecast.primary!.height) - 7} textAnchor="middle">{Math.round(h.forecast.primary!.period)}s</text></g>)}
+          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={pxh + 0.5} height={5} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
           {vis.map((h, k) => {
             const i = i0 + k, w = h.forecast.wind;
             if (i % every || !Number.isFinite(w.direction)) return null;
-            const c = windInk(w.speed), len = 7 + Math.min(10, w.speed / 1.4);
-            return <g key={`w${h.timestamp}`} transform={`translate(${X(i)},212) rotate(${(w.direction + 180) % 360})`}>
-              <line y1={len} y2={-len} stroke={c} strokeWidth={2} strokeLinecap="round" /><path d={`M-4,${-len + 5} L0,${-len} L4,${-len + 5}`} fill="none" stroke={c} strokeWidth={2} strokeLinecap="round" />
+            const c = windInk(w.speed), len = 6 + Math.min(7, w.speed / 2.2);
+            return <g key={`w${h.timestamp}`} transform={`translate(${X(i)},${WY}) rotate(${(w.direction + 180) % 360})`}>
+              <line y1={len} y2={-len} stroke={c} strokeWidth={1.6} strokeLinecap="round" /><path d={`M-3.5,${-len + 4.5} L0,${-len} L3.5,${-len + 4.5}`} fill="none" stroke={c} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
             </g>;
           })}
-          {every * pxh >= 30 && vis.map((h, k) => ((i0 + k) % every ? null : <text key={`ws${h.timestamp}`} x={X(i0 + k)} y={236} fontSize={9.5} fill="var(--muted)" textAnchor="middle">{windVal(h.forecast.wind.speed, p)}</text>))}
-          {hasTide && <path d={`${monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} L${X(i1)},${height - 22} L${X(i0)},${height - 22}Z`} fill="var(--tide)" fillOpacity={0.14} />}
+          {every * pxh >= 26 && vis.map((h, k) => ((i0 + k) % every ? null : <text key={`ws${h.timestamp}`} className="tl-ax" x={X(i0 + k)} y={WY + 24} textAnchor="middle">{windVal(h.forecast.wind.speed, p)}</text>))}
           {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.5} />}
           {pxh > 4 && extrema.map((e) => {
             const x = XT(Date.parse(e.timestamp)), v = e.height.value;
             if (x < G || x > W || v === null) return null;
             return <g key={e.timestamp}><circle cx={x} cy={TY(v)} r={2.4} fill="var(--tide)" />
-              {pxh > 9 && <text x={x + 4} y={TY(v) + (e.type === 'High' ? 12 : -5)} fontSize={9.5} fill="var(--muted)">{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
+              {pxh > 9 && <text className="tl-ax" x={x + 5} y={TY(v) + (e.type === 'High' ? 13 : -6)}>{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
           })}
-          {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={18} y2={height - 16} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
-          {vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} x={X(i0 + k)} y={height - 2} fontSize={9.5} fill="var(--dim)" textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
-          {hover && hover.i !== sel && <line x1={X(hover.i)} x2={X(hover.i)} y1={16} y2={height - 14} stroke="var(--ch-hover)" strokeDasharray="3 3" />}
+          {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={20} y2={height - 18} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
+          {vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 3} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
+          {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={18} y2={height - 16} stroke="var(--ch-hover)" />
+            <circle cx={X(hover.i)} cy={Y(series[hover.i].heightFt ?? 0)} r={3.5} fill="var(--bg)" stroke="var(--hs-hi)" strokeWidth={1.75} /></g>}
         </g>
-        {Array.from({length: Math.floor(max / (max > 8 ? 2 : 1)) + 1}, (_, k) => k * (max > 8 ? 2 : 1)).map((v) =>
-          <g key={v}><text x={G - 6} y={Y(v) + 3} fontSize={9.5} fill="var(--dim)" textAnchor="end">{ht(v, p, u === 'm' ? 1 : 0)}</text><line x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} stroke="var(--ch-grid)" /></g>)}
-        <text x={0} y={184} fontSize={8.5} fill="var(--dim)">Rating</text>
-        <text x={0} y={214} fontSize={9} fill="var(--dim)">Wind</text>
-        <text x={0} y={height - 34} fontSize={9} fill="var(--dim)">Tide</text>
+        <text className="tl-row" x={0} y={RB + 5}>Rating</text>
+        <text className="tl-row" x={0} y={WY + 4}>Wind</text>
+        {hasTide && <text className="tl-row" x={0} y={height - 38}>Tide</text>}
         <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
-          <line y1={16} y2={height - 14} stroke="var(--ch-ink)" strokeWidth={1.4} />
-          <circle cy={Y(selH?.heightFt ?? 0)} r={5} fill="var(--bg)" stroke="var(--hs-hi)" strokeWidth={2.5} />
-          {hasTide && Number.isFinite(selH?.forecast.tide.height) && <circle cy={TY(selH!.forecast.tide.height)} r={3.6} fill="var(--ch-ink)" />}
+          <line y1={18} y2={height - 16} stroke="var(--ch-ink)" strokeWidth={1.25} />
+          <circle cy={Y(selH?.heightFt ?? 0)} r={4.5} fill="var(--bg)" stroke="var(--hs-hi)" strokeWidth={2.25} />
+          {hasTide && Number.isFinite(selH?.forecast.tide.height) && <circle cy={TY(selH!.forecast.tide.height)} r={3.4} fill="var(--ch-ink)" />}
         </g>
       </svg>
       {tipH && hover && (
-        <div className="tl-tip" style={{left: Math.min(W - 186, Math.max(0, hover.x - body.current!.getBoundingClientRect().left + 14))}}>
-          <b>{weekdayPT(tipH.timestamp)} {hourLabel(tipH.timestamp)} · {hover.i === sel ? 'selected' : 'preview'}</b>
+        <div className="tl-tip" style={{left: Math.min(W - 206, Math.max(0, hover.x - body.current!.getBoundingClientRect().left + 14))}}>
+          <b>{weekdayPT(tipH.timestamp)} {hourLabel(tipH.timestamp)}<small>{hover.i === sel ? 'selected' : 'preview'}</small></b>
           <span>Offshore Hs <em>{ht(tipH.heightFt, p)} {u}</em></span>
           <span>Primary <em>{tipH.forecast.primary ? `${ht(tipH.forecast.primary.height, p)} ${u} ${Math.round(tipH.forecast.primary.period)}s ${compass(tipH.forecast.primary.direction)}` : '—'}</em></span>
           <span>Secondary <em>{tipH.forecast.secondary ? `${ht(tipH.forecast.secondary.height, p)} ${u} ${Math.round(tipH.forecast.secondary.period)}s` : '—'}</em></span>
@@ -172,7 +184,7 @@ export function QualityBand({score, reliability}: {score: number | null; reliabi
   return (
     <svg className="qband" viewBox="0 0 300 40" aria-hidden="true">
       {SCALE.map(([n, a, b]) => <rect key={n} x={X(a) + 0.5} y={12} width={X(b) - X(a) - 1} height={8} rx={2} fill={BAND_COLOR[a >= 65 ? 'good' : a >= 40 ? 'fair' : 'poor']} fillOpacity={a >= 40 ? 0.55 : 0.9} />)}
-      {[['Poor', 0, 'start'], ['Surfable', 40, 'start'], ['Solid', 65, 'start'], ['Epic', 100, 'end']].map(([t, v, anchor]) => <text key={t as string} x={X(v as number)} y={36} fontSize={9} fill="var(--dim)" textAnchor={anchor as 'start' | 'end'}>{t}</text>)}
+      {[['Poor', 0, 'start'], ['Surfable', 40, 'start'], ['Solid', 65, 'start'], ['Epic', 100, 'end']].map(([t, v, anchor]) => <text key={t as string} x={X(v as number)} y={37} fontSize={11} fill="var(--dim)" textAnchor={anchor as 'start' | 'end'}>{t}</text>)}
       {score !== null && <>
         <rect x={X(Math.max(0, score - half))} y={8} width={X(Math.min(100, score + half)) - X(Math.max(0, score - half))} height={16} rx={4} fill="var(--ch-band-fill)" stroke="var(--ch-band-line)" strokeDasharray="3 2" />
         <g className="mk" style={{transform: `translateX(${X(score)}px)`}}><line y1={5} y2={27} stroke="var(--ch-ink)" strokeWidth={2.5} strokeLinecap="round" /></g>
@@ -187,29 +199,36 @@ export function Dial({arms, facing}: {arms: ({from: number; color: string; w: nu
   let wedge = '';
   if (facing !== null) { const [x1, y1] = pt(facing - 55, 40), [x2, y2] = pt(facing + 55, 40); wedge = `M0,0 L${x1},${y1} A40,40 0 0 1 ${x2},${y2}Z`; }
   return (
-    <svg className="dial" viewBox="-50 -50 100 100" aria-hidden="true">
-      <circle r={40} fill="none" stroke="var(--ch-ring)" />
-      {['N', 'E', 'S', 'W'].map((l, k) => { const [x, y] = pt(k * 90, 47); return <text key={l} x={x} y={y + 3.5} fontSize={9} fill="var(--dim)" textAnchor="middle">{l}</text>; })}
+    <svg className="dial" viewBox="-58 -56 116 112" aria-hidden="true">
+      <circle r={40} fill="none" stroke="var(--ch-ring)" strokeWidth={0.8} />
+      {Array.from({length: 24}, (_, k) => { const [x1, y1] = pt(k * 15, 40), [x2, y2] = pt(k * 15, k % 6 === 0 ? 34 : 37); return <line key={k} x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--ch-ring)" strokeWidth={0.8} />; })}
+      {['N', 'E', 'S', 'W'].map((l, k) => { const [x, y] = pt(k * 90, 49); return <text key={l} x={x} y={y + 4} fontSize={11} fill="var(--dim)" textAnchor="middle">{l}</text>; })}
       {wedge && <path d={wedge} fill="var(--ch-wedge)" />}
       {arms.map((a, k) => a && (
         <g key={k} className="arm" style={{transform: `rotate(${a.from}deg)`}}>
-          <line x1={0} y1={-38} x2={0} y2={-6} stroke={a.color} strokeWidth={a.w} strokeLinecap="round" />
-          <path d="M-6,-14 L0,-5 L6,-14" fill="none" stroke={a.color} strokeWidth={a.w} strokeLinecap="round" strokeLinejoin="round" />
+          <line x1={0} y1={-38} x2={0} y2={-6} stroke={a.color} strokeWidth={Math.min(a.w, 4)} strokeLinecap="round" />
+          <path d="M-6,-14 L0,-5 L6,-14" fill="none" stroke={a.color} strokeWidth={Math.min(a.w, 4)} strokeLinecap="round" strokeLinejoin="round" />
         </g>
       ))}
+      <circle r={1.8} fill="var(--ch-ink)" />
     </svg>
   );
 }
 
+/** Sparkline stretched to its tile; strokes and the marker dot use non-scaling strokes so nothing distorts. */
 export function Spark({values, index, color}: {values: number[]; index: number; color: string}) {
   if (!values.length || values.some((v) => !Number.isFinite(v))) return null;
-  const lo = Math.min(...values) - 0.3, hi = Math.max(...values) + 0.3, n = values.length;
-  const X = (i: number) => 4 + (i / Math.max(1, n - 1)) * 112, Yv = (v: number) => 50 - ((v - lo) / (hi - lo || 1)) * 40;
+  const lo = Math.min(...values), hi = Math.max(...values), pad = (hi - lo || 1) * 0.15, n = values.length;
+  const X = (i: number) => 2 + (i / Math.max(1, n - 1)) * 116, Yv = (v: number) => 48 - ((v - (lo - pad)) / (hi - lo + 2 * pad || 1)) * 42;
   const d = monotonePath(values.map((v, i) => [X(i), Yv(v)]));
+  const ns = {vectorEffect: 'non-scaling-stroke' as const};
   return (
-    <svg className="spark" viewBox="0 0 120 56" aria-hidden="true">
-      <path d={`${d} L116,54 L4,54Z`} fill={color} fillOpacity={0.16} /><path d={d} fill="none" stroke={color} strokeWidth={1.6} />
-      <line x1={X(index)} x2={X(index)} y1={4} y2={54} stroke="var(--ch-hover)" /><circle cx={X(index)} cy={Yv(values[index])} r={3.6} fill="var(--ch-ink)" />
+    <svg className="spark" viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true">
+      <line x1={2} x2={118} y1={54} y2={54} stroke="var(--ch-grid)" {...ns} />
+      <path d={`${d} L${X(n - 1)},54 L${X(0)},54Z`} fill={color} fillOpacity={0.14} />
+      <path d={d} fill="none" stroke={color} strokeWidth={1.5} {...ns} />
+      <line x1={X(index)} x2={X(index)} y1={4} y2={54} stroke="var(--ch-hover)" {...ns} />
+      <line x1={X(index)} x2={X(index)} y1={Yv(values[index])} y2={Yv(values[index])} stroke="var(--ch-ink)" strokeWidth={7} strokeLinecap="round" {...ns} />
     </svg>
   );
 }
@@ -221,18 +240,18 @@ export function PolarSwell({hours, selected, facing, onSelect}: {hours: HourSamp
   return (
     <svg viewBox="-130 -130 260 260" style={{width: '100%', height: 240}} role="img" aria-label="Swell direction and period for the selected day">
       {facing !== null && (() => { const [x1, y1] = pos(facing - 55, 22.5), [x2, y2] = pos(facing + 55, 22.5); return <path d={`M0,0 L${x1},${y1} A112,112 0 0 1 ${x2},${y2}Z`} fill="var(--ch-wedge)" />; })()}
-      {[5, 10, 15, 20].map((p) => <g key={p}><circle r={R(p)} fill="none" stroke={p === 20 ? 'var(--ch-ring)' : 'var(--ch-grid)'} /><text x={3} y={-R(p) + 10} fontSize={8.5} fill="var(--dim)">{p}s</text></g>)}
-      {['N', 'E', 'S', 'W'].map((l, k) => { const [x, y] = pos(k * 90, 23.5); return <text key={l} x={x} y={y + 3} fontSize={10} fill="var(--muted)" textAnchor="middle">{l}</text>; })}
+      {[5, 10, 15, 20].map((p) => <g key={p}><circle r={R(p)} fill="none" stroke={p === 20 ? 'var(--ch-ring)' : 'var(--ch-div)'} strokeWidth={0.8} /><text x={4} y={-R(p) + 12} fontSize={11} fill="var(--dim)">{p}s</text></g>)}
+      {['N', 'E', 'S', 'W'].map((l, k) => { const [x, y] = pos(k * 90, 23.5); return <text key={l} x={x} y={y + 4} fontSize={11} fill="var(--muted)" textAnchor="middle">{l}</text>; })}
       {hours.flatMap((h) => {
         const isSel = h.timestamp === selected;
         return ([[h.forecast.secondary, 'var(--sw2)'], [h.forecast.primary, 'var(--sw1)']] as const).map(([s, c], k) => {
           if (!s || !Number.isFinite(s.height)) return null;
           const [x, y] = pos(s.direction, s.period);
-          return <circle key={`${h.timestamp}${k}`} cx={x} cy={y} r={(isSel ? 3 : 1.6) + s.height * (isSel ? 1.1 : 0.7)} fill={c} fillOpacity={isSel ? 1 : 0.35}
+          return <circle key={`${h.timestamp}${k}`} cx={x} cy={y} r={(isSel ? 3 : 1.6) + s.height * (isSel ? 1.1 : 0.7)} fill={c} fillOpacity={isSel ? 1 : 0.3}
             stroke={isSel ? 'var(--bg)' : 'none'} strokeWidth={1.5} style={{cursor: 'pointer'}} onClick={() => onSelect(h.timestamp)} />;
         });
       })}
-      {facing === null && <text y={124} fontSize={9.5} fill="var(--dim)" textAnchor="middle">Beach orientation not documented</text>}
+      {facing === null && <text y={126} fontSize={11} fill="var(--dim)" textAnchor="middle">Beach orientation not documented</text>}
     </svg>
   );
 }
@@ -250,13 +269,13 @@ export function TideDay({hours, selected, extrema, spot, p, onSelect}: {hours: H
     <svg viewBox="0 0 360 172" style={{width: '100%', height: 190, cursor: 'pointer'}} role="img" aria-label="Tide for the selected day"
       onClick={(e) => { const r = (e.currentTarget as SVGElement).getBoundingClientRect(); const ms = t0 + ((((e.clientX - r.left) / r.width) * 360 - 8) / 344) * span; const best = hours.reduce((b, h) => (Math.abs(Date.parse(h.timestamp) - ms) < Math.abs(Date.parse(b.timestamp) - ms) ? h : b)); onSelect(best.timestamp); }}>
       <rect x={8} y={10} width={Math.max(0, X(rise) - 8)} height={146} fill="var(--ch-night)" /><rect x={X(set)} y={10} width={Math.max(0, 352 - X(set))} height={146} fill="var(--ch-night)" />
-      <path d={`${monotonePath(pts)} L352,156 L8,156Z`} fill="var(--tide)" fillOpacity={0.16} /><path d={monotonePath(pts)} fill="none" stroke="var(--tide)" strokeWidth={2} />
+      <path d={`${monotonePath(pts)} L352,156 L8,156Z`} fill="var(--tide)" fillOpacity={0.1} /><path d={monotonePath(pts)} fill="none" stroke="var(--tide)" strokeWidth={1.75} strokeLinejoin="round" />
       {extrema.filter((e) => Date.parse(e.timestamp) >= t0 && Date.parse(e.timestamp) <= t0 + span && e.height.value !== null).map((e) => {
         const x = X(Date.parse(e.timestamp)), y = Yv(e.height.value!);
-        return <g key={e.timestamp}><circle cx={x} cy={y} r={3.5} fill="var(--tide)" /><text x={x} y={e.type === 'High' ? y - 9 : y + 17} fontSize={10} fill="var(--text)" textAnchor="middle">{ht(e.height.value, p)} · {timeLabelPT(e.timestamp)}</text></g>;
+        return <g key={e.timestamp}><circle cx={x} cy={y} r={3} fill="var(--tide)" /><text x={x} y={e.type === 'High' ? y - 9 : y + 17} fontSize={11} fill="var(--text)" textAnchor="middle" style={{fontVariantNumeric: 'tabular-nums'}}>{ht(e.height.value, p)} · {timeLabelPT(e.timestamp)}</text></g>;
       })}
-      {k >= 0 && <g><line x1={pts[k][0]} x2={pts[k][0]} y1={10} y2={156} stroke="var(--ch-ink)" strokeWidth={1.2} /><circle cx={pts[k][0]} cy={pts[k][1]} r={4.5} fill="var(--ch-ink)" /></g>}
-      <text x={X(rise)} y={169} fontSize={9} fill="var(--dim)" textAnchor="middle">↑ {timeLabelPT(rise)}</text><text x={X(set)} y={169} fontSize={9} fill="var(--dim)" textAnchor="middle">↓ {timeLabelPT(set)}</text>
+      {k >= 0 && <g><line x1={pts[k][0]} x2={pts[k][0]} y1={10} y2={156} stroke="var(--ch-ink)" strokeWidth={1} /><circle cx={pts[k][0]} cy={pts[k][1]} r={4} fill="var(--ch-ink)" /></g>}
+      <text x={X(rise)} y={169} fontSize={11} fill="var(--dim)" textAnchor="middle">↑ {timeLabelPT(rise)}</text><text x={X(set)} y={169} fontSize={11} fill="var(--dim)" textAnchor="middle">↓ {timeLabelPT(set)}</text>
     </svg>
   );
 }
