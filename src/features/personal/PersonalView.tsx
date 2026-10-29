@@ -1,53 +1,85 @@
-import {useState, type FormEvent, type KeyboardEvent, type ReactNode} from 'react';
+import {useEffect, useMemo, useRef, useState, type KeyboardEvent} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
 import {evidenceSpots} from '../../ocean/spots';
 import {ZONES} from '../../data/zones';
-import type {Skill, UserProfile} from '../../models/index';
-import {Icon} from '../../ui/Icon';
+import type {Forecast, Skill, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
 import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
-import {timeLabelPT, weekdayPT, dayNumPT} from '../forecast/format';
-import {GENERIC_PHOTOS, PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
+import {timeLabelPT} from '../forecast/format';
+import {heroHeight} from '../forecast/model';
+import {rateForecast} from '../../ratings/adapters';
+import {compass, heightValue, lengthLabel} from '../../utils/units';
+import {BoardOutline} from '../quiver/BoardOutline';
+import {PHOTOS} from '../../ui/photos';
+import {PIcon, type PName} from './icons';
+import {Choice, SpotCover, entryImage, creditText} from './parts';
+import {AlertsCard, AlertsManager} from './AlertsPanels';
+import {JournalColumn, JournalList, LogForm, type LogInput} from './JournalPanels';
+import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
+import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
+import {pickBoard} from './recommend';
 import './personal.css';
 
-function Choice<T extends string>({label, value, options, onChange}: {label: string; value: T; options: readonly T[]; onChange: (v: T) => void}) {
-  return (
-    <div className="field pz-choice"><span>{label}</span>
-      <div className="seg" role="radiogroup" aria-label={label}>
-        {options.map((o) => <button key={o} role="radio" aria-checked={o === value} onClick={() => onChange(o)}>{o}</button>)}
-      </div>
-    </div>
-  );
-}
+const NAV: {id: string; label: string; icon: PName; hash?: string}[] = [
+  {id: '', label: 'Profile', icon: 'user'},
+  {id: 'spots', label: 'Favorite Spots', icon: 'pin'},
+  {id: 'preferences', label: 'Board Preferences', icon: 'board'},
+  {id: 'journal', label: 'Surf Journal', icon: 'journal'},
+  {id: '', label: 'Alerts', icon: 'bell', hash: '#alerts'},
+  {id: 'account', label: 'Account', icon: 'account'},
+];
 
-const NAV = [
-  {id: '', label: 'Profile', icon: 'personal'},
-  {id: 'spots', label: 'Favorite Spots', icon: 'star'},
-  {id: 'preferences', label: 'Preferences', icon: 'layers'},
-  {id: 'journal', label: 'Surf Journal', icon: 'waves'},
-  {id: 'account', label: 'Account', icon: 'locate'},
-] as const;
-
-/** Credited spot photo: spot-specific when one exists, otherwise a generic image labelled as such. */
-function SpotCover({spotId, index = 0, className = '', children}: {spotId: string; index?: number; className?: string; children?: ReactNode}) {
-  const list = SPOT_PHOTOS[spotId];
-  const id = list ? list[0] : GENERIC_PHOTOS[index % GENERIC_PHOTOS.length];
-  const ph = PHOTOS[id];
-  return (
-    <div className={`pz-cover ${className}`} style={{backgroundImage: `url(/photos/${id}-800.jpg)`}}>
-      <div className="pz-cover-body">{children}</div>
-      <small className="pz-credit">{ph?.generic ? 'Generic photo, not this spot · ' : ''}{ph?.photographer ?? 'Wikimedia Commons'} · {ph?.license}</small>
-    </div>
-  );
-}
+function loadAvatar() { try { return localStorage.getItem(AVATAR_KEY) ?? ''; } catch { return ''; } }
+const rangeText = (a: number, b: number, p: UserProfile) => `${Math.round(heightValue(a, p))}–${Math.round(heightValue(b, p))} ${p.heightUnit}`;
 
 export function PersonalView({section, go}: ViewProps) {
-  const {data, view, setSpot} = useSwello();
+  const {data, view, setSpot, now, spotOptions} = useSwello();
   const [themePref, setThemePref] = useThemePref();
   const [editingProfile, setEditingProfile] = useState(false);
-  /** Radiogroup keys: arrows move and select (wrapping), Home/End jump; focus follows the selection. */
+  const [hash, setHash] = useState(() => location.hash);
+  const [rules, setRulesState] = useState<AlertRule[]>(loadRules);
+  const [extras, setExtras] = useState<JournalExtras>(loadExtras);
+  const [prefs, setPrefsState] = useState<BoardPrefs>(loadBoardPrefs);
+  const [avatar, setAvatar] = useState(loadAvatar);
+  const [note, setNote] = useState('');
+  const avatarRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const on = () => setHash(location.hash);
+    addEventListener('hashchange', on); addEventListener('popstate', on);
+    return () => { removeEventListener('hashchange', on); removeEventListener('popstate', on); };
+  }, []);
+
+  const p = data.state.profile;
+  const set = (patch: Partial<UserProfile>) => data.profile(patch);
+  const boards = data.state.boards;
+  const alertsPage = section === '' && hash === '#alerts';
+  const active = alertsPage ? 'alerts' : section;
+
+  const setRules = (next: AlertRule[]) => { setRulesState(next); if (!saveRules(next)) setNote('Alerts could not be saved in this browser.'); };
+  const setBoardPrefs = (next: BoardPrefs) => { setPrefsState(next); saveBoardPrefs(next); };
+  const spotName = (id: string) => spots.find((s) => s.id === id)?.name ?? id;
+  const sessions = useMemo(() => [...data.state.sessions].sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp)), [data.state.sessions]);
+  const results = useMemo(() => rules.map((r) => evaluateRule(r, spots.find((s) => s.id === r.spotId), view.mapRecords, now)), [rules, view.mapRecords, now]);
+
+  /** Nearest forecast hour at or after now for one spot, from the forecast already loaded. */
+  const hourFor = (spotId: string): Forecast | undefined => {
+    let best: Forecast | undefined;
+    for (const f of view.mapRecords) {
+      if (f.spotId !== spotId) continue;
+      const t = Date.parse(f.timestamp);
+      if (t < now - 1800000) continue;
+      if (!best || t < Date.parse(best.timestamp)) best = f;
+    }
+    return best;
+  };
+
+  const favSpots = data.state.favorites.map((id) => spots.find((s) => s.id === id)).filter((s): s is NonNullable<typeof s> => !!s);
+  const name = p.displayName?.trim() || 'Your profile';
+  const initials = p.displayName?.trim() ? p.displayName.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase() : '';
+  const boardTypes = p.preferredBoards.slice(0, 3).map((t) => t.replace(/ shortboard/, '').replace(/^Performance$/, 'Shortboard')).join(', ');
   const onThemeKey = (e: KeyboardEvent<HTMLDivElement>) => {
     const i = THEME_PREFS.indexOf(themePref), n = THEME_PREFS.length;
     const next = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? (i + 1) % n : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? (i + n - 1) % n : e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : -1;
@@ -56,40 +88,65 @@ export function PersonalView({section, go}: ViewProps) {
     setThemePref(THEME_PREFS[next]);
     (e.currentTarget.children[next] as HTMLElement | undefined)?.focus();
   };
-  const p = data.state.profile;
-  const set = (patch: Partial<UserProfile>) => data.profile(patch);
-  const boards = data.state.boards;
-  const [entry, setEntry] = useState({spotId: view.selected, boardId: boards[0]?.id ?? '', notes: '', satisfaction: 3});
-  const addSession = (e: FormEvent) => {
-    e.preventDefault();
-    const session = {id: crypto.randomUUID(), spotId: entry.spotId, timestamp: new Date().toISOString(), boardId: entry.boardId || 'none',
-      actualConditions: 'Logged in SWELLO', accuracy: 3, performance: 3, satisfaction: entry.satisfaction, notes: entry.notes.trim() || 'No notes'};
-    data.replace({...data.state, sessions: [session, ...data.state.sessions]});
-    setEntry({...entry, notes: ''});
+
+  const navTo = (n: (typeof NAV)[number]) => {
+    const base = location.pathname + location.search;
+    if (n.hash) { history.pushState(null, '', base + n.hash); setHash(n.hash); if (section !== '') go('personal', ''); return; }
+    if (location.hash) { history.pushState(null, '', base); setHash(''); }
+    go('personal', n.id);
   };
-  const spotName = (id: string) => spots.find((s) => s.id === id)?.name ?? id;
-  const favSpots = data.state.favorites.map((id) => spots.find((s) => s.id === id)).filter((s): s is NonNullable<typeof s> => !!s);
-  const name = p.displayName?.trim() || 'Your profile';
-  const initials = p.displayName?.trim() ? p.displayName.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase() : '';
-  const boardLine = (b: (typeof boards)[number]) => `${b.type} · ${Math.floor(b.length / 12)}′${Math.round(b.length % 12)}″ · ${b.volume} L${b.demo ? ' · example board' : ''}`;
-  const sessionRow = (s: (typeof data.state.sessions)[number]) => (
-    <li key={s.id} className="pz-entry">
-      <div className="pz-entry-h"><span className="pz-date">{weekdayPT(s.timestamp)} {dayNumPT(s.timestamp)} · {timeLabelPT(s.timestamp)}</span>
-        <span className="pz-dots" role="img" aria-label={`${s.satisfaction} out of 5`}>{[1, 2, 3, 4, 5].map((n) => <i key={n} className={n <= s.satisfaction ? 'on' : ''} />)}</span></div>
-      <h3>{spotName(s.spotId)}</h3>
-      <p>{s.notes}</p>
-      <span className="fine">{boards.find((b) => b.id === s.boardId)?.name ?? 'No board'}</span>
-    </li>
-  );
+
+  const toggleRule = (id: string, enabled: boolean) => setRules(rules.map((r) => (r.id === id ? {...r, enabled} : r)));
+  const openAlerts = () => navTo(NAV[4]);
+
+  const logSession = (v: LogInput) => {
+    const f = hourFor(v.spotId), spot = spots.find((s) => s.id === v.spotId);
+    const id = crypto.randomUUID();
+    const session = {id, spotId: v.spotId, timestamp: new Date().toISOString(), boardId: v.boardId || 'none', actualConditions: 'Logged in SWELLO', accuracy: 3, performance: 3, satisfaction: v.satisfaction, notes: v.notes.trim() || 'No notes'};
+    const x: JournalExtras[string] = {};
+    if (v.title.trim()) x.title = v.title.trim();
+    if (v.tags.length) x.tags = v.tags;
+    if (v.photo) x.photo = v.photo;
+    if (f && spot) {
+      const h = heroHeight(f, p, view.dataMode);
+      if (h.number !== '—') x.height = `${h.approx ? '≈ ' : ''}${h.number} ${h.unit}`.trim();
+      const cat = rateForecast(spot, f, now).category;
+      if (cat && cat !== 'UNRATED') x.cond = cat;
+      if (f.availability.swell && Number.isFinite(f.primary.period)) x.swell = `${compass(f.primary.direction)} ${Math.round(f.primary.period)}s`;
+    }
+    data.replace({...data.state, sessions: [session, ...data.state.sessions]});
+    if (Object.keys(x).length) {
+      const next = {...extras, [id]: x};
+      setExtras(next);
+      setNote(saveExtras(next) ? '' : 'The photo and tags could not be saved: browser storage is full.');
+    }
+  };
+  const removeSession = (id: string) => {
+    data.replace({...data.state, sessions: data.state.sessions.filter((s) => s.id !== id)});
+    const {[id]: _gone, ...rest} = extras;
+    setExtras(rest); saveExtras(rest);
+  };
+
+  const pickAvatar = async (file: File | undefined) => {
+    if (!file) return;
+    const out = await downscale(file, 256, 60 * 1024);
+    if (!out) { setNote('That photo could not be read.'); return; }
+    setAvatar(out); setNote('');
+    try { localStorage.setItem(AVATAR_KEY, out); } catch { setNote('The photo could not be saved in this browser.'); }
+  };
+  const clearAvatar = () => { setAvatar(''); try { localStorage.removeItem(AVATAR_KEY); } catch { /* ignore */ } if (avatarRef.current) avatarRef.current.value = ''; };
+
   const spotCard = (s: (typeof spots)[number], i: number, actions: boolean) => {
     const live = evidenceSpots.some((e) => e.id === s.id), fav = data.state.favorites.includes(s.id);
     const canForecast = live || view.dataMode === 'Demonstration';
+    const f = live ? hourFor(s.id) : undefined;
+    const h = f ? heroHeight(f, p, view.dataMode) : null;
     return (
       <li key={s.id} className="pz-spot">
         <SpotCover spotId={s.id} index={i}>
-          <button className="star pz-star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name}`} onClick={() => data.favorite(s.id)}><Icon name="star" size={20} /></button>
+          <button className="star pz-star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name}`} onClick={() => data.favorite(s.id)}><PIcon name="star" size={20} /></button>
           <h3>{s.name}</h3>
-          <span>{s.region}</span>
+          <span>{h && h.number !== '—' ? `${h.approx ? '≈ ' : ''}${h.number} ${h.unit} ${h.note ? 'offshore' : 'face'}` : s.region}</span>
         </SpotCover>
         {actions && (
           <div className="pz-spot-f">
@@ -101,83 +158,144 @@ export function PersonalView({section, go}: ViewProps) {
     );
   };
 
+  // Recommended board: existing board scoring when a breaking-wave estimate exists, otherwise a labelled heuristic.
+  const refSpot = favSpots[0]?.id ?? view.selected;
+  const refHour = hourFor(refSpot);
+  const pick = pickBoard(boards, refHour, p);
+  const boardCard = (
+    <section className="pz-panel pz-board" aria-labelledby="pz-bd-h">
+      <div className="pz-ph"><h2 id="pz-bd-h">Recommended Board</h2></div>
+      {pick.kind === 'empty' && <div className="pz-empty-box"><p className="pz-empty">No boards in your quiver yet.</p><button className="btn" onClick={() => go('quiver')}>Open Quiver</button></div>}
+      {pick.kind === 'none' && <div className="pz-empty-box"><p className="pz-empty">Needs a breaking-wave estimate. None of your boards fit your {rangeText(p.minWave, p.maxWave, p)} range either.</p><button className="btn" onClick={() => go('quiver')}>View in Quiver</button></div>}
+      {(pick.kind === 'match' || pick.kind === 'heuristic') && (
+        <div className="pz-bd">
+          <div className="pz-bd-img">{pick.board.photoDataURL ? <img src={pick.board.photoDataURL} alt={`${pick.board.name}`} /> : <BoardOutline b={pick.board} scale={3.2} />}</div>
+          <div className="pz-bd-t">
+            <b>{pick.board.name}</b>
+            <span>{lengthLabel(pick.board.length)} · {pick.board.volume} L</span>
+            <p>{pick.kind === 'match'
+              ? `${pick.score}/100 match for ${spotName(refSpot)} at ${timeLabelPT(refHour!.timestamp)}.`
+              : `Heuristic: this ${pick.board.type.toLowerCase()} suits your ${rangeText(p.minWave, p.maxWave, p)} range. Needs a breaking-wave estimate for a forecast match.`}</p>
+          </div>
+          <button className="btn pz-bd-btn" onClick={() => go('quiver')}>View in Quiver <PIcon name="arrow" size={14} /></button>
+        </div>
+      )}
+    </section>
+  );
+
+  const creditIds = [...new Set([...favSpots.slice(0, 3).map((s, i) => entryImage(undefined, s.id, i).id), ...sessions.slice(0, 4).map((s, i) => entryImage(extras[s.id], s.spotId, i).id)].filter((x): x is string => !!x))];
+
   return (
     <div className="pz">
       <nav className="pz-side" aria-label="Personal sections">
-        {NAV.map((n) => (
-          <button key={n.id} aria-current={section === n.id ? 'page' : undefined} onClick={() => go('personal', n.id)}>
-            <Icon name={n.icon} size={18} /><span>{n.label}</span>
-          </button>
-        ))}
-        <p className="fine pz-side-note">Everything here is stored on this device only.</p>
+        {NAV.map((n) => {
+          const isActive = n.hash ? active === 'alerts' : active === n.id && !(n.id === '' && alertsPage);
+          return <button key={n.label} aria-current={isActive ? 'page' : undefined} onClick={() => navTo(n)}><PIcon name={n.icon} size={18} /><span>{n.label}</span></button>;
+        })}
       </nav>
 
-      <div className="pz-main">
-        {section === '' && (
-          <>
-            <header className="pz-head">
-              <div className="pz-avatar" aria-hidden="true">{initials || <Icon name="personal" size={34} />}</div>
-              <div className="pz-id">
-                <h1>{name}</h1>
-                <p>{p.region}</p>
-                <p className="fine">{p.skill} · {p.minWave}–{p.maxWave} ft preferred · {p.heightUnit}, {p.windUnit}</p>
-              </div>
-              <button className="btn" aria-expanded={editingProfile} onClick={() => setEditingProfile((v) => !v)}><Icon name="edit" size={16} />{editingProfile ? 'Done' : 'Edit profile'}</button>
-            </header>
-            {editingProfile && (
-              <section className="pz-card" aria-labelledby="pf">
-                <h2 id="pf">Edit profile</h2>
-                <div className="form-grid">
-                  <label className="field"><span>Display name</span>
-                    <input value={p.displayName ?? ''} maxLength={40} onChange={(e) => set({displayName: e.target.value})} placeholder="Optional" />
-                  </label>
-                  <label className="field"><span>Home region</span>
-                    <select value={p.region} onChange={(e) => set({region: e.target.value})}>
-                      <option value="All regions">Not set (use my location)</option>
-                      {ZONES.map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => spots.some((x) => x.region === c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
-                    </select>
-                  </label>
+      <div className="pz-body">
+        {note && <p className="pz-err" role="alert">{note}</p>}
+
+        {section === '' && !alertsPage && (
+          <div className="pz-dash">
+            <div className="pz-panel pz-mainp">
+              <header className="pz-head">
+                <div className="pz-avatar" style={avatar ? {backgroundImage: `url(${avatar})`} : undefined} role={avatar ? 'img' : undefined} aria-label={avatar ? 'Profile photo' : undefined}>{!avatar && (initials || <PIcon name="user" size={36} />)}</div>
+                <div className="pz-id">
+                  <h1>{name}</h1>
+                  {p.region !== 'All regions' && <p>{p.region}, CA</p>}
+                  <p className="pz-sub">{[p.skill, `${rangeText(p.minWave, p.maxWave, p)} preferred`, boardTypes].filter(Boolean).join(' · ')}</p>
                 </div>
-                <div style={{marginTop: 14, display: 'grid', gap: 14}}>
+                <button className="btn pz-edit" aria-expanded={editingProfile} onClick={() => setEditingProfile((v) => !v)}>{editingProfile ? 'Done' : 'Edit Profile'}</button>
+              </header>
+              {editingProfile && (
+                <section className="pz-edit-box" aria-labelledby="pf">
+                  <h2 id="pf">Edit profile</h2>
+                  <div className="form-grid">
+                    <label className="field"><span>Display name</span>
+                      <input value={p.displayName ?? ''} maxLength={40} onChange={(e) => set({displayName: e.target.value})} placeholder="Optional" />
+                    </label>
+                    <label className="field"><span>Home region</span>
+                      <select value={p.region} onChange={(e) => set({region: e.target.value})}>
+                        <option value="All regions">Not set (use my location)</option>
+                        {ZONES.map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => spots.some((x) => x.region === c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
+                      </select>
+                    </label>
+                    <div className="field"><span>Profile photo (stays on this device)</span>
+                      <input ref={avatarRef} type="file" accept="image/*" aria-label="Profile photo" onChange={(e) => void pickAvatar(e.target.files?.[0])} />
+                      {avatar && <button type="button" className="btn" onClick={clearAvatar}>Remove photo</button>}
+                    </div>
+                  </div>
                   <Choice<Skill> label="Surfing ability" value={p.skill} options={['Beginner', 'Intermediate', 'Expert']} onChange={(skill) => set({skill})} />
                   <p className="fine">Ability shapes Board Match and spot suitability. It is never a safety rating.</p>
-                </div>
+                </section>
+              )}
+
+              <section aria-labelledby="pfs">
+                <div className="pz-ph"><h2 id="pfs">Favorite Spots</h2><button className="btn" onClick={() => go('personal', 'spots')}>Manage Spots</button></div>
+                {favSpots.length ? <ul className="pz-spots">{favSpots.slice(0, 3).map((s, i) => spotCard(s, i, false))}</ul>
+                  : <StateMessage title="No favorite spots yet">Star a spot to keep it on Home.</StateMessage>}
               </section>
-            )}
-            <section aria-labelledby="pfs">
-              <div className="pz-sh"><h2 id="pfs">Favorite spots</h2><button className="btn" onClick={() => go('personal', 'spots')}>Manage spots</button></div>
-              {favSpots.length ? <ul className="pz-spots">{favSpots.slice(0, 3).map((s, i) => spotCard(s, i, false))}</ul>
-                : <StateMessage title="No favorite spots yet">Star a spot to keep it on Home.</StateMessage>}
-            </section>
-            <section aria-labelledby="pbs">
-              <div className="pz-sh"><h2 id="pbs">Saved boards</h2><button className="btn" onClick={() => go('quiver')}>Open Quiver</button></div>
-              {boards.length ? <ul className="pz-boards">{boards.slice(0, 6).map((b) => <li key={b.id}><b>{b.name}</b><span className="fine">{boardLine(b)}</span></li>)}</ul>
-                : <StateMessage title="No boards yet">Add boards in Quiver to get Board Match.</StateMessage>}
-            </section>
-            <section aria-labelledby="prs">
-              <div className="pz-sh"><h2 id="prs">Recent sessions</h2><button className="btn" onClick={() => go('personal', 'journal')}>View journal</button></div>
-              {data.state.sessions.length ? <ul className="pz-entries">{data.state.sessions.slice(0, 3).map(sessionRow)}</ul> : <StateMessage title="No sessions logged yet" />}
-            </section>
-          </>
+
+              <section aria-labelledby="pbp">
+                <div className="pz-ph"><h2 id="pbp">Board Preferences</h2></div>
+                <ul className="pz-tiles">
+                  <li><button onClick={() => go('personal', 'preferences')}><PIcon name="clock" size={22} /><span><small>Preferred conditions</small><b>{rangeText(p.minWave, p.maxWave, p)}</b><i>{p.skill}{p.style !== 'All-around' ? ` · ${p.style}` : ''}</i></span></button></li>
+                  <li><button onClick={() => go('personal', 'preferences')}><PIcon name="swell" size={22} /><span><small>Preferred swell</small><b>{prefs.swellDirs.length ? prefs.swellDirs.join(', ') : 'Not set'}</b><i>{prefs.swellDirs.length ? `${prefs.periodMin}–${prefs.periodMax} seconds` : 'Set on Preferences'}</i></span></button></li>
+                  <li><button onClick={() => go('personal', 'preferences')}><PIcon name="tide" size={22} /><span><small>Preferred tide</small><b>{tideSummary(prefs.tides)}</b><i>{prefs.tides.length ? 'All spots' : 'Set on Preferences'}</i></span></button></li>
+                </ul>
+              </section>
+
+              <section aria-labelledby="prs">
+                <div className="pz-ph"><h2 id="prs">Recent Sessions</h2><button className="pz-link" onClick={() => go('personal', 'journal')}>View All <PIcon name="arrow" size={14} /></button></div>
+                {sessions.length ? (
+                  <ul className="pz-strip">{sessions.slice(0, 4).map((s, i) => {
+                    const img = entryImage(extras[s.id], s.spotId, i);
+                    return <li key={s.id}><button onClick={() => go('personal', 'journal')} aria-label={`${spotName(s.spotId)}, open journal`} style={{backgroundImage: `url(${img.src})`}} title={img.id ? creditText(img.id) : undefined} /></li>;
+                  })}</ul>
+                ) : <p className="pz-empty">No sessions yet. Log one in your journal and it appears here.</p>}
+              </section>
+              {creditIds.length > 0 && (
+                <details className="pz-credits"><summary>Photo credits</summary>
+                  <ul>{creditIds.map((id) => <li key={id}>{PHOTOS[id]?.location ?? id}: {creditText(id)}</li>)}</ul>
+                </details>
+              )}
+            </div>
+
+            <JournalColumn sessions={sessions} extras={extras} spotName={spotName} onAll={() => go('personal', 'journal')} onLog={() => go('personal', 'journal')} />
+            <div className="pz-right">
+              <AlertsCard rules={rules} results={results} spotName={spotName} p={p} toggle={toggleRule} onEdit={openAlerts} />
+              {boardCard}
+            </div>
+          </div>
+        )}
+
+        {alertsPage && (
+          <section aria-labelledby="al">
+            <div className="pz-ph"><h1 id="al">Alerts</h1></div>
+            <AlertsManager rules={rules} results={results} spotName={spotName} p={p} toggle={toggleRule} spots={spotOptions}
+              add={(r) => setRules([...rules, {...r, id: crypto.randomUUID()}])} remove={(id) => setRules(rules.filter((r) => r.id !== id))} />
+          </section>
         )}
 
         {section === 'spots' && (
           <section aria-labelledby="ss">
-            <div className="pz-sh"><div><h1 id="ss">Favorite spots</h1><p className="fine">Star a spot to keep it on Home. {data.state.favorites.length} saved.</p></div></div>
+            <div className="pz-ph"><div><h1 id="ss">Favorite Spots</h1><p className="fine">Star a spot to keep it on Home. {data.state.favorites.length} saved.</p></div></div>
             <ul className="pz-spots pz-spots-all">{spots.map((s, i) => spotCard(s, i, true))}</ul>
           </section>
         )}
 
         {section === 'preferences' && (
           <section aria-labelledby="pr">
-            <div className="pz-sh"><div><h1 id="pr">Preferences</h1><p className="fine">Applied everywhere immediately.</p></div></div>
+            <div className="pz-ph"><div><h1 id="pr">Board Preferences</h1><p className="fine">Applied everywhere immediately.</p></div></div>
             <div className="pz-cards">
-              <div className="pz-card"><h2>Units</h2>
+              <div className="pz-panel"><h2>Units</h2>
                 <Choice label="Heights" value={p.heightUnit} options={['ft', 'm'] as const} onChange={(heightUnit) => set({heightUnit})} />
                 <Choice label="Wind" value={p.windUnit} options={['mph', 'kn', 'km/h'] as const} onChange={(windUnit) => set({windUnit})} />
                 <Choice label="Breaking-wave scale" value={p.scale} options={['Face height', 'Hawaiian'] as const} onChange={(scale) => set({scale})} />
               </div>
-              <div className="pz-card"><h2>Preferred conditions</h2>
+              <div className="pz-panel"><h2>Preferred conditions</h2>
                 <label className="field"><span>Wave range (face, ft)</span>
                   <span style={{display: 'flex', gap: 8}}>
                     <input type="number" min={1} max={30} value={p.minWave} onChange={(e) => set({minWave: Number(e.target.value)})} aria-label="Minimum" />
@@ -186,7 +304,26 @@ export function PersonalView({section, go}: ViewProps) {
                 </label>
                 <Choice<Skill> label="Surfing ability" value={p.skill} options={['Beginner', 'Intermediate', 'Expert']} onChange={(skill) => set({skill})} />
               </div>
-              <div className="pz-card"><h2>Display and data</h2>
+              <div className="pz-panel"><h2>Preferred swell and tide</h2>
+                <fieldset className="pz-fs"><legend>Swell direction</legend>
+                  <div className="pz-chips">{COMPASS8.map((d) => (
+                    <label key={d} className="pz-pick"><input type="checkbox" checked={prefs.swellDirs.includes(d)} onChange={(e) => setBoardPrefs({...prefs, swellDirs: e.target.checked ? [...prefs.swellDirs, d] : prefs.swellDirs.filter((x) => x !== d)})} /><span>{d}</span></label>
+                  ))}</div>
+                </fieldset>
+                <label className="field"><span>Period (seconds)</span>
+                  <span style={{display: 'flex', gap: 8}}>
+                    <input type="number" min={4} max={25} value={prefs.periodMin} onChange={(e) => setBoardPrefs({...prefs, periodMin: Number(e.target.value)})} aria-label="Minimum period" />
+                    <input type="number" min={4} max={25} value={prefs.periodMax} onChange={(e) => setBoardPrefs({...prefs, periodMax: Number(e.target.value)})} aria-label="Maximum period" />
+                  </span>
+                </label>
+                <fieldset className="pz-fs"><legend>Tide</legend>
+                  <div className="pz-chips">{(['Low', 'Mid', 'High'] as const).map((t) => (
+                    <label key={t} className="pz-pick"><input type="checkbox" checked={prefs.tides.includes(t)} onChange={(e) => setBoardPrefs({...prefs, tides: e.target.checked ? [...prefs.tides, t] : prefs.tides.filter((x) => x !== t)})} /><span>{t}</span></label>
+                  ))}</div>
+                </fieldset>
+                <p className="fine">Saved on this device. Shown on your profile; forecasts are not filtered by them.</p>
+              </div>
+              <div className="pz-panel"><h2>Display and data</h2>
                 <div className="field pz-choice"><span aria-hidden="true">Appearance</span>
                   <div className="seg" role="radiogroup" aria-label="Appearance" onKeyDown={onThemeKey}>
                     {THEME_PREFS.map((t: ThemePref) => <button key={t} role="radio" aria-checked={t === themePref} tabIndex={t === themePref ? 0 : -1} onClick={() => setThemePref(t)}>{t[0].toUpperCase() + t.slice(1)}</button>)}
@@ -201,25 +338,18 @@ export function PersonalView({section, go}: ViewProps) {
 
         {section === 'journal' && (
           <section aria-labelledby="jr">
-            <div className="pz-sh"><div><h1 id="jr">Surf journal</h1><p className="fine">{data.state.sessions.length} sessions · on this device</p></div></div>
+            <div className="pz-ph"><div><h1 id="jr">Surf Journal</h1><p className="fine">{sessions.length} sessions · on this device</p></div></div>
             <div className="pz-journal">
-              <form onSubmit={addSession} className="pz-card pz-form" aria-label="Log a session">
-                <h2>Log a session</h2>
-                <label className="field"><span>Spot</span><select value={entry.spotId} onChange={(e) => setEntry({...entry, spotId: e.target.value})}>{spots.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
-                <label className="field"><span>Board</span><select value={entry.boardId} onChange={(e) => setEntry({...entry, boardId: e.target.value})}><option value="">No board</option>{boards.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}</select></label>
-                <label className="field"><span>How was it? {entry.satisfaction}/5</span><input type="range" min={1} max={5} value={entry.satisfaction} onChange={(e) => setEntry({...entry, satisfaction: Number(e.target.value)})} /></label>
-                <label className="field"><span>Notes</span><textarea value={entry.notes} maxLength={500} onChange={(e) => setEntry({...entry, notes: e.target.value})} placeholder="Crowd, banks, what worked…" /></label>
-                <button className="btn primary" type="submit"><Icon name="plus" size={16} />Log session</button>
-              </form>
-              {data.state.sessions.length ? <ul className="pz-entries">{data.state.sessions.slice(0, 20).map(sessionRow)}</ul> : <StateMessage title="No sessions logged yet" />}
+              <LogForm spots={spots} boards={boards} defaultSpot={view.selected} onSubmit={logSession} error="" />
+              <JournalList sessions={sessions} extras={extras} spotName={spotName} onRemove={removeSession} />
             </div>
           </section>
         )}
 
         {section === 'account' && (
           <section aria-labelledby="ac">
-            <div className="pz-sh"><div><h1 id="ac">Account</h1></div><span className="chip">Local only</span></div>
-            <div className="pz-card">
+            <div className="pz-ph"><h1 id="ac">Account</h1><span className="chip">Local only</span></div>
+            <div className="pz-panel">
               <h2>Storage and backup</h2>
               <p>There is no SWELLO account yet. Your profile, boards, favourites and journal live in this browser's storage and are not synced to other devices.</p>
               {data.error && <p className="fine" style={{color: 'var(--warn)'}}>{data.error}</p>}
@@ -228,8 +358,9 @@ export function PersonalView({section, go}: ViewProps) {
                 {data.lastSaved && <span className="fine">Last saved {timeLabelPT(data.lastSaved)}</span>}
               </div>
               <dl className="kv" style={{marginTop: 16}}>
-                <dt>Boards</dt><dd>{boards.length}</dd><dt>Favorite spots</dt><dd>{data.state.favorites.length}</dd><dt>Journal sessions</dt><dd>{data.state.sessions.length}</dd>
+                <dt>Boards</dt><dd>{boards.length}</dd><dt>Favorite spots</dt><dd>{data.state.favorites.length}</dd><dt>Journal sessions</dt><dd>{data.state.sessions.length}</dd><dt>Alerts</dt><dd>{rules.length}</dd>
               </dl>
+              <p className="fine">The backup covers profile, boards, favourites and session text. Journal photos, tags, alerts and the profile photo stay in this browser only.</p>
             </div>
           </section>
         )}
