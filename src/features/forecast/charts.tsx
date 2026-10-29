@@ -33,10 +33,10 @@ function useAnimatedRange(target: [number, number]) {
 
 export interface TimelineProps {
   series: HourSample[]; spot: SurfSpot; p: UserProfile; selectedTime: string | null; onSelect: (t: string) => void;
-  now: number; dayIndex: number | null; extrema: TidePrediction[]; height?: number;
+  onHover?: (t: string | null) => void; now: number; dayIndex: number | null; extrema: TidePrediction[]; height?: number;
 }
 /** The forecast spine: wave height, swells, rating ribbon, wind, tide and night on one axis. */
-export function Timeline({series, spot, p, selectedTime, onSelect, now, dayIndex, extrema, height = 300}: TimelineProps) {
+export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300}: TimelineProps) {
   const body = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(900);
   const [hover, setHover] = useState<{i: number; x: number} | null>(null);
@@ -68,6 +68,9 @@ export function Timeline({series, spot, p, selectedTime, onSelect, now, dayIndex
     const r = body.current!.getBoundingClientRect();
     return Math.max(0, Math.min(n - 1, Math.round(a + (clientX - r.left - G) / pxh)));
   };
+  const hoverI = hover?.i ?? null;
+  useEffect(() => { onHover?.(hoverI === null ? null : series[hoverI]?.timestamp ?? null); }, [hoverI]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => onHover?.(null), []); // eslint-disable-line react-hooks/exhaustive-deps
   const drag = useRef(false);
   const onDown = (e: PointerEvent) => { drag.current = true; (e.currentTarget as Element).setPointerCapture(e.pointerId); const i = idxAt(e.clientX); onSelect(series[i].timestamp); setHover({i, x: e.clientX}); };
   const onMove = (e: PointerEvent) => { const i = idxAt(e.clientX); if (drag.current) onSelect(series[i].timestamp); if (drag.current || e.pointerType === 'mouse') setHover({i, x: e.clientX}); };
@@ -77,6 +80,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, now, dayIndex
     let i = sel;
     if (e.key in step) i = sel + step[e.key]; else if (e.key === 'Home') i = 0; else if (e.key === 'End') i = n - 1; else return;
     e.preventDefault();
+    setHover(null);
     onSelect(series[Math.max(0, Math.min(n - 1, i))].timestamp);
   };
   if (!n) return null;

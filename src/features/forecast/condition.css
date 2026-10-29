@@ -1,0 +1,9 @@
+.cond { display: inline-flex; align-items: center; gap: 0.45em; font-weight: 600; white-space: nowrap; }
+.cond i { flex: none; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--none); }
+.cond.good i { background: var(--good); }
+.cond.fair i { background: var(--fair); }
+.cond.poor i { background: var(--poor); }
+@media (prefers-reduced-motion: no-preference) {
+  .tick { animation: tick-in 180ms var(--ease, ease-out); }
+  @keyframes tick-in { from { opacity: 0.35; transform: translateY(4px); } }
+}
