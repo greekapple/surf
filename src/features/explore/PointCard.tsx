@@ -29,17 +29,13 @@ export function usePointForecast(pt: Pt | null) {
 }
 
 function Spark({values, at}: {values: (number | null)[]; at: number}) {
-  const W = 224, H = 36, nums = values.filter((v): v is number => v !== null);
+  const W = 248, H = 44, nums = values.filter((v): v is number => v !== null);
   if (nums.length < 2) return null;
-  const lo = Math.min(...nums), hi = Math.max(...nums), span = hi - lo || 1;
-  const x = (i: number) => (i / (values.length - 1)) * W, y = (v: number) => H - 3 - ((v - lo) / span) * (H - 6);
-  let d = '';
-  values.forEach((v, i) => { if (v !== null) d += `${d && values[i - 1] !== null ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`; });
-  const cur = values[at];
+  const hi = Math.max(...nums, 0.1), pts = values.map((v, i) => ({v, i})).filter(({i}) => i % 3 === 0 || i === at);
+  const bw = W / pts.length;
   return (
-    <svg className="xpt-spark" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Wave height, next 7 days">
-      <path d={d} fill="none" stroke="#5cb3ff" strokeWidth="1.5" strokeLinejoin="round" />
-      {cur !== null && cur !== undefined && <circle cx={x(at)} cy={y(cur)} r="3.5" fill="#fff" stroke="#2f8ae0" strokeWidth="2" />}
+    <svg className="xpt-spark" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Wave height, next 7 days" preserveAspectRatio="none">
+      {pts.map(({v, i}) => v === null ? null : <rect key={i} x={(pts.findIndex((q) => q.i === i)) * bw + 0.5} width={Math.max(1, bw - 1.5)} y={H - Math.max(2, (v / hi) * (H - 2))} height={Math.max(2, (v / hi) * (H - 2))} rx="1" fill={i === at ? '#fff' : '#3b8ff0'} opacity={i === at ? 1 : 0.7} />)}
     </svg>
   );
 }
@@ -61,20 +57,21 @@ export function PointCard({pt, state, time, p, pinned, onPin, onClose}: {pt: Pt;
   return (
     <div className="xpt" role="dialog" aria-label={`Model point forecast at ${pt.lat}, ${pt.lon}`}>
       <div className="xpt-h">
-        <p>Model point forecast at <span>{pt.lat}, {pt.lon}</span>, not a surf spot</p>
+        <div><h3>Model point</h3><p>{pt.lat}, {pt.lon} · not a surf spot</p></div>
         <button aria-label="Close point forecast" onClick={onClose}><Icon name="close" size={16} /></button>
       </div>
       {loading && <div className="xpt-skel" aria-hidden="true"><i /><i /><i /></div>}
       {state.error && <p className="xpt-err" role="alert">{state.error}</p>}
       {data && <>
-        <p className="xpt-t">{time ? `${weekdayPT(time)} ${hourLabel(time)}` : ''}</p>
-        <dl className="xpt-kv">
-          <dt>Waves</dt><dd className="big">{hs === null ? 'n/a' : <>{ht(hs * FT, p)}<small> {p.heightUnit}</small></>}</dd>
-          <dt>Swell</dt><dd>{sw === null ? 'n/a' : <>{ht(sw * FT, p)} {p.heightUnit}{per !== null && ` · ${Math.round(per)} s`}{dir !== null && <> <DirArrow from={dir} size={12} /> {compass(dir)}</>}</>}</dd>
-          <dt>Wind</dt><dd>{ws === null ? 'n/a' : <>{windVal(ws * MPH, p)} {p.windUnit}{wd !== null && <> <DirArrow from={wd} size={12} /> {compass(wd)}</>}</>}</dd>
+        <p className="xpt-t">{time ? `${weekdayPT(time)} ${hourLabel(time)}` : 'Conditions'}</p>
+        <p className="xpt-big">{hs === null ? 'n/a' : <>{ht(hs * FT, p)}<small>{p.heightUnit} waves</small></>}</p>
+        <dl className="xpt-stats">
+          <div><Icon name="wind" size={18} /><dt>Wind</dt><dd>{ws === null ? 'n/a' : <><b>{windVal(ws * MPH, p)} {p.windUnit}</b><small>{wd !== null ? <><DirArrow from={wd} size={11} /> {compass(wd)}</> : 'Wind'}</small></>}</dd></div>
+          <div><Icon name="waves" size={18} /><dt>Swell</dt><dd>{sw === null ? 'n/a' : <><b>{ht(sw * FT, p)} {p.heightUnit}{per !== null && ` · ${Math.round(per)} s`}</b><small>{dir !== null ? <><DirArrow from={dir} size={11} /> {compass(dir)}</> : 'Swell'}</small></>}</dd></div>
         </dl>
+        <p className="xpt-t">7-day outlook</p>
         <Spark values={data.waveHeight} at={at0} />
-        <p className="xpt-cap">Wave height, next 7 days · Open-Meteo marine model</p>
+        <p className="xpt-cap">Wave height · Open-Meteo marine model</p>
       </>}
       <button className="xpt-pin" aria-pressed={pinned} onClick={onPin}>{pinned ? 'Remove pin' : 'Pin this point'}</button>
     </div>
