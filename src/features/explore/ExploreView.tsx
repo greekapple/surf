@@ -1,4 +1,5 @@
 import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
+import {createPortal} from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type {ViewProps} from '../../app/routes';
@@ -17,6 +18,7 @@ import {weekdayPT, dayNumPT} from '../forecast/format';
 import {attachField, buildField, RAMP, RANGE, RANGE_WIDE} from '../../map/field';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
+import {PointCard, usePointForecast, type Pt} from './PointCard';
 import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
 import './explore.css';
@@ -65,9 +67,11 @@ function OceanMap({section, go}: ViewProps) {
   const p = data.state.profile;
   const [fieldId, setFieldId] = useState<FieldId>(sectionField(section));
   useEffect(() => { setFieldId((f) => (fieldSection[f] === section ? f : sectionField(section))); }, [section]);
-  const [tab, setTab] = useState<'spots' | 'conditions' | 'layers'>(section === '' ? 'spots' : 'layers');
+  const [tab, setTab] = useState<'spots' | 'conditions'>('spots');
   const [opts, setOpts] = useState({heat: true, flow: true, arrows: false, labels: true});
-  const [panel, setPanel] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
+  // Floating search panel: open on desktop, collapsed to just the search box on phones.
+  const [open, setOpen] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
+  const [more, setMore] = useState(false);
   const [query, setQuery] = useState('');
   const [playing, setPlaying] = useState(false);
   const [zoom, setZoom] = useState(7);
@@ -76,6 +80,13 @@ function OceanMap({section, go}: ViewProps) {
   const mapEl = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const pins = useRef<L.LayerGroup | null>(null);
+  // Tap-the-sea point forecast: one popup, one temporary pin.
+  const [pt, setPt] = useState<Pt | null>(null);
+  const [pinned, setPinned] = useState<Pt | null>(null);
+  const popup = useRef<L.Popup | null>(null);
+  const popupEl = useMemo(() => document.createElement('div'), []);
+  const pinLayer = useRef<L.LayerGroup | null>(null);
+  const point = usePointForecast(pt);
   const spatial = useSpatial(def.layer, def.variable, view.selectedTime, false, live && (opts.heat || opts.flow || opts.arrows));
   // Keep the last good frame of this field on screen while the next hour loads, so scrubbing doesn't flash blank.
   const shown = useRef<SpatialFrame | null>(null);
@@ -97,9 +108,10 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     if (!mapEl.current || map.current) return;
     const small = matchMedia('(max-width: 860px)').matches;
-    const m = L.map(mapEl.current, {zoomControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.2, -121.9] : [36.9, -121.0], small ? 6 : 7);
+    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.2, -121.9] : [36.9, -121.0], small ? 6 : 7);
     const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
+    L.control.attribution({position: 'bottomleft', prefix: false}).addTo(m);
     // Esri World Imagery + reference labels (attribution required); VITE_MAP_TILE_URL swaps in a licensed provider.
     L.tileLayer(import.meta.env.VITE_MAP_TILE_URL || 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 16, className: 'xbase', attribution: import.meta.env.VITE_MAP_ATTRIBUTION || 'Imagery &copy; Esri, Maxar, Earthstar Geographics · Coastline: Natural Earth',
@@ -107,6 +119,10 @@ function OceanMap({section, go}: ViewProps) {
     m.createPane('labels'); m.getPane('labels')!.style.zIndex = '450'; m.getPane('labels')!.style.pointerEvents = 'none';
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {pane: 'labels', maxZoom: 16, opacity: 0.7}).addTo(m);
     pins.current = L.layerGroup().addTo(m);
+    pinLayer.current = L.layerGroup().addTo(m);
+    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup', minWidth: 248, maxWidth: 248, autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
+    popup.current.setContent(popupEl);
+    m.on('click', (e: L.LeafletMouseEvent) => setPt({lat: Math.round(e.latlng.lat * 10) / 10, lon: Math.round((((e.latlng.lng + 180) % 360 + 360) % 360 - 180) * 10) / 10}));
     map.current = m;
     return () => { m.remove(); map.current = null; };
   }, []);
@@ -133,6 +149,26 @@ function OceanMap({section, go}: ViewProps) {
   }, [view.mapRecords, view.selectedTime, spot.id, p.heightUnit, opts.labels]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    const m = map.current, pop = popup.current;
+    if (!m || !pop) return;
+    // Keep the card clear of the floating search panel (wide screens) or the search bar and layer column (phones).
+    const phone = matchMedia('(max-width: 860px)').matches;
+    pop.options.autoPanPaddingTopLeft = phone ? L.point(16, 80) : L.point(open ? 348 : 16, 16);
+    pop.options.autoPanPaddingBottomRight = L.point(phone ? 70 : 76, 70);
+    if (pt) pop.setLatLng([pt.lat, pt.lon]).openOn(m); else m.closePopup(pop);
+  }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // The card grows when data arrives; re-measure so the popup pans fully into view.
+  useEffect(() => { if (pt && (point.data || point.error)) popup.current?.update(); }, [point.data, point.error]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const g = pinLayer.current;
+    if (!g) return;
+    g.clearLayers();
+    if (!pinned) return;
+    const icon = L.divIcon({className: 'xpinned', html: '<i></i>', iconSize: [18, 18], iconAnchor: [9, 9]});
+    L.marker([pinned.lat, pinned.lon], {icon, keyboard: true, title: `Pinned model point ${pinned.lat}, ${pinned.lon}`, alt: `Pinned model point ${pinned.lat}, ${pinned.lon}`}).on('click', () => setPt(pinned)).addTo(g);
+  }, [pinned]);
+
+  useEffect(() => {
     if (!playing || !times.length) return;
     const id = setInterval(() => { const i = times.indexOf(view.selectedTime ?? ''); view.selectTime(times[(i + 1) % times.length]); }, 900);
     return () => clearInterval(id);
@@ -149,91 +185,98 @@ function OceanMap({section, go}: ViewProps) {
     : spatial.status;
   const ticks = frame || gframe ? legendTicks((frame ?? gframe)!.unit, p.heightUnit, p.windUnit, wide) : [];
   const unitLabel = def.unit === 'm' ? p.heightUnit : def.unit === 'm/s' ? p.windUnit : 's';
-  const dayStarts = times.map((t, i) => ({t, i})).filter(({t}, k) => k > 0 && weekdayPT(t) !== weekdayPT(times[k - 1]));
+  const allDays = times.map((t, i) => ({t, i})).filter(({t}, k) => k === 0 || weekdayPT(t) !== weekdayPT(times[k - 1]));
+  // A partial first day too short to hold its label is dropped; the readout still names the day.
+  const dayStarts = allDays.filter((d, k) => k > 0 || !allDays[1] || allDays[1].i >= 10);
   const pct = (i: number) => `${times.length > 1 ? (i / (times.length - 1)) * 100 : 0}%`;
 
-  return (
-    <div className="xmap">
-      <aside className="xside" aria-label="Map sidebar">
-        <label className="xsearch"><Icon name="search" size={16} /><input type="search" placeholder="Search spots…" value={query} onChange={(e) => { setQuery(e.target.value); setTab('spots'); }} aria-label="Search spots" /></label>
-        <div className="xtabs" role="tablist" aria-label="Sidebar">
-          {(['spots', 'conditions', 'layers'] as const).map((t) => <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)}>{titleCase(t)}</button>)}
-        </div>
-        {tab === 'spots' && (
-          <div className="xlist" role="tabpanel">
-            {list.length === 0 && <p className="fine">No spot matches “{query}”.</p>}
-            <ul>{list.map((e, i) => {
-              const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
-              const head = i === 0 || list[i - 1].region !== e.region ? <p className="xregion">{e.region}</p> : null;
-              return <li key={e.id}>{head}<button aria-current={e.id === spot.id} onClick={() => { setSpot(e.id); center(e.id); setTab('conditions'); }}>
-                <Thumb id={e.id} name={e.name} region={e.region} />
-                <span className="xl-t"><b>{e.name}</b><small>{r ? `${ht(r.offshore, p)} ${p.heightUnit} offshore` : 'No record this hour'}</small>
-                  {rt && <em style={chip(BAND_COLOR[bandOf(rt.category)])}>{titleCase(rt.category)}</em>}</span>
-              </button></li>;
-            })}</ul>
-            {!live && <p className="fine">The demonstration week has more illustrative spots; only spots with real coordinates are mapped. See <a href="/explore/discover" onClick={(ev) => { ev.preventDefault(); go('explore', 'discover'); }}>Discover Spots</a>.</p>}
-          </div>
-        )}
-        {tab === 'conditions' && (
-          <div className="xcond" role="tabpanel">
-            <div className={`xc-photo${ownPhoto(spot.id) ? '' : ' plain'}`} style={ownPhoto(spot.id) ? {backgroundImage: `url(${ownPhoto(spot.id)})`} : undefined}><h2>{spot.name}</h2><span>{spot.region}{spot.character === 'Generic profile' ? ' · generic spot profile' : ''}</span></div>
-            {!f ? <StateMessage title="No record at this hour" /> : <>
-              <p className="xc-big">{ht(f.offshore, p)}<small>{p.heightUnit} offshore</small></p>
-              {rating && <p className="xc-rate"><i style={{background: BAND_COLOR[bandOf(rating.category)]}} />{titleCase(rating.category)} <span>provisional rating</span></p>}
-              <dl className="xc-kv">
-                <dt>Swell</dt><dd>{f.primary ? <><DirArrow from={f.primary.direction} size={13} /> {ht(f.primary.height, p)} {p.heightUnit} · {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</dd>
-                <dt>Wind</dt><dd>{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit} {compass(f.wind.direction)}</> : '—'}</dd>
-                <dt>Tide</dt><dd>{Number.isFinite(f.tide.height) ? <>{ht(f.tide.height, p)} {p.heightUnit} {f.tide.trend?.toLowerCase()} <span className="fine">SF station</span></> : <span className="fine">No nearby tide station yet</span>}</dd>
-              </dl>
-              <button className="btn primary wide" onClick={() => go('forecast')}>View full forecast <Icon name="arrow" size={15} style={{transform: 'rotate(90deg)'}} /></button>
-            </>}
-          </div>
-        )}
-        {tab === 'layers' && (
-          <div className="xlayers-info" role="tabpanel">
-            {FIELDS.map((x) => <button key={x.id} aria-pressed={fieldId === x.id} onClick={() => pickField(x.id)}><Icon name={x.icon} size={18} /><span><b>{x.label}</b><small>{x.note}</small></span></button>)}
-            <p className="fine">Near California the field uses the 0.5° model grid; elsewhere a 2° worldwide sample of the same models. Colours are smoothed for display, carried from the nearest sea cells to the coast and trimmed to water; the colour scale widens when you zoom out to an ocean basin. Surf size at the beach differs from offshore height; tap a spot for its point forecast.</p>
-          </div>
-        )}
-      </aside>
+  const OPTS = [['heat', 'Colour field'], ['flow', 'Flow animation'], ['arrows', 'Direction arrows'], ['labels', 'Spot labels']] as const;
 
-      <div className="xstage">
-        <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Drag to pan; use the zoom buttons or scroll to zoom." />
-        <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button><button aria-label="Center on selected spot" onClick={() => center(spot.id)}><Icon name="locate" size={18} /></button></div>
-        <div className={`xpanel${panel ? '' : ' closed'}`}>
-          <button className="xpanel-h" aria-expanded={panel} onClick={() => setPanel(!panel)}><Icon name="layers" size={16} />Layers<Icon name="chevron" size={14} /></button>
-          {panel && <div className="xpanel-b">
-            <div role="radiogroup" aria-label="Map field">
-              {FIELDS.map((x) => <button key={x.id} role="radio" aria-checked={fieldId === x.id} onClick={() => pickField(x.id)}><Icon name={x.icon} size={15} />{x.label}</button>)}
-            </div>
-            <hr />
-            {([['heat', 'Colour field'], ['flow', 'Flow animation'], ['arrows', 'Direction arrows'], ['labels', 'Spot labels']] as const).map(([k, l]) => (
-              <label key={k} className="xswitch"><span>{l}</span><input type="checkbox" role="switch" checked={opts[k]} onChange={() => setOpts({...opts, [k]: !opts[k]})} /><i /></label>
-            ))}
-          </div>}
+  return (
+    <div className="xmap on-dark">
+      <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Drag to pan; use the zoom buttons or scroll to zoom." />
+
+      <aside className={`xside${open ? '' : ' closed'}`} aria-label="Spots and conditions">
+        <div className="xsearch">
+          <Icon name="search" size={16} />
+          <input type="search" placeholder="Search spots" value={query} aria-label="Search spots"
+            onFocus={() => setOpen(true)} onChange={(e) => { setQuery(e.target.value); setTab('spots'); setOpen(true); }} />
+          <button className="xcollapse" aria-expanded={open} aria-label={open ? 'Collapse spot list' : 'Expand spot list'} onClick={() => setOpen(!open)}><Icon name="chevron" size={16} /></button>
         </div>
-        <div className="xbottom">
-          <div className="xtime">
-            <button className="xplay" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={() => setPlaying(!playing)}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>
-            <div className="xtrack">
-              <div className="xt-head"><b>{view.selectedTime ? `${weekdayPT(view.selectedTime)} ${dayNumPT(view.selectedTime)} · ${hourLabel(view.selectedTime)}` : '—'}</b><span>{times.length ? `${Math.round(times.length / 24)} days` : ''}</span></div>
-              <input type="range" min={0} max={Math.max(0, times.length - 1)} value={ti} aria-label="Forecast hour"
-                aria-valuetext={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''}
-                style={{'--pct': pct(ti)} as CSSProperties}
-                onChange={(e) => { setPlaying(false); view.selectTime(times[Number(e.target.value)]); }} />
-              <div className="xt-days" aria-hidden="true">{dayStarts.map(({t, i}) => <span key={t} style={{left: pct(i)}}>{weekdayPT(t)}</span>)}</div>
-            </div>
+        {open && <>
+          <div className="xtabs" role="tablist" aria-label="Panel">
+            {(['spots', 'conditions'] as const).map((t) => <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)}>{titleCase(t)}</button>)}
           </div>
-          {(frame || gframe) && opts.heat && (
-            <div className="xlegend" aria-label={`${def.label} legend`}>
-              <span>{def.label} ({unitLabel})</span>
-              <i style={{background: `linear-gradient(90deg, ${RAMP.join(',')})`}} />
-              <div>{ticks.map((t, k) => <small key={k}>{t}{k === ticks.length - 1 ? '+' : ''}</small>)}</div>
+          {tab === 'spots' && (
+            <div className="xlist" role="tabpanel" aria-label="Spots">
+              {list.length === 0 && <p className="fine">No spot matches “{query}”.</p>}
+              <ul>{list.map((e, i) => {
+                const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
+                const head = i === 0 || list[i - 1].region !== e.region ? <p className="xregion">{e.region}</p> : null;
+                return <li key={e.id}>{head}<button aria-current={e.id === spot.id} onClick={() => { setSpot(e.id); center(e.id); setTab('conditions'); }}>
+                  <i className="xdot" style={{background: rt ? BAND_COLOR[bandOf(rt.category)] : 'var(--none)'}} aria-hidden="true" />
+                  <b>{e.name}</b>
+                  <small>{r ? `${ht(r.offshore, p)} ${p.heightUnit}` : '—'}</small>
+                  {rt && <span className="sr">{titleCase(rt.category)}</span>}
+                </button></li>;
+              })}</ul>
+              {!live && <p className="fine">The demonstration week shows spots only. <a href="/explore/discover" onClick={(ev) => { ev.preventDefault(); go('explore', 'discover'); }}>Discover Spots</a></p>}
             </div>
           )}
+          {tab === 'conditions' && (
+            <div className="xcond" role="tabpanel" aria-label="Conditions">
+              <div className={`xc-photo${ownPhoto(spot.id) ? '' : ' plain'}`} style={ownPhoto(spot.id) ? {backgroundImage: `url(${ownPhoto(spot.id)})`} : undefined}><h2>{spot.name}</h2><span>{spot.region}{spot.character === 'Generic profile' ? ' · generic spot profile' : ''}</span></div>
+              {!f ? <StateMessage title="No record at this hour" /> : <>
+                <p className="xc-big">{ht(f.offshore, p)}<small>{p.heightUnit} offshore</small>{rating && <em className="xc-rate"><i style={{background: BAND_COLOR[bandOf(rating.category)]}} />{titleCase(rating.category)}</em>}</p>
+                <dl className="xc-kv">
+                  <dt>Swell</dt><dd>{f.primary ? <><DirArrow from={f.primary.direction} size={13} /> {ht(f.primary.height, p)} {p.heightUnit} · {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</dd>
+                  <dt>Wind</dt><dd>{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit} {compass(f.wind.direction)}</> : '—'}</dd>
+                  <dt>Tide</dt><dd>{Number.isFinite(f.tide.height) ? <>{ht(f.tide.height, p)} {p.heightUnit} {f.tide.trend?.toLowerCase()} <span className="fine">SF station</span></> : <span className="fine">No tide station nearby</span>}</dd>
+                </dl>
+                <button className="btn primary wide" onClick={() => go('forecast')}>Full forecast</button>
+              </>}
+            </div>
+          )}
+        </>}
+      </aside>
+
+      <div className="xlayers">
+        <div role="group" aria-label="Map layers">
+          {FIELDS.map((x) => <button key={x.id} className="xround" data-label={x.label} aria-label={x.label} aria-pressed={fieldId === x.id} onClick={() => pickField(x.id)}><Icon name={x.icon} size={20} /></button>)}
         </div>
-        <p className="xstatus" role="status">{status}</p>
+        <button className="xround" data-label="Display options" aria-label="Display options" aria-expanded={more} aria-controls="xopts" onClick={() => setMore(!more)}><Icon name="layers" size={20} /></button>
+        {more && <div className="xopts" id="xopts">
+          {OPTS.map(([k, l]) => (
+            <label key={k} className="xswitch"><span>{l}</span><input type="checkbox" role="switch" checked={opts[k]} onChange={() => setOpts({...opts, [k]: !opts[k]})} /><i /></label>
+          ))}
+        </div>}
       </div>
+
+      <div className="xcorner">
+        <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button><button aria-label="Center on selected spot" onClick={() => center(spot.id)}><Icon name="locate" size={18} /></button><button aria-label="Point forecast at the map centre" onClick={() => { const c = map.current!.getCenter(); setPt({lat: Math.round(c.lat * 10) / 10, lon: Math.round(c.lng * 10) / 10}); }}><Icon name="forecast" size={18} /></button></div>
+        <div className="xlegend" aria-label={`${def.label} legend`}>
+          {(frame || gframe) && opts.heat && <>
+            <div className="xl-bar"><span>{unitLabel}</span>
+              <div><i style={{background: `linear-gradient(90deg, ${RAMP.join(',')})`}} /><div>{ticks.map((t, k) => <small key={k}>{t}{k === ticks.length - 1 ? '+' : ''}</small>)}</div></div>
+            </div>
+          </>}
+          <p className="xstatus" role="status">{status}</p>
+        </div>
+      </div>
+
+      <div className="xtime">
+        <button className="xplay" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={() => setPlaying(!playing)}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>
+        <b className="xt-now">{view.selectedTime ? <>{weekdayPT(view.selectedTime)} {dayNumPT(view.selectedTime)}<span> · {hourLabel(view.selectedTime)}</span></> : '—'}</b>
+        <div className="xtrack">
+          <div className="xt-days" aria-hidden="true">{dayStarts.map(({t, i}) => <span key={t} style={{left: pct(i)}}>{weekdayPT(t)}<em> {dayNumPT(t)}</em></span>)}</div>
+          <input type="range" min={0} max={Math.max(0, times.length - 1)} value={ti} aria-label="Forecast hour"
+            aria-valuetext={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''}
+            style={{'--pct': pct(ti)} as CSSProperties}
+            onChange={(e) => { setPlaying(false); view.selectTime(times[Number(e.target.value)]); }} />
+        </div>
+      </div>
+      {pt && createPortal(<PointCard pt={pt} state={point} time={view.selectedTime} p={p} pinned={!!pinned && pinned.lat === pt.lat && pinned.lon === pt.lon}
+        onPin={() => setPinned(pinned && pinned.lat === pt.lat && pinned.lon === pt.lon ? null : pt)} onClose={() => setPt(null)} />, popupEl)}
     </div>
   );
 }
