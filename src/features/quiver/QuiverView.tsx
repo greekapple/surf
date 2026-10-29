@@ -152,7 +152,7 @@ export function QuiverView({section, go}: ViewProps) {
               <Strip boards={boards} selectedId={sel.id} onSelect={select} />
             </div>
           ) : (
-            <Suspense fallback={<div className="qv-studio"><div className="qv-stage"><div className="skel" aria-hidden="true"><i style={{height: 240}} /></div></div></div>}>
+            <Suspense fallback={<div className="qv-studio"><div className="qv-stagewrap"><div className="qv-stage"><div className="skel" aria-hidden="true"><i style={{height: 240}} /></div></div><SpecCard board={sel} dims={sel} action={null} /></div></div>}>
               <Showroom board={sel} boards={boards} onSelect={select} onSave={data.saveBoard} onFail={() => setFlat(true)} />
             </Suspense>
           )}
