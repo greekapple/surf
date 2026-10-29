@@ -88,3 +88,33 @@
 .fc-part-h { grid-column: 1 / -1; margin-top: 18px; padding-bottom: 8px; border-bottom: 1px solid var(--line); font: 700 22px/1.1 var(--display); letter-spacing: -0.01em; }
 #fc-scale { scroll-margin-top: calc(var(--nav-h) + 64px); }
 @media (max-width: 860px) { .fc-jump { top: 8px; } }
+
+/* ---------- Charts: hairline grid, tabular numerals, no card-in-card ---------- */
+.tl-body svg text, .fc .tile svg text { font-family: var(--sans); font-variant-numeric: tabular-nums; }
+.tl-svg .tl-grid { stroke: var(--ch-grid); stroke-width: 1; shape-rendering: crispEdges; }
+.tl-svg .tl-day { stroke: var(--ch-div); stroke-width: 1; shape-rendering: crispEdges; }
+.tl-svg .tl-ax { font-size: 11px; fill: var(--muted); }
+.tl-svg .tl-dim { fill: var(--dim); }
+.tl-svg .tl-dlab { font-size: 11px; font-weight: 650; fill: var(--text); }
+.tl-svg .tl-row { font-size: 11px; fill: var(--dim); }
+.tl-svg .tl-pk { font-size: 11px; font-weight: 650; fill: var(--text); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; }
+.tl-body .tl-tip { top: 28px; min-width: 188px; padding: 8px 10px; border-radius: 8px; box-shadow: none; font-size: 12px; font-variant-numeric: tabular-nums; }
+.tl-body .tl-tip b { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; padding-bottom: 4px; margin-bottom: 1px; border-bottom: 1px solid var(--line); }
+.tl-body .tl-tip b small { font-size: 11px; font-weight: 450; color: var(--muted); }
+.tl-body .tl-tip em { font-family: var(--sans); font-variant-numeric: tabular-nums; }
+.tl-body:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.fc .tiles { gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.fc .tile { min-height: 168px; padding: 12px 16px 14px; border-radius: 0; background: none; border-right: 1px solid var(--line); gap: 6px; }
+.fc .tile:last-child { border-right: 0; }
+.fc .tile .k { text-transform: none; letter-spacing: 0; font-size: 12.5px; font-weight: 600; }
+.fc .tile .v { font-size: 20px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.fc .tile .v small { font-size: 12px; }
+.fc .tile .s { font-size: 12px; font-variant-numeric: tabular-nums; }
+.fc .dial { width: 100%; max-width: 116px; height: auto; aspect-ratio: 116 / 112; }
+.fc .spark { height: 64px; }
+@media (max-width: 860px) {
+  .fc .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fc .tile:nth-child(2n) { border-right: 0; }
+  .fc .tile:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}

@@ -12,6 +12,7 @@ import {bandOf, hourLabel, hourlySeries, titleCase, trendOf, type Band, type Hou
 import {bestDaylight, compass, groupDays, ht, isDaylight, monotonePath, spotLatLon, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT, timeLabelPT} from '../forecast/format';
 import {Condition, conditionWord} from '../forecast/Condition';
+import {windInk} from '../forecast/charts';
 import {Almanac, dayFacts} from './Almanac';
 import './home.css';
 
@@ -83,14 +84,18 @@ function Next24({hours, spot, p, onPick}: {hours: HourSample[]; spot: SurfSpot; 
   }, []);
   const n = hours.length;
   if (n < 2) return null;
-  const narrow = W < 640, every = narrow ? 4 : 3, H = 222, L = 40, R = narrow ? 30 : 22, base = 126;
-  const P0 = L + 22; // points start clear of the y-axis labels
+  const narrow = W < 640, every = narrow ? 4 : 3, H = 236, L = 44, R = narrow ? 30 : 22, base = 134, top0 = 22;
+  const P0 = L + 18; // points start clear of the y-axis labels
   const step = (W - P0 - R) / (n - 1), X = (i: number) => P0 + i * step;
-  const top = Math.max(2, Math.ceil(Math.max(...hours.map((h) => h.heightFt ?? 0)) * 1.15 / 2) * 2), Y = (v: number) => base - (v / top) * 104;
-  const ticks = Array.from({length: top / 2 + 1}, (_, k) => k * 2);
+  /* y-scale follows the data range (not from 0): bars show the height above a floor just under the lowest hour */
+  const vals = hours.map((h) => h.heightFt ?? 0), vMin = Math.min(...vals), vMax = Math.max(...vals);
+  const span = Math.max(vMax - vMin, 1), tickStep = span <= 2 ? 0.5 : span <= 5 ? 1 : 2;
+  const lo = Math.max(0, Math.floor((vMin - span * 0.25) / tickStep) * tickStep), hi = Math.max(lo + tickStep * 2, Math.ceil((vMax + span * 0.2) / tickStep) * tickStep);
+  const Y = (v: number) => base - ((v - lo) / (hi - lo)) * (base - top0);
+  const ticks = Array.from({length: Math.round((hi - lo) / tickStep) + 1}, (_, k) => lo + k * tickStep);
+  const tickLabel = (t: number) => (p.heightUnit === 'm' ? (t * 0.3048).toFixed(1) : Number.isInteger(t) ? String(t) : t.toFixed(1));
   const [lat, lon] = spotLatLon(spot);
-  const pts = hours.map((h, i) => [X(i), Y(h.heightFt ?? 0)] as [number, number]);
-  const line = monotonePath(pts);
+  const line = monotonePath(hours.map((h, i) => [X(i), Y(h.heightFt ?? 0)] as [number, number]));
   const clampX = (x: number) => Math.max(L, Math.min(W - R, x));
   const nights: [number, number][] = [];
   hours.forEach((h, i) => {
@@ -99,26 +104,31 @@ function Next24({hours, spot, p, onPick}: {hours: HourSample[]; spot: SurfSpot; 
     if (last && last[1] === i - 1) last[1] = i; else nights.push([i, i]);
   });
   const hv = hover !== null ? hours[hover] : null;
+  const barW = Math.max(3, step * 0.7), windEvery = step >= 22 ? 1 : step >= 11 ? 2 : every;
   return (
     <div className="next24" ref={box} onPointerLeave={() => setHover(null)}>
       <svg viewBox={`0 0 ${W} ${H}`} style={{height: H}} aria-hidden="true">
-                {nights.map(([a, b]) => <rect key={`n${a}`} x={clampX(X(a) - step / 2)} y={0} width={clampX(X(b) + step / 2) - clampX(X(a) - step / 2)} height={base + 14} fill="var(--ch-night)" />)}
-        {ticks.map((t) => <g key={`g${t}`}><line x1={L} x2={W - R} y1={Y(t)} y2={Y(t)} stroke="var(--ch-grid)" /><text x={L - 8} y={Y(t) + 4} textAnchor="end" className="t">{p.heightUnit === 'm' ? (t * 0.3048).toFixed(1) : t}</text></g>)}
-        <path d={`${line} L${X(n - 1)},${base} L${X(0)},${base} Z`} fill="var(--hs)" fillOpacity={0.14} stroke="none" />
-        <path d={line} fill="none" stroke="var(--hs-hi)" strokeWidth={2.6} strokeLinejoin="round" strokeLinecap="round" />
-        {hours.map((h, i) => { const x0 = clampX(X(i) - step / 2), x1 = clampX(X(i) + step / 2); return <rect key={`r${i}`} x={x0} y={base + 6} width={x1 - x0 + 0.6} height={6} fill={TONE[bandOf(h.rating.category)]} />; })}
+        {nights.map(([a, b]) => <rect key={`n${a}`} x={clampX(X(a) - step / 2)} y={top0 - 8} width={clampX(X(b) + step / 2) - clampX(X(a) - step / 2)} height={base - top0 + 8} fill="var(--ch-night)" />)}
+        {ticks.map((t) => <g key={`g${t}`}><line x1={L} x2={W - R} y1={Y(t)} y2={Y(t)} stroke="var(--ch-grid)" shapeRendering="crispEdges" /><text x={L - 8} y={Y(t) + 4} textAnchor="end" className="t">{tickLabel(t)}{t === ticks[ticks.length - 1] ? ` ${p.heightUnit}` : ''}</text></g>)}
+        {hours.map((h, i) => <rect key={`b${i}`} x={X(i) - barW / 2} y={Y(h.heightFt ?? 0)} width={barW} height={Math.max(1, base - Y(h.heightFt ?? 0))} fill={TONE[bandOf(h.rating.category)]} fillOpacity={hover === i ? 0.9 : 0.55} />)}
+        <path d={line} fill="none" stroke="var(--hs-hi)" strokeWidth={1.75} strokeLinejoin="round" strokeLinecap="round" />
+        <line x1={L} x2={W - R} y1={base} y2={base} stroke="var(--ch-div)" shapeRendering="crispEdges" />
         {hours.map((h, i) => i % every ? null : (
           <g key={`l${i}`}>
-            <circle cx={X(i)} cy={Y(h.heightFt ?? 0)} r={3} fill="var(--hs-hi)" />
-            <text x={X(i)} y={Y(h.heightFt ?? 0) - 11} textAnchor="middle" className="v">{ht(h.heightFt, p)}</text>
-            <text x={X(i)} y={base + 34} textAnchor="middle" className="t">{i === 0 ? 'Now' : hourLabel(h.timestamp)}</text>
-            {Number.isFinite(h.forecast.wind.direction) && <g transform={`translate(${X(i) - 9},${base + 60}) rotate(${(h.forecast.wind.direction + 180) % 360})`}>
-              <path d="M0,7 L0,-7 M-4,-2.5 L0,-7 L4,-2.5" fill="none" stroke="var(--muted)" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
-            </g>}
-            <text x={X(i) + 2} y={base + 64} className="w">{windVal(h.forecast.wind.speed, p)}</text>
+            <text x={X(i)} y={Y(h.heightFt ?? 0) - 8} textAnchor="middle" className="v">{ht(h.heightFt, p)}</text>
+            <text x={X(i)} y={base + 18} textAnchor="middle" className="t">{i === 0 ? 'Now' : hourLabel(h.timestamp)}</text>
+            <text x={X(i)} y={base + 70} textAnchor="middle" className="w">{windVal(h.forecast.wind.speed, p)}</text>
           </g>
         ))}
-        {hover !== null && <line x1={X(hover)} x2={X(hover)} y1={8} y2={base + 12} stroke="var(--text)" strokeOpacity={0.4} strokeDasharray="3 3" />}
+        <text x={0} y={base + 50} className="w">Wind</text>
+        {hours.map((h, i) => {
+          if (i % windEvery || !Number.isFinite(h.forecast.wind.direction)) return null;
+          const c = windInk(h.forecast.wind.speed), len = 6 + Math.min(6, h.forecast.wind.speed / 2.5);
+          return <g key={`a${i}`} transform={`translate(${X(i)},${base + 46}) rotate(${(h.forecast.wind.direction + 180) % 360})`}>
+            <path d={`M0,${len} L0,${-len} M-3.5,${-len + 4.5} L0,${-len} L3.5,${-len + 4.5}`} fill="none" stroke={c} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
+          </g>;
+        })}
+        {hover !== null && <line x1={X(hover)} x2={X(hover)} y1={top0 - 10} y2={base + 56} stroke="var(--text)" strokeOpacity={0.4} strokeDasharray="3 3" />}
       </svg>
       <div className="hit">{hours.map((h, i) => (
         <button key={h.timestamp} style={{left: X(i) - step / 2, width: step}} onPointerEnter={() => setHover(i)} onFocus={() => setHover(i)} onBlur={() => setHover(null)} onClick={() => onPick(h.timestamp)}

@@ -71,9 +71,10 @@
 .next24 { position: relative; padding: 18px 0 4px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .next24 svg { display: block; width: 100%; }
 .next24 text { font-family: var(--sans); }
-.next24 .v { font-size: 13px; font-weight: 650; fill: var(--text); }
+.next24 text { font-variant-numeric: tabular-nums; }
+.next24 .v { font-size: 12px; font-weight: 650; fill: var(--text); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; }
 .next24 .t { font-size: 12px; font-weight: 550; fill: var(--muted); }
-.next24 .w { font-size: 11.5px; fill: var(--muted); }
+.next24 .w { font-size: 11px; fill: var(--muted); }
 .next24 .hit { position: absolute; inset: 18px 0 4px; }
 .next24 .hit button { position: absolute; top: 0; bottom: 0; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .next24 .hit button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 4px; }
@@ -116,7 +117,7 @@
 .almanac > div { display: grid; align-content: start; gap: 8px; padding: 20px 22px; background: var(--s1); }
 .almanac dt { font-size: 13px; font-weight: 600; color: var(--muted); }
 .almanac dt span { font-weight: 500; text-transform: none; letter-spacing: 0; }
-.almanac dd { display: grid; gap: 4px; font-size: 15px; font-weight: 600; }
+.almanac dd { font-variant-numeric: tabular-nums; display: grid; gap: 4px; font-size: 15px; font-weight: 600; }
 .almanac dd small { margin-left: 6px; font-size: 12.5px; font-weight: 500; color: var(--muted); }
 .almanac .best { background: var(--s2); }
 .almanac .best button { display: grid; gap: 4px; padding: 0; border: 0; background: none; color: var(--text); font: 700 28px/1.05 var(--display); text-align: left; cursor: pointer; }
