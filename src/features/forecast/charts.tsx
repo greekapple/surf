@@ -4,6 +4,7 @@ import type {TidePrediction} from '../../ocean/types';
 import {BAND_COLOR, bandOf, hourLabel, titleCase, type HourSample} from './model';
 import {groupDays, ht, monotonePath, spotLatLon, sunTimes, windColor, windVal, compass, type Day} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT, localHour} from './format';
+import {Condition} from '../../ui/Condition';
 
 /** Wind-speed colour for marks on the current ground: the pastel Windy-like ramp is mixed toward black in the light theme (--wind-darken). */
 /** Wind ramp darkened by --wind-darken. Browsers without color-mix (Safari < 16.2) get the plain ramp colour so arrows still draw. */
@@ -31,15 +32,23 @@ function useAnimatedRange(target: [number, number]) {
   return v;
 }
 
+export type ChartTab = 'surf' | 'swell' | 'wind' | 'tide';
 export interface TimelineProps {
   series: HourSample[]; spot: SurfSpot; p: UserProfile; selectedTime: string | null; onSelect: (t: string) => void;
   onHover?: (t: string | null) => void; now: number; dayIndex: number | null; extrema: TidePrediction[]; height?: number;
+  /** Which series the chart plots. */
+  tab?: ChartTab;
+  /** Zoom to a window of hours around the selected hour. */
+  hourWindow?: boolean;
 }
-/** The forecast spine: wave height, swells, rating ribbon, wind, tide and night on one axis. */
-export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300}: TimelineProps) {
+const niceStep = (range: number) => [0.5, 1, 2, 5, 10, 20].find((s) => range / s <= 5) ?? 20;
+const signed = (v: number, p: UserProfile) => `${v < 0 ? '-' : '+'}${ht(Math.abs(v), p)}`;
+const TIP_W = 212;
+/** The forecast spine: one series per tab (surf, swell, wind, tide) plus the rating ribbon and night on one time axis. */
+export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300, tab = 'surf', hourWindow = false}: TimelineProps) {
   const body = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(900);
-  const [hover, setHover] = useState<{i: number; x: number} | null>(null);
+  const [hover, setHover] = useState<{i: number; x: number; y: number} | null>(null);
   useEffect(() => {
     const ro = new ResizeObserver(([e]) => setW(Math.max(280, e.contentRect.width)));
     if (body.current) ro.observe(body.current);
@@ -47,24 +56,33 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   }, []);
   const days = useMemo(() => groupDays(series), [series]);
   const n = series.length;
-  const target: [number, number] = dayIndex !== null && days[dayIndex] ? [days[dayIndex].start - 0.5, days[dayIndex].end + 0.5] : [0, Math.max(1, n - 1)];
+  const sel = Math.max(0, series.findIndex((h) => h.timestamp === selectedTime));
+  const target: [number, number] = hourWindow ? [Math.max(-0.5, sel - 6.5), Math.max(-0.5, sel - 6.5) + 13]
+    : dayIndex !== null && days[dayIndex] ? [days[dayIndex].start - 0.5, days[dayIndex].end + 0.5] : [0, Math.max(1, n - 1)];
   const [a, b] = useAnimatedRange(target);
-  const G = 44, PAD = 12, inner = W - G - PAD, pxh = inner / (b - a);
+  const G = 44, PAD = 14, inner = W - G - PAD, pxh = inner / (b - a);
   const X = (i: number) => G + (i - a) * pxh;
-  const max = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0))) * 1.12;
-  const BASE = 168, RB = 178, WY = 208, yStep = max > 8 ? 2 : 1, Y = (v: number) => BASE - (v / max) * 140;
-  const lastTick = Math.floor(max / yStep) * yStep;
+  const PT = 30, PB = height - 62, RB = height - 36;
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
-  const TY = (v: number) => height - 26 - ((v - tLo) / (tHi - tLo || 1)) * 26;
+  const hsMax = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0))) * 1.12;
+  const wMax = Math.max(10, ...series.map((h) => Math.max(h.forecast.wind.speed || 0, h.forecast.wind.gusts || 0))) * 1.12;
+  const [lo, hi] = tab === 'wind' ? [0, wMax] : tab === 'tide' ? [tLo - (tHi - tLo || 1) * 0.15, tHi + (tHi - tLo || 1) * 0.2] : [0, hsMax];
+  const Y = (v: number) => PB - ((v - lo) / (hi - lo || 1)) * (PB - PT);
+  const step = niceStep(hi - lo), t0y = Math.ceil(lo / step) * step;
+  const ticks: number[] = []; for (let v = t0y; v <= hi + 1e-6; v += step) ticks.push(Math.round(v * 100) / 100);
+  const unit = tab === 'wind' ? p.windUnit : p.heightUnit;
+  const tickText = (v: number) => (tab === 'wind' ? String(Math.round(Number(windVal(v, p)))) : ht(v, p, step < 1 || p.heightUnit === 'm' ? 1 : 0));
+  const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0 : h.heightFt ?? 0);
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
-  const sel = Math.max(0, series.findIndex((h) => h.timestamp === selectedTime));
+  const TYs = (v: number) => PB - 8 - ((v - tLo) / (tHi - tLo || 1)) * (PB - PT) * 0.26; // dashed tide under the surf curve
   const i0 = Math.max(0, Math.floor(a) - 1), i1 = Math.min(n - 1, Math.ceil(b) + 1);
   const vis = series.slice(i0, i1 + 1);
-  const hsPath = monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.heightFt ?? 0)]));
+  const line = (f: (h: HourSample) => number) => monotonePath(vis.map((h, k) => [X(i0 + k), Y(f(h))]));
+  const mainPath = line(val);
   /** Day peaks of the primary swell, labelled with period (only where the day is wide enough to read). */
-  const peaks = days.flatMap((d) => {
+  const peaks = tab !== 'swell' ? [] : days.flatMap((d) => {
     let best = -1;
     for (let i = d.start; i <= d.end; i++) { const pr = series[i]?.forecast.primary; if (pr && Number.isFinite(pr.period) && (best < 0 || pr.height > series[best].forecast.primary!.height)) best = i; }
     if (best < 0 || (d.end - d.start + 1) * pxh < 70) return [];
@@ -78,17 +96,18 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
     const r = body.current!.getBoundingClientRect();
     return Math.max(0, Math.min(n - 1, Math.round(a + (clientX - r.left - G) / pxh)));
   };
+  const hoverAt = (e: PointerEvent, i: number) => { const r = body.current!.getBoundingClientRect(); setHover({i, x: e.clientX - r.left, y: e.clientY - r.top}); };
   const hoverI = hover?.i ?? null;
   useEffect(() => { onHover?.(hoverI === null ? null : series[hoverI]?.timestamp ?? null); }, [hoverI]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => onHover?.(null), []); // eslint-disable-line react-hooks/exhaustive-deps
   const drag = useRef(false);
-  const onDown = (e: PointerEvent) => { drag.current = true; (e.currentTarget as Element).setPointerCapture(e.pointerId); const i = idxAt(e.clientX); onSelect(series[i].timestamp); setHover({i, x: e.clientX}); };
-  const onMove = (e: PointerEvent) => { const i = idxAt(e.clientX); if (drag.current) onSelect(series[i].timestamp); if (drag.current || e.pointerType === 'mouse') setHover({i, x: e.clientX}); };
+  const onDown = (e: PointerEvent) => { drag.current = true; (e.currentTarget as Element).setPointerCapture(e.pointerId); const i = idxAt(e.clientX); onSelect(series[i].timestamp); hoverAt(e, i); };
+  const onMove = (e: PointerEvent) => { const i = idxAt(e.clientX); if (drag.current) onSelect(series[i].timestamp); if (drag.current || e.pointerType === 'mouse') hoverAt(e, i); };
   const onUp = (e: PointerEvent) => { drag.current = false; if (e.pointerType !== 'mouse') setTimeout(() => setHover(null), 1400); };
   const onKey = (e: KeyboardEvent) => {
-    const step: Record<string, number> = {ArrowRight: 1, ArrowLeft: -1, PageDown: 24, PageUp: -24};
+    const stepK: Record<string, number> = {ArrowRight: 1, ArrowLeft: -1, PageDown: 24, PageUp: -24};
     let i = sel;
-    if (e.key in step) i = sel + step[e.key]; else if (e.key === 'Home') i = 0; else if (e.key === 'End') i = n - 1; else return;
+    if (e.key in stepK) i = sel + stepK[e.key]; else if (e.key === 'Home') i = 0; else if (e.key === 'End') i = n - 1; else return;
     e.preventDefault();
     setHover(null);
     onSelect(series[Math.max(0, Math.min(n - 1, i))].timestamp);
@@ -99,6 +118,9 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const stepH = [1, 2, 3, 6, 12, 24].find((s) => s * pxh >= 46) ?? 24;
   const every = Math.max(1, Math.ceil(20 / pxh));
   const u = p.heightUnit;
+  const tipLeft = hover ? (hover.x + 18 + TIP_W > W ? hover.x - 18 - TIP_W : hover.x + 18) : 0;
+  const tipTop = hover ? Math.max(6, Math.min(height - 176, hover.y - 70)) : 0;
+  const wc = windInk;
 
   return (
     <div className="tl-body" ref={body} role="slider" tabIndex={0} aria-label="Forecast time. Arrow keys move one hour, Page Up and Page Down one day."
@@ -107,69 +129,84 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
       onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => (drag.current = false)} onPointerLeave={() => !drag.current && setHover(null)} onKeyDown={onKey}>
       <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
-          <linearGradient id="gHs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs-hi)" stopOpacity="0.42" /><stop offset="1" stopColor="var(--hs)" stopOpacity="0.04" /></linearGradient>
+          <linearGradient id="gHs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs-hi)" stopOpacity="0.5" /><stop offset="1" stopColor="var(--hs)" stopOpacity="0.03" /></linearGradient>
+          <linearGradient id="gSw" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--sw1)" stopOpacity="0.28" /><stop offset="1" stopColor="var(--sw1)" stopOpacity="0.02" /></linearGradient>
+          <linearGradient id="gWd" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--accent)" stopOpacity="0.4" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0.03" /></linearGradient>
+          <linearGradient id="gTd" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--tide)" stopOpacity="0.38" /><stop offset="1" stopColor="var(--tide)" stopOpacity="0.03" /></linearGradient>
           <clipPath id="tlclip"><rect x={G} y={0} width={inner} height={height} /></clipPath>
         </defs>
-        {Array.from({length: Math.floor(max / yStep) + 1}, (_, k) => k * yStep).map((v) =>
-          <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 6} y={Y(v) + 4} textAnchor="end">{ht(v, p, u === 'm' ? 1 : 0)}{v === lastTick ? ` ${u}` : ''}</text></g>)}
+        <g key={`ax${tab}`} className="tl-fade">
+          {ticks.map((v) => <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 8} y={Y(v) + 4} textAnchor="end">{tab === 'tide' && v > 0 ? '+' : ''}{tickText(v)}{v === ticks[ticks.length - 1] ? ` ${unit}` : ''}</text></g>)}
+        </g>
         <g clipPath="url(#tlclip)">
           {days.map((d: Day, k) => {
             const {rise, set} = sunTimes(d.t, lat, lon);
             const prev = sunTimes(new Date(Date.parse(d.t) - 86400000).toISOString(), lat, lon).set;
             return <g key={d.key}>
-              <rect x={XT(prev)} y={20} width={Math.max(0, XT(rise) - XT(prev))} height={height - 36} fill="var(--ch-night)" />
-              {k === days.length - 1 && <rect x={XT(set)} y={20} width={inner} height={height - 36} fill="var(--ch-night)" />}
-              <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={height - 16} />
+              <rect x={XT(prev)} y={PT - 8} width={Math.max(0, XT(rise) - XT(prev))} height={RB - PT + 8} fill="var(--ch-night)" />
+              {k === days.length - 1 && <rect x={XT(set)} y={PT - 8} width={inner} height={RB - PT + 8} fill="var(--ch-night)" />}
+              <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={RB + 8} />
               {(d.end - d.start + 1) * pxh > 64 && X(d.end + 0.5) - Math.max(X(d.start - 0.5), G) > 70 &&
-                <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={13}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>}
+                <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>}
             </g>;
           })}
-          <path d={`${hsPath} L${X(i1)},${BASE} L${X(i0)},${BASE}Z`} fill="url(#gHs)" />
-          <path d={hsPath} fill="none" stroke="var(--hs-hi)" strokeWidth={1.75} strokeLinejoin="round" />
-          <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.forecast.primary?.height ?? 0)]))} fill="none" stroke="var(--sw1)" strokeWidth={1.25} opacity={0.9} />
-          {vis.some((h) => h.forecast.secondary) && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), Y(h.forecast.secondary?.height ?? 0)]))} fill="none" stroke="var(--sw2)" strokeWidth={1.1} strokeDasharray="4 3" />}
-          {peaks.map(({h, i}) => <g key={`pk${h.timestamp}`}><circle cx={X(i)} cy={Y(h.forecast.primary!.height)} r={2.4} fill="var(--sw1)" />
-            <text className="tl-pk" x={X(i)} y={Y(h.forecast.primary!.height) - 7} textAnchor="middle">{Math.round(h.forecast.primary!.period)}s</text></g>)}
-          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={pxh + 0.5} height={5} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
-          {vis.map((h, k) => {
-            const i = i0 + k, w = h.forecast.wind;
-            if (i % every || !Number.isFinite(w.direction)) return null;
-            const c = windInk(w.speed), len = 6 + Math.min(7, w.speed / 2.2);
-            return <g key={`w${h.timestamp}`} transform={`translate(${X(i)},${WY}) rotate(${(w.direction + 180) % 360})`}>
-              <line y1={len} y2={-len} stroke={c} strokeWidth={1.6} strokeLinecap="round" /><path d={`M-3.5,${-len + 4.5} L0,${-len} L3.5,${-len + 4.5}`} fill="none" stroke={c} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
-            </g>;
-          })}
-          {every * pxh >= 26 && vis.map((h, k) => ((i0 + k) % every ? null : <text key={`ws${h.timestamp}`} className="tl-ax" x={X(i0 + k)} y={WY + 24} textAnchor="middle">{windVal(h.forecast.wind.speed, p)}</text>))}
-          {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.5} />}
-          {pxh > 4 && extrema.map((e) => {
-            const x = XT(Date.parse(e.timestamp)), v = e.height.value;
-            if (x < G || x > W || v === null) return null;
-            return <g key={e.timestamp}><circle cx={x} cy={TY(v)} r={2.4} fill="var(--tide)" />
-              {pxh > 9 && <text className="tl-ax" x={x + 5} y={TY(v) + (e.type === 'High' ? 13 : -6)}>{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
-          })}
-          {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={20} y2={height - 18} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
-          {vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 3} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
-          {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={18} y2={height - 16} stroke="var(--ch-hover)" />
-            <circle cx={X(hover.i)} cy={Y(series[hover.i].heightFt ?? 0)} r={3.5} fill="var(--bg)" stroke="var(--hs-hi)" strokeWidth={1.75} /></g>}
+          <g key={tab} className="tl-fade">
+            {tab === 'surf' && <>
+              <path d={`${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z`} fill="url(#gHs)" />
+              <path d={mainPath} fill="none" stroke="var(--hs-hi)" strokeWidth={2} strokeLinejoin="round" />
+              {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
+            </>}
+            {tab === 'swell' && <>
+              <path d={`${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z`} fill="url(#gSw)" />
+              <path d={mainPath} fill="none" stroke="var(--sw1)" strokeWidth={2} strokeLinejoin="round" />
+              {vis.some((h) => h.forecast.secondary) && <path d={line((h) => h.forecast.secondary?.height ?? 0)} fill="none" stroke="var(--sw2)" strokeWidth={1.5} strokeDasharray="5 4" />}
+              {peaks.map(({h, i}) => <g key={`pk${h.timestamp}`}><circle cx={X(i)} cy={Y(h.forecast.primary!.height)} r={3} fill="var(--sw1)" />
+                <text className="tl-pk" x={X(i)} y={Y(h.forecast.primary!.height) - 9} textAnchor="middle">{Math.round(h.forecast.primary!.period)}s</text></g>)}
+            </>}
+            {tab === 'wind' && <>
+              <path d={`${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z`} fill="url(#gWd)" />
+              <path d={line((h) => h.forecast.wind.gusts ?? h.forecast.wind.speed ?? 0)} fill="none" stroke="var(--muted)" strokeWidth={1.2} strokeDasharray="3 4" />
+              <path d={mainPath} fill="none" stroke="var(--accent)" strokeWidth={2} strokeLinejoin="round" />
+              {vis.map((h, k) => {
+                const i = i0 + k, w = h.forecast.wind;
+                if (i % every || !Number.isFinite(w.direction)) return null;
+                const c = wc(w.speed), len = 5 + Math.min(5, w.speed / 3);
+                return <g key={`w${h.timestamp}`} transform={`translate(${X(i)},${PB + 15}) rotate(${(w.direction + 180) % 360})`}>
+                  <line y1={len} y2={-len} stroke={c} strokeWidth={1.6} strokeLinecap="round" /><path d={`M-3.5,${-len + 4.5} L0,${-len} L3.5,${-len + 4.5}`} fill="none" stroke={c} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
+                </g>;
+              })}
+            </>}
+            {tab === 'tide' && (hasTide ? <>
+              <path d={`${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z`} fill="url(#gTd)" />
+              <path d={mainPath} fill="none" stroke="var(--tide)" strokeWidth={2} strokeLinejoin="round" />
+              {pxh > 4 && extrema.map((e) => {
+                const x = XT(Date.parse(e.timestamp)), v = e.height.value;
+                if (x < G || x > W || v === null) return null;
+                return <g key={e.timestamp}><circle cx={x} cy={Y(v)} r={3} fill="var(--tide)" />
+                  {pxh > 9 && <text className="tl-pk" x={x} y={Y(v) + (e.type === 'High' ? -9 : 17)} textAnchor="middle">{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
+              })}
+            </> : <text className="tl-ax" x={G + inner / 2} y={(PT + PB) / 2} textAnchor="middle">No tide station near this spot yet</text>)}
+          </g>
+          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={pxh + 0.5} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
+          {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={PT - 8} y2={RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
+          {vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
+          {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={PT - 8} y2={RB + 2} stroke="var(--ch-hover)" />
+            <circle cx={X(hover.i)} cy={Y(val(series[hover.i]))} r={3.5} fill="var(--bg)" stroke="var(--ch-ink)" strokeWidth={1.75} /></g>}
         </g>
         <text className="tl-row" x={0} y={RB + 5}>Rating</text>
-        <text className="tl-row" x={0} y={WY + 4}>Wind</text>
-        {hasTide && <text className="tl-row" x={0} y={height - 38}>Tide</text>}
         <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
-          <line y1={18} y2={height - 16} stroke="var(--ch-ink)" strokeWidth={1.25} />
-          <circle cy={Y(selH?.heightFt ?? 0)} r={4.5} fill="var(--bg)" stroke="var(--hs-hi)" strokeWidth={2.25} />
-          {hasTide && Number.isFinite(selH?.forecast.tide.height) && <circle cy={TY(selH!.forecast.tide.height)} r={3.4} fill="var(--ch-ink)" />}
+          <line y1={PT - 8} y2={RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
+          <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : 'var(--hs-hi)'} strokeWidth={2.5} />
         </g>
       </svg>
       {tipH && hover && (
-        <div className="tl-tip" style={{left: Math.min(W - 206, Math.max(0, hover.x - body.current!.getBoundingClientRect().left + 14))}}>
+        <div className="tl-tip" style={{transform: `translate3d(${tipLeft}px, ${tipTop}px, 0)`, width: TIP_W}}>
           <b>{weekdayPT(tipH.timestamp)} {hourLabel(tipH.timestamp)}<small>{hover.i === sel ? 'selected' : 'preview'}</small></b>
-          <span>Offshore Hs <em>{ht(tipH.heightFt, p)} {u}</em></span>
-          <span>Primary <em>{tipH.forecast.primary ? `${ht(tipH.forecast.primary.height, p)} ${u} ${Math.round(tipH.forecast.primary.period)}s ${compass(tipH.forecast.primary.direction)}` : '—'}</em></span>
-          <span>Secondary <em>{tipH.forecast.secondary ? `${ht(tipH.forecast.secondary.height, p)} ${u} ${Math.round(tipH.forecast.secondary.period)}s` : '—'}</em></span>
-          <span>Wind <em>{windVal(tipH.forecast.wind.speed, p)} {p.windUnit} {compass(tipH.forecast.wind.direction)}</em></span>
-          <span>Tide <em>{ht(tipH.forecast.tide.height, p)} {u}</em></span>
-          <span>Rating <em style={{color: BAND_COLOR[bandOf(tipH.rating.category)]}}>{titleCase(tipH.rating.category)} {tipH.rating.score ?? ''}</em></span>
+          <span className={tab === 'surf' ? 'on' : ''}><i style={{background: 'var(--hs-hi)'}} />Offshore<em>{ht(tipH.heightFt, p)} {u}</em></span>
+          <span className={tab === 'swell' ? 'on' : ''}><i style={{background: 'var(--sw1)'}} />Swell<em>{tipH.forecast.primary ? `${ht(tipH.forecast.primary.height, p)} ${u} @ ${Math.round(tipH.forecast.primary.period)}s ${compass(tipH.forecast.primary.direction)}` : '—'}</em></span>
+          <span className={tab === 'wind' ? 'on' : ''}><i style={{background: wc(tipH.forecast.wind.speed)}} />Wind<em>{windVal(tipH.forecast.wind.speed, p)} {p.windUnit} {compass(tipH.forecast.wind.direction)}</em></span>
+          <span className={tab === 'tide' ? 'on' : ''}><i style={{background: 'var(--tide)'}} />Tide<em>{Number.isFinite(tipH.forecast.tide.height) ? `${signed(tipH.forecast.tide.height, p)} ${u}${tipH.forecast.tide.trend ? ` ${tipH.forecast.tide.trend.toLowerCase()}` : ''}` : '—'}</em></span>
+          <span className="tl-tip-r"><Condition category={tipH.rating.category} chip />{tipH.rating.score !== null && <small>{Math.round(tipH.rating.score)}</small>}</span>
         </div>
       )}
     </div>
