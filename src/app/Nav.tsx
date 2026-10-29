@@ -45,18 +45,96 @@ function AreaMenu({def, current, section, go}: {def: (typeof AREAS)[number]; cur
         onClick={() => setOpen(true)}>
         {def.label}<Icon name="chevron" size={14} />
       </button>
-      {open && (
+      {open && def.id === 'forecast' && <SpotMegaMenu section={section} current={current} go={go} close={() => setOpen(false)} />}
+      {open && def.id !== 'forecast' && (
         <ul className="menu" aria-label={`${def.label} sections`}>
           {def.sections.map((s) => (
             <li key={s.id}>
-              <a {...linkProps((a, sec) => { go(a, sec); setOpen(false); }, def.id, s.id)} aria-current={current && section === s.id ? 'page' : undefined}>
-                <b>{s.label}</b><span>{s.hint}</span>
+              <a {...linkProps((a, sec) => { go(a, sec); setOpen(false); }, def.id, s.id)} aria-current={current && section === s.id ? 'page' : undefined} title={s.hint}>
+                {s.label}
               </a>
             </li>
           ))}
         </ul>
       )}
     </li>
+  );
+}
+
+/** Coast zones, north to south, for browsing spots by place (Region › County › Spot). */
+const ZONES: [string, string[]][] = [
+  ['North Coast', ['Del Norte', 'Humboldt', 'Mendocino', 'Sonoma']],
+  ['Bay Area', ['Marin', 'San Francisco', 'San Mateo']],
+  ['Santa Cruz & Monterey', ['Santa Cruz', 'Monterey', 'Big Sur']],
+  ['Central Coast', ['San Luis Obispo', 'Santa Barbara', 'Ventura']],
+  ['Southern California', ['Los Angeles', 'Orange County', 'San Diego']],
+];
+const zoneOf = (region: string) => ZONES.find(([, rs]) => rs.includes(region))?.[0] ?? 'Other';
+const RECENT_KEY = 'swello-recent';
+const readRecent = (): string[] => { try { const v = JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]'); return Array.isArray(v) ? v.filter((x) => typeof x === 'string').slice(0, 5) : []; } catch { return []; } };
+/** Remembers the last five spots viewed (this device only). */
+function useRecentSpots(id: string) {
+  const [recent, setRecent] = useState(readRecent);
+  useEffect(() => {
+    const next = [id, ...readRecent().filter((x) => x !== id)].slice(0, 5);
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(next)); } catch { /* storage unavailable: recents last for this session */ }
+    setRecent(next);
+  }, [id]);
+  return recent;
+}
+
+/** Forecast menu: a place browser, not a list of tabs. Left rail: forecast pages, recent and favourite spots.
+ * Main pane: Region › County › Spot with each spot's live offshore height and provisional rating. */
+function SpotMegaMenu({section, current, go, close}: {section: string; current: boolean; go: Go; close: () => void}) {
+  const {spot, spotOptions, setSpot, data, view} = useSwello();
+  const recent = useRecentSpots(spot.id);
+  const [zone, setZone] = useState(() => zoneOf(spot.region));
+  const [county, setCounty] = useState<string | null>(null);
+  const p = data.state.profile, favs = data.state.favorites;
+  const zones = ZONES.filter(([, rs]) => spotOptions.some((s) => rs.includes(s.region)));
+  const counties = (ZONES.find(([z]) => z === zone)?.[1] ?? []).filter((c) => spotOptions.some((s) => s.region === c));
+  const list = spotOptions.filter((s) => zoneOf(s.region) === zone && (!county || s.region === county));
+  const pick = (id: string) => { setSpot(id); go('forecast'); close(); };
+  const def = AREAS.find((a) => a.id === 'forecast')!;
+  const row = (id: string) => {
+    const s = spotOptions.find((x) => x.id === id);
+    if (!s) return null;
+    const rec = view.mapRecords.find((r) => r.spotId === s.id && r.timestamp === view.selectedTime);
+    return (
+      <button key={s.id} className="mm-spot" aria-current={s.id === spot.id} onClick={() => pick(s.id)}>
+        <span className="qdot" style={{background: rec ? BAND_COLOR[band(rec, s)] : 'var(--none)'}} />
+        <span className="mm-n">{s.name}<small>{s.region}</small></span>
+        <span className="mm-h">{rec && Number.isFinite(rec.offshore) ? `${ht(rec.offshore, p)} ${p.heightUnit}` : '—'}</span>
+      </button>
+    );
+  };
+  return (
+    <div className="menu mega" role="dialog" aria-label="Forecast: pages and spots">
+      <div className="mm-rail">
+        <p className="mm-k">Forecast</p>
+        <ul>{def.sections.map((s) => (
+          <li key={s.id}><a {...linkProps((a, sec) => { go(a, sec); close(); }, 'forecast', s.id)} aria-current={current && section === s.id ? 'page' : undefined}>{s.label}</a></li>
+        ))}</ul>
+        {recent.length > 0 && <><p className="mm-k">Recently viewed</p><div className="mm-list">{recent.map(row)}</div></>}
+        {favs.length > 0 && <><p className="mm-k">Favourites</p><div className="mm-list">{favs.slice(0, 5).map(row)}</div></>}
+      </div>
+      <div className="mm-main">
+        <nav className="mm-crumbs" aria-label="Location">
+          <button onClick={() => setCounty(null)}>California</button><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} />
+          <button onClick={() => setCounty(null)}>{zone}</button>
+          {county && <><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} /><span>{county}</span></>}
+        </nav>
+        <div className="mm-cols">
+          <div className="mm-col" role="group" aria-label="Region">{zones.map(([z]) => <button key={z} className="mm-opt" aria-pressed={z === zone} onClick={() => { setZone(z); setCounty(null); }}>{z}<Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} /></button>)}</div>
+          <div className="mm-col" role="group" aria-label="County">
+            <button className="mm-opt" aria-pressed={county === null} onClick={() => setCounty(null)}>All of {zone}</button>
+            {counties.map((c) => <button key={c} className="mm-opt" aria-pressed={c === county} onClick={() => setCounty(c)}>{c}</button>)}
+          </div>
+          <div className="mm-col mm-spots" role="group" aria-label="Spots">{list.map((s) => row(s.id))}</div>
+        </div>
+        <p className="mm-foot">Offshore height at {view.selectedTime ? timeLabelPT(view.selectedTime) : '—'} · dot = provisional rating · <button className="mm-link" onClick={() => { go('explore'); close(); }}>Open the map</button></p>
+      </div>
+    </div>
   );
 }
 
@@ -72,6 +150,8 @@ export function SpotPicker() {
     return () => { removeEventListener('pointerdown', close); removeEventListener('keydown', esc); };
   }, [open]);
   const fav = data.state.favorites;
+  const [q, setQ] = useState('');
+  const shown = spotOptions.filter((s) => !q || `${s.name} ${s.region}`.toLowerCase().includes(q.toLowerCase()));
   return (
     <div className="spotpick" ref={ref}>
       <button className="spotbtn" aria-haspopup="listbox" aria-expanded={open} onClick={() => setOpen(!open)}>
@@ -79,7 +159,9 @@ export function SpotPicker() {
       </button>
       {open && (
         <ul className="spotlist" role="listbox" aria-label="Choose a spot">
-          {spotOptions.map((s) => {
+          <li className="spotsearch"><Icon name="search" size={15} /><input autoFocus type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Search ${spotOptions.length} spots…`} aria-label="Search spots" /></li>
+          {shown.length === 0 && <li className="fine" style={{padding: '10px 12px'}}>No spot matches “{q}”.</li>}
+          {shown.map((s) => {
             const rec = view.mapRecords.find((r) => r.spotId === s.id && r.timestamp === view.selectedTime);
             return (
               <li key={s.id} style={{display: 'flex', alignItems: 'center'}}>

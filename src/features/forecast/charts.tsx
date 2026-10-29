@@ -54,6 +54,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, now, dayIndex
   const max = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0))) * 1.12;
   const Y = (v: number) => 168 - (v / max) * 142;
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
+  const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
   const TY = (v: number) => height - 26 - ((v - tLo) / (tHi - tLo || 1)) * 34;
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
@@ -121,8 +122,8 @@ export function Timeline({series, spot, p, selectedTime, onSelect, now, dayIndex
             </g>;
           })}
           {every * pxh >= 30 && vis.map((h, k) => ((i0 + k) % every ? null : <text key={`ws${h.timestamp}`} x={X(i0 + k)} y={236} fontSize={9.5} fill="var(--muted)" textAnchor="middle">{windVal(h.forecast.wind.speed, p)}</text>))}
-          <path d={`${monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} L${X(i1)},${height - 22} L${X(i0)},${height - 22}Z`} fill="var(--tide)" fillOpacity={0.14} />
-          <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.5} />
+          {hasTide && <path d={`${monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} L${X(i1)},${height - 22} L${X(i0)},${height - 22}Z`} fill="var(--tide)" fillOpacity={0.14} />}
+          {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TY(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.5} />}
           {pxh > 4 && extrema.map((e) => {
             const x = XT(Date.parse(e.timestamp)), v = e.height.value;
             if (x < G || x > W || v === null) return null;
@@ -141,7 +142,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, now, dayIndex
         <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
           <line y1={16} y2={height - 14} stroke="var(--ch-ink)" strokeWidth={1.4} />
           <circle cy={Y(selH?.heightFt ?? 0)} r={5} fill="var(--bg)" stroke="var(--hs-hi)" strokeWidth={2.5} />
-          <circle cy={TY(selH?.forecast.tide.height ?? 0)} r={3.6} fill="var(--ch-ink)" />
+          {hasTide && Number.isFinite(selH?.forecast.tide.height) && <circle cy={TY(selH!.forecast.tide.height)} r={3.6} fill="var(--ch-ink)" />}
         </g>
       </svg>
       {tipH && hover && (
@@ -197,7 +198,7 @@ export function Dial({arms, facing}: {arms: ({from: number; color: string; w: nu
 }
 
 export function Spark({values, index, color}: {values: number[]; index: number; color: string}) {
-  if (!values.length) return null;
+  if (!values.length || values.some((v) => !Number.isFinite(v))) return null;
   const lo = Math.min(...values) - 0.3, hi = Math.max(...values) + 0.3, n = values.length;
   const X = (i: number) => 4 + (i / Math.max(1, n - 1)) * 112, Yv = (v: number) => 50 - ((v - lo) / (hi - lo || 1)) * 40;
   const d = monotonePath(values.map((v, i) => [X(i), Yv(v)]));
@@ -234,6 +235,7 @@ export function PolarSwell({hours, selected, facing, onSelect}: {hours: HourSamp
 
 export function TideDay({hours, selected, extrema, spot, p, onSelect}: {hours: HourSample[]; selected: string | null; extrema: TidePrediction[]; spot: SurfSpot; p: UserProfile; onSelect: (t: string) => void}) {
   if (!hours.length) return null;
+  if (!hours.some((h) => Number.isFinite(h.forecast.tide.height))) return <p className="fine">No tide station near this spot yet. The San Francisco station is only used for spots near the Bay.</p>;
   const vals = hours.map((h) => h.forecast.tide.height), lo = Math.min(...vals) - 0.6, hi = Math.max(...vals) + 0.6;
   const t0 = Date.parse(hours[0].timestamp), span = Date.parse(hours[hours.length - 1].timestamp) - t0 || 1;
   const X = (ms: number) => 8 + ((ms - t0) / span) * 344, Yv = (v: number) => 150 - ((v - lo) / (hi - lo)) * 126;

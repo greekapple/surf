@@ -53,6 +53,10 @@
 - Evidence: tsc, npm test 140/140, build; journeys 8/8 (4–6 rewritten for the new pages); `sections-distinct.mjs` 23 routes × 2 widths distinct, no overflow; `menu-over-map.mjs` 5/5.
 - Open: V-05 Quiver boards are flat outlines (needs 3D models); T-012 item 5 (frame availability on the slider) not done; Esri imagery is fine for development but needs a licence check before a public launch (X-03).
 
+- Map R2 `2589bd1`: grids cover the California coast (32–42.5°N, 117–127°W, 7 days); 45 live spots; nav click opens menus.
+- Nav R3: Forecast menu is a place browser (Region › County › Spot, recent + favourites rail), after studying surfline.com's nav principles (`ai-system-setup/research/surfline-nav/`); spot picker search; tide only near the SF station (fixed 38 chart errors found by `audit-controls.mjs`). Checks: journeys 8/8, nav-click 11/11, mega-menu 5/5, sections-distinct, menu-over-map.
+- Next (user's order): typography, lighter theme, interactivity, Quiver 3D board room (Blender + three.js).
+
 ## Agent task log
 States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE · BLOCKED
 
