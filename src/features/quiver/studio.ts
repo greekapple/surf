@@ -80,6 +80,16 @@ export const templateTpl = loadTemplate;
 const clonePart = (p: Part): Part => ({geom: p.geom.clone(), pos0: p.pos0, nrm0: p.nrm0, station: p.station});
 const cloneTpl = (t: Tpl): Tpl => ({...t, resin: clonePart(t.resin), stringer: clonePart(t.stringer)});
 
+/** Resin material whose photo (map) applies only where the per-vertex `deckw` weight says the surface faces up: rails and bottom keep the board colour. */
+function deckMaterial() {
+  const m = new THREE.MeshPhysicalMaterial({vertexColors: true, color: 0xffffff});
+  m.onBeforeCompile = (sh) => {
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute float deckw;\nvarying float vDeckW;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvDeckW = deckw;');
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vDeckW;')
+      .replace('#include <map_fragment>', '#ifdef USE_MAP\n vec4 sampledDiffuseColor = texture2D( map, vMapUv );\n diffuseColor.rgb *= mix( vec3( 1.0 ), sampledDiffuseColor.rgb, vDeckW );\n#endif');
+  };
+  return m;
+}
 const smooth = (a: number, b: number, x: number) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 
 /** Soft overhead strips and a big front softbox over a pale room: resin reads as a photographed board. */
@@ -351,8 +361,15 @@ export class Studio {
       default: return {az: 32, el: 22, m: 1.06, flip: 0, target: new THREE.Vector3(0, y, 0)};
     }
   }
+  /** Distance at which a sphere of radius r fits the view at this aspect ratio, with a margin. */
+  private sphereDist(r: number) {
+    const vf = THREE.MathUtils.degToRad(this.camera.fov), hf = 2 * Math.atan(Math.tan(vf / 2) * this.camera.aspect);
+    return (r * 1.14) / Math.sin(Math.min(vf, hf) / 2);
+  }
   private focusPose(p: Preset): CamPose {
-    const q = this.presetPose(p), L = this.sel()?.spec.length ?? 72, d = this.fitDist(L * 1.16, L * 0.92) * q.m;
+    const q = this.presetPose(p), sp = this.sel()?.spec, L = sp?.length ?? 72;
+    // The board's bounding sphere (it also covers every spin angle); the tail view frames the tail third only.
+    const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2), d = this.sphereDist(p === 'tail' ? R * 0.5 : R);
     return {s: new THREE.Spherical(Math.max(d, 20), Math.PI / 2 - THREE.MathUtils.degToRad(q.el), THREE.MathUtils.degToRad(q.az)), target: q.target, flip: q.flip};
   }
   private currentPose() {
@@ -468,7 +485,7 @@ export class Studio {
     shadow.rotation.x = -Math.PI / 2; shadow.renderOrder = 2;
     const rig: Rig = {
       id, root: new THREE.Group(), orient: new THREE.Group(), flip: new THREE.Group(), shape: new THREE.Group(), fins: new THREE.Group(), shadowRoot: new THREE.Group(), shadow,
-      resinMat: new THREE.MeshPhysicalMaterial({vertexColors: true, color: 0xffffff}), stringerMat: new THREE.MeshPhysicalMaterial({color: WOOD}),
+      resinMat: deckMaterial(), stringerMat: new THREE.MeshPhysicalMaterial({color: WOOD}),
       tpl: null, tplKey: '', resin: null, stringer: null, spec, look, fillKey: '', lookKey: '', finKey: '', x: 0, lift: 0, texSrc: '', tex: null, base: 0.2, cx: NaN,
     };
     rig.root.userData.rigId = id;
@@ -548,12 +565,15 @@ export class Studio {
           // Deck-photo coordinates: along the board from the nose, across its width; the underside samples the flat half of the atlas.
           let uv1 = part.geom.getAttribute('uv1') as THREE.BufferAttribute | undefined;
           if (!uv1 || uv1.count !== pos.count) { uv1 = new THREE.BufferAttribute(new Float32Array(pos.count * 2), 2); part.geom.setAttribute('uv1', uv1); }
+          let dw = part.geom.getAttribute('deckw') as THREE.BufferAttribute | undefined;
+          if (!dw || dw.count !== pos.count) { dw = new THREE.BufferAttribute(new Float32Array(pos.count), 1); part.geom.setAttribute('deckw', dw); }
           const wF = s.width / L;
           for (let i = 0; i < pos.count; i++) {
             const u = THREE.MathUtils.clamp(0.5 - pos.getX(i), 0, 1), vn = THREE.MathUtils.clamp(pos.getZ(i) / wF + 0.5, 0, 1);
-            uv1.setXY(i, u, nr[i * 3 + 1] > 0 ? 0.5 + 0.5 * vn : 0.25);
+            uv1.setXY(i, u, 0.5 + 0.5 * vn);
+            dw.setX(i, smooth(0.45, 0.8, nr[i * 3 + 1]));
           }
-          uv1.needsUpdate = true;
+          uv1.needsUpdate = true; dw.needsUpdate = true;
         }
         pos.needsUpdate = true; uv.needsUpdate = true; part.geom.computeVertexNormals(); part.geom.computeBoundingSphere(); part.geom.computeBoundingBox();
       }
@@ -575,7 +595,7 @@ export class Studio {
     const f = 0.05 + look.fade * 0.85, photo = !!rig.tex;
     const col = tpl.resin.geom.getAttribute('color') as THREE.BufferAttribute, nr = tpl.resin.nrm0, c = new THREE.Color();
     for (let i = 0; i < col.count; i++) {
-      if (photo) c.copy(nr[i * 3 + 1] > 0 ? WHITE : bottom); else c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1]));
+      if (photo) c.copy(bottom).lerp(WHITE, smooth(0.45, 0.8, nr[i * 3 + 1])); else c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1]));
       col.setXYZ(i, c.r, c.g, c.b);
     }
     col.needsUpdate = true;

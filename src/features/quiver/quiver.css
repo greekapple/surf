@@ -168,13 +168,30 @@
 .qv-showbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
 @media (max-width: 1100px) { .qv-card-spec { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .qv-card-spec .qv-cta { grid-column: 1 / -1; } }
 @media (max-width: 860px) {
-  .qv-card-spec { position: static; grid-template-columns: minmax(0, 1fr); gap: 14px; border-radius: 0; border: 0; border-top: 1px solid rgb(27 34 39 / 0.12); background: #f6f4f0; backdrop-filter: none; padding: 16px 14px; }
-  .qv-card-spec .qv-cta { grid-column: auto; min-height: 48px; }
+  /* Phones: the card still overlays the bottom of the stage, compact: name, 2x2 specs, one button. */
+  .qv-card-spec { left: 8px; right: 8px; bottom: 8px; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'id cta' 'specs specs'; gap: 8px 10px; padding: 10px 12px; }
+  .qv-card-spec .qv-card-id { grid-area: id; gap: 0; }
+  .qv-card-spec .qv-card-id .fine, .qv-card-spec .qv-tags { display: none; }
+  .qv-card-spec h2 { font-size: 22px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qv-card-spec .qv-specs { grid-area: specs; gap: 2px 18px; }
+  .qv-card-spec .qv-specs dt, .qv-card-spec .qv-specs dd { font-size: 13px; }
+  .qv-card-spec .qv-cta { grid-area: cta; grid-column: auto; min-height: 44px; padding: 0 14px; font-size: 14px; }
+  .qv-studio .qv-strip { justify-content: flex-start; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .qv-stagewrap .qv-arrow { width: 44px; height: 44px; margin-top: 0; top: 38%; }
+  .qv-stagewrap .qv-arrow.l { left: 6px; } .qv-stagewrap .qv-arrow.r { right: 6px; }
+  .qv-stagewrap .qv-stage { height: min(68svh, 540px); }
 }
 
 /* Focus: the card moves below the stage so it never covers the board. */
 .qv-stagewrap.focus .qv-card-spec { position: static; border-radius: 0; border: 0; border-top: 1px solid rgb(27 34 39 / 0.12); background: #f6f4f0; backdrop-filter: none; }
 .qv-stagewrap.focus .qv-arrow { top: calc(50% - 60px); }
+@media (max-width: 860px) {
+  .qv-stagewrap.focus .qv-card-spec { grid-template-columns: minmax(0, 1fr); grid-template-areas: none; padding: 12px; }
+  .qv-stagewrap.focus .qv-card-spec .qv-card-id, .qv-stagewrap.focus .qv-card-spec .qv-specs, .qv-stagewrap.focus .qv-card-spec .qv-cta { grid-area: auto; }
+  .qv-stagewrap.focus .qv-card-spec .qv-cta { width: 100%; }
+  .qv-stagewrap.focus .qv-arrow { top: 38%; }
+  .qv-stagewrap.focus .qv-stage { height: min(62svh, 480px); }
+}
 
 /* Add Board: two paths, and the scan panel. */
 .qv-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }

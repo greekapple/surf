@@ -14,23 +14,85 @@ export type TraceResult =
 
 const FAIL = (reason: string): TraceResult => ({ok: false, reason});
 
+
+/** Least-squares plane c0 + c1*x + c2*y per colour channel over a 3 px border frame, refitted once without outliers. Returns the floor colour at a pixel. */
+function fitFloor(rgba: Uint8ClampedArray | Uint8Array, w: number, h: number): (x: number, y: number) => [number, number, number] {
+  const pts: number[] = [];
+  for (let x = 0; x < w; x++) for (let k = 0; k < 3; k++) pts.push(x, k, x, h - 1 - k);
+  for (let y = 0; y < h; y++) for (let k = 0; k < 3; k++) pts.push(k, y, w - 1 - k, y);
+  const P: [number, number][] = [];
+  for (let i = 0; i < pts.length; i += 4) { P.push([pts[i], pts[i + 1]], [pts[i + 2], pts[i + 3]]); }
+  const coef: number[][] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  const solve = (use: boolean[]) => {
+    for (let c = 0; c < 3; c++) {
+      const A = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], B = [0, 0, 0];
+      P.forEach(([x, y], j) => {
+        if (!use[j]) return;
+        const f = [1, x / w, y / h], v = rgba[(y * w + x) * 4 + c];
+        for (let r = 0; r < 3; r++) { B[r] += f[r] * v; for (let q = 0; q < 3; q++) A[r][q] += f[r] * f[q]; }
+      });
+      // Gaussian elimination on the 3x3 system.
+      const M = A.map((row, r) => [...row, B[r]]);
+      for (let i = 0; i < 3; i++) {
+        let piv = i; for (let r = i + 1; r < 3; r++) if (Math.abs(M[r][i]) > Math.abs(M[piv][i])) piv = r;
+        [M[i], M[piv]] = [M[piv], M[i]];
+        if (Math.abs(M[i][i]) < 1e-9) { coef[c] = [B[0] / Math.max(1, A[0][0]), 0, 0]; M[0][0] = NaN; break; }
+        for (let r = 0; r < 3; r++) if (r !== i) { const k = M[r][i] / M[i][i]; for (let q = i; q < 4; q++) M[r][q] -= k * M[i][q]; }
+      }
+      if (!Number.isNaN(M[0][0])) coef[c] = [M[0][3] / M[0][0], M[1][3] / M[1][1], M[2][3] / M[2][2]];
+    }
+  };
+  const at = (x: number, y: number) => [0, 1, 2].map((c) => coef[c][0] + coef[c][1] * (x / w) + coef[c][2] * (y / h)) as [number, number, number];
+  let use = P.map(() => true);
+  solve(use);
+  const err = P.map(([x, y]) => { const f = at(x, y), i = (y * w + x) * 4; return Math.hypot(rgba[i] - f[0], rgba[i + 1] - f[1], rgba[i + 2] - f[2]); });
+  const sorted = [...err].sort((p, q) => p - q), lim = Math.max(12, sorted[Math.floor(sorted.length * 0.9)] * 1.5);
+  use = err.map((e) => e <= lim);
+  if (use.filter(Boolean).length > 12) solve(use);
+  return at;
+}
+
+/** Binary mask of dist >= cut, closed with a (2r+1) square: dilate then erode. */
+function close(dist: Float32Array, w: number, h: number, cut: number, r: number): Uint8Array {
+  const n = w * h, a = new Uint8Array(n);
+  for (let p = 0; p < n; p++) a[p] = dist[p] >= cut ? 1 : 0;
+  const pass = (src: Uint8Array, want: 0 | 1, out: Uint8Array) => {
+    const tmp = new Uint8Array(n);
+    // Horizontal then vertical: a pixel becomes `want` if any (dilate) or all (erode, via inverted want) neighbours are.
+    const edge = want ? 0 : 1;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      let hit = 0;
+      for (let k = -r; k <= r && !hit; k++) { const xx = x + k, v = xx < 0 || xx >= w ? edge : src[y * w + xx]; if (v === want) hit = 1; }
+      tmp[y * w + x] = hit ? want : 1 - want;
+    }
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      let hit = 0;
+      for (let k = -r; k <= r && !hit; k++) { const yy = y + k, v = yy < 0 || yy >= h ? edge : tmp[yy * w + x]; if (v === want) hit = 1; }
+      out[y * w + x] = hit ? want : 1 - want;
+    }
+    return out;
+  };
+  const dil = pass(a, 1, new Uint8Array(n));
+  return pass(dil, 0, new Uint8Array(n));
+}
+
 /** `rgba` is an RGBA pixel array of size w*h*4. Works in Node and the browser. */
 export function traceBoard(rgba: Uint8ClampedArray | Uint8Array, w: number, h: number, flip = false): TraceResult {
   const n = w * h;
   if (w < 40 || h < 40 || rgba.length < n * 4) return FAIL('The photo is too small to trace.');
-  // Floor colour: median of a 3 px frame around the border.
-  const bx: number[][] = [[], [], []];
-  const take = (x: number, y: number) => { const i = (y * w + x) * 4; for (let c = 0; c < 3; c++) bx[c].push(rgba[i + c]); };
-  for (let x = 0; x < w; x++) for (let k = 0; k < 3; k++) { take(x, k); take(x, h - 1 - k); }
-  for (let y = 0; y < h; y++) for (let k = 0; k < 3; k++) { take(k, y); take(w - 1 - k, y); }
-  const bg = bx.map((a) => { a.sort((p, q) => p - q); return a[a.length >> 1]; });
+  // Floor model: a plane per colour channel fitted to a 3 px frame around the border (robust to a lighting gradient across the floor).
+  const bgAt = fitFloor(rgba, w, h);
+  // Distance to the floor. A shadow only darkens the floor along its own colour direction, so darkening counts 0.4x; any hue change or brightening counts fully.
   const dist = new Float32Array(n); let max = 0;
-  for (let p = 0; p < n; p++) {
-    const i = p * 4, d = Math.hypot(rgba[i] - bg[0], rgba[i + 1] - bg[1], rgba[i + 2] - bg[2]);
+  for (let y = 0, p = 0; y < h; y++) for (let x = 0; x < w; x++, p++) {
+    const i = p * 4, b = bgAt(x, y), bn = Math.hypot(b[0], b[1], b[2]) || 1;
+    const dr = rgba[i] - b[0], dg = rgba[i + 1] - b[1], db = rgba[i + 2] - b[2];
+    const along = (dr * b[0] + dg * b[1] + db * b[2]) / bn, orth = Math.sqrt(Math.max(0, dr * dr + dg * dg + db * db - along * along));
+    const d = Math.hypot(orth, along < 0 ? along * 0.4 : along);
     dist[p] = d; if (d > max) max = d;
   }
   if (max < 40) return FAIL('The board does not stand out from the floor. Use a floor that contrasts with the board, such as a dark floor for a white board.');
-  // Otsu threshold on the colour distance.
+  // Otsu threshold on the distance.
   const hist = new Float64Array(256);
   for (let p = 0; p < n; p++) hist[Math.min(255, Math.round((dist[p] / max) * 255))]++;
   let sum = 0; for (let t = 0; t < 256; t++) sum += t * hist[t];
@@ -41,18 +103,20 @@ export function traceBoard(rgba: Uint8ClampedArray | Uint8Array, w: number, h: n
     if (v > best) { best = v; thr = t; }
   }
   const cut = Math.max(0.15, (thr + 1) / 255) * max;
+  // Morphological close (dilate then erode) fills pinholes and thin gaps such as a stringer line or glare.
+  const fg = close(dist, w, h, cut, Math.max(2, Math.round(Math.min(w, h) * 0.008)));
   // Largest connected blob.
   const label = new Int32Array(n), stack = new Int32Array(n);
   let bestLab = 0, bestSize = 0, lab = 0;
   for (let s = 0; s < n; s++) {
-    if (label[s] || dist[s] < cut) continue;
+    if (label[s] || !fg[s]) continue;
     lab++; let sp = 0, size = 0; stack[sp++] = s; label[s] = lab;
     while (sp) {
       const p = stack[--sp]; size++; const x = p % w, y = (p / w) | 0;
-      if (x > 0 && !label[p - 1] && dist[p - 1] >= cut) { label[p - 1] = lab; stack[sp++] = p - 1; }
-      if (x < w - 1 && !label[p + 1] && dist[p + 1] >= cut) { label[p + 1] = lab; stack[sp++] = p + 1; }
-      if (y > 0 && !label[p - w] && dist[p - w] >= cut) { label[p - w] = lab; stack[sp++] = p - w; }
-      if (y < h - 1 && !label[p + w] && dist[p + w] >= cut) { label[p + w] = lab; stack[sp++] = p + w; }
+      if (x > 0 && !label[p - 1] && fg[p - 1]) { label[p - 1] = lab; stack[sp++] = p - 1; }
+      if (x < w - 1 && !label[p + 1] && fg[p + 1]) { label[p + 1] = lab; stack[sp++] = p + 1; }
+      if (y > 0 && !label[p - w] && fg[p - w]) { label[p - w] = lab; stack[sp++] = p - w; }
+      if (y < h - 1 && !label[p + w] && fg[p + w]) { label[p + w] = lab; stack[sp++] = p + w; }
     }
     if (size > bestSize) { bestSize = size; bestLab = lab; }
   }
@@ -86,10 +150,10 @@ export function traceBoard(rgba: Uint8ClampedArray | Uint8Array, w: number, h: n
   const aspect = len / (2 * maxHalf);
   if (aspect < 2.2) return FAIL('The shape is not long and narrow enough to be a surfboard. Check the photo shows one whole board from above.');
   if (half.filter((v) => v < maxHalf * 0.04).length > 3) return FAIL('The traced shape has gaps, so part of the board blends into the floor. Try a floor that contrasts more.');
-  // Orient: nose first. The narrower end (mean of the outer eighths) is taken as the nose unless flipped.
-  const e = Math.floor(STATIONS / 8), avg = (a: number[]) => a.reduce((s, v) => s + v, 0) / a.length;
+  // Orient: nose first. The nose is the pointier end: the one whose tip curve is tighter (radius hw^2 / 2d at stations near each end), unless flipped.
+  const tip = (at: (j: number) => number) => [1, 2, 3].reduce((s, j) => s + at(j) ** 2 / (2 * (j + 0.5)), 0);
   let order = half.map((_, k) => k);
-  if (avg(half.slice(0, e)) > avg(half.slice(-e))) order = order.reverse();
+  if (tip((j) => half[j]) > tip((j) => half[STATIONS - 1 - j])) order = order.reverse();
   if (flip) order = order.reverse();
   const smoothHalf = order.map((k) => half[k]);
   const sm = smoothHalf.map((v, i, a) => (i === 0 || i === a.length - 1 ? v : (a[i - 1] + 2 * v + a[i + 1]) / 4));
