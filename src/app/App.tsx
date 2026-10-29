@@ -21,10 +21,12 @@ export default function App() {
   const {area, section} = route;
   // The ocean map is full-bleed under the nav; its sidebar tabs and layer panel replace the section pills.
   const bleed = area === 'explore' && section !== 'discover' && section !== 'compare';
+  // Pages that open on a full-bleed photograph: the nav floats over it (reference) until the page scrolls.
+  const photoTop = (area === 'home' && section === '') || (area === 'forecast' && section === '');
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Explore', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
     <SwelloProvider>
-      <div className="shell">
+      <div className={`shell${photoTop ? ' photo-top' : ''}`}>
         <a className="skip" href="#main">Skip to content</a>
         <TopNav area={area} section={section} go={navigate} />
         <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>

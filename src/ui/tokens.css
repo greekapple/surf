@@ -21,7 +21,8 @@
   /* Apple-style system typography (2026-10-29): SF Pro on Apple devices via the system stack; no web font to download. */
   --display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
   --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
-  --serif: var(--display);
+  /* Display serif for headlines only (reference: "Hello, Milo.", spot names, section titles). Weight 400 only: never bold it. */
+  --serif: 'DM Serif Display', 'Iowan Old Style', Georgia, serif;
   --wide: 118%;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
   --ease: cubic-bezier(.2, .8, .2, 1);
@@ -90,10 +91,11 @@
 /* Dark palette (previous default). `.on-dark` scopes it to surfaces that are always dark (the 3D viewer). */
 :root[data-theme="dark"], .on-dark {
   /* Midnight Pacific: navy ground, glassy panels, photography carries the colour. */
-  --bg: #07111a;
-  --s1: #0b1822;
-  --s2: #10202c;
-  --s3: #172a38;
+  /* Reference palette (Downloads/Swello Premium Surf App Showcase.png): deep Pacific navy, slate panels. */
+  --bg: #0a131c;
+  --s1: #101b26;
+  --s2: #152331;
+  --s3: #1c2d3d;
   --line: rgb(255 255 255 / 0.08);
   --line-2: rgb(255 255 255 / 0.16);
   --text: #eef3f6;

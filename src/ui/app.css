@@ -310,3 +310,14 @@
 .legal h1 { font: 700 34px/1.1 var(--display); letter-spacing: -0.02em; } .legal h2 { margin-top: 10px; font-size: 19px; }
 .legal p, .legal li { color: var(--muted); } .legal ul { padding-left: 20px; display: grid; gap: 6px; }
 @media (max-width: 860px) { .foot { padding-bottom: calc(var(--tab-h) + 28px); } }
+
+/* ---------- Nav over a full-bleed photo (Home, Forecast): transparent until scrolled ---------- */
+.shell.photo-top .topnav { position: fixed; left: 0; right: 0; transition: background-color 220ms var(--ease), border-color 220ms var(--ease); }
+.shell.photo-top .topnav:not(.solid) {
+  background: linear-gradient(180deg, rgb(4 10 16 / 0.55), rgb(4 10 16 / 0)); border-color: transparent; color: #fff;
+  --text: #fff; --muted: rgb(255 255 255 / 0.82); --dim: rgb(255 255 255 / 0.7); --chip-bg: rgb(255 255 255 / 0.14); --line: rgb(255 255 255 / 0.18); --line-2: rgb(255 255 255 / 0.3); --s3: rgb(255 255 255 / 0.16); color-scheme: dark;
+}
+.shell.photo-top .topnav:not(.solid) .area > button[aria-current='page']::after { background: #fff; }
+.shell.photo-top .topnav:not(.solid) .wordmark { text-shadow: 0 1px 12px rgb(0 0 0 / 0.3); }
+/* Content starts at the top of the viewport under the floating nav; pages offset their own text by --nav-h. */
+.shell.photo-top .page { padding-top: 0; }

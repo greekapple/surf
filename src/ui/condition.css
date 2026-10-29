@@ -7,3 +7,8 @@
   .tick { animation: tick-in 180ms var(--ease, ease-out); }
   @keyframes tick-in { from { opacity: 0.35; transform: translateY(4px); } }
 }
+/* Filled chip (reference: "Good" green, "Surfable"/"Fair" blue, "Poor" grey). */
+.cond.chip-c { padding: 3px 10px; border-radius: 6px; font-size: 12.5px; font-weight: 650; color: #fff; background: var(--poor); }
+.cond.chip-c.good { background: #1f7a4d; }
+.cond.chip-c.fair { background: #2a6db0; }
+.cond.chip-c.none { background: var(--none); color: var(--text); }

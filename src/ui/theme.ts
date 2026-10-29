@@ -5,14 +5,14 @@ export type ThemePref = 'system' | 'light' | 'dark';
 export const THEME_KEY = 'swello-theme';
 export const THEME_PREFS: readonly ThemePref[] = ['system', 'light', 'dark'];
 /** Keep in sync with the inline pre-paint script and meta theme-color in index.html. */
-const META_COLOR = {light: '#f5f5f7', dark: '#07111a'} as const;
+const META_COLOR = {light: '#f5f5f7', dark: '#0a131c'} as const;
 
 export function readThemePref(): ThemePref {
   try {
     const v = localStorage.getItem(THEME_KEY);
-    return v === 'light' || v === 'dark' || v === 'system' ? v : 'light'; // light (Apple-style) is the default since 2026-10-29
+    return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; // dark cinematic (the user's reference images) is the default; light stays available
   } catch {
-    return 'light';
+    return 'dark';
   }
 }
 
@@ -56,7 +56,7 @@ const subscribe = (l: () => void) => {
 
 /** Current preference, a setter, and the live DOM sync (mount once via useThemeSync in App). */
 export function useThemePref(): [ThemePref, (p: ThemePref) => void] {
-  return [useSyncExternalStore(subscribe, getPref, () => 'light' as ThemePref), setThemePref];
+  return [useSyncExternalStore(subscribe, getPref, () => 'dark' as ThemePref), setThemePref];
 }
 
 export function useThemeSync() {

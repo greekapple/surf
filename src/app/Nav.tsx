@@ -185,8 +185,11 @@ export function DataBadge() {
 }
 
 export function TopNav({area, section, go}: {area: Area; section: string; go: Go}) {
+  // Becomes solid after a little scroll; only visible as transparent on photo-top pages (CSS).
+  const [solid, setSolid] = useState(() => typeof scrollY === 'number' && scrollY > 24);
+  useEffect(() => { const on = () => setSolid(scrollY > 24); on(); addEventListener('scroll', on, {passive: true}); return () => removeEventListener('scroll', on); }, [area, section]);
   return (
-    <header className="topnav">
+    <header className={`topnav${solid ? ' solid' : ''}`}>
       <a className="wordmark" aria-label="Swello home" {...linkProps(go, 'home')}>Swello</a>
       <nav aria-label="Primary"><ul className="areas">
         {AREAS.map((def) => <AreaMenu key={def.id} def={def} current={def.id === area} section={section} go={go} />)}
