@@ -55,3 +55,57 @@ test('outline storage keeps a small JPEG texture and drops anything else', () =>
   (globalThis as any).localStorage = {getItem: () => null, setItem: () => { throw new Error('quota'); }};
   assert.equal(saveOutline('d', {v: 1, hw}), false);
 });
+
+/** Real-photo style: floor brightens left to right and top to bottom, the board casts a soft shadow offset down-right, and the board has a few glare pinholes. */
+function realistic(w: number, h: number, shadow: boolean, pointy: 'left' | 'right') {
+  const d = new Uint8ClampedArray(w * h * 4), L = w * 0.8, hwMax = L * 0.12, cx = w / 2, cy = h / 2;
+  // Half-width along the board; the pointy end tapers linearly to a tip, the other end is round.
+  const hw = (u: number) => {
+    if (u <= 0 || u >= 1) return 0;
+    const v = pointy === 'left' ? u : 1 - u, e = Math.min(u, 1 - u);
+    const round = Math.sqrt(Math.max(0, 1 - ((0.5 - e * 2 + 0.0) / 0.5) ** 2 * 0)) ;
+    return hwMax * (v < 0.5 ? Math.min(1, (v / 0.5) ** 1.0 * 1.0) : 1) * (e < 0.06 && v >= 0.5 ? Math.sqrt(e / 0.06) : 1) * round;
+  };
+  const inside = (x: number, y: number) => { const u = (x - cx) / L + 0.5; return u > 0 && u < 1 && Math.abs(y - cy) < hw(u); };
+  const blur = 14;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = (y * w + x) * 4, g = 1 + 0.5 * (x / w) + 0.3 * (y / h);
+    let rgb = [95 * g, 105 * g, 100 * g];
+    if (shadow) {
+      let cover = 0, cnt = 0;
+      for (let dy = -blur; dy <= blur; dy += 7) for (let dx = -blur; dx <= blur; dx += 7) { cnt++; if (inside(x - 18 + dx, y - 22 + dy)) cover++; }
+      const k = 1 - 0.45 * (cover / cnt); rgb = rgb.map((v) => v * k);
+    }
+    if (inside(x, y)) { rgb = [225, 215, 195]; if ((x * 7 + y * 13) % 211 === 0) rgb = [255, 255, 255]; if (Math.abs(y - cy) < 2 && (x % 40) < 4) rgb = [140, 120, 90]; }
+    d[i] = rgb[0]; d[i + 1] = rgb[1]; d[i + 2] = rgb[2]; d[i + 3] = 255;
+  }
+  return d;
+}
+
+test('a soft shadow and a gradient floor do not fatten or clip the traced board', () => {
+  const w = 520, h = 320, r = traceBoard(realistic(w, h, true, 'left'), w, h);
+  assert.ok(r.ok, r.ok ? '' : r.reason); if (!r.ok) return;
+  const truth = w * 0.8;
+  assert.ok(Math.abs(r.frame.len - truth) / truth < 0.05, `length ${r.frame.len} vs ${truth}`);
+  assert.ok(Math.abs(r.frame.half - w * 0.8 * 0.12) / (w * 0.8 * 0.12) < 0.12, `half-width ${r.frame.half}`);
+});
+
+test('the shadow-free and shadowed photos trace the same shape', () => {
+  const w = 520, h = 320, a = traceBoard(realistic(w, h, false, 'left'), w, h), b = traceBoard(realistic(w, h, true, 'left'), w, h);
+  assert.ok(a.ok && b.ok); if (!a.ok || !b.ok) return;
+  const diff = Math.max(...a.outline.hw.map((v, i) => Math.abs(v - b.outline.hw[i])));
+  assert.ok(diff < 0.012, `max half-width difference ${diff}`);
+});
+
+test('the pointier end is the nose, whichever side of the photo it is on', () => {
+  const w = 520, h = 320;
+  for (const side of ['left', 'right'] as const) {
+    const r = traceBoard(realistic(w, h, true, side), w, h);
+    assert.ok(r.ok); if (!r.ok) return;
+    const flipped = traceBoard(realistic(w, h, true, side), w, h, true);
+    assert.ok(flipped.ok); if (!flipped.ok) return;
+    const e = (hw: number[]) => hw.slice(1, 5).reduce((s, v) => s + v, 0), n = r.outline.hw;
+    assert.ok(e(n) < e(n.slice().reverse()), `${side}: nose end is narrower near the tip`);
+    assert.ok(e(flipped.outline.hw) > e(n), 'swap reverses it');
+  }
+});
