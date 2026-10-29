@@ -1,28 +1,20 @@
 // Imperative three.js scene for the Wave Scale. React owns the controls; this owns the canvas.
-// Production assets: set VITE_WAVE_GLB / VITE_SURFER_GLB to Blender-exported GLB files (metres,
-// +Y up, wave travelling +Z, trough at y = 0, 1 unit = 1 m). Without them, procedural fallbacks render.
+// Units: 1 unit = 1 m, +Y up, the wave travels toward +Z (the shore), the camera looks back at the face.
+// The wave is a sculpted breaking-wave mesh (see wave.ts) scaled uniformly by face height; the water shader
+// is in waveShader.ts. The surfer is a GLB when available (surfer.ts) with a procedural fallback.
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import {NZ, envAt, fillWave, makeWaveGeometry, profileAt} from './wave';
+import {SKY_FRAG, SKY_VERT, SPRAY_FRAG, SPRAY_VERT, WATER_FRAG, WATER_VERT} from './waveShader';
 
 export const FT = 0.3048;
 export const SURFER_M = 1.78;
 export type Mode = 'ride' | 'paddle';
 export type View = 'front' | 'profile' | 'above' | 'free';
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// Cross-sections at unit height (z = toward shore, y = up). The breaking section throws a lip
-// forward over a hollow face; the shoulder section is an unbroken, rounded swell.
-const BREAK = [[-7, 0], [-4, 0.16], [-2, 0.55], [-0.8, 0.9], [0, 1], [0.32, 0.96], [0.52, 0.84], [0.6, 0.7], [0.5, 0.6], [0.4, 0.5], [0.52, 0.3], [0.8, 0.12], [1.2, 0.03], [1.8, 0], [6, 0]];
-const SHOULDER = [[-7, 0], [-4, 0.18], [-2, 0.6], [-0.7, 0.94], [0, 1], [0.5, 0.95], [0.95, 0.8], [1.25, 0.6], [1.5, 0.42], [1.85, 0.24], [2.3, 0.1], [2.9, 0.03], [3.6, 0], [4.8, 0], [6, 0]];
-const NZ = 96, NX = 150, XMIN = -34, XMAX = 34, XS = 5;
-const sample = (pts: number[][]) => new THREE.CatmullRomCurve3(pts.map(([z, y]) => new THREE.Vector3(z, y, 0)), false, 'centripetal').getSpacedPoints(NZ - 1);
-const UB = sample(BREAK), US = sample(SHOULDER);
-const CREST = UB.reduce((b, p, i) => (p.y > UB[b].y ? i : b), 0);
-/** Peak tapering to a shoulder; `peel` 0 = breaking section, 1 = unbroken shoulder. */
-// Ends taper smoothly into the sea so the mesh never shows a cut cross-section.
-const heightAt = (x: number, H: number) => H * (0.6 + 0.4 * Math.exp(-((x / 11) ** 2))) * (1 - THREE.MathUtils.smoothstep(Math.abs(x), 20, XMAX));
-const peelAt = (x: number) => THREE.MathUtils.smoothstep(x, -6, 14);
-const unitAt = (j: number, x: number, out: THREE.Vector3) => out.copy(UB[j]).lerp(US[j], peelAt(x));
+const XU = 7; // surfer's position along the crest, in face heights
+const SUN = new THREE.Vector3(0.62, 0.3, -0.72).normalize();
+const curlFor = (ft: number) => THREE.MathUtils.smoothstep(ft, 2.5, 7); // small waves spill instead of curling
 
 export interface SceneState {ft: number; mode: Mode; view: View}
 export interface Tags {face: HTMLElement; person: HTMLElement}
@@ -30,22 +22,30 @@ export interface Tags {face: HTMLElement; person: HTMLElement}
 export class WaveScene {
   renderer: THREE.WebGLRenderer;
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(40, 1, 0.1, 400);
+  camera = new THREE.PerspectiveCamera(38, 1, 0.1, 6000);
   controls: OrbitControls;
-  private waveGeo = new THREE.BufferGeometry();
-  private pos = new Float32Array(NX * NZ * 3);
-  private col = new Float32Array(NX * NZ * 3);
-  private wave: THREE.Mesh;
+  private build = makeWaveGeometry();
+  private waveGroup = new THREE.Group();
   private surfer = new THREE.Group();
   private rider: THREE.Group;
   private paddler: THREE.Group;
+  private sky: THREE.Mesh;
+  private shared: Record<string, THREE.IUniform>;
+  private sprayU = {uTime: {value: 0}, uPx: {value: 900}, uScale: {value: 1}};
   private dimGeo = new THREE.BufferGeometry().setFromPoints(Array.from({length: 6}, () => new THREE.Vector3()));
+  /** Standing-height reference (1.78 m) beside the surfer, so the figure's true size can be judged. */
+  private refGeo = new THREE.BufferGeometry().setFromPoints(Array.from({length: 6}, () => new THREE.Vector3()));
   private cur: number;
+  private curlBuilt = -1;
   private tween: {fromP: THREE.Vector3; fromT: THREE.Vector3; toP: THREE.Vector3; toT: THREE.Vector3; t0: number} | null = null;
   private dirty = true;
   private raf = 0;
   private last = performance.now();
+  private lastDraw = 0;
+  private visible = true;
+  private disposed = false;
   private ro: ResizeObserver;
+  private io: IntersectionObserver;
   frames = 0;
   customWave = false;
   customSurfer = false;
@@ -54,136 +54,152 @@ export class WaveScene {
   constructor(private stage: HTMLElement, canvas: HTMLCanvasElement, private tags: Tags, public s: SceneState) {
     this.renderer = new THREE.WebGLRenderer({canvas, antialias: true, powerPreference: 'default'});
     const r = this.renderer;
-    r.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+    r.setPixelRatio(Math.min(1.5, devicePixelRatio || 1));
     r.outputColorSpace = THREE.SRGBColorSpace;
     r.toneMapping = THREE.ACESFilmicToneMapping;
-    r.toneMappingExposure = 1.05;
-    r.shadowMap.enabled = true;
-    r.shadowMap.type = THREE.PCFSoftShadowMap;
+    r.toneMappingExposure = 1.0;
     this.cur = s.ft;
 
     const sc = this.scene;
-    sc.background = new THREE.Color(0x0b1822);
-    sc.fog = new THREE.Fog(0x0b1822, 50, 180);
-    sc.add(new THREE.HemisphereLight(0xcfe6ff, 0x0b2a3d, 0.95));
-    const sun = new THREE.DirectionalLight(0xfff4e6, 2);
-    sun.position.set(18, 30, 26);
-    sun.castShadow = true;
-    sun.shadow.mapSize.set(1024, 1024);
-    sun.shadow.bias = -0.0006;
-    sun.shadow.normalBias = 0.05;
-    Object.assign(sun.shadow.camera, {left: -20, right: 20, top: 20, bottom: -20, near: 1, far: 90});
+    this.shared = {uSun: {value: SUN}, uTime: {value: 0}, uAnim: {value: reduced() ? 0 : 1}};
+    sc.background = new THREE.Color(0xd9bda8);
+    // Lights are for the surfer and board only; the water shades itself.
+    sc.add(new THREE.HemisphereLight(0xcfe0f2, 0x2a4048, 1.1));
+    const sun = new THREE.DirectionalLight(0xffe2c0, 2.2);
+    sun.position.copy(SUN).multiplyScalar(30);
     sc.add(sun);
+    const fill = new THREE.DirectionalLight(0xbfd6ea, 0.9);
+    fill.position.set(-6, 5, 14);
+    sc.add(fill);
 
-    const sea = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), new THREE.MeshPhysicalMaterial({color: 0x0f3e58, roughness: 0.3, metalness: 0.05, clearcoat: 0.6, clearcoatRoughness: 0.25}));
-    sea.rotation.x = -Math.PI / 2;
-    sea.position.y = -0.01;
-    sea.receiveShadow = true;
+    this.sky = new THREE.Mesh(new THREE.SphereGeometry(3000, 32, 16), new THREE.ShaderMaterial({uniforms: this.shared, vertexShader: SKY_VERT, fragmentShader: SKY_FRAG, side: THREE.BackSide, depthWrite: false, depthTest: false}));
+    this.sky.renderOrder = -10; this.sky.frustumCulled = false;
+    sc.add(this.sky);
+
+    const mat = (bump: number, haze: number) => new THREE.ShaderMaterial({uniforms: {...this.shared, uBump: {value: bump}, uHaze: {value: haze}}, vertexShader: WATER_VERT, fragmentShader: WATER_FRAG, side: THREE.DoubleSide});
+    const seaGeo = new THREE.PlaneGeometry(6000, 6000, 1, 1);
+    seaGeo.rotateX(-Math.PI / 2);
+    seaGeo.setAttribute('aFoam', new THREE.BufferAttribute(new Float32Array(4), 1));
+    seaGeo.setAttribute('aThin', new THREE.BufferAttribute(new Float32Array(4), 1));
+    const sea = new THREE.Mesh(seaGeo, mat(0.012, 0.0016));
+    sea.position.y = -0.004; sea.frustumCulled = false;
     sc.add(sea);
 
-    this.waveGeo.setAttribute('position', new THREE.BufferAttribute(this.pos, 3));
-    this.waveGeo.setAttribute('color', new THREE.BufferAttribute(this.col, 3));
-    const idx: number[] = [];
-    for (let i = 0; i < NX - 1; i++) for (let j = 0; j < NZ - 1; j++) { const a = i * NZ + j, b = a + NZ; idx.push(a, b, a + 1, b, b + 1, a + 1); }
-    this.waveGeo.setIndex(idx);
-    // Physical water: vertex colour for depth/foam, clearcoat for the glassy face, sheen at grazing angles.
-    // FrontSide: double-sided rendering depth-fights where the lip folds back over the face.
-    this.wave = new THREE.Mesh(this.waveGeo, new THREE.MeshPhysicalMaterial({vertexColors: true, roughness: 0.22, metalness: 0.02, clearcoat: 0.8, clearcoatRoughness: 0.18, sheen: 0.5, sheenColor: new THREE.Color(0x9fdcf5), side: THREE.FrontSide}));
-    sc.add(this.wave);
+    this.waveGroup.add(new THREE.Mesh(this.build.geo, mat(0.1, 0.0016)));
+    this.waveGroup.add(this.makeSpray());
+    sc.add(this.waveGroup);
 
     this.rider = riderFigure();
     this.paddler = paddlerFigure();
     this.surfer.add(makeBoard(), this.rider, this.paddler);
+    void this.loadSurfer();
     sc.add(this.surfer);
-    sc.add(new THREE.LineSegments(this.dimGeo, new THREE.LineBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.85})));
+    sc.add(new THREE.LineSegments(this.refGeo, new THREE.LineBasicMaterial({color: 0xffd9a0, transparent: true, opacity: 0.9, depthTest: false})));
+    sc.add(new THREE.LineSegments(this.dimGeo, new THREE.LineBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false})));
 
     this.controls = new OrbitControls(this.camera, canvas);
-    Object.assign(this.controls, {enableDamping: true, dampingFactor: 0.08, minDistance: 4, maxDistance: 90, maxPolarAngle: Math.PI * 0.495});
+    Object.assign(this.controls, {enableDamping: true, dampingFactor: 0.08, minDistance: 3, maxDistance: 90, maxPolarAngle: Math.PI * 0.495});
     this.controls.addEventListener('start', () => { this.tween = null; this.s.view = 'free'; this.onFree?.(); });
     this.controls.addEventListener('change', () => (this.dirty = true));
 
-    this.build(this.cur * FT);
-    this.place(this.cur * FT);
+    this.layout(this.cur);
     this.ro = new ResizeObserver(() => this.resize());
     this.ro.observe(stage);
+    this.io = new IntersectionObserver(([e]) => { this.visible = e.isIntersecting; this.dirty = true; });
+    this.io.observe(stage);
     this.resize();
     this.goTo(s.view === 'free' ? 'front' : s.view, false);
     this.raf = requestAnimationFrame(this.loop);
-    void this.loadModels();
   }
 
-  /** Replace procedural parts with production GLB files when configured. */
-  private async loadModels() {
-    const waveUrl = import.meta.env.VITE_WAVE_GLB as string | undefined, surferUrl = import.meta.env.VITE_SURFER_GLB as string | undefined;
-    if (!waveUrl && !surferUrl) return;
-    const {GLTFLoader} = await import('three/examples/jsm/loaders/GLTFLoader.js');
-    const loader = new GLTFLoader();
-    const load = (url: string) => loader.loadAsync(url).then((g) => g.scene).catch(() => null);
-    if (waveUrl) { const m = await load(waveUrl); if (m) { this.wave.visible = false; this.scene.add(m); this.customWave = true; } }
-    if (surferUrl) { const m = await load(surferUrl); if (m) { this.rider.visible = this.paddler.visible = false; this.surfer.add(m); this.customSurfer = true; } }
-    this.dirty = true;
+  /** Replace the procedural stand-in with the sculpted Blender surfer, board and paddler (scripts/blender/build_surfer.py). */
+  private async loadSurfer() {
+    try {
+      const {GLTFLoader} = await import('three/examples/jsm/loaders/GLTFLoader.js');
+      const g = await new GLTFLoader().loadAsync((import.meta.env.BASE_URL ?? '/') + 'models/wave/surfer.glb');
+      const board = g.scene.getObjectByName('board'), rider = g.scene.getObjectByName('rider'), paddler = g.scene.getObjectByName('paddler');
+      if (!board || !rider || !paddler || this.disposed) return;
+      this.surfer.clear();
+      this.surfer.add(board, rider, paddler);
+      this.rider = rider as THREE.Group; this.paddler = paddler as THREE.Group;
+      this.customSurfer = true;
+      this.place(this.cur * FT);
+      this.dirty = true;
+    } catch { /* keep the procedural figure */ }
   }
 
-  private build(Hm: number) {
-    const C_DEEP = new THREE.Color(0x082f48), C_MID = new THREE.Color(0x1a6a93), C_TOP = new THREE.Color(0x76c3e4), C_FOAM = new THREE.Color(0xeef7fb);
-    const c = new THREE.Color(), p = new THREE.Vector3(), q = new THREE.Vector3();
-    for (let i = 0; i < NX; i++) {
-      const x = XMIN + ((XMAX - XMIN) * i) / (NX - 1), h = heightAt(x, Hm), peel = peelAt(x);
-      for (let j = 0; j < NZ; j++) {
-        unitAt(j, x, p);
-        const k = (i * NZ + j) * 3;
-        this.pos[k] = x; this.pos[k + 1] = p.y * h; this.pos[k + 2] = p.z * h;
-        const t = p.y;
-        c.copy(C_DEEP).lerp(C_MID, Math.min(1, t * 1.6));
-        if (t > 0.55) c.lerp(C_TOP, (t - 0.55) / 0.45);
-        // Thin translucent band just below the lip on the breaking section.
-        if (j > CREST && t > 0.45 && t < 0.75) c.lerp(C_TOP, 0.35 * (1 - peel));
-        // Whitewater at the lip on the breaking section; fades out toward the shoulder.
-        if (j >= CREST - 2 && j <= CREST + NZ * 0.1 && t > 0.6) c.lerp(C_FOAM, Math.min(1, (t - 0.6) / 0.28) * 0.75 * (1 - peel));
-        // Foam line on the flats in front of the breaking peak.
-        if (j > NZ * 0.66) { unitAt(j - 1, x, q); if (q.y < 0.04) c.lerp(C_FOAM, 0.22 * (1 - peel) * Math.exp(-((j - NZ * 0.72) ** 2) / 20)); }
-        this.col[k] = c.r; this.col[k + 1] = c.g; this.col[k + 2] = c.b;
+  /** Spray: soft points thrown from the lip tip, the whitewater and the toe of the wave (unit space). */
+  private makeSpray() {
+    const N = 520, pos = new Float32Array(N * 3), seed = new Float32Array(N * 4), vel = new Float32Array(N * 3), tmp = new Float32Array(NZ * 4);
+    const rnd = (() => { let a = 7; return () => ((a = (a * 16807) % 2147483647) - 1) / 2147483646; })();
+    for (let i = 0; i < N; i++) {
+      const kind = rnd(), x = kind < 0.45 ? -8 + rnd() * 10 : kind < 0.85 ? -17 + rnd() * 10 : -4 + rnd() * 9;
+      profileAt(x, 1, tmp);
+      const j = kind < 0.45 ? 55 + Math.floor(rnd() * 4) : kind < 0.85 ? 52 + Math.floor(rnd() * 20) : 80 + Math.floor(rnd() * 14);
+      pos.set([x, tmp[j * 4 + 1] + 0.02, tmp[j * 4]], i * 3);
+      vel.set([(rnd() - 0.5) * 0.25, (kind < 0.45 ? 0.1 : 0.22) + rnd() * 0.3, 0.1 + rnd() * 0.25], i * 3);
+      seed.set([rnd(), 0.05 + rnd() * 0.08, 0.012 + rnd() * 0.02, 0.35 + rnd() * 0.5], i * 4);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 4)); g.setAttribute('aVel', new THREE.BufferAttribute(vel, 3));
+    const pts = new THREE.Points(g, new THREE.ShaderMaterial({uniforms: this.sprayU, vertexShader: SPRAY_VERT, fragmentShader: SPRAY_FRAG, transparent: true, depthWrite: false}));
+    pts.frustumCulled = false;
+    return pts;
+  }
+
+  /** Surface point and outward normal on the open face at height fraction f, at crest position x (unit space). */
+  private faceAt(x: number, f: number) {
+    const p = profileAt(x, curlFor(this.cur), new Float32Array(NZ * 4));
+    for (let j = 40; j < NZ - 1; j++) {
+      if (p[j * 4 + 1] <= f && p[(j - 1) * 4 + 1] > p[j * 4 + 1]) {
+        const dz = p[(j + 1) * 4] - p[(j - 1) * 4], dy = p[(j + 1) * 4 + 1] - p[(j - 1) * 4 + 1], l = Math.hypot(dz, dy) || 1;
+        return {z: p[j * 4], y: p[j * 4 + 1], nz: -dy / l, ny: dz / l};
       }
     }
-    this.waveGeo.attributes.position.needsUpdate = true;
-    this.waveGeo.attributes.color.needsUpdate = true;
-    this.waveGeo.computeVertexNormals();
-    this.waveGeo.computeBoundingSphere();
+    return {z: 2, y: 0, nz: 0, ny: 1};
+  }
+  private crestZ(x: number) {
+    const p = profileAt(x, curlFor(this.cur)); let best = 0;
+    for (let j = 0; j < NZ; j++) if (p[j * 4 + 1] > p[best * 4 + 1]) best = j;
+    return p[best * 4];
   }
 
-  private frontPoint(fraction: number) {
-    const v = new THREE.Vector3(), a = new THREE.Vector3(), b = new THREE.Vector3();
-    for (let j = CREST; j < NZ - 1; j++) {
-      unitAt(j, XS, v);
-      if (v.y <= fraction) { unitAt(j - 1, XS, a); unitAt(j + 1, XS, b); return {p: v, slope: (b.y - a.y) / (b.z - a.z || 1e-6)}; }
-    }
-    return {p: unitAt(NZ - 1, XS, v), slope: 0};
+  /** Apply face height: rebuild only the cross-section when the curl changes, scale for everything else. */
+  private layout(ft: number) {
+    const Hm = ft * FT, curl = curlFor(ft);
+    if (Math.abs(curl - this.curlBuilt) > 0.004) { fillWave(this.build, curl); this.curlBuilt = curl; }
+    this.waveGroup.scale.setScalar(Hm);
+    this.sprayU.uScale.value = Hm;
+    this.place(Hm);
   }
 
   private place(Hm: number) {
-    const h = heightAt(XS, Hm), ride = this.s.mode === 'ride';
-    if (!this.customSurfer) { this.rider.visible = ride; this.paddler.visible = !ride; }
+    const ride = this.s.mode === 'ride';
+    this.rider.visible = ride; this.paddler.visible = !ride;
     if (ride) {
-      const {p, slope} = this.frontPoint(0.42), tilt = Math.atan(slope);
-      this.surfer.position.set(XS, p.y * h + 0.02, p.z * h);
-      this.surfer.rotation.set(-tilt * 0.9, 0, 0);
-      this.rider.rotation.set(tilt * 0.6, 0, 0);
+      const f = this.faceAt(XU, 0.34), roll = Math.min(1.1, Math.atan2(f.nz, f.ny));
+      this.surfer.position.set(XU * Hm, f.y * Hm + 0.05, f.z * Hm + 0.1);
+      this.surfer.rotation.set(roll, 0, 0);
+      this.rider.rotation.set(-roll * 0.8, 0, 0);
     } else {
-      this.surfer.position.set(XS - 2, 0, 1.8 * h + 2.2);
+      this.surfer.position.set((XU - 0.6) * Hm, 0.02, 1.9 * Hm + 2.2);
       this.surfer.rotation.set(0, Math.PI / 2, 0);
     }
-    const x = XS + 2.4, zc = UB[CREST].z * h, P = this.dimGeo.attributes.position as THREE.BufferAttribute;
+    const sp = this.surfer.position, R = this.refGeo.attributes.position as THREE.BufferAttribute, rx = sp.x - 1.25, ry = sp.y, rz = sp.z + 0.1;
+    R.setXYZ(0, rx, ry, rz); R.setXYZ(1, rx, ry + SURFER_M, rz); R.setXYZ(2, rx - 0.12, ry + SURFER_M, rz); R.setXYZ(3, rx + 0.12, ry + SURFER_M, rz); R.setXYZ(4, rx - 0.12, ry, rz); R.setXYZ(5, rx + 0.12, ry, rz);
+    R.needsUpdate = true;
+    const x = XU * Hm + 2.4, zc = this.crestZ(x / Hm) * Hm, P = this.dimGeo.attributes.position as THREE.BufferAttribute;
+    const h = Hm * envAt(x / Hm);
     P.setXYZ(0, x, 0, zc); P.setXYZ(1, x, h, zc); P.setXYZ(2, x - 0.35, h, zc); P.setXYZ(3, x + 0.35, h, zc); P.setXYZ(4, x - 0.35, 0, zc); P.setXYZ(5, x + 0.35, 0, zc);
     P.needsUpdate = true;
   }
 
   private viewFor(name: View, Hm: number) {
-    const h = heightAt(XS, Hm), V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
-    if (this.s.mode === 'paddle' && name === 'front') { const zp = 1.8 * h + 2.2; return {pos: V(XS + 2, 1.5 + 0.18 * h, zp + 5 + 0.5 * h), target: V(XS - 1, 0.4 * h, 0.4 * h)}; }
-    // From the channel beyond the tapered shoulder, looking back along the crest at the peak's silhouette.
-    if (name === 'profile') return {pos: V(XS + 12 + 1.6 * h, 0.9 * h + 1.6, 1.2 * h + 4), target: V(XS, 0.5 * h, 0.25 * h)};
-    if (name === 'above') return {pos: V(XS + 9 + h, 2.1 * h + 7, 2.3 * h + 12), target: V(XS, 0.3 * h, 0.2 * h)};
-    return {pos: V(XS + 3, 1.6 + 0.22 * h, 1.9 * h + 8), target: V(XS, 0.48 * h, 0.3 * h)};
+    const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z), xs = XU * Hm;
+    if (this.s.mode === 'paddle' && name === 'front') return {pos: V(xs + 2, 1.5 + 0.18 * Hm, 1.9 * Hm + 8 + 0.5 * Hm), target: V(xs - 1, 0.35 * Hm, 0.4 * Hm)};
+    if (name === 'profile') return {pos: V(xs + 12 + 1.6 * Hm, 0.9 * Hm + 1.6, 1.2 * Hm + 4), target: V(xs, 0.5 * Hm, 0.25 * Hm)};
+    if (name === 'above') return {pos: V(xs + 9 + Hm, 2.1 * Hm + 7, 2.3 * Hm + 12), target: V(xs, 0.3 * Hm, 0.2 * Hm)};
+    return {pos: V(xs + 3 + 0.7 * Hm, 1.5 + 0.45 * Hm, 0.95 * Hm + 5.5), target: V(xs - 1.6 * Hm - 0.4, 0.45 * Hm, 0.2 * Hm)};
   }
 
   goTo(name: Exclude<View, 'free'>, animate = true) {
@@ -211,12 +227,12 @@ export class WaveScene {
   unit: 'ft' | 'm' = 'ft';
 
   private loop = (now: number) => {
+    this.raf = requestAnimationFrame(this.loop);
     const dt = Math.min(0.05, (now - this.last) / 1000);
     this.last = now;
     if (Math.abs(this.cur - this.s.ft) > 0.002) {
       this.cur = reduced() ? this.s.ft : this.cur + (this.s.ft - this.cur) * (1 - Math.exp(-dt * 9));
-      this.build(this.cur * FT);
-      this.place(this.cur * FT);
+      this.layout(this.cur);
       if (this.s.view !== 'free' && !this.tween) { const v = this.viewFor(this.s.view, this.cur * FT); this.camera.position.lerp(v.pos, 0.18); this.controls.target.lerp(v.target, 0.18); }
       this.dirty = true;
     }
@@ -228,15 +244,21 @@ export class WaveScene {
       this.dirty = true;
     }
     if (this.controls.update()) this.dirty = true;
-    if (this.dirty && !document.hidden) {
+    // Ambient water motion: ~30 fps, paused when hidden/offscreen, off entirely under prefers-reduced-motion.
+    const anim = !reduced();
+    this.shared.uAnim.value = anim ? 1 : 0;
+    if (anim && this.visible && now - this.lastDraw > 33) { this.shared.uTime.value = now / 3000; this.sprayU.uTime.value = now / 3000; this.dirty = true; }
+    if (this.dirty && this.visible && !document.hidden) {
+      this.lastDraw = now;
+      this.sky.position.copy(this.camera.position);
+      this.sprayU.uPx.value = this.renderer.domElement.height * 0.9;
       this.renderer.render(this.scene, this.camera);
-      const h = heightAt(XS, this.cur * FT), sp = this.surfer.position;
-      this.projectTag(this.tags.face, XS + 2.4, h, UB[CREST].z * h, `${this.fmt(this.cur, this.unit)} face`);
+      const Hm = this.cur * FT, xt = XU * Hm + 2.4, sp = this.surfer.position;
+      this.projectTag(this.tags.face, xt, Hm * envAt(xt / Hm), this.crestZ(xt / Hm) * Hm, `${this.fmt(this.cur, this.unit)} face`);
       this.projectTag(this.tags.person, sp.x, sp.y + (this.s.mode === 'ride' ? 1.75 : 0.65), sp.z, this.s.mode === 'ride' ? 'Surfer 5′10″' : 'Paddling 5′10″');
       this.dirty = false;
       this.frames++;
     }
-    this.raf = requestAnimationFrame(this.loop);
   };
 
   private resize() {
@@ -248,8 +270,10 @@ export class WaveScene {
   }
 
   dispose() {
+    this.disposed = true;
     cancelAnimationFrame(this.raf);
     this.ro.disconnect();
+    this.io.disconnect();
     this.controls.dispose();
     this.scene.traverse((o) => {
       const m = o as THREE.Mesh;

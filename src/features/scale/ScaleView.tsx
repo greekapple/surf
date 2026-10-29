@@ -2,20 +2,22 @@ import {useEffect, useRef, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
+import {timeLabelPT} from '../forecast/format';
 import {FT, SURFER_M, WaveScene, type Mode, type View} from './scene';
 
 const VIEWS: [Exclude<View, 'free'>, string][] = [['front', 'Front'], ['profile', 'Profile'], ['above', 'Above']];
 
 function Viewer() {
-  const {prefs, setPrefs, data, view} = useSwello();
+  const {prefs, setPrefs, data, view, spot} = useSwello();
+  const rec = view.mapRecords.find((r) => r.spotId === spot.id && r.timestamp === view.selectedTime);
+  const hs = rec && Number.isFinite(rec.offshore) ? Math.max(2, Math.min(20, Math.round(rec.offshore * 2) / 2)) : null;
   const stage = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), faceTag = useRef<HTMLSpanElement>(null), personTag = useRef<HTMLSpanElement>(null);
   const sc = useRef<WaveScene | null>(null);
-  const [ft, setFt] = useState(prefs.scaleFt);
+  const [ft, setFt] = useState(hs ?? prefs.scaleFt);
   const [mode, setMode] = useState<Mode>(prefs.scaleMode);
   const [camView, setCamView] = useState<View>('front');
   const [unit, setUnit] = useState<'ft' | 'm'>(data.state.profile.heightUnit === 'm' ? 'm' : 'ft');
   const [failed, setFailed] = useState(false);
-  const [models, setModels] = useState(false);
   const f = view.forecast, supplied = f.availability.face && Number.isFinite(f.face) ? Math.round(f.face * 2) / 2 : null;
 
   useEffect(() => {
@@ -29,15 +31,17 @@ function Viewer() {
     s.unit = unit;
     s.onFree = () => setCamView('free');
     sc.current = s;
-    const t = setTimeout(() => setModels(s.customWave || s.customSurfer), 3000);
-    return () => { clearTimeout(t); s.dispose(); sc.current = null; };
+    return () => { s.dispose(); sc.current = null; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Follow the selected spot and hour: re-open at that spot's offshore Hs whenever either changes.
+  useEffect(() => { if (hs !== null) { setFt(hs); sc.current?.set({ft: hs}); } }, [hs, spot.id]);
   const setHeight = (v: number) => { const x = Math.max(2, Math.min(20, v)); setFt(x); sc.current?.set({ft: x}); setPrefs({scaleFt: x}); };
   const pickMode = (m: Mode) => { setMode(m); sc.current?.set({mode: m}); setPrefs({scaleMode: m}); };
   const pickView = (v: Exclude<View, 'free'>) => { setCamView(v); sc.current?.goTo(v); };
   const pickUnit = (u: 'ft' | 'm') => { setUnit(u); if (sc.current) { sc.current.unit = u; sc.current.set({}); } };
   const reset = () => { setHeight(supplied ?? 6); pickView('front'); };
+  const backToForecast = () => { if (hs !== null) { setFt(hs); sc.current?.set({ft: hs}); pickView('front'); } };
   const m = ft * FT, ratio = m / SURFER_M;
   const fmt = (x: number) => (unit === 'm' ? `${(x * FT).toFixed(1)} m` : `${Number.isInteger(x) ? x : x.toFixed(1)} ft`);
 
@@ -64,13 +68,15 @@ function Viewer() {
             <div className="seg" role="radiogroup" aria-label="Units">{(['ft', 'm'] as const).map((x) => <button key={x} role="radio" aria-checked={unit === x} onClick={() => pickUnit(x)}>{x === 'ft' ? 'Feet' : 'Metres'}</button>)}</div>
             <div style={{display: 'flex', gap: 8, flexWrap: 'wrap'}}>
               <button className="btn" onClick={reset}>Reset</button>
+              {hs !== null && <button className="btn" onClick={backToForecast} disabled={ft === hs}>Back to forecast</button>}
               {supplied !== null && <button className="btn" onClick={() => setHeight(supplied)}>Use demo face {supplied} ft</button>}
             </div>
           </div>
         </section>
         <section className="card">
-          <p><span className="chip ill">Illustrative</span> {supplied !== null ? 'The demonstration week supplies a face estimate.' : 'Live data has no breaking-wave estimate for these spots, so this viewer is not tied to the forecast.'}</p>
-          <p className="fine" style={{marginTop: 8}}>Surfer 1.78 m (5′10″) on a 6′0″ board. The wave is a generic peeling peak, not a specific break. {models ? 'Production models loaded.' : 'Procedural figure and wave; production Blender models (GLB) plug in through VITE_WAVE_GLB and VITE_SURFER_GLB.'}</p>
+          {hs !== null ? <p><span className="chip ill">Illustrative</span> Shown at offshore wave height for {spot.name} ({view.selectedTime ? timeLabelPT(view.selectedTime) : 'selected hour'}). Breaking-wave faces at the beach can differ; no calibrated surf-height estimate exists.</p>
+          : <p><span className="chip ill">Illustrative</span> {supplied !== null ? 'The demonstration week supplies a face estimate.' : 'Live data has no breaking-wave estimate for these spots, so this viewer is not tied to the forecast.'}</p>}
+          <p className="fine" style={{marginTop: 8}}>Surfer 1.78 m (5′10″) on a 6′0″ board. The wave is a generic peeling peak, not a specific break; small sizes spill rather than curl.</p>
         </section>
       </aside>
     </div>
