@@ -3,13 +3,13 @@ export interface SpatialCell {lat:number;lon:number;value:number|null;direction:
 export interface SpatialFrame {cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
 export const erddap='https://upwell.pfeg.noaa.gov/erddap/griddap/';
 export interface SpatialSpec {dataset:string;scalar:string;direction:string|null;unit:SpatialFrame['unit'];wind:boolean;validAt:string}
-/** Bounded native 0.5-degree regional subset. Never derived from surf-spot points. */
+/** Bounded native 0.5-degree regional subset (California coast, 32–42.5°N, 117–127°W). Never derived from surf-spot points. */
 export function spatialSpec(layer:MapLayer,variable:MapVariable,time:string|null,secondary=false):SpatialSpec|null {
  if(!time||!Number.isFinite(Date.parse(time))||layer==='TIDE'||variable==='Breaking-wave estimate'||layer==='SWELL'&&secondary||variable==='Gusts')return null;
- const wind=layer==='WIND';const validAt=new Date(wind?Math.floor(Date.parse(time)/10800000)*10800000:Date.parse(time)).toISOString();
+ const wind=layer==='WIND';/* Both regional fields are served on a 3-hourly step (GFS natively; WW3 sampled every 3 h to bound payload size). */const validAt=new Date(Math.floor(Date.parse(time)/10800000)*10800000).toISOString();
  return wind?{dataset:'NCEP_Global_Best',scalar:'ugrd10m',direction:'vgrd10m',unit:variable==='Direction'?'deg':'m/s',wind,validAt}:{dataset:'NWW3_Global_Best',scalar:layer==='SWELL'?(variable==='Period'?'sper':variable==='Direction'?'sdir':'shgt'):(variable==='Period'?'Tper':variable==='Direction'?'Tdir':'Thgt'),direction:layer==='SWELL'?'sdir':'Tdir',unit:variable==='Period'?'s':variable==='Direction'?'deg':'m',wind,validAt};
 }
-export function gridURL(spec:SpatialSpec,field:string){const q=`${field}[(${spec.validAt.replace('.000Z','Z')})]${spec.wind?'':'[(0)]'}[(36):1:(40)][(234):1:(238)]`;return erddap+spec.dataset+'.json?'+q.replaceAll('[','%5B').replaceAll(']','%5D');}
+export function gridURL(spec:SpatialSpec,field:string){const q=`${field}[(${spec.validAt.replace('.000Z','Z')})]${spec.wind?'':'[(0)]'}[(32):1:(42.5)][(233):1:(243)]`;return erddap+spec.dataset+'.json?'+q.replaceAll('[','%5B').replaceAll(']','%5D');}
 interface Table {table?:{columnNames:string[];columnUnits:string[];rows:unknown[][]}}
 export function snapshotAt(payload:Table&{snapshot?:{retrievedAt:string;dataset:string;field:string;url:string;delivery:string}},spec:SpatialSpec,field:string){
  const meta=payload.snapshot,table=payload.table;
@@ -20,13 +20,13 @@ export function snapshotAt(payload:Table&{snapshot?:{retrievedAt:string;dataset:
 }
 /** Reject the provider's nearest-time substitution and inconsistent units or bounds. */
 export function normalizeGrid(payload:Table,field:string,spec:SpatialSpec):Map<string,{lat:number;lon:number;value:number|null}> {
- const t=payload.table;if(!t||!Array.isArray(t.rows)||!Array.isArray(t.columnNames)||!Array.isArray(t.columnUnits)||t.rows.length>200)throw new Error('Invalid or oversized regional grid response.');
+ const t=payload.table;if(!t||!Array.isArray(t.rows)||!Array.isArray(t.columnNames)||!Array.isArray(t.columnUnits)||t.rows.length>1200)throw new Error('Invalid or oversized regional grid response.');
  const ix=(n:string)=>t.columnNames.indexOf(n),[ti,la,lo,vi]=['time','latitude','longitude',field].map(ix);
  if([ti,la,lo,vi].some(i=>i<0))throw new Error('Spatial provider returned incomplete columns.');
  const expected=field==='ugrd10m'||field==='vgrd10m'?['m s-1','m/s']:field.includes('dir')?['degrees','degree']:field.includes('per')?['second','seconds','s']:['meters','m'];
  if(!expected.includes(t.columnUnits[vi]))throw new Error('Unexpected spatial forecast units.');
  const out=new Map<string,{lat:number;lon:number;value:number|null}>();
- for(const row of t.rows){if(Date.parse(String(row[ti]))!==Date.parse(spec.validAt))throw new Error('No exact spatial forecast frame at the requested layer time.');const lat=row[la],rawlon=row[lo];if(typeof lat!=='number'||typeof rawlon!=='number'||!Number.isFinite(lat)||!Number.isFinite(rawlon)||lat<36||lat>40||rawlon<234||rawlon>238)throw new Error('Spatial coordinates outside requested regional coverage.');const lon=rawlon-360,v=row[vi];let value=typeof v==='number'&&Number.isFinite(v)?v:null;if(value!==null&&(!spec.wind&&value<0||field.includes('dir')&&value>360))value=null;const key=`${lat},${lon}`;if(out.has(key))throw new Error('Duplicate spatial cell.');out.set(key,{lat,lon,value});}
+ for(const row of t.rows){if(Date.parse(String(row[ti]))!==Date.parse(spec.validAt))throw new Error('No exact spatial forecast frame at the requested layer time.');const lat=row[la],rawlon=row[lo];if(typeof lat!=='number'||typeof rawlon!=='number'||!Number.isFinite(lat)||!Number.isFinite(rawlon)||lat<32||lat>42.5||rawlon<233||rawlon>243)throw new Error('Spatial coordinates outside requested regional coverage.');const lon=rawlon-360,v=row[vi];let value=typeof v==='number'&&Number.isFinite(v)?v:null;if(value!==null&&(!spec.wind&&value<0||field.includes('dir')&&value>360))value=null;const key=`${lat},${lon}`;if(out.has(key))throw new Error('Duplicate spatial cell.');out.set(key,{lat,lon,value});}
  if(!out.size)throw new Error('No geographic forecast cells supplied.');return out;
 }
 export function windVector(u:number,v:number){const speed=Math.hypot(u,v);return {speed,direction:speed===0?null:(Math.atan2(-u,-v)*180/Math.PI+360)%360};}

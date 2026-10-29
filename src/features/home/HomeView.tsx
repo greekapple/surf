@@ -240,21 +240,21 @@ export function HomeView({section, go}: ViewProps) {
   const next = useMemo(() => series.filter((h) => Date.parse(h.timestamp) >= nowH).slice(0, 25), [series, nowH]);
 
   const week = useMemo(() => {
-    const rows = spotOptions.map((s) => hourlySeries(s, view.mapRecords, now));
+    const rows = listed.map((s) => hourlySeries(s, view.mapRecords, now));
     const days = (rows[0] ? groupDays(rows[0]) : []).slice(0, 7);
     const cells = rows.map((ser, r) => {
       const byKey = new Map(groupDays(ser).map((d) => [d.key, d]));
       return days.map((d0) => {
         const d = byKey.get(d0.key);
         if (!d) return {h: null};
-        return {h: bestDaylight(ser, spotOptions[r], Math.max(nowH, Date.parse(ser[d.start].timestamp)), Date.parse(ser[d.end].timestamp) + 1)};
+        return {h: bestDaylight(ser, listed[r], Math.max(nowH, Date.parse(ser[d.start].timestamp)), Date.parse(ser[d.end].timestamp) + 1)};
       });
     });
     let best: HourSample | null = null;
     for (const row of cells) for (const {h} of row) if (h && (h.rating.score ?? -1) > (best?.rating.score ?? -1)) best = h;
     const keep = days.map((_, c) => cells.some((row) => row[c].h));
     return {days: days.filter((_, c) => keep[c]).map((d) => d.t), cells: cells.map((row) => row.filter((_, c) => keep[c])), best};
-  }, [spotOptions, view.mapRecords, now, nowH]);
+  }, [listed, view.mapRecords, now, nowH]);
 
   const open = (spotId: string, t?: string) => { setSpot(spotId); if (t) view.selectTime(t); go('forecast'); };
   const name = firstName(p);
@@ -270,7 +270,7 @@ export function HomeView({section, go}: ViewProps) {
   const weekBlock = (
     <section className="band" aria-labelledby="week-h">
       <header className="sec-h"><h2 id="week-h">The week ahead</h2><p>Best daylight hour for each spot · provisional ratings · offshore height</p></header>
-      {week.days.length ? <Week spots={spotOptions} cells={week.cells} days={week.days} best={week.best} p={p} onPick={open} /> : <p className="note">No forecast days available.</p>}
+      {week.days.length ? <Week spots={listed} cells={week.cells} days={week.days} best={week.best} p={p} onPick={open} /> : <p className="note">No forecast days available.</p>}
     </section>
   );
 

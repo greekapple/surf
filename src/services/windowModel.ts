@@ -2,7 +2,7 @@ import {pacificDate} from '../ocean/time.ts';
 import type {Forecast} from '../models/index.ts';
 import type {SurfRating} from '../ratings/types.ts';
 import {rateForecast} from '../ratings/adapters.ts';
-import {spots} from '../data/demo.ts';
+import {allSpots as spots} from '../data/catalog.ts';
 export interface SurfWindow {spotId:string;start:string;end:string;samples:Forecast[];ratings:SurfRating[];minimumScore:number;peakScore:number;reliability:string;reasons:string[];changes:string[];limitations:string[]}
 /** Groups supplied hourly samples only. Unknown daylight/tide response is never an assumed benefit. */
 export function groupWindows(samples:{forecast:Forecast;rating:SurfRating}[],maxGapMs=3600000):SurfWindow[]{

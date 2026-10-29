@@ -42,7 +42,7 @@ function AreaMenu({def, current, section, go}: {def: (typeof AREAS)[number]; cur
       onPointerEnter={(e) => { if (e.pointerType === 'mouse') { clearTimeout(timer.current); setOpen(true); } }}
       onPointerLeave={(e) => { if (e.pointerType === 'mouse') timer.current = window.setTimeout(() => setOpen(false), 160); }}>
       <button aria-current={current ? 'page' : undefined} aria-expanded={open} aria-haspopup="true"
-        onClick={() => { go(def.id); setOpen(false); }}>
+        onClick={() => setOpen(true)}>
         {def.label}<Icon name="chevron" size={14} />
       </button>
       {open && (

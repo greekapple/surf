@@ -1,7 +1,7 @@
 import {useState, type FormEvent, type KeyboardEvent, type ReactNode} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
-import {spots} from '../../data/demo';
+import {allSpots as spots} from '../../data/catalog';
 import {evidenceSpots} from '../../ocean/spots';
 import type {Skill, UserProfile} from '../../models/index';
 import {Icon} from '../../ui/Icon';

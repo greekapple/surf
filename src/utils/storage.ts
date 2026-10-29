@@ -1,5 +1,6 @@
 import {validBoardPhoto} from './boardPhoto.ts';
-import {defaultProfile,demoBoards,spots} from '../data/demo.ts';
+import {defaultProfile,demoBoards} from '../data/demo.ts';
+import {allSpots as spots} from '../data/catalog.ts';
 import {boardTypes,type UserProfile,type Surfboard,type SurfSession} from '../models/index.ts';
 import {validDimensions} from './units.ts';
 export interface AppState {version:1;profile:UserProfile;boards:Surfboard[];favorites:string[];sessions:SurfSession[]}

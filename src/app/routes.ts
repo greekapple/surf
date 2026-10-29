@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
-import {spots} from '../data/demo';
+import {allSpots as spots} from '../data/catalog';
 
 export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'personal';
 export interface Section {id: string; label: string; hint: string}

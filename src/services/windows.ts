@@ -1,5 +1,5 @@
 import type {Forecast} from '../models/index.ts';
-import {spots} from '../data/demo.ts';
+import {allSpots as spots} from '../data/catalog.ts';
 import {rateForecast} from '../ratings/adapters.ts';
 /** Actual supplied hours only. Offshore potential is not a safety or session recommendation. */
 export function upcomingWindows(records:Forecast[],now:number,ids:string[],limit=3){

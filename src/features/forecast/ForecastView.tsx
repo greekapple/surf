@@ -129,9 +129,13 @@ function Nearshore({spot, p, selectedTime, now, series}: {spot: SurfSpot; p: Use
 function Compare({onPick}: {onPick: (id: string) => void}) {
   const {view, spotOptions, data, now, spot} = useSwello();
   const p = data.state.profile, t = view.selectedTime;
+  // The selected spot and its seven nearest neighbours along the coast.
+  const at = (id: string) => evidenceSpots.find((e) => e.id === id);
+  const here = at(spot.id);
+  const near = here ? [...spotOptions].sort((a, b) => { const A = at(a.id), B = at(b.id); return (A ? Math.hypot(A.latitude - here.latitude, A.longitude - here.longitude) : 99) - (B ? Math.hypot(B.latitude - here.latitude, B.longitude - here.longitude) : 99); }).slice(0, 8) : spotOptions;
   return (
     <div className="tscroll" role="region" tabIndex={0} aria-label="Spot comparison (scrolls sideways)"><table className="cmp"><thead><tr><th>Spot</th><th>Rating (provisional)</th><th>Offshore Hs</th><th>Primary swell</th><th>Wind</th><th>Best daylight (24 h)</th><th /></tr></thead><tbody>
-      {spotOptions.map((s) => {
+      {near.map((s) => {
         const recs = view.mapRecords.filter((r) => r.spotId === s.id);
         const f = recs.find((r) => r.timestamp === t);
         const rating = f ? rateForecast(s, f, now) : null;

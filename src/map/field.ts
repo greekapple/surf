@@ -95,7 +95,7 @@ export function attachField(map: L.Map, field: Field, opts: FieldOpts) {
         img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * opts.opacity);
       }
       const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h; tmp.getContext('2d')!.putImageData(img, 0, 0);
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(tmp, 0, 0, w * step, h * step);
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.filter = 'blur(5px)'; ctx.drawImage(tmp, 0, 0, w * step, h * step); ctx.filter = 'none';
     }
     if (opts.arrows || (opts.flow && opts.reducedMotion)) {
       ctx.strokeStyle = 'rgb(255 255 255 / 0.85)'; ctx.lineWidth = 1.4; ctx.beginPath();

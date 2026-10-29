@@ -3,6 +3,7 @@ import {useAppData, type DataStore} from '../hooks/useAppData';
 import {useForecast, type ForecastState} from '../hooks/useForecast';
 import {useNow} from '../hooks/useNow';
 import {spots} from '../data/demo';
+import {allSpots} from '../data/catalog';
 import {evidenceSpots} from '../ocean/spots';
 import type {SurfSpot} from '../models/index';
 import {hourlySeries, type HourSample} from '../features/forecast/model';
@@ -51,7 +52,7 @@ export function SwelloProvider({children}: {children: ReactNode}) {
   }, [prefs]);
 
   const live = view.dataMode === 'Retrieved';
-  const spotOptions = useMemo(() => (live ? spots.filter((s) => evidenceSpots.some((e) => e.id === s.id)) : spots), [live]);
+  const spotOptions = useMemo(() => (live ? evidenceSpots.map((e) => allSpots.find((s) => s.id === e.id)!).filter(Boolean) : spots), [live]);
 
   // Spot deep link: ?spot=ocean-beach (one-way on load; afterwards the store owns the spot).
   useEffect(() => {

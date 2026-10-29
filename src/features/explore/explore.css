@@ -10,10 +10,17 @@
 .xlist, .xcond, .xlayers-info { flex: 1; min-height: 0; overflow-y: auto; display: grid; align-content: start; gap: 10px; }
 .xregion { color: var(--dim); font-size: 11px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; }
 .xlist ul { list-style: none; display: grid; gap: 4px; }
+.xlist li > .xregion { padding: 6px 6px 2px; }
 .xlist button { width: 100%; display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: center; padding: 6px; border: 1px solid transparent; border-radius: 12px; background: none; text-align: left; cursor: pointer; transition: background-color 160ms var(--ease); }
 .xlist button:hover { background: var(--s2); }
 .xlist button[aria-current='true'] { background: var(--s2); border-color: var(--line-2); }
-.xlist img { width: 76px; height: 56px; border-radius: 9px; object-fit: cover; background: var(--s3); }
+.xlist img, .xthumb { width: 76px; height: 56px; border-radius: 9px; object-fit: cover; background: var(--s3); }
+.xthumb { display: grid; place-items: center; font: 400 22px/1 var(--serif); color: rgb(255 255 255 / 0.9); background: linear-gradient(135deg, #1d4f73, #0f2a3d 60%, #2a6f8f); }
+.disc-card .xthumb { width: 100%; height: 100%; border-radius: 0; font-size: 46px; }
+.xregion:not(:first-child) { margin-top: 10px; }
+.xc-photo.plain { background: linear-gradient(135deg, #1d4f73, #0f2a3d 60%, #2a6f8f); }
+.xleaf.far .xpin:not(.sel) .xlabel { display: none; }
+.xleaf.far .xpin:not(.sel) i { width: 14px; height: 14px; background: radial-gradient(circle, var(--c) 0 4px, rgb(8 18 26 / 0.6) 4.5px); box-shadow: 0 0 0 2px #fff, 0 1px 4px rgb(0 0 0 / 0.5); }
 .xl-t { display: grid; gap: 3px; justify-items: start; }
 .xl-t b { font-size: 15px; font-weight: 650; }
 .xl-t small { color: var(--muted); font-size: 12.5px; }

@@ -49,7 +49,7 @@
 .me i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; font-style: normal; font-weight: 700; font-size: 13px; color: #fff; background: linear-gradient(135deg, #2b6f9e, #c8743a); }
 .spotbtn b { font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
 .spotbtn small { color: var(--muted); }
-.spotlist { position: absolute; top: calc(100% + 6px); right: 0; z-index: 1300; width: 300px; padding: 6px; border-radius: var(--r2); background: var(--s2); border: 1px solid var(--line-2); box-shadow: 0 18px 40px var(--shadow); list-style: none; animation: pop 160ms var(--ease); }
+.spotlist { position: absolute; top: calc(100% + 6px); right: 0; z-index: 1300; max-height: min(70dvh, 560px); overflow-y: auto; overscroll-behavior: contain; width: 300px; padding: 6px; border-radius: var(--r2); background: var(--s2); border: 1px solid var(--line-2); box-shadow: 0 18px 40px var(--shadow); list-style: none; animation: pop 160ms var(--ease); }
 .spotlist button { width: 100%; display: grid; grid-template-columns: 10px 1fr auto auto; gap: 10px; align-items: center; min-height: 48px; padding: 0 10px; border: 0; border-radius: var(--r1); background: none; text-align: left; cursor: pointer; }
 .spotlist button:hover, .spotlist button[aria-selected='true'] { background: var(--s3); }
 .spotlist small { display: block; color: var(--muted); }

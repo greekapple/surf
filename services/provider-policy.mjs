@@ -25,10 +25,10 @@ export function forecastRange(payload) {
  return times.length ? {start:new Date(Math.min(...times)).toISOString(), end:new Date(Math.max(...times)).toISOString()} : null;
 }
 export function clippedGridURL(target, metadata, now) {
- const url = new URL(target.url), match = decodeURIComponent(url.search.slice(1)).match(/^([^[]+)\[\(([^)]+)\):1:\(([^)]+)\)\](.*)$/);
+ const url = new URL(target.url), match = decodeURIComponent(url.search.slice(1)).match(/^([^[]+)\[\(([^)]+)\):(\d+):\(([^)]+)\)\](.*)$/);
  if (!match || !metadata) return target.url;
- const start = Math.max(Date.parse(match[2]), Date.parse(metadata.start)), end = Math.min(Date.parse(match[3]), Date.parse(metadata.end));
+ const start = Math.max(Date.parse(match[2]), Date.parse(metadata.start)), end = Math.min(Date.parse(match[4]), Date.parse(metadata.end));
  if (!Number.isFinite(start) || !Number.isFinite(end) || start > end || end < now - 86400000) return target.url;
- url.search = `${match[1]}[(${new Date(start).toISOString().replace('.000Z','Z')}):1:(${new Date(end).toISOString().replace('.000Z','Z')})]${match[4]}`;
+ url.search = `${match[1]}[(${new Date(start).toISOString().replace('.000Z','Z')}):${match[3]}:(${new Date(end).toISOString().replace('.000Z','Z')})]${match[5]}`;
  return url.href.replaceAll('[','%5B').replaceAll(']','%5D');
 }

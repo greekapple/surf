@@ -5,7 +5,7 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {useSpatial} from '../../hooks/useSpatial';
 import {evidenceSpots} from '../../ocean/spots';
-import {spots} from '../../data/demo';
+import {allSpots as spots} from '../../data/catalog';
 import {rateForecast} from '../../ratings/adapters';
 import {GENERIC_PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
 import {StateMessage} from '../../ui/common';
@@ -30,6 +30,13 @@ const sectionField = (section: string): FieldId => (section === 'wind' ? 'wind' 
 const fieldSection: Record<FieldId, string> = {waves: '', swell: 'swell', period: '', wind: 'wind'};
 const surfSpot = (id: string) => spots.find((s) => s.id === id)!;
 const thumb = (id: string, i = 0) => `/photos/${SPOT_PHOTOS[id]?.[0] ?? GENERIC_PHOTOS[i % GENERIC_PHOTOS.length]}-800.jpg`;
+/** A spot's own photograph, or null: coast spots without one get a region tile rather than a misleading generic photo. */
+const ownPhoto = (id: string) => (SPOT_PHOTOS[id]?.[0] ? `/photos/${SPOT_PHOTOS[id][0]}-800.jpg` : null);
+const initials = (name: string) => name.replace(/[()’']/g, '').split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+function Thumb({id, name, region}: {id: string; name: string; region: string}) {
+  const src = ownPhoto(id);
+  return src ? <img src={src} alt="" loading="lazy" /> : <span className="xthumb" data-region={region} aria-hidden="true">{initials(name)}</span>;
+}
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const chip = (c: string) => ({'--c': c}) as CSSProperties;
 
@@ -76,7 +83,10 @@ function OceanMap({section, go}: ViewProps) {
 
   useEffect(() => {
     if (!mapEl.current || map.current) return;
-    const m = L.map(mapEl.current, {zoomControl: false, minZoom: 6, maxZoom: 14}).setView([37.72, -122.78], 9);
+    const small = matchMedia('(max-width: 860px)').matches;
+    const m = L.map(mapEl.current, {zoomControl: false, minZoom: 5, maxZoom: 14, zoomSnap: 0.5}).setView(small ? [37.2, -121.9] : [36.9, -121.0], small ? 6 : 7);
+    const lod = () => m.getContainer().classList.toggle('far', m.getZoom() < 9);
+    m.on('zoomend', lod); lod();
     // Esri World Imagery + reference labels (attribution required); VITE_MAP_TILE_URL swaps in a licensed provider.
     L.tileLayer(import.meta.env.VITE_MAP_TILE_URL || 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       maxZoom: 16, className: 'xbase', attribution: import.meta.env.VITE_MAP_ATTRIBUTION || 'Imagery &copy; Esri, Maxar, Earthstar Geographics · Coastline: Natural Earth',
@@ -114,11 +124,11 @@ function OceanMap({section, go}: ViewProps) {
     return () => clearInterval(id);
   }, [playing, times, view]);
 
-  const center = (id: string) => { const e = evidenceSpots.find((x) => x.id === id); if (e) map.current?.flyTo([e.latitude, e.longitude], 11, {duration: 0.7}); };
+  const center = (id: string) => { const e = evidenceSpots.find((x) => x.id === id); if (e) map.current?.flyTo([e.latitude, e.longitude], Math.max(10, map.current.getZoom()), {duration: 0.8}); };
   const pickField = (id: FieldId) => { setFieldId(id); if (fieldSection[id] !== section) go('explore', fieldSection[id]); };
   const f = recAt(spot.id);
   const rating = f ? rateForecast(spot, f, now) : null;
-  const list = evidenceSpots.filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
+  const list = [...evidenceSpots].sort((a, b) => b.latitude - a.latitude).filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : spatial.loading && !frame ? 'Loading regional model…'
     : frame ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} model via NOAA ERDDAP · valid ${weekdayPT(frame.validAt)} ${hourLabel(frame.validAt)}${spatial.loading ? ' · updating…' : ''}`
@@ -137,12 +147,12 @@ function OceanMap({section, go}: ViewProps) {
         </div>
         {tab === 'spots' && (
           <div className="xlist" role="tabpanel">
-            <p className="xregion">Northern California</p>
             {list.length === 0 && <p className="fine">No spot matches “{query}”.</p>}
             <ul>{list.map((e, i) => {
               const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
-              return <li key={e.id}><button aria-current={e.id === spot.id} onClick={() => { setSpot(e.id); center(e.id); setTab('conditions'); }}>
-                <img src={thumb(e.id, i)} alt="" loading="lazy" />
+              const head = i === 0 || list[i - 1].region !== e.region ? <p className="xregion">{e.region}</p> : null;
+              return <li key={e.id}>{head}<button aria-current={e.id === spot.id} onClick={() => { setSpot(e.id); center(e.id); setTab('conditions'); }}>
+                <Thumb id={e.id} name={e.name} region={e.region} />
                 <span className="xl-t"><b>{e.name}</b><small>{r ? `${ht(r.offshore, p)} ${p.heightUnit} offshore` : 'No record this hour'}</small>
                   {rt && <em style={chip(BAND_COLOR[bandOf(rt.category)])}>{titleCase(rt.category)}</em>}</span>
               </button></li>;
@@ -152,14 +162,14 @@ function OceanMap({section, go}: ViewProps) {
         )}
         {tab === 'conditions' && (
           <div className="xcond" role="tabpanel">
-            <div className="xc-photo" style={{backgroundImage: `url(${thumb(spot.id)})`}}><h2>{spot.name}</h2><span>{spot.region}</span></div>
+            <div className={`xc-photo${ownPhoto(spot.id) ? '' : ' plain'}`} style={ownPhoto(spot.id) ? {backgroundImage: `url(${ownPhoto(spot.id)})`} : undefined}><h2>{spot.name}</h2><span>{spot.region}{spot.character === 'Generic profile' ? ' · generic spot profile' : ''}</span></div>
             {!f ? <StateMessage title="No record at this hour" /> : <>
               <p className="xc-big">{ht(f.offshore, p)}<small>{p.heightUnit} offshore</small></p>
               {rating && <p className="xc-rate"><i style={{background: BAND_COLOR[bandOf(rating.category)]}} />{titleCase(rating.category)} <span>provisional rating</span></p>}
               <dl className="xc-kv">
                 <dt>Swell</dt><dd>{f.primary ? <><DirArrow from={f.primary.direction} size={13} /> {ht(f.primary.height, p)} {p.heightUnit} · {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</dd>
                 <dt>Wind</dt><dd>{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit} {compass(f.wind.direction)}</> : '—'}</dd>
-                <dt>Tide</dt><dd>{ht(f.tide.height, p)} {p.heightUnit} {f.tide.trend?.toLowerCase()} <span className="fine">regional</span></dd>
+                <dt>Tide</dt><dd>{Number.isFinite(f.tide.height) ? <>{ht(f.tide.height, p)} {p.heightUnit} {f.tide.trend?.toLowerCase()} <span className="fine">SF station</span></> : <span className="fine">No nearby tide station yet</span>}</dd>
               </dl>
               <button className="btn primary wide" onClick={() => go('forecast')}>View full forecast <Icon name="arrow" size={15} style={{transform: 'rotate(90deg)'}} /></button>
             </>}
@@ -225,7 +235,7 @@ function Discover({go}: {go: ViewProps['go']}) {
       <ul className="disc-grid">{spotOptions.map((s, i) => {
         const r = recAt(s.id), rt = r ? rateForecast(s, r, now) : null, mapped = evidenceSpots.some((e) => e.id === s.id);
         return <li key={s.id} className="disc-card">
-          <img src={thumb(s.id, i)} alt="" loading="lazy" />
+          <Thumb id={s.id} name={s.name} region={s.region} />
           <div className="dc-b">
             <div className="dc-top"><h2>{s.name}</h2><button className="star" aria-pressed={fav.includes(s.id)} aria-label={`${fav.includes(s.id) ? 'Remove' : 'Save'} ${s.name}`} onClick={() => data.favorite(s.id)}><Icon name="star" size={17} /></button></div>
             <p className="dc-meta">{s.region} · {s.type.toLowerCase()}</p>
