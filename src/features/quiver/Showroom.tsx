@@ -3,6 +3,8 @@ import type {Surfboard} from '../../models/index';
 import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
 import {SWATCHES, TINTS, loadLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
+import {loadOutline} from './outline';
+import {tracedTpl} from './traced';
 import {Studio, type BoardEntry, type Mode, type Preset} from './studio';
 
 export interface Dims {length: number; width: number; thickness: number; volume: number}
@@ -94,9 +96,10 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
   // Every board on the rack is built from its saved numbers; the selected one follows the sliders live.
   const template = templateFor({type: board.type, length: dims.length});
   useEffect(() => {
-    const entries: BoardEntry[] = boards.map((b) => b.id === board.id
-      ? {id: b.id, spec: {template, ...dims}, look}
-      : {id: b.id, spec: {template: templateFor(b), length: b.length, width: b.width, thickness: b.thickness, volume: b.volume}, look: loadLook(b)});
+    const entries: BoardEntry[] = boards.map((b) => {
+      const mine = b.id === board.id, tpl = mine ? template : templateFor(b), o = loadOutline(b.id), tr = o ? tracedTpl(b.id, tpl, o) : null;
+      return {id: b.id, spec: mine ? {template: tpl, ...dims} : {template: tpl, length: b.length, width: b.width, thickness: b.thickness, volume: b.volume}, look: mine ? look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {})};
+    });
     if (!entries.some((e) => e.id === board.id)) return;
     void studio.current?.setBoards(entries, board.id);
   }, [boards, board.id, template, dims.length, dims.width, dims.thickness, dims.volume, look]);
