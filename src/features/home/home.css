@@ -136,7 +136,7 @@
 .fav-card.on { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
 .fc-main { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: 20px 20px 72px; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
 .fc-main:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; border-radius: 12px; }
-.fc-r { align-self: flex-start; display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 4px; font-size: 12.5px; font-weight: 650; color: #fff; background: rgb(5 12 18 / 0.7); }
+.fc-r { gap: 5px; align-self: flex-start; display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 4px; font-size: 12.5px; font-weight: 650; color: #fff; background: rgb(5 12 18 / 0.7); }
 .fav-card h3 { font: 700 clamp(30px, 2.5vw, 38px)/1 var(--display); }
 .fc-n { font-size: 13.5px; color: rgb(255 255 255 / 0.82); }
 .fc-n b { color: #fff; font-weight: 700; }
