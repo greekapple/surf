@@ -7,7 +7,7 @@ import {FT, SURFER_M, WaveScene, type Mode, type View} from './scene';
 
 const VIEWS: [Exclude<View, 'free'>, string][] = [['front', 'Front'], ['profile', 'Profile'], ['above', 'Above']];
 
-function Viewer() {
+function Viewer({go}: {go: ViewProps['go']}) {
   const {prefs, setPrefs, data, view, spot} = useSwello();
   const rec = view.mapRecords.find((r) => r.spotId === spot.id && r.timestamp === view.selectedTime);
   const hs = rec && Number.isFinite(rec.offshore) ? Math.max(2, Math.min(20, Math.round(rec.offshore * 2) / 2)) : null;
@@ -68,13 +68,14 @@ function Viewer() {
             <div className="seg" role="radiogroup" aria-label="Units">{(['ft', 'm'] as const).map((x) => <button key={x} role="radio" aria-checked={unit === x} onClick={() => pickUnit(x)}>{x === 'ft' ? 'Feet' : 'Metres'}</button>)}</div>
             <div style={{display: 'flex', gap: 8, flexWrap: 'wrap'}}>
               <button className="btn" onClick={reset}>Reset</button>
-              {hs !== null && <button className="btn" onClick={backToForecast} disabled={ft === hs}>Back to forecast</button>}
+              {hs !== null && <button className="btn" onClick={backToForecast} disabled={ft === hs}>Reset to forecast height</button>}
+              <button className="btn primary" onClick={() => go('forecast')}>Back to {spot.name} forecast</button>
               {supplied !== null && <button className="btn" onClick={() => setHeight(supplied)}>Use demo face {supplied} ft</button>}
             </div>
           </div>
         </section>
         <section className="card">
-          {hs !== null ? <p><span className="chip ill">Illustrative</span> Shown at offshore wave height for {spot.name} ({view.selectedTime ? timeLabelPT(view.selectedTime) : 'selected hour'}). Breaking-wave faces at the beach can differ; no calibrated surf-height estimate exists.</p>
+          {hs !== null ? <p><span className="chip ill">Illustrative</span> Opened at the offshore wave height for {spot.name}: <b>{fmt(Math.round(rec!.offshore * 10) / 10)}</b> at {view.selectedTime ? timeLabelPT(view.selectedTime) : 'the selected hour'} (the 3D wave uses the nearest half foot). Breaking-wave faces at the beach can differ; no calibrated surf-height estimate exists.</p>
           : <p><span className="chip ill">Illustrative</span> {supplied !== null ? 'The demonstration week supplies a face estimate.' : 'Live data has no breaking-wave estimate for these spots, so this viewer is not tied to the forecast.'}</p>}
           <p className="fine" style={{marginTop: 8}}>Surfer 1.78 m (5′10″) on a 6′0″ board. The wave is a generic peeling peak, not a specific break; small sizes spill rather than curl.</p>
         </section>
@@ -116,6 +117,6 @@ function Comparison() {
   );
 }
 
-export function ScaleView({section}: ViewProps) {
-  return <div className="grid">{section === 'compare' ? <Comparison /> : <><div className="span-12"><Viewer /></div><Comparison /></>}</div>;
+export function ScaleView({section, go}: ViewProps) {
+  return <div className="grid">{section === 'compare' ? <Comparison /> : <><div className="span-12"><Viewer go={go} /></div><Comparison /></>}</div>;
 }
