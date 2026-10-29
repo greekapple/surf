@@ -33,6 +33,8 @@ export class WaveScene {
   private shared: Record<string, THREE.IUniform>;
   private sprayU = {uTime: {value: 0}, uPx: {value: 900}, uScale: {value: 1}};
   private dimGeo = new THREE.BufferGeometry().setFromPoints(Array.from({length: 6}, () => new THREE.Vector3()));
+  /** Standing-height reference (1.78 m) beside the surfer, so the figure's true size can be judged. */
+  private refGeo = new THREE.BufferGeometry().setFromPoints(Array.from({length: 6}, () => new THREE.Vector3()));
   private cur: number;
   private curlBuilt = -1;
   private tween: {fromP: THREE.Vector3; fromT: THREE.Vector3; toP: THREE.Vector3; toT: THREE.Vector3; t0: number} | null = null;
@@ -41,6 +43,7 @@ export class WaveScene {
   private last = performance.now();
   private lastDraw = 0;
   private visible = true;
+  private disposed = false;
   private ro: ResizeObserver;
   private io: IntersectionObserver;
   frames = 0;
@@ -89,7 +92,9 @@ export class WaveScene {
     this.rider = riderFigure();
     this.paddler = paddlerFigure();
     this.surfer.add(makeBoard(), this.rider, this.paddler);
+    void this.loadSurfer();
     sc.add(this.surfer);
+    sc.add(new THREE.LineSegments(this.refGeo, new THREE.LineBasicMaterial({color: 0xffd9a0, transparent: true, opacity: 0.9, depthTest: false})));
     sc.add(new THREE.LineSegments(this.dimGeo, new THREE.LineBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false})));
 
     this.controls = new OrbitControls(this.camera, canvas);
@@ -105,6 +110,22 @@ export class WaveScene {
     this.resize();
     this.goTo(s.view === 'free' ? 'front' : s.view, false);
     this.raf = requestAnimationFrame(this.loop);
+  }
+
+  /** Replace the procedural stand-in with the sculpted Blender surfer, board and paddler (scripts/blender/build_surfer.py). */
+  private async loadSurfer() {
+    try {
+      const {GLTFLoader} = await import('three/examples/jsm/loaders/GLTFLoader.js');
+      const g = await new GLTFLoader().loadAsync((import.meta.env.BASE_URL ?? '/') + 'models/wave/surfer.glb');
+      const board = g.scene.getObjectByName('board'), rider = g.scene.getObjectByName('rider'), paddler = g.scene.getObjectByName('paddler');
+      if (!board || !rider || !paddler || this.disposed) return;
+      this.surfer.clear();
+      this.surfer.add(board, rider, paddler);
+      this.rider = rider as THREE.Group; this.paddler = paddler as THREE.Group;
+      this.customSurfer = true;
+      this.place(this.cur * FT);
+      this.dirty = true;
+    } catch { /* keep the procedural figure */ }
   }
 
   /** Spray: soft points thrown from the lip tip, the whitewater and the toe of the wave (unit space). */
@@ -154,7 +175,7 @@ export class WaveScene {
 
   private place(Hm: number) {
     const ride = this.s.mode === 'ride';
-    if (!this.customSurfer) { this.rider.visible = ride; this.paddler.visible = !ride; }
+    this.rider.visible = ride; this.paddler.visible = !ride;
     if (ride) {
       const f = this.faceAt(XU, 0.34), roll = Math.min(1.1, Math.atan2(f.nz, f.ny));
       this.surfer.position.set(XU * Hm, f.y * Hm + 0.05, f.z * Hm + 0.1);
@@ -164,6 +185,9 @@ export class WaveScene {
       this.surfer.position.set((XU - 0.6) * Hm, 0.02, 1.9 * Hm + 2.2);
       this.surfer.rotation.set(0, Math.PI / 2, 0);
     }
+    const sp = this.surfer.position, R = this.refGeo.attributes.position as THREE.BufferAttribute, rx = sp.x - 1.25, ry = sp.y, rz = sp.z + 0.1;
+    R.setXYZ(0, rx, ry, rz); R.setXYZ(1, rx, ry + SURFER_M, rz); R.setXYZ(2, rx - 0.12, ry + SURFER_M, rz); R.setXYZ(3, rx + 0.12, ry + SURFER_M, rz); R.setXYZ(4, rx - 0.12, ry, rz); R.setXYZ(5, rx + 0.12, ry, rz);
+    R.needsUpdate = true;
     const x = XU * Hm + 2.4, zc = this.crestZ(x / Hm) * Hm, P = this.dimGeo.attributes.position as THREE.BufferAttribute;
     const h = Hm * envAt(x / Hm);
     P.setXYZ(0, x, 0, zc); P.setXYZ(1, x, h, zc); P.setXYZ(2, x - 0.35, h, zc); P.setXYZ(3, x + 0.35, h, zc); P.setXYZ(4, x - 0.35, 0, zc); P.setXYZ(5, x + 0.35, 0, zc);
@@ -246,6 +270,7 @@ export class WaveScene {
   }
 
   dispose() {
+    this.disposed = true;
     cancelAnimationFrame(this.raf);
     this.ro.disconnect();
     this.io.disconnect();
