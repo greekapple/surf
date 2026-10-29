@@ -1,7 +1,8 @@
 /* Home: personal greeting, a framed cinematic photograph, then the user's spots and windows on a light ground. */
 .page.page-home { max-width: none; padding: 0; background: var(--fog); }
 
-/* Light world: re-point the shared tokens so shared components (buttons, states) follow. */
+/* Light world. Home stays light in BOTH themes: tokens.css re-applies the shared light palette to `.coast`
+   (so it also wins under data-theme="dark"); only the Home-specific surface steps are tuned here. */
 .coast {
   --fog: #eef1f1;
   --bg: var(--fog);
@@ -233,4 +234,9 @@
   .week td:has(.empty) { display: none; }
   .close { padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom) + 28px); }
   .coast.plain { padding-bottom: calc(var(--tab-h) + 48px); }
+}
+
+/* T-006: between 600 and 860 px the stacked week blocks use three columns instead of two sparse ones. */
+@media (min-width: 601px) and (max-width: 860px) {
+  .week tbody tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

@@ -11,6 +11,7 @@ import {CameraPanel, StateMessage} from '../../ui/common';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, titleCase} from '../forecast/model';
 import {compass, ht, windColor, windVal} from '../forecast/helpers';
+import {windInk} from '../forecast/charts';
 import {weekdayPT, dayNumPT} from '../forecast/format';
 
 type Layer = 'none' | 'WAVES' | 'WIND';
@@ -58,7 +59,7 @@ export function ExploreView({section, go}: ViewProps) {
     for (const e of evidenceSpots) {
       const f = recAt(e.id);
       const rating = f ? rateForecast(surfSpot(e.id), f, now) : null;
-      const icon = L.divIcon({className: `spotpin${e.id === spot.id ? ' sel' : ''}`, html: `<i style="background:${rating ? BAND_COLOR[bandOf(rating.category)] : '#2a343c'}"></i>`, iconSize: [26, 26]});
+      const icon = L.divIcon({className: `spotpin${e.id === spot.id ? ' sel' : ''}`, html: `<i style="background:${rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)'}"></i>`, iconSize: [26, 26]});
       L.marker([e.latitude, e.longitude], {icon, keyboard: true, title: e.name, alt: e.name})
         .bindTooltip(`${e.name} · ${f ? `${ht(f.offshore, p)} ${p.heightUnit} Hs` : 'no record'}`, {permanent: true, direction: 'right', offset: [12, 0], className: 'pinlabel'})
         .on('click', () => setSpot(e.id)).addTo(g);
@@ -106,10 +107,10 @@ export function ExploreView({section, go}: ViewProps) {
         </div>
         <div className="card" style={{display: 'flex', alignItems: 'center', gap: 12}}>
           <button className="btn" aria-pressed={playing} onClick={() => setPlaying(!playing)}><Icon name={playing ? 'close' : 'play'} size={16} />{playing ? 'Pause' : 'Play'}</button>
-          <input type="range" min={0} max={Math.max(0, times.length - 1)} value={ti} style={{flex: 1, accentColor: 'var(--accent)'}} aria-label="Forecast hour"
+          <input type="range" min={0} max={Math.max(0, times.length - 1)} value={ti} style={{flex: 1, minWidth: 0, accentColor: 'var(--accent)'}} aria-label="Forecast hour"
             aria-valuetext={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''}
             onChange={(e) => { setPlaying(false); view.selectTime(times[Number(e.target.value)]); }} />
-          <span style={{minWidth: 110, textAlign: 'right'}}>{view.selectedTime ? `${weekdayPT(view.selectedTime)} ${dayNumPT(view.selectedTime)}, ${hourLabel(view.selectedTime)}` : '—'}</span>
+          <span style={{minWidth: 96, textAlign: 'right', fontSize: 13}}>{view.selectedTime ? `${weekdayPT(view.selectedTime)} ${dayNumPT(view.selectedTime)}, ${hourLabel(view.selectedTime)}` : '—'}</span>
         </div>
       </div>
 
@@ -122,7 +123,7 @@ export function ExploreView({section, go}: ViewProps) {
               {rating && <p><span className="qdot" style={{background: BAND_COLOR[bandOf(rating.category)]}} /> <b>{titleCase(rating.category)}</b> <span className="fine">{rating.score ?? ''} · provisional · reliability {rating.reliability.category.toLowerCase()}</span></p>}
               <dl className="kv">
                 <dt>Swell</dt><dd>{f.primary ? <><DirArrow from={f.primary.direction} size={13} /> {ht(f.primary.height, p)} {p.heightUnit} · {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</dd>
-                <dt>Wind</dt><dd>{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} color={windColor(f.wind.speed)} /> {windVal(f.wind.speed, p)} {p.windUnit} {compass(f.wind.direction)}</> : '—'}</dd>
+                <dt>Wind</dt><dd>{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} color={windInk(f.wind.speed)} /> {windVal(f.wind.speed, p)} {p.windUnit} {compass(f.wind.direction)}</> : '—'}</dd>
                 <dt>Tide</dt><dd>{ht(f.tide.height, p)} {p.heightUnit} {f.tide.trend?.toLowerCase()} · regional</dd>
               </dl>
               <div style={{display: 'flex', gap: 8}}><button className="btn primary" onClick={() => go('forecast')}>Open forecast</button><button className="btn" onClick={() => center(spot.id)}>Center map</button></div>

@@ -176,7 +176,7 @@ export function fullTimeLabel(iso: string) {
 }
 
 export type Band = 'good' | 'fair' | 'poor' | 'none';
-export const BAND_COLOR: Record<Band, string> = {good: '#47c47e', fair: '#c7b25b', poor: '#3c4954', none: '#2a343c'};
+export const BAND_COLOR: Record<Band, string> = {good: 'var(--good)', fair: 'var(--fair)', poor: 'var(--poor)', none: 'var(--none)'};
 export function bandOf(category: string): Band {
   if (['EPIC', 'FIRING', 'GOOD', 'SOLID'].includes(category)) return 'good';
   if (['NOT BAD', 'SURFABLE'].includes(category)) return 'fair';

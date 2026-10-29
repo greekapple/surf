@@ -8,12 +8,14 @@ import {ForecastView} from '../features/forecast/ForecastView';
 import {ExploreView} from '../features/explore/ExploreView';
 import {QuiverView} from '../features/quiver/QuiverView';
 import {PersonalView} from '../features/personal/PersonalView';
+import {useThemeSync} from '../ui/theme';
 import '../ui/app.css';
 
 // Three.js loads only when the Wave Scale section of Forecast opens.
 const ScaleView = lazy(() => import('../features/scale/ScaleView').then((m) => ({default: m.ScaleView})));
 
 export default function App() {
+  useThemeSync();
   const {route, navigate} = useRoute();
   const {area, section} = route;
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Explore', quiver: 'Quiver', personal: 'Personal'}[area];

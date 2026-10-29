@@ -7,8 +7,8 @@ import {rateForecast} from '../../ratings/adapters';
 import {windRelationship} from '../../recommendation/sqi';
 import {CameraPanel, SpotPhoto, StateMessage} from '../../ui/common';
 import {DirArrow, Icon} from '../../ui/Icon';
-import {Dial, PolarSwell, QualityBand, Spark, TideDay, Timeline} from './charts';
-import {bestDaylight, compass, groupDays, ht, windColor, windVal} from './helpers';
+import {Dial, PolarSwell, QualityBand, Spark, TideDay, Timeline, windInk} from './charts';
+import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
 import {BAND_COLOR, bandOf, hourLabel, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {MiniScale} from '../scale/MiniScale';
@@ -31,8 +31,8 @@ function Readout({h, p, series, isNow}: {h: HourSample; p: UserProfile; series: 
         <p className="fine">{r.score === null ? 'No score: inputs missing' : `Score ${Math.round(r.score)} · reliability ${r.reliability.category.toLowerCase()} · band width shows reliability tier, not a measured range`}</p>
       </div>
       <div className="minis">
-        <div><span className="k">Swell</span><span className="v">{f.primary && Number.isFinite(f.primary.height) ? <><DirArrow from={f.primary.direction} color="#f2f8fc" />{ht(f.primary.height, p)}<small>{u} {Math.round(f.primary.period)}s</small></> : '—'}</span></div>
-        <div><span className="k">Wind</span><span className="v">{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} color={windColor(f.wind.speed)} />{windVal(f.wind.speed, p)}<small>{p.windUnit}</small></> : '—'}</span></div>
+        <div><span className="k">Swell</span><span className="v">{f.primary && Number.isFinite(f.primary.height) ? <><DirArrow from={f.primary.direction} color="var(--sw1)" />{ht(f.primary.height, p)}<small>{u} {Math.round(f.primary.period)}s</small></> : '—'}</span></div>
+        <div><span className="k">Wind</span><span className="v">{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} color={windInk(f.wind.speed)} />{windVal(f.wind.speed, p)}<small>{p.windUnit}</small></> : '—'}</span></div>
         <div><span className="k">Tide</span><span className="v">{ht(f.tide.height, p)}<small>{u} {f.tide.trend === 'Rising' ? '↑' : f.tide.trend === 'Falling' ? '↓' : ''}</small></span></div>
         <div><span className="k">Water</span><span className="v">{f.waterTempF ? <>{f.waterTempF.toFixed(1)}<small>°F</small></> : '—'}</span></div>
       </div>
@@ -47,19 +47,19 @@ function Tiles({h, p, spot, series, extrema}: {h: HourSample; p: UserProfile; sp
   return (
     <div className="tiles">
       <div className="tile"><p className="k">Swell</p>
-        <Dial facing={facingOf(spot)} arms={[f.secondary ? {from: f.secondary.direction, color: '#6fb2e3', w: 2 + Math.min(4, f.secondary.height)} : null, f.primary ? {from: f.primary.direction, color: '#f2f8fc', w: 2 + Math.min(5, f.primary.height)} : null]} />
+        <Dial facing={facingOf(spot)} arms={[f.secondary ? {from: f.secondary.direction, color: 'var(--sw2)', w: 2 + Math.min(4, f.secondary.height)} : null, f.primary ? {from: f.primary.direction, color: 'var(--sw1)', w: 2 + Math.min(5, f.primary.height)} : null]} />
         <p className="v">{f.primary ? <>{ht(f.primary.height, p)}<small> {u} · </small>{Math.round(f.primary.period)}<small> s</small></> : 'Unavailable'}</p>
         <p className="s">{f.primary ? `${compass(f.primary.direction)} ${Math.round(f.primary.direction)}°` : ''}{f.secondary ? ` · 2nd ${ht(f.secondary.height, p)} ${u} ${Math.round(f.secondary.period)} s` : ''}</p></div>
       <div className="tile"><p className="k">Wind</p>
-        <Dial facing={facingOf(spot)} arms={[Number.isFinite(f.wind.direction) ? {from: f.wind.direction, color: windColor(f.wind.speed), w: 3.5} : null]} />
+        <Dial facing={facingOf(spot)} arms={[Number.isFinite(f.wind.direction) ? {from: f.wind.direction, color: windInk(f.wind.speed), w: 3.5} : null]} />
         <p className="v">{windVal(f.wind.speed, p)}<small> {p.windUnit} · gust {windVal(f.wind.gusts ?? null, p)}</small></p>
         <p className="s">{compass(f.wind.direction)} · <span className={`chip ${relChip(rel)}`}>{rel === 'Unknown' ? 'Shore relation unknown' : rel}</span></p></div>
       <div className="tile"><p className="k">Tide · regional</p>
-        <Spark values={series.slice(a, b).map((x) => x.forecast.tide.height)} index={i - a} color="#9db5c8" />
+        <Spark values={series.slice(a, b).map((x) => x.forecast.tide.height)} index={i - a} color="var(--tide)" />
         <p className="v">{ht(f.tide.height, p)}<small> {u} {f.tide.trend === 'Rising' ? '↑' : f.tide.trend === 'Falling' ? '↓' : ''}</small></p>
         <p className="s">{next && next.height.value !== null ? `${next.type} ${ht(next.height.value, p)} ${u} at ${timeLabelPT(next.timestamp)}` : 'SF 9414290 · MLLW'}</p></div>
       <div className="tile"><p className="k">Water</p>
-        <Spark values={series.map((x) => x.forecast.waterTempF ?? 0)} index={i} color="#6fb2e3" />
+        <Spark values={series.map((x) => x.forecast.waterTempF ?? 0)} index={i} color="var(--sw2)" />
         <p className="v">{f.waterTempF ? <>{f.waterTempF.toFixed(1)}<small> °F · {((f.waterTempF - 32) / 1.8).toFixed(1)} °C</small></> : 'Unavailable'}</p>
         <p className="s">Sea surface · model · 7 days</p></div>
     </div>
@@ -73,9 +73,9 @@ function Sources() {
   return (
     <div style={{display: 'grid', gap: 10}}>
       <p className="fine">Model forecasts: Open-Meteo Marine &amp; Weather. Tide predictions: NOAA CO-OPS 9414290 (San Francisco, regional, MLLW). Ratings: SURF provisional engine, uncalibrated. Times are Pacific.</p>
-      <table className="cmp"><thead><tr><th>Source</th><th>State</th><th>Detail</th></tr></thead><tbody>
+      <div className="tscroll" role="region" tabIndex={0} aria-label="Data source status (scrolls sideways)"><table className="cmp"><thead><tr><th>Source</th><th>State</th><th>Detail</th></tr></thead><tbody>
         {o.statuses.map((s) => <tr key={s.id}><td>{s.provider}</td><td><span className={`chip ${s.state === 'connected' ? 'off' : s.state === 'partial' ? 'demo' : 'on'}`}>{s.state}</span></td><td className="fine">{s.message}</td></tr>)}
-      </tbody></table>
+      </tbody></table></div>
       {o.bundle?.buoy && (
         <div><p><b>Observation</b> · NOAA NDBC 46026 buoy {o.bundle.buoy.delivery === 'saved' ? <span className="chip demo">saved historical, not live</span> : <span className="chip off">observed</span>}</p>
           <p className="fine">{Object.entries(o.bundle.buoy.values).slice(0, 5).map(([k, m]) => `${k} ${typeof m.value === 'number' ? +m.value.toFixed(1) : m.value ?? '—'} ${m.unit}`).join(' · ')}{Object.values(o.bundle.buoy.values)[0] ? ` · valid ${timeLabelPT(Object.values(o.bundle.buoy.values)[0].source.validAt)}` : ''}</p></div>
@@ -88,7 +88,7 @@ function Compare({onPick}: {onPick: (id: string) => void}) {
   const {view, spotOptions, data, now, spot} = useSwello();
   const p = data.state.profile, t = view.selectedTime;
   return (
-    <table className="cmp"><thead><tr><th>Spot</th><th>Rating (provisional)</th><th>Offshore Hs</th><th>Primary swell</th><th>Wind</th><th>Best daylight (24 h)</th><th /></tr></thead><tbody>
+    <div className="tscroll" role="region" tabIndex={0} aria-label="Spot comparison (scrolls sideways)"><table className="cmp"><thead><tr><th>Spot</th><th>Rating (provisional)</th><th>Offshore Hs</th><th>Primary swell</th><th>Wind</th><th>Best daylight (24 h)</th><th /></tr></thead><tbody>
       {spotOptions.map((s) => {
         const recs = view.mapRecords.filter((r) => r.spotId === s.id);
         const f = recs.find((r) => r.timestamp === t);
@@ -107,7 +107,7 @@ function Compare({onPick}: {onPick: (id: string) => void}) {
           </tr>
         );
       })}
-    </tbody></table>
+    </tbody></table></div>
   );
 }
 
@@ -144,7 +144,7 @@ export function ForecastView({section, go}: ViewProps) {
         <div style={{display: 'flex', alignItems: 'flex-end', gap: 12, flexWrap: 'wrap'}}>
           <div style={{flex: 1, minWidth: 200}}>
             <h1 style={{fontSize: 26}}>{spot.name}</h1>
-            <p className="fine" style={{color: 'rgb(255 255 255 / 0.8)'}}>{spot.region} · {spot.type.toLowerCase()} break · {live ? 'live model data' : 'demonstration week'}</p>
+            <p className="fine" style={{color: 'rgb(255 255 255 / 0.85)'}}>{spot.region} · {spot.type.toLowerCase()} break · {live ? 'live model data' : 'demonstration week'}</p>
           </div>
           <button className="btn" aria-pressed={fav} onClick={() => data.favorite(spot.id)}><Icon name="star" size={16} style={{fill: fav ? 'currentColor' : 'none'}} />{fav ? 'Saved' : 'Save spot'}</button>
           <button className="btn" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
@@ -172,7 +172,7 @@ export function ForecastView({section, go}: ViewProps) {
         <ul className="legend" style={{marginTop: 6}} aria-hidden="true">
           <li><i style={{background: 'var(--hs)', height: 8}} />Offshore Hs</li><li><i style={{background: 'var(--sw1)'}} />Primary swell</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li>
           <li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li>
-          <li><i style={{width: 44, background: 'linear-gradient(90deg,#6080d6,#76a0ec,#96c878,#d6d260,#eca848,#e66048)'}} />Wind 0 → 24+ mph</li>
+          <li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Wind 0 → 24+ mph</li>
         </ul>
       </section>
 
@@ -180,14 +180,14 @@ export function ForecastView({section, go}: ViewProps) {
       {section === '' && <section className="card span-4"><div className="card-h"><h2>Wave scale</h2><button className="btn" onClick={() => go('forecast', 'wave-scale')}>3D viewer</button></div><MiniScale forecast={selected.forecast} /></section>}
       {show('swell') && <section className={`card ${section === 'swell' ? 'span-6' : 'span-4'}`}><div className="card-h"><h2>Swell direction &amp; period</h2><span>selected day</span></div>
         <PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot)} onSelect={view.selectTime} />
-        <p className="fine">White primary · blue secondary · ring = period (s) · size = height</p></section>}
+        <p className="fine"><i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw1)', marginRight: 4}} />primary · <i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw2)', marginRight: 4}} />secondary · ring = period (s) · size = height</p></section>}
       {section === 'swell' && <section className="card span-6"><div className="card-h"><h2>Swell components</h2><span>{weekdayPT(selected.timestamp)}</span></div>
-        <table className="cmp"><thead><tr><th>Hour</th><th>Primary</th><th>Secondary</th><th>Offshore Hs</th></tr></thead><tbody>
+        <div className="tscroll" role="region" tabIndex={0} aria-label="Swell components by hour (scrolls sideways)"><table className="cmp"><thead><tr><th>Hour</th><th>Primary</th><th>Secondary</th><th>Offshore Hs</th></tr></thead><tbody>
           {dayHours.filter((_, j) => j % 2 === 0).map((h) => <tr key={h.timestamp} className={h.timestamp === view.selectedTime ? 'sel' : ''}><td><button onClick={() => view.selectTime(h.timestamp)}>{hourLabel(h.timestamp)}</button></td>
             <td>{h.forecast.primary ? `${ht(h.forecast.primary.height, p)} ${p.heightUnit} · ${Math.round(h.forecast.primary.period)} s · ${compass(h.forecast.primary.direction)}` : '—'}</td>
             <td>{h.forecast.secondary ? `${ht(h.forecast.secondary.height, p)} ${p.heightUnit} · ${Math.round(h.forecast.secondary.period)} s · ${compass(h.forecast.secondary.direction)}` : '—'}</td>
             <td>{ht(h.heightFt, p)} {p.heightUnit}</td></tr>)}
-        </tbody></table></section>}
+        </tbody></table></div></section>}
       {show('wind-tides') && <section className={`card ${section === '' ? 'span-4' : 'span-4'}`}><div className="card-h"><h2>Tide</h2><span>SF 9414290 · regional · MLLW</span></div>
         <TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} /><p className="fine">Predictions, not observations · sunrise/sunset approximate</p></section>}
       {section === '' && <section className="card span-4"><div className="card-h"><h2>Next hours</h2></div>
@@ -195,7 +195,7 @@ export function ForecastView({section, go}: ViewProps) {
           <li key={h.timestamp}><button aria-current={k === 0} onClick={() => view.selectTime(h.timestamp)}>
             <span className="t">{hourLabel(h.timestamp)}</span><span className="qdot" style={{background: BAND_COLOR[bandOf(h.rating.category)]}} />
             <span>{ht(h.heightFt, p)} {p.heightUnit}</span><span>{h.forecast.primary ? <><DirArrow from={h.forecast.primary.direction} size={13} />{Math.round(h.forecast.primary.period)}s</> : '—'}</span>
-            <span>{Number.isFinite(h.forecast.wind.direction) ? <><DirArrow from={h.forecast.wind.direction} size={13} color={windColor(h.forecast.wind.speed)} />{windVal(h.forecast.wind.speed, p)}</> : '—'}</span>
+            <span>{Number.isFinite(h.forecast.wind.direction) ? <><DirArrow from={h.forecast.wind.direction} size={13} color={windInk(h.forecast.wind.speed)} />{windVal(h.forecast.wind.speed, p)}</> : '—'}</span>
           </button></li>
         ))}</ol></section>}
       {show('compare') && <section className="card span-12"><div className="card-h"><h2>Compare spots</h2><span>at {weekdayPT(selected.timestamp)} {hourLabel(selected.timestamp)}</span></div><Compare onPick={(id) => { setSpot(id); go('forecast'); }} /></section>}

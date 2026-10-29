@@ -44,7 +44,7 @@ function Viewer() {
   if (failed) return <StateMessage title="3D needs WebGL">This browser could not start WebGL. Wave Comparison shows the same scale in 2D.</StateMessage>;
   return (
     <div className="scale-wrap">
-      <div className="stage3d" ref={stage} tabIndex={0} aria-label={`3D wave scale: ${fmt(ft)} face, ${ratio.toFixed(1)} times surfer height. Drag to orbit, scroll to zoom, arrow up and down change height.`}
+      <div className="stage3d on-dark" ref={stage} tabIndex={0} aria-label={`3D wave scale: ${fmt(ft)} face, ${ratio.toFixed(1)} times surfer height. Drag to orbit, scroll to zoom, arrow up and down change height.`}
         onKeyDown={(e) => { const step = ({ArrowUp: 0.5, ArrowDown: -0.5} as Record<string, number>)[e.key]; if (step) { e.preventDefault(); setHeight(ft + step); } }}>
         <canvas ref={canvas} />
         <div className="views" role="group" aria-label="Camera">
@@ -93,14 +93,14 @@ function Comparison() {
       </div>
       <div style={{overflowX: 'auto'}}>
         <svg viewBox={`0 0 ${n * COL} 320`} style={{width: '100%', minWidth: Math.min(560, n * COL), height: 'auto', display: 'block'}} role="img" aria-label={`Wave faces of ${pick.map(label).join(', ')} beside a surfer`}>
-          <line x1={0} x2={n * COL} y1={BASE} y2={BASE} stroke="rgba(255,255,255,0.18)" />
+          <line x1={0} x2={n * COL} y1={BASE} y2={BASE} stroke="var(--ch-div)" />
           {pick.map((s, k) => {
             const H = s * PX, P = 5.83 * PX;
             return <g key={s} transform={`translate(${k * COL},0)`}>
-              <path d={`M8,${BASE} C40,${BASE} 60,${BASE - H * 0.4} 82,${BASE - H} C100,${BASE - H} 112,${BASE - H * 0.7} 104,${BASE - H * 0.55} C122,${BASE - H * 0.4} 132,${BASE - H * 0.12} 142,${BASE} Z`} fill="rgba(140,207,255,0.32)" stroke="#8ccfff" strokeWidth={1.4} />
-              <g transform={`translate(40,${BASE})`} fill="#e8eef2"><rect x={-4} y={-P * 0.52} width={8} height={P * 0.52} rx={4} /><rect x={-6} y={-P * 0.86} width={12} height={P * 0.38} rx={6} /><circle cy={-P * 0.93} r={P * 0.075} /></g>
-              <text x={75} y={Math.max(14, BASE - H - 8)} fontSize={13} fontWeight={600} fill="#e8eef2" textAnchor="middle">{label(s)}</text>
-              <text x={75} y={BASE + 16} fontSize={11} fill="#8b9aa6" textAnchor="middle">{((s * FT) / SURFER_M).toFixed(1)}× surfer</text>
+              <path d={`M8,${BASE} C40,${BASE} 60,${BASE - H * 0.4} 82,${BASE - H} C100,${BASE - H} 112,${BASE - H * 0.7} 104,${BASE - H * 0.55} C122,${BASE - H * 0.4} 132,${BASE - H * 0.12} 142,${BASE} Z`} fill="var(--hs-hi)" fillOpacity={0.3} stroke="var(--hs-hi)" strokeWidth={1.4} />
+              <g transform={`translate(40,${BASE})`} fill="var(--text)"><rect x={-4} y={-P * 0.52} width={8} height={P * 0.52} rx={4} /><rect x={-6} y={-P * 0.86} width={12} height={P * 0.38} rx={6} /><circle cy={-P * 0.93} r={P * 0.075} /></g>
+              <text x={75} y={Math.max(14, BASE - H - 8)} fontSize={13} fontWeight={600} fill="var(--text)" textAnchor="middle">{label(s)}</text>
+              <text x={75} y={BASE + 16} fontSize={11} fill="var(--muted)" textAnchor="middle">{((s * FT) / SURFER_M).toFixed(1)}× surfer</text>
             </g>;
           })}
         </svg>

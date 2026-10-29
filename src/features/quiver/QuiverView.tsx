@@ -9,7 +9,7 @@ import {StateMessage} from '../../ui/common';
 import {titleCase} from '../forecast/model';
 
 /** Category outline drawn to the board's real length and width. Not an exact shape. */
-export function BoardOutline({b, scale = 3.4, color = '#f2f8fc'}: {b: Pick<Surfboard, 'length' | 'width' | 'type'>; scale?: number; color?: string}) {
+export function BoardOutline({b, scale = 3.4, color = 'var(--board-a)'}: {b: Pick<Surfboard, 'length' | 'width' | 'type'>; scale?: number; color?: string}) {
   const L = b.length * scale, W = b.width * scale, t = b.type;
   const nose = t === 'Longboard' || t === 'Funboard' || t === 'Soft-top' ? 0.62 : t === 'Fish' || t === 'Midlength' || t === 'Hybrid' || t === 'Groveler' ? 0.42 : 0.2;
   const tail = t === 'Gun' || t === 'Step-up' ? 0.22 : t === 'Fish' ? 0.68 : 0.5;
@@ -20,8 +20,8 @@ export function BoardOutline({b, scale = 3.4, color = '#f2f8fc'}: {b: Pick<Surfb
   const left = `L${cx - hw * tail},${L} C${cx - hw * tail * 1.25},${y(0.93)} ${cx - hw},${y(wide + 0.28)} ${cx - hw},${y(wide)} C${cx - hw},${y(wide - 0.22)} ${cx - hw * nose},${y(0.02)} ${cx},0Z`;
   return (
     <svg className="outline-svg" width={W + 2} height={L + 2} viewBox={`-1 -1 ${W + 2} ${L + 2}`} role="img" aria-label={`${b.type} outline, ${lengthLabel(b.length)} by ${b.width} inches, category approximation`}>
-      <path d={`${right} ${swallow} ${left}`} fill={color} fillOpacity={0.92} stroke="rgba(0,0,0,0.35)" />
-      <line x1={cx} x2={cx} y1={4} y2={L - 4} stroke="rgba(0,0,0,0.25)" />
+      <path d={`${right} ${swallow} ${left}`} fill={color} fillOpacity={0.92} stroke="var(--board-line)" />
+      <line x1={cx} x2={cx} y1={4} y2={L - 4} stroke="var(--board-line)" strokeOpacity={0.6} />
     </svg>
   );
 }
@@ -140,12 +140,12 @@ export function QuiverView({section, go}: ViewProps) {
             <label key={k} className="field"><span>Board {k + 1}</span><select value={cmp[k]} onChange={(e) => setCmp(k ? [cmp[0], e.target.value] : [e.target.value, cmp[1]])}>{boards.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}</select></label>
           ))}</div>
           <div style={{display: 'flex', gap: 32, justifyContent: 'center', alignItems: 'flex-end', padding: '20px 0', overflowX: 'auto'}}>
-            {cmp.map((id, k) => { const b = boards.find((x) => x.id === id); return b ? <div key={k} style={{textAlign: 'center'}}><BoardOutline b={b} scale={3.2} color={k ? '#8ccfff' : '#f2f8fc'} /><p><b>{b.name}</b></p></div> : null; })}
+            {cmp.map((id, k) => { const b = boards.find((x) => x.id === id); return b ? <div key={k} style={{textAlign: 'center'}}><BoardOutline b={b} scale={3.2} color={k ? 'var(--hs-hi)' : 'var(--board-a)'} /><p><b>{b.name}</b></p></div> : null; })}
           </div>
-          <table className="cmp"><thead><tr><th>Spec</th>{cmp.map((id, k) => <th key={k}>{boards.find((b) => b.id === id)?.name ?? '—'}</th>)}</tr></thead><tbody>
+          <div className="tscroll" role="region" tabIndex={0} aria-label="Board comparison (scrolls sideways)"><table className="cmp"><thead><tr><th>Spec</th>{cmp.map((id, k) => <th key={k}>{boards.find((b) => b.id === id)?.name ?? '—'}</th>)}</tr></thead><tbody>
             {(['type', 'length', 'width', 'thickness', 'volume', 'fins'] as const).map((key) => <tr key={key}><td>{titleCase(key)}</td>{cmp.map((id, j) => { const v = boards.find((x) => x.id === id)?.[key];
               return <td key={j}>{v === undefined ? '—' : key === 'length' ? lengthLabel(v as number) : key === 'width' || key === 'thickness' ? inches(v as number) : key === 'volume' ? `${v} L` : String(v)}</td>; })}</tr>)}
-          </tbody></table>
+          </tbody></table></div>
         </section>
       )}
     </div>

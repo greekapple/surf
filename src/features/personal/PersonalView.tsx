@@ -1,4 +1,4 @@
-import {useState, type FormEvent} from 'react';
+import {useState, type FormEvent, type KeyboardEvent} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {spots} from '../../data/demo';
@@ -6,6 +6,7 @@ import {evidenceSpots} from '../../ocean/spots';
 import type {Skill, UserProfile} from '../../models/index';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
+import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
 import {timeLabelPT, weekdayPT, dayNumPT} from '../forecast/format';
 
 function Choice<T extends string>({label, value, options, onChange}: {label: string; value: T; options: readonly T[]; onChange: (v: T) => void}) {
@@ -20,6 +21,16 @@ function Choice<T extends string>({label, value, options, onChange}: {label: str
 
 export function PersonalView({section, go}: ViewProps) {
   const {data, view, setSpot} = useSwello();
+  const [themePref, setThemePref] = useThemePref();
+  /** Radiogroup keys: arrows move and select (wrapping), Home/End jump; focus follows the selection. */
+  const onThemeKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const i = THEME_PREFS.indexOf(themePref), n = THEME_PREFS.length;
+    const next = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? (i + 1) % n : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? (i + n - 1) % n : e.key === 'Home' ? 0 : e.key === 'End' ? n - 1 : -1;
+    if (next < 0) return;
+    e.preventDefault();
+    setThemePref(THEME_PREFS[next]);
+    (e.currentTarget.children[next] as HTMLElement | undefined)?.focus();
+  };
   const p = data.state.profile;
   const set = (patch: Partial<UserProfile>) => data.profile(patch);
   const boards = data.state.boards;
@@ -65,7 +76,7 @@ export function PersonalView({section, go}: ViewProps) {
       {(section === '' || section === 'spots') && (
         <section className="card span-12" aria-labelledby="ss">
           <div className="card-h"><h2 id="ss">Saved spots</h2><span>Star a spot to keep it on Home</span></div>
-          <table className="cmp"><thead><tr><th>Spot</th><th>Region</th><th>Live forecast</th><th>Saved</th><th /></tr></thead>
+          <div className="tscroll" role="region" tabIndex={0} aria-label="Saved spots (scrolls sideways)"><table className="cmp"><thead><tr><th>Spot</th><th>Region</th><th>Live forecast</th><th>Saved</th><th /></tr></thead>
             <tbody>{spots.map((s) => {
               const live = evidenceSpots.some((e) => e.id === s.id), fav = data.state.favorites.includes(s.id);
               return (
@@ -73,7 +84,7 @@ export function PersonalView({section, go}: ViewProps) {
                   <td><button className="star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name}`} onClick={() => data.favorite(s.id)}><Icon name="star" size={16} /></button></td>
                   <td>{(live || view.dataMode === 'Demonstration') && <button onClick={() => { setSpot(s.id); go('forecast'); }}>Forecast</button>}</td></tr>
               );
-            })}</tbody></table>
+            })}</tbody></table></div>
         </section>
       )}
 
@@ -84,6 +95,11 @@ export function PersonalView({section, go}: ViewProps) {
             <Choice label="Heights" value={p.heightUnit} options={['ft', 'm'] as const} onChange={(heightUnit) => set({heightUnit})} />
             <Choice label="Wind" value={p.windUnit} options={['mph', 'kn', 'km/h'] as const} onChange={(windUnit) => set({windUnit})} />
             <Choice label="Breaking-wave scale" value={p.scale} options={['Face height', 'Hawaiian'] as const} onChange={(scale) => set({scale})} />
+            <div className="field"><span aria-hidden="true">Appearance</span>
+              <div className="seg" role="radiogroup" aria-label="Appearance" onKeyDown={onThemeKey}>
+                {THEME_PREFS.map((t: ThemePref) => <button key={t} role="radio" aria-checked={t === themePref} tabIndex={t === themePref ? 0 : -1} onClick={() => setThemePref(t)}>{t[0].toUpperCase() + t.slice(1)}</button>)}
+              </div>
+            </div>
             <Choice label="Data source" value={view.dataMode} options={['Retrieved', 'Demonstration'] as const} onChange={view.setDataMode} />
             <label className="field"><span>Preferred wave range (face, ft)</span>
               <span style={{display: 'flex', gap: 8}}>
