@@ -9,6 +9,7 @@ import {ExploreView} from '../features/explore/ExploreView';
 import {QuiverView} from '../features/quiver/QuiverView';
 import {PersonalView} from '../features/personal/PersonalView';
 import {useThemeSync} from '../ui/theme';
+import {Footer, Legal} from '../ui/Legal';
 import '../ui/app.css';
 
 // Three.js loads only when the Wave Scale section of Forecast opens.
@@ -38,8 +39,10 @@ export default function App() {
                 <ScaleView section="" go={navigate} />
               </Suspense>
             )}
-            {area === 'personal' && <PersonalView section={section} go={navigate} />}
+            {area === 'personal' && (section === 'privacy' || section === 'terms') && <Legal page={section} go={navigate} />}
+            {area === 'personal' && section !== 'privacy' && section !== 'terms' && <PersonalView section={section} go={navigate} />}
           </ErrorBoundary>
+          {!bleed && <Footer go={navigate} />}
         </main>
         <TabBar area={area} go={navigate} />
       </div>

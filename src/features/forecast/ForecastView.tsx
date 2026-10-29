@@ -14,6 +14,7 @@ import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
 import {BAND_COLOR, bandOf, hourLabel, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {MiniScale} from '../scale/MiniScale';
+import {Skeleton} from '../../ui/Skeleton';
 import './forecast.css';
 
 const facingOf = (spot: SurfSpot) => evidenceSpots.find((e) => e.id === spot.id)?.orientation ?? null;
@@ -159,7 +160,7 @@ export function ForecastView({section, go}: ViewProps) {
   };
   const toNow = () => { const i = series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000); if (i >= 0) view.selectTime(series[i].timestamp); };
 
-  if (live && view.ocean.loading && !view.ocean.bundle) return <StateMessage title="Retrieving forecasts…">Requesting Open-Meteo marine and weather models and NOAA tide predictions.</StateMessage>;
+  if (live && view.ocean.loading && !view.ocean.bundle) return <Skeleton label="Loading forecast…" />;
   if (live && !view.ocean.bundle) return <StateMessage title="Forecast data unavailable" action={<button className="btn" onClick={view.ocean.reload}>Try again</button>}>{view.ocean.error ?? 'The providers could not be reached.'} Nothing is filled in from other spots or older data.</StateMessage>;
   if (!selected) return <StateMessage title={`No record for ${spot.name} at this hour`} action={<button className="btn" onClick={toNow}>Go to now</button>}>Values are never borrowed from other hours or spots.</StateMessage>;
 

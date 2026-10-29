@@ -6,6 +6,7 @@ import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
 import {PHOTOS, GENERIC_PHOTOS} from '../../ui/photos';
 import {StateMessage} from '../../ui/common';
+import {Skeleton} from '../../ui/Skeleton';
 import {Icon} from '../../ui/Icon';
 import {bandOf, hourLabel, hourlySeries, titleCase, trendOf, type Band, type HourSample} from '../forecast/model';
 import {bestDaylight, compass, groupDays, ht, isDaylight, monotonePath, spotLatLon, windVal} from '../forecast/helpers';
@@ -264,7 +265,7 @@ export function HomeView({section, go}: ViewProps) {
   const board = current && current.forecast.availability.face && Number.isFinite(current.forecast.face)
     ? data.state.boards.map((b) => scoreBoard(b, current.forecast, p)).sort((a, b) => b.score - a.score)[0] : null;
 
-  if (live && view.ocean.loading && !view.ocean.bundle) return <div className="coast plain"><StateMessage title="Retrieving forecasts…">Requesting Open-Meteo marine and weather models and NOAA tide predictions.</StateMessage></div>;
+  if (live && view.ocean.loading && !view.ocean.bundle) return <Skeleton label="Loading forecasts…" />;
   if (live && !view.ocean.bundle) return <div className="coast plain"><StateMessage title="Forecast data unavailable" action={<button className="btn" onClick={view.ocean.reload}>Try again</button>}>{view.ocean.error ?? 'The providers could not be reached.'}</StateMessage></div>;
 
   const weekBlock = (

@@ -25,9 +25,9 @@
   --wide: 118%;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
   --ease: cubic-bezier(.2, .8, .2, 1);
-  --r1: 8px;
-  --r2: 12px;
-  --r3: 16px;
+  --r1: 4px;
+  --r2: 8px;
+  --r3: 12px; /* radius scale (docs/design/RULES.md): 4 / 8 / 12 */
   --nav-h: 64px;
   --tab-h: 64px;
   --gutter: clamp(12px, 2vw, 24px);
@@ -146,6 +146,13 @@ body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.47 var
 h1, h2, h3, p, ul, ol, figure, dl, dd { margin: 0; padding: 0; }
 h1, h2, h3 { font-family: var(--display); font-weight: 650; letter-spacing: -0.02em; }
 button, input, select, textarea { font: inherit; color: inherit; }
+button, a, [role='button'] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+/* Every press answers immediately (RULES.md). */
+button:not(:disabled):active { transform: scale(0.98); }
+button { transition: transform 90ms var(--ease), background-color 150ms var(--ease), color 150ms var(--ease), border-color 150ms var(--ease); }
+@media (max-width: 860px) { input, select, textarea { font-size: 16px; } }
+/* Route changes cross-fade (View Transitions API; skipped when unsupported or reduced motion). */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 180ms; }
 a { color: inherit; }
 svg { overflow: visible; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

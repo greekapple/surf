@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
+import {flushSync} from 'react-dom';
 import {allSpots as spots} from '../data/catalog';
 
 export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'personal';
@@ -36,6 +37,8 @@ export const AREAS: AreaDef[] = [
     {id: 'preferences', label: 'Preferences', hint: 'Units, scale, data source'},
     {id: 'journal', label: 'Surf Journal', hint: 'Your sessions'},
     {id: 'account', label: 'Account', hint: 'Storage and backup'},
+    {id: 'privacy', label: 'Privacy', hint: 'What stays on your device', hidden: true},
+    {id: 'terms', label: 'Terms', hint: 'Not a safety service', hidden: true},
   ]},
 ];
 
@@ -70,8 +73,10 @@ export function useRoute() {
       if (opts.replace) history.replaceState(null, '', path);
       else history.pushState(null, '', path);
     }
-    setRoute({area, section});
-    if (!opts.replace) scrollTo({top: 0});
+    // Cross-fade between pages where the browser supports View Transitions (skipped for reduced motion).
+    const apply = () => { flushSync(() => setRoute({area, section})); if (!opts.replace) scrollTo({top: 0}); };
+    const vt = (document as Document & {startViewTransition?: (cb: () => void) => unknown}).startViewTransition;
+    if (vt && !opts.replace && !matchMedia('(prefers-reduced-motion: reduce)').matches) vt.call(document, apply); else apply();
   }, []);
   return {route, navigate};
 }
