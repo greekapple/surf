@@ -80,11 +80,24 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
    }return report;
   })();try{return await refreshJob}finally{refreshJob=null}
  }
+ /** Coarse worldwide frame (2-degree stride of the native 0.5-degree grids) for the zoomed-out map. Fixed fields,
+  * 3-hourly valid times within the next 8 days only; cached in memory (no arbitrary URL forwarding). */
+ const globeCache=new Map(),globeJobs=new Map();
+ async function globeFrame(field,time){
+  if(!regionalFields.includes(field))throw Object.assign(new Error('Unknown global field'),{status:400});
+  const t=Date.parse(time),day=86400000;if(!Number.isFinite(t)||t%10800000!==0||t<now()-day||t>now()+8*day)throw Object.assign(new Error('Global frames are 3-hourly within the forecast range'),{status:400});
+  const wind=field.endsWith('10m'),dataset=wind?'NCEP_Global_Best':'NWW3_Global_Best',iso=new Date(t).toISOString().replace('.000Z','Z');
+  const url='https://upwell.pfeg.noaa.gov/erddap/griddap/'+dataset+'.json?'+(`${field}[(${iso})]${wind?'':'[(0)]'}[(-76):4:(76)][(0):4:(358)]`).replaceAll('[','%5B').replaceAll(']','%5D');
+  const hit=globeCache.get(url);if(hit&&hit.expires>now())return hit.value;
+  if(!globeJobs.has(url))globeJobs.set(url,(async()=>{const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeoutMs*2);try{const r=await fetcher(url,{signal:c.signal});if(r.status===404)throw Object.assign(new Error('No global model frame at this valid time'),{status:404,code:'no_frame'});if(!r.ok)throw new Error('Global grid HTTP '+r.status);const raw=await r.text();if(raw.length>4000000)throw new Error('Global grid payload exceeds bounded size.');const payload=JSON.parse(raw);if(!payload.table?.rows?.length||payload.table.rows.length>20000)throw new Error('Global grid absent or oversized');const value={payload,retrievedAt:new Date(now()).toISOString(),sourceURL:url,cache:'fresh'};globeCache.set(url,{value,expires:now()+3*3600000});while(globeCache.size>48)globeCache.delete(globeCache.keys().next().value);return value}finally{clearTimeout(timer);globeJobs.delete(url)}})());
+  return globeJobs.get(url);
+ }
  return async function handle(request,env={},ctx={waitUntil:()=>{}}){const url=new URL(request.url);try{
   if(url.pathname==='/api/health'){const obj=await fromBucket(env,'forecast/v8/status.json');return json({service:'SURF forecast ingestion',version:'0.8',revision:'0.10',persistent:persistent(env),refresh:obj??manifest,scheduler:'Configured/executed status must be verified from the linked automation, separately from this readback.'});}
   if(url.pathname==='/api/diagnostics')return json({checkedAt:new Date(now()).toISOString(),persistent:persistent(env),providers:await diagnostics(env)});
   if(url.pathname==='/api/refresh'){if(request.method!=='POST')return json({error:'POST required'},405);const origin=request.headers.get('origin');if(origin&&origin!==url.origin)return json({error:'Origin rejected'},403);if(env.REFRESH_TOKEN&&request.headers.get('authorization')!=='Bearer '+env.REFRESH_TOKEN)return json({error:'Refresh authorization required'},403);return json(await refresh(env));}
   if(url.pathname==='/api/provider'){const key=url.searchParams.get('key'),target=ingestionTargets(now()).find(t=>t.key===key&&!t.field);if(!target)return json({error:'Unknown fixed provider key'},400);return json(await retrieve(target,env));}
+  if(url.pathname==='/api/globe'){try{return json(await globeFrame(url.searchParams.get('field')??'',url.searchParams.get('time')??''))}catch(e){return json({error:e.message,code:e.code},e.status??502)}}
   if(url.pathname==='/api/grid'){const field=url.searchParams.get('field'),time=url.searchParams.get('time'),target=ingestionTargets(now()).find(t=>t.field===field);if(!target||!time||!Number.isFinite(Date.parse(time)))return json({error:'Invalid regional field or timestamp'},400);const value=await retrieve(target,env),table=value.payload.table,ti=table.columnNames.indexOf('time'),rows=table.rows.filter(r=>Date.parse(r[ti])===Date.parse(time));if(!rows.length)return json({error:'No exact regional model frame at this valid time',code:'no_frame'},404);return json({...value,payload:{table:{...table,rows}}});}
   if(url.pathname.startsWith('/api/'))return json({error:'Unknown endpoint'},404);
   if(request.method!=='GET'&&request.method!=='HEAD')return new Response('Method not allowed',{status:405});

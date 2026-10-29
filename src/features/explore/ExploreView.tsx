@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {useSpatial} from '../../hooks/useSpatial';
+import {useGlobe} from '../../hooks/useGlobe';
 import {evidenceSpots} from '../../ocean/spots';
 import {allSpots as spots} from '../../data/catalog';
 import {rateForecast} from '../../ratings/adapters';
@@ -13,7 +14,7 @@ import {DirArrow, Icon, type IconName} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, titleCase} from '../forecast/model';
 import {compass, ht, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT} from '../forecast/format';
-import {attachField, buildField, RAMP, RANGE} from '../../map/field';
+import {attachField, buildField, RAMP, RANGE, RANGE_WIDE} from '../../map/field';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
 import {CompareSpots} from './Compare';
@@ -42,8 +43,8 @@ const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-r
 const chip = (c: string) => ({'--c': c}) as CSSProperties;
 
 /** Legend tick values in the user's units. */
-function legendTicks(unit: SpatialFrame['unit'], hu: string, wu: string) {
-  const [a, b] = RANGE[unit] ?? [0, 1], n = 5;
+function legendTicks(unit: SpatialFrame['unit'], hu: string, wu: string, wide = false) {
+  const [a, b] = (wide ? RANGE_WIDE : RANGE)[unit] ?? [0, 1], n = 5;
   return Array.from({length: n}, (_, i) => {
     const v = a + ((b - a) * i) / (n - 1);
     if (unit === 'm') return (hu === 'ft' ? v / 0.3048 : v).toFixed(0);
@@ -68,6 +69,8 @@ function OceanMap({section, go}: ViewProps) {
   const [panel, setPanel] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
   const [query, setQuery] = useState('');
   const [playing, setPlaying] = useState(false);
+  const [zoom, setZoom] = useState(7);
+  const wide = zoom < 5; // ocean-basin view uses the wider colour ramp
   const def = FIELDS.find((f) => f.id === fieldId)!;
   const mapEl = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
@@ -79,6 +82,13 @@ function OceanMap({section, go}: ViewProps) {
   else if (!spatial.loading) shown.current = null;
   const frame = shown.current && shown.current.unit === def.unit ? shown.current : null;
   const field = useMemo(() => (frame ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer]);
+  // Worldwide 2° frame underneath, so colour and flow continue past the California grid to the whole globe.
+  const globe = useGlobe(def.layer, def.variable, view.selectedTime, live && (opts.heat || opts.flow || opts.arrows));
+  const shownGlobe = useRef<SpatialFrame | null>(null);
+  if (globe.frame) shownGlobe.current = globe.frame;
+  else if (!globe.loading) shownGlobe.current = null;
+  const gframe = shownGlobe.current && shownGlobe.current.unit === def.unit ? shownGlobe.current : null;
+  const gfield = useMemo(() => (gframe ? buildField(gframe, def.layer === 'WIND') : null), [gframe, def.layer]);
   const times = view.timeline;
   const ti = Math.max(0, times.indexOf(view.selectedTime ?? ''));
   const recAt = (id: string) => view.mapRecords.find((r) => r.spotId === id && r.timestamp === view.selectedTime);
@@ -86,8 +96,8 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     if (!mapEl.current || map.current) return;
     const small = matchMedia('(max-width: 860px)').matches;
-    const m = L.map(mapEl.current, {zoomControl: false, minZoom: 5, maxZoom: 14, zoomSnap: 0.5}).setView(small ? [37.2, -121.9] : [36.9, -121.0], small ? 6 : 7);
-    const lod = () => m.getContainer().classList.toggle('far', m.getZoom() < 9);
+    const m = L.map(mapEl.current, {zoomControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.2, -121.9] : [36.9, -121.0], small ? 6 : 7);
+    const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
     // Esri World Imagery + reference labels (attribution required); VITE_MAP_TILE_URL swaps in a licensed provider.
     L.tileLayer(import.meta.env.VITE_MAP_TILE_URL || 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -102,9 +112,10 @@ function OceanMap({section, go}: ViewProps) {
 
   useEffect(() => {
     const m = map.current;
-    if (!m || !field) return;
-    return attachField(m, field, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced()});
-  }, [field, opts.heat, opts.flow, opts.arrows]);
+    const fields = [field, gfield].filter((f): f is NonNullable<typeof f> => !!f);
+    if (!m || !fields.length) return;
+    return attachField(m, fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced(), wide});
+  }, [field, gfield, opts.heat, opts.flow, opts.arrows, wide]);
 
   // Spot markers: white ring + rating dot, label with the offshore height at the shared hour.
   useEffect(() => {
@@ -133,9 +144,9 @@ function OceanMap({section, go}: ViewProps) {
   const list = [...evidenceSpots].sort((a, b) => b.latitude - a.latitude).filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : spatial.loading && !frame ? 'Loading regional model…'
-    : frame ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} model via NOAA ERDDAP · valid ${weekdayPT(frame.validAt)} ${hourLabel(frame.validAt)}${spatial.loading ? ' · updating…' : ''}`
+    : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${frame ? 'California 0.5°' : ''}${frame && gframe ? ' + ' : ''}${gframe ? 'global 2°' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
-  const ticks = frame ? legendTicks(frame.unit, p.heightUnit, p.windUnit) : [];
+  const ticks = frame || gframe ? legendTicks((frame ?? gframe)!.unit, p.heightUnit, p.windUnit, wide) : [];
   const unitLabel = def.unit === 'm' ? p.heightUnit : def.unit === 'm/s' ? p.windUnit : 's';
   const dayStarts = times.map((t, i) => ({t, i})).filter(({t}, k) => k > 0 && weekdayPT(t) !== weekdayPT(times[k - 1]));
   const pct = (i: number) => `${times.length > 1 ? (i / (times.length - 1)) * 100 : 0}%`;
@@ -180,7 +191,7 @@ function OceanMap({section, go}: ViewProps) {
         {tab === 'layers' && (
           <div className="xlayers-info" role="tabpanel">
             {FIELDS.map((x) => <button key={x.id} aria-pressed={fieldId === x.id} onClick={() => pickField(x.id)}><Icon name={x.icon} size={18} /><span><b>{x.label}</b><small>{x.note}</small></span></button>)}
-            <p className="fine">Grids are 0.5° regional models. The colour field is smoothed for display and carried from the nearest sea cells to the coastline, then trimmed to water. Surf size at the beach differs from offshore height; tap a spot for its point forecast.</p>
+            <p className="fine">Near California the field uses the 0.5° model grid; elsewhere a 2° worldwide sample of the same models. Colours are smoothed for display, carried from the nearest sea cells to the coast and trimmed to water; the colour scale widens when you zoom out to an ocean basin. Surf size at the beach differs from offshore height; tap a spot for its point forecast.</p>
           </div>
         )}
       </aside>
@@ -212,7 +223,7 @@ function OceanMap({section, go}: ViewProps) {
               <div className="xt-days" aria-hidden="true">{dayStarts.map(({t, i}) => <span key={t} style={{left: pct(i)}}>{weekdayPT(t)}</span>)}</div>
             </div>
           </div>
-          {frame && opts.heat && (
+          {(frame || gframe) && opts.heat && (
             <div className="xlegend" aria-label={`${def.label} legend`}>
               <span>{def.label} ({unitLabel})</span>
               <i style={{background: `linear-gradient(90deg, ${RAMP.join(',')})`}} />

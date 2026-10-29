@@ -20,6 +20,7 @@
 .xregion:not(:first-child) { margin-top: 10px; }
 .xc-photo.plain { background: linear-gradient(135deg, #1d4f73, #0f2a3d 60%, #2a6f8f); }
 .xleaf.far .xpin:not(.sel) .xlabel { display: none; }
+.xleaf.world .xpin:not(.sel) { display: none !important; }
 .xleaf.far .xpin:not(.sel) i { width: 14px; height: 14px; background: radial-gradient(circle, var(--c) 0 4px, rgb(8 18 26 / 0.6) 4.5px); box-shadow: 0 0 0 2px #fff, 0 1px 4px rgb(0 0 0 / 0.5); }
 .xl-t { display: grid; gap: 3px; justify-items: start; }
 .xl-t b { font-size: 15px; font-weight: 650; }

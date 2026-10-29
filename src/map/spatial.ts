@@ -75,3 +75,15 @@ export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<S
  if(signal.aborted)throw new DOMException('Aborted','AbortError');const key=JSON.stringify(spec),cached=normalizedFrames.get(key);if(cached)return cached;
  const frame=await loadSpatialUncached(spec,signal);if(signal.aborted)throw new DOMException('Aborted','AbortError');normalizedFrames.set(key,frame);return frame;
 }
+
+/** Coarse worldwide frame from /api/globe (2-degree stride of the native grid): context for the zoomed-out map, under the regional grid. */
+const globeFrames=createFrameCache(24,1800000);
+export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
+ const key='globe'+JSON.stringify(spec),hit=globeFrames.get(key);if(hit)return hit;
+ const fields=[...new Set([spec.scalar,...(spec.direction?[spec.direction]:[])])];
+ const got=await Promise.all(fields.map(async field=>{const r=await fetch('/api/globe?'+new URLSearchParams({field,time:spec.validAt}),{signal});const body=await r.json();if(!r.ok)throw new Error(body.error??'Global grid unavailable.');const t=body.payload.table,ix=(n:string)=>t.columnNames.indexOf(n),[la,lo,vi]=['latitude','longitude',field].map(ix);if([la,lo,vi].some(i=>i<0))throw new Error('Global grid columns missing.');const m=new Map<string,{lat:number;lon:number;value:number|null}>();for(const row of t.rows as unknown[][]){const lat=row[la],raw=row[lo],v=row[vi];if(typeof lat!=='number'||typeof raw!=='number')continue;const lon=raw>=180?raw-360:raw;let value=typeof v==='number'&&Number.isFinite(v)?v:null;if(value!==null&&!spec.wind&&value<0)value=null;m.set(`${lat},${lon}`,{lat,lon,value});}return {field,values:m,url:String(body.sourceURL),retrievedAt:String(body.retrievedAt)};}));
+ const scalar=got[0],vector=got.find(g=>g.field===spec.direction);
+ const cells=[...scalar.values].map(([k,c])=>{const v=vector?.values.get(k)?.value??null;if(spec.wind){const w=c.value===null||v===null?null:windVector(c.value,v);return {lat:c.lat,lon:c.lon,value:spec.unit==='deg'?w?.direction??null:w?.speed??null,direction:w?.direction??null,speed:w?.speed??null};}return {...c,direction:v,speed:null};});
+ const frame:SpatialFrame={cells,unit:spec.unit,resolution:2,validAt:spec.validAt,retrievedAt:scalar.retrievedAt,provider:spec.wind?'NOAA/NCEP GFS global (2°) via NOAA ERDDAP':'WW3 global (2°) via NOAA ERDDAP',url:scalar.url,variable:spec.scalar,delivery:'direct',transport:'server'};
+ if(signal.aborted)throw new DOMException('Aborted','AbortError');globeFrames.set(key,frame);return frame;
+}
