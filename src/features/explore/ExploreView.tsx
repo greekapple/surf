@@ -67,12 +67,12 @@ function OceanMap({section, go}: ViewProps) {
   const [step, setStep] = useState(3);
   const [horizon, setHorizon] = useState(7);
   const [layersOpen, setLayersOpen] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
-  const [opts, setOpts] = useState({heat: true, flow: true, arrows: false, labels: true});
+  const [opts, setOpts] = useState({heat: true, flow: true, arrows: true, labels: true});
   // Floating search panel: open on desktop, collapsed to just the search box on phones.
   const [open, setOpen] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
   const [query, setQuery] = useState('');
   const [playing, setPlaying] = useState(false);
-  const [zoom, setZoom] = useState(7);
+  const [zoom, setZoom] = useState(9);
   const wide = zoom < 5; // ocean-basin view uses the wider colour ramp
   const def = FIELDS.find((f) => f.id === fieldId)!;
   const mapEl = useRef<HTMLDivElement>(null);
@@ -109,7 +109,7 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     if (!mapEl.current || map.current) return;
     const small = matchMedia('(max-width: 860px)').matches;
-    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.2, -121.9] : [36.9, -121.0], small ? 6 : 7);
+    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.5, -122.5] : [37.5, -122.45], small ? 8 : 9);
     if (!small) m.panBy([-170, 0], {animate: false}); // centre the coast in the space right of the side panel
     const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
@@ -239,7 +239,7 @@ function OceanMap({section, go}: ViewProps) {
   };
   const optRow = (k: keyof typeof opts, label: string, icon: IconName): LayerRowDef => ({key: k, label, icon, on: opts[k], set: () => setOpts({...opts, [k]: !opts[k]})});
   const cardRows: LayerRowDef[] = [
-    fieldRow('swell', 'Swell height', 'waves'), optRow('arrows', 'Swell direction', 'arrow'), fieldRow('wind', 'Wind', 'wind'),
+    fieldRow('waves', 'Wave height', 'waves'), fieldRow('swell', 'Swell height', 'waves'), optRow('arrows', 'Swell direction', 'arrow'), fieldRow('wind', 'Wind', 'wind'),
     {key: 'tides', label: 'Tides', icon: 'tide', on: false, set: () => {}, soon: true}, {key: 'sst', label: 'SST', icon: 'thermo', on: false, set: () => {}, soon: true},
   ];
   const tabRows: LayerRowDef[] = [

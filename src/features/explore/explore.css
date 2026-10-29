@@ -3,7 +3,7 @@
 .xmap .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .xleaf { position: absolute; inset: 0; background: #0a1c29; font: inherit; }
 .xleaf .xbase { filter: brightness(0.72) saturate(0.85) contrast(1.05); }
-.xleaf .leaflet-bottom { bottom: 108px; }
+.xleaf .leaflet-bottom { bottom: 112px; }
 .xleaf .leaflet-control-attribution { background: var(--xp); color: rgb(255 255 255 / 0.65); font-size: 10px; margin: 0 0 4px 352px; border-radius: 4px; }
 .xleaf .leaflet-control-attribution a { color: rgb(255 255 255 / 0.85); }
 .xside, .xlcard, .xzoom, .xlbtn, .xtools, .xlegend, .xtime { background: var(--xp); border: 1px solid var(--xp-line); }
@@ -86,7 +86,7 @@
 .xlcard .xlr button { min-height: 42px; }
 
 /* Bottom right: tools, then the compact legend with the data note */
-.xcorner { position: absolute; z-index: 1000; right: 12px; bottom: 104px; display: grid; justify-items: end; gap: 8px; max-width: calc(100% - 24px); pointer-events: none; }
+.xcorner { position: absolute; z-index: 1000; right: 12px; bottom: 132px; display: grid; justify-items: end; gap: 8px; max-width: calc(100% - 24px); pointer-events: none; }
 .xcorner > * { pointer-events: auto; }
 .xtools { display: flex; border-radius: var(--r2); overflow: hidden; }
 .xtools button + button { border-left: 1px solid var(--xp-line); }
@@ -175,12 +175,16 @@
   .xlayers { justify-items: end; }
   .xlcard { width: min(236px, calc(100vw - 76px)); position: absolute; right: 52px; top: 106px; }
   .xleaf .leaflet-control-attribution { margin-left: 8px; }
-  .xleaf .leaflet-bottom { bottom: 126px; }
-  .xcorner { left: 8px; right: 8px; bottom: 134px; justify-items: end; }
+  .xleaf .leaflet-bottom { bottom: 150px; }
+  .xcorner { left: 8px; right: 8px; bottom: 178px; justify-items: end; }
   .xlegend { width: 100%; }
   .xsearch input { font-size: 16px; }
   .xtime { left: 8px; right: 8px; bottom: 8px; padding: 8px 10px 6px; }
   .xt-top { gap: 6px; }
+  .xt-now { flex-basis: 100%; font-size: 14px; }
+  .xt-step { margin-right: auto; }
+  .xt-range button { min-width: 34px; padding: 0 8px; }
+  .xt-hor select { padding-right: 24px; }
   .xt-step button, .xt-range button, .xt-hor select { min-height: 36px; }
   .xt-step button { min-width: 40px; }
   .xt-days span { font-size: 11px; }
