@@ -89,8 +89,8 @@ function studioEnvironment(renderer: THREE.WebGLRenderer) {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({color: new THREE.Color(tint).multiplyScalar(power), side: THREE.DoubleSide}));
     m.position.set(...pos); m.lookAt(0, 40, 0); room.add(m);
   };
-  panel(240, 40, [0, 120, 20], 7, 0xfff6ea);        // long overhead strip
-  panel(90, 150, [-150, 70, 130], 3.2, 0xeef3ff);   // big key softbox, front left
+  panel(240, 40, [0, 120, 20], 12, 0xfff6ea);        // long overhead strip
+  panel(90, 150, [-150, 70, 130], 6, 0xeef3ff);   // big key softbox, front left
   panel(70, 150, [160, 60, 90], 2.2, 0xffeedd);     // warm fill, right
   panel(30, 190, [-60, 70, -170], 5);               // rim strips behind
   panel(30, 190, [80, 70, -170], 4);
@@ -163,8 +163,8 @@ export class Studio {
   private token = 0;
   private floor: THREE.Mesh;
   private shadowTex = radialTexture(128, [[0, 'rgba(40,36,30,0.62)'], [0.4, 'rgba(40,36,30,0.28)'], [1, 'rgba(40,36,30,0)']]);
-  private finMat = new THREE.MeshPhysicalMaterial({color: 0x23282c, roughness: 0.3, clearcoat: 0.6, clearcoatRoughness: 0.1});
-  private baseMat = new THREE.MeshStandardMaterial({color: 0x15171a, roughness: 0.45});
+  private finMat = new THREE.MeshPhysicalMaterial({color: 0x4a5258, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.1, side: THREE.DoubleSide});
+  private baseMat = new THREE.MeshStandardMaterial({color: 0x2c3034, roughness: 0.45});
   private rigs = new Map<string, Rig>();
   private raycaster = new THREE.Raycaster();
 
@@ -515,7 +515,7 @@ export class Studio {
     }
     col.needsUpdate = true;
     const m = rig.resinMat, w = rig.stringerMat;
-    m.normalMap = this.weave; m.normalScale.set(0.16, 0.16);
+    m.normalMap = this.weave; m.normalScale.set(0.06, 0.06);
     m.ior = 1.5; m.specularIntensity = 0.7;
     if (look.finish === 'matte') { m.roughness = 0.62; m.clearcoat = 0; m.clearcoatRoughness = 0.5; m.sheen = 0.35; m.sheenRoughness = 0.7; m.sheenColor.set(0xffffff); m.envMapIntensity = 0.85; }
     else if (look.finish === 'clear') { m.roughness = 0.32; m.clearcoat = 1; m.clearcoatRoughness = 0.04; m.sheen = 0.12; m.sheenRoughness = 0.5; m.sheenColor.set(0xfff4e0); m.envMapIntensity = 1.0; }
@@ -551,13 +551,15 @@ export class Studio {
         : look.fins === 'thruster' ? [{name: 'fin_side_R', x: fromTail(0.2), side: 1, edge: 1.35, scale: bigger}, {name: 'fin_side_L', x: fromTail(0.2), side: -1, edge: 1.35, scale: bigger}, {name: 'fin_center', x: fromTail(0.08), side: 0, edge: 0, scale: bigger}]
         : [];
       // Cast against a detached copy in board space (scaled to inches), so the rack pose does not matter.
-      const ghost = new THREE.Mesh(body.geometry, body.material); ghost.scale.setScalar(L); ghost.updateMatrixWorld(true);
+      const ghost = new THREE.Mesh(body.geometry, body.material), ghosts = [ghost];
+      if (rig.stringer) ghosts.push(new THREE.Mesh(rig.stringer.geometry, rig.stringer.material));   // the stringer fills the centreline gap
+      for (const g of ghosts) { g.scale.setScalar(L); g.updateMatrixWorld(true); }
       const ray = new THREE.Raycaster();
       for (const f of plan) {
         const node = root.getObjectByName(f.name); if (!node) continue;
         const z = f.side * Math.max(0, halfAt(f.x) - f.edge);
         ray.set(new THREE.Vector3(f.x, -300, z), new THREE.Vector3(0, 1, 0));
-        const hit = ray.intersectObject(ghost, false)[0]; if (!hit || !hit.face) continue;
+        const hit = ray.intersectObjects(ghosts, false)[0]; if (!hit || !hit.face) continue;
         const n = hit.face.normal.clone().transformDirection(ghost.matrixWorld).normalize();
         const fin = node.clone(true);
         fin.traverse((o) => {

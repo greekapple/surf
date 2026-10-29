@@ -93,7 +93,7 @@ BOARDS = {
 
 N_STATIONS = 74
 N_SIDE = 15          # points per deck / bottom half-ring (excluding apex)
-STRINGER_HALF = 0.0016
+STRINGER_HALF = 0.0010   # thin natural-wood stringer (about 1/8 in on a 6 ft board)
 
 def build_board(name, P):
     Lin = P['L']
@@ -109,6 +109,8 @@ def build_board(name, P):
         w = half_max * ow(u) * c
         T = t_max * ot(u) * c
         base = rn_in * ((uc - u) / uc) ** pn if u < uc else rt_in * ((u - uc) / (1 - uc)) ** pt
+        # nose flip and tail kick: the last stretch of each end curls up a little more than the main rocker curve
+        base += rn_in * 0.20 * (1 - smoothstep(0.0, 0.13, u)) ** 1.6 + rt_in * 0.16 * smoothstep(0.90, 1.0, u) ** 1.4
         # centre offset of the bottom at the stringer: concave lifts, vee and spine lower it
         center_off = (conc(u) - dbl(u) - vee(u)) * c
         a = ap(u)
@@ -197,7 +199,7 @@ def principled(name, color, roughness, coat=0.0):
 def add_materials(obj):
     """Slot 0 = glassed resin, slot 1 = stringer (appended without clear(), which would reset face indices)."""
     obj.data.materials.append(principled('Resin', (0.9, 0.9, 0.88, 1), 0.12, 1.0))
-    obj.data.materials.append(principled('Stringer', (0.42, 0.26, 0.12, 1), 0.3, 1.0))
+    obj.data.materials.append(principled('Stringer', (0.55, 0.40, 0.24, 1), 0.4, 1.0))
 
 def board_extras(obj, width, P, sc):
     verts = obj.data.vertices
@@ -221,13 +223,16 @@ def make_fin(name, C, H, rake, tfrac, asym, cant, toe, side=1, tipchord=0.28, ba
     bpy.context.scene.collection.objects.link(obj)
     bm = bmesh.new(); K = 24; af = airfoil(14)
     rows = []
+    sweep = rake * 1.25                      # how far the tip sits behind the base leading edge
+    tc = max(0.05 * C, 0.2)                  # chord left at the tip
     for k in range(K + 1):
         s = (k / K)
-        s_ = 1 - (1 - s) ** 1.0
-        c = C * (1 - (1 - tipchord) * s) * math.sqrt(max(0.0, 1 - s ** 7))
-        xle = C / 2 - rake * s ** 1.5
+        # leading edge sweeps back along a curve; trailing edge stays near the base then pulls in: concave, pointed tip
+        xle = C / 2 - sweep * s ** 1.5
+        xte = -C / 2 + (C - sweep - tc) * s ** 2.1
+        c = max(0.02, xle - xte) * math.sqrt(max(0.0, 1 - s ** 16))
         z = -H * s
-        t = tfrac * (1 - 0.30 * s)
+        t = tfrac * (1 - 0.35 * s)
         up = []; lo = []
         for xi, yt in af:
             x = xle - c * xi
@@ -244,12 +249,12 @@ def make_fin(name, C, H, rake, tfrac, asym, cant, toe, side=1, tipchord=0.28, ba
     # root cap + base plate (second material)
     bm.to_mesh(mesh); bm.free()
     # base plate
-    bl = base_len or (C + 0.5)
+    bl = base_len or (C * 1.05)
     bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, 0.0))
     base = bpy.context.active_object
-    base.scale = (bl, tfrac * C * (1.1 if asym else 1.0) + 0.3, 0.16); base.location = (0, tfrac * C * 0.35 if asym else 0, 0.04)
+    base.scale = (bl, tfrac * C * (1.1 if asym else 1.0) + 0.55, 0.55); base.location = (0, tfrac * C * 0.35 if asym else 0, 0.12)
     bpy.ops.object.transform_apply(location=True, scale=True)
-    bev = base.modifiers.new('b', 'BEVEL'); bev.width = 0.07; bev.segments = 3
+    bev = base.modifiers.new('b', 'BEVEL'); bev.width = 0.16; bev.segments = 4
     bpy.context.view_layer.objects.active = base; bpy.ops.object.modifier_apply(modifier='b')
     for p in base.data.polygons: p.use_smooth = True
     for o in (obj, base): o.select_set(False)
