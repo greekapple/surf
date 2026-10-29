@@ -225,6 +225,13 @@
 .journal li { padding: 10px 12px; border-radius: var(--r2); background: var(--s2); display: grid; gap: 4px; }
 
 /* ---------- Phone ---------- */
+@media (max-width: 520px) {
+  .topnav { gap: 8px; padding: 0 12px; }
+  .nav-end { gap: 2px; }
+  .spotbtn { padding: 0 8px 0 10px; }
+  .spotbtn b { max-width: 96px; }
+  .me { padding: 0 2px; }
+}
 @media (max-width: 1100px) {
   /* T-010: keep the primary nav inside 861-1100 px: icon-only status badge (label stays for screen readers), tighter gaps, no spot region text. */
   .topnav { gap: 12px; }

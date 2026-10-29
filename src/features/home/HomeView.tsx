@@ -13,10 +13,10 @@ import {weekdayPT, dayNumPT, timeLabelPT} from '../forecast/format';
 import {Almanac, dayFacts} from './Almanac';
 import './home.css';
 
-/* Rating colours tuned for the fog ground (same meaning as BAND_COLOR on dark surfaces). */
-const TONE: Record<Band, string> = {good: '#1f8a52', fair: '#b08a12', poor: '#94a0a7', none: '#c4cbce'};
+/* Rating colours follow the theme tokens (same meaning as BAND_COLOR). */
+const TONE: Record<Band, string> = {good: 'var(--good)', fair: 'var(--fair)', poor: 'var(--poor)', none: 'var(--none)'};
 /* Hand-picked photographs: the strongest authentic image per spot, wide for the hero, portrait-friendly for lists. */
-const HERO: Record<string, string> = {'spot-2': 'ocean-beach-fog-clearing', 'spot-0': 'bolinas-beach', 'spot-3': 'pacifica-state-beach-surfer'};
+const HERO: Record<string, string> = {'spot-2': 'ob-sunset-negative-tide', 'spot-0': 'bolinas-beach', 'spot-3': 'pacifica-state-beach-surfer'};
 const PORTRAIT: Record<string, string> = {'spot-2': 'ocean-beach-seal-rocks', 'spot-0': 'bolinas-beach-wide', 'spot-3': 'lm-sunset-surfer'};
 const WIDE = new Set(['ocean-beach-fog-clearing', 'ocean-beach-seal-rocks', 'pacifica-state-beach-surfer', 'bolinas-beach', 'lm-sunset-surfer', 'gen-surfer-under-wave']);
 const DIR: Record<string, string> = {N: 'north', E: 'east', S: 'south', W: 'west'};
@@ -93,22 +93,24 @@ function Next24({hours, spot, p, onPick}: {hours: HourSample[]; spot: SurfSpot; 
   return (
     <div className="next24" ref={box} onPointerLeave={() => setHover(null)}>
       <svg viewBox={`0 0 ${W} ${H}`} style={{height: H}} aria-hidden="true">
-        {nights.map(([a, b]) => <rect key={`n${a}`} x={clampX(X(a) - step / 2)} y={0} width={clampX(X(b) + step / 2) - clampX(X(a) - step / 2)} height={base + 14} fill="rgb(14 26 34 / 0.045)" />)}
-        {ticks.map((t) => <g key={`g${t}`}><line x1={L} x2={W - R} y1={Y(t)} y2={Y(t)} stroke="rgb(14 26 34 / 0.12)" /><text x={L - 8} y={Y(t) + 4} textAnchor="end" className="t">{p.heightUnit === 'm' ? (t * 0.3048).toFixed(1) : t}</text></g>)}
-        <path d={line} fill="none" stroke="var(--ink)" strokeWidth={2.6} strokeLinejoin="round" strokeLinecap="round" />
+        <defs><linearGradient id="n24fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs)" stopOpacity={0.45} /><stop offset="1" stopColor="var(--hs)" stopOpacity={0.02} /></linearGradient></defs>
+        {nights.map(([a, b]) => <rect key={`n${a}`} x={clampX(X(a) - step / 2)} y={0} width={clampX(X(b) + step / 2) - clampX(X(a) - step / 2)} height={base + 14} fill="var(--ch-night)" />)}
+        {ticks.map((t) => <g key={`g${t}`}><line x1={L} x2={W - R} y1={Y(t)} y2={Y(t)} stroke="var(--ch-grid)" /><text x={L - 8} y={Y(t) + 4} textAnchor="end" className="t">{p.heightUnit === 'm' ? (t * 0.3048).toFixed(1) : t}</text></g>)}
+        <path d={`${line} L${X(n - 1)},${base} L${X(0)},${base} Z`} fill="url(#n24fill)" stroke="none" />
+        <path d={line} fill="none" stroke="var(--hs-hi)" strokeWidth={2.6} strokeLinejoin="round" strokeLinecap="round" />
         {hours.map((h, i) => { const x0 = clampX(X(i) - step / 2), x1 = clampX(X(i) + step / 2); return <rect key={`r${i}`} x={x0} y={base + 6} width={x1 - x0 + 0.6} height={6} fill={TONE[bandOf(h.rating.category)]} />; })}
         {hours.map((h, i) => i % every ? null : (
           <g key={`l${i}`}>
-            <circle cx={X(i)} cy={Y(h.heightFt ?? 0)} r={3} fill="var(--ink)" />
+            <circle cx={X(i)} cy={Y(h.heightFt ?? 0)} r={3} fill="var(--hs-hi)" />
             <text x={X(i)} y={Y(h.heightFt ?? 0) - 11} textAnchor="middle" className="v">{ht(h.heightFt, p)}</text>
             <text x={X(i)} y={base + 34} textAnchor="middle" className="t">{i === 0 ? 'Now' : hourLabel(h.timestamp)}</text>
             {Number.isFinite(h.forecast.wind.direction) && <g transform={`translate(${X(i) - 9},${base + 60}) rotate(${(h.forecast.wind.direction + 180) % 360})`}>
-              <path d="M0,7 L0,-7 M-4,-2.5 L0,-7 L4,-2.5" fill="none" stroke="var(--ink)" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M0,7 L0,-7 M-4,-2.5 L0,-7 L4,-2.5" fill="none" stroke="var(--muted)" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
             </g>}
             <text x={X(i) + 2} y={base + 64} className="w">{windVal(h.forecast.wind.speed, p)}</text>
           </g>
         ))}
-        {hover !== null && <line x1={X(hover)} x2={X(hover)} y1={8} y2={base + 12} stroke="var(--ink)" strokeOpacity={0.4} strokeDasharray="3 3" />}
+        {hover !== null && <line x1={X(hover)} x2={X(hover)} y1={8} y2={base + 12} stroke="var(--text)" strokeOpacity={0.4} strokeDasharray="3 3" />}
       </svg>
       <div className="hit">{hours.map((h, i) => (
         <button key={h.timestamp} style={{left: X(i) - step / 2, width: step}} onPointerEnter={() => setHover(i)} onFocus={() => setHover(i)} onBlur={() => setHover(null)} onClick={() => onPick(h.timestamp)}
@@ -286,33 +288,41 @@ export function HomeView({section, go}: ViewProps) {
 
   return (
     <div className="coast">
-      <header className="hello">
-        <p className="date">{longDate(now)}</p>
-        <h1>{name ? <>Hello, {name}.</> : 'Hello.'}</h1>
-        <p className="hello-sub">
-          {soonest ? <>Your best window ahead: <button onClick={() => open(soonest.s.id, soonest.h.timestamp)}><b>{weekdayPT(soonest.h.timestamp)} {hourLabel(soonest.h.timestamp)}</b> at {soonest.s.name}</button>, {ratingWord(soonest.h.rating.category).toLowerCase()} (provisional).</> : 'No rated daylight hours in the forecast yet.'}
-          {!name && <> <a href="/personal" onClick={(e) => { e.preventDefault(); go('personal'); }}>Add your name</a></>}
-        </p>
-      </header>
-
       <section className="home-hero" aria-label={`${spot.name} now`}>
-        <figure className="shot hero-shot" key={spot.id}><Shot spotId={spot.id} map={HERO} sizes="(max-width: 860px) 100vw, 92vw" eager /></figure>
-        <div className="hero-body">
-          <p className="kicker">{favs.includes(spot.id) ? 'Saved spot' : 'Selected spot'} · {spot.region}</p>
-          <h2>{spot.name}</h2>
-          {current ? <Bulletin h={current} series={series} spot={spot} p={p} /> : <p className="bulletin">No forecast record for this hour.</p>}
-          <p className="meta">{live ? 'Model forecast' : 'Demonstration week, not live'} · {current ? `${weekdayPT(current.timestamp)} ${timeLabelPT(current.timestamp)}` : ''} · rating provisional{live ? ' · offshore height is not surf height' : ''}</p>
-          <div className="actions">
-            <button className="cta" onClick={() => go('forecast')}>Open full forecast{arrow}</button>
-            <button className="ghost" onClick={() => go('explore')}>Map</button>
+        <figure className="shot hero-shot" key={spot.id}><Shot spotId={spot.id} map={HERO} sizes="100vw" eager /></figure>
+        <div className="hero-in">
+          <header className="hello">
+            <p className="date">{longDate(now)}</p>
+            <h1>{name ? <>Hello, {name}.</> : 'Hello.'}</h1>
+            <p className="hello-sub">
+              Here’s your surf outlook.{' '}
+              {soonest ? <>Best window ahead: <button onClick={() => open(soonest.s.id, soonest.h.timestamp)}><b>{weekdayPT(soonest.h.timestamp)} {hourLabel(soonest.h.timestamp)}</b> at {soonest.s.name}</button>.</> : 'No rated daylight hours in the forecast yet.'}
+              {!name && <> <a href="/personal" onClick={(e) => { e.preventDefault(); go('personal'); }}>Add your name</a></>}
+            </p>
+          </header>
+          {current && (
+            <dl className="now-card" aria-label={`${spot.name} right now`}>
+              <div><dt><Icon name="waves" size={16} />Offshore</dt><dd>{ht(current.heightFt, p)} {p.heightUnit}{current.forecast.primary ? <small> · {Math.round(current.forecast.primary.period)} s</small> : null}</dd></div>
+              <div><dt><Icon name="wind" size={16} />Wind</dt><dd>{compass(current.forecast.wind.direction)} {windVal(current.forecast.wind.speed, p)} {p.windUnit}</dd></div>
+              <div><dt><Icon name="tide" size={16} />Tide</dt><dd>{ht(current.forecast.tide.height, p)} {p.heightUnit}<small> {current.forecast.tide.trend?.toLowerCase()}</small></dd></div>
+              {Number.isFinite(current.forecast.waterTempF ?? NaN) && <div><dt><Icon name="thermo" size={16} />Water</dt><dd>{Math.round(current.forecast.waterTempF!)}°F</dd></div>}
+            </dl>
+          )}
+          <div className="hero-body">
+            <p className="kicker">{favs.includes(spot.id) ? 'Saved spot' : 'Selected spot'} · {spot.region}</p>
+            <h2>{spot.name}</h2>
+            {current ? <Bulletin h={current} series={series} spot={spot} p={p} /> : <p className="bulletin">No forecast record for this hour.</p>}
+            <p className="meta">{live ? 'Model forecast' : 'Demonstration week, not live'} · {current ? `${weekdayPT(current.timestamp)} ${timeLabelPT(current.timestamp)}` : ''} · rating provisional{live ? ' · offshore height is not surf height' : ''}</p>
+            <div className="actions">
+              <button className="cta" onClick={() => go('forecast')}>Open full forecast{arrow}</button>
+              <button className="ghost" onClick={() => go('explore')}>Open map</button>
+            </div>
           </div>
         </div>
       </section>
 
-      {facts && <section className="band glance" aria-label={`${spot.name} ${facts.label.toLowerCase()} at a glance`}><Almanac facts={facts} p={p} onBest={(t) => { view.selectTime(t); go('forecast'); }} /></section>}
-
-      <section className="band" aria-labelledby="favs-h">
-        <header className="sec-h"><h2 id="favs-h">{mine.length ? 'Your spots' : 'Spots'}</h2>{mine.length ? <a href="/home/spots" onClick={(e) => { e.preventDefault(); go('home', 'spots'); }}>All saved spots</a> : <p>Star a spot to keep it here</p>}</header>
+      <section className="band favs-band" aria-labelledby="favs-h">
+        <header className="sec-h"><h2 id="favs-h">{mine.length ? 'Your favorite spots' : 'Spots'}</h2>{mine.length ? <a href="/home/spots" onClick={(e) => { e.preventDefault(); go('home', 'spots'); }}>All saved spots</a> : <p>Star a spot to keep it here</p>}</header>
         <ul className="fav-cards">{listed.map((s, k) => (
           <FavCard key={s.id} s={s} i={k} p={p} active={s.id === spot.id} fav={favs.includes(s.id)}
             h={hourlySeries(s, view.mapRecords, now).find((x) => Date.parse(x.timestamp) >= nowH)}
@@ -320,6 +330,8 @@ export function HomeView({section, go}: ViewProps) {
             onStar={() => data.favorite(s.id)} onOpen={() => open(s.id)} />
         ))}</ul>
       </section>
+
+      {facts && <section className="band glance" aria-label={`${spot.name} ${facts.label.toLowerCase()} at a glance`}><header className="sec-h"><h2>{facts.label}’s highlights</h2><p>{spot.name}</p></header><Almanac facts={facts} p={p} onBest={(t) => { view.selectTime(t); go('forecast'); }} /></section>}
 
       {windows.length > 0 && (
         <section className="band" aria-labelledby="win-h">

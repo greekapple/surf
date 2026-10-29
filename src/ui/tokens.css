@@ -33,8 +33,8 @@
   --ink: #0e1a22;
   --fog: #eef1f1; /* Home ground: stays light in both themes */
 }
-/* Light palette. `.coast` (Home) re-applies it with zero specificity so Home stays light under data-theme="dark". */
-:root, :where(.coast) {
+/* Light palette (data-theme="light"). Home follows the theme like every other area since the 2026-10-29 remodel. */
+:root {
   --bg: #eef1f1;
   --s1: #ffffff;
   --s2: #f4f6f6;
