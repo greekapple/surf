@@ -4,7 +4,7 @@ States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE �
 | ID | Objective | Owner | Status | Next handoff |
 |---|---|---|---|---|
 | T-001 | Home week matrix fits a phone without sideways scrolling | frontend-engineer | COMPLETE | — |
-| T-002 | Playwright journey suite (Home → Forecast → Explore → Quiver → Personal → Wave Scale) | qa-tester | BACKLOG | lead |
+| T-002 | Playwright journey suite (Home → Forecast → Explore → Quiver → Personal → Wave Scale) | qa-tester | COMPLETE | — |
 | T-003 | Reference-driven visual rebuild (Phase B) | lead | BLOCKED: approved concept images not found | user |
 | T-004 | Forecast spot profiles and source audit (OB, Bolinas, Linda Mar) | architect | COMPLETE: `docs/forecast/T-004-source-audit.md` | lead |
 | T-007 | Audit plan steps 2–4: `WaveReading` contract, fix D2/D3, show CDIP SF023 at Ocean Beach | frontend-engineer | COMPLETE | — |
@@ -65,3 +65,18 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Status:** COMPLETE
 - **History:** frontend-engineer implemented it → qa-tester found 1 moderate (undated stale buoy times) and 1 minor (demo-mode text) defect → code-reviewer APPROVE WITH FIXES (3 medium, 4 low) → lead decided to enforce the breaking-estimate guard and show the latest nowcast with an explicit label → frontend-engineer correction cycle 1 → qa-tester retest passed (the no-numbers path before the first record is covered by unit tests only).
 - **Tests:** tsc ✓ · npm test 135/135 · build ✓ · swello-qa 72/72 exit 0 · values checked against the CDIP CSV by QA.
+
+## T-002: Browser journey suite
+- **Objective:** functional end-to-end journeys, separate from screenshot reviews, to run before every commit.
+- **Owner:** qa-tester · **Owned files:** `~/Development/ai-system-setup/playwright-toolkit/swello/journeys.mjs` (new) plus a short usage note in `docs/agents/README.md` under "Running the app and tests".
+- **Journeys (each is a pass/fail check with a message):**
+  1. Home: seed a profile, select a favourite spot card → hero shows that spot.
+  2. From that card, open Forecast → URL `?spot=` and the spot picker match.
+  3. Change the forecast hour (click and keyboard) → readout time and metrics change, and match the selected hour.
+  4. Explore: select the same spot → returning to Forecast keeps the spot.
+  5. Quiver: add a board, edit it, reload → changes persist and show in the list and showroom.
+  6. Personal: change units (ft→m) and name → Home greeting and heights reflect them after reload.
+  7. Forecast › Wave Scale: change controls (height slider, riding/paddling, units) → the readout and the scene state change.
+  8. Theme preference persists across reload.
+- **Acceptance:** runs headless against the dev server and exits non-zero on any failure; prints a per-journey summary; passes on the current build, or failures are reported as defects with repro. It does not judge visual quality.
+- **Status:** COMPLETE. 8/8 in three consecutive QA runs plus one lead run (exit 0, about 40 s). Limits: desktop 1440 only, needs live data, checks not mutation-tested, script lives outside git (playwright-toolkit).

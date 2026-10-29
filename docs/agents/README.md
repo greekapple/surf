@@ -58,3 +58,4 @@ the merged result. Experimental multi-agent features stay off.
 - Browser scripts (Playwright 1.64.1, `channel: 'chrome'`): `~/Development/ai-system-setup/playwright-toolkit/swello/`
   - `swello-qa.mjs`: every route at both sizes plus interaction checks
   - `home-shots.mjs <tag> <base> <outDir>`: Home screenshots and 13 interaction checks
+  - `journeys.mjs [base]`: 8 functional user journeys (Home, spot hand-off, forecast hour, Explore, Quiver, Personal, Wave Scale, theme), fresh browser context each; prints PASS/FAIL per journey, saves failure screenshots to `swello/artifacts/journeys/<stamp>/`, exits 1 on any failure (about 40 s). Run before every commit with the dev server up.
