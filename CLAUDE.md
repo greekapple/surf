@@ -10,6 +10,7 @@ The user describes outcomes in plain language ("the Explore map looks terrible",
 - Done means verified: the journey works in a real browser and the 1440/390 screenshots were looked at against the references. Compiling, rendering, passing tests or an agent saying "done" is not completion. Report incomplete work as incomplete.
 - No new runtime dependencies, installs, pushes, deployments, paid services, destructive git, or major restructuring without approval. Local commits on the working branch only with approval.
 - Obsidian notes (`~/Knowledge/AI-Knowledge/10-Projects/SWELLO/`) hold durable decisions only; propose edits, write after approval.
+- Knowledge lookup: read `~/Knowledge/AI-Knowledge/00-MAP.md` first, then the one `45-Wiki/` page it names. Design work follows `docs/design/RULES.md`.
 
 ## Commands (Node via fnm: wrap as `zsh -lic 'cd <repo> && …'`)
 - Dev: `npm run dev -- --port 5180 --strictPort` → http://127.0.0.1:5180
