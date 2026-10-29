@@ -17,9 +17,11 @@
   font-display: swap;
 }
 :root {
-  /* Dark cinematic is the default theme (data-theme="dark" is set before first paint); light stays available. */
-  --serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
-  --sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Light (Apple-style) is the default theme; the dark palette lives under data-theme="dark". */
+  /* Apple-style system typography (2026-10-29): SF Pro on Apple devices via the system stack; no web font to download. */
+  --display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
+  --serif: var(--display);
   --wide: 118%;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
   --ease: cubic-bezier(.2, .8, .2, 1);
@@ -35,31 +37,31 @@
 }
 /* Light palette (data-theme="light"). Home follows the theme like every other area since the 2026-10-29 remodel. */
 :root {
-  --bg: #eef1f1;
+  --bg: #f5f5f7;
   --s1: #ffffff;
-  --s2: #f4f6f6;
-  --s3: #e3e9ea;
-  --line: rgb(14 26 34 / 0.12);
-  --line-2: rgb(14 26 34 / 0.22);
-  --text: #0e1a22;
-  --muted: #4b5961; /* 7.1:1 on white, 5.9:1 on --bg */
-  --dim: #5a6770; /* 5.8:1 on white, 4.8:1 on --bg */
+  --s2: #f0f0f3;
+  --s3: #e6e6eb;
+  --line: rgb(0 0 0 / 0.08);
+  --line-2: rgb(0 0 0 / 0.15);
+  --text: #1d1d1f;
+  --muted: #5e5e63; /* 6.2:1 on white */
+  --dim: #6e6e73; /* 5.1:1 on white, 4.7:1 on --bg */
   --hs: #3b8ac4;
-  --hs-hi: #1b6ca8; /* Hs line: 5.6:1 on white */
-  --sw1: #0e2a47; /* primary swell: 14:1 */
-  --sw2: #5b6fb8; /* secondary swell: 4.7:1 */
-  --tide: #4f6b80; /* 5.6:1 */
-  --good: #1f8a52; /* mark 4.3:1 */
-  --good-ink: #17703f; /* text 5.9:1 */
-  --fair: #b08a12; /* mark 3.2:1 */
-  --fair-ink: #7d5f00; /* text 6.3:1 */
-  --poor: #7d8a92; /* mark 3.5:1 */
-  --none: #c4cbce;
+  --hs-hi: #0a6cc2;
+  --sw1: #0e2a47;
+  --sw2: #5b6fb8;
+  --tide: #4f6b80;
+  --good: #248a3d;
+  --good-ink: #1d7334;
+  --fair: #b8860b;
+  --fair-ink: #7d5f00;
+  --poor: #8e8e93;
+  --none: #d1d1d6;
   --warn: #9a5a00;
-  --bad: #c0392b;
-  --accent: #c2410c; /* 5.2:1 on white */
-  --accent-ink: #9a3412; /* chip text on an accent tint: >= 5.5:1 */
-  --bad-ink: #a52f23; /* chip text on a red tint: >= 5.5:1 */
+  --bad: #d70015;
+  --accent: #0071e3;
+  --accent-ink: #0066cc;
+  --bad-ink: #b0000f;
   /* chart + surface helpers */
   --ch-ink: #0e1a22;
   --ch-hover: rgb(14 26 34 / 0.45);
@@ -74,7 +76,7 @@
   --glass: rgb(255 255 255 / 0.92);
   --tip-bg: rgb(255 255 255 / 0.97);
   --shadow: rgb(14 26 34 / 0.18);
-  --nav-bg: rgb(255 255 255 / 0.92);
+  --nav-bg: rgb(251 251 253 / 0.8);
   --tab-bg: rgb(255 255 255 / 0.95);
   --chip-bg: rgb(14 26 34 / 0.07);
   --stage-a: #f7fafb;
@@ -140,9 +142,9 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 var(--sans); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.47 var(--sans); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, p, ul, ol, figure, dl, dd { margin: 0; padding: 0; }
-h1, h2, h3 { font-weight: 650; letter-spacing: -0.01em; }
+h1, h2, h3 { font-family: var(--display); font-weight: 650; letter-spacing: -0.02em; }
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: inherit; }
 svg { overflow: visible; }

@@ -6,6 +6,7 @@ import {BAND_COLOR, band} from '../features/forecast/model';
 import {timeLabelPT} from '../features/forecast/format';
 import {ht} from '../features/forecast/helpers';
 import {resolveTheme, useThemePref} from '../ui/theme';
+import {ZONES, zoneOf} from '../data/zones';
 
 type Go = (area: Area, section?: string) => void;
 const linkProps = (go: Go, area: Area, section = '') => ({
@@ -61,15 +62,6 @@ function AreaMenu({def, current, section, go}: {def: (typeof AREAS)[number]; cur
   );
 }
 
-/** Coast zones, north to south, for browsing spots by place (Region › County › Spot). */
-const ZONES: [string, string[]][] = [
-  ['North Coast', ['Del Norte', 'Humboldt', 'Mendocino', 'Sonoma']],
-  ['Bay Area', ['Marin', 'San Francisco', 'San Mateo']],
-  ['Santa Cruz & Monterey', ['Santa Cruz', 'Monterey', 'Big Sur']],
-  ['Central Coast', ['San Luis Obispo', 'Santa Barbara', 'Ventura']],
-  ['Southern California', ['Los Angeles', 'Orange County', 'San Diego']],
-];
-const zoneOf = (region: string) => ZONES.find(([, rs]) => rs.includes(region))?.[0] ?? 'Other';
 const RECENT_KEY = 'swello-recent';
 const readRecent = (): string[] => { try { const v = JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]'); return Array.isArray(v) ? v.filter((x) => typeof x === 'string').slice(0, 5) : []; } catch { return []; } };
 /** Remembers the last five spots viewed (this device only). */

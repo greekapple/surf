@@ -16,6 +16,7 @@ import {weekdayPT, dayNumPT} from '../forecast/format';
 import {attachField, buildField, RAMP, RANGE} from '../../map/field';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
+import {CompareSpots} from './Compare';
 import './explore.css';
 
 /** Field layers the regional grids can actually supply. One is shown at a time. */
@@ -53,6 +54,7 @@ function legendTicks(unit: SpatialFrame['unit'], hu: string, wu: string) {
 
 export function ExploreView({section, go}: ViewProps) {
   if (section === 'discover') return <Discover go={go} />;
+  if (section === 'compare') return <CompareSpots go={go} />;
   return <OceanMap section={section} go={go} />;
 }
 

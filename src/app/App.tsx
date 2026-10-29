@@ -19,7 +19,7 @@ export default function App() {
   const {route, navigate} = useRoute();
   const {area, section} = route;
   // The ocean map is full-bleed under the nav; its sidebar tabs and layer panel replace the section pills.
-  const bleed = area === 'explore' && section !== 'discover';
+  const bleed = area === 'explore' && section !== 'discover' && section !== 'compare';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Explore', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
     <SwelloProvider>

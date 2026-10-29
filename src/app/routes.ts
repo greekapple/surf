@@ -13,16 +13,14 @@ export const AREAS: AreaDef[] = [
     {id: 'windows', label: 'Best Windows', hint: 'Best daylight hours ahead'},
   ]},
   {id: 'forecast', label: 'Forecast', sections: [
-    {id: '', label: 'Spot Forecast', hint: 'Timeline, conditions and sources'},
-    {id: 'swell', label: 'Swell Analysis', hint: 'Components, direction and period'},
-    {id: 'wind-tides', label: 'Wind & Tides', hint: 'Wind, gusts and the tide day'},
-    {id: 'compare', label: 'Compare Spots', hint: 'All spots at the selected hour'},
-    {id: 'wave-scale', label: 'Wave Scale', hint: 'Wave, surfer and board in 3D'},
+    {id: '', label: 'Spot Forecast', hint: 'Swell, wind, tide and the wave scale on one page'},
+    {id: 'wave-scale', label: 'Wave Scale 3D', hint: 'Wave, surfer and board in 3D'},
   ]},
   {id: 'explore', label: 'Explore', sections: [
     {id: '', label: 'Ocean Map', hint: 'Spots and conditions on the map'},
     {id: 'wind', label: 'Wind Layers', hint: 'Regional wind grid'},
     {id: 'swell', label: 'Swell Layers', hint: 'Regional wave grid'},
+    {id: 'compare', label: 'Compare Spots', hint: 'Spots side by side at one hour'},
     {id: 'discover', label: 'Discover Spots', hint: 'Every spot with its rating'},
   ]},
   {id: 'quiver', label: 'Quiver', sections: [
@@ -45,6 +43,7 @@ export interface Route {area: Area; section: string}
 export function parseRoute(pathname: string): Route {
   const [a, s] = pathname.split('/').filter(Boolean);
   if (a === 'scale') return {area: 'forecast', section: 'wave-scale'}; // Wave Scale lives inside Forecast; keep old links working
+  if (a === 'forecast' && s === 'compare') return {area: 'explore', section: 'compare'}; // Compare moved to Explore (2026-10-29)
   const def = AREAS.find((x) => x.id === a);
   if (!def) return {area: 'home', section: ''};
   return {area: def.id, section: def.sections.some((x) => x.id === (s ?? '')) ? s ?? '' : ''};

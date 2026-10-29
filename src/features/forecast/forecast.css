@@ -5,7 +5,7 @@
 .fc-hero .credit { top: auto; bottom: 10px; }
 .fc-hero-in { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: clamp(6px, 1.4vw, 18px); }
 .fc-kicker { font-size: 12px; font-weight: 650; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(255 255 255 / 0.75); }
-.fc-hero h1 { display: flex; align-items: center; gap: 14px; margin-top: 6px; font: 400 clamp(44px, 5.6vw, 80px)/1 var(--serif); letter-spacing: -0.01em; }
+.fc-hero h1 { display: flex; align-items: center; gap: 14px; margin-top: 6px; font: 700 clamp(44px, 5.6vw, 80px)/1 var(--display); letter-spacing: -0.01em; }
 .fc-fav { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgb(255 255 255 / 0.12); backdrop-filter: blur(8px); color: #fff; cursor: pointer; }
 .fc-fav[aria-pressed='true'] svg { color: #f2c94c; fill: currentColor; }
 .fc-sub { margin-top: 8px; font-size: 13px; color: rgb(255 255 255 / 0.75); }
@@ -33,7 +33,7 @@
 /* Section grids */
 .fc-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; align-items: start; }
 .fc-grid .card { padding: 18px 20px; border-radius: 20px; }
-.fc-grid .card-h h2 { font: 400 22px/1.1 var(--serif); }
+.fc-grid .card-h h2 { font: 700 22px/1.1 var(--display); }
 .fc-tl { grid-column: span 8; }
 .fc-scale { grid-column: span 4; }
 .fc-hours { grid-column: span 4; }
@@ -63,3 +63,13 @@
   .fc-grid > * { grid-column: 1 / -1 !important; }
   .fc-strip .day { min-width: 96px; }
 }
+
+/* One-page forecast: sticky jump bar and labelled parts */
+.fc-jump { position: sticky; top: calc(var(--nav-h) + 8px); z-index: 20; justify-self: start; display: flex; gap: 2px; max-width: 100%; overflow-x: auto; scrollbar-width: none; padding: 4px; border-radius: 999px; background: var(--nav-bg); backdrop-filter: blur(20px) saturate(1.6); -webkit-backdrop-filter: blur(20px) saturate(1.6); border: 1px solid var(--line); box-shadow: 0 8px 24px -16px var(--shadow); }
+.fc-jump button { flex: none; min-height: 36px; padding: 0 16px; border: 0; border-radius: 999px; background: none; color: var(--muted); font-size: 14px; font-weight: 550; cursor: pointer; transition: background-color 200ms var(--ease), color 200ms var(--ease); }
+.fc-jump button:hover { color: var(--text); }
+.fc-jump button[aria-current='true'] { background: var(--text); color: var(--bg); }
+.fc-part { scroll-margin-top: calc(var(--nav-h) + 64px); }
+.fc-part-h { grid-column: 1 / -1; margin-top: 18px; font: 700 clamp(26px, 2.4vw, 34px)/1.1 var(--display, var(--display)); letter-spacing: -0.02em; }
+#fc-scale { scroll-margin-top: calc(var(--nav-h) + 64px); }
+@media (max-width: 860px) { .fc-jump { top: 8px; } }

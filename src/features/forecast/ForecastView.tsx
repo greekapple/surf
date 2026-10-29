@@ -126,35 +126,18 @@ function Nearshore({spot, p, selectedTime, now, series}: {spot: SurfSpot; p: Use
   );
 }
 
-function Compare({onPick}: {onPick: (id: string) => void}) {
-  const {view, spotOptions, data, now, spot} = useSwello();
-  const p = data.state.profile, t = view.selectedTime;
-  // The selected spot and its seven nearest neighbours along the coast.
-  const at = (id: string) => evidenceSpots.find((e) => e.id === id);
-  const here = at(spot.id);
-  const near = here ? [...spotOptions].sort((a, b) => { const A = at(a.id), B = at(b.id); return (A ? Math.hypot(A.latitude - here.latitude, A.longitude - here.longitude) : 99) - (B ? Math.hypot(B.latitude - here.latitude, B.longitude - here.longitude) : 99); }).slice(0, 8) : spotOptions;
-  return (
-    <div className="tscroll" role="region" tabIndex={0} aria-label="Spot comparison (scrolls sideways)"><table className="cmp"><thead><tr><th>Spot</th><th>Rating (provisional)</th><th>Offshore Hs</th><th>Primary swell</th><th>Wind</th><th>Best daylight (24 h)</th><th /></tr></thead><tbody>
-      {near.map((s) => {
-        const recs = view.mapRecords.filter((r) => r.spotId === s.id);
-        const f = recs.find((r) => r.timestamp === t);
-        const rating = f ? rateForecast(s, f, now) : null;
-        const series = recs.map((r) => ({forecast: r, timestamp: r.timestamp, date: '', hour: 0, heightFt: r.offshore, rating: rateForecast(s, r, now)}));
-        const start = Math.floor(now / 3600000) * 3600000, best = bestDaylight(series as HourSample[], s, start, start + 86400000);
-        return (
-          <tr key={s.id} className={s.id === spot.id ? 'sel' : ''}>
-            <td><b>{s.name}</b></td>
-            <td>{rating ? <><span className="qdot" style={{background: BAND_COLOR[bandOf(rating.category)]}} /> {titleCase(rating.category)} {rating.score ?? ''}</> : '—'}</td>
-            <td>{f ? `${ht(f.offshore, p)} ${p.heightUnit}` : '—'}</td>
-            <td>{f?.primary ? `${ht(f.primary.height, p)} ${p.heightUnit} · ${Math.round(f.primary.period)} s ${compass(f.primary.direction)}` : '—'}</td>
-            <td>{f ? `${windVal(f.wind.speed, p)} ${p.windUnit} ${compass(f.wind.direction)}` : '—'}</td>
-            <td>{best ? `${weekdayPT(best.timestamp)} ${hourLabel(best.timestamp)} · ${titleCase(best.rating.category)}` : '—'}</td>
-            <td><button onClick={() => onPick(s.id)}>Open</button></td>
-          </tr>
-        );
-      })}
-    </tbody></table></div>
-  );
+const PARTS: [string, string][] = [['fc-now', 'Overview'], ['fc-swell', 'Swell'], ['fc-wind', 'Wind & tide'], ['fc-scale', 'Wave scale'], ['fc-sources', 'Sources']];
+/** Sticky in-page navigation: jumps to each part of the forecast and highlights the one in view. */
+function JumpBar() {
+  const [active, setActive] = useState('fc-now');
+  useEffect(() => {
+    const els = PARTS.map(([id]) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
+    const io = new IntersectionObserver((entries) => { const v = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]; if (v) setActive(v.target.id); }, {rootMargin: '-140px 0px -55% 0px'});
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, []);
+  const jump = (id: string) => document.getElementById(id)?.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+  return <nav className="fc-jump" aria-label="On this page">{PARTS.map(([id, label]) => <button key={id} aria-current={active === id ? 'true' : undefined} onClick={() => jump(id)}>{label}</button>)}</nav>;
 }
 
 export function ForecastView({section, go}: ViewProps) {
@@ -183,7 +166,7 @@ export function ForecastView({section, go}: ViewProps) {
   const isNow = selIdx === series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
   const dayHours = curDay >= 0 ? series.slice(days[curDay].start, days[curDay].end + 1) : [];
   
-  const title = {'': 'Spot forecast', swell: 'Swell analysis', 'wind-tides': 'Wind & tides', compare: 'Compare spots'}[section] ?? 'Spot forecast';
+  const title = 'Spot forecast';
 
   return (
     <div className="fc">
@@ -220,7 +203,9 @@ export function ForecastView({section, go}: ViewProps) {
         </div>
       </section>
 
-      {section === '' && <div className="fc-grid">
+      <JumpBar />
+
+      <div id="fc-now" className="fc-grid fc-part">
         <section className="card fc-tl" aria-label="Forecast timeline">
           <div className="card-h"><h2>Timeline</h2><span>{dayIndex === null ? '7 days' : weekdayPT(selected.timestamp)} · drag or use arrow keys</span></div>
           <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={dayIndex} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 280 : 320} />
@@ -230,7 +215,7 @@ export function ForecastView({section, go}: ViewProps) {
             <li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Wind 0 → 24+ mph</li>
           </ul>
         </section>
-        <section className="card fc-scale"><div className="card-h"><h2>Wave scale</h2><button className="btn" onClick={() => go('forecast', 'wave-scale')}>Open 3D</button></div><MiniScale forecast={selected.forecast} /></section>
+        <section className="card fc-scale" id="fc-scale"><div className="card-h"><h2>Wave scale</h2><button className="btn" onClick={() => go('forecast', 'wave-scale')}>Open in 3D</button></div><MiniScale forecast={selected.forecast} /></section>
         <section className="card fc-hours"><div className="card-h"><h2>Next hours</h2><span>swell · wind</span></div>
           <ol className="hours">{series.slice(selIdx, selIdx + 10).map((h, k) => (
             <li key={h.timestamp}><button aria-current={k === 0} onClick={() => view.selectTime(h.timestamp)}>
@@ -240,13 +225,12 @@ export function ForecastView({section, go}: ViewProps) {
             </button></li>
           ))}</ol></section>
         <section className="card fc-inst" aria-label="Instruments"><div className="card-h"><h2>Conditions</h2><span>{weekdayPT(selected.timestamp)} {hourLabel(selected.timestamp)}</span></div><Tiles h={selected} p={p} spot={spot} series={series} extrema={extrema} /></section>
-        <details className="card fc-src"><summary><h2>Sources &amp; reliability</h2><span>{selected.rating.reliability.category.toLowerCase()} reliability · show details</span></summary><Sources /></details>
-        <div className="fc-cam"><CameraPanel spotName={spot.name} /></div>
-      </div>}
+      </div>
 
-      {section === 'swell' && <div className="fc-grid">
+      <div id="fc-swell" className="fc-grid fc-part">
+        <h2 className="fc-part-h">Swell</h2>
         <section className="card fc-wide" aria-label="Nearshore model"><Nearshore spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
-        <section className="card fc-half"><div className="card-h"><h2>Swell direction &amp; period</h2><span>{weekdayPT(selected.timestamp)}</span></div>
+        <section className="card fc-half"><div className="card-h"><h2>Direction &amp; period</h2><span>{weekdayPT(selected.timestamp)}</span></div>
           <PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot)} onSelect={view.selectTime} />
           <p className="fine"><i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw1)', marginRight: 4}} />primary · <i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw2)', marginRight: 4}} />secondary · ring = period (s) · size = height</p></section>
         <section className="card fc-half"><div className="card-h"><h2>Swell components</h2><span>{weekdayPT(selected.timestamp)}</span></div>
@@ -256,25 +240,26 @@ export function ForecastView({section, go}: ViewProps) {
               <td>{h.forecast.secondary ? `${ht(h.forecast.secondary.height, p)} ${p.heightUnit} · ${Math.round(h.forecast.secondary.period)} s · ${compass(h.forecast.secondary.direction)}` : '—'}</td>
               <td>{ht(h.heightFt, p)} {p.heightUnit}</td></tr>)}
           </tbody></table></div></section>
-      </div>}
+      </div>
 
-      {section === 'wind-tides' && <div className="fc-grid">
-        <section className="card fc-wide" aria-label="Instruments"><div className="card-h"><h2>Wind, swell, tide and water</h2><span>{weekdayPT(selected.timestamp)} {hourLabel(selected.timestamp)}</span></div><Tiles h={selected} p={p} spot={spot} series={series} extrema={extrema} /></section>
+      <div id="fc-wind" className="fc-grid fc-part">
+        <h2 className="fc-part-h">Wind &amp; tide</h2>
         <section className="card fc-half"><div className="card-h"><h2>Tide</h2><span>SF 9414290 · regional · MLLW</span></div>
           <TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} /><p className="fine">Predictions, not observations · sunrise/sunset approximate</p></section>
         <section className="card fc-half"><div className="card-h"><h2>Wind through the day</h2><span>{weekdayPT(selected.timestamp)}</span></div>
-          <ol className="hours">{dayHours.filter((_, j) => j % 2 === 0).map((h) => (
+          <ol className="hours wind-hours">{dayHours.filter((_, j) => j % 2 === 0).map((h) => (
             <li key={h.timestamp}><button aria-current={h.timestamp === view.selectedTime} onClick={() => view.selectTime(h.timestamp)}>
               <span className="t">{hourLabel(h.timestamp)}</span><span className="qdot" style={{background: windInk(h.forecast.wind.speed)}} />
               <span>{windVal(h.forecast.wind.speed, p)} {p.windUnit}</span><span>gust {windVal(h.forecast.wind.gusts ?? null, p)}</span>
               <span>{Number.isFinite(h.forecast.wind.direction) ? <><DirArrow from={h.forecast.wind.direction} size={13} color={windInk(h.forecast.wind.speed)} />{compass(h.forecast.wind.direction)}</> : '—'}</span>
             </button></li>
           ))}</ol></section>
-      </div>}
+      </div>
 
-      {section === 'compare' && <div className="fc-grid">
-        <section className="card fc-wide"><div className="card-h"><h2>Compare spots</h2><span>at {weekdayPT(selected.timestamp)} {hourLabel(selected.timestamp)}</span></div><Compare onPick={(id) => { setSpot(id); go('forecast'); }} /></section>
-      </div>}
+      <div id="fc-sources" className="fc-grid fc-part">
+        <details className="card fc-src"><summary><h2>Sources &amp; reliability</h2><span>{selected.rating.reliability.category.toLowerCase()} reliability · show details</span></summary><Sources /></details>
+        <div className="fc-cam"><CameraPanel spotName={spot.name} /></div>
+      </div>
     </div>
   );
 }
