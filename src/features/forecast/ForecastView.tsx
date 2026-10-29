@@ -7,38 +7,39 @@ import {coastalCoverage} from '../../ocean/coastal';
 import {formatWaveHeight, nearshoreView} from '../../utils/waveHeight';
 import {rateForecast} from '../../ratings/adapters';
 import {windRelationship} from '../../recommendation/sqi';
-import {CameraPanel, SpotPhoto, StateMessage} from '../../ui/common';
+import {CameraPanel, StateMessage} from '../../ui/common';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {Dial, PolarSwell, QualityBand, Spark, TideDay, Timeline, windInk} from './charts';
 import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
-import {BAND_COLOR, bandOf, hourLabel, titleCase, trendOf, type HourSample} from './model';
+import {BAND_COLOR, bandOf, hourLabel, hourlySeries, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {MiniScale} from '../scale/MiniScale';
 import {Skeleton} from '../../ui/Skeleton';
+import {Condition, conditionWord} from './Condition';
 import './forecast.css';
 
 const facingOf = (spot: SurfSpot) => evidenceSpots.find((e) => e.id === spot.id)?.orientation ?? null;
 const relChip = (r: string) => ({Offshore: 'off', Onshore: 'on'} as Record<string, string>)[r] ?? '';
 
-function Readout({h, p, series, isNow}: {h: HourSample; p: UserProfile; series: HourSample[]; isNow: boolean}) {
+function Readout({h, p, series, isNow, preview}: {h: HourSample; p: UserProfile; series: HourSample[]; isNow: boolean; preview: boolean}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, tr = trendOf(series, series.indexOf(h));
   return (
     <div className="readout" aria-live="polite">
       <div>
-        <p className="ro-time"><span>{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)}, {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</span><span>{tr === 'unknown' ? '' : `${titleCase(tr)} over 6 h`}</span></p>
+        <p className="ro-time"><span>{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)}, {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}{preview ? ' · preview' : ''}</span><span>{tr === 'unknown' ? '' : `${titleCase(tr)} over 6 h`}</span></p>
         <p className="num swap" key={h.timestamp}>{ht(h.heightFt, p)}<small>{u}</small></p>
-        <p className="hs-label">{f.availability.face && Number.isFinite(f.face) ? 'Demonstration breaking-wave face' : 'Offshore Hs · not surf height'}<span className="chip ill" title="Significant wave height from the offshore model. It is not the size of breaking surf; no calibrated surf-height estimate exists for this break.">model</span></p>
+        <p className="hs-label" title="Significant wave height from the offshore model. It is not the size of breaking surf; no calibrated surf-height estimate exists for this break.">{f.availability.face && Number.isFinite(f.face) ? 'Demonstration breaking-wave face' : 'Offshore model Hs, not surf height'}</p>
       </div>
       <div aria-label={`Rating ${titleCase(r.category)}, score ${r.score ?? 'none'}, provisional, reliability ${r.reliability.category.toLowerCase()}`}>
-        <p className="qcat"><i style={{background: BAND_COLOR[bandOf(r.category)]}} />{r.category === 'UNRATED' ? 'Unrated' : titleCase(r.category)}<small>provisional</small></p>
+        <p className="qcat"><Condition category={r.category} /></p>
         <QualityBand score={r.score} reliability={r.reliability.category} />
-        <p className="fine">{r.score === null ? 'No score: inputs missing' : `Score ${Math.round(r.score)} · reliability ${r.reliability.category.toLowerCase()} · band width shows reliability tier, not a measured range`}</p>
+        <p className="fine">{r.score === null ? 'No score: inputs missing' : `Score ${Math.round(r.score)} · ${r.reliability.category.toLowerCase()} reliability`}</p>
       </div>
       <div className="minis">
-        <div><span className="k">Swell</span><span className="v">{f.primary && Number.isFinite(f.primary.height) ? <><DirArrow from={f.primary.direction} color="var(--sw1)" />{ht(f.primary.height, p)}<small>{u} {Math.round(f.primary.period)}s</small></> : '—'}</span></div>
-        <div><span className="k">Wind</span><span className="v">{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} color={windInk(f.wind.speed)} />{windVal(f.wind.speed, p)}<small>{p.windUnit}</small></> : '—'}</span></div>
-        <div><span className="k">Tide</span><span className="v">{ht(f.tide.height, p)}<small>{u} {f.tide.trend === 'Rising' ? '↑' : f.tide.trend === 'Falling' ? '↓' : ''}</small></span></div>
-        <div><span className="k">Water</span><span className="v">{f.waterTempF ? <>{f.waterTempF.toFixed(1)}<small>°F</small></> : '—'}</span></div>
+        <div><span className="k">Swell</span><span className="v tick" key={h.timestamp}>{f.primary && Number.isFinite(f.primary.height) ? <><DirArrow from={f.primary.direction} color="var(--sw1)" />{ht(f.primary.height, p)}<small>{u} {Math.round(f.primary.period)}s</small></> : '—'}</span></div>
+        <div><span className="k">Wind</span><span className="v tick" key={h.timestamp}>{Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} color={windInk(f.wind.speed)} />{windVal(f.wind.speed, p)}<small>{p.windUnit}</small></> : '—'}</span></div>
+        <div><span className="k">Tide</span><span className="v tick" key={h.timestamp}>{ht(f.tide.height, p)}<small>{u} {f.tide.trend === 'Rising' ? '↑' : f.tide.trend === 'Falling' ? '↓' : ''}</small></span></div>
+        <div><span className="k">Water</span><span className="v tick" key={h.timestamp}>{f.waterTempF ? <>{f.waterTempF.toFixed(1)}<small>°F</small></> : '—'}</span></div>
       </div>
     </div>
   );
@@ -120,10 +121,45 @@ function Nearshore({spot, p, selectedTime, now, series}: {spot: SurfSpot; p: Use
         <div><span className="k">Tp (peak period)</span><span className="v">{tp === null ? '—' : <>{Math.round(tp * 10) / 10}<small>s</small></>}</span></div>
         <div><span className="k">Direction (from)</span><span className="v">{dp === null ? '—' : <><DirArrow from={dp} color="var(--sw1)" />{Math.round(dp)}<small>° {compass(dp)}</small></>}</span></div>
       </div>
-      <p className="hs-label">Nearshore model Hs at {cov.depthM} m depth ({model}), not surf height<span className="chip ill">model</span></p>
-      <p className="fine">Valid {when(rec.timestamp)}{v.state === 'exact' ? ' (nearest record to the selected hour)' : ''} · {where}. QC-filtered nowcast, modeled at depth: not the size of breaking surf, no local conversion.</p>
+      <p className="fine">Valid {when(rec.timestamp)}{v.state === 'exact' ? ' (nearest record to the selected hour)' : ''} · {where}. Modeled Hs at depth, not surf height.</p>
       {jump}
     </>
+  );
+}
+
+
+const km = (a: [number, number], b: [number, number]) => {
+  const r = Math.PI / 180, dLat = (b[0] - a[0]) * r, dLon = (b[1] - a[1]) * r;
+  const x = Math.sin(dLat / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLon / 2) ** 2;
+  return 12742 * Math.asin(Math.sqrt(x));
+};
+
+/** The six nearest spots at the selected hour: height and condition, each opens that spot. */
+function Nearby({spot, at, p, now, onOpen}: {spot: SurfSpot; at: string; p: UserProfile; now: number; onOpen: (id: string) => void}) {
+  const {spotOptions, view} = useSwello();
+  const items = useMemo(() => {
+    const from = evidenceSpots.find((e) => e.id === spot.id);
+    if (!from) return [];
+    return evidenceSpots.filter((e) => e.id !== spot.id)
+      .map((e) => ({e, d: km([from.latitude, from.longitude], [e.latitude, e.longitude])}))
+      .sort((a, b) => a.d - b.d).slice(0, 6)
+      .map(({e, d}) => {
+        const s = spotOptions.find((o) => o.id === e.id);
+        const ser = s ? hourlySeries(s, view.mapRecords, now) : [];
+        return {id: e.id, name: e.name, d, h: ser.find((x) => x.timestamp === at) ?? ser.find((x) => Date.parse(x.timestamp) >= Math.floor(now / 3600000) * 3600000)};
+      });
+  }, [spot.id, spotOptions, view.mapRecords, now, at]);
+  if (!items.length) return null;
+  return (
+    <nav className="fc-near" aria-label="Nearby spots">
+      <ul>{items.map((n) => (
+        <li key={n.id}><button onClick={() => onOpen(n.id)} aria-label={`${n.name}, ${Math.round(n.d)} km away${n.h ? `, ${ht(n.h.heightFt, p)} ${p.heightUnit}, ${conditionWord(n.h.rating.category)}` : ', no record'}. Open forecast.`}>
+          <span className="nm">{n.name}</span>
+          <span className="vl">{n.h ? <><b className="tick" key={n.h.timestamp}>{ht(n.h.heightFt, p)}</b> {p.heightUnit} <Condition category={n.h.rating.category} /></> : <span className="fine">No record</span>}</span>
+          <span className="fine">{Math.round(n.d)} km</span>
+        </button></li>
+      ))}</ul>
+    </nav>
   );
 }
 
@@ -151,6 +187,8 @@ export function ForecastView({section, go}: ViewProps) {
   const curDay = selIdx >= 0 ? days.findIndex((d) => selIdx >= d.start && selIdx <= d.end) : -1;
   useEffect(() => { if (dayIndex !== null && curDay >= 0 && curDay !== dayIndex) setDayIndex(curDay); }, [curDay]); // eslint-disable-line react-hooks/exhaustive-deps
   const fav = data.state.favorites.includes(spot.id);
+  const [hoverT, setHoverT] = useState<string | null>(null);
+  useEffect(() => setHoverT(null), [view.selectedTime]);
 
   const pickDay = (k: number) => {
     const d = days[k];
@@ -165,34 +203,29 @@ export function ForecastView({section, go}: ViewProps) {
   if (!selected) return <StateMessage title={`No record for ${spot.name} at this hour`} action={<button className="btn" onClick={toNow}>Go to now</button>}>Values are never borrowed from other hours or spots.</StateMessage>;
 
   const isNow = selIdx === series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
+  const shown = (hoverT && series.find((h) => h.timestamp === hoverT)) || selected;
+  const shownNow = series.indexOf(shown) === series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
   const dayHours = curDay >= 0 ? series.slice(days[curDay].start, days[curDay].end + 1) : [];
-  
-  const title = 'Spot forecast';
-
   return (
     <div className="fc">
-      <header className="fc-hero">
-        <SpotPhoto spotId={spot.id} index={spot.id === 'spot-2' ? 3 : 0} className="fc-photo">
-          <div className="fc-hero-in">
-            <div>
-              <p className="fc-kicker">{title} · {spot.region} · {spot.type.toLowerCase()} break</p>
-              <h1>{spot.name}<button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={22} /></button></h1>
-              <p className="fc-sub">{live ? 'Live model data' : 'Demonstration week, not live'} · offshore height is not surf height</p>
-            </div>
-            <div className="fc-hero-act">
-              <div className="seg glassy" role="radiogroup" aria-label="Range">
-                <button role="radio" aria-checked={dayIndex === null} onClick={() => setDayIndex(null)}>7 days</button>
-                <button role="radio" aria-checked={dayIndex !== null} onClick={() => setDayIndex(Math.max(0, curDay))}>Day</button>
-              </div>
-              <button className="btn glassy" onClick={toNow}>Now</button>
-              <button className="btn glassy" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
-            </div>
+      <header className="fc-head">
+        <div>
+          <h1>{spot.name}<button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button></h1>
+          <p className="fc-sub">{spot.region} · {spot.type.toLowerCase()} break · {live ? 'Model forecast, ratings provisional' : 'Demonstration week, not live'}</p>
+        </div>
+        <div className="fc-hero-act">
+          <div className="seg" role="radiogroup" aria-label="Range">
+            <button role="radio" aria-checked={dayIndex === null} onClick={() => setDayIndex(null)}>7 days</button>
+            <button role="radio" aria-checked={dayIndex !== null} onClick={() => setDayIndex(Math.max(0, curDay))}>Day</button>
           </div>
-        </SpotPhoto>
+          <button className="btn" onClick={toNow}>Now</button>
+          <button className="btn" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
+        </div>
       </header>
+      <Nearby spot={spot} at={selected.timestamp} p={p} now={now} onOpen={setSpot} />
 
       <section className="fc-strip" aria-label="Selected hour">
-        <Readout h={selected} p={p} series={series} isNow={isNow} />
+        <Readout h={shown} p={p} series={series} isNow={shownNow} preview={shown !== selected} />
         <div className="days" role="group" aria-label="Forecast day">
           {days.map((d, k) => d.end - d.start < 11 ? null : (
             <button key={d.key} className="day" aria-pressed={k === curDay} onClick={() => pickDay(k)}>
@@ -208,8 +241,8 @@ export function ForecastView({section, go}: ViewProps) {
 
       <div id="fc-now" className="fc-grid fc-part">
         <section className="card fc-tl" aria-label="Forecast timeline">
-          <div className="card-h"><h2>Timeline</h2><span>{dayIndex === null ? '7 days' : weekdayPT(selected.timestamp)} · drag or use arrow keys</span></div>
-          <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={dayIndex} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 280 : 320} />
+          <div className="card-h"><h2>Timeline</h2><span>{dayIndex === null ? '7 days' : weekdayPT(selected.timestamp)} · hover or drag, arrow keys step</span></div>
+          <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} onHover={setHoverT} now={now} dayIndex={dayIndex} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 280 : 320} />
           <ul className="legend" style={{marginTop: 8}} aria-hidden="true">
             <li><i style={{background: 'var(--hs)', height: 8}} />Offshore Hs</li><li><i style={{background: 'var(--sw1)'}} />Primary swell</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li>
             <li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li>
@@ -220,7 +253,7 @@ export function ForecastView({section, go}: ViewProps) {
         <section className="card fc-hours"><div className="card-h"><h2>Next hours</h2><span>swell · wind</span></div>
           <ol className="hours">{series.slice(selIdx, selIdx + 10).map((h, k) => (
             <li key={h.timestamp}><button aria-current={k === 0} onClick={() => view.selectTime(h.timestamp)}>
-              <span className="t">{hourLabel(h.timestamp)}</span><span className="qdot" style={{background: BAND_COLOR[bandOf(h.rating.category)]}} />
+              <span className="t">{hourLabel(h.timestamp)}</span><Condition category={h.rating.category} compact />
               <span>{ht(h.heightFt, p)} {p.heightUnit}</span><span>{h.forecast.primary ? <><DirArrow from={h.forecast.primary.direction} size={13} />{Math.round(h.forecast.primary.period)}s</> : '—'}</span>
               <span>{Number.isFinite(h.forecast.wind.direction) ? <><DirArrow from={h.forecast.wind.direction} size={13} color={windInk(h.forecast.wind.speed)} />{windVal(h.forecast.wind.speed, p)}</> : '—'}</span>
             </button></li>
