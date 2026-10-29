@@ -8,7 +8,7 @@
 | D-01 | P0 | ~~Explore wind and swell layers never load locally~~ **RESOLVED 2026-10-29 (T-011)**: live via the dev server path; QA verified at 1440 and 390 | R1 |
 | D-02 | P0 | ~~NDBC buoy never connects locally~~ **RESOLVED 2026-10-29 (T-011)**: observation 40 min old, no stale snapshot | R1 |
 | D-03 | P1 | Saving one of the 7 demo-only spots fails silently [5] | R2 |
-| D-04 | P1 | Home card photo credit and licence links cannot be clicked [6] | R2 |
+| D-04 | P1 | ~~Home card photo credit and licence links cannot be clicked [6]~~ **RESOLVED 2026-10-29**: `.fav-card .shot` no longer `z-index: -1`, so the credit layers above the card button. Evidence: `playwright-toolkit/swello/d04.mjs` 16/16 at 1440 and 390 (baseline 10/16); tsc, 140 tests, build, journeys 8/8, home-shots 13/13 | R2 |
 | D-05 | P1 | Forecast chart errors: last day → "7 days"; on mobile, opening a later day from Home [7] | R2 |
 | D-06 | P1 | Personal "Home region" stored but never used [8] | R2 |
 | D-07 | P3 | Forecast first x-axis label clipped [15] | R4 |

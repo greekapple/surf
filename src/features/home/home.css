@@ -146,7 +146,7 @@
 /* ---------- Your spots: photo cards ---------- */
 .fav-cards { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(14px, 1.8vw, 24px); }
 .fav-card { position: relative; isolation: isolate; height: clamp(340px, 30vw, 460px); overflow: hidden; border-radius: 18px; color: #fff; background: var(--ink); box-shadow: 0 0 0 0 transparent; transition: box-shadow 220ms var(--ease), transform 220ms var(--ease); }
-.fav-card .shot { position: absolute !important; inset: 0; z-index: -1; height: 100%; }
+.fav-card .shot { position: absolute !important; inset: 0; height: 100%; }
 .fav-card .shot::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(8 16 22 / 0.3) 0, rgb(8 16 22 / 0) 26%, rgb(8 16 22 / 0) 46%, rgb(8 16 22 / 0.82) 100%); }
 .fav-card .shot .credit { inset: 16px 16px auto auto; font-size: 10px; opacity: 0.85; }
 .fav-card:hover { transform: translateY(-3px); box-shadow: 0 22px 40px -22px rgb(14 26 34 / 0.6); }
