@@ -247,7 +247,7 @@ export class WaveScene {
     // Ambient water motion: ~30 fps, paused when hidden/offscreen, off entirely under prefers-reduced-motion.
     const anim = !reduced();
     this.shared.uAnim.value = anim ? 1 : 0;
-    if (anim && this.visible && now - this.lastDraw > 33) { this.shared.uTime.value = now / 1000; this.sprayU.uTime.value = now / 1000; this.dirty = true; }
+    if (anim && this.visible && now - this.lastDraw > 33) { this.shared.uTime.value = now / 3000; this.sprayU.uTime.value = now / 3000; this.dirty = true; }
     if (this.dirty && this.visible && !document.hidden) {
       this.lastDraw = now;
       this.sky.position.copy(this.camera.position);

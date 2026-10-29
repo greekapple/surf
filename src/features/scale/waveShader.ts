@@ -70,7 +70,7 @@ void main(){
   vec3 body = deep + vec3(0.07, 0.44, 0.34) * thin * trans * 0.55 + vec3(0.14, 0.34, 0.14) * thin * pow(max(dot(V, -L), 0.0), 3.0) * 0.5;
   body *= 0.6 + 0.4 * (0.5 + 0.5 * dot(N, L));
   vec3 col = body * (1.0 - F) + refl * F;
-  col += vec3(1.0, 0.8, 0.55) * pow(max(dot(R, L), 0.0), 900.0) * 1.6 * lod;
+  col += vec3(1.0, 0.8, 0.55) * pow(max(dot(R, L), 0.0), 900.0) * 0.5 * lod;
 
   // Foam and whitewater: authored amount per vertex, broken up by noise so it reads as bubbly cells.
   float cell = fbm(vWorld * vec3(2.2, 2.2, 2.2) + vec3(0.0, uTime * 0.04 * uAnim, 0.0));
