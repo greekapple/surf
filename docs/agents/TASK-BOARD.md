@@ -46,6 +46,13 @@
 
 **Recovery milestones:** R1 live data locally · R2 no silent or dead controls · R3 Explore map · R4 Forecast · R5 Quiver 3D board · R6 Wave Scale. Details in AUDIT.md.
 
+## Remodel 2026-10-29 (user-directed: "fully remodel", reference `~/Downloads/Swello Premium Surf App Showcase.png` + `Premium Surf Forecast Mapping UI Collection.png`)
+- R1 `2774c4d`: dark cinematic default theme, DM Serif Display, nav/menus above the map (fixes menus hidden under Leaflet), new full-bleed Explore map (satellite, smooth land-masked field, flow, legend, time player, layers panel), Discover page. Closes the T-012 visual items 1–4 and 7.
+- R2 `4b7bbef`: Home full-bleed photo hero + dark sections; Forecast cinematic header, metrics strip, day cards, distinct section pages.
+- R3 `185636b` (frontend-engineer, worktree): Personal sidebar with distinct section pages; Quiver card grid, showroom lineup, match, compare.
+- Evidence: tsc, npm test 140/140, build; journeys 8/8 (4–6 rewritten for the new pages); `sections-distinct.mjs` 23 routes × 2 widths distinct, no overflow; `menu-over-map.mjs` 5/5.
+- Open: V-05 Quiver boards are flat outlines (needs 3D models); T-012 item 5 (frame availability on the slider) not done; Esri imagery is fine for development but needs a licence check before a public launch (X-03).
+
 ## Agent task log
 States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE · BLOCKED
 
