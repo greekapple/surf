@@ -8,8 +8,9 @@ export type Preset = 'deck' | 'bottom' | 'rail' | 'tail' | '360';
 export type Mode = 'lineup' | 'focus';
 export interface ShapeSpec {template: Template; length: number; width: number; thickness: number; volume: number}
 /** One board on the rack. `tpl`/`tplKey` override the category template (a board traced from a photo). */
-export interface BoardEntry {id: string; spec: ShapeSpec; look: Look; tpl?: Promise<Tpl>; tplKey?: string}
+export interface BoardEntry {id: string; spec: ShapeSpec; look: Look; tpl?: Promise<Tpl>; tplKey?: string; /** The user's own deck photo (JPEG data URL), straightened with the nose at the left. */ deckTex?: string}
 
+const WHITE = new THREE.Color(1, 1, 1);
 const WOOD = 0xbd9a68, FOAM = 0xece6d6;
 const FOCUS_Y = 24;          // height a single board hovers above the floor in Focus
 const LEAN = THREE.MathUtils.degToRad(3.2);
@@ -139,6 +140,8 @@ interface Rig {
   tpl: Tpl | null; tplKey: string; resin: THREE.Mesh | null; stringer: THREE.Mesh | null;
   spec: ShapeSpec; look: Look; fillKey: string; lookKey: string; finKey: string;
   x: number; lift: number;
+  /** The user's deck photo, drawn once into an atlas: photo above, flat white below (the underside keeps its colour). */
+  texSrc: string; tex: THREE.CanvasTexture | null;
   /** Room mode: height of the stand or pedestal the board rests on, and its current (gliding) x. */
   base: number; cx: number;
 }
@@ -466,7 +469,7 @@ export class Studio {
     const rig: Rig = {
       id, root: new THREE.Group(), orient: new THREE.Group(), flip: new THREE.Group(), shape: new THREE.Group(), fins: new THREE.Group(), shadowRoot: new THREE.Group(), shadow,
       resinMat: new THREE.MeshPhysicalMaterial({vertexColors: true, color: 0xffffff}), stringerMat: new THREE.MeshPhysicalMaterial({color: WOOD}),
-      tpl: null, tplKey: '', resin: null, stringer: null, spec, look, fillKey: '', lookKey: '', finKey: '', x: 0, lift: 0, base: 0.2, cx: NaN,
+      tpl: null, tplKey: '', resin: null, stringer: null, spec, look, fillKey: '', lookKey: '', finKey: '', x: 0, lift: 0, texSrc: '', tex: null, base: 0.2, cx: NaN,
     };
     rig.root.userData.rigId = id;
     rig.flip.add(rig.shape, rig.fins); rig.orient.add(rig.flip); rig.root.add(rig.orient);
@@ -477,7 +480,7 @@ export class Studio {
   private removeRig(rig: Rig) {
     this.scene.remove(rig.root, rig.shadowRoot); this.rigs.delete(rig.id);
     rig.resin?.geometry.dispose(); rig.stringer?.geometry.dispose();
-    rig.resinMat.dispose(); rig.stringerMat.dispose(); (rig.shadow.material as THREE.Material).dispose(); rig.shadow.geometry.dispose();
+    rig.tex?.dispose(); rig.resinMat.dispose(); rig.stringerMat.dispose(); (rig.shadow.material as THREE.Material).dispose(); rig.shadow.geometry.dispose();
   }
 
   /** Sync the rack to the boards given. The first call frames the selected board; later calls only update shapes. */
@@ -493,7 +496,7 @@ export class Studio {
     this.selectedId = selectedId;
     entries.forEach((e, i) => {
       const rig = this.rigs.get(e.id) ?? this.addRig(e.id, e.spec, e.look), key = e.tplKey ?? e.spec.template;
-      rig.spec = e.spec; rig.look = e.look;
+      rig.spec = e.spec; rig.look = e.look; this.setDeckTex(rig, e.deckTex ?? '');
       if (rig.tplKey !== key || !rig.tpl) {
         rig.shape.clear(); rig.resin?.geometry.dispose(); rig.stringer?.geometry.dispose();
         rig.tpl = cloneTpl(tpls[i]); rig.tplKey = key; rig.fillKey = ''; rig.lookKey = ''; rig.finKey = '';
@@ -541,6 +544,17 @@ export class Studio {
           // Weave coordinates in inches, laid along the board.
           uv.setXY(i, x * L, (z + Math.sign(z) * Math.abs(y) * 0.5) * L);
         }
+        if (part === tpl.resin) {
+          // Deck-photo coordinates: along the board from the nose, across its width; the underside samples the flat half of the atlas.
+          let uv1 = part.geom.getAttribute('uv1') as THREE.BufferAttribute | undefined;
+          if (!uv1 || uv1.count !== pos.count) { uv1 = new THREE.BufferAttribute(new Float32Array(pos.count * 2), 2); part.geom.setAttribute('uv1', uv1); }
+          const wF = s.width / L;
+          for (let i = 0; i < pos.count; i++) {
+            const u = THREE.MathUtils.clamp(0.5 - pos.getX(i), 0, 1), vn = THREE.MathUtils.clamp(pos.getZ(i) / wF + 0.5, 0, 1);
+            uv1.setXY(i, u, nr[i * 3 + 1] > 0 ? 0.5 + 0.5 * vn : 0.25);
+          }
+          uv1.needsUpdate = true;
+        }
         pos.needsUpdate = true; uv.needsUpdate = true; part.geom.computeVertexNormals(); part.geom.computeBoundingSphere(); part.geom.computeBoundingBox();
       }
     }
@@ -552,20 +566,21 @@ export class Studio {
   private applyLook(rig: Rig) {
     const tpl = rig.tpl, look = rig.look;
     if (!tpl) return;
-    const lk = JSON.stringify(look);
+    const lk = JSON.stringify(look) + (rig.tex ? 'T' : '');
     if (lk === rig.lookKey) return;
     rig.lookKey = lk;
     const tint = TINTS.find((t) => t.key === look.tint) ?? TINTS[0], tintC = new THREE.Color(tint.hex), hasTint = tint.key !== 'none';
     const mix = (c: THREE.Color) => (hasTint ? c.lerp(c.clone().multiply(tintC), 0.78) : c);
     const deck = mix(new THREE.Color(look.finish === 'clear' ? FOAM : look.deck)), bottom = mix(new THREE.Color(look.finish === 'clear' ? FOAM : look.bottom));
-    const f = 0.05 + look.fade * 0.85;
+    const f = 0.05 + look.fade * 0.85, photo = !!rig.tex;
     const col = tpl.resin.geom.getAttribute('color') as THREE.BufferAttribute, nr = tpl.resin.nrm0, c = new THREE.Color();
     for (let i = 0; i < col.count; i++) {
-      c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1]));
+      if (photo) c.copy(nr[i * 3 + 1] > 0 ? WHITE : bottom); else c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1]));
       col.setXYZ(i, c.r, c.g, c.b);
     }
     col.needsUpdate = true;
     const m = rig.resinMat, w = rig.stringerMat;
+    if (m.map !== rig.tex) { m.map = rig.tex; m.needsUpdate = true; }
     m.normalMap = this.weave; m.normalScale.set(0.06, 0.06);
     m.ior = 1.5; m.specularIntensity = 0.7;
     if (look.finish === 'matte') { m.roughness = 0.62; m.clearcoat = 0; m.clearcoatRoughness = 0.5; m.sheen = 0.35; m.sheenRoughness = 0.7; m.sheenColor.set(0xffffff); m.envMapIntensity = 0.85; }
@@ -574,6 +589,22 @@ export class Studio {
     w.color.set(WOOD); if (hasTint) w.color.multiply(tintC.clone().lerp(new THREE.Color(1, 1, 1), 0.5));
     w.roughness = look.finish === 'matte' ? 0.7 : 0.45; w.clearcoat = look.finish === 'matte' ? 0 : 0.8; w.clearcoatRoughness = 0.06;
     m.needsUpdate = true; w.needsUpdate = true;
+  }
+
+  /** Load or clear the deck photo for a board. */
+  private setDeckTex(rig: Rig, src: string) {
+    if (rig.texSrc === src) return;
+    rig.texSrc = src;
+    if (!src) { rig.tex?.dispose(); rig.tex = null; rig.lookKey = ''; return; }
+    const img = new Image();
+    img.onload = () => {
+      if (this.disposed || rig.texSrc !== src || !this.rigs.has(rig.id)) return;
+      const c = document.createElement('canvas'); c.width = 1024; c.height = 512;
+      const g = c.getContext('2d')!; g.fillStyle = '#fff'; g.fillRect(0, 0, 1024, 512); g.drawImage(img, 0, 0, 1024, 256);
+      const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.channel = 1; t.anisotropy = 4;
+      rig.tex?.dispose(); rig.tex = t; rig.lookKey = ''; this.applyLook(rig); this.dirty = true; this.kick();
+    };
+    img.src = src;
   }
 
   /** Fins sit on the bottom: a ray from beneath finds the surface at each fin position. */

@@ -3,10 +3,13 @@ export const OUTLINES_KEY = 'swello-board-outlines';
 export const STATIONS = 40;
 
 /** Half-width at STATIONS stations from nose (0) to tail (1), as a fraction of the board's length. */
-export interface Outline {v: 1; hw: number[]}
+export interface Outline {v: 1; hw: number[]; /** Deck texture: a downscaled JPEG data URL of the straightened board photo, nose at the left. */ tex?: string}
+
+/** Where the board sits in the photo, in image pixels: the nose point on the centre line, the unit direction nose to tail, the board's length and its widest half-width. */
+export interface Frame {ox: number; oy: number; dx: number; dy: number; len: number; half: number}
 
 export type TraceResult =
-  | {ok: true; outline: Outline; /** Edge points in image pixels for the overlay: left edge nose to tail, then right edge tail to nose. */ edge: [number, number][]; aspect: number; w: number; h: number}
+  | {ok: true; outline: Outline; /** Edge points in image pixels for the overlay: left edge nose to tail, then right edge tail to nose. */ edge: [number, number][]; frame: Frame; aspect: number; w: number; h: number}
   | {ok: false; reason: string};
 
 const FAIL = (reason: string): TraceResult => ({ok: false, reason});
@@ -63,7 +66,7 @@ export function traceBoard(rgba: Uint8ClampedArray | Uint8Array, w: number, h: n
   let sxx = 0, syy = 0, sxy = 0;
   for (let p = 0; p < n; p++) if (label[p] === bestLab) { const dx = (p % w) - cx, dy = ((p / w) | 0) - cy; sxx += dx * dx; syy += dy * dy; sxy += dx * dy; }
   const ang = 0.5 * Math.atan2(2 * sxy, sxx - syy);
-  let ax = Math.cos(ang), ay = Math.sin(ang);
+  const ax = Math.cos(ang), ay = Math.sin(ang);
   const px = -ay, py = ax;
   let tMin = Infinity, tMax = -Infinity;
   const T = new Float32Array(n), S = new Float32Array(n);
@@ -98,8 +101,11 @@ export function traceBoard(rgba: Uint8ClampedArray | Uint8Array, w: number, h: n
     const t = tMin + ((k + 0.5) / STATIONS) * len;
     left.push([cx + ax * t + px * sMin[k], cy + ay * t + py * sMin[k]]); right.push([cx + ax * t + px * sMax[k], cy + ay * t + py * sMax[k]]);
   }
-  void ax; void ay;
-  return {ok: true, outline: {v: 1, hw}, edge: [...left, ...right.reverse()], aspect, w, h};
+  // Frame for straightening: nose at the start, centre line through the middle of the traced width.
+  const valid = mid.filter((_, k) => sMax[k] > sMin[k]), midS = valid.reduce((a, v) => a + v, 0) / Math.max(1, valid.length);
+  const noseAtMin = order[0] < order[order.length - 1], sgn = noseAtMin ? 1 : -1, tNose = noseAtMin ? tMin : tMax;
+  const frame: Frame = {ox: cx + ax * tNose + px * midS, oy: cy + ay * tNose + py * midS, dx: ax * sgn, dy: ay * sgn, len, half: maxHalf};
+  return {ok: true, outline: {v: 1, hw}, edge: [...left, ...right.reverse()], frame, aspect, w, h};
 }
 
 /** Interpolated half-width fraction at u (0 nose, 1 tail). */
@@ -110,17 +116,55 @@ export function halfAt(o: Outline, u: number) {
 
 export const outlineKey = (o: Outline) => o.hw.reduce((s, v) => (s * 31 + Math.round(v * 1e4)) >>> 0, 7).toString(36);
 
+/** Max stored size of the deck texture, in characters of the data URL. */
+export const TEX_MAX = 300_000;
+export const TEX_PREFIX = 'data:image/jpeg;base64,';
+
+/** Width in inches from the traced shape: the photo's length-to-width ratio applied to the entered length. */
+export const widthFromTrace = (lengthIn: number, aspect: number) => lengthIn / aspect;
+
+/** Planform area as a fraction of length squared (both halves). */
+export const planformArea = (o: Outline) => { let a = 0; for (let i = 0; i < o.hw.length - 1; i++) a += (o.hw[i] + o.hw[i + 1]); return a / (o.hw.length - 1); };
+
+/** Rough volume in litres: planform area times thickness times a foam-profile factor. An estimate only; real volume depends on rocker, rails and bottom contour. */
+export function estimateVolume(o: Outline, lengthIn: number, thicknessIn: number) {
+  return Math.round(planformArea(o) * lengthIn * lengthIn * thicknessIn * 0.016387 * 0.72 * 10) / 10;
+}
+
+/** Straighten and crop the board from the photo: nose at the left, centre line horizontal, bilinear. Returns RGBA pixels. Works in Node and the browser. */
+export function straighten(rgba: Uint8ClampedArray | Uint8Array, w: number, h: number, f: Frame, outW: number): {data: Uint8ClampedArray; w: number; h: number} {
+  const ow = Math.max(16, Math.round(outW)), oh = Math.max(16, Math.round(ow * (2 * f.half) / f.len));
+  const out = new Uint8ClampedArray(ow * oh * 4), nx = -f.dy, ny = f.dx;
+  for (let r = 0; r < oh; r++) for (let c = 0; c < ow; c++) {
+    const t = ((c + 0.5) / ow) * f.len, s = ((r + 0.5) / oh - 0.5) * 2 * f.half;
+    const x = Math.min(w - 1.001, Math.max(0, f.ox + f.dx * t + nx * s)), y = Math.min(h - 1.001, Math.max(0, f.oy + f.dy * t + ny * s));
+    const x0 = x | 0, y0 = y | 0, fx = x - x0, fy = y - y0, o = (r * ow + c) * 4;
+    for (let k = 0; k < 3; k++) {
+      const a = rgba[(y0 * w + x0) * 4 + k], b = rgba[(y0 * w + x0 + 1) * 4 + k], d = rgba[((y0 + 1) * w + x0) * 4 + k], e = rgba[((y0 + 1) * w + x0 + 1) * 4 + k];
+      out[o + k] = (a * (1 - fx) + b * fx) * (1 - fy) + (d * (1 - fx) + e * fx) * fy;
+    }
+    out[o + 3] = 255;
+  }
+  return {data: out, w: ow, h: oh};
+}
+
+/** Scale a frame measured on the traced (small) image to a larger copy of the same photo. */
+export const scaleFrame = (f: Frame, k: number): Frame => ({ox: f.ox * k, oy: f.oy * k, dx: f.dx, dy: f.dy, len: f.len * k, half: f.half * k});
+
 function readAll(): Record<string, unknown> {
   try { const v = JSON.parse(localStorage.getItem(OUTLINES_KEY) ?? '{}'); return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; } catch { return {}; }
 }
 export function loadOutline(id: string): Outline | null {
   const r = readAll()[id] as {v?: unknown; hw?: unknown} | undefined;
   if (!r || r.v !== 1 || !Array.isArray(r.hw) || r.hw.length !== STATIONS || !r.hw.every((x) => typeof x === 'number' && x >= 0 && x < 0.5)) return null;
-  return {v: 1, hw: r.hw as number[]};
+  const tex = (r as {tex?: unknown}).tex;
+  return {v: 1, hw: r.hw as number[], ...(typeof tex === 'string' && tex.startsWith(TEX_PREFIX) && tex.length <= TEX_MAX ? {tex} : {})};
 }
-export function saveOutline(id: string, o: Outline | null) {
+/** Returns false when the browser refused the write (private mode, quota); the outline then stays for this session only. */
+export function saveOutline(id: string, o: Outline | null): boolean {
   try {
     const all = readAll(); if (o) all[id] = o; else delete all[id];
     localStorage.setItem(OUTLINES_KEY, JSON.stringify(all));
-  } catch { /* storage unavailable: the outline stays for this session only */ }
+    return true;
+  } catch { return false; }
 }

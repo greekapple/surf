@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useId, useRef, useState, type KeyboardEvent} from 'react';
+import {Icon} from '../../ui/Icon';
 import type {Surfboard} from '../../models/index';
 import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
@@ -7,9 +8,10 @@ import {loadOutline} from './outline';
 import {tracedTpl} from './traced';
 import {Studio, type BoardEntry, type Mode, type Preset} from './studio';
 
-export interface Dims {length: number; width: number; thickness: number; volume: number}
-type Step = 'board' | 'dims' | 'color' | 'finish' | 'fins' | 'view';
-const STEPS: {id: Step; label: string}[] = [{id: 'board', label: 'Board'}, {id: 'dims', label: 'Dimensions'}, {id: 'color', label: 'Color'}, {id: 'finish', label: 'Finish'}, {id: 'fins', label: 'Fins'}, {id: 'view', label: 'View'}];
+import {SpecCard, StageArrows, Strip, type Dims} from './Overlay';
+export type {Dims};
+type Step = 'dims' | 'color' | 'finish' | 'fins' | 'view';
+const STEPS: {id: Step; label: string}[] = [{id: 'dims', label: 'Dimensions'}, {id: 'color', label: 'Color'}, {id: 'finish', label: 'Finish'}, {id: 'fins', label: 'Fins'}, {id: 'view', label: 'View'}];
 const PRESETS: {id: Preset; label: string}[] = [{id: 'deck', label: 'Deck'}, {id: 'bottom', label: 'Bottom'}, {id: 'rail', label: 'Rail'}, {id: 'tail', label: 'Tail'}, {id: '360', label: '360'}];
 const FINISHES: {id: Finish; label: string; hint: string}[] = [{id: 'gloss', label: 'Gloss', hint: 'Polished resin'}, {id: 'matte', label: 'Matte', hint: 'Sanded satin'}, {id: 'clear', label: 'Clear', hint: 'Natural foam'}];
 const FIN_SETS: {id: FinSet; label: string; hint: string}[] = [{id: 'single', label: 'Single', hint: '1 fin'}, {id: 'twin', label: 'Twin', hint: '2 fins'}, {id: 'thruster', label: 'Thruster', hint: '3 fins'}, {id: 'none', label: 'None', hint: 'No fins'}];
@@ -31,7 +33,6 @@ interface Props {
   boards: Surfboard[];
   onSelect: (id: string) => void;
   onSave: (b: Surfboard) => void;
-  onLive: (d: (Dims & {id: string}) | null) => void;
   onFail: () => void;
 }
 
@@ -67,17 +68,16 @@ function Slider({id, label, value, min, max, step, text, onChange}: {id: string;
   );
 }
 
-export default function Showroom({board, boards, onSelect, onSave, onLive, onFail}: Props) {
+export default function Showroom({board, boards, onSelect, onSave, onFail}: Props) {
   const uid = useId();
   const host = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), studio = useRef<Studio | null>(null);
   const [state, setState] = useState(() => ({id: board.id, dims: pick(board), look: loadLook(board)}));
   if (state.id !== board.id) setState({id: board.id, dims: pick(board), look: loadLook(board)});
   const {dims, look} = state;
-  const [step, setStep] = useState<Step>('board');
+  const [step, setStep] = useState<Step>('dims');
   const [preset, setPreset] = useState<Preset>('deck');
   const [mode, setModeState] = useState<Mode>('lineup');
   const [room, setRoom] = useState(false);
-  const [framing, setFraming] = useState<'sel' | 'all'>('all');
   const [spin, setSpin] = useState(false);
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState('');
@@ -101,15 +101,11 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
   useEffect(() => {
     const entries: BoardEntry[] = boards.map((b) => {
       const mine = b.id === board.id, tpl = mine ? template : templateFor(b), o = loadOutline(b.id), tr = o ? tracedTpl(b.id, tpl, o) : null;
-      return {id: b.id, spec: mine ? {template: tpl, ...dims} : {template: tpl, length: b.length, width: b.width, thickness: b.thickness, volume: b.volume}, look: mine ? look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {})};
+      return {id: b.id, spec: mine ? {template: tpl, ...dims} : {template: tpl, length: b.length, width: b.width, thickness: b.thickness, volume: b.volume}, look: mine ? look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {})};
     });
     if (!entries.some((e) => e.id === board.id)) return;
     void studio.current?.setBoards(entries, board.id);
   }, [boards, board.id, template, dims.length, dims.width, dims.thickness, dims.volume, look]);
-
-  // Live numbers for the spec card.
-  useEffect(() => { onLive({id: board.id, ...dims}); }, [board.id, dims.length, dims.width, dims.thickness, dims.volume]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => () => onLive(null), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Save dimension edits through the board save path once they settle.
   const maxVol = dims.length * dims.width * dims.thickness * 0.016387;
@@ -133,56 +129,54 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
   };
   const setMode = (m: Mode) => {
     if (m === mode) return;
-    setModeState(m); studio.current?.setMode(m); setPreset('deck'); setFraming('all'); setSpin(m === 'focus' && !noMotion);
+    setModeState(m); studio.current?.setMode(m); setPreset('deck'); setSpin(m === 'focus' && !noMotion);
     setStatus(m === 'focus' ? `Focus: ${board.name}` : 'Lineup: all boards');
   };
-  const frame = (f: 'sel' | 'all') => { setFraming(f); studio.current?.frame(f); setStatus(f === 'all' ? 'Whole rack in view' : `${board.name} in view`); };
+  const steps = STEPS.filter((x) => x.id !== 'view' || mode === 'focus');
+  const stepId = steps.some((x) => x.id === step) ? step : 'dims';
   const rack = [...boards].sort((a, b) => a.length - b.length || (a.id < b.id ? -1 : 1));
   const toggleSpin = () => { const on = !spin; setSpin(on); studio.current?.setSpin(on); };
+  const stepBoard = (d: -1 | 1) => {
+    const i = rack.findIndex((b) => b.id === board.id), n = rack[(i + d + rack.length) % rack.length];
+    if (n) { onSelect(n.id); setStatus(`${n.name} selected`); }
+  };
   const onKeys = (e: KeyboardEvent) => {
     const s = studio.current; if (!s) return;
-    if (mode === 'lineup' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
-      e.preventDefault(); const i = rack.findIndex((b) => b.id === board.id), n = rack[(i + (e.key === 'ArrowRight' ? 1 : -1) + rack.length) % rack.length];
-      if (n) { onSelect(n.id); setStatus(`${n.name} selected`); }
-      return;
-    }
+    if (mode === 'lineup' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { e.preventDefault(); stepBoard(e.key === 'ArrowRight' ? 1 : -1); return; }
     const k = e.key, map: Record<string, [number, number, number]> = {ArrowLeft: [-0.16, 0, 1], ArrowRight: [0.16, 0, 1], ArrowUp: [0, 0.1, 1], ArrowDown: [0, -0.1, 1], '+': [0, 0, 0.9], '=': [0, 0, 0.9], '-': [0, 0, 1.1]};
     if (map[k]) { e.preventDefault(); s.nudge(...map[k]); setSpin(false); s.setSpin(false); }
   };
   const tabKeys = (e: KeyboardEvent) => {
-    const i = STEPS.findIndex((s) => s.id === step);
-    const n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? STEPS.length - 1 : -1;
+    const i = steps.findIndex((s) => s.id === stepId);
+    const n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? steps.length - 1 : -1;
     if (n < 0) return;
-    e.preventDefault(); const next = STEPS[(n + STEPS.length) % STEPS.length].id; setStep(next);
+    e.preventDefault(); const next = steps[(n + steps.length) % steps.length].id; setStep(next);
     document.getElementById(`${uid}-t-${next}`)?.focus();
   };
 
+  const toggle = (
+    <button type="button" className="qv-cta" onClick={() => setMode(mode === 'lineup' ? 'focus' : 'lineup')}>
+      {mode === 'lineup' ? <>View in 3D <Icon name="arrow" size={18} style={{transform: 'rotate(90deg)'}} /></> : <>Back to showroom</>}
+    </button>
+  );
   return (
     <div className="qv-studio">
-      <div className={`qv-stage${room && mode === 'lineup' ? ' qv-room' : ''}`} ref={host}>
-        <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={mode === 'lineup'
-          ? `Showroom rack of ${boards.length} boards at true relative scale. ${board.name} is selected. Left and right arrows choose another board, plus and minus zoom.`
-          : `3D view of ${board.name}, an approximate ${board.type.toLowerCase()} shape. Arrow keys turn the board, plus and minus zoom.`} />
-        {!ready && <p className="qv-loading" role="status">Loading the board…</p>}
-        <div className="qv-mode" role="group" aria-label="Showroom view">
-          <button type="button" aria-pressed={mode === 'lineup'} onClick={() => setMode('lineup')}>Lineup</button>
-          <button type="button" aria-pressed={mode === 'focus'} onClick={() => setMode('focus')}>Focus</button>
+      <div className={`qv-stagewrap${mode === 'focus' ? ' focus' : ''}`}>
+        <div className={`qv-stage${room && mode === 'lineup' ? ' qv-room' : ''}`} ref={host}>
+          <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={mode === 'lineup'
+            ? `Showroom rack of ${boards.length} boards at true relative scale. ${board.name} is selected. Left and right arrows choose another board, plus and minus zoom.`
+            : `3D view of ${board.name}, an approximate ${board.type.toLowerCase()} shape. Arrow keys turn the board, plus and minus zoom.`} />
+          {!ready && <div className="qv-loading skel" aria-hidden="true"><i style={{height: '60%', width: '60%', margin: 'auto'}} /></div>}
+          {mode === 'focus' && <p className="qv-hint" aria-hidden="true">{noMotion ? 'Drag to turn' : 'Drag to turn · scroll to zoom'}</p>}
+          <p className="sr-only" role="status" aria-live="polite">{status}</p>
         </div>
-        <p className="qv-hint" aria-hidden="true">{mode === 'lineup' ? 'Tap a board to select it' : noMotion ? 'Drag to turn' : 'Drag to turn · scroll to zoom'}</p>
-        <p className="sr-only" role="status" aria-live="polite">{status}</p>
+        <StageArrows onStep={stepBoard} />
+        <SpecCard board={board} dims={dims} action={toggle} />
       </div>
+      <Strip boards={boards} selectedId={board.id} onSelect={onSelect} />
       <div className="qv-bar">
-        <div id={`${uid}-p-${step}`} className="qv-opts" role="tabpanel" aria-labelledby={`${uid}-t-${step}`}>
-          {step === 'board' && (
-            <div className="qv-row-o" role="group" aria-label="Choose a board">
-              {boards.map((b) => (
-                <button key={b.id} type="button" className="qv-pick" aria-pressed={b.id === board.id} onClick={() => onSelect(b.id)}>
-                  <b>{b.name}</b><span>{b.type} · {lengthLabel(b.length)}{b.demo ? ' · example' : ''}</span>
-                </button>
-              ))}
-            </div>
-          )}
-          {step === 'dims' && (
+        <div id={`${uid}-p-${stepId}`} className="qv-opts" role="tabpanel" aria-labelledby={`${uid}-t-${stepId}`}>
+          {stepId === 'dims' && (
             <div className="qv-dims">
               {(Object.keys(LIMITS) as (keyof Dims)[]).map((k) => {
                 const L = LIMITS[k];
@@ -191,7 +185,7 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
               <p className={`qv-note${valid ? '' : ' warn'}`} role="status">{valid ? (changed ? 'Saving to this board…' : 'Changes save to this board.') : `Not saved yet: volume has to fit the dimensions (up to ${maxVol.toFixed(1)} L here).`}</p>
             </div>
           )}
-          {step === 'color' && (
+          {stepId === 'color' && (
             <div className="qv-color">
               <Swatches label="Deck" value={look.deck} onPick={(hex) => setLook({deck: hex, finish: look.finish === 'clear' ? 'gloss' : look.finish})} />
               <Swatches label="Bottom" value={look.bottom} onPick={(hex) => setLook({bottom: hex, finish: look.finish === 'clear' ? 'gloss' : look.finish})} />
@@ -202,7 +196,7 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
               </div>
             </div>
           )}
-          {step === 'finish' && (
+          {stepId === 'finish' && (
             <div className="qv-color">
               <div className="qv-group" role="group" aria-label="Finish">
                 <span className="qv-group-l">Finish</span>
@@ -218,30 +212,25 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
               </div>
             </div>
           )}
-          {step === 'fins' && (
+          {stepId === 'fins' && (
             <div className="qv-row-o" role="group" aria-label="Fin setup">
               {FIN_SETS.map((f) => (
                 <button key={f.id} type="button" className="qv-pick" aria-pressed={look.fins === f.id} onClick={() => setLook({fins: f.id})}><b>{f.label}</b><span>{f.hint}</span></button>
               ))}
             </div>
           )}
-          {step === 'view' && (mode === 'focus' ? (
+          {stepId === 'view' && (
             <div className="qv-row-o" role="group" aria-label="Camera view">
               {PRESETS.map((p) => (
                 <button key={p.id} type="button" className="qv-pick" aria-pressed={preset === p.id} onClick={() => go(p.id)}><b>{p.label}</b></button>
               ))}
               <button type="button" className="qv-pick" aria-pressed={spin} disabled={noMotion} onClick={toggleSpin}><b>Auto-spin</b><span>{noMotion ? 'Off: reduced motion' : spin ? 'On' : 'Off'}</span></button>
             </div>
-          ) : (
-            <div className="qv-row-o" role="group" aria-label="Camera view">
-              <button type="button" className="qv-pick" aria-pressed={framing === 'sel'} onClick={() => frame('sel')}><b>Selected board</b><span>Glide to {board.name}</span></button>
-              <button type="button" className="qv-pick" aria-pressed={framing === 'all'} onClick={() => frame('all')}><b>Whole rack</b><span>All {boards.length} boards</span></button>
-            </div>
-          ))}
+          )}
         </div>
         <div className="qv-steps" role="tablist" aria-label="Configure your board" onKeyDown={tabKeys}>
-          {STEPS.map((s, i) => (
-            <button key={s.id} id={`${uid}-t-${s.id}`} type="button" role="tab" aria-selected={step === s.id} aria-controls={`${uid}-p-${s.id}`} tabIndex={step === s.id ? 0 : -1} onClick={() => setStep(s.id)}>
+          {steps.map((s, i) => (
+            <button key={s.id} id={`${uid}-t-${s.id}`} type="button" role="tab" aria-selected={stepId === s.id} aria-controls={`${uid}-p-${s.id}`} tabIndex={stepId === s.id ? 0 : -1} onClick={() => setStep(s.id)}>
               <span className="qv-n" aria-hidden="true">{i + 1}</span>{s.label}
             </button>
           ))}
