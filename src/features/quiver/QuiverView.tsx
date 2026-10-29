@@ -8,60 +8,63 @@ import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
 import {titleCase} from '../forecast/model';
 import {inches} from './format';
-import {loadOutline, saveOutline, type Outline} from './outline';
-import {TraceTool} from './TraceTool';
-import type {Dims} from './Showroom';
+import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
+import {BoardOutline} from './BoardOutline';
+import {SpecCard, StageArrows, Strip} from './Overlay';
+import {ScanPanel, type Scan} from './ScanPanel';
 import './quiver.css';
 
 // three.js and the board models load only when the Showroom opens.
 const Showroom = lazy(() => import('./Showroom'));
 
-/** Category outline drawn to the board's real length and width. Not an exact shape. */
-export function BoardOutline({b, scale = 3.4, color = 'var(--board-a)'}: {b: Pick<Surfboard, 'length' | 'width' | 'type'>; scale?: number; color?: string}) {
-  const L = b.length * scale, W = b.width * scale, t = b.type;
-  const nose = t === 'Longboard' || t === 'Funboard' || t === 'Soft-top' ? 0.62 : t === 'Fish' || t === 'Midlength' || t === 'Hybrid' || t === 'Groveler' ? 0.42 : 0.2;
-  const tail = t === 'Gun' || t === 'Step-up' ? 0.22 : t === 'Fish' ? 0.68 : 0.5;
-  const wide = t === 'Fish' ? 0.55 : t === 'Gun' ? 0.42 : 0.48;
-  const hw = W / 2, cx = hw, y = (f: number) => f * L;
-  const right = `M${cx},0 C${cx + hw * nose},${y(0.02)} ${cx + hw},${y(wide - 0.22)} ${cx + hw},${y(wide)} C${cx + hw},${y(wide + 0.28)} ${cx + hw * tail * 1.25},${y(0.93)} ${cx + hw * tail},${L}`;
-  const swallow = t === 'Fish' ? `L${cx},${L - W * 0.18}` : '';
-  const left = `L${cx - hw * tail},${L} C${cx - hw * tail * 1.25},${y(0.93)} ${cx - hw},${y(wide + 0.28)} ${cx - hw},${y(wide)} C${cx - hw},${y(wide - 0.22)} ${cx - hw * nose},${y(0.02)} ${cx},0Z`;
-  return (
-    <svg className="outline-svg" width={W + 2} height={L + 2} viewBox={`-1 -1 ${W + 2} ${L + 2}`} role="img" aria-label={`${b.type} outline, ${lengthLabel(b.length)} by ${b.width} inches, category approximation`}>
-      <path d={`${right} ${swallow} ${left}`} fill={color} fillOpacity={0.92} stroke="var(--board-line)" />
-      <line x1={cx} x2={cx} y1={4} y2={L - 4} stroke="var(--board-line)" strokeOpacity={0.6} />
-    </svg>
-  );
-}
-
 const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortboard' as BoardType, length: `6'0"`, width: '19 1/4', thickness: '2 1/2', volume: '30', fins: 'Thruster', tail: '', notes: ''};
+type Path = 'dims' | 'scan';
+const eighth = (n: number) => String(Math.round(n * 8) / 8);
 
 function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void}) {
   const [f, setF] = useState(() => initial ? {name: initial.name, manufacturer: initial.manufacturer, model: initial.model, type: initial.type,
     length: `${Math.floor(initial.length / 12)}'${+(initial.length % 12).toFixed(2)}"`, width: String(initial.width), thickness: String(initial.thickness),
     volume: String(initial.volume), fins: initial.fins ?? '', tail: initial.tail ?? '', notes: initial.notes ?? ''} : emptyForm);
   const [err, setErr] = useState('');
-  const [outline, setOutline] = useState<Outline | null>(() => (initial ? loadOutline(initial.id) : null));
+  const saved = initial ? loadOutline(initial.id) : null;
+  const [path, setPath] = useState<Path>(saved ? 'scan' : 'dims');
+  // aspect 0 marks an outline loaded from storage: its width and volume are the saved numbers, not re-derived.
+  const [scan, setScan] = useState<Scan | null>(saved ? {outline: saved, aspect: 0} : null);
+  const [touched, setTouched] = useState({width: !!initial, volume: !!initial});
+  const lengthIn = parseDimension(f.length, true), derive = path === 'scan' && !!scan && scan.aspect > 0;
+  const width = derive && !touched.width && Number.isFinite(lengthIn) ? eighth(widthFromTrace(lengthIn, scan.aspect)) : f.width;
+  const estimating = derive && !touched.volume && Number.isFinite(lengthIn);
+  const volume = estimating ? String(estimateVolume(scan.outline, lengthIn, parseDimension(f.thickness))) : f.volume;
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    const length = parseDimension(f.length, true), width = parseDimension(f.width), thickness = parseDimension(f.thickness), volume = Number(f.volume);
+    const length = parseDimension(f.length, true), w = parseDimension(width), thickness = parseDimension(f.thickness), vol = Number(volume);
     if (!f.name.trim()) return setErr('Give the board a name.');
-    if (!validDimensions(length, width, thickness, volume)) return setErr(`Check the dimensions: length like 6'0", width and thickness in inches (fractions allowed), volume in litres that fits those dimensions.`);
-    const id = initial?.id ?? crypto.randomUUID();
-    saveOutline(id, outline);
+    if (!validDimensions(length, w, thickness, vol)) return setErr(`Check the dimensions: length like 6'0", width and thickness in inches (fractions allowed), volume in litres that fits those dimensions.`);
+    const id = initial?.id ?? crypto.randomUUID(), o = path === 'scan' ? scan?.outline ?? null : null;
+    if (!saveOutline(id, o) && o?.tex) saveOutline(id, {v: 1, hw: o.hw});
     onSave({...(initial ?? {favorite: false}), id, name: f.name.trim(), manufacturer: f.manufacturer.trim(), model: f.model.trim(), type: f.type,
-      length, width, thickness, volume, fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false, specificationSource: 'Entered by you'});
+      length, width: w, thickness, volume: vol, fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false,
+      specificationSource: path === 'scan' && scan ? (estimating ? 'From your photo (volume estimated)' : 'From your photo') : 'Entered by you'});
   };
   const field = (k: keyof typeof f, label: string, extra = {}) => <label className="field"><span>{label}</span><input value={f[k]} onChange={(e) => setF({...f, [k]: e.target.value})} {...extra} /></label>;
   return (
     <form className="card qv-form" onSubmit={submit} aria-label={initial ? 'Edit board' : 'Add board'}>
-      <div className="card-h"><h2>{initial ? `Edit ${initial.name}` : 'Add a board'}</h2><span>Use the numbers on the stringer or from the shaper</span></div>
+      <div className="card-h"><h2>{initial ? `Edit ${initial.name}` : 'Add a board'}</h2></div>
+      <div className="qv-paths" role="radiogroup" aria-label="How to add the board">
+        <button type="button" role="radio" aria-checked={path === 'scan'} onClick={() => setPath('scan')}><b>Scan a board photo</b><span>Your board's real outline and deck</span></button>
+        <button type="button" role="radio" aria-checked={path === 'dims'} onClick={() => setPath('dims')}><b>Enter dimensions</b><span>From the stringer or the shaper</span></button>
+      </div>
       <div className="form-grid">
         {field('name', 'Name', {required: true, maxLength: 40})}{field('manufacturer', 'Shaper / brand')}{field('model', 'Model')}
         <label className="field"><span>Type</span><select value={f.type} onChange={(e) => setF({...f, type: e.target.value as BoardType})}>{boardTypes.map((t) => <option key={t}>{t}</option>)}</select></label>
-        {field('length', `Length (e.g. 6'0")`)}{field('width', 'Width (in)')}{field('thickness', 'Thickness (in)')}{field('volume', 'Volume (L)', {inputMode: 'decimal'})}{field('fins', 'Fins')}{field('tail', 'Tail')}
+        {field('length', `Length (e.g. 6'0")`)}
+        <label className="field"><span>Width (in){derive && !touched.width ? ' · from photo' : ''}</span><input value={width} onChange={(e) => { setF({...f, width: e.target.value}); setTouched({...touched, width: true}); }} /></label>
+        {field('thickness', 'Thickness (in)')}
+        <label className="field"><span>{estimating ? 'Volume (L) · estimate' : 'Volume (L)'}</span><input value={volume} inputMode="decimal" onChange={(e) => { setF({...f, volume: e.target.value}); setTouched({...touched, volume: true}); }} /></label>
+        {field('fins', 'Fins')}{field('tail', 'Tail')}
       </div>
-      <TraceTool lengthText={f.length} widthIn={parseDimension(f.width)} value={outline} onChange={setOutline} />
+      {path === 'scan' && <ScanPanel lengthText={f.length} value={scan} onChange={(s) => { setScan(s); if (s) setTouched({width: false, volume: false}); }} />}
+      {estimating && <p className="fine">Volume is an estimate from the outline and thickness. Replace it with the number on the board if you have it.</p>}
       <label className="field" style={{marginTop: 12}}><span>Notes</span><textarea value={f.notes} onChange={(e) => setF({...f, notes: e.target.value})} /></label>
       {err && <p role="alert" style={{color: 'var(--warn)', marginTop: 8}}>{err}</p>}
       <div style={{display: 'flex', gap: 8, marginTop: 12}}><button className="btn primary" type="submit">Save board</button><button className="btn" type="button" onClick={onCancel}>Cancel</button></div>
@@ -81,7 +84,6 @@ export function QuiverView({section, go}: ViewProps) {
   const boards = data.state.boards, p = data.state.profile;
   const [editing, setEditing] = useState<Surfboard | 'new' | null>(null);
   const [confirmDel, setConfirmDel] = useState(false);
-  const [live, setLive] = useState<(Dims & {id: string}) | null>(null);
   const [flat, setFlat] = useState(false);
   const [cmp, setCmp] = useState<[string, string]>([boards[0]?.id ?? '', boards[1]?.id ?? boards[0]?.id ?? '']);
   const sel = boards.find((b) => b.id === prefs.selectedBoardId) ?? boards[0];
@@ -94,7 +96,7 @@ export function QuiverView({section, go}: ViewProps) {
   if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />Add your first board</button>} />;
 
   const t = TITLES[section] ?? TITLES[''];
-  const traced = !!(sel && loadOutline(sel.id));
+  const outline = sel ? loadOutline(sel.id) : null, traced = !!outline;
   const maxLen = Math.max(...boards.map((b) => b.length));
   const idx = sel ? boards.findIndex((b) => b.id === sel.id) : 0;
   const step = (d: number) => select(boards[(idx + d + boards.length) % boards.length].id);
@@ -105,14 +107,6 @@ export function QuiverView({section, go}: ViewProps) {
         : <button className="btn danger" onClick={() => { data.deleteBoard(b.id); setConfirmDel(false); }}>Confirm delete {b.name}</button>}
     </div>
   );
-  const tag = (b: Surfboard) => b.demo ? <span className="chip demo">Example board</span> : <span className="fine">{b.specificationSource ?? ''}</span>;
-  const specs = (b0: Surfboard) => { const b = live && live.id === b0.id ? {...b0, ...live} : b0; return (
-    <dl className="qv-specs">
-      <div><dt>Length</dt><dd>{lengthLabel(b.length)}</dd></div><div><dt>Width</dt><dd>{inches(b.width)}</dd></div>
-      <div><dt>Thickness</dt><dd>{inches(b.thickness)}</dd></div><div><dt>Volume</dt><dd>{+b.volume.toFixed(1)} L</dd></div>
-    </dl>
-  ); };
-
   return (
     <div className="qv">
       <header className="qv-head">
@@ -142,41 +136,31 @@ export function QuiverView({section, go}: ViewProps) {
       {section === 'showroom' && sel && (
         <section className="qv-show" aria-label="Board showroom">
           {flat ? (
-            <>
-              <p className="fine" role="status">The 3D view is not available on this device, so boards are shown as flat outlines.</p>
-              <div className="qv-lineup" role="group" aria-label="Boards lined up at the same scale">
-                <button className="qv-arrow l" aria-label="Previous board" onClick={() => step(-1)}><Icon name="chevron" size={22} /></button>
-                <div className="qv-row">{boards.map((b) => (
-                  <button key={b.id} className="qv-stand" aria-pressed={b.id === sel.id} aria-label={`${b.name}, ${lengthLabel(b.length)}`} onClick={() => select(b.id)}>
-                    <BoardOutline b={b} scale={Math.min(6, 430 / maxLen)} />
-                  </button>
-                ))}</div>
-                <button className="qv-arrow r" aria-label="Next board" onClick={() => step(1)}><Icon name="chevron" size={22} /></button>
+            <div className="qv-studio flat">
+              <p className="fine qv-flat-note" role="status">The 3D view is not available on this device, so boards are shown as flat outlines.</p>
+              <div className="qv-stagewrap">
+                <div className="qv-lineup" role="group" aria-label="Boards lined up at the same scale">
+                  <div className="qv-row">{boards.map((b) => (
+                    <button key={b.id} className="qv-stand" aria-pressed={b.id === sel.id} aria-label={`${b.name}, ${lengthLabel(b.length)}`} onClick={() => select(b.id)}>
+                      <BoardOutline b={b} scale={Math.min(6, 430 / maxLen)} />
+                    </button>
+                  ))}</div>
+                  <StageArrows onStep={step} />
+                </div>
+                <SpecCard board={sel} dims={sel} action={null} />
               </div>
-            </>
+              <Strip boards={boards} selectedId={sel.id} onSelect={select} />
+            </div>
           ) : (
-            <Suspense fallback={<div className="qv-studio"><div className="qv-stage"><p className="qv-loading" role="status">Loading the showroom…</p></div></div>}>
-              <Showroom board={sel} boards={boards} onSelect={select} onSave={data.saveBoard} onLive={setLive} onFail={() => setFlat(true)} />
+            <Suspense fallback={<div className="qv-studio"><div className="qv-stage"><div className="skel" aria-hidden="true"><i style={{height: 240}} /></div></div></div>}>
+              <Showroom board={sel} boards={boards} onSelect={select} onSave={data.saveBoard} onFail={() => setFlat(true)} />
             </Suspense>
           )}
-          <div className="qv-info">
-            <div className="qv-info-main">
-              <h2>{sel.name}</h2>
-              <p className="fine">{[sel.manufacturer, sel.model].filter(Boolean).join(' · ') || 'Shaper not recorded'}</p>
-              <div className="qv-tags"><span className="chip">{sel.type}</span>{sel.fins && <span className="chip">{sel.fins}</span>}{sel.tail && <span className="chip">{sel.tail} tail</span>}{tag(sel)}{traced && <span className="chip">Traced from your photo</span>}</div>
-              {sel.notes && <p className="fine">{sel.notes}</p>}
-            </div>
-            <div className="qv-info-spec">
-              {specs(sel)}
-              <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
-            </div>
+          <div className="qv-showbar">
+            <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
+            {sel.notes && <p className="fine">{sel.notes}</p>}
           </div>
-          <p className="fine">{sel.demo ? 'Example board. ' : ''}{traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>
-          {flat && (
-          <ul className="qv-strip" aria-label="Choose a board">{boards.map((b) => (
-            <li key={b.id}><button aria-pressed={b.id === sel.id} aria-label={b.name} title={b.name} onClick={() => select(b.id)}><BoardOutline b={b} scale={64 / maxLen} /></button></li>
-          ))}</ul>
-          )}
+          <p className="fine">{sel.demo ? 'Example board. ' : ''}{outline?.tex ? `The deck is your photo of the board; the outline is traced from it. Rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>
         </section>
       )}
 
