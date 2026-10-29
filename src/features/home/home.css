@@ -101,7 +101,6 @@
 .spots { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); }
 .spots li { position: relative; display: grid; align-content: start; gap: 14px; padding-bottom: 16px; border-radius: 8px; background: var(--s1); border: 1px solid var(--line); overflow: hidden; }
 .spots .shot.portrait { aspect-ratio: 5 / 4; }
-.spots li:hover .shot img.ready { transform: scale(1.03); }
 .spot-link { display: grid; gap: 6px; padding: 0 18px; border: 0; background: none; color: var(--text); text-align: left; cursor: pointer; }
 .spot-link::before { content: ''; position: absolute; inset: 0; }
 .spot-link h3 { display: flex; align-items: center; gap: 8px; font: 700 clamp(24px, 2vw, 30px)/1.05 var(--display); }
@@ -132,7 +131,6 @@
 .fav-card .shot::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(5 12 18 / 0.35) 0, rgb(5 12 18 / 0) 26%, rgb(5 12 18 / 0.1) 46%, rgb(5 12 18 / 0.9) 100%); }
 .fav-card .shot .credit { inset: 16px 16px auto auto; font-size: 10px; opacity: 0.85; }
 .fav-card:hover { border-color: var(--line-2); }
-.fav-card:hover .shot img.ready { transform: scale(1.04); }
 .fav-card.on { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
 .fc-main { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; padding: 20px 20px 72px; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
 .fc-main:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; border-radius: 12px; }
