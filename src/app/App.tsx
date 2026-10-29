@@ -18,14 +18,16 @@ export default function App() {
   useThemeSync();
   const {route, navigate} = useRoute();
   const {area, section} = route;
+  // The ocean map is full-bleed under the nav; its sidebar tabs and layer panel replace the section pills.
+  const bleed = area === 'explore' && section !== 'discover';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Explore', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
     <SwelloProvider>
       <div className="shell">
         <a className="skip" href="#main">Skip to content</a>
         <TopNav area={area} section={section} go={navigate} />
-        <main id="main" className={area === 'home' ? 'page page-home' : 'page'}>
-          {area !== 'home' && <SubNav area={area} section={section} go={navigate} />}
+        <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
+          {area !== 'home' && !bleed && <SubNav area={area} section={section} go={navigate} />}
           <ErrorBoundary key={area} label={label}>
             {area === 'home' && <HomeView section={section} go={navigate} />}
             {area === 'forecast' && section !== 'wave-scale' && <ForecastView section={section} go={navigate} />}

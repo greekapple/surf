@@ -8,8 +8,17 @@
   font-style: normal;
   font-display: swap;
 }
+/* DM Serif Display (SIL OFL 1.1, public/fonts/DMSerifDisplay-OFL.txt): display headings only (greeting, spot names). */
+@font-face {
+  font-family: 'DM Serif Display';
+  src: url('/fonts/dm-serif-display-latin-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
-  /* Light is the default theme; the dark palette lives in the :root[data-theme="dark"] block below. */
+  /* Dark cinematic is the default theme (data-theme="dark" is set before first paint); light stays available. */
+  --serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
   --sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --wide: 118%;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
@@ -78,50 +87,51 @@
 }
 /* Dark palette (previous default). `.on-dark` scopes it to surfaces that are always dark (the 3D viewer). */
 :root[data-theme="dark"], .on-dark {
-  --bg: #070c11;
-  --s1: #0c141b;
-  --s2: #111c25;
-  --s3: #182632;
-  --line: rgb(255 255 255 / 0.07);
-  --line-2: rgb(255 255 255 / 0.14);
-  --text: #e8eef2;
-  --muted: #8b9aa6;
-  --dim: #8494a0; /* >= 4.5:1 on dark surfaces and chips */
+  /* Midnight Pacific: navy ground, glassy panels, photography carries the colour. */
+  --bg: #07111a;
+  --s1: #0b1822;
+  --s2: #10202c;
+  --s3: #172a38;
+  --line: rgb(255 255 255 / 0.08);
+  --line-2: rgb(255 255 255 / 0.16);
+  --text: #eef3f6;
+  --muted: #9fb0bd;
+  --dim: #8a9caa; /* >= 4.5:1 on dark surfaces and chips */
   --hs: #3d8ec7;
-  --hs-hi: #8ccfff;
+  --hs-hi: #7cc4ff;
   --sw1: #f2f8fc;
   --sw2: #6fb2e3;
   --tide: #9db5c8;
-  --good: #47c47e;
-  --good-ink: #47c47e;
-  --fair: #c7b25b;
-  --fair-ink: #c7b25b;
-  --poor: #3c4954;
-  --none: #2a343c;
+  --good: #3fbf7f;
+  --good-ink: #5fd69a;
+  --fair: #d9b84a;
+  --fair-ink: #e6c766;
+  --poor: #50606c;
+  --none: #2a3a46;
   --warn: #e0a458;
   --bad: #e07a6a;
-  --accent: #8ccfff;
-  --accent-ink: #8ccfff;
-  --bad-ink: #e07a6a;
+  --accent: #5cb3ff;
+  --accent-ink: #8ccaff;
+  --bad-ink: #f09484;
   --ch-ink: #ffffff;
   --ch-hover: rgb(255 255 255 / 0.35);
-  --ch-grid: rgb(255 255 255 / 0.04);
-  --ch-div: rgb(255 255 255 / 0.08);
-  --ch-night: rgb(0 0 0 / 0.28);
+  --ch-grid: rgb(255 255 255 / 0.05);
+  --ch-div: rgb(255 255 255 / 0.09);
+  --ch-night: rgb(0 0 0 / 0.22);
   --ch-band-fill: rgb(255 255 255 / 0.16);
   --ch-band-line: rgb(255 255 255 / 0.45);
   --ch-ring: rgb(255 255 255 / 0.14);
-  --ch-wedge: rgb(140 207 255 / 0.08);
+  --ch-wedge: rgb(92 179 255 / 0.1);
   --wind-darken: 0%;
-  --glass: rgb(7 12 17 / 0.85);
-  --tip-bg: rgb(17 28 37 / 0.96);
-  --shadow: rgb(0 0 0 / 0.45);
-  --nav-bg: rgb(7 12 17 / 0.88);
-  --tab-bg: rgb(7 12 17 / 0.94);
-  --chip-bg: rgb(255 255 255 / 0.07);
-  --stage-a: #223646;
-  --stage-b: #0c141b;
-  --map-ground: #0b2233;
+  --glass: rgb(9 20 29 / 0.78);
+  --tip-bg: rgb(16 32 44 / 0.96);
+  --shadow: rgb(0 0 0 / 0.5);
+  --nav-bg: rgb(7 17 26 / 0.72);
+  --tab-bg: rgb(7 17 26 / 0.94);
+  --chip-bg: rgb(255 255 255 / 0.08);
+  --stage-a: #1f3546;
+  --stage-b: #0a1620;
+  --map-ground: #0a1c29;
   --board-a: #f2f8fc;
   --board-line: rgb(0 0 0 / 0.35);
   color-scheme: dark;

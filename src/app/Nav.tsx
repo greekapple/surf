@@ -5,6 +5,7 @@ import {Icon} from '../ui/Icon';
 import {BAND_COLOR, band} from '../features/forecast/model';
 import {timeLabelPT} from '../features/forecast/format';
 import {ht} from '../features/forecast/helpers';
+import {resolveTheme, useThemePref} from '../ui/theme';
 
 type Go = (area: Area, section?: string) => void;
 const linkProps = (go: Go, area: Area, section = '') => ({
@@ -116,9 +117,22 @@ export function TopNav({area, section, go}: {area: Area; section: string; go: Go
       <nav aria-label="Primary"><ul className="areas">
         {AREAS.map((def) => <AreaMenu key={def.id} def={def} current={def.id === area} section={section} go={go} />)}
       </ul></nav>
-      <div className="nav-end"><DataBadge /><SpotPicker /></div>
+      <div className="nav-end"><DataBadge /><SpotPicker /><ThemeToggle /><Me go={go} /></div>
     </header>
   );
+}
+
+/** Flips between dark and light; the full System / Light / Dark choice lives in Personal › Preferences. */
+function ThemeToggle() {
+  const [pref, setPref] = useThemePref();
+  const dark = resolveTheme(pref) === 'dark';
+  return <button className="iconbtn" aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} title={dark ? 'Light theme' : 'Dark theme'} onClick={() => setPref(dark ? 'light' : 'dark')}><Icon name={dark ? 'sun' : 'moon'} size={18} /></button>;
+}
+
+function Me({go}: {go: Go}) {
+  const {data} = useSwello();
+  const first = data.state.profile.displayName?.trim().split(/\s+/)[0] || 'You';
+  return <a className="me" aria-label={`${first}: profile`} {...linkProps(go, 'personal')}><i aria-hidden="true">{first[0]?.toUpperCase()}</i><span className="me-name">{first}</span></a>;
 }
 
 export function SubNav({area, section, go}: {area: Area; section: string; go: Go}) {
