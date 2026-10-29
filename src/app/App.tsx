@@ -30,7 +30,7 @@ export default function App() {
         <a className="skip" href="#main">Skip to content</a>
         <TopNav area={area} section={section} go={navigate} />
         <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
-          {area !== 'home' && area !== 'personal' && !bleed && <SubNav area={area} section={section} go={navigate} />}
+          {area !== 'home' && area !== 'personal' && !bleed && !photoTop && <SubNav area={area} section={section} go={navigate} />}
           <ErrorBoundary key={area} label={label}>
             {area === 'home' && <HomeView section={section} go={navigate} />}
             {area === 'forecast' && section !== 'wave-scale' && <ForecastView section={section} go={navigate} />}
