@@ -130,7 +130,7 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
   const animate = !opts.reducedMotion && opts.flow;
   const resetFlow = () => {
     place(flow, Math.min(2, window.devicePixelRatio || 1));
-    const s = size(); parts = Array.from({length: Math.round(Math.min(1400, (s.x * s.y) / 700))}, spawn);
+    const s = size(); parts = Array.from({length: Math.round(Math.min(2200, (s.x * s.y) / 480))}, spawn);
   };
   const scale = field.unit === 'm/s' ? 0.16 : 0.7;
   const tick = () => {
@@ -139,7 +139,7 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
     const ctx = flow.getContext('2d')!, dpr = flow.width / size().x;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalCompositeOperation = 'destination-in'; ctx.fillStyle = 'rgb(0 0 0 / 0.86)'; ctx.fillRect(0, 0, flow.width, flow.height);
-    ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = 'rgb(255 255 255 / 0.42)'; ctx.lineWidth = 1; ctx.beginPath();
+    ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = 'rgb(255 255 255 / 0.62)'; ctx.lineWidth = 1.25; ctx.beginPath();
     for (let i = 0; i < parts.length; i++) {
       const p = parts[i], ll = map.containerPointToLatLng([p.x, p.y]), uu = sampleAll('u', ll.lat, ll.lng), vv = sampleAll('v', ll.lat, ll.lng);
       if (Number.isNaN(uu) || Number.isNaN(vv) || p.age++ > 60 || onLand(p.x, p.y)) { parts[i] = spawn(); parts[i].age = 0; continue; }

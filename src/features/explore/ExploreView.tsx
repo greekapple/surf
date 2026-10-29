@@ -67,7 +67,7 @@ function OceanMap({section, go}: ViewProps) {
   const [step, setStep] = useState(3);
   const [horizon, setHorizon] = useState(7);
   const [layersOpen, setLayersOpen] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
-  const [opts, setOpts] = useState({heat: true, flow: true, arrows: true, labels: true});
+  const [opts, setOpts] = useState({heat: true, flow: true, arrows: false, labels: true}); // flow streaks read like the reference; arrows are optional
   // Floating search panel: open on desktop, collapsed to just the search box on phones.
   const [open, setOpen] = useState(() => typeof matchMedia !== 'function' || !matchMedia('(max-width: 860px)').matches);
   const [query, setQuery] = useState('');
@@ -211,7 +211,12 @@ function OceanMap({section, go}: ViewProps) {
   const pickField = (id: FieldId) => { setFieldId(id); if (fieldSection[id] !== section) go('explore', fieldSection[id]); };
   const f = recAt(spot.id);
   const rating = f ? rateForecast(spot, f, now) : null;
-  const list = [...evidenceSpots].sort((a, b) => b.latitude - a.latitude).filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
+  // Your area first: regions ordered by their nearest spot to the selected spot, spots north to south within a region.
+  const here = evidenceSpots.find((e) => e.id === spot.id) ?? evidenceSpots[0];
+  const dist = (e: {latitude: number; longitude: number}) => Math.hypot(e.latitude - here.latitude, (e.longitude - here.longitude) * 0.8);
+  const regionRank = new Map<string, number>();
+  for (const e of evidenceSpots) regionRank.set(e.region, Math.min(regionRank.get(e.region) ?? Infinity, dist(e)));
+  const list = [...evidenceSpots].sort((a, b) => (regionRank.get(a.region)! - regionRank.get(b.region)!) || b.latitude - a.latitude).filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : spatial.loading && !frame ? 'Loading model…'
     : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${frame ? 'California 0.5°' : ''}${frame && gframe ? ' + ' : ''}${gframe ? 'global 2°' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`

@@ -14,7 +14,7 @@ const hash = (s: string) => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >
 export function SpotThumb({id, name}: {id: string; name: string}) {
   const own = ownPhoto(id);
   const src = own ?? `/photos/${GENERIC_THUMBS[hash(id) % GENERIC_THUMBS.length]}-800.jpg`;
-  return <span className="xthumbw" aria-hidden="true"><img src={src} alt="" loading="lazy" decoding="async" />{!own && <em>{initials(name)}</em>}</span>;
+  return <span className={`xthumbw${own ? '' : ' generic'}`} aria-hidden="true"><img src={src} alt="" loading="lazy" decoding="async" /></span>;
 }
 
 export function SpotRow({id, name, range, unit, category, current, highlighted, onPick, onHover}: {id: string; name: string; range: string; unit: string; category: string | null; current: boolean; highlighted: boolean; onPick: () => void; onHover: (on: boolean) => void}) {
