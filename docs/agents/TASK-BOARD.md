@@ -1,11 +1,59 @@
 # Task board
+> **Progress rule (2026-10-29):** a milestone is done only when the user has seen it working in the browser. Passing builds, tests or agent tasks are not evidence of product quality. Source: `docs/audit/2026-10-29/AUDIT.md`.
+
+## Product backlog (from the 2026-10-29 audit; audit # in brackets)
+**Confirmed defects**
+| ID | Sev | Defect | Milestone |
+|---|---|---|---|
+| D-01 | P0 | Explore wind and swell layers never load locally: browser calls ERDDAP directly (CORS) [1,3] | R1 |
+| D-02 | P0 | NDBC buoy never connects locally; a 9-day-old snapshot is shown [2,3] | R1 |
+| D-03 | P1 | Saving one of the 7 demo-only spots fails silently [5] | R2 |
+| D-04 | P1 | Home card photo credit and licence links cannot be clicked [6] | R2 |
+| D-05 | P1 | Forecast chart errors: last day → "7 days"; on mobile, opening a later day from Home [7] | R2 |
+| D-06 | P1 | Personal "Home region" stored but never used [8] | R2 |
+| D-07 | P3 | Forecast first x-axis label clipped [15] | R4 |
+
+**Incomplete features**
+| ID | Feature | State | Milestone |
+|---|---|---|---|
+| F-01 | Board Match | Always empty with live data; skill and preferred range inert [4,8] | R2 (needs the user's decision) |
+| F-02 | Quiver showroom | 2D outline, no 3D, no rotation [10] | R5 |
+| F-03 | Wave Scale | Tilted-plane "wave", mannequin, dark in both themes [11] | R6 |
+| F-04 | Backup restore | Export exists, no import | later |
+| F-05 | Surf cameras | "Planned" placeholders [14] | later (authorised feeds only) |
+
+**Visual quality**
+| ID | Problem | Milestone |
+|---|---|---|
+| V-01 | Explore: blocky 0.5° tiles over land, no legend or arrows, road basemap [9] | R3 |
+| V-02 | Forecast: long and dense (5,366 px on phone), small labels [12] | R4 |
+| V-03 | Personal: Profile tab shows every section [13] | R2 |
+| V-04 | Whole app vs the ChatGPT references: dark cinematic direction not adopted | after R2 (theme decision) |
+
+**Data dependencies**
+| ID | Dependency | Blocks |
+|---|---|---|
+| X-01 | Validated breaking-wave estimate (T-008) | Board Match, Wave Scale link, face ranges |
+| X-02 | Measured beach normals for Bolinas and Linda Mar | Spot profiles, wind relation |
+| X-03 | Licensed ocean/satellite basemap | R3 |
+
+**Unverified suspicions** (check before relying on them)
+- U-01: production `/api/grid` path and Worker deployment never verified.
+- U-02: wind grid frame times may not align with the requested hour (the proxy returned "no exact frame" for 05:00Z).
+- U-03: Explore and Quiver on mobile were only crawled, not looked at closely.
+- U-04: `color-mix` fallback untested in Safari; no Safari or Firefox testing at all.
+- U-05: what favourites holding demo-only ids do elsewhere (exports, journal).
+
+**Recovery milestones:** R1 live data locally · R2 no silent or dead controls · R3 Explore map · R4 Forecast · R5 Quiver 3D board · R6 Wave Scale. Details in AUDIT.md.
+
+## Agent task log
 States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE · BLOCKED
 
 | ID | Objective | Owner | Status | Next handoff |
 |---|---|---|---|---|
 | T-001 | Home week matrix fits a phone without sideways scrolling | frontend-engineer | COMPLETE | — |
 | T-002 | Playwright journey suite (Home → Forecast → Explore → Quiver → Personal → Wave Scale) | qa-tester | COMPLETE | — |
-| T-003 | Reference-driven visual rebuild (Phase B) | lead | BLOCKED: approved concept images not found | user |
+| T-003 | Reference-driven visual rebuild (Phase B) | lead | BLOCKED: references found 2026-10-29 (`swello-design-references/CHATGPT-REFERENCES.md`); waiting on the theme-default decision. Superseded by R3–R6 below | user |
 | T-004 | Forecast spot profiles and source audit (OB, Bolinas, Linda Mar) | architect | COMPLETE: `docs/forecast/T-004-source-audit.md` | lead |
 | T-007 | Audit plan steps 2–4: `WaveReading` contract, fix D2/D3, show CDIP SF023 at Ocean Beach | frontend-engineer | COMPLETE | — |
 | T-008 | Audit plan steps 1, 5, 6: approach, measured beach normals, validation data | user | BLOCKED: needs user decisions and data | lead |
