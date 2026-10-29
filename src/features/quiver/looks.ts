@@ -9,7 +9,7 @@ export type Template = 'shortboard' | 'fish' | 'longboard' | 'gun' | 'midlength'
 export const LOOKS_KEY = 'swello-board-looks';
 
 export const SWATCHES: {name: string; hex: string}[] = [
-  {name: 'Bone', hex: '#efe9dc'}, {name: 'Sunwash yellow', hex: '#f0c24a'}, {name: 'Coral', hex: '#e8664f'}, {name: 'Sunset orange', hex: '#e2692d'},
+  {name: 'Glassed white', hex: '#f3efe7'}, {name: 'Natural wood', hex: '#c4a17a'}, {name: 'Bone', hex: '#efe9dc'}, {name: 'Sunwash yellow', hex: '#f0c24a'}, {name: 'Coral', hex: '#e8664f'}, {name: 'Sunset orange', hex: '#e2692d'},
   {name: 'Sage', hex: '#87a07d'}, {name: 'Sea glass', hex: '#6fb5a8'}, {name: 'Pacific blue', hex: '#2f78ad'}, {name: 'Deep ocean', hex: '#143a57'},
   {name: 'Plum', hex: '#6d3b62'}, {name: 'Charcoal', hex: '#282c31'},
 ];
@@ -42,8 +42,9 @@ function finsFromText(b: Pick<Surfboard, 'fins' | 'type'>): FinSet {
 const hash = (s: string) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
 
 export function defaultLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
-  const h = hash(b.id);
-  const deck = SWATCHES[h % SWATCHES.length].hex;
+  // Shop-floor defaults (reference: Swello showcase, showroom panel): glassed white, blue resin, natural wood, bone, deep ocean.
+  const h = hash(b.id), SHOP = ['#f3efe7', '#2f78ad', '#c4a17a', '#e9e2d3', '#1d4a6b'];
+  const deck = SHOP[h % SHOP.length];
   return {deck, bottom: '#efe9dc', fade: 0.35, finish: 'gloss', tint: 'none', fins: finsFromText(b)};
 }
 

@@ -76,6 +76,7 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
   const [step, setStep] = useState<Step>('board');
   const [preset, setPreset] = useState<Preset>('deck');
   const [mode, setModeState] = useState<Mode>('lineup');
+  const [room, setRoom] = useState(false);
   const [framing, setFraming] = useState<'sel' | 'all'>('all');
   const [spin, setSpin] = useState(false);
   const [ready, setReady] = useState(false);
@@ -90,6 +91,8 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
       s = new Studio(canvas.current!, host.current!, {reducedMotion: noMotion, onUserMove: () => { setSpin(false); }, onReady: () => setReady(true), onError: onFail, onPick: (id) => pickRef.current(id)}, 'lineup');
     } catch (e) { console.error('showroom', e); onFail(); return; }
     studio.current = s;
+    // The photographed room (Cycles backplate + matching camera); without it the plain gallery stays.
+    fetch(`${import.meta.env.BASE_URL ?? '/'}showroom/room.json`).then((r) => (r.ok ? r.json() : null)).then((rm) => { if (rm && studio.current === s) { s.setRoom(rm); setRoom(true); } }).catch(() => {});
     return () => { s.dispose(); studio.current = null; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -156,7 +159,7 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
 
   return (
     <div className="qv-studio">
-      <div className="qv-stage" ref={host}>
+      <div className={`qv-stage${room && mode === 'lineup' ? ' qv-room' : ''}`} ref={host}>
         <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={mode === 'lineup'
           ? `Showroom rack of ${boards.length} boards at true relative scale. ${board.name} is selected. Left and right arrows choose another board, plus and minus zoom.`
           : `3D view of ${board.name}, an approximate ${board.type.toLowerCase()} shape. Arrow keys turn the board, plus and minus zoom.`} />

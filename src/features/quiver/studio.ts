@@ -139,7 +139,12 @@ interface Rig {
   tpl: Tpl | null; tplKey: string; resin: THREE.Mesh | null; stringer: THREE.Mesh | null;
   spec: ShapeSpec; look: Look; fillKey: string; lookKey: string; finKey: string;
   x: number; lift: number;
+  /** Room mode: height of the stand or pedestal the board rests on, and its current (gliding) x. */
+  base: number; cx: number;
 }
+
+/** Camera and stand layout exported by scripts/blender/build_showroom.py (public/showroom/room.json), in inches, Y-up. */
+export interface RoomSpec {fovY: number; position: [number, number, number]; forward: [number, number, number]; up: [number, number, number]; sunToward: [number, number, number]; slot: number; slots: number; standH: number; pedH: number}
 
 export interface StudioOptions {
   reducedMotion: boolean; onUserMove: () => void; onReady: () => void; onError: () => void;
@@ -170,6 +175,8 @@ export class Studio {
 
   private mode: Mode;
   private selectedId = '';
+  private room: RoomSpec | null = null;
+  private roomBits: THREE.Object3D[] = [];
   private framing: 'all' | 'sel' | null = 'all';
   private spinOn = false;
   private tween: Tween | null = null;
@@ -239,10 +246,12 @@ export class Studio {
       draw = true;
     }
     for (const rig of this.rigs.values()) {
-      const goal = this.mode === 'lineup' && rig.id === this.selectedId ? 3.4 : 0, d = goal - rig.lift;
+      if (!Number.isFinite(rig.cx) || this.reduced) rig.cx = rig.x;
+      const dx = rig.x - rig.cx; if (Math.abs(dx) > 0.05) { rig.cx += dx * Math.min(1, dt * 6); moving = true; draw = true; } else rig.cx = rig.x;
+      const goal = this.mode === 'lineup' && rig.id === this.selectedId && !this.room ? 3.4 : 0, d = goal - rig.lift;
       if (Math.abs(d) > 0.005) { rig.lift = this.reduced ? goal : rig.lift + d * Math.min(1, dt * 9); moving = true; draw = true; }
     }
-    if (this.controls.update()) draw = true;
+    if (!(this.room && this.mode === 'lineup') && this.controls.update()) draw = true;
     if (draw) {
       for (const rig of this.rigs.values()) this.pose(rig);
       this.renderer.render(this.scene, this.camera);
@@ -262,6 +271,15 @@ export class Studio {
   private ordered() { return [...this.rigs.values()].sort((a, b) => a.spec.length - b.spec.length || (a.id < b.id ? -1 : 1)); }
   /** Boards stand shortest to longest from the left, like a shop rack. */
   private layout() {
+    if (this.room && this.mode === 'lineup') {
+      // Selected board on the centre pedestal (inside the glass case); the rest fill the stands outward, right then left.
+      const rm = this.room, list = this.ordered(), sel = list.find((r) => r.id === this.selectedId) ?? list[0], rest = list.filter((r) => r !== sel);
+      const half = Math.floor(rm.slots / 2);
+      if (sel) { sel.x = 0; sel.base = rm.pedH; }
+      rest.forEach((r, k) => { const step = Math.floor(k / 2) + 1, side = k % 2 ? -1 : 1; r.x = side * Math.min(step, half) * rm.slot + (step > half ? side * (step - half) * rm.slot * 0.55 : 0); r.base = rm.standH; });
+      return;
+    }
+    for (const r of this.rigs.values()) r.base = 0.2;
     const list = this.ordered(), total = list.reduce((s, r) => s + r.spec.width, 0) + GAP * Math.max(0, list.length - 1);
     let x = -total / 2;
     for (const r of list) { r.x = x + r.spec.width / 2; x += r.spec.width + GAP; }
@@ -282,9 +300,10 @@ export class Studio {
       rig.shadow.scale.set(L * 1.25, rig.spec.width * 2.3, 1); mat.opacity = 0.55;
     } else {
       rig.root.visible = true;
-      rig.root.position.set(rig.x, (L / 2) * Math.cos(LEAN) + 0.2 + rig.lift, 0); rig.root.rotation.y = 0;
+      const x = Number.isFinite(rig.cx) ? rig.cx : rig.x;
+      rig.root.position.set(x, (L / 2) * Math.cos(LEAN) + rig.base + rig.lift, 0); rig.root.rotation.y = 0;
       rig.orient.quaternion.copy(Studio.UP); rig.flip.rotation.x = 0;
-      rig.shadowRoot.visible = true; rig.shadowRoot.position.set(rig.x, 0.05, (L / 2) * Math.sin(LEAN) - 1.5); rig.shadowRoot.rotation.y = 0;
+      rig.shadowRoot.visible = !this.room; rig.shadowRoot.position.set(x, 0.05, (L / 2) * Math.sin(LEAN) - 1.5); rig.shadowRoot.rotation.y = 0;
       rig.shadow.scale.set(rig.spec.width * 1.7, 11 + L * 0.03, 1);
       mat.opacity = Math.max(0.3, 1 - rig.lift * 0.08);
     }
@@ -337,7 +356,15 @@ export class Studio {
     if (this.mode === 'focus') return this.focusPose(this.preset ?? 'deck');
     return this.lineupPose(this.framing === 'all' ? 'all' : 'sel');
   }
+  /** Room mode: the camera is exactly the Blender camera that rendered the backplate, so boards sit in the photo. */
+  private roomCamera() {
+    const rm = this.room!, c = this.camera, [px, py, pz] = rm.position, [fx, fy, fz] = rm.forward;
+    c.fov = rm.fovY; c.position.set(px, py, pz); c.up.set(...rm.up); c.lookAt(px + fx, py + fy, pz + fz); c.updateProjectionMatrix();
+    this.controls.enabled = false; this.tween = null; this.dirty = true; this.kick();
+  }
   private snapFrame() {
+    if (this.room && this.mode === 'lineup') { this.roomCamera(); return; }
+    this.controls.enabled = true;
     if (this.mode === 'lineup' && this.framing === null) return;
     if (this.mode === 'focus' && this.preset === null) return;
     const {s, target, flip} = this.currentPose();
@@ -367,6 +394,7 @@ export class Studio {
   /** Lineup views: the whole rack, or the selected board. */
   frame(which: 'all' | 'sel') {
     if (this.mode !== 'lineup') return;
+    if (this.room) { this.roomCamera(); return; }
     this.framing = which; this.glide(this.lineupPose(which));
   }
   setMode(mode: Mode) {
@@ -374,8 +402,29 @@ export class Studio {
     this.mode = mode; this.tween = null;
     if (mode === 'focus') { this.preset = 'deck'; this.spinOn = !this.reduced; this.spinAngle = 0.4; this.flipAngle = 0; }
     else { this.framing = 'all'; this.spinOn = false; this.preset = null; }
+    this.floor.visible = !(this.room && mode === 'lineup'); for (const b of this.roomBits) b.visible = !!this.room && mode === 'lineup';
+    this.layout();
     for (const r of this.rigs.values()) this.pose(r);
     this.snapFrame(); this.dirty = true; this.kick();
+  }
+  /** Enter the photographed showroom: real sun shadows on a shadow-catching floor; the CSS backplate is the room. */
+  setRoom(rm: RoomSpec | null) {
+    for (const b of this.roomBits) { this.scene.remove(b); }
+    this.roomBits = []; this.room = rm;
+    if (rm) {
+      this.renderer.shadowMap.enabled = true; this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      const catcher = new THREE.Mesh(new THREE.PlaneGeometry(900, 600), new THREE.ShadowMaterial({opacity: 0.32}));
+      catcher.rotation.x = -Math.PI / 2; catcher.position.y = 0.02; catcher.receiveShadow = true;
+      const [sx, sy, sz] = rm.sunToward, sun = new THREE.DirectionalLight(0xfff1dc, 3.0);
+      sun.position.set(-sx * 400, -sy * 400 + 0, -sz * 400); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.radius = 4;
+      Object.assign(sun.shadow.camera, {left: -200, right: 200, top: 200, bottom: -200, near: 10, far: 1200}); sun.shadow.bias = -0.0004;
+      const sky = new THREE.HemisphereLight(0xf6efe6, 0xcbbfae, 0.9);
+      this.roomBits = [catcher, sun, sky];
+      for (const b of this.roomBits) { this.scene.add(b); b.visible = this.mode === 'lineup'; }
+      for (const rig of this.rigs.values()) rig.root.traverse((o) => { (o as THREE.Mesh).castShadow = true; });
+    }
+    this.floor.visible = !(rm && this.mode === 'lineup');
+    this.layout(); for (const r of this.rigs.values()) this.pose(r); this.snapFrame();
   }
   setSpin(on: boolean) { this.spinOn = on && !this.reduced && this.mode === 'focus'; this.kick(); }
   /** Keyboard alternative to dragging: turn, tilt and zoom in small steps. */
@@ -417,7 +466,7 @@ export class Studio {
     const rig: Rig = {
       id, root: new THREE.Group(), orient: new THREE.Group(), flip: new THREE.Group(), shape: new THREE.Group(), fins: new THREE.Group(), shadowRoot: new THREE.Group(), shadow,
       resinMat: new THREE.MeshPhysicalMaterial({vertexColors: true, color: 0xffffff}), stringerMat: new THREE.MeshPhysicalMaterial({color: WOOD}),
-      tpl: null, tplKey: '', resin: null, stringer: null, spec, look, fillKey: '', lookKey: '', finKey: '', x: 0, lift: 0,
+      tpl: null, tplKey: '', resin: null, stringer: null, spec, look, fillKey: '', lookKey: '', finKey: '', x: 0, lift: 0, base: 0.2, cx: NaN,
     };
     rig.root.userData.rigId = id;
     rig.flip.add(rig.shape, rig.fins); rig.orient.add(rig.flip); rig.root.add(rig.orient);
@@ -454,12 +503,14 @@ export class Studio {
       this.applyShape(rig);
     });
     this.layout();
+    if (this.room) for (const rig of this.rigs.values()) rig.root.traverse((o) => { (o as THREE.Mesh).castShadow = true; });
     for (const r of this.rigs.values()) this.pose(r);
     if (!this.ready) {
       for (const r of this.rigs.values()) r.lift = r.id === selectedId && this.mode === 'lineup' ? 3.4 : 0;
       this.ready = true; this.snapFrame(); this.opts.onReady();
     } else if (changedSel) {
       if (this.mode === 'focus') { this.limits(); this.snapFrame(); }
+      else if (this.room) this.roomCamera();
       else { this.framing = 'sel'; this.glide(this.lineupPose('sel')); }
     } else if (this.mode === 'lineup' && this.framing) this.snapFrame();
     this.dirty = true; this.kick();
