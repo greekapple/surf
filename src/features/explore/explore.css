@@ -131,7 +131,7 @@
   .xmap { height: calc(100dvh - var(--nav-h) - var(--tab-h) - env(safe-area-inset-bottom)); }
   .xside { width: calc(100% - 84px); max-height: calc(100% - 190px); }
   .xcorner { left: 12px; right: 12px; justify-items: end; }
-  .xzoom { display: none; }
+  .xzoom button { width: 44px; height: 44px; } /* phones keep zoom buttons: pinch is not the only way (RULES.md: gestures have alternatives) */
   .xlegend { width: 100%; }
   .xt-now { min-width: 0; }
   .xt-now span, .xt-days em { display: none; }
@@ -224,3 +224,7 @@
 .xpt-pin[aria-pressed='true'] { background: #1d3344; }
 .xpinned { display: grid !important; place-items: center; }
 .xpinned i { width: 14px; height: 14px; border-radius: 2px; transform: rotate(45deg); background: #f2d84a; border: 2px solid #07111a; outline: 2px solid #fff; }
+
+/* Loading state: a shimmer on the status chip instead of bare loading text */
+.xstatus[data-loading='true'] { background: linear-gradient(90deg, var(--xp) 30%, rgb(255 255 255 / 0.14) 50%, var(--xp) 70%) 0 0 / 300% 100%; animation: skel 1.4s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .xstatus[data-loading='true'] { animation: none; } }

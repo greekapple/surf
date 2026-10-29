@@ -180,7 +180,7 @@ function OceanMap({section, go}: ViewProps) {
   const rating = f ? rateForecast(spot, f, now) : null;
   const list = [...evidenceSpots].sort((a, b) => b.latitude - a.latitude).filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
-    : spatial.loading && !frame ? 'Loading regional model…'
+    : spatial.loading && !frame ? 'Loading model…'
     : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${frame ? 'California 0.5°' : ''}${frame && gframe ? ' + ' : ''}${gframe ? 'global 2°' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
   const ticks = frame || gframe ? legendTicks((frame ?? gframe)!.unit, p.heightUnit, p.windUnit, wide) : [];
@@ -260,7 +260,7 @@ function OceanMap({section, go}: ViewProps) {
               <div><i style={{background: `linear-gradient(90deg, ${RAMP.join(',')})`}} /><div>{ticks.map((t, k) => <small key={k}>{t}{k === ticks.length - 1 ? '+' : ''}</small>)}</div></div>
             </div>
           </>}
-          <p className="xstatus" role="status">{status}</p>
+          <p className="xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{status}</p>
         </div>
       </div>
 
