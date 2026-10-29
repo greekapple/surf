@@ -3,6 +3,7 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
 import {evidenceSpots} from '../../ocean/spots';
+import {ZONES} from '../../data/zones';
 import type {Skill, UserProfile} from '../../models/index';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
@@ -131,7 +132,10 @@ export function PersonalView({section, go}: ViewProps) {
                     <input value={p.displayName ?? ''} maxLength={40} onChange={(e) => set({displayName: e.target.value})} placeholder="Optional" />
                   </label>
                   <label className="field"><span>Home region</span>
-                    <input value={p.region} onChange={(e) => set({region: e.target.value})} />
+                    <select value={p.region} onChange={(e) => set({region: e.target.value})}>
+                      <option value="All regions">Not set (use my location)</option>
+                      {ZONES.map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => spots.some((x) => x.region === c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
+                    </select>
                   </label>
                 </div>
                 <div style={{marginTop: 14, display: 'grid', gap: 14}}>

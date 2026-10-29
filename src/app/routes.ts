@@ -2,7 +2,8 @@ import {useCallback, useEffect, useState} from 'react';
 import {allSpots as spots} from '../data/catalog';
 
 export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'personal';
-export interface Section {id: string; label: string; hint: string}
+/** `hidden` sections are real routes reached from inside a page (e.g. the 3D viewer from a spot's forecast), not menu entries. */
+export interface Section {id: string; label: string; hint: string; hidden?: boolean}
 export interface AreaDef {id: Area; label: string; sections: Section[]}
 
 /** Product navigation: every section renders real content (see Obsidian 03-Navigation-Architecture). */
@@ -14,14 +15,14 @@ export const AREAS: AreaDef[] = [
   ]},
   {id: 'forecast', label: 'Forecast', sections: [
     {id: '', label: 'Spot Forecast', hint: 'Swell, wind, tide and the wave scale on one page'},
-    {id: 'wave-scale', label: 'Wave Scale 3D', hint: 'Wave, surfer and board in 3D'},
+    {id: 'wave-scale', label: 'Wave Scale 3D', hint: 'Wave, surfer and board in 3D', hidden: true},
   ]},
   {id: 'explore', label: 'Explore', sections: [
     {id: '', label: 'Ocean Map', hint: 'Spots and conditions on the map'},
     {id: 'wind', label: 'Wind Layers', hint: 'Regional wind grid'},
     {id: 'swell', label: 'Swell Layers', hint: 'Regional wave grid'},
     {id: 'compare', label: 'Compare Spots', hint: 'Spots side by side at one hour'},
-    {id: 'discover', label: 'Discover Spots', hint: 'Every spot with its rating'},
+    {id: 'discover', label: 'Find Spots', hint: 'Spots near you by distance and conditions'},
   ]},
   {id: 'quiver', label: 'Quiver', sections: [
     {id: '', label: 'My Boards', hint: 'Your collection'},

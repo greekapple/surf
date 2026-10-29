@@ -49,7 +49,7 @@ function AreaMenu({def, current, section, go}: {def: (typeof AREAS)[number]; cur
       {open && def.id === 'forecast' && <SpotMegaMenu section={section} current={current} go={go} close={() => setOpen(false)} />}
       {open && def.id !== 'forecast' && (
         <ul className="menu" aria-label={`${def.label} sections`}>
-          {def.sections.map((s) => (
+          {def.sections.filter((s) => !s.hidden).map((s) => (
             <li key={s.id}>
               <a {...linkProps((a, sec) => { go(a, sec); setOpen(false); }, def.id, s.id)} aria-current={current && section === s.id ? 'page' : undefined} title={s.hint}>
                 {s.label}
@@ -104,7 +104,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
     <div className="menu mega" role="dialog" aria-label="Forecast: pages and spots">
       <div className="mm-rail">
         <p className="mm-k">Forecast</p>
-        <ul>{def.sections.map((s) => (
+        <ul>{def.sections.filter((s) => !s.hidden).map((s) => (
           <li key={s.id}><a {...linkProps((a, sec) => { go(a, sec); close(); }, 'forecast', s.id)} aria-current={current && section === s.id ? 'page' : undefined}>{s.label}</a></li>
         ))}</ul>
         {recent.length > 0 && <><p className="mm-k">Recently viewed</p><div className="mm-list">{recent.map(row)}</div></>}
@@ -213,7 +213,7 @@ export function SubNav({area, section, go}: {area: Area; section: string; go: Go
   const def = AREAS.find((a) => a.id === area)!;
   return (
     <nav className="subnav" aria-label={`${def.label} sections`}>
-      {def.sections.map((s) => <a key={s.id} {...linkProps(go, area, s.id)} aria-current={s.id === section ? 'page' : undefined}>{s.label}</a>)}
+      {def.sections.filter((s) => !s.hidden || s.id === section).map((s) => <a key={s.id} {...linkProps(go, area, s.id)} aria-current={s.id === section ? 'page' : undefined}>{s.label}</a>)}
     </nav>
   );
 }

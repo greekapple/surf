@@ -18,6 +18,7 @@ import {attachField, buildField, RAMP, RANGE, RANGE_WIDE} from '../../map/field'
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
 import {CompareSpots} from './Compare';
+import {FindSpots} from './FindSpots';
 import './explore.css';
 
 /** Field layers the regional grids can actually supply. One is shown at a time. */
@@ -54,7 +55,7 @@ function legendTicks(unit: SpatialFrame['unit'], hu: string, wu: string, wide = 
 }
 
 export function ExploreView({section, go}: ViewProps) {
-  if (section === 'discover') return <Discover go={go} />;
+  if (section === 'discover') return <FindSpots go={go} />;
   if (section === 'compare') return <CompareSpots go={go} />;
   return <OceanMap section={section} go={go} />;
 }
@@ -233,31 +234,6 @@ function OceanMap({section, go}: ViewProps) {
         </div>
         <p className="xstatus" role="status">{status}</p>
       </div>
-    </div>
-  );
-}
-
-/** Every spot as a photo card with its provisional rating at the selected hour. */
-function Discover({go}: {go: ViewProps['go']}) {
-  const {view, data, spotOptions, setSpot, now, live} = useSwello();
-  const p = data.state.profile, fav = data.state.favorites;
-  const recAt = (id: string) => view.mapRecords.find((r) => r.spotId === id && r.timestamp === view.selectedTime);
-  return (
-    <div className="discover">
-      <header className="disc-h"><h1>Discover spots</h1><p>{spotOptions.length} {live ? 'spots with live model data' : 'illustrative spots (demonstration week)'} · conditions at {view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : '—'}</p></header>
-      <ul className="disc-grid">{spotOptions.map((s, i) => {
-        const r = recAt(s.id), rt = r ? rateForecast(s, r, now) : null, mapped = evidenceSpots.some((e) => e.id === s.id);
-        return <li key={s.id} className="disc-card">
-          <Thumb id={s.id} name={s.name} region={s.region} />
-          <div className="dc-b">
-            <div className="dc-top"><h2>{s.name}</h2><button className="star" aria-pressed={fav.includes(s.id)} aria-label={`${fav.includes(s.id) ? 'Remove' : 'Save'} ${s.name}`} onClick={() => data.favorite(s.id)}><Icon name="star" size={17} /></button></div>
-            <p className="dc-meta">{s.region} · {s.type.toLowerCase()}</p>
-            <p className="dc-now">{r ? <><b>{ht(r.offshore, p)} {p.heightUnit}</b> offshore</> : 'No record this hour'}{rt && <em style={chip(BAND_COLOR[bandOf(rt.category)])}>{titleCase(rt.category)}</em>}</p>
-            <div className="dc-act"><button className="btn primary" onClick={() => { setSpot(s.id); go('forecast'); }}>Forecast</button>{mapped && <button className="btn" onClick={() => { setSpot(s.id); go('explore'); }}>On map</button>}</div>
-          </div>
-        </li>;
-      })}</ul>
-      {!live && <p className="fine">Demonstration spots are illustrative and fixed to Oct 16–22, 2026.</p>}
     </div>
   );
 }
