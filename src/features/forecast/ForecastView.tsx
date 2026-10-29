@@ -3,6 +3,8 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
+import {coastalCoverage} from '../../ocean/coastal';
+import {formatWaveHeight, nearshoreView} from '../../utils/waveHeight';
 import {rateForecast} from '../../ratings/adapters';
 import {windRelationship} from '../../recommendation/sqi';
 import {CameraPanel, SpotPhoto, StateMessage} from '../../ui/common';
@@ -67,7 +69,7 @@ function Tiles({h, p, spot, series, extrema}: {h: HourSample; p: UserProfile; sp
 }
 
 function Sources() {
-  const {view, live} = useSwello();
+  const {view, live, now} = useSwello();
   const o = view.ocean;
   if (!live) return <p>Demonstration week (Oct 16–22): illustrative profiles, not live data and never mixed with retrieved forecasts.</p>;
   return (
@@ -78,9 +80,48 @@ function Sources() {
       </tbody></table></div>
       {o.bundle?.buoy && (
         <div><p><b>Observation</b> · NOAA NDBC 46026 buoy {o.bundle.buoy.delivery === 'saved' ? <span className="chip demo">saved historical, not live</span> : <span className="chip off">observed</span>}</p>
-          <p className="fine">{Object.entries(o.bundle.buoy.values).slice(0, 5).map(([k, m]) => `${k} ${typeof m.value === 'number' ? +m.value.toFixed(1) : m.value ?? '—'} ${m.unit}`).join(' · ')}{Object.values(o.bundle.buoy.values)[0] ? ` · valid ${timeLabelPT(Object.values(o.bundle.buoy.values)[0].source.validAt)}` : ''}</p></div>
+          <ul className="fine" style={{listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexWrap: 'wrap', gap: '2px 14px'}}>{Object.entries(o.bundle.buoy.values).slice(0, 5).map(([k, m]) => <li key={k}>{k} {typeof m.value === 'number' ? +m.value.toFixed(1) : m.value ?? '—'} {m.unit} · observed {weekdayPT(m.source.validAt)} {dayNumPT(m.source.validAt)} {timeLabelPT(m.source.validAt)}</li>)}</ul>
+          {(() => { const ages = Object.values(o.bundle.buoy.values).map((m) => now - Date.parse(m.source.validAt)).filter(Number.isFinite), youngest = Math.min(...ages); return ages.length && youngest > 6 * 3600000 ? <p className="fine"><b>Saved snapshot, {youngest >= 86400000 ? `${Math.floor(youngest / 86400000)} days old` : `${Math.floor(youngest / 3600000)} h old`}.</b> Not current conditions.</p> : null; })()}
+        </div>
       )}
     </div>
+  );
+}
+
+function Nearshore({spot, p, selectedTime, now, series}: {spot: SurfSpot; p: UserProfile; selectedTime: string; now: number; series: HourSample[]}) {
+  const {view, live} = useSwello();
+  const cov = spot.id === 'spot-2' ? coastalCoverage['spot-2'] : null;
+  const model = cov ? cov.candidate.split(',')[0] : '', mop = model.split(' ').pop();
+  const head = <div className="card-h"><h2>Nearshore model</h2><span>{cov ? `${model} · Ocean Beach only` : 'Ocean Beach only'}</span></div>;
+  if (!cov) return <>{head}<p>No nearshore model for this spot.</p></>;
+  const where = `Transect ${mop} · ${cov.latitude.toFixed(3)}, ${cov.longitude.toFixed(3)} · ${cov.depthM} m depth · shore normal ${cov.shoreNormal}°`;
+  if (!live) return <>{head}<p>The nearshore model needs retrieved data; none is loaded in demonstration mode.</p><p className="fine">{where}</p></>;
+  const recs = view.ocean.bundle?.nearshore ?? [], v = nearshoreView(recs, Date.parse(selectedTime), now);
+  const when = (iso: string) => `${weekdayPT(iso)} ${dayNumPT(iso)} ${timeLabelPT(iso)} PT`;
+  const seriesHour = (iso: string) => series.reduce<{t: string; d: number} | null>((b, h) => { const d = Math.abs(Date.parse(h.timestamp) - Date.parse(iso)); return d <= 1800000 && (!b || d < b.d) ? {t: h.timestamp, d} : b; }, null)?.t;
+  const rec = v.state === 'exact' || v.state === 'latest' ? v.record : null;
+  const target = rec ? seriesHour(rec.timestamp) : v.state === 'outside-window' && v.latest ? seriesHour(v.latest.timestamp) : undefined;
+  const jump = target && target !== selectedTime ? <p><button className="btn" onClick={() => view.selectTime(target)}>Go to latest nowcast hour</button></p> : null;
+  if (!rec) {
+    const msg = v.state === 'no-data' ? 'No CDIP nowcast data was returned for this load.'
+      : v.state === 'before-first' ? `The selected hour is earlier than the first nowcast record (${when(v.first.timestamp)}); no values are shown.`
+      : v.state === 'gap' ? 'No CDIP nowcast record within 30 min of the selected hour; nothing is interpolated.'
+      : `The selected hour is outside the nowcast window (now ±24 h); nothing is extrapolated.`;
+    return <>{head}<p>{msg}</p>{jump}<p className="fine">{where}</p></>;
+  }
+  const hs = formatWaveHeight({kind: 'nearshore', valueFt: rec.height.value}, p, 'technical'), tp = rec.period.value, dp = rec.direction.value;
+  return (
+    <>{head}
+      {v.state === 'latest' && <p><span className="chip demo">Latest nowcast</span> Valid {when(rec.timestamp)} ({v.hoursBefore} h before the selected hour). Not the selected hour's value.</p>}
+      <div className="minis" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(110px, auto))', justifyContent: 'start'}} role="group" aria-label="Nearshore model values">
+        <div><span className="k">Hs · {cov.depthM} m depth</span><span className="v">{rec.height.value === null ? '—' : <>{hs.text.replace(` ${p.heightUnit}`, '')}<small>{p.heightUnit}</small></>}</span></div>
+        <div><span className="k">Tp (peak period)</span><span className="v">{tp === null ? '—' : <>{Math.round(tp * 10) / 10}<small>s</small></>}</span></div>
+        <div><span className="k">Direction (from)</span><span className="v">{dp === null ? '—' : <><DirArrow from={dp} color="var(--sw1)" />{Math.round(dp)}<small>° {compass(dp)}</small></>}</span></div>
+      </div>
+      <p className="hs-label">Nearshore model Hs at {cov.depthM} m depth ({model}), not surf height<span className="chip ill">model</span></p>
+      <p className="fine">Valid {when(rec.timestamp)}{v.state === 'exact' ? ' (nearest record to the selected hour)' : ''} · {where}. QC-filtered nowcast, modeled at depth: not the size of breaking surf, no local conversion.</p>
+      {jump}
+    </>
   );
 }
 
@@ -178,6 +219,7 @@ export function ForecastView({section, go}: ViewProps) {
 
       {(show('wind-tides') || section === '') && <section className="card span-8" aria-label="Instruments"><Tiles h={selected} p={p} spot={spot} series={series} extrema={extrema} /></section>}
       {section === '' && <section className="card span-4"><div className="card-h"><h2>Wave scale</h2><button className="btn" onClick={() => go('forecast', 'wave-scale')}>3D viewer</button></div><MiniScale forecast={selected.forecast} /></section>}
+      {show('swell') && <section className="card span-12" aria-label="Nearshore model"><Nearshore spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>}
       {show('swell') && <section className={`card ${section === 'swell' ? 'span-6' : 'span-4'}`}><div className="card-h"><h2>Swell direction &amp; period</h2><span>selected day</span></div>
         <PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot)} onSelect={view.selectTime} />
         <p className="fine"><i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw1)', marginRight: 4}} />primary · <i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw2)', marginRight: 4}} />secondary · ring = period (s) · size = height</p></section>}
