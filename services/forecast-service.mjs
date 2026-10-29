@@ -5,6 +5,16 @@ export const coastServiceSpots=[{id:'spot-1',lat:37.9,lon:-122.644,mlat:37.839,m
 export const serviceSpots=[{id:'spot-2',lat:37.759,lon:-122.51,mlat:37.75,mlon:-122.6},{id:'spot-0',lat:37.90835046,lon:-122.682137,mlat:37.88,mlon:-122.73},{id:'spot-3',lat:37.6,lon:-122.5,mlat:37.6,mlon:-122.57},...coastServiceSpots];
 const waveFields=['wave_height','swell_wave_height','swell_wave_direction','swell_wave_period','secondary_swell_wave_height','secondary_swell_wave_direction','secondary_swell_wave_period','sea_surface_temperature'];
 const regionalFields=['Thgt','Tper','Tdir','shgt','sper','sdir','ugrd10m','vgrd10m'];
+/** Point forecast bounds: the northeast Pacific. Coordinates are rounded to 0.1 degree (about 11 km), the model's own resolution. */
+export const POINT_BOUNDS={latMin:0,latMax:60,lonMin:-170,lonMax:-110};
+export function validatePoint(latRaw,lonRaw){
+ const blank=v=>v===null||v===undefined||String(v).trim()==='';
+ const lat=blank(latRaw)?NaN:Number(latRaw),lon0=blank(lonRaw)?NaN:Number(lonRaw);
+ if(!Number.isFinite(lat)||!Number.isFinite(lon0))return {ok:false,error:'lat and lon must be numbers'};
+ const lon=lon0>180?lon0-360:lon0;
+ const b=POINT_BOUNDS;if(lat<b.latMin||lat>b.latMax||lon<b.lonMin||lon>b.lonMax)return {ok:false,error:'Point forecasts cover the northeast Pacific: 0 to 60 N, 170 to 110 W'};
+ const r=v=>Math.round(v*10)/10+0;return {ok:true,lat:r(lat),lon:r(lon)};
+}
 export function ingestionTargets(now=Date.now()){
  const date=new Date(now),start=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate()));const from=start.toISOString().slice(0,10).replaceAll('-','');const end=new Date(start.getTime()+168*3600000).toISOString().replace('.000Z','Z');
  const targets=[];
@@ -92,11 +102,29 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
   if(!globeJobs.has(url))globeJobs.set(url,(async()=>{const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeoutMs*2);try{const r=await fetcher(url,{signal:c.signal});if(r.status===404)throw Object.assign(new Error('No global model frame at this valid time'),{status:404,code:'no_frame'});if(!r.ok)throw new Error('Global grid HTTP '+r.status);const raw=await r.text();if(raw.length>4000000)throw new Error('Global grid payload exceeds bounded size.');const payload=JSON.parse(raw);if(!payload.table?.rows?.length||payload.table.rows.length>20000)throw new Error('Global grid absent or oversized');const value={payload,retrievedAt:new Date(now()).toISOString(),sourceURL:url,cache:'fresh'};globeCache.set(url,{value,expires:now()+3*3600000});while(globeCache.size>48)globeCache.delete(globeCache.keys().next().value);return value}finally{clearTimeout(timer);globeJobs.delete(url)}})());
   return globeJobs.get(url);
  }
- return async function handle(request,env={},ctx={waitUntil:()=>{}}){const url=new URL(request.url);try{
+  /** Model point forecast (Open-Meteo Marine + Weather) for any validated sea point. Fixed hosts, rounded coordinates, bounded in-memory cache. */
+ const pointCache=new Map(),pointJobs=new Map(),POINT_MAX=200,POINT_TTL=1800000;
+ async function pointForecast(lat,lon){
+  const key=lat+','+lon,hit=pointCache.get(key);if(hit&&hit.expires>now()){pointCache.delete(key);pointCache.set(key,hit);return hit.value;}
+  if(pointJobs.has(key))return pointJobs.get(key);
+  const job=(async()=>{
+   const common={latitude:String(lat),longitude:String(lon),timezone:'GMT',timeformat:'unixtime',forecast_days:'7'};
+   const get=async(base,params)=>{const r=await fetcher(base+new URLSearchParams({...common,...params}),{signal:AbortSignal.timeout(timeoutMs)});if(!r.ok)throw Object.assign(new Error('Provider HTTP '+r.status),{status:502});const raw=await r.text();if(raw.length>1000000)throw new Error('Provider payload exceeds bounded size.');return JSON.parse(raw);};
+   const [m,w]=await Promise.all([get('https://marine-api.open-meteo.com/v1/marine?',{hourly:'wave_height,swell_wave_height,swell_wave_period,swell_wave_direction'}),get('https://api.open-meteo.com/v1/forecast?',{hourly:'wind_speed_10m,wind_direction_10m',wind_speed_unit:'ms'})]);
+   const time=m?.hourly?.time;if(!Array.isArray(time)||!time.length||!m.hourly.wave_height?.some(v=>Number.isFinite(v)))throw Object.assign(new Error('No marine model data at this point (land or outside model coverage)'),{status:404});
+   const align=arr=>{const idx=new Map((w?.hourly?.time??[]).map((t,i)=>[t,i]));return time.map(t=>{const v=arr?.[idx.get(t)];return Number.isFinite(v)?v:null});};
+   const col=a=>(a??[]).map(v=>Number.isFinite(v)?v:null);
+   const value={lat,lon,time,waveHeight:col(m.hourly.wave_height),swellHeight:col(m.hourly.swell_wave_height),swellPeriod:col(m.hourly.swell_wave_period),swellDirection:col(m.hourly.swell_wave_direction),windSpeed:align(w?.hourly?.wind_speed_10m),windDirection:align(w?.hourly?.wind_direction_10m),units:{height:'m',period:'s',direction:'deg',wind:'m/s'},source:'Open-Meteo Marine and Weather models',kind:'model point forecast',retrievedAt:new Date(now()).toISOString()};
+   pointCache.set(key,{value,expires:now()+POINT_TTL});while(pointCache.size>POINT_MAX)pointCache.delete(pointCache.keys().next().value);
+   return value;
+  })();pointJobs.set(key,job);try{return await job}finally{pointJobs.delete(key)}
+ }
+return async function handle(request,env={},ctx={waitUntil:()=>{}}){const url=new URL(request.url);try{
   if(url.pathname==='/api/health'){const obj=await fromBucket(env,'forecast/v8/status.json');return json({service:'SURF forecast ingestion',version:'0.8',revision:'0.10',persistent:persistent(env),refresh:obj??manifest,scheduler:'Configured/executed status must be verified from the linked automation, separately from this readback.'});}
   if(url.pathname==='/api/diagnostics')return json({checkedAt:new Date(now()).toISOString(),persistent:persistent(env),providers:await diagnostics(env)});
   if(url.pathname==='/api/refresh'){if(request.method!=='POST')return json({error:'POST required'},405);const origin=request.headers.get('origin');if(origin&&origin!==url.origin)return json({error:'Origin rejected'},403);if(env.REFRESH_TOKEN&&request.headers.get('authorization')!=='Bearer '+env.REFRESH_TOKEN)return json({error:'Refresh authorization required'},403);return json(await refresh(env));}
   if(url.pathname==='/api/provider'){const key=url.searchParams.get('key'),target=ingestionTargets(now()).find(t=>t.key===key&&!t.field);if(!target)return json({error:'Unknown fixed provider key'},400);return json(await retrieve(target,env));}
+  if(url.pathname==='/api/point'){const v=validatePoint(url.searchParams.get('lat'),url.searchParams.get('lon'));if(!v.ok)return json({error:v.error},400);try{return json(await pointForecast(v.lat,v.lon))}catch(e){return json({error:e.message??'Point forecast unavailable'},e.status??502)}}
   if(url.pathname==='/api/globe'){try{return json(await globeFrame(url.searchParams.get('field')??'',url.searchParams.get('time')??''))}catch(e){return json({error:e.message,code:e.code},e.status??502)}}
   if(url.pathname==='/api/grid'){const field=url.searchParams.get('field'),time=url.searchParams.get('time'),target=ingestionTargets(now()).find(t=>t.field===field);if(!target||!time||!Number.isFinite(Date.parse(time)))return json({error:'Invalid regional field or timestamp'},400);const value=await retrieve(target,env),table=value.payload.table,ti=table.columnNames.indexOf('time'),rows=table.rows.filter(r=>Date.parse(r[ti])===Date.parse(time));if(!rows.length)return json({error:'No exact regional model frame at this valid time',code:'no_frame'},404);return json({...value,payload:{table:{...table,rows}}});}
   if(url.pathname.startsWith('/api/'))return json({error:'Unknown endpoint'},404);

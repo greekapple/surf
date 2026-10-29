@@ -1,4 +1,5 @@
 import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
+import {createPortal} from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type {ViewProps} from '../../app/routes';
@@ -17,6 +18,7 @@ import {weekdayPT, dayNumPT} from '../forecast/format';
 import {attachField, buildField, RAMP, RANGE, RANGE_WIDE} from '../../map/field';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
+import {PointCard, usePointForecast, type Pt} from './PointCard';
 import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
 import './explore.css';
@@ -78,6 +80,13 @@ function OceanMap({section, go}: ViewProps) {
   const mapEl = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const pins = useRef<L.LayerGroup | null>(null);
+  // Tap-the-sea point forecast: one popup, one temporary pin.
+  const [pt, setPt] = useState<Pt | null>(null);
+  const [pinned, setPinned] = useState<Pt | null>(null);
+  const popup = useRef<L.Popup | null>(null);
+  const popupEl = useMemo(() => document.createElement('div'), []);
+  const pinLayer = useRef<L.LayerGroup | null>(null);
+  const point = usePointForecast(pt);
   const spatial = useSpatial(def.layer, def.variable, view.selectedTime, false, live && (opts.heat || opts.flow || opts.arrows));
   // Keep the last good frame of this field on screen while the next hour loads, so scrubbing doesn't flash blank.
   const shown = useRef<SpatialFrame | null>(null);
@@ -110,6 +119,10 @@ function OceanMap({section, go}: ViewProps) {
     m.createPane('labels'); m.getPane('labels')!.style.zIndex = '450'; m.getPane('labels')!.style.pointerEvents = 'none';
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {pane: 'labels', maxZoom: 16, opacity: 0.7}).addTo(m);
     pins.current = L.layerGroup().addTo(m);
+    pinLayer.current = L.layerGroup().addTo(m);
+    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup', minWidth: 248, maxWidth: 248, autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
+    popup.current.setContent(popupEl);
+    m.on('click', (e: L.LeafletMouseEvent) => setPt({lat: Math.round(e.latlng.lat * 10) / 10, lon: Math.round((((e.latlng.lng + 180) % 360 + 360) % 360 - 180) * 10) / 10}));
     map.current = m;
     return () => { m.remove(); map.current = null; };
   }, []);
@@ -134,6 +147,26 @@ function OceanMap({section, go}: ViewProps) {
       L.marker([e.latitude, e.longitude], {icon, keyboard: true, title: e.name, alt: e.name, riseOnHover: true}).on('click', () => { setSpot(e.id); setTab('conditions'); }).addTo(g);
     }
   }, [view.mapRecords, view.selectedTime, spot.id, p.heightUnit, opts.labels]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const m = map.current, pop = popup.current;
+    if (!m || !pop) return;
+    // Keep the card clear of the floating search panel (wide screens) or the search bar and layer column (phones).
+    const phone = matchMedia('(max-width: 860px)').matches;
+    pop.options.autoPanPaddingTopLeft = phone ? L.point(16, 80) : L.point(open ? 348 : 16, 16);
+    pop.options.autoPanPaddingBottomRight = L.point(phone ? 70 : 76, 70);
+    if (pt) pop.setLatLng([pt.lat, pt.lon]).openOn(m); else m.closePopup(pop);
+  }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // The card grows when data arrives; re-measure so the popup pans fully into view.
+  useEffect(() => { if (pt && (point.data || point.error)) popup.current?.update(); }, [point.data, point.error]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const g = pinLayer.current;
+    if (!g) return;
+    g.clearLayers();
+    if (!pinned) return;
+    const icon = L.divIcon({className: 'xpinned', html: '<i></i>', iconSize: [18, 18], iconAnchor: [9, 9]});
+    L.marker([pinned.lat, pinned.lon], {icon, keyboard: true, title: `Pinned model point ${pinned.lat}, ${pinned.lon}`, alt: `Pinned model point ${pinned.lat}, ${pinned.lon}`}).on('click', () => setPt(pinned)).addTo(g);
+  }, [pinned]);
 
   useEffect(() => {
     if (!playing || !times.length) return;
@@ -220,7 +253,7 @@ function OceanMap({section, go}: ViewProps) {
       </div>
 
       <div className="xcorner">
-        <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button><button aria-label="Center on selected spot" onClick={() => center(spot.id)}><Icon name="locate" size={18} /></button></div>
+        <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button><button aria-label="Center on selected spot" onClick={() => center(spot.id)}><Icon name="locate" size={18} /></button><button aria-label="Point forecast at the map centre" onClick={() => { const c = map.current!.getCenter(); setPt({lat: Math.round(c.lat * 10) / 10, lon: Math.round(c.lng * 10) / 10}); }}><Icon name="forecast" size={18} /></button></div>
         <div className="xlegend" aria-label={`${def.label} legend`}>
           {(frame || gframe) && opts.heat && <>
             <div className="xl-bar"><span>{unitLabel}</span>
@@ -242,6 +275,8 @@ function OceanMap({section, go}: ViewProps) {
             onChange={(e) => { setPlaying(false); view.selectTime(times[Number(e.target.value)]); }} />
         </div>
       </div>
+      {pt && createPortal(<PointCard pt={pt} state={point} time={view.selectedTime} p={p} pinned={!!pinned && pinned.lat === pt.lat && pinned.lon === pt.lon}
+        onPin={() => setPinned(pinned && pinned.lat === pt.lat && pinned.lon === pt.lon ? null : pt)} onClose={() => setPt(null)} />, popupEl)}
     </div>
   );
 }

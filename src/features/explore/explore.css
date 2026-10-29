@@ -195,3 +195,32 @@
   .fs-name { grid-area: n; } .fs-hs { grid-area: h; } .fs-rate { grid-area: r; } .fs-meta { grid-area: m; text-align: right; font-size: 12.5px; } .fs-best { display: none; }
 }
 .fs-more { margin-top: 8px; }
+
+/* ---------- Tap-the-sea point forecast ---------- */
+.xpopup .leaflet-popup-content-wrapper { padding: 0; border-radius: var(--r3); background: #0b1822; color: #eef3f6; border: 1px solid rgb(255 255 255 / 0.14); box-shadow: none; }
+.xpopup .leaflet-popup-content { margin: 0; width: 248px !important; }
+.xpopup .leaflet-popup-tip { background: #0b1822; box-shadow: none; }
+.xpt { display: grid; gap: 8px; padding: 10px 12px 12px; font-size: 13px; }
+.xpt-h { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.xpt-h p { margin: 0; color: #c9d6df; font-size: 12px; line-height: 1.35; }
+.xpt-h p span { color: #fff; font-weight: 650; font-variant-numeric: tabular-nums; }
+.xpt-h button { flex: none; display: grid; place-items: center; width: 28px; height: 28px; margin: -4px -6px 0 0; border: 0; border-radius: var(--r1); background: none; color: #c9d6df; cursor: pointer; }
+.xpt-h button:hover { color: #fff; background: rgb(255 255 255 / 0.1); }
+.xpt-t { margin: 0; color: #9fb0bd; font-size: 12px; }
+.xpt-kv { display: grid; grid-template-columns: 48px 1fr; gap: 4px 8px; align-items: baseline; }
+.xpt-kv dt { color: #9fb0bd; }
+.xpt-kv dd { font-variant-numeric: tabular-nums; }
+.xpt-kv dd.big { font-size: 26px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.1; }
+.xpt-kv dd.big small { font-size: 13px; font-weight: 500; color: #9fb0bd; letter-spacing: 0; }
+.xpt-spark { display: block; width: 100%; height: 36px; }
+.xpt-cap { margin: 0; color: #8a9caa; font-size: 11px; }
+.xpt-err { margin: 0; color: #f2c46d; }
+.xpt-skel { display: grid; gap: 8px; }
+.xpt-skel i { height: 14px; border-radius: var(--r1); background: #172a38; }
+.xpt-skel i:first-child { height: 26px; width: 60%; }
+.xpt-pin { min-height: 36px; border: 1px solid rgb(255 255 255 / 0.2); border-radius: var(--r2); background: none; color: #eef3f6; font-weight: 600; cursor: pointer; }
+.xpt-pin:hover { background: rgb(255 255 255 / 0.08); }
+.xpt-pin:active { transform: scale(0.98); }
+.xpt-pin[aria-pressed='true'] { background: #1d3344; }
+.xpinned { display: grid !important; place-items: center; }
+.xpinned i { width: 14px; height: 14px; border-radius: 2px; transform: rotate(45deg); background: #f2d84a; border: 2px solid #07111a; outline: 2px solid #fff; }
