@@ -1,4 +1,4 @@
-import {useMemo, useState, type FormEvent} from 'react';
+import {lazy, Suspense, useMemo, useState, type FormEvent} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
@@ -7,7 +7,12 @@ import {lengthLabel, parseDimension, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
 import {titleCase} from '../forecast/model';
+import {inches} from './format';
+import type {Dims} from './Showroom';
 import './quiver.css';
+
+// three.js and the board models load only when the Showroom opens.
+const Showroom = lazy(() => import('./Showroom'));
 
 /** Category outline drawn to the board's real length and width. Not an exact shape. */
 export function BoardOutline({b, scale = 3.4, color = 'var(--board-a)'}: {b: Pick<Surfboard, 'length' | 'width' | 'type'>; scale?: number; color?: string}) {
@@ -27,14 +32,6 @@ export function BoardOutline({b, scale = 3.4, color = 'var(--board-a)'}: {b: Pic
   );
 }
 
-const gcd = (a: number, b: number): number => (b ? gcd(b, a % b) : a);
-/** Whole inches plus the fraction in lowest sixteenths (2.625 → 2 5/8″). */
-const inches = (v: number) => {
-  let w = Math.floor(v), n = Math.round((v - w) * 16);
-  if (n === 16) { w += 1; n = 0; }
-  const g = gcd(n, 16);
-  return `${w}${n ? ` ${n / g}/${16 / g}` : ''}″`;
-};
 const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortboard' as BoardType, length: `6'0"`, width: '19 1/4', thickness: '2 1/2', volume: '30', fins: 'Thruster', tail: '', notes: ''};
 
 function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void}) {
@@ -78,6 +75,8 @@ export function QuiverView({section, go}: ViewProps) {
   const boards = data.state.boards, p = data.state.profile;
   const [editing, setEditing] = useState<Surfboard | 'new' | null>(null);
   const [confirmDel, setConfirmDel] = useState(false);
+  const [live, setLive] = useState<(Dims & {id: string}) | null>(null);
+  const [flat, setFlat] = useState(false);
   const [cmp, setCmp] = useState<[string, string]>([boards[0]?.id ?? '', boards[1]?.id ?? boards[0]?.id ?? '']);
   const sel = boards.find((b) => b.id === prefs.selectedBoardId) ?? boards[0];
   const select = (id: string) => { setPrefs({selectedBoardId: id}); setConfirmDel(false); };
@@ -100,12 +99,12 @@ export function QuiverView({section, go}: ViewProps) {
     </div>
   );
   const tag = (b: Surfboard) => b.demo ? <span className="chip demo">Example board</span> : <span className="fine">{b.specificationSource ?? ''}</span>;
-  const specs = (b: Surfboard) => (
+  const specs = (b0: Surfboard) => { const b = live && live.id === b0.id ? {...b0, ...live} : b0; return (
     <dl className="qv-specs">
       <div><dt>Length</dt><dd>{lengthLabel(b.length)}</dd></div><div><dt>Width</dt><dd>{inches(b.width)}</dd></div>
-      <div><dt>Thickness</dt><dd>{inches(b.thickness)}</dd></div><div><dt>Volume</dt><dd>{b.volume} L</dd></div>
+      <div><dt>Thickness</dt><dd>{inches(b.thickness)}</dd></div><div><dt>Volume</dt><dd>{+b.volume.toFixed(1)} L</dd></div>
     </dl>
-  );
+  ); };
 
   return (
     <div className="qv">
@@ -135,15 +134,24 @@ export function QuiverView({section, go}: ViewProps) {
 
       {section === 'showroom' && sel && (
         <section className="qv-show" aria-label="Board showroom">
-          <div className="qv-lineup" role="group" aria-label="Boards lined up at the same scale">
-            <button className="qv-arrow l" aria-label="Previous board" onClick={() => step(-1)}><Icon name="chevron" size={22} /></button>
-            <div className="qv-row">{boards.map((b) => (
-              <button key={b.id} className="qv-stand" aria-pressed={b.id === sel.id} aria-label={`${b.name}, ${lengthLabel(b.length)}`} onClick={() => select(b.id)}>
-                <BoardOutline b={b} scale={Math.min(6, 430 / maxLen)} />
-              </button>
-            ))}</div>
-            <button className="qv-arrow r" aria-label="Next board" onClick={() => step(1)}><Icon name="chevron" size={22} /></button>
-          </div>
+          {flat ? (
+            <>
+              <p className="fine" role="status">The 3D view is not available on this device, so boards are shown as flat outlines.</p>
+              <div className="qv-lineup" role="group" aria-label="Boards lined up at the same scale">
+                <button className="qv-arrow l" aria-label="Previous board" onClick={() => step(-1)}><Icon name="chevron" size={22} /></button>
+                <div className="qv-row">{boards.map((b) => (
+                  <button key={b.id} className="qv-stand" aria-pressed={b.id === sel.id} aria-label={`${b.name}, ${lengthLabel(b.length)}`} onClick={() => select(b.id)}>
+                    <BoardOutline b={b} scale={Math.min(6, 430 / maxLen)} />
+                  </button>
+                ))}</div>
+                <button className="qv-arrow r" aria-label="Next board" onClick={() => step(1)}><Icon name="chevron" size={22} /></button>
+              </div>
+            </>
+          ) : (
+            <Suspense fallback={<div className="qv-studio"><div className="qv-stage"><p className="qv-loading" role="status">Loading the showroom…</p></div></div>}>
+              <Showroom board={sel} boards={boards} onSelect={select} onSave={data.saveBoard} onLive={setLive} onFail={() => setFlat(true)} />
+            </Suspense>
+          )}
           <div className="qv-info">
             <div className="qv-info-main">
               <h2>{sel.name}</h2>
@@ -156,10 +164,12 @@ export function QuiverView({section, go}: ViewProps) {
               <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
             </div>
           </div>
-          <p className="fine">Outlines are {sel.type.toLowerCase()} category shapes drawn to each board's length and width, not the exact boards. Photoreal boards need production 3D models.</p>
+          <p className="fine">{sel.demo ? 'Example board. ' : ''}The {flat ? 'outline' : '3D shape'} is a {sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.</p>
+          {flat && (
           <ul className="qv-strip" aria-label="Choose a board">{boards.map((b) => (
             <li key={b.id}><button aria-pressed={b.id === sel.id} aria-label={b.name} title={b.name} onClick={() => select(b.id)}><BoardOutline b={b} scale={64 / maxLen} /></button></li>
           ))}</ul>
+          )}
         </section>
       )}
 
