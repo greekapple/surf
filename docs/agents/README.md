@@ -21,6 +21,9 @@ relays every handoff, and the durable record lives in files.
 | QA tester | `qa-tester` (Sonnet) | Independent Playwright/Chrome checks, screenshots, defect reports, retests | Change app code; mark a defect fixed without retesting |
 | Code reviewer | `code-reviewer` (Sonnet, read-only) | Correctness, accessibility, regressions, maintainability findings with file:line | Rewrite code |
 | Architect | `architect` (Sonnet, read-only) | Forecast data contracts, 3D integration, cross-feature design | Routine UI work |
+| Design critic | `design-critic` (Opus, read-only; added 2026-10-29) | Judges rendered screenshots against the approved references; top 5 ranked shortcomings with evidence | Edit app code; judge function (QA's job) |
+
+Not added yet (no demonstrated need): a **3D technical artist** (add with Blender at R5/R6) and an **ocean data engineer** (the architect covers this until T-008 decisions are made).
 
 Not every task uses every role. Per the user's global policy: one implementation pass, one independent
 review (code-reviewer **or** Codex), at most two correction cycles, then stop and report.
@@ -37,6 +40,35 @@ criteria, status, outputs, tests, blockers, next handoff.
 5. **Review**: QA report in `reviews/<task>-qa.md`; code review in `reviews/<task>-code-review.md`.
 6. **Correct**: the lead routes findings back to the owner; QA retests.
 7. **Hand off**: the lead commits locally, updates the board, and records durable decisions in Obsidian (with approval).
+
+## Task template (copy into TASK-BOARD.md)
+```
+## T-XXX: <title>
+- Objective · Priority (P0–P3) · Owner · Dependencies
+- Owned files: <paths>; nobody else edits them while the task is open
+- Acceptance: functional (below) + visual (below) items, each checkable
+- Status: BACKLOG / READY / IN PROGRESS / REVIEW / VERIFIED / COMPLETE / BLOCKED
+- Handoff: handoffs/T-XXX-<role>.md
+- Test evidence: commands + real results; script paths
+- Review evidence: reviews/T-XXX-qa.md, -code-review.md, -design.md
+```
+**Progress rule:** a task is COMPLETE only when the lead has seen it working in the browser and the evidence is recorded. A code change alone is never progress. Audit defects stay on the board until verified fixed.
+
+## Functional acceptance (each relevant interaction)
+1. The intended action occurs (not just "something changed").
+2. The correct state changes, and the UI shows the new state.
+3. State persists where it should (reload, navigation away and back).
+4. Failures are shown to the user, never swallowed; missing data says what is missing and why.
+5. No simulated or demo data stands in for real functionality without a visible label.
+6. Overflow is measured as `scrollWidth` against the configured viewport width (not `innerWidth`, which grows with content in mobile emulation).
+
+## Visual acceptance (meaningful frontend work)
+Direction: premium, editorial, coastal, modern, minimal, polished; references in `~/Development/swello-design-references/INDEX.md` (proposed-primary set).
+1. Capture 1440 and 390 (and light/dark if themed) in Chrome; open the screenshots and **look**; compare side by side with the references.
+2. List the most visible shortcomings, fix, recapture, and look again (at least two rounds for major work).
+3. `design-critic` reviews major visual milestones; its top-5 list goes to `reviews/T-XXX-design.md`.
+4. Reject: generic dashboard grids, weak charts, inconsistent type, placeholder-looking 3D, empty showrooms, decorative clutter, compressed-desktop mobile layouts.
+5. 3D: judge geometry, materials, proportions and lighting in the rendered scene.
 
 ## Quality gate (feature is not COMPLETE unless)
 - The user journey works in a real browser, and controls do something meaningful.

@@ -5,8 +5,8 @@
 **Confirmed defects**
 | ID | Sev | Defect | Milestone |
 |---|---|---|---|
-| D-01 | P0 | Explore wind and swell layers never load locally: browser calls ERDDAP directly (CORS) [1,3] | R1 |
-| D-02 | P0 | NDBC buoy never connects locally; a 9-day-old snapshot is shown [2,3] | R1 |
+| D-01 | P0 | ~~Explore wind and swell layers never load locally~~ **RESOLVED 2026-10-29 (T-011)**: live via the dev server path; QA verified at 1440 and 390 | R1 |
+| D-02 | P0 | ~~NDBC buoy never connects locally~~ **RESOLVED 2026-10-29 (T-011)**: observation 40 min old, no stale snapshot | R1 |
 | D-03 | P1 | Saving one of the 7 demo-only spots fails silently [5] | R2 |
 | D-04 | P1 | Home card photo credit and licence links cannot be clicked [6] | R2 |
 | D-05 | P1 | Forecast chart errors: last day → "7 days"; on mobile, opening a later day from Home [7] | R2 |
@@ -39,7 +39,7 @@
 
 **Unverified suspicions** (check before relying on them)
 - U-01: production `/api/grid` path and Worker deployment never verified.
-- U-02: wind grid frame times may not align with the requested hour (the proxy returned "no exact frame" for 05:00Z).
+- U-02: ~~wind frame alignment~~ checked in T-011: the client floors to the 3-hourly step and labels the real valid time; the slider/label mismatch moves to T-012.
 - U-03: Explore and Quiver on mobile were only crawled, not looked at closely.
 - U-04: `color-mix` fallback untested in Safari; no Safari or Firefox testing at all.
 - U-05: what favourites holding demo-only ids do elsewhere (exports, journal).
@@ -59,6 +59,8 @@ States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE �
 | T-008 | Audit plan steps 1, 5, 6: approach, measured beach normals, validation data | user | BLOCKED: needs user decisions and data | lead |
 | T-006 | Week section at 820 px tablet width is sparse (QA D2) | frontend-engineer | COMPLETE (with T-005) | — |
 | T-010 | Primary nav overflows horizontally at 861–1040 px on every route (QA T-005) | frontend-engineer | COMPLETE (with T-005) | — |
+| T-011 | R1: live Explore layers and buoy in local dev (audit D-01, D-02, U-02) | frontend-engineer | COMPLETE | — |
+| T-012 | R3: Explore map to reference D: smooth ocean-clipped field, legend, arrows, basemap, slider shows model-frame range and nearest frame, mobile | frontend-engineer | READY | qa-tester, design-critic |
 | T-009 | Mobile horizontal overflow: /forecast 477 px, /personal 422 px at a 390 px viewport (since at least 94dcf40; the QA check was blind to it) | frontend-engineer | COMPLETE (with T-005) | — |
 | T-005 | Light/dark theme tokens; non-Home areas on the light theme; theme preference | frontend-engineer | COMPLETE | — |
 
@@ -128,3 +130,32 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
   8. Theme preference persists across reload.
 - **Acceptance:** runs headless against the dev server and exits non-zero on any failure; prints a per-journey summary; passes on the current build, or failures are reported as defects with repro. It does not judge visual quality.
 - **Status:** COMPLETE. 8/8 in three consecutive QA runs plus one lead run (exit 0, about 40 s). Limits: desktop 1440 only, needs live data, checks not mutation-tested, script lives outside git (playwright-toolkit).
+
+## T-011: Live Explore layers and buoy in local development (R1)
+- **Objective:** local dev uses the existing same-origin server path, so regional grids and the NDBC buoy load instead of failing on browser CORS. · **Priority:** P0 · **Owner:** frontend-engineer · **Dependencies:** none
+- **Owned files:** `.env.development` (new), `src/map/spatial.ts` and `src/ocean/request.ts` (only if needed for frame-time alignment or error states), `.env.example` comments. Production behaviour must not change.
+- **Functional acceptance:**
+  1. `/explore/wind` and `/explore/swell` render a model layer with its source and valid-time label within 30 s of load; no "Continuous heatmap unavailable" for the current hour.
+  2. Moving the Explore time slider changes the layer to the matching model frame, or says plainly that no frame exists at that time (wind is 3- or 6-hourly). No silent blank map.
+  3. Forecast › Sources shows NDBC 46026 **connected** with an observation time under 3 h old; no "saved snapshot, N days old".
+  4. Works again after a page reload and after navigating Explore → Forecast → Explore.
+  5. Browser CORS errors for ERDDAP and NDBC are gone; no new console errors.
+  6. `tsc`, `npm test`, `npm run build` pass; `swello-qa.mjs` 72/72; `journeys.mjs` 8/8.
+- **Visual:** design-critic reviews Explore with the layers on, against reference D. Findings are recorded as backlog (V-01), **not** fixed in this task.
+- **Status:** COMPLETE (functional). Visual quality is not done; it carries over to T-012.
+- **History:** frontend-engineer implemented it → lead checked the diff and restarted the dev server → qa-tester: 4 PASS, 2 PARTIAL (no frames after about Sun 8 PM; wind label lags the slider; 404 console lines) → design-critic: "does not meet the reference" (top 5 → T-012) → code-reviewer: APPROVE WITH FIXES (a 404 could hide the production fallback) → frontend-engineer correction cycle 1 (`code:'no_frame'`, 5 tests) → qa-tester retest passed.
+- **Test evidence:** tsc ✓ · npm test 140/140 · build ✓ · swello-qa 72/72 · journeys 8/8 · curl checks of the no-frame and unknown-endpoint responses · 0 CORS errors.
+- **Review evidence:** `reviews/T-011-qa.md`, `T-011-code-review.md`, `T-011-design.md`.
+
+## T-012: Explore map (R3), backlog from the T-011 QA and design critique
+- **Priority:** P2 visual (V-01) plus UX findings · **Owner:** frontend-engineer · **Inputs:** `reviews/T-011-design.md` (top 5), `reviews/T-011-qa.md` (no model frames beyond about Sun 8 PM, roughly 40% of the 7-day slider; wind frames every 3 h; /api/grid 404 console errors at no-frame positions)
+- **Acceptance (draft):**
+  1. Smooth field, no visible cell seams, clipped to water.
+  2. Legend with units.
+  3. Direction arrows.
+  4. Muted, licensed basemap that follows the theme.
+  5. The slider shows where model frames exist and labels the nearest frame time.
+  6. No console errors at no-frame positions (the server answers "no frame" without a network error, or the client avoids requesting it).
+  7. Mobile controls ≥44 px.
+  8. design-critic verdict at least "Partly", with no item 1–2 remaining.
+- **Status:** READY (next milestone after R2 decisions)
