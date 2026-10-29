@@ -120,12 +120,31 @@ export class WaveScene {
       const board = g.scene.getObjectByName('board'), rider = g.scene.getObjectByName('rider'), paddler = g.scene.getObjectByName('paddler');
       if (!board || !rider || !paddler || this.disposed) return;
       this.surfer.clear();
-      this.surfer.add(board, rider, paddler);
+      this.surfer.add(await this.realBoard(new GLTFLoader(), board), rider, paddler);
       this.rider = rider as THREE.Group; this.paddler = paddler as THREE.Group;
       this.customSurfer = true;
       this.place(this.cur * FT);
       this.dirty = true;
     } catch { /* keep the procedural figure */ }
+  }
+
+  /** Swap the plain placeholder board for the Quiver's Blender shortboard (rocker, rails, stringer, fins), fitted to the
+   * placeholder's footprint so the surfer's stance still lines up. Falls back to the placeholder on any failure. */
+  private async realBoard(loader: {loadAsync: (u: string) => Promise<{scene: THREE.Group}>}, placeholder: THREE.Object3D): Promise<THREE.Object3D> {
+    try {
+      const g = await loader.loadAsync((import.meta.env.BASE_URL ?? '/') + 'models/boards/board-shortboard.glb');
+      const real = g.scene, want = new THREE.Box3().setFromObject(placeholder), have = new THREE.Box3().setFromObject(real);
+      const ws = want.getSize(new THREE.Vector3()), hs = have.getSize(new THREE.Vector3());
+      // The placeholder's long axis is X or Z; the board GLB is normalised along X.
+      if (ws.z > ws.x) real.rotation.y = Math.PI / 2;
+      const len = Math.max(ws.x, ws.z), k = len / hs.x;
+      real.scale.setScalar(k);
+      const fitted = new THREE.Box3().setFromObject(real), c = want.getCenter(new THREE.Vector3()), fc = fitted.getCenter(new THREE.Vector3());
+      real.position.add(new THREE.Vector3(c.x - fc.x, want.min.y - fitted.min.y, c.z - fc.z));
+      real.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) { m.castShadow = true; const mat = m.material as THREE.MeshStandardMaterial; if (mat && /deck|bottom|board/i.test(mat.name || m.name)) { mat.color?.set('#f4efe6'); } } });
+      const wrap = new THREE.Group(); wrap.add(real); wrap.name = 'board';
+      return wrap;
+    } catch { return placeholder; }
   }
 
   /** Spray: soft points thrown from the lip tip, the whitewater and the toe of the wave (unit space). */
@@ -177,9 +196,14 @@ export class WaveScene {
     const ride = this.s.mode === 'ride';
     this.rider.visible = ride; this.paddler.visible = !ride;
     if (ride) {
-      const f = this.faceAt(XU, 0.34), roll = Math.min(1.1, Math.atan2(f.nz, f.ny));
-      this.surfer.position.set(XU * Hm, f.y * Hm + 0.05, f.z * Hm + 0.1);
-      this.surfer.rotation.set(roll, 0, 0);
+      // Sit on the face, not in it: lift along the surface normal by board thickness plus the shader's swell,
+      // and yaw the board along the face's height contour so nose and tail stay on the curving shoulder.
+      // Big faces: ride a little lower (out of the throwing lip) and cap the tilt so the board reads as a board, not a disc.
+      const at = Hm > 3 ? 0.27 : 0.34, f = this.faceAt(XU, at), roll = Math.min(0.85, Math.atan2(f.nz, f.ny)), d = 0.9 / Hm;
+      const a = this.faceAt(XU - d, at), b = this.faceAt(XU + d, at), yaw = Math.max(-0.4, Math.min(0.4, -Math.atan2((b.z - a.z) * Hm, 2 * d * Hm)));
+      const clear = 0.16 + Hm * 0.012;
+      this.surfer.position.set(XU * Hm, f.y * Hm + f.ny * clear, f.z * Hm + f.nz * clear);
+      this.surfer.rotation.set(roll, yaw, 0, 'YXZ');
       this.rider.rotation.set(-roll * 0.8, 0, 0);
     } else {
       this.surfer.position.set((XU - 0.6) * Hm, 0.02, 1.9 * Hm + 2.2);
