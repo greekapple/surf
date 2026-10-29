@@ -67,4 +67,10 @@ A milestone counts only when you have seen it in the browser and agreed. Each is
 | R5 | **Quiver showroom with a real 3D board** (10) | A board generated from its dimensions (outline, rocker, rails, fins), rotatable, lit, inside the showroom | Rendered geometry checked against board photos |
 | R6 | **Wave Scale realism** (11) | A breaking-wave mesh with a lip, a proportioned surfer, a measured face line | Needs Blender (your approval to install) or a parametric mesh; compared against reference photos |
 
-R1 and R2 do not depend on the references. R3–R6 wait for your ChatGPT references; none were found in Downloads or on the Desktop at audit time.
+R1 and R2 do not depend on the references.
+
+**References (ingested after the audit):** the four 2026-10-28 ChatGPT images are the primary visual direction, catalogued in `~/Development/swello-design-references/CHATGPT-REFERENCES.md`. They call for a dark cinematic UI, serif display type, glass cards over coastal photography, a satellite map with a smooth field and streamlines, a warm architectural showroom, and a 3D wave card inside Forecast. Consequences:
+- Default to the dark theme with a new palette; the 2026-10-22 light editorial set becomes the light theme.
+- R3 = map from reference D; R4 = Forecast from reference A panel 2; R5 = Quiver from A panel 4; R6 = the wave card in A panel 2.
+- A Home revision to match references A, B and C can follow R2.
+- Data shown in the references that SWELLO cannot honestly produce (breaking "surf" heights, "Good" ratings presented as fact, LIVE cameras) is reproduced only as layout, with honest labels.
