@@ -3,7 +3,7 @@ import type {Surfboard} from '../../models/index';
 import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
 import {SWATCHES, TINTS, loadLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
-import {Studio, type Preset} from './studio';
+import {Studio, type BoardEntry, type Mode, type Preset} from './studio';
 
 export interface Dims {length: number; width: number; thickness: number; volume: number}
 type Step = 'board' | 'dims' | 'color' | 'finish' | 'fins' | 'view';
@@ -73,24 +73,33 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
   const {dims, look} = state;
   const [step, setStep] = useState<Step>('board');
   const [preset, setPreset] = useState<Preset>('deck');
-  const [spin, setSpin] = useState(!reduced());
+  const [mode, setModeState] = useState<Mode>('lineup');
+  const [framing, setFraming] = useState<'sel' | 'all'>('all');
+  const [spin, setSpin] = useState(false);
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState('');
   const noMotion = useRef(reduced()).current;
+  const pickRef = useRef(onSelect); pickRef.current = onSelect;
 
   // The scene lives as long as the showroom does; boards swap inside it.
   useEffect(() => {
     let s: Studio;
     try {
-      s = new Studio(canvas.current!, host.current!, {reducedMotion: noMotion, onUserMove: () => { setSpin(false); }, onReady: () => setReady(true), onError: onFail});
+      s = new Studio(canvas.current!, host.current!, {reducedMotion: noMotion, onUserMove: () => { setSpin(false); }, onReady: () => setReady(true), onError: onFail, onPick: (id) => pickRef.current(id)}, 'lineup');
     } catch (e) { console.error('showroom', e); onFail(); return; }
     studio.current = s;
     return () => { s.dispose(); studio.current = null; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Every board on the rack is built from its saved numbers; the selected one follows the sliders live.
   const template = templateFor({type: board.type, length: dims.length});
-  useEffect(() => { void studio.current?.setBoard({template, ...dims}); }, [template, dims.length, dims.width, dims.thickness, dims.volume]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { studio.current?.setLook(look); }, [look]);
+  useEffect(() => {
+    const entries: BoardEntry[] = boards.map((b) => b.id === board.id
+      ? {id: b.id, spec: {template, ...dims}, look}
+      : {id: b.id, spec: {template: templateFor(b), length: b.length, width: b.width, thickness: b.thickness, volume: b.volume}, look: loadLook(b)});
+    if (!entries.some((e) => e.id === board.id)) return;
+    void studio.current?.setBoards(entries, board.id);
+  }, [boards, board.id, template, dims.length, dims.width, dims.thickness, dims.volume, look]);
 
   // Live numbers for the spec card.
   useEffect(() => { onLive({id: board.id, ...dims}); }, [board.id, dims.length, dims.width, dims.thickness, dims.volume]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -116,9 +125,21 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
     setPreset(p); studio.current?.goTo(p); setSpin(p === '360' && !noMotion);
     setStatus(`${PRESETS.find((x) => x.id === p)!.label} view`);
   };
+  const setMode = (m: Mode) => {
+    if (m === mode) return;
+    setModeState(m); studio.current?.setMode(m); setPreset('deck'); setFraming('all'); setSpin(m === 'focus' && !noMotion);
+    setStatus(m === 'focus' ? `Focus: ${board.name}` : 'Lineup: all boards');
+  };
+  const frame = (f: 'sel' | 'all') => { setFraming(f); studio.current?.frame(f); setStatus(f === 'all' ? 'Whole rack in view' : `${board.name} in view`); };
+  const rack = [...boards].sort((a, b) => a.length - b.length || (a.id < b.id ? -1 : 1));
   const toggleSpin = () => { const on = !spin; setSpin(on); studio.current?.setSpin(on); };
   const onKeys = (e: KeyboardEvent) => {
     const s = studio.current; if (!s) return;
+    if (mode === 'lineup' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+      e.preventDefault(); const i = rack.findIndex((b) => b.id === board.id), n = rack[(i + (e.key === 'ArrowRight' ? 1 : -1) + rack.length) % rack.length];
+      if (n) { onSelect(n.id); setStatus(`${n.name} selected`); }
+      return;
+    }
     const k = e.key, map: Record<string, [number, number, number]> = {ArrowLeft: [-0.16, 0, 1], ArrowRight: [0.16, 0, 1], ArrowUp: [0, 0.1, 1], ArrowDown: [0, -0.1, 1], '+': [0, 0, 0.9], '=': [0, 0, 0.9], '-': [0, 0, 1.1]};
     if (map[k]) { e.preventDefault(); s.nudge(...map[k]); setSpin(false); s.setSpin(false); }
   };
@@ -133,9 +154,15 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
   return (
     <div className="qv-studio">
       <div className="qv-stage" ref={host}>
-        <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={`3D view of ${board.name}, an approximate ${board.type.toLowerCase()} shape. Arrow keys turn the board, plus and minus zoom.`} />
+        <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={mode === 'lineup'
+          ? `Showroom rack of ${boards.length} boards at true relative scale. ${board.name} is selected. Left and right arrows choose another board, plus and minus zoom.`
+          : `3D view of ${board.name}, an approximate ${board.type.toLowerCase()} shape. Arrow keys turn the board, plus and minus zoom.`} />
         {!ready && <p className="qv-loading" role="status">Loading the board…</p>}
-        <p className="qv-hint" aria-hidden="true">{noMotion ? 'Drag to turn' : 'Drag to turn · scroll to zoom'}</p>
+        <div className="qv-mode" role="group" aria-label="Showroom view">
+          <button type="button" aria-pressed={mode === 'lineup'} onClick={() => setMode('lineup')}>Lineup</button>
+          <button type="button" aria-pressed={mode === 'focus'} onClick={() => setMode('focus')}>Focus</button>
+        </div>
+        <p className="qv-hint" aria-hidden="true">{mode === 'lineup' ? 'Tap a board to select it' : noMotion ? 'Drag to turn' : 'Drag to turn · scroll to zoom'}</p>
         <p className="sr-only" role="status" aria-live="polite">{status}</p>
       </div>
       <div className="qv-bar">
@@ -192,14 +219,19 @@ export default function Showroom({board, boards, onSelect, onSave, onLive, onFai
               ))}
             </div>
           )}
-          {step === 'view' && (
+          {step === 'view' && (mode === 'focus' ? (
             <div className="qv-row-o" role="group" aria-label="Camera view">
               {PRESETS.map((p) => (
                 <button key={p.id} type="button" className="qv-pick" aria-pressed={preset === p.id} onClick={() => go(p.id)}><b>{p.label}</b></button>
               ))}
               <button type="button" className="qv-pick" aria-pressed={spin} disabled={noMotion} onClick={toggleSpin}><b>Auto-spin</b><span>{noMotion ? 'Off: reduced motion' : spin ? 'On' : 'Off'}</span></button>
             </div>
-          )}
+          ) : (
+            <div className="qv-row-o" role="group" aria-label="Camera view">
+              <button type="button" className="qv-pick" aria-pressed={framing === 'sel'} onClick={() => frame('sel')}><b>Selected board</b><span>Glide to {board.name}</span></button>
+              <button type="button" className="qv-pick" aria-pressed={framing === 'all'} onClick={() => frame('all')}><b>Whole rack</b><span>All {boards.length} boards</span></button>
+            </div>
+          ))}
         </div>
         <div className="qv-steps" role="tablist" aria-label="Configure your board" onKeyDown={tabKeys}>
           {STEPS.map((s, i) => (
