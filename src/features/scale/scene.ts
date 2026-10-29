@@ -255,7 +255,7 @@ export class WaveScene {
       this.renderer.render(this.scene, this.camera);
       const Hm = this.cur * FT, xt = XU * Hm + 2.4, sp = this.surfer.position;
       this.projectTag(this.tags.face, xt, Hm * envAt(xt / Hm), this.crestZ(xt / Hm) * Hm, `${this.fmt(this.cur, this.unit)} face`);
-      this.projectTag(this.tags.person, sp.x, sp.y + (this.s.mode === 'ride' ? 1.75 : 0.65), sp.z, this.s.mode === 'ride' ? 'Surfer 5′10″' : 'Paddling 5′10″');
+      this.projectTag(this.tags.person, sp.x, sp.y + (this.s.mode === 'ride' ? 1.42 : 0.65), sp.z, this.s.mode === 'ride' ? 'Surfer 5′10″' : 'Paddling 5′10″');
       this.dirty = false;
       this.frames++;
     }

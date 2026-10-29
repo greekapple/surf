@@ -99,7 +99,7 @@ function Comparison() {
         {SIZES.map((s) => <button key={s} aria-pressed={pick.includes(s)} onClick={() => setPick(pick.includes(s) ? pick.filter((x) => x !== s) : [...pick, s].sort((a, b) => a - b))}>{label(s)}</button>)}
       </div>
       <div style={{overflowX: 'auto'}}>
-        <svg viewBox={`0 0 ${n * COL} 320`} style={{width: '100%', minWidth: Math.min(560, n * COL), height: 'auto', display: 'block'}} role="img" aria-label={`Wave faces of ${pick.map(label).join(', ')} beside a surfer`}>
+        <svg viewBox={`0 0 ${n * COL} 320`} style={{width: '100%', minWidth: Math.min(560, n * COL), height: 'auto', maxHeight: 300, display: 'block'}} preserveAspectRatio="xMidYMax meet" role="img" aria-label={`Wave faces of ${pick.map(label).join(', ')} beside a surfer`}>
           <line x1={0} x2={n * COL} y1={BASE} y2={BASE} stroke="var(--ch-div)" />
           {pick.map((s, k) => {
             const H = s * PX, P = 5.83 * PX;
