@@ -74,7 +74,7 @@ export function ScanPanel({lengthText, value, onChange}: {lengthText: string; va
       <canvas ref={overlay} className="qv-trace-canvas" hidden={!res?.ok} role="img" aria-label={`${name || 'Photo'} with the traced board outline drawn over it`} />
       {res?.ok && (
         <>
-          <p className="fine" role="status">Outline found{lenBad ? '' : ` for a ${lengthLabel(lengthIn)} board`}. Check that the orange line follows the board edge and the nose is the narrower end.</p>
+          <p className="fine" role="status">Outline found{lenBad ? '' : ` for a ${lengthLabel(lengthIn)} board`}. Check that the orange line follows the board edge and the nose is the pointier end. If it is wrong, swap nose and tail.</p>
           {lenBad && <p role="alert" className="qv-trace-fail">Enter the length (for example 6'0") so the width can be worked out.</p>}
           {note && <p className="fine" role="status">{note}</p>}
           {preview && <figure className="qv-tex"><img src={preview} alt="Deck of your board, straightened, nose at the left" /><figcaption className="fine">Deck texture used on the 3D board</figcaption></figure>}

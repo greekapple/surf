@@ -86,10 +86,10 @@ export function traceBoard(rgba: Uint8ClampedArray | Uint8Array, w: number, h: n
   const aspect = len / (2 * maxHalf);
   if (aspect < 2.2) return FAIL('The shape is not long and narrow enough to be a surfboard. Check the photo shows one whole board from above.');
   if (half.filter((v) => v < maxHalf * 0.04).length > 3) return FAIL('The traced shape has gaps, so part of the board blends into the floor. Try a floor that contrasts more.');
-  // Orient: nose first. The narrower end (mean of the outer eighths) is taken as the nose unless flipped.
-  const e = Math.floor(STATIONS / 8), avg = (a: number[]) => a.reduce((s, v) => s + v, 0) / a.length;
+  // Orient: nose first. The nose is the pointier end: the one whose tip curve is tighter (radius hw^2 / 2d at stations near each end), unless flipped.
+  const tip = (at: (j: number) => number) => [1, 2, 3].reduce((s, j) => s + at(j) ** 2 / (2 * (j + 0.5)), 0);
   let order = half.map((_, k) => k);
-  if (avg(half.slice(0, e)) > avg(half.slice(-e))) order = order.reverse();
+  if (tip((j) => half[j]) > tip((j) => half[STATIONS - 1 - j])) order = order.reverse();
   if (flip) order = order.reverse();
   const smoothHalf = order.map((k) => half[k]);
   const sm = smoothHalf.map((v, i, a) => (i === 0 || i === a.length - 1 ? v : (a[i - 1] + 2 * v + a[i + 1]) / 4));
