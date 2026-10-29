@@ -1,5 +1,5 @@
 /* ---------- Forecast: spot header, nearby strip, numeric summary, timeline, then the parts ---------- */
-.fc { display: grid; gap: 16px; }
+.fc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 .fc-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-top: 4px; }
 .fc-head h1 { display: flex; align-items: center; gap: 10px; font: 700 clamp(32px, 4vw, 48px)/1.05 var(--display); letter-spacing: -0.01em; }
 .fc-fav { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 8px; background: none; color: var(--muted); cursor: pointer; transition: background-color 160ms var(--ease), color 160ms var(--ease), transform 100ms var(--ease); }
@@ -7,7 +7,7 @@
 .fc-fav:active { transform: scale(0.96); }
 .fc-fav[aria-pressed='true'] svg { color: var(--fair); fill: currentColor; }
 .fc-sub { margin-top: 4px; font-size: 13.5px; color: var(--muted); }
-.fc-hero-act { display: flex; gap: 8px; align-items: center; }
+.fc-hero-act { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; min-width: 0; max-width: 100%; }
 .fc .seg { border-radius: 8px; }
 .fc .seg button { border-radius: 4px; min-height: 36px; }
 

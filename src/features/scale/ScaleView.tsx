@@ -75,7 +75,7 @@ function Viewer({go}: {go: ViewProps['go']}) {
           </div>
         </section>
         <section className="card">
-          {hs !== null ? <p><span className="chip ill">Illustrative</span> Opened at the offshore wave height for {spot.name}: <b>{fmt(Math.round(rec!.offshore * 10) / 10)}</b> at {view.selectedTime ? timeLabelPT(view.selectedTime) : 'the selected hour'} (the 3D wave uses the nearest half foot). Breaking-wave faces at the beach can differ; no calibrated surf-height estimate exists.</p>
+          {hs !== null ? <p><span className="chip ill">Illustrative</span> Opened at the offshore wave height for {spot.name}: <b>{unit === 'm' ? `${(rec!.offshore * FT).toFixed(1)} m` : `${rec!.offshore.toFixed(1)} ft`}</b> at {view.selectedTime ? timeLabelPT(view.selectedTime) : 'the selected hour'} (the 3D wave uses the nearest half foot). Breaking-wave faces at the beach can differ; no calibrated surf-height estimate exists.</p>
           : <p><span className="chip ill">Illustrative</span> {supplied !== null ? 'The demonstration week supplies a face estimate.' : 'Live data has no breaking-wave estimate for these spots, so this viewer is not tied to the forecast.'}</p>}
           <p className="fine" style={{marginTop: 8}}>Surfer 1.78 m (5′10″) on a 6′0″ board. The wave is a generic peeling peak, not a specific break; small sizes spill rather than curl.</p>
         </section>
