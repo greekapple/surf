@@ -131,11 +131,11 @@ interface Cell {h: HourSample | null}
 function Week({spots, cells, days, best, p, onPick}: {spots: SurfSpot[]; cells: Cell[][]; days: string[]; best: HourSample | null; p: UserProfile; onPick: (spotId: string, t: string) => void}) {
   return (
     <div className="week" role="region" aria-label="Best daylight hour per spot and day" tabIndex={0}>
-      <table>
-        <thead><tr><th scope="col"><span className="sr-only">Spot</span></th>{days.map((d) => <th key={d} scope="col">{weekdayPT(d)} <span>{dayNumPT(d)}</span></th>)}</tr></thead>
-        <tbody>{spots.map((s, r) => (
-          <tr key={s.id}><th scope="row">{s.name}</th>{cells[r].map(({h}, c) => (
-            <td key={c}>{h ? (
+      <table role="table">
+        <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader"><span className="sr-only">Spot</span></th>{days.map((d) => <th key={d} scope="col" role="columnheader">{weekdayPT(d)} <span>{dayNumPT(d)}</span></th>)}</tr></thead>
+        <tbody role="rowgroup">{spots.map((s, r) => (
+          <tr key={s.id} role="row"><th scope="row" role="rowheader">{s.name}</th>{cells[r].map(({h}, c) => (
+            <td key={c} role="cell" data-day={`${weekdayPT(days[c])} ${dayNumPT(days[c])}`}>{h ? (
               <button className={`cell ${bandOf(h.rating.category)}${h === best ? ' best' : ''}`} onClick={() => onPick(s.id, h.timestamp)}
                 aria-label={`${s.name}, ${weekdayPT(h.timestamp)} ${hourLabel(h.timestamp)}: ${ratingWord(h.rating.category)}, ${ht(h.heightFt, p)} ${p.heightUnit} offshore${h === best ? '. Best of the week' : ''}`}>
                 <b><i style={{background: TONE[bandOf(h.rating.category)]}} />{ratingWord(h.rating.category)}</b>
