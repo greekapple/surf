@@ -8,6 +8,8 @@ import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
 import {titleCase} from '../forecast/model';
 import {inches} from './format';
+import {loadOutline, saveOutline, type Outline} from './outline';
+import {TraceTool} from './TraceTool';
 import type {Dims} from './Showroom';
 import './quiver.css';
 
@@ -39,12 +41,15 @@ function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b
     length: `${Math.floor(initial.length / 12)}'${+(initial.length % 12).toFixed(2)}"`, width: String(initial.width), thickness: String(initial.thickness),
     volume: String(initial.volume), fins: initial.fins ?? '', tail: initial.tail ?? '', notes: initial.notes ?? ''} : emptyForm);
   const [err, setErr] = useState('');
+  const [outline, setOutline] = useState<Outline | null>(() => (initial ? loadOutline(initial.id) : null));
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const length = parseDimension(f.length, true), width = parseDimension(f.width), thickness = parseDimension(f.thickness), volume = Number(f.volume);
     if (!f.name.trim()) return setErr('Give the board a name.');
     if (!validDimensions(length, width, thickness, volume)) return setErr(`Check the dimensions: length like 6'0", width and thickness in inches (fractions allowed), volume in litres that fits those dimensions.`);
-    onSave({...(initial ?? {favorite: false}), id: initial?.id ?? crypto.randomUUID(), name: f.name.trim(), manufacturer: f.manufacturer.trim(), model: f.model.trim(), type: f.type,
+    const id = initial?.id ?? crypto.randomUUID();
+    saveOutline(id, outline);
+    onSave({...(initial ?? {favorite: false}), id, name: f.name.trim(), manufacturer: f.manufacturer.trim(), model: f.model.trim(), type: f.type,
       length, width, thickness, volume, fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false, specificationSource: 'Entered by you'});
   };
   const field = (k: keyof typeof f, label: string, extra = {}) => <label className="field"><span>{label}</span><input value={f[k]} onChange={(e) => setF({...f, [k]: e.target.value})} {...extra} /></label>;
@@ -56,6 +61,7 @@ function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b
         <label className="field"><span>Type</span><select value={f.type} onChange={(e) => setF({...f, type: e.target.value as BoardType})}>{boardTypes.map((t) => <option key={t}>{t}</option>)}</select></label>
         {field('length', `Length (e.g. 6'0")`)}{field('width', 'Width (in)')}{field('thickness', 'Thickness (in)')}{field('volume', 'Volume (L)', {inputMode: 'decimal'})}{field('fins', 'Fins')}{field('tail', 'Tail')}
       </div>
+      <TraceTool lengthText={f.length} widthIn={parseDimension(f.width)} value={outline} onChange={setOutline} />
       <label className="field" style={{marginTop: 12}}><span>Notes</span><textarea value={f.notes} onChange={(e) => setF({...f, notes: e.target.value})} /></label>
       {err && <p role="alert" style={{color: 'var(--warn)', marginTop: 8}}>{err}</p>}
       <div style={{display: 'flex', gap: 8, marginTop: 12}}><button className="btn primary" type="submit">Save board</button><button className="btn" type="button" onClick={onCancel}>Cancel</button></div>
@@ -88,6 +94,7 @@ export function QuiverView({section, go}: ViewProps) {
   if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />Add your first board</button>} />;
 
   const t = TITLES[section] ?? TITLES[''];
+  const traced = !!(sel && loadOutline(sel.id));
   const maxLen = Math.max(...boards.map((b) => b.length));
   const idx = sel ? boards.findIndex((b) => b.id === sel.id) : 0;
   const step = (d: number) => select(boards[(idx + d + boards.length) % boards.length].id);
@@ -156,7 +163,7 @@ export function QuiverView({section, go}: ViewProps) {
             <div className="qv-info-main">
               <h2>{sel.name}</h2>
               <p className="fine">{[sel.manufacturer, sel.model].filter(Boolean).join(' · ') || 'Shaper not recorded'}</p>
-              <div className="qv-tags"><span className="chip">{sel.type}</span>{sel.fins && <span className="chip">{sel.fins}</span>}{sel.tail && <span className="chip">{sel.tail} tail</span>}{tag(sel)}</div>
+              <div className="qv-tags"><span className="chip">{sel.type}</span>{sel.fins && <span className="chip">{sel.fins}</span>}{sel.tail && <span className="chip">{sel.tail} tail</span>}{tag(sel)}{traced && <span className="chip">Traced from your photo</span>}</div>
               {sel.notes && <p className="fine">{sel.notes}</p>}
             </div>
             <div className="qv-info-spec">
@@ -164,7 +171,7 @@ export function QuiverView({section, go}: ViewProps) {
               <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
             </div>
           </div>
-          <p className="fine">{sel.demo ? 'Example board. ' : ''}The {flat ? 'outline' : '3D shape'} is a {sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.</p>
+          <p className="fine">{sel.demo ? 'Example board. ' : ''}{traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>
           {flat && (
           <ul className="qv-strip" aria-label="Choose a board">{boards.map((b) => (
             <li key={b.id}><button aria-pressed={b.id === sel.id} aria-label={b.name} title={b.name} onClick={() => select(b.id)}><BoardOutline b={b} scale={64 / maxLen} /></button></li>

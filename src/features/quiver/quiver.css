@@ -69,13 +69,18 @@
 /* ---------- Showroom: 3D studio + configurator bar ---------- */
 .qv-studio { --bar: #0d1820; --bar-2: #15232d; --bar-line: rgb(255 255 255 / 0.14); --bar-text: #eef3f6; --bar-muted: #a9b9c4; --bar-on: #ff9b5c;
   display: grid; border-radius: var(--r3); overflow: hidden; background: #0c141b; border: 1px solid var(--line); min-width: 0; }
-.qv-stage { position: relative; height: clamp(380px, 58vh, 620px); background: radial-gradient(70% 80% at 50% 38%, #1d2b36 0%, #0c141b 78%); min-width: 0; }
-.qv-stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 100% at 50% 45%, transparent 55%, rgb(0 0 0 / 0.38)); }
+.qv-stage { position: relative; height: clamp(420px, 66vh, 700px); min-width: 0; background: radial-gradient(90% 75% at 50% 28%, #f6f4f0 0%, #e9e6e0 58%, #dcd8d0 100%); }
+.qv-stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(130% 110% at 50% 45%, transparent 62%, rgb(60 52 40 / 0.14)); }
 .qv-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; outline: none; }
 .qv-stage canvas:active { cursor: grabbing; }
-.qv-stage canvas:focus-visible { outline: 3px solid var(--bar-on); outline-offset: -3px; }
-.qv-loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--bar-muted, #a9b9c4); font-size: 14px; z-index: 1; pointer-events: none; }
-.qv-hint { position: absolute; left: 14px; bottom: 10px; z-index: 1; color: var(--bar-muted); font-size: 12px; pointer-events: none; }
+.qv-stage canvas:focus-visible { outline: 3px solid #b4531a; outline-offset: -3px; }
+.qv-loading { position: absolute; inset: 0; display: grid; place-items: center; color: #4d5359; font-size: 14px; z-index: 1; pointer-events: none; }
+.qv-hint { position: absolute; left: 14px; bottom: 10px; z-index: 1; color: #4d5359; font-size: 12px; pointer-events: none; }
+
+.qv-mode { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; background: rgb(255 255 255 / 0.78); border: 1px solid rgb(40 36 30 / 0.16); backdrop-filter: blur(6px); }
+.qv-mode button { min-width: 76px; min-height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: none; color: #2a2f33; font: 600 14px/1 inherit; cursor: pointer; }
+.qv-mode button[aria-pressed='true'] { background: #0d1820; color: #fff; }
+.qv-mode button:focus-visible { outline: 2px solid #b4531a; outline-offset: 1px; }
 
 .qv-bar { display: grid; background: var(--bar); color: var(--bar-text); border-top: 1px solid var(--bar-line); min-width: 0; }
 .qv-opts { min-height: 108px; padding: 14px 16px; overflow-x: auto; scrollbar-width: thin; display: flex; align-items: center; }
@@ -121,8 +126,15 @@
 .qv-step-b:hover { border-color: rgb(255 255 255 / 0.32); }
 
 @media (max-width: 860px) {
-  .qv-stage { height: min(48svh, 380px); min-height: 300px; }
+  .qv-stage { height: min(60svh, 460px); min-height: 340px; }
   .qv-opts { padding: 10px 12px; min-height: 96px; }
   .qv-steps button { min-width: 88px; padding: 0 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .qv-studio * { transition: none !important; scroll-behavior: auto; } }
+
+/* ---------- Trace outline from a photo (board form) ---------- */
+.qv-trace { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--r3); background: var(--s1); }
+.qv-trace summary { min-height: 44px; display: flex; align-items: center; padding: 0 14px; font-weight: 650; cursor: pointer; }
+.qv-trace-body { display: grid; gap: 10px; padding: 4px 14px 14px; }
+.qv-trace-canvas { width: 100%; max-width: 520px; height: auto; border-radius: var(--r2); border: 1px solid var(--line); }
+.qv-trace-fail { color: var(--warn); }
