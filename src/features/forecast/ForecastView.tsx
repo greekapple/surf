@@ -177,7 +177,7 @@ export function ForecastView({section, go}: ViewProps) {
       </section>
 
       {(show('wind-tides') || section === '') && <section className="card span-8" aria-label="Instruments"><Tiles h={selected} p={p} spot={spot} series={series} extrema={extrema} /></section>}
-      {section === '' && <section className="card span-4"><div className="card-h"><h2>Wave scale</h2><button className="btn" onClick={() => go('scale')}>3D viewer</button></div><MiniScale forecast={selected.forecast} /></section>}
+      {section === '' && <section className="card span-4"><div className="card-h"><h2>Wave scale</h2><button className="btn" onClick={() => go('forecast', 'wave-scale')}>3D viewer</button></div><MiniScale forecast={selected.forecast} /></section>}
       {show('swell') && <section className={`card ${section === 'swell' ? 'span-6' : 'span-4'}`}><div className="card-h"><h2>Swell direction &amp; period</h2><span>selected day</span></div>
         <PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot)} onSelect={view.selectTime} />
         <p className="fine">White primary · blue secondary · ring = period (s) · size = height</p></section>}

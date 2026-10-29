@@ -4,24 +4,23 @@
 .shell { min-height: 100dvh; display: flex; flex-direction: column; }
 .skip { position: absolute; left: 12px; top: -80px; z-index: 100; padding: 10px 14px; border-radius: var(--r1); background: var(--text); color: var(--bg); }
 .skip:focus { top: 8px; }
-.topnav { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 22px; height: var(--nav-h); padding: 0 var(--gutter); background: rgb(14 26 34 / 0.94); backdrop-filter: blur(16px) saturate(1.3); border-bottom: 1px solid var(--line); transition: background-color 320ms var(--ease), border-color 320ms var(--ease); }
-/* Over the Home photograph the bar is clear until the page scrolls. */
-.topnav.over { background: transparent; border-bottom-color: transparent; backdrop-filter: none; }
-.topnav.over .area > button, .topnav.over .badge { color: rgb(255 255 255 / 0.86); }
-.topnav.over .area > button:hover, .topnav.over .area.open > button { background: rgb(255 255 255 / 0.12); color: #fff; }
-.topnav.over .badge { border-color: rgb(255 255 255 / 0.28); }
-.topnav.over .spotbtn { background: rgb(14 26 34 / 0.28); border-color: rgb(255 255 255 / 0.3); backdrop-filter: blur(10px); }
-.topnav.over .spotbtn small { color: rgb(255 255 255 / 0.75); }
+/* Light navigation bar on every page: re-points the shared tokens so menus and the spot picker follow. */
+.topnav, .tabbar {
+  --s2: #ffffff; --s3: #eef1f2; --line: rgb(14 26 34 / 0.09); --line-2: rgb(14 26 34 / 0.14);
+  --text: var(--ink); --muted: #5a6770; --dim: #75828a; --accent: #c2410c;
+  color-scheme: light; color: var(--ink);
+}
+.topnav { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 28px; height: var(--nav-h); padding: 0 clamp(16px, 3vw, 40px); background: rgb(255 255 255 / 0.92); backdrop-filter: blur(18px) saturate(1.4); border-bottom: 1px solid var(--line); }
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; font: 800 21px/1 var(--sans); font-stretch: 125%; letter-spacing: -0.035em; text-decoration: none; padding-right: 4px; }
 .areas { display: flex; gap: 2px; list-style: none; height: 100%; }
 .area { position: relative; display: flex; align-items: center; }
-.area > button { display: flex; align-items: center; gap: 4px; height: 40px; padding: 0 11px; border: 0; border-radius: var(--r1); background: none; color: #a9b6bf; cursor: pointer; font-weight: 520; font-size: 14.5px; }
-.area > button:hover, .area.open > button { color: var(--text); background: var(--s2); }
+.area > button { display: flex; align-items: center; gap: 4px; height: 40px; padding: 0 12px; border: 0; border-radius: 999px; background: none; color: #3d4a52; cursor: pointer; font-weight: 560; font-size: 15px; }
+.area > button:hover, .area.open > button { color: var(--text); background: var(--s3); }
 .area > button[aria-current='page'] { color: var(--text); }
-.area > button[aria-current='page']::after { content: ''; position: absolute; left: 11px; right: 11px; bottom: 2px; height: 2px; border-radius: 2px; background: var(--signal); }
+.area > button[aria-current='page']::after { content: ''; position: absolute; left: 12px; right: 30px; bottom: 4px; height: 2px; border-radius: 2px; background: var(--signal); }
 .area > button svg { transition: transform 180ms var(--ease); }
 .area.open > button svg { transform: rotate(180deg); }
-.menu { position: absolute; top: calc(100% - 4px); left: 0; min-width: 270px; padding: 6px; border-radius: var(--r2); background: var(--s2); border: 1px solid var(--line-2); box-shadow: 0 20px 44px rgb(0 0 0 / 0.5); list-style: none; animation: pop 160ms var(--ease); }
+.menu { position: absolute; top: calc(100% - 4px); left: 0; min-width: 270px; padding: 6px; border-radius: var(--r2); background: var(--s2); border: 1px solid var(--line-2); box-shadow: 0 18px 40px rgb(14 26 34 / 0.14); list-style: none; animation: pop 160ms var(--ease); }
 @keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
 .menu a { display: grid; gap: 1px; padding: 9px 11px; border-radius: var(--r1); text-decoration: none; }
 .menu a:hover, .menu a:focus-visible, .menu a[aria-current='page'] { background: var(--s3); outline: none; }
@@ -40,10 +39,10 @@
 
 /* Spot picker */
 .spotpick { position: relative; }
-.spotbtn { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 10px 0 12px; border-radius: var(--r1); border: 1px solid var(--line-2); background: var(--s2); cursor: pointer; }
+.spotbtn { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px 0 14px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--s2); cursor: pointer; }
 .spotbtn b { font-weight: 650; }
 .spotbtn small { color: var(--muted); }
-.spotlist { position: absolute; top: calc(100% + 6px); right: 0; z-index: 50; width: 300px; padding: 6px; border-radius: var(--r2); background: var(--s2); border: 1px solid var(--line-2); box-shadow: 0 20px 44px rgb(0 0 0 / 0.5); list-style: none; animation: pop 160ms var(--ease); }
+.spotlist { position: absolute; top: calc(100% + 6px); right: 0; z-index: 50; width: 300px; padding: 6px; border-radius: var(--r2); background: var(--s2); border: 1px solid var(--line-2); box-shadow: 0 18px 40px rgb(14 26 34 / 0.14); list-style: none; animation: pop 160ms var(--ease); }
 .spotlist button { width: 100%; display: grid; grid-template-columns: 10px 1fr auto auto; gap: 10px; align-items: center; min-height: 48px; padding: 0 10px; border: 0; border-radius: var(--r1); background: none; text-align: left; cursor: pointer; }
 .spotlist button:hover, .spotlist button[aria-selected='true'] { background: var(--s3); }
 .spotlist small { display: block; color: var(--muted); }
@@ -223,7 +222,7 @@
 @media (max-width: 860px) {
   .spotbtn small { display: none; }
   .topnav .areas { display: none; }
-  .tabbar { position: fixed; inset: auto 0 0 0; z-index: 60; display: grid; grid-template-columns: repeat(6, 1fr); height: calc(var(--tab-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: rgb(12 20 27 / 0.96); backdrop-filter: blur(16px); border-top: 1px solid var(--line); }
+  .tabbar { position: fixed; inset: auto 0 0 0; z-index: 60; display: grid; grid-template-columns: repeat(5, 1fr); height: calc(var(--tab-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: rgb(255 255 255 / 0.95); backdrop-filter: blur(16px); border-top: 1px solid var(--line); }
   .tabbar a { display: grid; justify-items: center; align-content: center; gap: 3px; color: var(--dim); text-decoration: none; font-size: 10.5px; }
   .tabbar a[aria-current='page'] { color: var(--text); }
   .tabbar a[aria-current='page'] svg { color: var(--signal); }

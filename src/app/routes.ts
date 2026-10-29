@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 import {spots} from '../data/demo';
 
-export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'scale' | 'personal';
+export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'personal';
 export interface Section {id: string; label: string; hint: string}
 export interface AreaDef {id: Area; label: string; sections: Section[]}
 
@@ -17,6 +17,7 @@ export const AREAS: AreaDef[] = [
     {id: 'swell', label: 'Swell Analysis', hint: 'Components, direction and period'},
     {id: 'wind-tides', label: 'Wind & Tides', hint: 'Wind, gusts and the tide day'},
     {id: 'compare', label: 'Compare Spots', hint: 'All spots at the selected hour'},
+    {id: 'wave-scale', label: 'Wave Scale', hint: 'Wave, surfer and board in 3D'},
   ]},
   {id: 'explore', label: 'Explore', sections: [
     {id: '', label: 'Ocean Map', hint: 'Spots and conditions on the map'},
@@ -29,10 +30,6 @@ export const AREAS: AreaDef[] = [
     {id: 'showroom', label: 'Showroom', hint: 'Inspect one board'},
     {id: 'match', label: 'Board Match', hint: 'Which board for these conditions'},
     {id: 'compare', label: 'Compare Boards', hint: 'Two boards side by side'},
-  ]},
-  {id: 'scale', label: 'Wave Scale', sections: [
-    {id: '', label: '3D Viewer', hint: 'Wave, surfer and board at true scale'},
-    {id: 'compare', label: 'Wave Comparison', hint: 'Heights next to a surfer'},
   ]},
   {id: 'personal', label: 'Personal', sections: [
     {id: '', label: 'Profile', hint: 'Name and surfing ability'},
@@ -47,6 +44,7 @@ export interface Route {area: Area; section: string}
 
 export function parseRoute(pathname: string): Route {
   const [a, s] = pathname.split('/').filter(Boolean);
+  if (a === 'scale') return {area: 'forecast', section: 'wave-scale'}; // Wave Scale lives inside Forecast; keep old links working
   const def = AREAS.find((x) => x.id === a);
   if (!def) return {area: 'home', section: ''};
   return {area: def.id, section: def.sections.some((x) => x.id === (s ?? '')) ? s ?? '' : ''};

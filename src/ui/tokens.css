@@ -39,7 +39,7 @@
   --r1: 8px;
   --r2: 12px;
   --r3: 16px;
-  --nav-h: 60px;
+  --nav-h: 64px;
   --tab-h: 64px;
   --gutter: clamp(12px, 2vw, 24px);
   color-scheme: dark;

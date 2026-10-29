@@ -1,7 +1,35 @@
 // Licence-cleared photography (Wikimedia Commons). Credits must stay visible wherever a photo is shown.
-// Generated from swello-design-references/07-ocean-photography/manifest.json (Phase 10B).
+// Generated from swello-design-references/07-ocean-photography/manifest.json (Phase 10B); the last three entries
+// added from candidates-v2/manifest.json.
 export interface Photo {id: string; location: string; photographer: string; license: string; licenseUrl: string; source: string; generic: boolean}
 export const PHOTOS: Record<string, Photo> = {
+ "ob-sunset-negative-tide": {
+  "id": "ob-sunset-negative-tide",
+  "location": "Ocean Beach, San Francisco",
+  "photographer": "Brocken Inaglory",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sunset_at_Ocean_Beach_in_San_Francisco.jpg",
+  "generic": false
+ },
+ "lm-sunset-surfer": {
+  "id": "lm-sunset-surfer",
+  "location": "Linda Mar, Pacifica",
+  "photographer": "Dave Fayram",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sunset_Surfer_in_pacifica_california.jpg",
+  "generic": false
+ },
+ "gen-surfer-under-wave": {
+  "id": "gen-surfer-under-wave",
+  "location": "Northern California (generic for SWELLO)",
+  "photographer": "Brocken Inaglory",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:A_surfer_under_wave.jpg",
+  "generic": true
+ },
  "ocean-beach-seal-rocks": {
   "id": "ocean-beach-seal-rocks",
   "location": "Ocean Beach, San Francisco (Seal Rocks)",
@@ -94,5 +122,5 @@ export const PHOTOS: Record<string, Photo> = {
  }
 };
 /** Photos that genuinely show each spot, best first. */
-export const SPOT_PHOTOS: Record<string, string[]> = {"spot-2": ["ocean-beach-seal-rocks", "ocean-beach-fog-clearing", "ocean-beach-low-tide-sun"], "spot-0": ["bolinas-beach-wide", "bolinas-beach"], "spot-3": ["linda-mar-sunset", "pacifica-linda-mar", "pacifica-state-beach-surfer"]};
-export const GENERIC_PHOTOS = ["big-wave-santa-cruz", "surfer-wave-cc0"];
+export const SPOT_PHOTOS: Record<string, string[]> = {"spot-2": ["ocean-beach-seal-rocks", "ocean-beach-fog-clearing", "ocean-beach-low-tide-sun", "ob-sunset-negative-tide"], "spot-0": ["bolinas-beach-wide", "bolinas-beach"], "spot-3": ["linda-mar-sunset", "pacifica-linda-mar", "pacifica-state-beach-surfer", "lm-sunset-surfer"]};
+export const GENERIC_PHOTOS = ["big-wave-santa-cruz", "surfer-wave-cc0", "gen-surfer-under-wave"];

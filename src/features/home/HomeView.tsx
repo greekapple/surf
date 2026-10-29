@@ -10,14 +10,15 @@ import {Icon} from '../../ui/Icon';
 import {bandOf, hourLabel, hourlySeries, titleCase, trendOf, type Band, type HourSample} from '../forecast/model';
 import {bestDaylight, compass, groupDays, ht, isDaylight, monotonePath, spotLatLon, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT, timeLabelPT} from '../forecast/format';
+import {Almanac, dayFacts} from './Almanac';
 import './home.css';
 
 /* Rating colours tuned for the fog ground (same meaning as BAND_COLOR on dark surfaces). */
 const TONE: Record<Band, string> = {good: '#1f8a52', fair: '#b08a12', poor: '#94a0a7', none: '#c4cbce'};
 /* Hand-picked photographs: the strongest authentic image per spot, wide for the hero, portrait-friendly for lists. */
 const HERO: Record<string, string> = {'spot-2': 'ocean-beach-fog-clearing', 'spot-0': 'bolinas-beach', 'spot-3': 'pacifica-state-beach-surfer'};
-const PORTRAIT: Record<string, string> = {'spot-2': 'ocean-beach-seal-rocks', 'spot-0': 'bolinas-beach', 'spot-3': 'pacifica-state-beach-surfer'};
-const WIDE = new Set(['ocean-beach-fog-clearing', 'ocean-beach-seal-rocks', 'pacifica-state-beach-surfer', 'bolinas-beach']);
+const PORTRAIT: Record<string, string> = {'spot-2': 'ocean-beach-seal-rocks', 'spot-0': 'bolinas-beach-wide', 'spot-3': 'lm-sunset-surfer'};
+const WIDE = new Set(['ocean-beach-fog-clearing', 'ocean-beach-seal-rocks', 'pacifica-state-beach-surfer', 'bolinas-beach', 'lm-sunset-surfer', 'gen-surfer-under-wave']);
 const DIR: Record<string, string> = {N: 'north', E: 'east', S: 'south', W: 'west'};
 const dirWord = (deg: number) => compass(deg).split('').map((c) => DIR[c]).join('');
 const ratingWord = (c: string) => (c === 'UNRATED' ? 'Unrated' : titleCase(c).charAt(0) + titleCase(c).slice(1).toLowerCase());
@@ -169,6 +170,55 @@ function SpotList({spots, now, nowH, p, onOpen, favs}: {spots: SurfSpot[]; now: 
   );
 }
 
+
+const firstName = (p: UserProfile) => p.displayName?.trim().split(/\s+/)[0] ?? '';
+const longDate = (t: number) => new Date(t).toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'America/Los_Angeles'});
+const arrow = <Icon name="arrow" size={16} style={{transform: 'rotate(90deg)'}} />;
+
+/** A saved spot as a photograph: pick it to feature at the top, star to keep or drop it, or open its forecast. */
+function FavCard({s, h, p, active, fav, i, onFeature, onStar, onOpen}: {s: SurfSpot; h: HourSample | undefined; p: UserProfile; active: boolean; fav: boolean; i: number; onFeature: () => void; onStar: () => void; onOpen: () => void}) {
+  return (
+    <li className={`fav-card${active ? ' on' : ''}`}>
+      <figure className="shot"><Shot spotId={s.id} map={PORTRAIT} i={i} sizes="(max-width: 860px) 74vw, 30vw" /></figure>
+      <button className="fc-main" onClick={onFeature} aria-pressed={active} aria-label={`Feature ${s.name} at the top of Home`}>
+        {h ? <span className="fc-r"><i style={{background: TONE[bandOf(h.rating.category)]}} />{ratingWord(h.rating.category)} now</span> : <span className="fc-r">No record this hour</span>}
+        <h3>{s.name}</h3>
+        {h && <span className="fc-n"><b>{ht(h.heightFt, p)} {p.heightUnit}</b> offshore{h.forecast.primary ? ` · ${Math.round(h.forecast.primary.period)} s ${compass(h.forecast.primary.direction)}` : ''} · wind {windVal(h.forecast.wind.speed, p)} {p.windUnit}</span>}
+      </button>
+      <button className="fc-star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name} ${fav ? 'from' : 'to'} favourites`} onClick={onStar}><Icon name="star" size={17} /></button>
+      <button className="fc-go" onClick={onOpen}>Forecast{arrow}</button>
+    </li>
+  );
+}
+
+interface SurfWindow {s: SurfSpot; h: HourSample}
+/** The best rated daylight hours ahead across the given spots, soonest first. */
+function surfWindows(spots: SurfSpot[], records: Parameters<typeof hourlySeries>[1], now: number, nowH: number, n = 4): SurfWindow[] {
+  const all: SurfWindow[] = [];
+  for (const s of spots) {
+    const ser = hourlySeries(s, records, now);
+    for (const d of groupDays(ser).slice(0, 5)) {
+      const h = bestDaylight(ser, s, Math.max(nowH, Date.parse(ser[d.start].timestamp)), Date.parse(ser[d.end].timestamp) + 1);
+      if (h && h.rating.score !== null && h.rating.score !== undefined) all.push({s, h});
+    }
+  }
+  return all.sort((a, b) => (b.h.rating.score ?? 0) - (a.h.rating.score ?? 0)).slice(0, n).sort((a, b) => Date.parse(a.h.timestamp) - Date.parse(b.h.timestamp));
+}
+
+function Windows({items, p, onPick}: {items: SurfWindow[]; p: UserProfile; onPick: (spotId: string, t: string) => void}) {
+  return (
+    <ol className="surf-windows">{items.map(({s, h}) => (
+      <li key={s.id + h.timestamp}><button className={bandOf(h.rating.category)} onClick={() => onPick(s.id, h.timestamp)}
+        aria-label={`${s.name}, ${weekdayPT(h.timestamp)} ${hourLabel(h.timestamp)}: ${ratingWord(h.rating.category)}, ${ht(h.heightFt, p)} ${p.heightUnit} offshore. Open in forecast.`}>
+        <span className="w-when"><b>{weekdayPT(h.timestamp)}</b> {hourLabel(h.timestamp)}</span>
+        <span className="w-spot">{s.name}</span>
+        <span className="w-r"><i style={{background: TONE[bandOf(h.rating.category)]}} />{ratingWord(h.rating.category)} · provisional</span>
+        <span className="w-n">{ht(h.heightFt, p)} {p.heightUnit} offshore{h.forecast.primary ? ` · ${Math.round(h.forecast.primary.period)} s ${compass(h.forecast.primary.direction)}` : ''} · wind {windVal(h.forecast.wind.speed, p)} {p.windUnit} {compass(h.forecast.wind.direction)}</span>
+      </button></li>
+    ))}</ol>
+  );
+}
+
 function SectionNav({section, go}: {section: string; go: Go}) {
   const items: [string, string][] = [['', 'Overview'], ['spots', 'My spots'], ['windows', 'Best windows']];
   return (
@@ -182,8 +232,8 @@ export function HomeView({section, go}: ViewProps) {
   const {view, data, now, spot, spotOptions, series, live, setSpot} = useSwello();
   const p = data.state.profile, favs = data.state.favorites;
   const nowH = Math.floor(now / 3600000) * 3600000;
-  const mine = spotOptions.filter((s) => favs.includes(s.id));
-  const listed = mine.length ? mine : spotOptions.slice(0, 3);
+  const mine = useMemo(() => spotOptions.filter((s) => favs.includes(s.id)), [spotOptions, favs]);
+  const listed = useMemo(() => (mine.length ? mine : spotOptions.slice(0, 3)), [mine, spotOptions]);
   const current = series.find((h) => Date.parse(h.timestamp) >= nowH) ?? null;
   const next = useMemo(() => series.filter((h) => Date.parse(h.timestamp) >= nowH).slice(0, 25), [series, nowH]);
 
@@ -205,6 +255,10 @@ export function HomeView({section, go}: ViewProps) {
   }, [spotOptions, view.mapRecords, now, nowH]);
 
   const open = (spotId: string, t?: string) => { setSpot(spotId); if (t) view.selectTime(t); go('forecast'); };
+  const name = firstName(p);
+  const windows = useMemo(() => surfWindows(listed, view.mapRecords, now, nowH), [listed, view.mapRecords, now, nowH]);
+  const soonest = windows.reduce<SurfWindow | null>((a, w) => (!a || (w.h.rating.score ?? 0) > (a.h.rating.score ?? 0) ? w : a), null);
+  const facts = useMemo(() => dayFacts(series, spot, view.ocean.bundle?.extrema ?? [], now), [series, spot, view.ocean.bundle, now]);
   const board = current && current.forecast.availability.face && Number.isFinite(current.forecast.face)
     ? data.state.boards.map((b) => scoreBoard(b, current.forecast, p)).sort((a, b) => b.score - a.score)[0] : null;
 
@@ -232,32 +286,47 @@ export function HomeView({section, go}: ViewProps) {
 
   return (
     <div className="coast">
+      <header className="hello">
+        <p className="date">{longDate(now)}</p>
+        <h1>{name ? <>Hello, {name}.</> : 'Hello.'}</h1>
+        <p className="hello-sub">
+          {soonest ? <>Your best window ahead: <button onClick={() => open(soonest.s.id, soonest.h.timestamp)}><b>{weekdayPT(soonest.h.timestamp)} {hourLabel(soonest.h.timestamp)}</b> at {soonest.s.name}</button>, {ratingWord(soonest.h.rating.category).toLowerCase()} (provisional).</> : 'No rated daylight hours in the forecast yet.'}
+          {!name && <> <a href="/personal" onClick={(e) => { e.preventDefault(); go('personal'); }}>Add your name</a></>}
+        </p>
+      </header>
+
       <section className="home-hero" aria-label={`${spot.name} now`}>
-        <figure className="shot hero-shot" key={spot.id}><Shot spotId={spot.id} map={HERO} sizes="100vw" eager /></figure>
+        <figure className="shot hero-shot" key={spot.id}><Shot spotId={spot.id} map={HERO} sizes="(max-width: 860px) 100vw, 92vw" eager /></figure>
         <div className="hero-body">
-          <div className="lead">
-            <h1>{spot.name}</h1>
-            {current ? <Bulletin h={current} series={series} spot={spot} p={p} /> : <p className="bulletin">No forecast record for this hour.</p>}
-            <p className="meta">{live ? 'Model forecast' : 'Demonstration week, not live'} · {current ? `${weekdayPT(current.timestamp)} ${timeLabelPT(current.timestamp)}` : ''} · rating provisional{live ? ' · offshore height is not surf height' : ''}</p>
-            <div className="actions">
-              <button className="cta" onClick={() => go('forecast')}>Open full forecast<Icon name="arrow" size={18} style={{transform: 'rotate(90deg)'}} /></button>
-              <button className="ghost" onClick={() => go('explore')}>Map</button>
-            </div>
+          <p className="kicker">{favs.includes(spot.id) ? 'Saved spot' : 'Selected spot'} · {spot.region}</p>
+          <h2>{spot.name}</h2>
+          {current ? <Bulletin h={current} series={series} spot={spot} p={p} /> : <p className="bulletin">No forecast record for this hour.</p>}
+          <p className="meta">{live ? 'Model forecast' : 'Demonstration week, not live'} · {current ? `${weekdayPT(current.timestamp)} ${timeLabelPT(current.timestamp)}` : ''} · rating provisional{live ? ' · offshore height is not surf height' : ''}</p>
+          <div className="actions">
+            <button className="cta" onClick={() => go('forecast')}>Open full forecast{arrow}</button>
+            <button className="ghost" onClick={() => go('explore')}>Map</button>
           </div>
-          {spotOptions.length > 1 && (
-            <ul className="others" aria-label="Other spots now">
-              {spotOptions.filter((s) => s.id !== spot.id).slice(0, 4).map((s) => {
-                const h = hourlySeries(s, view.mapRecords, now).find((x) => Date.parse(x.timestamp) >= nowH);
-                return <li key={s.id}><button onClick={() => { setSpot(s.id); scrollTo({top: 0}); }} aria-label={`Show ${s.name}`}>
-                  <span className="nm">{s.name}</span>
-                  <span className="rt">{h && <i style={{background: TONE[bandOf(h.rating.category)]}} />}{h ? ratingWord(h.rating.category) : '—'}</span>
-                  <span className="hs">{h ? `${ht(h.heightFt, p)} ${p.heightUnit}` : ''}</span>
-                </button></li>;
-              })}
-            </ul>
-          )}
         </div>
       </section>
+
+      {facts && <section className="band glance" aria-label={`${spot.name} ${facts.label.toLowerCase()} at a glance`}><Almanac facts={facts} p={p} onBest={(t) => { view.selectTime(t); go('forecast'); }} /></section>}
+
+      <section className="band" aria-labelledby="favs-h">
+        <header className="sec-h"><h2 id="favs-h">{mine.length ? 'Your spots' : 'Spots'}</h2>{mine.length ? <a href="/home/spots" onClick={(e) => { e.preventDefault(); go('home', 'spots'); }}>All saved spots</a> : <p>Star a spot to keep it here</p>}</header>
+        <ul className="fav-cards">{listed.map((s, k) => (
+          <FavCard key={s.id} s={s} i={k} p={p} active={s.id === spot.id} fav={favs.includes(s.id)}
+            h={hourlySeries(s, view.mapRecords, now).find((x) => Date.parse(x.timestamp) >= nowH)}
+            onFeature={() => { setSpot(s.id); scrollTo({top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }}
+            onStar={() => data.favorite(s.id)} onOpen={() => open(s.id)} />
+        ))}</ul>
+      </section>
+
+      {windows.length > 0 && (
+        <section className="band" aria-labelledby="win-h">
+          <header className="sec-h"><h2 id="win-h">Upcoming surf windows</h2><p>Best rated daylight hours, next five days · {mine.length ? 'your spots' : 'all spots'} · offshore height</p></header>
+          <Windows items={windows} p={p} onPick={open} />
+        </section>
+      )}
 
       <section className="band" aria-labelledby="next-h">
         <header className="sec-h"><h2 id="next-h">Next 24 hours</h2><p>{spot.name} · offshore height ({p.heightUnit}) · wind ({p.windUnit}) · shaded hours are dark</p></header>
@@ -266,18 +335,18 @@ export function HomeView({section, go}: ViewProps) {
 
       {weekBlock}
 
-      <section className="band" aria-labelledby="spots-h">
-        <header className="sec-h"><h2 id="spots-h">{mine.length ? 'My spots' : 'Spots'}</h2><a href="/home/spots" onClick={(e) => { e.preventDefault(); go('home', 'spots'); }}>{mine.length ? 'All saved spots' : 'All spots'}</a></header>
-        <SpotList spots={listed} now={now} nowH={nowH} p={p} onOpen={open} favs={favs} />
+      <section className="band" aria-labelledby="for-h">
+        <header className="sec-h"><h2 id="for-h">For you</h2><p>From your Personal profile and quiver</p></header>
+        <ul className="for-you">
+          <li><button onClick={() => go('quiver', 'match')}><b>Board for now</b><span>{board ? `${board.board.name} · ${Math.round(board.score)}/100 · demonstration estimate` : 'Waiting on a breaking-wave estimate; live spots have offshore height only'}</span>{arrow}</button></li>
+          <li><button onClick={() => go('forecast', 'wave-scale')}><b>Wave Scale</b><span>See a wave face next to a surfer in 3D (illustrative)</span>{arrow}</button></li>
+          <li><button onClick={() => go('personal', 'preferences')}><b>Your preferences</b><span>{p.skill} · {p.minWave}–{p.maxWave} ft faces · {p.style.toLowerCase()}</span>{arrow}</button></li>
+          <li><button onClick={() => go('personal', 'journal')}><b>Surf journal</b><span>{data.state.sessions.length ? `${data.state.sessions.length} sessions logged` : 'Log a session to sharpen recommendations'}</span>{arrow}</button></li>
+        </ul>
       </section>
 
       <footer className="close">
-        <ul>
-          <li><button onClick={() => go('quiver', 'match')}><b>Board for now</b><span>{board ? `${board.board.name} · ${Math.round(board.score)}/100 · demonstration estimate` : 'Needs a breaking-wave estimate; live spots have offshore height only'}</span><Icon name="arrow" size={18} style={{transform: 'rotate(90deg)'}} /></button></li>
-          <li><button onClick={() => go('scale')}><b>Wave Scale</b><span>See a wave face next to a surfer in 3D</span><Icon name="arrow" size={18} style={{transform: 'rotate(90deg)'}} /></button></li>
-          <li><button onClick={() => go('personal', 'journal')}><b>Surf journal</b><span>{data.state.sessions.length} sessions logged</span><Icon name="arrow" size={18} style={{transform: 'rotate(90deg)'}} /></button></li>
-        </ul>
-        <p>Forecasts from Open-Meteo marine and weather models; tides from NOAA CO-OPS (San Francisco, regional). Ratings are provisional and uncalibrated. Photographs from Wikimedia Commons contributors, credited on each image.</p>
+        <p>Forecasts from Open-Meteo marine and weather models; tides from NOAA CO-OPS (San Francisco, regional). Ratings are provisional and uncalibrated. Heights are offshore significant wave height, not breaking-wave height. Photographs from Wikimedia Commons contributors, credited on each image. No live cameras are shown.</p>
       </footer>
     </div>
   );

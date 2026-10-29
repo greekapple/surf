@@ -110,18 +110,8 @@ export function DataBadge() {
 }
 
 export function TopNav({area, section, go}: {area: Area; section: string; go: Go}) {
-  // On the Home overview the bar sits clear over the photograph until the page scrolls.
-  const hero = area === 'home' && section === '';
-  const [over, setOver] = useState(hero);
-  useEffect(() => {
-    if (!hero) { setOver(false); return; }
-    const on = () => setOver(scrollY < innerHeight * 0.55);
-    on();
-    addEventListener('scroll', on, {passive: true});
-    return () => removeEventListener('scroll', on);
-  }, [hero]);
   return (
-    <header className={`topnav${over ? ' over' : ''}`}>
+    <header className="topnav">
       <a className="wordmark" aria-label="Swello home" {...linkProps(go, 'home')}>Swello</a>
       <nav aria-label="Primary"><ul className="areas">
         {AREAS.map((def) => <AreaMenu key={def.id} def={def} current={def.id === area} section={section} go={go} />)}
@@ -145,7 +135,7 @@ export function TabBar({area, go}: {area: Area; go: Go}) {
     <nav className="tabbar" aria-label="Primary">
       {AREAS.map((def) => (
         <a key={def.id} {...linkProps(go, def.id)} aria-current={def.id === area ? 'page' : undefined}>
-          <Icon name={def.id === 'scale' ? 'scale' : def.id} size={22} /><span>{def.id === 'scale' ? 'Scale' : def.label}</span>
+          <Icon name={def.id} size={22} /><span>{def.label}</span>
         </a>
       ))}
     </nav>
