@@ -73,7 +73,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const step = niceStep(hi - lo), t0y = Math.ceil(lo / step) * step;
   const ticks: number[] = []; for (let v = t0y; v <= hi + 1e-6; v += step) ticks.push(Math.round(v * 100) / 100);
   const unit = tab === 'wind' ? p.windUnit : p.heightUnit;
-  const tickText = (v: number) => (tab === 'wind' ? windVal(v, p) : ht(v, p, step < 1 || p.heightUnit === 'm' ? 1 : 0));
+  const tickText = (v: number) => (tab === 'wind' ? String(Math.round(Number(windVal(v, p)))) : ht(v, p, step < 1 || p.heightUnit === 'm' ? 1 : 0));
   const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0 : h.heightFt ?? 0);
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
   const TYs = (v: number) => PB - 8 - ((v - tLo) / (tHi - tLo || 1)) * (PB - PT) * 0.26; // dashed tide under the surf curve
