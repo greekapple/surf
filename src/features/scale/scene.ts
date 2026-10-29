@@ -122,10 +122,52 @@ export class WaveScene {
       this.surfer.clear();
       this.surfer.add(await this.realBoard(new GLTFLoader(), board), rider, paddler);
       this.rider = rider as THREE.Group; this.paddler = paddler as THREE.Group;
+      this.leanSrc = []; this.leanAngle = NaN;
+      this.seatOnDeck();
       this.customSurfer = true;
       this.place(this.cur * FT);
       this.dirty = true;
     } catch { /* keep the procedural figure */ }
+  }
+
+  private leanSrc: {geo: THREE.BufferGeometry; pos: Float32Array; nor: Float32Array}[] = [];
+  private leanAngle = NaN;
+  /** Counter-lean the rider about the board's long axis: soles stay on the deck (weight 0), the lean ramps in over the
+   * shins and is full from the knees up, like ankles flexing. Skin-free, so vertices are bent from the rest pose. */
+  private leanRider(angle: number) {
+    if (Math.abs(angle - this.leanAngle) < 0.002) return;
+    this.leanAngle = angle;
+    if (!this.leanSrc.length) this.rider.traverse((o) => { const g = (o as THREE.Mesh).isMesh ? (o as THREE.Mesh).geometry : null; if (g) this.leanSrc.push({geo: g, pos: Float32Array.from(g.attributes.position.array), nor: Float32Array.from(g.attributes.normal.array)}); });
+    for (const {geo, pos, nor} of this.leanSrc) {
+      const P = geo.attributes.position as THREE.BufferAttribute, N = geo.attributes.normal as THREE.BufferAttribute;
+      for (let i = 0; i < P.count; i++) {
+        const y = pos[i * 3 + 1], z = pos[i * 3 + 2], w = THREE.MathUtils.smoothstep(y, 0.07, 0.5), a = angle * w, c = Math.cos(a), s = Math.sin(a);
+        P.setXYZ(i, pos[i * 3], y * c - z * s, y * s + z * c);
+        const ny = nor[i * 3 + 1], nz = nor[i * 3 + 2];
+        N.setXYZ(i, nor[i * 3], ny * c - nz * s, ny * s + nz * c);
+      }
+      P.needsUpdate = true; N.needsUpdate = true; geo.computeBoundingSphere();
+    }
+  }
+
+  /** Drop the rider and paddler onto the actual board's deck: ray-cast under the soles / belly in board space, so the
+   * feet touch the deck whatever the shortboard's rocker and thickness are. Roots sit at the deck; their children start at y = 0. */
+  private seatOnDeck() {
+    const saved = {p: this.surfer.position.clone(), r: this.surfer.rotation.clone()};
+    this.surfer.position.set(0, 0, 0); this.surfer.rotation.set(0, 0, 0);
+    this.surfer.updateMatrixWorld(true);
+    const board = this.surfer.getObjectByName('board'), meshes: THREE.Mesh[] = [];
+    board?.traverse((o) => { if ((o as THREE.Mesh).isMesh) meshes.push(o as THREE.Mesh); });
+    const rc = new THREE.Raycaster(), down = new THREE.Vector3(0, -1, 0);
+    const deck = (pts: [number, number][], fallback: number) => {
+      let y = -Infinity;
+      for (const [x, z] of pts) { rc.set(new THREE.Vector3(x, 2, z), down); const h = rc.intersectObjects(meshes, false)[0]; if (h) y = Math.max(y, h.point.y); }
+      return Number.isFinite(y) ? y : fallback;
+    };
+    // Sole footprints (back foot across the board, front foot angled to the nose) and the prone body's contact line.
+    this.rider.position.y = deck([[-0.31, -0.1], [-0.29, 0.0], [-0.27, 0.1], [0.27, -0.06], [0.32, 0.0], [0.4, 0.1]], 0.07) - 0.002;
+    this.paddler.position.y = deck([[-0.3, 0], [-0.1, 0], [0.1, 0], [0.3, 0]], 0.07) - 0.002;
+    this.surfer.position.copy(saved.p); this.surfer.rotation.copy(saved.r);
   }
 
   /** Swap the plain placeholder board for the Quiver's Blender shortboard (rocker, rails, stringer, fins), fitted to the
@@ -149,15 +191,17 @@ export class WaveScene {
 
   /** Spray: soft points thrown from the lip tip, the whitewater and the toe of the wave (unit space). */
   private makeSpray() {
-    const N = 520, pos = new Float32Array(N * 3), seed = new Float32Array(N * 4), vel = new Float32Array(N * 3), tmp = new Float32Array(NZ * 4);
+    const N = 700, pos = new Float32Array(N * 3), seed = new Float32Array(N * 4), vel = new Float32Array(N * 3), tmp = new Float32Array(NZ * 4);
     const rnd = (() => { let a = 7; return () => ((a = (a * 16807) % 2147483647) - 1) / 2147483646; })();
     for (let i = 0; i < N; i++) {
       const kind = rnd(), x = kind < 0.45 ? -8 + rnd() * 10 : kind < 0.85 ? -17 + rnd() * 10 : -4 + rnd() * 9;
       profileAt(x, 1, tmp);
       const j = kind < 0.45 ? 55 + Math.floor(rnd() * 4) : kind < 0.85 ? 52 + Math.floor(rnd() * 20) : 80 + Math.floor(rnd() * 14);
       pos.set([x, tmp[j * 4 + 1] + 0.02, tmp[j * 4]], i * 3);
-      vel.set([(rnd() - 0.5) * 0.25, (kind < 0.45 ? 0.1 : 0.22) + rnd() * 0.3, 0.1 + rnd() * 0.25], i * 3);
-      seed.set([rnd(), 0.05 + rnd() * 0.08, 0.012 + rnd() * 0.02, 0.35 + rnd() * 0.5], i * 4);
+      const mist = rnd() < 0.22;
+      vel.set([(rnd() - 0.5) * 0.25, (kind < 0.45 ? 0.14 : 0.22) + rnd() * 0.38, 0.1 + rnd() * 0.3], i * 3);
+      // z: diameter in metres at 1 m face height (drops 2-6 cm, mist puffs 12-25 cm); w: peak alpha.
+      seed.set([rnd(), 0.06 + rnd() * 0.1, mist ? 0.12 + rnd() * 0.13 : 0.02 + rnd() * 0.04, mist ? 0.1 + rnd() * 0.1 : 0.4 + rnd() * 0.5], i * 4);
     }
     const g = new THREE.BufferGeometry();
     g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 4)); g.setAttribute('aVel', new THREE.BufferAttribute(vel, 3));
@@ -204,7 +248,7 @@ export class WaveScene {
       const clear = 0.16 + Hm * 0.012;
       this.surfer.position.set(XU * Hm, f.y * Hm + f.ny * clear, f.z * Hm + f.nz * clear);
       this.surfer.rotation.set(roll, yaw, 0, 'YXZ');
-      this.rider.rotation.set(-roll * 0.8, 0, 0);
+      this.leanRider(-roll * 0.8); // body stays closer to upright; the soles stay flat on the deck
     } else {
       this.surfer.position.set((XU - 0.6) * Hm, 0.02, 1.9 * Hm + 2.2);
       this.surfer.rotation.set(0, Math.PI / 2, 0);
@@ -275,7 +319,7 @@ export class WaveScene {
     if (this.dirty && this.visible && !document.hidden) {
       this.lastDraw = now;
       this.sky.position.copy(this.camera.position);
-      this.sprayU.uPx.value = this.renderer.domElement.height * 0.9;
+      this.sprayU.uPx.value = this.renderer.domElement.height / (2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2)));
       this.renderer.render(this.scene, this.camera);
       const Hm = this.cur * FT, xt = XU * Hm + 2.4, sp = this.surfer.position;
       this.projectTag(this.tags.face, xt, Hm * envAt(xt / Hm), this.crestZ(xt / Hm) * Hm, `${this.fmt(this.cur, this.unit)} face`);
