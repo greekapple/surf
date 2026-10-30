@@ -11,7 +11,7 @@ import {Icon} from '../../ui/Icon';
 import {bandOf, hourLabel, hourlySeries, titleCase, trendOf, type Band, type HourSample} from '../forecast/model';
 import {bestDaylight, compass, groupDays, ht, isDaylight, monotonePath, spotLatLon, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT, timeLabelPT} from '../forecast/format';
-import {windowRanges} from '../../services/windows';
+import {windowRanges, WINDOW_BAND, WINDOW_MIN_SCORE} from '../../services/windows';
 import {Condition, conditionWord} from '../../ui/Condition';
 import {windInk} from '../forecast/charts';
 import {Almanac, dayFacts} from './Almanac';
@@ -232,9 +232,11 @@ function surfWindows(spots: SurfSpot[], records: Parameters<typeof hourlySeries>
   for (const s of spots) {
     const [lat, lon] = spotLatLon(s);
     const hours = hourlySeries(s, records, now).filter((h) => { const t = Date.parse(h.timestamp); return t >= nowH && t < nowH + 5 * 86400000 && isDaylight(h.timestamp, lat, lon); });
-    for (const r of windowRanges(hours, (h) => ({timestamp: h.timestamp, score: h.rating.score}))) all.push({s, h: r.peak, start: r.start, end: r.end, score: r.peakScore});
+    for (const r of windowRanges(hours, (h) => ({timestamp: h.timestamp, score: h.rating.score}), WINDOW_MIN_SCORE, WINDOW_BAND)) all.push({s, h: r.peak, start: r.start, end: r.end, score: r.peakScore});
   }
-  return all.sort((a, b) => b.score - a.score).slice(0, n).sort((a, b) => Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp));
+  const perSpot = new Map<string, number>();
+  const chosen = all.sort((a, b) => b.score - a.score).filter((w) => { const c = perSpot.get(w.s.id) ?? 0; perSpot.set(w.s.id, c + 1); return c < 2; });
+  return chosen.slice(0, n).sort((a, b) => Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp));
 }
 
 function Windows({items, p, onPick, onPreview}: {items: SurfWindow[]; p: UserProfile; onPick: (spotId: string, t: string) => void; onPreview: OnPreview}) {
