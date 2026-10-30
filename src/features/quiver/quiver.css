@@ -133,7 +133,9 @@
 .qv-trace { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--r3); background: var(--s1); }
 .qv-trace summary { min-height: 44px; display: flex; align-items: center; padding: 0 14px; font-weight: 650; cursor: pointer; }
 .qv-trace-body { display: grid; gap: 10px; padding: 4px 14px 14px; }
-.qv-trace-canvas { width: 100%; max-width: 520px; height: auto; border-radius: var(--r2); border: 1px solid var(--line); }
+.qv-trace-canvas { width: 100%; max-width: 520px; height: auto; border-radius: var(--r2); border: 1px solid var(--line); cursor: crosshair; touch-action: none; }
+.qv-scan .field input[type=file] { width: 100%; min-width: 0; }
+.qv-check { display: grid; gap: 8px; padding: 12px; border-radius: var(--r2); background: var(--s2); }
 .qv-trace-fail { color: var(--warn); }
 
 /* Photographed showroom: the Cycles backplate is the room; three.js draws the boards with the same camera on top. */
@@ -200,7 +202,7 @@
 .qv-paths button:active { transform: scale(0.98); }
 .qv-paths button[aria-checked='true'] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .qv-paths span { color: var(--muted); font-size: 13px; }
-.qv-scan { display: grid; gap: 10px; margin: 14px 0 0; padding: 14px; border: 1px solid var(--line); border-radius: 12px; min-width: 0; }
+.qv-scan { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin: 14px 0 0; padding: 14px; border: 1px solid var(--line); border-radius: 12px; min-width: 0; }
 .qv-tex { display: grid; gap: 4px; margin: 0; }
 .qv-tex img { width: 100%; max-width: 520px; height: auto; border-radius: 8px; border: 1px solid var(--line); }
 .qv-tex-s { height: 36px; width: auto; border-radius: 4px; border: 1px solid var(--line); }
