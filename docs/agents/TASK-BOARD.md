@@ -7,10 +7,10 @@
 |---|---|---|---|
 | D-01 | P0 | ~~Explore wind and swell layers never load locally~~ **RESOLVED 2026-10-29 (T-011)**: live via the dev server path; QA verified at 1440 and 390 | R1 |
 | D-02 | P0 | ~~NDBC buoy never connects locally~~ **RESOLVED 2026-10-29 (T-011)**: observation 40 min old, no stale snapshot | R1 |
-| D-03 | P1 | Saving one of the 7 demo-only spots fails silently [5] | R2 |
+| D-03 | P1 | ~~Saving one of the 7 demo-only spots fails silently [5]~~ **NOT REPRODUCIBLE 2026-10-30 (T-019)**: all 45 spots have live evidence; guard test `t019-spots.test.ts` | R2 |
 | D-04 | P1 | ~~Home card photo credit and licence links cannot be clicked [6]~~ **RESOLVED 2026-10-29**: `.fav-card .shot` no longer `z-index: -1`, so the credit layers above the card button. Evidence: `playwright-toolkit/swello/d04.mjs` 16/16 at 1440 and 390 (baseline 10/16); tsc, 140 tests, build, journeys 8/8, home-shots 13/13 | R2 |
-| D-05 | P1 | Forecast chart errors: last day → "7 days"; on mobile, opening a later day from Home [7] | R2 |
-| D-06 | P1 | Personal "Home region" stored but never used [8] | R2 |
+| D-05 | P1 | ~~Forecast chart errors: last day → "7 days"; on mobile, opening a later day from Home [7]~~ **GUARDED 2026-10-30 (T-015)**: not reproducible; one-point paths and empty areas guarded, `t015-qa.mjs` samples the SVG | R2 |
+| D-06 | P1 | ~~Personal "Home region" stored but never used [8]~~ **RESOLVED**: Find Spots uses it (verified T-019); helper text in Personal | R2 |
 | D-07 | P3 | Forecast first x-axis label clipped [15] | R4 |
 
 **Incomplete features**
@@ -208,7 +208,7 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Owner:** `engineering` · **Branch:** `worktree-engineering` · **Dependencies:** T-008 merged (done)
 - **Owned files:** `src/ocean/match.ts`, `src/recommendation/*`, `src/services/windows.ts`, tests; in `HomeView.tsx` only `surfWindows`
 - **Acceptance:** 1. `evidenceMatch` uses `faceEstimate.rangeFt` when `face.value` is null: a range overlapping the preferred min–max counts as in range, and the comfort and skill caps use the range high. The reason text names the estimate as unvalidated. 2. Other missing inputs (character, difficulty, hazards) are still reported honestly; if Ocean Beach lacks them, list exactly which ones, and don't invent them. 3. `scoreBoard` accepts the range the same way. 4. T-014b: a window keeps only hours within 10 points of its peak (and ≥55), and at most 2 windows per spot in the 4 shown. 5. Unit tests cover each case; tsc, test, build, journeys 8/8.
-- **Then (product):** show "Est. X–Y ft at the break · model estimate, not measured" on Forecast/Home, plus the Board Match and Wave Scale tie-in. **Status:** IN PROGRESS (logic)
+- **Then (product):** show "Est. X–Y ft at the break · model estimate, not measured" on Forecast/Home, plus the Board Match and Wave Scale tie-in. **Status:** DONE (logic T-017; UI T-018, T-018b, T-021)
 
 ## Defects D-03, D-06
 - D-03 (demo-only spot saves silently) and D-06 (Home region unused; check whether FindSpots already reads it): owner chosen by file ownership at dispatch. **Status:** QUEUED
@@ -217,12 +217,12 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Owner:** `engineering` · **Branch:** `worktree-engineering` · **Dependencies:** T-008, T-017 merged
 - **Owned files:** `src/features/forecast/*`, `src/features/scale/*`, `src/features/home/HomeView.tsx` (spot cards and hero stat line only), tests
 - **Acceptance:** 1. Forecast stat row gains "Surf (breaking) · Est. X–Y ft" with the sub-label "model estimate, not measured · unvalidated"; spots that refuse show "No estimate" plus the refusal reason on hover/focus. 2. Offshore Hs stays visible and labelled as offshore. 3. Wave Scale opened from a spot with an estimate starts at the range midpoint and labels it "estimate"; otherwise it keeps today's offshore start, labelled. 4. Board Match surfaces show the unvalidated wording when present. 5. Checks + journeys + wave-spot 8/8 + 1440/390 vs `00-target/forecast.png`.
-- **Status:** IN PROGRESS
+- **Status:** DONE (merged)
 
 ## T-019: D-03 + D-06 (queued behind T-018 for engineering)
 - **Owned files:** `src/features/personal/*`, `src/features/explore/FindSpots.tsx` (not `ExploreView.tsx`, product), favourites/spot-picker code it leads to; tests
 - **Acceptance:** D-03: starring a demo-only spot either works end to end (Home card + picker) or is refused visibly with the reason; no silent failure. D-06: Home region is read somewhere the user can see (FindSpots default, Home ordering) or the control is removed; verify FindSpots first. Checks + journeys.
-- **Status:** QUEUED
+- **Status:** DONE: D-03 not reproducible (all 45 spots live, guard test); D-06 already used by Find Spots, helper text added
 
 ## T-020: Photo scan works on real single-board photos
 - **Owner:** `product` · **Owned files:** `src/features/quiver/*`, `src/utils/boardPhoto.ts`, new `src/tests/board-photo-*.test.ts`
