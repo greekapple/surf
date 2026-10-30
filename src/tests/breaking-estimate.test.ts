@@ -18,6 +18,12 @@ test('direction factor: head-on Kd=1, 30° off Kd<1',()=>{
  const a=est({directionDeg:N}),b=est({directionDeg:N+30});assert.ok(a.ok&&b.ok);
  if(a.ok&&b.ok){assert.equal(a.kd,1);assert.ok(b.kd<1&&b.kd>0.8);assert.ok(b.centralFt<a.centralFt)}
 });
+test('Ocean Beach window is normal ±60°: a 315° swell yields a range with Kd < 1',()=>{
+ assert.deepEqual(P.window,[203,323]);
+ const r=est({directionDeg:315});assert.ok(r.ok);
+ if(r.ok){assert.ok(r.kd<1&&r.kd>0);assert.ok(r.input.rangeFt![1]-r.input.rangeFt![0]>=2)}
+ assert.equal(reason(est({directionDeg:330})),'outside-window');assert.equal(reason(est({directionDeg:195})),'outside-window');
+});
 test('refuses: orientation unknown (Bolinas, Linda Mar) and no profile',()=>{
  for(const id of ['spot-0','spot-3']){const s=evidenceSpot(id);assert.equal(s.orientation,null);const f=faceEstimate(s,{value:5,unit:'ft'} as any,{height:{value:5},direction:{value:270},period:{value:14}} as any,null);assert.ok(f.refusal&&!f.input)}
  assert.equal(reason(est({},null)),'no-profile');assert.equal(reason(est({},P,null)),'no-orientation');

@@ -16,20 +16,20 @@ for(const l of fs.readFileSync(dir+'ndbc-46026.spec.txt','utf8').split('\n')){
  const prev=buoy.get(hr);if(!prev||Math.abs(t-hr)<prev.dt)buoy.set(hr,{sw:sw*FT,p,d,comb:comb*FT,dt:Math.abs(t-hr)});
 }
 const bands:[string,number,number][]=[['<10 s',0,10],['10–13 s',10,13],['13–16 s',13,16],['>=16 s',16,99]];
-const st:Record<string,{n:number;err:number[];cover:number}>={};for(const [b] of bands)st[b]={n:0,err:[],cover:0};st['all']={n:0,err:[],cover:0};
+const st:Record<string,{n:number;err:number[];cover:number}>={};for(const [b] of bands)st[b]={n:0,err:[],cover:0};st['all']={n:0,err:[],cover:0};st['NW 315°']={n:0,err:[],cover:0};
 const refusals:Record<string,number>={};let paired=0;
 for(const [t,b] of [...buoy].sort((a,b)=>a[0]-b[0])){
  const m=mop.get(t);if(m===undefined)continue;paired++;
  const r=estimateBreaking({swellHsFt:b.sw,periodS:b.p,directionDeg:b.d,combinedHsFt:b.comb,secondaryHsFt:null},P,263.49);
  if(!r.ok){refusals[r.code]=(refusals[r.code]??0)+1;rows.push(`${new Date(t).toISOString()},${b.sw.toFixed(2)},${b.p},${b.d},${b.comb.toFixed(2)},${m.toFixed(2)},refused,,,,${r.code}`);continue}
  const [lo,hi]=r.input.rangeFt!;rows.push(`${new Date(t).toISOString()},${b.sw.toFixed(2)},${b.p},${b.d},${b.comb.toFixed(2)},${m.toFixed(2)},ok,${r.centralFt.toFixed(2)},${lo},${hi},`);
- for(const k of ['all',...bands.filter(x=>b.p>=x[1]&&b.p<x[2]).map(x=>x[0])]){const s=st[k];s.n++;s.err.push(r.centralFt-m);if(m>=lo&&m<=hi)s.cover++}
+ for(const k of ['all',...(b.d===315?['NW 315°']:[]),...bands.filter(x=>b.p>=x[1]&&b.p<x[2]).map(x=>x[0])]){const s=st[k];s.n++;s.err.push(r.centralFt-m);if(m>=lo&&m<=hi)s.cover++}
 }
 fs.writeFileSync(dir+'t008-pairs.csv',rows.join('\n')+'\n');
 const f=(x:number)=>x.toFixed(2);
 console.log(`buoy hours ${buoy.size}, MOP hours ${mop.size}, paired ${paired}, refusals ${JSON.stringify(refusals)}`);
 console.log('| Period band | n | Bias (central − MOP Hs, ft) | MAE (ft) | Range covers MOP Hs |\n|---|---|---|---|---|');
-for(const k of ['all',...bands.map(b=>b[0])]){const s=st[k];if(!s.n){console.log(`| ${k} | 0 | – | – | – |`);continue}
+for(const k of ['all',...bands.map(b=>b[0]),'NW 315°']){const s=st[k];if(!s.n){console.log(`| ${k} | 0 | – | – | – |`);continue}
  console.log(`| ${k} | ${s.n} | ${f(s.err.reduce((a,b)=>a+b,0)/s.n)} | ${f(s.err.reduce((a,b)=>a+Math.abs(b),0)/s.n)} | ${(100*s.cover/s.n).toFixed(0)}% (${s.cover}/${s.n}) |`)}
 const ratios=[...buoy].flatMap(([t,b])=>{const m=mop.get(t);if(m===undefined)return[];const r=estimateBreaking({swellHsFt:b.sw,periodS:b.p,directionDeg:b.d,combinedHsFt:b.comb,secondaryHsFt:null},P,263.49);return r.ok?[m/r.centralFt]:[]}).sort((a,b)=>a-b);
 if(ratios.length)console.log(`MOP Hs / central ratio: p10 ${f(ratios[Math.floor(ratios.length*.1)])} p50 ${f(ratios[Math.floor(ratios.length*.5)])} p90 ${f(ratios[Math.floor(ratios.length*.9)])} (n=${ratios.length})`);
