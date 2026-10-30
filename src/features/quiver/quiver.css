@@ -207,3 +207,23 @@
 .qv-tex img { width: 100%; max-width: 520px; height: auto; border-radius: 8px; border: 1px solid var(--line); }
 .qv-tex-s { height: 36px; width: auto; border-radius: 4px; border: 1px solid var(--line); }
 @media (max-width: 520px) { .qv-paths { grid-template-columns: 1fr; } }
+
+/* ---------- My Boards: boards standing in a rack in front of the showroom backplate ---------- */
+.qv-rackrow { position: absolute; inset: 0 0 150px 0; list-style: none; margin: 0; padding: 0 72px 14px; display: flex; align-items: flex-end; gap: 44px; overflow-x: auto; overflow-y: hidden; justify-content: safe center; scroll-snap-type: x proximity; scrollbar-width: none; }
+.qv-rackrow::-webkit-scrollbar { display: none; }
+.qv-rackrow li { flex: none; scroll-snap-align: center; display: grid; align-items: end; }
+.qv-rack-b { position: relative; display: grid; align-items: end; padding: 0 0 10px; border: 0; border-radius: 12px; background: none; cursor: pointer; opacity: 0.86; transition: opacity 180ms; filter: drop-shadow(0 14px 12px rgb(48 36 24 / 0.34)); }
+.qv-rack-b:hover { opacity: 0.97; }
+.qv-rack-b::after { content: ''; position: absolute; left: -10px; right: -10px; bottom: 0; height: 9px; border-radius: 3px; background: linear-gradient(#bd9a6d, #8a6a45); box-shadow: 0 5px 9px rgb(0 0 0 / 0.28); }
+.qv-rackrow li.on .qv-rack-b { opacity: 1; transform: translateY(-8px); filter: drop-shadow(0 18px 14px rgb(48 36 24 / 0.4)); }
+.qv-rackrow li.on .qv-rack-b::after { background: linear-gradient(#ff9b5c, #c9631f); }
+.qv-rackrow li:not(.on) .qv-rack-b { opacity: 0.8; }
+.qv-card-spec .chip.demo { background: #fff1c9; color: #5e4200; border-color: #dcbb63; }
+@media (min-width: 861px) { .qv-rackwrap .qv-stage.qv-room { aspect-ratio: auto; height: clamp(460px, calc(100svh - 300px), 660px); background-position: center 62%; } }
+.qv-rack-b:focus-visible { outline: 3px solid #b4531a; outline-offset: 4px; }
+.qv-selected { justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; }
+.qv-selected p { margin: 0; }
+@media (max-width: 860px) {
+  .qv-rackrow { inset: 0 0 118px 0; padding: 0 0 12px; gap: 0; justify-content: flex-start; scroll-snap-type: x mandatory; }
+  .qv-rackrow li { flex: 0 0 100%; justify-items: center; scroll-snap-stop: always; }
+}
