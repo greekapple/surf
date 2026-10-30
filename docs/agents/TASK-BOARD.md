@@ -181,11 +181,30 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Priority:** P2 (handoff next action 3) · **Owner:** `product` terminal (Opus) · **Branch/worktree:** `worktree-product`, `.claude/worktrees/product` · **Dependencies:** none
 - **Owned files:** `src/features/explore/*`, `src/map/*` (no `src/app/`, `src/ui/tokens.css`)
 - **Acceptance:** 1. At 1440 and 390, default view and zoomed into the Bay Area/Santa Cruz clusters, no two visible spot labels overlap (measured with bounding boxes in a Playwright script, 0 overlaps). 2. Hidden labels reappear as you zoom in; the selected spot's label always shows. 3. Markers stay clickable and open the same spot as before. 4. No new console errors; journeys 8/8.
-- **Verification:** overlap script under `playwright-toolkit/swello/`, screenshots at 1440/390 compared with the Explore reference crop (`compare.mjs`).
+- **Verification:** new overlap script `playwright-toolkit/swello/t013-overlap.mjs` (bounding-box overlap count per view), screenshots at 1440/390 compared with `~/Development/swello-design-references/10-chatgpt-2026-10-28-dark/D-explore-map-collection.png` (`compare.mjs`).
 - **Status:** READY · **Handoff:** `handoffs/T-013-product.md`
 
 ## T-014: Home "Next Best Windows" as time ranges
 - **Priority:** P2 (handoff next action 5) · **Owner:** `engineering` terminal (Sonnet) · **Branch/worktree:** `worktree-engineering`, `.claude/worktrees/engineering` · **Dependencies:** none
 - **Owned files:** `src/services/windows.ts` (+ a new `src/tests/windows-range.test.ts`), and in `src/features/home/HomeView.tsx` only `surfWindows` / `Windows` and the best-window line on spot cards
-- **Acceptance:** 1. A pure function groups consecutive supplied hours at one spot whose rating stays within the window's band into a range (start, end, peak hour, peak score); gaps in supplied data break the range; no hours are invented. 2. Home shows "11 AM–1 PM" style ranges in the spot's local time; a single qualifying hour shows as one hour. 3. Clicking a window still opens that spot's forecast at the peak hour. 4. Unit tests cover contiguous, gapped, single-hour, day-boundary and missing-rating cases. 5. tsc, npm test, build, journeys 8/8; 1440/390 screenshots of Home looked at.
+- **Acceptance:** 1. A pure function groups consecutive supplied hours at one spot whose rating stays within the window's band (lead decision 2026-10-30: every hour scores ≥55, the existing `upcomingWindows` threshold; consecutive = supplied records exactly 1 h apart) into a range (start, end, peak hour, peak score); gaps in supplied data break the range; no hours are invented. 2. Home shows "11 AM–1 PM" style ranges in the spot's local time; a single qualifying hour shows as one hour. 3. Clicking a window still opens that spot's forecast at the peak hour. 4. Unit tests cover contiguous, gapped, single-hour, day-boundary and missing-rating cases. 5. tsc, npm test, build, journeys 8/8; 1440/390 screenshots of Home looked at.
 - **Status:** READY · **Handoff:** `handoffs/T-014-engineering.md`
+
+## Backlog round 2026-10-30 (user's order; mode B, at most two workers busy)
+## T-015: Forecast polish + D-05
+- **Priority:** P1 · **Owner:** `product` (Opus) · **Branch:** `worktree-product` · **Dependencies:** after T-013 merge
+- **Owned files:** `src/features/forecast/*` only
+- **Acceptance:** 1. Chart tooltip shows icon rows (swell, wind, tide, rating), each with a labelled value and no unlabelled numbers. 2. Wave-scale control is a horizontal slider that works by drag and keyboard. 3. Period labels are readable at 390 (no clipping or overlap, measured with bounding boxes). 4. D-05: no `<path d>` without `M` and no negative `<rect>` width when choosing the last day then "7 days" (desktop) or opening a later-day hour from Home (390); console clean. 5. tsc, npm test, build, journeys 8/8; 1440/390 compared with `00-target/forecast.png`.
+- **Status:** QUEUED · **Handoff:** `handoffs/T-015-product.md`
+
+## T-016: Quiver Focus size + real photo scan
+- **Priority:** P2 · **Owner:** `product` · **Branch:** `worktree-product` · **Dependencies:** after T-015
+- **Owned files:** `src/features/quiver/*`
+- **Acceptance:** 1. In Focus at 1440 the board fills ≥60% of the stage height (measured). 2. Photo scan run on `swello-design-references/04-quiver/user-studio-board.jpg` and `user-board-wall.jpg`: the traced outline follows the board (overlay screenshot), and failures are reported honestly. 3. Checks + 1440/390 against `00-target/quiver.png`.
+- **Status:** QUEUED · **Handoff:** `handoffs/T-016-product.md`
+
+## T-017: Board Match (F-01) + Wave Scale tie-in
+- **Owner:** `engineering` (logic) then `product` (UI) · **Dependencies:** T-008 merged · **Status:** QUEUED, acceptance written once T-008 lands
+
+## Defects D-03, D-06
+- D-03 (demo-only spot saves silently) and D-06 (Home region unused; check whether FindSpots already reads it): owner chosen by file ownership at dispatch. **Status:** QUEUED

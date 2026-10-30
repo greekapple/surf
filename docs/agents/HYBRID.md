@@ -59,4 +59,16 @@ Each Claude session ≈ 350–400 MB. At most two dev servers and one browser at
 - Config rollback: delete `.claude/settings.local.json` (turns teams off) and `.claude/settings.json`; recovery tag `pre-hybrid-2026-10-30`.
 
 ## Verification log
-- 2026-10-30: cross-session messaging available in v2.1.314 (`ListAgents` ok). Agent Teams, mode B round trip and worktree base: pending first launch.
+- 2026-10-30: cross-session messaging available in v2.1.314 (`ListAgents` ok).
+- 2026-10-30 first run (lead session):
+  - **Mode B: worked.** `ListAgents` showed `product` and `engineering`. Both answered a ping in under a minute from their worktrees. `git worktree list` showed `worktree-product` and `worktree-engineering` at 748d9a8, so `baseRef: head` works. Messages arrive tagged `from-mode="prompting"` but were delivered without approval prompts. `notify_when_idle` notices arrived for both. The lead also learns a worker has finished through its handoff message, not only the idle notice.
+  - **Worktree quirk:** in product's worktree the `zsh -lic` wrapper was refused by worktree isolation, but node v24 was already on PATH, so plain `npm`/`npx` worked. Workers can still write to `~/Development/ai-system-setup/playwright-toolkit/swello/`.
+  - **Mode A: partly worked.** Two Sonnet teammates (`qa`, using qa-tester, and `reviewer`, using code-reviewer) reviewed 748d9a8 read-only in about 1.5 min and approved it with no blockers. Direct teammate-to-teammate `SendMessage` worked both ways. **The shared task list did not work**, because neither teammate nor the lead had a task-list tool. They were shut down with `shutdown_request`. Each idle notice delivered the teammate's full report into the lead's context, which is noisy.
+  - **Stage F: worked.**
+    - T-014 (engineering, Sonnet): about 4 min from brief to handoff (`ee07772`).
+    - T-013 (product, Opus): about 7 min (`58f9609`).
+    - The two branches had disjoint files and both merged with `--no-ff` without conflicts.
+    - After both merges: tsc OK, 167/167 tests, build OK, journeys 8/8, sections-distinct, wave-spot 8/8, t013-overlap all pass. 1440/390 Home and Explore were looked at against `00-target/`, with 0 px overflow.
+    - `home-shots.mjs` 12/13: its "Forecast menu contains Wave Scale" check is out of date (wave-spot asserts the opposite).
+  - **Memory:** 58% free throughout. Lead, two workers and two teammates, with at most one dev server and browser at a time; the three Claude processes totalled about 1.1 GB.
+  - **Spec gaps found by mode A** (fixed on the board before dispatch): T-014's undefined "band", and T-013's unnamed overlap script and reference path.
