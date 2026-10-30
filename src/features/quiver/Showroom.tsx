@@ -91,6 +91,7 @@ export default function Showroom({board, boards, onSelect, onSave, onFail}: Prop
       s = new Studio(canvas.current!, host.current!, {reducedMotion: noMotion, onUserMove: () => { setSpin(false); }, onReady: () => setReady(true), onError: onFail, onPick: (id) => pickRef.current(id)}, 'lineup');
     } catch (e) { console.error('showroom', e); onFail(); return; }
     studio.current = s;
+    if (import.meta.env.DEV) Object.assign(window, {__studio: s}); // browser QA reads the board's screen box; stripped from builds
     // The photographed room (Cycles backplate + matching camera); without it the plain gallery stays.
     fetch(`${import.meta.env.BASE_URL ?? '/'}showroom/room.json`).then((r) => (r.ok ? r.json() : null)).then((rm) => { if (rm && studio.current === s) { s.setRoom(rm); setRoom(true); } }).catch(() => {});
     return () => { s.dispose(); studio.current = null; };
