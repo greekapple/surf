@@ -1,7 +1,8 @@
 import {lazy, Suspense} from 'react';
 import {SwelloProvider} from './store';
 import {useRoute} from './routes';
-import {SubNav, TabBar, TopNav} from './Nav';
+import {TabBar, TopNav} from './Nav';
+import {SpotStrip} from '../features/home/SpotStrip';
 import {ErrorBoundary, StateMessage} from '../ui/common';
 import {HomeView} from '../features/home/HomeView';
 import {ForecastView} from '../features/forecast/ForecastView';
@@ -19,18 +20,23 @@ export default function App() {
   useThemeSync();
   const {route, navigate} = useRoute();
   const {area, section} = route;
-  // The ocean map is full-bleed under the nav; its sidebar tabs and layer panel replace the section pills.
+  // The ocean map is full-bleed under the bar; its own panels hold its controls. There are no section pills anywhere (T-022):
+  // sections are reached from the bar's menus and flyouts.
   const bleed = area === 'explore' && section !== 'discover' && section !== 'compare';
-  // Pages that open on a full-bleed photograph: the nav floats over it (reference) until the page scrolls.
+  // Pages that open on a full-bleed photograph start under the fixed header and offset their text by --nav-h.
   const photoTop = (area === 'home' && section === '') || (area === 'forecast' && section === '');
-  const label = {home: 'Home', forecast: 'Forecast', explore: 'Explore', quiver: 'Quiver', personal: 'Personal'}[area];
+  // The saved-spots strip sits under the bar on Home and Forecast (Surfline's favourites bar).
+  const strip = photoTop;
+  const label = {home: 'Home', forecast: 'Forecast', explore: 'Map', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
     <SwelloProvider>
-      <div className={`shell${photoTop ? ' photo-top' : ''}`}>
+      <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}`}>
         <a className="skip" href="#main">Skip to content</a>
-        <TopNav area={area} section={section} go={navigate} />
+        <div className="hdr">
+          <TopNav area={area} section={section} go={navigate} />
+          {strip && <SpotStrip go={navigate} onForecast={area === 'forecast'} />}
+        </div>
         <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
-          {area !== 'home' && area !== 'personal' && !bleed && !photoTop && <SubNav area={area} section={section} go={navigate} />}
           <ErrorBoundary key={area} label={label}>
             {area === 'home' && <HomeView section={section} go={navigate} />}
             {area === 'forecast' && section !== 'wave-scale' && <ForecastView section={section} go={navigate} />}

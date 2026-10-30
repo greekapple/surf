@@ -1,34 +1,46 @@
 /* SWELLO application components. */
 
 /* ---------- Shell ---------- */
-.shell { min-height: 100dvh; display: flex; flex-direction: column; }
+.shell { --bar-h: 64px; --strip-h: 52px; min-height: 100dvh; display: flex; flex-direction: column; }
+/* Header stack (T-022): the bar, plus the saved-spots strip on Home and Forecast. Pages that offset by --nav-h clear both. */
+.shell.has-strip { --nav-h: calc(var(--bar-h) + var(--strip-h)); }
+.hdr { position: sticky; top: 0; z-index: 1200; }
 .skip { position: absolute; left: 12px; top: -80px; z-index: 100; padding: 10px 14px; border-radius: var(--r1); background: var(--text); color: var(--bg); }
 .skip:focus { top: 8px; }
 /* The navigation bar follows the theme tokens (light by default, dark under data-theme="dark"). */
 /* The nav sits above every page layer, including Leaflet's panes (400-1000), which are contained by .mapbox/.xmap isolation. */
-.topnav { position: sticky; top: 0; z-index: 1200; display: flex; align-items: center; gap: 32px; height: var(--nav-h); padding: 0 clamp(16px, 3vw, 40px); background: var(--bg); border-bottom: 1px solid var(--line); }
+.topnav { position: relative; display: flex; align-items: center; gap: 28px; height: var(--bar-h); padding: 0 clamp(16px, 3vw, 40px); background: var(--bg); border-bottom: 1px solid var(--line); }
 .wordmark { display: inline-flex; align-items: center; min-height: 44px; font: 700 24px/1 var(--sans); letter-spacing: -0.03em; text-decoration: none; padding-right: 8px; }
 .areas { display: flex; gap: 2px; list-style: none; height: 100%; }
 .area { position: relative; display: flex; align-items: center; }
-.area > button { display: flex; align-items: center; gap: 4px; height: 40px; padding: 0 12px; border: 0; border-radius: 999px; background: none; color: var(--muted); cursor: pointer; font-weight: 520; font-size: 14.5px; transition: color 160ms var(--ease), background-color 160ms var(--ease); }
-.area > button svg { opacity: 0.55; }
-.area > button:hover, .area.open > button { color: var(--text); background: var(--chip-bg); }
-.area > button[aria-current='page'] { color: var(--text); font-weight: 620; }
-.area > button[aria-current='page']::after { content: ''; position: absolute; left: 12px; right: 30px; bottom: -11px; height: 2px; border-radius: 2px; background: var(--text); }
-.area > button svg { transition: transform 180ms var(--ease); }
-.area.open > button svg { transform: rotate(180deg); }
+/* Bar items are links (they always navigate); the small chevron button and hover open the panel. */
+.area-link { position: relative; display: flex; align-items: center; height: 40px; padding: 0 4px 0 12px; color: var(--muted); text-decoration: none; font-weight: 520; font-size: 15px; transition: color 160ms var(--ease); }
+.area-link:hover, .area.open .area-link { color: var(--text); }
+.area-link[aria-current='page'] { color: var(--text); font-weight: 620; }
+.area-link[aria-current='page']::after { content: ''; position: absolute; left: 12px; right: 4px; bottom: -12px; height: 2px; border-radius: 2px; background: var(--text); }
+.area-more { display: grid; place-items: center; width: 22px; height: 28px; margin-right: 4px; border: 0; border-radius: 6px; background: none; color: var(--dim); cursor: pointer; }
+.area-more:hover, .area.open .area-more { color: var(--text); background: var(--chip-bg); }
+.area-more svg { transition: transform 180ms var(--ease); }
+.area.open .area-more svg { transform: rotate(180deg); }
+.wordmark[aria-current='page'] { color: var(--text); }
 .menu { position: absolute; z-index: 1300; top: calc(100% + 6px); left: -8px; min-width: 290px; padding: 6px; border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line-2); box-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 12px 32px -12px var(--shadow); list-style: none; animation: pop 160ms var(--ease); }
 .menu::before { content: ''; position: absolute; left: 0; right: 0; top: -14px; height: 14px; } /* hover bridge between the button and the panel */
 @keyframes pop { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
 .menu a { display: flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 10px; text-decoration: none; font-size: 14.5px; font-weight: 520; color: var(--muted); }
 .menu a:hover { color: var(--text); }
 .menu:not(.mega) { min-width: 220px; }
+/* Apple-style flyout: one large lead link with a line of context, then smaller secondary links. */
+.menu.fly { display: grid; gap: 1px; min-width: 260px; padding: 10px; }
+.menu.fly .fly-lead { display: grid; align-content: center; gap: 2px; min-height: 58px; margin-bottom: 4px; font: 600 19px/1.15 var(--display, var(--sans)); color: var(--text); }
+.menu.fly .fly-lead small { font: 450 12.5px/1.3 var(--sans); color: var(--dim); }
+.me-menu .menu { left: auto; right: -8px; }
 /* Forecast mega menu: a place browser (Region › County › Spot), after the principle of big surf-site navs. */
 .menu.mega { display: grid; grid-template-columns: 210px minmax(0, 1fr); width: min(900px, calc(100vw - 280px)); padding: 0; overflow: hidden; }
 .mm-rail { display: grid; align-content: start; gap: 4px; padding: 16px 12px; background: var(--s1); border-right: 1px solid var(--line); max-height: min(70dvh, 560px); overflow-y: auto; }
 .mm-rail ul { list-style: none; display: grid; gap: 1px; margin-bottom: 10px; }
 .mm-k { padding: 6px 12px 4px; font-size: 11px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
 .mm-list { display: grid; gap: 1px; margin-bottom: 8px; }
+.mm-rail .mm-spot { grid-template-columns: 10px minmax(0, 1fr); } .mm-rail .mm-h { display: none; } /* the rail is narrow: colour and name; heights are in the main column */
 .mm-main { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; padding: 14px 16px 12px; max-height: min(70dvh, 560px); }
 .mm-crumbs { display: flex; align-items: center; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--line); color: var(--dim); font-size: 13px; }
 .mm-crumbs button { padding: 4px 2px; border: 0; background: none; color: var(--muted); cursor: pointer; }
@@ -59,10 +71,6 @@
 .badge.err i { background: var(--bad); }
 .page { flex: 1; width: 100%; max-width: 1560px; margin: 0 auto; padding: 14px var(--gutter) 40px; }
 .page-bleed { max-width: none; padding: 0; }
-.subnav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 0 12px; }
-.subnav a { flex: none; min-height: 34px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); text-decoration: none; font-size: 13px; }
-.subnav a:hover { color: var(--text); border-color: var(--line-2); }
-.subnav a[aria-current='page'] { background: var(--text); color: var(--bg); border-color: transparent; font-weight: 600; }
 .tabbar { display: none; }
 
 /* Spot picker */
@@ -269,7 +277,7 @@
   .nav-end { gap: 8px; }
   .readout { grid-template-columns: auto 1fr; }
   .minis { grid-column: 1 / -1; justify-content: start; }
-  .areas > .area > button { padding: 0 8px; }
+  .area-link { padding-left: 8px; }
 }
 @media (max-width: 860px) {
   .spotbtn small { display: none; }
@@ -312,12 +320,53 @@
 @media (max-width: 860px) { .foot { padding-bottom: calc(var(--tab-h) + 28px); } }
 
 /* ---------- Nav over a full-bleed photo (Home, Forecast): transparent until scrolled ---------- */
-.shell.photo-top .topnav { position: fixed; left: 0; right: 0; transition: background-color 220ms var(--ease), border-color 220ms var(--ease); }
-.shell.photo-top .topnav:not(.solid) {
-  background: linear-gradient(180deg, rgb(4 10 16 / 0.55), rgb(4 10 16 / 0)); border-color: transparent; color: #fff;
-  --text: #fff; --muted: rgb(255 255 255 / 0.82); --dim: rgb(255 255 255 / 0.7); --chip-bg: rgb(255 255 255 / 0.14); --line: rgb(255 255 255 / 0.18); --line-2: rgb(255 255 255 / 0.3); --s3: rgb(255 255 255 / 0.16); color-scheme: dark;
-}
-.shell.photo-top .topnav:not(.solid) .area > button[aria-current='page']::after { background: #fff; }
-.shell.photo-top .topnav:not(.solid) .wordmark { text-shadow: 0 1px 12px rgb(0 0 0 / 0.3); }
+/* The header is always solid (Surfline's white bar); on photo pages it is fixed and the photo starts beneath it. */
+.shell.photo-top .hdr { position: fixed; left: 0; right: 0; }
 /* Content starts at the top of the viewport under the floating nav; pages offset their own text by --nav-h. */
 .shell.photo-top .page { padding-top: 0; }
+
+/* ---------- Search (T-022): one bar, Surfline-style overlay ---------- */
+.search { flex: 1 1 auto; max-width: 460px; min-width: 0; }
+.searchbar { display: flex; align-items: center; gap: 10px; width: 100%; height: 40px; padding: 0 12px 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--chip-bg); color: var(--dim); font-size: 14px; cursor: text; }
+.searchbar:hover { border-color: var(--line-2); color: var(--muted); }
+.searchbar span { flex: 1; text-align: left; }
+.searchbar kbd { min-width: 20px; padding: 1px 6px; border: 1px solid var(--line-2); border-radius: 5px; font: 500 11px/1.4 var(--sans); color: var(--dim); }
+.search-ov { position: fixed; inset: 0; z-index: 1400; display: grid; justify-items: center; align-items: start; padding: 10px clamp(10px, 4vw, 40px); background: rgb(4 10 16 / 0.42); animation: pop 140ms var(--ease); }
+.search-panel { width: min(760px, 100%); max-height: min(80dvh, 640px); display: grid; grid-template-rows: auto minmax(0, 1fr); border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line-2); box-shadow: 0 24px 60px -20px var(--shadow); overflow: hidden; }
+.search-in { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-bottom: 1px solid var(--line); color: var(--dim); }
+.search-in input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+.search-in input { flex: 1; min-width: 0; height: 44px; border: 0; background: none; color: var(--text); font-size: 18px; outline: none; }
+.search-res { overflow-y: auto; padding: 6px 8px 12px; }
+.search-k { padding: 12px 10px 4px; font-size: 11px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+.search-hit { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 48px; padding: 0 10px; border-radius: 10px; cursor: pointer; }
+.search-hit[aria-selected='true'] { background: var(--chip-bg); }
+.search-hit span { display: grid; line-height: 1.25; min-width: 0; }
+.search-hit b { font-weight: 600; }
+.search-hit span small, .search-h { font-size: 12.5px; color: var(--dim); }
+.cdot { display: block; width: 10px; height: 10px; border-radius: 50%; }
+
+/* ---------- Saved-spots strip (T-022): Surfline's favourites bar under the header ---------- */
+.favbar { display: flex; align-items: center; gap: 12px; height: var(--strip-h); padding: 0 clamp(16px, 3vw, 40px); background: var(--bg); border-bottom: 1px solid var(--line); }
+.favbar-row { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.favbar-row::-webkit-scrollbar { display: none; }
+.chip-spot { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--s1); color: var(--text); cursor: pointer; white-space: nowrap; }
+.chip-spot:hover { border-color: var(--line-2); }
+.chip-spot[aria-current='true'] { border-color: var(--text); }
+.chip-spot b { font-size: 13.5px; font-weight: 600; }
+.chip-spot small { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip-spot .cdot { width: 4px; height: 20px; border-radius: 2px; }
+.favbar-empty { font-size: 13px; color: var(--dim); }
+.favbar-end { flex: none; display: flex; align-items: center; gap: 10px; }
+.favbar-end .spotbtn { min-height: 36px; }
+.favbar-end .spotbtn small { display: none; }
+.favbar-edit { font-size: 13px; color: var(--muted); }
+@media (max-width: 860px) {
+  .topnav { gap: 10px; }
+  .search { flex: 0 0 auto; margin-left: auto; }
+  .searchbar { width: 40px; padding: 0; justify-content: center; border-color: transparent; background: none; }
+  .searchbar span, .searchbar kbd { display: none; }
+  .favbar { gap: 8px; padding: 0 12px; }
+  .topnav .areas.me-menu { display: flex; } /* phones keep the avatar (Personal) in the bar; the area links move to the tab bar */
+  .me-area .area-more { display: none; }
+  .favbar-end .spotbtn small, .favbar-edit { display: none; }
+}
