@@ -108,6 +108,8 @@
 .xpin:hover i, .xpin.hl i, .xpin.sel i { transform: scale(1.18); box-shadow: 0 0 0 5px rgb(255 255 255 / 0.3); }
 .xlabel { display: grid; padding: 3px 10px; border-radius: var(--r2); background: var(--xp); border: 1px solid var(--xp-line); color: #fff; line-height: 1.25; pointer-events: none; transition: background-color 160ms var(--ease), border-color 160ms var(--ease); }
 .xpin.hl .xlabel, .xpin:hover .xlabel { background: #16365a; border-color: rgb(255 255 255 / 0.4); }
+.xpin.lft .xlabel { position: absolute; right: calc(100% + 8px); } /* collision fallback: label on the pin's left */
+.xpin.xhide:not(.hl) .xlabel { visibility: hidden; } /* would collide at this zoom; hovering still reveals it */
 .xlabel b { font-size: 12.5px; font-weight: 650; }
 .xlabel small { font-size: 11px; color: rgb(255 255 255 / 0.78); }
 
