@@ -221,6 +221,7 @@ export function PersonalView({section, go}: ViewProps) {
                         <option value="All regions">Not set (use my location)</option>
                         {ZONES.map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => spots.some((x) => x.region === c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
                       </select>
+                      <small className="fine">Used by Explore › Find spots as your starting point when location is off.</small>
                     </label>
                     <div className="field"><span>Profile photo (stays on this device)</span>
                       <input ref={avatarRef} type="file" accept="image/*" aria-label="Profile photo" onChange={(e) => void pickAvatar(e.target.files?.[0])} />
