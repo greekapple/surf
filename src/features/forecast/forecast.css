@@ -43,7 +43,7 @@
 
 /* Metrics row: label above value, thin dividers */
 .fc-strip { display: grid; gap: 14px; }
-.fc-strip .readout { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; align-items: start; margin: 0; padding: 4px 0 0; border: 0; }
+.fc-strip .readout { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; align-items: start; margin: 0; padding: 4px 0 0; border: 0; }
 .fc-strip .minis { display: contents; }
 .fc-strip .ro-time { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .fc-strip .ro-c, .fc-strip .minis > div { display: grid; align-content: start; gap: 4px; padding: 2px 20px; border-left: 1px solid var(--line-2); min-width: 0; }
@@ -128,10 +128,9 @@
 @media (max-width: 1100px) {
   .fc-strip .readout { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 16px; }
   .fc-strip .ro-c:nth-child(2) { border-left: 0; }
-  .fc-strip .minis > div:nth-child(2) { border-left: 1px solid var(--line-2); }
-  .fc-strip .minis > div:nth-child(3) { border-left: 0; padding-left: 0; }
-  .fc-strip .ro-c:nth-child(3) { border-left: 1px solid var(--line-2); }
-  .fc-strip .minis > div:nth-child(1) { border-left: 1px solid var(--line-2); }
+  .fc-strip .ro-c:nth-child(3), .fc-strip .ro-c:nth-child(4) { border-left: 1px solid var(--line-2); }
+  .fc-strip .minis > div:nth-child(1), .fc-strip .minis > div:nth-child(4) { border-left: 0; padding-left: 0; }
+  .fc-strip .minis > div:nth-child(2), .fc-strip .minis > div:nth-child(3) { border-left: 1px solid var(--line-2); }
   .fc-tl, .fc-scale, .fc-hours, .fc-inst, .fc-src, .fc-cam, .fc-half { grid-column: span 12; }
   .wc-stage { min-height: 300px; }
 }
@@ -201,3 +200,10 @@
   .fc .tile:nth-child(2n) { border-right: 0; }
   .fc .tile:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
 }
+
+/* Breaking-wave estimate block: the refusal reason shows on hover and keyboard focus. */
+.fc .readout .est .v { font-size: clamp(18px, 1.7vw, 24px); white-space: nowrap; }
+.fc .readout .est-none { color: var(--muted); font-weight: 550; position: relative; cursor: help; width: fit-content; }
+.fc .readout .est-none:focus-visible { outline: 2px solid var(--focus, currentColor); outline-offset: 3px; border-radius: 4px; }
+.fc .readout .est-none::after { content: attr(data-tip); position: absolute; left: 0; top: calc(100% + 6px); z-index: 5; width: max-content; max-width: 260px; padding: 8px 10px; border-radius: 8px; background: var(--surface-2, var(--bg)); color: var(--text); border: 1px solid var(--line-2); font-size: 12.5px; font-weight: 450; line-height: 1.35; white-space: normal; opacity: 0; pointer-events: none; transition: opacity 120ms; }
+.fc .readout .est-none:hover::after, .fc .readout .est-none:focus-visible::after { opacity: 1; }

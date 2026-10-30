@@ -13,6 +13,7 @@ import {Dial, PolarSwell, Spark, TideDay, Timeline, windInk, type ChartTab} from
 import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
 import {BAND_COLOR, bandOf, hourLabel, hourlySeries, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
+import {faceEstimateView} from './estimate';
 import {MiniScale} from '../scale/MiniScale';
 import {Skeleton} from '../../ui/Skeleton';
 import {Condition, conditionWord} from './Condition';
@@ -22,7 +23,7 @@ const facingOf = (spot: SurfSpot) => evidenceSpots.find((e) => e.id === spot.id)
 const relChip = (r: string) => ({Offshore: 'off', Onshore: 'on'} as Record<string, string>)[r] ?? '';
 
 function Readout({h, p, series, isNow, preview, spot}: {h: HourSample; p: UserProfile; series: HourSample[]; isNow: boolean; preview: boolean; spot: SurfSpot}) {
-  const f = h.forecast, r = h.rating, u = p.heightUnit, tr = trendOf(series, series.indexOf(h)), rel = windRelationship(spot, f);
+  const f = h.forecast, r = h.rating, u = p.heightUnit, tr = trendOf(series, series.indexOf(h)), rel = windRelationship(spot, f), est = faceEstimateView(f, p);
   return (
     <div className="readout" aria-live="polite">
       <p className="ro-time"><span>{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)}, {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}{preview ? ' · preview' : ''}</span><span>{tr === 'unknown' ? '' : `${titleCase(tr)} over 6 h`}</span></p>
@@ -36,6 +37,13 @@ function Readout({h, p, series, isNow, preview, spot}: {h: HourSample; p: UserPr
         <p className="num swap" key={h.timestamp}>{ht(h.heightFt, p)}<small>{u}</small></p>
         <span className="s">{f.availability.face && Number.isFinite(f.face) ? 'Demonstration face' : 'Model Hs, not surf size'}</span>
       </div>
+      {est && <div className="ro-c est">
+        <span className="k">Surf (breaking)</span>
+        {est.state === 'range'
+          ? <p className="v swap" key={h.timestamp} aria-label={`Estimated breaking-wave face ${est.text}, model estimate, not measured, unvalidated`}>Est. {est.text}</p>
+          : <p className="v est-none swap" key={h.timestamp} tabIndex={0} data-tip={est.reason} aria-label={`No estimate. ${est.reason}`}>No estimate</p>}
+        <span className="s">{est.state === 'range' ? 'model estimate, not measured · unvalidated' : 'model estimate unavailable'}</span>
+      </div>}
       <div className="minis">
         <div><span className="k">Swell</span><span className="v tick" key={h.timestamp}>{f.primary && Number.isFinite(f.primary.height) ? `${ht(f.primary.height, p)} ${u} @ ${Math.round(f.primary.period)}s` : '—'}</span>
           <span className="s">{f.primary && Number.isFinite(f.primary.height) ? <><DirArrow from={f.primary.direction} size={13} color="var(--sw2)" />{compass(f.primary.direction)} ({Math.round(f.primary.direction)}°)</> : ''}</span></div>

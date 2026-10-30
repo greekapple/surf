@@ -275,3 +275,8 @@
 @media (min-width: 601px) and (max-width: 860px) {
   .week tbody tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* Unvalidated breaking-wave estimate line on a spot card. */
+.fc-est { display: block; margin-top: 6px; font-size: 12.5px; font-variant-numeric: tabular-nums; opacity: 0.9; }
+/* With the estimate there are five stats; tighten so they stay on one line on desktop. */
+@media (min-width: 861px) { .hero-stats.with-est li { padding: 0 14px; gap: 10px; } .hero-stats.with-est li:first-child { padding-left: 0; } .hero-stats.with-est .ic { width: 38px; height: 38px; } }
