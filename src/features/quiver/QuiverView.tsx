@@ -10,6 +10,7 @@ import {titleCase} from '../forecast/model';
 import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
 import {BoardOutline} from './BoardOutline';
+import {Rack} from './Rack';
 import {SpecCard, StageArrows, Strip} from './Overlay';
 import {ScanPanel, type Scan} from './ScanPanel';
 import './quiver.css';
@@ -145,22 +146,15 @@ export function QuiverView({section, go}: ViewProps) {
       </header>
 
       {section === '' && (
-        <>
-          <ul className="qv-grid">{boards.map((b) => (
-            <li key={b.id}>
-              <button className="qv-card" aria-pressed={b.id === sel?.id} onClick={() => select(b.id)} aria-label={`${b.name}, ${lengthLabel(b.length)}`}>
-                <span className="qv-card-stage"><BoardOutline b={b} scale={170 / maxLen} /></span>
-                <span className="qv-card-meta"><b>{b.name}</b><span>{b.type}</span><span>{lengthLabel(b.length)} × {inches(b.width)} × {inches(b.thickness)}</span><span>{b.volume} L{b.demo ? ' · example' : ''}</span></span>
-              </button>
-            </li>
-          ))}</ul>
-          {sel && (
+        sel && (
+          <>
+            <Rack boards={boards} selected={sel} onSelect={select} onOpen3D={() => { select(sel.id); go('quiver', 'showroom'); }} />
             <section className="qv-selected" aria-label="Selected board">
-              <div><h2>{sel.name}</h2><p className="fine">{[sel.manufacturer, sel.model].filter(Boolean).join(' · ') || 'Shaper not recorded'} · {sel.type}</p></div>
-              <div className="qv-actions"><button className="btn" onClick={() => go('quiver', 'showroom')}>Open in Showroom</button>{A(sel)}</div>
+              <p className="fine">{sel.name} · {[sel.manufacturer, sel.model].filter(Boolean).join(' · ') || 'Shaper not recorded'}</p>
+              <div className="qv-actions">{A(sel)}</div>
             </section>
-          )}
-        </>
+          </>
+        )
       )}
 
       {section === 'showroom' && sel && (
