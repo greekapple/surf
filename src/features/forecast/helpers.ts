@@ -62,7 +62,8 @@ export function groupDays(series: HourSample[]): Day[] {
 /** Monotone cubic path through points; never overshoots the values it passes through. */
 export function monotonePath(pts: [number, number][]) {
   const n = pts.length;
-  if (n < 2) return '';
+  if (!n) return '';
+  if (n === 1) return `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`; // a one-hour day still yields a valid path
   const dx: number[] = [], dy: number[] = [], m: number[] = [];
   for (let i = 0; i < n - 1; i++) { dx[i] = pts[i + 1][0] - pts[i][0] || 1e-6; dy[i] = (pts[i + 1][1] - pts[i][1]) / dx[i]; }
   m[0] = dy[0]; m[n - 1] = dy[n - 2];

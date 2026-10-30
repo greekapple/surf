@@ -197,7 +197,7 @@ function WaveCard({forecast, go, spotId}: {forecast: Forecast; go: ViewProps['go
           <SpotPhoto spotId={`generic-${spotId}`} index={2} className="wc-photo" />
           <div className="wc-gauge">
             <output className="wc-big" htmlFor="wc-ft">{m ? (ft * 0.3048).toFixed(1) : ft}<small> {m ? 'm' : 'ft'}</small></output>
-            <input id="wc-ft" type="range" min={2} max={20} step={0.5} value={ft} aria-label="Illustrative wave face height" onChange={(e) => setPrefs({scaleFt: Number(e.target.value)})} />
+            <input id="wc-ft" type="range" min={2} max={20} step={0.5} value={ft} aria-label="Illustrative wave face height" aria-valuetext={`${m ? (ft * 0.3048).toFixed(1) + ' m' : ft + ' ft'} face, illustrative`} onChange={(e) => setPrefs({scaleFt: Number(e.target.value)})} />
           </div>
         </>}
       </div>
