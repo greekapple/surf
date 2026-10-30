@@ -203,8 +203,12 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Acceptance:** 1. In Focus at 1440 the board fills ≥60% of the stage height (measured). 2. Photo scan run on `swello-design-references/04-quiver/user-studio-board.jpg` and `user-board-wall.jpg`: the traced outline follows the board (overlay screenshot), and failures are reported honestly. 3. Checks + 1440/390 against `00-target/quiver.png`.
 - **Status:** QUEUED · **Handoff:** `handoffs/T-016-product.md`
 
-## T-017: Board Match (F-01) + Wave Scale tie-in
-- **Owner:** `engineering` (logic) then `product` (UI) · **Dependencies:** T-008 merged · **Status:** QUEUED, acceptance written once T-008 lands
+## T-017: Board Match (F-01) on the breaking-wave estimate (logic)
+- **User decision 2026-10-30:** Board Match may run on the unvalidated estimate range, labelled "based on an unvalidated estimate"; spots without an estimate show no match.
+- **Owner:** `engineering` · **Branch:** `worktree-engineering` · **Dependencies:** T-008 merged (done)
+- **Owned files:** `src/ocean/match.ts`, `src/recommendation/*`, `src/services/windows.ts`, tests; in `HomeView.tsx` only `surfWindows`
+- **Acceptance:** 1. `evidenceMatch` uses `faceEstimate.rangeFt` when `face.value` is null: a range overlapping the preferred min–max counts as in range, and the comfort and skill caps use the range high. The reason text names the estimate as unvalidated. 2. Other missing inputs (character, difficulty, hazards) are still reported honestly; if Ocean Beach lacks them, list exactly which ones, and don't invent them. 3. `scoreBoard` accepts the range the same way. 4. T-014b: a window keeps only hours within 10 points of its peak (and ≥55), and at most 2 windows per spot in the 4 shown. 5. Unit tests cover each case; tsc, test, build, journeys 8/8.
+- **Then (product):** show "Est. X–Y ft at the break · model estimate, not measured" on Forecast/Home, plus the Board Match and Wave Scale tie-in. **Status:** IN PROGRESS (logic)
 
 ## Defects D-03, D-06
 - D-03 (demo-only spot saves silently) and D-06 (Home region unused; check whether FindSpots already reads it): owner chosen by file ownership at dispatch. **Status:** QUEUED
