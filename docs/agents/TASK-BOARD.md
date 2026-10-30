@@ -246,4 +246,7 @@ User: "use the references more closely … use already published working website
 - **T-022 decisions (lead, 2026-10-30):** "Map" replaces "Explore" in the bar (/explore kept, /map alias); saved-spots strip under the bar on Home and Forecast; phone keeps bottom tabs. **User:** strip shows condition colour + labelled height (like Surfline Favorites); Home body has no forecast numbers.
 
 ## T-025: Quiver My Boards as a showroom rack (vs 00-target/quiver.png)
-- **Owner:** `engineering` · **Owned:** `src/features/quiver/*`, tests · **Acceptance:** upright rack + emphasised selection, real spec panel + View in 3D, thumbnail strip with keyboard, 390 swipe view, keyboard path for the scan crop box; t023 still passes; checks + 1440/390 vs target. Existing assets only. **Status:** IN PROGRESS
+- **Owner:** `engineering` · **Owned:** `src/features/quiver/*`, tests · **Acceptance:** upright rack + emphasised selection, real spec panel + View in 3D, thumbnail strip with keyboard, 390 swipe view, keyboard path for the scan crop box; t023 still passes; checks + 1440/390 vs target. Existing assets only. **Status:** DONE (merged; boards are flat outlines vs photographed decks: asset decision for the user)
+
+## T-026: Spot-report data (Surfline-style), no UI
+- **Owner:** `engineering` · **Owned:** new `src/services/spotReport.ts`, `src/tests/spot-report.test.ts` · **Acceptance:** headline, 7 days AM/PM from supplied hours, swell components, tides, light, all labelled or null; tests incl. DST and missing data. **Status:** IN PROGRESS
