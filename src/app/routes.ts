@@ -10,18 +10,16 @@ export interface AreaDef {id: Area; label: string; sections: Section[]}
 /** Product navigation: every section renders real content (see Obsidian 03-Navigation-Architecture). */
 export const AREAS: AreaDef[] = [
   {id: 'home', label: 'Home', sections: [
-    {id: '', label: 'Overview', hint: 'Conditions at your spot right now'},
-    {id: 'spots', label: 'My Spots', hint: 'Favourite spots side by side'},
-    {id: 'windows', label: 'Best Windows', hint: 'Best daylight hours ahead'},
+    {id: '', label: 'Home', hint: 'Your saved spots and where to go next'},
   ]},
   {id: 'forecast', label: 'Forecast', sections: [
     {id: '', label: 'Spot Forecast', hint: 'Swell, wind, tide and the wave scale on one page'},
     {id: 'wave-scale', label: 'Wave Scale 3D', hint: 'Wave, surfer and board in 3D', hidden: true},
   ]},
-  {id: 'explore', label: 'Explore', sections: [
+  {id: 'explore', label: 'Map', sections: [
     {id: '', label: 'Ocean Map', hint: 'Spots and conditions on the map'},
-    {id: 'wind', label: 'Wind Layers', hint: 'Regional wind grid'},
-    {id: 'swell', label: 'Swell Layers', hint: 'Regional wave grid'},
+    {id: 'wind', label: 'Wind Layers', hint: 'Regional wind grid', hidden: true}, // chosen from the map's own layer controls
+    {id: 'swell', label: 'Swell Layers', hint: 'Regional wave grid', hidden: true},
     {id: 'compare', label: 'Compare Spots', hint: 'Spots side by side at one hour'},
     {id: 'discover', label: 'Find Spots', hint: 'Spots near you by distance and conditions'},
   ]},
@@ -46,6 +44,7 @@ export interface Route {area: Area; section: string}
 
 export function parseRoute(pathname: string): Route {
   const [a, s] = pathname.split('/').filter(Boolean);
+  if (a === 'map') return parseRoute(`/explore${s ? `/${s}` : ''}`); // "Map" in the bar (T-022); /explore stays canonical
   if (a === 'scale') return {area: 'forecast', section: 'wave-scale'}; // Wave Scale lives inside Forecast; keep old links working
   if (a === 'forecast' && s === 'compare') return {area: 'explore', section: 'compare'}; // Compare moved to Explore (2026-10-29)
   const def = AREAS.find((x) => x.id === a);

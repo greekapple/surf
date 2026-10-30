@@ -1,12 +1,13 @@
-import {useEffect, useRef, useState, type KeyboardEvent, type MouseEvent} from 'react';
+import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode} from 'react';
 import {AREAS, pathFor, type Area} from './routes';
 import {useSwello} from './store';
 import {Icon} from '../ui/Icon';
-import {BAND_COLOR, band} from '../features/forecast/model';
+import {BAND_COLOR, band, bandOf as bandOfCat} from '../features/forecast/model';
 import {timeLabelPT} from '../features/forecast/format';
 import {ht} from '../features/forecast/helpers';
 import {resolveTheme, useThemePref} from '../ui/theme';
 import {ZONES, zoneOf} from '../data/zones';
+import {spotStrip} from '../services/spotStrip';
 
 type Go = (area: Area, section?: string) => void;
 const linkProps = (go: Go, area: Area, section = '') => ({
@@ -18,7 +19,9 @@ const linkProps = (go: Go, area: Area, section = '') => ({
   },
 });
 
-function AreaMenu({def, current, section, go}: {def: (typeof AREAS)[number]; current: boolean; section: string; go: Go}) {
+/** A bar item (Surfline / Apple pattern): the link always navigates; hovering it, ArrowDown or the small chevron button opens its
+ *  panel. Forecast opens the place browser; other areas open a flyout with one large lead link and smaller secondary links. */
+function AreaMenu({def, current, section, go, children, className = ''}: {def: (typeof AREAS)[number]; current: boolean; section: string; go: Go; children?: ReactNode; className?: string}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
   const timer = useRef(0);
@@ -28,31 +31,33 @@ function AreaMenu({def, current, section, go}: {def: (typeof AREAS)[number]; cur
     addEventListener('pointerdown', close);
     return () => removeEventListener('pointerdown', close);
   }, [open]);
-  const items = () => Array.from(ref.current?.querySelectorAll<HTMLAnchorElement>('.menu a') ?? []);
+  useEffect(() => setOpen(false), [current, section]);
+  const items = () => Array.from(ref.current?.querySelectorAll<HTMLElement>('.menu a, .menu button') ?? []);
   const onKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') { setOpen(false); ref.current?.querySelector('button')?.focus(); return; }
+    if (e.key === 'Escape') { setOpen(false); ref.current?.querySelector<HTMLElement>('.area-link')?.focus(); return; }
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       if (!open) { setOpen(true); requestAnimationFrame(() => items()[0]?.focus()); return; }
-      const list = items(), i = list.indexOf(document.activeElement as HTMLAnchorElement);
+      const list = items(), i = list.indexOf(document.activeElement as HTMLElement);
       list[(i + (e.key === 'ArrowDown' ? 1 : -1) + list.length) % list.length]?.focus();
     }
   };
+  const close = () => setOpen(false);
+  const secs = def.sections.filter((s) => !s.hidden);
+  const menu = def.id === 'forecast' || secs.length > 1;
   return (
-    <li ref={ref} className={`area${open ? ' open' : ''}`} onKeyDown={onKey}
-      onPointerEnter={(e) => { if (e.pointerType === 'mouse') { clearTimeout(timer.current); setOpen(true); } }}
-      onPointerLeave={(e) => { if (e.pointerType === 'mouse') timer.current = window.setTimeout(() => setOpen(false), 160); }}>
-      <button aria-current={current ? 'page' : undefined} aria-expanded={open} aria-haspopup="true"
-        onClick={() => setOpen(true)}>
-        {def.label}<Icon name="chevron" size={14} />
-      </button>
-      {open && def.id === 'forecast' && <SpotMegaMenu section={section} current={current} go={go} close={() => setOpen(false)} />}
-      {open && def.id !== 'forecast' && (
-        <ul className="menu" aria-label={`${def.label} sections`}>
-          {def.sections.filter((s) => !s.hidden).map((s) => (
+    <li ref={ref} className={`area${open ? ' open' : ''} ${className}`} onKeyDown={onKey}
+      onPointerEnter={(e) => { if (menu && e.pointerType === 'mouse') { clearTimeout(timer.current); setOpen(true); } }}
+      onPointerLeave={(e) => { if (e.pointerType === 'mouse') timer.current = window.setTimeout(close, 160); }}>
+      <a className="area-link" aria-current={current ? 'page' : undefined} {...linkProps((a, sec) => { go(a, sec); close(); }, def.id)}>{children ?? def.label}</a>
+      {menu && <button className="area-more" aria-label={`${def.label} menu`} aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(!open)}><Icon name="chevron" size={12} /></button>}
+      {open && def.id === 'forecast' && <SpotMegaMenu section={section} current={current} go={go} close={close} />}
+      {open && def.id !== 'forecast' && secs.length > 1 && (
+        <ul className="menu fly" aria-label={`${def.label} pages`}>
+          {secs.map((s, k) => (
             <li key={s.id}>
-              <a {...linkProps((a, sec) => { go(a, sec); setOpen(false); }, def.id, s.id)} aria-current={current && section === s.id ? 'page' : undefined} title={s.hint}>
-                {s.label}
+              <a className={k === 0 ? 'fly-lead' : undefined} {...linkProps((a, sec) => { go(a, sec); close(); }, def.id, s.id)} aria-current={current && section === s.id ? 'page' : undefined}>
+                {s.label}{k === 0 && <small>{s.hint}</small>}
               </a>
             </li>
           ))}
@@ -78,11 +83,14 @@ function useRecentSpots(id: string) {
 /** Forecast menu: a place browser, not a list of tabs. Left rail: forecast pages, recent and favourite spots.
  * Main pane: Region › County › Spot with each spot's live offshore height and provisional rating. */
 function SpotMegaMenu({section, current, go, close}: {section: string; current: boolean; go: Go; close: () => void}) {
-  const {spot, spotOptions, setSpot, data, view} = useSwello();
+  const {spot, spotOptions, setSpot, data, view, now} = useSwello();
   const recent = useRecentSpots(spot.id);
+  // Same colour and labelled height as the saved-spots strip and search (T-024 selector), never a bare number.
+  const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile).map((x) => [x.id, x])),
+    [spotOptions, view.mapRecords, now, data.state.profile]);
   const [zone, setZone] = useState(() => zoneOf(spot.region));
   const [county, setCounty] = useState<string | null>(null);
-  const p = data.state.profile, favs = data.state.favorites;
+  const favs = data.state.favorites;
   const zones = ZONES.filter(([, rs]) => spotOptions.some((s) => rs.includes(s.region)));
   const counties = (ZONES.find(([z]) => z === zone)?.[1] ?? []).filter((c) => spotOptions.some((s) => s.region === c));
   const list = spotOptions.filter((s) => zoneOf(s.region) === zone && (!county || s.region === county));
@@ -91,12 +99,12 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
   const row = (id: string) => {
     const s = spotOptions.find((x) => x.id === id);
     if (!s) return null;
-    const rec = view.mapRecords.find((r) => r.spotId === s.id && r.timestamp === view.selectedTime);
+    const it = info.get(s.id);
     return (
       <button key={s.id} className="mm-spot" aria-current={s.id === spot.id} onClick={() => pick(s.id)}>
-        <span className="qdot" style={{background: rec ? BAND_COLOR[band(rec, s)] : 'var(--none)'}} />
+        <span className="qdot" style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} />
         <span className="mm-n">{s.name}<small>{s.region}</small></span>
-        <span className="mm-h">{rec && Number.isFinite(rec.offshore) ? `${ht(rec.offshore, p)} ${p.heightUnit}` : '—'}</span>
+        <span className="mm-h">{it?.heightLabel ?? '—'}</span>
       </button>
     );
   };
@@ -124,7 +132,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
           </div>
           <div className="mm-col mm-spots" role="group" aria-label="Spots">{list.map((s) => row(s.id))}</div>
         </div>
-        <p className="mm-foot">Offshore height at {view.selectedTime ? timeLabelPT(view.selectedTime) : '—'} · dot = provisional rating · <button className="mm-link" onClick={() => { go('explore'); close(); }}>Open the map</button></p>
+        <p className="mm-foot">Now · dot = provisional rating · <button className="mm-link" onClick={() => { go('explore'); close(); }}>Open the map</button></p>
       </div>
     </div>
   );
@@ -184,17 +192,26 @@ export function DataBadge() {
   return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.map((s) => `${s.provider}: ${s.state}`).join('\n')}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt)}{limited ? ' · some sources limited' : ''}</span></span>;
 }
 
+/** Top bar (Surfline / Apple): wordmark = Home · Forecast · Map · Quiver · search · status · theme · avatar (Personal). Always solid. */
 export function TopNav({area, section, go}: {area: Area; section: string; go: Go}) {
-  // Becomes solid after a little scroll; only visible as transparent on photo-top pages (CSS).
-  const [solid, setSolid] = useState(() => typeof scrollY === 'number' && scrollY > 24);
-  useEffect(() => { const on = () => setSolid(scrollY > 24); on(); addEventListener('scroll', on, {passive: true}); return () => removeEventListener('scroll', on); }, [area, section]);
+  const {data} = useSwello();
+  const first = data.state.profile.displayName?.trim().split(/\s+/)[0] || 'You';
+  const def = (id: Area) => AREAS.find((a) => a.id === id)!;
   return (
-    <header className={`topnav${solid ? ' solid' : ''}`}>
-      <a className="wordmark" aria-label="Swello home" {...linkProps(go, 'home')}>Swello</a>
+    <header className="topnav">
+      <a className="wordmark" aria-label="Swello home" aria-current={area === 'home' ? 'page' : undefined} {...linkProps(go, 'home')}>Swello</a>
       <nav aria-label="Primary"><ul className="areas">
-        {AREAS.map((def) => <AreaMenu key={def.id} def={def} current={def.id === area} section={section} go={go} />)}
+        {(['forecast', 'explore', 'quiver'] as const).map((id) => <AreaMenu key={id} def={def(id)} current={id === area} section={section} go={go} />)}
       </ul></nav>
-      <div className="nav-end"><DataBadge /><SpotPicker /><ThemeToggle /><Me go={go} /></div>
+      <Search go={go} />
+      <div className="nav-end">
+        <DataBadge /><ThemeToggle />
+        <ul className="areas me-menu">
+          <AreaMenu def={def('personal')} current={area === 'personal'} section={section} go={go} className="me-area">
+            <span className="me"><i aria-hidden="true">{first[0]?.toUpperCase()}</i><span className="me-name">{first}</span><span className="sr-only">: Personal</span></span>
+          </AreaMenu>
+        </ul>
+      </div>
     </header>
   );
 }
@@ -206,18 +223,75 @@ function ThemeToggle() {
   return <button className="iconbtn" aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} title={dark ? 'Light theme' : 'Dark theme'} onClick={() => setPref(dark ? 'light' : 'dark')}><Icon name={dark ? 'sun' : 'moon'} size={18} /></button>;
 }
 
-function Me({go}: {go: Go}) {
-  const {data} = useSwello();
-  const first = data.state.profile.displayName?.trim().split(/\s+/)[0] || 'You';
-  return <a className="me" aria-label={`${first}: profile`} {...linkProps(go, 'personal')}><i aria-hidden="true">{first[0]?.toUpperCase()}</i><span className="me-name">{first}</span></a>;
-}
-
-export function SubNav({area, section, go}: {area: Area; section: string; go: Go}) {
-  const def = AREAS.find((a) => a.id === area)!;
+/** One search, everywhere (Surfline's overlay): spots grouped by county, each with its condition colour and labelled height.
+ *  "/" opens it; arrow keys move; Enter opens the spot's forecast; Escape closes. */
+function Search({go}: {go: Go}) {
+  const {spotOptions, setSpot, view, now, data} = useSwello();
+  const [open, setOpen] = useState(false);
+  const [q, setQ] = useState('');
+  const [at, setAt] = useState(0);
+  useEffect(() => {
+    const onKey = (e: globalThis.KeyboardEvent) => {
+      const t = e.target as HTMLElement;
+      if (e.key === '/' && !open && !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && !t.isContentEditable) { e.preventDefault(); setOpen(true); }
+    };
+    addEventListener('keydown', onKey);
+    return () => removeEventListener('keydown', onKey);
+  }, [open]);
+  const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile).map((x) => [x.id, x])),
+    [spotOptions, view.mapRecords, now, data.state.profile]);
+  const term = q.trim().toLowerCase();
+  const favs = data.state.favorites;
+  const found = (term ? spotOptions.filter((s) => `${s.name} ${s.region}`.toLowerCase().includes(term)) : spotOptions.filter((s) => favs.includes(s.id))).slice(0, 14);
+  // One group per county, in first-seen order; the keyboard order follows the groups.
+  const byRegion = new Map<string, typeof found>();
+  for (const s of found) byRegion.set(s.region, [...(byRegion.get(s.region) ?? []), s]);
+  const groups = [...byRegion], hits = groups.flatMap(([, list]) => list);
+  const close = () => { setOpen(false); setQ(''); setAt(0); };
+  const pick = (id: string) => { setSpot(id); go('forecast'); close(); };
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') { close(); return; }
+    if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && hits.length) { e.preventDefault(); setAt((i) => (i + (e.key === 'ArrowDown' ? 1 : -1) + hits.length) % hits.length); }
+    if (e.key === 'Enter' && hits[at]) { e.preventDefault(); pick(hits[at].id); }
+  };
   return (
-    <nav className="subnav" aria-label={`${def.label} sections`}>
-      {def.sections.filter((s) => !s.hidden || s.id === section).map((s) => <a key={s.id} {...linkProps(go, area, s.id)} aria-current={s.id === section ? 'page' : undefined}>{s.label}</a>)}
-    </nav>
+    <div className="search">
+      <button className="searchbar" aria-haspopup="dialog" aria-expanded={open} onClick={() => setOpen(true)}>
+        <Icon name="search" size={16} /><span>Search spots</span><kbd aria-hidden="true">/</kbd>
+      </button>
+      {open && (
+        <div className="search-ov" role="dialog" aria-modal="true" aria-label="Search spots" onPointerDown={(e) => { if (e.target === e.currentTarget) close(); }}>
+          <div className="search-panel">
+            <div className="search-in">
+              <Icon name="search" size={18} />
+              <input autoFocus type="search" value={q} placeholder={`Search ${spotOptions.length} spots by name or county`} aria-label="Search spots"
+                role="combobox" aria-expanded="true" aria-controls="search-results" aria-activedescendant={hits[at] ? `sr-${hits[at].id}` : undefined}
+                onChange={(e) => { setQ(e.target.value); setAt(0); }} onKeyDown={onKey} />
+              <button className="iconbtn" aria-label="Close search" onClick={close}><Icon name="close" size={18} /></button>
+            </div>
+            <div id="search-results" role="listbox" aria-label={term ? 'Matching spots' : 'Saved spots'} className="search-res">
+              {!term && <p className="search-k">{favs.length ? 'Saved spots' : 'Type a spot or county name'}</p>}
+              {term && hits.length === 0 && <p className="search-k">No spot matches “{q}”.</p>}
+              {groups.map(([region, list]) => (
+                <div key={region} role="group" aria-label={region}>
+                  {term && <p className="search-k">{region}</p>}
+                  {list.map((s) => {
+                    const it = info.get(s.id), k = hits.indexOf(s);
+                    return (
+                      <div key={s.id} id={`sr-${s.id}`} role="option" aria-selected={k === at} className="search-hit" onPointerEnter={() => setAt(k)} onClick={() => pick(s.id)}>
+                        <i className="cdot" style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} aria-hidden="true" />
+                        <span><b>{s.name}</b><small>{s.region}</small></span>
+                        <small className="search-h">{it?.heightLabel}</small>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
