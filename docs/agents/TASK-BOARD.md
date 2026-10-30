@@ -175,3 +175,17 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
   7. Mobile controls ≥44 px.
   8. design-critic verdict at least "Partly", with no item 1–2 remaining.
 - **Status:** READY (next milestone after R2 decisions)
+
+## Hybrid trial 2026-10-30 (Stage F; mode B, see `HYBRID.md`)
+## T-013: Explore marker labels never collide
+- **Priority:** P2 (handoff next action 3) · **Owner:** `product` terminal (Opus) · **Branch/worktree:** `worktree-product`, `.claude/worktrees/product` · **Dependencies:** none
+- **Owned files:** `src/features/explore/*`, `src/map/*` (no `src/app/`, `src/ui/tokens.css`)
+- **Acceptance:** 1. At 1440 and 390, default view and zoomed into the Bay Area/Santa Cruz clusters, no two visible spot labels overlap (measured with bounding boxes in a Playwright script, 0 overlaps). 2. Hidden labels reappear as you zoom in; the selected spot's label always shows. 3. Markers stay clickable and open the same spot as before. 4. No new console errors; journeys 8/8.
+- **Verification:** overlap script under `playwright-toolkit/swello/`, screenshots at 1440/390 compared with the Explore reference crop (`compare.mjs`).
+- **Status:** READY · **Handoff:** `handoffs/T-013-product.md`
+
+## T-014: Home "Next Best Windows" as time ranges
+- **Priority:** P2 (handoff next action 5) · **Owner:** `engineering` terminal (Sonnet) · **Branch/worktree:** `worktree-engineering`, `.claude/worktrees/engineering` · **Dependencies:** none
+- **Owned files:** `src/services/windows.ts` (+ a new `src/tests/windows-range.test.ts`), and in `src/features/home/HomeView.tsx` only `surfWindows` / `Windows` and the best-window line on spot cards
+- **Acceptance:** 1. A pure function groups consecutive supplied hours at one spot whose rating stays within the window's band into a range (start, end, peak hour, peak score); gaps in supplied data break the range; no hours are invented. 2. Home shows "11 AM–1 PM" style ranges in the spot's local time; a single qualifying hour shows as one hour. 3. Clicking a window still opens that spot's forecast at the peak hour. 4. Unit tests cover contiguous, gapped, single-hour, day-boundary and missing-rating cases. 5. tsc, npm test, build, journeys 8/8; 1440/390 screenshots of Home looked at.
+- **Status:** READY · **Handoff:** `handoffs/T-014-engineering.md`

@@ -1,3 +1,7 @@
 node_modules/
 dist/
 *.tar.gz
+
+# Claude Code worktrees
+.claude/worktrees/
+.claude/settings.local.json

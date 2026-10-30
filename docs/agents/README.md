@@ -1,8 +1,8 @@
 # SWELLO agent workflow
 
-Bounded, mostly sequential delegation. The lead (Claude Code main session, Opus) owns priorities,
-acceptance criteria, integration and the final report. Subagents cannot message each other: the lead
-relays every handoff, and the durable record lives in files.
+Bounded delegation. The lead (Claude Code main session, Opus) owns priorities, acceptance criteria,
+integration and the final report. The durable record lives in files. Parallel modes (subagents in
+worktrees, three terminals, agent teams), launch commands and recovery: `HYBRID.md`.
 
 | Where | What it holds |
 |---|---|
@@ -80,9 +80,10 @@ Direction: premium, editorial, coastal, modern, minimal, polished; references in
 - Known limitations are written down.
 
 ## Conflicts and parallel work
-Default is sequential. Parallel work only for tasks with disjoint file ownership, each in its own git
-worktree (`isolation: worktree`) and branch; the lead merges and resolves conflicts, and QA runs on
-the merged result. Experimental multi-agent features stay off.
+Parallel work only for tasks with disjoint file ownership, each in its own git worktree and branch
+(see `HYBRID.md` for the three modes); the lead merges and resolves conflicts, and QA runs on the
+merged result. Agent teams (experimental, enabled locally) share one checkout, so they are for review,
+debugging and research, not overlapping edits.
 
 ## Running the app and tests
 - Node is via fnm: wrap commands as `zsh -lic 'cd <dir> && …'`.
