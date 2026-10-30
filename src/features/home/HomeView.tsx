@@ -11,6 +11,7 @@ import {Icon} from '../../ui/Icon';
 import {bandOf, hourLabel, hourlySeries, titleCase, trendOf, type Band, type HourSample} from '../forecast/model';
 import {bestDaylight, compass, groupDays, ht, isDaylight, monotonePath, spotLatLon, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT, timeLabelPT} from '../forecast/format';
+import {faceEstimateView} from '../forecast/estimate';
 import {windowRanges, WINDOW_BAND, WINDOW_MIN_SCORE} from '../../services/windows';
 import {Condition, conditionWord} from '../../ui/Condition';
 import {windInk} from '../forecast/charts';
@@ -202,7 +203,7 @@ const shortDate = (t: string) => new Date(t).toLocaleDateString('en-US', {month:
 
 /** A saved spot as a photograph: pick it to feature it, star to keep or drop it, or open its forecast. Hover or focus previews it in the hero. */
 function FavCard({s, h, p, active, fav, i, best, onFeature, onStar, onOpen, onPreview}: {s: SurfSpot; h: HourSample | undefined; p: UserProfile; active: boolean; fav: boolean; i: number; best: SurfWindow | undefined; onFeature: () => void; onStar: () => void; onOpen: () => void; onPreview: OnPreview}) {
-  const f = h?.forecast;
+  const f = h?.forecast, est = f ? faceEstimateView(f, p) : null;
   return (
     <li className={`fav-card${active ? ' on' : ''}`} {...(h ? previewProps(s.id, h, onPreview) : {})}>
       <figure className="shot"><Shot spotId={s.id} map={PORTRAIT} i={i} sizes="(max-width: 860px) 74vw, 30vw" /></figure>
@@ -214,6 +215,7 @@ function FavCard({s, h, p, active, fav, i, best, onFeature, onStar, onOpen, onPr
           <span><Icon name="wind" size={18} /><b>{compass(f.wind.direction)} {windVal(f.wind.speed, p)} {p.windUnit}</b><small>Wind</small></span>
           <span><Icon name="tide" size={18} /><b>{ht(f.tide.height, p)} {p.heightUnit}</b><small>Tide</small></span>
         </span> : <span className="fc-reg">No record this hour</span>}
+        {est?.state === 'range' && <span className="fc-est" title="Model estimate of the breaking wave, not measured and unvalidated">Est. {est.text} at the break · unvalidated</span>}
         <span className="fc-r">{h ? <Condition category={h.rating.category} chip /> : <span />}{best && <span className="fc-best">Best: {weekdayPT(best.start.timestamp)} {windowRange(best)}</span>}</span>
       </button>
       <button className="fc-star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name} ${fav ? 'from' : 'to'} favourites`} onClick={onStar}><Icon name="star" size={17} /></button>
@@ -344,7 +346,7 @@ export function HomeView({section, go}: ViewProps) {
     </div>
   );
 
-  const f = heroH?.forecast;
+  const f = heroH?.forecast, heroEst = f ? faceEstimateView(f, p) : null;
   return (
     <div className="coast" ref={root}>
       <section className="home-hero" aria-label={`${spot.name} now`} ref={heroRef}>
@@ -357,8 +359,9 @@ export function HomeView({section, go}: ViewProps) {
           </header>
 
           {heroH && f && (
-            <ul className="hero-stats" aria-label={`${heroSpot.name} ${preview ? 'preview' : 'right now'}`}>
+            <ul className={`hero-stats${heroEst?.state === 'range' ? ' with-est' : ''}`} aria-label={`${heroSpot.name} ${preview ? 'preview' : 'right now'}`}>
               <li><span className="ic"><Icon name="waves" size={20} /></span><span><b>{ht(heroH.heightFt, p)} {p.heightUnit}</b><small>Offshore{f.primary && Number.isFinite(f.primary.period) ? `, ${Math.round(f.primary.period)} s` : ''}</small></span></li>
+              {heroEst?.state === 'range' && <li title="Model estimate of the breaking wave, not measured and unvalidated"><span className="ic"><Icon name="scale" size={20} /></span><span><b>Est. {heroEst.text}</b><small>At the break, unvalidated</small></span></li>}
               <li><span className="ic"><Icon name="wind" size={20} /></span><span><b>{compass(f.wind.direction)} {windVal(f.wind.speed, p)} {p.windUnit}</b><small>Wind</small></span></li>
               <li><span className="ic"><Icon name="tide" size={20} /></span><span><b>{ht(f.tide.height, p)} {p.heightUnit}</b><small>Tide{f.tide.trend ? `, ${f.tide.trend.toLowerCase()}` : ''}</small></span></li>
               {Number.isFinite(f.waterTempF ?? NaN) && <li><span className="ic"><Icon name="thermo" size={20} /></span><span><b>{Math.round(f.waterTempF!)}°F</b><small>Water</small></span></li>}
