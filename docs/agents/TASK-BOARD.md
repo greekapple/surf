@@ -227,3 +227,18 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 ## T-020: Photo scan works on real single-board photos
 - **Owner:** `product` · **Owned files:** `src/features/quiver/*`, `src/utils/boardPhoto.ts`, new `src/tests/board-photo-*.test.ts`
 - **Acceptance:** optional user crop box + horizon-aware background; `04-quiver/user-studio-board.jpg` traces within 10% length/width ratio (overlay shot); `user-board-wall.jpg` still refused without a box; confirm step before saving; checks + journeys. **Status:** IN PROGRESS
+
+## Round 2026-10-30 (evening): Surfline-led navigation (user direction)
+User: "use the references more closely … use already published working websites … surfline as a baseline … reverse engineer the navigation of Surfline with our own cool aspects; Home: saved spots but no forecast data, concise and short; nav and top dashboard similar to Surfline; keep Apple apps/sites in mind." Remove the section pills ("the top dashboard clickable things").
+
+## T-022: Surfline navigation teardown → spec → new nav, top bar, concise Home
+- **Owner:** `product` (Opus) · **Branch:** `worktree-product` · **Shared files agreed by lead:** `src/app/App.tsx`, `src/app/Nav.tsx`, `src/app/routes.ts`, `src/ui/app.css`; plus `src/features/home/*`
+- **Phase 1 (spec, lead review before code):** Playwright teardown of surfline.com at 1440/390 (home, header, menus, search, favourites bar, a spot page incl. its tabs, mobile nav); 1–2 more sites that do this well (e.g. Windy, Apple Weather/Apple sites for restraint). Screenshots → `~/Development/swello-design-references/15-surfline-nav/` (reference only, not shipped). Spec → `docs/design/NAV-SPEC.md`: Surfline pattern → SWELLO equivalent → what we add/omit.
+- **Phase 2 acceptance:** 1. No section pills anywhere; every top-level control changes what you see (script asserts content changes per click). 2. Top bar + favourites strip modelled on Surfline (saved spots: name, condition colour, labelled height; no other forecast data on Home). 3. Home is short (≤ 2 viewports at 1440, ≤ 3 at 390). 4. Search finds a spot and opens its forecast. 5. Old URLs still resolve. 6. tsc/test/build, journeys 8/8 (update journeys only where the UI legitimately moved, say which), sections-distinct replaced by a nav script, 1440/390 side by side with the Surfline shots.
+- **Status:** IN PROGRESS (phase 1)
+
+## T-023: Quiver section change while the add-board form is open (bug)
+- **Owner:** `engineering` · **Owned:** `src/features/quiver/*`, tests · **Repro (lead):** open Add board, click Showroom/Board Match/Compare: URL changes, form stays. **Acceptance:** navigating to any Quiver section closes the form (with unsaved-changes confirm if fields were edited); script proves content changes. **Status:** IN PROGRESS
+
+## T-024: Saved-spots strip data (for T-022's Home)
+- **Owner:** `engineering` · **Owned:** new `src/services/spotStrip.ts` + test · **Acceptance:** pure selector per saved spot → {name, region, category/colour, height label: estimate range if presentable else "X ft offshore", valid time}; never unlabelled height; unit tests. Product consumes it. **Status:** QUEUED behind T-023
