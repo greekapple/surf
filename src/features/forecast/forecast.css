@@ -207,3 +207,5 @@
 .fc .readout .est-none:focus-visible { outline: 2px solid var(--focus, currentColor); outline-offset: 3px; border-radius: 4px; }
 .fc .readout .est-none::after { content: attr(data-tip); position: absolute; left: 0; top: calc(100% + 6px); z-index: 5; width: max-content; max-width: 260px; padding: 8px 10px; border-radius: 8px; background: var(--surface-2, var(--bg)); color: var(--text); border: 1px solid var(--line-2); font-size: 12.5px; font-weight: 450; line-height: 1.35; white-space: normal; opacity: 0; pointer-events: none; transition: opacity 120ms; }
 .fc .readout .est-none:hover::after, .fc .readout .est-none:focus-visible::after { opacity: 1; }
+
+.wc .wc-note { margin: 8px 0 0; }
