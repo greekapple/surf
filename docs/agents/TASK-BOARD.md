@@ -195,13 +195,13 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Priority:** P1 · **Owner:** `product` (Opus) · **Branch:** `worktree-product` · **Dependencies:** after T-013 merge
 - **Owned files:** `src/features/forecast/*` only
 - **Acceptance:** 1. Chart tooltip shows icon rows (swell, wind, tide, rating), each with a labelled value and no unlabelled numbers. 2. Wave-scale control is a horizontal slider that works by drag and keyboard. 3. Period labels are readable at 390 (no clipping or overlap, measured with bounding boxes). 4. D-05: no `<path d>` without `M` and no negative `<rect>` width when choosing the last day then "7 days" (desktop) or opening a later-day hour from Home (390); console clean. 5. tsc, npm test, build, journeys 8/8; 1440/390 compared with `00-target/forecast.png`.
-- **Status:** QUEUED · **Handoff:** `handoffs/T-015-product.md`
+- **Status:** DONE (merged) · **Handoff:** `handoffs/T-015-product.md`
 
 ## T-016: Quiver Focus size + real photo scan
 - **Priority:** P2 · **Owner:** `product` · **Branch:** `worktree-product` · **Dependencies:** after T-015
 - **Owned files:** `src/features/quiver/*`
 - **Acceptance:** 1. In Focus at 1440 the board fills ≥60% of the stage height (measured). 2. Photo scan run on `swello-design-references/04-quiver/user-studio-board.jpg` and `user-board-wall.jpg`: the traced outline follows the board (overlay screenshot), and failures are reported honestly. 3. Checks + 1440/390 against `00-target/quiver.png`.
-- **Status:** QUEUED · **Handoff:** `handoffs/T-016-product.md`
+- **Status:** DONE except photo scan (→ T-020) · **Handoff:** `handoffs/T-016-product.md`
 
 ## T-017: Board Match (F-01) on the breaking-wave estimate (logic)
 - **User decision 2026-10-30:** Board Match may run on the unvalidated estimate range, labelled "based on an unvalidated estimate"; spots without an estimate show no match.
@@ -223,3 +223,7 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 - **Owned files:** `src/features/personal/*`, `src/features/explore/FindSpots.tsx` (not `ExploreView.tsx`, product), favourites/spot-picker code it leads to; tests
 - **Acceptance:** D-03: starring a demo-only spot either works end to end (Home card + picker) or is refused visibly with the reason; no silent failure. D-06: Home region is read somewhere the user can see (FindSpots default, Home ordering) or the control is removed; verify FindSpots first. Checks + journeys.
 - **Status:** QUEUED
+
+## T-020: Photo scan works on real single-board photos
+- **Owner:** `product` · **Owned files:** `src/features/quiver/*`, `src/utils/boardPhoto.ts`, new `src/tests/board-photo-*.test.ts`
+- **Acceptance:** optional user crop box + horizon-aware background; `04-quiver/user-studio-board.jpg` traces within 10% length/width ratio (overlay shot); `user-board-wall.jpg` still refused without a box; confirm step before saving; checks + journeys. **Status:** IN PROGRESS
