@@ -15,7 +15,7 @@ export interface SpotStripItem {
   demo: boolean;
 }
 /** The record for the current hour: the nearest at or after the top of the hour; failing that, the latest earlier one is NOT used (no stale values). */
-function currentRecord(records: Forecast[], spotId: string, now: number): Forecast | undefined {
+export function currentRecord(records: Forecast[], spotId: string, now: number): Forecast | undefined {
   const from = Math.floor(now / 3600000) * 3600000;
   let best: Forecast | undefined, bt = Infinity;
   for (const f of records) {
