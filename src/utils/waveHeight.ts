@@ -4,8 +4,8 @@ export type WaveMeasurementKind='offshore'|'swell'|'nearshore'|'breaking-estimat
 export interface WaveHeightInput {kind:WaveMeasurementKind;valueFt:number|null;rangeFt?:[number,number];rangeMethod?:string}
 const labels:Record<WaveMeasurementKind,string>={offshore:'Offshore significant wave height',swell:'Swell height',nearshore:'Nearshore modeled significant wave height','breaking-estimate':'Estimated breaking-wave face height','breaking-observation':'Observed breaking-wave face height',simulation:'Hypothetical breaking-wave face height',demonstration:'Demonstration breaking-wave face height'};
 const validRange=(input:WaveHeightInput)=>{const r=input.rangeFt;return !!input.rangeMethod?.trim()&&!!r&&r.length===2&&r.every(x=>Number.isFinite(x)&&x>=0)&&r[1]>=r[0]};
-/** A breaking-wave estimate may be shown only as a range with a stated method; anything else is refused. */
-export function canPresentBreakingEstimate(input:WaveHeightInput){return input.kind==='breaking-estimate'&&validRange(input)}
+/** A breaking-wave estimate may be shown only as a range at least 1 ft wide with a versioned method (e.g. "… v1"); anything else is refused. */
+export function canPresentBreakingEstimate(input:WaveHeightInput){const r=input.rangeFt;return input.kind==='breaking-estimate'&&validRange(input)&&r![1]-r![0]>=1&&/\bv\d+(\.\d+)*\b/.test(input.rangeMethod!)}
 /** Nearshore nowcast window: the record nearest `selectedMs`, only if within `toleranceMs` and inside now±24 h. Never extrapolates. */
 export function nearestNearshore<T extends {timestamp:string}>(records:T[]|undefined,selectedMs:number,nowMs:number,toleranceMs=1800000):{record:T|null;reason:'ok'|'no-data'|'outside-window'}{
  if(!records?.length)return {record:null,reason:'no-data'};
