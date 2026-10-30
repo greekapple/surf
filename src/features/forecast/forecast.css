@@ -112,13 +112,14 @@
 .wc-stage .wc-photo::after { background: linear-gradient(180deg, rgb(7 12 17 / 0.3), rgb(7 12 17 / 0.1) 50%, rgb(7 12 17 / 0.5)); }
 .wc-stage .credit { top: auto; bottom: 6px; right: 8px; left: 8px; max-width: none; }
 .wc-stage .mini-scale { padding: 14px; }
-.wc-gauge { position: absolute; z-index: 3; top: 12px; right: 14px; bottom: 28px; display: flex; flex-direction: row-reverse; gap: 6px; align-items: stretch; }
-.wc-big { align-self: flex-start; font: 400 clamp(30px, 3vw, 40px)/1 var(--serif); color: #fff; text-shadow: 0 1px 16px rgb(0 0 0 / 0.5); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wc-gauge { position: absolute; z-index: 3; left: 14px; right: 14px; bottom: 30px; display: flex; gap: 14px; align-items: center; }
+.wc-big { flex: none; min-width: 3.4em; font: 400 clamp(30px, 3vw, 40px)/1 var(--serif); color: #fff; text-shadow: 0 1px 16px rgb(0 0 0 / 0.5); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .wc-big small { font-size: 0.55em; }
-.wc-gauge input { writing-mode: vertical-lr; direction: rtl; width: 28px; margin: 0; background: transparent; appearance: none; -webkit-appearance: none; cursor: grab; }
-.wc-gauge input::-webkit-slider-runnable-track { width: 2px; background: rgb(255 255 255 / 0.75); border-radius: 1px; }
-.wc-gauge input::-moz-range-track { width: 2px; background: rgb(255 255 255 / 0.75); }
-.wc-gauge input::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-left: -11px; border-radius: 50%; background: #fff; border: 0; }
+.wc-gauge input { flex: 1; min-width: 0; height: 32px; margin: 0; background: transparent; appearance: none; -webkit-appearance: none; cursor: grab; touch-action: none; }
+.wc-gauge input:active { cursor: grabbing; }
+.wc-gauge input::-webkit-slider-runnable-track { height: 3px; background: rgb(255 255 255 / 0.75); border-radius: 2px; }
+.wc-gauge input::-moz-range-track { height: 3px; background: rgb(255 255 255 / 0.75); border-radius: 2px; }
+.wc-gauge input::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -10.5px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 1px 6px rgb(0 0 0 / 0.35); }
 .wc-gauge input::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 0; }
 .wc-gauge input:focus-visible { outline-offset: 4px; }
 .wc-seg { display: flex; }
@@ -177,12 +178,13 @@
 .tl-body .tl-tip { top: 0; left: 0; min-width: 0; padding: 10px 12px; border-radius: 8px; background: var(--tip-bg); border: 1px solid var(--line-2); box-shadow: none; font-size: 12.5px; gap: 5px; font-variant-numeric: tabular-nums; will-change: transform; }
 .tl-body .tl-tip b { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; padding-bottom: 6px; margin-bottom: 1px; border-bottom: 1px solid var(--line); }
 .tl-body .tl-tip b small { font-size: 11px; font-weight: 450; color: var(--muted); }
-.tl-body .tl-tip span { display: grid; grid-template-columns: 8px auto 1fr; align-items: center; gap: 6px; }
-.tl-body .tl-tip span i { width: 8px; height: 8px; border-radius: 50%; }
-.tl-body .tl-tip span em { text-align: right; font-family: var(--sans); font-variant-numeric: tabular-nums; color: var(--muted); }
-.tl-body .tl-tip span.on em { color: var(--text); font-weight: 650; }
-.tl-body .tl-tip .tl-tip-r { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
-.tl-body .tl-tip .tl-tip-r small { color: var(--muted); }
+.tl-body .tl-tip > span { display: grid; grid-template-columns: 15px auto 1fr; align-items: center; gap: 7px; }
+.tl-body .tl-tip .tl-tip-k { color: var(--muted); }
+.tl-body .tl-tip > span em { text-align: right; font-family: var(--sans); font-variant-numeric: tabular-nums; color: var(--muted); }
+.tl-body .tl-tip > span.on em { color: var(--text); font-weight: 650; }
+.tl-body .tl-tip .tl-tip-r { padding-top: 4px; }
+.tl-body .tl-tip .tl-tip-r em { display: flex; justify-content: flex-end; align-items: center; gap: 6px; }
+.tl-body .tl-tip .tl-tip-r small { color: var(--muted); font-size: 11.5px; }
 .tl-body:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .fc .tiles { gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
