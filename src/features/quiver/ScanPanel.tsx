@@ -1,4 +1,4 @@
-import {useRef, useState, type PointerEvent as ReactPointerEvent} from 'react';
+import {useEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type PointerEvent as ReactPointerEvent} from 'react';
 import {lengthLabel, parseDimension} from '../../utils/units';
 import {scaleFrame, straighten, traceBoard, traceBoardIn, TEX_MAX, type Box, type Frame, type Outline, type TraceResult} from './outline';
 
@@ -32,6 +32,7 @@ export function ScanPanel({lengthText, value, onChange}: {lengthText: string; va
   const [name, setName] = useState('');
   const [note, setNote] = useState('');
   const [box, setBox] = useState<Box | null>(null); // in traced-image (small) pixels
+  const [boxNote, setBoxNote] = useState('');
   const drag = useRef<{x: number; y: number} | null>(null);
   const big = useRef<Frame | null>(null); // frame in full-resolution pixels, for the deck texture
   const lengthIn = parseDimension(lengthText, true);
@@ -88,6 +89,22 @@ export function ScanPanel({lengthText, value, onChange}: {lengthText: string; va
     if (b.x1 - b.x0 < 8 || b.y1 - b.y0 < 8) { paint(res, box); return; }
     setBox(b); run(flip, b);
   };
+  // Keyboard path for the crop box: arrows move it, Shift+arrows resize it from the bottom-right corner, Escape clears it. The outline is re-traced once the keys pause.
+  const keyTimer = useRef(0);
+  useEffect(() => () => window.clearTimeout(keyTimer.current), []);
+  const keys = (e: ReactKeyboardEvent<HTMLCanvasElement>) => {
+    const d = small.current; if (!d) return;
+    if (e.key === 'Escape' && box) { e.preventDefault(); window.clearTimeout(keyTimer.current); setBox(null); setBoxNote('Box cleared. The whole photo is traced.'); run(flip, null); return; }
+    const dir = ({ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1]} as Record<string, number[]>)[e.key]; if (!dir) return;
+    e.preventDefault();
+    const st = Math.max(4, Math.round(Math.min(d.width, d.height) * (e.altKey ? 0.005 : 0.02))), MIN = 24;
+    let {x0, y0, x1, y1} = box ?? {x0: d.width * 0.2, y0: d.height * 0.2, x1: d.width * 0.8, y1: d.height * 0.8};
+    if (e.shiftKey) { x1 = Math.min(d.width, Math.max(x0 + MIN, x1 + dir[0] * st)); y1 = Math.min(d.height, Math.max(y0 + MIN, y1 + dir[1] * st)); }
+    else { const dx = Math.max(-x0, Math.min(d.width - x1, dir[0] * st)), dy = Math.max(-y0, Math.min(d.height - y1, dir[1] * st)); x0 += dx; x1 += dx; y0 += dy; y1 += dy; }
+    const b = {x0, y0, x1, y1}; setBox(b); paint(null, b);
+    setBoxNote(`Box ${e.shiftKey ? 'resized' : 'moved'}: ${Math.round(((x1 - x0) / d.width) * 100)}% wide, ${Math.round(((y1 - y0) / d.height) * 100)}% tall, left edge ${Math.round((x0 / d.width) * 100)}%, top edge ${Math.round((y0 / d.height) * 100)}%.`);
+    window.clearTimeout(keyTimer.current); keyTimer.current = window.setTimeout(() => run(flip, b), 450);
+  };
   const lenBad = !Number.isFinite(lengthIn), loaded = !!small.current && !busy;
   const even = res?.ok ? res.quality.asym < 0.03 && res.quality.rough < 0.04 : false;
 
@@ -99,8 +116,10 @@ export function ScanPanel({lengthText, value, onChange}: {lengthText: string; va
       {busy && <div className="skel" aria-hidden="true"><i style={{height: 48}} /></div>}
       {res && !res.ok && <p role="alert" className="qv-trace-fail">{res.reason} Nothing was saved from this photo.</p>}
       <canvas ref={overlay} className="qv-trace-canvas" hidden={!loaded} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={() => { drag.current = null; paint(res, box); }}
+        tabIndex={loaded ? 0 : -1} onKeyDown={keys} aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown Shift+ArrowLeft Shift+ArrowRight Shift+ArrowUp Shift+ArrowDown Escape"
         role="img" aria-label={`${name || 'Photo'}${res?.ok ? ' with the traced board outline drawn over it' : ''}${box ? ', with a box drawn around the board' : ''}`} />
-      {loaded && <p className="fine">{box ? 'Only the area inside the blue box is traced. Drag again to redraw it.' : 'If other things in the photo get in the way, drag a box around the board to trace only inside it.'}</p>}
+      {loaded && <p className="fine">{box ? 'Only the area inside the blue box is traced. Drag again to redraw it.' : 'If other things in the photo get in the way, drag a box around the board to trace only inside it.'} With the keyboard: focus the photo, then arrow keys move the box, Shift+arrows resize it, Escape clears it.</p>}
+      <p className="sr-only" role="status" aria-live="polite">{boxNote}</p>
       {res?.ok && !value && (
         <div className="qv-check" role="group" aria-label="Check the outline">
           <p className="fine" role="status"><b>Check the outline</b> before using it{lenBad ? '' : ` for a ${lengthLabel(lengthIn)} board`}. The orange line should follow the board edge all the way round, and the nose should be the pointier end. {even ? 'The outline is even and symmetric.' : 'The outline is a little uneven; look closely at the rails.'}</p>
