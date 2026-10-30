@@ -113,7 +113,7 @@ function OceanMap({section, go}: ViewProps) {
     if (!small) m.panBy([-170, 0], {animate: false}); // centre the coast in the space right of the side panel
     const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
-    m.on('zoomend resize', () => declutterRef.current());
+    m.on('zoomend moveend resize', () => declutterRef.current()); // panels stay put while the map pans
     L.control.attribution({position: 'bottomleft', prefix: false}).addTo(m);
     // Esri World Imagery + reference labels (attribution required); VITE_MAP_TILE_URL swaps in a licensed provider.
     L.tileLayer(import.meta.env.VITE_MAP_TILE_URL || 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -166,7 +166,11 @@ function OceanMap({section, go}: ViewProps) {
     // Measure everything in one layout pass; labels hidden by the zoom level (display: none) measure zero and are skipped.
     const boxes = els.map((el) => ({el, dot: el.querySelector('i')!.getBoundingClientRect(), lab: el.querySelector('.xlabel')?.getBoundingClientRect()}));
     const taken: DOMRect[] = boxes.filter((x) => x.dot.width).map((x) => x.dot); // labels keep off other pins too
-    const free = (r: DOMRect, own: DOMRect) => !taken.some((t) => t !== own && r.left < t.right + 2 && t.left < r.right + 2 && r.top < t.bottom + 2 && t.top < r.bottom + 2);
+    // ...and out from under the floating panels, where they would only peek out half-hidden.
+    map.current?.getContainer().parentElement?.querySelectorAll('.xside, .xlayers > *, .xcorner > *, .xtime, .leaflet-control-attribution')
+      .forEach((el) => { const r = el.getBoundingClientRect(); if (r.width) taken.push(r); });
+    const edge = map.current?.getContainer().getBoundingClientRect();
+    const free = (r: DOMRect, own: DOMRect) => (!edge || (r.left >= edge.left + 4 && r.right <= edge.right - 4 && r.top >= edge.top && r.bottom <= edge.bottom)) && !taken.some((t) => t !== own && r.left < t.right + 2 && t.left < r.right + 2 && r.top < t.bottom + 2 && t.top < r.bottom + 2);
     for (const {el, dot, lab} of boxes) {
       if (!lab?.width) continue;
       const left = new DOMRect(dot.left - 8 - lab.width, lab.top, lab.width, lab.height);
@@ -177,6 +181,8 @@ function OceanMap({section, go}: ViewProps) {
   };
   const declutterRef = useRef(declutter);
   declutterRef.current = declutter;
+  // Panels open, collapse and slide; re-place labels once they settle.
+  useEffect(() => { const t = setTimeout(() => declutterRef.current(), 260); return () => clearTimeout(t); }, [open, layersOpen, tab]);
 
   // Hover link between list rows and map markers: toggle a class on the marker element, no rebuild.
   useEffect(() => {

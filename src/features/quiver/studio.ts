@@ -13,6 +13,9 @@ export interface BoardEntry {id: string; spec: ShapeSpec; look: Look; tpl?: Prom
 const WHITE = new THREE.Color(1, 1, 1);
 const WOOD = 0xbd9a68, FOAM = 0xece6d6;
 const FOCUS_Y = 24;          // height a single board hovers above the floor in Focus
+/** Deck and bottom rest pose: nose pointing away from the viewer (camera azimuth -24°), twisted 25° for a three-quarter view, so the
+ *  board reads upright and fills the stage height like the reference showroom instead of lying across it. */
+const STAND = THREE.MathUtils.degToRad(-24 + 90 - 25);
 const LEAN = THREE.MathUtils.degToRad(3.2);
 const GAP = 7;               // inches between boards on the rack
 const FILL_REF: Record<Template, number> = {shortboard: 0.52, fish: 0.57, longboard: 0.6, gun: 0.51, midlength: 0.55};
@@ -241,6 +244,22 @@ export class Studio {
   private onVis = () => { if (!document.hidden) this.kick(); };
   private kick() { if (!this.raf && !this.disposed) { this.last = performance.now(); this.raf = requestAnimationFrame(this.loop); } }
   private sel() { return this.rigs.get(this.selectedId) ?? null; }
+  /** Screen box of the selected board as fractions of the canvas (0..1), for layout checks. Null when nothing is shown. */
+  selectedBox() {
+    const r = this.sel(); if (!r || !r.root.visible) return null;
+    r.root.updateWorldMatrix(true, true);
+    const v = new THREE.Vector3();
+    let x0 = 1, x1 = 0, y0 = 1, y1 = 0;
+    r.flip.traverse((o) => {
+      const pos = (o as THREE.Mesh).isMesh ? (o as THREE.Mesh).geometry.getAttribute('position') : null;
+      if (!pos || !o.visible) return;
+      for (let k = 0; k < pos.count; k++) {
+        v.fromBufferAttribute(pos, k).applyMatrix4(o.matrixWorld).project(this.camera);
+        const x = (v.x + 1) / 2, y = (1 - v.y) / 2; x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+    });
+    return x1 > x0 ? {x0, x1, y0, y1} : null;
+  }
 
   private loop = (now: number) => {
     this.raf = 0;
@@ -354,11 +373,11 @@ export class Studio {
   private presetPose(p: Preset) {
     const L = this.sel()?.spec.length ?? 72, y = FOCUS_Y;
     switch (p) {
-      case 'deck': return {az: -24, el: 52, m: 1.0, flip: 0, target: new THREE.Vector3(0, y, 0)};
-      case 'bottom': return {az: -24, el: 52, m: 1.0, flip: Math.PI, target: new THREE.Vector3(0, y, 0)};
-      case 'rail': return {az: 4, el: 7, m: 1.0, flip: 0, target: new THREE.Vector3(0, y - 1, 0)};
-      case 'tail': return {az: -96, el: 20, m: 0.5, flip: 0, target: new THREE.Vector3(-L * 0.3, y - 1, 0)};
-      default: return {az: 32, el: 22, m: 1.06, flip: 0, target: new THREE.Vector3(0, y, 0)};
+      case 'deck': return {az: -24, el: 52, m: 1.0, flip: 0, spin: STAND, target: new THREE.Vector3(0, y, 0)};
+      case 'bottom': return {az: -24, el: 52, m: 1.0, flip: Math.PI, spin: STAND, target: new THREE.Vector3(0, y, 0)};
+      case 'rail': return {az: 4, el: 7, m: 1.0, flip: 0, spin: 0, target: new THREE.Vector3(0, y - 1, 0)};
+      case 'tail': return {az: -96, el: 20, m: 0.5, flip: 0, spin: 0, target: new THREE.Vector3(-L * 0.3, y - 1, 0)};
+      default: return {az: 32, el: 22, m: 1.06, flip: 0, spin: 0, target: new THREE.Vector3(0, y, 0)};
     }
   }
   /** Distance at which a sphere of radius r fits the view at this aspect ratio, with a margin. */
@@ -368,8 +387,11 @@ export class Studio {
   }
   private focusPose(p: Preset): CamPose {
     const q = this.presetPose(p), sp = this.sel()?.spec, L = sp?.length ?? 72;
-    // The board's bounding sphere (it also covers every spin angle); the tail view frames the tail third only.
-    const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2), d = this.sphereDist(p === 'tail' ? R * 0.5 : R);
+    // The tail view frames the tail third inside its bounding sphere. Other views fit the extents the board can reach at any
+    // spin angle: its length across the frame, and at most L·sin(elevation) plus thickness tall. A whole-board sphere left a wide
+    // stage half empty (T-016: the board filled ~55% of the stage height).
+    const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2);
+    const d = p === 'tail' ? this.sphereDist(R * 0.5) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
     return {s: new THREE.Spherical(Math.max(d, 20), Math.PI / 2 - THREE.MathUtils.degToRad(q.el), THREE.MathUtils.degToRad(q.az)), target: q.target, flip: q.flip};
   }
   private currentPose() {
@@ -389,7 +411,7 @@ export class Studio {
     if (this.mode === 'focus' && this.preset === null) return;
     const {s, target, flip} = this.currentPose();
     this.controls.target.copy(target); this.camera.position.setFromSpherical(s).add(target); this.camera.lookAt(target);
-    if (this.mode === 'focus') { this.flipAngle = flip; if (this.preset !== '360') this.spinAngle = 0; }
+    if (this.mode === 'focus') { this.flipAngle = flip; if (this.preset !== '360') this.spinAngle = this.presetPose(this.preset ?? 'deck').spin; }
     this.limits(); this.controls.update(); this.dirty = true; this.kick();
   }
   private glide(pose: CamPose, spinTo?: number) {
@@ -409,7 +431,8 @@ export class Studio {
   goTo(p: Preset) {
     if (this.mode !== 'focus') return;
     this.preset = p; this.spinOn = p === '360' && !this.reduced;
-    this.glide(this.focusPose(p), p === '360' ? this.spinAngle : Math.round(this.spinAngle / (2 * Math.PI)) * 2 * Math.PI);
+    const rest = this.presetPose(p).spin, turn = 2 * Math.PI; // nearest equivalent of the rest angle, so the board turns the short way
+    this.glide(this.focusPose(p), p === '360' ? this.spinAngle : rest + Math.round((this.spinAngle - rest) / turn) * turn);
   }
   /** Lineup views: the whole rack, or the selected board. */
   frame(which: 'all' | 'sel') {
