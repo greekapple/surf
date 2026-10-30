@@ -60,6 +60,8 @@
 - Round 2026-10-29 (late): Quiver lineup + realism + photo trace (frontend-engineer, worktree); realistic Wave Scale (frontend-engineer, worktree) opened from a spot at its offshore Hs; Find Spots by location/home region and distance bands; Compare in Explore; one-page Forecast; global map layer; light Apple-style theme. Lead fixed two agent misses found by `wave-spot.mjs` (no height in label, disabled Back button). Checks: 146 tests, build, journeys 8/8, wave-spot 8/8, find-spots 4/4.
 - Still open: surfer and board in Wave Scale are stylised; showroom resin/fins/reflections; traced boards reuse category rocker; site still reads as AI-generated (user: fix later).
 
+- **Round 2026-10-30 (reference-led remodel), HEAD b9b2f82:** dark cinematic default from the user's reference images, serif headlines, floating nav, shared Condition chip; Home/Forecast/Explore/Personal rebuilt against crops in `swello-design-references/00-target/` with `compare.mjs`; Quiver photographed showroom + photo scan; sculpted surfer; alerts. Checks: 160 tests, build, journeys 8/8, sections-distinct, wave-spot 8/8. **Next actions:** vault `80-Handoffs/2026-10-30-swello-reference-remodel.md`.
+
 ## Agent task log
 States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE · BLOCKED
 
