@@ -45,7 +45,10 @@ Node is via fnm: wrap commands as `zsh -lic 'cd <worktree> && …'`.
 4. Integrate in the main checkout: `git merge --no-ff worktree-<name>`, then tsc, `npm test`, build, `journeys.mjs`, `sections-distinct.mjs`, `wave-spot.mjs`, and look at 1440/390.
 5. Tell the workers to sync: `git merge rebuild/swello-v0.16` in their worktree before the next task.
 
-## Mode A: agent team (inside terminal 1)
+## Mode A: agent team (lead, and the product terminal since 2026-10-30)
+- Teams need `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in the session's own `.claude/settings.local.json`. That file is git-ignored, so a new worktree does not get it: copy it in (`cp .claude/settings.local.json .claude/worktrees/<name>/.claude/`) and restart that session. Product has it; engineering deliberately does not (subagents only).
+- Product's team is for reviewing its own UI before handoff (e.g. `design-critic` + `qa-tester` teammates on Sonnet), never for overlapping edits. One team per session; only one worker runs a team at a time (8 GB).
+
 Ask the lead explicitly: "Spawn an agent team: teammate `x` using the `qa-tester` agent type on Sonnet, …". Reuse existing agent types; the model in the spawn prompt wins over the definition. Inspect a teammate: arrow keys in the agent panel, Enter; `Ctrl+T` shows tasks. Shut down by name when finished. Teammate permission prompts appear in the lead.
 
 ## Hardware (M2, 8 GB)
