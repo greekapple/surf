@@ -212,3 +212,14 @@ newer than 2026-10-28 14:00. Found only screenshots of the old app (Desktop, 3:0
 
 ## Defects D-03, D-06
 - D-03 (demo-only spot saves silently) and D-06 (Home region unused; check whether FindSpots already reads it): owner chosen by file ownership at dispatch. **Status:** QUEUED
+
+## T-018: Show the breaking-wave estimate (UI) + Wave Scale tie-in
+- **Owner:** `engineering` · **Branch:** `worktree-engineering` · **Dependencies:** T-008, T-017 merged
+- **Owned files:** `src/features/forecast/*`, `src/features/scale/*`, `src/features/home/HomeView.tsx` (spot cards and hero stat line only), tests
+- **Acceptance:** 1. Forecast stat row gains "Surf (breaking) · Est. X–Y ft" with the sub-label "model estimate, not measured · unvalidated"; spots that refuse show "No estimate" plus the refusal reason on hover/focus. 2. Offshore Hs stays visible and labelled as offshore. 3. Wave Scale opened from a spot with an estimate starts at the range midpoint and labels it "estimate"; otherwise it keeps today's offshore start, labelled. 4. Board Match surfaces show the unvalidated wording when present. 5. Checks + journeys + wave-spot 8/8 + 1440/390 vs `00-target/forecast.png`.
+- **Status:** IN PROGRESS
+
+## T-019: D-03 + D-06 (queued behind T-018 for engineering)
+- **Owned files:** `src/features/personal/*`, `src/features/explore/FindSpots.tsx` (not `ExploreView.tsx`, product), favourites/spot-picker code it leads to; tests
+- **Acceptance:** D-03: starring a demo-only spot either works end to end (Home card + picker) or is refused visibly with the reason; no silent failure. D-06: Home region is read somewhere the user can see (FindSpots default, Home ordering) or the control is removed; verify FindSpots first. Checks + journeys.
+- **Status:** QUEUED
