@@ -1,0 +1,35 @@
+import type {WaveHeightInput} from '../utils/waveHeight.ts';
+/** Unvalidated breaking-wave estimate (T-008). Pure: swell inputs + a spot profile give a labelled range or a refusal reason. Never a measurement. */
+export const BREAKING_METHOD_VERSION='v1';
+export const BREAKING_METHOD=`Komar-Gaughan breaker height from primary swell with cos-shoaling-direction factor and fixed 0.7–1.4 face factors, unvalidated ${BREAKING_METHOD_VERSION}`;
+const G=9.81,FT=1/0.3048;
+export interface BreakingProfile {window:[number,number]|null;minPeriod:number|null;shelter:number|null;faceFactors:[number,number]|null}
+export interface BreakingInputs {swellHsFt:number|null;periodS:number|null;directionDeg:number|null;combinedHsFt:number|null;secondaryHsFt?:number|null}
+export type RefusalCode='no-profile'|'no-orientation'|'null-input'|'short-period'|'outside-window'|'wind-sea-dominant'|'no-shelter';
+export type BreakingResult={ok:true;input:WaveHeightInput;centralFt:number;kd:number}|{ok:false;code:RefusalCode;reason:string};
+const refuse=(code:RefusalCode,reason:string):BreakingResult=>({ok:false,code,reason});
+const num=(v:number|null|undefined):v is number=>typeof v==='number'&&Number.isFinite(v);
+/** Smallest angle between two compass bearings, 0–180. */
+export const angleDiff=(a:number,b:number)=>{const d=Math.abs(((a-b)%360+360)%360);return d>180?360-d:d};
+/** Bearing inside [from, to] clockwise, wrapping through north when from > to. */
+export const inWindow=(deg:number,[from,to]:[number,number])=>{const d=((deg%360)+360)%360,f=((from%360)+360)%360,t=((to%360)+360)%360;return f<=t?d>=f&&d<=t:d>=f||d<=t};
+/** Outward-rounded range around the central height, minimum width 2 ft, never below 0. */
+export function faceRange(centralFt:number,[fLo,fHi]:[number,number]):[number,number]{
+ let lo=Math.max(0,Math.floor(centralFt*fLo)),hi=Math.ceil(centralFt*fHi);
+ if(hi-lo<2){const extra=2-(hi-lo);lo=Math.max(0,lo-Math.floor(extra/2));hi=Math.max(hi,lo+2)}
+ return [lo,hi];
+}
+export function estimateBreaking(i:BreakingInputs,p:BreakingProfile|null,normalFromSpot:number|null):BreakingResult{
+ if(normalFromSpot===null||!Number.isFinite(normalFromSpot))return refuse('no-orientation','Beach orientation is not established for this spot.');
+ if(!p||!p.window||!p.faceFactors||p.minPeriod===null)return refuse('no-profile','No reviewed face factors and swell window for this spot.');
+ if(p.shelter===null||!Number.isFinite(p.shelter)||p.shelter<=0)return refuse('no-shelter','No reviewed shelter factor for this spot.');
+ if(!num(i.swellHsFt)||!num(i.periodS)||!num(i.directionDeg)||i.swellHsFt<=0||i.periodS<=0)return refuse('null-input','Primary swell height, period or direction is missing.');
+ if(i.periodS<p.minPeriod)return refuse('short-period',`Swell period ${i.periodS.toFixed(1)} s is under the ${p.minPeriod} s minimum.`);
+ if(!inWindow(i.directionDeg,p.window))return refuse('outside-window','Swell direction is outside this spot’s swell window.');
+ if(num(i.combinedHsFt)){const wind=Math.sqrt(Math.max(0,i.combinedHsFt**2-i.swellHsFt**2-(num(i.secondaryHsFt)?i.secondaryHsFt**2:0)));if(wind>i.swellHsFt)return refuse('wind-sea-dominant','Wind sea is larger than the primary swell.');}
+ const kd=Math.sqrt(Math.max(0,Math.cos(angleDiff(i.directionDeg,normalFromSpot)*Math.PI/180)));
+ if(kd<=0)return refuse('outside-window','Swell arrives parallel to or away from the beach normal.');
+ const hsM=i.swellHsFt/FT;
+ const centralFt=0.39*G**0.2*(i.periodS*(hsM*kd*p.shelter)**2)**0.4*FT;
+ return {ok:true,kd,centralFt,input:{kind:'breaking-estimate',valueFt:null,rangeFt:faceRange(centralFt,p.faceFactors),rangeMethod:BREAKING_METHOD}};
+}
