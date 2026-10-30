@@ -1,4 +1,4 @@
-import {lazy, Suspense, useMemo, useState, type FormEvent} from 'react';
+import {lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
@@ -21,7 +21,7 @@ const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortb
 type Path = 'dims' | 'scan';
 const eighth = (n: number) => String(Math.round(n * 8) / 8);
 
-function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void}) {
+function BoardForm({initial, onSave, onCancel, onDirty}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void; onDirty?: (dirty: boolean) => void}) {
   const [f, setF] = useState(() => initial ? {name: initial.name, manufacturer: initial.manufacturer, model: initial.model, type: initial.type,
     length: `${Math.floor(initial.length / 12)}'${+(initial.length % 12).toFixed(2)}"`, width: String(initial.width), thickness: String(initial.thickness),
     volume: String(initial.volume), fins: initial.fins ?? '', tail: initial.tail ?? '', notes: initial.notes ?? ''} : emptyForm);
@@ -31,6 +31,10 @@ function BoardForm({initial, onSave, onCancel}: {initial?: Surfboard; onSave: (b
   // aspect 0 marks an outline loaded from storage: its width and volume are the saved numbers, not re-derived.
   const [scan, setScan] = useState<Scan | null>(saved ? {outline: saved, aspect: 0} : null);
   const [touched, setTouched] = useState({width: !!initial, volume: !!initial});
+  // Unsaved changes: any field, the photo scan, or the entry path differs from what the form opened with.
+  const start = useRef({f: JSON.stringify(f), path, scan: scan}).current;
+  const dirty = JSON.stringify(f) !== start.f || path !== start.path || scan !== start.scan || touched.width !== !!initial || touched.volume !== !!initial;
+  useEffect(() => { onDirty?.(dirty); }, [dirty]); // eslint-disable-line react-hooks/exhaustive-deps
   const lengthIn = parseDimension(f.length, true), derive = path === 'scan' && !!scan && scan.aspect > 0;
   const width = derive && !touched.width && Number.isFinite(lengthIn) ? eighth(widthFromTrace(lengthIn, scan.aspect)) : f.width;
   const estimating = derive && !touched.volume && Number.isFinite(lengthIn);
@@ -92,8 +96,34 @@ export function QuiverView({section, go}: ViewProps) {
   const matches = useMemo(() => boards.map((b) => scoreBoard(b, f, p)).sort((a, b) => b.score - a.score), [boards, f, p]);
   const faceOk = f.availability.face && Number.isFinite(f.face) && !!f.character && f.character !== 'Unknown';
 
-  if (editing) return <div className="qv"><BoardForm initial={editing === 'new' ? undefined : editing} onCancel={() => setEditing(null)} onSave={(b) => { data.saveBoard(b); select(b.id); setEditing(null); }} /></div>;
-  if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />Add your first board</button>} />;
+  // The form belongs to the section it was opened in. Any route change (pills, menu, back button) leaves it: close it,
+  // or if fields were edited keep it and ask first. Pending Delete confirmations don't survive a section change either.
+  const formSection = useRef(section), dirty = useRef(false), seen = useRef(section);
+  const [leaving, setLeaving] = useState<string | null>(null);
+  const openForm = (b: Surfboard | 'new') => { formSection.current = section; dirty.current = false; setLeaving(null); setEditing(b); };
+  const closeForm = () => { setEditing(null); setLeaving(null); dirty.current = false; };
+  useEffect(() => {
+    if (seen.current === section) return;
+    seen.current = section; setConfirmDel(false);
+    if (!editing) return;
+    if (dirty.current) setLeaving(section); else closeForm();
+  }, [section]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (editing) return (
+    <div className="qv">
+      {leaving !== null && (
+        <div className="card qv-leave" role="alertdialog" aria-label="Unsaved changes" style={{marginBottom: 12}}>
+          <p><b>Discard your changes to this board?</b> You opened {TITLES[leaving]?.h ?? 'another section'}, but the board form has unsaved edits.</p>
+          <div style={{display: 'flex', gap: 8, marginTop: 8}}>
+            <button className="btn danger" onClick={closeForm}>Discard changes</button>
+            <button className="btn" onClick={() => { setLeaving(null); go('quiver', formSection.current); }}>Keep editing</button>
+          </div>
+        </div>
+      )}
+      <BoardForm initial={editing === 'new' ? undefined : editing} onCancel={closeForm} onDirty={(d) => { dirty.current = d; }} onSave={(b) => { data.saveBoard(b); select(b.id); closeForm(); }} />
+    </div>
+  );
+  if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add your first board</button>} />;
 
   const t = TITLES[section] ?? TITLES[''];
   const outline = sel ? loadOutline(sel.id) : null, traced = !!outline;
@@ -102,7 +132,7 @@ export function QuiverView({section, go}: ViewProps) {
   const step = (d: number) => select(boards[(idx + d + boards.length) % boards.length].id);
   const A = (b: Surfboard) => (
     <div className="qv-actions">
-      <button className="btn" onClick={() => setEditing(b)}><Icon name="edit" size={16} />Edit</button>
+      <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
       {!confirmDel ? <button className="btn danger" onClick={() => setConfirmDel(true)}><Icon name="trash" size={16} />Delete</button>
         : <button className="btn danger" onClick={() => { data.deleteBoard(b.id); setConfirmDel(false); }}>Confirm delete {b.name}</button>}
     </div>
@@ -111,7 +141,7 @@ export function QuiverView({section, go}: ViewProps) {
     <div className="qv">
       <header className="qv-head">
         <div><h1>{t.h}</h1><p className="fine">{t.sub} · {boards.length} {boards.length === 1 ? 'board' : 'boards'}</p></div>
-        <button className="btn primary" onClick={() => setEditing('new')}><Icon name="plus" size={16} />Add Board</button>
+        <button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add Board</button>
       </header>
 
       {section === '' && (
