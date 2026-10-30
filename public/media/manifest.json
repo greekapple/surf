@@ -1,0 +1,316 @@
+{
+ "version": 1,
+ "note": "Add AI illustrations with kind \"ai-illustration\", a fallback photo id and the standard caption. src/tests/media.test.ts fails if an AI entry lacks it.",
+ "entries": {
+  "ob-sunset-negative-tide": {
+   "kind": "photo",
+   "alt": "Ocean Beach, San Francisco",
+   "sources": [
+    {
+     "src": "/photos/ob-sunset-negative-tide-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/ob-sunset-negative-tide-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sunset_at_Ocean_Beach_in_San_Francisco.jpg"
+  },
+  "lm-sunset-surfer": {
+   "kind": "photo",
+   "alt": "Linda Mar, Pacifica",
+   "sources": [
+    {
+     "src": "/photos/lm-sunset-surfer-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/lm-sunset-surfer-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/lm-sunset-surfer-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Dave Fayram",
+   "licence": "CC BY-SA 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sunset_Surfer_in_pacifica_california.jpg"
+  },
+  "gen-surfer-under-wave": {
+   "kind": "photo",
+   "alt": "Northern California (generic for SWELLO)",
+   "sources": [
+    {
+     "src": "/photos/gen-surfer-under-wave-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/gen-surfer-under-wave-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/gen-surfer-under-wave-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:A_surfer_under_wave.jpg"
+  },
+  "ocean-beach-seal-rocks": {
+   "kind": "photo",
+   "alt": "Ocean Beach, San Francisco (Seal Rocks)",
+   "sources": [
+    {
+     "src": "/photos/ocean-beach-seal-rocks-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/ocean-beach-seal-rocks-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/ocean-beach-seal-rocks-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Radomianin",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Seal_Rocks,_Ocean_Beach,_San_Francisco.jpg"
+  },
+  "ocean-beach-fog-clearing": {
+   "kind": "photo",
+   "alt": "Ocean Beach, San Francisco",
+   "sources": [
+    {
+     "src": "/photos/ocean-beach-fog-clearing-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/ocean-beach-fog-clearing-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/ocean-beach-fog-clearing-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Fog_ot_Ocean_Beach_in_San_Francisco_is_clearing_up.jpg"
+  },
+  "ocean-beach-low-tide-sun": {
+   "kind": "photo",
+   "alt": "Ocean Beach, San Francisco",
+   "sources": [
+    {
+     "src": "/photos/ocean-beach-low-tide-sun-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/ocean-beach-low-tide-sun-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Ocean_beach_at_low_tide_against_the_sun.jpg"
+  },
+  "bolinas-beach-wide": {
+   "kind": "photo",
+   "alt": "Bolinas, Marin",
+   "sources": [
+    {
+     "src": "/photos/bolinas-beach-wide-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/bolinas-beach-wide-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "flamenc",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Platja_de_Bolinas_-_Bolinas_Beach.jpg"
+  },
+  "bolinas-beach": {
+   "kind": "photo",
+   "alt": "Bolinas, Marin",
+   "sources": [
+    {
+     "src": "/photos/bolinas-beach-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/bolinas-beach-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/bolinas-beach-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "philosophygeek from San Francisco, US",
+   "licence": "CC BY-SA 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bolinas_Beach_(2006).jpg"
+  },
+  "linda-mar-sunset": {
+   "kind": "photo",
+   "alt": "Linda Mar, Pacifica",
+   "sources": [
+    {
+     "src": "/photos/linda-mar-sunset-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/linda-mar-sunset-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Bob n Renee",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Linda_Mar_at_Sunset.jpg"
+  },
+  "pacifica-linda-mar": {
+   "kind": "photo",
+   "alt": "Linda Mar, Pacifica",
+   "sources": [
+    {
+     "src": "/photos/pacifica-linda-mar-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/pacifica-linda-mar-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Zachary Smith",
+   "licence": "CC BY-SA 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Pacifica_Linda_Mar.jpg"
+  },
+  "pacifica-state-beach-surfer": {
+   "kind": "photo",
+   "alt": "Pacifica State Beach (Linda Mar)",
+   "sources": [
+    {
+     "src": "/photos/pacifica-state-beach-surfer-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/pacifica-state-beach-surfer-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/pacifica-state-beach-surfer-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "BrokenSphere",
+   "licence": "CC BY 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Surfer_at_Pacifica_State_Beach_1.JPG"
+  },
+  "big-wave-santa-cruz": {
+   "kind": "photo",
+   "alt": "Santa Cruz, California (generic for SWELLO)",
+   "sources": [
+    {
+     "src": "/photos/big-wave-santa-cruz-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/big-wave-santa-cruz-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Big_wave_breaking_in_Santa_Cruz.jpg"
+  },
+  "surfer-wave-cc0": {
+   "kind": "photo",
+   "alt": "Unknown location (generic)",
+   "sources": [
+    {
+     "src": "/photos/surfer-wave-cc0-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/surfer-wave-cc0-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Austin Neill arstyy",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Surfer_surfing_the_wave_(Unsplash).jpg"
+  }
+ }
+}
