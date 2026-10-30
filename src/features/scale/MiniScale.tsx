@@ -12,8 +12,11 @@ export function MiniScale({forecast}: {forecast: Forecast}) {
   const est = faceEstimateView(forecast, data.state.profile);
   const supplied = forecast.availability.face && Number.isFinite(forecast.face) ? Math.round(forecast.face * 2) / 2
     : est?.state === 'range' ? Math.max(2, Math.min(20, Math.round(est.midFt * 2) / 2)) : null;
-  const [ft, setFt] = useState(supplied ?? prefs.scaleFt);
-  useEffect(() => { if (supplied !== null) setFt(supplied); }, [supplied]);
+  /* Same start rule as the 3D page: demonstration face or estimate midpoint (locked), else offshore height (illustrative, adjustable), else the saved preference. */
+  const offshore = Number.isFinite(forecast.offshore) ? Math.max(2, Math.min(20, Math.round(forecast.offshore * 2) / 2)) : null;
+  const start = supplied ?? offshore;
+  const [ft, setFt] = useState(start ?? prefs.scaleFt);
+  useEffect(() => { if (start !== null) setFt(start); }, [start]);
   const H = ft * PX, m = data.state.profile.heightUnit === 'm';
   return (
     <div className="mini-scale">
@@ -29,7 +32,7 @@ export function MiniScale({forecast}: {forecast: Forecast}) {
       <label className="sr-only" htmlFor="mini-face">Wave face height</label>
       <input id="mini-face" type="range" min={2} max={20} step={0.5} value={ft} disabled={supplied !== null}
         onChange={(e) => { const v = Number(e.target.value); setFt(v); setPrefs({scaleFt: v}); }} />
-      <p className="fine">{est?.state === 'range' && !forecast.availability.face ? <><span className="chip ill">Estimate</span> Midpoint of the model estimate ({est.text}), not measured, unvalidated. </> : <>{supplied !== null ? <span className="chip demo">Demonstration face estimate</span> : <span className="chip ill">Illustrative</span>} {supplied !== null ? 'from the demonstration week.' :'No breaking-wave estimate exists for this spot, so the scale is not tied to the forecast. Drag to explore sizes.'}</>} Surfer 5′10″.</p>
+      <p className="fine">{est?.state === 'range' && !forecast.availability.face ? <><span className="chip ill">Estimate</span> Midpoint of the model estimate ({est.text}), not measured, unvalidated. </> : <>{supplied !== null ? <span className="chip demo">Demonstration face estimate</span> : <span className="chip ill">Illustrative</span>} {supplied !== null ? 'from the demonstration week.' : offshore !== null ? `Starts at the offshore wave height (${offshore} ft, rounded); no breaking-wave estimate exists, so it is not surf size. Drag to explore sizes.` : 'No breaking-wave estimate exists for this spot, so the scale is not tied to the forecast. Drag to explore sizes.'}</>} Surfer 5′10″.</p>
     </div>
   );
 }
