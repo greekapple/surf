@@ -92,3 +92,6 @@ debugging and research, not overlapping edits.
   - `swello-qa.mjs`: every route at both sizes plus interaction checks
   - `home-shots.mjs <tag> <base> <outDir>`: Home screenshots and 13 interaction checks
   - `journeys.mjs [base]`: 8 functional user journeys (Home, spot hand-off, forecast hour, Explore, Quiver, Personal, Wave Scale, theme), fresh browser context each; prints PASS/FAIL per journey, saves failure screenshots to `swello/artifacts/journeys/<stamp>/`, exits 1 on any failure (about 40 s). Run before every commit with the dev server up.
+
+## Review agents (2026-10-30)
+One full review per change. For data-honesty-sensitive diffs (services, ocean, ratings, labels) use `pr-review-toolkit:silent-failure-hunter`; for test coverage `pr-review-toolkit:pr-test-analyzer`; for new types `pr-review-toolkit:type-design-analyzer`. Our own `code-reviewer` stays the default general review; never run the plugin's `code-reviewer` (duplicate).
