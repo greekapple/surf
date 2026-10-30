@@ -11,6 +11,7 @@ import {Icon} from '../../ui/Icon';
 import {bandOf, hourLabel, hourlySeries, titleCase, trendOf, type Band, type HourSample} from '../forecast/model';
 import {bestDaylight, compass, groupDays, ht, isDaylight, monotonePath, spotLatLon, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT, timeLabelPT} from '../forecast/format';
+import {windowRanges} from '../../services/windows';
 import {Condition, conditionWord} from '../../ui/Condition';
 import {windInk} from '../forecast/charts';
 import {Almanac, dayFacts} from './Almanac';
@@ -213,7 +214,7 @@ function FavCard({s, h, p, active, fav, i, best, onFeature, onStar, onOpen, onPr
           <span><Icon name="wind" size={18} /><b>{compass(f.wind.direction)} {windVal(f.wind.speed, p)} {p.windUnit}</b><small>Wind</small></span>
           <span><Icon name="tide" size={18} /><b>{ht(f.tide.height, p)} {p.heightUnit}</b><small>Tide</small></span>
         </span> : <span className="fc-reg">No record this hour</span>}
-        <span className="fc-r">{h ? <Condition category={h.rating.category} chip /> : <span />}{best && <span className="fc-best">Best: {weekdayPT(best.h.timestamp)} {hourLabel(best.h.timestamp)}</span>}</span>
+        <span className="fc-r">{h ? <Condition category={h.rating.category} chip /> : <span />}{best && <span className="fc-best">Best: {weekdayPT(best.start.timestamp)} {windowRange(best)}</span>}</span>
       </button>
       <button className="fc-star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name} ${fav ? 'from' : 'to'} favourites`} onClick={onStar}><Icon name="star" size={17} /></button>
       <button className="fc-go" onClick={onOpen} aria-label={`Forecast, ${s.name}`}><span className="sr-only">Forecast</span>{arrow}</button>
@@ -221,31 +222,32 @@ function FavCard({s, h, p, active, fav, i, best, onFeature, onStar, onOpen, onPr
   );
 }
 
-interface SurfWindow {s: SurfSpot; h: HourSample}
-/** The best rated daylight hours ahead across the given spots, soonest first. */
+/** A window is a run of consecutive supplied daylight hours rated well; `h` is its peak hour (what a click opens). */
+interface SurfWindow {s: SurfSpot; h: HourSample; start: HourSample; end: HourSample}
+/** "11 AM–1 PM" in Pacific time, one hour when the window is a single hour; the end carries its weekday if it falls on another day. */
+const windowRange = ({start, end}: SurfWindow) => start === end ? hourLabel(start.timestamp) : `${hourLabel(start.timestamp)}–${start.date === end.date ? '' : `${weekdayPT(end.timestamp)} `}${hourLabel(end.timestamp)}`;
+/** The best windows (peak score) over the next 5 days across the given spots, soonest first. */
 function surfWindows(spots: SurfSpot[], records: Parameters<typeof hourlySeries>[1], now: number, nowH: number, n = 4): SurfWindow[] {
-  const all: SurfWindow[] = [];
+  const all: (SurfWindow & {score: number})[] = [];
   for (const s of spots) {
-    const ser = hourlySeries(s, records, now);
-    for (const d of groupDays(ser).slice(0, 5)) {
-      const h = bestDaylight(ser, s, Math.max(nowH, Date.parse(ser[d.start].timestamp)), Date.parse(ser[d.end].timestamp) + 1);
-      if (h && h.rating.score !== null && h.rating.score !== undefined) all.push({s, h});
-    }
+    const [lat, lon] = spotLatLon(s);
+    const hours = hourlySeries(s, records, now).filter((h) => { const t = Date.parse(h.timestamp); return t >= nowH && t < nowH + 5 * 86400000 && isDaylight(h.timestamp, lat, lon); });
+    for (const r of windowRanges(hours, (h) => ({timestamp: h.timestamp, score: h.rating.score}))) all.push({s, h: r.peak, start: r.start, end: r.end, score: r.peakScore});
   }
-  return all.sort((a, b) => (b.h.rating.score ?? 0) - (a.h.rating.score ?? 0)).slice(0, n).sort((a, b) => Date.parse(a.h.timestamp) - Date.parse(b.h.timestamp));
+  return all.sort((a, b) => b.score - a.score).slice(0, n).sort((a, b) => Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp));
 }
 
 function Windows({items, p, onPick, onPreview}: {items: SurfWindow[]; p: UserProfile; onPick: (spotId: string, t: string) => void; onPreview: OnPreview}) {
   return (
-    <ol className="surf-windows">{items.map(({s, h}) => (
-      <li key={s.id + h.timestamp}><button onClick={() => onPick(s.id, h.timestamp)} {...previewProps(s.id, h, onPreview)}
-        aria-label={`${s.name}, ${weekdayPT(h.timestamp)} ${hourLabel(h.timestamp)}: ${ratingWord(h.rating.category)}, ${ht(h.heightFt, p)} ${p.heightUnit} offshore. Open in forecast.`}>
-        <span className="w-when"><b>{weekdayPT(h.timestamp)}</b><small>{shortDate(h.timestamp)}</small></span>
-        <span className="w-spot"><small>{hourLabel(h.timestamp)}</small><b>{s.name}</b></span>
+    <ol className="surf-windows">{items.map((w) => { const {s, h, start} = w; return (
+      <li key={s.id + start.timestamp}><button onClick={() => onPick(s.id, h.timestamp)} {...previewProps(s.id, h, onPreview)}
+        aria-label={`${s.name}, ${weekdayPT(start.timestamp)} ${windowRange(w)}, peak ${hourLabel(h.timestamp)}: ${ratingWord(h.rating.category)}, ${ht(h.heightFt, p)} ${p.heightUnit} offshore at the peak. Open in forecast.`}>
+        <span className="w-when"><b>{weekdayPT(start.timestamp)}</b><small>{shortDate(start.timestamp)}</small></span>
+        <span className="w-spot"><small>{windowRange(w)}</small><b>{s.name}</b></span>
         <span className="w-n"><b>{ht(h.heightFt, p)} {p.heightUnit}</b><Condition category={h.rating.category} chip /></span>
         <Icon name="chevron" size={18} className="w-go" />
       </button></li>
-    ))}</ol>
+    ); })}</ol>
   );
 }
 
