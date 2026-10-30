@@ -191,7 +191,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               })}
             </> : <text className="tl-ax" x={G + inner / 2} y={(PT + PB) / 2} textAnchor="middle">No tide station near this spot yet</text>)}
           </g>
-          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={pxh + 0.5} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
+          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={Math.max(0, pxh + 0.5)} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
           {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={PT - 8} y2={RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
           {vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
           {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={PT - 8} y2={RB + 2} stroke="var(--ch-hover)" />
@@ -224,10 +224,10 @@ export function QualityBand({score, reliability}: {score: number | null; reliabi
   const X = (v: number) => 4 + (v / 100) * 292, half = HALF[reliability] ?? 22;
   return (
     <svg className="qband" viewBox="0 0 300 40" aria-hidden="true">
-      {SCALE.map(([n, a, b]) => <rect key={n} x={X(a) + 0.5} y={12} width={X(b) - X(a) - 1} height={8} rx={2} fill={BAND_COLOR[a >= 65 ? 'good' : a >= 40 ? 'fair' : 'poor']} fillOpacity={a >= 40 ? 0.55 : 0.9} />)}
+      {SCALE.map(([n, a, b]) => <rect key={n} x={X(a) + 0.5} y={12} width={Math.max(0, X(b) - X(a) - 1)} height={8} rx={2} fill={BAND_COLOR[a >= 65 ? 'good' : a >= 40 ? 'fair' : 'poor']} fillOpacity={a >= 40 ? 0.55 : 0.9} />)}
       {[['Poor', 0, 'start'], ['Surfable', 40, 'start'], ['Solid', 65, 'start'], ['Epic', 100, 'end']].map(([t, v, anchor]) => <text key={t as string} x={X(v as number)} y={37} fontSize={11} fill="var(--dim)" textAnchor={anchor as 'start' | 'end'}>{t}</text>)}
       {score !== null && <>
-        <rect x={X(Math.max(0, score - half))} y={8} width={X(Math.min(100, score + half)) - X(Math.max(0, score - half))} height={16} rx={4} fill="var(--ch-band-fill)" stroke="var(--ch-band-line)" strokeDasharray="3 2" />
+        <rect x={X(Math.max(0, score - half))} y={8} width={Math.max(0, X(Math.min(100, score + half)) - X(Math.max(0, score - half)))} height={16} rx={4} fill="var(--ch-band-fill)" stroke="var(--ch-band-line)" strokeDasharray="3 2" />
         <g className="mk" style={{transform: `translateX(${X(score)}px)`}}><line y1={5} y2={27} stroke="var(--ch-ink)" strokeWidth={2.5} strokeLinecap="round" /></g>
       </>}
     </svg>
