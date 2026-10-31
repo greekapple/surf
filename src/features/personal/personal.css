@@ -6,7 +6,7 @@
 .pz-side button[aria-current='page'] { background: color-mix(in srgb, var(--accent) 34%, var(--s2)); color: var(--text); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
 .pz-body { display: grid; gap: 16px; min-width: 0; }
 .pz h1, .pz h2, .pz h3 { font-weight: 400; }
-.pz h1 { font: 400 clamp(28px, 4vw, 38px)/1.1 var(--serif); }
+.pz h1 { font: 600 clamp(28px, 4vw, 38px)/1.1 var(--serif); }
 .pz h2 { font-size: 16px; font-weight: 600; }
 .pz-panel { display: grid; align-content: start; gap: 14px; padding: 16px; border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line); min-width: 0; }
 .pz-ph { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -29,7 +29,7 @@
 
 /* header */
 .pz-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 18px; }
-.pz-avatar { display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--s3) center / cover no-repeat; border: 2px solid var(--line-2); color: var(--muted); font: 400 34px/1 var(--serif); }
+.pz-avatar { display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--s3) center / cover no-repeat; border: 2px solid var(--line-2); color: var(--muted); font: 600 34px/1 var(--serif); }
 .pz-id { display: grid; gap: 3px; min-width: 0; }
 .pz-id p { color: var(--muted); font-size: 13px; }
 .pz-sub { font-variant-numeric: tabular-nums; }
@@ -44,7 +44,7 @@
 .pz-spots-all .pz-cover { min-height: 170px; }
 .pz-cover::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(5 12 18 / 0.1) 30%, rgb(5 12 18 / 0.85)); }
 .pz-cover-body { display: grid; gap: 1px; padding: 10px 12px 22px; }
-.pz-cover h3 { font: 400 20px/1.1 var(--serif); }
+.pz-cover h3 { font: 600 20px/1.1 var(--serif); }
 .pz-cover-body > span { color: rgb(255 255 255 / 0.82); font-size: 12px; font-variant-numeric: tabular-nums; }
 .pz-cover .pz-star { position: absolute; top: 2px; right: 2px; display: grid; place-items: center; min-width: 44px; min-height: 44px; color: rgb(255 255 255 / 0.85); }
 .pz-cover .pz-star[aria-pressed='true'] { color: #fbbf24; }
@@ -76,7 +76,7 @@
 .pz-feat-img { position: relative; aspect-ratio: 16 / 9; background: var(--s3) center / cover no-repeat; }
 .pz-feat .pz-credit { color: rgb(255 255 255 / 0.85); text-shadow: 0 1px 2px rgb(0 0 0 / 0.6); }
 .pz-feat-b { display: grid; gap: 6px; padding: 12px 14px 14px; }
-.pz-feat-b h3 { font: 400 22px/1.15 var(--serif); }
+.pz-feat-b h3 { font: 600 22px/1.15 var(--serif); }
 .pz-feat-b p { font-size: 13.5px; line-height: 1.45; color: #2c3a45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .pz-date { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .pz-feat .pz-date { color: #4a5964; }
@@ -88,7 +88,7 @@
 .pz-row { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
 .pz-row:first-child { border-top: 0; }
 .pz-row > div:nth-child(2) { display: grid; gap: 2px; min-width: 0; }
-.pz-row b { font: 400 16px/1.2 var(--serif); }
+.pz-row b { font: 600 16px/1.2 var(--serif); }
 .pz-thumb { width: 84px; aspect-ratio: 4 / 3; border-radius: var(--r2); background: var(--s3) center / cover no-repeat; }
 .pz-clip { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pz-jlist { display: grid; gap: 14px; min-width: 0; align-content: start; }
@@ -120,7 +120,7 @@
 .pz-bd-img img { max-width: 100%; max-height: 190px; object-fit: contain; }
 .pz-bd-img svg { max-height: 190px; width: auto; }
 .pz-bd-t { display: grid; gap: 4px; align-content: start; }
-.pz-bd-t b { font: 400 22px/1.1 var(--serif); }
+.pz-bd-t b { font: 600 22px/1.1 var(--serif); }
 .pz-bd-t span { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 .pz-bd-t p { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
 .pz-bd-btn { grid-column: 1 / -1; width: 100%; }

@@ -1,8 +1,8 @@
 /* ---------- Quiver: boards on a stage (reference: Swello showcase panel 4) ---------- */
 .qv { display: grid; gap: 20px; min-width: 0; }
 .qv-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.qv h1 { font: 400 clamp(30px, 4vw, 42px)/1.1 var(--serif); letter-spacing: 0; }
-.qv h2 { font: 400 28px/1.1 var(--serif); letter-spacing: 0; }
+.qv h1 { font: 600 clamp(30px, 4vw, 42px)/1.1 var(--serif); letter-spacing: 0; }
+.qv h2 { font: 600 28px/1.1 var(--serif); letter-spacing: 0; }
 .qv .btn, .qv .field input, .qv .field select { min-height: 44px; }
 .qv-form { max-width: 920px; }
 .qv-actions { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -12,7 +12,7 @@
 .qv-card[aria-pressed='true'] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .qv-card-stage { display: grid; place-items: center; padding: 12px; background: radial-gradient(80% 90% at 50% 40%, var(--stage-a), var(--stage-b)); }
 .qv-card-meta { display: grid; gap: 2px; padding: 12px 14px 14px; }
-.qv-card-meta b { font: 400 22px/1.1 var(--serif); }
+.qv-card-meta b { font: 600 22px/1.1 var(--serif); }
 .qv-card-meta span { color: var(--muted); font-size: 12.5px; }
 .qv-selected { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 18px; border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line); }
 
@@ -52,7 +52,7 @@
 .qv-duel { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 20px 14px 14px; border-radius: var(--r3); border: 1px solid var(--line); background: radial-gradient(90% 80% at 50% 30%, var(--stage-a) 0%, var(--stage-b) 75%); }
 .qv-duel figure { display: grid; justify-items: center; align-content: end; gap: 10px; min-width: 0; }
 .qv-duel figcaption { display: grid; justify-items: center; text-align: center; color: var(--text); }
-.qv-duel figcaption b { font: 400 22px/1.1 var(--serif); }
+.qv-duel figcaption b { font: 600 22px/1.1 var(--serif); }
 .qv-duel svg { filter: drop-shadow(0 10px 10px rgb(0 0 0 / 0.28)); max-width: 100%; height: auto; }
 
 @media (max-width: 860px) {
@@ -149,7 +149,7 @@
 @supports not (backdrop-filter: blur(1px)) { .qv-card-spec { background: #f6f4f0; } }
 @media (prefers-reduced-transparency: reduce) { .qv-card-spec { background: #f6f4f0; backdrop-filter: none; } }
 .qv-card-id { display: grid; gap: 6px; min-width: 0; }
-.qv-card-spec h2 { font: 400 clamp(24px, 2.4vw, 32px)/1.05 var(--serif); color: #1b2227; }
+.qv-card-spec h2 { font: 600 clamp(24px, 2.4vw, 32px)/1.05 var(--serif); color: #1b2227; }
 .qv-card-spec .fine { color: #4d5359; }
 .qv-card-spec .chip { background: rgb(27 34 39 / 0.07); color: #2a3137; border-color: rgb(27 34 39 / 0.14); }
 .qv-card-spec .qv-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, auto); grid-auto-flow: column; gap: 6px 28px; }
