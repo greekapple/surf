@@ -85,7 +85,11 @@
 }
 
 @media (max-width: 860px) {
-  .home-hero { min-height: max(92svh, 560px); }
+  .home-hero { min-height: 0; height: 52svh; }
+  .hero-in { padding-top: 20px; padding-bottom: 22px; }
+  .home-hero h1 { font-size: clamp(54px, 15vw, 72px); }
+  .hello-sub { margin: 6px 0 12px; }
+  .home-spots { padding-top: 22px; }
   .spot-card { aspect-ratio: 4 / 5; }
   .home-panel { min-height: clamp(240px, 36svh, 360px); }
   .panel-go { width: 44px; height: 44px; }
@@ -99,7 +103,8 @@
 }
 /* Desktop: the same stack, tighter, so Home stays within three viewports. */
 @media (min-width: 861px) {
-  .home-hero { min-height: max(82svh, 560px); }
+  .home-hero { min-height: 0; height: 66svh; }
+  .hero-in { padding-top: 24px; }
   .home-hero h1 { font-size: clamp(72px, 15vw, 240px); }
   .spot-card { aspect-ratio: 4 / 3; flex-basis: 380px; }
   .home-lit { padding-block: clamp(32px, 6svh, 72px); }

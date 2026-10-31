@@ -17,7 +17,7 @@ import {faceEstimateView} from './estimate';
 import {MiniScale} from '../scale/MiniScale';
 import {Skeleton} from '../../ui/Skeleton';
 import {Condition, conditionWord} from './Condition';
-import {Band, CineHero, LitLine, TodayAt, litSentence} from './Cinematic';
+import {CineHero, SpotShot, Summary, TodayAt, litSentence} from './Cinematic';
 import './forecast.css';
 
 const facingOf = (spot: SurfSpot) => evidenceSpots.find((e) => e.id === spot.id)?.orientation ?? null;
@@ -269,9 +269,7 @@ export function ForecastView({section, go}: ViewProps) {
     <div className="fc">
       <div className="fc-film">
       <CineHero spot={spot} h={selected} p={p} isNow={isNow} meta={metaBits.join(' · ')} fav={fav} onFav={() => data.favorite(spot.id)} />
-      <TodayAt spot={spot} h={selected} p={p} extrema={extrema} isToday={isToday} />
-      <LitLine text={litSentence(spot, selected, p, series, isNow, isToday)} />
-      <Band spotId={spot.id} index={0} shot="band">The week<br />ahead.</Band>
+
       </div>
       <div className="fc-body">
       <section className="fc-strip" aria-label="Selected hour">
@@ -295,6 +293,12 @@ export function ForecastView({section, go}: ViewProps) {
           ))}
         </div>
       </section>
+
+      <section className="fc-sum" aria-label="Summary">
+        <Summary text={litSentence(spot, selected, p, series, isNow, isToday)} />
+        <SpotShot spotId={spot.id} />
+      </section>
+      <div className="fc-film fc-film-anno"><TodayAt spot={spot} h={selected} p={p} extrema={extrema} isToday={isToday} /></div>
 
       <div id="fc-now" className="fc-grid fc-part">
         <section className="card fc-tl" aria-label="Forecast timeline">

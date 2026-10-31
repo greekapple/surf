@@ -50,7 +50,7 @@ export function HomeView({go}: ViewProps) {
   return (
     <div className="home" ref={rootRef}>
       <section className="home-hero" aria-labelledby="home-h">
-        <Media id={narrow ? 'ai-home-loop-tall' : 'ai-home-loop-wide'} className="hero-media plx" eager sizes="100vw" />
+        <Media id={narrow ? 'ai-home-hero-tall' : 'ai-home-loop-wide'} className="hero-media plx" eager sizes="100vw" />
         <div className="hero-in">
           <p className="greet">{greeting}</p>
           <h1 id="home-h">{name ? <>Hello, {name}.</> : 'Hello.'}</h1>
