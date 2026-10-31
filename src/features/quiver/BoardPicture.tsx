@@ -1,0 +1,48 @@
+import {useId} from 'react';
+import type {BoardType, Surfboard} from '../../models/index';
+import {lengthLabel} from '../../utils/units';
+import {BoardOutline} from './BoardOutline';
+import {loadLook} from './looks';
+import {STATIONS, type Outline} from './outline';
+
+/** A board standing on its tail, nose up. A traced board uses its own outline (and deck photo when scanned); any other board is the category outline in the board's colour. Never an exact scan unless the person scanned it. */
+function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline | null}) {
+  const id = useId().replace(/:/g, '');
+  const look = loadLook(b);
+  if (!outline) return <BoardOutline b={b} scale={px} color={look.deck} />;
+  const L = b.length * px, W = b.width * px, cx = W / 2;
+  const half = outline.hw.map((h) => h * L), maxHalf = Math.max(...half), k = maxHalf > 0 ? W / 2 / maxHalf : 1; // stored halves are fractions of length; the typed width wins
+  const pts = half.map((h, i) => [(i / (STATIONS - 1)) * L, h * k] as const);
+  const d = `M${cx},0 ` + pts.map(([y, h]) => `L${cx + h},${y}`).join(' ') + ' ' + [...pts].reverse().map(([y, h]) => `L${cx - h},${y}`).join(' ') + 'Z';
+  return (
+    <svg className="outline-svg" width={W + 2} height={L + 2} viewBox={`-1 -1 ${W + 2} ${L + 2}`} role="img" aria-label={`${b.name}, traced from your photo, ${lengthLabel(b.length)} by ${b.width} inches`}>
+      <defs><clipPath id={`rk-${id}`}><path d={d} /></clipPath></defs>
+      {outline.tex
+        ? <g clipPath={`url(#rk-${id})`}><g transform={`translate(${cx},0) rotate(90)`}><image href={outline.tex} x={0} y={-W / 2} width={L} height={W} preserveAspectRatio="none" /></g></g>
+        : <path d={d} fill={look.deck} fillOpacity={0.92} />}
+      <path d={d} fill="none" stroke="var(--board-line)" />
+    </svg>
+  );
+}
+
+/** AI board illustrations by board type (lead, T-032 addition). 'Other' has none and keeps the drawn outline. */
+const ILLUSTRATION: Partial<Record<BoardType, [file: string, word: string]>> = {
+  'Performance shortboard': ['shortboard', 'shortboard'], 'Everyday shortboard': ['shortboard', 'shortboard'], Groveler: ['shortboard', 'shortboard'],
+  Fish: ['fish', 'fish'], Hybrid: ['midlength', 'midlength'], Midlength: ['midlength', 'midlength'], Funboard: ['midlength', 'midlength'],
+  Longboard: ['longboard', 'longboard'], 'Step-up': ['stepup', 'step-up'], Gun: ['stepup', 'step-up'], 'Soft-top': ['softtop', 'soft-top'],
+};
+/** The illustration used for this board, or null when its own traced/scanned outline exists (the person's shape wins) or the type has none. */
+export function illustrationFor(b: Surfboard, outline: Outline | null) {
+  const hit = outline ? undefined : ILLUSTRATION[b.type];
+  return hit ? {src: `/media/ai/ai-board-${hit[0]}`, caption: `Illustration of a ${hit[1]} · AI-generated, not your board`} : null;
+}
+
+/** The one slot that draws a board picture (rack and annotated stage). The person's traced outline or scanned photo first; otherwise an
+ *  AI illustration of the board's type, scaled to the board's real length and labelled as not their board; otherwise the category outline.
+ *  `drawn` forces the outline (dark theme stage). */
+export function BoardPicture({b, px, outline, drawn}: {b: Surfboard; px: number; outline: Outline | null; drawn?: boolean}) {
+  const ill = drawn ? null : illustrationFor(b, outline);
+  if (!ill) return <Upright b={b} px={px} outline={outline} />;
+  // The pictures have about 5% white above and below the board; the image height is the board's length at this scale.
+  return <img className="bp-ill" src={`${ill.src}-700.jpg`} srcSet={`${ill.src}-700.jpg 1x, ${ill.src}-1400.jpg 2x`} height={Math.round(b.length * px)} alt={`${b.name}: ${ill.caption}`} title={ill.caption} decoding="async" />;
+}

@@ -209,7 +209,7 @@
 .qv-rackrow li.on .qv-rack-b::after { background: linear-gradient(#ff9b5c, #c9631f); }
 .qv-rackrow li:not(.on) .qv-rack-b { opacity: 0.8; }
 .qv-card-spec .chip.demo { background: #fff1c9; color: #5e4200; border-color: #dcbb63; }
-@media (min-width: 861px) { .qv-rackwrap .qv-stage.qv-room { aspect-ratio: auto; height: clamp(460px, calc(100svh - 300px), 660px); background-position: center 62%; } }
+@media (min-width: 861px) { .qv-rackwrap .qv-stage.qv-room { aspect-ratio: auto; height: clamp(380px, calc(100svh - 390px), 660px); background-position: center 62%; /* T-032: leaves room for thumbnails + Board Match line */ } }
 .qv-rack-b:focus-visible { outline: 3px solid #b4531a; outline-offset: 4px; }
 .qv-selected { justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; }
 .qv-selected p { margin: 0; }
@@ -217,3 +217,94 @@
   .qv-rackrow { inset: 0 0 118px 0; padding: 0 0 12px; gap: 0; justify-content: flex-start; scroll-snap-type: x mandatory; }
   .qv-rackrow li { flex: 0 0 100%; justify-items: center; scroll-snap-stop: always; }
 }
+
+/* ---------- T-032 annotated board (below the rack): the selected board, its length huge behind it, callouts on hairline leaders ----------
+ * Function-first rule: an accent, not a chapter. Every value is visible on load; motion only adds emphasis. Follows the theme: very light grey
+ * with dark text by default (minimal white). Dark theme only: the AI concrete (cropped to its left third so no board shows) sits behind the
+ * board, never behind spec text, with its caption. */
+.qv-cine { position: relative; isolation: isolate; overflow: hidden; container-type: inline-size; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 64px) 40px; border-radius: 12px; background: var(--s2); color: var(--text); }
+.qc-bd { display: none; position: absolute; inset: 0; z-index: -2; border-radius: 12px; background-repeat: no-repeat; background-size: 300% auto; background-position: 0 30%; filter: brightness(0.5) grayscale(0.25); }
+.qc-h { text-align: center; }
+.qv .qc-h h2 { font: 700 clamp(30px, 4.6vw, 58px)/1 var(--display); letter-spacing: -0.03em; color: var(--text); text-wrap: balance; }
+.qc-h p { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+.qc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, 300px) minmax(0, 1fr); grid-template-areas: 'len board vol' 'wid board fin' 'thk board tail'; align-items: center; row-gap: 28px; }
+.c-len { grid-area: len; } .c-wid { grid-area: wid; } .c-thk { grid-area: thk; } .c-vol { grid-area: vol; } .c-fin { grid-area: fin; } .c-tail { grid-area: tail; }
+.qc-board { grid-area: board; position: relative; height: clamp(320px, 52svh, 540px); display: grid; place-items: center; padding: 12px 0; }
+.qc-big { position: absolute; left: 50%; top: 50%; z-index: -1; translate: -50% -50%; margin: 0; font: 700 min(calc(150cqi / var(--len)), 36svh)/0.8 var(--display); letter-spacing: -0.05em; white-space: nowrap; pointer-events: none; user-select: none; }
+.qc-big span { display: block; background: linear-gradient(180deg, color-mix(in srgb, var(--text) 13%, transparent) 0%, color-mix(in srgb, var(--text) 6%, transparent) 60%, color-mix(in srgb, var(--text) 1%, transparent) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.qc-fig { position: relative; z-index: 1; height: 100%; display: grid; place-items: center; }
+.qc-fig .outline-svg { max-height: 100%; width: auto; }
+.qc-c { position: relative; display: grid; gap: 5px; --ls: 0 1; }
+.c-len, .c-wid, .c-thk { text-align: right; padding-right: 72px; }
+.c-vol, .c-fin, .c-tail { padding-left: 72px; }
+.qc-c::after { content: ''; position: absolute; top: 40px; width: 56px; height: 1px; background: var(--line-2); }
+.qc-c::before { content: ''; position: absolute; top: 38px; width: 5px; height: 5px; border-radius: 50%; background: var(--text); }
+.c-len::after, .c-wid::after, .c-thk::after { right: 4px; transform-origin: right; } .c-len::before, .c-wid::before, .c-thk::before { right: 0; }
+.c-vol::after, .c-fin::after, .c-tail::after { left: 4px; transform-origin: left; } .c-vol::before, .c-fin::before, .c-tail::before { left: 0; }
+.qc-c .k { font-size: 12.5px; letter-spacing: 0.01em; color: var(--muted); }
+.qc-c .v { font: 700 clamp(26px, 3.2vw, 44px)/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--text); }
+.qc-c .v small { font-size: 0.45em; font-weight: 600; color: var(--muted); }
+.qc-c .s { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.qc-c .qc-miss { font: 600 18px/1.2 var(--sans); letter-spacing: 0; color: var(--muted); }
+.qc-f { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 24px; }
+.qc-how { font-size: 13px; color: var(--muted); }
+.qc-cap { display: none; position: absolute; left: 16px; bottom: 10px; right: 16px; font-size: 11px; color: var(--muted); }
+:root[data-theme='dark'] .qc-bd, :root[data-theme='dark'] .qc-cap { display: block; } /* the concrete still is dark: dark theme only */
+.qc-arrow { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; margin-top: -24px; border-radius: 50%; border: 1px solid var(--line); background: var(--s1); color: var(--text); cursor: pointer; transition: background-color 160ms var(--ease), transform 120ms var(--ease); }
+.qc-arrow:hover { background: var(--s3, var(--s2)); border-color: var(--line-2); }
+.qc-arrow:active { transform: scale(0.96); }
+.qc-arrow:focus-visible { outline: 3px solid #ff9b5c; outline-offset: 2px; }
+.qc-arrow.l { left: 12px; } .qc-arrow.l svg { transform: rotate(90deg); }
+.qc-arrow.r { right: 12px; } .qc-arrow.r svg { transform: rotate(-90deg); }
+.qv-rack-h { margin-top: 12px; }
+@media (max-width: 860px) {
+  .qv-cine { padding-bottom: 44px; }
+  .qc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'board board' 'len vol' 'wid fin' 'thk tail'; column-gap: 16px; row-gap: 22px; }
+  .qc-board { height: 40svh; margin-bottom: 8px; }
+  .c-len, .c-wid, .c-thk, .c-vol, .c-fin, .c-tail { text-align: left; padding: 18px 0 0; }
+  .qc-c { --ls: 1 0; }
+  .qc-c::after { top: 0; left: 2px !important; right: auto !important; width: 1px; height: 12px; transform-origin: top; }
+  .qc-c::before { top: -3px; left: 0 !important; right: auto !important; }
+  .qc-c .v { font-size: 28px; }
+  .qc-arrow { top: calc(110px + 20svh); width: 44px; height: 44px; margin-top: -22px; }
+  .qc-arrow.l { left: 4px; } .qc-arrow.r { right: 4px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .qc-fig, .qc-big span { animation: qc-swap 240ms var(--ease) both; }
+  .qv-cine.io .rv { transition: opacity 300ms var(--ease), transform 300ms var(--ease); }
+  .qv-cine.io .rv:not(.in) { opacity: 0.6; transform: translateY(8px); }
+  @keyframes qc-swap { from { opacity: 0.6; transform: translateY(8px); } }
+}
+
+/* First screen (function-first rule): rack, spec card, thumbnails and the Board Match line fit in the first viewport. */
+.qv-selected { padding: 12px 16px; }
+.qv-matchline { margin: 0; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.qv-matchline b { color: var(--text); font-weight: 600; }
+@media (max-width: 860px) {
+  .qv-stage.qv-room { aspect-ratio: auto; height: clamp(260px, calc(100svh - 470px), 447px); }
+  .qv .qv-head h1 { font-size: 28px; }
+  .qv .qv-head .btn { min-height: 44px; padding: 0 14px; }
+  .qv-studio .qv-strip { padding: 6px 10px; }
+  .qv-studio .qv-strip button { height: 64px; min-height: 64px; width: 44px; }
+  .qv-selected { padding: 10px 12px; gap: 8px; }
+  .qv-matchline { font-size: 13px; }
+}
+
+/* T-032 addition: AI board illustrations (white seamless) blend onto the light wall and stage; each is captioned as not the person's board. */
+.bp-ill { display: block; width: auto; max-width: none; user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 22%, #000 78%, transparent 96%), linear-gradient(180deg, transparent 0%, #000 6%, #000 96%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 4%, #000 22%, #000 78%, transparent 96%), linear-gradient(180deg, transparent 0%, #000 6%, #000 96%, transparent 100%); mask-composite: intersect; }
+/* Blend on the element that forms the stacking context (button, figure), so the white seamless multiplies into the wall or panel. */
+/* With illustrations the rack is a plain white wall (lead: real boards on a white wall); the rendered room only backs drawn outlines. */
+.qv-stage.qv-room:has(.bp-ill) { background: linear-gradient(180deg, #fcfcfb 0%, #f3f2f0 74%, #e9e7e3 100%); }
+.qv-rack-b:has(.bp-ill) { mix-blend-mode: multiply; filter: none; }
+.qv-rackrow li.on .qv-rack-b:has(.bp-ill) { filter: none; }
+:root:not([data-theme='dark']) .qc-fig:has(.bp-ill) { mix-blend-mode: multiply; }
+:root:not([data-theme='dark']) .qc-how-drawn { display: none; } /* light shows the captioned illustration; the outline note is for the drawn outline */
+.qc-fig .bp-ill, .qc-fig .outline-svg { max-height: 100%; }
+.qc-pic-ill, .qc-pic-draw { display: contents; }
+.qc-pic-draw { display: none; }
+:root[data-theme='dark'] .qc-pic-ill, :root[data-theme='dark'] .qc-illcap { display: none; }
+:root[data-theme='dark'] .qc-pic-draw { display: contents; }
+.qc-illcap { position: absolute; left: 0; right: 0; bottom: -6px; z-index: 1; margin: 0; text-align: center; font-size: 11px; color: var(--muted); }
+.qv-ill-cap { position: absolute; left: 14px; top: 12px; z-index: 2; margin: 0; padding: 3px 8px; border-radius: 4px; background: rgb(255 255 255 / 0.78); color: #2b3238; font-size: 11px; }
