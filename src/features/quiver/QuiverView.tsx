@@ -132,6 +132,10 @@ export function QuiverView({section, go}: ViewProps) {
   const maxLen = Math.max(...boards.map((b) => b.length));
   const idx = sel ? boards.findIndex((b) => b.id === sel.id) : 0;
   const step = (d: number) => select(boards[(idx + d + boards.length) % boards.length].id);
+  // One honest line from Board Match for the selected board: its score and rank at the selected hour, or why there is none.
+  const mi = sel ? matches.findIndex((m) => m.board.id === sel.id) : -1, mm = mi >= 0 ? matches[mi] : null;
+  const matchLine = !faceOk ? <><b>Board Match:</b> no recommendation for {view.spot.name}. Live data has offshore height only, which is not surf size.</>
+    : mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</> : null;
   const A = (b: Surfboard) => (
     <div className="qv-actions">
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
@@ -149,13 +153,12 @@ export function QuiverView({section, go}: ViewProps) {
       {section === '' && (
         sel && (
           <>
-            <BoardStage board={sel} maxLen={maxLen} onStep={step} onOpen3D={() => { select(sel.id); go('quiver', 'showroom'); }} />
-            <h2 className="qv-rack-h">Your rack</h2>
             <Rack boards={boards} selected={sel} onSelect={select} />
             <section className="qv-selected" aria-label="Selected board">
-              <p className="fine">{sel.name} · {[sel.manufacturer, sel.model].filter(Boolean).join(' · ') || 'Shaper not recorded'}</p>
-              <div className="qv-actions">{A(sel)}</div>
+              <p className="qv-matchline">{matchLine}</p>
+              <div className="qv-actions"><button className="btn primary" onClick={() => { select(sel.id); go('quiver', 'showroom'); }}>View in 3D</button><button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>{A(sel)}</div>
             </section>
+            <BoardStage board={sel} maxLen={maxLen} onStep={step} />
           </>
         )
       )}

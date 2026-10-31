@@ -10,10 +10,10 @@ import {Upright} from './Rack';
 /* T-032 cinematic Quiver: the selected board on a dark stage, its length huge behind it, spec callouts on hairline leaders.
  * The board is always the person's own (traced outline or category outline scaled to their numbers). The AI studio still
  * (public/media/ai/ai-board-studio) is used only as concrete backdrop: cropped to its left third so its own board never shows,
- * and captioned. Motion: scroll-driven where supported, IntersectionObserver fallback, reduced motion = final states (quiver.css). */
+ * and captioned, behind the board only (never behind spec text). Function-first rule: every value is visible on load; an IntersectionObserver
+ * only adds emphasis (60% to 100% opacity, 8 px, 300 ms); reduced motion = no motion (quiver.css). */
 
 const STUDIO = '/media/ai/ai-board-studio-1600.jpg';
-const scrollDriven = () => typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
 const ok = (n: number | undefined): n is number => typeof n === 'number' && Number.isFinite(n) && n > 0;
 const cm = (inch: number, d = 0) => `${(inch * 2.54).toFixed(d)} cm`;
 
@@ -22,7 +22,7 @@ function Callout({k, v, s, cls}: {k: string; v: ReactNode; s: ReactNode; cls: st
 }
 const missing = <span className="qc-miss">Not recorded</span>;
 
-export function BoardStage({board, maxLen, onStep, onOpen3D}: {board: Surfboard; maxLen: number; onStep: (d: -1 | 1) => void; onOpen3D: () => void}) {
+export function BoardStage({board, maxLen, onStep}: {board: Surfboard; maxLen: number; onStep: (d: -1 | 1) => void}) {
   const root = useRef<HTMLElement>(null), slot = useRef<HTMLDivElement>(null);
   const [h, setH] = useState(480);
   useEffect(() => {
@@ -32,7 +32,7 @@ export function BoardStage({board, maxLen, onStep, onOpen3D}: {board: Surfboard;
   }, []);
   useEffect(() => {
     const el = root.current;
-    if (!el || scrollDriven() || matchMedia('(prefers-reduced-motion: reduce)').matches || typeof IntersectionObserver === 'undefined') return;
+    if (!el || matchMedia('(prefers-reduced-motion: reduce)').matches || typeof IntersectionObserver === 'undefined') return;
     el.classList.add('io');
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {rootMargin: '0px 0px -10% 0px'});
     el.querySelectorAll('.rv').forEach((r) => io.observe(r));
@@ -44,7 +44,6 @@ export function BoardStage({board, maxLen, onStep, onOpen3D}: {board: Surfboard;
   const how = outline?.tex ? 'Deck from your photo, outline traced from it' : outline ? 'Outline traced from your photo' : `${board.type} category outline scaled to these numbers, not a scan`;
   return (
     <section ref={root} className="qv-cine" data-shot="stage" aria-label={`${board.name}, annotated`}>
-      <div className="qc-bd" aria-hidden="true" style={{backgroundImage: `url(${STUDIO})`}} />
       <header className="qc-h rv">
         <h2>{board.name}</h2>
         <p>{[maker || 'Shaper not recorded', board.type, board.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
@@ -54,6 +53,7 @@ export function BoardStage({board, maxLen, onStep, onOpen3D}: {board: Surfboard;
         <Callout cls="c-wid" k="Width" v={ok(board.width) ? inches(board.width) : missing} s={ok(board.width) ? cm(board.width, 1) : ''} />
         <Callout cls="c-thk" k="Thickness" v={ok(board.thickness) ? inches(board.thickness) : missing} s={ok(board.thickness) ? cm(board.thickness, 1) : ''} />
         <div className="qc-board" ref={slot}>
+          <div className="qc-bd" aria-hidden="true" style={{backgroundImage: `url(${STUDIO})`}} />
           <p className="qc-big" aria-hidden="true" style={{'--len': len.length} as CSSProperties}><span key={board.id}>{len}</span></p>
           <div className="qc-fig" key={board.id}><Upright b={board} px={Math.max(1, (h * 0.96) / maxLen)} outline={outline} /></div>
         </div>
@@ -63,11 +63,10 @@ export function BoardStage({board, maxLen, onStep, onOpen3D}: {board: Surfboard;
       </div>
       <footer className="qc-f">
         <p className="qc-how">{how}</p>
-        <button type="button" className="qv-cta" onClick={onOpen3D}>View in 3D <span aria-hidden="true">→</span></button>
       </footer>
       <button type="button" className="qc-arrow l" aria-label="Previous board" onClick={() => onStep(-1)}><Icon name="chevron" size={22} /></button>
       <button type="button" className="qc-arrow r" aria-label="Next board" onClick={() => onStep(1)}><Icon name="chevron" size={22} /></button>
-      <p className="qc-cap">Concrete backdrop: {AI_CAPTION}</p>
+      <p className="qc-cap">Concrete behind the board: {AI_CAPTION}</p>
     </section>
   );
 }
