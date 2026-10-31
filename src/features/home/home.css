@@ -51,7 +51,7 @@
 /* ---------- Scroll-lit sentence ---------- */
 .home-lit { max-width: 1560px; margin: 0 auto; padding: clamp(40px, 9svh, 110px) var(--pad); }
 .lit-sentence { max-width: 22em; font: 700 clamp(30px, 5.4vw, 76px)/1.12 var(--display); letter-spacing: -0.025em; }
-.lit-w { opacity: 0.22; }
+.lit-w { opacity: 0.4; }
 @supports (animation-timeline: view()) {
   .lit-w { animation: lit linear both; animation-timeline: view(); animation-range: cover 12% cover 38%; }
   @keyframes lit { to { opacity: 1; } }

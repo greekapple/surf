@@ -52,7 +52,7 @@ export function headline(h: HourSample, p: UserProfile) {
   return {big: null, unit: u, label: 'No wave height for this hour', short: null};
 }
 
-export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot; h: HourSample; p: UserProfile; isNow: boolean; meta: string; fav: boolean; onFav: () => void}) {
+export function CineHero({spot, h, p, isNow, meta, fav, onFav, onScale}: {spot: SurfSpot; h: HourSample; p: UserProfile; isNow: boolean; meta: string; fav: boolean; onFav: () => void; onScale: () => void}) {
   const hd = headline(h, p), narrow = useNarrow();
   return (
     <header className="fc-head fc-cine" data-shot="hero">
@@ -63,7 +63,7 @@ export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot;
         <p className="cine-when">{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)} · {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</p>
         <h1>{spot.name}<button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={onFav}><Icon name="star" size={26} /></button></h1>
         <p className="cine-h"><Condition category={h.rating.category} chip /><span className="cine-lab" key={h.timestamp}>{hd.label}</span></p>
-        <AnswerRow spot={spot} h={h} p={p} />
+        <AnswerRow spot={spot} h={h} p={p} onScale={onScale} />
         <p className="fc-sub">{meta}</p>
       </div>
     </header>
@@ -71,7 +71,7 @@ export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot;
 }
 
 /** Wind and tide for the selected hour, in the hero so the first screen answers "how is it". Each value keeps its unit and relation; missing values say so. */
-function AnswerRow({spot, h, p}: {spot: SurfSpot; h: HourSample; p: UserProfile}) {
+function AnswerRow({spot, h, p, onScale}: {spot: SurfSpot; h: HourSample; p: UserProfile; onScale: () => void}) {
   const f = h.forecast, rel = windRelationship(spot, f), trend = f.tide.trend === 'Rising' || f.tide.trend === 'Falling' ? f.tide.trend.toLowerCase() : null;
   const windOk = Number.isFinite(f.wind.speed), tideOk = Number.isFinite(f.tide.height);
   return (
@@ -79,6 +79,7 @@ function AnswerRow({spot, h, p}: {spot: SurfSpot; h: HourSample; p: UserProfile}
       <li><span>Wind</span><b>{windOk ? `${windVal(f.wind.speed, p)} ${p.windUnit}` : '—'}</b>
         <em>{windOk && Number.isFinite(f.wind.direction) ? `${compass(f.wind.direction)} · ${rel === 'Unknown' ? 'shore relation unknown' : rel.toLowerCase()}` : 'not in this record'}</em></li>
       <li><span>Tide</span><b>{tideOk ? `${f.tide.height < 0 ? '-' : '+'}${ht(Math.abs(f.tide.height), p)} ${p.heightUnit}` : '—'}</b><em>{tideOk ? (trend ?? 'trend unknown') : 'not in this record'}</em></li>
+      <li className="cine-scale"><button type="button" onClick={onScale}>Wave scale<Icon name="forecast" size={14} /></button></li>
     </ul>
   );
 }

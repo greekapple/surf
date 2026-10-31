@@ -268,7 +268,7 @@ export function ForecastView({section, go}: ViewProps) {
   return (
     <div className="fc">
       <div className="fc-film">
-      <CineHero spot={spot} h={selected} p={p} isNow={isNow} meta={metaBits.join(' · ')} fav={fav} onFav={() => data.favorite(spot.id)} />
+      <CineHero spot={spot} h={selected} p={p} isNow={isNow} meta={metaBits.join(' · ')} fav={fav} onFav={() => data.favorite(spot.id)} onScale={() => go('forecast', 'wave-scale')} />
 
       </div>
       <div className="fc-body">
@@ -298,7 +298,7 @@ export function ForecastView({section, go}: ViewProps) {
         <Summary text={litSentence(spot, selected, p, series, isNow, isToday)} />
         <SpotShot spotId={spot.id} />
       </section>
-      <div className="fc-film fc-film-anno"><TodayAt spot={spot} h={selected} p={p} extrema={extrema} isToday={isToday} /></div>
+      <div className="fc-anno-wrap"><TodayAt spot={spot} h={selected} p={p} extrema={extrema} isToday={isToday} /></div>
 
       <div id="fc-now" className="fc-grid fc-part">
         <section className="card fc-tl" aria-label="Forecast timeline">

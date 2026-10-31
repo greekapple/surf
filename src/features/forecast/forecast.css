@@ -3,7 +3,7 @@
 .fc { display: block; }
 .fc-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; max-width: 1560px; margin: 0 auto; padding: 0 var(--gutter); }
 
-/* ---------- T-027 cinematic chapters: hero, "Today at", scroll-lit sentence, parallax band ----------
+/* ---------- T-027/T-031 Forecast chapters: hero band, summary, "Today at" (function first: nothing waits for scroll) ----------
  * A dark film in both themes (like the reference), so white type always sits on dark photography.
  * Motion: scroll-driven where supported; `.io` (IntersectionObserver fallback) otherwise; reduced motion = final states. */
 .fc-film { --text: #eef2f5; --muted: rgb(238 242 245 / 0.68); --dim: rgb(238 242 245 / 0.52); --line: rgb(255 255 255 / 0.12); --line-2: rgb(255 255 255 / 0.24); background: #06090c; color: var(--text); overflow: clip; }
@@ -13,7 +13,7 @@
 .cine-shot::after { content: ''; position: absolute; inset: 0; pointer-events: none; }
 .cine-shot .media-caption { z-index: 2; }
 .fc-cine .cine-shot :is(img, video) { filter: brightness(0.6) saturate(0.85) contrast(1.05); }
-.fc-cine .cine-shot::after { background: linear-gradient(180deg, rgb(6 9 12 / 0.6) 0%, rgb(6 9 12 / 0.08) 32%, rgb(6 9 12 / 0.3) 60%, #06090c 100%); }
+.fc-cine .cine-shot::after { background: linear-gradient(180deg, rgb(6 9 12 / 0.6) 0%, rgb(6 9 12 / 0.08) 32%, rgb(6 9 12 / 0.3) 60%, rgb(6 9 12 / 0.8) 100%); }
 .fc-cine .credit { top: auto; bottom: 6px; right: var(--gutter); }
 .fc-cine .media-caption { padding: 0 var(--gutter) 6px; background: none; }
 /* The headline height, set huge behind the name (the reference's "F-22" behind the jet); it melts into the water. */
@@ -52,14 +52,14 @@
 .anno-c .v small { font-size: 0.42em; font-weight: 600; letter-spacing: 0; color: var(--muted); }
 .anno-c .s { font-size: 13px; line-height: 1.4; color: var(--muted); font-variant-numeric: tabular-nums; }
 .plan { display: block; width: 100%; height: auto; overflow: visible; }
-.plan-ring { fill: rgb(255 255 255 / 0.03); stroke: var(--line-2); stroke-width: 1; }
-.plan-land { fill: rgb(255 255 255 / 0.07); }
-.plan-shore { fill: none; stroke: rgb(255 255 255 / 0.55); stroke-width: 1.2; }
+.plan-ring { fill: color-mix(in srgb, var(--text) 4%, transparent); stroke: var(--line-2); stroke-width: 1; }
+.plan-land { fill: color-mix(in srgb, var(--text) 9%, transparent); }
+.plan-shore { fill: none; stroke: color-mix(in srgb, var(--text) 60%, transparent); stroke-width: 1.2; }
 .plan-tick { stroke: var(--dim); stroke-width: 1; }
 .plan-n { fill: var(--dim); font-size: 11px; text-anchor: middle; }
 .plan-swell { fill: none; stroke: var(--sw1); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .plan-wind { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.plan-spot { fill: #fff; stroke: #06090c; stroke-width: 3; }
+.plan-spot { fill: var(--text); stroke: var(--bg); stroke-width: 3; }
 
 
 
@@ -290,8 +290,8 @@
 .fc-sum { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 24px; align-items: center; padding: 6px 0 2px; }
 .fc-summary { max-width: 62ch; font: 500 clamp(16px, 1.5vw, 20px)/1.5 var(--sans); color: var(--text); }
 .spot-shot { position: relative; width: 168px; height: 108px; border-radius: var(--r2); overflow: hidden; }
-.fc-film-anno { margin: 4px 0; border-radius: var(--r3); }
-.fc-film-anno .fc-anno { padding-top: clamp(28px, 4vw, 48px); padding-bottom: clamp(28px, 4vw, 48px); }
+.fc-anno-wrap { margin: 4px 0; border-radius: var(--r3); }
+.fc-anno-wrap .fc-anno { padding-top: clamp(28px, 4vw, 48px); padding-bottom: clamp(28px, 4vw, 48px); }
 @media (max-width: 860px) {
   .fc-cine { height: 40svh; }
   .fc-cine .cine-big { font-size: min(calc(150vw / var(--len)), 20svh); }
@@ -301,7 +301,7 @@
 }
 @media (max-width: 860px) {
   /* Charts and the week come first on phones; the annotated plan view follows them. */
-  .fc-film-anno { order: 1; }
+  .fc-anno-wrap { order: 1; }
 }
 .fc-cine { padding-bottom: 30px; }
 .fc-cine .cine-big { top: 50%; translate: 0 -54%; font-size: min(calc(150vw / var(--len)), 24vh); }
@@ -310,4 +310,25 @@
   .fc-cine .cine-big { top: 32%; translate: 0 -50%; font-size: min(calc(150vw / var(--len)), 15svh); }
 }
 /* The header and the saved-spot strip float over the page top; start the hero below them so the whole band is visible. */
-.page:has(.fc) { padding-top: calc(var(--nav-h) + 52px); }
+
+/* White theme: only the photo band is dark (under its text scrim); "Today at" and the rest follow the theme. */
+.shell.photo-top .page:has(.fc), .shell.photo-top .page.page-home { padding-top: var(--nav-h); }
+.cine-scale button { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 12px; border: 1px solid rgb(255 255 255 / 0.5); border-radius: 99px; background: rgb(6 9 12 / 0.35); color: #fff; font: 600 13px/1 var(--sans); cursor: pointer; }
+.cine-scale button:hover { background: rgb(255 255 255 / 0.18); }
+@media (max-width: 860px) {
+  /* One screen on a phone: the readout is three compact columns, not a tall list. */
+  .fc-strip .readout { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 12px; }
+  .fc .readout .v, .fc .readout .num { min-height: 22px; font-size: 17px; }
+  .fc .readout .est .v { font-size: 16px; }
+  .fc .readout .s { min-height: 0; font-size: 11.5px; line-height: 1.25; }
+  .fc .readout .k { font-size: 12px; }
+  .fc .readout .cond.chip-c { padding: 4px 12px; font-size: 14px; }
+}
+.fc-anno-wrap { overflow: clip; }
+/* The big height is a backdrop on the right of the band, clear of the spot name. */
+.fc-cine .cine-big { justify-content: flex-end; padding-right: var(--gutter); top: 44%; }
+@media (max-width: 860px) { .fc-cine .cine-big { top: 22%; translate: 0 -50%; font-size: min(calc(150vw / var(--len)), 13svh); } }
+@media (max-width: 860px) {
+  /* The "No estimate" tip sits in the last readout column on phones; open it leftwards so it cannot widen the page. */
+  .fc .readout .est-none::after { left: auto; right: 0; max-width: min(260px, 70vw); }
+}
