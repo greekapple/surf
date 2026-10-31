@@ -43,4 +43,4 @@ Board renders, `nano_banana_2` 2k 9:16, upright, deck to camera, white seamless,
 | ai-board-stepup-* | 5c532017 | Step-up, Gun |
 | ai-board-softtop-* | efc74dfd | Soft-top |
 
-Spend round 2 so far: 14 images × 2 = 28 credits; 4 band loops (2–3, 3–4, 4–6, 6–8 ft, 6 s, 720p) × ~42–56 pending.
+Spend round 2 so far: 14 images × 2 = 28 credits; 4 band loops `ai-scale-{2-3,3-4,4-6,6-8}ft-loop.mp4` (6 s, 720p, from the band stills) = 196 credits. Balance after round 2: 778.
