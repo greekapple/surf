@@ -8,21 +8,29 @@
   font-style: normal;
   font-display: swap;
 }
-/* DM Serif Display (SIL OFL 1.1, public/fonts/DMSerifDisplay-OFL.txt): display headings only (greeting, spot names). */
+/* Syne (SIL OFL 1.1, public/fonts/Syne-OFL.txt): display headings (user pick 2026-10-30, cinematic round). */
 @font-face {
-  font-family: 'DM Serif Display';
-  src: url('/fonts/dm-serif-display-latin-400.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Syne';
+  src: url('/fonts/syne-latin-var.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+/* Inter (SIL OFL 1.1, public/fonts/Inter-OFL.txt): body text. */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-latin-var.woff2') format('woff2');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 :root {
   /* Light (Apple-style) is the default theme; the dark palette lives under data-theme="dark". */
-  /* Apple-style system typography (2026-10-29): SF Pro on Apple devices via the system stack; no web font to download. */
-  --display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
-  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
-  /* Display serif for headlines only (reference: "Hello, Milo.", spot names, section titles). Weight 400 only: never bold it. */
-  --serif: 'DM Serif Display', 'Iowan Old Style', Georgia, serif;
+  /* Cinematic round (2026-10-30, user pick): Syne for display, Inter for body; system stack as fallback. */
+  --display: 'Syne', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
+  /* Headline face (greeting, spot names, section titles); was DM Serif Display, now the display face. */
+  --serif: var(--display);
   --wide: 118%;
   --mono: ui-monospace, 'SF Mono', Menlo, monospace;
   --ease: cubic-bezier(.2, .8, .2, 1);

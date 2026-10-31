@@ -1,0 +1,66 @@
+import {useEffect, useRef, useState} from 'react';
+import './media.css';
+import {captionFor, creditLine, resolveMedia, srcSet, type MediaEntry, type MediaManifest} from './mediaModel';
+
+let manifestPromise: Promise<MediaManifest | null> | undefined;
+/** Loaded once from /media/manifest.json so assets can be dropped in without a rebuild; null if it cannot be read. */
+function loadManifest(): Promise<MediaManifest | null> {
+  manifestPromise ??= fetch('/media/manifest.json').then((r) => (r.ok ? (r.json() as Promise<MediaManifest>) : null)).catch(() => null);
+  return manifestPromise;
+}
+const useReducedMotion = () => {
+  const [on, setOn] = useState(() => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  useEffect(() => {
+    if (typeof matchMedia !== 'function') return;
+    const q = matchMedia('(prefers-reduced-motion: reduce)'), f = () => setOn(q.matches);
+    q.addEventListener('change', f);
+    return () => q.removeEventListener('change', f);
+  }, []);
+  return on;
+};
+
+export interface MediaProps {
+  /** Manifest id (public/media/manifest.json), or the id of a built-in CC photo. */
+  id: string;
+  className?: string;
+  /** Hide the photo credit line (the AI caption can never be hidden). */
+  hideCredit?: boolean;
+  /** Load straight away instead of when it nears the viewport (use for the top image on a page). */
+  eager?: boolean;
+  sizes?: string;
+}
+
+/** An image, or a looping muted video with a poster, with its focal point, credit and (for AI art) the required caption. */
+export function Media({id, className = '', hideCredit, eager, sizes = '100vw'}: MediaProps) {
+  const [manifest, setManifest] = useState<MediaManifest | null | undefined>(undefined);
+  const [failed, setFailed] = useState(false);
+  const [near, setNear] = useState(!!eager);
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  useEffect(() => { let live = true; loadManifest().then((m) => live && setManifest(m)); return () => { live = false; }; }, []);
+  useEffect(() => { setFailed(false); }, [id]);
+  useEffect(() => {
+    if (near || !ref.current) return;
+    if (typeof IntersectionObserver !== 'function') { setNear(true); return; }
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { setNear(true); io.disconnect(); } }, {rootMargin: '200px'});
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [near]);
+
+  let entry: MediaEntry | undefined = resolveMedia(id, manifest);
+  // An AI asset that will not load is replaced by its fallback photo, which then carries the photo's own credit and no AI caption.
+  if (entry && failed && entry.fallback) entry = resolveMedia(entry.fallback, manifest);
+  if (!entry) return manifest === undefined ? <figure ref={ref} className={`media media-wait ${className}`} aria-hidden="true" /> : null;
+  const caption = captionFor(entry), pos = `${entry.focal[0]}% ${entry.focal[1]}%`;
+  const poster = entry.sources[entry.sources.length - 1].src;
+  const playVideo = !!entry.video && !reduced && near;
+  return (
+    <figure ref={ref} className={`media media-${entry.kind} ${className}`} data-media-id={id} data-media-kind={entry.kind}>
+      {playVideo
+        ? <video className="media-el" autoPlay loop muted playsInline preload="metadata" poster={poster} style={{objectPosition: pos}} aria-label={entry.alt} onError={() => setFailed(true)}><source src={entry.video!.src} type={entry.video!.type} /></video>
+        : <img className="media-el" src={near ? poster : undefined} srcSet={near ? srcSet(entry) : undefined} sizes={sizes} alt={entry.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={{objectPosition: pos}} onError={() => setFailed(true)} />}
+      {caption && <figcaption className="media-caption media-caption-ai">{caption}</figcaption>}
+      {!caption && !hideCredit && <figcaption className="media-caption media-credit">{creditLine(entry)}</figcaption>}
+    </figure>
+  );
+}
