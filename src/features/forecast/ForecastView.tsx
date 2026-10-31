@@ -14,7 +14,7 @@ import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
 import {BAND_COLOR, bandOf, hourLabel, hourlySeries, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {faceEstimateView} from './estimate';
-import {MiniScale} from '../scale/MiniScale';
+import {WaveBands} from '../scale/WaveBands';
 import {Skeleton} from '../../ui/Skeleton';
 import {Condition, conditionWord} from './Condition';
 import {CineHero, SpotShot, Summary, TodayAt, litSentence} from './Cinematic';
@@ -165,40 +165,12 @@ function JumpBar() {
 
 const CHART_TABS: [ChartTab, string][] = [['surf', 'Surf'], ['swell', 'Swell'], ['wind', 'Wind'], ['tide', 'Tide']];
 
-/** Wave scale preview: a photograph with the size gauge, or the side elevation. The 3D page is one click away. */
-function WaveCard({forecast, go, spotId}: {forecast: Forecast; go: ViewProps['go']; spotId: string}) {
-  const {prefs, setPrefs, data} = useSwello();
-  const [mode, setMode] = useState<'ride' | 'paddle' | 'side'>(prefs.scaleMode);
-  const profile = data.state.profile, m = profile.heightUnit === 'm';
-  /* Same rule as the 3D page: start at the model-estimate midpoint (labelled "Estimate"), else the offshore height (labelled), else the saved preference. */
-  const est = faceEstimateView(forecast, profile);
-  const clampFt = (v: number) => Math.max(2, Math.min(20, Math.round(v * 2) / 2));
-  const estFt = est?.state === 'range' ? clampFt(est.midFt) : null;
-  const offFt = Number.isFinite(forecast.offshore) ? clampFt(forecast.offshore) : null;
-  const start = estFt ?? offFt;
-  const [dragged, setDragged] = useState<number | null>(null);
-  useEffect(() => setDragged(null), [start, spotId]);
-  const ft = dragged ?? start ?? prefs.scaleFt;
-  const note = dragged !== null || start === null ? <><span className="chip ill">Illustrative</span> Adjusted by you; not a forecast.</>
-    : estFt !== null && est?.state === 'range' ? <><span className="chip ill">Estimate</span> Midpoint of the model estimate ({est.text}), not measured, unvalidated.</>
-    : <><span className="chip ill">Illustrative</span> Offshore wave height ({ht(forecast.offshore, profile)} {profile.heightUnit}); breaking faces can differ.</>;
-  const pick = (x: 'ride' | 'paddle' | 'side') => { setMode(x); if (x !== 'side') setPrefs({scaleMode: x}); };
+/** Wave scale preview (T-033): the AI illustration of the band that contains the selected hour; the full page is one click away. */
+function WaveCard({forecast, go}: {forecast: Forecast; go: ViewProps['go']}) {
   return (
     <section className="card fc-scale wc" id="fc-scale" aria-label="Wave scale">
-      <div className="wc-h"><h2>Wave scale (3D)</h2><button className="btn" onClick={() => go('forecast', 'wave-scale')}>Open in 3D</button></div>
-      <div className="wc-stage">
-        {mode === 'side' ? <MiniScale forecast={forecast} /> : <>
-          <SpotPhoto spotId={`generic-${spotId}`} index={2} className="wc-photo" />
-          <div className="wc-gauge">
-            <output className="wc-big" htmlFor="wc-ft">{m ? (ft * 0.3048).toFixed(1) : ft}<small> {m ? 'm' : 'ft'}</small></output>
-            <input id="wc-ft" type="range" min={2} max={20} step={0.5} value={ft} aria-label={estFt !== null && dragged === null ? 'Wave face height, from the model estimate' : 'Illustrative wave face height'} aria-valuetext={`${m ? (ft * 0.3048).toFixed(1) + ' m' : ft + ' ft'} face, ${estFt !== null && dragged === null ? 'model estimate midpoint' : 'illustrative'}`} onChange={(e) => { const v = Number(e.target.value); setDragged(v); setPrefs({scaleFt: v}); }} />
-          </div>
-        </>}
-      </div>
-      {mode !== 'side' && <p className="fine wc-note">{note}</p>}
-      <div className="seg wc-seg" role="radiogroup" aria-label="Preview view">
-        {([['ride', 'Riding'], ['paddle', 'Paddling'], ['side', 'Side']] as const).map(([k, l]) => <button key={k} role="radio" aria-checked={mode === k} onClick={() => pick(k)}>{l}</button>)}
-      </div>
+      <div className="wc-h"><h2>Wave scale</h2></div>
+      <WaveBands forecast={forecast} compact onOpen={() => go('forecast', 'wave-scale')} />
     </section>
   );
 }
@@ -319,7 +291,7 @@ export function ForecastView({section, go}: ViewProps) {
             <li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li>
           </ul>
         </section>
-        <WaveCard forecast={selected.forecast} go={go} spotId={spot.id} />
+        <WaveCard forecast={selected.forecast} go={go} />
         <section className="card fc-hours"><div className="card-h"><h2>Next hours</h2><span>swell · wind</span></div>
           <ol className="hours">{series.slice(selIdx, selIdx + 10).map((h, k) => (
             <li key={h.timestamp}><button aria-current={k === 0} onClick={() => view.selectTime(h.timestamp)}>

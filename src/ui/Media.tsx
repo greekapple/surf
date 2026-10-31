@@ -34,6 +34,13 @@ const useReducedMotion = () => {
   return on;
 };
 
+/** The resolved manifest entry for an id (undefined until the manifest has loaded, or if there is none). Lets a screen offer "play loop" only where a loop exists. */
+export function useMediaEntry(id: string): MediaEntry | undefined {
+  const [manifest, setManifest] = useState<MediaManifest | null | undefined>(undefined);
+  useEffect(() => { let live = true; loadManifest().then((m) => live && setManifest(m)); return () => { live = false; }; }, []);
+  return resolveMedia(id, manifest);
+}
+
 export interface MediaProps {
   /** Manifest id (public/media/manifest.json), or the id of a built-in CC photo. */
   id: string;
@@ -45,10 +52,12 @@ export interface MediaProps {
   sizes?: string;
   /** Overrides the entry's alt text; use "" for a decorative image or when the photo is not of the thing it sits beside. */
   alt?: string;
+  /** Show the poster only, even where a video exists (phones, until the user taps play). */
+  still?: boolean;
 }
 
 /** An image, or a looping muted video with a poster, with its focal point, credit and (for AI art) the required caption. */
-export function Media({id, className = '', hideCredit, eager, sizes = '100vw', alt}: MediaProps) {
+export function Media({id, className = '', hideCredit, eager, sizes = '100vw', alt, still}: MediaProps) {
   const [manifest, setManifest] = useState<MediaManifest | null | undefined>(undefined);
   const [failed, setFailed] = useState(false);
   const [near, setNear] = useState(!!eager);
@@ -83,7 +92,7 @@ export function Media({id, className = '', hideCredit, eager, sizes = '100vw', a
   if (!entry) return manifest === undefined ? <figure ref={ref} className={`media media-wait ${className}`} aria-hidden="true" /> : null;
   const caption = captionFor(entry), pos = `${entry.focal[0]}% ${entry.focal[1]}%`;
   const poster = entry.sources[entry.sources.length - 1].src;
-  const playVideo = !!entry.video && !reduced && !saveData() && !videoFailed && near;
+  const playVideo = !!entry.video && !still && !reduced && !saveData() && !videoFailed && near;
   return (
     <figure ref={ref} className={`media media-${entry.kind} ${className}`} data-media-id={id} data-media-kind={entry.kind}>
       {playVideo
