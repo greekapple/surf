@@ -289,3 +289,22 @@
   .qv-selected { padding: 10px 12px; gap: 8px; }
   .qv-matchline { font-size: 13px; }
 }
+
+/* T-032 addition: AI board illustrations (white seamless) blend onto the light wall and stage; each is captioned as not the person's board. */
+.bp-ill { display: block; width: auto; max-width: none; user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 4%, #000 22%, #000 78%, transparent 96%), linear-gradient(180deg, transparent 0%, #000 6%, #000 96%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 4%, #000 22%, #000 78%, transparent 96%), linear-gradient(180deg, transparent 0%, #000 6%, #000 96%, transparent 100%); mask-composite: intersect; }
+/* Blend on the element that forms the stacking context (button, figure), so the white seamless multiplies into the wall or panel. */
+/* With illustrations the rack is a plain white wall (lead: real boards on a white wall); the rendered room only backs drawn outlines. */
+.qv-stage.qv-room:has(.bp-ill) { background: linear-gradient(180deg, #fcfcfb 0%, #f3f2f0 74%, #e9e7e3 100%); }
+.qv-rack-b:has(.bp-ill) { mix-blend-mode: multiply; filter: none; }
+.qv-rackrow li.on .qv-rack-b:has(.bp-ill) { filter: none; }
+:root:not([data-theme='dark']) .qc-fig:has(.bp-ill) { mix-blend-mode: multiply; }
+:root:not([data-theme='dark']) .qc-how-drawn { display: none; } /* light shows the captioned illustration; the outline note is for the drawn outline */
+.qc-fig .bp-ill, .qc-fig .outline-svg { max-height: 100%; }
+.qc-pic-ill, .qc-pic-draw { display: contents; }
+.qc-pic-draw { display: none; }
+:root[data-theme='dark'] .qc-pic-ill, :root[data-theme='dark'] .qc-illcap { display: none; }
+:root[data-theme='dark'] .qc-pic-draw { display: contents; }
+.qc-illcap { position: absolute; left: 0; right: 0; bottom: -6px; z-index: 1; margin: 0; text-align: center; font-size: 11px; color: var(--muted); }
+.qv-ill-cap { position: absolute; left: 14px; top: 12px; z-index: 2; margin: 0; padding: 3px 8px; border-radius: 4px; background: rgb(255 255 255 / 0.78); color: #2b3238; font-size: 11px; }

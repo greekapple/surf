@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useRef, useState, type KeyboardEvent} from 'react';
 import type {Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
-import {BoardPicture} from './BoardPicture';
+import {BoardPicture, illustrationFor} from './BoardPicture';
 import {loadOutline} from './outline';
 import {SpecCard, StageArrows, Strip} from './Overlay';
 
@@ -69,6 +69,7 @@ export function Rack({boards, selected, onSelect}: {boards: Surfboard[]; selecte
               </li>
             ))}
           </ul>
+          {(() => { const ill = illustrationFor(selected, outlines.get(selected.id) ?? null); return ill ? <p className="qv-ill-cap">{ill.caption}</p> : null; })()}
         </div>
         <StageArrows onStep={step} />
         <SpecCard board={selected} dims={selected} action={null} /> {/* View in 3D sits in the selected-board row under the rack (T-032) */}
