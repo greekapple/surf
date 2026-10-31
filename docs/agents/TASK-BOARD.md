@@ -333,3 +333,26 @@ User: "lets make some major improvements; the Porsche configurator is for the bo
 - **Owner:** `engineering` · **Owned:** `src/features/personal/*`
 - **Acceptance:** 1. No horizontally-scrolling section pills (390 shows "Board Pr…" cut off, blue selected pill off-theme): Personal becomes one grouped list like iOS Settings (Profile header → Favourite spots → Surf preferences → Units → Appearance → Data & privacy), each row opening its detail page with a back control; existing /personal/<section> URLs still resolve. 2. Light theme first, function-first (the profile summary and favourites in the first 390 screen), density rule. 3. Everything that works today keeps working (units, theme, favourites, preferences, export/import if present). 4. t034-density passes for Personal; journeys 8/8 (journey 6 "Personal units" updated only if the UI legitimately moved); 1440/390 before/after.
 - **Status:** OPEN
+- **T-037:** DONE (merged; routes.ts sections/labels accepted by lead; journeys 8/8 ×2).
+
+## Round 2026-10-31 (afternoon): real data, spot-oriented forecasting, competitor teardown (user direction)
+User: "we're using Higgsfield in the wrong way: all of the AI-created 'not current conditions' just takes you away from the fact it's literally an app to tell you the current conditions … fully reverse engineer references such as Surfline (and Magicseaweed if an example still exists) and Windy … take the best parts of their functionality … look much better than Surfline aesthetically, be more functional and offer new tools … forecasting way more accurate: real ocean and wind data compared to the exact spot and sand bars … the rating spot-oriented, not just swell … the 3D comparison and the quiver and waves based on your quiver and experience level are the differentiator and must be seamless and beautiful … I like the minimalistic vibe of those; our app still looks so AI." A video on common AI-website problems will follow.
+
+Rules from now on:
+1. **No AI imagery on condition surfaces** (Home, Forecast, Map). Real data visuals, real licensed spot photos with credit, or nothing. AI/3D illustration is allowed only inside the comparison tools (Wave scale 3D, board room), labelled.
+2. Every feature borrowed from Surfline/MSW/Windy is listed with source, our improvement, and the data it needs (`docs/design/TEARDOWN-2026-10-31.md`).
+
+## T-038: Remove AI imagery from condition surfaces
+- **Owner:** `product` · **Owned:** `src/features/{home,forecast}/*`, `public/media/manifest.json` (AI entries stay in the manifest only for scale/board tools)
+- **Acceptance:** Home and Forecast heroes use no `ai-*` asset: a real data visual (e.g. live swell/wind/tide state drawn from data) or a credited real photo of that spot; no "Illustration · AI-generated" caption appears on Home/Forecast/Map; function-first + density checks still pass; 1440/390 shots.
+- **Status:** OPEN
+
+## T-039: Teardown — Surfline, Magicseaweed (archived), Windy
+- **Owners:** lead (Surfline + MSW via the user's Chrome, since Cloudflare blocks headless) · `product` (Windy via Playwright) · output `docs/design/TEARDOWN-2026-10-31.md` + screenshots in `~/Development/swello-design-references/18-teardown-2026-10-31/`
+- **Acceptance:** per product: navigation, spot page anatomy, forecast table/graphs, rating model as presented, map layers and time scrubber, cams, alerts/favourites, premium-only features, mobile layout; for each feature: keep / improve / skip, and the data it needs. Third-party screenshots are reference only, never shipped.
+- **Status:** OPEN
+
+## T-040: Spot-oriented forecast model v2 (plan first, Level 3)
+- **Owner:** `engineering` (plan) → lead review → user approval before code
+- **Acceptance (plan doc `docs/forecast/RATING-V2-PLAN.md`):** data sources per input with licence and resolution (CDIP MOP nearshore per-spot points, NDBC/CDIP buoys, NOAA tides/CO-OPS, wind from HRRR/NAM via Open-Meteo or NOAA, bathymetry NOAA CUDEM/CRM, what exists for sandbars and its limits); per-spot profile schema (orientation, swell window, period response, tide window, wind tolerance, bathymetry type, reviewed sources); how the rating combines them; validation plan against observations; what stays labelled as unvalidated. No invented spot facts.
+- **Status:** OPEN
