@@ -17,13 +17,15 @@ export interface MediaEntry {
   fallback?: string;
 }
 export interface MediaManifest {version: number; entries: Record<string, MediaEntry>}
+/** Home image slots (T-030) and the CC photo each shows until a manifest entry replaces it, so a failed manifest fetch never leaves them blank. */
+export const SLOT_DEFAULTS: Record<string, string> = {'home-hero': 'ob-sunset-negative-tide', 'home-panel-forecast': 'ocean-beach-fog-clearing', 'home-panel-map': 'bolinas-beach-wide', 'home-panel-quiver': 'pacifica-state-beach-surfer'};
 /** The CC photos already in the repo as manifest entries, so nothing is blank before a manifest or AI assets exist. */
 export const PHOTO_FALLBACKS: Record<string, MediaEntry> = Object.fromEntries(Object.values(PHOTOS).map((p) => [p.id, {
   kind: 'photo' as const, alt: p.location, focal: [50, 50] as [number, number], credit: p.photographer, licence: p.license, licenceUrl: p.licenseUrl, source: p.source,
   sources: [800, 1600].map((w) => ({src: `/photos/${p.id}-${w}.jpg`, width: w}))}]));
 /** The entry for an id: manifest first, else the built-in CC photo, else undefined (the caller renders nothing rather than a blank box). */
 export function resolveMedia(id: string, manifest?: MediaManifest | null): MediaEntry | undefined {
-  return manifest?.entries[id] ?? PHOTO_FALLBACKS[id];
+  return manifest?.entries[id] ?? PHOTO_FALLBACKS[id] ?? PHOTO_FALLBACKS[SLOT_DEFAULTS[id]];
 }
 /** Text that must be visible with the asset: the AI caption for illustrations, null for photos. */
 export function captionFor(e: MediaEntry): string | null { return e.kind === 'ai-illustration' ? AI_CAPTION : null; }
