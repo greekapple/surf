@@ -263,3 +263,11 @@ User: "watch the video … use any reference website similar … i want it to be
 - **Owner:** `engineering` (Sonnet) · **Owned:** new `src/ui/Media.tsx`, `src/ui/media.css`, `public/media/manifest.json`, `src/tests/media.test.ts`
 - **Acceptance:** `<Media id>` renders image or looping muted video from the manifest with poster, lazy load, `prefers-reduced-motion` → poster only, `object-fit` focal point; every entry carries `kind: 'photo'|'ai-illustration'`, credit/licence, and AI entries render a visible "Illustration · AI-generated, not current conditions" caption (test asserts no AI entry without it); manifest falls back to existing CC photos so nothing is blank before Higgsfield assets exist. Then follow-ups: dedupe sunrise maths (spotReport vs forecast helpers), remove unused `.qv-grid` CSS. tsc/test/build.
 - **Status:** OPEN
+
+## T-029: Higgsfield imagery (user approved paid credits 2026-10-30)
+- **Owner:** lead generates (Higgsfield MCP, user scope `https://mcp.higgsfield.ai/mcp`); `engineering` adds manifest entries + optimised files; `product` places them (T-027 and later Home/Quiver).
+- **Look:** moody, near-monochrome cold Pacific (blue-black, fog, white water), matching the dark theme; no surfers' faces, no logos, no text in images; nothing that reads as a specific real spot on a specific day.
+- **Shot list (v1):** 1. `ai-forecast-hero` beach-break lines at dusk, head-on, 9:16 + 16:9. 2. `ai-forecast-loop` same scene, 8 s static camera, waves rolling (Seedance). 3. `ai-home-hero` foggy NorCal headland at dawn, 9:16 + 16:9, + 8 s loop. 4. `ai-today-aerial` top-down beach break with swell lines, centred, room for callouts. 5. `ai-board-studio` top-down surfboard on dark concrete, soft studio light, plain background.
+- **Honesty:** every asset is `kind: 'ai-illustration'` with the forced caption "Illustration · AI-generated, not current conditions" and a CC photo fallback; alt text says illustration; never paired with a spot name as if it were that spot now. Log prompts, model and credits in `public/media/PROMPTS.md`.
+- **Budget:** stop and ask the user before exceeding ~$25 of credits.
+- **Status:** OPEN (waiting on the user's MCP sign-in)
