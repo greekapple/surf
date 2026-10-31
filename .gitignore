@@ -5,3 +5,6 @@ dist/
 # Claude Code worktrees
 .claude/worktrees/
 .claude/settings.local.json
+
+# Licensed third-party 3D assets (TurboSquid Standard licence: no redistribution)
+tools/blender/assets/turbosquid-*/
