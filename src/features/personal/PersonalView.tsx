@@ -298,7 +298,7 @@ export function PersonalView({section, go}: ViewProps) {
               </div>
               <div className="pz-panel"><h2>Preferred conditions</h2>
                 <label className="field"><span>Wave range (face, ft)</span>
-                  <span style={{display: 'flex', gap: 8}}>
+                  <span style={{display: 'flex', gap: 12}}>
                     <input type="number" min={1} max={30} value={p.minWave} onChange={(e) => set({minWave: Number(e.target.value)})} aria-label="Minimum" />
                     <input type="number" min={1} max={40} value={p.maxWave} onChange={(e) => set({maxWave: Number(e.target.value)})} aria-label="Maximum" />
                   </span>
@@ -312,7 +312,7 @@ export function PersonalView({section, go}: ViewProps) {
                   ))}</div>
                 </fieldset>
                 <label className="field"><span>Period (seconds)</span>
-                  <span style={{display: 'flex', gap: 8}}>
+                  <span style={{display: 'flex', gap: 12}}>
                     <input type="number" min={4} max={25} value={prefs.periodMin} onChange={(e) => setBoardPrefs({...prefs, periodMin: Number(e.target.value)})} aria-label="Minimum period" />
                     <input type="number" min={4} max={25} value={prefs.periodMax} onChange={(e) => setBoardPrefs({...prefs, periodMax: Number(e.target.value)})} aria-label="Maximum period" />
                   </span>

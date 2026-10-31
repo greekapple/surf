@@ -313,3 +313,19 @@
   /* The "No estimate" tip sits in the last readout column on phones; open it leftwards so it cannot widen the page. */
   .fc .readout .est-none::after { left: auto; right: 0; max-width: min(260px, 70vw); }
 }
+/* Phone density (T-034): the one hero number is 56 px, titles follow the scale, controls breathe. */
+@media (max-width: 430px) {
+  .fc-cine .cine-big { font-size: min(calc(150vw / var(--len)), 56px); top: 26%; }
+  .fc-head h1 { font-size: 28px; }
+  .fc-cine .cine-in { gap: 8px; }
+  .cine-facts b { font-size: 16px; }
+  .cine-facts span, .cine-facts em { font-size: 13px; }
+  .cine-scale button { min-height: 44px; font-size: 13px; }
+  .anno-h, .fc-part-h { font-size: 22px; }
+  .anno-sub { font-size: 13px; }
+  .fc-ctl { gap: 12px; }
+  .fc-ctl > .btn:last-child { display: none; } /* the Map tab is one tap away in the bar; keeps the range control and Now on one row */
+  .fc .readout .s { font-size: 12px; }
+  .fc-summary { font-size: 16px; }
+  .tscroll td button, .tscroll th button { white-space: nowrap; min-width: 56px; }
+}

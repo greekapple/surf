@@ -39,7 +39,7 @@
   --r3: 12px; /* radius scale (docs/design/RULES.md): 4 / 8 / 12 */
   --nav-h: 64px;
   --tab-h: 64px;
-  --gutter: clamp(12px, 2vw, 24px);
+  --gutter: clamp(16px, 2vw, 24px);
   --signal: #ff5a1f; /* International Orange: navigation state and the one accent on Home */
   --ink: #0e1a22;
   --fog: #eef1f1; /* Home ground: stays light in both themes */
