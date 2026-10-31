@@ -3,6 +3,8 @@ import type {SurfSpot, UserProfile} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
 import {windRelationship} from '../../recommendation/sqi';
 import {SpotPhoto} from '../../ui/common';
+import {Media} from '../../ui/Media';
+import {SPOT_PHOTOS} from '../../ui/photos';
 import {Icon} from '../../ui/Icon';
 import {windInk} from './charts';
 import {compass, ht, windVal} from './helpers';
@@ -18,6 +20,12 @@ import {Condition, conditionWord} from './Condition';
 type Extremum = {timestamp: string; type: string; height: {value: number | null}};
 const facingOf = (spot: SurfSpot) => evidenceSpots.find((e) => e.id === spot.id)?.orientation ?? null;
 const scrollDriven = () => typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
+/** The spot's own photograph through <Media> (credit, and the AI caption when an illustration replaces it). Spots without their own photo keep
+ * SpotPhoto, whose credit says 'Generic photo, not this spot'. */
+function Shot({spotId, index, className, eager}: {spotId: string; index: number; className: string; eager?: boolean}) {
+  const own = SPOT_PHOTOS[spotId];
+  return own ? <Media id={own[index % own.length]} className={className} eager={eager} /> : <SpotPhoto spotId={spotId} index={index} className={className} />;
+}
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /** Fallback for browsers without scroll-driven animations: reveal `.rv` children once they enter the viewport. */
@@ -46,8 +54,7 @@ export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot;
   const hd = headline(h, p);
   return (
     <header className="fc-head fc-cine" data-shot="hero">
-      {/* T-028: replace with <Media id={`forecast-hero-${spot.id}`} /> once src/ui/Media.tsx merges (it carries the AI-illustration caption). */}
-      <SpotPhoto spotId={spot.id} index={1} className="cine-shot" />
+      <Shot spotId={spot.id} index={1} className="cine-shot" eager />
       {hd.big && <p className="cine-big" aria-hidden="true" style={{'--len': hd.big.length} as CSSProperties}><span key={hd.big}>{hd.big}</span><small>{hd.unit}</small></p>}
       <div className="cine-in">
         <p className="cine-when">{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)} · {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</p>
@@ -160,8 +167,7 @@ export function LitLine({text}: {text: string}) {
 export function Band({spotId, index, children, shot}: {spotId: string; index: number; children: ReactNode; shot: string}) {
   return (
     <section className="cine-band" data-shot={shot}>
-      {/* T-028: <Media> slot (same rule as the hero). */}
-      <SpotPhoto spotId={spotId} index={index} className="band-shot" />
+      <Shot spotId={spotId} index={index} className="band-shot" />
       <h2 className="band-h">{children}</h2>
     </section>
   );
