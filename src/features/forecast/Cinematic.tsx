@@ -56,7 +56,7 @@ export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot;
   const hd = headline(h, p), narrow = useNarrow();
   return (
     <header className="fc-head fc-cine" data-shot="hero">
-      <Media id={narrow ? 'ai-forecast-loop-tall' : 'ai-forecast-hero-wide'} className="cine-shot" eager />
+      <Media id={narrow ? 'ai-forecast-loop-tall' : 'ai-forecast-loop-wide'} className="cine-shot" eager />
       {hd.big && <p className="cine-big" aria-hidden="true" style={{'--len': hd.big.length} as CSSProperties}><span key={hd.big}>{hd.big}</span><small>{hd.unit}</small></p>}
       <div className="cine-in">
         <p className="cine-when">{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)} · {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</p>

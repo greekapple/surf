@@ -617,6 +617,32 @@
     50
    ],
    "fallback": "surfer-wave-cc0"
+  },
+  "ai-forecast-loop-wide": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of waves rolling onto a California beach in fog, not this spot",
+   "sources": [
+    {
+     "src": "/media/ai/ai-forecast-hero-wide-1400.jpg",
+     "width": 1400
+    },
+    {
+     "src": "/media/ai/ai-forecast-hero-wide-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    60
+   ],
+   "fallback": "ocean-beach-fog-clearing",
+   "video": {
+    "src": "/media/ai/ai-forecast-loop-wide.mp4",
+    "type": "video/mp4"
+   }
   }
  }
 }
