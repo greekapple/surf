@@ -9,7 +9,7 @@ import {rateForecast} from '../../ratings/adapters';
 import {windRelationship} from '../../recommendation/sqi';
 import {CameraPanel, SpotPhoto, StateMessage} from '../../ui/common';
 import {DirArrow, Icon} from '../../ui/Icon';
-import {Dial, PolarSwell, Spark, TideDay, Timeline, windInk, type ChartTab} from './charts';
+import {PolarSwell, TideDay, Timeline, windInk, type ChartTab} from './charts';
 import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
 import {BAND_COLOR, bandOf, hourLabel, hourlySeries, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
@@ -17,10 +17,10 @@ import {faceEstimateView} from './estimate';
 import {MiniScale} from '../scale/MiniScale';
 import {Skeleton} from '../../ui/Skeleton';
 import {Condition, conditionWord} from './Condition';
+import {Band, CineHero, LitLine, TodayAt, litSentence} from './Cinematic';
 import './forecast.css';
 
 const facingOf = (spot: SurfSpot) => evidenceSpots.find((e) => e.id === spot.id)?.orientation ?? null;
-const relChip = (r: string) => ({Offshore: 'off', Onshore: 'on'} as Record<string, string>)[r] ?? '';
 
 function Readout({h, p, series, isNow, preview, spot}: {h: HourSample; p: UserProfile; series: HourSample[]; isNow: boolean; preview: boolean; spot: SurfSpot}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, tr = trendOf(series, series.indexOf(h)), rel = windRelationship(spot, f), est = faceEstimateView(f, p);
@@ -53,32 +53,6 @@ function Readout({h, p, series, isNow, preview, spot}: {h: HourSample; p: UserPr
           <span className="s">{f.tide.trend === 'Rising' || f.tide.trend === 'Falling' ? f.tide.trend : ''}</span></div>
         <div><span className="k">Water</span><span className="v tick" key={h.timestamp}>{f.waterTempF ? `${Math.round(f.waterTempF)}°F` : '—'}</span><span className="s" /></div>
       </div>
-    </div>
-  );
-}
-
-function Tiles({h, p, spot, series, extrema}: {h: HourSample; p: UserProfile; spot: SurfSpot; series: HourSample[]; extrema: {timestamp: string; type: string; height: {value: number | null}}[]}) {
-  const f = h.forecast, u = p.heightUnit, i = series.indexOf(h), rel = windRelationship(spot, f);
-  const a = Math.max(0, i - 12), b = Math.min(series.length, i + 13);
-  const next = extrema.find((e) => Date.parse(e.timestamp) > Date.parse(h.timestamp));
-  return (
-    <div className="tiles">
-      <div className="tile"><p className="k">Swell</p>
-        <Dial facing={facingOf(spot)} arms={[f.secondary ? {from: f.secondary.direction, color: 'var(--sw2)', w: 2 + Math.min(4, f.secondary.height)} : null, f.primary ? {from: f.primary.direction, color: 'var(--sw1)', w: 2 + Math.min(5, f.primary.height)} : null]} />
-        <p className="v">{f.primary ? <>{ht(f.primary.height, p)}<small> {u} · </small>{Math.round(f.primary.period)}<small> s</small></> : 'Unavailable'}</p>
-        <p className="s">{f.primary ? `${compass(f.primary.direction)} ${Math.round(f.primary.direction)}°` : ''}{f.secondary ? ` · 2nd ${ht(f.secondary.height, p)} ${u} ${Math.round(f.secondary.period)} s` : ''}</p></div>
-      <div className="tile"><p className="k">Wind</p>
-        <Dial facing={facingOf(spot)} arms={[Number.isFinite(f.wind.direction) ? {from: f.wind.direction, color: windInk(f.wind.speed), w: 3.5} : null]} />
-        <p className="v">{windVal(f.wind.speed, p)}<small> {p.windUnit} · gust {windVal(f.wind.gusts ?? null, p)}</small></p>
-        <p className="s">{compass(f.wind.direction)} · <span className={`chip ${relChip(rel)}`}>{rel === 'Unknown' ? 'Shore relation unknown' : rel}</span></p></div>
-      <div className="tile"><p className="k">Tide · regional</p>
-        <Spark values={series.slice(a, b).map((x) => x.forecast.tide.height)} index={i - a} color="var(--tide)" />
-        <p className="v">{ht(f.tide.height, p)}<small> {u} {f.tide.trend === 'Rising' ? '↑' : f.tide.trend === 'Falling' ? '↓' : ''}</small></p>
-        <p className="s">{next && next.height.value !== null ? `${next.type} ${ht(next.height.value, p)} ${u} at ${timeLabelPT(next.timestamp)}` : 'SF 9414290 · MLLW'}</p></div>
-      <div className="tile"><p className="k">Water</p>
-        <Spark values={series.map((x) => x.forecast.waterTempF ?? 0)} index={i} color="var(--sw2)" />
-        <p className="v">{f.waterTempF ? <>{f.waterTempF.toFixed(1)}<small> °F · {((f.waterTempF - 32) / 1.8).toFixed(1)} °C</small></> : 'Unavailable'}</p>
-        <p className="s">Sea surface · model · 7 days</p></div>
     </div>
   );
 }
@@ -280,6 +254,7 @@ export function ForecastView({section, go}: ViewProps) {
   if (!selected) return <StateMessage title={`No record for ${spot.name} at this hour`} action={<button className="btn" onClick={toNow}>Go to now</button>}>Values are never borrowed from other hours or spots.</StateMessage>;
 
   const isNow = selIdx === series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
+  const isToday = selected.date === series.find((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000)?.date;
   const shown = (hoverT && series.find((h) => h.timestamp === hoverT)) || selected;
   const shownNow = series.indexOf(shown) === series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
   const dayHours = curDay >= 0 ? series.slice(days[curDay].start, days[curDay].end + 1) : [];
@@ -292,26 +267,23 @@ export function ForecastView({section, go}: ViewProps) {
   const metaBits = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'Model forecast, ratings provisional' : 'Demonstration week, not live'];
   return (
     <div className="fc">
-      <header className="fc-head fc-hero">
-        <SpotPhoto spotId={spot.id} index={1} className="fc-hero-shot" />
-        <div className="fc-hero-in">
-          <div>
-            <h1>{spot.name}<button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={26} /></button></h1>
-            <p className="fc-sub">{metaBits.join(' · ')}</p>
-          </div>
-          <div className="fc-hero-act">
-            <div className="seg" role="radiogroup" aria-label="Range">
-              <button role="radio" aria-checked={dayIndex === null && !hourMode} onClick={() => { setHourMode(false); setDayIndex(null); }}>7 Days</button>
-              <button role="radio" aria-checked={dayIndex !== null && !hourMode} onClick={() => { setHourMode(false); setDayIndex(Math.max(0, curDay)); }}>Day</button>
-              <button role="radio" aria-checked={hourMode} onClick={() => setHourMode(true)}>Hour</button>
-            </div>
-            <button className="btn" onClick={toNow}>Now</button>
-            <button className="btn" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
-          </div>
-        </div>
-      </header>
+      <div className="fc-film">
+      <CineHero spot={spot} h={selected} p={p} isNow={isNow} meta={metaBits.join(' · ')} fav={fav} onFav={() => data.favorite(spot.id)} />
+      <TodayAt spot={spot} h={selected} p={p} extrema={extrema} isToday={isToday} />
+      <LitLine text={litSentence(spot, selected, p, series, isNow, isToday)} />
+      <Band spotId={spot.id} index={0} shot="band">The week<br />ahead.</Band>
+      </div>
       <div className="fc-body">
       <section className="fc-strip" aria-label="Selected hour">
+        <div className="fc-ctl">
+          <div className="seg" role="radiogroup" aria-label="Range">
+            <button role="radio" aria-checked={dayIndex === null && !hourMode} onClick={() => { setHourMode(false); setDayIndex(null); }}>7 Days</button>
+            <button role="radio" aria-checked={dayIndex !== null && !hourMode} onClick={() => { setHourMode(false); setDayIndex(Math.max(0, curDay)); }}>Day</button>
+            <button role="radio" aria-checked={hourMode} onClick={() => setHourMode(true)}>Hour</button>
+          </div>
+          <button className="btn" onClick={toNow}>Now</button>
+          <button className="btn" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
+        </div>
         <Readout h={shown} p={p} series={series} isNow={shownNow} preview={shown !== selected} spot={spot} />
         <div className="days" role="group" aria-label="Forecast day">
           {days.map((d, k) => d.end - d.start < 11 ? null : (
@@ -352,7 +324,6 @@ export function ForecastView({section, go}: ViewProps) {
               <span>{Number.isFinite(h.forecast.wind.direction) ? <><DirArrow from={h.forecast.wind.direction} size={13} color={windInk(h.forecast.wind.speed)} />{windVal(h.forecast.wind.speed, p)}</> : '—'}</span>
             </button></li>
           ))}</ol></section>
-        <section className="card fc-inst" aria-label="Instruments"><div className="card-h"><h2>Conditions</h2><span>{weekdayPT(selected.timestamp)} {hourLabel(selected.timestamp)}</span></div><Tiles h={selected} p={p} spot={spot} series={series} extrema={extrema} /></section>
       </div>
 
       <Nearby spot={spot} at={selected.timestamp} p={p} now={now} onOpen={setSpot} />
