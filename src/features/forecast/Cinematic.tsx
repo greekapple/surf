@@ -44,9 +44,11 @@ function useReveal<T extends HTMLElement>() {
 
 /** The selected hour's headline height, always with its honest label. */
 export function headline(h: HourSample, p: UserProfile) {
-  const est = faceEstimateView(h.forecast, p), u = p.heightUnit;
-  if (est?.state === 'range') return {big: est.text.replace(` ${u}`, ''), unit: u, label: `Est. ${est.text} at the break · model estimate, not measured`, short: `Est. ${est.text} at the break (model estimate, not measured)`};
-  if (h.heightFt !== null && Number.isFinite(h.heightFt)) { const v = ht(h.heightFt, p); return {big: v, unit: u, label: `${v} ${u} offshore · not surf size`, short: `${v} ${u} offshore, not surf size`}; }
+  const f = h.forecast, est = faceEstimateView(f, p), u = p.heightUnit;
+  if (est?.state === 'range') { const [n, ...unit] = est.text.split(' '); return {big: n, unit: unit.join(' '), label: `Est. ${est.text} at the break · model estimate, not measured`, short: `Est. ${est.text} at the break (model estimate, not measured)`}; }
+  // Demonstration records carry an illustrative face height; it is never presented as offshore Hs.
+  if (f.availability.face && Number.isFinite(f.face)) { const v = ht(f.face, p); return {big: v, unit: u, label: `${v} ${u} demonstration face · not live data`, short: `${v} ${u} demonstration face, not live data`}; }
+  if (Number.isFinite(f.offshore)) { const v = ht(f.offshore, p); return {big: v, unit: u, label: `${v} ${u} offshore · not surf size`, short: `${v} ${u} offshore, not surf size`}; }
   return {big: null, unit: u, label: 'No wave height for this hour', short: null};
 }
 
@@ -99,23 +101,25 @@ function Callout({k, v, s, cls}: {k: string; v: ReactNode; s: ReactNode; cls: st
 export function TodayAt({spot, h, p, extrema, isToday}: {spot: SurfSpot; h: HourSample; p: UserProfile; extrema: Extremum[]; isToday: boolean}) {
   const ref = useReveal<HTMLElement>();
   const f = h.forecast, u = p.heightUnit, rel = windRelationship(spot, f), facing = facingOf(spot);
-  const next = extrema.find((e) => Date.parse(e.timestamp) > Date.parse(h.timestamp) && e.height.value !== null);
+  const next = extrema.find((e) => Date.parse(e.timestamp) > Date.parse(h.timestamp));
   const trend = f.tide.trend === 'Rising' || f.tide.trend === 'Falling' ? f.tide.trend : null;
-  const hasSwell = !!f.primary && Number.isFinite(f.primary.height);
+  const pr = f.primary && Number.isFinite(f.primary.height) ? f.primary : null, se = f.secondary && Number.isFinite(f.secondary.height) ? f.secondary : null;
+  const fin = (n: number | null | undefined): n is number => typeof n === 'number' && Number.isFinite(n);
+  const swellBits = (s: NonNullable<typeof pr>) => [fin(s.period) ? `${Math.round(s.period)} s` : null, fin(s.direction) ? compass(s.direction) : null].filter(Boolean).join(' ');
   return (
     <section ref={ref} id="fc-today" className="fc-anno" data-shot="anno" aria-labelledby="fc-today-h">
       <h2 id="fc-today-h" className="anno-h rv">{isToday ? 'Today' : `${weekdayPT(h.timestamp)} ${dayNumPT(h.timestamp)}`} at {spot.name}</h2>
       <p className="anno-sub rv">{hourLabel(h.timestamp)} · the selected hour · plan view, not to scale</p>
       <div className="anno-grid">
-        <Callout cls="c-sw" k="Swell · offshore model" v={hasSwell ? <>{ht(f.primary!.height, p)}<small> {u}</small> {Math.round(f.primary!.period)}<small> s</small></> : '—'}
-          s={hasSwell ? <>from {compass(f.primary!.direction)} {Math.round(f.primary!.direction)}°{f.secondary ? ` · 2nd ${ht(f.secondary.height, p)} ${u} ${Math.round(f.secondary.period)} s ${compass(f.secondary.direction)}` : ''}</> : 'Not in this record'} />
+        <Callout cls="c-sw" k="Swell · offshore model" v={pr ? <>{ht(pr.height, p)}<small> {u}</small> {fin(pr.period) ? <>{Math.round(pr.period)}<small> s</small></> : <small>period —</small>}</> : '—'}
+          s={pr ? <>{fin(pr.direction) ? `from ${compass(pr.direction)} ${Math.round(pr.direction)}°` : 'direction not in record'}{se ? ` · 2nd ${ht(se.height, p)} ${u} ${swellBits(se)}`.trimEnd() : ''}</> : 'Not in this record'} />
         <Callout cls="c-wi" k="Wind" v={Number.isFinite(f.wind.speed) ? <>{windVal(f.wind.speed, p)}<small> {p.windUnit}</small></> : '—'}
-          s={Number.isFinite(f.wind.direction) ? <>from {compass(f.wind.direction)} · {rel === 'Unknown' ? 'shore relation unknown' : rel.toLowerCase()}{f.wind.gusts ? ` · gust ${windVal(f.wind.gusts, p)}` : ''}</> : 'Not in this record'} />
+          s={Number.isFinite(f.wind.direction) ? <>from {compass(f.wind.direction)} · {rel === 'Unknown' ? 'shore relation unknown' : rel.toLowerCase()}{fin(f.wind.gusts) ? ` · gust ${windVal(f.wind.gusts, p)}` : ''}</> : 'Not in this record'} />
         <div className="anno-vis rv"><SpotPlan h={h} facing={facing} /></div>
         <Callout cls="c-ti" k="Tide · San Francisco, MLLW" v={Number.isFinite(f.tide.height) ? <>{f.tide.height < 0 ? '-' : '+'}{ht(Math.abs(f.tide.height), p)}<small> {u}</small></> : '—'}
-          s={<>{trend ?? 'Trend unknown'}{next ? ` · ${next.type.toLowerCase()} ${ht(next.height.value, p)} ${u} at ${timeLabelPT(next.timestamp)}` : ''}</>} />
-        <Callout cls="c-wa" k="Water · sea surface model" v={f.waterTempF ? <>{Math.round(f.waterTempF)}<small> °F</small></> : '—'}
-          s={f.waterTempF ? `${((f.waterTempF - 32) / 1.8).toFixed(1)} °C` : 'Not in this record'} />
+          s={<>{trend ?? 'Trend unknown'}{next ? ` · ${next.type.toLowerCase()} ${next.height.value === null ? '(height not in record)' : `${ht(next.height.value, p)} ${u}`} at ${timeLabelPT(next.timestamp)}` : ''}</>} />
+        <Callout cls="c-wa" k="Water · sea surface model" v={fin(f.waterTempF) ? <>{Math.round(f.waterTempF)}<small> °F</small></> : '—'}
+          s={fin(f.waterTempF) ? `${((f.waterTempF - 32) / 1.8).toFixed(1)} °C` : 'Not in this record'} />
       </div>
     </section>
   );
