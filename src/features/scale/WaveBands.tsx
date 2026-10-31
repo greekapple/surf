@@ -33,9 +33,9 @@ export function WaveBands({forecast, compact, onOpen}: {forecast: Forecast; comp
   return (
     <div className={`wsc${compact ? ' wsc-compact' : ''}`}>
       <div className="wsc-stage">
-        <Media key={band.media} id={band.media} className="wsc-media" sizes={compact ? '(max-width: 860px) 100vw, 40vw' : '(max-width: 860px) 100vw, 70vw'} still={narrow && !loop} />
+        <Media key={band.media} id={band.media} className="wsc-media" eager sizes={compact ? '(max-width: 860px) 100vw, 40vw' : '(max-width: 860px) 100vw, 70vw'} still={(compact || narrow) && !loop} />
         <p className="wsc-band" aria-live="polite">{band.label}<small>band</small></p>
-        {entry?.video && narrow && !reduceMotion && <button type="button" className="wsc-loop" onClick={() => setLoop((v) => !v)} aria-pressed={loop}>{loop ? 'Show still' : 'Play loop'}</button>}
+        {entry?.video && (compact || narrow) && !reduceMotion && <button type="button" className="wsc-loop" onClick={() => setLoop((v) => !v)} aria-pressed={loop}>{loop ? 'Show still' : 'Play loop'}</button>}
       </div>
       <p className="wsc-src">{following ? <><b>{sel.label}</b>{sel.source !== 'none' && <> · showing the <b>{SCALE_BANDS[sel.band!].label}</b> band</>}</> : <>Browsing the <b>{band.label}</b> band · this hour is {sel.band === null ? 'not tied to a band' : <>in the <b>{SCALE_BANDS[sel.band].label}</b> band ({sel.label})</>}</>}</p>
       {following && sel.note && <p className="fine wsc-note">{sel.note}</p>}
