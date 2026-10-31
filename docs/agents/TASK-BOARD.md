@@ -327,3 +327,9 @@ User: "lets make some major improvements; the Porsche configurator is for the bo
 - **Owner:** lead (spike), then `engineering` wires it into Wave scale.
 - **Plan:** 1. Scene per height band: surf-zone wave mesh (face height = band midpoint, true metres), water shader + foam, sky/sun, a to-scale surfer (1.75 m) on a board at the wave's shoulder. 2. Render ~24 orbit angles per band (Eevee, 1280×720 + 640×360), plus a still for phones. 3. App: drag/swipe to spin through the angles (Porsche "n / 24" pattern), band selector unchanged, caption "3D illustration · approximate scale, not current conditions". 4. Scripts and .blend in `tools/blender/` so renders are reproducible.
 - **Status:** IN PROGRESS (lead spike)
+- **T-034:** DONE (merged; lead checks all pass incl. t034-density 11 screens, journeys 8/8).
+
+## T-037: Personal, Apple-Settings calm (last screen in the user's order)
+- **Owner:** `engineering` · **Owned:** `src/features/personal/*`
+- **Acceptance:** 1. No horizontally-scrolling section pills (390 shows "Board Pr…" cut off, blue selected pill off-theme): Personal becomes one grouped list like iOS Settings (Profile header → Favourite spots → Surf preferences → Units → Appearance → Data & privacy), each row opening its detail page with a back control; existing /personal/<section> URLs still resolve. 2. Light theme first, function-first (the profile summary and favourites in the first 390 screen), density rule. 3. Everything that works today keeps working (units, theme, favourites, preferences, export/import if present). 4. t034-density passes for Personal; journeys 8/8 (journey 6 "Personal units" updated only if the UI legitimately moved); 1440/390 before/after.
+- **Status:** OPEN
