@@ -4,21 +4,27 @@ import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {TINTS, type Look, type Template} from './looks';
 
 /** Scene units are inches: floor at y = 0. A board's own axes: +X nose, +Y deck, Z width. */
-export type Preset = 'deck' | 'bottom' | 'rail' | 'tail' | '360';
+export type Preset = 'deck' | 'bottom' | 'rail' | 'tail' | 'nose' | 'three' | '360';
+export type Anchor = 'nose' | 'tail' | 'fins' | 'rail';
+/** Screen position of a hotspot anchor in canvas CSS pixels; `on` is false when the board hides it or it is off screen. */
+export interface AnchorPos {x: number; y: number; on: boolean}
 export type Mode = 'lineup' | 'focus';
-export interface ShapeSpec {template: Template; length: number; width: number; thickness: number; volume: number}
+export interface ShapeSpec {template: Template; length: number; width: number; thickness: number; volume: number; /** Tail shape word from the board record; narrows or widens the template's tail (an approximation). */ tail?: string}
 /** One board on the rack. `tpl`/`tplKey` override the category template (a board traced from a photo). */
 export interface BoardEntry {id: string; spec: ShapeSpec; look: Look; tpl?: Promise<Tpl>; tplKey?: string; /** The user's own deck photo (JPEG data URL), straightened with the nose at the left. */ deckTex?: string}
 
 const WHITE = new THREE.Color(1, 1, 1);
 const WOOD = 0xbd9a68, FOAM = 0xece6d6;
-const FOCUS_Y = 24;          // height a single board hovers above the floor in Focus
+const FOCUS_Y = 15;          // height a single board hovers above the floor in Focus (low, so the contact shadow reads as the board's)
 /** Deck and bottom rest pose: nose pointing away from the viewer (camera azimuth -24°), twisted 25° for a three-quarter view, so the
  *  board reads upright and fills the stage height like the reference showroom instead of lying across it. */
 const STAND = THREE.MathUtils.degToRad(-24 + 90 - 25);
 const LEAN = THREE.MathUtils.degToRad(3.2);
 const GAP = 7;               // inches between boards on the rack
 const FILL_REF: Record<Template, number> = {shortboard: 0.52, fish: 0.57, longboard: 0.6, gun: 0.51, midlength: 0.55};
+/** Tail shapes as a width factor over the last 16% of the board, relative to the template's own tail. An approximation, not a shaped tail. */
+const TAIL_K: Record<string, number> = {pin: 0.6, 'rounded pin': 0.72, round: 0.84, diamond: 0.9, squash: 1, swallow: 1.06, square: 1.12};
+const TAIL_ZONE = -0.5 + 0.16;
 const base = () => (import.meta.env.BASE_URL ?? '/') + 'models/boards/';
 
 /** One loaded template: pristine vertex data so the shape can be re-derived from the dimensions at any time. */
@@ -165,6 +171,8 @@ export interface RoomSpec {fovY: number; position: [number, number, number]; for
 export interface StudioOptions {
   reducedMotion: boolean; onUserMove: () => void; onReady: () => void; onError: () => void;
   onPick: (id: string) => void;
+  /** Called after every rendered frame (hotspot overlays follow the board). */
+  onFrame?: () => void;
 }
 
 export class Studio {
@@ -208,10 +216,11 @@ export class Studio {
     this.opts = opts; this.reduced = opts.reducedMotion; this.mode = mode;
     const r = this.renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha: true, powerPreference: 'high-performance'});
     r.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-    r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.0;
+    r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.04;
     r.setClearColor(0x000000, 0);
     this.env = studioEnvironment(r);
-    this.scene.environment = this.env; this.scene.environmentIntensity = 1.25;
+    this.scene.environment = this.env; this.scene.environmentIntensity = 1.3;
+    this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d4cc, 0.55)); // light set: white wall above, pale floor bounce below
 
     // Gallery floor: a soft pool of light that fades into the CSS backdrop, so there is no hard horizon.
     this.floor = new THREE.Mesh(new THREE.PlaneGeometry(1500, 1500), new THREE.MeshBasicMaterial({
@@ -288,6 +297,7 @@ export class Studio {
       for (const rig of this.rigs.values()) this.pose(rig);
       this.renderer.render(this.scene, this.camera);
       this.dirty = false;
+      this.opts.onFrame?.();
     }
     if (this.spinOn || this.tween || moving || draw) this.raf = requestAnimationFrame(this.loop);
   };
@@ -329,7 +339,7 @@ export class Studio {
       rig.root.position.set(0, FOCUS_Y, 0); rig.root.rotation.y = this.spinAngle;
       rig.orient.quaternion.identity(); rig.flip.rotation.x = this.flipAngle;
       rig.shadowRoot.visible = rig.root.visible; rig.shadowRoot.position.set(0, 0.05, 0); rig.shadowRoot.rotation.y = this.spinAngle;
-      rig.shadow.scale.set(L * 1.25, rig.spec.width * 2.3, 1); mat.opacity = 0.55;
+      rig.shadow.scale.set(L * 1.12, rig.spec.width * 1.9, 1); mat.opacity = 0.62;
     } else {
       rig.root.visible = true;
       const x = Number.isFinite(rig.cx) ? rig.cx : rig.x;
@@ -377,6 +387,8 @@ export class Studio {
       case 'bottom': return {az: -24, el: 52, m: 1.0, flip: Math.PI, spin: STAND, target: new THREE.Vector3(0, y, 0)};
       case 'rail': return {az: 4, el: 7, m: 1.0, flip: 0, spin: 0, target: new THREE.Vector3(0, y - 1, 0)};
       case 'tail': return {az: -96, el: 20, m: 0.5, flip: 0, spin: 0, target: new THREE.Vector3(-L * 0.3, y - 1, 0)};
+      case 'nose': return {az: 84, el: 20, m: 0.5, flip: 0, spin: 0, target: new THREE.Vector3(L * 0.3, y - 1, 0)};
+      case 'three': return {az: 30, el: 36, m: 1.0, flip: 0, spin: STAND, target: new THREE.Vector3(0, y, 0)};
       default: return {az: 32, el: 22, m: 1.06, flip: 0, spin: 0, target: new THREE.Vector3(0, y, 0)};
     }
   }
@@ -391,11 +403,11 @@ export class Studio {
     // spin angle: its length across the frame, and at most L·sin(elevation) plus thickness tall. A whole-board sphere left a wide
     // stage half empty (T-016: the board filled ~55% of the stage height).
     const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2);
-    const d = p === 'tail' ? this.sphereDist(R * 0.5) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
+    const d = p === 'tail' || p === 'nose' ? this.sphereDist(R * 0.5) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
     return {s: new THREE.Spherical(Math.max(d, 20), Math.PI / 2 - THREE.MathUtils.degToRad(q.el), THREE.MathUtils.degToRad(q.az)), target: q.target, flip: q.flip};
   }
   private currentPose() {
-    if (this.mode === 'focus') return this.focusPose(this.preset ?? 'deck');
+    if (this.mode === 'focus') return this.focusPose(this.preset ?? 'three');
     return this.lineupPose(this.framing === 'all' ? 'all' : 'sel');
   }
   /** Room mode: the camera is exactly the Blender camera that rendered the backplate, so boards sit in the photo. */
@@ -427,7 +439,7 @@ export class Studio {
     this.kick();
   }
 
-  /** Focus presets (deck, bottom, rail, tail, 360). */
+  /** Focus presets (deck, bottom, rail, tail, nose, three-quarter, 360). */
   goTo(p: Preset) {
     if (this.mode !== 'focus') return;
     this.preset = p; this.spinOn = p === '360' && !this.reduced;
@@ -468,6 +480,44 @@ export class Studio {
     }
     this.floor.visible = !(rm && this.mode === 'lineup');
     this.layout(); for (const r of this.rigs.values()) this.pose(r); this.snapFrame();
+  }
+  /** Back to the preset the view started from (or the three-quarter view after a free orbit). */
+  reset(p: Preset = 'three') { if (this.mode === 'focus') this.goTo(p); else this.frame('all'); }
+  /** Where the hotspot anchors of the selected board are on screen (Focus only). Hidden anchors (behind the board, off screen) are off. */
+  anchors(): Record<Anchor, AnchorPos> | null {
+    const r = this.sel(); if (!r || this.mode !== 'focus' || !r.root.visible || !r.resin) return null;
+    const L = r.spec.length, T = r.spec.thickness;
+    r.root.updateWorldMatrix(true, true);
+    // Anchors come from the mesh itself (nose and tail tips, the widest rail point), so rocker and outline are respected; fins use one fin.
+    const ex = this.extremes(r);
+    const fin = r.fins.children[0];
+    const fins = fin ? fin.position.clone().add(new THREE.Vector3(0, -Math.min(3, T), 0)) : ex.tail.clone().add(new THREE.Vector3(L * 0.1, -T * 0.6, 0));
+    const local: Record<Anchor, THREE.Vector3> = {nose: ex.nose.clone().lerp(ex.mid, 0.07), tail: ex.tail.clone().lerp(ex.mid, 0.05), fins, rail: ex.rail};
+    const meshes: THREE.Object3D[] = [r.shape, r.fins], rect = this.canvas.getBoundingClientRect(), cam = this.camera.position, out = {} as Record<Anchor, AnchorPos>;
+    for (const k of Object.keys(local) as Anchor[]) {
+      const w = local[k].clone().applyMatrix4(r.flip.matrixWorld), ndc = w.clone().project(this.camera);
+      const dist = cam.distanceTo(w);
+      this.raycaster.set(cam, w.clone().sub(cam).normalize());
+      const hit = this.raycaster.intersectObjects(meshes, true)[0];
+      const hidden = !!hit && hit.distance < dist - Math.max(1.2, T * 0.6);
+      out[k] = {x: ((ndc.x + 1) / 2) * rect.width, y: ((1 - ndc.y) / 2) * rect.height, on: !hidden && Math.abs(ndc.x) < 0.94 && Math.abs(ndc.y) < 0.92 && ndc.z < 1};
+    }
+    return out;
+  }
+  private ext = new WeakMap<Rig, {key: string; nose: THREE.Vector3; tail: THREE.Vector3; rail: THREE.Vector3; mid: THREE.Vector3}>();
+  /** Nose tip, tail tip and widest rail point of a board's resin, in its flip space (inches); cached per shape. */
+  private extremes(r: Rig) {
+    const hit = this.ext.get(r); if (hit && hit.key === r.fillKey) return hit;
+    const pos = r.resin!.geometry.getAttribute('position') as THREE.BufferAttribute, L = r.spec.length, v = new THREE.Vector3();
+    const nose = new THREE.Vector3(-Infinity), tail = new THREE.Vector3(Infinity), rail = new THREE.Vector3(0, 0, -Infinity);
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i);
+      if (v.x > nose.x) nose.copy(v);
+      if (v.x < tail.x) tail.copy(v);
+      if (Math.abs(v.x) < 0.12 && v.z > rail.z) rail.copy(v);
+    }
+    const out = {key: r.fillKey, nose: nose.multiplyScalar(L), tail: tail.multiplyScalar(L), rail: rail.multiplyScalar(L), mid: new THREE.Vector3()};
+    this.ext.set(r, out); return out;
   }
   setSpin(on: boolean) { this.spinOn = on && !this.reduced && this.mode === 'focus'; this.kick(); }
   /** Keyboard alternative to dragging: turn, tilt and zoom in small steps. */
@@ -569,7 +619,8 @@ export class Studio {
     const L = s.length, kT = s.thickness / L / tpl.thickness, kW = s.width / L / tpl.width;
     const fill = s.volume / (s.length * s.width * s.thickness * 0.016387);
     const bulge = THREE.MathUtils.clamp((fill - FILL_REF[s.template]) * 1.6, -0.2, 0.2) * tpl.thickness;
-    const key = [rig.tplKey, L, kT.toFixed(4), kW.toFixed(4), bulge.toFixed(4)].join('|');
+    const tk = TAIL_K[(s.tail ?? '').trim().toLowerCase()] ?? 1;
+    const key = [rig.tplKey, L, kT.toFixed(4), kW.toFixed(4), bulge.toFixed(4), tk].join('|');
     if (key !== rig.fillKey) {
       rig.fillKey = key;
       for (const part of [tpl.resin, tpl.stringer]) {
@@ -579,7 +630,7 @@ export class Studio {
         for (let i = 0; i < pos.count; i++) {
           const y0 = p0[i * 3 + 1], z0 = p0[i * 3 + 2], yb = tpl.ymin[st[i]];
           const q = Math.min(1, Math.abs(z0) / half), dir = Math.max(-1, Math.min(1, nr[i * 3 + 1] * 3));
-          const x = p0[i * 3], y = yb + (y0 - yb) * kT + dir * bulge * Math.pow(q, 1.5), z = z0 * kW;
+          const x = p0[i * 3], y = yb + (y0 - yb) * kT + dir * bulge * Math.pow(q, 1.5), tt = THREE.MathUtils.clamp((TAIL_ZONE - x) / 0.16, 0, 1), z = z0 * kW * (1 + (tk - 1) * tt * tt);
           pos.setXYZ(i, x, y, z);
           // Weave coordinates in inches, laid along the board.
           uv.setXY(i, x * L, (z + Math.sign(z) * Math.abs(y) * 0.5) * L);

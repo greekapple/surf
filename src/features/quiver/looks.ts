@@ -31,7 +31,7 @@ export function templateFor(b: Pick<Surfboard, 'type' | 'length'>): Template {
   }
 }
 
-function finsFromText(b: Pick<Surfboard, 'fins' | 'type'>): FinSet {
+export function finsFromText(b: Pick<Surfboard, 'fins' | 'type'>): FinSet {
   const t = (b.fins ?? '').toLowerCase();
   if (t.includes('single')) return 'single';
   if (t.includes('twin')) return 'twin';
@@ -76,6 +76,7 @@ export function loadLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
   return sanitise(readAll()[b.id], defaultLook(b));
 }
 
-export function saveLook(id: string, look: Look) {
-  try { localStorage.setItem(LOOKS_KEY, JSON.stringify({...readAll(), [id]: look})); } catch { /* storage unavailable: the look stays for this session */ }
+/** False when browser storage refused the write (the look then lasts only for this session). */
+export function saveLook(id: string, look: Look): boolean {
+  try { localStorage.setItem(LOOKS_KEY, JSON.stringify({...readAll(), [id]: look})); return true; } catch { return false; }
 }
