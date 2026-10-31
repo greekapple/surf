@@ -10,7 +10,6 @@ import './home.css';
 
 /** Spots shown, clearly labelled, when nothing is saved. Chosen only because they have licence-cleared photos; not a personal list. */
 const POPULAR = ['spot-2', 'spot-0', 'spot-3'];
-const SENTENCE = 'Swello reads swell, wind and tide for the Northern and Central California coast, and says plainly what it knows and what it does not.';
 /** Image slots live in public/media/manifest.json: replace the entry to swap the picture (e.g. for an AI illustration). */
 const PANELS = [
   {area: 'forecast', slot: 'home-panel-forecast', title: 'Forecast', line: 'Swell, wind and tide for one spot.', icon: 'forecast'},
@@ -19,13 +18,13 @@ const PANELS = [
 ] as const;
 const BAND_WORD: Record<string, string> = {good: 'Good', fair: 'Fair', poor: 'Poor', none: 'No rating'};
 
-/** Where CSS scroll-driven animation is missing, mark scroll-lit words and panels as they pass the reading line. Reduced motion shows final states via CSS. */
+/** Where CSS scroll-driven animation is missing, mark panels as they pass the reading line. Reduced motion shows final states via CSS. */
 function useScrollFallback(root: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const el = root.current;
     if (!el || (typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()'))) return;
-    const targets = el.querySelectorAll('.lit-w, .home-panel');
-    // Neither scroll timelines nor IntersectionObserver: show everything rather than leave words dim and panels hidden.
+    const targets = el.querySelectorAll('.home-panel');
+    // Neither scroll timelines nor IntersectionObserver: show every panel rather than leave it hidden.
     if (typeof IntersectionObserver !== 'function') { targets.forEach((n) => n.classList.add('on')); return; }
     const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('on', e.isIntersecting || e.boundingClientRect.top < 0)), {rootMargin: '0px 0px -22% 0px'});
     targets.forEach((n) => io.observe(n));
@@ -84,9 +83,6 @@ export function HomeView({go}: ViewProps) {
         </ul>
       </section>
 
-      <section className="home-lit" aria-label="About Swello">
-        <p className="lit-sentence">{SENTENCE.split(' ').map((w, i) => <span key={i} className="lit-w">{w} </span>)}</p>
-      </section>
 
       <nav className="home-panels" aria-label="Where to go">
         {PANELS.map((t) => (

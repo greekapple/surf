@@ -286,3 +286,29 @@
 /* Loading state: a shimmer on the status chip instead of bare loading text */
 .xstatus[data-loading='true'] { background: linear-gradient(90deg, rgb(9 21 36) 30%, rgb(255 255 255 / 0.14) 50%, rgb(9 21 36) 70%) 0 0 / 300% 100%; animation: skel 1.4s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .xstatus[data-loading='true'] { animation: none; } }
+
+/* Phone density (T-034): 44 px controls, 12 px between control groups, nothing under 12 px, titles on the scale. */
+@media (max-width: 430px) {
+  .cmpx-h h1, .fs-h h1 { font-size: 28px; }
+  .cmpx-chips { gap: 12px; }
+  .cmpx-chips button, .cmpx-sort select { min-height: 44px; }
+  .cmpx-time { gap: 12px; }
+  .cx-hs, .fs-hs, .fs-row.big .fs-hs { font-size: 17px; }
+  .fs-sh, .fs-row.big .fs-name b { font-size: 20px; }
+  .cx-act, .fs-loc { gap: 12px; }
+  .fs-row { gap: 12px; }
+  .fs-row .iconbtn, .fs-row .star { width: 44px; height: 44px; }
+  .xlayers, .xcorner { gap: 12px; }
+  .xlayers { right: 12px; top: 12px; }
+  .xzoom button, .xtools button, .xlbtn, .xcollapse, .xplay { width: 44px; height: 44px; }
+  .xcollapse { margin-left: 4px; }
+  .xt-top, .xt-bot { gap: 12px; }
+  .xt-step button, .xt-range button, .xt-hor select { min-height: 44px; }
+  .xtime { gap: 12px; }
+  .xtime input[type='range'] { height: 44px; margin: 0; }
+  .xstatus, .xlegend small, .xl-bar span, .xleaf .leaflet-control-attribution { font-size: 12px; }
+  /* The attribution may wrap to two lines at 12 px: give it its own band above the time card and under the legend. */
+  .xleaf .leaflet-bottom { bottom: 176px; }
+  .xcorner { bottom: 222px; }
+  .xleaf .leaflet-control-attribution { margin-left: 12px; margin-right: 12px; line-height: 1.3; }
+}

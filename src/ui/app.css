@@ -362,3 +362,16 @@
   .favbar-end .spotbtn b { max-width: 190px; }
   .favbar:has(.favbar-end .spotbtn) .favbar-empty { display: none; }
 }
+
+/* ---------- Phone density (T-034, docs/design/REFERENCES-2026-10-31.md §3) ----------
+ * At 390: body 15–16, labels 12–13, section titles ≤ 22, page titles ≤ 30, the one hero number ≤ 56, 16 px gutters (--gutter),
+ * 12 px between controls, 44 px tap height. `main#main` outranks the per-screen classes so the scale holds everywhere. */
+@media (max-width: 430px) {
+  main#main h1 { font-size: 28px; line-height: 1.15; }
+  main#main :is(small, .fine, .chip, .k, .s, .pz-credit, .credit, .media-caption, summary, .leaflet-control-attribution) { font-size: 12px; }
+  main#main :is(button, .btn, [role='radio'], [role='tab'], summary, select, input:not([type='checkbox'], [type='radio'])) { min-height: 44px; }
+  main#main :is(.iconbtn, .star) { min-width: 44px; min-height: 44px; }
+  main#main :is(.btn, .seg button, [role='radio'], [role='tab'], .chip) { white-space: nowrap; }
+  .foot { gap: 0 16px; }
+  .foot a { display: inline-flex; align-items: center; min-height: 44px; }
+}

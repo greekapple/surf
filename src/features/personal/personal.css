@@ -175,3 +175,15 @@
 }
 .pz .field input, .pz .field select, .pz .field textarea { width: 100%; max-width: 100%; box-sizing: border-box; }
 .pz .field input[type='range'] { min-height: 24px; }
+
+/* Phone density (T-034): titles on the scale, 12 px minimum, 44 px controls, 12 px between them. */
+@media (max-width: 430px) {
+  .pz h1 { font-size: 28px; }
+  .pz h2 { font-size: 20px; }
+  .pz-side { gap: 12px; }
+  .pz-side button { min-height: 44px; }
+  .pz-avatar { font-size: 22px; }
+  .pz i, .pz li, .pz small, .pz .fine, .pz summary { font-size: 12px; }
+  .pz .field input[type='range'] { min-height: 44px; }
+  .pz .field { gap: 8px; }
+}
