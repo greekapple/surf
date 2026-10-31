@@ -32,6 +32,7 @@
 .spots-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; max-width: 1560px; margin: 0 auto; padding: 0 var(--pad) 16px; }
 .spots-head h2 { font: 700 clamp(28px, 3.4vw, 48px)/1 var(--display); letter-spacing: -0.02em; }
 .spots-head p { color: var(--muted); font-size: 14px; }
+.spots-note { padding: 3px 10px; border: 1px solid var(--line-2); border-radius: 99px; font-size: 12px !important; }
 .spot-rail { list-style: none; display: flex; gap: 12px; margin: 0; padding: 0 var(--pad) 8px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad); scrollbar-width: none; overscroll-behavior-x: contain; }
 .spot-rail::-webkit-scrollbar { display: none; }
 .spot-card { position: relative; isolation: isolate; flex: 0 0 min(78vw, 380px); aspect-ratio: 3 / 4; max-height: 62svh; overflow: hidden; border-radius: var(--r3); scroll-snap-align: start; color: #fff; background: #08121b; }

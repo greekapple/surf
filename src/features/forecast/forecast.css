@@ -295,3 +295,19 @@
 .fc .readout .est-none:hover::after, .fc .readout .est-none:focus-visible::after { opacity: 1; }
 
 .wc .wc-note { margin: 8px 0 0; }
+
+/* T-031: AI backdrops, dimmed, behind "Today at" and the lit sentence. Captions stay visible; legibility comes from the scrim. */
+.fc-anno-bg { position: relative; isolation: isolate; overflow: hidden; }
+.anno-bg, .lit-bg { position: absolute !important; inset: 0; z-index: -1; border-radius: 0; height: auto; background: #06090c; }
+.anno-bg :is(img, video) { filter: brightness(0.38) saturate(0.8); }
+.anno-bg::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #06090c 0%, rgb(6 9 12 / 0.55) 22%, rgb(6 9 12 / 0.55) 78%, #06090c 100%); }
+.lit-bg :is(img, video) { filter: brightness(0.3) saturate(0.8); }
+.lit-bg::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 50% 50%, rgb(6 9 12 / 0.35), #06090c 100%); }
+.anno-bg .media-caption, .lit-bg .media-caption { z-index: 2; background: none; padding: 0 var(--gutter) 8px; }
+.fc-lit { position: relative; isolation: isolate; overflow: clip; }
+.lit { z-index: 1; }
+@media (max-width: 860px) {
+  /* A short chapter, not a screen of dim type: about 60svh, the sentence centred in it. */
+  .fc-lit { height: 62svh; display: grid; place-items: center; }
+  .lit { position: relative; top: auto; }
+}

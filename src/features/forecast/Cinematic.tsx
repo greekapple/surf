@@ -3,7 +3,7 @@ import type {SurfSpot, UserProfile} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
 import {windRelationship} from '../../recommendation/sqi';
 import {SpotPhoto} from '../../ui/common';
-import {Media} from '../../ui/Media';
+import {Media, useNarrow} from '../../ui/Media';
 import {SPOT_PHOTOS} from '../../ui/photos';
 import {Icon} from '../../ui/Icon';
 import {windInk} from './charts';
@@ -53,10 +53,10 @@ export function headline(h: HourSample, p: UserProfile) {
 }
 
 export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot; h: HourSample; p: UserProfile; isNow: boolean; meta: string; fav: boolean; onFav: () => void}) {
-  const hd = headline(h, p);
+  const hd = headline(h, p), narrow = useNarrow();
   return (
     <header className="fc-head fc-cine" data-shot="hero">
-      <Shot spotId={spot.id} index={1} className="cine-shot" eager />
+      <Media id={narrow ? 'ai-forecast-loop-tall' : 'ai-forecast-hero-wide'} className="cine-shot" eager />
       {hd.big && <p className="cine-big" aria-hidden="true" style={{'--len': hd.big.length} as CSSProperties}><span key={hd.big}>{hd.big}</span><small>{hd.unit}</small></p>}
       <div className="cine-in">
         <p className="cine-when">{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)} · {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</p>
@@ -107,6 +107,8 @@ export function TodayAt({spot, h, p, extrema, isToday}: {spot: SurfSpot; h: Hour
   const fin = (n: number | null | undefined): n is number => typeof n === 'number' && Number.isFinite(n);
   const swellBits = (s: NonNullable<typeof pr>) => [fin(s.period) ? `${Math.round(s.period)} s` : null, fin(s.direction) ? compass(s.direction) : null].filter(Boolean).join(' ');
   return (
+    <div className="fc-anno-bg">
+    <Media id="ai-today-aerial" className="anno-bg" sizes="100vw" />
     <section ref={ref} id="fc-today" className="fc-anno" data-shot="anno" aria-labelledby="fc-today-h">
       <h2 id="fc-today-h" className="anno-h rv">{isToday ? 'Today' : `${weekdayPT(h.timestamp)} ${dayNumPT(h.timestamp)}`} at {spot.name}</h2>
       <p className="anno-sub rv">{hourLabel(h.timestamp)} · the selected hour · plan view, not to scale</p>
@@ -122,6 +124,7 @@ export function TodayAt({spot, h, p, extrema, isToday}: {spot: SurfSpot; h: Hour
           s={fin(f.waterTempF) ? `${((f.waterTempF - 32) / 1.8).toFixed(1)} °C` : 'Not in this record'} />
       </div>
     </section>
+    </div>
   );
 }
 
@@ -145,6 +148,7 @@ export function litSentence(spot: SurfSpot, h: HourSample, p: UserProfile, serie
 }
 
 export function LitLine({text}: {text: string}) {
+  const narrow = useNarrow();
   const ref = useRef<HTMLDivElement>(null);
   const words = text.split(' ');
   useEffect(() => {
@@ -154,7 +158,7 @@ export function LitLine({text}: {text: string}) {
     const spans = Array.from(root.querySelectorAll<HTMLElement>('.w'));
     // Progress through the pinned stretch; the scroll listener only runs while the block is on screen.
     let raf = 0;
-    const paint = () => { raf = 0; const r = root.getBoundingClientRect(), prog = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight) / 0.9)); spans.forEach((s, i) => s.classList.toggle('on', i < prog * spans.length)); };
+    const paint = () => { raf = 0; const r = root.getBoundingClientRect(), raw = r.height > innerHeight ? -r.top / Math.max(1, r.height - innerHeight) / 0.9 : (innerHeight * 0.9 - r.top) / (innerHeight * 0.7), prog = Math.max(0, Math.min(1, raw)); spans.forEach((s, i) => s.classList.toggle('on', i < prog * spans.length)); };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(paint); };
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { addEventListener('scroll', onScroll, {passive: true}); paint(); } else removeEventListener('scroll', onScroll); });
     io.observe(root);
@@ -162,6 +166,7 @@ export function LitLine({text}: {text: string}) {
   }, [text]);
   return (
     <div ref={ref} className="fc-lit" data-shot="lit">
+      <Media id={narrow ? 'ai-forecast-hero-tall' : 'ai-forecast-hero-wide'} className="lit-bg" sizes="100vw" />
       <p className="lit" style={{'--n': words.length} as CSSProperties}>{words.map((w, i) => <span key={i} className="w" style={{'--i': i} as CSSProperties}>{w} </span>)}</p>
     </div>
   );

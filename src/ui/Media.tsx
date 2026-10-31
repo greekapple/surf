@@ -9,6 +9,20 @@ function loadManifest(): Promise<MediaManifest | null> {
     .catch((e) => { console.error('Media: manifest unavailable, using built-in photos only', e); return null; });
   return manifestPromise;
 }
+/** True on phone-width screens; lets a page pick the tall or wide variant of an asset (e.g. ai-home-loop-tall / -wide). */
+export function useNarrow(max = 860) {
+  const q = `(max-width: ${max}px)`;
+  const [on, setOn] = useState(() => typeof matchMedia === 'function' && matchMedia(q).matches);
+  useEffect(() => {
+    if (typeof matchMedia !== 'function') return;
+    const m = matchMedia(q), f = () => setOn(m.matches);
+    f(); m.addEventListener('change', f);
+    return () => m.removeEventListener('change', f);
+  }, [q]);
+  return on;
+}
+/** Video is skipped (poster only) when the user asks to save data. */
+const saveData = () => !!(navigator as Navigator & {connection?: {saveData?: boolean}}).connection?.saveData;
 const useReducedMotion = () => {
   const [on, setOn] = useState(() => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches);
   useEffect(() => {
@@ -38,10 +52,12 @@ export function Media({id, className = '', hideCredit, eager, sizes = '100vw', a
   const [manifest, setManifest] = useState<MediaManifest | null | undefined>(undefined);
   const [failed, setFailed] = useState(false);
   const [near, setNear] = useState(!!eager);
+  const [videoFailed, setVideoFailed] = useState(false);
   const ref = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = useReducedMotion();
   useEffect(() => { let live = true; loadManifest().then((m) => live && setManifest(m)); return () => { live = false; }; }, []);
-  useEffect(() => { setFailed(false); }, [id]);
+  useEffect(() => { setFailed(false); setVideoFailed(false); }, [id]);
   useEffect(() => {
     if (near || !ref.current) return;
     if (typeof IntersectionObserver !== 'function') { setNear(true); return; }
@@ -49,6 +65,15 @@ export function Media({id, className = '', hideCredit, eager, sizes = '100vw', a
     io.observe(ref.current);
     return () => io.disconnect();
   }, [near]);
+
+  // Play only while on screen.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || typeof IntersectionObserver !== 'function') return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); });
+    io.observe(v);
+    return () => io.disconnect();
+  });
 
   let entry: MediaEntry | undefined = resolveMedia(id, manifest);
   // An AI asset that will not load is replaced by its fallback photo, which then carries the photo's own credit and no AI caption.
@@ -58,11 +83,11 @@ export function Media({id, className = '', hideCredit, eager, sizes = '100vw', a
   if (!entry) return manifest === undefined ? <figure ref={ref} className={`media media-wait ${className}`} aria-hidden="true" /> : null;
   const caption = captionFor(entry), pos = `${entry.focal[0]}% ${entry.focal[1]}%`;
   const poster = entry.sources[entry.sources.length - 1].src;
-  const playVideo = !!entry.video && !reduced && near;
+  const playVideo = !!entry.video && !reduced && !saveData() && !videoFailed && near;
   return (
     <figure ref={ref} className={`media media-${entry.kind} ${className}`} data-media-id={id} data-media-kind={entry.kind}>
       {playVideo
-        ? <video className="media-el" autoPlay loop muted playsInline preload="metadata" poster={poster} style={{objectPosition: pos}} aria-label={alt ?? entry.alt} onError={() => setFailed(true)}><source src={entry.video!.src} type={entry.video!.type} /></video>
+        ? <video ref={videoRef} className="media-el" autoPlay loop muted playsInline preload="metadata" poster={poster} style={{objectPosition: pos}} aria-label={alt ?? entry.alt} onError={() => { console.warn(`Media: video failed for ${id}, showing its poster`); setVideoFailed(true); }}><source src={entry.video!.src} type={entry.video!.type} /></video>
         : <img className="media-el" src={near ? poster : undefined} srcSet={near ? srcSet(entry) : undefined} sizes={sizes} alt={alt ?? entry.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={{objectPosition: pos}} onError={() => { console.warn(`Media: failed to load ${id}`); setFailed(true); }} />}
       {caption && <figcaption className="media-caption media-caption-ai">{caption}</figcaption>}
       {!caption && !hideCredit && !broken && <figcaption className="media-caption media-credit">{creditLine(entry)}</figcaption>}
