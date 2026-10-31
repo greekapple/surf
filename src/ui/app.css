@@ -369,4 +369,7 @@
   .topnav .areas.me-menu { display: flex; } /* phones keep the avatar (Personal) in the bar; the area links move to the tab bar */
   .me-area .area-more { display: none; }
   .favbar-end .spotbtn small, .favbar-edit { display: none; }
+  /* Phones: the spot switcher shows the whole name; with no saved spots the switcher is the only thing the strip needs. */
+  .favbar-end .spotbtn b { max-width: 190px; }
+  .favbar:has(.favbar-end .spotbtn) .favbar-empty { display: none; }
 }
