@@ -9,7 +9,7 @@ Images: model `nano_banana_2` (served as nano_banana_flash), 2k, 2 credits each.
 | ai-forecast-hero-tall-{1400,800}.jpg | c19865b0 | Cold NorCal beach break at dusk, wave lines head-on, fog, near-monochrome ink blue/slate/white, empty upper half, 9:16 |
 | ai-forecast-hero-wide-{2400,1400}.jpg | 8c4cb5b0 | Same scene, wide 16:9, headland and fog bank |
 | ai-forecast-loop-tall.mp4 | 44afa94c | From c19865b0: static camera, waves roll and break, foam spreads and recedes, fog drifts |
-| ai-forecast-loop-wide.mp4 | 97737d3f | From 8c4cb5b0: same motion, 16:9 (added when ready) |
+| ai-forecast-loop-wide.mp4 | 97737d3f | From 8c4cb5b0: same motion, 16:9 |
 | ai-home-hero-tall-{1400,800}.jpg | e0100928 | Foggy NorCal headland at dawn from a clifftop, cypress, swell wrapping a rocky point, 9:16 |
 | ai-home-hero-wide-{2400,1400}.jpg | b9125052 | Same, wide 16:9, open space on the right |
 | ai-home-loop-tall.mp4 / ai-home-loop-wide.mp4 | 09418c5b / 46e08d2b | From the home stills: static camera, swell wraps the point, mist drifts, trees sway |
