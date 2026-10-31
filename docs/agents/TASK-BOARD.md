@@ -297,3 +297,5 @@ User: "the websites look like they're injecting the Higgsfield to make everythin
 4. **AI imagery only as hero backdrop** (dimmed, caption kept). No AI image behind data (drop the aerial behind "Today at" and behind the summary). One video per page at most; poster-only on phones if it costs > 1 s of load.
 5. **Quiver:** rack, selected board's spec and Board Match visible in the first screen; giant type stays a backdrop.
 6. Existing checks plus a "first-viewport content" assertion per page; 1440/390 shots before/after.
+- **Theme (user, 2026-10-30):** "a minimalist white would be miles better" than the dark blue. Default is now light (pure white `--bg`), dark only when chosen (commit after 25e5a0c). No section may force the dark palette (`.on-dark`, "dark film" chapters) in the light theme; the only dark area allowed is the photo band itself, under its text scrim.
+- **Phone Forecast is one screen (user):** "you shouldn't have to scroll down to … 3D; it should basically all be one screen." The 390 first screen also carries the wave-scale entry (inline mini scale or a button), not only at the bottom.
