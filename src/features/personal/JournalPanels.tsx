@@ -58,24 +58,6 @@ function Row({s, x, spotName, i, onRemove}: {s: SurfSession; x: JournalExtra | u
   );
 }
 
-/** Dashboard column: latest entry featured, then the rest. */
-export function JournalColumn({sessions, extras, spotName, onAll, onLog}: Common & {onAll: () => void; onLog: () => void}) {
-  const [first, ...rest] = sessions;
-  return (
-    <section className="pz-panel pz-jr" aria-labelledby="pz-jr-h">
-      <div className="pz-ph"><h2 id="pz-jr-h">Surf Journal</h2><button className="pz-link" onClick={onAll}>View All <PIcon name="arrow" size={14} /></button></div>
-      {first ? (
-        <>
-          <Featured s={first} x={extras[first.id]} spotName={spotName} />
-          <ul className="pz-rows">{rest.slice(0, 3).map((s, i) => <Row key={s.id} s={s} x={extras[s.id]} spotName={spotName} i={i} />)}</ul>
-        </>
-      ) : (
-        <div className="pz-empty-box"><p className="pz-empty">No sessions logged yet. Your latest entry shows up here, with a photo if you add one.</p><button className="btn" onClick={onLog}><PIcon name="plus" size={16} />Log a session</button></div>
-      )}
-    </section>
-  );
-}
-
 export function JournalList({sessions, extras, spotName, onRemove}: Common & {onRemove: (id: string) => void}) {
   if (!sessions.length) return <p className="pz-empty">No sessions logged yet.</p>;
   const [first, ...rest] = sessions;

@@ -30,11 +30,14 @@ export const AREAS: AreaDef[] = [
     {id: 'compare', label: 'Compare Boards', hint: 'Two boards side by side'},
   ]},
   {id: 'personal', label: 'Personal', sections: [
-    {id: '', label: 'Profile', hint: 'Name and surfing ability'},
-    {id: 'spots', label: 'Saved Spots', hint: 'Favourites'},
-    {id: 'preferences', label: 'Preferences', hint: 'Units, scale, data source'},
+    {id: '', label: 'Personal', hint: 'Profile, favorites, preferences, units and data'},
+    {id: 'spots', label: 'Favorite Spots', hint: 'Favourites'},
+    {id: 'preferences', label: 'Surf preferences', hint: 'Wave range, swell, period and tide'},
     {id: 'journal', label: 'Surf Journal', hint: 'Your sessions'},
-    {id: 'account', label: 'Account', hint: 'Storage and backup'},
+    {id: 'account', label: 'Data & privacy', hint: 'Data source, storage and backup'},
+    {id: 'profile', label: 'Edit profile', hint: 'Name, region, photo and ability', hidden: true}, // pages of the grouped Personal list (T-037)
+    {id: 'units', label: 'Units', hint: 'Heights, wind and the wave scale', hidden: true},
+    {id: 'appearance', label: 'Appearance', hint: 'Theme', hidden: true},
     {id: 'privacy', label: 'Privacy', hint: 'What stays on your device', hidden: true},
     {id: 'terms', label: 'Terms', hint: 'Not a safety service', hidden: true},
   ]},
