@@ -643,6 +643,198 @@
     "src": "/media/ai/ai-forecast-loop-wide.mp4",
     "type": "video/mp4"
    }
+  },
+  "ai-scale-1-2ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 1–2 ft with a surfer for scale (knee-to-waist high); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-1-2ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-1-2ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "pacifica-linda-mar"
+  },
+  "ai-scale-2-3ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 2–3 ft with a surfer for scale (waist-to-chest high); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-2-3ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-2-3ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "bolinas-beach",
+   "video": {
+    "src": "/media/ai/ai-scale-2-3ft-loop.mp4",
+    "type": "video/mp4"
+   }
+  },
+  "ai-scale-3-4ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 3–4 ft with a surfer for scale (chest-to-head high); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-3-4ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-3-4ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "pacifica-state-beach-surfer",
+   "video": {
+    "src": "/media/ai/ai-scale-3-4ft-loop.mp4",
+    "type": "video/mp4"
+   }
+  },
+  "ai-scale-4-6ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 4–6 ft with a surfer for scale (head high to slightly overhead); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-4-6ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-4-6ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "surfer-wave-cc0",
+   "video": {
+    "src": "/media/ai/ai-scale-4-6ft-loop.mp4",
+    "type": "video/mp4"
+   }
+  },
+  "ai-scale-6-8ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 6–8 ft with a surfer for scale (well overhead); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-6-8ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-6-8ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "big-wave-santa-cruz",
+   "video": {
+    "src": "/media/ai/ai-scale-6-8ft-loop.mp4",
+    "type": "video/mp4"
+   }
+  },
+  "ai-scale-8-10ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 8–10 ft with a surfer for scale (double overhead); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-8-10ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-8-10ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "big-wave-santa-cruz"
+  },
+  "ai-scale-10-15ft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 10–15 ft with a surfer for scale (two to three times the surfer); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-10-15ft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-10-15ft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "big-wave-santa-cruz"
+  },
+  "ai-scale-15-plusft": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, approximate scale, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; approximate scale, not a photograph and not current conditions",
+   "alt": "AI illustration of a wave about 15+ with a surfer for scale (more than three times the surfer); approximate",
+   "sources": [
+    {
+     "src": "/media/ai/ai-scale-15-plusft-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-scale-15-plusft-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "big-wave-santa-cruz"
   }
  }
 }

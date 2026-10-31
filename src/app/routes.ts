@@ -14,7 +14,7 @@ export const AREAS: AreaDef[] = [
   ]},
   {id: 'forecast', label: 'Forecast', sections: [
     {id: '', label: 'Spot Forecast', hint: 'Swell, wind, tide and the wave scale on one page'},
-    {id: 'wave-scale', label: 'Wave Scale 3D', hint: 'Wave, surfer and board in 3D', hidden: true},
+    {id: 'wave-scale', label: 'Wave scale', hint: 'Illustrated wave sizes for the selected height', hidden: true},
   ]},
   {id: 'explore', label: 'Map', sections: [
     {id: '', label: 'Ocean Map', hint: 'Spots and conditions on the map'},
