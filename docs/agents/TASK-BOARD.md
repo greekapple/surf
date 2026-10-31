@@ -308,3 +308,16 @@ User: "the websites look like they're injecting the Higgsfield to make everythin
 
 ## T-032 addition: realistic board pictures
 - Assets `ai-board-{shortboard,fish,midlength,longboard,stepup,softtop}-{1400,700}.jpg`, white seamless, upright. Map by board type (see PROMPTS.md); "Other" keeps the outline. Each is labelled "Illustration of a <type> · AI-generated, not your board"; the user's own board photo (scan) wins when it exists; the real outline and spec values stay the source of truth for callouts.
+
+## Round 2026-10-31: phone density, board room, real 3D (user)
+User: "lets make some major improvements; the Porsche configurator is for the board room; the 3D wave-to-surfer comparison — use Unreal Engine if you can." Also (2026-10-30): "many things are crowded and oversized on the phone"; the Home "Swello reads … honest" line is filler; Higgsfield should be used for marketing/ads, sparse in-app. References: `docs/design/REFERENCES-2026-10-31.md`.
+
+## T-034: Phone density pass (all screens) + Home filler out
+- **Owner:** `engineering` · **Owned:** `src/features/{home,forecast,scale,personal,explore}/*`; `src/ui/app.css` / `tokens.css` type scale only (agreed by lead)
+- **Acceptance:** 1. Remove the Home scroll-lit "Swello reads swell, wind and tide …" sentence entirely (no replacement filler). 2. Type scale at ≤ 430 px per `REFERENCES-2026-10-31.md` §3: body 15–16, labels 12–13, section titles ≤ 22, page titles ≤ 30, the single hero number ≤ 56 (Home "Hello." included). 3. Gutters ≥ 16 px, ≥ 12 px between controls, one primary action per screen; no two-line chips/buttons at 390. 4. New `t034-density.mjs`: at 390 on Home, Forecast, Wave scale, Map, Personal, asserts max computed font-size per role, no text overflow/clipping, no element < 44 px tap height for controls, 0 px horizontal overflow. 5. Function-first assertions (t031-firstview) still pass. 6. tsc/test/build, journeys 8/8, before/after 390 shots of every screen.
+- **Status:** OPEN
+
+## T-035: Quiver board room, modelled on the Porsche configurator
+- **Owner:** `product` · **Owned:** `src/features/quiver/*` (incl. `studio.ts`)
+- **Acceptance:** 1. Board room view: one board large on a light set (white/very light grey floor + wall, soft contact shadow), real-time three.js from the board's real dimensions/outline, drag to orbit, inertia, reset. 2. Stage pill inside the stage: Angles · Compare · 360° · fullscreen; camera presets (deck, bottom, rail, tail, nose, ¾) as a thumbnail strip at 1440 and an "n / 6" counter + swipe at 390. 3. Hotspots on fins, tail, nose, rails open short real facts from the board record ("Twin · FCS II", "Swallow tail"); missing values say "Not recorded". 4. Option groups (Dimensions, Fins, Tail, Construction, Colour) as swatch rows on the right at 1440 / under the pinned stage at 390; changing colour/fins/tail updates the model live and saves to the board only on "Save". 5. Sticky phone bar: Board Match for today's selected spot + one action ("Use for today" or "Open Board Match"). 6. Compare: two boards side by side at true relative length. 7. Light theme first; dark works. 8. Phone density rule applies. 9. t023/t025/t032-first pass; new t035 script (orbit changes the camera, preset jumps, hotspot opens, option change updates the model, 0 overflow); 1440/390 next to the Porsche shots.
+- **Status:** OPEN
