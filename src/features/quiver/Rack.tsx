@@ -7,7 +7,7 @@ import {loadOutline, STATIONS, type Outline} from './outline';
 import {SpecCard, StageArrows, Strip} from './Overlay';
 
 /** A board standing on its tail, nose up. A traced board uses its own outline (and deck photo when scanned); any other board is the category outline in the board's colour. Never an exact scan unless the person scanned it. */
-function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline | null}) {
+export function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline | null}) {
   const id = useId().replace(/:/g, '');
   const look = loadLook(b);
   if (!outline) return <BoardOutline b={b} scale={px} color={look.deck} />;
@@ -28,7 +28,7 @@ function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline |
 
 /** My Boards: boards standing in a rack in front of the showroom backplate, the selected one larger, with the spec card and a thumbnail strip.
  *  Phones show one board at a time and swipe between them. Left/Right arrow keys step; the change is announced. */
-export function Rack({boards, selected, onSelect, onOpen3D}: {boards: Surfboard[]; selected: Surfboard; onSelect: (id: string) => void; onOpen3D: () => void}) {
+export function Rack({boards, selected, onSelect}: {boards: Surfboard[]; selected: Surfboard; onSelect: (id: string) => void}) {
   const row = useRef<HTMLUListElement>(null), items = useRef(new Map<string, HTMLLIElement>());
   const programmatic = useRef(0), settle = useRef<number>(0), first = useRef(true);
   const [avail, setAvail] = useState(380);
@@ -92,7 +92,7 @@ export function Rack({boards, selected, onSelect, onOpen3D}: {boards: Surfboard[
           </ul>
         </div>
         <StageArrows onStep={step} />
-        <SpecCard board={selected} dims={selected} action={<button type="button" className="qv-cta" onClick={onOpen3D}>View in 3D <span aria-hidden="true">→</span></button>} />
+        <SpecCard board={selected} dims={selected} action={null} /> {/* View in 3D lives on the annotated stage above (T-032) */}
       </div>
       <Strip boards={boards} selectedId={selected.id} onSelect={onSelect} />
       <p className="sr-only" role="status" aria-live="polite">{said}</p>

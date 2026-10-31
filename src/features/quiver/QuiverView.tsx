@@ -11,6 +11,7 @@ import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
 import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
+import {BoardStage} from './Stage';
 import {SpecCard, StageArrows, Strip} from './Overlay';
 import {ScanPanel, type Scan} from './ScanPanel';
 import './quiver.css';
@@ -148,7 +149,9 @@ export function QuiverView({section, go}: ViewProps) {
       {section === '' && (
         sel && (
           <>
-            <Rack boards={boards} selected={sel} onSelect={select} onOpen3D={() => { select(sel.id); go('quiver', 'showroom'); }} />
+            <BoardStage board={sel} maxLen={maxLen} onStep={step} onOpen3D={() => { select(sel.id); go('quiver', 'showroom'); }} />
+            <h2 className="qv-rack-h">Your rack</h2>
+            <Rack boards={boards} selected={sel} onSelect={select} />
             <section className="qv-selected" aria-label="Selected board">
               <p className="fine">{sel.name} · {[sel.manufacturer, sel.model].filter(Boolean).join(' · ') || 'Shaper not recorded'}</p>
               <div className="qv-actions">{A(sel)}</div>
