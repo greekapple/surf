@@ -311,6 +311,102 @@
    "licence": "CC0",
    "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
    "source": "https://commons.wikimedia.org/wiki/File:Surfer_surfing_the_wave_(Unsplash).jpg"
+  },
+  "home-hero": {
+   "kind": "photo",
+   "alt": "Ocean Beach, San Francisco",
+   "sources": [
+    {
+     "src": "/photos/ob-sunset-negative-tide-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/ob-sunset-negative-tide-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Sunset_at_Ocean_Beach_in_San_Francisco.jpg"
+  },
+  "home-panel-forecast": {
+   "kind": "photo",
+   "alt": "Ocean Beach, San Francisco",
+   "sources": [
+    {
+     "src": "/photos/ocean-beach-fog-clearing-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/ocean-beach-fog-clearing-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/ocean-beach-fog-clearing-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "Brocken Inaglory",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Fog_ot_Ocean_Beach_in_San_Francisco_is_clearing_up.jpg"
+  },
+  "home-panel-map": {
+   "kind": "photo",
+   "alt": "Bolinas, Marin",
+   "sources": [
+    {
+     "src": "/photos/bolinas-beach-wide-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/bolinas-beach-wide-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "flamenc",
+   "licence": "CC BY-SA 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Platja_de_Bolinas_-_Bolinas_Beach.jpg"
+  },
+  "home-panel-quiver": {
+   "kind": "photo",
+   "alt": "Pacifica State Beach (Linda Mar)",
+   "sources": [
+    {
+     "src": "/photos/pacifica-state-beach-surfer-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/photos/pacifica-state-beach-surfer-1600.jpg",
+     "width": 1600
+    },
+    {
+     "src": "/photos/pacifica-state-beach-surfer-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "credit": "BrokenSphere",
+   "licence": "CC BY 3.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Surfer_at_Pacifica_State_Beach_1.JPG"
   }
  }
 }
