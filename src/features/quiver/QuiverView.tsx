@@ -135,7 +135,7 @@ export function QuiverView({section, go}: ViewProps) {
   // One honest line from Board Match for the selected board: its score and rank at the selected hour, or why there is none.
   const mi = sel ? matches.findIndex((m) => m.board.id === sel.id) : -1, mm = mi >= 0 ? matches[mi] : null;
   const matchLine = !faceOk ? <><b>Board Match:</b> no recommendation for {view.spot.name}. Live data has offshore height only, which is not surf size.</>
-    : mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</> : null;
+    : mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</> : null;
   const A = (b: Surfboard) => (
     <div className="qv-actions">
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
