@@ -3,7 +3,7 @@ import type {Surfboard} from '../../models/index';
 import {Icon} from '../../ui/Icon';
 import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
-import {SWATCHES, loadLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
+import {SWATCHES, finsFromText, loadLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
 import {tracedTpl} from './traced';
 import {Studio, type Anchor, type BoardEntry, type Preset} from './studio';
@@ -28,7 +28,16 @@ const said = (v: string | undefined) => (v && v.trim() ? v.trim() : null);
 const finWord = (f: FinSet) => FIN_SETS.find((x) => x.id === f)!.label;
 
 interface Draft {id: string; dims: Dims; look: Look; tail: string; construction: string}
-const fresh = (b: Surfboard): Draft => ({id: b.id, dims: pickDims(b), look: loadLook(b), tail: said(b.tail) ?? '', construction: said(b.construction) ?? ''});
+/** The board as saved. Recorded fins win over the stored look, so the model and the fins fact never disagree. */
+const savedOf = (b: Surfboard): Draft => {
+  const look = loadLook(b);
+  return {id: b.id, dims: pickDims(b), look: said(b.fins) ? {...look, fins: finsFromText(b)} : look, tail: said(b.tail) ?? '', construction: said(b.construction) ?? ''};
+};
+/** Unsaved drafts survive leaving the board room (Edit, Board Match, another board) for this browser session; Save or Discard clears them. */
+const DRAFTS = 'swello-boardroom-drafts';
+const readDrafts = (): Record<string, Draft> => { try { const v = JSON.parse(sessionStorage.getItem(DRAFTS) ?? '{}'); return v && typeof v === 'object' ? v : {}; } catch { return {}; } };
+const keepDraft = (dr: Draft | null, id: string) => { try { const all = readDrafts(); if (dr) all[id] = dr; else delete all[id]; sessionStorage.setItem(DRAFTS, JSON.stringify(all)); } catch { /* no session storage: the draft lasts while the board room is open */ } };
+const fresh = (b: Surfboard): Draft => { const k = readDrafts()[b.id]; return k && k.id === b.id && k.dims && k.look ? k : savedOf(b); };
 
 /** A tiny board drawn from one camera angle, for the angle thumbnails. */
 function AngleGlyph({id}: {id: Exclude<Preset, '360'>}) {
@@ -61,22 +70,28 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
   const uid = useId();
   const wrap = useRef<HTMLDivElement>(null), host = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), studio = useRef<Studio | null>(null);
   const hot = useRef<Partial<Record<Anchor, HTMLButtonElement | null>>>({});
-  const [draft, setDraft] = useState<Draft>(() => fresh(board));
+  const [draft, setDraftState] = useState<Draft>(() => fresh(board));
   const d = draft.id === board.id ? draft : fresh(board);
-  if (draft.id !== board.id) setDraft(d); // another board selected: its own saved values, unsaved edits are dropped
+  if (draft.id !== board.id) setDraftState(d); // another board selected: its own saved values, or its unsaved draft from this session
+  const setDraft = (next: Draft) => { setDraftState(next); keepDraft(next, next.id); };
   const [angle, setAngle] = useState(0);
   const angleRef = useRef(0); angleRef.current = angle;
   const [compare, setCompare] = useState<string | null>(null);
   const [spin, setSpin] = useState(false);
+  const spinRef = useRef(false); spinRef.current = spin;
+  const canFull = typeof document !== 'undefined' && !!document.fullscreenEnabled;
   const [full, setFull] = useState(false);
-  const [open, setOpen] = useState<Anchor | null>(null);
+  const [open, setOpenState] = useState<Anchor | null>(null);
+  const setOpen = (k: Anchor | null) => { openRef.current = k; setOpenState(k); };
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState('');
   const noMotion = useRef(reduced()).current;
 
   // Hotspots follow the board every rendered frame (written straight to the DOM, no React re-render per frame).
+  const openRef = useRef<Anchor | null>(null);
   const place = () => {
     const a = studio.current?.anchors();
+    if (openRef.current && !a?.[openRef.current]?.on) { openRef.current = null; setOpen(null); }
     for (const k of ['nose', 'tail', 'fins', 'rail'] as Anchor[]) {
       const el = hot.current[k]; if (!el) continue;
       const p = a?.[k];
@@ -108,7 +123,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
     void s.setBoards(now ? [entry(board, true), entry(other!, false)] : [entry(board, true)], board.id).then(() => {
       if (now) { if (was !== now) s.frame('all'); return; }
       // First view, or back from Compare: the chosen angle, still (setMode starts an auto-spin we do not want here).
-      if (was !== null) { s.setSpin(false); s.goTo(ANGLES[angleRef.current].id); }
+      if (was !== null) { if (spinRef.current) s.goTo('360'); else { s.setSpin(false); s.goTo(ANGLES[angleRef.current].id); } }
     });
   }, [board.id, other?.id, d.dims.length, d.dims.width, d.dims.thickness, d.dims.volume, d.tail, JSON.stringify(d.look)]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -124,10 +139,10 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
   };
   const toggleSpin = () => { if (compare) setCompare(null); const on = !spin; setSpin(on); if (on) studio.current?.goTo('360'); else studio.current?.setSpin(false); setStatus(on ? '360° turning' : '360° stopped'); };
   const reset = () => { setSpin(false); studio.current?.setSpin(false); studio.current?.reset(ANGLES[angle].id); setStatus('View reset'); };
-  const toggleFull = () => { if (document.fullscreenElement) void document.exitFullscreen(); else void wrap.current?.requestFullscreen?.(); };
+  const toggleFull = () => { (document.fullscreenElement ? document.exitFullscreen() : wrap.current?.requestFullscreen?.())?.catch(() => setStatus('Full screen is not available here')); };
   const startCompare = () => {
     if (compare) { setCompare(null); return; }
-    const pick = boards.filter((b) => b.id !== board.id).sort((a, b) => Math.abs(a.length - board.length) - Math.abs(b.length - board.length)).pop();
+    const pick = boards.filter((b) => b.id !== board.id).sort((a, b) => Math.abs(a.length - board.length) - Math.abs(b.length - board.length))[0]; // the closest length first
     if (pick) { setSpin(false); setCompare(pick.id); setStatus(`Comparing with ${pick.name}`); }
   };
 
@@ -147,7 +162,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
   };
 
   // Draft editing; Save writes the board record and the look together.
-  const saved = fresh(board);
+  const saved = savedOf(board);
   const setDims = (k: keyof Dims, v: number) => setDraft({...d, dims: {...d.dims, [k]: +v.toFixed(3)}});
   const setLook = (p: Partial<Look>) => setDraft({...d, look: {...d.look, ...p}});
   const dirty = JSON.stringify([d.dims, d.look, d.tail, d.construction]) !== JSON.stringify([saved.dims, saved.look, saved.tail, saved.construction]);
@@ -156,9 +171,10 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
     if (!valid) return;
     const finsChanged = d.look.fins !== saved.look.fins;
     onSave({...board, ...d.dims, tail: d.tail || board.tail, construction: d.construction || board.construction, fins: finsChanged ? finWord(d.look.fins) : board.fins});
-    saveLook(board.id, d.look); setStatus('Saved to this board');
+    const lookStored = saveLook(board.id, d.look); keepDraft(null, board.id);
+    setStatus(lookStored ? 'Saved to this board' : 'Saved the numbers, fins and tail. The colour and finish could not be stored in this browser, so they last only for this visit.');
   };
-  const discard = () => { setDraft(fresh(board)); setStatus('Changes discarded'); };
+  const discard = () => { keepDraft(null, board.id); setDraftState(savedOf(board)); setStatus('Changes discarded'); };
 
   // Hotspot facts come from the saved record; a draft change says so.
   const facts: Record<Anchor, {k: string; v: string; note?: string}> = {
@@ -179,14 +195,14 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
       <button type="button" aria-pressed={spin} onClick={toggleSpin} disabled={noMotion} title={noMotion ? 'Off: reduced motion' : undefined}>360°</button>
       <span className="br-sep" aria-hidden="true" />
       <button type="button" className="ic" aria-label="Reset view" onClick={reset}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 4v3.5h3.5" /></svg></button>
-      <button type="button" className="ic" aria-label={full ? 'Exit full screen' : 'Full screen'} aria-pressed={full} onClick={toggleFull}><svg viewBox="0 0 20 20" aria-hidden="true"><path d={full ? 'M8 3v5H3M12 3v5h5M8 17v-5H3M12 17v-5h5' : 'M3 8V3h5M17 8V3h-5M3 12v5h5M17 12v5h-5'} /></svg></button>
+      {canFull && <button type="button" className="ic" aria-label={full ? 'Exit full screen' : 'Full screen'} aria-pressed={full} onClick={toggleFull}><svg viewBox="0 0 20 20" aria-hidden="true"><path d={full ? 'M8 3v5H3M12 3v5h5M8 17v-5H3M12 17v-5h5' : 'M3 8V3h5M17 8V3h-5M3 12v5h5M17 12v5h-5'} /></svg></button>}
     </div>
   );
 
   return (
     <div className="br">
       <div className="br-stagecol">
-        <div className={`br-stage${full ? ' full' : ''}`} ref={wrap} onPointerDown={onDown} onPointerUp={onUp}>
+        <div className={`br-stage${full ? ' full' : ''}`} ref={wrap} onPointerDown={onDown} onPointerUp={onUp} onKeyDown={(e) => { if (e.key === 'Escape' && open) setOpen(null); }}>
           <div className="br-canvas" ref={host}>
             <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={cmpBoard ? `${board.name} and ${cmpBoard.name} side by side at true relative length.` : `3D view of ${board.name}. ${shapeNote} Drag or use the arrow keys to turn it, plus and minus to zoom.`} />
           </div>
@@ -196,7 +212,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
               aria-label={`${facts[k].k}: ${facts[k].v}`} onClick={() => setOpen(open === k ? null : k)}><i aria-hidden="true" /></button>
           ))}
           {open && !cmpBoard && (
-            <div id={`${uid}-pop`} className="br-pop" role="dialog" aria-label={facts[open].k} onKeyDown={(e) => { if (e.key === 'Escape') setOpen(null); }}>
+            <div id={`${uid}-pop`} className="br-pop" role="status" aria-label={facts[open].k}>
               <span className="k">{facts[open].k}</span><b>{facts[open].v}</b>{facts[open].note && <span className="n">{facts[open].note}</span>}
               <button type="button" className="x" aria-label="Close" onClick={() => setOpen(null)}><Icon name="close" size={14} /></button>
             </div>
