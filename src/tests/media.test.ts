@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {AI_CAPTION, captionFor, creditLine, entryProblems, resolveMedia, srcSet, type MediaEntry, type MediaManifest} from '../ui/mediaModel.ts';
+import {AI_CAPTION, SLOT_DEFAULTS, captionFor, creditLine, entryProblems, resolveMedia, srcSet, type MediaEntry, type MediaManifest} from '../ui/mediaModel.ts';
 const manifest = JSON.parse(readFileSync(new URL('../../public/media/manifest.json', import.meta.url), 'utf8')) as MediaManifest;
 const photo: MediaEntry = {kind: 'photo', alt: 'Ocean Beach', sources: [{src: '/photos/a-800.jpg', width: 800}], focal: [50, 50], credit: 'A', licence: 'CC BY 4.0'};
 const ai: MediaEntry = {kind: 'ai-illustration', alt: 'Swell lines', sources: [{src: '/media/x.jpg', width: 1200}], focal: [40, 60], credit: 'Higgsfield', licence: 'Generated', caption: AI_CAPTION, fallback: 'p'};
@@ -40,4 +40,11 @@ test('fallback: with no manifest the existing CC photos still resolve; unknown i
   assert.equal(resolveMedia('nope', null), undefined); assert.equal(resolveMedia('ocean-beach-seal-rocks', {version: 1, entries: {}})!.kind, 'photo');
   assert.equal(resolveMedia('x', {version: 1, entries: {x: ai}}), ai); // the manifest wins
   assert.equal(srcSet(photo), '/photos/a-800.jpg 800w');
+});
+
+test('Home slots resolve to a CC photo even when the manifest is missing or lacks them', () => {
+  for (const slot of Object.keys(SLOT_DEFAULTS)) {
+    assert.equal(resolveMedia(slot, null)!.kind, 'photo', slot); assert.equal(resolveMedia(slot, {version: 1, entries: {}})!.kind, 'photo', slot);
+    assert.equal(manifest.entries[slot].kind, 'photo', slot); // also in the manifest, so one entry swaps the picture
+  }
 });

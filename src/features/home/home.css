@@ -104,3 +104,6 @@
   .home-lit { padding-block: clamp(32px, 6svh, 72px); }
   .home-panel { min-height: clamp(260px, 30svh, 360px); }
 }
+.spot-note { justify-self: start; margin-bottom: 4px; font: 400 11px/1.2 var(--sans); font-style: normal; color: rgb(255 255 255 / 0.8); }
+.spot-empty { flex: 1; padding: 0 0 8px; color: var(--muted); font-size: 15px; }
+.home-panel { background: #08121b; }

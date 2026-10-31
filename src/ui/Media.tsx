@@ -5,7 +5,8 @@ import {captionFor, creditLine, resolveMedia, srcSet, type MediaEntry, type Medi
 let manifestPromise: Promise<MediaManifest | null> | undefined;
 /** Loaded once from /media/manifest.json so assets can be dropped in without a rebuild; null if it cannot be read. */
 function loadManifest(): Promise<MediaManifest | null> {
-  manifestPromise ??= fetch('/media/manifest.json').then((r) => (r.ok ? (r.json() as Promise<MediaManifest>) : null)).catch(() => null);
+  manifestPromise ??= fetch('/media/manifest.json').then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() as Promise<MediaManifest>; })
+    .catch((e) => { console.error('Media: manifest unavailable, using built-in photos only', e); return null; });
   return manifestPromise;
 }
 const useReducedMotion = () => {
@@ -28,10 +29,12 @@ export interface MediaProps {
   /** Load straight away instead of when it nears the viewport (use for the top image on a page). */
   eager?: boolean;
   sizes?: string;
+  /** Overrides the entry's alt text; use "" for a decorative image or when the photo is not of the thing it sits beside. */
+  alt?: string;
 }
 
 /** An image, or a looping muted video with a poster, with its focal point, credit and (for AI art) the required caption. */
-export function Media({id, className = '', hideCredit, eager, sizes = '100vw'}: MediaProps) {
+export function Media({id, className = '', hideCredit, eager, sizes = '100vw', alt}: MediaProps) {
   const [manifest, setManifest] = useState<MediaManifest | null | undefined>(undefined);
   const [failed, setFailed] = useState(false);
   const [near, setNear] = useState(!!eager);
@@ -49,7 +52,9 @@ export function Media({id, className = '', hideCredit, eager, sizes = '100vw'}: 
 
   let entry: MediaEntry | undefined = resolveMedia(id, manifest);
   // An AI asset that will not load is replaced by its fallback photo, which then carries the photo's own credit and no AI caption.
-  if (entry && failed && entry.fallback) entry = resolveMedia(entry.fallback, manifest);
+  const swappable = !!(entry && failed && entry.fallback), broken = failed && !swappable;
+  if (swappable) entry = resolveMedia(entry!.fallback!, manifest);
+  if (!entry && manifest !== undefined) console.warn(`Media: no entry or built-in photo for "${id}"`);
   if (!entry) return manifest === undefined ? <figure ref={ref} className={`media media-wait ${className}`} aria-hidden="true" /> : null;
   const caption = captionFor(entry), pos = `${entry.focal[0]}% ${entry.focal[1]}%`;
   const poster = entry.sources[entry.sources.length - 1].src;
@@ -57,10 +62,10 @@ export function Media({id, className = '', hideCredit, eager, sizes = '100vw'}: 
   return (
     <figure ref={ref} className={`media media-${entry.kind} ${className}`} data-media-id={id} data-media-kind={entry.kind}>
       {playVideo
-        ? <video className="media-el" autoPlay loop muted playsInline preload="metadata" poster={poster} style={{objectPosition: pos}} aria-label={entry.alt} onError={() => setFailed(true)}><source src={entry.video!.src} type={entry.video!.type} /></video>
-        : <img className="media-el" src={near ? poster : undefined} srcSet={near ? srcSet(entry) : undefined} sizes={sizes} alt={entry.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={{objectPosition: pos}} onError={() => setFailed(true)} />}
+        ? <video className="media-el" autoPlay loop muted playsInline preload="metadata" poster={poster} style={{objectPosition: pos}} aria-label={alt ?? entry.alt} onError={() => setFailed(true)}><source src={entry.video!.src} type={entry.video!.type} /></video>
+        : <img className="media-el" src={near ? poster : undefined} srcSet={near ? srcSet(entry) : undefined} sizes={sizes} alt={alt ?? entry.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" style={{objectPosition: pos}} onError={() => { console.warn(`Media: failed to load ${id}`); setFailed(true); }} />}
       {caption && <figcaption className="media-caption media-caption-ai">{caption}</figcaption>}
-      {!caption && !hideCredit && <figcaption className="media-caption media-credit">{creditLine(entry)}</figcaption>}
+      {!caption && !hideCredit && !broken && <figcaption className="media-caption media-credit">{creditLine(entry)}</figcaption>}
     </figure>
   );
 }

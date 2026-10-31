@@ -23,9 +23,12 @@ const BAND_WORD: Record<string, string> = {good: 'Good', fair: 'Fair', poor: 'Po
 function useScrollFallback(root: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const el = root.current;
-    if (!el || typeof IntersectionObserver !== 'function' || (typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()'))) return;
+    if (!el || (typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()'))) return;
+    const targets = el.querySelectorAll('.lit-w, .home-panel');
+    // Neither scroll timelines nor IntersectionObserver: show everything rather than leave words dim and panels hidden.
+    if (typeof IntersectionObserver !== 'function') { targets.forEach((n) => n.classList.add('on')); return; }
     const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('on', e.isIntersecting || e.boundingClientRect.top < 0)), {rootMargin: '0px 0px -22% 0px'});
-    el.querySelectorAll('.lit-w, .home-panel').forEach((n) => io.observe(n));
+    targets.forEach((n) => io.observe(n));
     return () => io.disconnect();
   }, [root]);
 }
@@ -61,13 +64,17 @@ export function HomeView({go}: ViewProps) {
           {!personal && <p>Not personalised. Star a spot on its forecast to keep it here.</p>}
         </header>
         <ul className="spot-rail">
+          {cards.length === 0 && <li className="spot-empty">None of your saved spots are available right now. Open the forecast to pick another.</li>}
           {cards.map((c, i) => {
-            const photo = SPOT_PHOTOS[c.id]?.[0] ?? GENERIC_PHOTOS[i % GENERIC_PHOTOS.length], band = bandOf(c.category);
+            const own = SPOT_PHOTOS[c.id]?.[0], photo = own ?? GENERIC_PHOTOS[i % GENERIC_PHOTOS.length], band = bandOf(c.category);
+            // Say what the chip is: demonstration data, no rating, flat, or the model rating.
+            const word = c.demo ? 'Demo data' : c.category === 'FLAT' ? 'Flat' : BAND_WORD[band];
             return (
               <li key={c.id} className="spot-card" style={{'--band': BAND_COLOR[band]} as React.CSSProperties}>
-                <Media id={photo} className="spot-media" sizes="(max-width: 860px) 80vw, 360px" />
-                <a className="spot-a" {...link('forecast')} onClick={openSpot(c.id)} aria-label={`${c.name}, ${c.region}. ${BAND_WORD[band]} conditions. Open forecast`}>
-                  <span className="spot-band"><i aria-hidden="true" />{BAND_WORD[band]}</span>
+                <Media id={photo} className="spot-media" sizes="(max-width: 860px) 80vw, 360px" alt={own ? undefined : ''} />
+                <a className="spot-a" {...link('forecast')} onClick={openSpot(c.id)} aria-label={`${c.name}, ${c.region}. ${word}. Open forecast`}>
+                  <span className="spot-band"><i aria-hidden="true" />{word}</span>
+                  {!own && <em className="spot-note">Illustrative photo, not this spot</em>}
                   <b>{c.name}</b><small>{c.region}</small>
                 </a>
               </li>
@@ -83,7 +90,7 @@ export function HomeView({go}: ViewProps) {
       <nav className="home-panels" aria-label="Where to go">
         {PANELS.map((t) => (
           <div key={t.area} className="home-panel">
-            <Media id={t.slot} className="panel-media plx" sizes="100vw" />
+            <Media id={t.slot} className="panel-media plx" sizes="100vw" alt="" />
             <div className="panel-in">
               <a className="panel-a" {...link(t.area)}><h2>{t.title}</h2></a>
               <p>{t.line}</p>
