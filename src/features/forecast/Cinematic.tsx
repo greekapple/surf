@@ -3,7 +3,7 @@ import type {SurfSpot, UserProfile} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
 import {windRelationship} from '../../recommendation/sqi';
 import {SpotPhoto} from '../../ui/common';
-import {Media} from '../../ui/Media';
+import {Media, useNarrow} from '../../ui/Media';
 import {SPOT_PHOTOS} from '../../ui/photos';
 import {Icon} from '../../ui/Icon';
 import {windInk} from './charts';
@@ -52,20 +52,46 @@ export function headline(h: HourSample, p: UserProfile) {
   return {big: null, unit: u, label: 'No wave height for this hour', short: null};
 }
 
-export function CineHero({spot, h, p, isNow, meta, fav, onFav}: {spot: SurfSpot; h: HourSample; p: UserProfile; isNow: boolean; meta: string; fav: boolean; onFav: () => void}) {
-  const hd = headline(h, p);
+export function CineHero({spot, h, p, isNow, meta, fav, onFav, onScale}: {spot: SurfSpot; h: HourSample; p: UserProfile; isNow: boolean; meta: string; fav: boolean; onFav: () => void; onScale: () => void}) {
+  const hd = headline(h, p), narrow = useNarrow();
   return (
     <header className="fc-head fc-cine" data-shot="hero">
-      <Shot spotId={spot.id} index={1} className="cine-shot" eager />
-      {hd.big && <p className="cine-big" aria-hidden="true" style={{'--len': hd.big.length} as CSSProperties}><span key={hd.big}>{hd.big}</span><small>{hd.unit}</small></p>}
+      {/* A hero band only: phones get the still (the loop costs ~3 MB), wider screens the loop. */}
+      <Media id={narrow ? 'ai-forecast-hero-tall' : 'ai-forecast-loop-wide'} className="cine-shot" eager />
+      {hd.big &&<p className="cine-big" aria-hidden="true" style={{'--len': hd.big.length} as CSSProperties}><span key={hd.big}>{hd.big}</span><small>{hd.unit}</small></p>}
       <div className="cine-in">
         <p className="cine-when">{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)} · {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</p>
         <h1>{spot.name}<button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={onFav}><Icon name="star" size={26} /></button></h1>
         <p className="cine-h"><Condition category={h.rating.category} chip /><span className="cine-lab" key={h.timestamp}>{hd.label}</span></p>
+        <AnswerRow spot={spot} h={h} p={p} onScale={onScale} />
         <p className="fc-sub">{meta}</p>
       </div>
     </header>
   );
+}
+
+/** Wind and tide for the selected hour, in the hero so the first screen answers "how is it". Each value keeps its unit and relation; missing values say so. */
+function AnswerRow({spot, h, p, onScale}: {spot: SurfSpot; h: HourSample; p: UserProfile; onScale: () => void}) {
+  const f = h.forecast, rel = windRelationship(spot, f), trend = f.tide.trend === 'Rising' || f.tide.trend === 'Falling' ? f.tide.trend.toLowerCase() : null;
+  const windOk = Number.isFinite(f.wind.speed), tideOk = Number.isFinite(f.tide.height);
+  return (
+    <ul className="cine-facts" aria-label="Wind and tide for this hour">
+      <li><span>Wind</span><b>{windOk ? `${windVal(f.wind.speed, p)} ${p.windUnit}` : '—'}</b>
+        <em>{windOk && Number.isFinite(f.wind.direction) ? `${compass(f.wind.direction)} · ${rel === 'Unknown' ? 'shore relation unknown' : rel.toLowerCase()}` : 'not in this record'}</em></li>
+      <li><span>Tide</span><b>{tideOk ? `${f.tide.height < 0 ? '-' : '+'}${ht(Math.abs(f.tide.height), p)} ${p.heightUnit}` : '—'}</b><em>{tideOk ? (trend ?? 'trend unknown') : 'not in this record'}</em></li>
+      <li className="cine-scale"><button type="button" onClick={onScale}>Wave scale<Icon name="forecast" size={14} /></button></li>
+    </ul>
+  );
+}
+
+/** The spot's own photograph with its credit (or, for spots without one, a generic photo labelled as such). Real photography, never the AI hero. */
+export function SpotShot({spotId}: {spotId: string}) {
+  return <Shot spotId={spotId} index={0} className="spot-shot" />;
+}
+
+/** One short paragraph from the selected hour (replaces the full-screen lit sentence). Clauses without data are left out by litSentence. */
+export function Summary({text}: {text: string}) {
+  return <p className="fc-summary">{text}</p>;
 }
 
 const pt = (deg: number, r: number) => [160 + r * Math.sin((deg * Math.PI) / 180), 160 - r * Math.cos((deg * Math.PI) / 180)];
@@ -125,7 +151,7 @@ export function TodayAt({spot, h, p, extrema, isToday}: {spot: SurfSpot; h: Hour
   );
 }
 
-/** One sentence from the selected hour, lit word by word as it scrolls through. Clauses without data are left out, never filled in. */
+/** One sentence from the selected hour, shown as the summary paragraph. Clauses without data are left out, never filled in. */
 export function litSentence(spot: SurfSpot, h: HourSample, p: UserProfile, series: HourSample[], isNow: boolean, isToday: boolean) {
   const f = h.forecast, hd = headline(h, p), rel = windRelationship(spot, f), bits: string[] = [];
   if (hd.short) bits.push(hd.short);
@@ -137,42 +163,9 @@ export function litSentence(spot: SurfSpot, h: HourSample, p: UserProfile, serie
   }
   const when = isNow ? 'right now' : isToday ? `today at ${hourLabel(h.timestamp)}` : `on ${weekdayPT(h.timestamp)} at ${hourLabel(h.timestamp)}`;
   const head = `${conditionWord(h.rating.category)} at ${spot.name} ${when}`;
-  // Numbers stay on one line with their units, so a word-by-word reveal never splits '8.9 mph'.
+  // Numbers stay on one line with their units.
   const glue = (t: string) => t.replace(/(\d) (ft|m|mph|kts|km\/h|AM|PM)\b/g, '$1\u00a0$2');
   if (!bits.length) return `${head}.`;
   const [first, ...rest] = bits;
   return glue(`${head}: ${first}${rest.length ? `, with ${rest.length > 1 ? `${rest.slice(0, -1).join(', ')} and ${rest[rest.length - 1]}` : rest[0]}` : ''}.`);
-}
-
-export function LitLine({text}: {text: string}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const words = text.split(' ');
-  useEffect(() => {
-    const root = ref.current;
-    if (!root || scrollDriven() || reduced() || typeof IntersectionObserver === 'undefined') return;
-    root.classList.add('io');
-    const spans = Array.from(root.querySelectorAll<HTMLElement>('.w'));
-    // Progress through the pinned stretch; the scroll listener only runs while the block is on screen.
-    let raf = 0;
-    const paint = () => { raf = 0; const r = root.getBoundingClientRect(), prog = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight) / 0.9)); spans.forEach((s, i) => s.classList.toggle('on', i < prog * spans.length)); };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(paint); };
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { addEventListener('scroll', onScroll, {passive: true}); paint(); } else removeEventListener('scroll', onScroll); });
-    io.observe(root);
-    return () => { io.disconnect(); removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); root.classList.remove('io'); };
-  }, [text]);
-  return (
-    <div ref={ref} className="fc-lit" data-shot="lit">
-      <p className="lit" style={{'--n': words.length} as CSSProperties}>{words.map((w, i) => <span key={i} className="w" style={{'--i': i} as CSSProperties}>{w} </span>)}</p>
-    </div>
-  );
-}
-
-/** Full-bleed photograph that drifts slower than the page, with one line of display type. */
-export function Band({spotId, index, children, shot}: {spotId: string; index: number; children: ReactNode; shot: string}) {
-  return (
-    <section className="cine-band" data-shot={shot}>
-      <Shot spotId={spotId} index={index} className="band-shot" />
-      <h2 className="band-h">{children}</h2>
-    </section>
-  );
 }

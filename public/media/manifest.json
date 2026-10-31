@@ -407,6 +407,242 @@
    "licence": "CC BY 3.0",
    "licenceUrl": "https://creativecommons.org/licenses/by/3.0",
    "source": "https://commons.wikimedia.org/wiki/File:Surfer_at_Pacifica_State_Beach_1.JPG"
+  },
+  "ai-forecast-hero-tall": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of a foggy California beach break at dusk, not this spot",
+   "sources": [
+    {
+     "src": "/media/ai/ai-forecast-hero-tall-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/media/ai/ai-forecast-hero-tall-1400.jpg",
+     "width": 1400
+    }
+   ],
+   "focal": [
+    50,
+    60
+   ],
+   "fallback": "ocean-beach-fog-clearing"
+  },
+  "ai-forecast-hero-wide": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of a foggy California beach break at dusk, not this spot",
+   "sources": [
+    {
+     "src": "/media/ai/ai-forecast-hero-wide-1400.jpg",
+     "width": 1400
+    },
+    {
+     "src": "/media/ai/ai-forecast-hero-wide-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    60
+   ],
+   "fallback": "ocean-beach-fog-clearing"
+  },
+  "ai-forecast-loop-tall": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of waves rolling onto a California beach in fog, not this spot",
+   "sources": [
+    {
+     "src": "/media/ai/ai-forecast-hero-tall-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/media/ai/ai-forecast-hero-tall-1400.jpg",
+     "width": 1400
+    }
+   ],
+   "video": {
+    "src": "/media/ai/ai-forecast-loop-tall.mp4",
+    "type": "video/mp4"
+   },
+   "focal": [
+    50,
+    60
+   ],
+   "fallback": "ocean-beach-fog-clearing"
+  },
+  "ai-home-hero-tall": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of a foggy California headland at dawn",
+   "sources": [
+    {
+     "src": "/media/ai/ai-home-hero-tall-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/media/ai/ai-home-hero-tall-1400.jpg",
+     "width": 1400
+    }
+   ],
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "ob-sunset-negative-tide"
+  },
+  "ai-home-hero-wide": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of a foggy California headland at dawn",
+   "sources": [
+    {
+     "src": "/media/ai/ai-home-hero-wide-1400.jpg",
+     "width": 1400
+    },
+    {
+     "src": "/media/ai/ai-home-hero-wide-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    40,
+    55
+   ],
+   "fallback": "ob-sunset-negative-tide"
+  },
+  "ai-home-loop-tall": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of swell wrapping a foggy California headland at dawn",
+   "sources": [
+    {
+     "src": "/media/ai/ai-home-hero-tall-800.jpg",
+     "width": 800
+    },
+    {
+     "src": "/media/ai/ai-home-hero-tall-1400.jpg",
+     "width": 1400
+    }
+   ],
+   "video": {
+    "src": "/media/ai/ai-home-loop-tall.mp4",
+    "type": "video/mp4"
+   },
+   "focal": [
+    50,
+    55
+   ],
+   "fallback": "ob-sunset-negative-tide"
+  },
+  "ai-home-loop-wide": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of swell wrapping a foggy California headland at dawn",
+   "sources": [
+    {
+     "src": "/media/ai/ai-home-hero-wide-1400.jpg",
+     "width": 1400
+    },
+    {
+     "src": "/media/ai/ai-home-hero-wide-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "video": {
+    "src": "/media/ai/ai-home-loop-wide.mp4",
+    "type": "video/mp4"
+   },
+   "focal": [
+    40,
+    55
+   ],
+   "fallback": "ob-sunset-negative-tide"
+  },
+  "ai-today-aerial": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration: top-down view of swell lines on a California beach, not this spot",
+   "sources": [
+    {
+     "src": "/media/ai/ai-today-aerial-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-today-aerial-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "fallback": "ocean-beach-low-tide-sun"
+  },
+  "ai-board-studio": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "AI-generated studio backdrop of a shortboard from above, not the user’s board",
+   "sources": [
+    {
+     "src": "/media/ai/ai-board-studio-900.jpg",
+     "width": 900
+    },
+    {
+     "src": "/media/ai/ai-board-studio-1600.jpg",
+     "width": 1600
+    }
+   ],
+   "focal": [
+    50,
+    50
+   ],
+   "fallback": "surfer-wave-cc0"
+  },
+  "ai-forecast-loop-wide": {
+   "kind": "ai-illustration",
+   "caption": "Illustration · AI-generated, not current conditions",
+   "credit": "Generated with Higgsfield (nano_banana_2, seedance_2_5)",
+   "licence": "AI-generated for SWELLO; not a photograph and not current conditions",
+   "alt": "Generic AI illustration of waves rolling onto a California beach in fog, not this spot",
+   "sources": [
+    {
+     "src": "/media/ai/ai-forecast-hero-wide-1400.jpg",
+     "width": 1400
+    },
+    {
+     "src": "/media/ai/ai-forecast-hero-wide-2400.jpg",
+     "width": 2400
+    }
+   ],
+   "focal": [
+    50,
+    60
+   ],
+   "fallback": "ocean-beach-fog-clearing",
+   "video": {
+    "src": "/media/ai/ai-forecast-loop-wide.mp4",
+    "type": "video/mp4"
+   }
   }
  }
 }

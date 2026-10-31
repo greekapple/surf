@@ -2,7 +2,7 @@ import {useEffect, useMemo, useRef} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {GENERIC_PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
-import {Media} from '../../ui/Media';
+import {Media, useNarrow} from '../../ui/Media';
 import {Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {spotStrip} from '../../services/spotStrip';
@@ -37,6 +37,7 @@ function useScrollFallback(root: React.RefObject<HTMLElement | null>) {
 export function HomeView({go}: ViewProps) {
   const {data, now, spotOptions, view, setSpot} = useSwello();
   const rootRef = useRef<HTMLDivElement>(null);
+  const narrow = useNarrow();
   useScrollFallback(rootRef);
   const name = data.state.profile.displayName?.trim().split(/\s+/)[0];
   const hour = Number(new Intl.DateTimeFormat('en-US', {hour: 'numeric', hourCycle: 'h23', timeZone: 'America/Los_Angeles'}).format(now));
@@ -49,7 +50,7 @@ export function HomeView({go}: ViewProps) {
   return (
     <div className="home" ref={rootRef}>
       <section className="home-hero" aria-labelledby="home-h">
-        <Media id="home-hero" className="hero-media plx" eager sizes="100vw" />
+        <Media id={narrow ? 'ai-home-hero-tall' : 'ai-home-loop-wide'} className="hero-media plx" eager sizes="100vw" />
         <div className="hero-in">
           <p className="greet">{greeting}</p>
           <h1 id="home-h">{name ? <>Hello, {name}.</> : 'Hello.'}</h1>
@@ -61,7 +62,7 @@ export function HomeView({go}: ViewProps) {
       <section className="home-spots" aria-labelledby="spots-h">
         <header className="spots-head">
           <h2 id="spots-h">{personal ? 'Your spots' : 'Popular spots'}</h2>
-          {!personal && <p>Not personalised. Star a spot on its forecast to keep it here.</p>}
+          {!personal && <p className="spots-note">Not personalised</p>}
         </header>
         <ul className="spot-rail">
           {cards.length === 0 && <li className="spot-empty">None of your saved spots are available right now. Open the forecast to pick another.</li>}
