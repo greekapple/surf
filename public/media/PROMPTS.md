@@ -17,3 +17,30 @@ Images: model `nano_banana_2` (served as nano_banana_flash), 2k, 2 credits each.
 | ai-board-studio-{1600,900}.jpg | 2e78bdc1 | Shortboard from directly above on dark concrete, softbox light, no logos |
 
 Spend: 6 images × 2 + 5 videos × 56 = 292 credits (+1 retry refused by a preset suggestion, no charge). Balance before: 1210.
+
+## Round 2 (2026-10-30, user-approved budget up to 500 more credits)
+Wave-scale stills, `nano_banana_2` 2k 16:9, side-on from the channel, surfer for scale, face not identifiable. The size is approximate: AI cannot guarantee a face height, so these show a band, labelled "Illustration · approximate scale".
+
+| File | Job | Band / prompt |
+|---|---|---|
+| ai-scale-1-2ft-{1600,900}.jpg | 7e52939d | knee-to-waist, beach break |
+| ai-scale-2-3ft-* | 24714197 | waist-to-chest |
+| ai-scale-3-4ft-* | 98333ffb | chest-to-head |
+| ai-scale-4-6ft-* | be806d9c | head-high to slightly overhead |
+| ai-scale-6-8ft-* | d5970621 | well overhead (~1.5× surfer) |
+| ai-scale-8-10ft-* | d0c4a9df | double overhead |
+| ai-scale-10-15ft-* | b94c104f | 2–3× surfer, outer reef, from a boat |
+| ai-scale-15-plusft-* | f9126683 | 3×+ surfer, big-wave reef |
+
+Board renders, `nano_banana_2` 2k 9:16, upright, deck to camera, white seamless, no logos. Representative of a board TYPE, never the user's own board.
+
+| File | Job | Type mapping |
+|---|---|---|
+| ai-board-shortboard-{1400,700}.jpg | 00536f23 | Performance/Everyday shortboard, Groveler |
+| ai-board-fish-* | df5e76ba | Fish |
+| ai-board-midlength-* | dca4cb11 | Hybrid, Midlength, Funboard |
+| ai-board-longboard-* | 4041ed98 | Longboard |
+| ai-board-stepup-* | 5c532017 | Step-up, Gun |
+| ai-board-softtop-* | efc74dfd | Soft-top |
+
+Spend round 2 so far: 14 images × 2 = 28 credits; 4 band loops (2–3, 3–4, 4–6, 6–8 ft, 6 s, 720p) × ~42–56 pending.
