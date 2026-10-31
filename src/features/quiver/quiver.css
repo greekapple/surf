@@ -6,14 +6,6 @@
 .qv .btn, .qv .field input, .qv .field select { min-height: 44px; }
 .qv-form { max-width: 920px; }
 .qv-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.qv-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
-.qv-card { display: grid; grid-template-rows: 250px auto; width: 100%; padding: 0; text-align: left; border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line); overflow: hidden; cursor: pointer; color: var(--text); transition: border-color 160ms var(--ease); }
-.qv-card:hover { border-color: var(--line-2); }
-.qv-card[aria-pressed='true'] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-.qv-card-stage { display: grid; place-items: center; padding: 12px; background: radial-gradient(80% 90% at 50% 40%, var(--stage-a), var(--stage-b)); }
-.qv-card-meta { display: grid; gap: 2px; padding: 12px 14px 14px; }
-.qv-card-meta b { font: 600 22px/1.1 var(--serif); }
-.qv-card-meta span { color: var(--muted); font-size: 12.5px; }
 .qv-selected { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 18px; border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line); }
 
 .qv-show { display: grid; gap: 14px; }
@@ -57,8 +49,6 @@
 
 @media (max-width: 860px) {
   .qv-head .btn { flex: none; }
-  .qv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .qv-card { grid-template-rows: 210px auto; }
   .qv-row { min-height: 420px; padding: 20px 12px 30px; justify-content: flex-start; }
   .qv-arrow { top: 34%; margin-top: 0; width: 44px; height: 44px; }
   .qv-flat-note { padding: 8px 12px; }
