@@ -17,7 +17,7 @@ import {ScanPanel, type Scan} from './ScanPanel';
 import './quiver.css';
 
 // three.js and the board models load only when the Showroom opens.
-const Showroom = lazy(() => import('./Showroom'));
+const BoardRoom = lazy(() => import('./BoardRoom'));
 
 const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortboard' as BoardType, length: `6'0"`, width: '19 1/4', thickness: '2 1/2', volume: '30', fins: 'Thruster', tail: '', notes: ''};
 type Path = 'dims' | 'scan';
@@ -80,7 +80,7 @@ function BoardForm({initial, onSave, onCancel, onDirty}: {initial?: Surfboard; o
 
 const TITLES: Record<string, {h: string; sub: string}> = {
   '': {h: 'My Boards', sub: 'Your collection'},
-  showroom: {h: 'Showroom', sub: 'Boards lined up at one scale'},
+  showroom: {h: 'Showroom', sub: 'Inspect and configure one board'},
   match: {h: 'Board Match', sub: 'Which board for these conditions'},
   compare: {h: 'Compare Boards', sub: 'Two boards side by side, same scale'},
 };
@@ -183,7 +183,7 @@ export function QuiverView({section, go}: ViewProps) {
             </div>
           ) : (
             <Suspense fallback={<div className="qv-studio"><div className="qv-stagewrap"><div className="qv-stage"><div className="skel" aria-hidden="true"><i style={{height: 240}} /></div></div><SpecCard board={sel} dims={sel} action={null} /></div></div>}>
-              <Showroom board={sel} boards={boards} onSelect={select} onSave={data.saveBoard} onFail={() => setFlat(true)} />
+              <BoardRoom board={sel} boards={boards} onSave={data.saveBoard} onFail={() => setFlat(true)} match={matchLine} matchAction={<button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>} />
             </Suspense>
           )}
           <div className="qv-showbar">
