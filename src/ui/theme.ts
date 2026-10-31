@@ -5,14 +5,14 @@ export type ThemePref = 'system' | 'light' | 'dark';
 export const THEME_KEY = 'swello-theme';
 export const THEME_PREFS: readonly ThemePref[] = ['system', 'light', 'dark'];
 /** Keep in sync with the inline pre-paint script and meta theme-color in index.html. */
-const META_COLOR = {light: '#f5f5f7', dark: '#0a131c'} as const;
+const META_COLOR = {light: '#ffffff', dark: '#0a131c'} as const;
 
 export function readThemePref(): ThemePref {
   try {
     const v = localStorage.getItem(THEME_KEY);
-    return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; // dark cinematic (the user's reference images) is the default; light stays available
+    return v === 'light' || v === 'dark' || v === 'system' ? v : 'light'; // minimal white is the default (user, 2026-10-30); dark stays available
   } catch {
-    return 'dark';
+    return 'light';
   }
 }
 
