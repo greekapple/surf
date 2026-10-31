@@ -288,3 +288,12 @@ User: "watch the video … use any reference website similar … i want it to be
 - **Owner:** `product` · **Owned:** `src/features/quiver/*`
 - **Acceptance:** 1. Selected board as the subject on a dark stage (`ai-board-studio` as an AI-labelled studio backdrop/reference only; the user's board is still drawn from its real outline), giant length in `var(--display)` behind it. 2. Callouts on hairline leaders to the real spec values (length, width, thickness, volume, fins/tail when known), revealed on scroll; missing values say so. 3. Rack/thumbnail switching, Add board, View in 3D, scan and Board Match keep working (t023, t025 pass). 4. Motion rules as T-027. 5. tsc/test/build, journeys 8/8, 1440/390 before/after next to frame g345, 0 px overflow.
 - **Status:** OPEN
+
+## Function-first rule (user, 2026-10-30, overrides the cinematic briefs where they conflict)
+User: "the websites look like they're injecting the Higgsfield to make everything look super cinematic … this still should have a priority of functionality and forecasting." Cinematic treatment is an accent, never the content. Applies to T-031, T-032 and every later screen:
+1. **Answer first.** 390×844 Forecast first screen shows, without scrolling: spot name, rating, height with its honest label, wind (speed + shore relation), tide (height + trend) and the start of the day/hour selector. 1440×900 also shows the 7-day strip. Measured by script (bounding boxes inside the first viewport).
+2. **Hero is a band, not a page:** ≤ 40svh at 390, ≤ 45vh at 1440 on Forecast; ≤ 55svh on Home, and the first saved/popular spot card starts inside the first 390 viewport.
+3. **Data is never hidden behind motion.** All numbers render visible on load; scroll effects may only add emphasis (fade from 60% → 100%, small translate ≤ 12px, ≤ 300 ms). No full-screen chapters: the scroll-lit sentence becomes a one-paragraph summary under the hero; the "The week ahead." parallax band goes; charts and the week start within 1.5 screens at 390.
+4. **AI imagery only as hero backdrop** (dimmed, caption kept). No AI image behind data (drop the aerial behind "Today at" and behind the summary). One video per page at most; poster-only on phones if it costs > 1 s of load.
+5. **Quiver:** rack, selected board's spec and Board Match visible in the first screen; giant type stays a backdrop.
+6. Existing checks plus a "first-viewport content" assertion per page; 1440/390 shots before/after.
