@@ -1,0 +1,2 @@
+- `surfer.glb`: to-scale surfer on a shortboard (AI-generated: Higgsfield `image_to_3d` from image job 205398fd, textured + PBR, ~60k tris, 30 credits, 2026-10-31). Raw height 1.85 m incl. board; `wave_scene.py --surfer` rescales to 1.75 m. Illustration only, not a real person.
+- `surfer-preview.png`: Eevee render of it.
