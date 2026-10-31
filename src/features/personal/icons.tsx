@@ -19,6 +19,8 @@ const P = {
   plus: 'M12 5v14M5 12h14',
   trash: 'M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12',
   edit: 'M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4',
+  next: 'M9.5 6l6 6-6 6',
+  prev: 'M14.5 6l-6 6 6 6',
 } as const;
 export type PName = keyof typeof P;
 

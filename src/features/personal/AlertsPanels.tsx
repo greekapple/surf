@@ -15,33 +15,6 @@ const ICONS: PName[] = ['wave', 'wind', 'swell'];
 
 interface RowProps {rules: AlertRule[]; results: RuleResult[]; spotName: (id: string) => string; p: UserProfile; toggle: (id: string, on: boolean) => void}
 
-/** Compact card for the dashboard. */
-export function AlertsCard({rules, results, spotName, p, toggle, onEdit}: RowProps & {onEdit: () => void}) {
-  const shown = rules.slice(0, 4);
-  return (
-    <section className="pz-panel pz-alerts" aria-labelledby="pz-al-h">
-      <div className="pz-ph"><h2 id="pz-al-h">Upcoming Alerts</h2><button className="pz-link" onClick={onEdit}>Edit</button></div>
-      {shown.length ? (
-        <ul className="pz-arows">
-          {shown.map((r, i) => {
-            const idx = rules.indexOf(r), res = results[idx];
-            return (
-              <li key={r.id}>
-                <PIcon name={ICONS[i % 3]} size={20} />
-                <div><b>{spotName(r.spotId)}</b><span>{describe(r, p)}</span>
-                  <em className={res.kind === 'match' && r.enabled ? 'hit' : ''}>{r.enabled ? resultText(res) : 'Off'}</em></div>
-                <Toggle on={r.enabled} label={`${spotName(r.spotId)} alert`} onChange={(v) => toggle(r.id, v)} />
-              </li>
-            );
-          })}
-        </ul>
-      ) : <p className="pz-empty">No alerts yet. Set a rule for a spot and Swello checks it against the forecast.</p>}
-      <p className="fine pz-note">Shown when you open Swello. No push notifications.</p>
-      {!shown.length && <button className="btn" onClick={onEdit}><PIcon name="plus" size={16} />Create alert</button>}
-    </section>
-  );
-}
-
 const field = (v: string) => (v.trim() === '' ? null : Number(v));
 
 /** Full page: every rule with live results, plus the create form. */
