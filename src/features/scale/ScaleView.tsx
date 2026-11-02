@@ -7,12 +7,12 @@ import {WaveBands} from './WaveBands';
 const FT = 0.3048, SURFER_M = 1.78; // metres per foot; the 5′10″ surfer used by the 2D comparison
 
 /** Wave Scale page (T-033): the AI illustration of the band that contains the selected hour's height, with all eight bands to browse. */
-function Page({go}: {go: ViewProps['go']}) {
+function Page({go, onSpin}: {go: ViewProps['go']; onSpin: (has: boolean) => void}) {
   const {view, spot} = useSwello();
   return (
     <section className="scale-page" aria-label="Wave scale">
       <div className="scale-head"><h1>Wave scale</h1><span className="fine">{spot.name}{view.selectedTime ? ` · ${timeLabelPT(view.selectedTime)}` : ''}</span></div>
-      <WaveBands forecast={view.forecast} />
+      <WaveBands forecast={view.forecast} onSpin={onSpin} />
       <div><button className="btn primary" onClick={() => go('forecast')}>Back to {spot.name} forecast</button></div>
     </section>
   );
@@ -52,5 +52,7 @@ function Comparison() {
 }
 
 export function ScaleView({section, go}: ViewProps) {
-  return <div className="grid">{section === 'compare' ? <Comparison /> : <><div className="span-12"><Page go={go} /></div><Comparison /></>}</div>;
+  // When 3D frames exist for the shown band the 2D blob comparison and the AI photo are replaced by the spin viewer (T-044).
+  const [spin, setSpin] = useState(false);
+  return <div className="grid">{section === 'compare' ? <Comparison /> : <><div className="span-12"><Page go={go} onSpin={setSpin} /></div>{!spin && <Comparison />}</>}</div>;
 }
