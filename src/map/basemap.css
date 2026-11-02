@@ -1,0 +1,7 @@
+/* Ground and tile treatment per basemap (T-042). Specificity is higher than explore.css's `.xleaf` and `.xleaf .xbase` on purpose:
+   the light basemap must never sit on, or be filtered towards, the old dark ground. */
+.leaflet-container.mb-light { background: #e4eaee; }
+.leaflet-container.mb-dark { background: #10212d; }
+.leaflet-container.mb-satellite { background: #0a1c29; }
+.xleaf.mb-light .xbase, .xleaf.mb-dark .xbase { filter: none; }
+.leaflet-container.mb-light .leaflet-tile, .leaflet-container.mb-dark .leaflet-tile { image-rendering: auto; }
