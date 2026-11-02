@@ -412,11 +412,12 @@
 
 /* ---------- T-050 Quiver: the rack as a premium wall, one true scale, labels with today's size fit; board-room rail; calmer spec sheet ---------- */
 .qv-rackwrap .qv-stage.qv-room { --rack-floor: 64px; background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #eceae6 calc(100% - var(--rack-floor)), #e4e1dc 100%), repeating-linear-gradient(90deg, transparent 0 199px, rgb(0 0 0 / 0.035) 199px 200px), #fbfaf8; border: 1px solid var(--line); }
-:root[data-theme='dark'] .qv-rackwrap .qv-stage.qv-room { background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #1d2329 calc(100% - var(--rack-floor)), #171c21 100%), repeating-linear-gradient(90deg, transparent 0 199px, rgb(255 255 255 / 0.04) 199px 200px), #232a31; }
+:root[data-theme='dark'] .qv-rackwrap .qv-stage.qv-room { color: #1b2026; } /* T-053: the wall stays a lit, light gallery wall in dark mode (white boards would vanish on a dark one) */
+:root[data-theme='dark'] .qv-rackwrap .qv-rl b { color: #1b2026; } :root[data-theme='dark'] .qv-rackwrap .qv-rl small, :root[data-theme='dark'] .qv-today, :root[data-theme='dark'] .qv-ruler i span { color: #5b6672; }
 .qv-rackwrap .qv-rackrow { inset: 0 0 0 0; padding: 0 72px 0 96px; gap: 40px; align-items: flex-end; }
 .qv-rackwrap .qv-rackrow li { padding-bottom: 0; }
 .qv-rackwrap .qv-rack-b { display: grid; justify-items: center; gap: 10px; padding: 0 0 calc(var(--rack-floor) - 52px); opacity: 1; filter: none; }
-.qv-rackwrap .qv-rack-b > :first-child { filter: drop-shadow(0 16px 14px rgb(40 32 24 / 0.22)); transition: transform 240ms var(--ease); }
+.qv-rackwrap .qv-rack-b > :first-child { transition: transform 240ms var(--ease); } /* T-053: no drop shadow (it drew a halo); the contact shadow below the tail grounds the board */
 .qv-rackwrap .qv-rack-b::after { left: 50%; right: auto; bottom: calc(var(--rack-floor) - 4px); width: 70%; height: 10px; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgb(30 24 18 / 0.28), transparent); box-shadow: none; }
 .qv-rackwrap .qv-rackrow li.on .qv-rack-b { transform: none; filter: none; }
 .qv-rackwrap .qv-rackrow li.on .qv-rack-b::after { background: radial-gradient(closest-side, rgb(30 24 18 / 0.36), transparent); }
@@ -467,3 +468,10 @@
 .br-rail { max-width: 100%; }
 .qv-show > * { min-width: 0; }
 .qv-rackwrap .qv-ill-cap { left: 80px; } @media (max-width: 860px) { .qv-rackwrap .qv-ill-cap { left: 50px; right: 10px; } }
+
+/* ---------- T-053: illustrations as true cutouts (no box, no vignette) ---------- */
+.bp-ill.bp-cut { -webkit-mask-image: none; mask-image: none; }
+.qv-rack-b:has(.bp-cut), .qc-fig:has(.bp-cut) { mix-blend-mode: normal !important; } /* a real cutout needs no blending */
+.qv-rackwrap .qv-rack-b > img.bp-ill:not(.bp-cut) { filter: none; } /* fallback JPEG: a drop shadow would outline its rectangle */
+.bp-wait { display: block; } /* holds the slot (true length) while the cutout is made; nothing is drawn */
+.qv-strip .bp-ill { display: block; }
