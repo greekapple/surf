@@ -379,3 +379,24 @@ Lead observations at 1440/390 (light theme): Map is still the dark navy explorer
 - **Status:** OPEN
 
 ## T-036 (lead): 3D wave scale into the app — continue; next: foam/spray, surfer on board, 8 bands × 24 angles, then hand to engineering to wire the spin viewer in place of the AI photo + blob chart.
+
+## Round 2026-11-02 (evening): "genuinely better than Surfline" (user: "this still just straight butt")
+Lead diagnosis (Forecast 1440 full page 3,690 px, Home): 1. the headline answer is a disclaimer (offshore Hs "not surf size") while Surfline leads with a surf range + body words; 2. the same four facts appear four times (hero, readout row, "Today at" dial, charts); 3. oversized decorative type (80 px spot name, giant grey height, giant grey "Today at…", giant "Hello.") + wide Syne = the "AI website" look; 4. Home has no information.
+**User decisions:** headline = estimated surf range (MOP-based v2 where a reviewed point exists, labelled "model estimate", offshore underneath; fallback offshore with its label). Font = Inter only (lead switched `--display` to Inter).
+
+## T-045: Spot page v3, Surfline anatomy done better (product)
+- **Owned:** `src/features/forecast/*` (engineering provides the estimate selector, see T-046)
+- **Structure (top to bottom, each fact once):** 1. compact header row: spot name (≤ 28 px), region, favourite, spot switcher. 2. **Conditions grid** like Surfline's card grid: SURF (est. range, body words, "model estimate" tag, offshore Hs under it), RATING (word + 5-segment bar + one-line *why*: window/period/wind/tide ticks), WIND (speed, gust, direction, onshore/offshore coloured), SWELL (2–3 partitions: height, period, direction arrow), TIDE (now + trend + mini curve with next extremes), WATER (temp + wetsuit). 3. Board Match line from the user's quiver (our version of Surfline's "Ride an all-rounder"). 4. 7-day strip with AM/mid/PM rating segments + wind arrows (Surfline) and best-window star. 5. Graph/Table toggle: graphs (surf, wind, tide with light times) and a Magicseaweed-style 3-hour table with wind cells coloured by shore relation. 6. Nearshore model + nearby buoys ("now vs forecast"). 7. Sources. Remove: the dark hero band, giant height backdrop, "Today at" dial section, duplicate readout row. Keep the drawn sea state only as a small optional strip (or drop it). 
+- **Type:** Inter only; page title ≤ 28, card values 22–28, labels 12–13. No decorative giant type anywhere.
+- **Acceptance:** each of the six facts appears in exactly one place above the fold (script asserts no duplicate value blocks); 1440 page height ≤ 2,200 px; 390 first screen = header + SURF + RATING + WIND + TIDE; density, firstview (updated), journeys, t041/t038 pass; 1440/390 side-by-side with `18-teardown-2026-10-31/surfline/04-current-conditions.jpg` and `06/07`.
+- **Status:** OPEN
+
+## T-046: Headline surf estimate + body words (engineering)
+- **Owned:** `src/ocean/*`, `src/services/*`, tests
+- **Acceptance:** a pure selector `headlineSurf(spot, hour)` → `{kind:'estimate', lo, hi, words:'waist to chest', method:'mop-v2'|'v1', label}` or `{kind:'offshore', ft, label:'offshore · not surf size'}`; v2 on by default only where a reviewed MOP point exists (Ocean Beach today), v1 elsewhere if presentable, else offshore; body-word table (ankle/knee/thigh/waist/chest/shoulder/head/overhead/double overhead) by face height, sourced to a common convention and labelled approximate; never feeds the rating; unit tests incl. edges and nulls. Hand the API to product.
+- **Status:** OPEN
+
+## T-047: Home = your spots dashboard (engineering, after T-046)
+- **Owned:** `src/features/home/*`
+- **Acceptance:** no hero, no "Hello."; top: saved spots (or labelled "Popular spots") as a dense list/grid of cards: name, est. surf range + body words, rating bar, wind relation, tide trend, best window today; tap → spot page. Then "Best right now nearby" (ranked by rating, honest). Inter, compact; Home ≤ 2 viewports at 1440. Journeys/density pass; 1440/390 shots.
+- **Status:** OPEN

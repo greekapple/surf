@@ -27,7 +27,7 @@
 :root {
   /* Light (Apple-style) is the default theme; the dark palette lives under data-theme="dark". */
   /* Cinematic round (2026-10-30, user pick): Syne for display, Inter for body; system stack as fallback. */
-  --display: 'Syne', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+  --display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif; /* user 2026-11-02: Syne read as 'AI website'; Inter only */
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
   /* Headline face (greeting, spot names, section titles); was DM Serif Display, now the display face. */
   --serif: var(--display);
