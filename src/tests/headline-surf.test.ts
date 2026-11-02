@@ -1,0 +1,66 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {headlineSurf, headlineText} from '../services/headlineSurf.ts';
+import {bodyWord, bodyWords, BODY_WORD_SOURCES} from '../services/bodyWords.ts';
+
+const FT = 1 / 0.3048;
+const m = (unit: any, value: number | null) => ({value, unit, source: {} as any});
+const rec = (iso: string, hsM: number, tp: number, dp: number) => ({timestamp: iso, height: m('ft', hsM * FT), period: m('s', tp), direction: m('deg', dp), qualityFlag: 1, mopId: 'SF023', product: 'forecast' as const});
+const T = '2026-11-02T18:00:00.000Z', NOW = Date.parse('2026-11-02T12:00:00Z');
+const v1input = {kind: 'breaking-estimate', valueFt: null, rangeFt: [3, 5] as [number, number], rangeMethod: 'Komar-Gaughan … unvalidated v1'};
+const hour = (o: any = {}) => ({spotId: 'spot-2', timestamp: T, day: 0, hour: 18, face: NaN, offshore: 5.2, availability: {face: false, swell: true, wind: true, tide: true, organization: false}, evidence: {faceEstimate: {input: v1input}}, ...o}) as any;
+const bundle = (records: any[]) => ({nearshore: [], mop: {SF023: {mopId: 'SF023', records, issue: null, retrievedAt: T, url: 'x'}}}) as any;
+const profile = {heightUnit: 'ft', scale: 'Face'} as any;
+
+test('body words: anchors, in-between words, edges and nulls', () => {
+  assert.deepEqual([1, 2, 2.5, 3, 4, 4.5, 5, 6, 11, 12, 20].map(bodyWord), ['ankle', 'knee', 'thigh', 'waist', 'chest', 'shoulder', 'head', 'overhead', 'overhead', 'double overhead', 'double overhead']);
+  assert.equal(bodyWord(0), 'ankle'); assert.equal(bodyWord(1.4), 'ankle'); assert.equal(bodyWord(1.6), 'knee'); assert.equal(bodyWord(3.4), 'waist'); assert.equal(bodyWord(3.6), 'chest'); assert.equal(bodyWord(5.49), 'head'); assert.equal(bodyWord(5.5), 'overhead'); assert.equal(bodyWord(11.99), 'overhead');
+  assert.equal(bodyWord(null), null); assert.equal(bodyWord(undefined), null); assert.equal(bodyWord(NaN), null); assert.equal(bodyWord(-1), null); assert.equal(bodyWord(Infinity), null);
+});
+test('body words for ranges: "waist to chest", single word, nulls and reversed ranges', () => {
+  assert.equal(bodyWords(3, 4), 'waist to chest'); assert.equal(bodyWords(3, 3.4), 'waist high'); assert.equal(bodyWords(6, 9), 'overhead'); assert.equal(bodyWords(12, 16), 'double overhead'); assert.equal(bodyWords(8, 14), 'overhead to double overhead');
+  assert.equal(bodyWords(null, 4), null); assert.equal(bodyWords(4, 3), null); assert.equal(bodyWords(NaN, NaN), null);
+  assert.ok(BODY_WORD_SOURCES.every((s) => s.url.startsWith('https://')) && BODY_WORD_SOURCES.length === 2);
+});
+
+test('v2 is the default where a reviewed MOP point has data for the hour', () => {
+  const h = headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW});
+  assert.equal(h.kind, 'estimate'); if (h.kind !== 'estimate') return;
+  assert.equal(h.method, 'mop-v2'); assert.ok(h.hiFt - h.loFt >= 2 && h.loFt >= 0); assert.equal(h.mop?.id, 'SF023'); assert.equal(h.mop?.product, 'forecast');
+  assert.ok(h.words && h.wordsNote.includes('Approximate')); assert.match(h.label, /Est\./); assert.match(h.methodLabel, /unvalidated/);
+});
+test('falls to v1 when the MOP has no record for the hour, refuses (short period / outside window) or the spot has no reviewed point', () => {
+  const far = headlineSurf('spot-2', hour(), {bundle: bundle([rec('2026-11-09T00:00:00.000Z', 1.4, 14, 266)]), nowMs: NOW});
+  assert.ok(far.kind === 'estimate' && far.method === 'v1' && far.loFt === 3 && far.hiFt === 5 && far.words === 'waist to head');
+  assert.ok((headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 6, 266)]), nowMs: NOW}) as any).method === 'v1', 'short period refused by v2');
+  assert.ok((headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 100)]), nowMs: NOW}) as any).method === 'v1', 'outside swell window');
+  assert.ok((headlineSurf('spot-2', hour(), {bundle: null, nowMs: NOW}) as any).method === 'v1');
+  assert.ok((headlineSurf('spot-2', hour(), {nowMs: NOW}) as any).method === 'v1');
+  const lm = headlineSurf('spot-3', hour({spotId: 'spot-3'}), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW});
+  assert.ok(lm.kind === 'estimate' && lm.method === 'v1', 'a spot with no reviewed MOP point never uses v2');
+});
+test('v1 estimates that are too narrow, unversioned or missing fall to offshore with its label; never an unlabelled number', () => {
+  const narrow = headlineSurf('spot-3', hour({evidence: {faceEstimate: {input: {...v1input, rangeFt: [3, 3.5]}}}}), {nowMs: NOW});
+  assert.deepEqual(narrow, {kind: 'offshore', ft: 5.2, label: 'offshore · not surf size'});
+  assert.equal(headlineSurf('spot-3', hour({evidence: {faceEstimate: {input: {...v1input, rangeMethod: 'unversioned'}}}}), {nowMs: NOW}).kind, 'offshore');
+  assert.equal(headlineSurf('spot-3', hour({evidence: {faceEstimate: {refusal: 'short period'}}}), {nowMs: NOW}).kind, 'offshore');
+  assert.equal(headlineSurf('spot-3', hour({evidence: {}}), {nowMs: NOW}).kind, 'offshore');
+});
+test('demonstration data is labelled as such; nothing usable gives "none"', () => {
+  const d = headlineSurf('spot-3', hour({evidence: undefined, face: 4.4, availability: {face: true, swell: true, wind: true, tide: true, organization: false}}), {nowMs: NOW});
+  assert.deepEqual(d, {kind: 'demonstration', ft: 4.4, label: 'demonstration face · not a forecast'});
+  assert.equal(headlineSurf('spot-3', hour({evidence: undefined, offshore: NaN}), {nowMs: NOW}).kind, 'none');
+  assert.equal(headlineSurf('spot-3', hour({evidence: undefined, offshore: -2}), {nowMs: NOW}).kind, 'none');
+  assert.equal(headlineSurf('spot-3', hour({timestamp: 'bad'}), {nowMs: NOW}).kind, 'estimate');
+  assert.equal(headlineSurf('spot-3', undefined as any, {nowMs: NOW}).kind, 'none');
+});
+test('the selector is read-only: the hour and bundle are not changed, and it exports nothing the rating can consume', () => {
+  const h = hour(), b = bundle([rec(T, 1.4, 14, 266)]), before = JSON.stringify([h, b]);
+  headlineSurf('spot-2', h, {bundle: b, nowMs: NOW}); assert.equal(JSON.stringify([h, b]), before);
+});
+test('display strings use the user units and always name the quantity', () => {
+  const est = headlineSurf('spot-3', hour(), {nowMs: NOW}), ft = headlineText(est, profile), mt = headlineText(est, {heightUnit: 'm', scale: 'Face'} as any);
+  assert.match(ft.label, /^Est\. .*ft at the break$/); assert.equal(ft.tag, 'model estimate'); assert.match(mt.label, /m at the break$/);
+  const off = headlineText(headlineSurf('spot-3', hour({evidence: {}}), {nowMs: NOW}), profile); assert.match(off.label, /offshore · not surf size$/); assert.equal(off.words, null);
+  assert.equal(headlineText({kind: 'none', label: 'No wave height for this hour'}, profile).value, '—');
+});
