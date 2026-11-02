@@ -44,7 +44,7 @@ const shortFactor = (n: string) => (/organi[sz]ation/i.test(n) ? 'Swell quality'
 /** Wetsuit by water temperature (°F): a common surf-shop guide, labelled as such. */
 const wetsuit = (f: number) => (f >= 72 ? 'Boardshorts or a top' : f >= 65 ? '2 mm spring suit' : f >= 62 ? '3/2 mm full suit' : f >= 58 ? '4/3 mm full suit' : f >= 52 ? '4/3 mm + booties' : f >= 48 ? '5/4 mm hooded + booties' : '6/5 mm hooded, booties, gloves');
 
-export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, onScale}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; onScale: () => void}) {
+export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, {h: hs, t} = surfOf(spot, f, p, bundle, now);
   const rel = f.availability.wind && fin(f.wind.speed) ? windRelationship(spot, f) : 'Unknown';
   // One-line "why": the rating's own factors as ticks (good / mixed / against).
@@ -59,9 +59,9 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, onSc
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>at the break</span></> : t.detail}</p>
         {hs.kind !== 'offshore' && fin(f.offshore) && <p className="sp-f">Offshore {ht(f.offshore, p)} {u} · not surf size</p>}
-        {hs.kind === 'estimate' && <p className="sp-f">{hs.methodLabel}</p>}
-        <button className="sp-scale" onClick={onScale}>Wave scale →</button>
+        {hs.kind === 'estimate' && <p className="sp-f sp-method">{hs.methodLabel}</p>}
       </Card>
+      {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
       <Card k="rating" title="Rating" aside={<span className="sp-tag">provisional</span>}>
         <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
@@ -118,12 +118,18 @@ function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; ext
 }
 
 /** Board Match in one line (Surfline's "Ride an all-rounder"): the best board from the user's quiver for this hour, or why there is none. */
-export function BoardLine({boards, f, p, hs, onOpen, onQuiver}: {boards: import('../../models/index').Surfboard[]; f: Forecast; p: UserProfile; hs: HeadlineSurf; onOpen: () => void; onQuiver: () => void}) {
+/** The best eligible board in the quiver for this hour (Board Match), or null. */
+export function bestBoard(boards: import('../../models/index').Surfboard[], f: Forecast, p: UserProfile, hs: HeadlineSurf) {
   const range: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
-  const best = useMemo(() => boards.map((b) => scoreBoard(b, f, p, range)).filter((m) => m.eligible).sort((a, b) => b.score - a.score)[0], [boards, f, p, range?.[0], range?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  return boards.map((b) => scoreBoard(b, f, p, range)).filter((m) => m.eligible).sort((a, b) => b.score - a.score)[0] ?? null;
+}
+export const feetInches = (inches: number) => `${Math.floor(inches / 12)}'${Math.round(inches % 12)}"`;
+
+export function BoardLine({boards, f, p, hs, onOpen, onQuiver}: {boards: import('../../models/index').Surfboard[]; f: Forecast; p: UserProfile; hs: HeadlineSurf; onOpen: () => void; onQuiver: () => void}) {
+  const best = useMemo(() => bestBoard(boards, f, p, hs), [boards, f, p, hs]);
   const text = !boards.length ? <>Add your boards to get a pick for these waves.</>
     : hs.kind === 'offshore' || hs.kind === 'none' ? <>No board pick: only offshore height is available here, which is not surf size.</>
-    : best ? <>Ride your <b>{best.board.name}</b> ({best.board.type.toLowerCase()}){range ? <> for an estimated {ht(range[0], p, 0)}–{ht(range[1], p, 0)} {p.heightUnit}</> : null}. <span className="fine">Board Match {Math.round(best.score)}/100 · provisional</span></>
+    : best ? <>Ride your <b>{best.board.name}</b> ({best.board.type.toLowerCase()}, {feetInches(best.board.length)}) for this hour's estimated surf. <span className="fine">Board Match {Math.round(best.score)}/100 · provisional</span></>
     : <>None of your boards suits this size; Board Match explains why.</>;
   return (
     <section className="sp-board" aria-label="Board Match">
@@ -214,5 +220,44 @@ export function BuoyNow({buoy, series, p, now}: {buoy: ObservationSet | null | u
       </tbody></table>
       <p className="fine">The buoy is about 18 NM offshore and the forecast is at this spot's model point: context, not a validation.</p>
     </>
+  );
+}
+
+/** Wave scale panel (T-048): the hour's face estimate, a surfer at the user's height and their best board, drawn to one scale.
+ *  Drawn from data only (no imagery). Without a face estimate the wave is not drawn: offshore height is not surf size. */
+export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserProfile; board: import('../../models/index').Surfboard | null; onOpen: () => void}) {
+  const personFt = 70 / 12; // 5'10" default: the profile has no height field yet
+  const est = hs.kind === 'estimate' ? hs : null, boardFt = board ? board.length / 12 : 0;
+  const top = Math.max(est ? est.hiFt * 1.08 : 0, personFt * 1.15, boardFt * 1.1, 7);
+  const m = p.heightUnit === 'm', step = m ? (top * 0.3048 > 5 ? 2 : 1) : top > 14 ? 4 : 2, base = 150, H = 138, y = (ft: number) => base - (ft / top) * H;
+  const ticks: number[] = []; for (let v = step; (m ? v / 0.3048 : v) <= top; v += step) ticks.push(v);
+  const yy = (u: number) => y(m ? u / 0.3048 : u);
+  const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
+  const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a 5 foot 10 surfer${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
+  return (
+    <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. Open the full wave scale`}>
+      <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
+        {ticks.map((t) => <g key={t}><line x1={22} x2={214} y1={yy(t)} y2={yy(t)} stroke="var(--line)" strokeWidth={1} /><text x={18} y={yy(t) + 4} fontSize={10} textAnchor="end" fill="var(--dim)">{t}</text></g>)}
+        <line x1={22} x2={214} y1={base} y2={base} stroke="var(--line-2)" strokeWidth={1.2} />
+        {est && <g>
+          {/* A wave face drawn to scale: the outer shape reaches the high bound, the darker inner one the low bound. */}
+          {[est.hiFt, est.loFt].map((ft, i) => { const t = y(ft), h = base - t, x0 = 24, x1 = 104; return (
+            <path key={i} d={`M${x0} ${base} C ${x0 + 30} ${base - h * 0.08} ${x0 + 44} ${t + h * 0.18} ${x0 + 58} ${t + h * 0.02} C ${x0 + 66} ${t - h * 0.04} ${x1 - 2} ${t + h * 0.08} ${x1 - 6} ${t + h * 0.3} C ${x1 - 14} ${t + h * 0.18} ${x0 + 66} ${t + h * 0.2} ${x0 + 62} ${t + h * 0.45} C ${x0 + 60} ${t + h * 0.7} ${x1 - 6} ${base - 6} ${x1 + 8} ${base} Z`}
+              fill={i === 0 ? 'color-mix(in srgb, var(--hs-hi) 26%, transparent)' : 'color-mix(in srgb, var(--hs-hi) 55%, transparent)'} stroke={i === 0 ? 'var(--hs-hi)' : 'none'} strokeWidth={1.3} />
+          ); })}
+        </g>}
+        {/* surfer silhouette, to scale */}
+        <g transform={`translate(${px} ${base - ph}) scale(${ph / 100})`} fill="var(--text)" opacity={0.85}>
+          <circle cx={15} cy={7} r={6.4} />
+          <path d="M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z" />
+        </g>
+        {board && <rect x={px + pw + 18} y={y(boardFt)} width={11} height={(boardFt / top) * H} rx={5.5} fill="var(--s3, #e8ecef)" stroke="var(--muted)" strokeWidth={1} />}
+        <text x={66} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">{est ? 'est. face' : 'no face estimate'}</text>
+        <text x={px + pw / 2} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">you</text>
+        {board && <text x={px + pw + 23.5} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">board</text>}
+        <text x={22} y={10} fontSize={10} fill="var(--dim)">{p.heightUnit}</text>
+      </svg>
+      <span className="sp-scalep-c">{board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · surfer 5'10" (default)<b>Full wave scale →</b></span>
+    </button>
   );
 }

@@ -1,13 +1,10 @@
 // Presentation model for the Forecast verdict board. It only reshapes what the
 // existing data, rating and unit modules return; it never estimates new values.
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
-import type {Measurement} from '../../ocean/types';
 import type {SurfRating} from '../../ratings/types';
 import {rateForecast} from '../../ratings/adapters';
-import {windRelationship} from '../../recommendation/sqi';
 import {formatWaveHeight} from '../../utils/waveHeight';
-import {compass, heightValue, wind} from '../../utils/units';
-import {ageLabel, pacificDate, pacificHour} from '../../ocean/time';
+import {pacificDate, pacificHour} from '../../ocean/time';
 
 export type DataMode = 'Retrieved' | 'Demonstration';
 
@@ -34,80 +31,6 @@ export function heroHeight(f: Forecast, p: UserProfile, mode: DataMode): HeroHei
       ? null
       : 'Surf-face estimate unavailable: no calibrated breaking-wave method for this break. Offshore height is not surf size.',
   };
-}
-
-export interface Provenance {
-  text: string;
-  kind: 'model' | 'observed' | 'demo';
-}
-
-export function provenance(m: Measurement | undefined, mode: DataMode, now: number): Provenance {
-  if (mode === 'Demonstration' || !m) return {text: 'Demonstration data · not live', kind: 'demo'};
-  const s = m.source;
-  const kind = s.kind === 'observation' ? 'observed' : 'model';
-  return {text: `${s.provider} · ${kind} · ${ageLabel(s.retrievedAt, now)}`, kind};
-}
-
-export interface Reason {
-  id: 'swell' | 'wind' | 'tide';
-  label: string;
-  value: string;
-  detail: string;
-  direction: number | null;
-  provenance: Provenance;
-  available: boolean;
-}
-
-export function reasons(spot: SurfSpot, f: Forecast, p: UserProfile, mode: DataMode, now: number): Reason[] {
-  const e = f.evidence;
-  const heightText = (ft: number) => `${heightValue(ft, p, false).toFixed(1)} ${p.heightUnit}`;
-  const swellOk = f.availability.swell && Number.isFinite(f.primary.height);
-  const windOk = f.availability.wind && Number.isFinite(f.wind.speed);
-  const tideOk = f.availability.tide && Number.isFinite(f.tide.height);
-  const relation = windOk ? windRelationship(spot, f) : 'Unknown';
-  return [
-    {
-      id: 'swell',
-      label: 'Swell',
-      available: swellOk,
-      value: swellOk ? `${heightText(f.primary.height)} · ${Math.round(f.primary.period)} s` : 'Unavailable',
-      detail: swellOk ? `from ${compass(f.primary.direction)} ${Math.round(f.primary.direction)}°` : 'No primary swell record',
-      direction: swellOk ? f.primary.direction : null,
-      provenance: provenance(e?.primary.height, mode, now),
-    },
-    {
-      id: 'wind',
-      label: 'Wind',
-      available: windOk,
-      value: windOk ? wind(f.wind.speed, p) : 'Unavailable',
-      detail: windOk
-        ? `from ${compass(f.wind.direction)}${relation !== 'Unknown' ? ` · ${relation.toLowerCase()}` : ''}`
-        : 'No wind record',
-      direction: windOk ? f.wind.direction : null,
-      provenance: provenance(e?.windSpeed, mode, now),
-    },
-    {
-      id: 'tide',
-      label: 'Tide',
-      available: tideOk,
-      value: tideOk ? heightText(f.tide.height) : 'Unavailable',
-      detail: tideOk
-        ? `${(f.tide.trend ?? f.tide.stage ?? '').toString().toLowerCase() || 'trend unknown'}${mode === 'Retrieved' ? ' · MLLW, SF station' : ''}`
-        : 'No tide record',
-      direction: null,
-      provenance: provenance(e?.tide, mode, now),
-    },
-  ];
-}
-
-export type SignalStrength = 'full' | 'reduced' | 'weak' | 'none';
-
-export function signalStrength(r: SurfRating): SignalStrength {
-  if (r.score === null || r.category === 'UNRATED') return 'none';
-  if (r.reliability.category === 'HIGH') return 'full';
-  if (r.reliability.category === 'MODERATE') return 'reduced';
-  if (r.reliability.category === 'LIMITED') return 'weak';
-  return 'none';
 }
 
 export interface HourSample {

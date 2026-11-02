@@ -8,11 +8,11 @@ import {bestDaylight, groupDays} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {Skeleton} from '../../ui/Skeleton';
 import {NearshoreCard} from './Nearshore';
-import {BoardLine, BuoyNow, ConditionsGrid, DayStrip, HourTable, surfOf} from './SpotPage';
+import {BoardLine, BuoyNow, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, surfOf} from './SpotPage';
 import './forecast.css';
 
 function Sources() {
-  const {view, live, now} = useSwello();
+  const {view, live} = useSwello();
   const o = view.ocean;
   if (!live) return <p>Demonstration week (Oct 16–22): illustrative profiles, not live data and never mixed with retrieved forecasts.</p>;
   return (
@@ -48,6 +48,9 @@ export function ForecastView({go}: ViewProps) {
     pickTab(next); requestAnimationFrame(() => document.getElementById(`ctab-${next}`)?.focus());
   };
   const fav = data.state.favorites.includes(spot.id);
+  // Phones: the shell's spot switcher already names the spot, so the h1 is for screen readers only (the name shows once).
+  const [narrow, setNarrow] = useState(() => matchMedia('(max-width: 860px)').matches);
+  useEffect(() => { const mq = matchMedia('(max-width: 860px)'), on = () => setNarrow(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
   const bestK = useMemo(() => {
     let best = -1, bs = -1;
     days.forEach((d, k) => {
@@ -75,12 +78,15 @@ export function ForecastView({go}: ViewProps) {
   const dayHours = curDay >= 0 ? series.slice(days[curDay].start, days[curDay].end + 1) : [];
   const bundle = view.ocean.bundle;
   const hs = surfOf(spot, selected.forecast, p, bundle, now).h;
+  const boards = data.state.boards;
+  // The scale shows the Board Match pick when there is one, else the user's favourite (or first) board, labelled as theirs, not as a pick.
+  const scaleBoard = bestBoard(boards, selected.forecast, p, hs)?.board ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
   const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'model forecast · ratings provisional' : 'demonstration week · not live'];
   return (
     <div className="sp">
       <header className="sp-head">
         <div className="sp-title">
-          <h1>{spot.name}</h1>
+          <h1 className={narrow ? 'sr-only' : undefined}>{spot.name}</h1>
           <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
           <p>{meta.join(' · ')}</p>
         </div>
@@ -91,7 +97,7 @@ export function ForecastView({go}: ViewProps) {
         </div>
       </header>
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} onScale={() => go('forecast', 'wave-scale')} />
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
       <BoardLine boards={data.state.boards} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />
       <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
 
