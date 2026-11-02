@@ -409,3 +409,16 @@ Lead diagnosis (Forecast 1440 full page 3,690 px, Home): 1. the headline answer 
 - Owned: `src/ratings/*`, `src/ocean/*`, `src/services/*`, tests
 - 1. Rating "why" ticks must not show ✓ Wind when the wind is onshore above a light threshold (state the threshold and source; light onshore ≤ ~5 mph may be "~"). Fix in the factor, not the label; unit tests. No other rating weight changes. 2. Add NDBC 46012 (Half Moon Bay), 46214 (Point Reyes) and CDIP 029 to the "now vs forecast" buoy context with their own timestamps; labelled context, not validation. 3. tsc/tests/build/journeys pass. Then STOP.
 ### T-036 (lead): render the 4–6 ft band (24 angles) to a review folder; do NOT drop into public/ until the user approves the look.
+
+### Overnight addendum (user, 2026-11-02 late): "make actual improvements, the Quiver could use serious work; I liked having photography or at least design — now it looks like plain information; make it aesthetically pleasing, don't make stuff up; do what you see fit without asking." Workers continue to the next task after each handoff (replaces "then STOP").
+Design direction for all three: Surfline's calm data layout **plus** real atmosphere — credited real CC photos of the actual spots (already in the manifest, never AI on condition surfaces), refined type hierarchy (Inter, weights/sizes, tabular numbers), a restrained colour system (one accent, condition colours, soft neutrals), generous but tight spacing, subtle motion (≤ 300 ms), light theme first. Reference the Porsche configurator (light, premium), Apple Weather (data as beautiful visuals), Surfline (density).
+
+### T-050 (product, after T-048): Spot page + Quiver, beautiful
+- Spot page: a real credited photo of the spot as a slim header band (≤ 220 px at 1440, ≤ 160 at 390, cover crop, credit visible) with name/region over a soft scrim; no photo → a drawn coastline/plan of the spot from our geometry, not a placeholder. Cards get a refined visual language (consistent icon set, mini visuals: wind compass dial, tide curve, swell arrows sized by energy). Keep every fact once, function-first, density.
+- Quiver: make it the best screen in the app. Board room on a beautiful light set (soft floor gradient, contact shadow, studio light), larger board, elegant spec typography, the rack as a premium wall (consistent spacing, labels, length scale), quiver-to-conditions: each board shows today's match at the user's saved/selected spot. No AI board pretending to be the user's.
+- t045/t035/t025/t023/density/journeys pass; 1440/390 before/after.
+
+### T-051 (engineering, after T-049): Home + Map, beautiful
+- Home cards: credited real spot photo (thumbnail or card top) when the spot has one; clean fallback otherwise; refined hierarchy (big est. range, small labels), condition colour accents; "Best right now nearby" as an elegant ranked list with mini rating bars. Nothing invented.
+- Map: a spot callout with the real photo thumbnail + credit; legend and pills polished to the same visual language.
+- t047/t043/t042/density/journeys pass; 1440/390 before/after.
