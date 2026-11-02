@@ -400,3 +400,12 @@ Lead diagnosis (Forecast 1440 full page 3,690 px, Home): 1. the headline answer 
 - **Owned:** `src/features/home/*`
 - **Acceptance:** no hero, no "Hello."; top: saved spots (or labelled "Popular spots") as a dense list/grid of cards: name, est. surf range + body words, rating bar, wind relation, tide trend, best window today; tap → spot page. Then "Best right now nearby" (ranked by rating, honest). Inter, compact; Home ≤ 2 viewports at 1440. Journeys/density pass; 1440/390 shots.
 - **Status:** OPEN
+
+## Overnight queue 2026-11-02 (user asleep; one task each, then stop; no pushes/deploys/installs/paid calls; commit locally only)
+### T-048 (product): Wave scale back on the spot page + phone polish
+- Owned: `src/features/forecast/*`, `src/features/scale/*` (read-only use of engineering's Spin360)
+- 1. A compact "Wave scale" panel next to/below SURF: a to-scale silhouette of the user's height (Personal profile, default 5'10") beside the selected hour's face estimate range (labelled), plus the user's best quiver board length; tap → full Wave scale. No AI imagery. 2. Phone: the spot name appears once (hide the shell switcher's label on the spot page or drop the h1 duplicate — keep one). 3. Remove dead code: unused Cinematic.tsx exports and old `.fc-`/`.cine-` CSS. 4. t045-spot, firstview, density, journeys pass; 1440/390 shots. Then STOP.
+### T-049 (engineering): Rating sanity + more buoys
+- Owned: `src/ratings/*`, `src/ocean/*`, `src/services/*`, tests
+- 1. Rating "why" ticks must not show ✓ Wind when the wind is onshore above a light threshold (state the threshold and source; light onshore ≤ ~5 mph may be "~"). Fix in the factor, not the label; unit tests. No other rating weight changes. 2. Add NDBC 46012 (Half Moon Bay), 46214 (Point Reyes) and CDIP 029 to the "now vs forecast" buoy context with their own timestamps; labelled context, not validation. 3. tsc/tests/build/journeys pass. Then STOP.
+### T-036 (lead): render the 4–6 ft band (24 angles) to a review folder; do NOT drop into public/ until the user approves the look.
