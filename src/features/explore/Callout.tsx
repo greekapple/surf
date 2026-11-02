@@ -3,9 +3,9 @@ import type {SurfRating} from '../../ratings/types';
 import {windRelationship} from '../../recommendation/sqi';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {Condition} from '../../ui/Condition';
-import {headline} from '../forecast/Cinematic';
-import type {HourSample} from '../forecast/model';
-import {compass, windVal} from '../forecast/helpers';
+import {headlineSurf, headlineText} from '../../services/headlineSurf';
+import {useSwello} from '../../app/store';
+import {compass, ht, windVal} from '../forecast/helpers';
 import {SpotThumb} from '../../ui/SpotThumb';
 
 /** Wind at a spot with its relation to the beach, or an honest gap. */
@@ -20,7 +20,10 @@ export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile) {
 export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}: {
   spot: SurfSpot; region: string; f: Forecast | undefined; rating: SurfRating | null; when: string; p: UserProfile; onOpen: () => void; onClose?: () => void;
 }) {
-  const hd = f ? headline({forecast: f} as HourSample, p) : null, w = f ? windLine(spot, f, p) : null;
+  const {view, now} = useSwello();
+  // The same headline selector as the spot page and Home (T-046), so the map, Home and the spot page agree on the range.
+  const hs = f ? headlineSurf(spot.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null, t = hs ? headlineText(hs, p) : null, w = f ? windLine(spot, f, p) : null;
+  const big = hs?.kind === 'offshore' ? ht(hs.ft, p) : t && t.value !== '—' ? t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '') : null;
   return (
     <div className="xco" role="group" aria-label={`${spot.name} at ${when}`}>
       <SpotThumb spotId={spot.id} className="xco-photo" sizes="(max-width: 860px) 100vw, 264px" />
@@ -30,7 +33,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}:
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? <p className="xco-none">No forecast record at this hour.</p> : <>
-        <p className="xco-ht">{hd?.big !== null && hd?.big !== undefined ? <><b>{hd.big}</b> <span>{hd.unit}</span></> : <b>—</b>}<small>{hd?.label}</small></p>
+        <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? `${t!.words ? `${t!.words[0].toUpperCase()}${t!.words.slice(1)} · ` : ''}at the break · model estimate` : hs?.kind === 'offshore' ? 'offshore · not surf size' : t?.detail}</small></p>
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>
