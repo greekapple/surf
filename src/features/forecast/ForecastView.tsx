@@ -14,7 +14,7 @@ import {bestDaylight, compass, groupDays, ht, windVal} from './helpers';
 import {BAND_COLOR, bandOf, hourLabel, hourlySeries, titleCase, trendOf, type HourSample} from './model';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {faceEstimateView} from './estimate';
-import {WaveBands} from '../scale/WaveBands';
+import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {Skeleton} from '../../ui/Skeleton';
 import {Condition, conditionWord} from './Condition';
 import {CineHero, SpotShot, Summary, TodayAt, litSentence} from './Cinematic';
@@ -165,12 +165,27 @@ function JumpBar() {
 
 const CHART_TABS: [ChartTab, string][] = [['surf', 'Surf'], ['swell', 'Swell'], ['wind', 'Wind'], ['tide', 'Tide']];
 
-/** Wave scale preview (T-033): the AI illustration of the band that contains the selected hour; the full page is one click away. */
+/** Wave scale preview (T-038): no illustration on the forecast page. The eight size bands as a drawn staircase with this hour's band marked,
+ *  the same labelled source line as the Wave Scale page, and the way there (where the illustrated bands live). */
 function WaveCard({forecast, go}: {forecast: Forecast; go: ViewProps['go']}) {
+  const {data} = useSwello();
+  const profile = data.state.profile, est = faceEstimateView(forecast, profile);
+  const sel = selectScaleBand({
+    estimateRangeFt: est?.state === 'range' ? est.rangeFt : null, estimateText: est?.state === 'range' ? est.text : null,
+    demoFaceFt: forecast.availability.face && Number.isFinite(forecast.face) ? forecast.face : null, demoText: forecast.availability.face && Number.isFinite(forecast.face) ? `${ht(forecast.face, profile)} ${profile.heightUnit}` : null,
+    offshoreFt: Number.isFinite(forecast.offshore) ? forecast.offshore : null, offshoreText: Number.isFinite(forecast.offshore) ? `${ht(forecast.offshore, profile)} ${profile.heightUnit}` : null,
+  });
   return (
     <section className="card fc-scale wc" id="fc-scale" aria-label="Wave scale">
       <div className="wc-h"><h2>Wave scale</h2></div>
-      <WaveBands forecast={forecast} compact onOpen={() => go('forecast', 'wave-scale')} />
+      <ol className="wc-steps" aria-label="Wave size bands, smallest to largest">
+        {SCALE_BANDS.map((b, i) => (
+          <li key={b.id} aria-current={i === sel.band ? 'true' : undefined}><i style={{height: `${18 + i * 11}%`}} aria-hidden="true" /><span>{b.short}</span></li>
+        ))}
+      </ol>
+      <p className="wsc-src"><b>{sel.label}</b>{sel.source !== 'none' && sel.band !== null && <> · showing the <b>{SCALE_BANDS[sel.band].label}</b> band</>}</p>
+      {sel.note && <p className="fine wsc-note">{sel.note}</p>}
+      <div className="wc-foot"><button type="button" className="btn" onClick={() => go('forecast', 'wave-scale')}>Open full scale</button></div>
     </section>
   );
 }

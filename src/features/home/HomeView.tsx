@@ -2,7 +2,8 @@ import {useEffect, useMemo, useRef} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {GENERIC_PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
-import {Media, useNarrow} from '../../ui/Media';
+import {Media} from '../../ui/Media';
+import {SeaState} from '../forecast/SeaState';
 import {Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {spotStrip} from '../../services/spotStrip';
@@ -34,9 +35,8 @@ function useScrollFallback(root: React.RefObject<HTMLElement | null>) {
 
 /** Home (T-030): a full-screen greeting, saved spots as swipeable cards, one honest sentence that lights up as you scroll, and three full-bleed ways in. No forecast numbers in the body. */
 export function HomeView({go}: ViewProps) {
-  const {data, now, spotOptions, view, setSpot} = useSwello();
+  const {data, now, spotOptions, view, setSpot, spot, selected} = useSwello();
   const rootRef = useRef<HTMLDivElement>(null);
-  const narrow = useNarrow();
   useScrollFallback(rootRef);
   const name = data.state.profile.displayName?.trim().split(/\s+/)[0];
   const hour = Number(new Intl.DateTimeFormat('en-US', {hour: 'numeric', hourCycle: 'h23', timeZone: 'America/Los_Angeles'}).format(now));
@@ -49,7 +49,8 @@ export function HomeView({go}: ViewProps) {
   return (
     <div className="home" ref={rootRef}>
       <section className="home-hero" aria-labelledby="home-h">
-        <Media id={narrow ? 'ai-home-hero-tall' : 'ai-home-loop-wide'} className="hero-media plx" eager sizes="100vw" />
+        {/* T-038: the current hour's swell and wind at the selected spot, drawn from the data; no numbers on Home. */}
+        {selected ? <SeaState f={selected.forecast} className="hero-media" caption="plain" where={`${spot.name} now`} /> : <div className="hero-media ss" aria-hidden="true" />}
         <div className="hero-in">
           <p className="greet">{greeting}</p>
           <h1 id="home-h">{name ? <>Hello, {name}.</> : 'Hello.'}</h1>

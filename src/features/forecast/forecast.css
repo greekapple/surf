@@ -329,3 +329,13 @@
   .fc-summary { font-size: 16px; }
   .tscroll td button, .tscroll th button { white-space: nowrap; min-width: 56px; }
 }
+
+/* T-038 wave-scale card: eight bands as a drawn staircase; this hour's band marked. */
+.wc-steps { list-style: none; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; align-items: end; height: 150px; margin: 4px 0 0; padding: 0; }
+.wc-steps li { display: grid; grid-template-rows: 1fr auto; height: 100%; gap: 4px; text-align: center; }
+.wc-steps i { align-self: end; display: block; border-radius: 4px 4px 0 0; background: var(--s3, var(--s2)); }
+.wc-steps span { font-size: 12px; letter-spacing: -0.02em; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wc-steps li[aria-current='true'] i { background: var(--accent); }
+.wc-steps li[aria-current='true'] span { color: var(--text); font-weight: 600; }
+.wc .wsc-src { margin: 4px 0 0; font-size: 13.5px; }
+.wc-foot { display: flex; }

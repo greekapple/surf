@@ -3,7 +3,8 @@ import type {SurfSpot, UserProfile} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
 import {windRelationship} from '../../recommendation/sqi';
 import {SpotPhoto} from '../../ui/common';
-import {Media, useNarrow} from '../../ui/Media';
+import {Media} from '../../ui/Media';
+import {SeaState} from './SeaState';
 import {SPOT_PHOTOS} from '../../ui/photos';
 import {Icon} from '../../ui/Icon';
 import {windInk} from './charts';
@@ -53,11 +54,11 @@ export function headline(h: HourSample, p: UserProfile) {
 }
 
 export function CineHero({spot, h, p, isNow, meta, fav, onFav, onScale}: {spot: SurfSpot; h: HourSample; p: UserProfile; isNow: boolean; meta: string; fav: boolean; onFav: () => void; onScale: () => void}) {
-  const hd = headline(h, p), narrow = useNarrow();
+  const hd = headline(h, p);
   return (
     <header className="fc-head fc-cine" data-shot="hero">
-      {/* A hero band only: phones get the still (the loop costs ~3 MB), wider screens the loop. */}
-      <Media id={narrow ? 'ai-forecast-hero-tall' : 'ai-forecast-loop-wide'} className="cine-shot" eager />
+      {/* T-038: the backdrop is this hour's swell and wind, drawn from the data (no AI imagery on condition pages). */}
+      <SeaState f={h.forecast} className="cine-shot" caption="full" />
       {hd.big &&<p className="cine-big" aria-hidden="true" style={{'--len': hd.big.length} as CSSProperties}><span key={hd.big}>{hd.big}</span><small>{hd.unit}</small></p>}
       <div className="cine-in">
         <p className="cine-when">{weekdayPT(h.timestamp)} {dayNumPT(h.timestamp)} · {timeLabelPT(h.timestamp)}{isNow ? ' · now' : ''}</p>
