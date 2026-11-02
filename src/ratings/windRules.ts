@@ -7,6 +7,9 @@ export const ONSHORE_LIGHT_MPH = 3;
 export const ONSHORE_SCORE_CEILING = 59; // just under the "Good" label threshold (60) and the tick (70) and positive (65) cut-offs
 export const ONSHORE_SOURCE = 'NWS Beaufort Wind Scale: force 1 (light air) ends at 3 mph';
 /** Applies the ceiling to a wind score. `relation` is case-insensitive; unknown relations are not capped. */
+let enabled = true;
+/** Backtest only (docs/forecast/data/backtest-rating.ts): switches the ceiling off to reproduce the pre-T-049 rule. The app never calls this. */
+export const setOnshoreCapEnabled = (on: boolean) => { enabled = on; };
 export function capOnshore(score: number, relation: string, speedMph: number): number {
-  return String(relation).toLowerCase() === 'onshore' && Number.isFinite(speedMph) && speedMph > ONSHORE_LIGHT_MPH ? Math.min(score, ONSHORE_SCORE_CEILING) : score;
+  return !enabled ? score : String(relation).toLowerCase() === 'onshore' && Number.isFinite(speedMph) && speedMph > ONSHORE_LIGHT_MPH ? Math.min(score, ONSHORE_SCORE_CEILING) : score;
 }
