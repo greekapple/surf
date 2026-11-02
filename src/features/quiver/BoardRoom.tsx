@@ -7,6 +7,8 @@ import {SWATCHES, finsFromText, loadLook, saveLook, templateFor, type Finish, ty
 import {loadOutline} from './outline';
 import {tracedTpl} from './traced';
 import {Studio, type Anchor, type BoardEntry, type Preset} from './studio';
+import {BoardOutline} from './BoardOutline';
+import type {SizeFit} from './fit';
 
 /* T-035 board room (reference: the Porsche 911 configurator, docs/design/REFERENCES-2026-10-31.md §1).
  * One board, large, on a light set; real-time three.js from the board's numbers and outline (traced or category).
@@ -64,9 +66,11 @@ interface Props {
   board: Surfboard; boards: Surfboard[];
   onSave: (b: Surfboard) => void; onFail: () => void;
   match: ReactNode; matchAction: ReactNode;
+  /** T-050: pick another board from the rail (it flies onto the stage); its size fit for the selected spot-hour. */
+  onPick?: (id: string) => void; fits?: Map<string, SizeFit>;
 }
 
-export default function BoardRoom({board, boards, onSave, onFail, match, matchAction}: Props) {
+export default function BoardRoom({board, boards, onSave, onFail, match, matchAction, onPick, fits}: Props) {
   const uid = useId();
   const wrap = useRef<HTMLDivElement>(null), host = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), studio = useRef<Studio | null>(null);
   const hot = useRef<Partial<Record<Anchor, HTMLButtonElement | null>>>({});
@@ -234,6 +238,17 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
             <button key={a.id} type="button" aria-pressed={!compare && !spin && angle === i} onClick={() => go(i)}><AngleGlyph id={a.id} /><span>{a.label}</span></button>
           ))}
         </div>
+        {onPick && boards.length > 1 && (
+          <nav className="br-rail" aria-label="Your boards">
+            {boards.map((b) => { const maxL = Math.max(...boards.map((x) => x.length)), ft = fits?.get(b.id); return (
+              <button key={b.id} type="button" className="br-rail-b" aria-pressed={b.id === board.id} onClick={() => onPick(b.id)}
+                aria-label={`${b.name}, ${lengthLabel(b.length)}${ft && ft.state !== 'none' ? `, ${ft.label.toLowerCase()} today` : ''}${b.id === board.id ? ', on the stage' : ''}`}>
+                <span className="br-rail-o" aria-hidden="true"><BoardOutline b={b} scale={58 / maxL} /></span>
+                <span className="br-rail-t"><b>{b.name}</b><small>{lengthLabel(b.length)}</small>{ft && ft.state !== 'none' && <em className={`qv-fit ${ft.state}`}>{ft.label}</em>}</span>
+              </button>
+            ); })}
+          </nav>
+        )}
       </div>
 
       <aside className="br-panel" aria-label={`Configure ${board.name}`}>

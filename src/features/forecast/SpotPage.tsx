@@ -174,6 +174,7 @@ export function BoardLine({boards, f, p, hs, onOpen, onQuiver}: {boards: import(
   const text = !boards.length ? <>Add your boards to get a pick for these waves.</>
     : hs.kind === 'offshore' || hs.kind === 'none' ? <>No board pick: only offshore height is available here, which is not surf size.</>
     : best ? <>Ride your <b>{best.board.name}</b> ({best.board.type.toLowerCase()}, {feetInches(best.board.length)}) for this hour's estimated surf. <span className="fine">Board Match {Math.round(best.score)}/100 · provisional</span></>
+    : !f.character || f.character === 'Unknown' ? <>No board pick yet: Board Match also needs the wave's character (peaky, soft, steep), which live data doesn't provide. The quiver shows each board's size fit for this hour.</>
     : <>None of your boards suits this size; Board Match explains why.</>;
   return (
     <section className="sp-board" aria-label="Board Match">
