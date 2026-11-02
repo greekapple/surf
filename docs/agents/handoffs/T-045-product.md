@@ -92,3 +92,11 @@ They are fixed here, in the same commit as T-045, with 12 px gaps and separate l
 - **Duplicate spot name:** the app shell's spot switcher shows the name above the page h1 (Surfline has the same pattern, but it reads as a duplicate on phones). This is an app-shell decision.
 - **Wide v1 ranges** (e.g. 5–11 ft at Ocean Beach) are honest but wide. Engineering's MOP v2 should tighten Ocean Beach once swapped in.
 - **Only one buoy:** buoy 46026 is the only one we fetch. "Nearby buoys" (plural) needs more NDBC stations, which is an engineering fetch.
+
+## Update: real headlineSurf (2026-11-02)
+- Merged `rebuild/swello-v0.16`, which includes 70ff4a2 (headlineSurf) and T-047 Home. `SpotPage.tsx` now imports `../../services/headlineSurf`, and the stub `surfHeadline.ts` is deleted.
+- **Checks after the swap (5184):**
+  - tsc OK · test 281/0.
+  - t045-spot 53/0 · firstview 40/0 (Home half included now) · density ALL PASS · journeys 8/8 (one earlier run had a Journey 1 load-timing flake; a rerun passed 8/8).
+  - t038 16/0 · t041 tides/flag/nearshore 4/5/15 · wave-spot 14/0 · t043 55/0.
+- **t022-nav:** 58/4. The 4 failures are "strip empty state / 0 chips" for the saved-spots strip with no saved spots (Home/shell, not the spot page). The lead server on 5180 fails the same check at 1440 (2 failures); on 5184 it also fails at 390.
