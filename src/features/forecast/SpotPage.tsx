@@ -8,7 +8,7 @@ import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, monotonePath, windVal, type Day} from './helpers';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
-import {headlineSurf, headlineText, type HeadlineSurf} from './surfHeadline';
+import {headlineSurf, headlineText, type HeadlineSurf} from '../../services/headlineSurf';
 import type {OceanBundle} from '../../ocean/types';
 
 /* T-045 spot page v3: Surfline's anatomy, each fact once. Conditions grid → Board Match line → 7-day strip → graph/table → nearshore + buoy → sources. */
