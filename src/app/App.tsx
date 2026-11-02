@@ -25,8 +25,8 @@ export default function App() {
   const bleed = area === 'explore' && section !== 'discover' && section !== 'compare';
   // Pages that open on a full-bleed photograph start under the fixed header and offset their text by --nav-h.
   const photoTop = (area === 'home' && section === '') || (area === 'forecast' && section === '');
-  // The saved-spots strip sits under the bar on Home and Forecast (Surfline's favourites bar).
-  const strip = photoTop;
+  // The saved-spots strip sits under the bar on Forecast (Surfline's favourites bar); Home is itself the spots dashboard (T-047).
+  const strip = area === 'forecast' && section === '';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Map', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
     <SwelloProvider>
