@@ -26,6 +26,7 @@ ap.add_argument('--samples', type=int, default=32)
 ap.add_argument('--only', type=int, default=-1, help='render a single angle index (for previews)')
 ap.add_argument('--blend', default='', help='also save the .blend here')
 ap.add_argument('--wave', default='', help='licensed wave mesh (FBX); replaces the procedural wave')
+ap.add_argument('--flip', type=float, default=-1.0)
 ap.add_argument('--stretch', type=float, default=3.0, help='along-crest stretch for the imported wave')
 a = ap.parse_args(argv)
 
@@ -93,7 +94,7 @@ def water_material():
     m.use_nodes = True
     nt = m.node_tree
     bsdf = nt.nodes['Principled BSDF']
-    bsdf.inputs['Roughness'].default_value = 0.04
+    bsdf.inputs['Roughness'].default_value = 0.12
     bsdf.inputs['IOR'].default_value = 1.333
     bsdf.inputs['Transmission Weight'].default_value = 0.35
     # colour by height: deep blue-green in the trough, light jade where the face thins near the crest
@@ -113,12 +114,20 @@ def water_material():
     noise.inputs['Scale'].default_value = 3.0
     noise.inputs['Detail'].default_value = 8.0
     fr = nt.nodes.new('ShaderNodeValToRGB')
-    fr.color_ramp.elements[0].position = 0.55
-    fr.color_ramp.elements[1].position = 0.62
+    fr.color_ramp.elements[0].position = 0.25
+    fr.color_ramp.elements[1].position = 0.45
     mix = nt.nodes.new('ShaderNodeMix')
     mix.data_type = 'RGBA'
     mix.inputs['B'].default_value = (0.92, 0.95, 0.96, 1)
-    nt.links.new(noise.outputs['Fac'], fr.inputs['Fac'])
+    hm = nt.nodes.new('ShaderNodeMapRange')
+    hm.inputs['From Min'].default_value = 0.8 * H
+    hm.inputs['From Max'].default_value = 1.0 * H
+    mul = nt.nodes.new('ShaderNodeMath')
+    mul.operation = 'MULTIPLY'
+    nt.links.new(sep.outputs['Z'], hm.inputs['Value'])
+    nt.links.new(noise.outputs['Fac'], mul.inputs[0])
+    nt.links.new(hm.outputs['Result'], mul.inputs[1])
+    nt.links.new(mul.outputs['Value'], fr.inputs['Fac'])
     nt.links.new(fr.outputs['Color'], mix.inputs['Factor'])
     nt.links.new(ramp.outputs['Color'], mix.inputs['A'])
     nt.links.new(mix.outputs['Result'], bsdf.inputs['Base Color'])
@@ -140,7 +149,7 @@ def ocean_plane(mat):
     mod.size = 6.0
     mod.spatial_size = 120
     mod.resolution = 10
-    mod.wave_scale = 0.12
+    mod.wave_scale = 0.6
     mod.choppiness = 1.0
     ob.location = (0, -60, -0.05)
     ob.data.materials.append(mat)
@@ -189,6 +198,9 @@ def import_surfer(path):
 water = water_material()
 
 
+FLIP = a.flip
+
+
 def import_wave(path, h, stretch):
     """Imported barrel (TurboSquid 1773957 'waves'): crest along model +y, cross-section along x with the beach at -x,
     flat water at z~0.009 and the crest at z~0.055. Map it to scene axes (crest along x, beach toward +y), true size."""
@@ -201,7 +213,7 @@ def import_wave(path, h, stretch):
     k = h / (max(zs) - base)
     for v in ob.data.vertices:
         x, y, z = v.co
-        v.co = (y * k * stretch, -x * k, (z - base) * k)
+        v.co = (y * k * stretch, FLIP * x * k, (z - base) * k)
     ob.name = 'Wave'
     sol = ob.modifiers.new('Thick', 'SOLIDIFY')
     sol.thickness = 0.04 * h
@@ -225,7 +237,7 @@ bpy.ops.mesh.primitive_plane_add(size=1)
 shallow = bpy.context.object
 shallow.name = 'Inside'
 shallow.scale = (max(200, 60 * H), 80, 1)
-shallow.location = (0, 40, 0.02)
+shallow.location = (0, 40, -0.03)
 shallow.data.materials.append(water)
 sand_m = bpy.data.materials.new('Sand')
 sand_m.use_nodes = True
@@ -242,9 +254,18 @@ sx = -0.12 * max(40.0, 14 * H)
 fy, fz = profile(0.75, 0.0, H)
 surfer.location = (sx, fy * 0.6, H * 0.42)
 if a.wave:
-    # on the open face in front of the curl: a little toward the beach from the crest line, ~40% up the face
-    sx, fy = -0.15 * H * a.stretch, 0.9 * H / 0.6
-    surfer.location = (sx, fy * 0.6, H * 0.35)
+    # stand the surfer on the open face, ~40% up, read off the actual mesh at this along-crest position
+    sx = -0.15 * H * a.stretch
+    bpy.context.view_layer.update()
+    deps = bpy.context.evaluated_depsgraph_get()
+    wm = wave.evaluated_get(deps).to_mesh()
+    near = [wave.matrix_world @ v.co for v in wm.vertices if abs((wave.matrix_world @ v.co).x - sx) < 0.25 * H]
+    crest = max(near, key=lambda p: p.z)
+    face = [p for p in near if p.y > crest.y and abs(p.z - 0.4 * H) < 0.08 * H]
+    spot = min(face, key=lambda p: p.y) if face else crest
+    surfer.location = (sx, spot.y + 0.05, spot.z - 0.02)
+    surfer.rotation_euler = (math.radians(-30), 0, math.radians(-90))
+    fy = surfer.location.y / 0.6
 surfer.rotation_euler = (math.radians(-25), 0, math.radians(-75))
 
 # sky + sun
