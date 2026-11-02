@@ -31,6 +31,7 @@ ap.add_argument('--size', default='1280x960')
 ap.add_argument('--samples', type=int, default=64)
 ap.add_argument('--only', default='', help='comma list of angle indices to render (previews)')
 ap.add_argument('--blend', default='')
+ap.add_argument('--glb', default='', help='export the wave (cropped) + surfer as glTF for the real-time viewer, then exit')
 ap.add_argument('--poster', type=int, default=0, help='angle index copied to poster.jpg')
 ap.add_argument('--yaw', type=float, default=90.0, help='surfer yaw (deg) so the nose points down the line')
 ap.add_argument('--sun', type=float, default=150.0, help='sun azimuth (deg)')
@@ -76,9 +77,33 @@ def lerp(p, q, t):
 FLATROW = [(x, FLAT) for x, _ in HUMP]
 
 
+def soften_trough(pr):
+    """The source rows dip ~27% of the wave height below sea level just in front of the face and climb straight back out
+    (a ditch real waves don't have). Keep a shallow trough (~12% of the crest height) and ease it back to flat water toward the
+    beach over the rest of the tile, so the face flows into the flats the way it does in photos."""
+    ci = max(range(len(pr)), key=lambda i: pr[i][1])
+    zc = pr[ci][1]
+    ti = min(range(ci, len(pr)), key=lambda i: pr[i][1])
+    zt = pr[ti][1]
+    if zt >= FLAT or zc <= FLAT:
+        return pr
+    zt2 = max(zt, FLAT - 0.12 * (zc - FLAT))
+    k = (zc - zt2) / (zc - zt)
+    xt, xe = pr[ti][0], pr[-1][0]
+    out = []
+    for i, (x, z) in enumerate(pr):
+        if i > ci:
+            z = zt2 + (z - zt) * k  # compress the lower face toward the shallower trough (crest unchanged)
+            if i >= ti:  # then ease back up to the flat, no wall
+                z = FLAT + (zt2 - FLAT) * (1 - smooth(xt, xe, x))
+        out.append((x, z))
+    return out
+
+
 def profile(c, amp):
     """c in [0,1]: 0 hump, 0.5 small curl, 1 barrel; amp scales height above the flat (0 = flat sea)."""
     pr = lerp(HUMP, MID, c * 2) if c < 0.5 else lerp(MID, BARREL, c * 2 - 1)
+    pr = soften_trough(pr)
     # every cross-section keeps the band's true face height (the source shoulder rows are smaller than the barrel)
     zt, zb = max(z for _, z in pr), min(z for _, z in pr)
     g = (HM / (zt - zb)) if zt > zb else 1.0
@@ -141,7 +166,9 @@ def axis_samples(lo, hi, fine_lo, fine_hi, fine_step, far):
 
 
 FAR = 20000.0  # far enough that aerial angles never see the sea edge
-xs = axis_samples(-FAR, FAR, -SHOULDER - FADE, POCKET + BROKEN + FADE, max(0.06, H / 12), FAR)
+EXPORT = bool(a.glb)
+FAR = 60 * H + 40 if EXPORT else FAR  # the real-time viewer has its own far ocean
+xs = axis_samples(-FAR, FAR, -SHOULDER - FADE, POCKET + BROKEN + FADE, max(0.06, H / (5 if EXPORT else 12)), FAR)
 # cross-shore: the profile's own 171 columns (scaled), then flat extensions out to the horizon
 # small waves are much less steep than big ones: widen them cross-shore (2.2x at 1.5 ft, 1x from ~5 ft)
 KY = K * (1.0 + 1.2 * (1 - smooth(0.5, 1.5, H)))
@@ -149,7 +176,7 @@ half = 0.1 * KY
 ext_out = []
 d, step = half, H / 10
 while d < FAR:
-    step *= 1.06 if d < 45 * H else 1.25
+    step *= (1.12 if EXPORT else 1.06) if d < 45 * H else 1.25
     d += step
     ext_out.append(min(d, FAR))
 # the next waves of the set, out the back (seaward = -y), smaller and unbroken
@@ -174,7 +201,8 @@ for x in xs:
     c, amp, foam = along(x)
     pr = profile(c, amp)
     pts = [(-e, swell_z(e, x), None) for e in reversed(ext_out)]
-    pts += [((px) * KY, (pz - FLAT) * K, i) for i, (px, pz) in enumerate(pr)]
+    # export: every column through the crest and lip fold, every third elsewhere (keeps the curl, sheds 60% of the flats)
+    pts += [((px) * KY, (pz - FLAT) * K, i) for i, (px, pz) in enumerate(pr) if not EXPORT or crest_i - 14 <= i <= tip_i + 30 or i % 3 == 0 or i == len(pr) - 1]
     pts += [(e, 0.0, None) for e in ext_out]
     row = []
     for y, z, i in pts:
@@ -473,6 +501,52 @@ spray.free()
 spm.materials.append(spray_m)
 spo = bpy.data.objects.new('Spray', spm)
 scene.collection.objects.link(spo)
+
+# ---------------------------------------------------------------- real-time export (T-062)
+def export_glb(path):
+    """Wave mesh around the surfer (crop) with per-vertex foam/thin/crest packed into COLOR_0 (r=foam, g=thin, b=crest
+    distance), modifiers applied except subdivision, plus the surfer. Metres, +z up in Blender (glTF converts to +y up)."""
+    R = 18 * H + 12
+    sub.show_viewport = False
+    deps = bpy.context.evaluated_depsgraph_get()
+    ev = sea.evaluated_get(deps)
+    me2 = bpy.data.meshes.new_from_object(ev, depsgraph=deps)
+    keep = [abs(v.co.x - SURFER_X) <= R * 1.6 and abs(v.co.y) <= R for v in me2.vertices]
+    bm2 = bmesh.new()
+    bm2.from_mesh(me2)
+    bm2.verts.ensure_lookup_table()
+    bmesh.ops.delete(bm2, geom=[v for v in bm2.verts if not keep[v.index]], context='VERTS')
+    bm2.to_mesh(me2)
+    bm2.free()
+    col = me2.color_attributes.new('Col', 'FLOAT_COLOR', 'POINT')
+    fo, th, cd = me2.attributes['foam'].data, me2.attributes['thin'].data, me2.attributes['crestd'].data
+    for i in range(len(me2.vertices)):
+        col.data[i].color = (fo[i].value, th[i].value, min(cd[i].value / 9.0, 1.0), 1.0)
+    for name in ('foam', 'thin', 'crestd'):
+        me2.attributes.remove(me2.attributes[name])
+    me2.color_attributes.active_color = col
+    wave_ob = bpy.data.objects.new('Wave', me2)
+    scene.collection.objects.link(wave_ob)
+    bpy.ops.object.select_all(action='DESELECT')
+    wave_ob.select_set(True)
+    bpy.context.view_layer.objects.active = wave_ob
+    print('GLB verts', len(me2.vertices), 'faces', len(me2.polygons))
+    bpy.ops.export_scene.gltf(filepath=path, use_selection=True, export_apply=True, export_vertex_color='ACTIVE',
+                              export_all_vertex_colors=False, export_materials='NONE', export_draco_mesh_compression_enable=False)
+    from mathutils import Matrix as _M
+    C = _M(((1, 0, 0, 0), (0, 0, 1, 0), (0, -1, 0, 0), (0, 0, 0, 1)))  # Blender z-up -> glTF y-up: (x, y, z) -> (x, z, -y)
+    Mg = C @ surfer.matrix_world @ C.inverted()
+    meta = {'surfer_matrix_colmajor': [Mg[r][c] for c in range(4) for r in range(4)], 'face_m': H, 'curl': a.curl, 'surfer_m': SURFER_H, 'surfer_x': SURFER_X, 'surfer_y': fy, 'surfer_z': fz,
+            'pocket_m': POCKET, 'broken_m': BROKEN, 'crop_m': R, 'axes': 'blender z-up exported as glTF y-up; crest along x, beach toward +y(blender) = -z(glTF)'}
+    import json
+    with open(os.path.splitext(path)[0] + '.json', 'w') as fh:
+        json.dump(meta, fh, indent=1)
+    print('GLB', path)
+
+
+if a.glb:
+    export_glb(a.glb)
+    sys.exit(0)
 
 # ---------------------------------------------------------------- sky and sun
 world = bpy.data.worlds.new('Sky')
