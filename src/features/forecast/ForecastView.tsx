@@ -11,7 +11,7 @@ import {NearshoreCard} from './Nearshore';
 import {BuoyContext} from './BuoyContext';
 import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, facingOf, surfOf, type CardKey} from './SpotPage';
 import {SpotBand} from './SpotBand';
-import {ObservePanel, ObservedLine, sawWords} from './Observe';
+import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
 import './forecast.css';
 
 function Sources() {
@@ -105,7 +105,7 @@ export function ForecastView({go}: ViewProps) {
         </div>
       </SpotBand>
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<ObservedLine spotId={spot.id} nowMs={now} onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<ObservedLine spotId={spot.id} nowMs={now} />} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={{records: view.mapRecords, bundle, profile: p, nowMs: now}} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
       <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}

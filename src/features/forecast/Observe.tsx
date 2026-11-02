@@ -1,22 +1,24 @@
 import {useEffect, useRef, useState, useSyncExternalStore} from 'react';
 import type {UserProfile} from '../../models/index';
-import {BODY_TICKS} from '../../services/bodyWords';
-import {calibrationFor, getObservationsSnapshot, latestObservation, logObservation, subscribeObservations, type BodyWord, type Observation, type ObserveEnv, type Quality} from './observeApi';
+import {BODY_WORD_LIST, WORD_FACE_FT, calibrationFor, getObservationsSnapshot, latestObservation, logObservation, subscribeObservations, type BodyWord, type Observation, type ObserveEnv, type Quality} from './observeApi';
 
 /* T-060 "What did you see?": two taps (a size in body words, optionally a quality), then Save. Defaults to now; the time is one tap to change.
  * The observation is the surfer's own, always labelled so, and feeds engineering's calibration (T-059). No modal, no form fields. */
 
+/** Re-renders on every save or delete (and storage events from other tabs); read the data through observationsFor / latestObservation. */
 export const useObservations = () => useSyncExternalStore(subscribeObservations, getObservationsSnapshot, getObservationsSnapshot);
-const SIZES = BODY_TICKS.map(([w, ft]) => ({w: w as BodyWord, ft}));
+// The words and what each covers on the face scale (BODY_TICKS anchors; overhead spans 6–11 ft, double overhead is 12 ft and up).
+const SIZES: {w: BodyWord; lo: number; hi: number | null}[] = BODY_WORD_LIST.map((w) => ({w, lo: w === 'overhead' ? 6 : w === 'double overhead' ? 12 : WORD_FACE_FT[w], hi: w === 'overhead' ? 11 : null}));
 const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
 export const sawWords = (w: BodyWord) => (w === 'overhead' || w === 'double overhead' ? w : `${w} high`);
-const sizeText = (ft: number, p: UserProfile) => (p.heightUnit === 'm' ? `${(ft * 0.3048).toFixed(1)} m` : `${ft} ft`);
+const one = (ft: number, p: UserProfile) => (p.heightUnit === 'm' ? `${+(ft * 0.3048).toFixed(1)}` : `${ft}`);
+const sizeText = (s: {w: BodyWord; lo: number; hi: number | null}, p: UserProfile) => `${one(s.lo, p)}${s.hi !== null ? `–${one(s.hi, p)}` : s.w === 'double overhead' ? '+' : ''} ${p.heightUnit === 'm' ? 'm' : 'ft'}`;
 const clock = (ms: number) => new Date(ms).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'});
 const dayClock = (ms: number) => new Date(ms).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit'});
 const localInput = (ms: number) => { const d = new Date(ms - new Date(ms).getTimezoneOffset() * 6e4); return d.toISOString().slice(0, 16); };
 const QWORDS = ['Poor', 'Poor to fair', 'Fair', 'Good', 'Epic'];
 
-export function ObservePanel({spotName, spotId, p, env, onDone}: {spotName: string; spotId: string; p: UserProfile; env: ObserveEnv; onDone: (o: Observation | null) => void}) {
+export function ObservePanel({spotName, spotId, p, env, onDone}: {spotName: string; spotId: string; p: UserProfile; env: ObserveEnv & {nowMs: number}; onDone: (o: Observation | null) => void}) {
   const [word, setWord] = useState<BodyWord | null>(null);
   const [quality, setQuality] = useState<Quality | null>(null);
   const [at, setAt] = useState<number | null>(null); // null = now
@@ -47,7 +49,7 @@ export function ObservePanel({spotName, spotId, p, env, onDone}: {spotName: stri
         {SIZES.map((s, i) => (
           <button key={s.w} type="button" role="radio" aria-checked={word === s.w} tabIndex={word === s.w || (wi < 0 && i === 0) ? 0 : -1}
             onClick={() => { setWord(s.w); setErr(''); }} onKeyDown={(e) => radioKeys(e, SIZES.length, i, (k) => setWord(SIZES[k].w))}>
-            <b>{cap(s.w)}</b><small>{sizeText(s.ft, p)}{s.w === 'overhead' ? '+' : ''}</small>
+            <b>{cap(s.w)}</b><small>{sizeText(s, p)}</small>
           </button>
         ))}
       </div>
@@ -70,14 +72,15 @@ export function ObservePanel({spotName, spotId, p, env, onDone}: {spotName: stri
 }
 
 /** On the SURF card: what you saw today (labelled as yours) and how far calibration has got. */
-export function ObservedLine({spotId, nowMs, onOpen}: {spotId: string; nowMs: number; onOpen: () => void}) {
+export const ObserveEntry = ({onOpen}: {onOpen: () => void}) => <button type="button" className="sp-link ob-open" onClick={onOpen}>What did you see?</button>;
+export function ObservedLine({spotId, nowMs}: {spotId: string; nowMs: number}) {
   useObservations();
   const last = latestObservation(spotId, nowMs), cal = calibrationFor(spotId);
+  if (!last && cal.count === 0) return null;
   return (
     <div className="ob-line">
-      {last && <p className="ob-saw"><span>You saw ~{sawWords(last.word)} · {clock(Date.parse(last.observedAt))}</span> <span className="ob-own">your observation</span></p>}
+      {last && <p className="ob-saw"><span>You saw ~{sawWords(last.word)} · {clock(Date.parse(last.observedAt))}</span> <span className="ob-own">your observation{last.paired ? '' : ' · not counted: no forecast for that hour'}</span></p>}
       {cal.count > 0 && <p className="ob-cal">{cal.state === 'active' ? `Calibrated with your ${cal.count} observations` : `Calibrating: ${cal.count} of ${cal.needed} observations`}</p>}
-      <button type="button" className="sp-link ob-open" onClick={onOpen}>What did you see?</button>
     </div>
   );
 }

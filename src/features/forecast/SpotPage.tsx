@@ -90,7 +90,7 @@ const shortFactor = (n: string) => (/organi[sz]ation/i.test(n) ? 'Swell quality'
 /** Wetsuit by water temperature (°F): a common surf-shop guide, labelled as such. */
 const wetsuit = (f: number) => (f >= 72 ? 'Boardshorts or a top' : f >= 65 ? '2 mm spring suit' : f >= 62 ? '3/2 mm full suit' : f >= 58 ? '4/3 mm full suit' : f >= 52 ? '4/3 mm + booties' : f >= 48 ? '5/4 mm hooded + booties' : '6/5 mm hooded, booties, gloves');
 
-export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale, observe, open, onToggle}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; observe?: ReactNode; open: CardKey | null; onToggle: (k: CardKey) => void}) {
+export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale, observe, observeEntry, open, onToggle}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; observe?: ReactNode; observeEntry?: ReactNode; open: CardKey | null; onToggle: (k: CardKey) => void}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, {h: hs, t} = surfOf(spot, f, p, bundle, now);
   const rel = f.availability.wind && fin(f.wind.speed) ? windRelationship(spot, f) : 'Unknown';
   // The rating explains itself (T-049 explainRating): scored factors as ticks on the card; context items (nearshore, tide) in the detail.
@@ -102,7 +102,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
   const water = fin(f.waterTempF) ? f.waterTempF : null;
   return (
     <div className="sp-grid">
-      <Card k="surf" title="Surf">
+      <Card k="surf" title="Surf" aside={observeEntry}>
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>at the break</span></> : t.detail}</p>

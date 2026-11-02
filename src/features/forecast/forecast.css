@@ -362,3 +362,6 @@
   .ob-f { gap: 16px; } .ob-save { flex: 1; }
 }
 @media (max-width: 860px) { .ob-sizes button b { font-size: 13px; } .ob-sizes button { padding: 8px 2px; } }
+/* The entry sits in the SURF label row (no extra height); 24 px tall on pointer screens, 44 px on touch. */
+.sp-card > header .ob-open { min-height: 24px; margin: -4px 0; font-size: 13px; }
+@media (pointer: coarse) { .sp-card > header .ob-open { min-height: 44px; margin: -12px 0; } }

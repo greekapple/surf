@@ -1,11 +1,12 @@
-import {deleteObservation, type Observation} from '../forecast/observeApi';
+import {deleteObservation, observationsFor, type Observation} from '../forecast/observeApi';
 import {sawWords, useObservations} from '../forecast/Observe';
 
 const when = (iso: string) => new Date(iso).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'});
 
 /** T-060: Personal › Surf journal › What you saw. Your observations from the spot page, newest first, each removable. */
 export function SawList({spotName}: {spotName: (id: string) => string}) {
-  const all = [...useObservations()].sort((a, b) => Date.parse(b.observedAt) - Date.parse(a.observedAt));
+  useObservations(); // re-render on save, delete or another tab
+  const all = [...observationsFor()].sort((a, b) => Date.parse(b.observedAt) - Date.parse(a.observedAt));
   return (
     <section className="saw" aria-labelledby="saw-h">
       <h2 id="saw-h">What you saw <span>{all.length} {all.length === 1 ? 'observation' : 'observations'}</span></h2>
