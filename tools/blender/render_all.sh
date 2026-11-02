@@ -12,6 +12,6 @@ for b in $BANDS; do
   mkdir -p "$out"
   start=$(date +%s)
   "$BL" -b --factory-startup --python tools/blender/wave_scene.py -- --face "$face" --curl "$curl" --out "$out" \
-    --surfer tools/blender/assets/surfer.glb --size "$SIZE" --samples "$SAMPLES" > "/tmp/swello-render-$name.log" 2>&1
+    --surfer tools/blender/assets/surfer-v2.glb --size "$SIZE" --samples "$SAMPLES" > "/tmp/swello-render-$name.log" 2>&1
   echo "$name done in $(( $(date +%s) - start ))s, frames: $(ls "$out"/a*.jpg 2>/dev/null | wc -l)"
 done
