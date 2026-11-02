@@ -3,7 +3,10 @@ import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
-import {DirArrow, Icon, type IconName} from '../../ui/Icon';
+import {DirArrow, Icon} from '../../ui/Icon';
+import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
+import {posterPath} from '../../services/scaleFrames';
+import {useHasSpin} from '../scale/useHasSpin';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
@@ -27,10 +30,10 @@ export function surfOf(spot: SurfSpot, f: Forecast, p: UserProfile, bundle: Ocea
 }
 
 export type CardKey = 'rating' | 'wind' | 'tide' | 'swell';
-function Card({k, title, icon, aside, children, className = '', open, onToggle}: {k: string; title: string; icon?: IconName; aside?: ReactNode; children: ReactNode; className?: string; open?: boolean; onToggle?: () => void}) {
+function Card({k, title, aside, children, className = '', open, onToggle}: {k: string; title: string; aside?: ReactNode; children: ReactNode; className?: string; open?: boolean; onToggle?: () => void}) {
   return (
     <section className={`sp-card ${className}${onToggle ? ' can-open' : ''}`} data-card={k} data-open={open || undefined} aria-label={title}>
-      <header>{icon && <Icon name={icon} size={15} />}<h2>{title}</h2>{aside}
+      <header><h2>{title}</h2>{aside}
         {onToggle && <button className="sp-open" aria-expanded={!!open} aria-controls="sp-detail" aria-label={`${open ? 'Hide' : 'Show'} ${title.toLowerCase()} detail`} onClick={onToggle}><Icon name="chevron" size={14} /></button>}
       </header>
       {children}
@@ -97,43 +100,43 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
   const water = fin(f.waterTempF) ? f.waterTempF : null;
   return (
     <div className="sp-grid">
-      <Card k="surf" title="Surf" icon="waves" aside={<span className={`sp-tag ${t.tag === 'model estimate' ? 'est' : ''}`}>{t.tag === 'none' ? 'no value' : t.tag}</span>}>
+      <Card k="surf" title="Surf">
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>at the break</span></> : t.detail}</p>
         {hs.kind !== 'offshore' && fin(f.offshore) && <p className="sp-f">Offshore {ht(f.offshore, p)} {u} · not surf size</p>}
-        {hs.kind === 'estimate' && <p className="sp-f sp-method">{hs.methodLabel}</p>}
+        {hs.kind === 'estimate' ? <p className="sp-f">model estimate<span className="sp-method"> {hs.methodLabel.replace(/^Model estimate /, '')}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
       </Card>
-      {scale && <Card k="scale" title="Wave scale" icon="forecast">{scale}</Card>}
-      <Card k="rating" title="Rating" icon="star" open={open === 'rating'} onToggle={() => onToggle('rating')}>
+      {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
+      <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
         <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
         {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><b aria-hidden="true">{MARK[x.effect].m}</b>{shortFactor(x.factor)}</li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}
         <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
       </Card>
-      <Card k="wind" title="Wind" icon="wind" open={open === 'wind'} onToggle={() => onToggle('wind')}>
+      <Card k="wind" title="Wind" open={open === 'wind'} onToggle={() => onToggle('wind')}>
         {f.availability.wind !== false && fin(f.wind.speed) ? <>
           <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small>{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
           <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
           {fin(f.wind.direction) && <WindDial from={f.wind.direction} facing={facing} cls={relClass(rel)} />}
         </> : <p className="sp-s">Wind not in this record.</p>}
       </Card>
-      <Card k="tide" title="Tide" icon="tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
+      <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk ? <>
           <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
           <TideMini hours={dayHours} at={h.timestamp} extrema={f.tide.extrema?.length ? f.tide.extrema.map((e) => ({timestamp: e.timestamp, v: e.height, type: e.type})) : extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
           <p className="sp-f">NOAA station prediction, not at the beach</p>
         </> : <p className="sp-s">No tide station near this spot.</p>}
       </Card>
-      <Card k="swell" title="Swell" icon="arrow" open={open === 'swell'} onToggle={() => onToggle('swell')}>
+      <Card k="swell" title="Swell" open={open === 'swell'} onToggle={() => onToggle('swell')}>
         {swells.length ? <ul className="sp-swells">{swells.map((s, i) => (
           <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color={i === 0 ? 'var(--sw1)' : 'var(--sw2)'} /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
         ))}</ul> : <p className="sp-s">No swell partitions in this record.</p>}
         {swells.length > 0 && <SwellRose swells={swells} facing={facing} />}
         <p className="sp-f">Offshore model partitions</p>
       </Card>
-      <Card k="water" title="Water" icon="thermo">
+      <Card k="water" title="Water">
         {water !== null ? <>
           <p className="v sp-v">{Math.round(water)}<small>°F</small></p>
           <p className="sp-s"><b>{wetsuit(water)}</b></p>
@@ -179,9 +182,8 @@ export function BoardLine({boards, f, p, hs, onOpen, onQuiver}: {boards: import(
     : <>None of your boards suits this size; Board Match explains why.</>;
   return (
     <section className="sp-board" aria-label="Board Match">
-      <Icon name="quiver" size={18} />
       <p>{text}</p>
-      <button className="btn" onClick={boards.length ? onOpen : onQuiver}>{boards.length ? 'Board Match' : 'Add a board'}<Icon name="chevron" size={14} style={{transform: 'rotate(-90deg)'}} /></button>
+      <button className="sp-link" onClick={boards.length ? onOpen : onQuiver}>{boards.length ? 'Board Match' : 'Add a board'}</button>
     </section>
   );
 }
@@ -285,8 +287,11 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
   const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
-  return (
-    <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. Open the full wave scale`}>
+  // T-056: the lead's 3D renders (T-054) are the main visual when this band has frames; the drawn chart stays as the small inset (or the panel).
+  const bi = est ? selectScaleBand({estimateRangeFt: [est.loFt, est.hiFt], estimateText: null, demoFaceFt: null, demoText: null, offshoreFt: null, offshoreText: null}).band : null;
+  const band = bi !== null ? SCALE_BANDS[bi] : null;
+  const spin = useHasSpin(band ?? SCALE_BANDS[0], !!band);
+  const chart = (
       <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
         {ticks.map((t) => <g key={t}><line x1={22} x2={214} y1={yy(t)} y2={yy(t)} stroke="var(--line)" strokeWidth={1} /><text x={18} y={yy(t) + 4} fontSize={10} textAnchor="end" fill="var(--dim)">{t}</text></g>)}
         <line x1={22} x2={214} y1={base} y2={base} stroke="var(--line-2)" strokeWidth={1.2} />
@@ -307,8 +312,18 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
         <text x={px + pw / 2} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">you</text>
         {board && <text x={px + pw + 23.5} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">board</text>}
         <text x={22} y={10} fontSize={10} fill="var(--dim)">{p.heightUnit}</text>
-      </svg>
-      <span className="sp-scalep-c">{board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · you {formatHeight(me.inches, p.heightUnit)}{me.isDefault ? ' (default)' : ''}<b>Full wave scale →</b></span>
+      </svg>);
+  const mine = `${board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · you ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}`;
+  if (spin && band) return (
+    <button className="sp-scalep is-3d" onClick={onOpen} aria-label={`Wave scale: 3D illustration of a ${band.label} wave at approximate scale, not current conditions. ${label}. Open the full wave scale`}>
+      <span className="sp-scalep-img"><img src={posterPath(band)} alt="" width={1024} height={768} decoding="async" /><span className="sp-scalep-inset" aria-hidden="true">{chart}</span></span>
+      <span className="sp-scalep-c"><span>3D illustration · approximate scale</span><span>{band.label} wave · surfer 1.75 m</span><span className="sp-link-t">Full wave scale</span></span>
+    </button>
+  );
+  return (
+    <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. Open the full wave scale`}>
+      {chart}
+      <span className="sp-scalep-c"><span>{mine}</span><span className="sp-link-t">Full wave scale</span></span>
     </button>
   );
 }

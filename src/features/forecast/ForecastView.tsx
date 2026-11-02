@@ -85,13 +85,13 @@ export function ForecastView({go}: ViewProps) {
   const boards = data.state.boards;
   // The scale shows the Board Match pick when there is one, else the user's favourite (or first) board, labelled as theirs, not as a pick.
   const scaleBoard = bestBoard(boards, selected.forecast, p, hs)?.board ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
-  const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'model forecast · ratings provisional' : 'demonstration week · not live'];
+  const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'heights are model estimates · ratings provisional' : 'demonstration week · not live'];
   return (
     <div className="sp">
       <SpotBand spotId={spot.id}>
         <div className="sp-head">
           <div className="sp-title">
-            <h1 className={narrow ? 'sr-only' : undefined}>{spot.name}</h1>
+            <h1>{spot.name}</h1>
             <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
             <p>{meta.join(' · ')}</p>
           </div>
