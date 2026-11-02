@@ -61,24 +61,43 @@ export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: U
   return f ? spotHourOf(spot, f, atMs, p, ctx) : undefined;
 }
 
-export interface DayRange {kind: 'estimate' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string}
+/** The one hour a day card stands for (T-057): the best-rated daylight hour, or the median-size daylight hour when nothing is rated. Its numbers ARE spotHourOf at that hour. */
+export interface DayTypical {atIso: string; how: 'best' | 'median'; hourLabel: string; short: string; loFt: number; hiFt: number; hour: SpotHour; aria: string}
+export interface DayRange {kind: 'estimate' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
+const hrFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'});
+const hourWord = (iso: string) => hrFmt.format(new Date(iso)).replace(' ', '').toUpperCase().replace(/AM$/, ' AM').replace(/PM$/, ' PM');
+const hourShort = (iso: string) => hrFmt.format(new Date(iso)).replace(/ (A|P)M$/, (_, c) => c.toLowerCase());
 /** The day card's size: the envelope of the hourly headline over that Pacific date's DAYLIGHT hours (civil twilight), from the same engine as every other surface.
  *  Estimates win; otherwise labelled offshore heights; otherwise none. The label names the basis so nobody reads it as a single-hour value. */
 export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, nowMs: number, p: UserProfile, ctx: HourContext = {}): DayRange {
   const ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(dateKey, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96);
   const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && pacificDate(f.timestamp) === dateKey && t >= civil.rise && t <= civil.set; });
   const heads = hours.map((f) => headlineSurf(spot.id, f, {bundle: ctx.bundle, nowMs}));
+  const pickTypical = (kind: 'estimate' | 'offshore'): DayTypical | null => {
+    const idx = hours.map((_, i) => i).filter((i) => heads[i].kind === kind);
+    if (!idx.length) return null;
+    const scored = idx.map((i) => ({i, s: rateForecast(spot, hours[i], nowMs).score})).filter((x): x is {i: number; s: number} => typeof x.s === 'number' && Number.isFinite(x.s));
+    const mid = (i: number) => { const h = heads[i]; return h.kind === 'estimate' ? (h.loFt + h.hiFt) / 2 : h.kind === 'offshore' ? h.ft : 0; };
+    let pick: number, how: 'best' | 'median';
+    if (scored.length) { pick = scored.reduce((a, b) => (b.s > a.s ? b : a)).i; how = 'best'; }
+    else { const by = [...idx].sort((a, b) => mid(a) - mid(b) || a - b); pick = by[(by.length - 1) >> 1]; how = 'median'; }
+    const hour = spotHourOf(spot, hours[pick], nowMs, p, ctx), h = hour.surf.headline;
+    const lo = h.kind === 'estimate' ? h.loFt : h.kind === 'offshore' ? h.ft : 0, hi = h.kind === 'estimate' ? h.hiFt : h.kind === 'offshore' ? h.ft : 0;
+    const w = hourWord(hours[pick].timestamp);
+    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: `${how === 'best' ? 'best' : 'mid'} ${hourShort(hours[pick].timestamp)}`, loFt: lo, hiFt: hi, hour,
+      aria: `typical for the day: ${how === 'best' ? 'the best-rated daylight hour' : 'the median-size daylight hour'}, ${w}`};
+  };
   const est = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'estimate'}> => h.kind === 'estimate');
   if (est.length) {
     const lo = Math.min(...est.map((h) => h.loFt)), hi = Math.max(...est.map((h) => h.hiFt));
     const text = formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text;
-    return {kind: 'estimate', loFt: lo, hiFt: hi, hours: est.length, label: `Est. ${text}`, basis: `daylight hours (${est.length} of ${hours.length} with an estimate)`};
+    return {kind: 'estimate', loFt: lo, hiFt: hi, hours: est.length, label: `Est. ${text}`, basis: `daylight hours (${est.length} of ${hours.length} with an estimate)`, typical: pickTypical('estimate')};
   }
   const off = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'offshore'}> => h.kind === 'offshore').map((h) => h.ft);
   if (off.length) {
     const lo = Math.min(...off), hi = Math.max(...off);
     const a = formatWaveHeight({kind: 'offshore', valueFt: lo}, p, 'technical').text, b = formatWaveHeight({kind: 'offshore', valueFt: hi}, p, 'technical').text;
-    return {kind: 'offshore', loFt: lo, hiFt: hi, hours: off.length, label: a === b ? `${b} offshore` : `${a.replace(` ${p.heightUnit}`, '')}–${b} offshore`, basis: `daylight hours, offshore height (not surf size)`};
+    return {kind: 'offshore', loFt: lo, hiFt: hi, hours: off.length, label: a === b ? `${b} offshore` : `${a.replace(` ${p.heightUnit}`, '')}–${b} offshore`, basis: `daylight hours, offshore height (not surf size)`, typical: pickTypical('offshore')};
   }
-  return {kind: 'none', loFt: null, hiFt: null, hours: 0, label: null, basis: 'no daylight hours with a height'};
+  return {kind: 'none', loFt: null, hiFt: null, hours: 0, label: null, basis: 'no daylight hours with a height', typical: null};
 }

@@ -197,7 +197,8 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
   const today = weekdayPT(new Date(now).toISOString());
   // Drag across the strip with a mouse to scrub days; every card follows the selected hour live.
   const scrub = useRef(false);
-  return (
+  let selNote: string | null = null;
+  const strip = (
     <nav className="sp-days days" aria-label="Forecast days" data-scrub={scrub.current || undefined}
       onPointerDown={(e) => { if (e.pointerType === 'mouse' && e.button === 0) scrub.current = true; }}
       onPointerMove={(e) => { if (!scrub.current || !(e.buttons & 1)) { scrub.current = false; return; } const k = Number((document.elementFromPoint(e.clientX, e.clientY)?.closest('.sp-day') as HTMLElement | null)?.dataset.k); if (Number.isFinite(k) && k !== cur) onPick(k); }}
@@ -209,17 +210,20 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         // SURF card. The demonstration week (no estimate, no offshore) keeps its typical face height, labelled demo.
         const dr = dayRange(spot, hrs.map((x) => x.forecast), pacificDate(d.t), now, p, {bundle});
         const demo = dr.kind === 'none' ? day.map((x) => surfOf(spot, x.forecast, p, bundle, now).h).filter((x): x is Extract<HeadlineSurf, {kind: 'demonstration'}> => x.kind === 'demonstration') : [];
-        const range = dr.kind !== 'none' && dr.loFt !== null && dr.hiFt !== null ? [dr.loFt, dr.hiFt] : demo.length ? [median(demo.map((x) => x.ft)), median(demo.map((x) => x.ft))] : null;
+        // T-057: the card's main number is the estimate at ONE hour (best daylight hour, else the median one), via spotHour; the full envelope is "range over daylight" below.
+        const ty = dr.typical, env = dr.kind !== 'none' && dr.loFt !== null && dr.hiFt !== null ? [dr.loFt, dr.hiFt] : null;
+        const range = ty ? [ty.loFt, ty.hiFt] : demo.length ? [median(demo.map((x) => x.ft)), median(demo.map((x) => x.ft))] : null;
         const kind = dr.kind === 'estimate' ? 'est.' : dr.kind === 'offshore' ? 'offshore' : demo.length ? 'demo' : '';
         const lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null;
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
+        if (k === cur && env) selNote = `Range over daylight: ${ht(env[0], p, 0)}–${ht(env[1], p, 0)} ${p.heightUnit} (${kind === 'est.' ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
         return (
           <button key={d.key} className="sp-day day" data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)}
-            aria-label={`${name}: ${range ? `typically ${lo === hi ? lo : `${lo} to ${hi}`} ${p.heightUnit} ${kind === 'est.' ? 'estimated' : kind}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
+            aria-label={`${name}: ${range ? `typically ${lo === hi ? lo : `${lo} to ${hi}`} ${p.heightUnit} ${kind === 'est.' ? 'estimated' : kind}${ty ? `, ${ty.aria}` : ''}${env ? `; range over daylight ${ht(env[0], p, 0)} to ${ht(env[1], p, 0)}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <Icon name="star" size={12} />}</span>
             <span className="sd-h">{range ? <>{lo === hi ? lo : `${lo}–${hi}`}<small>{p.heightUnit}</small></> : '—'}</span>
-            <span className="sd-k">{kind}</span>
+            <span className="sd-k" title={ty ? ty.aria : undefined}>{kind}{ty ? ` · ${ty.short}` : ''}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
             <span className="sd-q" aria-hidden="true">{blocks.map((b) => <i key={b.label} style={{background: b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />)}</span>
           </button>
@@ -227,6 +231,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
       })}
     </nav>
   );
+  return <>{strip}{selNote && <p className="sp-dayrange">{selNote}</p>}</>;
 }
 
 /** Magicseaweed-style 3-hour table for the selected day: wind cells coloured by shore relation. */
