@@ -10,10 +10,10 @@ const loadCoast = () => (coast ??= import('../../map/coast.json').then((m) => (m
 
 /** T-050 slim header band: the spot's own credited photograph, or a plan drawn from real coastline geometry when it has none.
  *  The page heading and controls sit over a soft scrim. Nothing is decorative stock or AI. */
-export function SpotBand({spotId, children}: {spotId: string; children: ReactNode}) {
+export function SpotBand({spotId, hasCam, children}: {spotId: string; hasCam?: boolean; children: ReactNode}) {
   const photo = !!SPOT_PHOTOS[spotId]?.length;
   return (
-    <header className={`sp-band ${photo ? 'is-photo' : 'is-plan'}`}>
+    <header className={`sp-band ${photo ? 'is-photo' : 'is-plan'}${hasCam ? ' has-cam' : ''}`}>
       {photo ? <SpotPhoto spotId={spotId} className="sp-band-img" /> : <SpotPlan spotId={spotId} />}
       <div className="sp-band-in">{children}</div>
     </header>
@@ -42,7 +42,7 @@ function SpotPlan({spotId}: {spotId: string}) {
         <circle cx={sx} cy={sy} r={7} fill="#fff" stroke="var(--text)" strokeWidth={2} /><circle cx={sx} cy={sy} r={2.5} fill="var(--text)" />
         <g transform={`translate(${W - 40} ${H / 2 - 6})`} fill="var(--muted)"><path d="M0 -14 L6 6 L0 2 L-6 6Z" /><text y={22} fontSize={12} textAnchor="middle">N</text></g>
       </svg>
-      <figcaption className="credit">Coastline: Natural Earth 10 m (public domain), approximate{o !== null ? ` · dashed arrow: surveyed shore normal ${Math.round(o)}°` : ''}</figcaption>
+      <figcaption className="credit"><span className="cr-long">Coastline: Natural Earth 10 m (public domain), approximate{o !== null ? ` · dashed arrow: surveyed shore normal ${Math.round(o)}°` : ''}</span><span className="cr-short" aria-hidden="true">Natural Earth coast, approx.</span></figcaption>
     </figure>
   );
 }

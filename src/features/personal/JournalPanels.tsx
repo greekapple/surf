@@ -3,6 +3,7 @@ import type {Surfboard, SurfSession} from '../../models/index';
 import {Condition, conditionWord} from '../../ui/Condition';
 import {PIcon} from './icons';
 import {creditText, entryDate, entryImage} from './parts';
+import {ClipPanel} from './Clip';
 import {PHOTO_MAX_BYTES, downscale, type JournalExtra, type JournalExtras} from './journal';
 
 interface Common {sessions: SurfSession[]; extras: JournalExtras; spotName: (id: string) => string}
@@ -44,6 +45,7 @@ export function Featured({s, x, spotName}: {s: SurfSession; x: JournalExtra | un
 function Row({s, x, spotName, i, onRemove}: {s: SurfSession; x: JournalExtra | undefined; spotName: (id: string) => string; i: number; onRemove?: () => void}) {
   const img = entryImage(x, s.spotId, i + 1);
   const meta = [x?.height, x?.cond ? conditionWord(x.cond) : null].filter(Boolean).join(' · ');
+  const [clip, setClip] = useState(false);
   return (
     <li className="pz-row">
       <div className="pz-thumb" style={{backgroundImage: `url(${img.src})`}} role="img" aria-label={img.own ? 'Your photo' : `Photo of ${spotName(s.spotId)}`} title={img.id ? creditText(img.id) : undefined} />
@@ -53,7 +55,11 @@ function Row({s, x, spotName, i, onRemove}: {s: SurfSession; x: JournalExtra | u
         {meta && <span className="pz-date">{meta}</span>}
         {notesOf(s) && !meta && <span className="pz-date pz-clip">{notesOf(s)}</span>}
       </div>
-      {onRemove && <button className="btn pz-icon-btn" aria-label={`Delete entry ${titleOf(s, x, spotName)}`} onClick={onRemove}><PIcon name="trash" size={16} /></button>}
+      <span className="pz-row-a">
+        <button type="button" className="pz-clip-t" aria-expanded={clip} onClick={() => setClip(!clip)}>{clip ? 'Hide clip' : 'Add a clip'}</button>
+        {onRemove && <button className="btn pz-icon-btn" aria-label={`Delete entry ${titleOf(s, x, spotName)}`} onClick={onRemove}><PIcon name="trash" size={16} /></button>}
+      </span>
+      {clip && <div className="pz-row-clip"><ClipPanel sessionId={s.id} title={titleOf(s, x, spotName)} /></div>}
     </li>
   );
 }

@@ -11,6 +11,7 @@ import {NearshoreCard} from './Nearshore';
 import {BuoyContext} from './BuoyContext';
 import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, facingOf, surfOf, type CardKey} from './SpotPage';
 import {SpotBand} from './SpotBand';
+import {camFor} from '../../data/cams';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
 import './forecast.css';
 
@@ -87,10 +88,11 @@ export function ForecastView({go}: ViewProps) {
   const boards = data.state.boards;
   // The scale shows the Board Match pick when there is one, else the user's favourite (or first) board, labelled as theirs, not as a pick.
   const scaleBoard = bestBoard(boards, selected.forecast, p, hs)?.board ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
+  const cam = camFor(spot.id);
   const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'heights are model estimates · ratings provisional' : 'demonstration week · not live'];
   return (
     <div className="sp">
-      <SpotBand spotId={spot.id}>
+      <SpotBand spotId={spot.id} hasCam={!!cam}>
         <div className="sp-head">
           <div className="sp-title">
             <h1>{spot.name}</h1>
@@ -101,6 +103,8 @@ export function ForecastView({go}: ViewProps) {
             <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{isNow ? ' · now' : ''}</span>
             {!isNow && <button className="btn" onClick={toNow}>Now</button>}
             <button className="btn sp-map" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
+            {cam && <a className="sp-cam" href={cam.url} target="_blank" rel="noopener noreferrer" title={`${cam.view}. Run by ${cam.operator ?? cam.owner}; opens their page in a new tab. Checked ${cam.verified}.`}
+              aria-label={`Live cam by ${cam.owner}, opens their page in a new tab. Shows ${cam.view}`}>Live cam · {cam.owner}</a>}
           </div>
         </div>
       </SpotBand>
