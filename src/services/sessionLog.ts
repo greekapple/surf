@@ -11,12 +11,16 @@ export interface ObservationContext {
   heightLabel?: string;       // the headline height text shown for that hour, if any
   estimateRangeFt?: [number, number] | null; // the app's own breaking estimate range for that hour, if one existed
 }
+/** The model's breaking estimate for the observed spot-hour, captured when the observation was logged (past forecasts are not kept). `centralFt` is the midpoint of the uncalibrated range. */
+export interface ModelPair {centralFt: number; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; validAt: string; offshoreHsFt: number | null; primaryTpS: number | null}
 export interface SessionObservation {
   id: string; schema: 1; spotId: string;
   observedAt: string;          // ISO UTC, when the surf was observed (start of session)
   loggedAt: string;            // ISO UTC, when this record was written
   rangeFt: [number, number];   // observed face height range
-  quality: 1 | 2 | 3 | 4 | 5;  // quality of the waves (not of the session)
+  quality?: 1 | 2 | 3 | 4 | 5; // quality of the waves (not of the session); optional for a two-tap quick log (T-059)
+  /** T-059 quick log: the body word the surfer picked and the face height we map it to, plus the model estimate the app had for that hour at the time (the pairing the calibration fits on). */
+  word?: string; faceFt?: number; pair?: ModelPair;
   barNote?: string;            // free text about the sandbar / bottom that day
   context?: ObservationContext;
 }
@@ -42,7 +46,7 @@ export function checkObservation(i: ObservationInput, now = Date.now()): Checked
 
 type Store = Pick<Storage, 'getItem' | 'setItem'>;
 const defaultStore = (): Store | null => { try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch { return null; } };
-const isObs = (o: any): o is SessionObservation => o && typeof o.id === 'string' && o.schema === 1 && typeof o.spotId === 'string' && Number.isFinite(Date.parse(o.observedAt)) && Array.isArray(o.rangeFt) && o.rangeFt.length === 2 && o.rangeFt.every(Number.isFinite) && o.rangeFt[0] <= o.rangeFt[1] && [1, 2, 3, 4, 5].includes(o.quality);
+const isObs = (o: any): o is SessionObservation => o && typeof o.id === 'string' && o.schema === 1 && typeof o.spotId === 'string' && Number.isFinite(Date.parse(o.observedAt)) && Array.isArray(o.rangeFt) && o.rangeFt.length === 2 && o.rangeFt.every(Number.isFinite) && o.rangeFt[0] <= o.rangeFt[1] && (o.quality === undefined || [1, 2, 3, 4, 5].includes(o.quality));
 
 /** Reads the log; anything malformed is dropped, never repaired. */
 export function loadLog(store: Store | null = defaultStore()): SessionObservation[] {
