@@ -2,7 +2,7 @@ import type {Forecast, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle, TidePrediction} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {distanceKm} from '../ocean/mop.ts';
-import {pacificDate} from '../ocean/time.ts';
+import {pacificDate, pacificHour} from '../ocean/time.ts';
 import {solarTimes} from '../ocean/sun.ts';
 import {rateForecast} from '../ratings/adapters.ts';
 import {headlineSurf, headlineText, type HeadlineSurf} from './headlineSurf.ts';
@@ -72,6 +72,48 @@ export function bestNearby(spots: SurfSpot[], records: Forecast[], now: number, 
     const card = dashCard(s, records, now, profile, ctx);
     if (card.demo || card.rating.score === null || card.validTime === null) continue;
     out.push({card, km: Math.round(km)});
+  }
+  return out.sort((a, b) => (b.card.rating.score as number) - (a.card.rating.score as number) || a.km - b.km).slice(0, limit);
+}
+
+/** One hour of the mini rating ribbon: the existing rating at that exact hour, or null when there is no record for it (no interpolation). */
+export interface RibbonHour {iso: string; score: number | null; category: string | null; bars: number}
+export function ribbon12(spot: SurfSpot, records: Forecast[], now: number, hours = 12): RibbonHour[] {
+  const start = Math.floor(now / 3600000) * 3600000, byTime = new Map<number, Forecast>();
+  for (const f of records) if (f.spotId === spot.id) byTime.set(Date.parse(f.timestamp), f);
+  return Array.from({length: hours}, (_, i) => {
+    const t = start + i * 3600000, f = byTime.get(t), iso = new Date(t).toISOString();
+    if (!f) return {iso, score: null, category: null, bars: 0};
+    const r = rateForecast(spot, f, now);
+    return {iso, score: finite(r.score) ? r.score : null, category: finite(r.score) ? String(r.category) : null, bars: ratingBars(r.score)};
+  });
+}
+
+export type RankWhen = 'now' | '3h' | 'tomorrow-am';
+export const RANK_LABEL: Record<RankWhen, {tab: string; title: string}> = {now: {tab: 'Right now', title: 'Best right now nearby'}, '3h': {tab: 'In 3 h', title: 'Best in 3 hours nearby'}, 'tomorrow-am': {tab: 'Tomorrow AM', title: 'Best tomorrow morning nearby'}};
+/** The hour a spot is judged at for a ranking: now, three hours on (both exact hours), or the best-rated hour between 6 and 11 AM Pacific tomorrow. Null when that spot has no such hour. */
+export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when: RankWhen): number | null {
+  const top = Math.floor(now / 3600000) * 3600000;
+  const mine = records.filter((f) => f.spotId === spot.id);
+  if (when === 'now') return mine.some((f) => Date.parse(f.timestamp) === top) ? top : null;
+  if (when === '3h') return mine.some((f) => Date.parse(f.timestamp) === top + 3 * 3600000) ? top + 3 * 3600000 : null;
+  const key = pacificDate(new Date(now + 86400000).toISOString());
+  let best: number | null = null, bs = -Infinity;
+  for (const f of mine) { if (pacificDate(f.timestamp) !== key) continue; const h = pacificHour(f.timestamp); if (h < 6 || h > 11) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
+  return best;
+}
+/** Like bestNearby, judged at `when`. Each item also says which hour it was judged at. */
+export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number, profile: UserProfile, refId: string, when: RankWhen, opts: {exclude?: string[]; limit?: number; radiusKm?: number; ctx?: DashContext} = {}): (NearbyItem & {at: string})[] {
+  const ref = evidenceSpots.find((e) => e.id === refId); if (!ref) return [];
+  const {exclude = [], limit = 5, radiusKm = 100, ctx} = opts, out: (NearbyItem & {at: string})[] = [];
+  for (const s of spots) {
+    if (exclude.includes(s.id)) continue;
+    const ev = evidenceSpots.find((e) => e.id === s.id); if (!ev) continue;
+    const km = distanceKm(ref.latitude, ref.longitude, ev.latitude, ev.longitude); if (km > radiusKm) continue;
+    const t = rankHour(s, records, now, when); if (t === null) continue;
+    const card = dashCard(s, records, t, profile, ctx);
+    if (card.demo || card.rating.score === null || card.validTime === null) continue;
+    out.push({card, km: Math.round(km), at: card.validTime});
   }
   return out.sort((a, b) => (b.card.rating.score as number) - (a.card.rating.score as number) || a.km - b.km).slice(0, limit);
 }
