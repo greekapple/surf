@@ -6,6 +6,7 @@ import {evidenceSpots} from '../../ocean/spots';
 import {ZONES} from '../../data/zones';
 import type {Forecast, Skill, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
+import {formatHeight, parseHeight, userHeight} from '../../services/heightMath';
 import {readBasemapPref, saveBasemapPref, type BasemapPref} from '../../map/basemapPref';
 import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
 import {timeLabelPT} from '../forecast/format';
@@ -116,7 +117,29 @@ export function PersonalView({section, go}: ViewProps) {
     (e.currentTarget.children[next] as HTMLElement | undefined)?.focus();
   };
 
-  /** Back to the list: also leaves the #alerts hash so the list shows. */
+  /** Your height (T-052): saved on the profile in inches, typed as ft/in or cm by the unit preference. The Wave scale draws you at this height; until it is set a labelled 5'10" default is drawn. */
+function HeightField({p, set}: {p: import('../../models/index').UserProfile; set: (v: Partial<import('../../models/index').UserProfile>) => void}) {
+  const me = userHeight(p), unit = p.heightUnit === 'm' ? 'm' : 'ft';
+  const [text, setText] = useState(me.isDefault ? '' : formatHeight(me.inches, unit)), [err, setErr] = useState('');
+  useEffect(() => { setText(userHeight(p).isDefault ? '' : formatHeight(userHeight(p).inches, unit)); }, [p.heightIn, unit]); // eslint-disable-line react-hooks/exhaustive-deps
+  const commit = () => {
+    if (!text.trim()) { setErr(''); if (p.heightIn != null) set({heightIn: null}); return; }
+    const v = parseHeight(text, unit);
+    if (v === null) { setErr(unit === 'm' ? 'Enter your height in centimetres, 100 to 230, like 178.' : `Enter your height like 5'10" (3'4" to 7'6").`); return; }
+    setErr(''); set({heightIn: v});
+  };
+  return (
+    <>
+      <label className="field"><span>Height ({unit === 'm' ? 'cm' : 'ft and in'})</span>
+        <input value={text} inputMode={unit === 'm' ? 'numeric' : 'text'} placeholder={unit === 'm' ? '178' : `5'10"`} aria-invalid={!!err} aria-describedby="height-help" onChange={(e) => setText(e.target.value)} onBlur={commit} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }} />
+      </label>
+      <p id="height-help" className={err ? 'pz-err' : 'fine'} role={err ? 'alert' : undefined}>{err || (me.isDefault ? `Not set: the Wave scale draws you at ${formatHeight(me.inches, unit)} (default). Used only to draw you to scale on this device.` : `The Wave scale draws you at ${formatHeight(me.inches, unit)}. Saved on this device.`)}</p>
+      {!me.isDefault && <button type="button" className="btn" onClick={() => { setText(''); setErr(''); set({heightIn: null}); }}>Use the default</button>}
+    </>
+  );
+}
+
+/** Back to the list: also leaves the #alerts hash so the list shows. */
   const toList = () => { if (location.hash) { history.pushState(null, '', location.pathname + location.search); setHash(''); } go('personal', ''); };
   const toPage = (id: string) => { if (location.hash) { history.pushState(null, '', location.pathname + location.search); setHash(''); } go('personal', id); };
   const openAlerts = () => { history.pushState(null, '', location.pathname + location.search + '#alerts'); setHash('#alerts'); if (section !== '') go('personal', ''); };
@@ -261,6 +284,9 @@ export function PersonalView({section, go}: ViewProps) {
           <Page title="Surf preferences" onBack={toList}>
             <p className="fine">Saved on this device. Shown on your profile; forecasts are not filtered by them.</p>
             <div className="pz-cards">
+              <div className="pz-panel"><h2>Your height</h2>
+                <HeightField p={p} set={set} />
+              </div>
               <div className="pz-panel"><h2>Preferred conditions</h2>
                 <label className="field"><span>Wave range (face, ft)</span>
                   <span className="pzl-pair">
