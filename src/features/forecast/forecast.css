@@ -365,3 +365,15 @@
 /* The entry sits in the SURF label row (no extra height); 24 px tall on pointer screens, 44 px on touch. */
 .sp-card > header .ob-open { min-height: 24px; margin: -4px 0; font-size: 13px; }
 @media (pointer: coarse) { .sp-card > header .ob-open { min-height: 44px; margin: -12px 0; } }
+/* T-063: a quiet text link to the owner's live cam (new tab). Never embedded. */
+.sp-cam { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; color: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.sp-band.is-plan .sp-cam { color: var(--accent-ink, var(--accent)); }
+@media (max-width: 860px) { .sp-band .sp-cam { grid-area: cam; justify-self: start; max-width: 100%; overflow: hidden; text-overflow: ellipsis; font-size: 12px; min-height: 32px; }
+  .sp-band.has-cam .sp-head { grid-template-areas: 'name name name' 'meta meta meta' 'cam cam cam' 'time fav now'; } }
+@media (max-width: 860px) { .sp-band.has-cam { height: 176px; } .sp-band.has-cam .sp-head { grid-template-rows: auto auto auto 1fr; } }
+/* Plan band credit: full text on wide screens; on phones a one-line credit top right, clear of the hour, star and Now row. */
+.sp-band .credit .cr-short { display: none; }
+@media (max-width: 860px) {
+  .sp-band.is-plan .credit { top: 8px; bottom: auto; right: 10px; max-width: 38%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
+  .sp-band.is-plan .credit .cr-long { display: none; } .sp-band.is-plan .credit .cr-short { display: inline; }
+}
