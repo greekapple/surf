@@ -1,0 +1,18 @@
+# T-049 Engineering handoff: rating sanity, self-explaining ratings, more buoys
+
+## 1. Onshore wind (fixed in the factor, not the label)
+`src/ratings/windRules.ts`: onshore wind above **3 mph** (end of Beaufort force 1, light air; source NWS "Beaufort Wind Scale", weather.gov/mfl/beaufort: force 2 begins at 4 mph with "small wavelets", force 3 at 8 mph "crests begin to break") is held to a wind score of **59**, so it can read "~" but never ✓ (tick ≥ 70, positive list ≥ 65, Good label ≥ 60). Applied in all three wind scorers (`ratings/provisional.ts` which drives the displayed rating, `ocean/quality.ts`, `recommendation/sqi.ts`). Offshore, cross-shore, unknown relation and every weight unchanged. Ocean Beach at 4.9 mph W now shows "~". Tests `src/tests/onshore-wind.test.ts` (5).
+
+## 2. Ratings explain themselves (`src/ratings/explain.ts`)
+`explainRating(rating, {spotId, wind, mop, tide})` → `{items:[{factor, effect:'+'|'~'|'-'|'?', reason, score, weight, inScore}], unknownFacts, reliability:{category, reasons}}`. Wind reasons name the speed, relation, the 3 mph threshold and its source. **Nearshore swell (CDIP MOP, context)** appears with its numbers and the direction geometry but is `inScore:false` ("Shown, not scored: the nearshore-to-surf conversion is unvalidated"). **Tide (minor)** is context only because no spot has a reviewed tide window. Spot facts without a reviewed value (`unknownFacts`, from the profile registry) are listed and added to the reliability reasons ("N of 9 spot facts are not reviewed"); a spot with an unknown wind relation gets "?" and is not scored. I did **not** feed MOP height/period/direction or tide into the score: doing that without validation would invent a conversion, and the displayed number must not change on a guess. Tests `src/tests/rating-explain.test.ts` (5). Not yet mounted in a UI (product's spot page can render `items` as ✓/~/✗ lines).
+
+## 3. Backtest (`docs/forecast/data/backtest-rating.ts`, report `docs/forecast/RATING-BACKTEST-T049.md`)
+Open-Meteo historical marine + weather, 1,104 hours (2026-09-16 → 10-31): **Ocean Beach: overall score differs on 316 hours (28.6%), mean −3.7 points, largest −9; category changes on 127 hours (11.5%): SOLID → NOT BAD ×77, NOT BAD → SURFABLE ×50; wind tick ✓ → ~ on 157 hours.** Why: every change is onshore wind above 3 mph (3–7 mph ×243 hours, 7–12 mph ×105). Linda Mar and Bolinas: 0 differences (no reviewed orientation, so no onshore relation to apply). It compares two versions of one provisional rating; it makes **no accuracy claim**.
+
+## 4. More buoys
+`src/ocean/buoys.ts`: NDBC 46012 (Half Moon Bay), NDBC 46214 (Point Reyes), CDIP 029 (Point Reyes, realtime CSV; the station name contains a comma, handled). Fetched through the same fixed-key server path (`ndbc-46012`, `ndbc-46214`, `cdip-029`; +3 service targets). New `src/features/forecast/BuoyContext.tsx` lists all three under "Buoy now vs forecast" with each buoy's own observation time, the forecast at this spot for the same hour, "context, not validation", and "no observation returned for this load" when missing. **Finding: NDBC 46214 and CDIP 029 are the same instrument** (same Hs/Tp/direction at the same times, checked 2026-11-02), so they are labelled as one buoy seen twice, not two independent readings. Tests `src/tests/buoys.test.ts` (5). `t049-buoys.mjs` ALL PASS at 1440/390.
+
+**Shared file:** `ForecastView.tsx`, one import and one added element after `<BuoyNow …/>` (`<BuoyContext buoys={bundle?.buoys} series={series} p={p} now={now} />`).
+
+## Checks
+tsc clean, **296 tests**, build ok, journeys **8/8** (against 5185), `t049-buoys` ALL PASS.

@@ -3,6 +3,7 @@ import type {QualityFactor} from '../models/index.ts';
 import type {SurfRating} from './types.ts';
 import {categoryForScore} from './engine.ts';
 import {angle} from '../utils/units.ts';
+import {capOnshore} from './windRules.ts';
 const clamp=(n:number)=>Math.max(0,Math.min(100,n));
 /** Offshore-potential heuristics, not a nearshore transformation or fitted surfing model. */
 export const provisionalRules={weights:{potential:.4,wind:.3,organization:.3},unknownLocalCap:74,unvalidatedCap:94,lowPotentialCap:39,severeWindCap:39};
@@ -25,7 +26,7 @@ export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):S
  const relative=s.orientation!==null;
  const relation=relative?(angle(wd,s.orientation!+180)<45?'offshore':angle(wd,s.orientation!)<45?'onshore':'cross-shore'):'unknown';
  const excess=r.gusts.value===null?0:Math.max(0,r.gusts.value-ws-5)*1.5;
- const wind=relative?clamp(100-ws*(relation==='offshore'?1.6:relation==='onshore'?4:2.8)-excess):clamp(70-ws*2-excess);
+ const wind=relative?capOnshore(clamp(100-ws*(relation==='offshore'?1.6:relation==='onshore'?4:2.8)-excess),relation,ws):clamp(70-ws*2-excess);
  // Ratio and period are bulk-model coherence proxies, explicitly not observed breaking-wave organization.
  const fraction=hs>0?Math.min(1,h*h/(hs*hs)):0;
  const cross=r.secondary?.height.value!=null&&r.secondary.direction.value!==null&&r.secondary.period.value!==null?Math.min(25,25*Math.min(1,r.secondary.height.value/Math.max(h,.01))*angle(dir,r.secondary.direction.value)/180):0;

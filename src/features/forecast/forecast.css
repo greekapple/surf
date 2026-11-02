@@ -184,3 +184,12 @@
   .sp .fc-fav { width: 44px; height: 44px; }
   .sp-chart-h .seg button, .sp-chart-h .ctabs button { min-height: 44px; }
 }
+
+/* T-049: more buoys under "Buoy now vs forecast" */
+.sp-buoys { display: grid; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line-2); }
+.sp-buoys-h { font: 600 15px/1.2 var(--sans); }
+.sp-buoys-h span { margin-left: 8px; font-weight: 400; font-size: 12px; color: var(--muted); }
+.sp-buoys ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.sp-bu-h, .sp-bu-v { margin: 0; font-size: 13px; line-height: 1.4; }
+.sp-bu-v { display: grid; gap: 2px; color: var(--muted); }
+.sp-bu-v span:first-child { color: var(--text); }
