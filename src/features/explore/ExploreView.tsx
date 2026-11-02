@@ -122,7 +122,6 @@ function OceanMap({section, go}: ViewProps) {
     if (!mapEl.current || map.current) return;
     const small = matchMedia('(max-width: 860px)').matches;
     const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.5, -122.5] : [37.5, -122.45], small ? 8 : 9);
-    if (!small) m.panBy([-170, 0], {animate: false}); // centre the coast in the space right of the side panel
     const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
     m.on('zoomend moveend resize', () => declutterRef.current()); // panels stay put while the map pans
