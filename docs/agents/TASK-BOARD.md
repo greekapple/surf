@@ -356,3 +356,10 @@ Rules from now on:
 - **Owner:** `engineering` (plan) → lead review → user approval before code
 - **Acceptance (plan doc `docs/forecast/RATING-V2-PLAN.md`):** data sources per input with licence and resolution (CDIP MOP nearshore per-spot points, NDBC/CDIP buoys, NOAA tides/CO-OPS, wind from HRRR/NAM via Open-Meteo or NOAA, bathymetry NOAA CUDEM/CRM, what exists for sandbars and its limits); per-spot profile schema (orientation, swell window, period response, tide window, wind tolerance, bathymetry type, reviewed sources); how the rating combines them; validation plan against observations; what stays labelled as unvalidated. No invented spot facts.
 - **Status:** OPEN
+- **T-038, T-039 (Windy), T-040 plan:** merged. T-035 Reset regression found by lead after merge → product.
+- **User decisions on RATING-V2-PLAN (2026-11-01):** D-1 Open-Meteo free tier for now, NOAA-direct or paid plan before any commercial launch; D-2 engineering drafts spot facts from published sources with citations, **user reviews**; unreviewed values stay null; D-3 in-app session log approved as ground truth (no scraping); D-4 Phase 1 as planned.
+
+## T-041: Rating v2 Phase 1 (per RATING-V2-PLAN.md §Phases "this week")
+- **Owner:** `engineering` (UI slices on Forecast coordinated with product: engineering owns `src/ocean/*`, `src/services/*`, new data files; the Forecast nearshore card markup goes through product or a lead-agreed file)
+- **Acceptance:** MOP point registry + ingestion with forecast archiving; nearshore card on Forecast showing real MOP data with source/time; breaking estimate v2 behind a flag; Pillar Point / Point Reyes tide stations; spot profile schema + registry with `{value,status,sources,reviewedBy}` and a review list for the user; session log (range, quality 1–5, optional bar note) stored locally; no rating changes, no new accuracy claims. Tests per module; journeys; 1440/390.
+- **Status:** OPEN
