@@ -64,7 +64,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
   const [zero, setZero] = useState<number | null>(null);
   useLayoutEffect(() => {
     const st = row.current?.parentElement, pic = items.current.get(selected.id)?.querySelector('.qv-rack-b > :first-child');
-    if (st && pic) setZero(Math.round(st.getBoundingClientRect().bottom - pic.getBoundingClientRect().bottom));
+    if (st && pic) setZero(st.getBoundingClientRect().bottom - pic.getBoundingClientRect().bottom - 1); // the tick's 1 px line sits on the tail
   }, [selected.id, avail, phone, base]);
   return (
     <div className="qv-studio qv-rackwrap">

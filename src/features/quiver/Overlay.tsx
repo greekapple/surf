@@ -3,9 +3,8 @@ import type {Surfboard} from '../../models/index';
 import {Icon} from '../../ui/Icon';
 import {lengthLabel} from '../../utils/units';
 import {inches} from './format';
-import {loadLook} from './looks';
 import {loadOutline} from './outline';
-import {BoardOutline} from './BoardOutline';
+import {BoardPicture} from './BoardPicture';
 
 export interface Dims {length: number; width: number; thickness: number; volume: number}
 
@@ -48,7 +47,7 @@ export function Strip({boards, selectedId, onSelect}: {boards: Surfboard[]; sele
   return (
     <ul className="qv-strip" aria-label="Choose a board">{boards.map((b) => (
       <li key={b.id}><button type="button" aria-pressed={b.id === selectedId} aria-label={`${b.name}, ${lengthLabel(b.length)}`} title={b.name} onClick={() => onSelect(b.id)}>
-        <BoardOutline b={b} scale={72 / maxLen} color={loadLook(b).deck} />
+        <BoardPicture b={b} px={72 / maxLen} outline={loadOutline(b.id)} /> {/* T-053: the same picture as the wall, not the 3D colour */}
       </button></li>
     ))}</ul>
   );
