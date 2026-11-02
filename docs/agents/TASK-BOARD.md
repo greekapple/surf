@@ -422,3 +422,8 @@ Design direction for all three: Surfline's calm data layout **plus** real atmosp
 - Home cards: credited real spot photo (thumbnail or card top) when the spot has one; clean fallback otherwise; refined hierarchy (big est. range, small labels), condition colour accents; "Best right now nearby" as an elegant ranked list with mini rating bars. Nothing invented.
 - Map: a spot callout with the real photo thumbnail + credit; legend and pills polished to the same visual language.
 - t047/t043/t042/density/journeys pass; 1440/390 before/after.
+- **T-049, T-051, T-048:** merged overnight; lead checks all pass (299 tests, journeys 8/8, density, t045/t047/t051/t043/t038/t022/wave-spot). Callout conflict resolved (headlineSurf + photo thumb).
+
+### T-052 (engineering, overnight): Your height + an interactive Wave scale page
+- Owned: `src/features/scale/*`, `src/features/personal/*`, `src/services/*`
+- 1. Personal → Surf preferences: "Your height" (ft/in or cm by unit pref), saved; the spot-page scale panel and the Wave scale page use it (drop "(default)" once set). 2. Full Wave scale page rebuilt around the drawn, to-scale comparison (same visual language as product's ScalePanel): big SVG wave at the hour's face range (low/high), you at your height, your chosen board from your quiver (picker), body-word ticks; an hour scrubber across the day that animates the wave; a band browser (1–2 … 15+) to compare. 3. The AI photo becomes a secondary "Example photo (AI illustration)" toggle, never the default; Spin360 stays for when 3D frames exist. 4. Tests for height conversion and scale maths; t033/t044/wave-spot/density/journeys pass; 1440/390 shots. Then STOP.
