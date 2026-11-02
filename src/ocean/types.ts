@@ -9,5 +9,6 @@ export interface SpotEvidence {id:string;name:string;region:string;location:stri
 export interface ConnectionStatus {id:string;provider:string;state:'connected'|'partial'|'unavailable'|'loading';message:string;checkedAt:string;url:string;retryAfter?:number}
 export interface ObservationSet {station:string;location:string;values:Record<string,Measurement>;delivery:'direct'|'saved'}
 export interface TidePrediction {timestamp:string;height:Measurement;type:'High'|'Low'}
-export interface OceanBundle {records:OceanRecord[];statuses:ConnectionStatus[];buoy:ObservationSet|null;waterLevel:ObservationSet|null;loadedAt:string;extrema?:TidePrediction[];nearshore?:import('./nearshore.ts').NearshoreRecord[];mop?:Record<string,MopForecast>}
+export interface OceanBundle {records:OceanRecord[];statuses:ConnectionStatus[];buoy:ObservationSet|null;waterLevel:ObservationSet|null;loadedAt:string;extrema?:TidePrediction[];nearshore?:import('./nearshore.ts').NearshoreRecord[];mop?:Record<string,MopForecast>;stationTides?:Record<string,StationTides>}
+export interface StationTides {stationId:string;hourly:{timestamp:string;height:Measurement}[];extrema:TidePrediction[]}
 export interface MopForecast {mopId:string;records:import('./nearshore.ts').NearshoreRecord[];issue:import('./mop.ts').MopIssue|null;retrievedAt:string;url:string}

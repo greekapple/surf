@@ -1,8 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {createForecastService,ingestionTargets,serviceSpots,mopServiceIds} from '../../services/forecast-service.mjs';
+import {createForecastService,ingestionTargets,serviceSpots,mopServiceIds,tideServiceStationIds} from '../../services/forecast-service.mjs';
 /** Two Open-Meteo feeds per spot, five NOAA/CDIP feeds, eight regional grid fields. */
-const TARGETS=serviceSpots.length*2+13+mopServiceIds.length*2;
+const TARGETS=serviceSpots.length*2+13+mopServiceIds.length*2+tideServiceStationIds.length*2;
 const instant=Date.parse('2026-10-20T06:00:00Z');
 const bucket=()=>{const files=new Map<string,string>();return {files,async get(k:string){const text=files.get(k);return text?{json:async()=>JSON.parse(text)}:null},async put(k:string,v:string){files.set(k,v)}}};
 const req=(key='weather-spot-2')=>new Request('https://surf.test/api/provider?key='+key);

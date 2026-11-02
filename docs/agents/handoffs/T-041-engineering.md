@@ -31,3 +31,11 @@ Branch `worktree-engineering` (synced with `rebuild/swello-v0.16` first). Per pl
 - Tests: `src/tests/breaking-v2.test.ts` (8: dispersion limits, γ·h at the break, refraction, monotonic, refusals, v1 unchanged, flag semantics). **244 tests pass**, tsc clean, build ok (117 assets).
 - Consistency (`docs/forecast/T-041-v2-consistency.md`, `docs/forecast/data/compare-v1-v2.ts`): on 1,068 archived hours v2/v1 median ratio 1.01 (10th–90th 0.88–1.21), ranges overlap 100%. This is **consistency, not validation**. v2 estimates 269 hours v1 refuses because MOP has no swell/wind-sea partition (also a weakness).
 - Browser: `t041-flag.mjs` ALL PASS (off: nothing added; on: labelled range; headline text identical; no overflow at 390).
+
+## Milestone 4: Pillar Point and Point Reyes tide stations
+- `src/ocean/tideStations.ts` (new): registry of the three CO-OPS stations (San Francisco 9414290, **Pillar Point Harbor 9414131**, **Point Reyes 9415020**; positions from the CO-OPS metadata API), `tideAssignments` (**empty**: a spot uses a new station only after the owner approves it), `nearestTideStations` for the review list. The existing San Francisco rule for SF-area spots is unchanged.
+- `src/ocean/noaa.ts`: `tideURL`/`tideExtremaURL` take a station (default SF); normalizers read the station from the URL and label it ("Pillar Point Harbor station 9414131; station tide, not a beach tide"); SF wording is unchanged.
+- Server: fixed keys `tides-<id>` / `tide-extrema-<id>` (service targets +4, so they are cached and archived like the rest); only registered stations are proxied, and water level stays SF-only. Pipeline fetches both into `bundle.stationTides`, not displayed anywhere yet.
+- Tests: `src/tests/tide-stations.test.ts` (5); target counts in two existing tests updated. **249 tests pass**, tsc clean.
+- Browser: `t041-tides.mjs` ALL PASS (both stations answered 200 for hourly and high/low; Ocean Beach tide still "Tide +2.0 ft falling"); `t031-firstview` ALL PASS.
+- Nearest stations (for review, M5): Linda Mar → Pillar Point (≈11 km, SF ≈23 km). Bolinas and Point Reyes are both far (≈23–27 km); no pick without review.
