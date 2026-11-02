@@ -17,6 +17,7 @@ import {faceEstimateView} from './estimate';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {Skeleton} from '../../ui/Skeleton';
 import {Condition, conditionWord} from './Condition';
+import {NearshoreCard} from './Nearshore';
 import {CineHero, SpotShot, Summary, TodayAt, litSentence} from './Cinematic';
 import './forecast.css';
 
@@ -322,7 +323,7 @@ export function ForecastView({section, go}: ViewProps) {
 
       <div id="fc-swell" className="fc-grid fc-part">
         <h2 className="fc-part-h">Swell</h2>
-        <section className="card fc-wide" aria-label="Nearshore model"><Nearshore spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
+        <section className="card fc-wide" aria-label="Nearshore model"><NearshoreCard spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
         <section className="card fc-half"><div className="card-h"><h2>Direction &amp; period</h2><span>{weekdayPT(selected.timestamp)}</span></div>
           <PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot)} onSelect={view.selectTime} />
           <p className="fine"><i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw1)', marginRight: 4}} />primary · <i style={{display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--sw2)', marginRight: 4}} />secondary · ring = period (s) · size = height</p></section>
