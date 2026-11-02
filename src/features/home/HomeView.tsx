@@ -1,102 +1,83 @@
-import {useEffect, useMemo, useRef} from 'react';
+import {useMemo} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
-import {GENERIC_PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
-import {Media} from '../../ui/Media';
-import {SeaState} from '../forecast/SeaState';
-import {Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf} from '../forecast/model';
-import {spotStrip} from '../../services/spotStrip';
+import {conditionWord} from '../../ui/Condition';
+import {bestNearby, dashCard, type DashCard} from '../../services/homeDash';
 import './home.css';
 
-/** Spots shown, clearly labelled, when nothing is saved. Chosen only because they have licence-cleared photos; not a personal list. */
+/** Spots shown, clearly labelled, when nothing is saved. Not a personal list. */
 const POPULAR = ['spot-2', 'spot-0', 'spot-3'];
-/** Image slots live in public/media/manifest.json: replace the entry to swap the picture (e.g. for an AI illustration). */
-const PANELS = [
-  {area: 'forecast', slot: 'home-panel-forecast', title: 'Forecast', line: 'Swell, wind and tide for one spot.', icon: 'forecast'},
-  {area: 'explore', slot: 'home-panel-map', title: 'Map', line: 'The whole coast at a glance.', icon: 'explore'},
-  {area: 'quiver', slot: 'home-panel-quiver', title: 'Quiver', line: 'Your boards, and which suits the day.', icon: 'quiver'},
-] as const;
-const BAND_WORD: Record<string, string> = {good: 'Good', fair: 'Fair', poor: 'Poor', none: 'No rating'};
+const MAX_CARDS = 12;
 
-/** Where CSS scroll-driven animation is missing, mark panels as they pass the reading line. Reduced motion shows final states via CSS. */
-function useScrollFallback(root: React.RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const el = root.current;
-    if (!el || (typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()'))) return;
-    const targets = el.querySelectorAll('.home-panel');
-    // Neither scroll timelines nor IntersectionObserver: show every panel rather than leave it hidden.
-    if (typeof IntersectionObserver !== 'function') { targets.forEach((n) => n.classList.add('on')); return; }
-    const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('on', e.isIntersecting || e.boundingClientRect.top < 0)), {rootMargin: '0px 0px -22% 0px'});
-    targets.forEach((n) => io.observe(n));
-    return () => io.disconnect();
-  }, [root]);
+function RatingBar({c}: {c: DashCard['rating']}) {
+  const color = BAND_COLOR[bandOf(c.category)];
+  return (
+    <span className="dc-rate" style={{'--band': color} as React.CSSProperties} aria-label={c.score === null ? 'No rating' : `${conditionWord(c.category)}, ${c.bars} of 5`}>
+      <b>{c.score === null ? 'No rating' : conditionWord(c.category)}</b>
+      <span className="dc-bar" aria-hidden="true">{[1, 2, 3, 4, 5].map((n) => <i key={n} className={n <= c.bars ? 'on' : ''} />)}</span>
+    </span>
+  );
 }
 
-/** Home (T-030): a full-screen greeting, saved spots as swipeable cards, one honest sentence that lights up as you scroll, and three full-bleed ways in. No forecast numbers in the body. */
+/** Home (T-047): a dashboard of your spots, then the best nearby right now. No hero and no greeting; every number carries its label. */
 export function HomeView({go}: ViewProps) {
-  const {data, now, spotOptions, view, setSpot, spot, selected} = useSwello();
-  const rootRef = useRef<HTMLDivElement>(null);
-  useScrollFallback(rootRef);
-  const name = data.state.profile.displayName?.trim().split(/\s+/)[0];
-  const hour = Number(new Intl.DateTimeFormat('en-US', {hour: 'numeric', hourCycle: 'h23', timeZone: 'America/Los_Angeles'}).format(now));
-  const greeting = hour < 5 ? 'Good evening' : hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-  const saved = data.state.favorites;
-  const personal = saved.length > 0;
-  const cards = useMemo(() => spotStrip(spotOptions, view.mapRecords, personal ? saved : POPULAR, now, data.state.profile), [spotOptions, view.mapRecords, saved, personal, now, data.state.profile]);
-  const link = (area: 'forecast' | 'explore' | 'quiver' | 'personal') => ({href: `/${area}`, onClick: (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); go(area); }});
-  const openSpot = (id: string) => (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setSpot(id); go('forecast'); };
+  const {data, now, spotOptions, view, setSpot, spot} = useSwello();
+  const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
+  const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema}), [bundle]);
+  const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
+  const cards = useMemo(() => ids.map((id) => dashCard(spotOptions.find((s) => s.id === id)!, view.mapRecords, now, profile, ctx)), [ids.join('|'), spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const refId = ids[0] ?? spot.id;
+  const nearby = useMemo(() => bestNearby(spotOptions, view.mapRecords, now, profile, refId, {exclude: ids, limit: 5, ctx}), [ids.join('|'), refId, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const open = (id: string) => (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setSpot(id); go('forecast'); };
+  const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   return (
-    <div className="home" ref={rootRef}>
-      <section className="home-hero" aria-labelledby="home-h">
-        {/* T-038: the current hour's swell and wind at the selected spot, drawn from the data; no numbers on Home. */}
-        {selected ? <SeaState f={selected.forecast} className="hero-media" caption="plain" where={`${spot.name} now`} /> : <div className="hero-media ss" aria-hidden="true" />}
-        <div className="hero-in">
-          <p className="greet">{greeting}</p>
-          <h1 id="home-h">{name ? <>Hello, {name}.</> : 'Hello.'}</h1>
-          <p className="hello-sub">Surf forecasts for Northern and Central California.</p>
-          <a className="cta" {...link('forecast')}>Check a spot<Icon name="forecast" size={18} /></a>
-        </div>
-      </section>
-
-      <section className="home-spots" aria-labelledby="spots-h">
-        <header className="spots-head">
-          <h2 id="spots-h">{personal ? 'Your spots' : 'Popular spots'}</h2>
-          {!personal && <p className="spots-note">Not personalised</p>}
+    <div className="home">
+      <section className="hd" aria-labelledby="hd-h">
+        <header className="hd-head">
+          <h1 id="hd-h">{personal ? 'Your spots' : 'Popular spots'}</h1>
+          {!personal && <p className="hd-note">Not personalised. <a href="/personal/spots" onClick={(e) => { e.preventDefault(); go('personal', 'spots'); }}>Choose favorite spots</a></p>}
         </header>
-        <ul className="spot-rail">
-          {cards.length === 0 && <li className="spot-empty">None of your saved spots are available right now. Open the forecast to pick another.</li>}
-          {cards.map((c, i) => {
-            const own = SPOT_PHOTOS[c.id]?.[0], photo = own ?? GENERIC_PHOTOS[i % GENERIC_PHOTOS.length], band = bandOf(c.category);
-            // Say what the chip is: demonstration data, no rating, flat, or the model rating.
-            const word = c.demo ? 'Demo data' : c.category === 'FLAT' ? 'Flat' : BAND_WORD[band];
-            return (
-              <li key={c.id} className="spot-card" style={{'--band': BAND_COLOR[band]} as React.CSSProperties}>
-                <Media id={photo} className="spot-media" sizes="(max-width: 860px) 80vw, 360px" alt={own ? undefined : ''} />
-                <a className="spot-a" {...link('forecast')} onClick={openSpot(c.id)} aria-label={`${c.name}, ${c.region}. ${word}. Open forecast`}>
-                  <span className="spot-band"><i aria-hidden="true" />{word}</span>
-                  {!own && <em className="spot-note">Illustrative photo, not this spot</em>}
-                  <b>{c.name}</b><small>{c.region}</small>
-                </a>
-              </li>
-            );
-          })}
+        {cards.length === 0 && <p className="hd-empty">No forecast data for your spots right now. Open the forecast to pick another.</p>}
+        <ul className="dc-grid">
+          {cards.map((c) => (
+            <li key={c.id} className="dc" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
+              <a className="dc-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${c.region}. ${c.surf.label}. ${c.rating.score === null ? 'No rating' : conditionWord(c.rating.category)}. Open forecast`}>
+                <span className="dc-top"><span className="dc-name"><b>{c.name}</b><small>{c.region}</small></span><RatingBar c={c.rating} /></span>
+                <span className="dc-surf">
+                  <span className="dc-val">{c.surf.value}</span>
+                  <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>
+                  <span className={'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span>
+                </span>
+                <span className="dc-sub">{c.surf.headline.kind === 'estimate' ? (c.surf.offshoreLabel ?? c.surf.label) : c.surf.headline.kind === 'offshore' ? 'offshore · not surf size' : c.surf.headline.label}</span>
+                <span className="dc-meta">
+                  <span><i>Wind</i>{c.wind ? `${c.wind.label} · ${c.wind.relation}` : '—'}</span>
+                  <span><i>Tide</i>{c.tide ? `${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}${c.tide.label ? ` · ${c.tide.label}` : ''}` : '—'}</span>
+                  <span><i>Best today</i>{c.window ? c.window.label : 'No good daylight window left'}</span>
+                </span>
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
 
-
-      <nav className="home-panels" aria-label="Where to go">
-        {PANELS.map((t) => (
-          <div key={t.area} className="home-panel">
-            <Media id={t.slot} className="panel-media plx" sizes="100vw" alt="" />
-            <div className="panel-in">
-              <a className="panel-a" {...link(t.area)}><h2>{t.title}</h2></a>
-              <p>{t.line}</p>
-              <span className="panel-go" aria-hidden="true"><Icon name={t.icon} size={20} /></span>
-            </div>
-          </div>
-        ))}
-      </nav>
+      <section className="hd" aria-labelledby="nb-h">
+        <header className="hd-head"><h2 id="nb-h">Best right now nearby</h2>{refName && <p className="hd-note">Within 100 km of {refName}, ranked by the current rating</p>}</header>
+        {nearby.length === 0
+          ? <p className="hd-empty">No other rated spots within 100 km right now.</p>
+          : <ol className="nb-list">
+              {nearby.map(({card: c, km}) => (
+                <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
+                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}. Open forecast`}>
+                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km</small></span>
+                    <span className="nb-surf"><span className="dc-val">{c.surf.value}</span><span className="dc-tag-sm">{c.surf.tag}</span></span>
+                    <RatingBar c={c.rating} />
+                  </a>
+                </li>
+              ))}
+            </ol>}
+        <p className="hd-fine">Ratings are provisional model scores. Surf heights are estimates of the breaking wave (or labelled offshore), not measurements.</p>
+      </section>
     </div>
   );
 }
