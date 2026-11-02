@@ -6,6 +6,7 @@ import {Condition} from '../../ui/Condition';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {useSwello} from '../../app/store';
 import {compass, ht, windVal} from '../forecast/helpers';
+import {SpotThumb} from '../../ui/SpotThumb';
 
 /** Wind at a spot with its relation to the beach, or an honest gap. */
 export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile) {
@@ -25,6 +26,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}:
   const big = hs?.kind === 'offshore' ? ht(hs.ft, p) : t && t.value !== '—' ? t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '') : null;
   return (
     <div className="xco" role="group" aria-label={`${spot.name} at ${when}`}>
+      <SpotThumb spotId={spot.id} className="xco-photo" sizes="(max-width: 860px) 100vw, 264px" />
       <div className="xco-h">
         <div><h3>{spot.name}</h3><p>{region} · {when}</p></div>
         {rating && <Condition category={rating.category} chip />}

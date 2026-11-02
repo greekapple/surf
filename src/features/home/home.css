@@ -10,7 +10,8 @@
 
 .dc-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
 .dc { position: relative; border: 1px solid var(--line-2); border-radius: 14px; background: var(--s1); border-top: 3px solid var(--band); overflow: hidden; }
-.dc-a { display: grid; gap: 8px; padding: 14px 16px 12px; color: inherit; text-decoration: none; }
+.dc-a { display: grid; color: inherit; text-decoration: none; }
+.dc-body { display: grid; gap: 8px; padding: 14px 16px 12px; }
 .dc-a:hover { background: var(--s2, var(--s1)); }
 .dc-a:focus-visible, .nb-a:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .dc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
@@ -36,7 +37,7 @@
 .nb-list { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; background: var(--s1); }
 .nb { border-left: 3px solid var(--band); }
 .nb + .nb { border-top: 1px solid var(--line-2); }
-.nb-a { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr) auto; align-items: center; gap: 12px; min-height: 56px; padding: 8px 16px; color: inherit; text-decoration: none; }
+.nb-a { display: grid; grid-template-columns: 28px minmax(0, 1.4fr) minmax(0, 1.2fr) auto; align-items: center; gap: 12px; min-height: 56px; padding: 8px 16px; color: inherit; text-decoration: none; }
 .nb-a:hover { background: var(--s2, var(--s1)); }
 .nb-name { display: grid; min-width: 0; }
 .nb-name b { font: 600 16px/1.2 var(--sans); }
@@ -49,6 +50,40 @@
   .home { gap: 24px; }
   .dc-meta { grid-template-columns: 1fr 1fr; }
   .dc-meta span:last-child { grid-column: 1 / -1; }
-  .nb-a { grid-template-columns: minmax(0, 1fr) auto; }
-  .nb-surf { grid-column: 1 / -1; grid-row: 2; }
+  .nb-a { grid-template-columns: 24px minmax(0, 1fr) auto; }
+  .nb-surf { grid-column: 2 / -1; grid-row: 2; }
 }
+
+/* ---------- T-051: photo, condition accents, ribbon, ranking ---------- */
+.dc { box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); transition: box-shadow 160ms var(--ease), transform 160ms var(--ease); }
+.dc:hover, .dc.is-open { box-shadow: 0 6px 18px rgb(0 0 0 / 0.08); }
+.dc-photo { position: relative; margin: 0; height: 104px; overflow: hidden; background: var(--s2, var(--line-2)); }
+.dc-photo .spot-thumb-img, .dc-photo .media { position: absolute !important; inset: 0; width: 100%; height: 100%; }
+.dc-photo .media-el { object-fit: cover; }
+.dc-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(0 0 0 / 0) 40%, rgb(0 0 0 / 0.62) 100%); }
+.dc-photo figcaption { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 14px 12px 6px; color: #fff; font-size: 12px; line-height: 16px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.5); }
+.dc:not(.has-photo) .dc-body { border-top: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--band) 9%, transparent), transparent 56px); }
+.dc-rate b { padding: 3px 9px; border-radius: 99px; background: color-mix(in srgb, var(--band) 16%, transparent); color: var(--text); }
+.dc-bar i { transition: background 160ms var(--ease); }
+.dc-more { border-top: 1px solid var(--line-2); }
+.dc-rb-t { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: 0 16px; border: 0; background: transparent; color: var(--muted); font: 600 13px/1 var(--sans); cursor: pointer; }
+.dc-rb-t:hover { color: var(--text); }
+.dc-rb-t:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.dc-rb { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 220ms var(--ease); }
+.dc-rb > * { overflow: hidden; min-height: 0; }
+.dc.is-open .dc-rb, .dc:focus-within .dc-rb { grid-template-rows: 1fr; }
+@media (hover: hover) { .dc:hover .dc-rb { grid-template-rows: 1fr; } }
+.dc-ribbon { display: grid; gap: 4px; padding: 0; } /* padding lives on the children: padding on the clipped row itself would stay visible while collapsed */
+.dc-rb-bars { display: flex; align-items: flex-end; gap: 3px; height: 30px; margin: 0 16px; }
+.dc-rb-bars i { flex: 1; min-width: 0; border-radius: 3px 3px 1px 1px; background: var(--b); }
+.dc-rb-axis { display: flex; justify-content: space-between; margin: 0 16px 12px; color: var(--muted); font-size: 12px; line-height: 16px; }
+@media (prefers-reduced-motion: reduce) { .dc, .dc-rb { transition: none; } }
+
+.nb-when { display: inline-flex; gap: 4px; padding: 3px; border: 1px solid var(--line-2); border-radius: 99px; background: var(--s1); }
+.nb-when button { min-height: 36px; padding: 0 14px; border: 0; border-radius: 99px; background: transparent; color: var(--muted); font: 600 13px/1 var(--sans); cursor: pointer; }
+.nb-when button[aria-checked='true'] { background: var(--text); color: var(--bg); }
+.nb-when button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.nb-rank { font: 700 22px/1 var(--sans); color: var(--muted); font-variant-numeric: tabular-nums; }
+.nb:first-child .nb-rank { color: var(--band); }
+.nb:hover .nb-a { background: color-mix(in srgb, var(--band) 6%, var(--s1)); }
+@media (max-width: 640px) { .nb-when { width: 100%; } .nb-when button { flex: 1; min-height: 44px; } }

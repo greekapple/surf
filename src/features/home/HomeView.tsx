@@ -3,7 +3,9 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
-import {bestNearby, dashCard, type DashCard} from '../../services/homeDash';
+import {bestNearbyAt, dashCard, ribbon12, RANK_LABEL, type DashCard, type RankWhen, type RibbonHour} from '../../services/homeDash';
+import {SpotThumb, spotPhotoId} from '../../ui/SpotThumb';
+import {useState} from 'react';
 import './home.css';
 
 /** Spots shown, clearly labelled, when nothing is saved. Not a personal list. */
@@ -20,17 +22,34 @@ function RatingBar({c}: {c: DashCard['rating']}) {
   );
 }
 
-/** Home (T-047): a dashboard of your spots, then the best nearby right now. No hero and no greeting; every number carries its label. */
+const hourShort = (iso: string) => new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'}).format(new Date(iso));
+/** The next 12 hours of the existing rating as a mini bar ribbon; an hour without a record is a gap, never a guess. */
+function Ribbon({hours, name}: {hours: RibbonHour[]; name: string}) {
+  const have = hours.filter((h) => h.score !== null);
+  return (
+    <div className="dc-ribbon" role="img" aria-label={have.length ? `${name}: rating for the next 12 hours, ${hourShort(hours[0].iso)} to ${hourShort(hours[11].iso)}. ${have.map((h) => `${hourShort(h.iso)} ${conditionWord(h.category!)}`).join(', ')}` : `${name}: no rating hours available`}>
+      <span className="dc-rb-bars">{hours.map((h) => <i key={h.iso} title={h.score === null ? `${hourShort(h.iso)}: no data` : `${hourShort(h.iso)}: ${conditionWord(h.category!)} (${Math.round(h.score)})`} style={{'--b': h.score === null ? 'var(--line-2)' : BAND_COLOR[bandOf(h.category!)], height: h.score === null ? '4px' : `${6 + Math.round((h.score / 100) * 22)}px`} as React.CSSProperties} />)}</span>
+      <span className="dc-rb-axis" aria-hidden="true"><span>Now</span><span>{hourShort(hours[4].iso)}</span><span>{hourShort(hours[8].iso)}</span><span>{hourShort(hours[11].iso)}</span></span>
+    </div>
+  );
+}
+
+/** Home (T-047, T-051): a dashboard of your spots with a credited real photo where one exists, a 12-hour rating ribbon on hover or tap, and a ranking you can move in time. */
 export function HomeView({go}: ViewProps) {
   const {data, now, spotOptions, view, setSpot, spot} = useSwello();
   const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
   const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema}), [bundle]);
   const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
   const cards = useMemo(() => ids.map((id) => dashCard(spotOptions.find((s) => s.id === id)!, view.mapRecords, now, profile, ctx)), [ids.join('|'), spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const ribbons = useMemo(() => Object.fromEntries(ids.map((id) => [id, ribbon12(spotOptions.find((s) => s.id === id)!, view.mapRecords, now)])), [ids.join('|'), spotOptions, view.mapRecords, now]); // eslint-disable-line react-hooks/exhaustive-deps
   const refId = ids[0] ?? spot.id;
-  const nearby = useMemo(() => bestNearby(spotOptions, view.mapRecords, now, profile, refId, {exclude: ids, limit: 5, ctx}), [ids.join('|'), refId, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [when, setWhen] = useState<RankWhen>('now'), [openId, setOpenId] = useState<string | null>(null);
+  const nearby = useMemo(() => bestNearbyAt(spotOptions, view.mapRecords, now, profile, refId, when, {exclude: ids, limit: 5, ctx}), [ids.join('|'), refId, when, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   const open = (id: string) => (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setSpot(id); go('forecast'); };
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
+  const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
+  const onWhenKey = (e: React.KeyboardEvent) => { const i = WHENS.indexOf(when), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); const n = WHENS[(i + d + WHENS.length) % WHENS.length]; setWhen(n); (e.currentTarget.children[WHENS.indexOf(n)] as HTMLElement | undefined)?.focus(); };
+  const at = (iso: string) => `${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric'}).format(new Date(iso))}`;
   return (
     <div className="home">
       <section className="hd" aria-labelledby="hd-h">
@@ -41,35 +60,49 @@ export function HomeView({go}: ViewProps) {
         {cards.length === 0 && <p className="hd-empty">No forecast data for your spots right now. Open the forecast to pick another.</p>}
         <ul className="dc-grid">
           {cards.map((c) => (
-            <li key={c.id} className="dc" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
+            <li key={c.id} className={'dc' + (openId === c.id ? ' is-open' : '') + (spotPhotoId(c.id) ? ' has-photo' : '')} style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
               <a className="dc-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${c.region}. ${c.surf.label}. ${c.rating.score === null ? 'No rating' : conditionWord(c.rating.category)}. Open forecast`}>
-                <span className="dc-top"><span className="dc-name"><b>{c.name}</b><small>{c.region}</small></span><RatingBar c={c.rating} /></span>
-                <span className="dc-surf">
-                  <span className="dc-val">{c.surf.value}</span>
-                  <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>
-                  <span className={'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span>
-                </span>
-                <span className="dc-sub">{c.surf.headline.kind === 'estimate' ? (c.surf.offshoreLabel ?? c.surf.label) : c.surf.headline.kind === 'offshore' ? 'offshore · not surf size' : c.surf.headline.label}</span>
-                <span className="dc-meta">
-                  <span><i>Wind</i>{c.wind ? `${c.wind.label} · ${c.wind.relation}` : '—'}</span>
-                  <span><i>Tide</i>{c.tide ? `${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}${c.tide.label ? ` · ${c.tide.label}` : ''}` : '—'}</span>
-                  <span><i>Best today</i>{c.window ? c.window.label : 'No good daylight window left'}</span>
+                <SpotThumb spotId={c.id} className="dc-photo" sizes="(max-width: 860px) 100vw, 400px" />
+                <span className="dc-body">
+                  <span className="dc-top"><span className="dc-name"><b>{c.name}</b><small>{c.region}</small></span><RatingBar c={c.rating} /></span>
+                  <span className="dc-surf">
+                    <span className="dc-val">{c.surf.value}</span>
+                    <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>
+                    <span className={'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span>
+                  </span>
+                  <span className="dc-sub">{c.surf.headline.kind === 'estimate' ? (c.surf.offshoreLabel ?? c.surf.label) : c.surf.headline.kind === 'offshore' ? 'offshore · not surf size' : c.surf.headline.label}</span>
+                  <span className="dc-meta">
+                    <span><i>Wind</i>{c.wind ? `${c.wind.label} · ${c.wind.relation}` : '—'}</span>
+                    <span><i>Tide</i>{c.tide ? `${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}${c.tide.label ? ` · ${c.tide.label}` : ''}` : '—'}</span>
+                    <span><i>Best today</i>{c.window ? c.window.label : 'No good daylight window left'}</span>
+                  </span>
                 </span>
               </a>
+              <div className="dc-more">
+                <button type="button" className="dc-rb-t" aria-expanded={openId === c.id} aria-controls={`rb-${c.id}`} onClick={() => setOpenId(openId === c.id ? null : c.id)}>Next 12 hours<span aria-hidden="true">{openId === c.id ? '–' : '+'}</span></button>
+                <div id={`rb-${c.id}`} className="dc-rb"><Ribbon hours={ribbons[c.id]} name={c.name} /></div>
+              </div>
             </li>
           ))}
         </ul>
       </section>
 
       <section className="hd" aria-labelledby="nb-h">
-        <header className="hd-head"><h2 id="nb-h">Best right now nearby</h2>{refName && <p className="hd-note">Within 100 km of {refName}, ranked by the current rating</p>}</header>
+        <header className="hd-head">
+          <h2 id="nb-h">{RANK_LABEL[when].title}</h2>
+          <div className="nb-when" role="radiogroup" aria-label="Rank spots for" onKeyDown={onWhenKey}>
+            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{RANK_LABEL[w].tab}</button>)}
+          </div>
+          {refName && <p className="hd-note">Within 100 km of {refName}, ranked by the rating at that time</p>}
+        </header>
         {nearby.length === 0
-          ? <p className="hd-empty">No other rated spots within 100 km right now.</p>
+          ? <p className="hd-empty">No other rated spots within 100 km for that time.</p>
           : <ol className="nb-list">
-              {nearby.map(({card: c, km}) => (
+              {nearby.map(({card: c, km, at: when_}, i) => (
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
-                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}. Open forecast`}>
-                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km</small></span>
+                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_)}` : ''}. Open forecast`}>
+                    <span className="nb-rank" aria-hidden="true">{i + 1}</span>
+                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_)}` : ''}</small></span>
                     <span className="nb-surf"><span className="dc-val">{c.surf.value}</span><span className="dc-tag-sm">{c.surf.tag}</span></span>
                     <RatingBar c={c.rating} />
                   </a>

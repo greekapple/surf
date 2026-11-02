@@ -10,6 +10,8 @@ export const BODY_WORDS_NOTE = 'Approximate. Body words are an informal conventi
 
 /** [word, anchor ft]; a height takes the word of the nearest anchor below 6 ft, then overhead from 5.5 ft, double overhead from 12 ft. */
 const ANCHORS: [string, number][] = [['ankle', 1], ['knee', 2], ['thigh', 2.5], ['waist', 3], ['chest', 4], ['shoulder', 4.5], ['head', 5]];
+/** Where the words sit on a drawn scale, in face feet: the source's anchors (overhead starts at 6 ft, double overhead at 12 ft). Thigh and shoulder are our in-between anchors. */
+export const BODY_TICKS: readonly (readonly [string, number])[] = [...ANCHORS, ['overhead', 6], ['double overhead', 12]];
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 
 /** Single word for a face height in feet, or null for a missing or negative height. */
