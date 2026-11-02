@@ -185,3 +185,12 @@
 .pzl-obslist { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 12px; }
 .pzl-obslist li { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
 .pzl-obslist .btn { flex: none; min-height: 44px; }
+
+/* T-060: What you saw (observations from the spot page), hairline rows */
+.saw { display: grid; gap: 8px; margin: 16px 0 32px; max-width: 720px; }
+.saw h2 { font-size: 18px; font-weight: 650; } .saw h2 span { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
+.saw-l { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.saw-l li { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.saw-t { display: grid; gap: 2px; min-width: 0; } .saw-t b { font-weight: 600; } .saw-t small { color: var(--muted); font-size: 12px; }
+.saw-del { flex: none; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--bad-ink, var(--bad)); font: 600 14px/1 inherit; cursor: pointer; }
+.saw-del:hover { text-decoration: underline; text-underline-offset: 3px; }
