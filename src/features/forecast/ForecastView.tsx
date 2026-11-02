@@ -11,6 +11,7 @@ import {NearshoreCard} from './Nearshore';
 import {BuoyContext} from './BuoyContext';
 import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, facingOf, surfOf, type CardKey} from './SpotPage';
 import {SpotBand} from './SpotBand';
+import {ObservePanel, ObservedLine, sawWords} from './Observe';
 import './forecast.css';
 
 function Sources() {
@@ -51,6 +52,7 @@ export function ForecastView({go}: ViewProps) {
   };
   const fav = data.state.favorites.includes(spot.id);
   const [openCard, setOpenCard] = useState<CardKey | null>(null);
+  const [observing, setObserving] = useState(false), [saved, setSaved] = useState('');
   const toggleCard = (k: CardKey) => setOpenCard((o) => (o === k ? null : k));
   // Phones: the shell's spot switcher already names the spot, so the h1 is for screen readers only (the name shows once).
   const [narrow, setNarrow] = useState(() => matchMedia('(max-width: 860px)').matches);
@@ -103,7 +105,9 @@ export function ForecastView({go}: ViewProps) {
         </div>
       </SpotBand>
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<ObservedLine spotId={spot.id} nowMs={now} onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={{records: view.mapRecords, bundle, profile: p, nowMs: now}} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
+      <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
         Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
         Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}

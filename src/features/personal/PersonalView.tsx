@@ -17,6 +17,7 @@ import {PIcon, type PName} from './icons';
 import {Choice, SpotCover, entryDate} from './parts';
 import {AlertsManager} from './AlertsPanels';
 import {JournalList, LogForm, type LogInput} from './JournalPanels';
+import {SawList} from './SawList';
 import {addObservation, checkObservation, downloadText, loadLog, logToCsv, logToJson, removeObservation, saveLog, type ObservationContext} from '../../services/sessionLog';
 import {pickMop} from '../../services/nearshoreSelect';
 import {assignmentFor} from '../../ocean/mop';
@@ -349,6 +350,7 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
         return (
           <Page title="Surf journal" onBack={toList}>
             <p className="fine">{sessions.length} sessions · on this device</p>
+            <SawList spotName={spotName} />
             <div className="pz-journal">
               <LogForm spots={spots} boards={boards} defaultSpot={view.selected} heightUnit={p.heightUnit === 'm' ? 'm' : 'ft'} onSubmit={logSession} error={obsError} />
               <JournalList sessions={sessions} extras={extras} spotName={spotName} onRemove={removeSession} />
