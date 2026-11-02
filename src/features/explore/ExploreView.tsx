@@ -73,12 +73,11 @@ function OceanMap({section, go}: ViewProps) {
   const [opts, setOpts] = useState({heat: true, flow: true, arrows: false});
   const [phone, setPhone] = useState(isPhone);
   useEffect(() => { const mq = matchMedia(PHONE), on = () => setPhone(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
-  // Wide screens: the spot list is a slim sheet under the search, open only on demand. Phones: a bottom sheet with three detents.
+  // Wide screens: the spot list is a slim sheet under its toggle, open only on demand. Phones: a bottom sheet with three detents.
   const [open, setOpen] = useState(false);
   const [detent, setDetent] = useState<Detent>('peek');
   const [drag, setDrag] = useState<number | null>(null);
   const [callout, setCallout] = useState<string | null>(null);
-  const [query, setQuery] = useState('');
   const [playing, setPlaying] = useState(false);
   const [zoom, setZoom] = useState(9);
   const wide = zoom < 5; // ocean-basin view uses the wider colour ramp
@@ -97,7 +96,10 @@ function OceanMap({section, go}: ViewProps) {
   const pinLayer = useRef<L.LayerGroup | null>(null);
   const sheetRef = useRef<HTMLElement>(null);
   const point = usePointForecast(pt);
+  const [slow, setSlow] = useState(false);
   const spatial = useSpatial(def.layer, def.variable, view.selectedTime, false, live && (opts.heat || opts.flow || opts.arrows));
+  const waiting = spatial.loading && !spatial.frame;
+  useEffect(() => { setSlow(false); if (!waiting) return; const t = window.setTimeout(() => setSlow(true), 20000); return () => window.clearTimeout(t); }, [waiting, spatial.status]);
   // Keep the last good frame of this field on screen while the next hour loads, so scrubbing doesn't flash blank.
   const shown = useRef<SpatialFrame | null>(null);
   if (spatial.frame) shown.current = spatial.frame;
@@ -136,6 +138,19 @@ function OceanMap({section, go}: ViewProps) {
     map.current = m; if (import.meta.env.DEV) (window as unknown as {__swelloMap?: L.Map}).__swelloMap = m; // test hook for the zoom script (dev only)
     if (import.meta.env.DEV) Object.assign(window, {__xmap: m}); // browser QA scripts drive zoom through this; stripped from builds
     return () => { disposeBase(); m.remove(); map.current = null; };
+  }, []);
+
+  // T-056: on phones the tile attribution is one line; tapping it shows the full credit (links work once it is open).
+  useEffect(() => {
+    const el = rootRef.current?.querySelector<HTMLElement>('.leaflet-control-attribution'); if (!el) return;
+    el.tabIndex = 0; el.setAttribute('aria-label', 'Map credits. Press to show in full'); el.setAttribute('aria-expanded', 'false');
+    const open = (e: Event) => {
+      if (!matchMedia('(max-width: 860px)').matches || el.classList.contains('open')) return;
+      e.preventDefault(); e.stopPropagation(); el.classList.add('open'); el.setAttribute('aria-expanded', 'true');
+    };
+    const key = (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') open(e); };
+    el.addEventListener('click', open, true); el.addEventListener('keydown', key);
+    return () => { el.removeEventListener('click', open, true); el.removeEventListener('keydown', key); };
   }, []);
 
   // T-043: the spot callout popup (wide screens) and closing it with a tap on the sea.
@@ -300,8 +315,9 @@ function OceanMap({section, go}: ViewProps) {
   const dist = (e: {latitude: number; longitude: number}) => Math.hypot(e.latitude - here.latitude, (e.longitude - here.longitude) * 0.8);
   const regionRank = new Map<string, number>();
   for (const e of evidenceSpots) regionRank.set(e.region, Math.min(regionRank.get(e.region) ?? Infinity, dist(e)));
-  const list = [...evidenceSpots].sort((a, b) => (regionRank.get(a.region)! - regionRank.get(b.region)!) || b.latitude - a.latitude).filter((e) => !query || `${e.name} ${e.region}`.toLowerCase().includes(query.toLowerCase()));
+  const list = [...evidenceSpots].sort((a, b) => (regionRank.get(a.region)! - regionRank.get(b.region)!) || b.latitude - a.latitude);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
+    : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
     : spatial.loading && !frame ? 'Loading model…'
     : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${frame ? 'California 0.5°' : ''}${frame && gframe ? ' + ' : ''}${gframe ? 'global 2°' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
@@ -352,7 +368,6 @@ function OceanMap({section, go}: ViewProps) {
   const showList = phone ? detent !== 'peek' : open;
   const listBody = (
     <div className="xlist" aria-label="Spots">
-      {list.length === 0 && <p className="fine">No spot matches “{query}”.</p>}
       <ul>{list.map((e, i) => {
         const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
         const head = i === 0 || list[i - 1].region !== e.region ? <p className="xregion">{e.region}</p> : null;
@@ -366,13 +381,11 @@ function OceanMap({section, go}: ViewProps) {
       {!live && <p className="fine">The demonstration week shows spots only.</p>}
     </div>
   );
-  const search = (
-    <div className="xsearch">
-      <Icon name="search" size={16} />
-      <input type="search" placeholder="Search spots" value={query} aria-label="Search spots"
-        onFocus={() => (phone ? setDetent('full') : setOpen(true))} onChange={(e) => { setQuery(e.target.value); if (phone) setDetent('full'); else setOpen(true); }} />
-      {!phone && <button className="xcollapse" aria-expanded={open} aria-controls="xsheet" aria-label={open ? 'Hide spot list' : 'Show spot list'} onClick={() => setOpen(!open)}><Icon name="chevron" size={16} /></button>}
-    </div>
+  // T-056: one search box per page (the header's). The map keeps a plain toggle for its spot list on wide screens; phones have the sheet.
+  const listToggle = (
+    <button type="button" className="xsearch xlist-t" aria-expanded={open} aria-controls="xsheet" onClick={() => setOpen(!open)}>
+      <span>Spots <span className="xlist-n">{list.length}</span></span><Icon name="chevron" size={16} />
+    </button>
   );
 
   return (
@@ -385,12 +398,11 @@ function OceanMap({section, go}: ViewProps) {
           <button className="xgrab" aria-label={`Spot sheet: ${detent === 'peek' ? 'selected spot' : detent === 'half' ? 'half height' : 'full list'}. Press to resize`}
             onPointerDown={onHandleDown} onPointerMove={onHandleMove} onPointerUp={onHandleUp} onPointerCancel={() => { dragFrom.current = null; setDrag(null); }} onKeyDown={handleKey}
             onClick={(e) => { if (e.detail === 0) setDetent(DETENTS[(DETENTS.indexOf(detent) + 1) % 3]); }}><i /></button>
-          {search}
           {showList ? listBody : peek$}
         </section>
       ) : (
         <div className="xsearchbox">
-          {search}
+          {listToggle}
           {open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
         </div>
       )}
@@ -412,6 +424,7 @@ function OceanMap({section, go}: ViewProps) {
           onHorizon={(d) => { setHorizon(d); const t0 = Date.parse(allTimes[0] ?? ''); if (view.selectedTime && Date.parse(view.selectedTime) > t0 + d * 864e5) view.selectTime([...allTimes].filter((t) => Date.parse(t) <= t0 + d * 864e5).pop()!); }}
           onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }} />
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={RAMP} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} note={status} />
+          : slow && waiting ? <button type="button" className="xchip xstatus" onClick={() => { setSlow(false); spatial.retry(); }}>{status} · <u>Retry</u></button>
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
       </div>
 

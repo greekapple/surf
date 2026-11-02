@@ -4,6 +4,7 @@ import {lengthLabel} from '../../utils/units';
 import {BoardOutline} from './BoardOutline';
 import {loadLook} from './looks';
 import {STATIONS, type Outline} from './outline';
+import {cutout, type Cut} from './cutout';
 
 /** A board standing on its tail, nose up. A traced board uses its own outline (and deck photo when scanned); any other board is the category outline in the board's colour. Never an exact scan unless the person scanned it. */
 function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline | null}) {
@@ -35,62 +36,6 @@ const ILLUSTRATION: Partial<Record<BoardType, [file: string, word: string]>> = {
 export function illustrationFor(b: Surfboard, outline: Outline | null) {
   const hit = outline ? undefined : ILLUSTRATION[b.type];
   return hit ? {src: `/media/ai/ai-board-${hit[0]}`, caption: `Illustration of a ${hit[1]} · AI-generated, not your board`} : null;
-}
-
-/** T-053 cutout. The illustrations are JPEGs on a white seamless with a soft grey vignette and floor shadow, which showed as a box.
- *  In a canvas: (1) levels: the white point is taken from the image border (the seamless), and every pixel is stretched so the whole
- *  background becomes pure white; (2) white-to-alpha: pure white becomes transparent and every other colour keeps its exact tone over white,
- *  so rails, stringers and shading stay (a white board stays white over a light wall, as on the seamless); (3) crop: top/bottom where the board is
- *  clearly opaque, so the picture's height is the board's length and its bottom is the tail. Cached per file. If anything fails the caller
- *  keeps the masked JPEG with no drop shadow (never a box). */
-type Cut = {url: string; w: number; h: number};
-const cuts = new Map<string, Promise<Cut | null>>();
-export function cutout(src: string): Promise<Cut | null> {
-  let p = cuts.get(src);
-  if (!p) {
-    p = new Promise<Cut | null>((resolve) => {
-      const img = new Image(); img.decoding = 'async';
-      img.onload = () => {
-        try {
-          const W = img.naturalWidth, H = img.naturalHeight, c = document.createElement('canvas'); c.width = W; c.height = H;
-          const g = c.getContext('2d', {willReadFrequently: true}); if (!g) return resolve(null);
-          g.drawImage(img, 0, 0); const im = g.getImageData(0, 0, W, H), d = im.data;
-          // White point that follows the vignette: fit background ≈ a + b·r² (r = normalised distance from the centre) to the border frame,
-          // so each pixel is compared with its own local seamless brightness (one global white point erased white boards).
-          const bw = Math.max(4, Math.round(W * 0.05)), bh = Math.max(4, Math.round(H * 0.04)), cx = W / 2, cy = H / 2;
-          let n = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
-          for (let y = 0; y < H; y += 2) for (let x = 0; x < W; x += 2) if (x < bw || x >= W - bw || y < bh || y >= H - bh) {
-            const i = (y * W + x) * 4, l = Math.min(d[i], d[i + 1], d[i + 2]), r2 = ((x - cx) / cx) ** 2 + ((y - cy) / cy) ** 2;
-            n++; sx += r2; sy += l; sxx += r2 * r2; sxy += r2 * l;
-          }
-          const slope = (n * sxy - sx * sy) / Math.max(1e-9, n * sxx - sx * sx), icpt = (sy - slope * sx) / n;
-          const wpAt = (x: number, y: number) => Math.min(255, Math.max(170, icpt + slope * (((x - cx) / cx) ** 2 + ((y - cy) / cy) ** 2) - 3));
-          let top = H, bot = -1, left = W, right = -1;
-          for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-            const i = (y * W + x) * 4, k = 255 / wpAt(x, y), r = Math.min(255, d[i] * k), gg = Math.min(255, d[i + 1] * k), bb = Math.min(255, d[i + 2] * k);
-            const a = Math.max(255 - r, 255 - gg, 255 - bb) / 255;
-            // Noise floor: JPEG noise and the last of the vignette (alpha < 0.08) become fully transparent, the rest is rescaled; otherwise the
-            // faint residue reads as a pale box once the crop is widened for pale rails.
-            const a2 = Math.max(0, (a - 0.08) / 0.92);
-            if (a2 <= 0.004) { d[i + 3] = 0; continue; }
-            d[i] = 255 - (255 - r) / a; d[i + 1] = 255 - (255 - gg) / a; d[i + 2] = 255 - (255 - bb) / a; d[i + 3] = Math.round(a2 * 255);
-            // Length (top/bottom) from clearly opaque pixels; width (left/right) from faint ones too, so a pale rail isn't cropped off.
-            if (a > 0.3) { if (y < top) top = y; if (y > bot) bot = y; }
-            if (a2 > 0.03) { if (x < left) left = x; if (x > right) right = x; }
-          }
-          if (bot < 0 || bot - top < H * 0.3) return resolve(null);
-          g.putImageData(im, 0, 0);
-          const cw = right - left + 1, ch = bot - top + 1, o = document.createElement('canvas'); o.width = cw; o.height = ch;
-          o.getContext('2d')!.drawImage(c, left, top, cw, ch, 0, 0, cw, ch);
-          resolve({url: o.toDataURL('image/png'), w: cw, h: ch});
-        } catch { resolve(null); }
-      };
-      img.onerror = () => resolve(null);
-      img.src = src;
-    });
-    cuts.set(src, p);
-  }
-  return p;
 }
 
 /** The one slot that draws a board picture (rack, annotated stage, phone strip). The person's traced outline or scanned photo first; otherwise

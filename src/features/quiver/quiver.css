@@ -218,64 +218,6 @@
   .qv-rackrow li { flex: 0 0 100%; justify-items: center; scroll-snap-stop: always; }
 }
 
-/* ---------- T-032 annotated board (below the rack): the selected board, its length huge behind it, callouts on hairline leaders ----------
- * Function-first rule: an accent, not a chapter. Every value is visible on load; motion only adds emphasis. Follows the theme: very light grey
- * with dark text by default (minimal white). Dark theme only: the AI concrete (cropped to its left third so no board shows) sits behind the
- * board, never behind spec text, with its caption. */
-.qv-cine { position: relative; isolation: isolate; overflow: hidden; container-type: inline-size; display: grid; grid-template-rows: auto 1fr auto; gap: 18px; padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 64px) 40px; border-radius: 12px; background: var(--s2); color: var(--text); }
-.qc-bd { display: none; position: absolute; inset: 0; z-index: -2; border-radius: 12px; background-repeat: no-repeat; background-size: 300% auto; background-position: 0 30%; filter: brightness(0.5) grayscale(0.25); }
-.qc-h { text-align: center; }
-.qv .qc-h h2 { font: 700 clamp(30px, 4.6vw, 58px)/1 var(--display); letter-spacing: -0.03em; color: var(--text); text-wrap: balance; }
-.qc-h p { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
-.qc-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, 300px) minmax(0, 1fr); grid-template-areas: 'len board vol' 'wid board fin' 'thk board tail'; align-items: center; row-gap: 28px; }
-.c-len { grid-area: len; } .c-wid { grid-area: wid; } .c-thk { grid-area: thk; } .c-vol { grid-area: vol; } .c-fin { grid-area: fin; } .c-tail { grid-area: tail; }
-.qc-board { grid-area: board; position: relative; height: clamp(320px, 52svh, 540px); display: grid; place-items: center; padding: 12px 0; }
-.qc-big { position: absolute; left: 50%; top: 50%; z-index: -1; translate: -50% -50%; margin: 0; font: 700 min(calc(150cqi / var(--len)), 36svh)/0.8 var(--display); letter-spacing: -0.05em; white-space: nowrap; pointer-events: none; user-select: none; }
-.qc-big span { display: block; background: linear-gradient(180deg, color-mix(in srgb, var(--text) 13%, transparent) 0%, color-mix(in srgb, var(--text) 6%, transparent) 60%, color-mix(in srgb, var(--text) 1%, transparent) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.qc-fig { position: relative; z-index: 1; height: 100%; display: grid; place-items: center; }
-.qc-fig .outline-svg { max-height: 100%; width: auto; }
-.qc-c { position: relative; display: grid; gap: 5px; --ls: 0 1; }
-.c-len, .c-wid, .c-thk { text-align: right; padding-right: 72px; }
-.c-vol, .c-fin, .c-tail { padding-left: 72px; }
-.qc-c::after { content: ''; position: absolute; top: 40px; width: 56px; height: 1px; background: var(--line-2); }
-.qc-c::before { content: ''; position: absolute; top: 38px; width: 5px; height: 5px; border-radius: 50%; background: var(--text); }
-.c-len::after, .c-wid::after, .c-thk::after { right: 4px; transform-origin: right; } .c-len::before, .c-wid::before, .c-thk::before { right: 0; }
-.c-vol::after, .c-fin::after, .c-tail::after { left: 4px; transform-origin: left; } .c-vol::before, .c-fin::before, .c-tail::before { left: 0; }
-.qc-c .k { font-size: 12.5px; letter-spacing: 0.01em; color: var(--muted); }
-.qc-c .v { font: 700 clamp(26px, 3.2vw, 44px)/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--text); }
-.qc-c .v small { font-size: 0.45em; font-weight: 600; color: var(--muted); }
-.qc-c .s { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.qc-c .qc-miss { font: 600 18px/1.2 var(--sans); letter-spacing: 0; color: var(--muted); }
-.qc-f { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 24px; }
-.qc-how { font-size: 13px; color: var(--muted); }
-.qc-cap { display: none; position: absolute; left: 16px; bottom: 10px; right: 16px; font-size: 11px; color: var(--muted); }
-:root[data-theme='dark'] .qc-bd, :root[data-theme='dark'] .qc-cap { display: block; } /* the concrete still is dark: dark theme only */
-.qc-arrow { position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 48px; height: 48px; margin-top: -24px; border-radius: 50%; border: 1px solid var(--line); background: var(--s1); color: var(--text); cursor: pointer; transition: background-color 160ms var(--ease), transform 120ms var(--ease); }
-.qc-arrow:hover { background: var(--s3, var(--s2)); border-color: var(--line-2); }
-.qc-arrow:active { transform: scale(0.96); }
-.qc-arrow:focus-visible { outline: 3px solid #ff9b5c; outline-offset: 2px; }
-.qc-arrow.l { left: 12px; } .qc-arrow.l svg { transform: rotate(90deg); }
-.qc-arrow.r { right: 12px; } .qc-arrow.r svg { transform: rotate(-90deg); }
-.qv-rack-h { margin-top: 12px; }
-@media (max-width: 860px) {
-  .qv-cine { padding-bottom: 44px; }
-  .qc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: 'board board' 'len vol' 'wid fin' 'thk tail'; column-gap: 16px; row-gap: 22px; }
-  .qc-board { height: 40svh; margin-bottom: 8px; }
-  .c-len, .c-wid, .c-thk, .c-vol, .c-fin, .c-tail { text-align: left; padding: 18px 0 0; }
-  .qc-c { --ls: 1 0; }
-  .qc-c::after { top: 0; left: 2px !important; right: auto !important; width: 1px; height: 12px; transform-origin: top; }
-  .qc-c::before { top: -3px; left: 0 !important; right: auto !important; }
-  .qc-c .v { font-size: 28px; }
-  .qc-arrow { top: calc(110px + 20svh); width: 44px; height: 44px; margin-top: -22px; }
-  .qc-arrow.l { left: 4px; } .qc-arrow.r { right: 4px; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .qc-fig, .qc-big span { animation: qc-swap 240ms var(--ease) both; }
-  .qv-cine.io .rv { transition: opacity 300ms var(--ease), transform 300ms var(--ease); }
-  .qv-cine.io .rv:not(.in) { opacity: 0.6; transform: translateY(8px); }
-  @keyframes qc-swap { from { opacity: 0.6; transform: translateY(8px); } }
-}
-
 /* First screen (function-first rule): rack, spec card, thumbnails and the Board Match line fit in the first viewport. */
 .qv-selected { padding: 12px 16px; }
 .qv-matchline { margin: 0; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -299,15 +241,6 @@
 .qv-stage.qv-room:has(.bp-ill) { background: linear-gradient(180deg, #fcfcfb 0%, #f3f2f0 74%, #e9e7e3 100%); }
 .qv-rack-b:has(.bp-ill) { mix-blend-mode: multiply; filter: none; }
 .qv-rackrow li.on .qv-rack-b:has(.bp-ill) { filter: none; }
-:root:not([data-theme='dark']) .qc-fig:has(.bp-ill) { mix-blend-mode: multiply; }
-:root:not([data-theme='dark']) .qc-how-drawn { display: none; } /* light shows the captioned illustration; the outline note is for the drawn outline */
-.qc-fig .bp-ill, .qc-fig .outline-svg { max-height: 100%; }
-.qc-pic-ill, .qc-pic-draw { display: contents; }
-.qc-pic-draw { display: none; }
-:root[data-theme='dark'] .qc-pic-ill, :root[data-theme='dark'] .qc-illcap { display: none; }
-:root[data-theme='dark'] .qc-pic-draw { display: contents; }
-.qc-illcap { position: absolute; left: 0; right: 0; bottom: -6px; z-index: 1; margin: 0; text-align: center; font-size: 11px; color: var(--muted); }
-.qv-ill-cap { position: absolute; left: 14px; top: 12px; z-index: 2; margin: 0; padding: 3px 8px; border-radius: 4px; background: rgb(255 255 255 / 0.78); color: #2b3238; font-size: 11px; }
 
 /* ---------- T-035 board room (Porsche configurator pattern): one board large on a light set, stage pill, hotspots, angle thumbnails,
  * swatch groups on the right (1440) / under the pinned stage (390), sticky Board Match bar on phones. Small, calm type (§3). ---------- */
@@ -435,7 +368,6 @@
 .qv-ruler i { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
 .qv-ruler i span { position: absolute; right: 8px; top: -8px; font: 600 12px/1 var(--sans); color: var(--muted); font-style: normal; }
 .qv-today { position: absolute; right: 20px; top: 14px; text-align: right; z-index: 2; margin: 0; font-size: 12px; color: var(--muted); }
-.qv-ill-cap { z-index: 2; }
 @media (max-width: 860px) {
   .qv-rackwrap .qv-stage.qv-room { --rack-floor: 76px; aspect-ratio: auto; width: 100%; }
   .qv-rackwrap.qv-studio { background: none; }
@@ -445,11 +377,6 @@
 }
 
 /* Spec sheet: elegant, not giant. No ghost numerals behind the board; values on the type scale. */
-.qc-big { display: none; }
-.qv .qc-h h2 { font: 700 clamp(26px, 2.6vw, 34px)/1.1 var(--sans); letter-spacing: -0.02em; }
-.qc-c .v { font: 650 clamp(22px, 2vw, 28px)/1.1 var(--sans); letter-spacing: -0.01em; }
-.qc-c .k { font-size: 12px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; }
-.qv-cine { background: radial-gradient(120% 90% at 50% 10%, color-mix(in srgb, #fff 75%, var(--bg)), color-mix(in srgb, var(--text) 4%, var(--bg))); border: 1px solid var(--line); }
 
 /* Board room: a softer light set (floor gradient, contact shadow from the 3D scene) and the board rail */
 .br-stage { background: radial-gradient(130% 80% at 50% 35%, color-mix(in srgb, #fff 80%, var(--bg)) 0%, color-mix(in srgb, var(--text) 5%, var(--bg)) 70%, color-mix(in srgb, var(--text) 9%, var(--bg)) 100%); }
@@ -467,11 +394,56 @@
 .br-stagecol, .br > * { min-width: 0; } /* the board rail scrolls inside its column instead of widening the page */
 .br-rail { max-width: 100%; }
 .qv-show > * { min-width: 0; }
-.qv-rackwrap .qv-ill-cap { left: 80px; } @media (max-width: 860px) { .qv-rackwrap .qv-ill-cap { left: 50px; right: 10px; } }
 
 /* ---------- T-053: illustrations as true cutouts (no box, no vignette) ---------- */
 .bp-ill.bp-cut { -webkit-mask-image: none; mask-image: none; }
-.qv-rack-b:has(.bp-cut), .qc-fig:has(.bp-cut) { mix-blend-mode: normal !important; } /* a real cutout needs no blending */
+.qv-rack-b:has(.bp-cut) { mix-blend-mode: normal !important; } /* a real cutout needs no blending */
 .qv-rackwrap .qv-rack-b > img.bp-ill:not(.bp-cut) { filter: none; } /* fallback JPEG: a drop shadow would outline its rectangle */
 .bp-wait { display: block; } /* holds the slot (true length) while the cutout is made; nothing is drawn */
 .qv-strip .bp-ill { display: block; }
+
+/* ---------- T-056: the wall, balanced and true; quiet spec row ---------- */
+/* Every board stands on the same line: fixed label height, no lift on the selected board (it is marked by its label and caption). */
+.qv-rackwrap .qv-rackrow { justify-content: space-evenly; padding: 0 96px 0 120px; gap: 24px; }
+.qv-rackwrap .qv-rackrow li.on .qv-rack-b > :first-child { transform: none; }
+.qv-rackwrap .qv-rack-b { position: relative; opacity: 1; }
+.qv-rackwrap .qv-rackrow li:not(.on) .qv-rack-b { opacity: 0.94; }
+.qv-rl { height: 58px; min-height: 0; align-content: start; }
+.qv-fit { font-weight: 500; padding: 0; background: none !important; }
+.qv-fit::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 5px; border-radius: 50%; vertical-align: 1px; background: currentColor; }
+.qv-fit.in { color: var(--good-ink, var(--good)); } .qv-fit.edge { color: var(--fair-ink, #8a6a12); } .qv-fit.big, .qv-fit.small { color: var(--muted); }
+.qv-ill-tag { position: absolute; left: 50%; top: -22px; translate: -50% 0; white-space: nowrap; font-size: 11px; line-height: 1; color: #6b737a; pointer-events: none; }
+.qv-today { font-size: 12.5px; color: #5b6672; }
+.qv-rackwrap .qv-arrow { width: 40px; height: 40px; margin-top: -20px; background: rgb(255 255 255 / 0.9); color: #1b2026; border: 1px solid rgb(27 32 38 / 0.12); }
+.qv-rackwrap .qv-arrow:hover { background: #fff; border-color: rgb(27 32 38 / 0.3); }
+@media (min-width: 861px) { .qv-rackwrap .qv-stagewrap .qv-arrow.l { left: 76px; } .qv-rackwrap .qv-stagewrap .qv-arrow.r { right: 16px; } }
+.qv-rackwrap .qv-stage.qv-room { background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #eeece8 calc(100% - var(--rack-floor)), #e8e5e0 100%), #fbfaf8; }
+
+.qv-spec { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 24px 0 8px; border: 0; border-radius: 0; background: none; }
+.qv-spec-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.qv-spec-h h2 { font-size: 24px; font-weight: 650; letter-spacing: -0.01em; }
+.qv-spec-l { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.qv-spec-l div { display: grid; gap: 4px; padding: 12px 16px 12px 0; }
+.qv-spec-l div + div { padding-left: 16px; border-left: 1px solid var(--line); }
+.qv-spec-l dt { font-size: 13px; color: var(--muted); }
+.qv-spec-l dd { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.qv-spec .qv-matchline { color: var(--muted); font-size: 14px; max-width: 72ch; }
+.qv-spec .qv-matchline b { color: var(--text); font-weight: 600; }
+@media (max-width: 860px) {
+  .qv-rackwrap .qv-rackrow { padding: 0; gap: 0; justify-content: flex-start; }
+  .qv-spec { padding: 16px 0 0; gap: 12px; }
+  .qv-spec-l { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .qv-spec-l div:nth-child(4) { padding-left: 0; border-left: 0; }
+  .qv-spec-l div:nth-child(n+4) { border-top: 1px solid var(--line); }
+  .qv-spec-l dd { font-size: 16px; }
+}
+/* The floor band starts exactly at the tails: label (58) + gap (10) + 10 below. */
+.qv-rackwrap .qv-stage.qv-room, .qv-rackwrap .qv-stage.qv-room:has(.bp-ill) { --rack-floor: 78px; }
+.qv-rackwrap .qv-rack-b { padding-bottom: 10px; }
+@media (max-width: 860px) { .qv-rackwrap .qv-stagewrap .qv-arrow { top: 42%; } .qv-rackwrap .qv-stagewrap .qv-arrow.l { left: 50px; } .qv-rackwrap .qv-stagewrap .qv-arrow.r { right: 10px; } }
+/* T-056 board room header: the name large and plain, one quiet line of facts, today's size fit. */
+.br-h h2 { font: 650 28px/1.1 var(--sans); letter-spacing: -0.02em; }
+.br-h p { font-size: 13.5px; }
+.br-h .br-fit { margin-top: 8px; font-size: 13px; }
+.br-h .br-fit .qv-fit { font-size: 13px; }
+@media (max-width: 860px) { .br-h h2 { font-size: 22px; } }
