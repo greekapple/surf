@@ -1,0 +1,151 @@
+{
+ "retrievedOn": "2026-11-02",
+ "source": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/",
+ "note": "Distance is from the spot query coordinate (a model sampling point, not a surveyed takeoff). Candidates only; assignment needs review.",
+ "spots": [
+  {
+   "id": "spot-2",
+   "name": "Ocean Beach",
+   "lat": 37.759,
+   "lon": -122.51,
+   "nearest": [
+    {
+     "id": "SF026",
+     "lat": 37.75313,
+     "lon": -122.51988,
+     "depthM": 10,
+     "shoreNormalDeg": 261.48,
+     "distanceKm": 1.09
+    },
+    {
+     "id": "SF025",
+     "lat": 37.75129,
+     "lon": -122.51926,
+     "depthM": 10,
+     "shoreNormalDeg": 261,
+     "distanceKm": 1.18
+    },
+    {
+     "id": "SF024",
+     "lat": 37.74969,
+     "lon": -122.519,
+     "depthM": 10,
+     "shoreNormalDeg": 262.5,
+     "distanceKm": 1.3
+    },
+    {
+     "id": "SF023",
+     "lat": 37.74811,
+     "lon": -122.51886,
+     "depthM": 10,
+     "shoreNormalDeg": 263.49,
+     "distanceKm": 1.44
+    },
+    {
+     "id": "SF022",
+     "lat": 37.74665,
+     "lon": -122.51874,
+     "depthM": 10,
+     "shoreNormalDeg": 266,
+     "distanceKm": 1.57
+    }
+   ]
+  },
+  {
+   "id": "spot-3",
+   "name": "Linda Mar",
+   "lat": 37.6,
+   "lon": -122.5,
+   "nearest": [
+    {
+     "id": "SM376",
+     "lat": 37.60069,
+     "lon": -122.51473,
+     "depthM": 15,
+     "shoreNormalDeg": 339.46,
+     "distanceKm": 1.3
+    },
+    {
+     "id": "SM375",
+     "lat": 37.59973,
+     "lon": -122.51654,
+     "depthM": 15,
+     "shoreNormalDeg": 319.97,
+     "distanceKm": 1.46
+    },
+    {
+     "id": "SM377",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 350.14,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM378",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 342.41,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM379",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 335.93,
+     "distanceKm": 1.48
+    }
+   ]
+  },
+  {
+   "id": "spot-0",
+   "name": "Bolinas",
+   "lat": 37.90835046,
+   "lon": -122.682137,
+   "nearest": [
+    {
+     "id": "MA140",
+     "lat": 37.88387,
+     "lon": -122.67383,
+     "depthM": 15,
+     "shoreNormalDeg": 173.55,
+     "distanceKm": 2.82
+    },
+    {
+     "id": "MA141",
+     "lat": 37.88387,
+     "lon": -122.67383,
+     "depthM": 15,
+     "shoreNormalDeg": 169.52,
+     "distanceKm": 2.82
+    },
+    {
+     "id": "MA142",
+     "lat": 37.88387,
+     "lon": -122.67383,
+     "depthM": 15,
+     "shoreNormalDeg": 167.58,
+     "distanceKm": 2.82
+    },
+    {
+     "id": "MA143",
+     "lat": 37.88387,
+     "lon": -122.67383,
+     "depthM": 15,
+     "shoreNormalDeg": 163.8,
+     "distanceKm": 2.82
+    },
+    {
+     "id": "MA144",
+     "lat": 37.88387,
+     "lon": -122.67383,
+     "depthM": 15,
+     "shoreNormalDeg": 161.15,
+     "distanceKm": 2.82
+    }
+   ]
+  }
+ ]
+}

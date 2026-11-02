@@ -8,3 +8,6 @@ dist/
 
 # Licensed third-party 3D assets (TurboSquid Standard licence: no redistribution)
 tools/blender/assets/turbosquid-*/
+
+# T-041: local MOP forecast archive (scripts/mop-archive.mjs)
+/data/archive/
