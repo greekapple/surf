@@ -6,6 +6,7 @@ import {evidenceSpots} from '../../ocean/spots';
 import {ZONES} from '../../data/zones';
 import type {Forecast, Skill, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
+import {readBasemapPref, saveBasemapPref, type BasemapPref} from '../../map/basemapPref';
 import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
 import {timeLabelPT} from '../forecast/format';
 import {heroHeight} from '../forecast/model';
@@ -65,6 +66,7 @@ function Page({title, onBack, children, action}: {title: string; onBack: () => v
 export function PersonalView({section, go}: ViewProps) {
   const {data, view, setSpot, now, spotOptions} = useSwello();
   const [themePref, setThemePref] = useThemePref();
+  const [mapStyle, setMapStyle] = useState<BasemapPref>(() => readBasemapPref());
   const [hash, setHash] = useState(() => location.hash);
   const [rules, setRulesState] = useState<AlertRule[]>(loadRules);
   const [extras, setExtras] = useState<JournalExtras>(loadExtras);
@@ -310,6 +312,10 @@ export function PersonalView({section, go}: ViewProps) {
                 </div>
               </div>
               <p className="fine">White is the default. System follows your device.</p>
+            </div>
+            <div className="pz-panel">
+              <Choice label="Map style" value={mapStyle === 'satellite' ? 'Satellite' : 'Standard'} options={['Standard', 'Satellite'] as const} onChange={(v) => { const n = v === 'Satellite' ? 'satellite' : 'auto'; saveBasemapPref(n); setMapStyle(n); }} />
+              <p className="fine">Standard is a light, quiet map that follows your theme. Satellite shows imagery. Takes effect the next time the map opens.</p>
             </div>
           </Page>
         );

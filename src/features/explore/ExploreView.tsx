@@ -16,6 +16,7 @@ import {BAND_COLOR, bandOf, hourLabel, titleCase} from '../forecast/model';
 import {compass, ht, windVal} from '../forecast/helpers';
 import {weekdayPT, dayNumPT} from '../forecast/format';
 import {attachField, buildField, RAMP, RANGE, RANGE_WIDE} from '../../map/field';
+import {addBasemap} from '../../map/basemap';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
 import {PointCard, usePointForecast, type Pt} from './PointCard';
@@ -115,20 +116,16 @@ function OceanMap({section, go}: ViewProps) {
     m.on('zoomend', lod); lod();
     m.on('zoomend moveend resize', () => declutterRef.current()); // panels stay put while the map pans
     L.control.attribution({position: 'bottomleft', prefix: false}).addTo(m);
-    // Esri World Imagery + reference labels (attribution required); VITE_MAP_TILE_URL swaps in a licensed provider.
-    L.tileLayer(import.meta.env.VITE_MAP_TILE_URL || 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 16, className: 'xbase', attribution: import.meta.env.VITE_MAP_ATTRIBUTION || 'Imagery &copy; Esri, Maxar, Earthstar Geographics · Coastline: Natural Earth',
-    }).addTo(m);
-    m.createPane('labels'); m.getPane('labels')!.style.zIndex = '450'; m.getPane('labels')!.style.pointerEvents = 'none';
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {pane: 'labels', maxZoom: 16, opacity: 0.7}).addTo(m);
+    // Light or dark Esri Canvas basemap by theme (satellite on request), with maxNativeZoom so tiles upscale: src/map/basemap.ts (T-042).
+    const disposeBase = addBasemap(m);
     pins.current = L.layerGroup().addTo(m);
     pinLayer.current = L.layerGroup().addTo(m);
     popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup', minWidth: 248, maxWidth: 248, autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
     popup.current.setContent(popupEl);
     m.on('click', (e: L.LeafletMouseEvent) => setPt({lat: Math.round(e.latlng.lat * 10) / 10, lon: Math.round((((e.latlng.lng + 180) % 360 + 360) % 360 - 180) * 10) / 10}));
-    map.current = m;
+    map.current = m; if (import.meta.env.DEV) (window as unknown as {__swelloMap?: L.Map}).__swelloMap = m; // test hook for the zoom script (dev only)
     if (import.meta.env.DEV) Object.assign(window, {__xmap: m}); // browser QA scripts drive zoom through this; stripped from builds
-    return () => { m.remove(); map.current = null; };
+    return () => { disposeBase(); m.remove(); map.current = null; };
   }, []);
 
   useEffect(() => {
