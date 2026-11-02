@@ -12,3 +12,14 @@
 - Frame rate NOT verified on real GPU hardware: this machine's test browser uses software GL (SwiftShader), where it runs about 13 fps at 390 wide with DPR 2. The ≥ 50 / ≥ 30 fps targets need a check on a real GPU. The shader (7 ripple sines per pixel, 4-octave foam noise) and 520 particles are modest; if it is slow on a phone, cut the ripple loop to 4 and DPR to 1.5.
 - Look: closer to the Cycles stills in composition and colour than to their lighting; no true lip curl translucency or refraction, the peel animation was skipped, and the surfer here is the old model (surfer v2 and its regenerated matrices will drop in with no code change; the mirrored matrix is handled by three.js and I do not override face culling).
 - `npm run build` now embeds 336 assets (the 8 GLBs and surfer, ~16 MB) in the Worker: the deploy size blocker U-01 gets worse until public/ assets are served separately.
+
+# T-062b look polish (engineering)
+- Face: vertical gradient (deep blue at the trough → teal → luminous jade toward the crest, driven by height above the trough plus COLOR_0.g thin and backlight), Fresnel sky reflection stronger near the crest and damped on the dark lower face, vertical streak noise down the face, a cool sun-side highlight; sea body colour separate from the face (steepness-weighted) so the flats read blue-teal.
+- Spray rebuilt: 1,100 tiny soft sprites (alpha ≈ 0.32 max, normal blending, physical size with distance attenuation) in a thin feathering fan from high thin-lip vertices, plus 220 large faint mist sprites (alpha ≈ 0.13) on the whitewater. No additive blowout.
+- Whitewater: foam from COLOR_0.r with noise breakup, a lumpy perturbed normal and a small vertex displacement where foam is high; reads as bright broken white with a soft edge.
+- Ripples: the radial sine sum is gone; 2 octaves of directional noise (≈ 0.5–3 m), weaker on the steep face and with distance. Sun glints narrower and dimmer, off the face.
+- Hero camera raised and framed on the break (foam left, surfer centre-right).
+- Perf: no extra pass; about 10 extra noise samples per pixel. On this machine's real GPU (Apple M2, headless Chrome default) the stage runs at **60 fps at 1440** (swiftshader 13 fps at 390 is the software figure). WaveLive chunk 12.7 kB (5.7 gzip).
+- Checks: tsc, 327 tests, build, t062-live, t062-perf, t054, journeys 8/8, density all pass.
+- Side-by-side (live at 1440 vs Cycles a00): `playwright-toolkit/swello/artifacts/t062/side-8-10.png`, `side-4-6.png`; live-only `live-{8-10,4-6}-1440.png`.
+- Still different from the Cycles stills: no sun glare patch in the sea, no true refraction or tube interior, no ground-truth peel; the surfer v2's board reads very thin from the hero angle (edge-on), which looks like a model/pose issue rather than shader.
