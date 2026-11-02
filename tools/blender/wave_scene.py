@@ -140,7 +140,7 @@ def axis_samples(lo, hi, fine_lo, fine_hi, fine_step, far):
     return [v for v in xs if lo <= v <= hi] if lo > -far else xs
 
 
-FAR = 900.0
+FAR = 20000.0  # far enough that aerial angles never see the sea edge
 xs = axis_samples(-FAR, FAR, -SHOULDER - FADE, POCKET + BROKEN + FADE, max(0.06, H / 12), FAR)
 # cross-shore: the profile's own 171 columns (scaled), then flat extensions out to the horizon
 # small waves are much less steep than big ones: widen them cross-shore (2.2x at 1.5 ft, 1x from ~5 ft)
@@ -487,7 +487,21 @@ sky.altitude = 2.0
 sky.air_density = 1.0
 sky.aerosol_density = 0.7
 sky.sun_intensity = 0.45
-wn.links.new(sky.outputs['Color'], wn.nodes['Background'].inputs['Color'])
+# below the horizon the sky model is dark "ground"; aerial angles see a sliver of it past the farthest water as a black line,
+# so directions at or below the horizon take the horizon haze colour instead
+wtc = wn.nodes.new('ShaderNodeTexCoord')
+wsep = wn.nodes.new('ShaderNodeSeparateXYZ')
+wn.links.new(wtc.outputs['Generated'], wsep.inputs[0])
+wmr = wn.nodes.new('ShaderNodeMapRange')
+wmr.inputs['From Min'].default_value = -0.01
+wmr.inputs['From Max'].default_value = 0.02
+wn.links.new(wsep.outputs['Z'], wmr.inputs['Value'])
+wmix = wn.nodes.new('ShaderNodeMix')
+wmix.data_type = 'RGBA'
+wmix.inputs['A'].default_value = (0.62, 0.7, 0.76, 1)  # horizon haze
+wn.links.new(wmr.outputs['Result'], wmix.inputs['Factor'])
+wn.links.new(sky.outputs['Color'], wmix.inputs['B'])
+wn.links.new(wmix.outputs['Result'], wn.nodes['Background'].inputs['Color'])
 wn.nodes['Background'].inputs['Strength'].default_value = 0.22
 
 # ---------------------------------------------------------------- camera: water-level orbit around the surfer
