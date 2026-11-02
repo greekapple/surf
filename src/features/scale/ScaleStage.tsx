@@ -8,7 +8,7 @@ import {bodyWords, BODY_WORDS_NOTE} from '../../services/bodyWords';
 import {formatHeight, userHeight} from '../../services/heightMath';
 import {axisTicks, axisTop, bandRange, bodyTicks, faceRange, lerp, timesYourHeight, wavePath, yFor} from '../../services/scaleMath';
 import {SCALE_BANDS} from '../../services/waveScale';
-import {framePaths, posterPath} from '../../services/scaleFrames';
+import {framePaths, posterPath, spinCaption} from '../../services/scaleFrames';
 import {timeLabelPT, weekdayPT} from '../forecast/format';
 import {feetInches} from '../forecast/SpotPage';
 import {Spin360} from './Spin360';
@@ -83,7 +83,7 @@ export function ScaleStage() {
       </div>}
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
         <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />
-        <p className="sc-spin-band">{SCALE_BANDS[activeBand].label} wave · surfer 1.75 m (5′9″)</p>
+        <p className="sc-spin-band">{spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
       </div></figure>}
       <figure className="sc-fig" hidden={show3d}>
         <svg viewBox={`0 0 ${W} 360`} role="img" aria-label={alt} className="sc-svg">

@@ -30,3 +30,11 @@ export function frameFromKey(key: string, frame: number, n = SPIN_FRAMES): numbe
 }
 /** "n / 24" counter text for a zero-based frame. */
 export const counterText = (frame: number, n = SPIN_FRAMES) => `${wrapFrame(frame, n) + 1} / ${n}`;
+
+/** A band's caption in the user's height unit: "4–6 ft wave · surfer 5′9″" or "1.2–1.8 m wave · surfer 1.75 m". The renders use a 1.75 m surfer. */
+export function spinCaption(b: Pick<ScaleBand, 'lo' | 'hi' | 'label'>, unit: 'ft' | 'm'): string {
+  if (unit === 'ft') return `${b.label} wave · surfer 5′9″`;
+  const m = (ft: number) => (Math.round(ft * 0.3048 * 10) / 10).toFixed(1);
+  const lo = Math.max(b.lo, 1); // the first band also holds anything smaller; its picture is a 1–2 ft wave
+  return `${Number.isFinite(b.hi) ? `${m(lo)}–${m(b.hi)} m` : `${m(lo)}+ m`} wave · surfer 1.75 m`;
+}

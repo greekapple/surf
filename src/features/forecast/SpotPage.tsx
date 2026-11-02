@@ -5,7 +5,7 @@ import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
-import {posterPath} from '../../services/scaleFrames';
+import {posterPath, spinCaption} from '../../services/scaleFrames';
 import {useHasSpin} from '../scale/useHasSpin';
 import {dayRange} from '../../services/spotHour';
 import {pacificDate} from '../../ocean/time';
@@ -319,7 +319,7 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   if (spin && band) return (
     <button className="sp-scalep is-3d" onClick={onOpen} aria-label={`Wave scale: 3D illustration of a ${band.label} wave at approximate scale, not current conditions. ${label}. Open the full wave scale`}>
       <span className="sp-scalep-img"><img src={posterPath(band)} alt="" width={1024} height={768} decoding="async" /><span className="sp-scalep-inset" aria-hidden="true">{chart}</span></span>
-      <span className="sp-scalep-c"><span>3D illustration · approximate scale</span><span>{band.label} wave · surfer 1.75 m</span><span className="sp-link-t">Full wave scale</span></span>
+      <span className="sp-scalep-c"><span>3D illustration · approximate scale</span><span>{spinCaption(band, p.heightUnit)}</span><span className="sp-link-t">Full wave scale</span></span>
     </button>
   );
   return (

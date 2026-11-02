@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {SCALE_BANDS} from '../services/waveScale.ts';
-import {SPIN_FRAMES, SPIN_CAPTION, bandFolder, framePath, framePaths, posterPath, allBandFolders, wrapFrame, frameFromDrag, frameFromKey, counterText} from '../services/scaleFrames.ts';
+import {SPIN_FRAMES, SPIN_CAPTION, bandFolder, framePath, framePaths, posterPath, allBandFolders, wrapFrame, frameFromDrag, frameFromKey, counterText, spinCaption} from '../services/scaleFrames.ts';
 
 test('every band maps to its own folder, 24 padded frames and a poster', () => {
   assert.deepEqual(allBandFolders(), ['1-2', '2-3', '3-4', '4-6', '6-8', '8-10', '10-15', '15-plus']);
@@ -35,4 +35,13 @@ test('keys: arrows step one, page keys four, Home/End jump, others ignored', () 
 test('counter and caption wording', () => {
   assert.equal(counterText(0), '1 / 24'); assert.equal(counterText(23), '24 / 24'); assert.equal(counterText(24), '1 / 24');
   assert.equal(SPIN_CAPTION, '3D illustration · approximate scale, not current conditions');
+});
+
+test('the 3D caption follows the height unit (T-054)', () => {
+  const b46 = SCALE_BANDS.find((b) => b.id === '4-6ft')!, b12 = SCALE_BANDS[0], top = SCALE_BANDS[SCALE_BANDS.length - 1];
+  assert.equal(spinCaption(b46, 'ft'), '4–6 ft wave · surfer 5′9″');
+  assert.equal(spinCaption(b46, 'm'), '1.2–1.8 m wave · surfer 1.75 m');
+  assert.equal(spinCaption(b12, 'm'), '0.3–0.6 m wave · surfer 1.75 m');
+  assert.equal(spinCaption(top, 'm'), '4.6+ m wave · surfer 1.75 m');
+  assert.ok(!/ft/.test(spinCaption(top, 'm')));
 });
