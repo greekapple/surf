@@ -46,3 +46,14 @@
 .sc-spin { margin: 0 0 16px; }
 .sc-spin .sc-spin-stage { margin-inline: auto; }
 .sc-spin-band { position: absolute; left: 12px; top: 12px; margin: 0; padding: 6px 10px; border-radius: 99px; background: rgb(255 255 255 / 0.86); color: #1d1d1f; font: 600 12px/1 var(--sans); pointer-events: none; }
+
+/* T-062 real-time 3D wave */
+.live { position: absolute; inset: 0; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; background: #e8edf0; }
+.live:active { cursor: grabbing; }
+.live-poster, .live-poster-only { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; transition: opacity 0.5s ease; }
+.live-poster-only { position: absolute; }
+.live.is-live .live-poster { opacity: 0; }
+.live-host { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s ease; }
+.live.is-live .live-host { opacity: 1; }
+.live-canvas { width: 100%; height: 100%; display: block; outline: none; touch-action: none; }
+@media (prefers-reduced-motion: reduce) { .live-poster, .live-host { transition: none; } }

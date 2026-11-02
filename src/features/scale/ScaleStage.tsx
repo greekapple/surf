@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {lazy, Suspense, useEffect, useMemo, useRef, useState} from 'react';
 import type {Surfboard} from '../../models/index';
 import {useSwello} from '../../app/store';
 import {Media} from '../../ui/Media';
@@ -8,10 +8,13 @@ import {bodyWords, BODY_WORDS_NOTE} from '../../services/bodyWords';
 import {formatHeight, userHeight} from '../../services/heightMath';
 import {axisTicks, axisTop, bandRange, bodyTicks, faceRange, lerp, timesYourHeight, wavePath, yFor} from '../../services/scaleMath';
 import {SCALE_BANDS} from '../../services/waveScale';
-import {framePaths, posterPath, spinCaption} from '../../services/scaleFrames';
+import {SPIN_CAPTION, framePaths, posterPath, spinCaption} from '../../services/scaleFrames';
 import {timeLabelPT, weekdayPT} from '../forecast/format';
 import {feetInches} from '../forecast/SpotPage';
 import {Spin360} from './Spin360';
+import {bandFolder} from '../../services/scaleFrames';
+import {hasWebGL} from './webgl';
+const WaveLive = lazy(() => import('./WaveLive'));
 import {useHasSpin} from './useHasSpin';
 
 const BOARD_KEY = 'swello-scale-board';
@@ -59,7 +62,10 @@ export function ScaleStage() {
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
   // 3D is the main view when renders exist for the band (T-054); the drawn diagram stays one tap away
   const [mode, setMode] = useState<'3d' | 'diagram'>('3d');
-  const show3d = spinOk && mode === '3d';
+  // Real-time 3D when WebGL is available and motion is allowed (T-062); otherwise the pre-rendered spin, as before.
+  const [liveFailed, setLiveFailed] = useState(false);
+  const liveOk = useMemo(() => hasWebGL() && !reduced(), []) && !liveFailed;
+  const show3d = (liveOk || spinOk) && mode === '3d';
   // play: step through the day's hours
   useEffect(() => {
     if (!play || reduced() || hours.length < 2) { if (play && reduced()) setPlay(false); return; }
@@ -77,12 +83,17 @@ export function ScaleStage() {
         {text && <p className="sc-read" aria-live="polite">{band !== null ? <><b>{SCALE_BANDS[band].label}</b> band <span className="sc-tag">comparing</span></> : <><b>{text.value}</b> {words && <span title={BODY_WORDS_NOTE}>{words} ~</span>} <span className="sc-tag">{text.tag}</span></>}</p>}
       </div>
 
-      {spinOk && <div className="sc-mode" role="radiogroup" aria-label="View">
+      {(spinOk || liveOk) && <div className="sc-mode" role="radiogroup" aria-label="View">
         <button type="button" role="radio" aria-checked={mode === '3d'} onClick={() => setMode('3d')}>3D</button>
         <button type="button" role="radio" aria-checked={mode === 'diagram'} onClick={() => setMode('diagram')}>Diagram</button>
       </div>}
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
-        <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />
+        {liveOk
+          ? <Suspense fallback={<img className="live-poster-only" src={posterPath(SCALE_BANDS[activeBand])} alt="" />}>
+              <WaveLive band={bandFolder(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} onFail={() => setLiveFailed(true)} />
+              <p className="spin-cap">{SPIN_CAPTION}</p>
+            </Suspense>
+          : <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />}
         <p className="sc-spin-band">{spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
       </div></figure>}
       <figure className="sc-fig" hidden={show3d}>
