@@ -456,3 +456,7 @@ Lead audit (artifacts/audit-1102, 1440/390, 0 overflow, 0 page errors) found:
 - De-AI pass (D8): drop the icon + UPPERCASE label pattern for quiet sentence-case labels; one "model estimate" note per page instead of a pill per card; fewer boxed cards (Surfline/Apple Weather: hairlines, grouped rows); text links without arrows; consistent 8-pt spacing. Fix D5 (no truncated titles at 390; name in the photo band).
 - Map D4: one search; the loading pill clears; attribution one line on phones.
 - t053/t025/t035/t045/t047/t043/density/journeys pass; 1440/390 before/after.
+
+### T-057 (engineering): day cards show a representative range (best/median daylight hour via spotHour), envelope in detail.
+### T-058 (product): longboard stringer, map phone pills, Home nearby list row width.
+- **T-055/T-056 merged (lead):** 316 tests, journeys 8/8, t053/t025/t035/t045/t047/t043/t055/t054 0 fails, density pass; 3D caption unit fix (spinCaption).
