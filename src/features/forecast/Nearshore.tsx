@@ -2,6 +2,8 @@ import {useSwello} from '../../app/store';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import {assignmentFor, mopCandidates, mopPoint, MOP_ACK} from '../../ocean/mop';
 import {pickMop} from '../../services/nearshoreSelect';
+import {breakingV2Enabled, mopBreaking} from '../../services/breakingV2';
+import {BREAKING_V2_VERSION} from '../../ocean/breakingEstimate';
 import {formatWaveHeight} from '../../utils/waveHeight';
 import {DirArrow} from '../../ui/Icon';
 import {compass} from './helpers';
@@ -35,6 +37,7 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
   const issued = isForecast ? mop?.issue?.issuedAt ?? null : null;
   const step = pick.offsetMin !== 0 ? ` (nearest model step, ${Math.abs(pick.offsetMin)} min ${pick.offsetMin < 0 ? 'before' : 'after'} the selected hour)` : '';
   const retrieved = rec.height.source.retrievedAt;
+  const v2 = breakingV2Enabled() ? mopBreaking(spot.id, rec) : null;
   return (
     <>{head(label)}
       <p><span className={'chip ' + (isForecast ? 'demo' : 'off')}>{isForecast ? 'Forecast' : 'Nowcast'}</span> {isForecast ? 'WaveWatch III-driven model forecast' : 'Model hindcast of recent hours, initialised from buoys'}.</p>
@@ -43,6 +46,7 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
         <div><span className="k">Tp (peak period)</span><span className="v">{tp === null ? '—' : <>{Math.round(tp * 10) / 10}<small>s</small></>}</span></div>
         <div><span className="k">Direction (from)</span><span className="v">{dp === null ? '—' : <><DirArrow from={dp} color="var(--sw1)" />{Math.round(dp)}<small>° {compass(dp)}</small></>}</span></div>
       </div>
+      {v2 && (v2.ok ? <p className="fine"><b>Experimental, off by default ({BREAKING_V2_VERSION}):</b> Est. {formatWaveHeight(v2.input, p).text} at the break, from this MOP point by linear shoaling and refraction. Unvalidated; not used in the rating.</p> : <p className="fine"><b>Experimental ({BREAKING_V2_VERSION}):</b> no estimate. {v2.reason}</p>)}
       <p className="fine">Valid {when(rec.timestamp)}{step}. {issued ? `Forecast file issued ${when(issued)}; ` : ''}retrieved {when(retrieved)}. {where}. Modeled Hs at depth, not surf height.</p>
       {foot}
     </>
