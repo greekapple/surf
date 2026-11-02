@@ -71,12 +71,13 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
       <div className="qv-stagewrap" onKeyDown={onKey}>
         <div className="qv-stage qv-room">
           {zero !== null && <div className="qv-ruler" aria-hidden="true">{[0, ...feet].map((ft) => <i key={ft} style={{bottom: `${zero + ft * 12 * base}px`}}><span>{ft}′</span></i>)}</div>}
-          {estText && <p className="qv-today">Today's size fit · {estText} (model estimate)</p>}
+          {estText && <p className="qv-today">Size fit for {estText}</p>}
           <ul className="qv-rackrow" ref={row} onScroll={onScroll} aria-label={`Your boards, ${n} in the rack. Left and right arrow keys change the selected board.`}>
             {boards.map((b, i) => (
               <li key={b.id} ref={(el) => { if (el) items.current.set(b.id, el); else items.current.delete(b.id); }} className={b.id === selected.id ? 'on' : ''}>
                 <button type="button" className="qv-rack-b" aria-pressed={b.id === selected.id} tabIndex={b.id === selected.id ? 0 : -1} aria-label={`${b.name}, ${lengthLabel(b.length)}, board ${i + 1} of ${n}${b.demo ? ', example board' : ''}`} onClick={() => onSelect(b.id)}>
                   <BoardPicture b={b} px={base} outline={outlines.get(b.id) ?? null} />
+                  {b.id === selected.id && (() => { const ill = illustrationFor(b, outlines.get(b.id) ?? null); return ill ? <span className="qv-ill-tag" title={ill.caption}>Illustration · AI-generated</span> : null; })()}
                   <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>
                     {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${ft.board[0]}–${ft.board[1]} ft` : undefined}>{ft.label}</em> : null; })()}
                   </span>
@@ -84,7 +85,6 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
               </li>
             ))}
           </ul>
-          {(() => { const ill = illustrationFor(selected, outlines.get(selected.id) ?? null); return ill ? <p className="qv-ill-cap">{ill.caption}</p> : null; })()}
         </div>
         <StageArrows onStep={step} />
       </div>

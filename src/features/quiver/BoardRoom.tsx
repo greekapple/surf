@@ -253,8 +253,9 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
 
       <aside className="br-panel" aria-label={`Configure ${board.name}`}>
         <header className="br-h">
-          <h2><span className="br-name">{board.name}</span> <span className="chip">{board.type}</span>{board.demo && <span className="chip demo">Example board</span>}</h2>
-          <p>{maker}</p>
+          <h2><span className="br-name">{board.name}</span></h2>
+          <p>{[board.type, maker || null, board.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
+          {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {ft.board[0]}–{ft.board[1]} ft</span></p> : null; })()}
           <p className="br-match">{match}</p>
         </header>
 

@@ -13,7 +13,6 @@ import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
 import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
-import {BoardStage} from './Stage';
 import {SpecCard, StageArrows, Strip} from './Overlay';
 import {ScanPanel, type Scan} from './ScanPanel';
 import './quiver.css';
@@ -78,6 +77,14 @@ function BoardForm({initial, onSave, onCancel, onDirty}: {initial?: Surfboard; o
       <div style={{display: 'flex', gap: 8, marginTop: 12}}><button className="btn primary" type="submit">Save board</button><button className="btn" type="button" onClick={onCancel}>Cancel</button></div>
     </form>
   );
+}
+
+const okN = (n: number | undefined): n is number => typeof n === 'number' && Number.isFinite(n) && n > 0;
+/** The stored numbers, as recorded (never filled in). */
+function specRows(b: Surfboard): [string, string][] {
+  return [['Length', okN(b.length) ? lengthLabel(b.length) : 'Not recorded'], ['Width', okN(b.width) ? inches(b.width) : 'Not recorded'],
+    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? `${+b.volume.toFixed(1)} L` : 'Not recorded'],
+    ['Fins', b.fins?.trim() || 'Not recorded'], ['Tail', b.tail?.trim() || 'Not recorded']];
 }
 
 const TITLES: Record<string, {h: string; sub: string}> = {
@@ -164,11 +171,17 @@ export function QuiverView({section, go}: ViewProps) {
         sel && (
           <>
             <Rack boards={boards} selected={sel} onSelect={select} fits={fits} estText={estText} />
-            <section className="qv-selected" aria-label="Selected board">
+            <section className="qv-selected qv-spec" aria-label={`${sel.name}, selected board`}>
+              <div className="qv-spec-h">
+                <h2>{sel.name}</h2>
+                <p className="fine">{[[sel.manufacturer, sel.model].filter(Boolean).join(' ') || null, sel.type, sel.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
+              </div>
+              <dl className="qv-spec-l">
+                {specRows(sel).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+              </dl>
               <p className="qv-matchline">{matchLine}</p>
-              <div className="qv-actions"><button className="btn primary" onClick={() => { select(sel.id); go('quiver', 'showroom'); }}>View in 3D</button><button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>{A(sel)}</div>
+              <div className="qv-actions"><button className="btn primary" onClick={() => { select(sel.id); go('quiver', 'showroom'); }}>View in 3D</button><button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button>{A(sel)}</div>
             </section>
-            <BoardStage board={sel} maxLen={maxLen} onStep={step} />
           </>
         )
       )}
