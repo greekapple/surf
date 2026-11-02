@@ -421,13 +421,17 @@ export class Studio {
     this.controls.enabled = true;
     if (this.mode === 'lineup' && this.framing === null) return;
     if (this.mode === 'focus' && this.preset === null) return;
+    this.still();
     const {s, target, flip} = this.currentPose();
     this.controls.target.copy(target); this.camera.position.setFromSpherical(s).add(target); this.camera.lookAt(target);
     if (this.mode === 'focus') { this.flipAngle = flip; if (this.preset !== '360') this.spinAngle = this.presetPose(this.preset ?? 'deck').spin; }
     this.limits(); this.controls.update(); this.dirty = true; this.kick();
   }
+  /** Drops any orbit inertia left from a drag, so a scripted move (preset, reset, framing) lands exactly where it was aimed. Without this,
+   *  OrbitControls kept applying the decaying drag delta after a tween ended, worst at low frame rates (Reset stopped ~3° short). */
+  private still() { const d = this.controls.enableDamping; this.controls.enableDamping = false; this.controls.update(); this.controls.enableDamping = d; }
   private glide(pose: CamPose, spinTo?: number) {
-    this.limits();
+    this.still(); this.limits();
     if (this.reduced) {
       this.controls.target.copy(pose.target); this.camera.position.setFromSpherical(pose.s).add(pose.target); this.camera.lookAt(pose.target);
       this.flipAngle = pose.flip; if (spinTo !== undefined) this.spinAngle = spinTo; this.controls.update(); this.dirty = true; this.kick(); return;
