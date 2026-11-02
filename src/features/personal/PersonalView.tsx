@@ -352,7 +352,7 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
             <p className="fine">{sessions.length} sessions · on this device</p>
             <SawList spotName={spotName} />
             <div className="pz-journal">
-              <LogForm spots={spots} boards={boards} defaultSpot={view.selected} heightUnit={p.heightUnit === 'm' ? 'm' : 'ft'} onSubmit={logSession} error={obsError} />
+              <LogForm spots={spots} boards={boards} defaultSpot={view.selected} heightUnit={p.heightUnit === 'm' ? 'm' : 'ft'} onSubmit={logSession} onObserve={() => go('forecast')} error={obsError} />
               <JournalList sessions={sessions} extras={extras} spotName={spotName} onRemove={removeSession} />
             </div>
           </Page>

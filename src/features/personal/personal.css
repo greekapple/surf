@@ -194,3 +194,7 @@
 .saw-t { display: grid; gap: 2px; min-width: 0; } .saw-t b { font-weight: 600; } .saw-t small { color: var(--muted); font-size: 12px; }
 .saw-del { flex: none; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--bad-ink, var(--bad)); font: 600 14px/1 inherit; cursor: pointer; }
 .saw-del:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* T-061: the one-line pointer to the two-tap report (replaces the old forecast-check fieldset) */
+.pzl-see { font-size: 14px; color: var(--muted); }
+.pzl-see-a { min-height: 44px; padding: 0; border: 0; background: none; color: var(--accent-ink, var(--accent)); font: 600 14px/1 inherit; cursor: pointer; }
+.pzl-see-a:hover { text-decoration: underline; text-underline-offset: 3px; }
