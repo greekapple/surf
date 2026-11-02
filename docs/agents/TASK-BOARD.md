@@ -460,3 +460,4 @@ Lead audit (artifacts/audit-1102, 1440/390, 0 overflow, 0 page errors) found:
 ### T-057 (engineering): day cards show a representative range (best/median daylight hour via spotHour), envelope in detail.
 ### T-058 (product): longboard stringer, map phone pills, Home nearby list row width.
 - **T-055/T-056 merged (lead):** 316 tests, journeys 8/8, t053/t025/t035/t045/t047/t043/t055/t054 0 fails, density pass; 3D caption unit fix (spinCaption).
+- **T-057/T-058 merged (lead, a4b65e3):** 318 tests, journeys 8/8, t053/t025/t047/t043/t045/t055 0 fails, density pass. Open for the user: day-card typical ranges stay wide (unvalidated 0.7–1.4 face factor) — narrowing needs observations or a user decision.
