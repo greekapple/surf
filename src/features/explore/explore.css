@@ -347,3 +347,17 @@
 .xco-photo .media-el { object-fit: cover; }
 .xco-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(0 0 0 / 0) 45%, rgb(0 0 0 / 0.6) 100%); }
 .xco-photo figcaption { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 12px 10px 5px; color: #fff; font-size: 12px; line-height: 16px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.5); }
+
+/* ---------- T-056: one search (the header's), a plain spot-list toggle, attribution on one line on phones ---------- */
+.xlist-t { justify-content: space-between; width: max-content; min-width: 160px; padding: 0 10px 0 14px; color: var(--text); font: 600 14px/1 inherit; cursor: pointer; }
+.xlist-t .xlist-n { margin-left: 4px; color: var(--muted); font-weight: 500; }
+.xlist-t svg { transition: transform 160ms var(--ease); }
+.xlist-t[aria-expanded='true'] svg { transform: rotate(180deg); }
+.xsearchbox { width: auto; }
+.xsearchbox .xsheet { width: 340px; }
+button.xstatus { cursor: pointer; font: inherit; }
+@media (prefers-reduced-motion: reduce) { .xlist-t svg { transition: none; } }
+@media (max-width: 860px) {
+  .xleaf .leaflet-control-attribution { max-width: calc(100vw - 24px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px; line-height: 18px; cursor: pointer; }
+  .xleaf .leaflet-control-attribution.open { white-space: normal; cursor: auto; }
+}
