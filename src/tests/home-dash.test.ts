@@ -59,3 +59,27 @@ test('best nearby: rated spots only, excluded ones skipped, sorted by rating, wi
   assert.deepEqual(bestNearby(allSpots, [], now, profile, 'spot-2'), []);
   assert.deepEqual(bestNearby(allSpots, all, now, profile, 'spot-2', {radiusKm: 0.1, exclude: ['spot-2']}), []);
 });
+
+import {ribbon12, rankHour, bestNearbyAt, RANK_LABEL} from '../services/homeDash.ts';
+test('ribbon: 12 consecutive exact hours from the current hour, gaps stay null, never interpolated', () => {
+  const r = ribbon12(spot('spot-2'), recs('spot-2'), now);
+  assert.equal(r.length, 12); assert.equal(r[0].iso, new Date(t * 1000).toISOString()); assert.equal(Date.parse(r[11].iso) - Date.parse(r[0].iso), 11 * 3600000);
+  assert.ok(r.every((h) => h.score === null || (h.bars >= 1 && h.bars <= 5 && h.category)));
+  const gap = recs('spot-2').filter((f) => Date.parse(f.timestamp) !== (t + 3 * 3600) * 1000);
+  const g = ribbon12(spot('spot-2'), gap, now); assert.equal(g[3].score, null); assert.equal(g[3].category, null); assert.ok(g[2].score !== null);
+  assert.ok(ribbon12(spot('spot-2'), [], now).every((h) => h.score === null));
+});
+test('rankHour: now and +3 h need those exact hours; tomorrow AM is a 6–11 PT hour of the next Pacific day', () => {
+  const rs = recs('spot-2');
+  assert.equal(rankHour(spot('spot-2'), rs, now, 'now'), t * 1000); assert.equal(rankHour(spot('spot-2'), rs, now, '3h'), (t + 3 * 3600) * 1000);
+  assert.equal(rankHour(spot('spot-2'), [], now, 'now'), null);
+  const tm = rankHour(spot('spot-2'), rs, now, 'tomorrow-am');
+  if (tm !== null) { const h = Number(new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', hourCycle: 'h23'}).format(new Date(tm))); assert.ok(h >= 6 && h <= 11); assert.ok(tm > now); }
+  assert.deepEqual(Object.keys(RANK_LABEL), ['now', '3h', 'tomorrow-am']);
+});
+test('bestNearbyAt judges each spot at the chosen hour and says which hour that was', () => {
+  const all = ['spot-2', 'spot-3', 'spot-0'].flatMap((id) => recs(id));
+  const a = bestNearbyAt(allSpots, all, now, profile, 'spot-2', '3h', {exclude: ['spot-2']});
+  assert.ok(a.every((x) => x.at === new Date((t + 3 * 3600) * 1000).toISOString() && x.card.id !== 'spot-2'));
+  assert.deepEqual(bestNearbyAt(allSpots, [], now, profile, 'spot-2', 'now'), []); assert.deepEqual(bestNearbyAt(allSpots, all, now, profile, 'nope', 'now'), []);
+});
