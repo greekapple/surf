@@ -449,7 +449,23 @@ SURFER_X = next(x / 100 * H for x in range(0, -1200, -5) if along(x / 100 * H)[0
 # at the bottom of the face (a bottom turn): body words like 'head high' compare the crest with a surfer standing there
 fy, fz, slope = face_point(SURFER_X, 0.1)
 print("SURFPOS", SURFER_X, fy, fz, math.degrees(slope), "K", K, "crest_i", crest_i, "tip_i", tip_i, "along", along(SURFER_X))
-if a.surfer:
+V2 = 'surfer-v2' in os.path.basename(a.surfer)
+if a.surfer and V2:
+    # MPFB surfer v2 (build_surfer.py): already true scale, nose at -x, facing -y (the wave). Bottom turn: lean into the wave
+    # (top toward -y) with the wave-side rail set into the water; at the bottom of the face the slope is gentle.
+    bpy.ops.import_scene.gltf(filepath=a.surfer)
+    objs = list(bpy.context.selected_objects)
+    surfer = bpy.data.objects.new('Surfer', None)
+    scene.collection.objects.link(surfer)
+    for o in objs:
+        if o.parent is None:
+            o.parent = surfer
+    # backside: mirrored so the chest faces the beach and the camera (the readable side for a size comparison), leaning back
+    # on the heels toward the wave; the build is a goofy frontside stance, the mirror makes it a regular-foot backside one
+    lean = math.radians(16)
+    surfer.matrix_world = (Matrix.Translation(Vector((SURFER_X, fy + 0.2, fz - 0.03))) @ Matrix.Rotation(lean, 4, 'X')
+                           @ Matrix.Diagonal((1, -1, 1, 1)))
+elif a.surfer:
     surfer, s = import_surfer(a.surfer)
     # face slope, softened: a rigid figure tilted to the full face angle looks like it's falling over
     tilt = min(slope, math.radians(40)) * 0.6
