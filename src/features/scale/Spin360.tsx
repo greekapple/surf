@@ -25,7 +25,7 @@ export function Spin360({frames, poster, alt, still = false, onFail, intro = fal
     return () => clearInterval(id);
   }, [intro, spinning, n]);
   const go = useCallback((i: number) => setFrame(i), []);
-  const down = (e: PointerEvent) => { touched.current = true; if (!spinning) return; start.current = {x: e.clientX, frame, id: e.pointerId}; (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); setDragging(true); };
+  const down = (e: PointerEvent) => { touched.current = true; if (!spinning) return; start.current = {x: e.clientX, frame, id: e.pointerId}; try { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); } catch { /* capture is a nicety; dragging works without it */ } setDragging(true); };
   const move = (e: PointerEvent) => { if (!dragging || e.pointerId !== start.current.id) return; go(frameFromDrag(start.current.frame, e.clientX - start.current.x, stage.current?.clientWidth ?? 0, n)); };
   const up = (e: PointerEvent) => { if (e.pointerId === start.current.id) { setDragging(false); start.current.id = -1; } };
   const key = (e: KeyboardEvent) => { touched.current = true; if (!spinning) return; const next = frameFromKey(e.key, frame, n); if (next !== null) { e.preventDefault(); go(next); } };
