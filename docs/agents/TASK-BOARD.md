@@ -428,3 +428,31 @@ Design direction for all three: Surfline's calm data layout **plus** real atmosp
 - Owned: `src/features/scale/*`, `src/features/personal/*`, `src/services/*`
 - 1. Personal → Surf preferences: "Your height" (ft/in or cm by unit pref), saved; the spot-page scale panel and the Wave scale page use it (drop "(default)" once set). 2. Full Wave scale page rebuilt around the drawn, to-scale comparison (same visual language as product's ScalePanel): big SVG wave at the hour's face range (low/high), you at your height, your chosen board from your quiver (picker), body-word ticks; an hour scrubber across the day that animates the wave; a band browser (1–2 … 15+) to compare. 3. The AI photo becomes a secondary "Example photo (AI illustration)" toggle, never the default; Spin360 stays for when 3D frames exist. 4. Tests for height conversion and scale maths; t033/t044/wave-spot/density/journeys pass; 1440/390 shots. Then STOP.
 - **Overnight result (lead, 2026-11-02/03):** merged T-048…T-053; final lead checks all pass (305 tests, journeys 8/8, t045/t047/t050/t051/t052/t053/t025/t035/t023/t043/t038/t022/wave-spot, density). Visible open issue: on the Quiver wall the white "Everyday driver" shortboard cutout loses its left half (white board on near-white wall eaten by the white-to-alpha step) → next product task. Also open for the user: SPOT-FACTS-REVIEW.md, 3D frames in ~/Downloads/swello-3d-review-4-6ft/, height in Personal.
+
+## Round 2026-11-02 (day): team back on; fix discrepancies, Quiver, 3D scale, forecasting, less "AI" (user: "make it look less like AI … more seamless and cool; I'll be here to permit you")
+Lead audit (artifacts/audit-1102, 1440/390, 0 overflow, 0 page errors) found:
+- D1 **Same number, different values:** Forecast strip chip "Est. 4–9 ft", SURF card "5–11 ft", Mon day card "5–12 ft" for the same spot and hour; Home wind "2.1 mph E offshore" vs Forecast "1.8 mph NW cross-shore".
+- D2 Home loading state reads as real data: "No rating / none / No forecast data / No good daylight window left", photos dark.
+- D3 Every spot on the map is "Solid"; Ocean Beach 5–11 ft cross-shore = Solid. The rating is not believable.
+- D4 Map: two search boxes; "Loading model…" pill stays; phone attribution wraps.
+- D5 Forecast 390: SURF title truncated to "S.."; Wave scale card half empty; spot name missing from the photo band.
+- D6 Quiver: white shortboard cutout loses half; "Illustration of a fish · AI-generated" label stuck top-left for every board; ruler "4'" under the prev arrow; boards don't stand on 0'; longboard stringer heavy; big empty wall; second giant greyed title below.
+- D7 Wave scale is still the 2D drawing; the Blender v2 renders are landing (T-054).
+- D8 "AI look": icon + UPPERCASE label + pill on every card, boxes everywhere, many "model estimate" pills, blue link arrows.
+
+### T-054 (lead): 3D wave scale v2 in the app
+- Blender v2 (`tools/blender/wave_scene.py`, `render_all.sh`): peeling wave from the licensed cross-sections, true face height, Cycles, surfer in a bottom turn, 24-angle orbit, 8 bands → `public/media/scale3d/<band>/`. Then Spin360 is the default view on the Wave scale page and the spot-page scale card (drawn chart as secondary); labelled "3D illustration · approximate scale".
+
+### T-055 (engineering): One source of truth for every forecast number
+- Owned: `src/services/*`, `src/ocean/*`, `src/ratings/*`, Home data, tests.
+- Every surface (strip chip, SURF card, day cards, Home card, map callout, scale) gets surf range, wind, tide and rating for a spot/hour from one selector (`headlineSurf` + one wind/tide/rating accessor) and the same hour rule. Day cards = range over that day's daylight hours from the same engine, labelled. Unit tests asserting strip == card == Home for the same spot/hour.
+- Home/Map loading: skeletons, never "No forecast data / No good daylight window" until data has actually failed.
+- Rating calibration (D3): per RATING-V2-PLAN Phase 1 + backtest. Cross-shore > ~8 mph and "wind unknown" cannot reach the top categories; wide estimate ranges cap confidence. Distribution check over all spots × 72 h: no more than ~25% of spot-hours in the top two categories (state the result). Explain changes in `explainRating`.
+- tsc/tests/build/journeys/t047/t045/t043 pass; before/after rating distribution in the handoff.
+
+### T-056 (product): Quiver, properly (D6) + less "AI" (D8) on Forecast/Home
+- Owned: `src/features/quiver/*`, `src/features/forecast/*`, `src/features/home/*`, `src/ui/*` CSS.
+- Quiver: fix the white shortboard cutout (keep the board's own outline: edge-aware alpha or a drawn outline fallback); all boards stand on 0' at true scale; caption only on the selected board; ruler clear of arrows; balanced wall (boards centred as a group, no dead half); remove the duplicate giant title; premium light set. Board room: board large, spec typography, today's fit.
+- De-AI pass (D8): drop the icon + UPPERCASE label pattern for quiet sentence-case labels; one "model estimate" note per page instead of a pill per card; fewer boxed cards (Surfline/Apple Weather: hairlines, grouped rows); text links without arrows; consistent 8-pt spacing. Fix D5 (no truncated titles at 390; name in the photo band).
+- Map D4: one search; the loading pill clears; attribution one line on phones.
+- t053/t025/t035/t045/t047/t043/density/journeys pass; 1440/390 before/after.
