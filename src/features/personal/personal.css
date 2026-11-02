@@ -174,3 +174,14 @@
 .pzl-page .pz-cards { display: grid; gap: 16px; }
 .pzl-page .pz-panel h2 { font-size: 16px; }
 @media (min-width: 861px) { .pzl-page .pz-cards { grid-template-columns: 1fr 1fr; align-items: start; } .pzl-page .pz-spots-all { margin-top: 4px; } }
+
+/* T-041: forecast-check observation fields in the log form, and the observation list on Data & privacy */
+.pzl-obs { border: 1px solid var(--line, rgba(0,0,0,.12)); border-radius: 12px; padding: 12px 16px 16px; margin: 4px 0; display: grid; gap: 12px; min-width: 0; }
+.pzl-obs legend { padding: 0 6px; font-weight: 600; }
+.pzl-obs-range { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pzl-obs-q { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pzl-obs-q > span { flex: 1 0 100%; font-size: 13px; }
+.pzl-obs-q .btn { min-width: 44px; min-height: 44px; }
+.pzl-obslist { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 12px; }
+.pzl-obslist li { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
+.pzl-obslist .btn { flex: none; min-height: 44px; }
