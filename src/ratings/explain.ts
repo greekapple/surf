@@ -33,6 +33,8 @@ export function explainRating(rating: SurfRating, ctx: ExplainContext): RatingEx
     }
     items.push(base);
   }
+  // T-055: ceilings that actually held this score down, each with its reason (unknown wind relation, fresh cross-shore, wide size range).
+  for (const c of rating.ceilings ?? []) items.push({factor: 'Rating ceiling', effect: '-', reason: c.reason, score: c.limit, weight: 0, inScore: true});
   // Nearshore swell from the reviewed MOP point: shown with its numbers and the direction geometry, never part of the score (no validated nearshore → surf conversion yet).
   const m = ctx.mop;
   if (m && m.hsFt !== null && m.tpS !== null && m.dpDeg !== null && m.shoreNormalDeg !== null) {

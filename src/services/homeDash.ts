@@ -5,9 +5,9 @@ import {distanceKm} from '../ocean/mop.ts';
 import {pacificDate, pacificHour} from '../ocean/time.ts';
 import {solarTimes} from '../ocean/sun.ts';
 import {rateForecast} from '../ratings/adapters.ts';
-import {headlineSurf, headlineText, type HeadlineSurf} from './headlineSurf.ts';
+import {headlineText, type HeadlineSurf} from './headlineSurf.ts';
 import {currentRecord} from './spotStrip.ts';
-import {spotReport} from './spotReport.ts';
+import {spotHourOf} from './spotHour.ts';
 import {windowRanges, WINDOW_MIN_SCORE} from './windows.ts';
 
 /** Data for the Home dashboard (T-047). Pure; each card says only what the data supports, and the rating is the existing one (the surf estimate never feeds it). */
@@ -47,15 +47,15 @@ export function dashCard(spot: SurfSpot, records: Forecast[], now: number, profi
   const mine = records.filter((f) => f.spotId === spot.id), cur = currentRecord(mine, spot.id, now);
   const base = {id: spot.id, name: spot.name, region: spot.region};
   if (!cur) return {...base, demo: false, validTime: null, surf: {headline: {kind: 'none', label: 'No forecast data'}, value: '—', label: 'No forecast data', words: null, tag: 'none', offshoreLabel: null}, rating: {category: 'UNRATED', score: null, bars: 0}, wind: null, tide: null, window: null};
-  const headline = headlineSurf(spot.id, cur, {bundle: ctx.bundle, nowMs: now}), text = headlineText(headline, profile);
-  const rating = rateForecast(spot, cur, now), rep = spotReport(spot, mine, now, profile, ctx.extrema).headline;
+  // One hour object (T-055): the same surf range, rating, wind and tide every other surface shows for this spot and hour.
+  const hr = spotHourOf(spot, cur, now, profile, ctx), headline = hr.surf.headline, text = hr.surf, rating = hr.rating;
   const offshore = headline.kind === 'estimate' && finite(cur.offshore) ? headlineText({kind: 'offshore', ft: cur.offshore, label: 'offshore · not surf size'}, profile).label : null;
   return {
-    ...base, demo: !cur.evidence, validTime: cur.timestamp,
+    ...base, demo: hr.demo, validTime: hr.validTime,
     surf: {headline, value: text.value, label: text.label, words: text.words, tag: text.tag, offshoreLabel: offshore},
     rating: {category: String(rating.category), score: finite(rating.score) ? rating.score : null, bars: ratingBars(rating.score)},
-    wind: rep.wind ? {label: rep.wind.label, relation: rep.wind.relation} : null,
-    tide: rep.tide ? {state: rep.tide.state, label: rep.tide.heightLabel} : null,
+    wind: hr.wind ? {label: hr.wind.label, relation: hr.wind.relation} : null,
+    tide: hr.tide ? {state: hr.tide.state, label: hr.tide.heightLabel} : null,
     window: bestWindowToday(spot, mine, now),
   };
 }

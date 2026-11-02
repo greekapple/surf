@@ -57,6 +57,9 @@ export function ScaleStage() {
   const text = hs ? headlineText(hs, p) : null;
   const activeBand = band ?? (range ? Math.max(0, SCALE_BANDS.findIndex((b) => (range[0] + range[1]) / 2 >= b.lo && (range[0] + range[1]) / 2 < b.hi)) : 3);
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
+  // 3D is the main view when renders exist for the band (T-054); the drawn diagram stays one tap away
+  const [mode, setMode] = useState<'3d' | 'diagram'>('3d');
+  const show3d = spinOk && mode === '3d';
   // play: step through the day's hours
   useEffect(() => {
     if (!play || reduced() || hours.length < 2) { if (play && reduced()) setPlay(false); return; }
@@ -74,7 +77,15 @@ export function ScaleStage() {
         {text && <p className="sc-read" aria-live="polite">{band !== null ? <><b>{SCALE_BANDS[band].label}</b> band <span className="sc-tag">comparing</span></> : <><b>{text.value}</b> {words && <span title={BODY_WORDS_NOTE}>{words} ~</span>} <span className="sc-tag">{text.tag}</span></>}</p>}
       </div>
 
-      <figure className="sc-fig">
+      {spinOk && <div className="sc-mode" role="radiogroup" aria-label="View">
+        <button type="button" role="radio" aria-checked={mode === '3d'} onClick={() => setMode('3d')}>3D</button>
+        <button type="button" role="radio" aria-checked={mode === 'diagram'} onClick={() => setMode('diagram')}>Diagram</button>
+      </div>}
+      {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
+        <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />
+        <p className="sc-spin-band">{SCALE_BANDS[activeBand].label} wave · surfer 1.75 m (5′9″)</p>
+      </div></figure>}
+      <figure className="sc-fig" hidden={show3d}>
         <svg viewBox={`0 0 ${W} 360`} role="img" aria-label={alt} className="sc-svg">
           {axisTicks(top, p.heightUnit).map((t) => <g key={t}><line x1={40} x2={W - 96} y1={y(t / k)} y2={y(t / k)} stroke="var(--line)" strokeWidth={1} /><text x={34} y={y(t / k) + 4} fontSize={11} textAnchor="end" fill="var(--dim)">{t}</text></g>)}
           <text x={34} y={14} fontSize={11} textAnchor="end" fill="var(--dim)">{p.heightUnit}</text>
@@ -118,8 +129,6 @@ export function ScaleStage() {
           {band !== null && <button type="button" className="btn" onClick={() => setBand(null)}>Back to this hour</button>}
         </div>
       </div>
-
-      {spinOk && <div className="sc-spin"><div className="sc-spin-stage"><Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a surfer for scale`} still={reduced()} /></div></div>}
 
       <div className="sc-photo">
         <button type="button" className="btn" aria-pressed={photo} aria-expanded={photo} onClick={() => setPhoto((v) => !v)}>{photo ? 'Hide example photo' : 'Show example photo (AI illustration)'}</button>

@@ -6,6 +6,7 @@ import {conditionWord} from '../../ui/Condition';
 import {bestNearbyAt, dashCard, ribbon12, RANK_LABEL, type DashCard, type RankWhen, type RibbonHour} from '../../services/homeDash';
 import {SpotThumb, spotPhotoId} from '../../ui/SpotThumb';
 import {useState} from 'react';
+import {dataPhase} from '../../services/dataPhase';
 import './home.css';
 
 /** Spots shown, clearly labelled, when nothing is saved. Not a personal list. */
@@ -42,6 +43,8 @@ export function HomeView({go}: ViewProps) {
   const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
   const cards = useMemo(() => ids.map((id) => dashCard(spotOptions.find((s) => s.id === id)!, view.mapRecords, now, profile, ctx)), [ids.join('|'), spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   const ribbons = useMemo(() => Object.fromEntries(ids.map((id) => [id, ribbon12(spotOptions.find((s) => s.id === id)!, view.mapRecords, now)])), [ids.join('|'), spotOptions, view.mapRecords, now]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Skeletons while the first retrieval is in flight; "No forecast data" only after it has actually failed (T-055).
+  const phase = dataPhase(view.ocean), waiting = phase === 'loading';
   const refId = ids[0] ?? spot.id;
   const [when, setWhen] = useState<RankWhen>('now'), [openId, setOpenId] = useState<string | null>(null);
   const nearby = useMemo(() => bestNearbyAt(spotOptions, view.mapRecords, now, profile, refId, when, {exclude: ids, limit: 5, ctx}), [ids.join('|'), refId, when, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -57,8 +60,9 @@ export function HomeView({go}: ViewProps) {
           <h1 id="hd-h">{personal ? 'Your spots' : 'Popular spots'}</h1>
           {!personal && <p className="hd-note">Not personalised. <a href="/personal/spots" onClick={(e) => { e.preventDefault(); go('personal', 'spots'); }}>Choose favorite spots</a></p>}
         </header>
-        {cards.length === 0 && <p className="hd-empty">No forecast data for your spots right now. Open the forecast to pick another.</p>}
-        <ul className="dc-grid">
+        {waiting && <ul className="dc-grid" aria-busy="true" aria-label="Loading your spots">{(ids.length ? ids : POPULAR).slice(0, 3).map((id) => <li key={id} className="dsk" aria-hidden="true"><i className="sk-ph" /><span className="dc-body"><i className="sk-l w50" /><i className="sk-l w70" /><i className="sk-l w90" /></span></li>)}</ul>}
+        {!waiting && cards.length === 0 && <p className="hd-empty">No forecast data for your spots right now. Open the forecast to pick another.</p>}
+        {!waiting && <ul className="dc-grid">
           {cards.map((c) => (
             <li key={c.id} className={'dc' + (openId === c.id ? ' is-open' : '') + (spotPhotoId(c.id) ? ' has-photo' : '')} style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
               <a className="dc-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${c.region}. ${c.surf.label}. ${c.rating.score === null ? 'No rating' : conditionWord(c.rating.category)}. Open forecast`}>
@@ -84,7 +88,7 @@ export function HomeView({go}: ViewProps) {
               </div>
             </li>
           ))}
-        </ul>
+        </ul>}
       </section>
 
       <section className="hd" aria-labelledby="nb-h">
@@ -95,7 +99,8 @@ export function HomeView({go}: ViewProps) {
           </div>
           {refName && <p className="hd-note">Within 100 km of {refName}, ranked by the rating at that time</p>}
         </header>
-        {nearby.length === 0
+        {waiting ? <ul className="nb-list" aria-busy="true" aria-label="Loading nearby spots">{[0, 1, 2].map((i) => <li key={i} className="nbsk" aria-hidden="true"><i className="sk-l w70" /></li>)}</ul>
+          : nearby.length === 0
           ? <p className="hd-empty">No other rated spots within 100 km for that time.</p>
           : <ol className="nb-list">
               {nearby.map(({card: c, km, at: when_}, i) => (

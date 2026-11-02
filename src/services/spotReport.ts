@@ -4,10 +4,10 @@ import {evidenceSpots} from '../ocean/spots.ts';
 import {solarTimes} from '../ocean/sun.ts';
 import {pacificDate, pacificHour} from '../ocean/time.ts';
 import {rateForecast} from '../ratings/adapters.ts';
-import {windRelationship} from '../recommendation/sqi.ts';
-import {compass, wind as windText} from '../utils/units.ts';
-import {canPresentBreakingEstimate, formatWaveHeight} from '../utils/waveHeight.ts';
+import {compass} from '../utils/units.ts';
+import {formatWaveHeight} from '../utils/waveHeight.ts';
 import {currentRecord, spotStrip} from './spotStrip.ts';
+import {dayRange, tideOf, windOf, type HourContext} from './spotHour.ts';
 
 /** Data layer for a Surfline-style spot report (T-026). Pure; every value is labelled or null; nothing is invented. */
 const TZ = 'America/Los_Angeles';
@@ -33,7 +33,6 @@ export interface SpotReport {
 }
 
 const moment = (ms: number): Moment => ({iso: new Date(ms).toISOString(), localTime: clock(ms)});
-const windAdjective = (mph: number) => (mph < 5 ? 'Light' : mph < 12 ? 'Gentle' : mph < 19 ? 'Moderate' : mph < 26 ? 'Fresh' : 'Strong');
 
 function swellLines(f: Forecast, p: UserProfile): SwellLine[] {
   const line = (label: SwellLine['label'], s: Forecast['primary'] | null | undefined): SwellLine | null => {
@@ -51,18 +50,6 @@ function halfDay(spot: SurfSpot, hours: Forecast[], now: number): HalfDay {
   const hourTxt = hours.length === 1 ? 'a single hour, not a half-day summary' : `median of ${hours.length} hours`;
   if (!rated.length) return {category: 'UNRATED', hours: hours.length, basis: `${hours.length === 1 ? 'a single hour' : `${hours.length} hours`}, none rated`};
   return {category: String(rated[Math.floor((rated.length - 1) / 2)].category), hours: hours.length, basis: rated.length === hours.length ? hourTxt : `${hourTxt}; ${hours.length - rated.length} unrated`};
-}
-
-function dayHeight(hours: Forecast[], p: UserProfile): {label: string | null; kind: DayReport['heightKind']} {
-  const ests = hours.map((f) => f.evidence?.faceEstimate?.input).filter((e): e is NonNullable<typeof e> => !!e && canPresentBreakingEstimate(e));
-  if (ests.length) {
-    const lo = Math.min(...ests.map((e) => e.rangeFt![0])), hi = Math.max(...ests.map((e) => e.rangeFt![1]));
-    return {label: `Est. ${formatWaveHeight({...ests[0], rangeFt: [lo, hi]}, p).text}`, kind: 'estimate'};
-  }
-  const off = hours.map((f) => f.offshore).filter((v) => finite(v) && v >= 0);
-  if (!off.length) return {label: null, kind: 'none'};
-  const a = formatWaveHeight({kind: 'offshore', valueFt: Math.min(...off)}, p, 'technical').text, b = formatWaveHeight({kind: 'offshore', valueFt: Math.max(...off)}, p, 'technical').text;
-  return {label: a === b ? `${b} offshore` : `${a.replace(` ${p.heightUnit}`, '')}–${b} offshore`, kind: 'offshore'};
 }
 
 function tideEvents(extrema: TidePrediction[] | undefined, hours: Forecast[], todayKey: string, p: UserProfile): SpotReport['tides'] {
@@ -85,34 +72,24 @@ function tideEvents(extrema: TidePrediction[] | undefined, hours: Forecast[], to
 }
 
 /** `extrema` (NOAA high/low predictions) is optional; without it, highs and lows come from the hourly tide values and say so. */
-export function spotReport(spot: SurfSpot, records: Forecast[], now: number, profile: UserProfile, extrema?: TidePrediction[]): SpotReport {
+export function spotReport(spot: SurfSpot, records: Forecast[], now: number, profile: UserProfile, extrema?: TidePrediction[], ctx: HourContext = {}): SpotReport {
   const mine = records.filter((f) => f.spotId === spot.id && Number.isFinite(Date.parse(f.timestamp)));
   const cur = currentRecord(mine, spot.id, now);
-  const [item] = spotStrip([spot], mine, [spot.id], now, profile);
+  const [item] = spotStrip([spot], mine, [spot.id], now, profile, ctx);
   const ev = evidenceSpots.find((e) => e.id === spot.id), lat = ev?.latitude ?? 37.76, lon = ev?.longitude ?? -122.51;
   const todayKey = pacificDate(new Date(now).toISOString());
 
-  let wind: SpotReport['headline']['wind'] = null, tide: SpotReport['headline']['tide'] = null;
-  if (cur) {
-    if (finite(cur.wind?.speed) && finite(cur.wind?.direction) && cur.availability?.wind !== false) {
-      const rel = String(windRelationship(spot, cur)).toLowerCase();
-      wind = {word: `${windAdjective(cur.wind.speed)} ${compass(cur.wind.direction)}`, label: `${windText(cur.wind.speed, profile)} ${compass(cur.wind.direction)}`, relation: rel,
-        gustLabel: finite(cur.wind.gusts) ? `gusts ${windText(cur.wind.gusts as number, profile)}` : null};
-    }
-    const trend = cur.tide?.trend ?? cur.tide?.stage;
-    if (finite(cur.tide?.height) || trend === 'Rising' || trend === 'Falling') {
-      tide = {state: trend === 'Rising' ? 'rising' : trend === 'Falling' ? 'falling' : 'unknown',
-        heightLabel: finite(cur.tide?.height) ? formatWaveHeight({kind: 'nearshore', valueFt: Math.abs(cur.tide.height)}, profile, 'technical').text.replace(/^/, cur.tide.height < 0 ? '-' : '') : null,
-        note: 'Regional reference station (San Francisco), MLLW; not a local tide gauge.'};
-    }
-  }
+  // Wind and tide come from the shared accessors, so Home and Forecast cannot disagree for the same hour (T-055).
+  const w = cur ? windOf(spot, cur, profile) : null, td = cur ? tideOf(cur, profile) : null;
+  const wind: SpotReport['headline']['wind'] = w ? {word: w.word, label: w.label, relation: w.relation, gustLabel: w.gustLabel} : null;
+  const tide: SpotReport['headline']['tide'] = td ? {state: td.state, heightLabel: td.heightLabel, note: td.note} : null;
 
   const days: DayReport[] = [];
   for (let i = 0; i < 7; i++) {
     const noon = new Date(`${todayKey}T12:00:00Z`).getTime() + i * 86400000, key = pacificDate(new Date(noon).toISOString());
     const hrs = mine.filter((f) => pacificDate(f.timestamp) === key);
     const part = (a: number, b: number) => hrs.filter((f) => { const h = pacificHour(f.timestamp); return h >= a && h <= b; });
-    const h = dayHeight(part(6, 17), profile);
+    const h = dayRange(spot, mine, key, now, profile, ctx);
     const near = part(6, 17).concat(hrs).filter((f) => finite(f.primary?.height) && f.primary.height > 0)
       .sort((x, y) => Math.abs(pacificHour(x.timestamp) - 12) - Math.abs(pacificHour(y.timestamp) - 12))[0];
     const ps = near ? swellLines(near, profile).find((s) => s.label === 'Primary') : undefined;
