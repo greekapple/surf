@@ -2,9 +2,10 @@ import type {OceanRecord} from '../ocean/types';
 import {pacificDate,pacificHour} from '../ocean/time.ts';
 
 /** An explicit selection is exact: never substitute another spot or hour. */
+/** Default hour = the shared hour rule (T-055): the first record at or after the TOP of the current hour, same as Home, the strip and the map. */
 export function selectedRecord(records:OceanRecord[],spotId:string,instant:string|null,now=Date.now()){
  const matching=records.filter(r=>r.spotId===spotId);
- return instant?matching.find(r=>r.timestamp===instant)??null:matching.find(r=>Date.parse(r.timestamp)>=now)??matching[0]??null;
+ return instant?matching.find(r=>r.timestamp===instant)??null:matching.find(r=>Date.parse(r.timestamp)>=Math.floor(now/3600000)*3600000)??matching[0]??null;
 }
 export function recordOnDay(records:OceanRecord[],date:string,hour:number){
  const day=records.filter(r=>pacificDate(r.timestamp)===date);

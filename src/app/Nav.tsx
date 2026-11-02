@@ -86,7 +86,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
   const {spot, spotOptions, setSpot, data, view, now} = useSwello();
   const recent = useRecentSpots(spot.id);
   // Same colour and labelled height as the saved-spots strip and search (T-024 selector), never a bare number.
-  const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile).map((x) => [x.id, x])),
+  const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile, {bundle: view.ocean.bundle}).map((x) => [x.id, x])),
     [spotOptions, view.mapRecords, now, data.state.profile]);
   const [zone, setZone] = useState(() => zoneOf(spot.region));
   const [county, setCounty] = useState<string | null>(null);
@@ -238,7 +238,7 @@ function Search({go}: {go: Go}) {
     addEventListener('keydown', onKey);
     return () => removeEventListener('keydown', onKey);
   }, [open]);
-  const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile).map((x) => [x.id, x])),
+  const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile, {bundle: view.ocean.bundle}).map((x) => [x.id, x])),
     [spotOptions, view.mapRecords, now, data.state.profile]);
   const term = q.trim().toLowerCase();
   const favs = data.state.favorites;

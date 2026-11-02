@@ -12,7 +12,7 @@ export const STRIP_CONDITIONS = true;
 /** Saved spots under the top bar on Home and Forecast. A chip opens that spot's forecast; on Forecast, "All spots" switches to any spot. */
 export function SpotStrip({go, onForecast}: {go: Go; onForecast: boolean}) {
   const {spotOptions, view, now, data, spot, setSpot} = useSwello();
-  const items = useMemo(() => spotStrip(spotOptions, view.mapRecords, data.state.favorites, now, data.state.profile),
+  const items = useMemo(() => spotStrip(spotOptions, view.mapRecords, data.state.favorites, now, data.state.profile, {bundle: view.ocean.bundle}),
     [spotOptions, view.mapRecords, data.state.favorites, now, data.state.profile]);
   const open = (id: string) => { setSpot(id); go('forecast'); };
   return (

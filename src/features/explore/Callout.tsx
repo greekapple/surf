@@ -1,6 +1,7 @@
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {SurfRating} from '../../ratings/types';
-import {windRelationship} from '../../recommendation/sqi';
+import {windOf} from '../../services/spotHour';
+import {dataPhase} from '../../services/dataPhase';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {Condition} from '../../ui/Condition';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
@@ -10,9 +11,10 @@ import {SpotThumb} from '../../ui/SpotThumb';
 
 /** Wind at a spot with its relation to the beach, or an honest gap. */
 export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile) {
-  if (!f.availability.wind || !Number.isFinite(f.wind.speed)) return null;
-  const rel = windRelationship(spot, f), dir = Number.isFinite(f.wind.direction) ? compass(f.wind.direction) : null;
-  return {speed: `${windVal(f.wind.speed, p)} ${p.windUnit}`, dir, rel: rel === 'Unknown' ? 'shore relation unknown' : rel.toLowerCase(), from: Number.isFinite(f.wind.direction) ? f.wind.direction : null};
+  // Same accessor as Home and the spot page (T-055), so the map, Home and Forecast give one wind for one hour.
+  const w = windOf(spot, f, p);
+  if (!w) return null;
+  return {speed: `${windVal(w.mph, p)} ${p.windUnit}`, dir: compass(w.dirDeg), rel: w.relation === 'unknown' ? 'shore relation unknown' : w.relation, from: w.dirDeg};
 }
 
 /** T-043 spot callout (Apple Maps style): name, rating, the labelled height, wind with its shore relation, one action.
@@ -32,7 +34,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}:
         {rating && <Condition category={rating.category} chip />}
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
-      {!f ? <p className="xco-none">No forecast record at this hour.</p> : <>
+      {!f ? (dataPhase(view.ocean) === 'loading' ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>
         <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? `${t!.words ? `${t!.words[0].toUpperCase()}${t!.words.slice(1)} · ` : ''}at the break · model estimate` : hs?.kind === 'offshore' ? 'offshore · not surf size' : t?.detail}</small></p>
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
