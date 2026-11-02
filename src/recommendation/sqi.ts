@@ -2,6 +2,7 @@ import {evidenceQuality,evidenceWindRelationship} from '../ocean/quality.ts';
 import {evidenceSpot} from '../ocean/spots.ts';
 import type {Forecast,SurfSpot,SurfQuality,QualityFactor} from '../models/index.ts';
 import {angle} from '../utils/units.ts';
+import {capOnshore} from '../ratings/windRules.ts';
 export const sqiWeights={swell:.25,wind:.25,tide:.15,size:.15,organization:.2};
 export const clamp=(n:number)=>Math.max(0,Math.min(100,n));
 export function windRelationship(s:SurfSpot,f:Pick<Forecast,'wind'|'availability'> & {evidence?:Forecast['evidence']}){
@@ -15,7 +16,7 @@ export function windQuality(s:SurfSpot,f:Forecast):number|null{
  const relation=windRelationship(s,f),speed=f.wind.speed;
  // Offshore wind loses quality at high speeds, too. Gusts add a separate penalty.
  const multiplier=relation==='Offshore'?1.6:relation==='Cross-shore'?2.8:4;
- return clamp(100-speed*multiplier*s.windTolerance-Math.max(0,(f.wind.gusts??speed)-speed-5)*1.5);
+ return capOnshore(clamp(100-speed*multiplier*s.windTolerance-Math.max(0,(f.wind.gusts??speed)-speed-5)*1.5),relation,speed);
 }
 export function qualityLabel(score:number|null){return score===null?'Unavailable':score<20?'Very poor':score<40?'Poor':score<60?'Mixed':score<80?'Good':'Excellent'}
 export function calculateSQI(s:SurfSpot,f:Partial<Forecast>):SurfQuality{

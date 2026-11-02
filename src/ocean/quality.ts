@@ -1,13 +1,14 @@
 import type {OceanRecord,SpotEvidence} from './types.ts';
 import type {SurfQuality,QualityFactor} from '../models/index.ts';
 import {angle} from '../utils/units.ts';
+import {capOnshore} from '../ratings/windRules.ts';
 const bounded=(n:number)=>Math.max(0,Math.min(100,n));
 export const evidenceWeights={swell:.25,wind:.25,tide:.15,size:.15,organization:.2};
 export function evidenceWindRelationship(spot:SpotEvidence,record:OceanRecord){const d=record.windDirection.value;if(spot.orientation===null||d===null)return 'Unknown';return angle(d,spot.orientation+180)<45?'Offshore':angle(d,spot.orientation)<45?'Onshore':'Cross-shore'}
 export function evidenceQuality(spot:SpotEvidence,r:OceanRecord,weights=evidenceWeights,faceEstimate:[number,number]|null=null):SurfQuality{
  const swell=r.primary.direction.value===null||spot.idealSwell===null?null:bounded(100-angle(r.primary.direction.value,spot.idealSwell)*.85);
  const relation=evidenceWindRelationship(spot,r);
- const wind=relation==='Unknown'||r.windSpeed.value===null?null:bounded(100-r.windSpeed.value*(relation==='Offshore'?1.6:relation==='Onshore'?4:2.8)-Math.max(0,(r.gusts.value??r.windSpeed.value)-r.windSpeed.value-5)*1.5);
+ const wind=relation==='Unknown'||r.windSpeed.value===null?null:capOnshore(bounded(100-r.windSpeed.value*(relation==='Offshore'?1.6:relation==='Onshore'?4:2.8)-Math.max(0,(r.gusts.value??r.windSpeed.value)-r.windSpeed.value-5)*1.5),relation,r.windSpeed.value);
  const tide=r.tide.value===null||!spot.tidePreferences||r.tideTrend==='Unknown'?null:spot.tidePreferences.includes(r.tideTrend)?100:35;
  /* faceEstimate (T-017, Board Match only) is an unvalidated range used when there is no face value; ratings never pass it. */
  const [flo,fhi]=r.face.value!==null?[r.face.value,r.face.value]:faceEstimate??[null,null];

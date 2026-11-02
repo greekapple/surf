@@ -8,6 +8,7 @@ import {bestDaylight, groupDays} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {Skeleton} from '../../ui/Skeleton';
 import {NearshoreCard} from './Nearshore';
+import {BuoyContext} from './BuoyContext';
 import {BoardLine, BuoyNow, ConditionsGrid, DayStrip, HourTable, surfOf} from './SpotPage';
 import './forecast.css';
 
@@ -127,7 +128,7 @@ export function ForecastView({go}: ViewProps) {
 
       <div className="sp-two">
         <section className="card" aria-label="Nearshore model"><NearshoreCard spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
-        <section className="card" aria-label="Buoy now vs forecast"><div className="card-h"><h2>Buoy now vs forecast</h2></div><BuoyNow buoy={bundle?.buoy} series={series} p={p} now={now} /></section>
+        <section className="card" aria-label="Buoy now vs forecast"><div className="card-h"><h2>Buoy now vs forecast</h2></div><BuoyNow buoy={bundle?.buoy} series={series} p={p} now={now} /><BuoyContext buoys={bundle?.buoys} series={series} p={p} now={now} /></section>
       </div>
 
       <details className="card sp-src"><summary><h2>Sources &amp; reliability</h2><span>{selected.rating.reliability.category.toLowerCase()} reliability · show details</span></summary><Sources /></details>
