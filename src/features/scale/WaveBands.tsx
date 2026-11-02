@@ -5,12 +5,29 @@ import {Media, useMediaEntry, useNarrow} from '../../ui/Media';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {faceEstimateView} from '../forecast/estimate';
 import {ht} from '../forecast/helpers';
+import {SCALE_BANDS as _B} from '../../services/waveScale';
+import {framePaths, posterPath} from '../../services/scaleFrames';
+import {Spin360} from './Spin360';
 import './scale.css';
+
+/** Whether 3D frames exist for a band: its poster.jpg must load as an image (a missing file is a 404 or an HTML fallback page, both fail). Cached per session. */
+const spinKnown = new Map<string, boolean>();
+function useHasSpin(band: (typeof _B)[number], enabled: boolean): boolean {
+  const [, bump] = useState(0), url = posterPath(band);
+  useEffect(() => {
+    if (!enabled || spinKnown.has(url)) return;
+    let live = true; const im = new Image();
+    im.onload = () => { spinKnown.set(url, true); if (live) bump((x) => x + 1); };
+    im.onerror = () => { spinKnown.set(url, false); if (live) bump((x) => x + 1); };
+    im.src = url; return () => { live = false; };
+  }, [url, enabled]);
+  return enabled && spinKnown.get(url) === true;
+}
 
 const DEFAULT_BAND = 3; // 4–6 ft, only shown (and labelled as not tied to the forecast) when the hour has no height at all
 
 /** The wave-scale picture (T-033): the AI illustration of the band that contains the selected hour's height, labelled with where that height comes from, plus a way to browse all eight bands. */
-export function WaveBands({forecast, compact, onOpen}: {forecast: Forecast; compact?: boolean; onOpen?: () => void}) {
+export function WaveBands({forecast, compact, onOpen, onSpin}: {forecast: Forecast; compact?: boolean; onOpen?: () => void; onSpin?: (has: boolean) => void}) {
   const {data} = useSwello();
   const profile = data.state.profile, narrow = useNarrow(), [browsed, setBrowsed] = useState<number | null>(null), [loop, setLoop] = useState(false);
   const est = faceEstimateView(forecast, profile);
@@ -23,6 +40,8 @@ export function WaveBands({forecast, compact, onOpen}: {forecast: Forecast; comp
   useEffect(() => { setBrowsed(null); }, [forecast.spotId, forecast.timestamp]);
   const idx = browsed ?? sel.band ?? DEFAULT_BAND, band = SCALE_BANDS[idx], following = browsed === null || browsed === sel.band;
   const entry = useMediaEntry(band.media);
+  const hasSpin = useHasSpin(band, !compact), saveData = typeof navigator !== 'undefined' && !!(navigator as unknown as {connection?: {saveData?: boolean}}).connection?.saveData;
+  useEffect(() => { onSpin?.(hasSpin); }, [hasSpin]); // eslint-disable-line react-hooks/exhaustive-deps
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   useEffect(() => { setLoop(false); }, [idx]);
   const step = (d: number) => setBrowsed(Math.max(0, Math.min(SCALE_BANDS.length - 1, idx + d)));
@@ -33,9 +52,11 @@ export function WaveBands({forecast, compact, onOpen}: {forecast: Forecast; comp
   return (
     <div className={`wsc${compact ? ' wsc-compact' : ''}`}>
       <div className="wsc-stage">
-        <Media key={band.media} id={band.media} className="wsc-media" eager sizes={compact ? '(max-width: 860px) 100vw, 40vw' : '(max-width: 860px) 100vw, 70vw'} still={(compact || narrow) && !loop} />
+        {hasSpin
+          ? <Spin360 key={band.id} frames={framePaths(band)} poster={posterPath(band)} alt={`${band.label} wave with a surfer for scale`} still={reduceMotion || saveData} />
+          : <Media key={band.media} id={band.media} className="wsc-media" eager sizes={compact ? '(max-width: 860px) 100vw, 40vw' : '(max-width: 860px) 100vw, 70vw'} still={(compact || narrow) && !loop} />}
         <p className="wsc-band" aria-live="polite">{band.label}<small>band</small></p>
-        {entry?.video && (compact || narrow) && !reduceMotion && <button type="button" className="wsc-loop" onClick={() => setLoop((v) => !v)} aria-pressed={loop}>{loop ? 'Show still' : 'Play loop'}</button>}
+        {!hasSpin && entry?.video && (compact || narrow) && !reduceMotion && <button type="button" className="wsc-loop" onClick={() => setLoop((v) => !v)} aria-pressed={loop}>{loop ? 'Show still' : 'Play loop'}</button>}
       </div>
       <p className="wsc-src">{following ? <><b>{sel.label}</b>{sel.source !== 'none' && <> · showing the <b>{SCALE_BANDS[sel.band!].label}</b> band</>}</> : <>Browsing the <b>{band.label}</b> band · this hour is {sel.band === null ? 'not tied to a band' : <>in the <b>{SCALE_BANDS[sel.band].label}</b> band ({sel.label})</>}</>}</p>
       {following && sel.note && <p className="fine wsc-note">{sel.note}</p>}
