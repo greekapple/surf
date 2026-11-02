@@ -7,6 +7,8 @@ import {DirArrow, Icon} from '../../ui/Icon';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {posterPath} from '../../services/scaleFrames';
 import {useHasSpin} from '../scale/useHasSpin';
+import {dayRange} from '../../services/spotHour';
+import {pacificDate} from '../../ocean/time';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
@@ -203,12 +205,12 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
       {days.map((d, k) => {
         if (d.end - d.start < 11) return null;
         const hrs = series.slice(d.start, d.end + 1), day = hrs.filter((x) => x.hour >= 6 && x.hour <= 19);
-        const heads = day.map((x) => surfOf(spot, x.forecast, p, bundle, now).h);
-        const est = heads.filter((x): x is Extract<HeadlineSurf, {kind: 'estimate'}> => x.kind === 'estimate');
-        const off = heads.filter((x): x is Extract<HeadlineSurf, {kind: 'offshore' | 'demonstration'}> => x.kind === 'offshore' || x.kind === 'demonstration');
-        // Typical daylight size: the median of the hourly estimate bounds (6 AM–7 PM), so one odd hour doesn't stretch the day.
-        const range = est.length ? [median(est.map((x) => x.loFt)), median(est.map((x) => x.hiFt))] : off.length ? [median(off.map((x) => x.ft)), median(off.map((x) => x.ft))] : null;
-        const kind = est.length ? 'est.' : off.some((x) => x.kind === 'offshore') ? 'offshore' : off.length ? 'demo' : '';
+        // One engine for every surface (T-055): the day's range comes from dayRange over its daylight hours, the same headline estimate as the
+        // SURF card. The demonstration week (no estimate, no offshore) keeps its typical face height, labelled demo.
+        const dr = dayRange(spot, hrs.map((x) => x.forecast), pacificDate(d.t), now, p, {bundle});
+        const demo = dr.kind === 'none' ? day.map((x) => surfOf(spot, x.forecast, p, bundle, now).h).filter((x): x is Extract<HeadlineSurf, {kind: 'demonstration'}> => x.kind === 'demonstration') : [];
+        const range = dr.kind !== 'none' && dr.loFt !== null && dr.hiFt !== null ? [dr.loFt, dr.hiFt] : demo.length ? [median(demo.map((x) => x.ft)), median(demo.map((x) => x.ft))] : null;
+        const kind = dr.kind === 'estimate' ? 'est.' : dr.kind === 'offshore' ? 'offshore' : demo.length ? 'demo' : '';
         const lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null;
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
