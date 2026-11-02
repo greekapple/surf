@@ -17,3 +17,9 @@ Branch `worktree-engineering` (synced with `rebuild/swello-v0.16` first). Per pl
 ## Limits
 - Update cadence of the MOP forecast is not stated by CDIP; the card will show the file's own `date_issued`, not an assumed schedule.
 - Only SF023 is ingested; the candidates are not (they would be archived the moment the owner approves them).
+
+## Milestone 2: nearshore card on real MOP data
+- `src/features/forecast/Nearshore.tsx` (new, mine): `NearshoreCard`. Reads the reviewed assignment, shows Hs at depth, Tp and direction, the point id, depth, **product** (Nowcast for past hours, Forecast for future hours), valid time, the forecast file's own **issue time**, retrieval time, shore normal, "Modeled Hs at depth, not surf height" and the CDIP/USACE acknowledgement. Spots without a reviewed point say so and name the candidates waiting for review (Linda Mar, Bolinas); nothing is substituted.
+- `src/services/nearshoreSelect.ts` (new): `pickMop` chooses the record for the selected hour (nowcast within 30 min, forecast within 90 min, no interpolation, refuses outside coverage). Tests in `src/tests/nearshore-select.test.ts`.
+- **ForecastView mount (the one change in a shared file):** `src/features/forecast/ForecastView.tsx` line 326, `<Nearshore spot=…>` → `<NearshoreCard spot=…>`, plus one import line (`import {NearshoreCard} from './Nearshore';`). The old in-file `Nearshore` function is now unused; I left it for product/lead to delete with the rest of their ForecastView work.
+- Verified: `t041-nearshore.mjs` ALL PASS at 1440 and 390 on live data (Sun now → Nowcast/Forecast labels, day+2 → forecast with issue time, Linda Mar unassigned message, no overflow, no console errors); `t034-density` ALL PASS; tsc clean; 236 tests pass. Shots: toolkit `artifacts/t041/{1440,390}-{ob-now,ob-day2,lindamar}.png`.
