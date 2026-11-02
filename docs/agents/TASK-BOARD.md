@@ -363,3 +363,19 @@ Rules from now on:
 - **Owner:** `engineering` (UI slices on Forecast coordinated with product: engineering owns `src/ocean/*`, `src/services/*`, new data files; the Forecast nearshore card markup goes through product or a lead-agreed file)
 - **Acceptance:** MOP point registry + ingestion with forecast archiving; nearshore card on Forecast showing real MOP data with source/time; breaking estimate v2 behind a flag; Pillar Point / Point Reyes tide stations; spot profile schema + registry with `{value,status,sources,reviewedBy}` and a review list for the user; session log (range, quality 1–5, optional bar note) stored locally; no rating changes, no new accuracy claims. Tests per module; journeys; 1440/390.
 - **Status:** OPEN
+- **T-041 Phase 1:** DONE (merged; 259 tests, journeys 8/8, t041 scripts pass). Open for the user: `docs/forecast/SPOT-FACTS-REVIEW.md`.
+
+## Round 2026-11-02: Map and Wave scale (user: "no improvement … what happened to reverse engineering … make the map less crowded, Apple's key design ideas, Surfline's minimalism, Windy's map; when zooming in the background goes black, no longer showing the colours")
+Lead observations at 1440/390 (light theme): Map is still the dark navy explorer (#0a1c29 ground, navy side panel with photo list, toggle box, legend, timeline, a label on every pin); zooming past z≈12 shows no imagery and no data colour (satellite runs out, field not drawn), only dark ground + particles. Wave scale = AI photo + blob chart; the Blender 3D is not in the app.
+
+## T-042: Map field and basemap at every zoom (engineering)
+- **Owned:** `src/map/*` (field.ts, SpatialLayer.ts, colors.ts), basemap setup lines in ExploreView agreed with product
+- **Acceptance:** 1. The data colour field is drawn at every zoom 2–14: bilinear-sampled from the model grid (not hidden past its native resolution), clipped to water by the coastline, never a flat dark fill. 2. Basemap: a light, minimal style (Apple Maps / Surfline: pale land, soft water, labels quiet) that keeps working at high zoom (`maxNativeZoom` so tiles upscale instead of going blank); satellite stays an option. 3. No dark ground anywhere in light theme. 4. Script zooms 2→14 in 1-step increments at Ocean Beach and asserts the field and the basemap are both visible at every step (pixel sampling over water and over land), 0 console errors; shots per zoom.
+- **Status:** OPEN
+
+## T-043: Map, minimal (product) — Apple Maps + Surfline + Windy patterns from the teardown
+- **Owned:** `src/features/explore/*`
+- **Acceptance:** 1. Map-first: full-bleed map, one floating search; no permanent side panel at 1440 (a slim sheet that opens on demand, Apple-Maps style); at 390 a bottom sheet with three detents (peek: nearest/selected spot only; half; full list). 2. Labels collide-aware and sparse: show labels for the selected spot and the top-rated few at the current zoom, dots for the rest (Surfline map). 3. One compact layer control (single button → popover), one legend chip with units, one time scrubber (Windy) that hides to a thin bar until touched. 4. Tap a spot → small Apple-style callout card (name, rating, labelled height, wind relation, "Open forecast"), not the full panel. 5. Light theme native: white UI chrome over the map, no navy panels. 6. Function preserved: search, layers, time, Find Spots, Open forecast; journeys and t013 overlap pass. 7. Density rule; 1440/390 next to Surfline/Windy teardown shots; count of on-screen UI elements before/after reported.
+- **Status:** OPEN
+
+## T-036 (lead): 3D wave scale into the app — continue; next: foam/spray, surfer on board, 8 bands × 24 angles, then hand to engineering to wire the spin viewer in place of the AI photo + blob chart.
