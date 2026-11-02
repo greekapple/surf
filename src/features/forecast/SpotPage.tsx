@@ -9,6 +9,7 @@ import {compass, ht, monotonePath, windVal, type Day} from './helpers';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {headlineSurf, headlineText, type HeadlineSurf} from '../../services/headlineSurf';
+import {formatHeight, userHeight} from '../../services/heightMath';
 import type {OceanBundle} from '../../ocean/types';
 
 /* T-045 spot page v3: Surfline's anatomy, each fact once. Conditions grid → Board Match line → 7-day strip → graph/table → nearshore + buoy → sources. */
@@ -226,14 +227,14 @@ export function BuoyNow({buoy, series, p, now}: {buoy: ObservationSet | null | u
 /** Wave scale panel (T-048): the hour's face estimate, a surfer at the user's height and their best board, drawn to one scale.
  *  Drawn from data only (no imagery). Without a face estimate the wave is not drawn: offshore height is not surf size. */
 export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserProfile; board: import('../../models/index').Surfboard | null; onOpen: () => void}) {
-  const personFt = 70 / 12; // 5'10" default: the profile has no height field yet
+  const me = userHeight(p), personFt = me.feet; // the surfer's own height (Personal › Surf preferences), else the labelled 5'10" default
   const est = hs.kind === 'estimate' ? hs : null, boardFt = board ? board.length / 12 : 0;
   const top = Math.max(est ? est.hiFt * 1.08 : 0, personFt * 1.15, boardFt * 1.1, 7);
   const m = p.heightUnit === 'm', step = m ? (top * 0.3048 > 5 ? 2 : 1) : top > 14 ? 4 : 2, base = 150, H = 138, y = (ft: number) => base - (ft / top) * H;
   const ticks: number[] = []; for (let v = step; (m ? v / 0.3048 : v) <= top; v += step) ticks.push(v);
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
-  const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a 5 foot 10 surfer${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
+  const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
   return (
     <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. Open the full wave scale`}>
       <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
@@ -257,7 +258,7 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
         {board && <text x={px + pw + 23.5} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">board</text>}
         <text x={22} y={10} fontSize={10} fill="var(--dim)">{p.heightUnit}</text>
       </svg>
-      <span className="sp-scalep-c">{board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · surfer 5'10" (default)<b>Full wave scale →</b></span>
+      <span className="sp-scalep-c">{board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · you {formatHeight(me.inches, p.heightUnit)}{me.isDefault ? ' (default)' : ''}<b>Full wave scale →</b></span>
     </button>
   );
 }
