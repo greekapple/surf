@@ -263,10 +263,24 @@ if a.wave:
     crest = max(near, key=lambda p: p.z)
     face = [p for p in near if p.y > crest.y and abs(p.z - 0.4 * H) < 0.08 * H]
     spot = min(face, key=lambda p: p.y) if face else crest
-    surfer.location = (sx, spot.y + 0.05, spot.z - 0.02)
-    surfer.rotation_euler = (math.radians(-30), 0, math.radians(-90))
+    # align the surfer's up axis with the local face normal so the board sits on the water, nose down the line (-x)
+    from mathutils import Matrix
+    best = min(wm.polygons, key=lambda f: ((wave.matrix_world @ f.center) - spot).length)
+    n = (wave.matrix_world.to_3x3() @ best.normal).normalized()
+    if n.z < 0:
+        n = -n
+    fwd = Vector((-1, 0, 0))
+    fwd = (fwd - n * fwd.dot(n)).normalized()
+    side = n.cross(fwd)
+    # the surfer + board is one rigid mesh, so keep the body near vertical (as real surfers ride) and lean it ~15° into the face;
+    # yaw so the board runs down the line
+    lean = math.radians(15) * (1 if n.y >= 0 else -1)
+    surfer.matrix_world = (Matrix.Translation(wave.matrix_world @ best.center + n * 0.04)
+                           @ Matrix.Rotation(-lean, 4, 'X') @ Matrix.Rotation(math.radians(180), 4, 'Z')
+                           @ Matrix.Scale(surfer.scale.x, 4))
     fy = surfer.location.y / 0.6
-surfer.rotation_euler = (math.radians(-25), 0, math.radians(-75))
+else:
+    surfer.rotation_euler = (math.radians(-25), 0, math.radians(-75))
 
 # sky + sun
 world = bpy.data.worlds.new('Sky')
