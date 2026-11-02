@@ -367,3 +367,6 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xco-sk i { display: block; height: 14px; border-radius: var(--r1); background: linear-gradient(90deg, var(--s2) 30%, var(--s3) 50%, var(--s2) 70%) 0 0 / 300% 100%; animation: skel 1.4s linear infinite; }
 .xco-sk i:nth-child(1) { width: 40%; height: 28px; } .xco-sk i:nth-child(2) { width: 75%; } .xco-sk i:nth-child(3) { width: 55%; }
 @media (prefers-reduced-motion: reduce) { .xco-sk i { animation: none; } }
+/* T-058: the phone peek in the quiet style: rating as dot + word (no filled pill), a calm dark button (no blue pill). */
+.xco-go { background: var(--text); color: var(--bg); border-radius: 10px; }
+@media (max-width: 860px) { .xsheet.phone .xco-go { border-radius: 10px; } }

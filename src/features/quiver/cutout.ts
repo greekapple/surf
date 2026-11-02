@@ -80,6 +80,32 @@ export function cutBoard(d: Uint8ClampedArray, W: number, H: number, dbg?: Recor
   for (let y = wy + 1; y <= bot; y++) hm[y] = Math.min(hm[y], hm[y - 1]);
   const notchFrom = top + L * 0.88, nb = bot;
   if (dbg) Object.assign(dbg, {T, ax, top, bot, wy, half: [...half], hm: [...hm], axisOn: [...axisOn], gap: [...gap]});
+  // 3c. Stringer (T-058): a real stringer is about 1/8–1/4 in, roughly 2% of a board's width. One illustration (the longboard) has one about 8%
+  //     wide, which reads heavy and fake on the wall. Where the measured stringer is far wider than that, it is resampled into a thin band
+  //     (its own wood, compressed) and the deck colour is interpolated across the rest. Thin stringers are left exactly as drawn.
+  const src = new Uint8ClampedArray(d);
+  {
+    const widths: [number, number][] = [];
+    for (let y = top + Math.round(L * 0.25); y < top + L * 0.75; y += 6) {
+      const flank = (lum[y * W + X - Math.round(hm[y] * 0.5)] + lum[y * W + X + Math.round(hm[y] * 0.5)]) / 2;
+      let l = 0, r = 0; while (l < hm[y] * 0.3 && lum[y * W + X - l - 1] < flank - 22) l++; while (r < hm[y] * 0.3 && lum[y * W + X + r + 1] < flank - 22) r++;
+      if (lum[y * W + X] < flank - 22) widths.push([l, r]);
+    }
+    if (widths.length > 5) {
+      widths.sort((a, b) => a[0] + a[1] - b[0] - b[1]);
+      const [sl, sr] = widths[widths.length >> 1], sw = sl + sr + 1, target = Math.max(3, Math.round(hm[wy] * 2 * 0.022));
+      if (sw > target * 2.5) {
+        const a0 = X - sl - 2, a1 = X + sr + 2, t0 = X - (target >> 1), t1 = t0 + target - 1;
+        for (let y = top; y <= bot; y++) for (let x = a0; x <= a1; x++) {
+          const i = (y * W + x) * 4;
+          if (x >= t0 && x <= t1) { const sx = Math.round(X - sl + ((x - t0 + 0.5) / target) * sw - 0.5), j = (y * W + sx) * 4; d[i] = src[j]; d[i + 1] = src[j + 1]; d[i + 2] = src[j + 2]; continue; }
+          const f = (x - a0) / (a1 - a0), il = (y * W + a0 - 1) * 4, ir = (y * W + a1 + 1) * 4;
+          for (let c = 0; c < 3; c++) d[i + c] = src[il + c] * (1 - f) + src[ir + c] * f;
+        }
+        if (dbg) Object.assign(dbg, {stringer: {sw, target}});
+      }
+    }
+  }
   // 4. Compose: opaque inside, anti-aliased edge, thin rail line.
   const x0 = Math.max(0, Math.floor(ax - hm[wy] - 2)), x1 = Math.min(W - 1, Math.ceil(ax + hm[wy] + 2)), w = x1 - x0 + 1, h = nb - top + 1;
   const out = new Uint8ClampedArray(new ArrayBuffer(w * h * 4));

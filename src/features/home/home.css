@@ -104,3 +104,9 @@
 .dc-rate b { padding: 0; background: none; color: var(--text); font-weight: 600; }
 .nb { border-left: 0; }
 .dc-meta, .dc-more, .nb + .nb { border-color: var(--line); }
+/* T-058: the nearby list scans like a list (Surfline): rank · name · height · rating close together, not spread across 1,200 px. */
+@media (min-width: 641px) {
+  .nb-list { max-width: 640px; }
+  .nb-a { grid-template-columns: 28px minmax(0, 1fr) 132px 104px; gap: 16px; }
+  .nb .dc-rate { justify-items: start; }
+}

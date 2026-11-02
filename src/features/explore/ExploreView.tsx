@@ -217,6 +217,17 @@ function OceanMap({section, go}: ViewProps) {
       else el.classList.add('xdot');
     }
   };
+  // T-058: on phones the map opens with the selected spot in the clear area above the time bar (never under it or the attribution).
+  useEffect(() => {
+    if (!phone) return;
+    const t = window.setTimeout(() => {
+      const m = map.current, e = evidenceSpots.find((x) => x.id === spot.id), root = rootRef.current; if (!m || !e || !root) return;
+      const box = m.getContainer().getBoundingClientRect(), floor = root.querySelector('.leaflet-control-attribution')?.getBoundingClientRect().top ?? box.bottom;
+      const at = m.latLngToContainerPoint([e.latitude, e.longitude]), want = {x: box.width * 0.4, y: (floor - box.top) * 0.55};
+      m.panBy([at.x - want.x, at.y - want.y], {animate: false});
+    }, 400);
+    return () => window.clearTimeout(t);
+  }, [phone]); // eslint-disable-line react-hooks/exhaustive-deps
   const declutterRef = useRef(declutter);
   declutterRef.current = declutter;
   // Sheets and popovers open and slide; re-place labels once they settle.
