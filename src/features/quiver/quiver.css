@@ -409,3 +409,61 @@
   .br-bar p b { color: var(--text); font-weight: 600; }
   .br-bar .btn { flex: none; min-height: 44px; }
 }
+
+/* ---------- T-050 Quiver: the rack as a premium wall, one true scale, labels with today's size fit; board-room rail; calmer spec sheet ---------- */
+.qv-rackwrap .qv-stage.qv-room { --rack-floor: 64px; background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #eceae6 calc(100% - var(--rack-floor)), #e4e1dc 100%), repeating-linear-gradient(90deg, transparent 0 199px, rgb(0 0 0 / 0.035) 199px 200px), #fbfaf8; border: 1px solid var(--line); }
+:root[data-theme='dark'] .qv-rackwrap .qv-stage.qv-room { background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #1d2329 calc(100% - var(--rack-floor)), #171c21 100%), repeating-linear-gradient(90deg, transparent 0 199px, rgb(255 255 255 / 0.04) 199px 200px), #232a31; }
+.qv-rackwrap .qv-rackrow { inset: 0 0 0 0; padding: 0 72px 0 96px; gap: 40px; align-items: flex-end; }
+.qv-rackwrap .qv-rackrow li { padding-bottom: 0; }
+.qv-rackwrap .qv-rack-b { display: grid; justify-items: center; gap: 10px; padding: 0 0 calc(var(--rack-floor) - 52px); opacity: 1; filter: none; }
+.qv-rackwrap .qv-rack-b > :first-child { filter: drop-shadow(0 16px 14px rgb(40 32 24 / 0.22)); transition: transform 240ms var(--ease); }
+.qv-rackwrap .qv-rack-b::after { left: 50%; right: auto; bottom: calc(var(--rack-floor) - 4px); width: 70%; height: 10px; translate: -50% 0; border-radius: 50%; background: radial-gradient(closest-side, rgb(30 24 18 / 0.28), transparent); box-shadow: none; }
+.qv-rackwrap .qv-rackrow li.on .qv-rack-b { transform: none; filter: none; }
+.qv-rackwrap .qv-rackrow li.on .qv-rack-b::after { background: radial-gradient(closest-side, rgb(30 24 18 / 0.36), transparent); }
+.qv-rackwrap .qv-rackrow li.on .qv-rack-b > :first-child { transform: translateY(-6px); }
+.qv-rackwrap .qv-rackrow li:not(.on) .qv-rack-b { opacity: 0.92; }
+.qv-rl { display: grid; justify-items: center; gap: 1px; min-height: 52px; max-width: 150px; text-align: center; }
+.qv-rl b { font-size: 13px; font-weight: 650; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+.qv-rl small { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.qv-rackrow li.on .qv-rl b { text-decoration: underline 2px; text-underline-offset: 4px; text-decoration-color: var(--accent); }
+.qv-fit { font-style: normal; font-size: 12px; font-weight: 600; padding: 0 7px; border-radius: 999px; white-space: nowrap; }
+.qv-fit.in { background: color-mix(in srgb, var(--good) 16%, transparent); color: var(--good-ink, var(--good)); }
+.qv-fit.edge { background: color-mix(in srgb, var(--fair) 22%, transparent); color: var(--fair-ink, var(--text)); }
+.qv-fit.big, .qv-fit.small { background: var(--s2); color: var(--muted); }
+.qv-ruler { position: absolute; left: 0; top: 0; bottom: 0; width: 64px; pointer-events: none; border-right: 1px solid color-mix(in srgb, var(--text) 8%, transparent); }
+.qv-ruler i { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
+.qv-ruler i span { position: absolute; right: 8px; top: -8px; font: 600 12px/1 var(--sans); color: var(--muted); font-style: normal; }
+.qv-today { position: absolute; right: 20px; top: 14px; text-align: right; z-index: 2; margin: 0; font-size: 12px; color: var(--muted); }
+.qv-ill-cap { z-index: 2; }
+@media (max-width: 860px) {
+  .qv-rackwrap .qv-stage.qv-room { --rack-floor: 76px; aspect-ratio: auto; width: 100%; }
+  .qv-rackwrap.qv-studio { background: none; }
+  .qv-rackwrap .qv-rackrow { padding: 0 0 0 0; gap: 0; }
+  .qv-ruler { width: 40px; }
+  .qv-today { left: 52px; right: 12px; top: 44px; text-align: left; }
+}
+
+/* Spec sheet: elegant, not giant. No ghost numerals behind the board; values on the type scale. */
+.qc-big { display: none; }
+.qv .qc-h h2 { font: 700 clamp(26px, 2.6vw, 34px)/1.1 var(--sans); letter-spacing: -0.02em; }
+.qc-c .v { font: 650 clamp(22px, 2vw, 28px)/1.1 var(--sans); letter-spacing: -0.01em; }
+.qc-c .k { font-size: 12px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; }
+.qv-cine { background: radial-gradient(120% 90% at 50% 10%, color-mix(in srgb, #fff 75%, var(--bg)), color-mix(in srgb, var(--text) 4%, var(--bg))); border: 1px solid var(--line); }
+
+/* Board room: a softer light set (floor gradient, contact shadow from the 3D scene) and the board rail */
+.br-stage { background: radial-gradient(130% 80% at 50% 35%, color-mix(in srgb, #fff 80%, var(--bg)) 0%, color-mix(in srgb, var(--text) 5%, var(--bg)) 70%, color-mix(in srgb, var(--text) 9%, var(--bg)) 100%); }
+.br-rail { display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 6px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.br-rail-b { flex: none; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; min-width: 170px; min-height: 72px; padding: 6px 12px 6px 8px; border: 1px solid var(--line); border-radius: var(--r2); background: var(--s1); color: var(--text); text-align: left; cursor: pointer; scroll-snap-align: start; transition: border-color 160ms var(--ease), transform 160ms var(--ease); }
+.br-rail-b:hover { border-color: var(--line-2); }
+.br-rail-b:active { transform: scale(0.98); }
+.br-rail-b[aria-pressed='true'] { border-color: var(--text); box-shadow: 0 0 0 1px var(--text) inset; }
+.br-rail-o { display: grid; place-items: center; width: 34px; height: 60px; }
+.br-rail-t { display: grid; gap: 1px; min-width: 0; }
+.br-rail-t b { font-size: 13px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.br-rail-t small { font-size: 12px; color: var(--muted); }
+.br-rail-t .qv-fit { justify-self: start; margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) { .qv-rackwrap .qv-rack-b > :first-child, .br-rail-b { transition: none; } }
+.br-stagecol, .br > * { min-width: 0; } /* the board rail scrolls inside its column instead of widening the page */
+.br-rail { max-width: 100%; }
+.qv-show > * { min-width: 0; }
+.qv-rackwrap .qv-ill-cap { left: 80px; } @media (max-width: 860px) { .qv-rackwrap .qv-ill-cap { left: 50px; right: 10px; } }

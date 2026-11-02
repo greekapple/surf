@@ -1,9 +1,11 @@
-import {useMemo, type CSSProperties, type ReactNode} from 'react';
+import {useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
-import {DirArrow, Icon} from '../../ui/Icon';
+import {DirArrow, Icon, type IconName} from '../../ui/Icon';
+import {explainRating, type FactorExplanation} from '../../ratings/explain';
+import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, monotonePath, windVal, type Day} from './helpers';
 import {conditionWord} from './Condition';
@@ -24,14 +26,52 @@ export function surfOf(spot: SurfSpot, f: Forecast, p: UserProfile, bundle: Ocea
   return {h, t: headlineText(h, p)};
 }
 
-function Card({k, title, aside, children, className = ''}: {k: string; title: string; aside?: ReactNode; children: ReactNode; className?: string}) {
+export type CardKey = 'rating' | 'wind' | 'tide' | 'swell';
+function Card({k, title, icon, aside, children, className = '', open, onToggle}: {k: string; title: string; icon?: IconName; aside?: ReactNode; children: ReactNode; className?: string; open?: boolean; onToggle?: () => void}) {
   return (
-    <section className={`sp-card ${className}`} data-card={k} aria-label={title}>
-      <header><h2>{title}</h2>{aside}</header>
+    <section className={`sp-card ${className}${onToggle ? ' can-open' : ''}`} data-card={k} data-open={open || undefined} aria-label={title}>
+      <header>{icon && <Icon name={icon} size={15} />}<h2>{title}</h2>{aside}
+        {onToggle && <button className="sp-open" aria-expanded={!!open} aria-controls="sp-detail" aria-label={`${open ? 'Hide' : 'Show'} ${title.toLowerCase()} detail`} onClick={onToggle}><Icon name="chevron" size={14} /></button>}
+      </header>
       {children}
     </section>
   );
 }
+
+/** The spot's surveyed shore normal (degrees the beach faces), or null when not surveyed. */
+export const facingOf = (spotId: string) => evidenceSpots.find((e) => e.id === spotId)?.orientation ?? null;
+
+/** Mini wind compass: the arrow points where the wind blows; the beach facing (when surveyed) is the dashed line, offshore side shaded. */
+function WindDial({from, facing, cls}: {from: number; facing: number | null; cls: string}) {
+  return (
+    <svg className="sp-mini" viewBox="-30 -30 60 60" aria-hidden="true">
+      <circle r={26} fill="none" stroke="var(--line-2)" />
+      {facing !== null && <g transform={`rotate(${facing})`}><path d="M0 0 L-26 0 A26 26 0 0 1 26 0Z" transform="rotate(180)" fill="color-mix(in srgb, var(--good) 12%, transparent)" /><line x1={-26} x2={26} y1={0} y2={0} stroke="var(--muted)" strokeDasharray="3 2" transform="rotate(90)" /></g>}
+      <text y={-17} fontSize={8} textAnchor="middle" fill="var(--dim)">N</text>
+      <g transform={`rotate(${from + 180})`} className={`sp-rel-ink ${cls}`}><line x1={0} y1={18} x2={0} y2={-14} stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" /><path d="M-6 -9 L0 -19 L6 -9" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" /></g>
+    </svg>
+  );
+}
+
+/** Mini swell rose: one arrow per partition, travelling toward the centre from where it comes; width and length by energy (H² × T). */
+function SwellRose({swells, facing}: {swells: {height: number; period: number; direction: number}[]; facing: number | null}) {
+  const e = swells.map((s) => s.height * s.height * s.period), max = Math.max(...e, 1e-6);
+  return (
+    <svg className="sp-mini" viewBox="-30 -30 60 60" aria-hidden="true">
+      <circle r={26} fill="none" stroke="var(--line-2)" />
+      {facing !== null && <line x1={0} y1={0} x2={0} y2={-26} transform={`rotate(${facing})`} stroke="var(--muted)" strokeDasharray="3 2" />}
+      <text y={-17} fontSize={8} textAnchor="middle" fill="var(--dim)">N</text>
+      {swells.map((s, i) => { const r = e[i] / max, len = 10 + 14 * Math.sqrt(r); return (
+        <g key={i} transform={`rotate(${s.direction})`} stroke={i === 0 ? 'var(--sw1)' : 'var(--sw2)'} fill={i === 0 ? 'var(--sw1)' : 'var(--sw2)'}>
+          <line x1={0} y1={-26} x2={0} y2={-26 + len} strokeWidth={1.5 + 3.5 * Math.sqrt(r)} strokeLinecap="round" />
+          <path d={`M-${3 + 2 * r} ${-26 + len} L0 ${-26 + len + 6} L${3 + 2 * r} ${-26 + len}Z`} stroke="none" />
+        </g>
+      ); })}
+    </svg>
+  );
+}
+
+const MARK: Record<FactorExplanation['effect'], {m: string; c: string}> = {'+': {m: '✓', c: 'g'}, '~': {m: '~', c: 'm'}, '-': {m: '✗', c: 'b'}, '?': {m: '?', c: 'u'}};
 
 /** 5-segment rating bar (Surfline): segments filled by score, coloured by the rating band. */
 function RatingBar({score, category}: {score: number | null; category: string}) {
@@ -45,51 +85,55 @@ const shortFactor = (n: string) => (/organi[sz]ation/i.test(n) ? 'Swell quality'
 /** Wetsuit by water temperature (°F): a common surf-shop guide, labelled as such. */
 const wetsuit = (f: number) => (f >= 72 ? 'Boardshorts or a top' : f >= 65 ? '2 mm spring suit' : f >= 62 ? '3/2 mm full suit' : f >= 58 ? '4/3 mm full suit' : f >= 52 ? '4/3 mm + booties' : f >= 48 ? '5/4 mm hooded + booties' : '6/5 mm hooded, booties, gloves');
 
-export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode}) {
+export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale, open, onToggle}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; open: CardKey | null; onToggle: (k: CardKey) => void}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, {h: hs, t} = surfOf(spot, f, p, bundle, now);
   const rel = f.availability.wind && fin(f.wind.speed) ? windRelationship(spot, f) : 'Unknown';
-  // One-line "why": the rating's own factors as ticks (good / mixed / against).
-  const why = r.factors.filter((x) => x.score !== null).slice(0, 4).map((x) => ({name: shortFactor(x.name), full: x.name, mark: x.score! >= 70 ? '✓' : x.score! >= 40 ? '~' : '✗', cls: x.score! >= 70 ? 'g' : x.score! >= 40 ? 'm' : 'b', reason: x.reason}));
+  // The rating explains itself (T-049 explainRating): scored factors as ticks on the card; context items (nearshore, tide) in the detail.
+  const ex = ratingWhy(spot, h, p);
+  const scored = ex.items.filter((x) => x.inScore).slice(0, 4);
+  const facing = facingOf(spot.id);
   const swells = [f.primary, f.secondary, f.tertiary].filter((s): s is NonNullable<typeof s> => !!s && fin(s.height) && s.height > 0.05);
   const tideOk = f.availability.tide !== false && fin(f.tide.height);
   const water = fin(f.waterTempF) ? f.waterTempF : null;
   return (
     <div className="sp-grid">
-      <Card k="surf" title="Surf" aside={<span className={`sp-tag ${t.tag === 'model estimate' ? 'est' : ''}`}>{t.tag === 'none' ? 'no value' : t.tag}</span>}>
+      <Card k="surf" title="Surf" icon="waves" aside={<span className={`sp-tag ${t.tag === 'model estimate' ? 'est' : ''}`}>{t.tag === 'none' ? 'no value' : t.tag}</span>}>
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>at the break</span></> : t.detail}</p>
         {hs.kind !== 'offshore' && fin(f.offshore) && <p className="sp-f">Offshore {ht(f.offshore, p)} {u} · not surf size</p>}
         {hs.kind === 'estimate' && <p className="sp-f sp-method">{hs.methodLabel}</p>}
       </Card>
-      {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
-      <Card k="rating" title="Rating" aside={<span className="sp-tag">provisional</span>}>
+      {scale && <Card k="scale" title="Wave scale" icon="forecast">{scale}</Card>}
+      <Card k="rating" title="Rating" icon="star" open={open === 'rating'} onToggle={() => onToggle('rating')}>
         <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
-        {why.length ? <ul className="sp-why" aria-label="Why">{why.map((x) => <li key={x.full} className={x.cls} title={`${x.full}: ${x.reason}`}><b aria-hidden="true">{x.mark}</b>{x.name}</li>)}</ul>
+        {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><b aria-hidden="true">{MARK[x.effect].m}</b>{shortFactor(x.factor)}</li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}
-        <p className="sp-f">{r.reliability.category.toLowerCase()} reliability</p>
+        <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
       </Card>
-      <Card k="wind" title="Wind">
+      <Card k="wind" title="Wind" icon="wind" open={open === 'wind'} onToggle={() => onToggle('wind')}>
         {f.availability.wind !== false && fin(f.wind.speed) ? <>
           <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small>{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
           <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
+          {fin(f.wind.direction) && <WindDial from={f.wind.direction} facing={facing} cls={relClass(rel)} />}
         </> : <p className="sp-s">Wind not in this record.</p>}
       </Card>
-      <Card k="tide" title="Tide">
+      <Card k="tide" title="Tide" icon="tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk ? <>
           <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
           <TideMini hours={dayHours} at={h.timestamp} extrema={f.tide.extrema?.length ? f.tide.extrema.map((e) => ({timestamp: e.timestamp, v: e.height, type: e.type})) : extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
           <p className="sp-f">NOAA station prediction, not at the beach</p>
         </> : <p className="sp-s">No tide station near this spot.</p>}
       </Card>
-      <Card k="swell" title="Swell">
+      <Card k="swell" title="Swell" icon="arrow" open={open === 'swell'} onToggle={() => onToggle('swell')}>
         {swells.length ? <ul className="sp-swells">{swells.map((s, i) => (
           <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color={i === 0 ? 'var(--sw1)' : 'var(--sw2)'} /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
         ))}</ul> : <p className="sp-s">No swell partitions in this record.</p>}
+        {swells.length > 0 && <SwellRose swells={swells} facing={facing} />}
         <p className="sp-f">Offshore model partitions</p>
       </Card>
-      <Card k="water" title="Water">
+      <Card k="water" title="Water" icon="thermo">
         {water !== null ? <>
           <p className="v sp-v">{Math.round(water)}<small>°F</small></p>
           <p className="sp-s"><b>{wetsuit(water)}</b></p>
@@ -131,6 +175,7 @@ export function BoardLine({boards, f, p, hs, onOpen, onQuiver}: {boards: import(
   const text = !boards.length ? <>Add your boards to get a pick for these waves.</>
     : hs.kind === 'offshore' || hs.kind === 'none' ? <>No board pick: only offshore height is available here, which is not surf size.</>
     : best ? <>Ride your <b>{best.board.name}</b> ({best.board.type.toLowerCase()}, {feetInches(best.board.length)}) for this hour's estimated surf. <span className="fine">Board Match {Math.round(best.score)}/100 · provisional</span></>
+    : !f.character || f.character === 'Unknown' ? <>No board pick yet: Board Match also needs the wave's character (peaky, soft, steep), which live data doesn't provide. The quiver shows each board's size fit for this hour.</>
     : <>None of your boards suits this size; Board Match explains why.</>;
   return (
     <section className="sp-board" aria-label="Board Match">
@@ -146,8 +191,13 @@ const BLOCKS = [{label: 'AM', hour: 7}, {label: 'Midday', hour: 12}, {label: 'PM
 /** 7-day strip (Surfline): day, surf range, AM/midday/PM rating segments, three wind arrows, best day star. */
 export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}: {days: Day[]; series: HourSample[]; spot: SurfSpot; p: UserProfile; bundle: OceanBundle | null | undefined; now: number; cur: number; best: number; onPick: (k: number) => void}) {
   const today = weekdayPT(new Date(now).toISOString());
+  // Drag across the strip with a mouse to scrub days; every card follows the selected hour live.
+  const scrub = useRef(false);
   return (
-    <nav className="sp-days days" aria-label="Forecast days">
+    <nav className="sp-days days" aria-label="Forecast days" data-scrub={scrub.current || undefined}
+      onPointerDown={(e) => { if (e.pointerType === 'mouse' && e.button === 0) scrub.current = true; }}
+      onPointerMove={(e) => { if (!scrub.current || !(e.buttons & 1)) { scrub.current = false; return; } const k = Number((document.elementFromPoint(e.clientX, e.clientY)?.closest('.sp-day') as HTMLElement | null)?.dataset.k); if (Number.isFinite(k) && k !== cur) onPick(k); }}
+      onPointerUp={() => { scrub.current = false; }} onPointerLeave={() => { scrub.current = false; }}>
       {days.map((d, k) => {
         if (d.end - d.start < 11) return null;
         const hrs = series.slice(d.start, d.end + 1), day = hrs.filter((x) => x.hour >= 6 && x.hour <= 19);
@@ -161,7 +211,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
         return (
-          <button key={d.key} className="sp-day day" aria-pressed={k === cur} onClick={() => onPick(k)}
+          <button key={d.key} className="sp-day day" data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)}
             aria-label={`${name}: ${range ? `typically ${lo === hi ? lo : `${lo} to ${hi}`} ${p.heightUnit} ${kind === 'est.' ? 'estimated' : kind}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <Icon name="star" size={12} />}</span>
             <span className="sd-h">{range ? <>{lo === hi ? lo : `${lo}–${hi}`}<small>{p.heightUnit}</small></> : '—'}</span>
@@ -260,5 +310,67 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
       </svg>
       <span className="sp-scalep-c">{board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · you {formatHeight(me.inches, p.heightUnit)}{me.isDefault ? ' (default)' : ''}<b>Full wave scale →</b></span>
     </button>
+  );
+}
+
+/** explainRating for one hour, with the wind relation and tide this page already shows. */
+export function ratingWhy(spot: SurfSpot, h: HourSample, p: UserProfile) {
+  const f = h.forecast, windOk = f.availability.wind !== false && fin(f.wind.speed);
+  const tideOk = f.availability.tide !== false && fin(f.tide.height);
+  return explainRating(h.rating, {
+    spotId: spot.id,
+    wind: windOk ? {mph: f.wind.speed, relation: windRelationship(spot, f)} : null,
+    tide: tideOk ? {trend: f.tide.trend === 'Rising' ? 'rising' : f.tide.trend === 'Falling' ? 'falling' : 'unknown', heightLabel: `${ht(f.tide.height, p)} ${p.heightUnit}`} : null,
+  });
+}
+
+/** 24-hour wind trace on a compass: each hour of the day at its direction (where the wind comes from) and speed, coloured by shore relation. */
+function WindTrace({hours, spot, p, at, onSelect}: {hours: HourSample[]; spot: SurfSpot; p: UserProfile; at: string; onSelect: (t: string) => void}) {
+  const pts = hours.filter((x) => fin(x.forecast.wind.speed) && fin(x.forecast.wind.direction));
+  if (pts.length < 2) return <p className="sp-s">Not enough wind records for this day.</p>;
+  const R = 110, max = Math.max(10, ...pts.map((x) => x.forecast.wind.speed)), ring = max > 20 ? 10 : 5, facing = facingOf(spot.id);
+  const xy = (x: HourSample) => { const r = (x.forecast.wind.speed / max) * R, a = (x.forecast.wind.direction * Math.PI) / 180; return [Math.sin(a) * r, -Math.cos(a) * r] as const; };
+  const line = pts.map((x, i) => `${i ? 'L' : 'M'}${xy(x)[0].toFixed(1)},${xy(x)[1].toFixed(1)}`).join('');
+  return (
+    <div className="sp-trace">
+      <svg viewBox="-140 -140 280 280" role="img" aria-label={`Wind through ${weekdayPT(pts[0].timestamp)}: ${pts.filter((x) => x.hour % 6 === 0).map((x) => `${hourLabel(x.timestamp)} ${windVal(x.forecast.wind.speed, p)} ${p.windUnit} from ${compass(x.forecast.wind.direction)}`).join(', ')}`}>
+        {Array.from({length: Math.floor(max / ring)}, (_, i) => (i + 1) * ring).map((v) => <g key={v}><circle r={(v / max) * R} fill="none" stroke="var(--line)" /><text x={3} y={-(v / max) * R - 2} fontSize={9} fill="var(--dim)">{String(windVal(v, p)).replace(/\.0$/, '')}</text></g>)}
+        {['N', 'E', 'S', 'W'].map((d, i) => <text key={d} x={[0, 128, 0, -128][i]} y={[-124, 4, 132, 4][i]} fontSize={11} textAnchor="middle" fill="var(--muted)">{d}</text>)}
+        {facing !== null && <line x1={0} y1={0} x2={0} y2={-R} transform={`rotate(${facing})`} stroke="var(--muted)" strokeDasharray="4 3" />}
+        <path d={line} fill="none" stroke="var(--line-2)" strokeWidth={1.5} />
+        {pts.map((x) => { const [cx, cy] = xy(x), sel = x.timestamp === at; return (
+          <g key={x.timestamp} className={`sp-rel-ink ${relClass(windRelationship(spot, x.forecast))}`} onClick={() => onSelect(x.timestamp)} style={{cursor: 'pointer'}}>
+            <circle cx={cx} cy={cy} r={sel ? 6 : 3.5} fill="currentColor" stroke={sel ? 'var(--text)' : 'none'} strokeWidth={2} />
+            {x.hour % 6 === 0 && <text x={cx + 7} y={cy + 3} fontSize={9.5} fill="var(--muted)">{hourLabel(x.timestamp)}</text>}
+          </g>
+        ); })}
+      </svg>
+      <ul className="sp-trace-k"><li><i className="sp-rel-ink off" />offshore</li><li><i className="sp-rel-ink cross" />cross-shore</li><li><i className="sp-rel-ink on" />onshore</li><li><i className="sp-rel-ink unk" />unknown</li>{facing !== null && <li><i className="dash" />beach facing</li>}</ul>
+      <p className="sp-f">Dots sit where the wind comes from, further out when stronger (rings in {p.windUnit}). Tap a dot to select that hour.</p>
+    </div>
+  );
+}
+
+/** The expanded detail under the grid for the card that was tapped. */
+export function CardDetail({k, spot, h, p, dayHours, onSelect, onClose, Tide, Polar}: {
+  k: CardKey; spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; onSelect: (t: string) => void; onClose: () => void;
+  Tide: ReactNode; Polar: ReactNode;
+}) {
+  const ex = k === 'rating' ? ratingWhy(spot, h, p) : null;
+  const title = {rating: 'Why this rating', wind: `Wind through ${weekdayPT(h.timestamp)}`, tide: `Tide through ${weekdayPT(h.timestamp)}`, swell: `Swell direction and period, ${weekdayPT(h.timestamp)}`}[k];
+  return (
+    <section className="card sp-detail" id="sp-detail" aria-label={title}>
+      <div className="card-h"><h2>{title}</h2><button className="btn" onClick={onClose}>Close</button></div>
+      {k === 'rating' && ex && <>
+        <ul className="sp-explain">{ex.items.filter((x) => x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><b aria-hidden="true">{MARK[x.effect].m}</b><span><strong>{x.factor}</strong>{x.reason}</span></li>)}</ul>
+        {ex.items.some((x) => !x.inScore) && <><p className="sp-explain-h">Context, not part of the score</p>
+          <ul className="sp-explain ctx">{ex.items.filter((x) => !x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><b aria-hidden="true">{MARK[x.effect].m}</b><span><strong>{x.factor}</strong>{x.reason}</span></li>)}</ul></>}
+        <p className="sp-explain-h">Reliability: {ex.reliability.category.toLowerCase()}</p>
+        <ul className="sp-explain ctx">{ex.reliability.reasons.map((r) => <li key={r} className="u"><b aria-hidden="true">·</b><span>{r}</span></li>)}</ul>
+      </>}
+      {k === 'wind' && <WindTrace hours={dayHours} spot={spot} p={p} at={h.timestamp} onSelect={onSelect} />}
+      {k === 'tide' && <>{Tide}<p className="sp-f">NOAA station prediction, not measured at the beach · sunrise/sunset approximate · tap the curve to select an hour</p></>}
+      {k === 'swell' && <>{Polar}<p className="sp-f">Each dot is one hour's partition: direction around the ring, period by ring, size by height. Offshore model, not surf size.</p></>}
+    </section>
   );
 }

@@ -1,13 +1,15 @@
-import {useEffect, useMemo, useRef, useState, type KeyboardEvent} from 'react';
+import {useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent} from 'react';
 import type {Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
 import {BoardPicture, illustrationFor} from './BoardPicture';
 import {loadOutline} from './outline';
-import {SpecCard, StageArrows, Strip} from './Overlay';
+import {StageArrows, Strip} from './Overlay';
+import type {SizeFit} from './fit';
 
-/** My Boards: boards standing in a rack in front of the showroom backplate, the selected one larger, with the spec card and a thumbnail strip.
+/** My Boards (T-050): the rack as a wall, every board at one true scale against a feet ruler, a label under each (name, length, today's size fit),
+ *  the selected board lit; the spec card and a thumbnail strip.
  *  Phones show one board at a time and swipe between them. Left/Right arrow keys step; the change is announced. */
-export function Rack({boards, selected, onSelect}: {boards: Surfboard[]; selected: Surfboard; onSelect: (id: string) => void}) {
+export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfboard[]; selected: Surfboard; onSelect: (id: string) => void; fits?: Map<string, SizeFit>; estText?: string | null}) {
   const row = useRef<HTMLUListElement>(null), items = useRef(new Map<string, HTMLLIElement>());
   const programmatic = useRef(0), settle = useRef<number>(0), first = useRef(true);
   const [avail, setAvail] = useState(380);
@@ -55,16 +57,29 @@ export function Rack({boards, selected, onSelect}: {boards: Surfboard[]; selecte
     if (e.target instanceof HTMLElement && row.current?.contains(e.target)) requestAnimationFrame(() => items.current.get(next.id)?.querySelector('button')?.focus({preventScroll: true}));
   };
 
-  const base = Math.min(avail * 0.9 / maxLen, 7), emph = (b: Surfboard) => Math.min(base * 1.2, (avail * 0.99) / b.length);
+  // One scale for every board (no enlarged selection), so the wall reads true against the ruler. Room is left for the labels.
+  const base = Math.min((avail - 64) * 0.94 / maxLen, 7);
+  const feet = Array.from({length: Math.floor(maxLen / 12)}, (_, i) => i + 1);
+  // The ruler's zero is where the boards actually stand (the foot of the selected board's picture), measured after layout.
+  const [zero, setZero] = useState<number | null>(null);
+  useLayoutEffect(() => {
+    const st = row.current?.parentElement, pic = items.current.get(selected.id)?.querySelector('.qv-rack-b > :first-child');
+    if (st && pic) setZero(Math.round(st.getBoundingClientRect().bottom - pic.getBoundingClientRect().bottom));
+  }, [selected.id, avail, phone, base]);
   return (
     <div className="qv-studio qv-rackwrap">
       <div className="qv-stagewrap" onKeyDown={onKey}>
         <div className="qv-stage qv-room">
+          {zero !== null && <div className="qv-ruler" aria-hidden="true">{[0, ...feet].map((ft) => <i key={ft} style={{bottom: `${zero + ft * 12 * base}px`}}><span>{ft}′</span></i>)}</div>}
+          {estText && <p className="qv-today">Today's size fit · {estText} (model estimate)</p>}
           <ul className="qv-rackrow" ref={row} onScroll={onScroll} aria-label={`Your boards, ${n} in the rack. Left and right arrow keys change the selected board.`}>
             {boards.map((b, i) => (
               <li key={b.id} ref={(el) => { if (el) items.current.set(b.id, el); else items.current.delete(b.id); }} className={b.id === selected.id ? 'on' : ''}>
                 <button type="button" className="qv-rack-b" aria-pressed={b.id === selected.id} tabIndex={b.id === selected.id ? 0 : -1} aria-label={`${b.name}, ${lengthLabel(b.length)}, board ${i + 1} of ${n}${b.demo ? ', example board' : ''}`} onClick={() => onSelect(b.id)}>
-                  <BoardPicture b={b} px={b.id === selected.id ? emph(b) : base} outline={outlines.get(b.id) ?? null} />
+                  <BoardPicture b={b} px={base} outline={outlines.get(b.id) ?? null} />
+                  <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>
+                    {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${ft.board[0]}–${ft.board[1]} ft` : undefined}>{ft.label}</em> : null; })()}
+                  </span>
                 </button>
               </li>
             ))}
@@ -72,9 +87,8 @@ export function Rack({boards, selected, onSelect}: {boards: Surfboard[]; selecte
           {(() => { const ill = illustrationFor(selected, outlines.get(selected.id) ?? null); return ill ? <p className="qv-ill-cap">{ill.caption}</p> : null; })()}
         </div>
         <StageArrows onStep={step} />
-        <SpecCard board={selected} dims={selected} action={null} /> {/* View in 3D sits in the selected-board row under the rack (T-032) */}
       </div>
-      <Strip boards={boards} selectedId={selected.id} onSelect={onSelect} />
+      {phone && <Strip boards={boards} selectedId={selected.id} onSelect={onSelect} />} {/* phones see one board at a time; the wall shows them all at 1440 */}
       <p className="sr-only" role="status" aria-live="polite">{said}</p>
     </div>
   );

@@ -3,13 +3,14 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
 import {Icon} from '../../ui/Icon';
-import {Timeline, windInk, type ChartTab} from './charts';
+import {PolarSwell, TideDay, Timeline, windInk, type ChartTab} from './charts';
 import {bestDaylight, groupDays} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {Skeleton} from '../../ui/Skeleton';
 import {NearshoreCard} from './Nearshore';
 import {BuoyContext} from './BuoyContext';
-import {BoardLine, BuoyNow, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, surfOf} from './SpotPage';
+import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, facingOf, surfOf, type CardKey} from './SpotPage';
+import {SpotBand} from './SpotBand';
 import './forecast.css';
 
 function Sources() {
@@ -49,6 +50,8 @@ export function ForecastView({go}: ViewProps) {
     pickTab(next); requestAnimationFrame(() => document.getElementById(`ctab-${next}`)?.focus());
   };
   const fav = data.state.favorites.includes(spot.id);
+  const [openCard, setOpenCard] = useState<CardKey | null>(null);
+  const toggleCard = (k: CardKey) => setOpenCard((o) => (o === k ? null : k));
   // Phones: the shell's spot switcher already names the spot, so the h1 is for screen readers only (the name shows once).
   const [narrow, setNarrow] = useState(() => matchMedia('(max-width: 860px)').matches);
   useEffect(() => { const mq = matchMedia('(max-width: 860px)'), on = () => setNarrow(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
@@ -85,20 +88,25 @@ export function ForecastView({go}: ViewProps) {
   const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'model forecast · ratings provisional' : 'demonstration week · not live'];
   return (
     <div className="sp">
-      <header className="sp-head">
-        <div className="sp-title">
-          <h1 className={narrow ? 'sr-only' : undefined}>{spot.name}</h1>
-          <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
-          <p>{meta.join(' · ')}</p>
+      <SpotBand spotId={spot.id}>
+        <div className="sp-head">
+          <div className="sp-title">
+            <h1 className={narrow ? 'sr-only' : undefined}>{spot.name}</h1>
+            <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
+            <p>{meta.join(' · ')}</p>
+          </div>
+          <div className="sp-when">
+            <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{isNow ? ' · now' : ''}</span>
+            {!isNow && <button className="btn" onClick={toNow}>Now</button>}
+            <button className="btn sp-map" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
+          </div>
         </div>
-        <div className="sp-when">
-          <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{isNow ? ' · now' : ''}</span>
-          {!isNow && <button className="btn" onClick={toNow}>Now</button>}
-          <button className="btn sp-map" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
-        </div>
-      </header>
+      </SpotBand>
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
+        Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
+        Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}
       <BoardLine boards={data.state.boards} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />
       <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
 

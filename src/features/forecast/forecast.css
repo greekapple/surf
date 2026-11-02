@@ -193,3 +193,74 @@
 .sp-bu-h, .sp-bu-v { margin: 0; font-size: 13px; line-height: 1.4; }
 .sp-bu-v { display: grid; gap: 2px; color: var(--muted); }
 .sp-bu-v span:first-child { color: var(--text); }
+
+/* ---------- T-050 visual language: header band, card icons, mini visuals, expandable cards ---------- */
+.sp-band { position: relative; height: 176px; border-radius: var(--r3); overflow: hidden; background: var(--s2); color: #fff; isolation: isolate; }
+.sp-band > .photo, .sp-band > .sp-plan { position: absolute; inset: 0; margin: 0; border-radius: 0; }
+.sp-band > .photo img { object-position: center 60%; }
+.sp-band > .photo::after { background: linear-gradient(90deg, rgb(7 12 17 / 0.72) 0%, rgb(7 12 17 / 0.35) 55%, rgb(7 12 17 / 0.1) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.45), transparent 60%); }
+.sp-plan svg { display: block; width: 100%; height: 100%; }
+.sp-band.is-plan { color: var(--text); }
+.sp-band.is-plan .sp-band-in { background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 88%, transparent) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 50%, transparent 80%); }
+.sp-band.is-plan .credit { color: var(--muted); text-shadow: none; top: auto; bottom: 8px; }
+.sp-band .credit { top: auto; bottom: 8px; right: 12px; z-index: 3; }
+.sp-band-in { position: relative; z-index: 2; height: 100%; display: flex; align-items: flex-end; padding: 18px 20px 26px; }
+.sp-band-in .sp-head { width: 100%; }
+.sp-band.is-photo .sp-title h1 { color: #fff; text-shadow: 0 1px 12px rgb(0 0 0 / 0.35); }
+.sp-band.is-photo .sp-title p, .sp-band.is-photo .sp-time { color: rgb(255 255 255 / 0.9); }
+.sp-band.is-photo .fc-fav { color: rgb(255 255 255 / 0.9); }
+.sp-band.is-photo .btn { background: rgb(255 255 255 / 0.16); border-color: rgb(255 255 255 / 0.32); color: #fff; backdrop-filter: blur(6px); }
+.sp-band.is-photo .btn:hover { background: rgb(255 255 255 / 0.26); }
+
+.sp-card { position: relative; }
+.sp-card > header { justify-content: flex-start; }
+.sp-card > header > svg { flex: none; color: var(--muted); }
+.sp-card > header > h2 { margin-right: auto; }
+.sp-card.can-open { cursor: pointer; transition: border-color 160ms var(--ease), box-shadow 160ms var(--ease); }
+.sp-card.can-open:hover { border-color: var(--line-2); }
+.sp-card[data-open] { border-color: var(--text); box-shadow: 0 0 0 1px var(--text) inset; }
+.sp-open { display: grid; place-items: center; width: 28px; height: 28px; margin: -4px -6px -4px 0; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer; }
+.sp-open::after { content: ''; position: absolute; inset: 0; border-radius: inherit; } /* the whole card is the tap target */
+.sp-card { border-radius: var(--r2); }
+.sp-open svg { transition: transform 200ms var(--ease); }
+.sp-open[aria-expanded='true'] svg { transform: rotate(180deg); }
+.sp-mini { position: absolute; right: 14px; top: 40px; width: 58px; height: 58px; pointer-events: none; }
+[data-card=swell] .sp-swells, [data-card=wind] .sp-s, [data-card=wind] .sp-v { padding-right: 64px; }
+
+.sp-detail { display: grid; gap: 10px; animation: sp-in 220ms var(--ease) both; }
+@keyframes sp-in { from { opacity: 0.6; transform: translateY(-6px); } }
+.sp-explain { list-style: none; display: grid; gap: 8px; }
+.sp-explain li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 14px; line-height: 1.4; }
+.sp-explain li strong { display: block; font-weight: 650; }
+.sp-explain li b { font-weight: 700; }
+.sp-explain .g b { color: var(--good-ink, var(--good)); } .sp-explain .m b { color: var(--fair-ink, var(--fair)); } .sp-explain .b b { color: var(--bad-ink, var(--bad)); } .sp-explain .u b { color: var(--dim); }
+.sp-explain.ctx li { color: var(--muted); font-size: 13px; }
+.sp-explain-h { margin-top: 6px; font-size: 12px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.sp-trace { display: grid; justify-items: center; gap: 8px; }
+.sp-trace svg { width: min(100%, 360px); height: auto; }
+.sp-trace-k { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.sp-trace-k li { display: inline-flex; align-items: center; gap: 6px; }
+.sp-trace-k i { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+.sp-trace-k i.dash { width: 14px; height: 0; border-radius: 0; border-top: 1.5px dashed var(--muted); background: none; }
+.sp-trace-k li:has(i.sp-rel-ink) { color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .sp-detail { animation: none; } .sp-open svg { transition: none; } }
+@media (max-width: 860px) {
+  .sp-band { height: 116px; border-radius: var(--r2); }
+  .sp-band-in { padding: 10px 12px 10px 14px; align-items: stretch; }
+  /* Phone band: meta on top (credit top right), then the hour, the star and Now along the bottom */
+  .sp-band .sp-head { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: 'meta meta meta' 'time fav now'; align-content: space-between; column-gap: 12px; row-gap: 0; height: 100%; }
+  .sp-band .sp-title, .sp-band .sp-when { display: contents; }
+  .sp-band .sp-title p { grid-area: meta; max-width: 52%; font-size: 12px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .sp-band .fc-fav { grid-area: fav; align-self: end; }
+  .sp-band .sp-time { grid-area: time; align-self: center; }
+  .sp-band .sp-when .btn:not(.sp-map) { grid-area: now; }
+  .sp-band .sp-when { margin-top: 0; }
+  .sp-band .credit { top: 8px; bottom: auto; right: 10px; font-size: 12px; max-width: 44%; }
+  .sp-band .credit a { display: inline-block; box-sizing: border-box; min-height: 44px; padding-top: 26px; line-height: 18px; margin-top: -30px; } /* 44 px tap targets that grow upward only, clear of the controls below */
+  .sp-band .credit a + a { margin-left: 8px; }
+  .sp-mini { display: none; } /* the compass and rose live in the tap-to-open details on phones */
+  [data-card=swell] .sp-swells, [data-card=wind] .sp-s, [data-card=wind] .sp-v { padding-right: 0; }
+  .sp-open { width: 44px; height: 44px; margin: -12px -8px -12px 0; flex: none; }
+  .sp-card > header { min-width: 0; }
+  .sp-card > header > h2 { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+}

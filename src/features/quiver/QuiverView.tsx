@@ -3,6 +3,8 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
 import {scoreBoard} from '../../recommendation/board';
+import {headlineSurf} from '../../services/headlineSurf';
+import {sizeFit} from './fit';
 import {lengthLabel, parseDimension, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
@@ -86,7 +88,7 @@ const TITLES: Record<string, {h: string; sub: string}> = {
 };
 
 export function QuiverView({section, go}: ViewProps) {
-  const {data, view, prefs, setPrefs} = useSwello();
+  const {data, view, prefs, setPrefs, now} = useSwello();
   const boards = data.state.boards, p = data.state.profile;
   const [editing, setEditing] = useState<Surfboard | 'new' | null>(null);
   const [confirmDel, setConfirmDel] = useState(false);
@@ -95,8 +97,15 @@ export function QuiverView({section, go}: ViewProps) {
   const sel = boards.find((b) => b.id === prefs.selectedBoardId) ?? boards[0];
   const select = (id: string) => { setPrefs({selectedBoardId: id}); setConfirmDel(false); };
   const f = view.forecast;
-  const matches = useMemo(() => boards.map((b) => scoreBoard(b, f, p)).sort((a, b) => b.score - a.score), [boards, f, p]);
-  const faceOk = f.availability.face && Number.isFinite(f.face) && !!f.character && f.character !== 'Unknown';
+  // The same headline estimate as the spot page and Home (T-046): Board Match uses its range when the record has no face value.
+  const hs = headlineSurf(view.spot.id, f, {bundle: view.ocean.bundle, nowMs: now});
+  const est: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
+  const matches = useMemo(() => boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score), [boards, f, p, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  const sizeOk = (f.availability.face && Number.isFinite(f.face)) || !!est, charOk = !!f.character && f.character !== 'Unknown';
+  const faceOk = sizeOk && charOk;
+  // Today's size fit per board (real numbers: the board's range vs the estimate), shown on the rack and in the board room.
+  const fits = useMemo(() => new Map(boards.map((b) => [b.id, sizeFit(b, est)])), [boards, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  const estText = est ? `est. ${Math.round(est[0])}–${Math.round(est[1])} ft at ${view.spot.name}` : null;
 
   // The form belongs to the section it was opened in. Any route change (pills, menu, back button) leaves it: close it,
   // or if fields were edited keep it and ask first. Pending Delete confirmations don't survive a section change either.
@@ -134,7 +143,8 @@ export function QuiverView({section, go}: ViewProps) {
   const step = (d: number) => select(boards[(idx + d + boards.length) % boards.length].id);
   // One honest line from Board Match for the selected board: its score and rank at the selected hour, or why there is none.
   const mi = sel ? matches.findIndex((m) => m.board.id === sel.id) : -1, mm = mi >= 0 ? matches[mi] : null;
-  const matchLine = !faceOk ? <><b>Board Match:</b> no recommendation for {view.spot.name}. Live data has offshore height only, which is not surf size.</>
+  const matchLine = !sizeOk ? <><b>Board Match:</b> no recommendation for {view.spot.name}. Live data has offshore height only, which is not surf size.</>
+    : !charOk ? <><b>Board Match:</b> size only for {view.spot.name} ({estText}, model estimate): the full match also needs the wave's character (peaky, soft, steep), which live data doesn't provide yet.</>
     : mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</> : null;
   const A = (b: Surfboard) => (
     <div className="qv-actions">
@@ -153,7 +163,7 @@ export function QuiverView({section, go}: ViewProps) {
       {section === '' && (
         sel && (
           <>
-            <Rack boards={boards} selected={sel} onSelect={select} />
+            <Rack boards={boards} selected={sel} onSelect={select} fits={fits} estText={estText} />
             <section className="qv-selected" aria-label="Selected board">
               <p className="qv-matchline">{matchLine}</p>
               <div className="qv-actions"><button className="btn primary" onClick={() => { select(sel.id); go('quiver', 'showroom'); }}>View in 3D</button><button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>{A(sel)}</div>
@@ -183,7 +193,7 @@ export function QuiverView({section, go}: ViewProps) {
             </div>
           ) : (
             <Suspense fallback={<div className="qv-studio"><div className="qv-stagewrap"><div className="qv-stage"><div className="skel" aria-hidden="true"><i style={{height: 240}} /></div></div><SpecCard board={sel} dims={sel} action={null} /></div></div>}>
-              <BoardRoom board={sel} boards={boards} onSave={data.saveBoard} onFail={() => setFlat(true)} match={matchLine} matchAction={<button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>} />
+              <BoardRoom board={sel} boards={boards} onPick={select} fits={fits} onSave={data.saveBoard} onFail={() => setFlat(true)} match={matchLine} matchAction={<button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>} />
             </Suspense>
           )}
           <div className="qv-showbar">
@@ -198,7 +208,9 @@ export function QuiverView({section, go}: ViewProps) {
         <section className="qv-panel" aria-label="Board match">
           <p className="fine">{view.spot.name} at the selected hour · {p.skill}</p>
           {!faceOk ? (
-            <StateMessage title="Board Match needs a breaking-wave estimate" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
+            sizeOk ? <StateMessage title="Board Match needs the wave's character" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
+              There is a surf estimate here ({estText}, model estimate), but the full match also weighs the wave's character (peaky, soft, steep), which live data doesn't provide yet. My Boards shows each board's size fit for this hour.
+            </StateMessage> : <StateMessage title="Board Match needs a breaking-wave estimate" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
               Live data has offshore wave height only, and offshore height is not the size of the waves a board will ride. SWELLO withholds a recommendation rather than guess.
             </StateMessage>
           ) : (
