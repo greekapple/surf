@@ -12,9 +12,13 @@ import {heroHeight} from '../forecast/model';
 import {rateForecast} from '../../ratings/adapters';
 import {compass, heightValue} from '../../utils/units';
 import {PIcon, type PName} from './icons';
-import {Choice, SpotCover} from './parts';
+import {Choice, SpotCover, entryDate} from './parts';
 import {AlertsManager} from './AlertsPanels';
 import {JournalList, LogForm, type LogInput} from './JournalPanels';
+import {addObservation, checkObservation, downloadText, loadLog, logToCsv, logToJson, removeObservation, saveLog, type ObservationContext} from '../../services/sessionLog';
+import {pickMop} from '../../services/nearshoreSelect';
+import {assignmentFor} from '../../ocean/mop';
+import {faceEstimateView} from '../forecast/estimate';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
 import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
 import {pickBoard} from './recommend';
@@ -116,7 +120,33 @@ export function PersonalView({section, go}: ViewProps) {
   const openAlerts = () => { history.pushState(null, '', location.pathname + location.search + '#alerts'); setHash('#alerts'); if (section !== '') go('personal', ''); };
   const toggleRule = (id: string, enabled: boolean) => setRules(rules.map((r) => (r.id === id ? {...r, enabled} : r)));
 
+  const [obsLog, setObsLog] = useState(() => loadLog());
+  const [obsError, setObsError] = useState('');
+  /** Ground-truth observation (D-3): validated before anything is written; the app's own numbers are stored beside it, never used to change it. */
+  const recordObservation = (v: LogInput): boolean => {
+    const o = v.observation;
+    if (!o) return true;
+    const c = checkObservation({spotId: v.spotId, observedAt: o.observedAt, lo: parseFloat(o.lo), hi: parseFloat(o.hi), unit: p.heightUnit === 'm' ? 'm' : 'ft', quality: o.quality, barNote: o.barNote});
+    if (!c.ok) { setObsError(c.error); return false; }
+    const context: ObservationContext = {}, t = Date.parse(c.value.observedAt), a = assignmentFor(v.spotId), bundle = view.ocean.bundle;
+    if (a && bundle) {
+      const pick = pickMop(t, now, bundle.nearshore, bundle.mop?.[a.mopId]?.records);
+      if (pick.state === 'ok') context.mop = {mopId: a.mopId, product: pick.product, validAt: pick.record.timestamp, hsFt: pick.record.height.value, tpS: pick.record.period.value, dpDeg: pick.record.direction.value};
+    }
+    const f = hourFor(v.spotId);
+    if (f && Math.abs(Date.parse(f.timestamp) - t) <= 5400000) {
+      const spot = spots.find((s) => s.id === v.spotId), h = heroHeight(f, p, view.dataMode);
+      if (h.number !== '—') context.heightLabel = `${h.approx ? '≈ ' : ''}${h.number} ${h.unit} (${h.label})`.trim();
+      const est = spot ? faceEstimateView(f, p) : null;
+      if (est?.state === 'range') context.estimateRangeFt = est.rangeFt;
+    }
+    const next = addObservation(obsLog, c, context);
+    setObsLog(next);
+    setObsError(saveLog(next) ? '' : 'Your observation could not be saved: browser storage is full or blocked.');
+    return true;
+  };
   const logSession = (v: LogInput) => {
+    if (!recordObservation(v)) return false;
     const f = hourFor(v.spotId), spot = spots.find((s) => s.id === v.spotId);
     const id = crypto.randomUUID();
     const session = {id, spotId: v.spotId, timestamp: new Date().toISOString(), boardId: v.boardId || 'none', actualConditions: 'Logged in SWELLO', accuracy: 3, performance: 3, satisfaction: v.satisfaction, notes: v.notes.trim() || 'No notes'};
@@ -137,6 +167,7 @@ export function PersonalView({section, go}: ViewProps) {
       setExtras(next);
       setNote(saveExtras(next) ? '' : 'The photo and tags could not be saved: browser storage is full.');
     }
+    return true;
   };
   const removeSession = (id: string) => {
     data.replace({...data.state, sessions: data.state.sessions.filter((s) => s.id !== id)});
@@ -287,7 +318,7 @@ export function PersonalView({section, go}: ViewProps) {
           <Page title="Surf journal" onBack={toList}>
             <p className="fine">{sessions.length} sessions · on this device</p>
             <div className="pz-journal">
-              <LogForm spots={spots} boards={boards} defaultSpot={view.selected} onSubmit={logSession} error="" />
+              <LogForm spots={spots} boards={boards} defaultSpot={view.selected} heightUnit={p.heightUnit === 'm' ? 'm' : 'ft'} onSubmit={logSession} error={obsError} />
               <JournalList sessions={sessions} extras={extras} spotName={spotName} onRemove={removeSession} />
             </div>
           </Page>
@@ -305,11 +336,21 @@ export function PersonalView({section, go}: ViewProps) {
               {data.error && <p className="fine" style={{color: 'var(--warn)'}}>{data.error}</p>}
               <div className="pzl-actions">
                 <button className="btn" onClick={data.exportData}>Export backup (JSON)</button>
+                <button className="btn" disabled={!obsLog.length} onClick={() => downloadText('swello-session-log.json', logToJson(obsLog), 'application/json')}>Export observations (JSON)</button>
+                <button className="btn" disabled={!obsLog.length} onClick={() => downloadText('swello-session-log.csv', logToCsv(obsLog), 'text/csv')}>Export observations (CSV)</button>
                 {data.lastSaved && <span className="fine">Last saved {timeLabelPT(data.lastSaved)}</span>}
               </div>
               <dl className="kv">
-                <dt>Boards</dt><dd>{boards.length}</dd><dt>Favorite spots</dt><dd>{data.state.favorites.length}</dd><dt>Journal sessions</dt><dd>{data.state.sessions.length}</dd><dt>Alerts</dt><dd>{rules.length}</dd>
+                <dt>Boards</dt><dd>{boards.length}</dd><dt>Favorite spots</dt><dd>{data.state.favorites.length}</dd><dt>Journal sessions</dt><dd>{data.state.sessions.length}</dd><dt>Forecast-check observations</dt><dd>{obsLog.length}</dd><dt>Alerts</dt><dd>{rules.length}</dd>
               </dl>
+              {obsLog.length > 0 && (
+                <ul className="pzl-obslist" aria-label="Recent forecast-check observations">
+                  {obsLog.slice(0, 5).map((o) => (
+                    <li key={o.id}><span>{spots.find((s) => s.id === o.spotId)?.name ?? o.spotId} · {entryDate(o.observedAt)} · {p.heightUnit === 'm' ? `${(o.rangeFt[0] * 0.3048).toFixed(1)}–${(o.rangeFt[1] * 0.3048).toFixed(1)} m` : `${o.rangeFt[0]}–${o.rangeFt[1]} ft`} face · quality {o.quality}/5</span>
+                      <button className="btn" aria-label={`Remove observation from ${entryDate(o.observedAt)}`} onClick={() => { const n = removeObservation(obsLog, o.id); setObsLog(n); saveLog(n); }}>Remove</button></li>
+                  ))}
+                </ul>
+              )}
               <p className="fine">The backup covers profile, boards, favourites and session text. Journal photos, tags, alerts and the profile photo stay in this browser only.</p>
             </div>
             <Group title="Legal"><Row label="Privacy" onClick={() => go('personal', 'privacy')} /><Row label="Terms" onClick={() => go('personal', 'terms')} /></Group>

@@ -66,6 +66,6 @@ Stations registered: San Francisco (9414290), Pillar Point Harbor (9414131), Poi
 
 | Spot | Nearest stations | Your decision |
 |---|---|---|
-| Ocean Beach | San Francisco 6.5 km; Pillar Point Harbor 28.6 km; Point Reyes 48.4 km | ☐ use ____ ☐ none |
-| Linda Mar | Pillar Point Harbor 11 km; San Francisco 23.1 km; Point Reyes 60.4 km | ☐ use ____ ☐ none |
-| Bolinas | San Francisco 22.1 km; Point Reyes 27.3 km; Pillar Point Harbor 48.4 km | ☐ use ____ ☐ none |
+| Ocean Beach | San Francisco 6.5 km; Pillar Point Harbor 28.6 km; Point Reyes 48.4 km | **Proposed: San Francisco (9414290), 6.5 km.** ☐ approve ☐ use ____ ☐ none |
+| Linda Mar | Pillar Point Harbor 11 km; San Francisco 23.1 km; Point Reyes 60.4 km | **Proposed: Pillar Point Harbor (9414131), 11 km.** ☐ approve ☐ use ____ ☐ none |
+| Bolinas | San Francisco 22.1 km; Point Reyes 27.3 km; Pillar Point Harbor 48.4 km | No station within 15 km, so none proposed. ☐ use ____ ☐ none |

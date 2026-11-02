@@ -69,10 +69,14 @@ export function JournalList({sessions, extras, spotName, onRemove}: Common & {on
   );
 }
 
-export interface LogInput {spotId: string; boardId: string; notes: string; satisfaction: number; title: string; tags: string[]; photo?: string}
+export interface LogObservation {observedAt: string; lo: string; hi: string; quality: number; barNote: string}
+export interface LogInput {spotId: string; boardId: string; notes: string; satisfaction: number; title: string; tags: string[]; photo?: string; observation?: LogObservation}
 
-export function LogForm({spots, boards, defaultSpot, onSubmit, error}: {spots: {id: string; name: string}[]; boards: Surfboard[]; defaultSpot: string; onSubmit: (v: LogInput) => void; error: string}) {
+const localNow = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 16); };
+
+export function LogForm({spots, boards, defaultSpot, heightUnit = 'ft', onSubmit, error}: {spots: {id: string; name: string}[]; boards: Surfboard[]; defaultSpot: string; heightUnit?: 'ft' | 'm'; onSubmit: (v: LogInput) => boolean | void; error: string}) {
   const [v, setV] = useState({spotId: defaultSpot, boardId: boards[0]?.id ?? '', notes: '', satisfaction: 3, title: '', tags: ''});
+  const [obs, setObs] = useState({when: localNow(), lo: '', hi: '', quality: 0, barNote: ''});
   const [photo, setPhoto] = useState<string | undefined>();
   const [photoErr, setPhotoErr] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
@@ -84,8 +88,10 @@ export function LogForm({spots, boards, defaultSpot, onSubmit, error}: {spots: {
   };
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    onSubmit({...v, tags: v.tags.split(',').map((t) => t.trim()).filter(Boolean).slice(0, 6), photo});
-    setV({...v, notes: '', title: '', tags: ''}); setPhoto(undefined); if (fileRef.current) fileRef.current.value = '';
+    const wantsObs = obs.lo.trim() !== '' || obs.hi.trim() !== '' || obs.quality > 0 || obs.barNote.trim() !== '';
+    const done = onSubmit({...v, tags: v.tags.split(',').map((t) => t.trim()).filter(Boolean).slice(0, 6), photo, ...(wantsObs ? {observation: {observedAt: new Date(obs.when).toISOString(), lo: obs.lo, hi: obs.hi, quality: obs.quality, barNote: obs.barNote}} : {})});
+    if (done === false) return;
+    setV({...v, notes: '', title: '', tags: ''}); setObs({when: localNow(), lo: '', hi: '', quality: 0, barNote: ''}); setPhoto(undefined); if (fileRef.current) fileRef.current.value = '';
   };
   return (
     <form onSubmit={submit} className="pz-panel pz-form" aria-label="Log a session">
@@ -101,6 +107,20 @@ export function LogForm({spots, boards, defaultSpot, onSubmit, error}: {spots: {
         {photo && <div className="pz-prev" style={{backgroundImage: `url(${photo})`}} role="img" aria-label="Chosen photo preview" />}
         {photoErr && <p className="pz-err" role="alert">{photoErr}</p>}
       </div>
+      <fieldset className="field pzl-obs"><legend>Check the forecast (optional)</legend>
+        <p className="fine">What the waves were really like, so SWELLO can be compared with what you saw. Stays on this device; you can export it.</p>
+        <label className="field"><span>When you surfed</span><input type="datetime-local" value={obs.when} max={localNow()} onChange={(e) => setObs({...obs, when: e.target.value})} /></label>
+        <div className="pzl-obs-range">
+          <label className="field"><span>Smallest face ({heightUnit})</span><input inputMode="decimal" value={obs.lo} onChange={(e) => setObs({...obs, lo: e.target.value})} placeholder="3" /></label>
+          <label className="field"><span>Biggest face ({heightUnit})</span><input inputMode="decimal" value={obs.hi} onChange={(e) => setObs({...obs, hi: e.target.value})} placeholder="5" /></label>
+        </div>
+        <p className="fine">Face height means trough to crest of the wave you rode, not the Hawaiian scale.</p>
+        <div role="radiogroup" aria-label="Wave quality, 1 to 5" className="pzl-obs-q"><span>Wave quality</span>
+          {[1, 2, 3, 4, 5].map((n) => <button key={n} type="button" role="radio" aria-checked={obs.quality === n} className={'btn' + (obs.quality === n ? ' primary' : '')} onClick={() => setObs({...obs, quality: obs.quality === n ? 0 : n})}>{n}</button>)}
+        </div>
+        <p className="fine">1 = poor, 5 = excellent. Rate the waves, not your session.</p>
+        <label className="field"><span>Sandbar or bottom note (optional)</span><input value={obs.barNote} maxLength={200} onChange={(e) => setObs({...obs, barNote: e.target.value})} placeholder="Peak moved south, inside bar working" /></label>
+      </fieldset>
       <p className="fine">Height, condition and swell tags come from the forecast when you log, if it is loaded.</p>
       {error && <p className="pz-err" role="alert">{error}</p>}
       <button className="btn primary" type="submit"><PIcon name="plus" size={16} />Log session</button>

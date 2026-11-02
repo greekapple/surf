@@ -39,7 +39,7 @@ export function renderSpotReview(profiles: SpotProfile[] = spotProfiles): string
     L.push(`| ${sp.name} | | | | | | *${cell(c.note)}* |`);
   }
   L.push('', '## Tide stations waiting for assignment', '', `Stations registered: ${tideStations.map((s) => `${s.name} (${s.id})`).join(', ')}. Today the San Francisco station serves only spots near San Francisco; others get no tide. Distances are straight-line and say nothing about whether a station’s tide matches the break.`, '', '| Spot | Nearest stations | Your decision |', '|---|---|---|');
-  for (const p of profiles) { const sp = evidenceSpots.find((e) => e.id === p.spotId)!; L.push(`| ${sp.name} | ${nearestTideStations(sp.latitude, sp.longitude).map((n) => `${n.station.name} ${n.distanceKm} km`).join('; ')} | ☐ use ____ ☐ none |`); }
+  for (const p of profiles) { const sp = evidenceSpots.find((e) => e.id === p.spotId)!; const near = nearestTideStations(sp.latitude, sp.longitude), best = near[0].distanceKm <= 15 ? near[0] : null; L.push(`| ${sp.name} | ${near.map((n) => `${n.station.name} ${n.distanceKm} km`).join('; ')} | ${best ? `**Proposed: ${best.station.name} (${best.station.id}), ${best.distanceKm} km.** ☐ approve ` : 'No station within 15 km, so none proposed. '}☐ use ____ ☐ none |`); }
   L.push('');
   return L.join('\n');
 }
