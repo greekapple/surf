@@ -465,3 +465,4 @@ Lead audit (artifacts/audit-1102, 1440/390, 0 overflow, 0 page errors) found:
 ## User decision 2026-11-02: narrow ranges by calibrating with real observations (not by display tricks)
 ### T-059 (engineering): observation model on the session log, pairing with spotHour estimates, per-spot robust ratio fit (n ≥ 8), calibrated central + IQR range (≥ ±15%), API for product.
 ### T-060 (product): 2-tap "What did you see?" on the spot page, observed line + calibration counter, journal list with delete.
+- **T-059/T-060 merged (lead, 5491499):** 327 tests, journeys 8/8, t060 0, t059 ALL PASS (test now compares the estimate, not the new observation line), t054 0 (caption regex for ft), t045/t047/t055 0, density pass. Next small: retire the older "Check the forecast" fieldset in Log a session (duplicate path) in favour of the 2-tap report.
