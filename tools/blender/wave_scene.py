@@ -25,6 +25,8 @@ ap.add_argument('--size', default='1280x720')
 ap.add_argument('--samples', type=int, default=32)
 ap.add_argument('--only', type=int, default=-1, help='render a single angle index (for previews)')
 ap.add_argument('--blend', default='', help='also save the .blend here')
+ap.add_argument('--wave', default='', help='licensed wave mesh (FBX); replaces the procedural wave')
+ap.add_argument('--stretch', type=float, default=3.0, help='along-crest stretch for the imported wave')
 a = ap.parse_args(argv)
 
 H = a.face
@@ -185,7 +187,36 @@ def import_surfer(path):
 
 # ---------- build ----------
 water = water_material()
-wave = build_wave(length=max(40.0, 14 * H), slices=220, samples=90, h=H)
+
+
+def import_wave(path, h, stretch):
+    """Imported barrel (TurboSquid 1773957 'waves'): crest along model +y, cross-section along x with the beach at -x,
+    flat water at z~0.009 and the crest at z~0.055. Map it to scene axes (crest along x, beach toward +y), true size."""
+    bpy.ops.import_scene.fbx(filepath=path)
+    ob = [o for o in bpy.context.selected_objects if o.type == 'MESH'][0]
+    bpy.context.view_layer.objects.active = ob
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    zs = [v.co.z for v in ob.data.vertices]
+    base = sorted(zs)[len(zs) // 10]      # the flat water level around the wave
+    k = h / (max(zs) - base)
+    for v in ob.data.vertices:
+        x, y, z = v.co
+        v.co = (y * k * stretch, -x * k, (z - base) * k)
+    ob.name = 'Wave'
+    sol = ob.modifiers.new('Thick', 'SOLIDIFY')
+    sol.thickness = 0.04 * h
+    sub = ob.modifiers.new('Smooth', 'SUBSURF')
+    sub.levels = 1
+    sub.render_levels = 2
+    for p in ob.data.polygons:
+        p.use_smooth = True
+    return ob
+
+
+if a.wave:
+    wave = import_wave(a.wave, H, a.stretch)
+else:
+    wave = build_wave(length=max(40.0, 14 * H), slices=220, samples=90, h=H)
 wave.data.materials.append(water)
 sea = ocean_plane(water)
 sea.scale = (max(200, 60 * H), 120, 1)
@@ -210,6 +241,10 @@ surfer = import_surfer(a.surfer) if a.surfer else placeholder_surfer()
 sx = -0.12 * max(40.0, 14 * H)
 fy, fz = profile(0.75, 0.0, H)
 surfer.location = (sx, fy * 0.6, H * 0.42)
+if a.wave:
+    # on the open face in front of the curl: a little toward the beach from the crest line, ~40% up the face
+    sx, fy = -0.15 * H * a.stretch, 0.9 * H / 0.6
+    surfer.location = (sx, fy * 0.6, H * 0.35)
 surfer.rotation_euler = (math.radians(-25), 0, math.radians(-75))
 
 # sky + sun
