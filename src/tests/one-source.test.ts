@@ -97,3 +97,21 @@ test('spotHourOf is the single record-to-view conversion', () => {
   const f = recs('spot-2')[1], a = spotHourOf(spot('spot-2'), f, now, profile);
   assert.equal(a.validTime, f.timestamp); assert.equal(a.spotId, 'spot-2'); assert.equal(a.surf.headline.kind, 'estimate');
 });
+
+test('T-057 day card: the main number is spotHour at the chosen hour; the envelope is unchanged; the hour is named', () => {
+  const records = recs('spot-2'), key = pacificDate(new Date(t * 1000).toISOString()), s = spot('spot-2'), r = dayRange(s, records, key, now, profile);
+  assert.ok(r.typical); const ty = r.typical!;
+  const hr = spotHour(s, records, Date.parse(ty.atIso), profile)!;
+  assert.equal(hr.validTime, ty.atIso); assert.ok(hr.surf.headline.kind === 'estimate');
+  assert.equal(ty.loFt, (hr.surf.headline as any).loFt); assert.equal(ty.hiFt, (hr.surf.headline as any).hiFt); assert.equal(ty.hour.surf.value, hr.surf.value);
+  // the envelope still covers the typical hour and is the min of lows / max of highs over the same hours
+  assert.ok(r.loFt! <= ty.loFt && r.hiFt! >= ty.hiFt); assert.equal(r.kind, 'estimate'); assert.match(r.label!, /^Est\. \d+–\d+ ft$/);
+  assert.match(ty.short, /^(best|mid) \d{1,2}[ap]$/); assert.match(ty.aria, /^typical for the day: /);
+});
+test('T-057 day card: with nothing rated the median-size daylight hour stands in and says "mid"', () => {
+  // an unknown wind record has no wind => unrated; strip wind from records
+  const records = recs('spot-2').map((f) => ({...f, availability: {...f.availability, wind: false}, evidence: f.evidence && {...f.evidence, windSpeed: {...f.evidence.windSpeed, value: null}}}));
+  const r = dayRange(spot('spot-2'), records as any, pacificDate(new Date(t * 1000).toISOString()), now, profile);
+  if (r.typical) assert.equal(r.typical.how, 'median');
+  assert.equal(dayRange(spot('spot-2'), [], 'x', now, profile).typical, null);
+});

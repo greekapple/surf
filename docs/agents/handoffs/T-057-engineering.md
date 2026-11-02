@@ -1,0 +1,7 @@
+# T-057 handoff (engineering): day cards you can plan with
+
+- `services/spotHour.ts`: `dayRange` now also returns `typical` — the one daylight hour the card stands for (best-rated hour; the median-size hour when nothing is rated), with its `spotHourOf`, `short` ("best 7a" / "mid 12p") and an aria sentence. The envelope fields (`loFt/hiFt/label/basis`) are unchanged.
+- `SpotPage.tsx` `DayStrip`: the card's big number is the typical hour's range; the quiet line under it reads "est. · best 7a" (no new boxes); the aria-label and title name the hour and the daylight range; the selected day's envelope shows as one quiet line under the strip: "Range over daylight: 5–14 ft (estimated, 11 daylight hours)". Small CSS in forecast.css (day padding 12→9 px to keep the page ≤ 2,200 px).
+- Tests (`one-source.test.ts`): main number == `spotHour` at the chosen hour (same range and value string), envelope contains it and keeps its label, median fallback, empty day. 318 pass; tsc, build clean.
+- Browser (5185): journeys 8/8, t045 ALL PASS (1197→2197 px at 1440), t055 ALL PASS, density ALL PASS. Shots: `playwright-toolkit/swello/artifacts/t057/{1440,390}-days.png`.
+- Honest note: typical ranges stay wide when the swell is big (9–19 ft Wed) because the unvalidated 0.7–1.4 face factors are wide; this card is now one hour's range, not a wider envelope. Most days say "best 7a" because early hours have the lightest wind.
