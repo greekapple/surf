@@ -3,10 +3,11 @@ import type {QualityFactor} from '../models/index.ts';
 import type {SurfRating} from './types.ts';
 import {categoryForScore} from './engine.ts';
 import {angle} from '../utils/units.ts';
-import {capOnshore} from './windRules.ts';
+import {capOnshore,windCeilings,rangeCeiling} from './windRules.ts';
+import {canPresentBreakingEstimate} from '../utils/waveHeight.ts';
 const clamp=(n:number)=>Math.max(0,Math.min(100,n));
 /** Offshore-potential heuristics, not a nearshore transformation or fitted surfing model. */
-export const provisionalRules={weights:{potential:.4,wind:.3,organization:.3},unknownLocalCap:74,unvalidatedCap:94,lowPotentialCap:39,severeWindCap:39};
+export const provisionalRules={weights:{potential:.4,wind:.3,organization:.3},unknownLocalCap:74,heightPerFt:16,periodPerS:8,unvalidatedCap:94,lowPotentialCap:39,severeWindCap:39};
 export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):SurfRating {
  const required=[['Offshore significant wave height',r.offshore],['Primary swell height',r.primary.height],['Primary swell period',r.primary.period],['Primary swell direction',r.primary.direction],['Wind speed',r.windSpeed],['Wind direction',r.windDirection]] as const;
  const missing=required.filter(([,m])=>m.value===null||!Number.isFinite(m.value)||m.source.validAt!==r.timestamp).map(([n])=>n as string);
@@ -21,7 +22,7 @@ export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):S
  const common={tier:'Provisional' as const,validAt:r.timestamp,mode:sim?'simulation' as const:'retrieved' as const,sources,experimental:true as const,reliability,missing,factors,positive:[] as string[],negative:[] as string[]};
  if(missing.length)return {...common,score:null,baseScore:null,label:'UNRATED',category:'UNRATED',constraints:limited,explanation:'Essential swell and wind inputs are required at this exact forecast time. Missing values do not mean Flat.'};
  // Modest offshore energy rises, then excessive offshore energy is penalized. Units: feet and seconds.
- const heightPotential=clamp(h*25),periodPotential=clamp((t-4)*10);
+ const heightPotential=clamp(h*provisionalRules.heightPerFt),periodPotential=clamp((t-4)*provisionalRules.periodPerS);
  const potential=clamp(.65*heightPotential+.35*periodPotential-Math.max(0,hs-10)*8);
  const relative=s.orientation!==null;
  const relation=relative?(angle(wd,s.orientation!+180)<45?'offshore':angle(wd,s.orientation!)<45?'onshore':'cross-shore'):'unknown';
@@ -39,6 +40,11 @@ export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):S
  if(potential<25){score=Math.min(score,39);constraints.push('Low offshore potential caps the rating at WEAK; this does not establish Flat.');}
  if(wind<25){score=Math.min(score,39);constraints.push('Severe wind penalty caps the rating at WEAK.');}
  if(h===0&&hs===0){score=Math.min(score,24);constraints.push('Zero model offshore energy means POOR offshore potential, not observed Flat surf.');}
- score=Math.min(score,provisionalRules.unvalidatedCap);const category=categoryForScore(score);
- return {...common,score,baseScore,label:category,category,constraints,positive:factors.filter(f=>f.weight>0&&f.score!==null&&f.score>=65).map(f=>f.name),negative:factors.filter(f=>f.weight>0&&f.score!==null&&f.score<50).map(f=>f.name),explanation:`${s.name}: provisional offshore surf potential from supplied swell and wind forecasts. Local breaking conditions remain uncalibrated. ${constraints.at(-1)}`};
+ score=Math.min(score,provisionalRules.unvalidatedCap);
+ // T-055 ceilings: wind relation unknown / fresh cross-shore / a wide estimate range. Each only lowers the score and is reported when it did.
+ const fe=r.faceEstimate?.input,wide=fe&&canPresentBreakingEstimate(fe)?rangeCeiling(fe.rangeFt as [number,number]):null;
+ const ceilings=[...windCeilings(relation,ws),...(wide?[wide]:[])].filter(c=>score>c.limit);
+ for(const c of ceilings){score=Math.min(score,c.limit);constraints.push(c.reason);}
+ const category=categoryForScore(score);
+ return {...common,score,baseScore,label:category,category,constraints,ceilings,positive:factors.filter(f=>f.weight>0&&f.score!==null&&f.score>=65).map(f=>f.name),negative:factors.filter(f=>f.weight>0&&f.score!==null&&f.score<50).map(f=>f.name),explanation:`${s.name}: provisional offshore surf potential from supplied swell and wind forecasts. Local breaking conditions remain uncalibrated. ${constraints.at(-1)}`};
 }

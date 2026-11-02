@@ -87,3 +87,11 @@
 .nb:first-child .nb-rank { color: var(--band); }
 .nb:hover .nb-a { background: color-mix(in srgb, var(--band) 6%, var(--s1)); }
 @media (max-width: 640px) { .nb-when { width: 100%; } .nb-when button { flex: 1; min-height: 44px; } }
+
+/* T-055 loading skeletons: shown until the first retrieval has produced data or failed (never "No forecast data" while waiting). */
+.dsk { min-height: 148px; display: grid; grid-template-columns: 112px 1fr; gap: 14px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r2); }
+.dsk .dc-body { display: grid; align-content: center; gap: 10px; }
+.sk-ph, .sk-l { display: block; border-radius: var(--r1); background: linear-gradient(90deg, var(--s2) 30%, var(--s3) 50%, var(--s2) 70%) 0 0 / 300% 100%; animation: skel 1.4s linear infinite; }
+.sk-ph { min-height: 120px; } .sk-l { height: 14px; } .sk-l.w50 { width: 50%; } .sk-l.w70 { width: 70%; } .sk-l.w90 { width: 90%; }
+.nbsk { min-height: 52px; display: grid; align-items: center; padding: 0 12px; }
+@media (prefers-reduced-motion: reduce) { .sk-ph, .sk-l { animation: none; } }

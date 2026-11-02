@@ -1,5 +1,7 @@
 import type {SurfQuality} from '../models/index.ts';
 import type {SourceInfo} from '../ocean/types.ts';
+import type {Ceiling} from './windRules.ts';
+export type {Ceiling};
 export type RatingCategory='EPIC'|'FIRING'|'GOOD'|'SOLID'|'NOT BAD'|'SURFABLE'|'WEAK'|'POOR'|'FLAT'|'UNRATED';
 export type ReliabilityCategory='HIGH'|'MODERATE'|'LIMITED'|'INSUFFICIENT';
 export interface Calibration {
@@ -22,4 +24,6 @@ export interface SurfRating extends SurfQuality {
  tier?:'Provisional'|'Calibrated';validAt?:string;
  category:RatingCategory;baseScore:number|null;explanation:string;constraints:string[];
  reliability:Reliability;mode:RatingContext['mode'];sources:SourceInfo[];experimental:true;
+ /** Ceilings that actually lowered this score (T-055), each with its reason. Empty or absent when none did. */
+ ceilings?:Ceiling[];
 }
