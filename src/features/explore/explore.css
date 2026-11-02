@@ -202,6 +202,12 @@
   .xgrab i { width: 40px; height: 5px; border-radius: 3px; background: var(--line-2, #c7ccd1); }
   .xsheet.phone .xsearch { margin: 0 12px 10px; box-shadow: none; background: color-mix(in srgb, var(--text) 6%, var(--bg)); border-color: transparent; }
   .xsheet.phone .xsearch input { font-size: 16px; }
+  /* T-034 phone density: 12 px between separate controls */
+  .xsheet.phone .xgrab { margin-bottom: 12px; }
+  .xfabgrp { gap: 12px; background: none; border: 0; box-shadow: none; }
+  .xfabgrp > * + * { border-top: 0; }
+  .xfabgrp .xfab { background: var(--xc); border: 1px solid var(--xc-line); box-shadow: var(--xc-sh); border-radius: 12px !important; }
+  .xt-thin { gap: 12px; }
   .xsheet.phone .xlist { flex: 1; padding: 0 8px 8px; }
   /* Peek: name + rating, then the labelled height beside the one action, then the wind line */
   .xsheet.phone .xco { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'h h' 't g' 'w w'; gap: 4px 12px; align-items: center; padding: 0 16px 12px; }
