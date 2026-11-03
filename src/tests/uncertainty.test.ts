@@ -38,7 +38,7 @@ test('model spread: per-hour ratio of the breaking height across models; models 
   const h = s.byHour.get(new Date(T * 1000).toISOString())!; assert.equal(h.models, 3); assert.ok(!s.modelsUsed.includes('ecmwf_wam025'));
   assert.ok(Math.abs(h.ratio - (1.5 / 1.2) ** 0.8) < 0.02, `breaking height scales about with Hs^0.8 (ratio ${h.ratio})`);
   assert.equal(normalizeSpread(multi({meteofrance_wave: 1.5}), ob).byHour.size, 0); assert.equal(normalizeSpread({hourly: {}}, ob).byHour.size, 0); assert.equal(normalizeSpread(null, ob).byHour.size, 0);
-  assert.equal(normalizeSpread(multi({meteofrance_wave: 1.5, gwam: 1.2}), evidenceSpot('cs-pismo')).byHour.size, 0, 'a spot without a profile has no spread');
+  assert.equal(normalizeSpread(multi({meteofrance_wave: 1.5, gwam: 1.2}), evidenceSpot('cs-rincon')).byHour.size, 0, 'a spot without a profile (Rincon, refused by the wrap rule) has no spread');
 });
 test('model spread fetch: one request per spot, cached for 10 minutes, failure is silent; the URL asks for the documented models', async () => {
   clearSpread(); const ob = evidenceSpot('spot-2'); let calls = 0; const fetchJson = async () => { calls++; return multi({meteofrance_wave: 1.5, gwam: 1.1}); };
