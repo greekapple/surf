@@ -1,7 +1,7 @@
 import type {Measurement} from '../ocean/types.ts';
 export function sourceStatus(m:Measurement,now=Date.now()){
  if(m.value===null)return 'Data unavailable';
- if(m.source.kind==='simulation')return 'Simulation — Not Actual Forecast';
+ if(m.source.kind==='simulation')return 'Simulation: not an actual forecast';
  if(m.source.delivery==='saved')return m.source.kind==='observation'?'Saved observation':'Saved forecast';
  const valid=Date.parse(m.source.validAt),retrieved=Date.parse(m.source.retrievedAt);
  if(!Number.isFinite(valid)||!Number.isFinite(retrieved))return 'Timestamp unavailable';
