@@ -44,7 +44,7 @@ const deriveFacing = (spotId: string) => {
   return {text: word, deg, basis: 'coastline geometry', sources: [{url: `https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/${pts[0].id}_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal`, site: 'CDIP coastline geometry (facing)',
     title: `CDIP MOP shore normals (agency data) of ${pts.map((p) => `${p.id} ${p.shoreNormalDeg}°`).join(', ')}, within ${DERIVE.radiusKm} km; circular mean ${deg}°, spread ±${Math.round(dev)}°`, retrievedOn: scan.retrievedOn}]};
 };
-const SITE: Record<string, string> = {surfnerd: 'Surfnerd', 'surf-forecast': 'Surf-Forecast.com', wannasurf: 'Wannasurf', surfatlas: 'The Surf Atlas'};
+const SITE: Record<string, string> = {surfnerd: 'Surfnerd', 'surf-forecast': 'Surf-Forecast.com'};
 const out: any[] = [];
 for (const r of input) {
   const e = range(r.swellExposure), w = r.swellWorkable && Number.isFinite(r.swellWorkable.fromDeg) ? [r.swellWorkable.fromDeg, r.swellWorkable.toDeg] as [number, number] : null;

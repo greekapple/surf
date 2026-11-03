@@ -155,7 +155,7 @@ export const guideFacts: GuideFacts[] = [
    },
    {
     "url": "https://www.wannasurf.com/spot/North_America/USA/California/San_Mateo/mavericks/index.html",
-    "site": "wannasurf",
+    "site": "Wannasurf",
     "title": "Wannasurf spot guide: Mavericks",
     "retrievedOn": "2026-11-02"
    }
@@ -1196,13 +1196,13 @@ export const guideFacts: GuideFacts[] = [
    },
    {
     "url": "https://thesurfatlas.com/surfing-in-the-usa/rincon-point/",
-    "site": "surfatlas",
+    "site": "The Surf Atlas",
     "title": "The Surf Atlas spot guide: Rincon",
     "retrievedOn": "2026-11-02"
    },
    {
     "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/rincon/index.html",
-    "site": "wannasurf",
+    "site": "Wannasurf",
     "title": "Wannasurf spot guide: Rincon",
     "retrievedOn": "2026-11-02"
    }
