@@ -61,7 +61,7 @@ test('headlineSurf: the range is built from the central height; narrower than th
 });
 test('headlineSurf: a calibrated range is unchanged in kind (n observations, calibration label) and has no interval object', () => {
   const f = toLegacy(normalizeOpenMeteo(evidenceSpot('spot-2'), marine(1.5), weather, new Date(T * 1000).toISOString())[1]), base = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any;
-  const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: new Date(T * 1000).toISOString(), loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: base.centralFt, loFt: base.loFt, hiFt: base.hiFt, method: base.method, validAt: '', offshoreHsFt: 5, primaryTpS: 14, basis: 'central' as const}});
+  const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: new Date(T * 1000).toISOString(), loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: base.centralFt, loFt: base.loFt, hiFt: base.hiFt, method: base.method, validAt: '', offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const}});
   const cal = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: Array.from({length: 8}, (_, i) => ob(i)), spread: null}) as any;
   assert.equal(cal.calibration.n, 8); assert.equal(cal.interval, undefined); assert.ok(Math.abs(cal.calibration.ratio - 4 / base.centralFt) < 1e-9);
 });
@@ -71,7 +71,7 @@ test('T-073 review fixes: the legacy band is labelled when a record has no centr
   const h = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any;
   assert.match(h.methodLabel, /fixed 0\.7–1\.4 band \(older cached data\)/); assert.equal(h.interval.components.length, 0); assert.match(h.interval.note, /Fixed 0\.7–1\.4 band/);
   const {fitFor} = await import('../services/calibrationMath.ts');
-  const ob = (i: number, basis?: 'central') => ({id: 'x' + i, schema: 1 as const, spotId: 'spot-2', observedAt: '', loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: 8, loFt: 6, hiFt: 11, method: 'v1' as const, validAt: '', offshoreHsFt: 5, primaryTpS: 14, ...(basis ? {basis} : {})}});
+  const ob = (i: number, basis?: 'surf-height') => ({id: 'x' + i, schema: 1 as const, spotId: 'spot-2', observedAt: '', loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: 8, loFt: 6, hiFt: 11, method: 'v1' as const, validAt: '', offshoreHsFt: 5, primaryTpS: 14, ...(basis ? {basis} : {})}});
   assert.equal(fitFor(Array.from({length: 8}, (_, i) => ob(i)), 'spot-2', 'v1').n, 0, 'pairs from the old fixed-band midpoint are not mixed into a fit');
-  assert.equal(fitFor(Array.from({length: 8}, (_, i) => ob(i, 'central')), 'spot-2', 'v1').status, 'active');
+  assert.equal(fitFor(Array.from({length: 8}, (_, i) => ob(i, 'surf-height')), 'spot-2', 'v1').status, 'active');
 });

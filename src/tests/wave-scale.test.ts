@@ -22,9 +22,9 @@ test('bands are contiguous and eight, each with a media id', () => {
   SCALE_BANDS.forEach((b, i) => { assert.equal(b.media, `ai-scale-${b.id}`); if (i) assert.equal(b.lo, SCALE_BANDS[i - 1].hi); });
 });
 
-test('a presentable estimate wins and is labelled "Est. … at the break"', () => {
+test('a presentable estimate wins and is labelled "Est. … surf height"', () => {
   const s = sel({estimateRangeFt: [4, 6], estimateText: '4–6 ft', offshoreFt: 9, offshoreText: '9 ft', demoFaceFt: 12, demoText: '12 ft'});
-  assert.equal(s.source, 'estimate'); assert.equal(id(s.band), '4-6ft'); assert.equal(s.label, 'Est. 4–6 ft at the break'); assert.equal(s.note, null); // [4,6] ends on the 6 ft edge: one band, not two
+  assert.equal(s.source, 'estimate'); assert.equal(id(s.band), '4-6ft'); assert.equal(s.label, 'Est. 4–6 ft surf height'); assert.equal(s.note, null); // [4,6] ends on the 6 ft edge: one band, not two
 });
 
 test('a range spanning two bands uses the band of its midpoint and says so', () => {

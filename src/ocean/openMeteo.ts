@@ -15,7 +15,7 @@ export const absent=(unit:Measurement['unit'],source:SourceInfo,reason:string):M
 /** Unvalidated breaking-wave range from primary swell, or the refusal reason. Not fed into ratings. */
 export function faceEstimate(s:SpotEvidence,offshore:Measurement,primary:OceanSwell,secondary:OceanSwell|null):FaceEstimate{
  const c=breakingProfile(s.id),r=estimateBreaking({swellHsFt:primary.height.value,periodS:primary.period.value,directionDeg:primary.direction.value,combinedHsFt:offshore.value,secondaryHsFt:secondary?.height.value??null},c,s.orientation);
- return r.ok?{input:r.input,centralFt:r.centralFt}:{refusal:r.reason};
+ return r.ok?{input:r.input,centralFt:r.nearshoreFt,breakingFt:r.centralFt}:{refusal:r.reason};
 }
 interface OpenMeteoResponse{__retrievedAt?:string;__issuedAt?:string|null;__sourceURL?:string;__cache?:string;latitude?:number;longitude?:number;hourly?:Record<string,unknown[]>;hourly_units?:Record<string,string>}
 export function normalizeOpenMeteo(s:SpotEvidence,marine:OpenMeteoResponse|null,weather:OpenMeteoResponse|null,retrievedAt:string):OceanRecord[]{

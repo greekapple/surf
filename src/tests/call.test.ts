@@ -44,8 +44,8 @@ test('the call at 6:46 PM in November reads Dark with the next window the follow
   assert.equal(c.verdict, 'Dark'); assert.equal(c.window, null); assert.ok(c.nextWindow); assert.match(c.nextWindow!.label, /AM|PM/); assert.match(c.why[0], /^It is dark\. The next window is tomorrow /);
   assert.ok(Date.parse(c.nextWindow!.start) > Date.parse('2026-11-03T02:46:00Z')); assert.match(c.basis, /Our own rules/);
 });
-test('skill-aware: the same 5+ ft hour is Skip for a beginner (reason says why) and not Skip for an expert', () => {
-  const r = recs(1.5), ctx = ctxFor(r, noonNov2), f = at(r, noonNov2);
+test('skill-aware: the same big hour (surf height above 4 ft) is Skip for a beginner (reason says why) and not Skip for an expert', () => {
+  const r = recs(2.4), ctx = ctxFor(r, noonNov2), f = at(r, noonNov2);
   const b = callFor(spot, f, prof('Beginner'), ctx), e = callFor(spot, f, prof('Expert'), ctx);
   assert.equal(b.verdict, 'Skip'); assert.match(b.why[0], /beginner range \(up to 4 ft\)/);
   assert.notEqual(e.verdict, 'Skip'); assert.ok(SKILL_RANGE_FT.Beginner.max < SKILL_RANGE_FT.Intermediate.max && SKILL_RANGE_FT.Intermediate.max < SKILL_RANGE_FT.Expert.max);

@@ -142,7 +142,7 @@ export function HomeView({go}: ViewProps) {
                 </li>
               ))}
             </ol>}
-        <p className="hd-fine">Ratings are provisional model scores. Surf heights are estimates of the breaking wave (or labelled offshore), not measurements.</p>
+        <p className="hd-fine">Ratings are provisional model scores. Surf heights are model estimates of the height surf reports quote (about the nearshore wave height), or labelled offshore; not measurements.</p>
       </section>
     </div>
   );

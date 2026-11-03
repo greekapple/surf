@@ -1,5 +1,5 @@
 /** In-app session log (T-041, decision D-3): the only ground truth for the rating. Local to this browser, never uploaded.
- *  Heights are stored in FEET of face height (trough to crest), the same quantity as the "Est. X–Y ft at the break" labels.
+ *  Heights are stored in FEET of face height (trough to crest), the same quantity as the "Est. X–Y ft surf height" labels (the surf-report convention).
  *  No data is scraped or imported from anywhere else. */
 export const SESSION_LOG_KEY = 'swello-session-log';
 export const SESSION_LOG_SCHEMA = 1;
@@ -12,7 +12,7 @@ export interface ObservationContext {
   estimateRangeFt?: [number, number] | null; // the app's own breaking estimate range for that hour, if one existed
 }
 /** The model's breaking estimate for the observed spot-hour, captured when the observation was logged (past forecasts are not kept). `centralFt` is the midpoint of the uncalibrated range. */
-export interface ModelPair {centralFt: number; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; validAt: string; offshoreHsFt: number | null; primaryTpS: number | null; /** 'archived' = what this device had shown before the session (T-064); 'current' = the run at logging time. */ source?: 'archived' | 'current'; leadH?: number; /** 'central' = centralFt is the method's central height (T-073). Pairs without it used the midpoint of the old fixed band and are not mixed into a fit. */ basis?: 'central'}
+export interface ModelPair {centralFt: number; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; validAt: string; offshoreHsFt: number | null; primaryTpS: number | null; /** 'archived' = what this device had shown before the session (T-064); 'current' = the run at logging time. */ source?: 'archived' | 'current'; leadH?: number; /** 'surf-height' = centralFt is the surf height by the common convention (T-077). Pairs without it (the old fixed-band midpoint, or T-073's breaking-height centre) are not mixed into a fit. */ basis?: 'surf-height'}
 export interface SessionObservation {
   id: string; schema: 1; spotId: string;
   observedAt: string;          // ISO UTC, when the surf was observed (start of session)

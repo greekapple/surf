@@ -35,7 +35,7 @@ export interface ScaleInput {
 export interface ScaleSelection {
   /** Index into SCALE_BANDS, or null when the hour has no usable height. */
   band: number | null; source: ScaleSource;
-  /** What the height is, always naming its source: "Est. 4–6 ft at the break", "4.1 ft offshore, not surf size". */
+  /** What the height is, always naming its source: "Est. 4–6 ft surf height", "4.1 ft offshore, not surf size". */
   label: string;
   /** Extra honesty line: a range that spans two bands, a height below the smallest band, or no height at all. */
   note: string | null;
@@ -44,7 +44,7 @@ export interface ScaleSelection {
 export function selectScaleBand(i: ScaleInput): ScaleSelection {
   const r = i.estimateRangeFt;
   if (r && finite(r[0]) && finite(r[1]) && r[1] >= r[0] && r[0] >= 0) {
-    const lo = bandIndexFor(r[0]), top = bandIndexForTop(r[1], r[0]), label = `Est. ${i.estimateText ?? `${r[0]}–${r[1]} ft`} at the break`;
+    const lo = bandIndexFor(r[0]), top = bandIndexForTop(r[1], r[0]), label = `Est. ${i.estimateText ?? `${r[0]}–${r[1]} ft`} surf height`;
     if (lo !== null && top !== null && lo !== top) {
       const mid = (r[0] + r[1]) / 2, m = bandIndexFor(mid)!;
       return {band: m, source: 'estimate', label, note: `The estimate spans the ${SCALE_BANDS[lo].label} and ${SCALE_BANDS[top].label} bands. Showing the band of its midpoint (${Number.isInteger(mid) ? mid : mid.toFixed(1)} ft).`};
