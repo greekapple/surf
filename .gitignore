@@ -14,3 +14,7 @@ tools/blender/assets/turbosquid-*/
 
 # Waves derived from the licensed TurboSquid mesh (no redistribution): build locally with tools/blender/wave_scene.py --glb
 public/media/scale3d-live/*.glb
+
+# wave-v3 profile atlases (licensed-derived, TurboSquid rows): build locally with tools/blender/build_atlas.sh
+/public/media/scale3d-atlas/
+__pycache__/
