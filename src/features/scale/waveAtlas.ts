@@ -38,7 +38,7 @@ const smooth = (a: number, b: number, x: number) => { const t = clamp((x - a) / 
 /** Sections: the break point surges and the lip throws in pulses that travel down the line; none near the surfer. */
 export function sections(m: AtlasMeta, x: number, t: number): number {
   const lam = 0.32 * m.break_len_m, ts = 0.55 * m.cycle_s;
-  return 0.45 * Math.sin(2 * Math.PI * (x / lam - t / ts)) * smooth(-0.1 * lam, 0.25 * lam, x) * (1 - smooth(0.55 * m.break_len_m, m.break_len_m, x));
+  return 0.28 * Math.sin(2 * Math.PI * (x / lam - t / ts)) * smooth(-0.1 * lam, 0.25 * lam, x) * (1 - smooth(0.55 * m.break_len_m, m.break_len_m, x));
 }
 
 /** Fractional stage at along-crest x (and time t). Shoulder: H/depth rises toward 0.78 on the bed slope; past the break the
