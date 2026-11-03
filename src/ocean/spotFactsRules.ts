@@ -59,7 +59,7 @@ export const WINDOW_HALF_WIDTH_DEG = 60;
 export function clampWindow(fromDeg: number, toDeg: number, facingDeg: number, half = WINDOW_HALF_WIDTH_DEG): [number, number] | null {
   const a = rel(fromDeg, facingDeg), b = rel(toDeg, facingDeg); let lo: number, hi: number;
   if (a <= b) { lo = Math.max(a, -half); hi = Math.min(b, half); if (lo > hi) return null; }
-  else { const left = a <= half, right = b >= -half; if (left && right) { lo = -half; hi = half; } else if (left) { lo = a; hi = half; } else if (right) { lo = -half; hi = b; } else return null; }
+  else { const left = a <= half, right = b >= -half; if (left && right) { lo = -half; hi = half; } else if (left) { lo = Math.max(a, -half); hi = half; } else if (right) { lo = -half; hi = Math.min(b, half); } else return null; }
   return [norm(facingDeg + lo), norm(facingDeg + hi)];
 }
 /** The v1 breaking profile for guide facts, or null when estimates are not allowed. window = the guide's swell range; minPeriod generic; shelter 1; face factors the shared unvalidated 0.7–1.4 band. */
