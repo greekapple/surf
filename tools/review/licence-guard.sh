@@ -8,7 +8,8 @@ cmd=$(python3 -c 'import json,sys
 try: print(json.load(sys.stdin).get("tool_input",{}).get("command",""))
 except Exception: print("")' 2>/dev/null)
 # only act on commands that could run a push (the hook may be invoked for other Bash calls)
-printf '%s' "$cmd" | grep -Eq 'git' && printf '%s' "$cmd" | grep -Eq '(^|[^[:alnum:]_-])push([^[:alnum:]_-]|$)' || exit 0
+# (a `git … push` within one shell segment, or a --push flag such as `gh repo create --push`; JS `arr.push(` and prose don't count)
+printf '%s' "$cmd" | tr ';&|' '\n\n\n' | grep -Eq '(^|[^[:alnum:]_.-])git([[:space:]]+(-C|-c|--git-dir|--work-tree)[[:space:]]+[^[:space:]]+|[[:space:]]+-[^[:space:]]+)*[[:space:]]+push([[:space:]]|$)|--push([[:space:]=]|$)' || exit 0
 
 # strict mode for anything not a single plain `git push <remote> <refs>`: --all/--mirror/--tags, several pushes, git global
 # options before `push` (e.g. -C), aliases or scripts. Then every local branch ahead of its remote base must be clean (fails closed).
