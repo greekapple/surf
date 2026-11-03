@@ -2,6 +2,7 @@ import type {Forecast,UserProfile} from '../models/index.ts';
 import type {SpotEvidence,Measurement} from '../ocean/types.ts';
 import type {ForecastPoint,MapLayer,MapReading,MapVariable} from './types.ts';
 import {height,wind,compass} from '../utils/units.ts';
+import {staleness,staleWord,TIDE_MAX_AGE_MS} from '../services/freshness.ts';
 export const mapVariables:Record<MapLayer,MapVariable[]>={SWELL:['Height','Period','Direction'],WIND:['Speed','Direction','Gusts'],WAVES:['Offshore Hs','Period','Direction','Breaking-wave estimate'],TIDE:['Station height','High/low predictions']};
 /** NOAA station metadata checked 2026-10-20; source is retained with the map data. */
 export const tideStation={id:'9414290',name:'San Francisco',latitude:37.806305,longitude:-122.46589,url:'https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/9414290.json'};
@@ -25,7 +26,8 @@ export function layerReading(f:Forecast,layer:MapLayer,variable:MapVariable,seco
  }else{measurement=r?.tide??null;value=r?r.tide.value:null;label='NOAA station tide · MLLW';}
  return {value:value!==null&&Number.isFinite(value)?value:null,unit,label,direction,period,measurement,breaking};
 }
-export function formatMapReading(r:MapReading,p:UserProfile){if(r.value===null)return 'Unavailable';return r.unit==='ft'?height(r.value,p,r.breaking):r.unit==='mph'?wind(r.value,p):r.unit==='deg'?`${compass(r.value)} · ${Math.round(r.value)}°`:`${r.value.toFixed(1)} s`;}
+/** T-086: a reading whose source is a saved copy or older than its refresh limit carries "· saved" / "· stale" (tide predictions get their own 7 h limit). */
+export function formatMapReading(r:MapReading,p:UserProfile,nowMs:number=Date.now()){if(r.value===null)return 'Unavailable';const st=staleness(r.measurement?.source,nowMs,/tide/i.test(r.label)?TIDE_MAX_AGE_MS:undefined),mark=st?` · ${staleWord(st)}`:'';return (r.unit==='ft'?height(r.value,p,r.breaking):r.unit==='mph'?wind(r.value,p):r.unit==='deg'?`${compass(r.value)} · ${Math.round(r.value)}°`:`${r.value.toFixed(1)} s`)+mark;}
 export function buildMapPoints(spots:SpotEvidence[],frame:Forecast[],layer:MapLayer,variable:MapVariable,secondary=false):ForecastPoint[]{
  if(layer==='TIDE'){
   const f=frame.find(f=>f.evidence?.tide.value!==null&&f.evidence?.tide.value!==undefined);

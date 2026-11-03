@@ -111,3 +111,30 @@ test('model spread: a saved or over-2-h-old spread is not used and the headline 
   const h = headlineSurf('spot-2', rec(), {bundle: bundle([mopRec(9)]), nowMs: NOW, observations: []}) as any; assert.match(h.methodLabel, /model-spread term not used \(SAVED copy/);
   clearSpread(); await loadModelSpread(ob, async () => j, NOW - 3 * 3600000); assert.equal(spreadStale('spot-2', NOW)!.reason, 'old'); clearSpread();
 });
+
+import {effectiveRetrieval} from '../ocean/server.ts';
+import {hourFreshness} from '../services/freshness.ts';
+import {formatMapReading} from '../map/model.ts';
+test('Worker 304 revalidation: freshness uses the later of retrievedAt and validatedAt; bad validatedAt is ignored', () => {
+  const base = {retrievedAt: old, issuedAt: null, sourceURL: 'u', cache: 'fresh', model: 'm'};
+  const ok = effectiveRetrieval({...base, validatedAt: fresh} as any, NOW); assert.equal(ok.retrievedAt, fresh); assert.equal(ok.providerRetrievedAt, old); assert.equal(staleness({retrievedAt: ok.retrievedAt}, NOW), null);
+  assert.equal(effectiveRetrieval({...base, validatedAt: future} as any, NOW).retrievedAt, old, 'a future validatedAt is ignored');
+  assert.equal(effectiveRetrieval({...base, validatedAt: 'x'} as any, NOW).retrievedAt, old); assert.equal(effectiveRetrieval(base as any, NOW).retrievedAt, old);
+});
+test('hourFreshness and the map reading mark stale or saved wind/tide; fresh data is unmarked', () => {
+  const f: any = rec(); assert.deepEqual(hourFreshness(f, NOW), {wind: null, tide: null}); assert.deepEqual(hourFreshness({} as any, NOW), {wind: null, tide: null});
+  const g: any = {...f, evidence: {...f.evidence, windSpeed: {...f.evidence.windSpeed, source: {retrievedAt: old}}}}; assert.equal(hourFreshness(g, NOW).wind!.reason, 'old'); assert.equal(hourFreshness(g, NOW).tide, null);
+  const reading = (retrievedAt: string, label = 'Wind speed', delivery?: string) => ({value: 8, unit: 'mph' as const, label, direction: null, period: null, breaking: false, measurement: {value: 8, unit: 'mph', source: {retrievedAt, ...(delivery ? {delivery} : {})}} as any});
+  assert.doesNotMatch(formatMapReading(reading(fresh), defaultProfile, NOW), /stale|saved/); assert.match(formatMapReading(reading(old), defaultProfile, NOW), / · stale$/); assert.match(formatMapReading(reading(fresh, 'Wind speed', 'saved'), defaultProfile, NOW), / · saved$/);
+  assert.doesNotMatch(formatMapReading({...reading(new Date(NOW - 5 * 3600000).toISOString(), 'NOAA station tide · MLLW'), unit: 'ft' as const}, defaultProfile, NOW), /stale/, 'tide predictions are current up to 7 h');
+});
+
+import {withRetrievalMarks} from '../ocean/request.ts';
+test('the Worker body reaches the Open-Meteo normaliser with the lifted time (304) and keeps saved delivery', () => {
+  const payload = {...marine(1.5), hourly: {...marine(1.5).hourly, ...weather.hourly}, hourly_units: {...marine(1.5).hourly_units, ...weather.hourly_units}};
+  const mk = (b: object) => normalizeOpenMeteo(evidenceSpot('spot-2'), withRetrievalMarks({payload, retrievedAt: old, issuedAt: null, sourceURL: 'u', ...b}), withRetrievalMarks({payload, retrievedAt: old, issuedAt: null, sourceURL: 'u', ...b}), new Date(NOW).toISOString());
+  const ws = (b: object) => (mk(b)[1] as any).windSpeed.source;
+  assert.equal(staleness(ws({cache: 'fresh'}), NOW)!.reason, 'old', 'no revalidation: 3 h old is stale');
+  assert.equal(staleness(ws({cache: 'fresh', validatedAt: fresh}), NOW), null, 'revalidated minutes ago is current');
+  assert.equal(staleness(ws({cache: 'stale', validatedAt: fresh}), NOW)!.reason, 'saved', 'saved delivery still wins over a lifted time');
+});

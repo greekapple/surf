@@ -57,7 +57,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
   const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile, nowMs) : null;
   const surf = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
-  const windWords = wind ? `${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}` : null;
+  const windWords = wind ? `${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}${wind.stale ? (wind.stale.reason === 'saved' ? ' (saved data)' : ' (stale data)') : ''}` : null;
   const answer = bet && bet.sized && surf
     ? `${bet.spot.name} is your best bet ${bet.when}, ${bet.window.label}, ${surf}${windWords ? ` and ${windWords}` : ''}.`
     : bet ? `No sized forecast nearby ${bet.when}; ${bet.spot.name} looks best on wind alone, ${bet.window.label}${windWords ? `, ${windWords}` : ''}.`

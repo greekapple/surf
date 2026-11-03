@@ -1,4 +1,6 @@
 import {useMemo, useState, type CSSProperties} from 'react';
+import {hourFreshness} from '../../services/freshness';
+import {StaleTag} from '../../ui/StaleTag';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {rateForecast} from '../../ratings/adapters';
@@ -50,7 +52,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
           <span className="cx-rate">{rating ? <em style={{'--c': BAND_COLOR[bandOf(rating.category)]} as CSSProperties}>{titleCase(rating.category)}</em> : <small>no record</small>}</span>
           <span className="cx-hs">{f ? <>{ht(f.offshore, p)}<small> {p.heightUnit}</small></> : '—'}</span>
           <span className="cx-sw">{f?.primary ? <><DirArrow from={f.primary.direction} size={13} /> {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</span>
-          <span className="cx-wd">{f && Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit}</> : '—'}</span>
+          <span className="cx-wd">{f && Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit}<StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</span>
           <span className="cx-best">{best ? `Best ${weekdayPT(best.timestamp)} ${hourLabel(best.timestamp)}` : ''}</span>
           <span className="cx-act"><button className="btn" onClick={() => open(s.id, 'forecast')}>Forecast</button><button className="btn" aria-label={`${s.name} on the map`} onClick={() => open(s.id, 'explore')}><Icon name="explore" size={16} /></button></span>
         </li>

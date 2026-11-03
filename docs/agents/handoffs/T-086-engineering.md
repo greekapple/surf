@@ -1,0 +1,9 @@
+# T-086 handoff (engineering): freshness marks on every wind/tide surface + validatedAt
+- New `hourFreshness(f, now)`, `staleWord`, `<StaleTag>` (`ui/StaleTag.tsx`, quiet "· stale"/"· saved" with title and aria-label, CSS in `ui/app.css`). Applied to: SpotPage wind and tide cards and the hourly table cells, the timeline tooltip wind/tide rows (`charts.tsx`), Compare, FindSpots, the Welcome sentence's wind words ("(stale data)" / "(saved data)"), plus the earlier headline/Callout/ScaleStage/spotReport/Home labels from `windOf`/`tideOf`.
+- Gap 4 fixed: the Worker's 304 revalidation keeps `retrievedAt` and moves `validatedAt`. `ocean/server.ts effectiveRetrieval` (later of the two; unreadable or future validatedAt ignored; `providerRetrievedAt` kept) is applied to the client metadata and, via `withRetrievalMarks` in `ocean/request.ts`, to the `__retrievedAt` that the Open-Meteo normaliser puts on every Measurement source (the reviewer found the first version only lifted `sourceMetadata` users). Saved delivery still wins. Test runs body -> `withRetrievalMarks` -> `normalizeOpenMeteo` -> `staleness`.
+## Not marked / notes
+- Charts' wind and tide CURVES and the wind rose / WindDial / TideMini carry no mark of their own: the tag sits on the card value and the tooltip. A chart-level source line would be the next step.
+- `PointCard` ("Model point") fetches Open-Meteo directly when opened, so its data is fresh by construction; not marked.
+- `map/model.ts` (`layerReading`/`formatMapReading`, which I also taught the mark) is dead code in the app today (no caller); the live map reads GFS grids through `map/spatial.ts`, which has its own saved-snapshot labelling. `formatMapReading` is tested but unused.
+- t043 failed once with an ERDDAP CORS error (network); passes on rerun and on :5180/:5184.
+- Checks: tsc, 430 tests, build, journeys 8/8, t045/t055/t065/t073/t074/t043 pass. Data-honesty-reviewer run (2 P1s fixed, rest noted).

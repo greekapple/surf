@@ -17,6 +17,8 @@ import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, monotonePath, windVal, type Day} from './helpers';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
+import {hourFreshness} from '../../services/freshness';
+import {StaleTag} from '../../ui/StaleTag';
 import {headlineSurf, headlineText, type HeadlineSurf} from '../../services/headlineSurf';
 import {formatHeight, userHeight} from '../../services/heightMath';
 import type {OceanBundle} from '../../ocean/types';
@@ -123,14 +125,14 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       </Card>
       <Card k="wind" title="Wind" open={open === 'wind'} onToggle={() => onToggle('wind')}>
         {f.availability.wind !== false && fin(f.wind.speed) ? <>
-          <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small>{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
+          <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small><StaleTag s={hourFreshness(f, now).wind} />{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
           <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
           {fin(f.wind.direction) && <WindDial from={f.wind.direction} facing={facing} cls={relClass(rel)} />}
         </> : <p className="sp-s">Wind not in this record.</p>}
       </Card>
       <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk ? <>
-          <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
+          <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
           <TideMini hours={dayHours} at={h.timestamp} extrema={f.tide.extrema?.length ? f.tide.extrema.map((e) => ({timestamp: e.timestamp, v: e.height, type: e.type})) : extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
           <p className="sp-f">NOAA station prediction, not at the beach</p>
         </> : <p className="sp-s">No tide station near this spot.</p>}
@@ -254,8 +256,8 @@ export function HourTable({hours, spot, p, bundle, now, selected, onSelect}: {ho
               <td><span className="st-q" style={{background: BAND_COLOR[bandOf(x.rating.category)]}} />{conditionWord(x.rating.category)}</td>
               <td>{f.primary && fin(f.primary.height) ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /></> : '—'}</td>
               <td>{f.secondary && fin(f.secondary.height) ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /></> : '—'}</td>
-              <td className={`st-wind ${relClass(rel)}`}>{fin(f.wind.speed) ? <>{fin(f.wind.direction) && <DirArrow from={f.wind.direction} size={12} />} {windVal(f.wind.speed, p)} {p.windUnit}<small>{fin(f.wind.gusts) ? `gust ${windVal(f.wind.gusts, p)} · ` : ''}{relWord(rel)}</small></> : '—'}</td>
-              <td>{fin(f.tide.height) ? `${f.tide.height < 0 ? '−' : ''}${ht(Math.abs(f.tide.height), p)} ${u}` : '—'}</td>
+              <td className={`st-wind ${relClass(rel)}`}>{fin(f.wind.speed) ? <>{fin(f.wind.direction) && <DirArrow from={f.wind.direction} size={12} />} {windVal(f.wind.speed, p)} {p.windUnit}<small>{fin(f.wind.gusts) ? `gust ${windVal(f.wind.gusts, p)} · ` : ''}{relWord(rel)}</small><StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</td>
+              <td>{fin(f.tide.height) ? <>{`${f.tide.height < 0 ? '−' : ''}${ht(Math.abs(f.tide.height), p)} ${u}`}<StaleTag s={hourFreshness(f, now).tide} /></> : '—'}</td>
             </tr>
           );
         })}</tbody>

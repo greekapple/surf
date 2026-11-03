@@ -1,4 +1,6 @@
 import {useMemo, useState, type CSSProperties} from 'react';
+import {hourFreshness} from '../../services/freshness';
+import {StaleTag} from '../../ui/StaleTag';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {evidenceSpots} from '../../ocean/spots';
@@ -62,7 +64,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
         <span className="fs-name"><b>{r.s.name}</b><small>{r.s.region}{Number.isFinite(r.dist) ? ` · ${Math.round(r.dist)} mi` : ''}</small></span>
         <span className="fs-hs">{r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit}</small></> : '—'}</span>
         <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{titleCase(r.rating.category)}</em> : <small>no record</small>}</span>
-        <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}</span>
+        <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}{r.f && Number.isFinite(r.f.wind.speed) && <StaleTag s={hourFreshness(r.f, now).wind} />}</span>
         <span className="fs-best">{r.best ? `Best ${weekdayPT(r.best.timestamp)} ${hourLabel(r.best.timestamp)}` : ''}</span>
       </button>
       <button className="star" aria-pressed={fav.includes(r.s.id)} aria-label={`${fav.includes(r.s.id) ? 'Remove' : 'Save'} ${r.s.name}`} onClick={() => data.favorite(r.s.id)}><Icon name="star" size={17} /></button>

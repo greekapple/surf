@@ -393,3 +393,7 @@
 .wordmark { letter-spacing: -0.03em; }
 .sp-title h1, main h1, .hd h1, .qv-head h1, .br-h h2 { letter-spacing: -0.025em; }
 .call-w { font-family: var(--sans); } /* the window's times stay in the data face */
+
+/* T-086: small mark beside a saved or stale wind / tide / height value */
+.stale-tag::before { content: '· '; }
+.stale-tag { display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 500; font-style: normal; color: var(--dim, inherit); opacity: .85; vertical-align: middle; }

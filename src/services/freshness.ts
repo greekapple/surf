@@ -21,3 +21,11 @@ export const firstStale = (srcs: ({delivery?: string; retrievedAt?: string} | nu
 const when = (iso: string) => { const t = Date.parse(iso); return Number.isFinite(t) ? new Date(t).toISOString().replace('T', ' ').replace(/:\d\d(\.\d+)?Z$/, ' UTC') : 'at an unknown time'; };
 /** Short text for a label: "saved copy retrieved … " / "stale: retrieved … (over 2 h ago)". */
 export const staleText = (s: Stale) => s.reason === 'saved' ? `SAVED copy retrieved ${when(s.retrievedAt)}: the latest refresh did not succeed, so this is not live` : s.reason === 'old' ? `STALE: retrieved ${when(s.retrievedAt)}, older than the refresh interval` : `UNVERIFIED: retrieval time ${s.retrievedAt ? when(s.retrievedAt) + ' is in the future' : 'unknown'}`;
+
+/** Per-hour freshness of the wind and tide behind a legacy Forecast (T-086): read from the evidence sources, with the tide's own refresh limit. Null = fresh or no evidence (demonstration data). */
+export function hourFreshness(f: {evidence?: any} | null | undefined, nowMs: number): {wind: Stale | null; tide: Stale | null} {
+  const e = f?.evidence; if (!e) return {wind: null, tide: null};
+  return {wind: firstStale([e.windSpeed?.source, e.windDirection?.source], nowMs), tide: firstStale([e.tide?.source], nowMs, TIDE_MAX_AGE_MS)};
+}
+/** The short mark shown beside a stale value: "saved" for a saved copy, "stale" otherwise. */
+export const staleWord = (s: Stale | null | undefined) => (s ? (s.reason === 'saved' ? 'saved' : 'stale') : '');
