@@ -88,10 +88,10 @@ function specRows(b: Surfboard): [string, string][] {
 }
 
 const TITLES: Record<string, {h: string; sub: string}> = {
-  '': {h: 'My Boards', sub: 'Your collection'},
+  '': {h: 'My boards', sub: 'Your collection'},
   showroom: {h: 'Showroom', sub: 'Inspect and configure one board'},
-  match: {h: 'Board Match', sub: 'Which board for these conditions'},
-  compare: {h: 'Compare Boards', sub: 'Two boards side by side, same scale'},
+  match: {h: 'Board match', sub: 'Which board for these conditions'},
+  compare: {h: 'Compare boards', sub: 'Two boards side by side, same scale'},
 };
 
 export function QuiverView({section, go}: ViewProps) {
@@ -167,7 +167,7 @@ export function QuiverView({section, go}: ViewProps) {
     <div className="qv">
       <header className="qv-head">
         <div><h1>{t.h}</h1><p className="fine">{t.sub} · {boards.length} {boards.length === 1 ? 'board' : 'boards'}</p></div>
-        <button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add Board</button>
+        <button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add board</button>
       </header>
 
       {section === '' && (

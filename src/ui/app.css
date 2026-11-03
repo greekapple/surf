@@ -397,3 +397,7 @@
 /* T-086: small mark beside a saved or stale wind / tide / height value */
 .stale-tag::before { content: '· '; }
 .stale-tag { display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 500; font-style: normal; color: var(--dim, inherit); opacity: .85; vertical-align: middle; }
+
+/* T-088 (design critic): one page-title size and face across screens (was 28 to 52 px); phones 26 px. The Home greeting keeps its own size. */
+main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main .pz h1 { font: 650 32px/1.12 var(--display) !important; letter-spacing: -0.025em; }
+@media (max-width: 860px) { main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main .pz h1 { font-size: 26px !important; } }

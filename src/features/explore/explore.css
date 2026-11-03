@@ -370,3 +370,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* T-058: the phone peek in the quiet style: rating as dot + word (no filled pill), a calm dark button (no blue pill). */
 .xco-go { background: var(--text); color: var(--bg); border-radius: 10px; }
 @media (max-width: 860px) { .xsheet.phone .xco-go { border-radius: 10px; } }
+
+/* T-088 (design critic): the sea-colour legend names what it is (offshore wave height, not surf size). */
+.xleg-k { margin-right: 8px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+@media (max-width: 860px) { .xleg-k { display: none; } } /* phones: the label is in the legend's tap-open note and the layer menu */

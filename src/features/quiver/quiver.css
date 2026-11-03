@@ -462,3 +462,16 @@
 /* The spec panel: hairline, not a boxed card. */
 .br-panel { border: 0; border-left: 1px solid var(--line); border-radius: 0; background: none; box-shadow: none; padding: 4px 0 18px 24px; }
 @media (max-width: 860px) { .br-panel { border-left: 0; padding: 12px 0 18px; } }
+
+/* ---------- T-088 design-critic fixes ---------- */
+/* Showroom phone: the fixed Board Match bar must never cover content (it sat over the size-fit line). */
+@media (max-width: 860px) { .br { padding-bottom: calc(96px + var(--tab-h, 64px) + env(safe-area-inset-bottom)); } }
+/* Quiver dark: the wall is a light gallery in both themes, so its labels use the light palette (dark-theme inks were ~1.5–2:1 on it). */
+:root[data-theme='dark'] .qv-rackwrap { --text: #1d1d1f; --muted: #5e5e63; --dim: #6e6e73; --good-ink: #1d7334; --fair-ink: #7d5f00; --line: #e4e8e7; --s2: #eef1f0; }
+:root[data-theme='dark'] .qv-rackwrap .qv-ruler i { border-top-color: rgb(29 29 31 / 0.18); } :root[data-theme='dark'] .qv-rackwrap .qv-ruler { border-right-color: rgb(29 29 31 / 0.1); }
+/* Showroom hotspots: quiet dots that grow on hover, not heavy rings. */
+/* (the button stays a 44 px tap target; only the visible dot shrinks) */
+.br-hot i { width: 14px; height: 14px; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.18); transition: transform 150ms var(--ease); }
+.br-hot i::after { width: 4px; height: 4px; border-width: 1.5px; }
+.br-hot:hover i, .br-hot:focus-visible i, .br-hot[aria-expanded='true'] i { transform: scale(1.5); box-shadow: 0 0 0 1px #1d1d1f; }
+@media (prefers-reduced-motion: reduce) { .br-hot i { transition: none; } }

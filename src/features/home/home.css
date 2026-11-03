@@ -199,3 +199,8 @@
   .wel-glance div { padding-top: 10px; padding-bottom: 10px; }
   .wel { gap: 12px; }
 }
+
+/* T-088 (design critic): the soft size curve runs in its own strip under the AM/mid/PM bars, never through the numbers. */
+.wk-c button { padding-bottom: 18px; }
+.wk-curve { top: auto; bottom: 4px; height: 12px; }
+.wk-curve path { stroke-opacity: 0.4; }
