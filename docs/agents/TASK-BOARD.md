@@ -490,3 +490,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 
 ## T-106/T-107 (Home round, spec docs/specs/2026-11-03-home-round.md): product t106-home-waves (WaveGlyph, cam-ready hero MediaSlot, card density, 390 photos); engineering t107-week-honest (week typical range, nearby 'stale' label). T-105 toolkit motion checks done (engineering).
 - T-107 merged 5fc6db9 (engineering caceb65) + lead fix (data-honesty P1s: 'at midday' note, curve from midday sizes, stale mark). 465 tests, journeys 8/8, t067 pass.
+- T-106 merged df7d103 (product 2418256): Home waves drawn to scale beside you (hero, cards, week cells), cam-ready hero (own cams first), six-item cards, no photos on Home. 469 tests, build, journeys 8/8, t067/t074 pass, Home +605 B gzip. Lead looked at 1440 and 390. Open: dawn/dusk/night hero tints not captured.
