@@ -1,0 +1,8 @@
+# Codex P2 fixes from the night's merges (product files)
+
+1. **0b95388 SpotPage scale card caption.** The card draws the estimate's range (outer = high, inner = low) beside the person's own height, but its caption described the 3D view ("drawn at 4 ft face · surfer 5′9″"). It now says "The estimate's range, drawn to scale beside you", with the board and "you 6′2″" line unchanged. Offshore and no-estimate lines are unchanged. No numbers in the caption, so the surf range still appears once above the fold (t045). The card's aria-label keeps the range.
+2. **9d8ee35 WeekGrid row curve.** The SVG was 800% of the first cell even with 7 day columns. Its width and point positions now come from the real column count. Measured: the curve ends exactly at the last column (1440: 1336 = 1336; 390: 696 = 696), and the desktop grid has no extra scroll width (1232 = 1232).
+3. **a2848f9 BoardOutline colour.** `effectiveDeck()` (looks.ts) is the showroom's rule: foam for a clear (epoxy) finish, and the resin tint applied multiplicatively at 78% in linear light, as three.js does. Test `board-look.test.ts` compares it with three.js itself for 4 decks × 3 finishes × every tint. `FOAM_HEX` is cross-referenced in studio.ts.
+4. **a2848f9 BoardOutline fins.** `resolvedLook()` (looks.ts) gives the board record's Fins field precedence over the saved cosmetic fins. The showroom's `savedOf` and the 2D renderer now both use it; an explicit draft look still overrides. Tested.
+
+Checks: tsc OK; unit tests 446/446; build OK; t045 54/0; t047 55/0; t067 36/0; t074 28/0; t025 27/0; t035 29/0; density ALL PASS; journeys 8/8. t052 can't run in this worktree (the known hidden-SVG issue behind the licensed 3D; it passes on :5180).

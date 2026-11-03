@@ -14,7 +14,7 @@ export interface ShapeSpec {template: Template; length: number; width: number; t
 export interface BoardEntry {id: string; spec: ShapeSpec; look: Look; tpl?: Promise<Tpl>; tplKey?: string; /** The user's own deck photo (JPEG data URL), straightened with the nose at the left. */ deckTex?: string}
 
 const WHITE = new THREE.Color(1, 1, 1);
-const WOOD = 0xbd9a68, FOAM = 0xece6d6;
+const WOOD = 0xbd9a68, FOAM = 0xece6d6; // FOAM must equal looks.ts FOAM_HEX (the 2D renderer's effectiveDeck mirrors applyLook; test: board-look.test.ts)
 const FOCUS_Y = 15;          // height a single board hovers above the floor in Focus (low, so the contact shadow reads as the board's)
 /** Deck and bottom rest pose: nose pointing away from the viewer (camera azimuth -24°), twisted 25° for a three-quarter view, so the
  *  board reads upright and fills the stage height like the reference showroom instead of lying across it. */

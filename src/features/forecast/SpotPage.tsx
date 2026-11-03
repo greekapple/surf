@@ -7,8 +7,6 @@ import {DirArrow, Icon} from '../../ui/Icon';
 import {rankBoards, recommended} from '../quiver/fit';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
-import {LIVE_CAPTION} from '../scale/waveSpec';
-import {faceRange} from '../../services/scaleMath';
 import {dayRange} from '../../services/spotHour';
 import {pacificDate} from '../../ocean/time';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
@@ -299,11 +297,9 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
   const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
-  // T-082: the card says what the forecast-driven 3D draws for this hour (scale/waveSpec: the estimate's centre via faceRange, surfer 1.75 m / 5'9"),
-  // instead of a fixed size-band poster that may not match the hour. Offshore-only hours say there is no breaking-wave estimate.
-  const fr = faceRange(hs), centreFt = fr ? (fr[0] + fr[1]) / 2 : null;
-  const drawnAt = centreFt === null ? null : p.heightUnit === 'm' ? `${(centreFt * 0.3048).toFixed(1)} m` : `${Math.round(centreFt * 10) / 10} ft`;
-  const scaleLine = drawnAt ? `drawn at ${drawnAt} face · surfer ${p.heightUnit === 'm' ? '1.75 m' : '5′9″'}`
+  // T-098 (Codex P2): the caption describes THIS card's drawing: the estimate's range (outer = high bound, inner = low bound) beside the
+  // person's own height (userHeight), not the 3D view's single face and fixed 5'9" surfer. Offshore-only hours say there is no breaking-wave estimate.
+  const scaleLine = est ? "The estimate's range, drawn to scale beside you"
     : hs.kind === 'offshore' ? `No breaking-wave estimate · ${ht(hs.ft, p)} ${p.heightUnit} offshore swell, not surf size` : 'No breaking-wave estimate for this hour';
   const chart = (
       <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
@@ -331,7 +327,7 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   return (
     <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. ${scaleLine}. Open the full wave scale`}>
       {chart}
-      <span className="sp-scalep-c">{drawnAt && <span>{LIVE_CAPTION}</span>}<span className="sp-scale-at">{scaleLine}</span><span>{mine}</span><span className="sp-link-t">Full wave scale</span></span>
+      <span className="sp-scalep-c"><span className="sp-scale-at">{scaleLine}</span><span>{mine}</span><span className="sp-link-t">Full wave scale</span></span>
     </button>
   );
 }

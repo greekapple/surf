@@ -1,7 +1,7 @@
 import {useId} from 'react';
 import type {Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
-import {loadLook, TINTS, type Look} from './looks';
+import {effectiveDeck, resolvedLook, type Look} from './looks';
 
 /** T-094: the one 2D board renderer (wall, phone strip, board-room rail, Compare, Board Match). Drawn to the board's real length and width from its
  *  type's category outline and its own tail word, in the board's own look (the same `looks` record the 3D showroom uses): deck colour with the resin
@@ -11,13 +11,12 @@ type BoardLike = Pick<Surfboard, 'length' | 'width' | 'type'> & Partial<Pick<Sur
 const TAIL: Record<string, {w: number; notch: number}> = {pin: {w: 0.22, notch: 0}, 'rounded pin': {w: 0.32, notch: 0}, round: {w: 0.42, notch: 0}, diamond: {w: 0.46, notch: 0},
   squash: {w: 0.5, notch: 0}, square: {w: 0.56, notch: 0}, swallow: {w: 0.66, notch: 0.18}};
 const shade = (hex: string, k: number) => { const n = parseInt(hex.slice(1), 16), f = (c: number) => Math.max(0, Math.min(255, Math.round(c * k))); return `rgb(${f(n >> 16)} ${f((n >> 8) & 255)} ${f(n & 255)})`; };
-const mix = (a: string, b: string, t: number) => { const x = parseInt(a.slice(1), 16), y = parseInt(b.slice(1), 16), m = (s: number) => Math.round(((x >> s) & 255) * (1 - t) + ((y >> s) & 255) * t); return `#${[16, 8, 0].map((s) => m(s).toString(16).padStart(2, '0')).join('')}`; };
 
 export function BoardOutline({b, scale = 3.4, look}: {b: BoardLike; scale?: number; look?: Look}) {
   const id = useId().replace(/:/g, '');
-  const lk = look ?? (b.id ? loadLook({id: b.id, fins: b.fins, type: b.type}) : null);
-  const tint = lk ? TINTS.find((t) => t.key === lk.tint) : undefined;
-  const deck = lk ? (tint && tint.key !== 'none' ? mix(lk.deck, tint.hex, 0.35) : lk.deck) : '#e9e5dc';
+  // T-098: the record's Fins wins over the saved cosmetic fins (as in the showroom); an explicit draft look still overrides.
+  const lk = look ?? (b.id ? resolvedLook({id: b.id, fins: b.fins, type: b.type}) : null);
+  const deck = lk ? effectiveDeck(lk) : '#e9e5dc'; // the showroom's own colour rule (clear finish = foam, multiplicative tint)
   const L = b.length * scale, W = b.width * scale, t = b.type;
   const nose = t === 'Longboard' || t === 'Funboard' || t === 'Soft-top' ? 0.62 : t === 'Fish' || t === 'Midlength' || t === 'Hybrid' || t === 'Groveler' ? 0.42 : 0.2;
   const typeTail = t === 'Gun' || t === 'Step-up' ? 'pin' : t === 'Fish' ? 'swallow' : t === 'Longboard' || t === 'Soft-top' ? 'round' : 'squash';

@@ -80,3 +80,25 @@ export function loadLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
 export function saveLook(id: string, look: Look): boolean {
   try { localStorage.setItem(LOOKS_KEY, JSON.stringify({...readAll(), [id]: look})); return true; } catch { return false; }
 }
+
+/** T-098 (Codex P2): the look a board is SHOWN with: the saved cosmetic look, but the board record's own Fins field wins when it says something
+ *  (the same precedence the showroom's saved state uses), so editing Fins updates the wall, Compare and the showroom alike. */
+export function resolvedLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
+  const look = loadLook(b);
+  return b.fins && b.fins.trim() ? {...look, fins: finsFromText(b)} : look;
+}
+
+/** The foam colour a clear (epoxy) finish shows instead of the deck colour; the showroom's Studio uses the same value. */
+export const FOAM_HEX = '#ece6d6';
+const toLin = (c: number) => { const v = c / 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+const toSrgb = (v: number) => Math.round(255 * Math.max(0, Math.min(1, v <= 0.0031308 ? v * 12.92 : 1.055 * v ** (1 / 2.4) - 0.055)));
+const rgbLin = (hex: string) => [16, 8, 0].map((s) => toLin((parseInt(hex.slice(1), 16) >> s) & 255));
+
+/** T-098 (Codex P2): the effective deck colour, computed exactly as the showroom renders it (Studio.applyLook): foam for a clear finish, and a resin
+ *  tint applied multiplicatively at 78% in linear light (three.js colour management). Returns sRGB hex. */
+export function effectiveDeck(look: Pick<Look, 'deck' | 'finish' | 'tint'>): string {
+  const base = rgbLin(look.finish === 'clear' ? FOAM_HEX : look.deck);
+  const tint = TINTS.find((t) => t.key === look.tint);
+  const out = tint && tint.key !== 'none' ? (() => { const t = rgbLin(tint.hex); return base.map((c, i) => c + (c * t[i] - c) * 0.78); })() : base;
+  return '#' + out.map((v) => toSrgb(v).toString(16).padStart(2, '0')).join('');
+}

@@ -48,7 +48,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
         <thead><tr><th scope="col" className="wk-spot">Spot</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
         <tbody>{rows.map(({spot, cells}) => {
           // The row's soft size curve: daily midpoints of the surf estimate, drawn behind the cells (estimate days only).
-          const pts = cells.map((c, i) => (c.dr.kind === 'estimate' && c.dr.loFt !== null && c.dr.hiFt !== null ? [(i + 0.5) / DAYS, 1 - ((c.dr.loFt + c.dr.hiFt) / 2) / max] as const : null));
+          const pts = cells.map((c, i) => (c.dr.kind === 'estimate' && c.dr.loFt !== null && c.dr.hiFt !== null ? [(i + 0.5) / keys.length, 1 - ((c.dr.loFt + c.dr.hiFt) / 2) / max] as const : null));
           const segPaths: string[] = []; let cur = '';
           pts.forEach((q) => { if (q) cur += `${cur ? 'L' : 'M'}${(q[0] * 800).toFixed(1)},${(8 + q[1] * 40).toFixed(1)}`; else if (cur) { segPaths.push(cur); cur = ''; } }); if (cur) segPaths.push(cur);
           return (
@@ -61,7 +61,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
                 const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit}` : off ? `surf estimate unavailable, offshore up to ${n(c.dr.hiFt!)} ${unit}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>
-                    {i === 0 && segPaths.length > 0 && <svg className="wk-curve" viewBox="0 0 800 56" preserveAspectRatio="none" aria-hidden="true">{segPaths.map((d) => <path key={d} d={d} />)}</svg>}
+                    {i === 0 && segPaths.length > 0 && <svg className="wk-curve" style={{width: `${keys.length * 100}%`}} viewBox="0 0 800 56" preserveAspectRatio="none" aria-hidden="true">{segPaths.map((d) => <path key={d} d={d} />)}</svg>}
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>
                       <span className={est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none'}>{label}</span>
                       <span className="wk-bar" aria-hidden="true">{c.segs.map((s, k) => <i key={k} className={s.state} style={{background: s.color}} />)}</span>

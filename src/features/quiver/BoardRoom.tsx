@@ -3,7 +3,7 @@ import type {Surfboard} from '../../models/index';
 import {Icon} from '../../ui/Icon';
 import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
-import {SWATCHES, finsFromText, loadLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
+import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
 import {tracedTpl} from './traced';
 import {Studio, type Anchor, type BoardEntry, type Preset} from './studio';
@@ -32,8 +32,7 @@ const finWord = (f: FinSet) => FIN_SETS.find((x) => x.id === f)!.label;
 interface Draft {id: string; dims: Dims; look: Look; tail: string; construction: string}
 /** The board as saved. Recorded fins win over the stored look, so the model and the fins fact never disagree. */
 const savedOf = (b: Surfboard): Draft => {
-  const look = loadLook(b);
-  return {id: b.id, dims: pickDims(b), look: said(b.fins) ? {...look, fins: finsFromText(b)} : look, tail: said(b.tail) ?? '', construction: said(b.construction) ?? ''};
+  return {id: b.id, dims: pickDims(b), look: resolvedLook(b) /* the record's Fins wins (looks.ts, shared with the 2D renderer) */, tail: said(b.tail) ?? '', construction: said(b.construction) ?? ''};
 };
 /** Unsaved drafts survive leaving the board room (Edit, Board Match, another board) for this browser session; Save or Discard clears them. */
 const DRAFTS = 'swello-boardroom-drafts';
