@@ -26,4 +26,6 @@ export interface SurfRating extends SurfQuality {
  reliability:Reliability;mode:RatingContext['mode'];sources:SourceInfo[];experimental:true;
  /** Ceilings that actually lowered this score (T-055), each with its reason. Empty or absent when none did. */
  ceilings?:Ceiling[];
+ /** True when the hour is dark (T-064): no rating at night. */
+ dark?:boolean;
 }
