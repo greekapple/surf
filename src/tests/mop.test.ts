@@ -10,9 +10,9 @@ const hdr = 'time,station,latitude[unit="degrees_north"],longitude[unit="degrees
 const fc = [hdr, '2026-11-01T00:00:00Z,SF023,37.748,-122.518,1.5,14.2,226,1', '2026-11-01T03:00:00Z,SF023,37.748,-122.518,1.4,14.2,227,2', '2026-11-01T06:00:00Z,SF023,37.748,-122.518,,13.3,229,1'].join('\n');
 
 test('only reviewed assignments feed the app; candidates stay out of it', () => {
-  assert.deepEqual(assignedMopIds(), ['SF023']);
+  assert.deepEqual(assignedMopIds(), ['SF023', 'SM375']); // SM375 by the T-071 facing-match rule (Linda Mar faces NW, SM375 normal 320°)
   for (const a of mopAssignments) assert.ok(['sourced', 'owner-reviewed'].includes(a.status) && a.sourceUrl.startsWith('https://'));
-  for (const c of mopCandidates) for (const id of c.mopIds) assert.ok(!mopAssignments.some((a) => a.mopId === id), `${id} is a candidate, not an assignment`);
+  for (const c of mopCandidates) for (const id of c.mopIds) assert.ok(!mopAssignments.some((a) => a.mopId === id) || mopAssignments.some((a) => a.mopId === id && /facing-match rule/.test(a.note)), `${id} is a candidate unless the T-071 facing-match rule assigned it`);
 });
 
 test('every registry point matches the measured candidate file (lookup script output)', () => {
@@ -59,7 +59,7 @@ test('service ingests exactly the assigned MOP ids, and the browser routes only 
   assert.equal(serverProviderPath(mopURL('SF023', 'forecast')), '/api/provider?key=nearshore-SF023-forecast');
   assert.equal(serverProviderPath(mopURL('SF023', 'nowcast')), '/api/provider?key=nearshore-SF023');
   assert.equal(serverProviderPath(mopDasURL('SF023')), '/api/provider?key=nearshore-SF023-das');
-  assert.equal(serverProviderPath(mopURL('SM375', 'forecast')), null, 'unassigned candidate is not ingested');
+  assert.equal(serverProviderPath(mopURL('SM376', 'forecast')), null, 'unassigned candidate is not ingested');
 });
 
 test('distance helper', () => { assert.ok(Math.abs(distanceKm(37.759, -122.51, 37.74811, -122.51886) - 1.44) < 0.05); });

@@ -21,7 +21,7 @@ test('estimate present: label is "Est. X–Y ft" and uses the current-hour recor
 test('estimate refused: falls back to a labelled offshore height, never a bare number',()=>{
  const [s]=strip(['spot-2'],recs('spot-2',180)); // swell from the south, outside the window
  assert.equal(s.heightKind,'offshore');assert.match(s.heightLabel,/^\d+\.\d ft offshore$/);assert.doesNotMatch(s.heightLabel,/Est\./);
- const [other]=strip(['spot-3'],recs('spot-3',270)); // no profile for Linda Mar
+ const [other]=strip(['cs-pismo'],recs('cs-pismo',270)); // no published facing or window for Pismo
  assert.equal(other.heightKind,'offshore');
 });
 test('missing data: no record, or no offshore height, says so',()=>{
@@ -38,5 +38,5 @@ test('demo spot: labelled offshore, flagged demo',()=>{
 test('saved order is kept, duplicates and unknown ids are dropped, units follow the profile',()=>{
  const r=[...recs('spot-2',270),...recs('spot-3',270)];
  assert.deepEqual(strip(['spot-3','nope','spot-2','spot-3'],r).map(s=>s.id),['spot-3','spot-2']);
- const [m]=spotStrip(allSpots,recs('spot-3',270),['spot-3'],now,{...profile,heightUnit:'m'});assert.match(m.heightLabel,/ m offshore$/);
+ const [m]=spotStrip(allSpots,recs('cs-pismo',270),['cs-pismo'],now,{...profile,heightUnit:'m'});assert.match(m.heightLabel,/ m offshore$/);
 });

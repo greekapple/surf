@@ -5,7 +5,7 @@ export const coastServiceSpots=[{id:'spot-1',lat:37.9,lon:-122.644,mlat:37.839,m
 /** Extra buoys for the buoy-context card (kept in sync with src/ocean/buoys.ts by a test): NDBC text files and the CDIP 029 realtime CSV. */
 export const contextBuoyKeys=['ndbc-46012','ndbc-46214','cdip-029'];
 /** CDIP MOP transects the service ingests (assigned points only; kept in sync with src/ocean/mop.ts by a test). */
-export const mopServiceIds=['SF023'];
+export const mopServiceIds=['SF023','SM375'];
 /** Extra CO-OPS stations whose tide predictions are ingested (kept in sync with src/ocean/tideStations.ts by a test). */
 export const tideServiceStationIds=['9414131','9415020'];
 export const serviceSpots=[{id:'spot-2',lat:37.759,lon:-122.51,mlat:37.75,mlon:-122.6},{id:'spot-0',lat:37.90835046,lon:-122.682137,mlat:37.88,mlon:-122.73},{id:'spot-3',lat:37.6,lon:-122.5,mlat:37.6,mlon:-122.57},...coastServiceSpots];
