@@ -17,8 +17,9 @@ test('textbook cases: a steep slope with a short, small swell is plunging (ξ ab
 test('textbook cases: a very steep slope with a long, low swell is surging', () => {
   const xi = iribarren(0.2, 0.5, 12)!; assert.ok(xi > 4 && xi < 4.5); assert.equal(classify(xi), 'surging');
 });
-test('class boundaries: ξ < 0.4 spilling, 0.4–2.0 plunging (inclusive), > 2.0 surging; bad input is unknown', () => {
-  assert.deepEqual([0.399, 0.4, 1, 2.0, 2.001].map(classify), ['spilling', 'plunging', 'plunging', 'plunging', 'surging']); assert.equal(SPILLING_MAX, 0.4); assert.equal(PLUNGING_MAX, 2.0);
+test('class boundaries are the deep-water ξ₀ ones (Battjes 1974): ξ₀ < 0.5 spilling, 0.5–3.3 plunging (inclusive), > 3.3 surging; the ξb values 0.4 and 2.0 are NOT used (T-085); bad input is unknown', () => {
+  assert.deepEqual([0.499, 0.5, 1, 3.3, 3.301].map(classify), ['spilling', 'plunging', 'plunging', 'plunging', 'surging']); assert.equal(SPILLING_MAX, 0.5); assert.equal(PLUNGING_MAX, 3.3);
+  assert.deepEqual([0.45, 2.5].map(classify), ['spilling', 'plunging'], 'the two bands the earlier thresholds misclassified (0.4–0.5 and 2.0–3.3)');
   assert.equal(classify(null), 'unknown'); assert.equal(classify(NaN), 'unknown');
   assert.equal(iribarren(0, 1, 10), null); assert.equal(iribarren(0.02, -1, 10), null); assert.equal(iribarren(0.02, 1, 0), null); assert.equal(iribarren(NaN, 1, 10), null);
 });
@@ -28,7 +29,7 @@ test('unknown when there is no defensible slope; never a guessed value; only lis
   assert.equal(slopeFor('nope'), null);
 });
 test('Ocean Beach (coarse mean slope) is spilling for typical swell; an injected steep slope gives plunging; a missing swell is unknown with a reason', () => {
-  const ob = breakerType({id: 'spot-2'}, hour(5, 14)); assert.equal(ob.type, 'spilling'); assert.ok(ob.xi! > 0.05 && ob.xi! < 0.4); assert.match(ob.basis, /Battjes 1974/);
+  const ob = breakerType({id: 'spot-2'}, hour(5, 14)); assert.equal(ob.type, 'spilling'); assert.ok(ob.xi! > 0.05 && ob.xi! < 0.5); assert.match(ob.basis, /Battjes 1974/);
   const steep = breakerType({id: 'x'}, hour(3.3, 8), {spotId: 'x', tanBeta: 0.1, mopId: 'T', depthM: 10, distanceM: 100, basis: 'test slope.', computedOn: '2026-11-02'}); assert.equal(steep.type, 'plunging');
   const none = breakerType({id: 'spot-2'}, hour(0, 14)); assert.equal(none.type, 'unknown'); assert.match(none.basis, /no usable primary swell/);
   assert.ok(Math.abs(breakerType({id: 'spot-2'}, hour(1 * FT, 10)).h0M! - 1) < 1e-9);

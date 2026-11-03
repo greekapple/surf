@@ -88,8 +88,8 @@ test('callFor carries the estimated breaker type; a plunging break at size is "e
   const saved = nearshoreSlopes[0].tanBeta; nearshoreSlopes[0].tanBeta = 0.1;
   try {
     const b = callFor(spot, f, prof('Intermediate'), ctx), e = callFor(spot, f, prof('Expert'), ctx);
-    assert.equal(b.breaker.type, 'plunging'); assert.equal(b.verdict, 'Skip'); assert.match(b.why[0], /^Plunging and .*: experienced surfers only\.$/);
-    assert.ok(!/experienced surfers only/.test(e.why[0])); assert.ok(e.why.some((w) => /Plunging breaker: hollow and powerful/.test(w)));
+    assert.equal(b.breaker.type, 'plunging'); assert.equal(b.verdict, 'Skip'); assert.match(b.why[0], /^Plunging \(est\.\) and .*: experienced surfers only\.$/);
+    assert.ok(!/experienced surfers only/.test(e.why[0])); assert.ok(e.why.some((w) => /Plunging breaker \(est\. from a mean seabed slope\): hollow and powerful/.test(w)));
   } finally { nearshoreSlopes[0].tanBeta = saved; }
   const other = allSpots.find((s) => s.id === 'spot-3')!; assert.equal(callFor(other, {...f, spotId: 'spot-3'}, prof('Expert'), ctx).breaker.type, 'unknown');
 });
