@@ -7,7 +7,7 @@ cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}" || exit 0
 # worktree commits live in the shared repo: review from the main checkout, where Codex can read .git
 cd "$(dirname "$(cd "$(git rev-parse --git-common-dir)" && pwd)")" || exit 0
 SHA=$(git rev-parse --short "${1:-HEAD}" 2>/dev/null) || exit 0
-MARK=.git/codex-usage-limit
+MARK="$(git rev-parse --git-common-dir)/codex-usage-limit"
 [ -f "$MARK" ] && [ "$(cat "$MARK")" = "$(date +%F)" ] && { echo "codex review skipped: usage limit reached today"; exit 0; }
 command -v codex >/dev/null || { echo "codex review skipped: codex CLI not found"; exit 0; }
 OUT="docs/reviews/$(date +%F)-$SHA.md"; RAW=$(mktemp)
