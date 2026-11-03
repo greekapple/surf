@@ -1,6 +1,6 @@
 # Forecast trust: one answer per spot, a verdict you can act on, and a feedback loop that learns
 
-Status: DRAFT for user approval · 2026-11-02 · author: lead · inputs: lead's critical review (fresh 1440/390 audit at 6:46 PM), Surfline teardown refs (`18-teardown-2026-10-31/surfline/04`, `07`), Quiver (quiversurf.app, reviewed in Chrome 2026-11-02), wave-v3 plan.
+Status: APPROVED (user, 2026-11-02: "yes to all": verdict words Go/Worth a look/Skip/Dark, NWS hazard banner, skill-aware calls) · 2026-11-02 · author: lead · inputs: lead's critical review (fresh 1440/390 audit at 6:46 PM), Surfline teardown refs (`18-teardown-2026-10-31/surfline/04`, `07`), Quiver (quiversurf.app, reviewed in Chrome 2026-11-02), wave-v3 plan.
 
 ## Context
 - Spot page (`src/features/forecast/SpotPage.tsx`) and Home (`src/features/home/HomeView.tsx`) read one selector since T-055 (`src/services/spotHour.ts`), with ratings in `src/ratings/*`, estimates in `src/services/headlineSurf.ts`, and observations + calibration from T-059/T-060 (`src/services/calibration.ts`).
