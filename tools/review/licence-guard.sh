@@ -14,7 +14,9 @@ printf '%s' "$cmd" | grep -Eq 'git' && printf '%s' "$cmd" | grep -Eq '(^|[^[:aln
 # options before `push` (e.g. -C), aliases or scripts. Then every local branch ahead of its remote base must be clean (fails closed).
 npush=$(printf '%s' "$cmd" | grep -Eo '(^|[^[:alnum:]_-])push([^[:alnum:]_-]|$)' | wc -l | tr -d ' ')
 if [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git[[:space:]]+push([[:space:]]|$)' \
-   || printf '%s' "$cmd" | grep -Eq -- '--(all|mirror|tags)'; then
+   || printf '%s' "$cmd" | grep -Eq -- '--(all|mirror|tags|follow-tags)' \
+   || [ "$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//' | tr ' ' '\n' | grep -v '^-' | grep -c .)" -lt 2 ]; then
+  # (no explicit refspec: push.default / remote.<name>.push decide what goes out, so check every branch)
   git fetch -q --all 2>/dev/null
   for ref in $(git for-each-ref --format='%(refname:short)' refs/heads); do
     base=""
