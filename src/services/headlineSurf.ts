@@ -49,12 +49,12 @@ const METHOD_LABEL = {'mop-v2': `Surf height (common convention: about the CDIP 
 /** The range for one hour (T-073): built from the central height and its documented uncertainty; the legacy fixed band only when the central height is unavailable (a record cached before this existed). */
 function withInterval(spotId: string, hour: Forecast, ctx: HeadlineContext, method: 'mop-v2' | 'v1', central: number | undefined, legacy: [number, number], mopOverOffshore: number | null) {
   const spread = ctx.spread !== undefined ? ctx.spread : spreadAt(spotId, hour.timestamp);
-  const iv = finite(central) ? intervalFor({method, centralFt: central, modelSpread: spread, mopOverOffshore}) : null;
+  const lead = Math.max(0, (Date.parse(hour.timestamp) - (ctx.nowMs ?? Date.now())) / 3600000), iv = finite(central) ? intervalFor({method, centralFt: central, modelSpread: spread, mopOverOffshore, leadHours: lead}) : null;
   return iv ? {lo: iv.loFt, hi: iv.hiFt, interval: {halfWidth: iv.halfWidth, components: iv.components, disagree: iv.disagree, note: iv.note}} : {lo: legacy[0], hi: legacy[1], interval: {halfWidth: Math.log(1.4 / 0.7) / 2, components: [], disagree: false, note: 'Fixed 0.7–1.4 band (record cached before the range was built from its uncertainty); no uncertainty breakdown available.'}};
 }
 const methodLabelFor = (spotId: string, m: 'mop-v2' | 'v1', mopId?: string, interval?: {disagree: boolean; components: unknown[]}, breakingFt?: number) => {
   const basis = guideBasis(spotId), assigned = m === 'mop-v2' && mopId && isGuideProfile(spotId) ? `; point ${mopId} assigned by the facing-match rule` : '';
-  return `${METHOD_LABEL[m]}${assigned}${basis ? `; ${basis}` : ''}${interval?.disagree ? '; wave models disagree, so the range is wider' : ''}${interval && interval.components.length === 0 ? '; fixed 0.7–1.4 band (older cached data)' : ''}`;
+  return `${METHOD_LABEL[m]}${assigned}${basis ? `; ${basis}` : ''}${interval?.disagree ? '; wave models disagree, so the range is wider' : ''}${interval && interval.components.length === 0 ? '; fixed 0.7–1.4 band (older cached data)' : '; range = wave-model forecast error vs deep-water buoys (14 days), not a guarantee; bigger waves in a set run higher'}`;
 };
 
 const offshoreOrNone = (hour: Forecast): HeadlineSurf => (!hour?.evidence && hour?.availability?.face && finite(hour.face) ? {kind: 'demonstration', ft: hour.face, label: 'demonstration face · not a forecast'} : finite(hour?.offshore) && hour.offshore >= 0 ? {kind: 'offshore', ft: hour.offshore, label: 'offshore · not surf size'} : {kind: 'none', label: 'No wave height for this hour'});

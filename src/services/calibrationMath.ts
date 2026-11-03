@@ -27,7 +27,7 @@ export function fitFor(log: SessionObservation[], spotId: string, method: Method
   if (n < NEEDED) return {n, needed: NEEDED, status: 'collecting', felt: {...felt, factor: 1}};
   return {n, needed: NEEDED, status: 'active', ratio: median(r) * fc, iqr: [quantile(r, 0.25) * fc, quantile(r, 0.75) * fc], felt: {...felt, factor: fc}};
 }
-/** The calibrated range for one hour: central = ratio × model central; low/high from the observed IQR of the ratio, floored at ±15% of the calibrated central, rounded outward to whole feet. */
+/** The calibrated range for one hour: central = ratio × model central; low/high from the observed IQR of the ratio, floored at ±15% of the calibrated central, rounded outward to whole feet (the same rule as the uncalibrated range since T-078). */
 export function applyFit(fit: CalibrationFit, modelLoFt: number, modelHiFt: number): {loFt: number; hiFt: number; centralFt: number} | null {
   if (fit.status !== 'active' || fit.ratio === undefined || !fit.iqr) return null;
   const mid = (modelLoFt + modelHiFt) / 2, central = fit.ratio * mid;

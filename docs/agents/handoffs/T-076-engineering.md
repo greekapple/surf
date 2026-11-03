@@ -7,3 +7,5 @@ Write-up with numbers: `docs/forecast/OB-BIAS-T076.md`. **No bug found; no code 
 - The γ choice barely matters (0.60 → 0.9x, 0.83 → 1.04x the central height; tested).
 - What remains vs Surfline (8–12 where MOP Hs is 9–11 ft; ours is about 1.3x MOP Hs) is a convention we can't settle without face-height observations; the honest lever is T-059 calibration, which absorbs a constant factor after 8 observations at a spot. I applied no blind 0.77x.
 - Checks: tsc, 401 tests (+4), journeys 8/8, t045, t055, t073 pass. Codex not run.
+
+> Superseded in part by T-078 (`docs/forecast/RANGE-T078.md`): the convention, breaker-index and method-difference terms described above were removed and the range is now built from measured forecast error by lead time.

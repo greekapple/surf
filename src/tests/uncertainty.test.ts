@@ -1,47 +1,50 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {intervalFor, CONVENTION_W, BREAKER_INDEX_W, V1_STEP_W, DISAGREE_HALF} from '../services/uncertainty.ts';
-import {normalizeSpread, loadModelSpread, spreadAt, clearSpread, modelSpreadURL, SPREAD_MODELS} from '../services/modelSpread.ts';
+import {intervalFor, SKILL_FLOOR_W, LEAD_SKILL, skillW, V1_STEP_W, DISAGREE_HALF} from '../services/uncertainty.ts';
+import {normalizeSpread, loadModelSpread, spreadAt, clearSpread, modelSpreadURL, SPREAD_MODELS, MODEL_SKILL, PRUNED_MODELS, PRUNE_HALF_WIDTH, SKILL_AS_OF} from '../services/modelSpread.ts';
 import {headlineSurf} from '../services/headlineSurf.ts';
 import {normalizeOpenMeteo} from '../ocean/openMeteo.ts';
-import {evidenceSpot} from '../ocean/spots.ts';
+import {evidenceSpot, evidenceSpots} from '../ocean/spots.ts';
+import {breakingProfile} from '../ocean/localCalibration.ts';
 import {toLegacy} from '../ocean/bridge.ts';
 
-test('the cited constants are what the documentation says', () => {
-  assert.ok(Math.abs(CONVENTION_W - 0.1195) < 0.001); assert.ok(Math.abs(BREAKER_INDEX_W - 0.1621) < 0.001); assert.ok(Math.abs(V1_STEP_W - 0.1733) < 0.001); assert.ok(Math.abs(DISAGREE_HALF - 0.1500) < 0.001);
+test('the measured constants are what the documentation says', () => {
+  assert.equal(SKILL_FLOOR_W, 0.156); assert.ok(LEAD_SKILL.every((v, i) => i === 0 || v > LEAD_SKILL[i - 1]), 'error grows with lead'); assert.ok(Math.abs(skillW(0) - 0.156) < 1e-9 && Math.abs(skillW(72) - 0.181) < 1e-9 && Math.abs(skillW(36) - 0.1655) < 1e-3 && skillW(500) === 0.425 && skillW(NaN) === 0.156); assert.ok(Math.abs(V1_STEP_W - 0.1733) < 0.001); assert.ok(Math.abs(DISAGREE_HALF - 0.1500) < 0.001);
+  for (const m of ['meteofrance_wave', 'ecmwf_wam025', 'ncep_gfswave016']) assert.ok(MODEL_SKILL[m].halfWidth <= PRUNE_HALF_WIDTH, m); assert.ok(PRUNED_MODELS.every((m) => MODEL_SKILL[m].halfWidth > 0.18)); assert.match(SKILL_AS_OF, /^2026-11-\d\d$/);
 });
-test('inputs agree: a narrow range around the central height (v2 about ±22%, v1 about ±26%), always at least 1 ft wide, never negative', () => {
-  const v2 = intervalFor({method: 'mop-v2', centralFt: 8})!, v1 = intervalFor({method: 'v1', centralFt: 8})!;
-  assert.equal(v2.components.length, 2); assert.ok(Math.abs(v2.halfWidth - Math.sqrt(CONVENTION_W ** 2 + BREAKER_INDEX_W ** 2)) < 1e-9);
-  assert.deepEqual([v2.loFt, v2.hiFt], [6, 10]); assert.ok(v1.hiFt - v1.loFt >= v2.hiFt - v2.loFt - 1); assert.equal(v2.disagree, false);
-  assert.ok(v2.hiFt - v2.loFt < 14 * 0.7 / 1.0, 'narrower than the legacy 0.7–1.4 band (8 ft → 6–12)');
+test('models agree: the range is the measured forecast error at that lead (about ±17% now, ±53% at 7 days) around the central height, rounded outward to whole feet (it contains the stated interval), at least 1 ft wide, never negative', () => {
+  const a = intervalFor({method: 'mop-v2', centralFt: 8})!, b = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.04, models: 3}})!;
+  assert.deepEqual([a.loFt, a.hiFt], [6, 10]); assert.deepEqual([b.loFt, b.hiFt], [6, 10]); for (let c = 1; c <= 12; c += 0.7) { const i = intervalFor({method: 'mop-v2', centralFt: c, leadHours: 30})!; assert.ok(i.loFt <= c * Math.exp(-i.halfWidth) + 1e-6 && i.hiFt >= c * Math.exp(i.halfWidth) - 1e-6, `c=${c} ${i.loFt}–${i.hiFt}`); } assert.equal(a.components.length, 1); assert.equal(a.components[0].id, 'forecast-skill'); assert.equal(b.disagree, false); assert.ok(Math.abs(a.halfWidth - skillW(0)) < 1e-9);
   for (const c of [0.2, 0.5, 1, 3]) { const i = intervalFor({method: 'v1', centralFt: c})!; assert.ok(i.loFt >= 0 && i.hiFt - i.loFt >= 1, `c=${c}`); }
   assert.equal(intervalFor({method: 'v1', centralFt: 0}), null); assert.equal(intervalFor({method: 'v1', centralFt: NaN}), null);
+  assert.ok(intervalFor({method: 'mop-v2', centralFt: 5})!.hiFt - intervalFor({method: 'mop-v2', centralFt: 5})!.loFt <= 3, 'a 5 ft surf height reads about 2–3 ft wide when the models agree');
+  const now = intervalFor({method: 'mop-v2', centralFt: 10, leadHours: 0})!, d3 = intervalFor({method: 'mop-v2', centralFt: 10, leadHours: 72})!, d7 = intervalFor({method: 'mop-v2', centralFt: 10, leadHours: 168})!;
+  assert.ok(now.hiFt - now.loFt < d7.hiFt - d7.loFt && d3.halfWidth > now.halfWidth && d7.halfWidth > d3.halfWidth, 'the range widens with lead time');
 });
-test('inputs disagree: the range widens with the model spread and the method difference; only the wave-model spread (beyond a factor of 1.35) says "disagree"', () => {
-  const methodOnly = intervalFor({method: 'mop-v2', centralFt: 8, mopOverOffshore: 1.8})!; assert.equal(methodOnly.disagree, false, 'v2 vs v1 are two methods, not two sources'); assert.ok(methodOnly.halfWidth > intervalFor({method: 'mop-v2', centralFt: 8})!.halfWidth); assert.doesNotMatch(methodOnly.note, /disagree/);
-  const calm = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.05, models: 3}, mopOverOffshore: 1.04})!, split = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.8, models: 3}, mopOverOffshore: 1.5})!;
-  assert.equal(calm.disagree, false); assert.equal(split.disagree, true); assert.ok(split.halfWidth > calm.halfWidth); assert.ok(split.hiFt - split.loFt > calm.hiFt - calm.loFt + 3);
-  assert.match(split.note, /Wave models disagree/); assert.ok(split.components.some((c) => c.id === 'model-spread') && split.components.some((c) => c.id === 'mop-vs-offshore'));
-  assert.equal(intervalFor({method: 'v1', centralFt: 8, modelSpread: {ratio: 1.8, models: 1}})!.components.some((c) => c.id === 'model-spread'), false, 'one model is not a spread');
-  assert.equal(intervalFor({method: 'v1', centralFt: 8, mopOverOffshore: 3})!.components.some((c) => c.id === 'mop-vs-offshore'), false, 'v1 has no MOP');
+test('models disagree: the range widens to the disagreement (max, not a sum with the skill floor) and says so beyond a factor of 1.35; one model is not a spread', () => {
+  const calm = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.08, models: 3}})!, split = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.8, models: 3}})!;
+  assert.equal(calm.disagree, false); assert.equal(split.disagree, true); assert.ok(split.hiFt - split.loFt >= calm.hiFt - calm.loFt + 2); assert.match(split.note, /Wave models disagree/); assert.equal(split.components.length, 1); assert.equal(split.components[0].id, 'model-spread'); assert.ok(Math.abs(split.halfWidth - Math.log(1.8) / 2) < 1e-9); assert.equal(intervalFor({method: 'mop-v2', centralFt: 8, leadHours: 168, modelSpread: {ratio: 1.3, models: 3}})!.components[0].id, 'forecast-skill', 'at 7 days the measured error already exceeds a modest disagreement');
+  assert.equal(intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.8, models: 1}})!.disagree, false);
+  assert.equal(intervalFor({method: 'mop-v2', centralFt: 8, mopOverOffshore: 3})!.halfWidth, skillW(0), 'the v2-vs-v1 method difference no longer widens a v2 range');
 });
-test('the range grows monotonically with each component and the combination is a quadrature sum', () => {
-  const a = intervalFor({method: 'v1', centralFt: 10})!, b = intervalFor({method: 'v1', centralFt: 10, modelSpread: {ratio: 1.2, models: 2}})!, c = intervalFor({method: 'v1', centralFt: 10, modelSpread: {ratio: 1.6, models: 2}})!;
-  assert.ok(a.halfWidth < b.halfWidth && b.halfWidth < c.halfWidth); assert.ok(Math.abs(b.halfWidth - Math.sqrt(CONVENTION_W ** 2 + V1_STEP_W ** 2 + (Math.log(1.2) / 2) ** 2)) < 1e-9);
+test('v1 adds the measured offshore-to-nearshore step in quadrature; v2 never does', () => {
+  const v2 = intervalFor({method: 'mop-v2', centralFt: 10})!, v1 = intervalFor({method: 'v1', centralFt: 10})!;
+  assert.ok(v1.halfWidth > v2.halfWidth); assert.ok(Math.abs(v1.halfWidth - Math.sqrt(skillW(0) ** 2 + V1_STEP_W ** 2)) < 1e-9); assert.ok(v1.components.some((c) => c.id === 'offshore-step') && !v2.components.some((c) => c.id === 'offshore-step'));
 });
 
 const T = 1792454400, times = Array.from({length: 24}, (_, i) => T + i * 3600);
 const multi = (heights: Record<string, number>, period = 14, dir = 270) => ({hourly: {time: times, ...Object.fromEntries(Object.entries(heights).flatMap(([m, hs]) => [[`swell_wave_height_${m}`, times.map(() => hs)], [`swell_wave_period_${m}`, times.map(() => period)], [`swell_wave_direction_${m}`, times.map(() => dir)], [`wave_height_${m}`, times.map(() => hs + 0.1)]]))}});
-test('model spread: per-hour ratio of the breaking height across models; models with no data are left out; one model gives no spread', () => {
-  const ob = evidenceSpot('spot-2'), s = normalizeSpread(multi({meteofrance_wave: 1.5, gwam: 1.2, ncep_gfswave016: 1.5, ecmwf_wam025: 0}), ob);
-  const h = s.byHour.get(new Date(T * 1000).toISOString())!; assert.equal(h.models, 3); assert.ok(!s.modelsUsed.includes('ecmwf_wam025'));
-  assert.ok(Math.abs(h.ratio - (1.5 / 1.2) ** 0.8) < 0.02, `breaking height scales about with Hs^0.8 (ratio ${h.ratio})`);
+test('model spread: bias-corrected, skill-pruned ratio of the breaking height across models; no-data and pruned models are left out; one model gives no spread', () => {
+  const ob = evidenceSpot('spot-2'), s = normalizeSpread(multi({meteofrance_wave: 1.5, ncep_gfswave016: 1.0, ecmwf_wam025: 1.5, gwam: 0.2}), ob);
+  const h = s.byHour.get(new Date(T * 1000).toISOString())!; assert.equal(h.models, 3); assert.ok(!s.modelsUsed.includes('gwam'), 'gwam is pruned (half-width above the limit)');
+  const c = (hs: number, m: string) => hs / MODEL_SKILL[m].bias; assert.ok(Math.abs(h.ratio - (c(1.5, 'meteofrance_wave') / c(1.0, 'ncep_gfswave016')) ** 0.8) < 0.03, `breaking height scales about with the bias-corrected Hs^0.8 (ratio ${h.ratio})`);
+  // a model that merely runs low or high by its known bias is NOT a disagreement
+  const same = normalizeSpread(multi({meteofrance_wave: 1.5 * 1.015, ncep_gfswave016: 1.5 * 0.835, ecmwf_wam025: 1.5 * 1.045}), ob).byHour.get(new Date(T * 1000).toISOString())!; assert.ok(same.ratio < 1.02, `known biases cancel (ratio ${same.ratio})`);
   assert.equal(normalizeSpread(multi({meteofrance_wave: 1.5}), ob).byHour.size, 0); assert.equal(normalizeSpread({hourly: {}}, ob).byHour.size, 0); assert.equal(normalizeSpread(null, ob).byHour.size, 0);
-  assert.equal(normalizeSpread(multi({meteofrance_wave: 1.5, gwam: 1.2}), evidenceSpot('cs-rincon')).byHour.size, 0, 'a spot without a profile (Rincon, refused by the wrap rule) has no spread');
+  assert.equal(normalizeSpread(multi({meteofrance_wave: 1.5, ncep_gfswave016: 1.1}), evidenceSpots.find((x) => !breakingProfile(x.id))!).byHour.size, 0, 'a spot without a profile has no spread');
 });
 test('model spread fetch: one request per spot, cached for 10 minutes, failure is silent; the URL asks for the documented models', async () => {
-  clearSpread(); const ob = evidenceSpot('spot-2'); let calls = 0; const fetchJson = async () => { calls++; return multi({meteofrance_wave: 1.5, gwam: 1.1}); };
+  clearSpread(); const ob = evidenceSpot('spot-2'); let calls = 0; const fetchJson = async () => { calls++; return multi({meteofrance_wave: 1.5, ncep_gfswave016: 1.0}); };
   const a = await loadModelSpread(ob, fetchJson, 1e12), b = await loadModelSpread(ob, fetchJson, 1e12 + 60000); assert.equal(calls, 1); assert.ok(a && a === b);
   assert.ok(spreadAt('spot-2', new Date(T * 1000).toISOString())!.ratio > 1); await loadModelSpread(ob, fetchJson, 1e12 + 11 * 60000); assert.equal(calls, 2);
   clearSpread(); assert.equal(await loadModelSpread(ob, async () => { throw new Error('offline'); }, 1e12), null); assert.equal(spreadAt('spot-2', new Date(T * 1000).toISOString()), null);

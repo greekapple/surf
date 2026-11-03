@@ -1,45 +1,40 @@
-/** Honest ranges (T-073, carried into T-077). Since T-077 the centre is the SURF HEIGHT by the common convention (about the nearshore significant wave height) instead of the larger breaking height. The widths below were first
- *  derived for the breaking height; the v1 step was RE-MEASURED for the new centre (below), the breaker-index and convention widths are carried over unchanged as conservative widths, not re-derived for the new quantity.
- *  The breaking-wave estimate used to be the central height times a fixed, lead-set band of 0.7 to 1.4. This builds the range from components that each have a stated basis,
- *  combined in quadrature in log space around the central height: range = central × exp(−w) … central × exp(+w), w = √(Σ wᵢ²), then rounded outward to whole feet (at least 1 ft wide).
- *  It is a "likely range", NOT a validated confidence interval: no component has been checked against observed face heights. Calibration from the surfer's own observations (T-059) replaces this range once active.
+/** Honest ranges (T-073, rebuilt in T-078). The headline is the SURF HEIGHT by the common convention (about the nearshore significant wave height, T-077). Its range is the forecast uncertainty of that height, built only from measured
+ *  or observed quantities, around the central height: range = central × exp(−w) … central × exp(+w), whole feet rounded OUTWARD so the displayed range contains the stated interval (at least 1 ft wide).
+ *  It is a "likely range of the forecast height", NOT a validated confidence interval and NOT the wave-to-wave variation inside a set (the biggest waves of a set are higher; for Rayleigh seas H1/10 ≈ 1.27 H1/3, Longuet-Higgins 1952).
+ *  Calibration from the surfer's own observations (T-059) replaces this range once active.
+ *  max(), not a sum, was chosen because both terms describe the same forecast error; a quadrature sum was not tested.
  *
- *  Components (half-widths in ln units; ln(x) ≈ x−1 for small x):
- *  - CONVENTION 0.119 = ln(1.27)/2. ASSUMED convention range (no source found for it): a surf height is quoted somewhere between the significant wave height H1/3 and the larger H1/10. Only the ratio is cited: for
- *    Rayleigh-distributed wave heights H1/10 ≈ 1.27 H1/3 (Longuet-Higgins 1952, "On the statistical distribution of the heights of sea waves", J. Marine Res. 11, 245–266). Applies to every estimate. It may overlap with
- *    the variability inside the other terms, so it can make the range wider than needed (the safe direction). Centred on Hs, it sits at the low end of the H1/3 to H1/10 convention range.
- *  - BREAKER INDEX 0.162 = ln(0.83/0.60)/2, v2 only. v2 stops the shoaling wave where H = γ·h; Battjes & Stive (1985, J. Geophys. Res. 90, 9159–9167) re-analysed laboratory and field data and found γ between 0.60 and 0.83
- *    for plane, bar-trough and bar profiles (mean 0.73; reported in Coastal Wiki "Breaker index" and Roelvink-type reviews). The WIDTH is borrowed from that published spread; it is centred on v2's own γ = 0.78 (not on the paper's 0.73), so the range is symmetric in log space and does not reproduce the paper's 0.60–0.83 band exactly.
- *    Breaker type (spilling vs plunging) does NOT narrow it further: the sources found give one pooled range, not separate ones, so we do not invent split ratios.
- *  - OFFSHORE-TO-NEARSHORE STEP 0.173 = ln(1.40/0.99)/2, v1 only. v1 carries the offshore swell partition to 10 m by linear shoaling (Ks = √(Cg₀/Cg)) times direction and shelter factors. Our own comparison with CDIP MOP SF023 over 782 usable hours
- *    (docs/forecast/data/t008-pairs.csv, re-run for T-077) gave a p10 to p90 spread of MOP Hs ÷ v1 height of 0.99 to 1.40 (median 1.16). That is a WIDTH only: the band sits above 1 (v1 uses the swell partition, which is smaller than the total Hs that MOP
- *    reports), the range is centred on the v1 height, so it does not cover that known low bias (about 14%). Ocean Beach only; against a model, not observed heights.
- *  - MODEL SPREAD √: how much the wave models available for the spot-hour disagree on the breaking height (ln(max/min)/2 over ≥ 2 models; src/services/modelSpread.ts).
-
- *  - METHOD DIFFERENCE (v2 spots): |ln(v2 central / v1 central)|/2 where both exist. v2 (nearshore model) and v1 (offshore formula) are two different methods on the same swell and differ systematically, so this widens the range but is NOT called
- *    "sources disagree". Only the model spread is: a spread of more than a factor of 1.35 between wave models (DISAGREE_HALF) is flagged "sources disagree". */
-export const CONVENTION_W = Math.log(1.27) / 2;
-export const BREAKER_INDEX_W = Math.log(0.83 / 0.60) / 2;
+ *  w = √(wForecast² + wStep²), with
+  - wForecast = max(skillW(lead), d). skillW is the MEASURED forecast error of the wave models (meteofrance_wave, ecmwf_wam025, ncep_gfswave016, pooled) against buoys by lead time: Open-Meteo Marine "previous day N" forecasts vs the total Hs of NDBC 46026 and 46214,
+ *    14 days to 2026-11-03, 660 hours per model and lead, ratio p10 to p90 half-width ln(p90/p10)/2 after dividing each model by its own median ratio: 0.16 at lead 0 days, rising to 0.43 at 7 days (table LEAD_SKILL; docs/forecast/data/model-skill-lead.ts).
+ *    Deep-water buoys, one fortnight, not the surf zone: a measured floor, not a guarantee. d = ln(max/min)/2 over the bias-corrected, skill-pruned wave models for that hour: real disagreement,
+ *    which grows with lead time. max(), not a sum: the disagreement and the skill figure describe the same forecast error, so adding them would count it twice. d above DISAGREE_HALF (a factor of 1.35 between models) is flagged "disagree".
+ *  - wStep = 0.173 = ln(1.40/0.99)/2, v1 only (offshore swell carried to 10 m): the measured scatter of MOP SF023 Hs ÷ the v1 height over 782 hours (docs/forecast/data/t008-pairs.csv). Ocean Beach only; a width, centred on v1, not covering its known 14% low bias.
+ *
+ *  Removed in T-078, with reasons: the surf-height convention term (an assumed H1/3 to H1/10 range with no source, now outside the quantity the user chose); the breaker-index term (it described where waves break, no longer the centre);
+ *  and the v2-vs-v1 "method difference" (two methods on different partitions, not uncertainty about v2). */
+/** Half-width of the forecast error by lead day (0..7): the "pooled" table printed by docs/forecast/data/model-skill-lead.ts (three models, each model's median bias removed, 2026-11-03). All three models are used, not a subset picked after seeing which did best. */
+export const LEAD_SKILL: readonly number[] = [0.156, 0.161, 0.170, 0.181, 0.243, 0.320, 0.360, 0.425];
+export const SKILL_FLOOR_W = LEAD_SKILL[0];
+/** Skill half-width at a lead time in hours (linear between days, held at day 7 beyond). */
+export const skillW = (leadHours: number | undefined) => { const d = Math.max(0, Math.min(7, (Number.isFinite(leadHours) ? (leadHours as number) : 0) / 24)), i = Math.floor(d), f = d - i; return i >= 7 ? LEAD_SKILL[7] : LEAD_SKILL[i] * (1 - f) + LEAD_SKILL[i + 1] * f; };
 export const V1_STEP_W = Math.log(1.40 / 0.99) / 2;
 export const DISAGREE_HALF = Math.log(1.35) / 2;
 export const LEGACY_BAND: [number, number] = [0.7, 1.4];
 
-export interface UncertaintyComponent {id: 'convention' | 'breaker-index' | 'offshore-step' | 'model-spread' | 'mop-vs-offshore'; label: string; halfWidth: number}
-export interface UncertaintyInput {method: 'mop-v2' | 'v1'; centralFt: number; /** max/min of the breaking height across wave models for this hour (≥ 1), with how many models. */ modelSpread?: {ratio: number; models: number} | null; /** v2 central ÷ v1 central for this hour, where both exist. */ mopOverOffshore?: number | null}
+export interface UncertaintyComponent {id: 'forecast-skill' | 'model-spread' | 'offshore-step'; label: string; halfWidth: number}
+export interface UncertaintyInput {method: 'mop-v2' | 'v1'; centralFt: number; /** max/min of the bias-corrected wave-model heights for this hour (≥ 1), with how many models. */ modelSpread?: {ratio: number; models: number} | null; /** hours from now to the hour (the forecast lead); default 0 */ leadHours?: number; /** ignored since T-078 (kept so older callers compile) */ mopOverOffshore?: number | null}
 export interface Interval {loFt: number; hiFt: number; centralFt: number; halfWidth: number; components: UncertaintyComponent[]; disagree: boolean; note: string}
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 
 export function intervalFor(i: UncertaintyInput): Interval | null {
   if (!finite(i.centralFt) || i.centralFt <= 0) return null;
-  const c: UncertaintyComponent[] = [{id: 'convention', label: 'surf-height convention (H1/3 to H1/10)', halfWidth: CONVENTION_W}];
-  c.push(i.method === 'mop-v2' ? {id: 'breaker-index', label: 'breaker index spread (Battjes & Stive 1985, carried over)', halfWidth: BREAKER_INDEX_W} : {id: 'offshore-step', label: 'offshore-to-nearshore step (our Ocean Beach comparison)', halfWidth: V1_STEP_W});
-  const ms = i.modelSpread && finite(i.modelSpread.ratio) && i.modelSpread.ratio >= 1 && i.modelSpread.models >= 2 ? Math.log(i.modelSpread.ratio) / 2 : null;
-  if (ms !== null) c.push({id: 'model-spread', label: `${i.modelSpread!.models} wave models`, halfWidth: ms});
-  const mo = i.method === 'mop-v2' && finite(i.mopOverOffshore) && i.mopOverOffshore > 0 ? Math.abs(Math.log(i.mopOverOffshore)) / 2 : null;
-  if (mo !== null) c.push({id: 'mop-vs-offshore', label: 'method difference, nearshore model vs offshore swell', halfWidth: mo});
+  const d = i.modelSpread && finite(i.modelSpread.ratio) && i.modelSpread.ratio >= 1 && i.modelSpread.models >= 2 ? Math.log(i.modelSpread.ratio) / 2 : null;
+  const sk = skillW(i.leadHours), c: UncertaintyComponent[] = d !== null && d > sk ? [{id: 'model-spread', label: `${i.modelSpread!.models} wave models disagree`, halfWidth: d}] : [{id: 'forecast-skill', label: `wave-model forecast error vs deep-water buoys (14 days) at ${Math.round((i.leadHours ?? 0) / 24)} days${d !== null ? ` (${i.modelSpread!.models} models agree)` : ''}`, halfWidth: sk}];
+  if (i.method === 'v1') c.push({id: 'offshore-step', label: 'offshore-to-nearshore step (measured at Ocean Beach only)', halfWidth: V1_STEP_W});
   const w = Math.sqrt(c.reduce((s, x) => s + x.halfWidth * x.halfWidth, 0));
   let lo = Math.max(0, Math.floor(i.centralFt * Math.exp(-w) + 1e-9)), hi = Math.ceil(i.centralFt * Math.exp(w) - 1e-9);
   if (hi - lo < 1) hi = lo + 1;
-  const disagree = ms !== null && ms > DISAGREE_HALF;
-  return {loFt: lo, hiFt: hi, centralFt: i.centralFt, halfWidth: w, components: c, disagree, note: `${c.map((x) => `${x.label} −${Math.round((1 - Math.exp(-x.halfWidth)) * 100)}%/+${Math.round((Math.exp(x.halfWidth) - 1) * 100)}%`).join('; ')}; combined in quadrature, not a validated confidence interval.${disagree ? ' Wave models disagree.' : ''}`};
+  const disagree = d !== null && d > DISAGREE_HALF;
+  return {loFt: lo, hiFt: hi, centralFt: i.centralFt, halfWidth: w, components: c, disagree, note: `${c.map((x) => `${x.label} −${Math.round((1 - Math.exp(-x.halfWidth)) * 100)}%/+${Math.round((Math.exp(x.halfWidth) - 1) * 100)}%`).join('; ')}; forecast uncertainty of the model height, rounded outward to whole feet; not a validated confidence interval, and bigger waves in a set can exceed the top of the range.${disagree ? ' Wave models disagree.' : ''}`};
 }

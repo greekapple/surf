@@ -9,3 +9,5 @@ Full write-up: `docs/forecast/RANGE-T073.md` (method, cited constants, widths be
 - **Cost:** one extra Open-Meteo request per viewed or saved spot (at most 12), about 16 KB and 0.2 to 1 s, after the main load, cached 10 min, silent on failure; the main forecast load is unchanged.
 - **Data-honesty-reviewer** on the diff: no P0; 7 P1 and 5 P2 findings, all addressed (listed in the report).
 - **Checks:** tsc, 397 tests (new `uncertainty.test.ts`), build; journeys, t045, t055, t065, t067, t071 and new `t073-range.mjs` pass.
+
+> Superseded in part by T-078 (`docs/forecast/RANGE-T078.md`): the convention, breaker-index and method-difference terms described above were removed and the range is now built from measured forecast error by lead time.

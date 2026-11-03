@@ -26,7 +26,7 @@ test('body words for ranges: "waist to chest", single word, nulls and reversed r
 test('v2 is the default where a reviewed MOP point has data for the hour', () => {
   const h = headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW});
   assert.equal(h.kind, 'estimate'); if (h.kind !== 'estimate') return;
-  assert.equal(h.method, 'mop-v2'); assert.ok(h.hiFt - h.loFt >= 2 && h.loFt >= 0); assert.equal(h.mop?.id, 'SF023'); assert.equal(h.mop?.product, 'forecast');
+  assert.equal(h.method, 'mop-v2'); assert.ok(h.hiFt - h.loFt >= 1 && h.loFt >= 0); assert.equal(h.mop?.id, 'SF023'); assert.equal(h.mop?.product, 'forecast');
   assert.ok(h.words && h.wordsNote.includes('Approximate')); assert.match(h.label, /Est\./); assert.match(h.methodLabel, /unvalidated/);
 });
 test('falls to v1 only when the nearshore model has no usable record for the hour; if it HAS the hour and refuses (short period, outside the window) the spot shows offshore, never a contradicting v1 (T-077)', () => {
