@@ -1,7 +1,9 @@
 import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
 import './trust.css';
-import {alertsFor, feltRightFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
+import {getFelt} from '../../services/observationStore';
+import {activeAlerts, feltForHour} from './trustRules';
+import {alertsFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
 
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
 
@@ -49,15 +51,20 @@ export function DaylightRow({d}: {d: Daylight}) {
 /** NWS hazard banner: only when an alert is active for the spot's zone; quotes the event, valid time and source. Nothing when the feed fails. */
 export function NwsBanner({spotId}: {spotId: string}) {
   const [alerts, setAlerts] = useState<NwsAlert[]>([]);
+  const [tick, setTick] = useState(0);
+  // Refetch every 15 minutes (the service's cache TTL) while the page stays open, so a new warning appears and an expired one goes.
+  useEffect(() => { const t = window.setInterval(() => setTick((n) => n + 1), 15 * 60e3); return () => window.clearInterval(t); }, []);
   useEffect(() => {
-    const ac = new AbortController(); setAlerts([]);
-    alertsFor(spotId, ac.signal).then((r) => { if (!ac.signal.aborted && r.status === 'ok') setAlerts(r.alerts); }).catch(() => {});
+    const ac = new AbortController();
+    alertsFor(spotId, ac.signal).then((r) => { if (!ac.signal.aborted) setAlerts(r.status === 'ok' ? r.alerts : []); }).catch(() => { if (!ac.signal.aborted) setAlerts([]); });
     return () => ac.abort();
-  }, [spotId]);
-  if (!alerts.length) return null;
+  }, [spotId, tick]);
+  useEffect(() => { setAlerts([]); }, [spotId]);
+  const shown = activeAlerts(alerts, Date.now());
+  if (!shown.length) return null;
   return (
     <section className="nws" aria-label="National Weather Service alert" role="note">
-      {alerts.map((a) => (
+      {shown.map((a) => (
         <p key={a.url + a.event}>
           <b>{a.event}</b>{a.approxZone && <span> for the nearby coast</span>}
           <span> · {a.onset ? `from ${when(a.onset)} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!)}` : ''}</span>
@@ -69,12 +76,15 @@ export function NwsBanner({spotId}: {spotId: string}) {
 }
 
 /** One tap: did the forecast for this hour feel right? Feeds calibration as a weak signal (T-064). */
-export function FeltRight({spotId, at, env, nowMs}: {spotId: string; at: string; env: unknown; nowMs: number}) {
+export function FeltRight({spotId, at, env, nowMs: _nowMs}: {spotId: string; at: string; env: unknown; nowMs: number}) {
   useObservations();
-  const [said, setSaid] = useState<Felt | null>(() => feltRightFor(spotId, nowMs)?.felt ?? null);
+  // The answer shown is the one for THIS spot and THIS hour (the displayed hour), newest first; it follows the hour as it changes.
+  const stored = feltForHour(getFelt(), spotId, at);
+  const [local, setLocal] = useState<{key: string; felt: Felt} | null>(null);
   const [err, setErr] = useState('');
-  useEffect(() => { setSaid(feltRightFor(spotId, nowMs)?.felt ?? null); }, [spotId]); // eslint-disable-line react-hooks/exhaustive-deps
-  const tap = (felt: Felt) => { const r = logFeltRight({spotId, at, felt}, env as never); if (r.ok) { setSaid(felt); setErr(''); } else setErr(r.error); };
+  const key = `${spotId}|${at}`, said = local?.key === key ? local.felt : stored;
+  useEffect(() => { setErr(''); }, [key]);
+  const tap = (felt: Felt) => { const r = logFeltRight({spotId, at, felt}, env as never); if (r.ok) { setLocal({key, felt}); setErr(''); } else setErr(r.error); };
   const W: Record<Felt, string> = {low: 'Too low', right: 'Right', high: 'Too high'};
   return (
     <div className="felt" role="group" aria-label="Did this forecast feel right?">
