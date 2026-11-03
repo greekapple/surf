@@ -106,7 +106,7 @@ export function ScaleStage() {
   const ph = (me.feet / top) * H, pw = ph * 0.3, px = 372, bx = px + pw + 26;
   const when = hour ? `${weekdayPT(hour.timestamp)} ${timeLabelPT(hour.timestamp)}` : '';
   const liveAlt = estRange ? `3D wave of this hour's estimate, ${text?.value ?? ''} ${p.heightUnit}, drawn at ${faceText} face, a ${direction}, with a surfer at your height, ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}, for scale` : hs?.kind === 'offshore' ? `No breaking-wave estimate; offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour';
-  const alt = range ? `Estimated face ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit} beside you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}` : `No face estimate for this hour; you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}`;
+  const alt = range ? `Estimated surf height ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit} beside you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}` : `No face estimate for this hour; you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}`;
   return (
     <section className="sc" aria-label="Wave scale">
       <div className="sc-head">
@@ -144,7 +144,7 @@ export function ScaleStage() {
             <path d="M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z" />
           </g>
           {board && boardFt && <rect x={bx} y={y(boardFt)} width={14} height={(boardFt / top) * H} rx={7} fill="var(--s3, #e8ecef)" stroke="var(--muted)" strokeWidth={1} />}
-          <text x={WAVE_X + 70} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">{range ? (band !== null ? 'band, illustrative' : 'est. face') : 'no face estimate'}</text>
+          <text x={WAVE_X + 70} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">{range ? (band !== null ? 'band, illustrative' : 'est. surf height') : 'no surf estimate'}</text>
           <text x={px + pw / 2} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">you {formatHeight(me.inches, p.heightUnit)}</text>
           {board && boardFt && <text x={bx + 7} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">board</text>}
         </svg>

@@ -230,7 +230,7 @@
   .xleg, .xbottom > .xstatus { position: static; margin-left: auto; }
   .xbottom > .xstatus { max-width: 46%; }
   .xchip { min-height: 44px; }
-  .xchip i { width: 44px; }
+  .xchip i { width: 24px; }
   .xleg-pop { width: min(280px, calc(100vw - 24px)); }
   .xtime.open { position: absolute; left: 0; right: 0; bottom: 0; width: auto; z-index: 2; }
   .xt-open { min-height: 44px; padding: 0 12px 0 6px; gap: 10px; }
@@ -373,7 +373,9 @@ button.xstatus { cursor: pointer; font: inherit; }
 
 /* T-088 (design critic): the sea-colour legend names what it is (offshore wave height, not surf size). */
 .xleg-k { margin-right: 8px; font-size: 12px; color: var(--muted); white-space: nowrap; }
-@media (max-width: 860px) { .xleg-k { display: none; } } /* phones: the label is in the legend's tap-open note and the layer menu */
+/* T-108: phones keep a SHORT offshore label visible (the full one is in the tap-open note and the layer menu): the legend must never drop 'not surf size'. */
+.xleg-ks { display: none; margin-right: 6px; font-size: 10.5px; line-height: 1.15; color: var(--muted); text-align: left; max-width: 50px; } /* two short lines on a phone so the time bar keeps its room */
+@media (max-width: 860px) { .xleg-k { display: none; } .xleg-ks { display: inline; } }
 /* T-095: phone tap targets >= 44 px. The play button keeps its visible size but gets a 44 px hit area; spot labels on the map get an invisible
    vertical hit pad (the visible label stays 22 px). */
 @media (max-width: 860px) {

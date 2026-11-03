@@ -44,13 +44,19 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   if (isDark(spot.id, f.timestamp)) return {verdict: 'Dark', why: ['It is dark: before first light or after last light, so there is no rating.'], hour: hr, breaker};
   const r = SKILL_RANGE_FT[profile.skill] ?? SKILL_RANGE_FT.Intermediate, w = hr.wind, score = hr.rating.score;
   let verdict: Verdict = 'Go', sizeNote = '';
+  // T-108: the person's OWN preferred range (Personal › Preferred conditions) is what the call names; the skill table stays the safety ceiling and floor (Skip) it never overrides.
+  const lo0 = profile.minWave, hi0 = profile.maxWave, own = Number.isFinite(lo0) && Number.isFinite(hi0) && lo0 > 0 && hi0 > lo0 ? {min: lo0, max: hi0} : null;
   if (h.kind === 'estimate') {
     const range = fmt(h.loFt, h.hiFt, profile), who = profile.skill.toLowerCase();
     if (h.loFt > r.max) { verdict = 'Skip'; sizeNote = `The estimated ${range} is above the ${who} range (up to ${r.max} ft).`; }
     else if (h.hiFt < r.min) { verdict = 'Skip'; sizeNote = `The estimated ${range} is below the ${who} range (from ${r.min} ft): too small to surf well.`; }
     else if (h.hiFt > r.max * 1.15) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} may be above the ${who} range (up to ${r.max} ft).`; }
     else if (h.loFt < r.min * 0.6 && h.hiFt < r.min * 1.6) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is small for the ${who} range.`; }
-    else sizeNote = `The estimated ${range} is within the ${who} range.`;
+    else if (own && h.loFt > own.max) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is above the range you prefer (up to ${own.max} ft), though within the ${who} range.`; }
+    else if (own && h.hiFt < own.min) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is below the range you prefer (from ${own.min} ft), though within the ${who} range.`; }
+    else if (own && h.hiFt > own.max) sizeNote = `The estimated ${range} reaches above the range you prefer (up to ${own.max} ft).`;
+    else if (own && h.loFt < own.min) sizeNote = `The estimated ${range} reaches below the range you prefer (from ${own.min} ft).`;
+    else sizeNote = own ? `The estimated ${range} is within the range you prefer (${own.min}–${own.max} ft).` : `The estimated ${range} is within the ${who} range.`;
   } else sizeNote = 'No surf-size estimate for this spot, so size is not part of this call.';
   // Breaker type (T-064 addendum): a plunging break at size is for experienced surfers (our own rule; Surfing Online "Types of Waves" describes plunging waves as hollow, powerful and for experienced surfers). Spilling is forgiving.
   let breakerNote = '';
@@ -105,18 +111,23 @@ const dayName = (iso: string, nowMs: number) => {
   if (d === pacificDate(new Date(Date.parse(`${today}T12:00:00Z`) + 86400000).toISOString())) return 'tomorrow';
   return new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long'}).format(new Date(iso));
 };
+/** T-108: THE best-window function. The first window (same rule as the call's: longest run of daylight hours with the best verdict) that has not ended, looking `days` Pacific days ahead from `fromMs`.
+ *  The spot page's call, Compare's "Best" column and Find spots use this one, so they cannot disagree. `when` is 'today' / 'tomorrow' / a weekday. */
+export function bestWindowFrom(spot: SurfSpot, profile: UserProfile, ctx: CallContext, fromMs: number, days = 4): (CallWindow & {when: string}) | null {
+  const day0 = pacificDate(new Date(fromMs).toISOString());
+  for (let i = 0; i < days; i++) {
+    const d = pacificDate(new Date(Date.parse(`${day0}T12:00:00Z`) + i * 86400000).toISOString()), w = windowOnDay(spot, d, profile, ctx, fromMs);
+    if (w && Date.parse(w.end) > ctx.nowMs) return {...w, when: dayName(w.start, ctx.nowMs)}; // today's window still ahead (before first light) counts
+  }
+  return null;
+}
 /** The call for a spot-hour: its verdict, the best window on that Pacific day (if daylight remains), the next window when it is dark or today's has passed, and why. */
 export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ctx: CallContext): Call {
   const hc = hourCall(spot, hour, profile, ctx), day = pacificDate(hour.timestamp), from = Math.max(ctx.nowMs, Date.parse(hour.timestamp));
   const window = windowOnDay(spot, day, profile, ctx, Math.min(ctx.nowMs, Date.parse(hour.timestamp)));
   const passed = !window || Date.parse(window.end) <= ctx.nowMs;
   let nextWindow: CallWindow | null = null;
-  if (hc.verdict === 'Dark' || passed) {
-    for (let i = 0; i < 4 && !nextWindow; i++) {
-      const d = pacificDate(new Date(Date.parse(`${day}T12:00:00Z`) + i * 86400000).toISOString()), w = windowOnDay(spot, d, profile, ctx, Math.max(from, ctx.nowMs));
-      if (w && Date.parse(w.end) > ctx.nowMs) nextWindow = w; // today's window still ahead (before first light) counts
-    }
-  }
+  if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, Math.max(from, ctx.nowMs)); if (w) nextWindow = {start: w.start, end: w.end, label: w.label}; }
   const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs) : '';
   const why = hc.verdict === 'Dark' ? [nextWindow ? `It is dark. The next window is ${dayWord} ${nextWindow.label}.` : 'It is dark, and no good window is forecast in the next few days.'] : hc.why;
   const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating (explainRating), wind, daylight (first light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;

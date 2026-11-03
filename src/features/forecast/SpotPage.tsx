@@ -117,7 +117,9 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
         <p className={`v sp-v sp-rate${r.score === null ? ' unr' : ''}`} style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{(r as {dark?: boolean}).dark ? 'Not rated' : conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
-        {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><i aria-hidden="true" />{shortFactor(x.factor)} <span className="w">{MARK[x.effect].m}</span></li>)}</ul>
+        {scored.length ? <ul className="sp-why" aria-label="Why">{/* T-108: with no surf estimate there is no "swell size" to rate: the engine's wave-potential factor is OFFSHORE swell energy, so it is named that, and the list says plainly that size has no estimate here. */}
+          {hs.kind !== 'estimate' && <li className="sp-why-none" title="No surf-size estimate for this spot, so surf size is not part of the call"><i aria-hidden="true" />Swell size: no estimate</li>}
+          {scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><i aria-hidden="true" />{hs.kind !== 'estimate' && shortFactor(x.factor) === 'Swell size' ? 'Offshore swell energy' : shortFactor(x.factor)} <span className="w">{MARK[x.effect].m}</span></li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}
         <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
       </Card>
@@ -180,10 +182,10 @@ export function bestBoard(boards: import('../../models/index').Surfboard[], f: F
 export const feetInches = (inches: number) => `${Math.floor(inches / 12)}'${Math.round(inches % 12)}"`;
 
 /** T-065: the board for these waves, from size + period (wave shape is unknown). No row at all when nothing can be recommended. */
-export function BoardLine({boards, f, p, hs, onOpen}: {boards: import('../../models/index').Surfboard[]; f: Forecast; p: UserProfile; hs: HeadlineSurf; onOpen: () => void; onQuiver?: () => void}) {
+export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('../../models/index').Surfboard[]; choice: import('../quiver/fit').BoardChoice; f: Forecast; p: UserProfile; hs: HeadlineSurf; onOpen: () => void; onQuiver?: () => void}) {
   const est: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
   const period = f.primary && Number.isFinite(f.primary.period) ? f.primary.period : null;
-  const top = useMemo(() => recommended(rankBoards(boards, est, period))[0] ?? null, [boards, est?.[0], est?.[1], period]); // eslint-disable-line react-hooks/exhaustive-deps
+  const top = useMemo(() => (choice.pick ? choice.ranked.find((r) => r.board === choice.pick) ?? null : null), [choice]); // T-108: the one board pick, not a second ranking
   if (!top || top.size.state === 'none') return null;
   return (
     <section className="sp-board" aria-label="Board Match">
@@ -224,7 +226,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         return (
           <button key={d.key} className="sp-day day" data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)}
             aria-label={`${name}: ${range ? `typically ${lo === hi ? lo : `${lo} to ${hi}`} ${p.heightUnit} ${kind === 'est.' ? 'estimated' : kind}${ty ? `, ${ty.aria}` : ''}${env ? `; range over daylight ${ht(env[0], p, 0)} to ${ht(env[1], p, 0)}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
-            <span className="sd-t">{name}{k === best && <Icon name="star" size={12} />}</span>
+            <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week: the highest average rating over its 6 AM–7 PM hours. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
             <span className="sd-h">{range ? <>{lo === hi ? lo : `${lo}–${hi}`}<small>{p.heightUnit}</small></> : '—'}</span>
             <span className="sd-k" title={ty ? ty.aria : undefined}>{kind}{ty ? ` · ${ty.short}` : ''}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
@@ -296,7 +298,7 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   const ticks: number[] = []; for (let v = step; (m ? v / 0.3048 : v) <= top; v += step) ticks.push(v);
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
-  const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
+  const label = est ? `Estimated surf height ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No surf estimate this hour; surfer and board only';
   // T-098 (Codex P2): the caption describes THIS card's drawing: the estimate's range (outer = high bound, inner = low bound) beside the
   // person's own height (userHeight), not the 3D view's single face and fixed 5'9" surfer. Offshore-only hours say there is no breaking-wave estimate.
   const scaleLine = est ? "The estimate's range, drawn to scale beside you"
@@ -318,7 +320,7 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
           <path d="M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z" />
         </g>
         {board && <rect x={px + pw + 18} y={y(boardFt)} width={11} height={(boardFt / top) * H} rx={5.5} fill="var(--s3, #e8ecef)" stroke="var(--muted)" strokeWidth={1} />}
-        <text x={66} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">{est ? 'est. face' : 'no face estimate'}</text>
+        <text x={66} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">{est ? 'est. surf height' : 'no surf estimate'}</text>
         <text x={px + pw / 2} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">you</text>
         {board && <text x={px + pw + 23.5} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">board</text>}
         <text x={22} y={10} fontSize={10} fill="var(--dim)">{p.heightUnit}</text>

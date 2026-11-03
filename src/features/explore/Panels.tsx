@@ -68,7 +68,7 @@ export function LegendChip({unit, ramp, lo, hi, label, loading, note}: {unit: st
   return (
     <div className="xleg">
       <button ref={btn} className="xchip" aria-expanded={open} aria-label={`${label} legend, ${lo} to ${hi} ${unit}. Show source`} data-loading={loading || undefined} onClick={() => setOpen(!open)}>
-        {/offshore/i.test(label) && <span className="xleg-k">{label}</span>}<b>{unit}</b><span className="xleg-lo">{lo}</span><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} /><span>{hi}</span>
+        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b><span className="xleg-lo">{lo}</span><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} /><span>{hi}</span>
       </button>
       {open && <div ref={box} className="xpop xleg-pop" role="status"><p className="xpop-t">{label}</p><p className="xpop-note">{note}</p></div>}
     </div>

@@ -174,8 +174,8 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
             </>}
             {tab === 'surf' && !surfBand && <>
-              <path d={areaD} fill="url(#gHs)" />
-              <path d={mainPath} fill="none" stroke="var(--hs-hi)" strokeWidth={2} strokeLinejoin="round" />
+              {/* T-108: with no surf estimate the only height drawn is the OFFSHORE Hs, in the Offshore Hs line style (the thin muted line the estimate view uses for it), never the blue "Surf estimate" area. */}
+              <path d={mainPath} fill="none" stroke="var(--muted)" strokeWidth={1.4} strokeLinejoin="round" opacity={0.9} />
               {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
             </>}
             {tab === 'swell' && <>
@@ -218,7 +218,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
         <text className="tl-row" x={0} y={RB + 5}>Rating</text>
         <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
           <line y1={PT - 8} y2={RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
-          <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : 'var(--hs-hi)'} strokeWidth={2.5} />
+          <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : surfBand ? 'var(--hs-hi)' : 'var(--muted)'} strokeWidth={2.5} />
         </g>
       </svg>
       {tipH && hover && (

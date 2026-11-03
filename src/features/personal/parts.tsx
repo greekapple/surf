@@ -2,11 +2,11 @@ import type {ReactNode} from 'react';
 import {GENERIC_PHOTOS, PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
 import type {JournalExtra} from './journal';
 
-export function Choice<T extends string>({label, value, options, onChange}: {label: string; value: T; options: readonly T[]; onChange: (v: T) => void}) {
+export function Choice<T extends string>({label, value, options, onChange, names}: {label: string; value: T; options: readonly T[]; onChange: (v: T) => void; /** Display text per option when it differs from the stored value. */ names?: Partial<Record<T, string>>}) {
   return (
     <div className="field pz-choice"><span>{label}</span>
       <div className="seg" role="radiogroup" aria-label={label}>
-        {options.map((o) => <button key={o} role="radio" aria-checked={o === value} onClick={() => onChange(o)}>{o}</button>)}
+        {options.map((o) => <button key={o} role="radio" aria-checked={o === value} onClick={() => onChange(o)}>{names?.[o] ?? o}</button>)}
       </div>
     </div>
   );

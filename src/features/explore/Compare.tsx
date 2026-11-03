@@ -9,7 +9,9 @@ import {rateForecast} from '../../ratings/adapters';
 import {ZONES, zoneOf} from '../../data/zones';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, titleCase, type HourSample} from '../forecast/model';
-import {bestDaylight, compass, ht, windVal} from '../forecast/helpers';
+import {compass, ht, windVal} from '../forecast/helpers';
+import {bestWindowFrom} from '../../services/call';
+import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {weekdayPT, dayNumPT} from '../forecast/format';
 
 type Sort = 'rating' | 'height' | 'period' | 'wind' | 'north';
@@ -34,18 +36,19 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
     const recs = view.mapRecords.filter((r) => r.spotId === s.id);
     const f = recs.find((r) => r.timestamp === t) ?? null;
     const rating = f ? rateForecast(s, f, now) : null;
-    const series = recs.map((r) => ({forecast: r, timestamp: r.timestamp, date: '', hour: 0, heightFt: r.offshore, rating: rateForecast(s, r, now)})) as HourSample[];
-    const start = Math.floor(now / 3600000) * 3600000, best = bestDaylight(series, s, start, start + 86400000);
-    return {s, f, rating, best, order};
-  }), [spotOptions, zone, view.mapRecords, t, now]);
-  const key = (r: (typeof rows)[number]) => sort === 'rating' ? -(r.rating?.score ?? -1) : sort === 'height' ? -(r.f?.offshore ?? -1) : sort === 'period' ? -(r.f?.primary?.period ?? -1) : sort === 'wind' ? (r.f?.wind.speed ?? 99) : r.order;
+    // T-108: ONE best-window function (the call's), and the same surf estimate every other surface shows (headlineSurf); offshore only where no estimate exists, tagged as such.
+    const bundle = view.ocean.bundle, best = bestWindowFrom(s, p, {records: recs, bundle, nowMs: now}, now);
+    const head = f ? headlineSurf(s.id, f, {bundle, nowMs: now}) : null, ht_ = head ? headlineText(head, p) : null;
+    return {s, f, rating, best, order, head, ht_};
+  }), [spotOptions, zone, view.mapRecords, view.ocean.bundle, p, t, now]);
+  const key = (r: (typeof rows)[number]) => sort === 'rating' ? -(r.rating?.score ?? -1) : sort === 'height' ? -(r.head?.kind === 'estimate' ? (r.head.loFt + r.head.hiFt) / 2 : r.f?.offshore ?? -1) : sort === 'period' ? -(r.f?.primary?.period ?? -1) : sort === 'wind' ? (r.f?.wind.speed ?? 99) : r.order;
   const sorted = [...rows].sort((a, b) => key(a) - key(b));
   const i = times.indexOf(t ?? ''), step = (d: number) => { const n = times[Math.max(0, Math.min(times.length - 1, i + d))]; if (n) view.selectTime(n); };
   const open = (id: string, where: 'forecast' | 'explore') => { setSpot(id); go(where); };
   return (
     <div className="cmpx">
       <header className="cmpx-h">
-        <div><h1>Compare spots</h1><p>{sorted.length} spots · provisional ratings · offshore model height, not surf height</p></div>
+        <div><h1>Compare spots</h1><p>{sorted.length} spots · provisional ratings · surf estimate where one exists, otherwise labelled offshore height (not surf size)</p></div>
         <div className="cmpx-time" role="group" aria-label="Shared hour">
           <button className="iconbtn" aria-label="3 hours earlier" onClick={() => step(-3)}><Icon name="chevron" size={18} style={{transform: 'rotate(90deg)'}} /></button>
           <b>{t ? `${weekdayPT(t)} ${dayNumPT(t)} · ${hourLabel(t)}` : '—'}</b>
@@ -56,15 +59,15 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
         <div className="cmpx-chips" role="group" aria-label="Zone">{['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} aria-pressed={zone === z} onClick={() => setZone(z)}>{z}</button>)}</div>
         <label className="cmpx-sort">Sort<select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>{SORTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
       </div>
-      <ol className="cmpx-list">{sorted.map(({s, f, rating, best}, k) => (
+      <ol className="cmpx-list">{sorted.map(({s, f, rating, best, head, ht_}, k) => (
         <li key={s.id} className={k === 0 && sort !== 'north' ? 'top' : ''}>
           <span className="cx-rank">{k + 1}</span>
           <span className="cx-name"><b>{s.name}</b><small>{s.region}</small></span>
           <span className="cx-rate">{rating ? <em style={{'--c': BAND_COLOR[bandOf(rating.category)]} as CSSProperties}>{titleCase(rating.category)}</em> : <small>no record</small>}</span>
-          <span className="cx-hs">{f ? <>{ht(f.offshore, p)}<small> {p.heightUnit}</small></> : '—'}</span>
+          <span className="cx-hs">{f && head?.kind === 'estimate' && ht_ ? <>{ht_.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small> {p.heightUnit} surf</small></> : f ? <>{ht(f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
           <span className="cx-sw">{f?.primary ? <><DirArrow from={f.primary.direction} size={13} /> {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</span>
           <span className="cx-wd">{f && Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit}<StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</span>
-          <span className="cx-best">{best ? `Best ${weekdayPT(best.timestamp)} ${hourLabel(best.timestamp)}` : ''}</span>
+          <span className="cx-best">{best ? `Best ${best.when} ${best.label}` : ''}</span>
           <span className="cx-act"><button className="btn" onClick={() => open(s.id, 'forecast')}>Forecast</button><button className="btn" aria-label={`${s.name} on the map`} onClick={() => open(s.id, 'explore')}><Icon name="explore" size={16} /></button></span>
         </li>
       ))}</ol>

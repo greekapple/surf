@@ -65,6 +65,10 @@ function Page({title, onBack, children, action}: {title: string; onBack: () => v
   );
 }
 
+/** T-108: the stored value stays 'Face height' (saved profiles), but every label in the app says "surf height" (the surfer convention: about the nearshore wave height, as reports quote it), so this setting says it too.
+ *  Hawaiian is about half of that and applies to surf-height estimates only. */
+const SCALE_NAMES = {'Face height': 'Surf height (as reports quote it)', Hawaiian: 'Hawaiian (about half)'} as const;
+
 /** Your height (T-052): saved on the profile in inches, typed as ft/in or cm by the unit preference. The Wave scale draws you at this height; until it is set a labelled 5'10" default is drawn. */
 // T-103: a MODULE-level component. It used to be declared inside PersonalView, so every PersonalView render created a new component type and REMOUNTED the field (losing the person's text and focus)
 // when a save landed.
@@ -330,7 +334,7 @@ export function PersonalView({section, go}: ViewProps) {
             <div className="pz-panel">
               <Choice label="Heights" value={p.heightUnit} options={['ft', 'm'] as const} onChange={(heightUnit) => set({heightUnit})} />
               <Choice label="Wind" value={p.windUnit} options={['mph', 'kn', 'km/h'] as const} onChange={(windUnit) => set({windUnit})} />
-              <Choice label="Breaking-wave scale" value={p.scale} options={['Face height', 'Hawaiian'] as const} onChange={(scale) => set({scale})} />
+              <Choice label="Surf height scale" value={p.scale} options={['Face height', 'Hawaiian'] as const} names={SCALE_NAMES} onChange={(scale) => set({scale})} />
               <p className="fine">Hawaiian scale (about half the surf height) applies to surf-height estimates only. Offshore heights are never converted.</p>
             </div>
           </Page>
@@ -432,7 +436,7 @@ export function PersonalView({section, go}: ViewProps) {
             <Group title="Units">
               <Row icon="wave" label="Heights" value={p.heightUnit} onClick={() => toPage('units')} />
               <Row icon="wind" label="Wind" value={p.windUnit} onClick={() => toPage('units')} />
-              <Row icon="swell" label="Breaking-wave scale" value={p.scale} onClick={() => toPage('units')} />
+              <Row icon="swell" label="Surf height scale" value={SCALE_NAMES[p.scale]} onClick={() => toPage('units')} />
             </Group>
 
             <Group title="Appearance">

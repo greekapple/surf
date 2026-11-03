@@ -9,7 +9,8 @@ import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {Skeleton} from '../../ui/Skeleton';
 import {NearshoreCard} from './Nearshore';
 import {BuoyContext} from './BuoyContext';
-import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, bestBoard, facingOf, surfOf, type CardKey} from './SpotPage';
+import {boardPickFor} from '../quiver/fit';
+import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, facingOf, surfOf, type CardKey} from './SpotPage';
 import {SpotBand} from './SpotBand';
 import {camFor} from '../../data/cams';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
@@ -90,7 +91,9 @@ export function ForecastView({go}: ViewProps) {
   const hs = surfOf(spot, selected.forecast, p, bundle, now).h;
   const boards = data.state.boards;
   // The scale shows the Board Match pick when there is one, else the user's favourite (or first) board, labelled as theirs, not as a pick.
-  const scaleBoard = bestBoard(boards, selected.forecast, p, hs)?.board ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
+  // T-108: THE board pick (fit.ts boardPickFor, shared with Home, Board Match and Personal) draws on the scale and in the Board Match line; no pick (nothing suits): the favourite, else the first board, labelled as theirs.
+  const choice = boardPickFor(boards, spot, selected.forecast, now, p, {bundle});
+  const scaleBoard = choice.pick ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
   const cam = camFor(spot.id);
   // T-065: one answer (the call), daylight for the selected day, and the graph's surf band, all from the T-064 logic.
   const records = series.map((h) => h.forecast);
@@ -98,7 +101,9 @@ export function ForecastView({go}: ViewProps) {
   const daylight = daylightFor(spot.id, new Date(selected.timestamp).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'}));
   const band = surfBandSeries(spot, records, {bundle, nowMs: now});
   const env = {records: view.mapRecords, bundle, profile: p, nowMs: now};
-  const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'heights are model estimates · ratings provisional' : 'demonstration week · not live'];
+  // T-108: the subtitle follows what the spot actually has: surf estimates, or only offshore heights.
+  const hasEstimates = band.some((b) => b.kind === 'estimate'), hasTideDrawn = series.some((h) => Number.isFinite(h.forecast.tide.height));
+  const meta = [spot.region, `${spot.type.toLowerCase()} break`, !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
       <SpotBand spotId={spot.id} hasCam={!!cam}>
@@ -127,7 +132,7 @@ export function ForecastView({go}: ViewProps) {
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
         Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
         Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}
-      <BoardLine boards={data.state.boards} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />
+      <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />
       <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
 
       <section className="card sp-chart" aria-label="Forecast detail">
@@ -151,7 +156,7 @@ export function ForecastView({go}: ViewProps) {
             <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 240 : 280} />
           </div>
           <ul className="legend" aria-hidden="true">
-            {tab === 'surf' && <><li><i style={{background: 'var(--hs-hi)', height: 8}} />Surf estimate (range)</li><li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />Offshore Hs</li><li><i style={{background: 'var(--tide)', height: 0, borderTop: '2px dashed var(--tide)'}} />Tide</li></>}
+            {tab === 'surf' && <>{hasEstimates && <li><i style={{background: 'var(--hs-hi)', height: 8}} />Surf estimate (range)</li>}<li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />{hasEstimates ? 'Offshore Hs' : 'Offshore Hs · not surf size'}</li>{hasTideDrawn && <li><i style={{background: 'var(--tide)', height: 0, borderTop: '2px dashed var(--tide)'}} />Tide</li>}</>}
             {tab === 'swell' && <><li><i style={{background: 'var(--sw1)'}} />Primary swell</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li></>}
             {tab === 'wind' && <><li><i style={{background: 'var(--accent)'}} />Wind speed</li><li><i style={{background: 'var(--muted)'}} />Gusts</li><li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to 24+ mph</li></>}
             {tab === 'tide' && <li><i style={{background: 'var(--tide)'}} />Predicted tide, MLLW</li>}

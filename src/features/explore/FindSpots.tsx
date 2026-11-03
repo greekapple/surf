@@ -7,7 +7,8 @@ import {evidenceSpots} from '../../ocean/spots';
 import {rateForecast} from '../../ratings/adapters';
 import {Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, titleCase, type HourSample} from '../forecast/model';
-import {bestDaylight, compass, ht, windVal} from '../forecast/helpers';
+import {compass, ht, windVal} from '../forecast/helpers';
+import {bestWindowFrom} from '../../services/call';
 import {weekdayPT} from '../forecast/format';
 
 /** Distance bands, by how realistic a session is (straight-line miles; drive time is longer). */
@@ -39,19 +40,17 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
   };
 
   const rows = useMemo(() => {
-    const start = Math.floor(now / 3600000) * 3600000;
     return spotOptions.flatMap((s) => {
       const e = evidenceSpots.find((x) => x.id === s.id);
       if (!e) return [];
       const recs = view.mapRecords.filter((r) => r.spotId === s.id);
       const f = recs.find((r) => r.timestamp === view.selectedTime) ?? null;
       const rating = f ? rateForecast(s, f, now) : null;
-      const series = recs.map((r) => ({forecast: r, timestamp: r.timestamp, date: '', hour: 0, heightFt: r.offshore, rating: rateForecast(s, r, now)})) as HourSample[];
-      const best = bestDaylight(series, s, start, start + 86400000);
+      const best = bestWindowFrom(s, p, {records: recs, bundle: view.ocean.bundle, nowMs: now}, now); // T-108: the call's best window, same as the spot page
       const dist = anchor ? miles([anchor.lat, anchor.lon], [e.latitude, e.longitude]) : Infinity;
       return [{s, e, f, rating, best, dist}];
     });
-  }, [spotOptions, view.mapRecords, view.selectedTime, now, anchor?.lat, anchor?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [spotOptions, view.mapRecords, view.selectedTime, view.ocean.bundle, p, now, anchor?.lat, anchor?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const score = (r: (typeof rows)[number]) => r.rating?.score ?? -1;
   const bets = rows.filter((r) => r.dist < 75 && r.rating && r.rating.category !== 'POOR').sort((a, b) => score(b) - score(a)).slice(0, 3);
@@ -65,7 +64,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
         <span className="fs-hs">{r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit}</small></> : '—'}</span>
         <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{titleCase(r.rating.category)}</em> : <small>no record</small>}</span>
         <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}{r.f && Number.isFinite(r.f.wind.speed) && <StaleTag s={hourFreshness(r.f, now).wind} />}</span>
-        <span className="fs-best">{r.best ? `Best ${weekdayPT(r.best.timestamp)} ${hourLabel(r.best.timestamp)}` : ''}</span>
+        <span className="fs-best">{r.best ? `Best ${r.best.when} ${r.best.label}` : ''}</span>
       </button>
       <button className="star" aria-pressed={fav.includes(r.s.id)} aria-label={`${fav.includes(r.s.id) ? 'Remove' : 'Save'} ${r.s.name}`} onClick={() => data.favorite(r.s.id)}><Icon name="star" size={17} /></button>
       <button className="iconbtn" aria-label={`${r.s.name} on the map`} onClick={() => open(r.s.id, 'explore')}><Icon name="explore" size={17} /></button>
