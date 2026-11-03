@@ -24,7 +24,7 @@ import {assignmentFor} from '../../ocean/mop';
 import {headlineSurf} from '../../services/headlineSurf';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
 import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
-import {pickBoard} from './recommend';
+import {boardPickFor} from '../quiver/fit';
 import './personal.css';
 
 function loadAvatar() { try { return localStorage.getItem(AVATAR_KEY) ?? ''; } catch { return ''; } }
@@ -230,12 +230,14 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
     );
   };
 
-  // Recommended board: existing board scoring when a breaking-wave estimate exists, otherwise a labelled heuristic.
-  const refSpot = favSpots[0]?.id ?? view.selected;
-  const pick = pickBoard(boards, hourFor(refSpot), p);
-  const boardRow = pick.kind === 'empty' ? {value: 'No boards yet', sub: 'Add one in the Quiver'}
-    : pick.kind === 'none' ? {value: 'Needs an estimate', sub: `No board fits ${rangeText(p.minWave, p.maxWave, p)}`}
-    : {value: pick.board.name, sub: pick.kind === 'match' ? `${pick.score}/100 match for ${spotName(refSpot)}` : 'Heuristic, not a forecast match'};
+  // T-099: the recommended board is THE board pick (fit.ts boardPickFor), the same function as Home's quiver pick and Board Match, for the
+  // first favourite (else the selected spot) at the next forecast hour; the row names that spot-hour. No preference-range heuristic.
+  const refSpot = favSpots[0]?.id ?? view.selected, refHour = hourFor(refSpot), refSpotObj = spots.find((x) => x.id === refSpot);
+  const choice = refSpotObj ? boardPickFor(boards, refSpotObj, refHour, now, p, {bundle: view.ocean.bundle}) : null;
+  const at = refHour ? `${spotName(refSpot)}, ${timeLabelPT(refHour.timestamp)}` : spotName(refSpot);
+  const boardRow = !boards.length ? {value: 'No boards yet', sub: 'Add one in the Quiver'}
+    : choice?.pick ? {value: choice.pick.name, sub: `Board Match pick for ${at}`}
+    : {value: 'None suits it', sub: choice?.est ? `No board suits the estimate at ${at}` : `No surf estimate at ${at}`};
   const activeAlerts = rules.filter((r) => r.enabled).length;
 
   const body = (() => {

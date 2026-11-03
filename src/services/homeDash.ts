@@ -91,13 +91,26 @@ export function ribbon12(spot: SurfSpot, records: Forecast[], now: number, hours
 
 export type RankWhen = 'now' | '3h' | 'tomorrow-am';
 export const RANK_LABEL: Record<RankWhen, {tab: string; title: string}> = {now: {tab: 'Right now', title: 'Best right now nearby'}, '3h': {tab: 'In 3 h', title: 'Best in 3 hours nearby'}, 'tomorrow-am': {tab: 'Tomorrow AM', title: 'Best tomorrow morning nearby'}};
-/** The hour a spot is judged at for a ranking: now, three hours on (both exact hours), or the best-rated hour between 6 and 11 AM Pacific tomorrow. Null when that spot has no such hour. */
+/** T-099: the Pacific date of the next morning: today before 6 AM (after midnight the next daylight is this morning, not tomorrow's), else tomorrow.
+ *  Home's "morning" ranking and Compare spots' night-time opening hour both use it. */
+export function nextMorningKey(now: number): string {
+  return pacificHour(new Date(now).toISOString()) < 6 ? pacificDate(new Date(now).toISOString()) : pacificDate(new Date(now + 86400000).toISOString());
+}
+/** The morning tab's words: "This morning" before 6 AM (the morning meant is today's), otherwise "Tomorrow AM". */
+export const rankLabel = (w: RankWhen, now: number): {tab: string; title: string} =>
+  w === 'tomorrow-am' && pacificHour(new Date(now).toISOString()) < 6 ? {tab: 'This morning', title: 'Best this morning nearby'} : RANK_LABEL[w];
+/** Compare spots at night (T-099): the first daylight hour of the next morning (6–11 AM Pacific, not dark at the reference spot), or null. */
+export function nextMorningHour(times: string[], now: number, dark: (iso: string) => boolean): string | null {
+  const key = nextMorningKey(now);
+  return times.find((iso) => Date.parse(iso) > now && pacificDate(iso) === key && pacificHour(iso) >= 6 && pacificHour(iso) <= 11 && !dark(iso)) ?? null;
+}
+/** The hour a spot is judged at for a ranking: now, three hours on (both exact hours), or the best-rated hour between 6 and 11 AM Pacific on the next morning (nextMorningKey). Null when that spot has no such hour. */
 export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when: RankWhen): number | null {
   const top = Math.floor(now / 3600000) * 3600000;
   const mine = records.filter((f) => f.spotId === spot.id);
   if (when === 'now') return mine.some((f) => Date.parse(f.timestamp) === top) ? top : null;
   if (when === '3h') return mine.some((f) => Date.parse(f.timestamp) === top + 3 * 3600000) ? top + 3 * 3600000 : null;
-  const key = pacificDate(new Date(now + 86400000).toISOString());
+  const key = nextMorningKey(now);
   let best: number | null = null, bs = -Infinity;
   for (const f of mine) { if (pacificDate(f.timestamp) !== key) continue; const h = pacificHour(f.timestamp); if (h < 6 || h > 11) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
   return best;

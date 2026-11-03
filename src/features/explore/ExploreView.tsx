@@ -88,6 +88,7 @@ function OceanMap({section, go}: ViewProps) {
   const pins = useRef<L.LayerGroup | null>(null);
   // Tap-the-sea point forecast: one popup, one temporary pin.
   const [pt, setPt] = useState<Pt | null>(null);
+  const closedAt = useRef(0); // T-099: a touch tap on the card's close button also reached the map and opened a new point where the finger was
   const [pinned, setPinned] = useState<Pt | null>(null);
   const popup = useRef<L.Popup | null>(null);
   const popupEl = useMemo(() => document.createElement('div'), []);
@@ -135,7 +136,7 @@ function OceanMap({section, go}: ViewProps) {
     pinLayer.current = L.layerGroup().addTo(m);
     popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup', minWidth: 248, maxWidth: 248, autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
     popup.current.setContent(popupEl);
-    m.on('click', (e: L.LeafletMouseEvent) => setPt({lat: Math.round(e.latlng.lat * 10) / 10, lon: Math.round((((e.latlng.lng + 180) % 360 + 360) % 360 - 180) * 10) / 10}));
+    m.on('click', (e: L.LeafletMouseEvent) => Date.now() - closedAt.current > 400 && setPt({lat: Math.round(e.latlng.lat * 10) / 10, lon: Math.round((((e.latlng.lng + 180) % 360 + 360) % 360 - 180) * 10) / 10}));
     map.current = m; if (import.meta.env.DEV) (window as unknown as {__swelloMap?: L.Map}).__swelloMap = m; // test hook for the zoom script (dev only)
     if (import.meta.env.DEV) Object.assign(window, {__xmap: m}); // browser QA scripts drive zoom through this; stripped from builds
     return () => { disposeBase(); m.remove(); map.current = null; };
@@ -441,7 +442,7 @@ function OceanMap({section, go}: ViewProps) {
       </div>
 
       {pt && createPortal(<PointCard pt={pt} state={point} time={view.selectedTime} p={p} pinned={!!pinned && pinned.lat === pt.lat && pinned.lon === pt.lon}
-        onPin={() => setPinned(pinned && pinned.lat === pt.lat && pinned.lon === pt.lon ? null : pt)} onClose={() => setPt(null)} />, popupEl)}
+        onPin={() => setPinned(pinned && pinned.lat === pt.lat && pinned.lon === pt.lon ? null : pt)} onClose={() => { closedAt.current = Date.now(); setPt(null); }} />, popupEl)}
       {!phone && callout$ && createPortal(callout$, spotPopEl)}
     </div>
   );

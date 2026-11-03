@@ -11,7 +11,7 @@ import type {Surfboard} from '../../models/index';
 
 /** Real-time 3D wave (T-062, wave-v3, forecast-driven): a plain grid whose vertex shader samples a break-cycle profile atlas by (u along
  *  the profile, stage(x, t)), so the wave peaks, feathers, pitches, lands and collapses into a foam ball down the line; an endless sea
- *  with the set waves out the back, a water shader coloured by thickness, a 1.75 m surfer, lip spray, back-spray and mist, and full
+ *  with the set waves out the back, a water shader coloured by thickness, a surfer (a 1.75 m model scaled to the person's height, T-099), lip spray, back-spray and mist, and full
  *  orbit control. The frame moves with the peel (the surfer stays put, the water streams past). The wave is the selected spot-hour's
  *  forecast: the face height is the estimate's centre (the two size buckets around it blended), the breaker type, swell period and wind
  *  relation shape it, and the peel direction can be flipped (left/right). An illustration of that hour, approximate, never a measurement.
@@ -245,6 +245,8 @@ const atlasCache = new Map<string, Promise<Atlas | null>>(), ready = new Map<str
 let surferCache: Promise<THREE.Group> | null = null;
 /** An atlas by file id; null when the file is missing (a breaker variant that was not built). Resolved atlases are kept for synchronous use. */
 const getAtlas = (id: string) => { let p = atlasCache.get(id); if (!p) { p = loadAtlas(ATLAS_ROOT, id).then((a) => { ready.set(id, a); return a; }, () => null); atlasCache.set(id, p); } return p; };
+/** The surfer model's own height (m); the drawn surfer is scaled to the person's height. */
+export const SURFER_MODEL_M = 1.75;
 const loadSurfer = () => (surferCache ??= loader.loadAsync(LIVE_ROOT + 'surfer.glb').then((g) => g.scene).catch((e) => { surferCache = null; throw e; }));
 
 /** The atlas for a face height and breaker from the loaded buckets: the two buckets around it blended; below or above the range the
@@ -326,11 +328,12 @@ function emitters(a: Atlas) {
   }
   return {lip: new Float32Array(lip), crest: new Float32Array(crest), mist: new Float32Array(mist), blast: new Float32Array(blast)};
 }
-export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wave: WaveSpec; poster: string; alt: string; onReady?: () => void; onFail?: () => void; board?: Surfboard | null; light?: LiveLight | null}) {
+export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surferM = SURFER_MODEL_M}: {wave: WaveSpec; poster: string; alt: string; onReady?: () => void; onFail?: () => void; board?: Surfboard | null; light?: LiveLight | null; /** T-099: the person's height (m); the 1.75 m model is scaled to it */ surferM?: number}) {
   const host = useRef<HTMLDivElement>(null), api = useRef<{setWave: (w: WaveSpec) => void; setDir: (d: 'left' | 'right') => void; setLight: (l: Lighting | null) => void; setBoard: (b: Surfboard | null) => void} | null>(null), cb = useRef({onReady, onFail});
   cb.current = {onReady, onFail};
   const [live, setLive] = useState(false);
   const boardRef = useRef(board ?? null); boardRef.current = board ?? null;
+  const surferRef = useRef(surferM); surferRef.current = surferM;
   const waveRef = useRef(wave); waveRef.current = wave;
   const lighting = light ? lightingAt(light.spotId, light.iso) : null, lightRef = useRef(lighting); lightRef.current = lighting;
   useEffect(() => {
@@ -409,7 +412,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
       const g = sp.pts.geometry; (g.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aSize') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aA') as THREE.BufferAttribute).needsUpdate = true;
     };
     let placed: 'none' | 'surf' | 'swell' = 'none', token = 0, pending: WaveSpec | null = null, live0 = false;
-    const C = new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1), Ci = C.clone().invert(), bb = new THREE.Box3(), Mb = new THREE.Matrix4(), Rx = new THREE.Matrix4().makeRotationX(THREE.MathUtils.degToRad(16)), My = new THREE.Matrix4().makeScale(1, -1, 1);
+    const C = new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1), Ci = C.clone().invert(), bb = new THREE.Box3(), Mb = new THREE.Matrix4(), Ms = new THREE.Matrix4(), Rx = new THREE.Matrix4().makeRotationX(THREE.MathUtils.degToRad(16)), My = new THREE.Matrix4().makeScale(1, -1, 1);
     const placeCamera = (mode: 'surf' | 'swell', tx: number, H: number, far: number) => {
       const d = mode === 'surf' ? 6 + H * 2.5 : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
       if (placed !== mode) {
@@ -446,7 +449,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
         // line (-x). The exported model faces the beach, so it is mirrored across the crest plane (y -> -y in the model frame), which turns it to face
         // the wave with the right foot forward: a goofy-foot frontside stance on a left. A right is the whole frame mirrored (regular-foot frontside).
         const [fy, fz] = facePoint(atlas, sx, 0.1);
-        Mb.makeTranslation(sx, fy + 0.2, fz - 0.03).multiply(Rx).multiply(My);
+        const k = surferRef.current / SURFER_MODEL_M; // T-099: drawn at the person's height (uniform scale about the model's feet)
+        Mb.makeTranslation(sx, fy + 0.2, fz - 0.03).multiply(Rx).multiply(My).multiply(Ms.makeScale(k, k, k));
         surfer.matrix.copy(C).multiply(Mb).multiply(Ci); surfer.visible = true; surfer.updateMatrixWorld(true);
         bb.setFromObject(surfer); el.dataset.surfer = JSON.stringify(bb.min.toArray().concat(bb.max.toArray()).map((n) => Math.round(n * 100) / 100));
       }
@@ -536,6 +540,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
   useEffect(() => { if (prev.current !== wave && !sameSpec(prev.current, wave)) api.current?.setWave(wave); prev.current = wave; }, [wave]);
   useEffect(() => { api.current?.setDir(wave.direction); }, [wave.direction]);
   useEffect(() => { api.current?.setLight(lightRef.current); }, [light?.spotId, light?.iso]); // eslint-disable-line react-hooks/exhaustive-deps
+  const prevSurfer = useRef(surferM);
+  useEffect(() => { if (prevSurfer.current !== surferM) api.current?.setWave(waveRef.current); prevSurfer.current = surferM; }, [surferM]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { api.current?.setBoard(boardRef.current); }, [board?.id, board?.length, board?.width, board?.thickness, board?.type]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className={'live' + (live ? ' is-live' : '')} data-state={live ? 'live' : 'loading'} data-band={bucketIdFor(wave.faceM)} data-dir={wave.direction} data-mode={wave.faceM === null ? (wave.offshoreM ? 'swell' : 'none') : 'surf'} role="group" aria-label={`3D view, ${alt}. Drag to orbit, scroll or pinch to zoom.`}>

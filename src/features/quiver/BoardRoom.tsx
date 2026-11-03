@@ -319,7 +319,8 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
       </aside>
 
       <div className="br-bar" role="region" aria-label="Board Match today">
-        <p>{match}</p>
+        {/* T-099: on phones the fit line lives here (it sat under this fixed bar); the long Board Match sentence stays on its own page. */}
+        <p>{(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <><b>Today:</b> <em className={`qv-fit ${ft.state}`}>{ft.label}</em> · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {ft.board[0]}–{ft.board[1]} ft</> : match; })()}</p>
         {dirty ? <button type="button" className="btn primary" disabled={!valid} onClick={save}>Save</button> : matchAction}
       </div>
     </div>

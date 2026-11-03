@@ -396,3 +396,6 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xlm-pt { width: 100%; box-sizing: border-box; text-align: left; }
 .xpop-note { overflow-wrap: anywhere; }
 @media (max-width: 860px) { .xlm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .xlm-grid button { min-height: 52px; } }
+/* T-099: on phones the map credits line drew over an open Model point / spot card (popups sit below Leaflet's controls layer). It hides only
+   while a card is open, and is back as soon as the card closes. */
+@media (max-width: 860px) { .xleaf:has(.leaflet-popup) .leaflet-control-attribution { visibility: hidden; } }

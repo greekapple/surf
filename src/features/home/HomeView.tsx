@@ -3,7 +3,7 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
-import {bestNearbyAt, dashCard, ribbon12, RANK_LABEL, type DashCard, type RankWhen, type RibbonHour} from '../../services/homeDash';
+import {bestNearbyAt, dashCard, ribbon12, rankLabel, type DashCard, type RankWhen, type RibbonHour} from '../../services/homeDash';
 import {SpotThumb, spotPhotoId} from '../../ui/SpotThumb';
 import {useState} from 'react';
 import {dataPhase} from '../../services/dataPhase';
@@ -123,16 +123,16 @@ export function HomeView({go}: ViewProps) {
 
       <section className="hd" aria-labelledby="nb-h">
         <header className="hd-head">
-          <h2 id="nb-h">{RANK_LABEL[when].title}</h2>
+          <h2 id="nb-h">{rankLabel(when, now).title}</h2>
           <div className="nb-when" role="radiogroup" aria-label="Rank spots for" onKeyDown={onWhenKey}>
-            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{RANK_LABEL[w].tab}</button>)}
+            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{rankLabel(w, now).tab}</button>)}
           </div>
           {refName && <p className="hd-note">Within 100 km of {refName}, ranked by the rating at that time</p>}
         </header>
         {waiting ? <ul className="nb-list" aria-busy="true" aria-label="Loading nearby spots">{[0, 1, 2].map((i) => <li key={i} className="nbsk" aria-hidden="true"><i className="sk-l w70" /></li>)}</ul>
           : nearby.length === 0
           ? <p className="hd-empty">{when === 'now' && isDark(refId, new Date(now).toISOString())
-              ? <>It's dark, so nothing is rated right now. <button type="button" className="hd-link" onClick={() => setWhen('tomorrow-am')}>See tomorrow morning</button></>
+              ? <>It's dark, so nothing is rated right now. <button type="button" className="hd-link" onClick={() => setWhen('tomorrow-am')}>See {rankLabel('tomorrow-am', now).tab === 'This morning' ? 'this morning' : 'tomorrow morning'}</button></>
               : 'No other rated spots within 100 km for that time.'}</p>
           : <ol className="nb-list">
               {nearby.map(({card: c, km, at: when_}, i) => (

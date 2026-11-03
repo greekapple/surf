@@ -85,7 +85,7 @@ export function ScaleStage() {
   const activeBand = band ?? (range ? Math.max(0, SCALE_BANDS.findIndex((b) => (range[0] + range[1]) / 2 >= b.lo && (range[0] + range[1]) / 2 < b.hi)) : 3);
   const faceText = faceFt === null ? null : p.heightUnit === 'm' ? `${(faceFt * 0.3048).toFixed(1)} m` : `${Math.round(faceFt * 10) / 10} ft`;
   // the 3D stage's own label: what is drawn and what it is (the estimate's centre; or offshore swell, which is not surf size)
-  const liveLabel = text && estRange ? `Est. ${text.value} · drawn at ${faceText} face · surfer ${p.heightUnit === 'm' ? '1.75 m' : '5′9″'}`
+  const liveLabel = text && estRange ? `Est. ${text.value} · drawn at ${faceText} face · you ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}` // T-099: the 3D surfer is drawn at the person's height, like the Diagram
     : hs?.kind === 'offshore' && text ? `No breaking-wave estimate · ${text.value} offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour · nothing drawn as surf';
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
   // 3D is the main view when renders exist for the band (T-054); the drawn diagram stays one tap away
@@ -106,7 +106,7 @@ export function ScaleStage() {
   const pickBoard = (id: string) => { setBoardId(id); try { localStorage.setItem(BOARD_KEY, id); } catch { /* per session */ } };
   const ph = (me.feet / top) * H, pw = ph * 0.3, px = 372, bx = px + pw + 26;
   const when = hour ? `${weekdayPT(hour.timestamp)} ${timeLabelPT(hour.timestamp)}` : '';
-  const liveAlt = estRange ? `3D wave of this hour's estimate, ${text?.value ?? ''} ${p.heightUnit}, drawn at ${faceText} face, a ${direction}, with a 1.75 m surfer for scale` : hs?.kind === 'offshore' ? `No breaking-wave estimate; offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour';
+  const liveAlt = estRange ? `3D wave of this hour's estimate, ${text?.value ?? ''} ${p.heightUnit}, drawn at ${faceText} face, a ${direction}, with a surfer at your height, ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}, for scale` : hs?.kind === 'offshore' ? `No breaking-wave estimate; offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour';
   const alt = range ? `Estimated face ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit} beside you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}` : `No face estimate for this hour; you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}`;
   return (
     <section className="sc" aria-label="Wave scale">
@@ -122,7 +122,7 @@ export function ScaleStage() {
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
         {liveOk
           ? <Suspense fallback={<img className="live-poster-only" src={posterPath(SCALE_BANDS[activeBand])} alt="" />}>
-              <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} />
+              <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} surferM={me.inches * 0.0254} />
               <p className="spin-cap">{LIVE_CAPTION}</p>
               {hour && <p className="spin-light">Lighting for {when}{lightNote}</p>}
             </Suspense>

@@ -4,7 +4,7 @@ import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
 import {scoreBoard} from '../../recommendation/board';
 import {headlineSurf} from '../../services/headlineSurf';
-import {rankBoards, sizeFit} from './fit';
+import {boardPickFor, sizeFit} from './fit';
 import {lengthLabel, parseDimension, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
@@ -107,7 +107,9 @@ export function QuiverView({section, go}: ViewProps) {
   // The same headline estimate as the spot page and Home (T-046): Board Match uses its range when the record has no face value.
   const hs = headlineSurf(view.spot.id, f, {bundle: view.ocean.bundle, nowMs: now});
   const est: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
-  const matches = useMemo(() => boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score), [boards, f, p, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  // T-099: the one board pick (fit.ts boardPickFor), shared with Home's quiver pick and Personal, so one spot-hour gives one answer everywhere.
+  const choice = useMemo(() => boardPickFor(boards, view.spot, f, now, p, {bundle: view.ocean.bundle}), [boards, view.spot, f, now, p, view.ocean.bundle]);
+  const matches = useMemo(() => (choice.mode === 'score' ? choice.scored : boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score)), [choice, boards, f, p, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
   const sizeOk = (f.availability.face && Number.isFinite(f.face)) || !!est, charOk = !!f.character && f.character !== 'Unknown';
   const faceOk = sizeOk && charOk;
   // Today's size fit per board (real numbers: the board's range vs the estimate), shown on the rack and in the board room.
@@ -151,7 +153,7 @@ export function QuiverView({section, go}: ViewProps) {
   // One honest line from Board Match for the selected board: its score and rank at the selected hour, or why there is none.
   const mi = sel ? matches.findIndex((m) => m.board.id === sel.id) : -1, mm = mi >= 0 ? matches[mi] : null;
   const period = f.primary && Number.isFinite(f.primary.period) ? f.primary.period : null;
-  const picks = rankBoards(boards, est, period); // after the early returns: plain computation, not a hook
+  const picks = choice.ranked; // the same ranking Home and Personal use (boardPickFor)
   const selPick = sel ? picks.find((x) => x.board.id === sel.id) ?? null : null;
   const matchLine = !sizeOk ? <><b>Board Match:</b> no surf estimate for {view.spot.name} at this hour (offshore height only).</>
     : charOk && mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</>
@@ -228,10 +230,10 @@ export function QuiverView({section, go}: ViewProps) {
               <>
                 <p className="qv-shape">Ranked on size and period for {estText}. Wave shape is unknown, so it isn't weighed.</p>
                 <ol className="qv-ranks qv-ranks-sp">{picks.map((x, k) => (
-                  <li key={x.board.id} className={k === 0 && x.rank > 0 ? 'top' : ''}>
+                  <li key={x.board.id} className={x.board.id === choice.pick?.id ? 'top' : ''}>
                     <div className="qv-rank-b"><BoardOutline b={x.board} scale={(k === 0 ? 150 : 90) / maxLen} /></div>
                     <div className="qv-rank-t">
-                      <span className="qv-rank-n">{k === 0 && (x.size.state === 'in' || x.size.state === 'edge') ? 'Best for this size' : `#${k + 1}`}</span>
+                      <span className="qv-rank-n">{x.board.id === choice.pick?.id ? 'Best for this size' : `#${k + 1}`}</span>
                       <h2>{x.board.name}</h2>
                       <p className="fine">{x.board.type} · {lengthLabel(x.board.length)} · {x.board.volume} L</p>
                       <p><em className={`qv-fit ${x.size.state}`}>{x.size.label}</em>{x.size.state !== 'none' && <span className="fine"> · {x.size.source === 'board' ? 'your range' : `${x.board.type.toLowerCase()} range`} {x.size.board[0]}–{x.size.board[1]} ft</span>}</p>
@@ -247,10 +249,10 @@ export function QuiverView({section, go}: ViewProps) {
             <>
               {view.dataMode === 'Demonstration' && <p><span className="chip demo">Demonstration week · illustrative</span></p>}
               <ol className="qv-ranks">{matches.map((m, k) => (
-                <li key={m.board.id} className={k === 0 ? 'top' : ''}>
+                <li key={m.board.id} className={m.board.id === choice.pick?.id ? 'top' : ''}>
                   <div className="qv-rank-b"><BoardOutline b={m.board} scale={(k === 0 ? 150 : 90) / maxLen} /></div>
                   <div className="qv-rank-t">
-                    <span className="qv-rank-n">{k === 0 ? 'Best match' : `#${k + 1}`}</span>
+                    <span className="qv-rank-n">{m.board.id === choice.pick?.id ? 'Best match' : `#${k + 1}`}</span>
                     <h2>{m.board.name}</h2>
                     <p className="fine">{m.board.type} · {lengthLabel(m.board.length)} · {m.board.volume} L{m.eligible ? '' : ' · outside your ability or range'}{m.limited ? ' · limited board data' : ''}</p>
                     <ul className="factors">{m.factors.map((fc) => <li key={fc.name}><span>{fc.name} <span className="fine">· weight {Math.round(fc.weight * 100)}%</span></span><span>{Math.round(fc.score)}</span><span className="bar"><i style={{width: `${fc.score}%`}} /></span><span className="fine" style={{gridColumn: '1 / -1'}}>{fc.reason}</span></li>)}</ul>

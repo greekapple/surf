@@ -1,5 +1,6 @@
-import type {Surfboard} from '../../models/index';
-import {boardRanges} from '../../recommendation/board.ts';
+import type {Forecast, Surfboard, SurfSpot, UserProfile} from '../../models/index';
+import {boardRanges, scoreBoard} from '../../recommendation/board.ts';
+import {spotHourOf, type HourContext} from '../../services/spotHour.ts';
 import {periodFit, type PeriodFit} from '../../services/boardPeriod.ts';
 
 /** T-050 "today's match" per board, from real numbers only: the board's own wave range (its min/max if recorded, else its category's
@@ -36,3 +37,25 @@ export function rankBoards(boards: Surfboard[], est: [number, number] | null, pe
   }).sort((a, b) => b.rank - a.rank || (a.board.favorite === b.board.favorite ? 0 : a.board.favorite ? -1 : 1));
 }
 export const recommended = (picks: BoardPick[]) => picks.filter((x) => x.size.state === 'in' || x.size.state === 'edge');
+
+/** T-099: THE board pick, used by Home's quiver pick, Board Match and Personal, so one spot-hour gives one answer everywhere.
+ *  The size is the hour's headline (spotHourOf(...).surf.headline, as every surface shows it). When the record carries a measured face value
+ *  and a wave character, the full board scoring decides (Board Match's "score" list); otherwise boards are ranked on size + period
+ *  (rankBoards; wave shape unknown). `pick` is the top board only when it actually suits the size; there is no preference-range heuristic. */
+export type BoardChoice = {mode: 'score'; est: [number, number] | null; scored: ReturnType<typeof scoreBoard>[]; ranked: BoardPick[]; pick: Surfboard | null}
+  | {mode: 'size'; est: [number, number]; scored: []; ranked: BoardPick[]; pick: Surfboard | null}
+  | {mode: 'none'; est: null; scored: []; ranked: BoardPick[]; pick: null};
+export function boardPickFor(boards: Surfboard[], spot: SurfSpot, f: Forecast | undefined, nowMs: number, p: UserProfile, ctx: HourContext = {}): BoardChoice {
+  if (!f || !boards.length) return {mode: 'none', est: null, scored: [], ranked: [], pick: null};
+  const hs = spotHourOf(spot, f, nowMs, p, ctx).surf.headline;
+  const est: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
+  const period = f.primary && Number.isFinite(f.primary.period) ? f.primary.period : null;
+  const ranked = rankBoards(boards, est, period);
+  const faceOk = ((f.availability?.face && Number.isFinite(f.face)) || !!est) && !!f.character && f.character !== 'Unknown';
+  if (faceOk) {
+    const scored = boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score);
+    return {mode: 'score', est, scored, ranked, pick: scored.find((x) => x.eligible)?.board ?? null};
+  }
+  if (!est) return {mode: 'none', est: null, scored: [], ranked, pick: null};
+  return {mode: 'size', est, scored: [], ranked, pick: recommended(ranked)[0]?.board ?? null};
+}

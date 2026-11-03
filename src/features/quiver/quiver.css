@@ -478,3 +478,5 @@
 /* T-095: the wall's board arrows are 44 px on phones (were 40). */
 @media (max-width: 860px) { .qv-rackwrap .qv-arrow { width: 44px; height: 44px; margin-top: -22px; } }
 .qv-duel .nw { white-space: nowrap; } /* T-095: a length never splits across lines */
+/* T-099: phones show the fit line in the fixed bar, so the in-page copy (which sat under the bar) is not repeated. */
+@media (max-width: 860px) { .br-h .br-fit { display: none; } .br-bar p .qv-fit { font-style: normal; } }
