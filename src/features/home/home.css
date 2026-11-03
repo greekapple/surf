@@ -211,3 +211,7 @@
 .wel-night .sp-band.is-photo .wel-in, .wel-dusk .sp-band.is-photo .wel-in { position: relative; z-index: 2; }
 .wel-night .sp-band.is-photo::before, .wel-dusk .sp-band.is-photo::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(120% 90% at 0% 100%, rgb(4 10 22 / 0.62) 0%, rgb(4 10 22 / 0.38) 45%, rgb(4 10 22 / 0) 75%); }
+
+/* data-honesty P1 on T-107: a week cell from a saved or stale source is muted and says so */
+.wk-h.wk-stale { color: var(--muted); }
+.wk-stale-tag { font-size: 10px; font-weight: 500; color: var(--muted); }

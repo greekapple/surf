@@ -33,8 +33,13 @@ test('T-107 week cell: the day\'s typical (midday) range, never the envelope; th
 });
 test('T-107 week cell: offshore-only and no-data states are kept', () => {
   const off = {kind: 'offshore' as const, loFt: 2, hiFt: 9, hours: 8, label: '2–9 offshore', basis: '', typical: {atIso: 'x', how: 'midday' as const, hourLabel: '11 AM', short: 'midday 11a', loFt: 5, hiFt: 5, centralFt: 5, hour: {} as any, aria: ''}};
-  const o = weekCell(off, 'ft'); assert.equal(o.kind, 'offshore'); assert.equal(o.label, '5'); assert.match(o.spread!, /offshore over daylight/);
+  const o = weekCell(off, 'ft'); assert.equal(o.kind, 'offshore'); assert.equal(o.label, '5'); assert.match(o.spread!, /^offshore heights range 2–9 ft over daylight$/); assert.equal(o.stale, null);
   const none = weekCell({kind: 'none', loFt: null, hiFt: null, hours: 0, label: null, basis: '', typical: null}, 'ft'); assert.equal(none.label, '—'); assert.equal(none.centralFt, null); assert.equal(none.spread, null);
+});
+test('T-107 week cell: a saved or stale midday source is marked (data-honesty P1)', () => {
+  const mk = (reason: 'saved' | 'old') => ({kind: 'estimate' as const, loFt: 4, hiFt: 22, hours: 10, label: '', basis: '', typical: {atIso: 'x', how: 'midday' as const, hourLabel: '12 PM', short: 'midday 12p', loFt: 4, hiFt: 6, centralFt: 5,
+    hour: {surf: {headline: {kind: 'estimate', loFt: 4, hiFt: 6, saved: {retrievedAt: 'x', reason}}}} as any, aria: ''}});
+  assert.equal(weekCell(mk('saved'), 'ft').stale, 'saved'); assert.equal(weekCell(mk('old'), 'ft').stale, 'stale');
 });
 test('T-107 nearby rows: fresh data is not labelled stale (the freshness clock is the real now, not the ranked hour)', () => {
   const records = recs(() => 1.5);

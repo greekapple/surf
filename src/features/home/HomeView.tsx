@@ -83,7 +83,7 @@ export function HomeView({go}: ViewProps) {
           <Welcome name={profile.displayName ?? null} spots={pool} refSpot={rowSpots[0] ?? spot} records={view.mapRecords} profile={profile} bundle={bundle} extrema={bundle?.extrema}
             boards={data.state.boards} nowMs={now} onOpen={openAt} stationTides={view.ocean.bundle?.stationTides} />
           <section className="wk-s" aria-labelledby="wk-h">
-            <header className="hd-head"><h2 id="wk-h">This week</h2><p className="hd-note">Surf estimate by day, the AM, midday and PM rating under it; tap a day to open it</p></header>
+            <header className="hd-head"><h2 id="wk-h">This week</h2><p className="hd-note">Surf estimate at midday by day, the AM, midday and PM rating under it; tap a day for every hour</p></header>
             <WeekGrid spots={rowSpots} records={view.mapRecords} nowMs={now} profile={profile} bundle={bundle} unit={profile.heightUnit} onOpen={openAt} />
           </section>
         </>);
