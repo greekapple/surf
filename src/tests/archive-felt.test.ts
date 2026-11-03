@@ -67,3 +67,23 @@ test('headline: felt signals nudge only an active calibration; uncalibrated outp
   assert.deepEqual(headlineSurf('spot-2', f, {nowMs: now}), base); assert.equal(calibrationFor('spot-2', base.method).state, 'collecting'); assert.equal((calibrationFor('spot-2', base.method) as any).felt.low, 1);
   resetFeltCache([]);
 });
+
+test('codex P2 (a): a later visit does not overwrite the pre-session snapshot; at most 4 snapshots per spot-hour (earliest and latest kept)', () => {
+  mem.clear(); resetArchiveThrottle(); const sessionMs = Date.parse(hourIso);
+  archiveHours('spot-2', records, null, sessionMs - 4 * 3600000);               // seen before the session
+  resetArchiveThrottle(); archiveHours('spot-2', records, null, sessionMs + 3600000); // revisited after it started (same lead bucket before the fix)
+  const pre = predictedFor('spot-2', hourIso, sessionMs);
+  assert.ok(pre); assert.equal(pre!.seen, new Date(sessionMs - 4 * 3600000).toISOString(), 'the pre-session entry survives');
+  assert.equal(predictedFor('spot-2', hourIso, sessionMs + 2 * 3600000)!.seen, new Date(sessionMs + 3600000).toISOString(), 'later visits are kept too');
+  for (let i = 2; i < 9; i++) { resetArchiveThrottle(); archiveHours('spot-2', records, null, sessionMs + i * 3600000); }
+  const mine = loadArchive().filter((a) => a.v === hourIso); assert.ok(mine.length <= 4); assert.equal(mine[0].seen === new Date(sessionMs - 4 * 3600000).toISOString() || mine.some((m) => m.seen === new Date(sessionMs - 4 * 3600000).toISOString()), true);
+});
+test('codex P2 (b): an observation logged later with NO current record still pairs from the archive', () => {
+  mem.clear(); resetArchiveThrottle(); resetObservationCache([]); archiveHours('spot-2', records, null, Date.parse(hourIso) - 4 * 3600000);
+  const r = logObservation({spotId: 'spot-2', observedAt: hourIso, word: 'waist'}, {records: [], nowMs: Date.parse(hourIso) + 3 * 86400000});
+  assert.ok(r.ok); if (!r.ok) return; assert.equal(r.obs.paired, true);
+  assert.equal(JSON.parse(mem.get('swello-session-log')!)[0].pair.source, 'archived');
+  // without an archive and without a record there is nothing to pair with
+  mem.clear(); resetObservationCache([]); const r2 = logObservation({spotId: 'spot-2', observedAt: hourIso, word: 'waist'}, {records: [], nowMs: Date.parse(hourIso) + 3 * 86400000}); assert.ok(r2.ok && !r2.obs.paired);
+  resetObservationCache([]);
+});
