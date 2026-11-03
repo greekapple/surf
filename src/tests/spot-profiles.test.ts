@@ -7,18 +7,22 @@ import {evidenceSpots} from '../ocean/spots.ts';
 import {mopAssignments} from '../ocean/mop.ts';
 import {renderSpotReview} from '../services/spotReview.ts';
 
-test('registry covers the three core spots and satisfies every rule', () => {
-  assert.deepEqual(spotProfiles.map((p) => p.spotId).sort(), ['spot-0', 'spot-2', 'spot-3']);
+test('registry covers every catalogued spot (T-071 published-guide facts) and satisfies every rule', () => {
+  assert.deepEqual(spotProfiles.map((p) => p.spotId).sort(), evidenceSpots.map((e) => e.id).sort());
   for (const p of spotProfiles) { assert.ok(evidenceSpots.some((e) => e.id === p.spotId)); assert.deepEqual(profileProblems(p), [], p.spotId); }
 });
 
-test('only sourced facts are values; drafts and assumptions stay in proposals (null until reviewed)', () => {
+test('only sourced facts are values, and every guide-derived value carries its provenance, an https source and a retrieval date', () => {
   const ob = spotProfile('spot-2')!;
-  assert.equal(ob.swellWindow.value, null); assert.ok(ob.swellWindow.proposal); assert.equal(ob.swellWindow.proposal!.sources.length, 0, 'an assumption carries no invented source');
-  assert.equal(ob.periodResponse.value, null); assert.equal(ob.bottom.value, null); assert.ok(ob.bottom.proposal!.sources.length >= 2);
-  for (const f of ['sizeBand', 'tideWindow', 'windTolerance'] as const) { assert.equal(ob[f].value, null); assert.equal(ob[f].status, 'unknown'); }
-  for (const p of spotProfiles) for (const f of PROFILE_FIELDS) { const s = p[f]; if (s.value !== null) assert.ok(['sourced', 'owner-reviewed'].includes(s.status)); assert.notEqual(s.status, 'validated'); assert.notEqual(s.status, 'measured'); }
-  assert.equal(spotProfile('spot-3')!.mop.value, null); assert.equal(spotProfile('spot-0')!.mop.value, null);
+  assert.equal(ob.orientation.value!.beachNormalDeg, 263.49, 'the CDIP value is kept, not replaced by a guide word');
+  assert.equal(ob.swellWindow.provenance, 'published guide'); assert.equal(ob.periodResponse.provenance, 'published guide (generic)');
+  for (const p of spotProfiles) for (const f of PROFILE_FIELDS) {
+    const s = p[f] as any; if (s.value === null) continue;
+    assert.ok(['sourced', 'owner-reviewed'].includes(s.status)); assert.notEqual(s.status, 'validated'); assert.notEqual(s.status, 'measured');
+    assert.ok(s.sources.length >= 1 && s.sources.every((x: any) => /^https:\/\//.test(x.url) && /^\d{4}-\d\d-\d\d$/.test(x.retrievedOn)), `${p.spotId}.${f}`);
+    if (s.sources.some((x: any) => /surfnerd|surf-forecast/.test(x.url))) assert.equal(s.provenance, 'published guide', `${p.spotId}.${f}`);
+  }
+  assert.equal(spotProfile('spot-3')!.mop.value!.id, 'SM375'); assert.equal(spotProfile('spot-0')!.mop.value, null, 'Bolinas MA140 is 39° off the guide facing: no MOP, v1 only');
 });
 
 test('the Ocean Beach MOP value matches the reviewed assignment and the CDIP metadata', () => {
@@ -44,7 +48,7 @@ test('rules reject a value without a source, a stale proposal, unreviewed "revie
 test('lowest status decides what a factor may rely on; any unknown means no score', () => {
   const ob = spotProfile('spot-2')!;
   assert.equal(lowestStatus(ob, ['mop', 'orientation']), 'sourced');
-  assert.equal(lowestStatus(ob, ['mop', 'swellWindow']), 'unknown');
+  assert.equal(lowestStatus(ob, ['mop', 'tideWindow']), 'unknown');
   assert.equal(lowestStatus(emptyProfile('z'), PROFILE_FIELDS), 'unknown');
   assert.equal(unknown().value, null);
 });
@@ -52,6 +56,6 @@ test('lowest status decides what a factor may rely on; any unknown means no scor
 test('the committed review sheet is exactly what the registry generates, and invents no source', () => {
   const file = fs.readFileSync(new URL('../../docs/forecast/SPOT-FACTS-REVIEW.md', import.meta.url), 'utf8');
   assert.equal(file, renderSpotReview(), 'regenerate with docs/forecast/data/build-spot-review.ts');
-  assert.ok(!/surf-forecast|surfnerd|magicseaweed|surfline|mondo\.surf|7x7|theoutbound/i.test(file), 'no commercial surf-report source');
+  assert.ok(!/magicseaweed|surfline|7x7|theoutbound/i.test(file), 'only the published guides the user named, not other commercial sources'); assert.match(file, /provenance|published guide/i); assert.match(file, /surfnerd\.com/);
   assert.match(file, /SM375/); assert.match(file, /Pillar Point Harbor/); assert.match(file, /☐ approve/);
 });

@@ -1,3 +1,5 @@
+import {guideFactsFor} from './spotFactsSourced.ts';
+import {pickMop} from './spotFactsRules.ts';
 /** CDIP MOP registry (T-041). Which MOP transect a spot may use is a REVIEWED fact, never "nearest wins".
  *  Only `assignments` feed the app. `candidates` are measured metadata awaiting the owner's review (docs/forecast/data/mop-candidates.json).
  *  Metadata (position, depth, shore normal) was read from each point's CDIP file; see scripts/mop-lookup.mjs. */
@@ -58,4 +60,12 @@ export function distanceKm(aLat: number, aLon: number, bLat: number, bLon: numbe
   const r = Math.PI / 180, dLat = (bLat - aLat) * r, dLon = (bLon - aLon) * r;
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(aLat * r) * Math.cos(bLat * r) * Math.sin(dLon / 2) ** 2;
   return 12742 * Math.asin(Math.sqrt(h));
+}
+
+/** T-071: a candidate whose CDIP shore normal is within 25° of the facing the published guides give becomes an assignment (the closest wins); the rest stay candidates and the spot uses v1. */
+for (const c of mopCandidates) {
+  const f = guideFactsFor(c.spotId); if (!f || assignmentFor(c.spotId)) continue;
+  const pick = pickMop(f, c.mopIds.map((id) => mopPoint(id)).filter((p): p is MopPoint => !!p).map((p) => ({id: p.id, shoreNormalDeg: p.shoreNormalDeg})));
+  if (pick) mopAssignments.push({spotId: c.spotId, mopId: pick.id, status: 'sourced', sourceUrl: `https://cdip.ucsd.edu/mops/?mop=${pick.id}&xitem=info`,
+    note: `Published guides say the beach faces ${f.facing!.text} (${f.facing!.deg}°); ${pick.id}'s CDIP shore normal is ${mopPoint(pick.id)!.shoreNormalDeg}°, ${Math.round(pick.offsetDeg)}° away (tolerance 25°), 15 m depth. Assigned by the facing-match rule, not owner-reviewed.`});
 }
