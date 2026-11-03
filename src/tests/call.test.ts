@@ -71,3 +71,10 @@ test('graph series == headlineSurf per hour (estimate band), with offshore Hs as
   for (const p of s) { const f = r.find((x) => x.timestamp === p.t)!, h = headlineSurf('spot-2', f, {nowMs: Date.parse(noonNov2)}); assert.equal(p.kind, h.kind); if (h.kind === 'estimate') { assert.equal(p.lo, h.loFt); assert.equal(p.hi, h.hiFt); } assert.equal(p.offshoreFt, f.offshore); assert.equal(p.dark, isDark('spot-2', p.t)); }
   assert.ok(s.some((p) => p.dark) && s.some((p) => !p.dark));
 });
+
+import {periodFit} from '../services/boardPeriod.ts';
+test('board period fit: short period is soft for a performance board, fine for a fish; long period asks more of a small board; unknown is neutral', () => {
+  assert.equal(periodFit('shortboard', 8).fit, 'short'); assert.equal(periodFit('fish', 8).fit, 'ok'); assert.equal(periodFit('shortboard', 14).fit, 'ok');
+  assert.equal(periodFit('fish', 17, 62).fit, 'long'); assert.equal(periodFit('longboard', 17, 108).fit, 'ok');
+  assert.equal(periodFit('gun', 11).fit, 'short'); assert.equal(periodFit('shortboard', null).fit, 'ok'); assert.match(periodFit('shortboard', 8).note, /8 s swell is short/);
+});
