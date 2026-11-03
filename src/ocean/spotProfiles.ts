@@ -34,7 +34,7 @@ const withGuide = (p: SpotProfile): SpotProfile => { const f = guideFactsFor(p.s
 const guided = guideFacts.filter((f) => ![ob, lm, bo].some((p) => p.spotId === f.spotId)).map((f) => profileFromGuide(f));
 const withMop = (p: SpotProfile): SpotProfile => { // a MOP point assigned by the facing-match rule (src/ocean/mop.ts) becomes the profile's MOP value
   const a = mopAssignments.find((x) => x.spotId === p.spotId), pt = a && mopPoint(a.mopId);
-  return a && pt && p.mop.value === null ? {...p, mop: {value: {id: pt.id, lat: pt.lat, lon: pt.lon, depthM: pt.depthM, shoreNormalDeg: pt.shoreNormalDeg}, status: a.status, sources: [cdipPage(pt.id)], provenance: 'agency data', note: a.note}} : p;
+  return a && pt && p.mop.value === null ? {...p, mop: {value: {id: pt.id, lat: pt.lat, lon: pt.lon, depthM: pt.depthM, shoreNormalDeg: pt.shoreNormalDeg}, status: a.status, sources: [{url: `https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/${pt.id}_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal`, title: `CDIP MOP ${pt.id} file metadata (OPeNDAP)`, retrievedOn: pt.retrievedOn}], provenance: 'agency data', note: a.note}} : p;
 };
 export const spotProfiles: SpotProfile[] = [ob, lm, bo].map(withGuide).concat(guided).map(withMop);
 export const spotProfile = (spotId: string): SpotProfile | null => spotProfiles.find((p) => p.spotId === spotId) ?? null;

@@ -28,7 +28,7 @@ test('only sourced facts are values, and every guide-derived value carries its p
 test('the Ocean Beach MOP value matches the reviewed assignment and the CDIP metadata', () => {
   const m = spotProfile('spot-2')!.mop.value!, a = mopAssignments.find((x) => x.spotId === 'spot-2')!;
   assert.equal(m.id, a.mopId); assert.equal(m.depthM, 10); assert.equal(m.shoreNormalDeg, 263.49);
-  assert.deepEqual(mopAssignments.map((x) => x.spotId), spotProfiles.filter((p) => p.mop.value).map((p) => p.spotId));
+  assert.deepEqual(mopAssignments.map((x) => x.spotId).sort(), spotProfiles.filter((p) => p.mop.value).map((p) => p.spotId).sort());
 });
 
 test('rules reject a value without a source, a stale proposal, unreviewed "reviewed", and early calibration', () => {
