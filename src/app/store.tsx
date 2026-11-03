@@ -5,6 +5,7 @@ import {useNow} from '../hooks/useNow';
 import {spots} from '../data/demo';
 import {allSpots} from '../data/catalog';
 import {evidenceSpots} from '../ocean/spots';
+import {useArchive} from '../hooks/useArchive';
 import type {SurfSpot} from '../models/index';
 import {hourlySeries, type HourSample} from '../features/forecast/model';
 import {slugFor, spotIdForSlug} from './routes';
@@ -68,6 +69,7 @@ export function SwelloProvider({children}: {children: ReactNode}) {
     history.replaceState(null, '', `${location.pathname}?${q}`);
   };
 
+  useArchive(view.selected, view.mapRecords, view.ocean.bundle, live);
   const series = useMemo(() => hourlySeries(view.spot, view.mapRecords, now), [view.spot, view.mapRecords, now]);
   const selected = series.find((h) => h.timestamp === view.selectedTime) ?? null;
 

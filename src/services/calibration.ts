@@ -5,9 +5,10 @@ import {assignmentFor} from '../ocean/mop.ts';
 import {pacificDate} from '../ocean/time.ts';
 import {headlineSurf} from './headlineSurf.ts';
 import {recordAt} from './spotHour.ts';
+import {predictedFor} from './forecastArchive.ts';
 import {BODY_TICKS, bodyWord} from './bodyWords.ts';
 import {fitFor, NEEDED, observedFt, type Method} from './calibrationMath.ts';
-import {getObservations, setObservations, subscribeObservations, resetObservationCache} from './observationStore.ts';
+import {getObservations, getFelt, setObservations, subscribeObservations, resetObservationCache} from './observationStore.ts';
 import type {ModelPair, SessionObservation} from './sessionLog.ts';
 
 /** The quick observation API (T-059). An observation is what the SURFER saw, never shown as a measurement; it is stored in the session log (local to this browser).
@@ -30,10 +31,13 @@ const view = (o: SessionObservation): Observation => {
 export function pairFor(spotId: string, records: Forecast[] | undefined, observedAtMs: number, bundle: LogEnv['bundle'], nowMs: number): ModelPair | null {
   const f = records && recordAt(records, spotId, observedAtMs);
   if (!f || Math.floor(Date.parse(f.timestamp) / 3600000) !== Math.floor(observedAtMs / 3600000)) return null; // the same hour only, never a neighbouring one
+  // Prefer what was PREDICTED before the session (the archive), then the run at logging time.
+  const was = predictedFor(spotId, f.timestamp, observedAtMs);
+  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) return {centralFt: (was.lo + was.hi) / 2, loFt: was.lo, hiFt: was.hi, method: was.m, validAt: f.timestamp, offshoreHsFt: was.off, primaryTpS: was.tp, source: 'archived', leadH: was.lead};
   const h = headlineSurf(spotId, f, {bundle, nowMs, observations: []});
   if (h.kind !== 'estimate') return null;
   const hs = f.evidence?.offshore?.value ?? (Number.isFinite(f.offshore) ? f.offshore : null), tp = f.primary?.period;
-  return {centralFt: (h.loFt + h.hiFt) / 2, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null};
+  return {centralFt: (h.loFt + h.hiFt) / 2, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null, source: 'current'};
 }
 
 export function logObservation(i: LogInput, env: LogEnv = {}): {ok: true; obs: Observation} | {ok: false; error: string} {
@@ -62,12 +66,14 @@ export function deleteObservation(id: string): boolean {
   if (!log.some((o) => o.id === id)) return false;
   setObservations(log.filter((o) => o.id !== id)); return true;
 }
-export type CalibrationState = {state: 'collecting'; count: number; needed: number} | {state: 'active'; count: number; needed: number; ratio: number; iqr: [number, number]};
+export type CalibrationState = {state: 'collecting'; count: number; needed: number; felt: FeltSummary} | {state: 'active'; count: number; needed: number; ratio: number; iqr: [number, number]; felt: FeltSummary};
+export interface FeltSummary {low: number; right: number; high: number; factor: number}
 /** Calibration status for a spot, for the method its headline normally uses (v2 where the spot has a reviewed MOP point, else v1). `count` is paired observations only. */
 export function calibrationFor(spotId: string, method?: Method): CalibrationState {
   const m: Method = method ?? (assignmentFor(spotId) ? 'mop-v2' : 'v1');
-  const f = fitFor(getObservations(), spotId, m);
-  return f.status === 'active' ? {state: 'active', count: f.n, needed: NEEDED, ratio: f.ratio!, iqr: f.iqr!} : {state: 'collecting', count: f.n, needed: NEEDED};
+  const fl = getFelt().filter((e) => e.spotId === spotId && e.predicted?.method === m), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
+  const f = fitFor(getObservations(), spotId, m, counts), felt = {...counts, factor: f.felt?.factor ?? 1};
+  return f.status === 'active' ? {state: 'active', count: f.n, needed: NEEDED, ratio: f.ratio!, iqr: f.iqr!, felt} : {state: 'collecting', count: f.n, needed: NEEDED, felt};
 }
 export const getObservationsSnapshot = getObservations;
 export {subscribeObservations, resetObservationCache, NEEDED};
