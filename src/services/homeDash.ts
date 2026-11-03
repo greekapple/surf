@@ -43,12 +43,14 @@ export function bestWindowToday(spot: SurfSpot, records: Forecast[], now: number
   return {label: windowLabel(s, e), category: String(rateForecast(spot, best.peak, now).category), start: best.start.timestamp, end: new Date(e).toISOString()};
 }
 
-export function dashCard(spot: SurfSpot, records: Forecast[], now: number, profile: UserProfile, ctx: DashContext = {}): DashCard {
+/** `now` picks the hour the card stands for; `clockMs` is the REAL clock the freshness rule, the rating and the lead time are judged at (T-107: a ranking for 3 h ahead or tomorrow morning passed the ranked hour as "now",
+ *  so a forecast retrieved a few minutes later than the top of the hour read as future-dated and every row said "stale estimate"). Defaults to `now` for the cards that are about the current hour. */
+export function dashCard(spot: SurfSpot, records: Forecast[], now: number, profile: UserProfile, ctx: DashContext = {}, clockMs: number = now): DashCard {
   const mine = records.filter((f) => f.spotId === spot.id), cur = currentRecord(mine, spot.id, now);
   const base = {id: spot.id, name: spot.name, region: spot.region};
   if (!cur) return {...base, demo: false, validTime: null, surf: {headline: {kind: 'none', label: 'No forecast data'}, value: '—', label: 'No forecast data', words: null, tag: 'none', offshoreLabel: null}, rating: {category: 'UNRATED', score: null, bars: 0}, wind: null, tide: null, window: null};
   // One hour object (T-055): the same surf range, rating, wind and tide every other surface shows for this spot and hour.
-  const hr = spotHourOf(spot, cur, now, profile, ctx), headline = hr.surf.headline, text = hr.surf, rating = hr.rating;
+  const hr = spotHourOf(spot, cur, clockMs, profile, ctx), headline = hr.surf.headline, text = hr.surf, rating = hr.rating;
   const offshore = headline.kind === 'estimate' && finite(cur.offshore) ? headlineText({kind: 'offshore', ft: cur.offshore, label: 'offshore · not surf size'}, profile).label : null;
   return {
     ...base, demo: hr.demo, validTime: hr.validTime,
@@ -125,7 +127,7 @@ export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number
     const ev = evidenceSpots.find((e) => e.id === s.id); if (!ev) continue;
     const km = distanceKm(ref.latitude, ref.longitude, ev.latitude, ev.longitude); if (km > radiusKm) continue;
     const t = rankHour(s, records, now, when); if (t === null) continue;
-    const card = dashCard(s, records, t, profile, ctx);
+    const card = dashCard(s, records, t, profile, ctx, now);
     if (card.demo || card.rating.score === null || card.validTime === null) continue;
     out.push({card, km: Math.round(km), at: card.validTime});
   }

@@ -65,7 +65,7 @@ export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: U
 
 /** The one hour a day card stands for (T-068, user decision "Median daylight hour"): the middle daylight hour of the day by clock time (about midday). Its numbers ARE spotHourOf at that hour.
  *  The best window stays in the Call (call.ts); the full daylight envelope stays in the day's `loFt`/`hiFt`. (T-057 used the best-rated hour; that hid part of a day-to-day dip.) */
-export interface DayTypical {atIso: string; how: 'midday'; hourLabel: string; short: string; loFt: number; hiFt: number; hour: SpotHour; aria: string}
+export interface DayTypical {atIso: string; how: 'midday'; hourLabel: string; short: string; loFt: number; hiFt: number; /** T-107: the midday hour's central surf height (estimate) or offshore height; the one value a week cell's wave glyph is drawn from. */ centralFt: number; hour: SpotHour; aria: string}
 export interface DayRange {kind: 'estimate' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
 const hrFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'});
 const hourWord = (iso: string) => hrFmt.format(new Date(iso)).replace(' ', '').toUpperCase().replace(/AM$/, ' AM').replace(/PM$/, ' PM');
@@ -82,8 +82,8 @@ export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, n
     const by = [...idx].sort((x, y) => Date.parse(hours[x].timestamp) - Date.parse(hours[y].timestamp)), pick = by[(by.length - 1) >> 1], how = 'midday' as const;
     const hour = spotHourOf(spot, hours[pick], nowMs, p, ctx), h = hour.surf.headline;
     const lo = h.kind === 'estimate' ? h.loFt : h.kind === 'offshore' ? h.ft : 0, hi = h.kind === 'estimate' ? h.hiFt : h.kind === 'offshore' ? h.ft : 0;
-    const w = hourWord(hours[pick].timestamp);
-    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: `midday ${hourShort(hours[pick].timestamp)}`, loFt: lo, hiFt: hi, hour,
+    const w = hourWord(hours[pick].timestamp), central = h.kind === 'estimate' ? (h.centralFt ?? (lo + hi) / 2) : lo;
+    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: `midday ${hourShort(hours[pick].timestamp)}`, loFt: lo, hiFt: hi, centralFt: central, hour,
       aria: `typical for the day, midday ${w}`};
   };
   const est = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'estimate'}> => h.kind === 'estimate');

@@ -3,6 +3,7 @@ import {pacificDateMs, pacificHour} from '../../ocean/time';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {OceanBundle} from '../../ocean/types';
 import {dayRange, type DayRange} from '../../services/spotHour';
+import {weekCell} from '../../services/weekCell';
 import {rateForecast} from '../../ratings/adapters';
 import {isDark} from '../forecast/trustApi';
 import {BAND_COLOR, bandOf} from '../forecast/model';
@@ -41,7 +42,6 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
   }).map((r, i) => ({r, i, est: r.cells.filter((c) => c.dr.kind === 'estimate').length}))
     .sort((a, b) => b.est - a.est || a.i - b.i).map((x) => x.r), [spots, records, keys, nowMs, profile, bundle]); // T-069: spots with surf estimates first
   const max = Math.max(4, ...rows.flatMap((r) => r.cells.map((c) => (c.dr.kind === 'estimate' ? c.dr.hiFt ?? 0 : 0))));
-  const n = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(0));
   return (
     <div className="wk" role="region" aria-label="Your spots this week" tabIndex={0}>
       <table className="wk-t">
@@ -56,14 +56,13 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
               <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}{(() => { const off = cells.filter((c) => c.dr.kind === 'offshore').length, est = cells.filter((c) => c.dr.kind === 'estimate').length;
                 return off ? <span className="wk-kind"> · {est ? 'offshore where grey' : 'offshore only'}</span> : null; })()}</small></th>
               {cells.map((c, i) => {
-                const est = c.dr.kind === 'estimate' && c.dr.loFt !== null && c.dr.hiFt !== null, off = c.dr.kind === 'offshore' && c.dr.hiFt !== null;
-                const label = est ? `${n(c.dr.loFt!)}–${n(c.dr.hiFt!)}` : off ? n(c.dr.hiFt!) : '—';
-                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit}` : off ? `surf estimate unavailable, offshore up to ${n(c.dr.hiFt!)} ${unit}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
+                const wc = weekCell(c.dr, unit), est = wc.kind === 'estimate', off = wc.kind === 'offshore', label = wc.label;
+                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit}, ${wc.midday}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${label} ${unit}, ${wc.midday}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>
                     {i === 0 && segPaths.length > 0 && <svg className="wk-curve" style={{width: `${keys.length * 100}%`}} viewBox="0 0 800 56" preserveAspectRatio="none" aria-hidden="true">{segPaths.map((d) => <path key={d} d={d} />)}</svg>}
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>
-                      <span className={est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none'}>{label}</span>
+                      <span className={est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none'} data-central-ft={wc.centralFt ?? undefined} title={wc.spread ? `${wc.midday}; ${wc.spread}` : undefined}>{label}</span>
                       <span className="wk-bar" aria-hidden="true">{c.segs.map((s, k) => <i key={k} className={s.state} style={{background: s.color}} />)}</span>
                     </button>
                   </td>
