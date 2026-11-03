@@ -1,4 +1,5 @@
 import {useMemo} from 'react';
+import {pacificDateMs, pacificHour} from '../../ocean/time';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {OceanBundle} from '../../ocean/types';
 import {dayRange, type DayRange} from '../../services/spotHour';
@@ -13,9 +14,9 @@ import {weekDays} from './weekDays';
  * daily size. Offshore-only days are muted ("7 off"), never styled as surf. A cell opens that spot at that day's representative hour. */
 
 const DAYS = 8, BLOCKS = [7, 12, 17] as const, BLOCK_WORD = ['AM', 'midday', 'PM'];
-const pt = (ms: number) => new Date(ms).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
+const pt = pacificDateMs; // cached formatter (T-091)
 const dayHead = (key: string, k: number) => { if (k === 0) return 'Today'; const d = new Date(`${key}T12:00:00-08:00`); return `${d.toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short'})} ${d.toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', day: 'numeric'})}`; };
-const hourOf = (iso: string) => Number(new Date(iso).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', hour12: false})) % 24;
+const hourOf = (iso: string) => pacificHour(iso) % 24;
 
 type Seg = {state: 'dark' | 'none' | 'rated'; color: string; word: string};
 interface Cell {key: string; dr: DayRange; segs: Seg[]}

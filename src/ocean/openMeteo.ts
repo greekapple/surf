@@ -2,8 +2,10 @@ import type {Measurement,SourceInfo,OceanSwell,OceanRecord,SpotEvidence,FaceEsti
 import {estimateBreaking} from './breakingEstimate.ts';
 import {breakingProfile} from './localCalibration.ts';
 export const marineFields=['wave_height','swell_wave_height','swell_wave_direction','swell_wave_period','secondary_swell_wave_height','secondary_swell_wave_direction','secondary_swell_wave_period','sea_surface_temperature'];
-export function marineURL(s:SpotEvidence){return `https://marine-api.open-meteo.com/v1/marine?${new URLSearchParams({latitude:String(s.marineLatitude),longitude:String(s.marineLongitude),hourly:marineFields.join(','),timezone:'GMT',timeformat:'unixtime',forecast_days:'7'})}`}
-export function weatherURL(s:SpotEvidence){return `https://api.open-meteo.com/v1/forecast?${new URLSearchParams({latitude:String(s.latitude),longitude:String(s.longitude),hourly:'wind_speed_10m,wind_direction_10m,wind_gusts_10m',wind_speed_unit:'mph',timezone:'GMT',timeformat:'unixtime',forecast_days:'7'})}`}
+/* T-091: URLs are called thousands of times per render (provider keys, source labels); build each spot's URL once. Keyed on the inputs so a changed spot object still gets the right URL. */
+const urlMemo=new Map<string,string>();const memoUrl=(k:string,f:()=>string)=>{let v=urlMemo.get(k);if(v===undefined){v=f();urlMemo.set(k,v)}return v};
+export function marineURL(s:SpotEvidence){return memoUrl('m|'+s.marineLatitude+'|'+s.marineLongitude,()=>`https://marine-api.open-meteo.com/v1/marine?${new URLSearchParams({latitude:String(s.marineLatitude),longitude:String(s.marineLongitude),hourly:marineFields.join(','),timezone:'GMT',timeformat:'unixtime',forecast_days:'7'})}`)}
+export function weatherURL(s:SpotEvidence){return memoUrl('w|'+s.latitude+'|'+s.longitude,()=>`https://api.open-meteo.com/v1/forecast?${new URLSearchParams({latitude:String(s.latitude),longitude:String(s.longitude),hourly:'wind_speed_10m,wind_direction_10m,wind_gusts_10m',wind_speed_unit:'mph',timezone:'GMT',timeformat:'unixtime',forecast_days:'7'})}`)}
 export function measure(value:unknown,unit:Measurement['unit'],source:SourceInfo,expectedNative:string[],reason='Provider did not supply this measurement.'):Measurement{
  const n=typeof value==='number'&&Number.isFinite(value)?value:null;
  if(n===null||(unit==='ft'&&n<0)||(unit==='mph'&&n<0)||(unit==='s'&&n<=0)||(unit==='deg'&&(n<0||n>360)))return {value:null,unit,source,reason};

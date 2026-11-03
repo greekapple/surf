@@ -1,4 +1,5 @@
 import {useMemo} from 'react';
+import {pacificDateMs, pacificHourMs} from '../../ocean/time';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
 import {callFor, hourCall, type CallWindow, type Verdict} from '../../services/call';
@@ -19,9 +20,9 @@ const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide refe
 
 type Bundle = Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined;
 interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean}
-const pt = (ms: number) => new Date(ms).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
+const pt = pacificDateMs; // cached formatter (T-091)
 const clock = (iso: string) => new Date(iso).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'});
-const hourOfDay = (ms: number) => Number(new Date(ms).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', hour12: false})) % 24;
+const hourOfDay = pacificHourMs;
 const dayWord = (iso: string, nowMs: number) => { const d = pt(Date.parse(iso)); if (d === pt(nowMs)) return 'today'; if (d === pt(nowMs + 864e5)) return 'tomorrow'; return new Date(iso).toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long'}); };
 
 /** The best bet: across the candidate spots, the next daylight window (today's if still ahead, else the next one), Go or Worth a look at its first hour.

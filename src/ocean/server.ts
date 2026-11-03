@@ -15,8 +15,10 @@ const metadata=new Map<string,RetrievalMetadata>();
 export const sourceMetadata=(url:string)=>metadata.get(url);
 /** T-086: a Worker 304 revalidation keeps the old retrievedAt and moves only validatedAt; data confirmed minutes ago is not 'retrieved hours ago'. Freshness uses the later (an unreadable or future validatedAt is ignored). */
 export function effectiveRetrieval(value:RetrievalMetadata,nowMs:number=Date.now()):RetrievalMetadata{const r=Date.parse(value.retrievedAt),v=Date.parse(value.validatedAt??'');return Number.isFinite(r)&&Number.isFinite(v)&&v>r&&v<=nowMs+300000?{...value,providerRetrievedAt:value.retrievedAt,retrievedAt:value.validatedAt!}:value}
-export function rememberRetrieval(url:string,value:RetrievalMetadata){metadata.set(url,effectiveRetrieval(value))}
+const staleUrls=new Set<string>();/* T-091: staleSource() runs once per object while the whole bundle is labelled; a set makes it O(1) instead of a scan of every entry */
+export function rememberRetrieval(url:string,value:RetrievalMetadata){const v=effectiveRetrieval(value);metadata.set(url,v);rebuildStale()}
+function rebuildStale(){staleUrls.clear();for(const m of metadata.values())if(m.cache==='stale')staleUrls.add(m.sourceURL)}
 
-export function forgetRetrieval(url:string){metadata.delete(url)}
+export function forgetRetrieval(url:string){metadata.delete(url);rebuildStale()}
 
-export function staleSource(url:string){return [...metadata.values()].some(m=>m.sourceURL===url&&m.cache==='stale')}
+export function staleSource(url:string){return staleUrls.has(url)}

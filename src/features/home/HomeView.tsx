@@ -28,7 +28,8 @@ function RatingBar({c}: {c: DashCard['rating']}) {
   );
 }
 
-const hourShort = (iso: string) => new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'}).format(new Date(iso));
+const hourShortFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'}), atFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric'});
+const hourShort = (iso: string) => hourShortFmt.format(new Date(iso));
 /** The next 12 hours of the existing rating as a mini bar ribbon; an hour without a record is a gap, never a guess. */
 function Ribbon({hours, name}: {hours: RibbonHour[]; name: string}) {
   const have = hours.filter((h) => h.score !== null);
@@ -67,7 +68,7 @@ export function HomeView({go}: ViewProps) {
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
   const onWhenKey = (e: React.KeyboardEvent) => { const i = WHENS.indexOf(when), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); const n = WHENS[(i + d + WHENS.length) % WHENS.length]; setWhen(n); (e.currentTarget.children[WHENS.indexOf(n)] as HTMLElement | undefined)?.focus(); };
-  const at = (iso: string) => `${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric'}).format(new Date(iso))}`;
+  const at = (iso: string) => `${atFmt.format(new Date(iso))}`;
   return (
     <div className="home">
       {!waiting && (() => {
