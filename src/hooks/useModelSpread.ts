@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {evidenceSpots} from '../ocean/spots';
 import {request} from '../ocean/request';
+import {staleSource} from '../ocean/server';
 import {loadModelSpread, subscribeSpread, SPREAD_TTL_MS} from '../services/modelSpread';
 import {breakingProfile} from '../ocean/localCalibration';
 
@@ -14,7 +15,7 @@ export function useModelSpread(spotIds: string[], live: boolean, ready: boolean)
     if (!live || !ready) return;
     for (const id of [...new Set(spotIds)].slice(0, 12)) {
       const s = evidenceSpots.find((e) => e.id === id);
-      if (s && s.orientation !== null && breakingProfile(id)) void loadModelSpread(s, (u) => request(u, 'json', 600000)).catch(() => { /* optional */ });
+      if (s && s.orientation !== null && breakingProfile(id)) void loadModelSpread(s, (u) => request(u, 'json', 600000), Date.now(), staleSource).catch(() => { /* optional */ });
     }
   }, [key, live, ready, tick]); // eslint-disable-line react-hooks/exhaustive-deps
   return version;

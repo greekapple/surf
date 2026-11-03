@@ -59,7 +59,7 @@ test('the hour rule: the first record at or after the top of the hour; an earlie
   assert.equal(recordAt(records.filter((r) => Date.parse(r.timestamp) < t * 1000), 'spot-2', now), undefined);
 });
 test('wind accessor: relation and label come from one place and match the rating input', () => {
-  const f = recs('spot-2', 2.1, 90)[1], w = windOf(spot('spot-2'), f, profile)!;
+  const f = recs('spot-2', 2.1, 90)[1], w = windOf(spot('spot-2'), f, profile, now)!;
   assert.equal(w.relation, 'offshore'); assert.match(w.label, /^2\.1 mph E$|^2 mph E$|E$/);
   const g = recs('spot-2', 1.8, 315)[1], x = windOf(spot('spot-2'), g, profile)!;
   assert.equal(x.relation, 'cross-shore');

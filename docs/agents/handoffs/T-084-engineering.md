@@ -1,0 +1,11 @@
+# T-084 handoff (engineering): one freshness rule behind every spot-hour number
+- `src/services/freshness.ts`: ONE rule, identical to the rating's: saved copy, retrieved > 2 h ago, retrieval > 5 min in the future, or undated = stale, labelled with the retrieval time, never shown as current. Tide predictions use 7 h (the Worker refreshes the 8-day series every 6 h; the reviewer showed a 2 h rule would mislabel fresh tides ~4 h in 6).
+- Applied to: headline height (MOP record, MOP forecast file `delivery`, DAS issue file `issueDelivery`/`issueRetrievedAt` set in `ocean/pipeline.ts` from `sourceMetadata(url).cache==='stale'`, Open-Meteo offshore/primary), model-spread (a saved or > 2 h spread is not used; headline says the spread term is missing), wind and tide (`windOf`/`tideOf` take `nowMs`; label gets "· stale"/"· saved copy", `.stale` carries the detail; callers in spotHour, spotReport, Callout, ScaleStage, Welcome pass now).
+- Tests (`t083-agreement-stale.test.ts`): rule table, v1/v2 > 2 h, MOP file/issue saved, wind/tide saved/old (tide 5 h current, 9 h old), spread saved/old. All mocked.
+## Not done (honest)
+1. **Surfaces that read `f.wind.*` / `f.tide.height` directly never show the label**: SpotPage live-conditions grid/hourly table, wind/tide charts and tooltips, Compare, FindSpots, map layers (`SpotPage.tsx`, `charts.tsx`, `Compare.tsx`, `FindSpots.tsx`, `map/model.ts`). Needs those routed through `windOf`/`tideOf` (product-owned files) or one shared per-hour stale tag. Biggest remaining gap.
+2. Welcome sentence uses `wind.word` (no tag).
+3. The saved-spread path is effectively dead in production: `modelSpreadURL` is fetched directly (not through the Worker), so no cache metadata. Only the "older than 2 h" path can fire there.
+4. Worker 304 revalidation keeps the old `retrievedAt` (only `validatedAt` moves), so data validated minutes ago can read as > 2 h old (rating has the same weakness): expose `validatedAt` in the metadata.
+5. Surface wording differs slightly (SpotPage vs Callout); one helper in freshness.ts later.
+- Checks: tsc, 427 tests, build, journeys 8/8, t045/t055/t065/t073/t074 pass. Data-honesty-reviewer run (P0 tide false-positive fixed; remaining items above).

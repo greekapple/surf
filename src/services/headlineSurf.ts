@@ -4,8 +4,9 @@ import {assignmentFor} from '../ocean/mop.ts';
 import {BREAKING_V2_VERSION} from '../ocean/breakingEstimate.ts';
 import {mopBreaking} from './breakingV2.ts';
 import {pickMop, nowcastFor} from './nearshoreSelect.ts';
+import {firstStale, staleText} from './freshness.ts';
 import {intervalFor} from './uncertainty.ts';
-import {spreadAt} from './modelSpread.ts';
+import {spreadAt, spreadStale} from './modelSpread.ts';
 import {isGuideProfile} from '../ocean/localCalibration.ts';
 import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
 import {isGeometrySource, derivedFacing} from '../ocean/spotFactsRules.ts';
@@ -18,9 +19,9 @@ import {canPresentBreakingEstimate, formatWaveHeight} from '../utils/waveHeight.
 /** The headline surf number for a spot-hour (T-046, user decision: an estimated surf range, not offshore height).
  *  Pure and read-only: it NEVER feeds a rating, and a range is only ever an estimate with its method named. */
 export type HeadlineSurf =
-  | {kind: 'estimate'; loFt: number; hiFt: number; words: string | null; wordsNote: string; method: 'mop-v2' | 'v1'; /** Set when the source was served from the proxy's saved copy (T-083). */ saved?: {retrievedAt: string}; methodLabel: string; label: string; /** The central SURF HEIGHT by the common convention (T-077: about the nearshore significant wave height) from which the range is built. */ centralFt?: number; /** The breaking height behind it (the nearshore height carried to where the waves break), shown in the detail only. */ breakingFt?: number; /** How the range was built from its uncertainty components (T-073); absent for calibrated ranges. */ interval?: {halfWidth: number; components: {id: string; label: string; halfWidth: number}[]; disagree: boolean; note: string}; /** Present only when the range is calibrated with the surfer's own observations (T-059). */ calibration?: {n: number; ratio: number; label: string; uncalibratedFt: [number, number]}; mop?: {id: string; product: 'nowcast' | 'forecast'; validAt: string}}
+  | {kind: 'estimate'; loFt: number; hiFt: number; words: string | null; wordsNote: string; method: 'mop-v2' | 'v1'; /** Set when the source was a saved copy, older than 2 h, or undated (T-083/T-084): the label says so. */ saved?: {retrievedAt: string; reason?: 'saved' | 'old' | 'future' | 'unknown'}; methodLabel: string; label: string; /** The central SURF HEIGHT by the common convention (T-077: about the nearshore significant wave height) from which the range is built. */ centralFt?: number; /** The breaking height behind it (the nearshore height carried to where the waves break), shown in the detail only. */ breakingFt?: number; /** How the range was built from its uncertainty components (T-073); absent for calibrated ranges. */ interval?: {halfWidth: number; components: {id: string; label: string; halfWidth: number}[]; disagree: boolean; note: string}; /** Present only when the range is calibrated with the surfer's own observations (T-059). */ calibration?: {n: number; ratio: number; label: string; uncalibratedFt: [number, number]}; mop?: {id: string; product: 'nowcast' | 'forecast'; validAt: string}}
   | {kind: 'demonstration'; ft: number; label: string}
-  | {kind: 'offshore'; ft: number; label: 'offshore · not surf size' | 'offshore · not surf size · saved copy'; saved?: {retrievedAt: string}}
+  | {kind: 'offshore'; ft: number; label: 'offshore · not surf size' | 'offshore · not surf size · saved copy'; saved?: {retrievedAt: string; reason?: 'saved' | 'old' | 'future' | 'unknown'}}
   | {kind: 'none'; label: string};
 export interface HeadlineContext {/** Wave-model spread for the hour, or null; defaults to the loaded spread (services/modelSpread.ts). Pass null to force the spread-free range. */ spread?: {ratio: number; models: number} | null; bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs?: number; /** Defaults to the shared observation store; pass [] to force the uncalibrated path. */ observations?: SessionObservation[]; /** Defaults to the shared felt-right store. */ felt?: FeltEntry[]}
 
@@ -48,7 +49,7 @@ const METHOD_LABEL = {'mop-v2': `Surf height (common convention: about the CDIP 
 
 /** The range for one hour (T-073): built from the central height and its documented uncertainty; the legacy fixed band only when the central height is unavailable (a record cached before this existed). */
 function withInterval(spotId: string, hour: Forecast, ctx: HeadlineContext, method: 'mop-v2' | 'v1', central: number | undefined, legacy: [number, number], mopOverOffshore: number | null) {
-  const spread = ctx.spread !== undefined ? ctx.spread : spreadAt(spotId, hour.timestamp);
+  const spread = ctx.spread !== undefined ? ctx.spread : spreadAt(spotId, hour.timestamp, ctx.nowMs ?? Date.now());
   const lead = Math.max(0, (Date.parse(hour.timestamp) - (ctx.nowMs ?? Date.now())) / 3600000), iv = finite(central) ? intervalFor({method, centralFt: central, modelSpread: spread, mopOverOffshore, leadHours: lead}) : null;
   return iv ? {lo: iv.loFt, hi: iv.hiFt, interval: {halfWidth: iv.halfWidth, components: iv.components, disagree: iv.disagree, note: iv.note}} : {lo: legacy[0], hi: legacy[1], interval: {halfWidth: Math.log(1.4 / 0.7) / 2, components: [], disagree: false, note: 'Fixed 0.7–1.4 band (record cached before the range was built from its uncertainty); no uncertainty breakdown available.'}};
 }
@@ -61,13 +62,18 @@ const offshoreOrNone = (hour: Forecast): HeadlineSurf => (!hour?.evidence && hou
 
 /** Order: v2 where a reviewed MOP point has data for this hour → v1 where presentable → offshore (labelled) → none. */
 export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContext = {}): HeadlineSurf {
-  const h = headlineCore(spotId, hour, ctx);
-  if (h.kind === 'offshore') { const so = hour?.evidence?.offshore?.source; return so?.delivery === 'saved' ? {...h, saved: {retrievedAt: String(so.retrievedAt ?? '')}, label: 'offshore · not surf size · saved copy' as any} : h; }
+  const h = headlineCore(spotId, hour, ctx), nowMs = ctx.nowMs ?? Date.now();
+  /* T-083/T-084: ONE freshness rule (services/freshness.ts, the rating's 2 h rule): a source that is a saved copy, older than 2 h, dated in the future or undated is labelled, never shown as current. */
+  if (h.kind === 'offshore') { const st = firstStale([hour?.evidence?.offshore?.source], nowMs); return st ? {...h, saved: {retrievedAt: st.retrievedAt, reason: st.reason}, label: 'offshore · not surf size · saved or stale' as any} : h; }
   if (h.kind !== 'estimate') return h;
-  /* T-083: a value the Worker/proxy served from its saved copy because the provider failed is a SAVED forecast, never shown as current: the label and tag say so, with the retrieval time. */
-  const srcs: any[] = h.method === 'mop-v2' ? [(ctx.bundle as any)?.mop?.[assignmentFor(spotId)?.mopId ?? '']?.records?.find((r: any) => r.timestamp === h.mop?.validAt)?.height?.source, (ctx.bundle as any)?.nearshore?.find?.((r: any) => r.timestamp === h.mop?.validAt)?.height?.source] : [hour?.evidence?.offshore?.source, hour?.evidence?.primary?.height?.source];
-  const saved = srcs.find((s) => s?.delivery === 'saved');
-  return saved ? {...h, saved: {retrievedAt: String(saved.retrievedAt ?? '')}, methodLabel: `${h.methodLabel}; SAVED copy retrieved ${saved.retrievedAt ? saved.retrievedAt.replace('T', ' ').replace(/:\d\d(\.\d+)?Z$/, ' UTC') : 'at an unknown time'}: the provider could not be reached, so this is not a live forecast`} : h;
+  const mopId = assignmentFor(spotId)?.mopId ?? '', mop: any = (ctx.bundle as any)?.mop?.[mopId];
+  const srcs: any[] = h.method === 'mop-v2'
+    ? [mop?.records?.find((r: any) => r.timestamp === h.mop?.validAt)?.height?.source, (ctx.bundle as any)?.nearshore?.find?.((r: any) => r.timestamp === h.mop?.validAt)?.height?.source, mop?.delivery ? {delivery: mop.delivery, retrievedAt: mop.retrievedAt} : null, mop?.issueDelivery ? {delivery: mop.issueDelivery, retrievedAt: mop.issueRetrievedAt ?? mop.retrievedAt} : null]
+    : [hour?.evidence?.offshore?.source, hour?.evidence?.primary?.height?.source];
+  const st = firstStale(srcs, nowMs), sp = spreadStale(spotId, nowMs);
+  if (!st && !sp) return h;
+  const label = `${h.methodLabel}${st ? `; ${staleText(st)}` : ''}${sp ? `; model-spread term not used (${staleText(sp)})` : ''}`;
+  return {...h, ...(st ? {saved: {retrievedAt: st.retrievedAt, reason: st.reason}} : {}), methodLabel: label};
 }
 function headlineCore(spotId: string, hour: Forecast, ctx: HeadlineContext): HeadlineSurf {
   const nowMs = ctx.nowMs ?? Date.now(), a = assignmentFor(spotId), t = Date.parse(hour?.timestamp);
@@ -101,7 +107,7 @@ export function headlineText(h: HeadlineSurf, p: UserProfile) {
   if (h.kind === 'estimate') {
     const f = formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [h.loFt, h.hiFt], rangeMethod: h.method === 'mop-v2' ? `v2 ${BREAKING_V2_VERSION}` : 'v1'}, p);
     const bk = finite(h.breakingFt) ? `; breaking height about ${formatWaveHeight({kind: 'nearshore', valueFt: h.breakingFt}, p, 'technical').text}` : '';
-    return {value: f.text, label: `Est. ${f.text} surf height`, words: h.words, tag: h.saved ? 'saved estimate' : 'model estimate', detail: `${h.methodLabel}${bk}`};
+    return {value: f.text, label: `Est. ${f.text} surf height`, words: h.words, tag: h.saved ? (h.saved.reason === 'saved' ? 'saved estimate' : 'stale estimate') : 'model estimate', detail: `${h.methodLabel}${bk}`};
   }
   if (h.kind === 'demonstration') { const f = formatWaveHeight({kind: 'demonstration', valueFt: h.ft}, p); return {value: f.text, label: `${f.text} · ${h.label}`, words: null, tag: 'demonstration', detail: h.label}; }
   if (h.kind === 'offshore') { const f = formatWaveHeight({kind: 'offshore', valueFt: h.ft}, p); return {value: f.text.replace(/^≈ /, ''), label: `${f.text} ${h.label}`, words: null, tag: 'offshore', detail: h.label}; }

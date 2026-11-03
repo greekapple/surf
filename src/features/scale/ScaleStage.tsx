@@ -78,7 +78,7 @@ export function ScaleStage() {
   // the 3D wave is THIS hour's forecast: the estimate's centre (never a band), the estimated breaker type, the swell period, the wind relation
   const estRange = faceRange(hs), faceFt = estRange ? (estRange[0] + estRange[1]) / 2 : null, faceM = useFaceTween(faceFt === null ? null : faceFt * 0.3048);
   const wave = useMemo<WaveSpec>(() => {
-    const bt = hour ? breakerType(spot, hour).type : 'unknown', w = hour ? windOf(spot, hour, p) : null, T = hour?.primary?.period;
+    const bt = hour ? breakerType(spot, hour).type : 'unknown', w = hour ? windOf(spot, hour, p, now) : null, T = hour?.primary?.period;
     return {faceM, breaker: bt === 'spilling' || bt === 'plunging' ? bt : null, periodS: typeof T === 'number' && Number.isFinite(T) && T > 0 ? T : null,
       wind: w ? {relation: w.relation, mph: w.mph} : null, offshoreM: hs?.kind === 'offshore' ? hs.ft * 0.3048 : null, direction};
   }, [faceM, hour, spot, p, hs, direction]);

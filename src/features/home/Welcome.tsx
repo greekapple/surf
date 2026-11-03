@@ -55,7 +55,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const {bet, withData, total} = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const spot = bet?.spot ?? refSpot, hi = greetingWord(hourOfDay(nowMs)), who = name?.trim() ? `, ${name.trim().split(/\s+/)[0]}` : '';
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
-  const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile) : null;
+  const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile, nowMs) : null;
   const surf = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
   const windWords = wind ? `${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}` : null;
   const answer = bet && bet.sized && surf

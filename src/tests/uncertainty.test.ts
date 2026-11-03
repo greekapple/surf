@@ -46,8 +46,8 @@ test('model spread: bias-corrected, skill-pruned ratio of the breaking height ac
 test('model spread fetch: one request per spot, cached for 10 minutes, failure is silent; the URL asks for the documented models', async () => {
   clearSpread(); const ob = evidenceSpot('spot-2'); let calls = 0; const fetchJson = async () => { calls++; return multi({meteofrance_wave: 1.5, ncep_gfswave016: 1.0}); };
   const a = await loadModelSpread(ob, fetchJson, 1e12), b = await loadModelSpread(ob, fetchJson, 1e12 + 60000); assert.equal(calls, 1); assert.ok(a && a === b);
-  assert.ok(spreadAt('spot-2', new Date(T * 1000).toISOString())!.ratio > 1); await loadModelSpread(ob, fetchJson, 1e12 + 11 * 60000); assert.equal(calls, 2);
-  clearSpread(); assert.equal(await loadModelSpread(ob, async () => { throw new Error('offline'); }, 1e12), null); assert.equal(spreadAt('spot-2', new Date(T * 1000).toISOString()), null);
+  assert.ok(spreadAt('spot-2', new Date(T * 1000).toISOString(), 1e12 + 60000)!.ratio > 1); await loadModelSpread(ob, fetchJson, 1e12 + 11 * 60000); assert.equal(calls, 2);
+  clearSpread(); assert.equal(await loadModelSpread(ob, async () => { throw new Error('offline'); }, 1e12), null); assert.equal(spreadAt('spot-2', new Date(T * 1000).toISOString(), 1e12), null);
   const u = new URL(modelSpreadURL(ob)); assert.equal(u.searchParams.get('models'), SPREAD_MODELS.join(',')); assert.equal(u.hostname, 'marine-api.open-meteo.com');
 });
 

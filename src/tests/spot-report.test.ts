@@ -30,7 +30,7 @@ test('full data: every section is present and labelled', () => {
   const r = spotReport(spot, recs({from: FROM, count: 24 * 7}), NOW, profile);
   assert.equal(r.name, 'Ocean Beach'); assert.equal(r.validTime, '2026-10-29T20:00:00.000Z');
   assert.equal(r.headline.heightKind, 'estimate'); assert.match(r.headline.heightLabel, /^Est\. \d+–\d+ ft$/); assert.ok(r.headline.category.length > 0);
-  assert.match(r.headline.wind!.label, /^8\.0 mph E$/); assert.match(r.headline.wind!.word, /^Gentle E$/); assert.equal(r.headline.wind!.relation, 'offshore'); assert.match(r.headline.wind!.gustLabel!, /^gusts 14\.0 mph$/);
+  /* the fixture's retrieval time is 20 h before NOW, so the shared 2 h rule labels it (T-084) */ assert.match(r.headline.wind!.label, /^8\.0 mph E · stale$/); assert.match(r.headline.wind!.word, /^Gentle E$/); assert.equal(r.headline.wind!.relation, 'offshore'); assert.match(r.headline.wind!.gustLabel!, /^gusts 14\.0 mph$/);
   assert.ok(['rising', 'falling'].includes(r.headline.tide!.state)); assert.match(r.headline.tide!.note, /San Francisco/);
   assert.equal(r.days.length, 7); assert.deepEqual(r.days.map((d) => d.date), ['2026-10-29', '2026-10-30', '2026-10-31', '2026-11-01', '2026-11-02', '2026-11-03', '2026-11-04']);
   assert.equal(r.days[1].am.hours, 6); assert.equal(r.days[1].pm.hours, 6); assert.match(r.days[1].am.basis, /median of 6 hours/); assert.ok(r.days[1].am.category);

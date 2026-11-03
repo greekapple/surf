@@ -8,6 +8,6 @@ import {canPresentBreakingEstimate} from '../utils/waveHeight.ts';
 export function recordSurfRange(rec: {spotId?: string; timestamp: string; faceEstimate?: FaceEstimate}, nowMs: number, spotId = rec.spotId): {loFt: number; hiFt: number; centralFt: number; halfWidth: number} | null {
   const fe = rec.faceEstimate;
   if (!fe?.input || !canPresentBreakingEstimate(fe.input) || !Number.isFinite(fe.breakingFt) || !Number.isFinite(fe.centralFt)) return null;
-  const iv = intervalFor({method: 'v1', centralFt: fe.centralFt as number, modelSpread: spotId ? spreadAt(spotId, rec.timestamp) : null, leadHours: Math.max(0, (Date.parse(rec.timestamp) - nowMs) / 3600000)});
+  const iv = intervalFor({method: 'v1', centralFt: fe.centralFt as number, modelSpread: spotId ? spreadAt(spotId, rec.timestamp, nowMs) : null, leadHours: Math.max(0, (Date.parse(rec.timestamp) - nowMs) / 3600000)});
   return iv ? {loFt: iv.loFt, hiFt: iv.hiFt, centralFt: iv.centralFt, halfWidth: iv.halfWidth} : null;
 }

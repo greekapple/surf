@@ -8,6 +8,7 @@ import type {SurfRating} from '../ratings/types.ts';
 import {windRelationship} from '../recommendation/sqi.ts';
 import {compass, wind as windText} from '../utils/units.ts';
 import {formatWaveHeight} from '../utils/waveHeight.ts';
+import {firstStale, staleText, TIDE_MAX_AGE_MS, type Stale} from './freshness.ts';
 import {headlineSurf, headlineText, type HeadlineSurf} from './headlineSurf.ts';
 
 /** ONE source of truth for the numbers a spot shows at an hour (T-055): the forecast strip chip, the Surf card, Home, the map callout and the scale all read these,
@@ -28,21 +29,22 @@ export function recordAt(records: Forecast[], spotId: string, atMs: number): For
 }
 
 const windAdjective = (mph: number) => (mph < 5 ? 'Light' : mph < 12 ? 'Gentle' : mph < 19 ? 'Moderate' : mph < 26 ? 'Fresh' : 'Strong');
-export interface WindView {mph: number; dirDeg: number; word: string; label: string; relation: string; gustLabel: string | null}
+export interface WindView {mph: number; dirDeg: number; word: string; label: string; relation: string; gustLabel: string | null; stale?: Stale}
 /** The wind accessor: speed, direction and shore relation for one hour, in the user's units. Null when this hour has no usable wind. */
-export function windOf(spot: SurfSpot, f: Forecast, p: UserProfile): WindView | null {
+export function windOf(spot: SurfSpot, f: Forecast, p: UserProfile, nowMs: number = Date.now()): WindView | null {
   if (!finite(f.wind?.speed) || !finite(f.wind?.direction) || f.availability?.wind === false) return null;
-  return {mph: f.wind.speed, dirDeg: f.wind.direction, word: `${windAdjective(f.wind.speed)} ${compass(f.wind.direction)}`, label: `${windText(f.wind.speed, p)} ${compass(f.wind.direction)}`,
+  const st = firstStale([f.evidence?.windSpeed?.source, f.evidence?.windDirection?.source], nowMs), tag = st ? (st.reason === 'saved' ? ' · saved copy' : ' · stale') : '';
+  return {mph: f.wind.speed, dirDeg: f.wind.direction, word: `${windAdjective(f.wind.speed)} ${compass(f.wind.direction)}`, label: `${windText(f.wind.speed, p)} ${compass(f.wind.direction)}${tag}`, ...(st ? {stale: st} : {}),
     relation: String(windRelationship(spot, f)).toLowerCase(), gustLabel: finite(f.wind.gusts) ? `gusts ${windText(f.wind.gusts as number, p)}` : null};
 }
-export interface TideView {state: 'rising' | 'falling' | 'unknown'; heightLabel: string | null; note: string}
+export interface TideView {state: 'rising' | 'falling' | 'unknown'; heightLabel: string | null; note: string; stale?: Stale}
 /** The tide accessor: regional reference station level and trend for one hour. Null when this hour has neither. */
-export function tideOf(f: Forecast, p: UserProfile): TideView | null {
-  const trend = f.tide?.trend ?? f.tide?.stage;
+export function tideOf(f: Forecast, p: UserProfile, nowMs: number = Date.now()): TideView | null {
+  const trend = f.tide?.trend ?? f.tide?.stage, st = firstStale([f.evidence?.tide?.source], nowMs, TIDE_MAX_AGE_MS);
   if (!finite(f.tide?.height) && trend !== 'Rising' && trend !== 'Falling') return null;
   return {state: trend === 'Rising' ? 'rising' : trend === 'Falling' ? 'falling' : 'unknown',
-    heightLabel: finite(f.tide?.height) ? formatWaveHeight({kind: 'nearshore', valueFt: Math.abs(f.tide.height)}, p, 'technical').text.replace(/^/, f.tide.height < 0 ? '-' : '') : null,
-    note: 'Regional reference station (San Francisco), MLLW; not a local tide gauge.'};
+    heightLabel: finite(f.tide?.height) ? formatWaveHeight({kind: 'nearshore', valueFt: Math.abs(f.tide.height)}, p, 'technical').text.replace(/^/, f.tide.height < 0 ? '-' : '') + (st ? (st.reason === 'saved' ? ' · saved copy' : ' · stale') : '') : null,
+    note: `Regional reference station (San Francisco), MLLW; not a local tide gauge.${st ? ` ${staleText(st)}.` : ''}`, ...(st ? {stale: st} : {})};
 }
 
 export interface SpotHour {
@@ -54,7 +56,7 @@ export interface SpotHour {
 export function spotHourOf(spot: SurfSpot, f: Forecast, nowMs: number, p: UserProfile, ctx: HourContext = {}): SpotHour {
   const headline = headlineSurf(spot.id, f, {bundle: ctx.bundle, nowMs}), t = headlineText(headline, p);
   return {spotId: spot.id, validTime: f.timestamp, demo: !f.evidence, record: f, surf: {headline, value: t.value, label: t.label, words: t.words, tag: t.tag, detail: t.detail},
-    rating: rateForecast(spot, f, nowMs), wind: windOf(spot, f, p), tide: tideOf(f, p)};
+    rating: rateForecast(spot, f, nowMs), wind: windOf(spot, f, p, nowMs), tide: tideOf(f, p, nowMs)};
 }
 export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: UserProfile, ctx: HourContext = {}): SpotHour | undefined {
   const f = recordAt(records, spot.id, atMs);

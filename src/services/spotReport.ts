@@ -80,7 +80,7 @@ export function spotReport(spot: SurfSpot, records: Forecast[], now: number, pro
   const todayKey = pacificDate(new Date(now).toISOString());
 
   // Wind and tide come from the shared accessors, so Home and Forecast cannot disagree for the same hour (T-055).
-  const w = cur ? windOf(spot, cur, profile) : null, td = cur ? tideOf(cur, profile) : null;
+  const w = cur ? windOf(spot, cur, profile, now) : null, td = cur ? tideOf(cur, profile, now) : null;
   const wind: SpotReport['headline']['wind'] = w ? {word: w.word, label: w.label, relation: w.relation, gustLabel: w.gustLabel} : null;
   const tide: SpotReport['headline']['tide'] = td ? {state: td.state, heightLabel: td.heightLabel, note: td.note} : null;
 

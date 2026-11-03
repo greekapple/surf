@@ -1,3 +1,4 @@
+import {staleness, type Stale} from './freshness.ts';
 import type {SpotEvidence} from '../ocean/types.ts';
 import {estimateBreaking} from '../ocean/breakingEstimate.ts';
 import {breakingProfile} from '../ocean/localCalibration.ts';
@@ -23,7 +24,7 @@ export const modelSpreadURL = (s: Pick<SpotEvidence, 'marineLatitude' | 'marineL
   hourly: ['wave_height', 'swell_wave_height', 'swell_wave_period', 'swell_wave_direction'].join(','), models: SPREAD_MODELS.join(','), forecast_days: '7', timezone: 'GMT', timeformat: 'unixtime'})}`;
 
 export interface HourSpread {ratio: number; models: number; centralsFt: Record<string, number>}
-export interface SpreadSeries {spotId: string; fetchedAt: string; byHour: Map<string, HourSpread>; modelsUsed: string[]}
+export interface SpreadSeries {spotId: string; fetchedAt: string; /** the proxy served its saved copy (T-084) */ saved?: boolean; byHour: Map<string, HourSpread>; modelsUsed: string[]}
 const FT = 1 / 0.3048, num = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
 
 /** Pure: Open-Meteo multi-model JSON → per-hour spread for a spot that has a breaking profile and an orientation (otherwise empty). */
@@ -50,12 +51,14 @@ const store = new Map<string, SpreadSeries>();
 const subs = new Set<() => void>();
 export const getSpreadSeries = (spotId: string) => store.get(spotId) ?? null;
 /** The spread for one spot-hour, or null (no data, a spot without a profile, or fewer than two models). */
-export const spreadAt = (spotId: string, iso: string): HourSpread | null => store.get(spotId)?.byHour.get(new Date(Date.parse(iso)).toISOString()) ?? null;
+export const spreadAt = (spotId: string, iso: string, nowMs: number = Date.now()): HourSpread | null => { const s = store.get(spotId); return s && !spreadStale(spotId, nowMs) ? s.byHour.get(new Date(Date.parse(iso)).toISOString()) ?? null : null; };
+/** T-084: a spread that is a saved copy or older than 2 h is NOT used (the range then has no disagreement term) and the headline says so. */
+export const spreadStale = (spotId: string, nowMs: number = Date.now()): Stale | null => { const s = store.get(spotId); return s ? staleness({delivery: s.saved ? 'saved' : undefined, retrievedAt: s.fetchedAt}, nowMs) : null; };
 export function setSpreadSeries(s: SpreadSeries) { store.set(s.spotId, s); subs.forEach((f) => { try { f(); } catch { /* one subscriber must not break the others */ } }); }
 export const subscribeSpread = (cb: () => void) => { subs.add(cb); return () => { subs.delete(cb); }; };
 export const clearSpread = () => { store.clear(); subs.forEach((f) => f()); };
 /** Fetches (unless fresh) and stores the spread for a spot. Never throws: a failure just leaves the range without a spread term. `fetchJson` is injectable for tests. */
-export async function loadModelSpread(spot: SpotEvidence, fetchJson: (url: string) => Promise<unknown>, nowMs = Date.now()): Promise<SpreadSeries | null> {
-  const have = store.get(spot.id); if (have && nowMs - Date.parse(have.fetchedAt) < SPREAD_TTL_MS) return have;
-  try { const s = normalizeSpread(await fetchJson(modelSpreadURL(spot)), spot, new Date(nowMs).toISOString()); setSpreadSeries(s); return s; } catch { return null; }
+export async function loadModelSpread(spot: SpotEvidence, fetchJson: (url: string) => Promise<unknown>, nowMs = Date.now(), isSaved: (url: string) => boolean = () => false): Promise<SpreadSeries | null> {
+  const have = store.get(spot.id); if (have && !have.saved && nowMs - Date.parse(have.fetchedAt) < SPREAD_TTL_MS) return have;
+  try { const u = modelSpreadURL(spot), json = await fetchJson(u), s = normalizeSpread(json, spot, new Date(nowMs).toISOString()); if (isSaved(u)) s.saved = true; setSpreadSeries(s); return s; } catch { return null; }
 }
