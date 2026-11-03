@@ -38,8 +38,8 @@ test('nearshore swell and tide are context only: never in the score, never claim
   assert.equal(explainRating(q, {spotId: 'spot-2', mop: {id: 'X', hsFt: null, tpS: 10, dpDeg: 20, shoreNormalDeg: 263, product: 'nowcast'}}).items.some((i) => /Nearshore/.test(i.factor)), false, 'a missing MOP value is not shown as a result');
 });
 test('unreviewed spot facts are listed and lower the stated reliability reasons; a spot with more reviewed facts lists fewer', () => {
-  const q = rateOcean(evidenceSpot('cs-pismo'), rec('cs-pismo', 4.9, 270), now), e = explainRating(q, {spotId: 'cs-pismo'});
-  assert.ok(e.unknownFacts.includes('Swell window') && e.unknownFacts.includes('Tide window') && e.unknownFacts.includes('Wind tolerance'));
+  const q = rateOcean(evidenceSpot('cs-shelter-cove'), rec('cs-shelter-cove', 4.9, 270), now), e = explainRating(q, {spotId: 'cs-shelter-cove'});
+  assert.ok(e.unknownFacts.includes('Beach orientation') && e.unknownFacts.includes('Tide window') && e.unknownFacts.includes('Wind tolerance'));
   assert.match(e.reliability.reasons.at(-1)!, /spot facts are not reviewed/); assert.equal(e.reliability.category, q.reliability.category);
   const ob = explainRating(rateOcean(evidenceSpot('spot-2'), rec('spot-2', 4.9, 270), now), {spotId: 'spot-2'});
   assert.ok(ob.unknownFacts.length < e.unknownFacts.length);

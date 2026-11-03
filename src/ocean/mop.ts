@@ -1,5 +1,6 @@
 import {guideFactsFor} from './spotFactsSourced.ts';
 import {pickMop} from './spotFactsRules.ts';
+import {scannedMopPoints, scannedMopCandidates} from './mopCandidatesSourced.ts';
 /** CDIP MOP registry (T-041). Which MOP transect a spot may use is a REVIEWED fact, never "nearest wins".
  *  Only `assignments` feed the app. `candidates` are measured metadata awaiting the owner's review (docs/forecast/data/mop-candidates.json).
  *  Metadata (position, depth, shore normal) was read from each point's CDIP file; see scripts/mop-lookup.mjs. */
@@ -12,12 +13,14 @@ export const mopBase = 'https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/mo
 export const mopDodsBase = 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/';
 
 const ON = '2026-11-01';
-export const mopPoints: MopPoint[] = [
+const handPoints: MopPoint[] = [
   {id: 'SF023', lat: 37.74811, lon: -122.51886, depthM: 10, shoreNormalDeg: 263.49, retrievedOn: ON},
   {id: 'SM375', lat: 37.59973, lon: -122.51654, depthM: 15, shoreNormalDeg: 319.97, retrievedOn: ON},
   {id: 'SM376', lat: 37.60069, lon: -122.51473, depthM: 15, shoreNormalDeg: 339.46, retrievedOn: ON},
   {id: 'MA140', lat: 37.88387, lon: -122.67383, depthM: 15, shoreNormalDeg: 173.55, retrievedOn: ON},
 ];
+/** T-073: plus the points near every other spot found by scripts/mop-scan.mjs (src/ocean/mopCandidatesSourced.ts). */
+export const mopPoints: MopPoint[] = [...handPoints, ...scannedMopPoints.filter((p) => !handPoints.some((h) => h.id === p.id))];
 
 /** Reviewed assignments. Ocean Beach to SF023 is the one transect CDIP itself documents for the beach (sourced). */
 export const mopAssignments: MopAssignment[] = [
@@ -28,6 +31,8 @@ export const mopAssignments: MopAssignment[] = [
 export const mopCandidates: MopCandidate[] = [
   {spotId: 'spot-3', mopIds: ['SM375', 'SM376'], note: 'Linda Mar: nearest points are 15 m deep (not 10 m) with shore normals 320°–350° that differ strongly between neighbours; whether either represents the beach break is unknown.'},
   {spotId: 'spot-0', mopIds: ['MA140'], note: 'Bolinas: nearest points are 2.8 km away at 15 m with a south-facing normal (~170°); the break’s own transect is unknown.'},
+  // T-073: every other spot's nearest points (Ocean Beach keeps its reviewed SF023; Linda Mar and Bolinas keep the lists above)
+  ...scannedMopCandidates.filter((c) => !['spot-2', 'spot-3', 'spot-0'].includes(c.spotId)),
 ];
 
 export const assignmentFor = (spotId: string) => mopAssignments.find((a) => a.spotId === spotId) ?? null;
@@ -67,5 +72,5 @@ for (const c of mopCandidates) {
   const f = guideFactsFor(c.spotId); if (!f || assignmentFor(c.spotId)) continue;
   const pick = pickMop(f, c.mopIds.map((id) => mopPoint(id)).filter((p): p is MopPoint => !!p).map((p) => ({id: p.id, shoreNormalDeg: p.shoreNormalDeg})));
   if (pick) mopAssignments.push({spotId: c.spotId, mopId: pick.id, status: 'sourced', sourceUrl: `https://cdip.ucsd.edu/mops/?mop=${pick.id}&xitem=info`,
-    note: `Published guides say the beach faces ${f.facing!.text} (${f.facing!.deg}°); ${pick.id}'s CDIP shore normal is ${mopPoint(pick.id)!.shoreNormalDeg}°, ${Math.round(pick.offsetDeg)}° away (tolerance 25°), 15 m depth. Assigned by the facing-match rule, not owner-reviewed.`});
+    note: `${f.facing!.basis === 'coastline geometry' ? `The facing derived from coastline geometry is ${f.facing!.deg}°` : `Published guides say the beach faces ${f.facing!.text} (${f.facing!.deg}°)`}; ${pick.id}'s CDIP shore normal is ${mopPoint(pick.id)!.shoreNormalDeg}°, ${Math.round(pick.offsetDeg)}° away (tolerance 25°), ${mopPoint(pick.id)!.depthM} m depth. Assigned by the facing-match rule, not owner-reviewed.`});
 }

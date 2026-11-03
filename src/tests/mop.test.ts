@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {mopAssignments, mopCandidates, mopPoints, mopPoint, assignedMopIds, mopURL, mopDasURL, parseMopDas, distanceKm} from '../ocean/mop.ts';
+import {mopAssignments, assignmentFor, mopCandidates, mopPoints, mopPoint, assignedMopIds, mopURL, mopDasURL, parseMopDas, distanceKm} from '../ocean/mop.ts';
 import {normalizeNearshore} from '../ocean/nearshore.ts';
 import {serverProviderPath} from '../ocean/server.ts';
 import {ingestionTargets, mopServiceIds} from '../../services/forecast-service.mjs';
@@ -10,17 +10,20 @@ const hdr = 'time,station,latitude[unit="degrees_north"],longitude[unit="degrees
 const fc = [hdr, '2026-11-01T00:00:00Z,SF023,37.748,-122.518,1.5,14.2,226,1', '2026-11-01T03:00:00Z,SF023,37.748,-122.518,1.4,14.2,227,2', '2026-11-01T06:00:00Z,SF023,37.748,-122.518,,13.3,229,1'].join('\n');
 
 test('only reviewed assignments feed the app; candidates stay out of it', () => {
-  assert.deepEqual(assignedMopIds(), ['SF023', 'SM375']); // SM375 by the T-071 facing-match rule (Linda Mar faces NW, SM375 normal 320°)
+  assert.deepEqual(assignedMopIds().slice(0, 2), ['SF023', 'SM375']); // SM375 by the T-071 facing-match rule (Linda Mar faces NW, SM375 normal 320°)
+  assert.ok(assignedMopIds().length >= 40, `T-073: the facing-match rule over every spot's scanned points (${assignedMopIds().length})`);
+  assert.ok(!assignedMopIds().includes('MA140') && !assignmentFor('spot-0'), 'Bolinas still has no point within 25° of its facing');
   for (const a of mopAssignments) assert.ok(['sourced', 'owner-reviewed'].includes(a.status) && a.sourceUrl.startsWith('https://'));
   for (const c of mopCandidates) for (const id of c.mopIds) assert.ok(!mopAssignments.some((a) => a.mopId === id) || mopAssignments.some((a) => a.mopId === id && /facing-match rule/.test(a.note)), `${id} is a candidate unless the T-071 facing-match rule assigned it`);
 });
 
 test('every registry point matches the measured candidate file (lookup script output)', () => {
-  const file = JSON.parse(fs.readFileSync(new URL('../../docs/forecast/data/mop-candidates.json', import.meta.url), 'utf8'));
-  const measured = new Map<string, any>(file.spots.flatMap((s: any) => s.nearest).map((p: any) => [p.id, p]));
+  const read = (f: string) => JSON.parse(fs.readFileSync(new URL(`../../docs/forecast/data/${f}`, import.meta.url), 'utf8'));
+  const measured = new Map<string, any>([...read('mop-candidates-all.json').spots, ...read('mop-candidates.json').spots].flatMap((s: any) => s.nearest).map((p: any) => [p.id, p]));
   for (const p of mopPoints) {
     const m = measured.get(p.id);
-    assert.ok(m, `${p.id} is in mop-candidates.json`);
+    assert.ok(m, `${p.id} is in mop-candidates.json or mop-candidates-all.json (scripts/mop-scan.mjs)`);
+    assert.ok(p.shoreNormalDeg >= 0 && p.shoreNormalDeg < 360, `${p.id} has a valid shore normal (CDIP's -999.99 fill is never used)`);
     assert.equal(m.depthM, p.depthM); assert.equal(m.shoreNormalDeg, p.shoreNormalDeg); assert.equal(m.lat, p.lat); assert.equal(m.lon, p.lon);
   }
   for (const c of mopCandidates) for (const id of c.mopIds) assert.ok(mopPoint(id), `${id} has recorded metadata`);
@@ -60,6 +63,9 @@ test('service ingests exactly the assigned MOP ids, and the browser routes only 
   assert.equal(serverProviderPath(mopURL('SF023', 'nowcast')), '/api/provider?key=nearshore-SF023');
   assert.equal(serverProviderPath(mopDasURL('SF023')), '/api/provider?key=nearshore-SF023-das');
   assert.equal(serverProviderPath(mopURL('SM376', 'forecast')), null, 'unassigned candidate is not ingested');
+  // T-073: one-letter county prefixes with four digits (San Diego D0457, Santa Barbara B1084) route through the server too
+  assert.equal(serverProviderPath(mopURL('D0457', 'forecast')), '/api/provider?key=nearshore-D0457-forecast');
+  assert.equal(serverProviderPath(mopDasURL('B1084')), '/api/provider?key=nearshore-B1084-das');
 });
 
 test('distance helper', () => { assert.ok(Math.abs(distanceKm(37.759, -122.51, 37.74811, -122.51886) - 1.44) < 0.05); });
