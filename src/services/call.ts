@@ -43,9 +43,9 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   } else sizeNote = 'No surf-size estimate for this spot, so size is not part of this call.';
   // Breaker type (T-064 addendum): a plunging break at size is for experienced surfers (our own rule; Surfing Online "Types of Waves" describes plunging waves as hollow, powerful and for experienced surfers). Spilling is forgiving.
   let breakerNote = '';
-  if (breaker.type === 'plunging' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging (est.) and ${fmt(h.loFt, h.hiFt, profile)}: experienced surfers only.`; }
-  else if (breaker.type === 'plunging') breakerNote = 'Plunging breaker (est. from a mean seabed slope): hollow and powerful.';
-  else if (breaker.type === 'spilling') breakerNote = 'Spilling breaker (est. from a mean seabed slope): soft and forgiving.';
+  if (breaker.type === 'plunging' && breaker.confidence === 'checked' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging (est.) and ${fmt(h.loFt, h.hiFt, profile)}: experienced surfers only.`; }
+  else if (breaker.type === 'plunging') breakerNote = 'Plunging breaker (est. from a mean seabed slope, not the slope at the break): likely hollow and powerful.';
+  else if (breaker.type === 'spilling') breakerNote = 'Spilling breaker (est. from a mean seabed slope, not the slope at the break): likely soft, but check the shorebreak.';
   let windNote = '';
   if (w) {
     const mph = w.mph;

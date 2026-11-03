@@ -10,7 +10,7 @@ import {slopeFor} from '../ocean/nearshoreSlope.ts';
 export type BreakerType = 'spilling' | 'plunging' | 'surging' | 'unknown';
 export const BREAKER_LABEL = 'est. breaker type';
 export const SPILLING_MAX = 0.5, PLUNGING_MAX = 3.3, G = 9.80665;
-export interface BreakerEstimate {type: BreakerType; xi: number | null; tanBeta: number | null; h0M: number | null; periodS: number | null; label: typeof BREAKER_LABEL; basis: string}
+export interface BreakerEstimate {/** 'checked' only for a hand-reviewed slope (T-087); a generated depth/distance mean slope is 'mean-slope' and must not alone downgrade a verdict */confidence?: 'checked' | 'mean-slope'; type: BreakerType; xi: number | null; tanBeta: number | null; h0M: number | null; periodS: number | null; label: typeof BREAKER_LABEL; basis: string}
 
 export const deepWavelengthM = (periodS: number) => (G * periodS * periodS) / (2 * Math.PI);
 /** The surf-similarity parameter; null when an input is not a positive finite number. */
@@ -29,7 +29,7 @@ export function breakerType(spot: Pick<SurfSpot, 'id'>, hour: Pick<Forecast, 'pr
   const xi = iribarren(slope.tanBeta, h0, t);
   if (xi === null) return unknown('This hour has no usable primary swell height and period.', {tanBeta: slope.tanBeta});
   const type = classify(xi);
-  return {type, xi, tanBeta: slope.tanBeta, h0M: h0, periodS: t, label: BREAKER_LABEL, basis: `Surf similarity ξ = ${xi.toFixed(2)} (slope ${slope.tanBeta.toFixed(3)}, swell ${(h0 * FT_PER_M).toFixed(1)} ft at ${t.toFixed(0)} s): ${type}. ${slope.basis} Deep-water ξ₀ classes (spilling < ${SPILLING_MAX}, plunging ≤ ${PLUNGING_MAX}, surging above): Battjes 1974.`};
+  return {confidence: slope.confidence ?? 'mean-slope', type, xi, tanBeta: slope.tanBeta, h0M: h0, periodS: t, label: BREAKER_LABEL, basis: `Surf similarity ξ = ${xi.toFixed(2)} (slope ${slope.tanBeta.toFixed(3)}, swell ${(h0 * FT_PER_M).toFixed(1)} ft at ${t.toFixed(0)} s): ${type}. ${slope.basis} Deep-water ξ₀ classes (spilling < ${SPILLING_MAX}, plunging ≤ ${PLUNGING_MAX}, surging above): Battjes 1974.`};
 }
 /** What Board Match can use in place of "wave character unknown": spilling is soft, plunging is steep and hollow; surging does not break normally, so no character. Our own mapping. */
 export const characterFromBreaker = (t: BreakerType): 'soft' | 'steep' | null => (t === 'spilling' ? 'soft' : t === 'plunging' ? 'steep' : null);

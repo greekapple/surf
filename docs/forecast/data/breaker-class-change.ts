@@ -17,4 +17,4 @@ for (const s of evidenceSpots) {
     hours++; const a = old(xi), b = classify(xi); perClass[b] = (perClass[b] ?? 0) + 1; if (a !== b) { changed++; tr[`${a} -> ${b}`] = (tr[`${a} -> ${b}`] ?? 0) + 1; }
   }
 }
-console.log(JSON.stringify({spotsInDataset: evidenceSpots.length, spotsWithDefensibleSlope: withSlope, spotHoursClassified: hours, changed, transitions: tr, classesAfter: perClass}, null, 1));
+console.log(JSON.stringify({before:'only Ocean Beach had a slope; every other spot-hour was unknown',spotsInDataset: evidenceSpots.length, spotsWithDefensibleSlope: withSlope, spotHoursClassified: hours, changed, transitions: tr, classesAfter: perClass}, null, 1));

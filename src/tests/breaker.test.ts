@@ -37,3 +37,17 @@ test('Ocean Beach (coarse mean slope) is spilling for typical swell; an injected
 test('Board Match input: spilling → soft, plunging → steep, surging and unknown → none', () => {
   assert.deepEqual(['spilling', 'plunging', 'surging', 'unknown'].map((t) => characterFromBreaker(t as any)), ['soft', 'steep', null, null]);
 });
+
+import {sourcedSlopes} from '../ocean/nearshoreSlopeSourced.ts';
+import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
+import {mopAssignments} from '../ocean/mop.ts';
+test('T-087 sourced slopes: beach breaks only, plausible, labelled approximate, tied to the assigned MOP point; reefs/points/jetties stay unknown', () => {
+  assert.ok(sourcedSlopes.length >= 10 && sourcedSlopes.length <= 15); for (const x of ['cs-wedge', 'cs-blacks', 'cs-carmel', 'cs-asilomar', 'cs-hermosa', 'cs-el-porto', 'cs-zuma', 'cs-moss-landing', 'cs-sand-dollar', 'spot-3']) assert.equal(slopeFor(x), null, `${x} stays unknown (excluded by caution or by the checks)`);
+  assert.ok(sourcedSlopes.every((s) => s.confidence === 'mean-slope' && typeof s.etopoDepthM === 'number' && !/Cross-checked/.test(s.basis)));
+  for (const s of sourcedSlopes) {
+    assert.equal(guideFactsFor(s.spotId)?.waveType, 'beach', s.spotId); assert.ok(s.tanBeta >= 0.004 && s.tanBeta <= 0.06, `${s.spotId} ${s.tanBeta}`);
+    assert.equal(mopAssignments.find((a) => a.spotId === s.spotId)?.mopId, s.mopId); assert.ok(Math.abs(s.tanBeta - s.depthM / s.distanceM) < 1e-4); assert.match(s.basis, /approximate/);
+  }
+  for (const a of mopAssignments) { const t = guideFactsFor(a.spotId)?.waveType; if (t && t !== 'beach') assert.equal(slopeFor(a.spotId), null, `${a.spotId} (${t}) must stay unknown`); }
+  assert.equal(slopeFor('spot-2')!.confidence, 'checked'); assert.equal(breakerType({id: 'cs-pismo'}, {primary: {height: 5, period: 14, direction: 270}} as any).confidence, 'mean-slope');
+});
