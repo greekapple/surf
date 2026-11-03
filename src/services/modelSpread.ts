@@ -18,10 +18,10 @@ export const MODEL_SKILL: Record<string, {bias: number; halfWidth: number}> = {
 };
 export const PRUNE_HALF_WIDTH = 0.2;
 export const PRUNED_MODELS = ['gwam']; // half-width 0.223 at NDBC 46026 (> PRUNE_HALF_WIDTH)
-export const SPREAD_MODELS = ['meteofrance_wave', 'ncep_gfswave016', 'gwam', 'ecmwf_wam025'] as const;
+import {SPREAD_MODELS, modelSpreadURL} from '../ocean/openMeteo.ts';
+export {SPREAD_MODELS, modelSpreadURL}; // defined in ocean/openMeteo.ts (T-114), re-exported here
 export const SPREAD_TTL_MS = 10 * 60000;
-export const modelSpreadURL = (s: Pick<SpotEvidence, 'marineLatitude' | 'marineLongitude'>) => `https://marine-api.open-meteo.com/v1/marine?${new URLSearchParams({latitude: String(s.marineLatitude), longitude: String(s.marineLongitude),
-  hourly: ['wave_height', 'swell_wave_height', 'swell_wave_period', 'swell_wave_direction'].join(','), models: SPREAD_MODELS.join(','), forecast_days: '7', timezone: 'GMT', timeformat: 'unixtime'})}`;
+
 
 export interface HourSpread {ratio: number; models: number; centralsFt: Record<string, number>}
 export interface SpreadSeries {spotId: string; fetchedAt: string; /** the proxy served its saved copy (T-084) */ saved?: boolean; byHour: Map<string, HourSpread>; modelsUsed: string[]}
