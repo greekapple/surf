@@ -136,7 +136,7 @@ export function ScaleStage() {
         </div>
         <div className="sc-row">
           <span className="sc-l" id="sc-band-l">Compare a size</span>
-          <div className="sc-chips" role="radiogroup" aria-labelledby="sc-band-l">{SCALE_BANDS.map((b, i) => <button key={b.id} type="button" role="radio" aria-checked={band === i} onClick={() => setBand(band === i ? null : i)}>{b.short}</button>)}</div>
+          <div className="sc-chips" role="radiogroup" aria-labelledby="sc-band-l">{SCALE_BANDS.map((b, i) => <button key={b.id} type="button" role="radio" aria-checked={band === i} onClick={() => setBand(i)}>{b.short}</button>)}</div>
           {band !== null && <button type="button" className="btn" onClick={() => setBand(null)}>Back to this hour</button>}
         </div>
       </div>
