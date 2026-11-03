@@ -62,7 +62,7 @@ test('API: log, list, latest same Pacific day, delete, subscribe, validation err
   assert.ok(r.ok); if (!r.ok) return; assert.equal(r.obs.faceFt, WORD_FACE_FT.head); assert.equal(r.obs.quality, 4); assert.equal(r.obs.paired, true); assert.equal(pings, 1);
   assert.equal(observationsFor('spot-2').length, 1); assert.equal(observationsFor('spot-3').length, 0); assert.equal(observationsFor().length, 1);
   assert.equal(latestObservation('spot-2', now)?.id, r.obs.id); assert.equal(latestObservation('spot-2', now + 2 * 86400000), null); assert.equal(latestObservation('spot-3', now), null);
-  assert.deepEqual(calibrationFor('spot-2', 'v1'), {state: 'collecting', count: 1, needed: 8});
+  assert.deepEqual(calibrationFor('spot-2', 'v1'), {state: 'collecting', count: 1, needed: 8, felt: {low: 0, right: 0, high: 0, factor: 1}});
   const unpaired = logObservation({spotId: 'spot-2', observedAt: new Date((t - 8 * 3600) * 1000).toISOString(), word: 'knee'}, env);
   assert.ok(unpaired.ok && !unpaired.obs.paired && unpaired.obs.quality === null); assert.equal(calibrationFor('spot-2', 'v1').count, 1);
   assert.equal(deleteObservation(r.obs.id), true); assert.equal(deleteObservation(r.obs.id), false); assert.equal(observationsFor().length, 1);
