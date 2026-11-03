@@ -7,7 +7,7 @@ import {isDark} from '../forecast/trustApi';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
 
-/* T-067 "Your spots this week" (Surfline home pattern): rows are spots, columns 8 days. Each cell is the day's surf range from the T-064/T-057 day
+/* T-067 "Your spots this week" (T-069: estimate rows first; an offshore-only day is a small grey number, the row label says offshore) (Surfline home pattern): rows are spots, columns 8 days. Each cell is the day's surf range from the T-064/T-057 day
  * logic (dayRange over daylight hours), a three-part AM / midday / PM rating bar (dark parts unrated), and behind the row a soft curve of the
  * daily size. Offshore-only days are muted ("7 off"), never styled as surf. A cell opens that spot at that day's representative hour. */
 
@@ -35,7 +35,8 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
       });
       return {key, dr, segs};
     })};
-  }), [spots, records, keys, nowMs, profile, bundle]);
+  }).map((r, i) => ({r, i, est: r.cells.filter((c) => c.dr.kind === 'estimate').length}))
+    .sort((a, b) => b.est - a.est || a.i - b.i).map((x) => x.r), [spots, records, keys, nowMs, profile, bundle]); // T-069: spots with surf estimates first
   const max = Math.max(4, ...rows.flatMap((r) => r.cells.map((c) => (c.dr.kind === 'estimate' ? c.dr.hiFt ?? 0 : 0))));
   const n = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(0));
   return (
@@ -49,10 +50,11 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
           pts.forEach((q) => { if (q) cur += `${cur ? 'L' : 'M'}${(q[0] * 800).toFixed(1)},${(8 + q[1] * 40).toFixed(1)}`; else if (cur) { segPaths.push(cur); cur = ''; } }); if (cur) segPaths.push(cur);
           return (
             <tr key={spot.id}>
-              <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}</small></th>
+              <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}{(() => { const off = cells.filter((c) => c.dr.kind === 'offshore').length, est = cells.filter((c) => c.dr.kind === 'estimate').length;
+                return off ? <span className="wk-kind"> · {est ? 'offshore where grey' : 'offshore only'}</span> : null; })()}</small></th>
               {cells.map((c, i) => {
                 const est = c.dr.kind === 'estimate' && c.dr.loFt !== null && c.dr.hiFt !== null, off = c.dr.kind === 'offshore' && c.dr.hiFt !== null;
-                const label = est ? `${n(c.dr.loFt!)}–${n(c.dr.hiFt!)}` : off ? `${n(c.dr.hiFt!)} off` : '—';
+                const label = est ? `${n(c.dr.loFt!)}–${n(c.dr.hiFt!)}` : off ? n(c.dr.hiFt!) : '—';
                 const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit}` : off ? `surf estimate unavailable, offshore up to ${n(c.dr.hiFt!)} ${unit}` : 'no height'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>

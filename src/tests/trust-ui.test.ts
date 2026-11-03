@@ -62,3 +62,14 @@ test('feltForHour returns only the selected hour\'s answer, newest first', () =>
   assert.equal(feltForHour(log, 'spot-2', '2026-11-03T21:00:00Z'), null, 'another hour has no answer');
   assert.equal(feltForHour(log, 'spot-0', '2026-11-03T15:00:00Z'), null);
 });
+
+// T-069: the line under the call's verdict must add something.
+import {firstNewReason, restatesHeadline} from '../features/forecast/trustRules.ts';
+test('a why that only restates the verdict and window is dropped; one that adds a reason is kept', () => {
+  const head = 'Dark next window 6 AM–2 PM tomorrow';
+  assert.equal(restatesHeadline('It is dark. The next window is tomorrow 6 AM–2 PM.', head), true);
+  assert.equal(restatesHeadline('It is dark: before first light or after last light, so there is no rating.', head), false);
+  assert.equal(firstNewReason(['It is dark. The next window is tomorrow 6 AM–2 PM.', 'Onshore wind 12 mph.'], head), 'Onshore wind 12 mph.');
+  assert.equal(firstNewReason(['It is dark. The next window is tomorrow 6 AM–2 PM.'], head), null);
+  assert.equal(firstNewReason(['Plunging and 6–9 ft: experienced surfers only.'], 'Skip 7–9 AM'), 'Plunging and 6–9 ft: experienced surfers only.');
+});
