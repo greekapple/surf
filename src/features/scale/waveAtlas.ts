@@ -141,18 +141,45 @@ export function profileAt(a: Atlas, x: number, t = 0, n = a.meta.points, withSec
   return {y, z, foam, thin};
 }
 
-/** A point on the open face (beach side of the crest) at `frac` of trough-to-crest height: [y, z, slope radians]. */
-export function facePoint(a: Atlas, x: number, frac: number): [number, number, number] {
-  const {y, z} = profileAt(a, x, 0, 192, false);
-  let ci = 0; for (let i = 1; i < z.length; i++) if (z[i] > z[ci]) ci = i;
-  let tro = Infinity; for (let i = ci; i < z.length; i++) tro = Math.min(tro, z[i]);
-  const target = tro + frac * (z[ci] - tro);
-  let best: [number, number, number] | null = null;
-  for (let i = ci; i < z.length - 1; i++) {
-    const y0 = y[i], z0 = z[i], y1 = y[i + 1], z1 = z[i + 1];
-    if ((z0 - target) * (z1 - target) <= 0 && y1 > y0 && z1 < z0) { const k = (target - z0) / (z1 - z0 + 1e-9); best = [y0 + (y1 - y0) * k, target, Math.atan2(z0 - z1, y1 - y0)]; }
+/** A point on the open face (beach side of the crest) at `frac` of trough-to-crest height: [y, z, slope radians]. With `t` the
+ *  sections pulses are included (the surface the shader draws at that moment). */
+export function facePoint(a: Atlas, x: number, frac: number, t: number | null = null): [number, number, number] {
+  const {y, z} = profileAt(a, x, t ?? 0, 192, t !== null), n = z.length;
+  let ci = 0; for (let i = 1; i < n; i++) if (z[i] > z[ci]) ci = i;
+  // the front face: from the trough on the beach side (+y) of the crest up to the crest. Walk it upward from the trough and take the first
+  // crossing of the target height, so the point is on the face proper, never on the thrown lip above it (which overhangs the same heights).
+  const toBeach = y[n - 1] > y[0] ? 1 : -1;
+  let ti = ci; for (let i = ci; i >= 0 && i < n; i += toBeach) if (z[i] < z[ti]) ti = i;
+  const tro = z[ti], target = tro + Math.min(0.97, Math.max(0.02, frac)) * (z[ci] - tro);
+  for (let i = ti; i !== ci; i -= toBeach) {
+    const j = i - toBeach, y0 = y[i], z0 = z[i], y1 = y[j], z1 = z[j];   // i: lower, j: the next point up the face
+    if ((z0 - target) * (z1 - target) <= 0 && z1 !== z0) {
+      // the slope over a few samples either side (one float16 step is too noisy): rise over the run toward the sea
+      const lo = Math.max(0, Math.min(n - 1, i + 3 * toBeach)), hi = Math.max(0, Math.min(n - 1, j - 3 * toBeach));
+      const k = (target - z0) / (z1 - z0), slope = Math.atan2(z[hi] - z[lo], Math.max(1e-3, (y[lo] - y[hi]) * toBeach));
+      return [y0 + (y1 - y0) * k, target, Math.min(Math.max(slope, 0), Math.PI / 2)];
+    }
   }
-  return best ?? [y[ci] + 0.3 * a.meta.face_m, 0.5 * z[ci], 0.6];
+  return [y[ci] + 0.05 * a.meta.face_m, 0.5 * (z[ci] + tro), 0.6];
+}
+
+/** The water surface height at crest-frame (x, z) (z = -y_across, the beach at -z) at time t: the lowest crossing of the profile, so under
+ *  an overhanging lip it is the face, not the lip. Outside the profile's reach: still water (0). The rider's board is checked against it. */
+export function waterHeightAt(a: Atlas, x: number, zc: number, t: number): number {
+  const {y, z} = profileAt(a, x, t, 160, true), ya = -zc;
+  let best = Infinity;
+  for (let i = 0; i < y.length - 1; i++) {
+    const y0 = y[i], y1 = y[i + 1];
+    if ((y0 - ya) * (y1 - ya) <= 0 && y0 !== y1) { const k = (ya - y0) / (y1 - y0); best = Math.min(best, z[i] + (z[i + 1] - z[i]) * k); }
+  }
+  return Number.isFinite(best) ? best : 0;
+}
+
+/** Where the lip is pitching now: the along-crest x where the stage (with its travelling pulses) reaches stage_pitch. */
+export function breakX(m: AtlasMeta, t: number): number {
+  let lo = -m.shoulder_len_m, hi = 0.6 * m.break_len_m;
+  for (let i = 0; i < 36; i++) { const mid = (lo + hi) / 2; if (stageAt(m, mid, t, true) < m.stage_pitch) lo = mid; else hi = mid; }
+  return (lo + hi) / 2;
 }
 
 /** Where the surfer rides: on the open shoulder just ahead of the pocket, where the face is steep but not yet pitching. */

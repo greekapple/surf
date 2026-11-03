@@ -2,7 +2,8 @@ import {useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
-import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, bucketIdFor, bucketsFor, facePoint, loadAtlas, profileAt, scaleAtlas, stageAt, stripX, surferX, withPeriod} from './waveAtlas';
+import {clone as cloneSkinned} from 'three/examples/jsm/utils/SkeletonUtils.js';
+import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, breakX, bucketIdFor, bucketsFor, facePoint, loadAtlas, profileAt, scaleAtlas, stageAt, stripX, surferX, waterHeightAt, withPeriod} from './waveAtlas';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
 import {boardGeometry, boardShape} from './boardMesh';
@@ -82,7 +83,8 @@ void main(){
   float big=n3(p/(.75*max(uFace,.5))+vec3(3.,-t*.12,t*.1));            // cauliflower heads a good fraction of the face height
   float lump=n3(q)*.65+n3(q*2.3+7.)*.35;
   float onBall=smoothstep(.12*uFace,.4*uFace,p.y);                       // big heads only on the foam ball itself, not the thin skirt ahead
-  p+=N*foam*((lump-.35)*.14+(big-.4)*.2*onBall)*uFace;
+  // only the solid foam is lumpy: displacing the thin aerated skirt at the foot of the ball folded it into bright vertical slivers ("teeth")
+  p+=N*foam*smoothstep(.35,.75,a.w)*((lump-.35)*.14+(big-.4)*.2*onBall)*uFace;
   // vL: the crest frame (x along the crest, the shoulder at -x); vW: the world, which may be the crest frame mirrored (a right)
   vL=p; vW=(modelMatrix*vec4(p,1.)).xyz; vN=normalize(mat3(modelMatrix)*N); vA=vec4(a.z*smoothstep(0.,.25,am), foam, b.y, b.x); vS=s;
   gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.);
@@ -137,25 +139,25 @@ float cellEdge(vec2 p){ vec2 i=floor(p), f=fract(p); float d1=8., d2=8.;
   return sqrt(d2)-sqrt(d1); }
 vec3 skyCol(vec3 r){ float h=clamp(r.y,0.,1.); vec3 c=mix(uHorizon,uTop,pow(h,.55));
   vec2 sh=normalize(uSun.xz+1e-5), rh=normalize(r.xz+1e-5); c+=uGlow*pow(max(dot(sh,rh),0.),3.)*pow(1.-h,3.);   // warm glow low toward the sun (golden hour, twilight)
-  return c+uSunCol*pow(max(dot(r,uSun),0.),90.)*.7; }   // the sun's halo in the reflection: tighter than before, so the trough is not one cream streak
+  return c+uSunCol*pow(max(dot(r,uSun),0.),140.)*.3; }   // the sun's halo in the reflection: tight and faint (a broad one drew one cream streak along the trough)
 // wind chop and capillary ripples: octaves of C1 value noise with analytic slopes (smooth, no grid squares, no long parallel bands),
 // stretched across the wind and drifting; each octave fades once it gets near a pixel, and what fades becomes roughness
 float hq(vec2 p){ vec3 p3=fract(vec3(p.xyx)*.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
 vec3 noised(vec2 x){ vec2 i=floor(x), f=fract(x); vec2 u=f*f*f*(f*(f*6.-15.)+10.), du=30.*f*f*(f*(f-2.)+1.);
   float a=hq(i), b=hq(i+vec2(1.,0.)), c=hq(i+vec2(0.,1.)), d=hq(i+vec2(1.,1.));
   return vec3(a+(b-a)*u.x+(c-a)*u.y+(a-b-c+d)*u.x*u.y, du*(vec2(b-a,c-a)+(a-b-c+d)*u.yx)); }
-vec3 chopN(vec2 p, float t, float px, float k0, float a0, int n){
+vec3 chopN(vec2 p, float t, float px, float k0, float a0, int n, float str){
   vec2 g=vec2(0.); float a=a0, k=k0, lost=0., tot=0.; mat2 rot=mat2(.8,.6,-.6,.8);
   vec2 q=p;
   for (int i=0;i<10;i++){ if (i>=n) break;
-    vec2 st=vec2(q.x,q.y*1.8)*k+vec2(t*.13*float(i+1),-t*.21*sqrt(float(i+1)));   // longer across the wind than along it
+    vec2 st=vec2(q.x,q.y*str)*k+vec2(t*.13*float(i+1),-t*.21*sqrt(float(i+1)));   // longer across the wind than along it (str 1: isotropic)
     vec3 nd=noised(st); float fade=1.-smoothstep(.06,.5,px*k), sl=a;
-    g+=rot*(nd.yz*vec2(1.,1.8))*a*fade; lost+=sl*sl*(1.-fade); tot+=sl*sl;
+    g+=rot*(nd.yz*vec2(1.,str))*a*fade; lost+=sl*sl*(1.-fade); tot+=sl*sl;
     q=rot*q; k*=1.9; a*=.62; }
   return vec3(g,lost/max(tot,1e-6));
 }
-vec3 chop(vec2 p, float t, float px){ return chopN(p,t,px,.45,.055,8); }
-vec3 farChop(vec2 p, float t, float px){ return chopN(p+vec2(91.,37.),t*.6,px,.06,.05,8); }
+vec3 chop(vec2 p, float t, float px, float str){ return chopN(p,t,px,.45,.055,8,str); }
+vec3 farChop(vec2 p, float t, float px){ return chopN(p+vec2(91.,37.),t*.6,px,.06,.05,8,1.8); }
 void main(){
   float t=uTime, F=max(uFace,.3);
   vec3 V=normalize(cameraPosition-vW); float dist=length(cameraPosition-vW);
@@ -170,17 +172,24 @@ void main(){
   // (b) on big faces the chop lines scale with the face and get stronger
   float bigF=smoothstep(1.5,5.,F);
   vec2 pf=vec2(E.x, mix(E.y,-arc+t*.6,smoothstep(.25,.6,steep)))/mix(1.,.6+.13*F,onFace);
-  vec3 cn=chop(pf,t,px), cf=farChop(vL.xz,t,px);
+  // on the face the texture is isotropic and fine (a dimpled, drained surface, not wind lines across it): no stretch, smaller cells
+  vec3 cn=chop(pf*mix(1.,1.7,onFace),t,px,mix(1.8,1.,onFace)), cf=farChop(vL.xz,t,px);
   float far=smoothstep(35.,140.,dist)*(1.-onFace);
   vec2 g=mix(cn.xy*(1.-.25*onFace)*(1.+onFace*bigF*3.)*uChop,cf.xy*(.6+.4*uChop),far);   // uChop: the hour's wind (glassy offshore .. onshore chop)
+  // dimples on the face that ride up with the water (there even on a glassy day: the face is never a mirror)
+  float dmp=n3(vec3(vL.x*4.5, arc*4.5-t*2.2, 1.))-.5, dmp2=n3(vec3(vL.x*11.+3., arc*11.-t*4., 7.))-.5;
+  g+=vec2(dmp*.06+dmp2*.03, (dmp*.05+dmp2*.03))*onFace*(1.-smoothstep(.03,.12,px));
   float rough=mix(cn.z,cf.z,far);                               // slope detail too fine to draw: a rougher, blurrier reflection instead
-  // draining lines on the face just before it breaks: long streaks down the face that drift up with the water
-  float pre=smoothstep(.8,2.2,vS)*(1.-smoothstep(4.6,6.2,vS))*onFace*front;
+  // draining lines on the face just before it breaks: long streaks down the face that drift up with the water (brightness only: tilting the
+  // normal across x drew bright vertical slivers where the face steepens near the foot of the break)
+  float pre=smoothstep(.8,2.2,vS)*(1.-smoothstep(4.6,6.2,vS))*onFace*front*(1.-smoothstep(.05,.3,foam));
   float st=(vnoise(vec2(vL.x*2.6, arc*.22-t*.35))*.65+vnoise(vec2(vL.x*7.1, arc*.5-t*.5))*.35)*smoothstep(.3,.8,vnoise(vec2(vL.x*.9, arc*1.2+3.)));
-  vec3 N=normalize(N0-vec3(g.x,0.,g.y)+vec3((st-.3)*.22*pre,0.,0.));
+  vec3 N=normalize(N0-vec3(g.x,0.,g.y)+vec3((st-.3)*.07*pre,0.,0.));
   float nv=max(dot(N,V),0.), fres=.02+.98*pow(1.-nv,5.);
   vec3 R=reflect(-V,N); R.y=abs(R.y); vec3 sky=mix(skyCol(R),skyCol(normalize(R+vec3(0.,.35,0.))),rough*.7);
   fres*=1.-.35*rough;
+  fres*=1.-.85*smoothstep(.04,.35,foam);                        // aerated water is matte: no mirror slivers in the foam skirt at the foot of the ball
+  fres*=1.-.7*smoothstep(.3,.8,thin)*smoothstep(uPitch-1.,uPitch+.3,vS);   // the thrown lip too (it drew as a smooth cream sheet with bright ribs)
   // body colour by thickness: thick water deep blue-green to near black, thin water turquoise where light comes through
   float back=smoothstep(-.1,.9,dot(-V,uSun)), sunUp=uDirect;
   // front face: deep blue-green to near black at the thick base, lighter up the face; the back of the wave stays sea-coloured
@@ -190,7 +199,10 @@ void main(){
   vec3 body=mix(uSea*mix(1.,.82,smoothstep(.05,.6,hf)*(1.-front)),face,fw);
   float glow=clamp(thin*(.4+.6*back*sunUp)*(.4+.6*front)*mix(.55,1.,uAmb),0.,1.)*.8;
   float tube=smoothstep(-.1,-.6,N0.y)*smoothstep(.2,.6,hf);                // the ceiling of the tube: in its own shadow
-  body=mix(body,uTurq*(.75+.35*back),glow*.9);
+  body=mix(body,uTurq*(.75+.35*back),glow*.9*(1.-.6*tube));             // the ceiling of the tube stays dark even where the lip is thin
+  // backlit face (Ocean Beach, sun behind the wave): the upper half of the open face lights up yellow-green where the water is thinnest
+  float lit0=onFace*front*smoothstep(.3,.85,hf)*(.25+.75*back)*uDirect*smoothstep(3.,1.,thick);
+  body=mix(body,vec3(.46,.78,.42)*uAmb,lit0*.4);
   body*=(.94+.14*st*pre+.04*(1.-pre))*(1.-.5*tube*(1.-glow));
   body*=uAmb*(.75+.35*mix(.55,clamp(dot(N,uSun)*.5+.5,0.,1.),uDirect));
   vec3 col=mix(body,sky,clamp(fres,0.,1.)*.62);
@@ -200,29 +212,55 @@ void main(){
   // foam: the atlas foam (lip, foam ball, spill), lumpy and aerated, grey in its cavities and on its underside
   vec3 q=vL/(.22*F)+vec3(0.,-t*.35,t*.25);
   float lump=n3(q)*.6+n3(q*2.3+7.)*.3+n3(q*5.3+3.)*.1;
-  float cov=smoothstep(.22,.62,foam*(.75+.6*lump));
-  cov=max(cov,smoothstep(.78,.95,foam));                                    // the landed section and foam ball are solid white: no dark holes ("teeth") where a lump dips
+  // cauliflower: cells of foam (bright heads, grey-turquoise seams between them), churning; projected on the two planes the surface
+  // faces (one planar projection stretched the cells into vertical veins on the steep ball); too fine to draw -> flat
+  float cs=1./(.11*F), fineOk=1.-smoothstep(.04,.2,px*cs);
+  float fine=n3(q*4.+vec3(1.,2.,3.));
+  float head=.5;
+  if ((foam>.02||thin>.3)&&fineOk>.01){
+    float wy=abs(N0.y)+.05, wz=abs(N0.z)+.05;
+    vec2 wp=vec2(n3(q*1.3+vec3(9.,2.,4.)),n3(q*1.3+vec3(1.,7.,5.)))-.5;     // warp: irregular froth, not a honeycomb
+    vec2 cxz=vec2(vL.x, vL.z)*cs+wp*1.4+vec2(t*.5,-t*.9), cxy=vec2(vL.x, vW.y)*cs+wp*1.4+vec2(t*.5,t*.7);
+    float seam=(cellEdge(cxz)*wy+cellEdge(cxy)*wz)/(wy+wz);
+    head=smoothstep(.0,.55,seam+.25*fine)*fineOk+.5*(1.-fineOk); }   // 0 on a seam, ~1 at a head's domed centre
+  // the edge: ragged and hard, with holes where green water shows through (not an airbrushed fade); the core is solid
+  float edge=foam*(.7+.4*lump)*(.8+.4*fine);
+  float cov=smoothstep(.28,.46,edge);
+  cov=max(cov,smoothstep(.85,.97,foam));                                    // the landed section and foam ball core are solid
+  // the thrown lip: once it pitches, its thin water is feathering white (ragged, with holes), not a smooth translucent sheet with bright ribs
+  float lipW=smoothstep(.35,.75,thin*(.7+.6*fine))*smoothstep(uPitch-1.1,uPitch+.3,vS)*smoothstep(.2,.5,hf);
+  cov=max(cov,lipW);
   // a spilling forecast (uBreak 1): the crest tumbles a ragged band of foam down the top of the front face of the breaking section, the
   // open face below it stays green; a plunging one (0) keeps the atlas's clean thrown lip. Only where the section has started to break.
-  // a solid fringe along the very top, its lower edge ragged (low-frequency lumps), so it reads as one tumbling crest and not as flecks
+  // a fringe along the top whose depth varies along the crest, its lower edge ragged with holes, so it reads as tumbling foam and not as a band
   float rag=n3(q*.45+vec3(2.,0.,0.))*.6+n3(q*1.1+5.)*.4;
-  float spillBand=smoothstep(.58-.22*rag,.88-.1*rag,hf)*front*smoothstep(uPitch-1.4,uPitch+.2,vS)*uBreak;
+  float along=smoothstep(.2,.8,vnoise(vec2(vL.x*.22/F+t*.1, 4.)));
+  float spillBand=smoothstep(.55-.3*rag-.12*along,.88-.1*rag,hf)*front*smoothstep(uPitch-1.4,uPitch+.2,vS)*uBreak;
+  float holes=n3(q*1.5+vec3(4.,1.,8.))*.7+rag*.3;
+  spillBand*=mix(1.,smoothstep(.32,.5,holes),.8*(1.-smoothstep(.62,.82,hf)));   // rounded turquoise holes along its lower edge only; solid above
   cov=max(cov,spillBand);
   vec3 Nf=normalize(N0+vec3(n3(q*1.7+1.)-.5,0.,n3(q*1.7+9.)-.5)*1.4);
   float bigS=n3(vL/(.75*F)+vec3(3.,-t*.12,t*.1));                         // the same big heads the vertex shader pushes out
   float occl=smoothstep(.18,.82,lump*.55+bigS*.45), lit=mix(.6,clamp(dot(Nf,uSun)*.55+.55,0.,1.),uDirect);
   float under=smoothstep(-.35,.45,N0.y);
   float base=mix(.6,1.,smoothstep(.0,.45*F,vW.y));                          // greyer where the foam sits low in the water
-  vec3 fcol=mix(uFoamShade,uFoam,pow(clamp(occl*.65+lit*.45-.15,0.,1.),1.4)*mix(.45,1.,under)*base)*uAmb*mix(vec3(1.),uTop/max(max(uTop.r,uTop.g),max(uTop.b,.01)),.3*(1.-uDirect));
+  // seams between the heads: grey where the foam is deep, turquoise water showing through near the edge and in the thin skirt
+  float deep=smoothstep(.5,.95,foam);
+  vec3 seamCol=mix(uTurq*.8*uAmb,uFoamShade*uAmb,deep);
+  // foam scatters light, so even its shaded side is light; the big heads and the underside carry the shadow (grey pockets between them)
+  float bright=clamp(occl*.55+lit*.45+.15,0.,1.)*mix(.5,1.,under)*base;
+  vec3 fcol=mix(seamCol,mix(uFoamShade,uFoam,bright)*uAmb,mix(.62,1.,head))*mix(vec3(1.),uTop/max(max(uTop.r,uTop.g),max(uTop.b,.01)),.3*(1.-uDirect));
   col=mix(col,fcol,cov);
   // lacy foam: trails behind the broken section and a decaying band inside, thinning into lace with age
   // (only where the section has already broken: nothing on the clean water in front of the pocket)
   float behind=smoothstep(.1*uBl,.3*uBl,vL.x)*exp(-max(vL.z,0.)/(uFlowZ*3.+4.*F))*step(0.,vL.z);
   float broken=1.-smoothstep(1.4*uBl,2.6*uBl,vL.x);
-  float lm=broken*behind*(1.-cov)*(1.-onFace)*(uSpill>.5?1.2:1.)*uStrip;   // nothing has broken when there is no strip (swell-only hour)
+  // the trough in front: the previous wave's lace (a thin white web on dark water) instead of a smooth pale reflection streak
+  float trough=(1.-onFace)*smoothstep(.0,.15*F,-vL.z)*(1.-smoothstep(1.5*F+2.,6.*F+10.,-vL.z))*(1.-smoothstep(.05,.3,hf))*.1;
+  float lm=max(broken*behind,trough)*(1.-cov)*(1.-onFace)*(uSpill>.5?1.2:1.)*uStrip;   // nothing has broken when there is no strip (swell-only hour)
   if (lm>.02){
     vec2 w=E+vec2(vnoise(E*.3),vnoise(E*.3+5.))*2.5;                 // warp: organic, not a honeycomb
-    float sc=1./max(F*.45,.5);
+    float sc=1./max(F*.3,.5);
     float ce=cellEdge(w*1.1*sc)*.6+cellEdge(w*2.9*sc+3.)*.4;
     float fpatch=smoothstep(.5,.8,vnoise(E*.12*sc)*.7+vnoise(E*.5*sc+4.)*.3+.3*lm);  // foam patches, fewer with age
     float lace=fpatch*(1.-smoothstep(.02,.07+.12*lm,ce));                          // thin threads with holes: lace
@@ -248,12 +286,30 @@ const SPRAY_FS = `uniform float uAmb; varying float vA; void main(){ float d=len
 
 const loader = new GLTFLoader();
 const atlasCache = new Map<string, Promise<Atlas | null>>(), ready = new Map<string, Atlas>();
-let surferCache: Promise<THREE.Group> | null = null;
+let surferCache: Promise<{scene: THREE.Group; clips: THREE.AnimationClip[]}> | null = null;
 /** An atlas by file id; null when the file is missing (a breaker variant that was not built). Resolved atlases are kept for synchronous use. */
 const getAtlas = (id: string) => { let p = atlasCache.get(id); if (!p) { p = loadAtlas(ATLAS_ROOT, id).then((a) => { ready.set(id, a); return a; }, () => null); atlasCache.set(id, p); } return p; };
-/** The surfer model's own height (m); the drawn surfer is scaled to the person's height. */
-export const SURFER_MODEL_M = 1.75;
-const loadSurfer = () => (surferCache ??= loader.loadAsync(LIVE_ROOT + 'surfer.glb').then((g) => g.scene).catch((e) => { surferCache = null; throw e; }));
+/** The surfer model's own standing height (m, printed by build_surfer.py); the drawn surfer is scaled to the person's height. */
+export const SURFER_MODEL_M = 1.751;
+const loadSurfer = () => (surferCache ??= loader.loadAsync(LIVE_ROOT + 'surfer.glb').then((g) => ({scene: g.scene, clips: g.animations})).catch((e) => { surferCache = null; throw e; }));
+/** The rider's line through one `ride` loop, by clip phase: [phase, x offset from surferX in face heights (+ toward the pocket), height on
+ *  the face (fraction trough..crest)]. Keyed to the clip (build_surfer.py RIDE): trim high, the bottom turn low and out on the shoulder, the
+ *  top turn high and close to the pocket, a pump between. The same line every hour; only its speed follows the wave cycle. */
+// (this atlas family's face is near-vertical from ~25% up, so the line stays in the lower part of the face and out on the shoulder; the
+// top turn is a mid-face snap rather than a hit on the lip: see the report's open items)
+const RIDE_PATH: [number, number, number][] = [[0, -0.5, 0.2], [0.22, -0.95, 0.08], [0.39, -0.8, 0.07], [0.55, -0.4, 0.24], [0.66, -0.1, 0.38], [0.76, -0.2, 0.36], [0.89, -0.55, 0.18], [1, -0.5, 0.2]];
+const RIDE_MOVES: [number, string][] = [[0.18, 'trim'], [0.45, 'bottom'], [0.6, 'trim'], [0.8, 'top'], [0.84, 'trim'], [0.95, 'pump'], [1.01, 'trim']];
+function pathAt(ph: number): [number, number] {
+  let i = 0; while (i < RIDE_PATH.length - 2 && RIDE_PATH[i + 1][0] <= ph) i++;
+  const a = RIDE_PATH[i], b = RIDE_PATH[i + 1], t = Math.min(1, Math.max(0, (ph - a[0]) / (b[0] - a[0]))), s = t * t * (3 - 2 * t);
+  return [a[1] + (b[1] - a[1]) * s, a[2] + (b[2] - a[2]) * s];
+}
+const MAX_SLOPE = THREE.MathUtils.degToRad(50);
+const moveAt = (ph: number) => RIDE_MOVES.find(([p]) => ph < p)?.[1] ?? 'trim';
+/** Dev/QA: the rider this instant (crest frame, m): the board tail's position, the gap between the board's bottom centre and the water
+ *  (contact_m), the gap of its lowest point (low_m, negative = a rail or the tail in the water), the distance ahead of the break point
+ *  (ahead_m, negative = behind) and the clip's current move (trim | bottom | top | pump). */
+export interface RiderSample {x: number; y: number; z: number; contact_m: number; low_m: number; ahead_m: number; move: string}
 
 /** The atlas for a face height from the loaded buckets: the two buckets around it blended; below or above the range the end bucket
  *  scaled. Always the bucket family's own atlas: the "-spilling" variants draw the whole section as a wall of whitewater with no open
@@ -317,8 +373,8 @@ function setSea(g: THREE.BufferGeometry, m: AtlasMeta) {
 }
 
 // spray: lip spray off the pitching lip, offshore back-spray off the feathering crest, soft mist over the whitewater, the landing burst
-const N_LIP = 700, N_BACK = 520, N_MIST = 240, N_BLAST = 420, SPRAY_N = N_LIP + N_BACK + N_MIST + N_BLAST;
-interface Spray {pts: THREE.Points; pos: Float32Array; vel: Float32Array; life: Float32Array; max: Float32Array; size: Float32Array; alpha: Float32Array; lip: Float32Array; crest: Float32Array; mist: Float32Array; blast: Float32Array}
+const N_LIP = 700, N_BACK = 520, N_MIST = 240, N_BLAST = 420, N_TAIL = 220, SPRAY_N = N_LIP + N_BACK + N_MIST + N_BLAST + N_TAIL;
+interface Spray {pts: THREE.Points; pos: Float32Array; vel: Float32Array; life: Float32Array; max: Float32Array; size: Float32Array; alpha: Float32Array; lip: Float32Array; crest: Float32Array; mist: Float32Array; blast: Float32Array; tail: Float32Array; tailOn: number}
 /** Emitters from the atlas (static stage): crest-frame points (x, up, -y). */
 function emitters(a: Atlas) {
   const m = a.meta, H = m.face_m, lip: number[] = [], crest: number[] = [], mist: number[] = [], blast: number[] = [], spill = m.breaker === 'spilling';
@@ -386,17 +442,19 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       for (let i = 0; i < n; i++) life[i] = -Math.random() * 2;
       const g = new THREE.BufferGeometry();
       g.setAttribute('position', new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage)); g.setAttribute('aSize', new THREE.BufferAttribute(size, 1).setUsage(THREE.DynamicDrawUsage)); g.setAttribute('aA', new THREE.BufferAttribute(alpha, 1).setUsage(THREE.DynamicDrawUsage));
-      const pts = new THREE.Points(g, spMat); pts.frustumCulled = false; const e = new Float32Array(0); return {pts, pos, vel, life, max, size, alpha, lip: e, crest: e, mist: e, blast: e};
+      const pts = new THREE.Points(g, spMat); pts.frustumCulled = false; const e = new Float32Array(0); return {pts, pos, vel, life, max, size, alpha, lip: e, crest: e, mist: e, blast: e, tail: new Float32Array(3), tailOn: 0};
     };
     const R = Math.random;
     let faceM = 1.5, pow = 1, back = 0;
     const stepSpray = (sp: Spray, dt: number, H: number) => {
       const big = Math.min(1, H / 4), sq = Math.sqrt(H) * pow;
       for (let i = 0; i < SPRAY_N; i++) {
-        const kind = i < N_LIP ? 0 : i < N_LIP + N_BACK ? 1 : i < N_LIP + N_BACK + N_MIST ? 2 : 3, src = kind === 0 ? sp.lip : kind === 1 ? sp.crest : kind === 2 ? sp.mist : sp.blast, m = src.length / 3, j = i * 3;
+        const kind = i < N_LIP ? 0 : i < N_LIP + N_BACK ? 1 : i < N_LIP + N_BACK + N_MIST ? 2 : i < N_LIP + N_BACK + N_MIST + N_BLAST ? 3 : 4;
+        const src = kind === 0 ? sp.lip : kind === 1 ? sp.crest : kind === 2 ? sp.mist : kind === 3 ? sp.blast : sp.tail, m = src.length / 3, j = i * 3;
         if (!m || (kind === 1 && back <= 0)) { sp.alpha[i] = 0; continue; }
         sp.life[i] -= dt;
         if (sp.life[i] <= 0) {
+          if (kind === 4 && (sp.tailOn <= 0 || R() > sp.tailOn)) { sp.alpha[i] = 0; sp.life[i] = 0.05; continue; }   // tail spray only through the top turn
           const k = (R() * m | 0) * 3;
           sp.pos[j] = src[k] + (R() - 0.5) * (kind === 0 ? 1.2 : 0.4); sp.pos[j + 1] = src[k + 1]; sp.pos[j + 2] = src[k + 2];
           if (kind === 0) { // lip spray: soft puffs thrown forward and down off the lip, spread along it (not dotted lines under each emitter), a few blown back
@@ -408,28 +466,101 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
           } else if (kind === 3) { // the explosion where the lip lands: a thick white burst up and forward out of the impact
             sp.pos[j + 1] += R() * 0.2 * H; sp.vel[j] = (R() - 0.5) * 1.6 * sq; sp.vel[j + 1] = (0.8 + R() * 1.6) * sq; sp.vel[j + 2] = -(0.3 + R() * 1.4) * sq;
             sp.max[i] = sp.life[i] = 0.7 + R() * 1.0; sp.size[i] = (0.14 + R() * 0.3) * sq;
+          } else if (kind === 4) { // the rider's tail spray at the top turn: a fan thrown up and back off the tail (down the line and toward the beach)
+            const f = 0.6 + 0.5 * Math.min(1.5, Math.sqrt(surferRef.current / SURFER_MODEL_M));
+            sp.vel[j] = (R() - 0.35) * 3.2 * f; sp.vel[j + 1] = (1.6 + R() * 3) * f; sp.vel[j + 2] = -(0.3 + R() * 2.6) * f;
+            sp.max[i] = sp.life[i] = 0.35 + R() * 0.6; sp.size[i] = 0.08 + R() * 0.2;
           } else { // mist over the whitewater
             sp.pos[j] += (R() - 0.5) * 1.2; sp.pos[j + 1] += R() * 0.3 * H; sp.vel[j] = (R() - 0.5) * 0.3; sp.vel[j + 1] = 0.1 + R() * 0.3; sp.vel[j + 2] = (R() - 0.3) * 0.5;
             sp.max[i] = sp.life[i] = 2 + R() * 2; sp.size[i] = (0.5 + R() * 0.6) * (0.5 + 0.4 * H);
           }
         }
-        const gr = kind === 0 ? 4.5 : kind === 1 ? 1.2 : kind === 3 ? 3.2 : 0; if (kind === 3) sp.size[i] *= 1 + dt * 0.9;
+        const gr = kind === 0 ? 4.5 : kind === 1 ? 1.2 : kind === 3 ? 3.2 : kind === 4 ? 7 : 0; if (kind === 3) sp.size[i] *= 1 + dt * 0.9;
         sp.vel[j + 1] -= gr * dt; if (kind === 1) { sp.vel[j + 2] += 0.6 * dt; sp.size[i] *= 1 + dt * 0.3; } if (kind === 2) sp.size[i] *= 1 + dt * 0.2;
         sp.pos[j] += sp.vel[j] * dt; sp.pos[j + 1] += sp.vel[j + 1] * dt; sp.pos[j + 2] += sp.vel[j + 2] * dt;
         const t = Math.max(0, sp.life[i]) / sp.max[i], env = Math.min(1, (1 - t) * 6) * Math.min(1, t * 2.5);
-        sp.alpha[i] = sp.life[i] > 0 ? env * (kind === 0 ? 0.075 : kind === 1 ? (0.008 + 0.03 * big) * back : kind === 3 ? 0.3 : 0.07 + 0.03 * big) : 0;
+        sp.alpha[i] = sp.life[i] > 0 ? env * (kind === 0 ? 0.075 : kind === 1 ? (0.008 + 0.03 * big) * back : kind === 3 ? 0.3 : kind === 4 ? 0.28 : 0.07 + 0.03 * big) : 0;
       }
       const g = sp.pts.geometry; (g.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aSize') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aA') as THREE.BufferAttribute).needsUpdate = true;
     };
     let placed: 'none' | 'surf' | 'swell' = 'none', token = 0, pending: WaveSpec | null = null, live0 = false;
-    const C = new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1), Ci = C.clone().invert(), bb = new THREE.Box3(), Mb = new THREE.Matrix4(), Ms = new THREE.Matrix4(), Rx = new THREE.Matrix4().makeRotationX(THREE.MathUtils.degToRad(16)), My = new THREE.Matrix4().makeScale(1, -1, 1);
+    const C = new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1), Ci = C.clone().invert(), bb = new THREE.Box3(), Mb = new THREE.Matrix4(), Ms = new THREE.Matrix4(), Rx = new THREE.Matrix4();
+    // the rider: a skinned model with `ride` (loop) and `still` clips; placed on the face every frame along RIDE_PATH, banked to the face
+    const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let mixer: THREE.AnimationMixer | null = null, rideAct: THREE.AnimationAction | null = null, rideDur = 4, cur: {atlas: Atlas; sx: number} | null = null;
+    let rider: RiderSample | null = null, riderAt = 0;
+    const pt = new THREE.Vector3(), boardBox = new THREE.Box3();
+    /** Board-to-water gaps (m, crest frame): at the board's bottom centre, and the lowest of the tail, nose and both rails. */
+    const contactM = (t: number): [number, number] => {
+      if (!surfer || !cur) return [0, 0];
+      const mesh = (custom ?? surfer.getObjectByName('Board')) as THREE.Mesh | null; if (!mesh) return [0, 0];
+      const g = mesh.geometry; if (!g.boundingBox) g.computeBoundingBox(); const bx = g.boundingBox!; boardBox.copy(bx);
+      const pts: [number, number, number][] = [[0, bx.min.y, 0], [bx.max.x - 0.03, bx.min.y + 0.03, 0], [bx.min.x + 0.15, bx.min.y + 0.08, 0], [0, bx.min.y, bx.max.z - 0.02], [0, bx.min.y, bx.min.z + 0.02]];
+      let centre = 0, low = Infinity;
+      pts.forEach((p, i) => { pt.set(p[0], p[1], p[2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = pt.y - waterHeightAt(cur!.atlas, pt.x, pt.z, t); if (i === 0) centre = gap; low = Math.min(low, gap); });
+      return [centre, low];
+    };
+    const placeRider = (t: number) => {
+      if (!surfer || !cur || !surfer.visible) return;
+      const {atlas, sx} = cur, m = atlas.meta, H = m.face_m;
+      const ph = reduced || !rideAct ? 0.3 : (rideAct.time / rideDur) % 1;
+      const [dxH, frac0] = pathAt(ph);
+      const xb = breakX(m, t), x = Math.min(sx + dxH * H, xb - 1.0 * H);               // never into the pitching lip
+      // the board sits on the face with the rail engaged a hand at most (low_m >= -0.15): where the face is steeper than 50 deg, or a
+      // rail or the nose would be inside the wall (this family's mid-face is near-vertical), the rider drops down the face until it fits
+      const k = surferRef.current / SURFER_MODEL_M; Ms.makeScale(k, k, k);
+      let frac = frac0, fy = 0, fz = 0, slope = 0, gc = 0, gl = 0, shift = 0;
+      for (let i = 0; i < 12; i++) {
+        [fy, fz, slope] = facePoint(atlas, x, frac, t);
+        if (slope <= MAX_SLOPE || frac <= 0.03) {
+          // the root banks almost flat on the face (95% of the slope, 55 deg at most); the clip adds the rider's own rail-to-rail bank and the
+          // turns' yaw. No mirror: the v3 model faces the wave (goofy on a left); a right mirrors the frame.
+          const bank = Math.min(0.95 * slope, THREE.MathUtils.degToRad(55));
+          Mb.makeTranslation(x, fy, fz).multiply(Rx.makeRotationX(-bank)).multiply(Ms);
+          surfer.matrix.copy(C).multiply(Mb).multiply(Ci); surfer.updateMatrixWorld(true);
+          [gc, gl] = contactM(t);
+          if (gl - gc >= -0.2 || frac <= 0.03) break;      // a rail more than 20 cm under the centre: it is in the wall, go lower
+        }
+        frac = Math.max(0.03, frac - 0.03);
+      }
+      // the board's bottom centre on the water; where the clip's bank buries a rail deeper than 15 cm, lift that little (a turn engages a rail)
+      shift = Math.max(-gc, -0.15 - gl);
+      if (Math.abs(shift) > 0.004) { Mb.premultiply(Ms.makeTranslation(0, 0, shift)); surfer.matrix.copy(C).multiply(Mb).multiply(Ci); surfer.updateMatrixWorld(true); }
+      const gap = gc + shift, lowGap = gl + shift, bank = Math.min(0.95 * slope, THREE.MathUtils.degToRad(55)), pitch = 0;
+      const move = moveAt(ph); if (spray) spray.tailOn = move === 'top' ? 1 : 0;
+      probe = {ph, frac, x, fy, fz, slope, xb, bank, pitch, gap, lowGap};
+      return {x, y: fz, z: -fy, xb, move};
+    };
+    let probe: Record<string, number> | null = null;
+    /** Dev: the placement this frame plus each board contact point (crest frame) and the water under it. */
+    const probeRider = () => {
+      if (!surfer || !cur) return null; const t = u.uTime.value; surfer.updateMatrixWorld(true);
+      const mesh = (custom ?? surfer.getObjectByName('Board')) as THREE.Mesh | null; if (!mesh) return null;
+      const bx = mesh.geometry.boundingBox!; const pts: Record<string, [number, number, number]> = {tail: [bx.max.x - 0.03, bx.min.y + 0.03, 0], nose: [bx.min.x + 0.15, bx.min.y + 0.08, 0], railA: [0, bx.min.y, bx.max.z - 0.02], railB: [0, bx.min.y, bx.min.z + 0.02]};
+      const out: Record<string, unknown> = {...probe, bbox: [bx.min.toArray(), bx.max.toArray()]};
+      for (const [n, p] of Object.entries(pts)) { pt.set(p[0], p[1], p[2]); mesh.localToWorld(pt); group.worldToLocal(pt); out[n] = {x: pt.x, y: pt.y, z: pt.z, water: waterHeightAt(cur.atlas, pt.x, pt.z, t)}; }
+      pt.set(0, 0, 0); mesh.localToWorld(pt); group.worldToLocal(pt); out.origin = {x: pt.x, y: pt.y, z: pt.z, water: waterHeightAt(cur.atlas, pt.x, pt.z, t)};
+      return out;
+    };
+    /** Dev/QA sample (every ~100 ms): the board's tail in the crest frame, its gap to the water, how far ahead of the break point, the move. */
+    const sampleRider = (t: number, r: {x: number; y: number; z: number; xb: number; move: string}) => {
+      if (!surfer || !cur) return;
+      surfer.updateMatrixWorld(true);
+      const mesh = (custom ?? surfer.getObjectByName('Board')) as THREE.Mesh | null; if (!mesh) return;
+      const g = mesh.geometry; if (!g.boundingBox) g.computeBoundingBox(); const bx = g.boundingBox!;
+      pt.set(bx.max.x - 0.03, bx.min.y + 0.03, 0); mesh.localToWorld(pt); group.worldToLocal(pt);
+      if (spray) { spray.tail[0] = pt.x; spray.tail[1] = pt.y; spray.tail[2] = pt.z; }
+      const r3 = (n: number) => Math.round(n * 1000) / 1000, [gc, gl] = contactM(t);
+      rider = {x: r3(pt.x), y: r3(pt.y), z: r3(pt.z), contact_m: r3(gc), low_m: r3(gl), ahead_m: r3(r.xb - r.x), move: r.move};
+      if (import.meta.env.DEV) el.dataset.rider = JSON.stringify(rider);
+    };
     const placeCamera = (mode: 'surf' | 'swell', tx: number, H: number, far: number) => {
-      const d = mode === 'surf' ? 4.5 + H * 2.6 : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
+      // surf: the wave with the rider in it (the rider about 40% in from the shoulder side, wave and person both readable), from the water
+      // on the beach side a little down the line, eye just under the lip; a narrow (phone) frame backs off further
+      const d = mode === 'surf' ? (5.5 + H * 2.8) * (camera.aspect < 1 ? 1.35 : 1) : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
       if (placed !== mode) {
         placed = mode;
-        // from the channel on the shoulder, eye just under the lip (a surf photographer's water shot: the lip stands against the sky, the horizon sits high)
-        // (eye 0.7 H + 0.55 m: 2.8 m under a 10 ft face, 1.1 m beside a waist-high one, so a small wave is not seen from above and flattened)
-        if (mode === 'surf') { controls.target.set(sx * tx, H * 0.55, 0); camera.position.set(sx * (tx - 0.7 * d), H * 0.7 + 0.55, -0.72 * d); }
+        if (mode === 'surf') { controls.target.set(sx * tx, H * 0.5, 0); camera.position.set(sx * (tx - 0.42 * d), H * 0.65 + 0.6, -0.95 * d); }
         else { controls.target.set(0, 0, far * 0.3); camera.position.set(-0.3 * d, 2.2 + 1.2 * H, -0.6 * d); } // low over the water, so the swell lines read as lines
       } else if (mode === 'surf') { tmp.copy(camera.position).sub(controls.target); controls.target.set(sx * tx, H * 0.5, 0); camera.position.copy(controls.target).add(tmp); }
       controls.update(); sync();
@@ -457,18 +588,17 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       u.uBreak.value = w.breaker === 'spilling' ? 1 : w.breaker === 'plunging' ? 0 : m.breaker === 'spilling' ? 1 : 0;   // the forecast's breaker type, the bucket family's when unknown
       const sx = surferX(m);
       setStripX(strip.geometry, m, sx); setSea(sea.geometry, m); strip.visible = sea.visible = true;
+      cur = {atlas, sx};
       if (surfer) {
-        // the surfer: 1.75 m, at the bottom of the open face (a bottom turn) on the open shoulder, facing the wave (frontside), board nose down the
-        // line (-x). The exported model faces the beach, so it is mirrored across the crest plane (y -> -y in the model frame), which turns it to face
-        // the wave with the right foot forward: a goofy-foot frontside stance on a left. A right is the whole frame mirrored (regular-foot frontside).
-        const [fy, fz] = facePoint(atlas, sx, 0.1);
-        const k = surferRef.current / SURFER_MODEL_M; // T-099: drawn at the person's height (uniform scale about the model's feet)
-        Mb.makeTranslation(sx, fy + 0.2, fz - 0.03).multiply(Rx).multiply(My).multiply(Ms.makeScale(k, k, k));
-        surfer.matrix.copy(C).multiply(Mb).multiply(Ci); surfer.visible = true; surfer.updateMatrixWorld(true);
+        // the rider (scaled to the person's height, T-099) rides the open face ahead of the pocket, facing the wave (frontside), board nose down
+        // the line (-x): the model is mirrored across the crest plane (y -> -y in its frame) into a goofy-foot stance on a left; a right is the
+        // whole frame mirrored (regular-foot frontside). Placed each frame by placeRider; the clip loops twice per wave cycle on a long cycle.
+        if (rideAct) { const loops = Math.max(1, Math.round(m.cycle_s / rideDur)); rideAct.timeScale = rideDur * loops / m.cycle_s; }
+        surfer.visible = true; placeRider(u.uTime.value); surfer.updateMatrixWorld(true);
         bb.setFromObject(surfer); el.dataset.surfer = JSON.stringify(bb.min.toArray().concat(bb.max.toArray()).map((n) => Math.round(n * 100) / 100));
       }
       if (spray) { const e = emitters(atlas); spray.lip = e.lip; spray.crest = e.crest; spray.mist = e.mist; spray.blast = e.blast; spray.pts.visible = true; }
-      placeCamera('surf', sx * 0.4, H, 0);
+      placeCamera('surf', (sx - 0.5 * H) * 0.62, H, 0);   // between the rider's line (half a face height out on the shoulder) and the break, nearer the rider
       el.dataset.mode = 'surf'; el.dataset.face = String(Math.round(H * 100) / 100); el.dataset.breaker = w.breaker ?? m.breaker; el.dataset.atlasFamily = m.breaker; el.dataset.atlasBytes = String(atlas.data.byteLength);
     };
     /** The latest spec wins: applied at once when its buckets are loaded, otherwise after they load (the first call also loads the surfer). */
@@ -482,9 +612,17 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       Promise.all(waits).then((res) => {
         if (disposed || my !== token) return;
         if (needSurfer && !surfer) {
-          const s = res[res.length - 1] as THREE.Group | null; if (!s) throw new Error('no surfer');
-          surfer = s.clone(true); surfer.matrixAutoUpdate = false; group.add(surfer);
-          surfer.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined; if (mm && 'emissiveIntensity' in mm) mm.emissiveIntensity = 0.15; }); setBoard(boardRef.current);
+          const s = res[res.length - 1] as {scene: THREE.Group; clips: THREE.AnimationClip[]} | null; if (!s) throw new Error('no surfer');
+          surfer = cloneSkinned(s.scene) as THREE.Group; surfer.matrixAutoUpdate = false; group.add(surfer);
+          surfer.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined; if (mm && 'emissiveIntensity' in mm) mm.emissiveIntensity = 0.15; (o as THREE.Mesh).frustumCulled = false; }); setBoard(boardRef.current);
+          const ride = THREE.AnimationClip.findByName(s.clips, 'ride'), still = THREE.AnimationClip.findByName(s.clips, 'still');
+          if (ride || still) {
+            mixer = new THREE.AnimationMixer(surfer);
+            if (reduced && still) mixer.clipAction(still).play();          // reduced motion: the still bottom-turn pose
+            else if (ride) { rideDur = ride.duration; rideAct = mixer.clipAction(ride); rideAct.setLoop(THREE.LoopRepeat, Infinity).play(); }
+            else if (still) mixer.clipAction(still).play();
+            el.dataset.clips = s.clips.map((c) => c.name).join(',');
+          }
         }
         if (!spray) { spray = makeSpray(); group.add(spray.pts); }
         if (pending && pending.faceM !== null && !composeAtlas(pending.faceM, pending.breaker, pending.periodS).atlas) throw new Error('atlas missing');
@@ -526,7 +664,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     };
     api.current = {setWave, setDir, setLight, setBoard};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir}; // dev-only hook for camera-scripted QA shots (setWave: draw any spec)
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, rider: () => rider, probe: probeRider}; // dev-only hook for camera-scripted QA shots (setWave: draw any spec; rider: the last RiderSample)
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;
@@ -534,7 +672,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const frame = (now: number) => {
       raf = 0; if (disposed || !visible || document.hidden) return;
       const dt = Math.min(0.05, (now - last) / 1000); worst = Math.max(worst, now - last); last = now; u.uTime.value = (now - t0) / 1000;
-      controls.update(); if (spray && spray.pts.visible) stepSpray(spray, dt, faceM); renderer.render(scene, camera); frames++;
+      controls.update(); mixer?.update(dt); const r = placeRider(u.uTime.value); if (spray && spray.pts.visible) stepSpray(spray, dt, faceM); renderer.render(scene, camera); frames++;
+      if (r && now - riderAt > 100) { riderAt = now; sampleRider(u.uTime.value, r); }
       if (now - statAt > 1000) { el.dataset.fps = String(Math.round(frames * 1000 / (now - statAt))); el.dataset.worstMs = String(Math.round(worst)); el.dataset.geoms = String(renderer.info.memory.geometries); el.dataset.textures = String(renderer.info.memory.textures); frames = 0; worst = 0; statAt = now; }
       raf = requestAnimationFrame(frame);
     };
@@ -545,7 +684,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const onLost = (e: Event) => { e.preventDefault(); cb.current.onFail?.(); }; canvas.addEventListener('webglcontextlost', onLost);
     return () => {
       disposed = true; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', vis); canvas.removeEventListener('webglcontextlost', onLost); controls.dispose();
-      strip.geometry.dispose(); sea.geometry.dispose(); spray?.pts.geometry.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
+      mixer?.stopAllAction(); strip.geometry.dispose(); sea.geometry.dispose(); spray?.pts.geometry.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
       stripMat.dispose(); seaMat.dispose(); spMat.dispose(); sky.geometry.dispose(); (sky.material as THREE.Material).dispose(); renderer.dispose(); canvas.remove(); api.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
