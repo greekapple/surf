@@ -6,6 +6,7 @@ import {groupDays, ht, monotonePath, spotLatLon, sunTimes, windColor, windVal, c
 import {timeLabelPT, weekdayPT, dayNumPT, localHour} from './format';
 import {Condition} from '../../ui/Condition';
 import type {SurfBandPoint} from './trustApi';
+import {estimateBand, hasEstimateBand} from './trustRules';
 import {Icon} from '../../ui/Icon';
 
 /** Wind-speed colour for marks on the current ground: the pastel Windy-like ramp is mixed toward black in the light theme (--wind-darken). */
@@ -71,8 +72,9 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
   const bandAt = useMemo(() => new Map((band ?? []).map((b) => [b.t, b])), [band]);
-  const surfBand = tab === 'surf' && bandAt.size > 0;
-  const bAt = (h: HourSample) => bandAt.get(h.timestamp);
+  const surfBand = tab === 'surf' && hasEstimateBand(bandAt.values());
+  /** The hour's surf-estimate band, or undefined: offshore and demonstration points are not surf estimates (CONTRACTS.md), so they never become bars. */
+  const bAt = (h: HourSample) => estimateBand(bandAt.get(h.timestamp));
   const hsMax = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0, bAt(h)?.hi ?? 0))) * 1.12;
   const wMax = Math.max(10, ...series.map((h) => Math.max(h.forecast.wind.speed || 0, h.forecast.wind.gusts || 0))) * 1.12;
   const [lo, hi] = tab === 'wind' ? [0, wMax] : tab === 'tide' ? [tLo - (tHi - tLo || 1) * 0.15, tHi + (tHi - tLo || 1) * 0.2] : [0, hsMax];
