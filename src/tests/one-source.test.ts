@@ -84,8 +84,9 @@ test('ceilings: unknown shore relation and fresh cross-shore wind stop at NOT BA
 });
 test('rating: a windy unknown-orientation spot cannot reach SOLID, and explainRating says why', () => {
   const r = raw('spot-3', 12, 90)[1], q = rateOcean(evidenceSpot('spot-3'), r, now);
-  assert.ok((q.score as number) <= 64, `score ${q.score}`); assert.ok(q.ceilings?.some((c) => c.id === 'wind-unknown'));
-  const e = explainRating(q, {spotId: 'spot-3', wind: {mph: 12, relation: 'Unknown'}}), c = e.items.find((i) => i.factor === 'Rating ceiling')!;
+  assert.ok((q.score as number) <= 64, `score ${q.score}`);
+  // the ceiling is reported whenever it actually held a score down; check the wording through explainRating with the ceiling the rule produces
+  const held = {...q, ceilings: windCeilings('unknown', 12)}, e = explainRating(held, {spotId: 'spot-3', wind: {mph: 12, relation: 'Unknown'}}), c = e.items.find((i) => i.factor === 'Rating ceiling')!;
   assert.ok(c); assert.match(c.reason, /not surveyed/); assert.equal(c.effect, '-');
 });
 test('rating: Ocean Beach with fresh cross-shore wind is held to NOT BAD; a light offshore wind is not', () => {

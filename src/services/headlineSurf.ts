@@ -5,7 +5,7 @@ import {BREAKING_V2_VERSION} from '../ocean/breakingEstimate.ts';
 import {mopBreaking} from './breakingV2.ts';
 import {pickMop} from './nearshoreSelect.ts';
 import {bodyWords, BODY_WORDS_NOTE} from './bodyWords.ts';
-import {getObservations} from './observationStore.ts';
+import {getObservations, getFelt, type FeltEntry} from './observationStore.ts';
 import {applyFit, fitFor, type CalibrationFit} from './calibrationMath.ts';
 import type {SessionObservation} from './sessionLog.ts';
 import {canPresentBreakingEstimate, formatWaveHeight} from '../utils/waveHeight.ts';
@@ -17,11 +17,12 @@ export type HeadlineSurf =
   | {kind: 'demonstration'; ft: number; label: string}
   | {kind: 'offshore'; ft: number; label: 'offshore · not surf size'}
   | {kind: 'none'; label: string};
-export interface HeadlineContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs?: number; /** Defaults to the shared observation store; pass [] to force the uncalibrated path. */ observations?: SessionObservation[]}
+export interface HeadlineContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs?: number; /** Defaults to the shared observation store; pass [] to force the uncalibrated path. */ observations?: SessionObservation[]; /** Defaults to the shared felt-right store. */ felt?: FeltEntry[]}
 
 /** Calibrates an estimate when this spot has enough paired observations for this method; otherwise returns it untouched (identical to before T-059). */
 function calibrated<T extends Extract<HeadlineSurf, {kind: 'estimate'}>>(spotId: string, h: T, ctx: HeadlineContext): T {
-  const fit: CalibrationFit = fitFor(ctx.observations ?? getObservations(), spotId, h.method), r = applyFit(fit, h.loFt, h.hiFt);
+  const fl = (ctx.felt ?? (ctx.observations ? [] : getFelt())).filter((e) => e.spotId === spotId && e.predicted?.method === h.method), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
+  const fit: CalibrationFit = fitFor(ctx.observations ?? getObservations(), spotId, h.method, counts), r = applyFit(fit, h.loFt, h.hiFt);
   if (!r) return h;
   const label = `calibrated with your ${fit.n} observations`;
   return {...h, loFt: r.loFt, hiFt: r.hiFt, words: bodyWords(r.loFt, r.hiFt), methodLabel: `Model estimate, ${label} (${h.method === 'mop-v2' ? 'CDIP nearshore' : 'offshore swell'} model, unvalidated)`, calibration: {n: fit.n, ratio: fit.ratio!, label, uncalibratedFt: [h.loFt, h.hiFt]}};
