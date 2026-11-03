@@ -2,7 +2,7 @@ import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
 import './trust.css';
 import {getFelt} from '../../services/observationStore';
-import {activeAlerts, feltForHour} from './trustRules';
+import {activeAlerts, feltForHour, firstNewReason} from './trustRules';
 import {alertsFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
 
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
@@ -16,12 +16,14 @@ export function CallBar({call, compact = false}: {call: Call; compact?: boolean}
   const [open, setOpen] = useState(false), id = useId();
   const w = call.verdict === 'Dark' || !call.window ? call.nextWindow : call.window;
   const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${w.label}${sameDay(w.start) ? '' : ` ${dayWord(w.start)}`}` : w.label) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
+  // T-069: the line under the verdict is the first reason that ADDS something; one that only restates the verdict and window is left to the tap-open list.
+  const why = firstNewReason(call.why, `${call.verdict} ${wText ?? ''}`);
   if (compact) return <p className={`call-c ${VCLASS[call.verdict]}`}><b>{call.verdict}</b>{wText && <span> · {wText}</span>}</p>;
   return (
     <section className={`call ${VCLASS[call.verdict]}`} aria-label="The call">
       <button type="button" className="call-b" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
         <span className="call-v"><i aria-hidden="true" />{call.verdict}{wText && <span className="call-w"> · {wText}</span>}</span>
-        {call.why[0] && <span className="call-why">{call.why[0]}</span>}
+        {why && <span className="call-why">{why}</span>}
         <span className="call-more" aria-hidden="true">{open ? 'Less' : 'Why'}</span>
       </button>
       {open && (

@@ -12,3 +12,13 @@ export const activeAlerts = (alerts: NwsAlert[], nowMs: number) => alerts.filter
 /** The "Felt right?" answer for one spot and one hour (the displayed hour), newest first; null when that hour has none. */
 export const feltForHour = (entries: FeltEntry[], spotId: string, hourIso: string): FeltSignal | null =>
   entries.filter((x) => x.spotId === spotId && x.hour === hourIso).sort((a, b) => Date.parse(b.loggedAt) - Date.parse(a.loggedAt))[0]?.felt ?? null;
+/** T-069: does a "why" sentence only restate the call's headline (its verdict and window)? True when, after dropping filler words, every word of
+ *  the sentence is already in the headline ("It is dark. The next window is tomorrow 6 AM–2 PM." under "Dark · next window 6 AM–2 PM tomorrow"). */
+const FILLER = new Set(['it', 'is', 'its', 'the', 'a', 'an', 'and', 'of', 'to', 'at', 'in', 'on', 'for', 'this', 'that', 'there', 'be', 'will']);
+const words = (s: string) => s.toLowerCase().replace(/[–—-]/g, ' ').match(/[a-z0-9]+/g) ?? [];
+export function restatesHeadline(why: string, headline: string): boolean {
+  const have = new Set(words(headline));
+  return words(why).filter((w) => !FILLER.has(w)).every((w) => have.has(w));
+}
+/** The first reason that adds something to the headline, or null. */
+export const firstNewReason = (why: string[], headline: string) => why.find((w) => !restatesHeadline(w, headline)) ?? null;

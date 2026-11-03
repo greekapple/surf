@@ -146,3 +146,6 @@
   .wk-t .wk-spot { position: sticky; left: 0; z-index: 2; background: var(--bg); width: 120px; }
   .wk-c button { min-height: 52px; padding: 6px; }
 }
+/* T-069: an offshore-only day is visibly secondary: a small grey number; the row label carries the word "offshore". */
+.wk-h.wk-off { font-size: 12px; font-weight: 400; color: var(--dim); }
+.wk-kind { color: var(--dim); }
