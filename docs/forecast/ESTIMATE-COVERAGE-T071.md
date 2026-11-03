@@ -6,12 +6,12 @@ User decision (2026-11-02): "literally just look at public sources and apply tha
 
 | | Before | After |
 |---|---|---|
-| Spots with a breaking-estimate profile | **1 of 45** (Ocean Beach) | **30 of 45** |
+| Spots with a breaking-estimate profile | **1 of 45** (Ocean Beach) | **31 of 45** |
 | Spots on v2 (assigned MOP point) | 1 (Ocean Beach, SF023) | 2 (+ Linda Mar, SM375) |
 | Spots with an estimate in the next 72 h (live check, 2026-11-03) | 1 | **26 of 45** (the other covered spots had no swell inside their published window in that window of time, so they correctly showed offshore) |
 | Spots with a published beach orientation | 1 | 39 |
 
-**Covered (30):** Ocean Beach, Linda Mar, Bolinas, Montara, Steamer Lane, Waddell Creek, Manresa, Moss Landing, Asilomar, Carmel Beach, Morro Rock, Salmon Creek, Dillon Beach, Moonstone Beach, Jalama, C Street, County Line, Zuma, Malibu, Topanga, El Porto, Hermosa Pier, The Wedge, Salt Creek, Trestles (Lowers), Oceanside, Swami's, Cardiff Reef, Black's Beach, Imperial Beach.
+**Covered (31):** Ocean Beach, Linda Mar, Bolinas, Montara, Steamer Lane, Waddell Creek, Manresa, Moss Landing, Asilomar, Carmel Beach, Sand Dollar, Morro Rock, Salmon Creek, Dillon Beach, Moonstone Beach, Jalama, C Street, County Line, Zuma, Malibu, Topanga, El Porto, Hermosa Pier, The Wedge, Salt Creek, Trestles (Lowers), Oceanside, Swami's, Cardiff Reef, Black's Beach, Imperial Beach.
 
 **Not covered (15), and why:** Stinson Beach, Cowell's, Sand Dollar, Huntington Pier (a source calls them sheltered; no shelter factor is sourced). Mavericks and Pleasure Point (reef breaks; no source says they are exposed). Davenport, Pismo, Point Arena, Shelter Cove, Humboldt North Jetty, Crescent City, Windansea, Ocean Beach (San Diego) (no source states which way the beach faces, or no swell range was found). Rincon (the published window "W to N" leaves nothing within 60° of its SSW facing).
 
@@ -34,3 +34,11 @@ SOLID 20.7%, NOT BAD 36.6%, SURFABLE 24.1%, WEAK 16.8%, POOR 1.8%; nothing at GO
 - The compass-word facing is coarse (22.5°), and v1 (offshore swell through a Komar-Gaughan breaker height) is unvalidated everywhere except as a consistency check at Ocean Beach. At points and reefs a straight-beach formula is less suited; those spots only qualify because a source calls them exposed.
 - Steamer Lane's guide says it faces southeast, which leaves a narrow window (few estimates); this is a guide statement, not corrected by us.
 - Nothing here validates accuracy. Observations (T-059/T-060) are what will calibrate each spot.
+
+## T-071b corrections
+
+- Wind shelter is not swell shelter: Sand Dollar ("sheltered from N and S winds", "exposed beach break") and Asilomar ("not wind protected") were wrongly read as swell-sheltered. Fixed in the parser; Sand Dollar now has an estimate profile (31 of 45).
+- Guide sizes converted from metres are rounded to half feet (Linda Mar 12.1 ft is now 12 ft).
+- Points, reefs and jetties qualify on one guide's "exposed" statement; the profile note says so.
+- Where an estimate comes from a guide-derived profile, the method label now says so once ("facing and swell window from published guides (...), not reviewed; 8 s generic minimum period"), `explainRating` counts guide-filled facts as "from published guides, not reviewed", and the wind reason notes a guide-derived shore direction.
+- A spot is shown only its own MOP point's nowcast: the only nowcast the app fetches is SF023's (Ocean Beach), so Linda Mar (SM375) uses its forecast and never shows Ocean Beach measurements under its label.

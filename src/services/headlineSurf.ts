@@ -3,7 +3,9 @@ import type {OceanBundle} from '../ocean/types.ts';
 import {assignmentFor} from '../ocean/mop.ts';
 import {BREAKING_V2_VERSION} from '../ocean/breakingEstimate.ts';
 import {mopBreaking} from './breakingV2.ts';
-import {pickMop} from './nearshoreSelect.ts';
+import {pickMop, nowcastFor} from './nearshoreSelect.ts';
+import {isGuideProfile} from '../ocean/localCalibration.ts';
+import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
 import {bodyWords, BODY_WORDS_NOTE} from './bodyWords.ts';
 import {getObservations, getFelt, type FeltEntry} from './observationStore.ts';
 import {applyFit, fitFor, type CalibrationFit} from './calibrationMath.ts';
@@ -25,30 +27,41 @@ function calibrated<T extends Extract<HeadlineSurf, {kind: 'estimate'}>>(spotId:
   const fit: CalibrationFit = fitFor(ctx.observations ?? getObservations(), spotId, h.method, counts), r = applyFit(fit, h.loFt, h.hiFt);
   if (!r) return h;
   const label = `calibrated with your ${fit.n} observations`;
-  return {...h, loFt: r.loFt, hiFt: r.hiFt, words: bodyWords(r.loFt, r.hiFt), methodLabel: `Model estimate, ${label} (${h.method === 'mop-v2' ? 'CDIP nearshore' : 'offshore swell'} model, unvalidated)`, calibration: {n: fit.n, ratio: fit.ratio!, label, uncalibratedFt: [h.loFt, h.hiFt]}};
+  return {...h, loFt: r.loFt, hiFt: r.hiFt, words: bodyWords(r.loFt, r.hiFt), methodLabel: `Model estimate, ${label} (${h.method === 'mop-v2' ? 'CDIP nearshore' : 'offshore swell'} model, unvalidated)${guideBasis(spotId) ? `; ${guideBasis(spotId)}` : ''}`, calibration: {n: fit.n, ratio: fit.ratio!, label, uncalibratedFt: [h.loFt, h.hiFt]}};
 }
 
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 export const ESTIMATE_LABEL = 'Est. at the break · model estimate';
+/** One source line for a guide-derived estimate (T-071b), said once in the method label: where the inputs came from and that they are unreviewed. */
+export function guideBasis(spotId: string): string | null {
+  if (!isGuideProfile(spotId)) return null;
+  const f = guideFactsFor(spotId), sites = [...new Set((f?.sources ?? []).map((x) => (x.site === 'surf-forecast' ? 'Surf-Forecast' : x.site === 'surfnerd' ? 'Surfnerd' : x.site)))];
+  return `facing and swell window from published guides${sites.length ? ` (${sites.join(', ')})` : ''}, not reviewed; 8 s generic minimum period`;
+}
 const METHOD_LABEL = {'mop-v2': `Model estimate from the CDIP nearshore point (${BREAKING_V2_VERSION}, unvalidated)`, v1: 'Model estimate from offshore swell (v1, unvalidated)'} as const;
+
+const methodLabelFor = (spotId: string, m: 'mop-v2' | 'v1', mopId?: string) => {
+  const basis = guideBasis(spotId), assigned = m === 'mop-v2' && mopId && isGuideProfile(spotId) ? `; point ${mopId} assigned by the facing-match rule` : '';
+  return `${METHOD_LABEL[m]}${assigned}${basis ? `; ${basis}` : ''}`;
+};
 
 /** Order: v2 where a reviewed MOP point has data for this hour → v1 where presentable → offshore (labelled) → none. */
 export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContext = {}): HeadlineSurf {
   const nowMs = ctx.nowMs ?? Date.now(), a = assignmentFor(spotId), t = Date.parse(hour?.timestamp);
   if (a && ctx.bundle && Number.isFinite(t)) {
-    const pick = pickMop(t, nowMs, ctx.bundle.nearshore, ctx.bundle.mop?.[a.mopId]?.records);
+    const pick = pickMop(t, nowMs, nowcastFor(a.mopId, ctx.bundle.nearshore), ctx.bundle.mop?.[a.mopId]?.records);
     if (pick.state === 'ok') {
       const r = mopBreaking(spotId, pick.record);
       if (r.ok && canPresentBreakingEstimate(r.input)) {
         const [lo, hi] = r.input.rangeFt!;
-        return calibrated(spotId, {kind: 'estimate', loFt: lo, hiFt: hi, words: bodyWords(lo, hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2', methodLabel: METHOD_LABEL['mop-v2'], label: ESTIMATE_LABEL, mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}}, ctx);
+        return calibrated(spotId, {kind: 'estimate', loFt: lo, hiFt: hi, words: bodyWords(lo, hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2', methodLabel: methodLabelFor(spotId, 'mop-v2', a.mopId), label: ESTIMATE_LABEL, mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}}, ctx);
       }
     }
   }
   const v1 = hour?.evidence?.faceEstimate?.input;
   if (v1 && canPresentBreakingEstimate(v1)) {
     const [lo, hi] = v1.rangeFt!;
-    return calibrated(spotId, {kind: 'estimate', loFt: lo, hiFt: hi, words: bodyWords(lo, hi), wordsNote: BODY_WORDS_NOTE, method: 'v1', methodLabel: METHOD_LABEL.v1, label: ESTIMATE_LABEL}, ctx);
+    return calibrated(spotId, {kind: 'estimate', loFt: lo, hiFt: hi, words: bodyWords(lo, hi), wordsNote: BODY_WORDS_NOTE, method: 'v1', methodLabel: methodLabelFor(spotId, 'v1'), label: ESTIMATE_LABEL}, ctx);
   }
   if (!hour?.evidence && hour?.availability?.face && finite(hour.face)) return {kind: 'demonstration', ft: hour.face, label: 'demonstration face · not a forecast'};
   if (finite(hour?.offshore) && hour.offshore >= 0) return {kind: 'offshore', ft: hour.offshore, label: 'offshore · not surf size'};
