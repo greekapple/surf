@@ -1,11 +1,18 @@
-import {useMemo} from 'react';
+import {useMemo, useState} from 'react';
 import {pacificDateMs, pacificHourMs} from '../../ocean/time';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
 import {callFor, hourCall, type CallWindow, type Verdict} from '../../services/call';
 import {daylightFor} from '../../services/daylight';
 import {spotHourOf, windOf} from '../../services/spotHour';
-import {SpotBand} from '../forecast/SpotBand';
+import {breakerType} from '../../services/breaker';
+import {glyphFor} from '../../services/waveGlyph';
+import {formatHeight, userHeight} from '../../services/heightMath';
+import {rateForecast} from '../../ratings/adapters';
+import {BAND_COLOR, bandOf} from '../forecast/model';
+import {DRAWN_CAPTION, WaveGlyph} from '../../ui/WaveGlyph';
+import {heroMediaFor} from './heroMedia';
+import type {OwnCam} from '../../data/cams';
 import {NwsBanner} from '../forecast/Trust';
 import {boardPickFor} from '../quiver/fit';
 import {greetingLine} from './greeting';
@@ -15,8 +22,9 @@ import {nearestTideStations, SF_STATION} from '../../ocean/tideStations';
 
 const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide reference for the spot
 
-/* T-074 welcoming Home (spec 2026-11-02-forecast-driven-3d-home §3): a greeting with the day's answer in one sentence (from the Call), the best spot's
- * credited photo (or its drawn coast) with a time-of-day tint, today at a glance and the quiver's pick. Every number comes from the existing
+/* T-074 welcoming Home (spec 2026-11-02-forecast-driven-3d-home §3): a greeting with the day's answer in one sentence (from the Call),
+ * T-106: the hero's media slot (a SWELLO live cam when one exists, else the bet's wave drawn to scale beside you on a time-of-day gradient; the
+ * credited photo stays on the spot page), today at a glance and the quiver's pick. Every number comes from the existing
  * accessors (callFor, hourCall, spotHourOf, daylightFor, the tide extrema); nothing is invented, and the sentence says so when nothing is good. */
 
 type Bundle = Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined;
@@ -41,6 +49,11 @@ export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserPro
     bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs), sized: spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline.kind === 'estimate'});
   }
   return {bet: rankBets(bets)[0] ?? null, withData, total: spots.length};
+}
+
+/** A SWELLO cam (none yet): plays muted inline; if it fails, the hero falls back to the drawing. */
+function CamPlayer({cam, onFail}: {cam: OwnCam; onFail: () => void}) {
+  return <video className="wel-cam" src={cam.src} muted autoPlay playsInline loop onError={onFail} aria-label={`${cam.label}, live view`} />;
 }
 
 const tintOf = (nowMs: number, spotId: string) => {
@@ -78,15 +91,27 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   // T-099: the one board pick (fit.ts boardPickFor) for the bet's spot-hour, the same function Board Match and Personal use.
   const choice = bet ? boardPickFor(boards, bet.spot, bet.rec, nowMs, profile, {bundle}) : null;
   const pick = choice?.pick ? choice.ranked.find((x) => x.board.id === choice.pick!.id) ?? null : null;
+  // T-106: the hero draws the hour the sentence talks about (the bet's first hour), else the spot's current hour; same headline as the number.
+  const [camFailed, setCamFailed] = useState(false), media = camFailed ? {kind: 'drawn' as const} : heroMediaFor(spot.id);
+  const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
+  const glyph = heroRec && heroHour ? glyphFor(heroHour.surf.headline, me.feet, heroRec.primary?.period, breakerType(spot, heroRec).type) : null;
+  const heroBand = heroRec ? BAND_COLOR[bandOf(rateForecast(spot, heroRec, nowMs).category)] : undefined;
+  const heroWhen = heroRec ? `${dayWord(heroRec.timestamp, nowMs) === 'today' ? '' : dayWord(heroRec.timestamp, nowMs).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroRec.timestamp)}` : '';
   return (
     <section className={`wel wel-${tintOf(nowMs, spot.id)}`} aria-labelledby="wel-h">
-      <SpotBand spotId={spot.id}>
+      <div className={`wel-hero is-${media.kind}`}>
         <div className="wel-in">
           <h1 id="wel-h">{greeting}</h1>
           <p className="wel-a">{answer}</p>
           {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.window.start)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start)}</button>}
         </div>
-      </SpotBand>
+        {media.kind === 'cam'
+          ? <figure className="wel-media"><CamPlayer cam={media.cam} onFail={() => setCamFailed(true)} /><figcaption>{media.cam.label} · {spot.name}</figcaption></figure>
+          : glyph && <figure className="wel-media" style={heroBand ? {'--band': heroBand} as React.CSSProperties : undefined}>
+              <WaveGlyph glyph={glyph} size="lg" personIn={me.inches} unit={profile.heightUnit} />
+              <figcaption><span>{spot.name} · {heroWhen} · {glyph.kind === 'surf' ? `Est. ${heroHour!.surf.value} · you ${formatHeight(me.inches, profile.heightUnit)}${me.isDefault ? ' (default)' : ''}` : 'offshore swell only'}</span><span>{DRAWN_CAPTION}</span></figcaption>
+            </figure>}
+      </div>
       <NwsBanner spotId={spot.id} />
       <dl className="wel-glance" aria-label={`Today at ${spot.name}`}>
         <div><dt>Sunrise</dt><dd>{clock(today.sunrise)}</dd></div>

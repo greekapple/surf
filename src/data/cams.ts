@@ -37,3 +37,8 @@ export const CAMS: readonly Cam[] = [
 ];
 
 export const camFor = (spotId: string): Cam | null => CAMS.find((c) => c.spotId === spotId) ?? null;
+
+/** T-106 SWELLO's OWN live cams (docs/product/CAMS-PLAN.md), the only cams the Home hero may play: none exist yet. The public cams above are
+ *  other owners' pages, so they stay links on the spot page and are never embedded. An entry is added only once our camera streams. */
+export interface OwnCam {spotId: string; /** A stream the browser plays directly (HLS for Safari, or an MP4/WebM loop). */ src: string; label: 'Live cam · SWELLO'; since: string}
+export const OWN_CAMS: readonly OwnCam[] = [];

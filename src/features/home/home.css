@@ -30,9 +30,6 @@
 .dc-tag, .dc-tag-sm { padding: 2px 8px; border: 1px solid var(--line-2); border-radius: 99px; color: var(--muted); font-size: 12px; line-height: 16px; white-space: nowrap; }
 .dc-tag.offshore, .dc-tag.demonstration, .dc-tag.none { color: var(--text); }
 .dc-sub { color: var(--muted); font-size: 12px; line-height: 16px; }
-.dc-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding-top: 8px; border-top: 1px solid var(--line-2); font-size: 13px; line-height: 1.3; }
-.dc-meta span { display: grid; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
-.dc-meta i { font-style: normal; color: var(--muted); font-size: 12px; }
 
 .nb-list { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; background: var(--s1); }
 .nb { border-left: 3px solid var(--band); }
@@ -57,12 +54,6 @@
 /* ---------- T-051: photo, condition accents, ribbon, ranking ---------- */
 .dc { box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); transition: box-shadow 160ms var(--ease), transform 160ms var(--ease); }
 .dc:hover, .dc.is-open { box-shadow: 0 6px 18px rgb(0 0 0 / 0.08); }
-.dc-photo { position: relative; margin: 0; height: 104px; overflow: hidden; background: var(--s2, var(--line-2)); }
-.dc-photo .spot-thumb-img, .dc-photo .media { position: absolute !important; inset: 0; width: 100%; height: 100%; }
-.dc-photo .media-el { object-fit: cover; }
-.dc-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgb(0 0 0 / 0) 40%, rgb(0 0 0 / 0.62) 100%); }
-.dc-photo figcaption { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; padding: 14px 12px 6px; color: #fff; font-size: 12px; line-height: 16px; text-shadow: 0 1px 2px rgb(0 0 0 / 0.5); }
-.dc:not(.has-photo) .dc-body { border-top: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--band) 9%, transparent), transparent 56px); }
 .dc-rate b { padding: 3px 9px; border-radius: 99px; background: color-mix(in srgb, var(--band) 16%, transparent); color: var(--text); }
 .dc-bar i { transition: background 160ms var(--ease); }
 .dc-more { border-top: 1px solid var(--line-2); }
@@ -98,12 +89,10 @@
 
 /* ---------- T-056 less "AI": no coloured card tops or side bars, labels as quiet text (not pills), rating as a word over its bar ---------- */
 .dc { border: 1px solid var(--line); border-top: 1px solid var(--line); }
-.dc:not(.has-photo) .dc-body { background: none; }
 .dc-tag, .dc-tag-sm { padding: 0; border: 0; border-radius: 0; color: var(--muted); font-size: 12px; }
 .dc-tag.offshore, .dc-tag.demonstration, .dc-tag.none { color: var(--muted); }
 .dc-rate b { padding: 0; background: none; color: var(--text); font-weight: 600; }
 .nb { border-left: 0; }
-.dc-meta, .dc-more, .nb + .nb { border-color: var(--line); }
 /* T-058: the nearby list scans like a list (Surfline): rank · name · height · rating close together, not spread across 1,200 px. */
 @media (min-width: 641px) {
   .nb-list { max-width: 640px; }
@@ -138,8 +127,6 @@
 .wk-h { font-size: 15px; font-weight: 650; } .wk-h.wk-off { font-size: 13px; font-weight: 500; color: var(--muted); }
 .wk-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 .wk-bar i { height: 4px; border-radius: 2px; }
-.wk-curve { position: absolute; left: 0; top: 0; width: 800%; height: 100%; pointer-events: none; z-index: 0; }
-.wk-curve path { fill: none; stroke: var(--hs-hi); stroke-width: 2; stroke-opacity: 0.22; vector-effect: non-scaling-stroke; }
 @media (max-width: 860px) {
   .wk { margin-inline: calc(-1 * var(--gutter, 16px)); padding-inline: var(--gutter, 16px); }
   .wk-t { min-width: 680px; }
@@ -152,22 +139,13 @@
 
 /* ---------- T-074 welcoming Home: greeting + the day's answer over the best spot's photo, today at a glance, the quiver's pick ---------- */
 .wel { display: grid; gap: 16px; }
-.wel .sp-band { height: clamp(280px, 38vw, 400px); border-radius: 16px; }
-.wel .sp-band-in { align-items: flex-end; padding: 32px 36px 36px; }
 .wel-in { display: grid; gap: 12px; max-width: 760px; }
 .wel h1 { font: 650 clamp(32px, 3.4vw, 44px)/1.1 var(--display); letter-spacing: -0.03em; }
 .wel-a { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.4; max-width: 60ch; }
 .wel-go { justify-self: start; min-height: 44px; padding: 0 18px; border: 0; border-radius: 10px; background: #fff; color: #0e1a22; font: 600 15px/1 var(--sans); cursor: pointer; }
 .wel-go:hover { background: #eef3f2; }
 .wel-go:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-.wel .sp-band.is-photo .wel-in { color: #fff; }
-.wel .sp-band.is-plan .wel-in { color: var(--text); } .wel .sp-band.is-plan .wel-go { background: var(--text); color: var(--bg); }
 /* Time-of-day tint over the photo (dawn warm, day clear, dusk amber, night deep blue); the scrim keeps white text legible. */
-.wel .sp-band.is-photo::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
-.wel-dawn .sp-band.is-photo::after { background: linear-gradient(180deg, rgb(255 196 160 / 0.35), rgb(40 50 70 / 0.25)); }
-.wel-day .sp-band.is-photo::after { background: linear-gradient(180deg, rgb(255 255 255 / 0), rgb(10 30 40 / 0.2)); }
-.wel-dusk .sp-band.is-photo::after { background: linear-gradient(180deg, rgb(255 170 110 / 0.4), rgb(60 30 50 / 0.35)); }
-.wel-night .sp-band.is-photo::after { background: linear-gradient(180deg, rgb(20 40 90 / 0.6), rgb(5 10 25 / 0.55)); }
 /* Today at a glance: one hairline row, label over value; the quiver's pick takes the wide cell. */
 .wel-glance { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 2fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .wel-glance div { display: grid; gap: 4px; padding: 14px 16px 14px 0; }
@@ -176,8 +154,6 @@
 .wel-glance dd { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .wel-glance small { font-size: 13px; font-weight: 400; color: var(--muted); }
 @media (max-width: 860px) {
-  .wel .sp-band { height: 300px; border-radius: 12px; }
-  .wel .sp-band-in { padding: 20px; }
   .wel h1 { font-size: 30px; }
   .wel-a { font-size: 16px; }
   .wel-glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -186,32 +162,74 @@
   .wel-glance .wel-pick { grid-column: 1 / -1; padding-left: 0; border-left: 0; }
 }
 /* T-074: Home stays within two screens at 1440 (t047): a shorter photo band and a tighter gap under the week grid. */
-.wel .sp-band { height: clamp(260px, 26vw, 280px); }
-.wel .sp-band-in { padding: 24px 32px 28px; }
 .wk-s { margin-bottom: 16px; }
-@media (max-width: 860px) { .wel .sp-band { height: 300px; } .wel .sp-band-in { padding: 20px; } }
 .wel-glance dd small { display: block; margin-top: 2px; } .wel-pick dd small { display: inline; margin-top: 0; }
 .hd-link { min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--accent-ink, var(--accent)); font: 600 14px/1 inherit; cursor: pointer; } .hd-link:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* T-082: Home within two screens at 1440 now that the nearby list has rows at night. */
 @media (min-width: 861px) {
   .home { gap: 24px; }
-  .wel .sp-band { height: 236px; }
   .wel-glance div { padding-top: 10px; padding-bottom: 10px; }
   .wel { gap: 12px; }
 }
 
 /* T-088 (design critic): the soft size curve runs in its own strip under the AM/mid/PM bars, never through the numbers. */
-.wk-c button { padding-bottom: 18px; }
-.wk-curve { top: auto; bottom: 4px; height: 12px; }
-.wk-curve path { stroke-opacity: 0.4; }
 .wk-h.wk-none { font-size: 13px; font-weight: 400; color: var(--dim); }
 /* T-095: night was a 60% navy multiply over an already scrimmed photo (nearly black). Now a lighter blue cast keeps the photo visible, and a
    scrim behind the text column (bottom-left, where the greeting sits) keeps white text at >= 4.5:1. */
-.wel-night .sp-band.is-photo::after { background: linear-gradient(180deg, rgb(120 140 200 / 0.42), rgb(60 75 120 / 0.38)); }
-.wel-night .sp-band.is-photo .wel-in, .wel-dusk .sp-band.is-photo .wel-in { position: relative; z-index: 2; }
-.wel-night .sp-band.is-photo::before, .wel-dusk .sp-band.is-photo::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(120% 90% at 0% 100%, rgb(4 10 22 / 0.62) 0%, rgb(4 10 22 / 0.38) 45%, rgb(4 10 22 / 0) 75%); }
+
+/* ---------- T-106: the drawn wave (WaveGlyph), the cam-ready hero, six-item cards, a tiny wave per week cell ---------- */
+.wglyph { display: block; flex: none; overflow: visible; }
+.wg-hi { fill: color-mix(in srgb, var(--hs-hi) 26%, transparent); stroke: var(--hs-hi); stroke-width: 1.3; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.wg-lo { fill: color-mix(in srgb, var(--hs-hi) 55%, transparent); }
+.wg-water { fill: none; stroke: currentColor; stroke-opacity: 0.35; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.wg-person { fill: currentColor; opacity: 0.85; }
+.wg-swell { fill: none; stroke: currentColor; stroke-opacity: 0.55; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.wg-off { font: 500 11px/1 var(--sans); fill: currentColor; fill-opacity: 0.7; }
+.wglyph-lg .wg-hi { stroke-width: 1.8; }
+
+/* The hero: a calm gradient tinted by the time of day, the greeting on the left, the bet's wave drawn to scale on the right. */
+.wel-hero { --wh-sky: #e4eff5; --wh-sea: #cbdfe8; --wh-ink: #0e1a22; --wh-btn: #0e1a22; --wh-btn-ink: #fff;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 400px); align-items: end; gap: 16px 32px; min-height: 236px; padding: 28px 32px;
+  border-radius: 16px; background: linear-gradient(180deg, var(--wh-sky), var(--wh-sea)); color: var(--wh-ink); }
+.wel-dawn .wel-hero { --wh-sky: #f6e2d4; --wh-sea: #d3e2eb; }
+.wel-dusk .wel-hero { --wh-sky: #f2d6c2; --wh-sea: #cfcadc; }
+.wel-night .wel-hero { --wh-sky: #1e2b45; --wh-sea: #0f1a2c; --wh-ink: #f1f4f9; --wh-btn: #fff; --wh-btn-ink: #0e1a22; }
+:root[data-theme='dark'] .wel-hero { --wh-sky: #172530; --wh-sea: #0d171e; --wh-ink: #e9eef1; --wh-btn: #fff; --wh-btn-ink: #0e1a22; }
+:root[data-theme='dark'] .wel-dawn .wel-hero { --wh-sky: #2a2227; --wh-sea: #121c25; }
+:root[data-theme='dark'] .wel-dusk .wel-hero { --wh-sky: #2b1f25; --wh-sea: #161829; }
+:root[data-theme='dark'] .wel-night .wel-hero { --wh-sky: #0f1729; --wh-sea: #070c17; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .wel-hero { --wh-sky: #172530; --wh-sea: #0d171e; --wh-ink: #e9eef1; --wh-btn: #fff; --wh-btn-ink: #0e1a22; }
+  :root:not([data-theme='light']) .wel-night .wel-hero { --wh-sky: #0f1729; --wh-sea: #070c17; }
+}
+.wel-hero .wel-in { color: var(--wh-ink); align-self: center; }
+.wel-hero .wel-go { background: var(--wh-btn); color: var(--wh-btn-ink); }
+.wel-hero .wel-go:hover { background: var(--wh-btn); opacity: 0.88; }
+.wel-hero .wel-go:focus-visible { outline-color: var(--wh-ink); }
+.wel-media { display: grid; gap: 6px; justify-items: end; margin: 0; color: var(--wh-ink); }
+.wel-media .wglyph { width: 100%; max-width: 400px; height: auto; }
+.wel-media figcaption { display: grid; justify-items: end; gap: 2px; font-size: 12px; line-height: 16px; color: color-mix(in srgb, var(--wh-ink) 80%, transparent); text-align: right; }
+.wel-cam { width: 100%; max-width: 400px; aspect-ratio: 16 / 9; border-radius: 10px; object-fit: cover; background: #000; }
+@media (max-width: 860px) {
+  .wel-hero { grid-template-columns: minmax(0, 1fr); padding: 20px; border-radius: 12px; }
+  .wel-media { justify-items: start; }
+  .wel-media figcaption { justify-items: start; text-align: left; }
+  .wel-media .wglyph { max-width: min(100%, 280px); }
+}
+
+/* Cards: name + rating, the drawing beside the number, wind · tide on one line, the call's window. */
+.dc-mid { display: flex; align-items: flex-end; gap: 14px; color: var(--text); }
+.dc-mid .dc-surf { display: grid; gap: 2px; }
+.dc-line { font-size: 13px; line-height: 1.35; color: var(--muted); }
+.dc-body .call-c { margin: 0; }
+
+/* Week cells: the tiny drawing beside the day's number (stacked on phones), the rating bar under both. */
+.wk-c button { grid-template-columns: auto minmax(0, 1fr); align-items: end; column-gap: 6px; color: var(--text); }
+.wk-c button > .wk-h:first-child, .wk-bar { grid-column: 1 / -1; }
+.wk-g { color: var(--muted); }
+@media (max-width: 860px) { .wk-c button { grid-template-columns: minmax(0, 1fr); } }
 
 /* data-honesty P1 on T-107: a week cell from a saved or stale source is muted and says so */
 .wk-h.wk-stale { color: var(--muted); }
 .wk-stale-tag { font-size: 10px; font-weight: 500; color: var(--muted); }
+.wk-g.is-stale { opacity: 0.45; } /* T-106: its drawing is muted too */

@@ -4,7 +4,10 @@ import {useSwello} from '../../app/store';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
 import {bestNearbyAt, dashCard, ribbon12, rankLabel, type DashCard, type RankWhen, type RibbonHour} from '../../services/homeDash';
-import {SpotThumb, spotPhotoId} from '../../ui/SpotThumb';
+import {WaveGlyph, glyphAria} from '../../ui/WaveGlyph';
+import {glyphFor} from '../../services/waveGlyph';
+import {breakerType} from '../../services/breaker';
+import {userHeight} from '../../services/heightMath';
 import {useState} from 'react';
 import {dataPhase} from '../../services/dataPhase';
 import {CallBar} from '../forecast/Trust';
@@ -41,7 +44,7 @@ function Ribbon({hours, name}: {hours: RibbonHour[]; name: string}) {
   );
 }
 
-/** Home (T-047, T-051): a dashboard of your spots with a credited real photo where one exists, a 12-hour rating ribbon on hover or tap, and a ranking you can move in time. */
+/** Home (T-047, T-051; T-106: each card draws its wave to scale beside you instead of a photo, six items: name, rating, number, drawing, wind · tide, the call's window), a 12-hour rating ribbon on hover or tap, and a ranking you can move in time. */
 export function HomeView({go}: ViewProps) {
   const {data, now, spotOptions, view, setSpot, spot, spreadV} = useSwello();
   const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
@@ -69,6 +72,12 @@ export function HomeView({go}: ViewProps) {
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
   const onWhenKey = (e: React.KeyboardEvent) => { const i = WHENS.indexOf(when), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); const n = WHENS[(i + d + WHENS.length) % WHENS.length]; setWhen(n); (e.currentTarget.children[WHENS.indexOf(n)] as HTMLElement | undefined)?.focus(); };
   const at = (iso: string) => `${atFmt.format(new Date(iso))}`;
+  // T-106: the card's drawing, from the SAME headline as its number (period and est. breaker type from that hour's record).
+  const me = userHeight(profile);
+  const glyphOf = (c: DashCard) => {
+    const sp = spotOptions.find((x) => x.id === c.id), rec = c.validTime ? view.mapRecords.find((f) => f.spotId === c.id && f.timestamp === c.validTime) : undefined;
+    return glyphFor(c.surf.headline, me.feet, rec?.primary?.period, sp && rec ? breakerType(sp, rec).type : null);
+  };
   return (
     <div className="home">
       {!waiting && (() => {
@@ -96,20 +105,17 @@ export function HomeView({go}: ViewProps) {
         {waiting && <ul className="dc-grid" aria-busy="true" aria-label="Loading your spots">{(ids.length ? ids : POPULAR).slice(0, 3).map((id) => <li key={id} className="dsk" aria-hidden="true"><i className="sk-ph" /><span className="dc-body"><i className="sk-l w50" /><i className="sk-l w70" /><i className="sk-l w90" /></span></li>)}</ul>}
         {!waiting && cards.length === 0 && <p className="hd-empty">No forecast data for your spots right now. Open the forecast to pick another.</p>}
         {!waiting && <ul className="dc-grid">
-          {cards.map((c) => (
-            <li key={c.id} className={'dc' + (openId === c.id ? ' is-open' : '') + (spotPhotoId(c.id) ? ' has-photo' : '')} style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
-              <a className="dc-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${c.region}. ${c.surf.label}. ${c.rating.score === null ? 'No rating' : conditionWord(c.rating.category)}. Open forecast`}>
-                <SpotThumb spotId={c.id} className="dc-photo" sizes="(max-width: 860px) 100vw, 400px" />
+          {cards.map((c) => { const g = glyphOf(c), k = callOf(c.id, c.validTime); return (
+            <li key={c.id} className={'dc' + (openId === c.id ? ' is-open' : '')} style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
+              <a className="dc-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${c.region}. ${c.surf.label}. ${g ? glyphAria(g, me.inches, profile.heightUnit) + '. ' : ''}${c.rating.score === null ? 'No rating' : conditionWord(c.rating.category)}. Open forecast`}>
                 <span className="dc-body">
-                  <span className="dc-top"><span className="dc-name"><b>{c.name}</b><small>{c.region}</small></span>{callOf(c.id, c.validTime)?.verdict === 'Dark' ? null : <RatingBar c={c.rating} />}</span>
-                  {(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}
-                  <span className="dc-surf">{surfOf(c)}</span>
-                  {c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && <span className="dc-sub">{c.surf.headline.label}</span>}
-                  <span className="dc-meta">
-                    <span><i>Wind</i>{c.wind ? `${c.wind.label} · ${c.wind.relation}` : '—'}</span>
-                    <span><i>Tide</i>{c.tide ? `${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}${c.tide.label ? ` · ${c.tide.label}` : ''}` : '—'}</span>
-                    <span><i>Best today</i>{c.window ? c.window.label : 'No good daylight window left'}</span>
+                  <span className="dc-top"><span className="dc-name"><b title={c.region}>{c.name}</b></span>{k?.verdict === 'Dark' ? null : <RatingBar c={c.rating} />}</span>
+                  <span className="dc-mid">
+                    {g && <WaveGlyph glyph={g} size="md" personIn={me.inches} unit={profile.heightUnit} decorative />}
+                    <span className="dc-surf">{surfOf(c, true)}{c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && <span className="dc-sub">{c.surf.headline.label}</span>}</span>
                   </span>
+                  <span className="dc-line">{c.wind ? `Wind ${c.wind.label} · ${c.wind.relation}` : 'Wind —'} · {c.tide ? `Tide ${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}` : 'Tide —'}</span>
+                  {k ? <CallBar call={k} compact /> : <span className="dc-line">{c.window ? `Best today ${c.window.label}` : 'No good daylight window left'}</span>}
                 </span>
               </a>
               <div className="dc-more">
@@ -117,7 +123,7 @@ export function HomeView({go}: ViewProps) {
                 <div id={`rb-${c.id}`} className="dc-rb"><Ribbon hours={ribbons[c.id]} name={c.name} /></div>
               </div>
             </li>
-          ))}
+          ); })}
         </ul>}
       </section>
 
