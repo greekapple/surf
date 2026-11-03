@@ -13,6 +13,8 @@ import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, Sca
 import {SpotBand} from './SpotBand';
 import {camFor} from '../../data/cams';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
+import {CallBar, DaylightRow, FeltRight, NwsBanner} from './Trust';
+import {callFor, daylightFor, surfBandSeries} from './trustApi';
 import './forecast.css';
 
 function Sources() {
@@ -89,6 +91,12 @@ export function ForecastView({go}: ViewProps) {
   // The scale shows the Board Match pick when there is one, else the user's favourite (or first) board, labelled as theirs, not as a pick.
   const scaleBoard = bestBoard(boards, selected.forecast, p, hs)?.board ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
   const cam = camFor(spot.id);
+  // T-065: one answer (the call), daylight for the selected day, and the graph's surf band, all from the T-064 logic.
+  const records = series.map((h) => h.forecast);
+  const call = callFor(spot, selected.forecast, p, {records, bundle, nowMs: now});
+  const daylight = daylightFor(spot.id, new Date(selected.timestamp).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'}));
+  const band = surfBandSeries(spot, records, {bundle, nowMs: now});
+  const env = {records: view.mapRecords, bundle, profile: p, nowMs: now};
   const meta = [spot.region, `${spot.type.toLowerCase()} break`, live ? 'heights are model estimates · ratings provisional' : 'demonstration week · not live'];
   return (
     <div className="sp">
@@ -108,9 +116,12 @@ export function ForecastView({go}: ViewProps) {
           </div>
         </div>
       </SpotBand>
+      <NwsBanner spotId={spot.id} />
+      <CallBar call={call} />
+      <DaylightRow d={daylight} />
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<ObservedLine spotId={spot.id} nowMs={now} />} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
-      {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={{records: view.mapRecords, bundle, profile: p, nowMs: now}} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
       <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
         Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
@@ -136,10 +147,10 @@ export function ForecastView({go}: ViewProps) {
         </div>
         {mode === 'graph' ? <>
           <div id="ctab-panel" role="tabpanel" aria-labelledby={`ctab-${tab}`}>
-            <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 240 : 280} />
+            <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 240 : 280} />
           </div>
           <ul className="legend" aria-hidden="true">
-            {tab === 'surf' && <><li><i style={{background: 'var(--hs-hi)', height: 8}} />Offshore Hs (not surf size)</li><li><i style={{background: 'var(--tide)', height: 0, borderTop: '2px dashed var(--tide)'}} />Tide</li></>}
+            {tab === 'surf' && <><li><i style={{background: 'var(--hs-hi)', height: 8}} />Surf estimate (range)</li><li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />Offshore Hs</li><li><i style={{background: 'var(--tide)', height: 0, borderTop: '2px dashed var(--tide)'}} />Tide</li></>}
             {tab === 'swell' && <><li><i style={{background: 'var(--sw1)'}} />Primary swell</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li></>}
             {tab === 'wind' && <><li><i style={{background: 'var(--accent)'}} />Wind speed</li><li><i style={{background: 'var(--muted)'}} />Gusts</li><li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to 24+ mph</li></>}
             {tab === 'tide' && <li><i style={{background: 'var(--tide)'}} />Predicted tide, MLLW</li>}
@@ -148,12 +159,13 @@ export function ForecastView({go}: ViewProps) {
         </> : <HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />}
       </section>
 
-      <div className="sp-two">
-        <section className="card" aria-label="Nearshore model"><NearshoreCard spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
-        <section className="card" aria-label="Buoy now vs forecast"><div className="card-h"><h2>Buoy now vs forecast</h2></div><BuoyNow buoy={bundle?.buoy} series={series} p={p} now={now} /><BuoyContext buoys={bundle?.buoys} series={series} p={p} now={now} /></section>
-      </div>
-
-      <details className="card sp-src"><summary><h2>Sources &amp; reliability</h2><span>{selected.rating.reliability.category.toLowerCase()} reliability · show details</span></summary><Sources /></details>
+      <details className="card sp-src"><summary><h2>Sources &amp; data</h2><span>nearshore model, buoys, offshore heights and sources · {selected.rating.reliability.category.toLowerCase()} reliability</span></summary>
+        <div className="sp-two">
+          <section aria-label="Nearshore model"><NearshoreCard spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
+          <section aria-label="Buoy now vs forecast"><div className="card-h"><h2>Buoy now vs forecast</h2></div><BuoyNow buoy={bundle?.buoy} series={series} p={p} now={now} /><BuoyContext buoys={bundle?.buoys} series={series} p={p} now={now} /></section>
+        </div>
+        <Sources />
+      </details>
     </div>
   );
 }

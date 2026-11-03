@@ -377,3 +377,73 @@
   .sp-band.is-plan .credit { top: 8px; bottom: auto; right: 10px; max-width: 38%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
   .sp-band.is-plan .credit .cr-long { display: none; } .sp-band.is-plan .credit .cr-short { display: inline; }
 }
+
+/* ---------- T-065 forecast trust: the Call, daylight, NWS, felt right, surf band ---------- */
+.call { --vc: var(--muted); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.call.go { --vc: var(--good-ink, var(--good)); } .call.look { --vc: var(--fair-ink, #7d5f00); } .call.skip { --vc: var(--bad-ink, var(--bad)); } .call.dark { --vc: var(--text); }
+.call-b { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'v more' 'why more'; align-items: center; gap: 2px 16px; width: 100%; min-height: 64px; padding: 12px 0; border: 0; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.call-v { grid-area: v; display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: var(--vc); }
+.call-v i { width: 10px; height: 10px; border-radius: 50%; background: var(--vc); flex: none; }
+.call-w { font-weight: 600; color: var(--text); }
+.call-why { grid-area: why; font-size: 14px; color: var(--muted); }
+.call-more { grid-area: more; font-size: 13px; font-weight: 600; color: var(--accent-ink, var(--accent)); }
+.call-b:hover .call-more { text-decoration: underline; text-underline-offset: 3px; }
+.call-b:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.call-d { display: grid; gap: 8px; padding: 0 0 16px; }
+.call-d ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+.call-basis { font-size: 12px; color: var(--dim); }
+.daylight { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: -8px 0 0; font-size: 13px; }
+.daylight div { display: flex; gap: 6px; } .daylight dt { color: var(--muted); } .daylight dd { font-weight: 600; font-variant-numeric: tabular-nums; }
+.nws { padding: 10px 14px; border-left: 3px solid var(--warn, #b4531a); background: color-mix(in srgb, var(--warn, #b4531a) 7%, transparent); font-size: 14px; }
+.nws p + p { margin-top: 4px; } .nws b { font-weight: 650; } .nws a { margin-left: 8px; color: var(--accent-ink, var(--accent)); }
+.felt { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; margin-top: 4px; font-size: 13px; }
+.felt-q { color: var(--muted); margin-right: 4px; }
+.felt button { min-height: 32px; padding: 0 8px; border: 1px solid transparent; border-radius: 8px; background: none; color: var(--accent-ink, var(--accent)); font: 600 13px/1 inherit; cursor: pointer; }
+.felt button:hover { border-color: var(--line-2); }
+.felt button[aria-pressed='true'] { border-color: var(--text); color: var(--text); }
+.felt-err { color: var(--bad-ink, var(--bad)); }
+@media (pointer: coarse) { .felt button { min-height: 44px; } }
+.tl-band { fill: var(--hs-hi); fill-opacity: 0.55; }
+.sd-q i.dark { opacity: 1; }
+.sp-src .sp-two { margin: 16px 0; }
+.sp-src .sp-two > section { min-width: 0; }
+@media (max-width: 860px) {
+  .call-b { min-height: 56px; padding: 8px 0; }
+  .call-v { font-size: 20px; }
+  .call-why { font-size: 13px; }
+  .daylight { gap: 2px 16px; font-size: 12px; margin-top: -4px; }
+}
+/* T-065 phone first screen: name, the Call, surf (full width, felt right on one line), wind + tide, daylight. The rating card follows. */
+@media (max-width: 860px) {
+  .sp-grid { grid-template-areas: 'surf surf' 'wind tide' 'rating water' 'scale scale' 'swell swell'; }
+  .call-v { display: block; font-size: 20px; line-height: 1.25; }
+  .call-v i { display: inline-block; vertical-align: 3px; margin-right: 8px; }
+  .call-w { font-size: 16px; }
+  .daylight { flex-wrap: nowrap; justify-content: space-between; gap: 8px; white-space: nowrap; }
+  .daylight div { flex-direction: column; gap: 0; } .daylight dt { font-size: 11px; }
+  [data-card=surf] .felt { flex-wrap: nowrap; }
+}
+/* density: 12 px minimum text, ≥ 12 px between tap targets */
+.felt { gap: 0 12px; } .felt button { padding: 0 4px; }
+@media (max-width: 860px) { .daylight dt { font-size: 12px; } }
+/* T-065 phone first screen with an active NWS alert: compact banner, one-line why, tighter Surf card. */
+[data-card=surf] .ob-line:empty { display: none; }
+[data-card=surf] .felt { margin-top: 0; }
+@media (max-width: 860px) {
+  .nws { padding: 6px 10px; font-size: 13px; }
+  .nws p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .call-why { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  .call.dark .call-why { display: none; } /* after dark the why only repeats the next window */
+  .sp { gap: 12px; }
+}
+/* T-065 rhythm: the call, daylight and alert rows sit close together so the conditions grid stays in the first screen (1440 and 390). */
+.sp > .nws + .call, .sp > .call + .daylight { margin-top: -8px; }
+.call-b { min-height: 56px; padding: 8px 0; }
+.daylight { margin: -12px 0 -4px; }
+@media (max-width: 860px) {
+  .nws p { -webkit-line-clamp: 1; }
+  .nws { padding: 4px 10px; }
+  .daylight { margin: -8px 0 -4px; }
+  .daylight div { gap: 0; } .daylight dd { line-height: 1.2; }
+  [data-card=surf] .felt button { min-height: 36px; }
+}

@@ -4,7 +4,7 @@ import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
 import {scoreBoard} from '../../recommendation/board';
 import {headlineSurf} from '../../services/headlineSurf';
-import {sizeFit} from './fit';
+import {rankBoards, sizeFit} from './fit';
 import {lengthLabel, parseDimension, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
@@ -150,9 +150,12 @@ export function QuiverView({section, go}: ViewProps) {
   const step = (d: number) => select(boards[(idx + d + boards.length) % boards.length].id);
   // One honest line from Board Match for the selected board: its score and rank at the selected hour, or why there is none.
   const mi = sel ? matches.findIndex((m) => m.board.id === sel.id) : -1, mm = mi >= 0 ? matches[mi] : null;
-  const matchLine = !sizeOk ? <><b>Board Match:</b> no recommendation for {view.spot.name}. Live data has offshore height only, which is not surf size.</>
-    : !charOk ? <><b>Board Match:</b> size only for {view.spot.name} ({estText}, model estimate): the full match also needs the wave's character (peaky, soft, steep), which live data doesn't provide yet.</>
-    : mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</> : null;
+  const period = f.primary && Number.isFinite(f.primary.period) ? f.primary.period : null;
+  const picks = rankBoards(boards, est, period); // after the early returns: plain computation, not a hook
+  const selPick = sel ? picks.find((x) => x.board.id === sel.id) ?? null : null;
+  const matchLine = !sizeOk ? <><b>Board Match:</b> no surf estimate for {view.spot.name} at this hour (offshore height only).</>
+    : charOk && mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</>
+    : selPick ? <><b>{selPick.size.label}</b> for {estText}{period !== null ? ` · ${Math.round(period)} s ${selPick.period?.fit === 'ok' ? 'period suits it' : `period (${selPick.period?.note ?? ''})`}` : ''}. Wave shape unknown.</> : null;
   const A = (b: Surfboard) => (
     <div className="qv-actions">
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
@@ -221,10 +224,24 @@ export function QuiverView({section, go}: ViewProps) {
         <section className="qv-panel" aria-label="Board match">
           <p className="fine">{view.spot.name} at the selected hour · {p.skill}</p>
           {!faceOk ? (
-            sizeOk ? <StateMessage title="Board Match needs the wave's character" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
-              There is a surf estimate here ({estText}, model estimate), but the full match also weighs the wave's character (peaky, soft, steep), which live data doesn't provide yet. My Boards shows each board's size fit for this hour.
-            </StateMessage> : <StateMessage title="Board Match needs a breaking-wave estimate" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
-              Live data has offshore wave height only, and offshore height is not the size of the waves a board will ride. SWELLO withholds a recommendation rather than guess.
+            sizeOk ? (
+              <>
+                <p className="qv-shape">Ranked on size and period for {estText}. Wave shape is unknown, so it isn't weighed.</p>
+                <ol className="qv-ranks qv-ranks-sp">{picks.map((x, k) => (
+                  <li key={x.board.id} className={k === 0 && x.rank > 0 ? 'top' : ''}>
+                    <div className="qv-rank-b"><BoardOutline b={x.board} scale={(k === 0 ? 150 : 90) / maxLen} /></div>
+                    <div className="qv-rank-t">
+                      <span className="qv-rank-n">{k === 0 && (x.size.state === 'in' || x.size.state === 'edge') ? 'Best for this size' : `#${k + 1}`}</span>
+                      <h2>{x.board.name}</h2>
+                      <p className="fine">{x.board.type} · {lengthLabel(x.board.length)} · {x.board.volume} L</p>
+                      <p><em className={`qv-fit ${x.size.state}`}>{x.size.label}</em>{x.size.state !== 'none' && <span className="fine"> · {x.size.source === 'board' ? 'your range' : `${x.board.type.toLowerCase()} range`} {x.size.board[0]}–{x.size.board[1]} ft</span>}</p>
+                      {x.period && period !== null && <p className="fine">{Math.round(period)} s period: {x.period.note}</p>}
+                    </div>
+                  </li>
+                ))}</ol>
+              </>
+            ) : <StateMessage title="Board Match needs a surf estimate" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
+              Live data has offshore wave height only here, and offshore height is not the size of the waves a board will ride.
             </StateMessage>
           ) : (
             <>

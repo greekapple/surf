@@ -7,6 +7,8 @@ import {bestNearbyAt, dashCard, ribbon12, RANK_LABEL, type DashCard, type RankWh
 import {SpotThumb, spotPhotoId} from '../../ui/SpotThumb';
 import {useState} from 'react';
 import {dataPhase} from '../../services/dataPhase';
+import {CallBar} from '../forecast/Trust';
+import {callFor} from '../forecast/trustApi';
 import './home.css';
 
 /** Spots shown, clearly labelled, when nothing is saved. Not a personal list. */
@@ -48,6 +50,15 @@ export function HomeView({go}: ViewProps) {
   const refId = ids[0] ?? spot.id;
   const [when, setWhen] = useState<RankWhen>('now'), [openId, setOpenId] = useState<string | null>(null);
   const nearby = useMemo(() => bestNearbyAt(spotOptions, view.mapRecords, now, profile, refId, when, {exclude: ids, limit: 5, ctx}), [ids.join('|'), refId, when, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  // T-065: the call for a card's own hour, from the same records (the verdict + window; the reasons are on the spot page).
+  const callOf = (id: string, validTime: string | null) => {
+    const sp = spotOptions.find((x) => x.id === id), rec = validTime ? view.mapRecords.find((f) => f.spotId === id && f.timestamp === validTime) : undefined;
+    return sp && rec ? callFor(sp, rec, profile, {records: view.mapRecords, bundle, nowMs: now}) : null;
+  };
+  /** The same kind of number everywhere: the surf estimate, or a muted line when only offshore height exists (never styled as surf). */
+  const surfOf = (c: DashCard, small = false) => c.surf.headline.kind === 'offshore'
+    ? <span className="dc-na">Surf est. unavailable · offshore {c.surf.value}</span>
+    : <><span className="dc-val">{c.surf.value}</span>{!small && <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>}<span className={small ? 'dc-tag-sm' : 'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span></>;
   const open = (id: string) => (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setSpot(id); go('forecast'); };
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
@@ -69,12 +80,9 @@ export function HomeView({go}: ViewProps) {
                 <SpotThumb spotId={c.id} className="dc-photo" sizes="(max-width: 860px) 100vw, 400px" />
                 <span className="dc-body">
                   <span className="dc-top"><span className="dc-name"><b>{c.name}</b><small>{c.region}</small></span><RatingBar c={c.rating} /></span>
-                  <span className="dc-surf">
-                    <span className="dc-val">{c.surf.value}</span>
-                    <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>
-                    <span className={'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span>
-                  </span>
-                  <span className="dc-sub">{c.surf.headline.kind === 'estimate' ? (c.surf.offshoreLabel ?? c.surf.label) : c.surf.headline.kind === 'offshore' ? 'offshore · not surf size' : c.surf.headline.label}</span>
+                  {(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}
+                  <span className="dc-surf">{surfOf(c)}</span>
+                  {c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && <span className="dc-sub">{c.surf.headline.label}</span>}
                   <span className="dc-meta">
                     <span><i>Wind</i>{c.wind ? `${c.wind.label} · ${c.wind.relation}` : '—'}</span>
                     <span><i>Tide</i>{c.tide ? `${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}${c.tide.label ? ` · ${c.tide.label}` : ''}` : '—'}</span>
@@ -107,8 +115,8 @@ export function HomeView({go}: ViewProps) {
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
                   <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_)}` : ''}. Open forecast`}>
                     <span className="nb-rank" aria-hidden="true">{i + 1}</span>
-                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_)}` : ''}</small></span>
-                    <span className="nb-surf"><span className="dc-val">{c.surf.value}</span><span className="dc-tag-sm">{c.surf.tag}</span></span>
+                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}</span>
+                    <span className="nb-surf">{surfOf(c, true)}</span>
                     <RatingBar c={c.rating} />
                   </a>
                 </li>

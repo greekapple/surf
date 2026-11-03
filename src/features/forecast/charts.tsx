@@ -5,6 +5,7 @@ import {BAND_COLOR, bandOf, hourLabel, titleCase, type HourSample} from './model
 import {groupDays, ht, monotonePath, spotLatLon, sunTimes, windColor, windVal, compass, type Day} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT, localHour} from './format';
 import {Condition} from '../../ui/Condition';
+import type {SurfBandPoint} from './trustApi';
 import {Icon} from '../../ui/Icon';
 
 /** Wind-speed colour for marks on the current ground: the pastel Windy-like ramp is mixed toward black in the light theme (--wind-darken). */
@@ -41,12 +42,14 @@ export interface TimelineProps {
   tab?: ChartTab;
   /** Zoom to a window of hours around the selected hour. */
   hourWindow?: boolean;
+  /** T-065: the surf estimate per hour (same engine as the SURF card); the surf tab plots it, offshore Hs is a thin secondary line. */
+  band?: SurfBandPoint[];
 }
 const niceStep = (range: number) => [0.5, 1, 2, 5, 10, 20].find((s) => range / s <= 5) ?? 20;
 const signed = (v: number, p: UserProfile) => `${v < 0 ? '-' : '+'}${ht(Math.abs(v), p)}`;
 const TIP_W = 236;
 /** The forecast spine: one series per tab (surf, swell, wind, tide) plus the rating ribbon and night on one time axis. */
-export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300, tab = 'surf', hourWindow = false}: TimelineProps) {
+export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300, tab = 'surf', hourWindow = false, band}: TimelineProps) {
   const body = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(900);
   const [hover, setHover] = useState<{i: number; x: number; y: number} | null>(null);
@@ -67,7 +70,10 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
-  const hsMax = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0))) * 1.12;
+  const bandAt = useMemo(() => new Map((band ?? []).map((b) => [b.t, b])), [band]);
+  const surfBand = tab === 'surf' && bandAt.size > 0;
+  const bAt = (h: HourSample) => bandAt.get(h.timestamp);
+  const hsMax = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0, bAt(h)?.hi ?? 0))) * 1.12;
   const wMax = Math.max(10, ...series.map((h) => Math.max(h.forecast.wind.speed || 0, h.forecast.wind.gusts || 0))) * 1.12;
   const [lo, hi] = tab === 'wind' ? [0, wMax] : tab === 'tide' ? [tLo - (tHi - tLo || 1) * 0.15, tHi + (tHi - tLo || 1) * 0.2] : [0, hsMax];
   const Y = (v: number) => PB - ((v - lo) / (hi - lo || 1)) * (PB - PT);
@@ -75,7 +81,8 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const ticks: number[] = []; for (let v = t0y; v <= hi + 1e-6; v += step) ticks.push(Math.round(v * 100) / 100);
   const unit = tab === 'wind' ? p.windUnit : p.heightUnit;
   const tickText = (v: number) => (tab === 'wind' ? String(Math.round(Number(windVal(v, p)))) : ht(v, p, step < 1 || p.heightUnit === 'm' ? 1 : 0));
-  const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0 : h.heightFt ?? 0);
+  const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0
+    : surfBand ? (bAt(h)?.hi !== null && bAt(h)?.hi !== undefined ? (bAt(h)!.lo! + bAt(h)!.hi!) / 2 : 0) : h.heightFt ?? 0);
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
   const TYs = (v: number) => PB - 8 - ((v - tLo) / (tHi - tLo || 1)) * (PB - PT) * 0.26; // dashed tide under the surf curve
   const i0 = Math.max(0, Math.floor(a) - 1), i1 = Math.min(n - 1, Math.ceil(b) + 1);
@@ -129,7 +136,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   return (
     <div className="tl-body" ref={body} role="slider" tabIndex={0} aria-label="Forecast time. Arrow keys move one hour, Page Up and Page Down one day."
       aria-valuemin={0} aria-valuemax={n - 1} aria-valuenow={sel}
-      aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, offshore ${ht(selH.heightFt, p)} ${u}, ${titleCase(selH.rating.category)}` : ''}
+      aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, ${(() => { const b = bAt(selH); return b && b.lo !== null && b.hi !== null ? `surf estimate ${ht(b.lo, p, 0)} to ${ht(b.hi, p, 0)} ${u}` : `offshore ${ht(selH.heightFt, p)} ${u}`; })()}, ${titleCase(selH.rating.category)}` : ''}
       onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => (drag.current = false)} onPointerLeave={() => !drag.current && setHover(null)} onKeyDown={onKey}>
       <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
@@ -155,7 +162,14 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
             </g>;
           })}
           <g key={tab} className="tl-fade">
-            {tab === 'surf' && <>
+            {tab === 'surf' && surfBand && <>
+              {/* One bar per hour from the low to the high of the surf estimate (Surfline 07); hours without an estimate stay empty. */}
+              {vis.map((h, k) => { const b = bAt(h); if (!b || b.lo === null || b.hi === null) return null; const x = X(i0 + k), bw = Math.max(1, Math.min(10, pxh * 0.62));
+                return <rect key={`b${h.timestamp}`} className="tl-band" x={x - bw / 2} y={Y(b.hi)} width={bw} height={Math.max(2, Y(b.lo) - Y(b.hi) + (b.lo === b.hi ? 2 : 0))} rx={Math.min(3, bw / 2)} />; })}
+              <path d={line((h) => h.heightFt ?? 0)} fill="none" stroke="var(--muted)" strokeWidth={1.2} strokeLinejoin="round" opacity={0.8} />
+              {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
+            </>}
+            {tab === 'surf' && !surfBand && <>
               <path d={areaD} fill="url(#gHs)" />
               <path d={mainPath} fill="none" stroke="var(--hs-hi)" strokeWidth={2} strokeLinejoin="round" />
               {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
@@ -206,7 +220,8 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
       {tipH && hover && (
         <div className="tl-tip" style={{transform: `translate3d(${tipLeft}px, ${tipTop}px, 0)`, width: TIP_W}}>
           <b>{weekdayPT(tipH.timestamp)} {hourLabel(tipH.timestamp)}<small>{hover.i === sel ? 'selected' : 'preview'}</small></b>
-          <span className={tab === 'surf' ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--hs-hi)'}} /><span className="tl-tip-k">Offshore Hs</span><em>{ht(tipH.heightFt, p)} {u}</em></span>
+          {surfBand && <span className={tab === 'surf' ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--hs-hi)'}} /><span className="tl-tip-k">Surf est.</span><em>{(() => { const b = bAt(tipH); return b && b.lo !== null && b.hi !== null ? `${ht(b.lo, p, 0)}–${ht(b.hi, p, 0)} ${u}` : 'unavailable'; })()}</em></span>}
+          <span className={tab === 'surf' && !surfBand ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--muted)'}} /><span className="tl-tip-k">Offshore Hs</span><em>{ht(tipH.heightFt, p)} {u}</em></span>
           <span className={tab === 'swell' ? 'on' : ''}><Icon name="tide" size={15} style={{color: 'var(--sw1)'}} /><span className="tl-tip-k">Swell</span><em>{tipH.forecast.primary ? `${ht(tipH.forecast.primary.height, p)} ${u} · ${Math.round(tipH.forecast.primary.period)} s · from ${compass(tipH.forecast.primary.direction)}` : '—'}</em></span>
           <span className={tab === 'wind' ? 'on' : ''}><Icon name="wind" size={15} style={{color: wc(tipH.forecast.wind.speed)}} /><span className="tl-tip-k">Wind</span><em>{windVal(tipH.forecast.wind.speed, p)} {p.windUnit} · from {compass(tipH.forecast.wind.direction)}</em></span>
           <span className={tab === 'tide' ? 'on' : ''}><Icon name="tide" size={15} style={{color: 'var(--tide)'}} /><span className="tl-tip-k">Tide</span><em>{Number.isFinite(tipH.forecast.tide.height) ? `${signed(tipH.forecast.tide.height, p)} ${u}${tipH.forecast.tide.trend ? ` · ${tipH.forecast.tide.trend.toLowerCase()}` : ''}` : '—'}</em></span>

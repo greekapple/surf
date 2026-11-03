@@ -122,5 +122,7 @@ export const PHOTOS: Record<string, Photo> = {
  }
 };
 /** Photos that genuinely show each spot, best first. */
-export const SPOT_PHOTOS: Record<string, string[]> = {"spot-2": ["ocean-beach-seal-rocks", "ocean-beach-fog-clearing", "ocean-beach-low-tide-sun", "ob-sunset-negative-tide"], "spot-0": ["bolinas-beach-wide", "bolinas-beach"], "spot-3": ["linda-mar-sunset", "pacifica-linda-mar", "pacifica-state-beach-surfer", "lm-sunset-surfer"]};
+// T-065 photo pass: the first photo per spot is its header; surf-led views first (OB fog clearing over lines of surf; a surfer walking into Linda Mar),
+// replacing the beach walker and the parking-lot view. All Wikimedia Commons, credits in PHOTOS above.
+export const SPOT_PHOTOS: Record<string, string[]> = {"spot-2": ["ocean-beach-fog-clearing", "ocean-beach-low-tide-sun", "ob-sunset-negative-tide", "ocean-beach-seal-rocks"], "spot-0": ["bolinas-beach-wide", "bolinas-beach"], "spot-3": ["lm-sunset-surfer", "linda-mar-sunset", "pacifica-linda-mar", "pacifica-state-beach-surfer"]};
 export const GENERIC_PHOTOS = ["big-wave-santa-cruz", "surfer-wave-cc0", "gen-surfer-under-wave"];

@@ -4,6 +4,8 @@ import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
 import {DirArrow, Icon} from '../../ui/Icon';
+import {rankBoards, recommended} from '../quiver/fit';
+import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {posterPath, spinCaption} from '../../services/scaleFrames';
 import {useHasSpin} from '../scale/useHasSpin';
@@ -106,13 +108,12 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>at the break</span></> : t.detail}</p>
-        {hs.kind !== 'offshore' && fin(f.offshore) && <p className="sp-f">Offshore {ht(f.offshore, p)} {u} · not surf size</p>}
         {hs.kind === 'estimate' ? <p className="sp-f">model estimate<span className="sp-method"> {hs.methodLabel.replace(/^Model estimate /, '')}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
         {observe}
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
       <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
-        <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}</p>
+        <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{(r as {dark?: boolean}).dark ? 'Not rated' : conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
         {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><b aria-hidden="true">{MARK[x.effect].m}</b>{shortFactor(x.factor)}</li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}
@@ -176,17 +177,16 @@ export function bestBoard(boards: import('../../models/index').Surfboard[], f: F
 }
 export const feetInches = (inches: number) => `${Math.floor(inches / 12)}'${Math.round(inches % 12)}"`;
 
-export function BoardLine({boards, f, p, hs, onOpen, onQuiver}: {boards: import('../../models/index').Surfboard[]; f: Forecast; p: UserProfile; hs: HeadlineSurf; onOpen: () => void; onQuiver: () => void}) {
-  const best = useMemo(() => bestBoard(boards, f, p, hs), [boards, f, p, hs]);
-  const text = !boards.length ? <>Add your boards to get a pick for these waves.</>
-    : hs.kind === 'offshore' || hs.kind === 'none' ? <>No board pick: only offshore height is available here, which is not surf size.</>
-    : best ? <>Ride your <b>{best.board.name}</b> ({best.board.type.toLowerCase()}, {feetInches(best.board.length)}) for this hour's estimated surf. <span className="fine">Board Match {Math.round(best.score)}/100 · provisional</span></>
-    : !f.character || f.character === 'Unknown' ? <>No board pick yet: Board Match also needs the wave's character (peaky, soft, steep), which live data doesn't provide. The quiver shows each board's size fit for this hour.</>
-    : <>None of your boards suits this size; Board Match explains why.</>;
+/** T-065: the board for these waves, from size + period (wave shape is unknown). No row at all when nothing can be recommended. */
+export function BoardLine({boards, f, p, hs, onOpen}: {boards: import('../../models/index').Surfboard[]; f: Forecast; p: UserProfile; hs: HeadlineSurf; onOpen: () => void; onQuiver?: () => void}) {
+  const est: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
+  const period = f.primary && Number.isFinite(f.primary.period) ? f.primary.period : null;
+  const top = useMemo(() => recommended(rankBoards(boards, est, period))[0] ?? null, [boards, est?.[0], est?.[1], period]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (!top || top.size.state === 'none') return null;
   return (
     <section className="sp-board" aria-label="Board Match">
-      <p>{text}</p>
-      <button className="sp-link" onClick={boards.length ? onOpen : onQuiver}>{boards.length ? 'Board Match' : 'Add a board'}</button>
+      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null ? `, ${Math.round(period)} s ${top.period?.fit === 'ok' ? 'period suits it' : 'period, ' + (top.period?.note ?? '')}` : ''}. <span className="fine">Wave shape unknown.</span></p>
+      <button className="sp-link" onClick={onOpen}>Board Match</button>
     </section>
   );
 }
@@ -226,7 +226,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
             <span className="sd-h">{range ? <>{lo === hi ? lo : `${lo}–${hi}`}<small>{p.heightUnit}</small></> : '—'}</span>
             <span className="sd-k" title={ty ? ty.aria : undefined}>{kind}{ty ? ` · ${ty.short}` : ''}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
-            <span className="sd-q" aria-hidden="true">{blocks.map((b) => <i key={b.label} style={{background: b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />)}</span>
+            <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark ? `${b.label}: dark, no rating` : undefined} style={{background: dark ? 'var(--ch-night-strong, #2b3a46)' : b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
           </button>
         );
       })}
