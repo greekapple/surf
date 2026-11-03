@@ -113,7 +113,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
       <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
-        <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}</p>
+        <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{(r as {dark?: boolean}).dark ? 'Not rated' : conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
         {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><b aria-hidden="true">{MARK[x.effect].m}</b>{shortFactor(x.factor)}</li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}

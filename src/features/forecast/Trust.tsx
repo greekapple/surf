@@ -59,7 +59,7 @@ export function NwsBanner({spotId}: {spotId: string}) {
     <section className="nws" aria-label="National Weather Service alert" role="note">
       {alerts.map((a) => (
         <p key={a.url + a.event}>
-          <b>{a.event}</b>
+          <b>{a.event}</b>{a.approxZone && <span> for the nearby coast</span>}
           <span> · {a.onset ? `from ${when(a.onset)} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!)}` : ''}</span>
           <a href={a.url} target="_blank" rel="noopener noreferrer">{a.sender || 'National Weather Service'}</a>
         </p>
