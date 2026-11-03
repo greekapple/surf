@@ -61,8 +61,9 @@ export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: U
   return f ? spotHourOf(spot, f, atMs, p, ctx) : undefined;
 }
 
-/** The one hour a day card stands for (T-057): the best-rated daylight hour, or the median-size daylight hour when nothing is rated. Its numbers ARE spotHourOf at that hour. */
-export interface DayTypical {atIso: string; how: 'best' | 'median'; hourLabel: string; short: string; loFt: number; hiFt: number; hour: SpotHour; aria: string}
+/** The one hour a day card stands for (T-068, user decision "Median daylight hour"): the middle daylight hour of the day by clock time (about midday). Its numbers ARE spotHourOf at that hour.
+ *  The best window stays in the Call (call.ts); the full daylight envelope stays in the day's `loFt`/`hiFt`. (T-057 used the best-rated hour; that hid part of a day-to-day dip.) */
+export interface DayTypical {atIso: string; how: 'midday'; hourLabel: string; short: string; loFt: number; hiFt: number; hour: SpotHour; aria: string}
 export interface DayRange {kind: 'estimate' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
 const hrFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'});
 const hourWord = (iso: string) => hrFmt.format(new Date(iso)).replace(' ', '').toUpperCase().replace(/AM$/, ' AM').replace(/PM$/, ' PM');
@@ -76,16 +77,12 @@ export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, n
   const pickTypical = (kind: 'estimate' | 'offshore'): DayTypical | null => {
     const idx = hours.map((_, i) => i).filter((i) => heads[i].kind === kind);
     if (!idx.length) return null;
-    const scored = idx.map((i) => ({i, s: rateForecast(spot, hours[i], nowMs).score})).filter((x): x is {i: number; s: number} => typeof x.s === 'number' && Number.isFinite(x.s));
-    const mid = (i: number) => { const h = heads[i]; return h.kind === 'estimate' ? (h.loFt + h.hiFt) / 2 : h.kind === 'offshore' ? h.ft : 0; };
-    let pick: number, how: 'best' | 'median';
-    if (scored.length) { pick = scored.reduce((a, b) => (b.s > a.s ? b : a)).i; how = 'best'; }
-    else { const by = [...idx].sort((a, b) => mid(a) - mid(b) || a - b); pick = by[(by.length - 1) >> 1]; how = 'median'; }
+    const by = [...idx].sort((x, y) => Date.parse(hours[x].timestamp) - Date.parse(hours[y].timestamp)), pick = by[(by.length - 1) >> 1], how = 'midday' as const;
     const hour = spotHourOf(spot, hours[pick], nowMs, p, ctx), h = hour.surf.headline;
     const lo = h.kind === 'estimate' ? h.loFt : h.kind === 'offshore' ? h.ft : 0, hi = h.kind === 'estimate' ? h.hiFt : h.kind === 'offshore' ? h.ft : 0;
     const w = hourWord(hours[pick].timestamp);
-    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: `${how === 'best' ? 'best' : 'mid'} ${hourShort(hours[pick].timestamp)}`, loFt: lo, hiFt: hi, hour,
-      aria: `typical for the day: ${how === 'best' ? 'the best-rated daylight hour' : 'the median-size daylight hour'}, ${w}`};
+    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: `midday ${hourShort(hours[pick].timestamp)}`, loFt: lo, hiFt: hi, hour,
+      aria: `typical for the day, midday ${w}`};
   };
   const est = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'estimate'}> => h.kind === 'estimate');
   if (est.length) {
