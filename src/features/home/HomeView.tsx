@@ -8,6 +8,8 @@ import {SpotThumb, spotPhotoId} from '../../ui/SpotThumb';
 import {useState} from 'react';
 import {dataPhase} from '../../services/dataPhase';
 import {CallBar} from '../forecast/Trust';
+import {WeekGrid} from './WeekGrid';
+import {evidenceSpots} from '../../ocean/spots';
 import {callFor} from '../forecast/trustApi';
 import './home.css';
 
@@ -66,6 +68,19 @@ export function HomeView({go}: ViewProps) {
   const at = (iso: string) => `${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric'}).format(new Date(iso))}`;
   return (
     <div className="home">
+      {!waiting && (() => {
+        // T-067: the week at a glance, saved (or popular) spots first, then the nearest others, up to 8 rows.
+        const ref = evidenceSpots.find((e) => e.id === refId);
+        const near = ref ? evidenceSpots.filter((e) => !ids.includes(e.id) && spotOptions.some((x) => x.id === e.id)).map((e) => ({id: e.id, d: Math.hypot(e.latitude - ref.latitude, (e.longitude - ref.longitude) * 0.8)})).sort((a, b) => a.d - b.d).map((x) => x.id) : [];
+        const rowIds = [...ids, ...near].slice(0, 8); // nearest by distance, not by rating (nothing is rated after dark)
+        return (
+          <section className="wk-s" aria-labelledby="wk-h">
+            <header className="hd-head"><h2 id="wk-h">This week</h2><p className="hd-note">Surf estimate by day, the AM, midday and PM rating under it; tap a day to open it</p></header>
+            <WeekGrid spots={rowIds.map((id) => spotOptions.find((x) => x.id === id)!).filter(Boolean)} records={view.mapRecords} nowMs={now} profile={profile} bundle={bundle} unit={profile.heightUnit}
+              onOpen={(id, iso) => { setSpot(id); if (iso) view.selectTime(iso); go('forecast'); }} />
+          </section>
+        );
+      })()}
       <section className="hd" aria-labelledby="hd-h">
         <header className="hd-head">
           <h1 id="hd-h">{personal ? 'Your spots' : 'Popular spots'}</h1>
