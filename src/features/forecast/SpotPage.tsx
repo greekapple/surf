@@ -78,7 +78,8 @@ function SwellRose({swells, facing}: {swells: {height: number; period: number; d
   );
 }
 
-const MARK: Record<FactorExplanation['effect'], {m: string; c: string}> = {'+': {m: '✓', c: 'g'}, '~': {m: '~', c: 'm'}, '-': {m: '✗', c: 'b'}, '?': {m: '?', c: 'u'}};
+/** T-067: each reason is a condition dot plus a word (good, fair, poor, unknown), not a check mark. */
+const MARK: Record<FactorExplanation['effect'], {m: string; c: string}> = {'+': {m: 'good', c: 'g'}, '~': {m: 'fair', c: 'm'}, '-': {m: 'poor', c: 'b'}, '?': {m: 'unknown', c: 'u'}};
 
 /** 5-segment rating bar (Surfline): segments filled by score, coloured by the rating band. */
 function RatingBar({score, category}: {score: number | null; category: string}) {
@@ -92,7 +93,7 @@ const shortFactor = (n: string) => (/organi[sz]ation/i.test(n) ? 'Swell quality'
 /** Wetsuit by water temperature (°F): a common surf-shop guide, labelled as such. */
 const wetsuit = (f: number) => (f >= 72 ? 'Boardshorts or a top' : f >= 65 ? '2 mm spring suit' : f >= 62 ? '3/2 mm full suit' : f >= 58 ? '4/3 mm full suit' : f >= 52 ? '4/3 mm + booties' : f >= 48 ? '5/4 mm hooded + booties' : '6/5 mm hooded, booties, gloves');
 
-export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale, observe, observeEntry, open, onToggle}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; observe?: ReactNode; observeEntry?: ReactNode; open: CardKey | null; onToggle: (k: CardKey) => void}) {
+export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale, observe, observeEntry, breaker, open, onToggle}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; observe?: ReactNode; observeEntry?: ReactNode; breaker?: string | null; open: CardKey | null; onToggle: (k: CardKey) => void}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, {h: hs, t} = surfOf(spot, f, p, bundle, now);
   const rel = f.availability.wind && fin(f.wind.speed) ? windRelationship(spot, f) : 'Unknown';
   // The rating explains itself (T-049 explainRating): scored factors as ticks on the card; context items (nearshore, tide) in the detail.
@@ -108,14 +109,15 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>at the break</span></> : t.detail}</p>
-        {hs.kind === 'estimate' ? <p className="sp-f">model estimate<span className="sp-method"> {hs.methodLabel.replace(/^Model estimate /, '')}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
+        {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
+        {hs.kind === 'estimate' ? <p className="sp-f" title={hs.methodLabel}>model estimate<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
         {observe}
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
       <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
-        <p className="v sp-v sp-rate" style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{(r as {dark?: boolean}).dark ? 'Not rated' : conditionWord(r.category)}</p>
+        <p className={`v sp-v sp-rate${r.score === null ? ' unr' : ''}`} style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{(r as {dark?: boolean}).dark ? 'Not rated' : conditionWord(r.category)}</p>
         <RatingBar score={r.score} category={r.category} />
-        {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><b aria-hidden="true">{MARK[x.effect].m}</b>{shortFactor(x.factor)}</li>)}</ul>
+        {scored.length ? <ul className="sp-why" aria-label="Why">{scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><i aria-hidden="true" />{shortFactor(x.factor)} <span className="w">{MARK[x.effect].m}</span></li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}
         <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
       </Card>
@@ -385,9 +387,9 @@ export function CardDetail({k, spot, h, p, dayHours, onSelect, onClose, Tide, Po
     <section className="card sp-detail" id="sp-detail" aria-label={title}>
       <div className="card-h"><h2>{title}</h2><button className="btn" onClick={onClose}>Close</button></div>
       {k === 'rating' && ex && <>
-        <ul className="sp-explain">{ex.items.filter((x) => x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><b aria-hidden="true">{MARK[x.effect].m}</b><span><strong>{x.factor}</strong>{x.reason}</span></li>)}</ul>
+        <ul className="sp-explain">{ex.items.filter((x) => x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><i aria-hidden="true" /><span><strong>{x.factor} <span className="w">{MARK[x.effect].m}</span></strong>{x.reason}</span></li>)}</ul>
         {ex.items.some((x) => !x.inScore) && <><p className="sp-explain-h">Context, not part of the score</p>
-          <ul className="sp-explain ctx">{ex.items.filter((x) => !x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><b aria-hidden="true">{MARK[x.effect].m}</b><span><strong>{x.factor}</strong>{x.reason}</span></li>)}</ul></>}
+          <ul className="sp-explain ctx">{ex.items.filter((x) => !x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><i aria-hidden="true" /><span><strong>{x.factor} <span className="w">{MARK[x.effect].m}</span></strong>{x.reason}</span></li>)}</ul></>}
         <p className="sp-explain-h">Reliability: {ex.reliability.category.toLowerCase()}</p>
         <ul className="sp-explain ctx">{ex.reliability.reasons.map((r) => <li key={r} className="u"><b aria-hidden="true">·</b><span>{r}</span></li>)}</ul>
       </>}

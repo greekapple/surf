@@ -15,6 +15,7 @@ import {camFor} from '../../data/cams';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
 import {CallBar, DaylightRow, FeltRight, NwsBanner} from './Trust';
 import {callFor, daylightFor, surfBandSeries} from './trustApi';
+import {BREAKER_WORD} from '../../services/breaker';
 import './forecast.css';
 
 function Sources() {
@@ -120,7 +121,7 @@ export function ForecastView({go}: ViewProps) {
       <CallBar call={call} />
       <DaylightRow d={daylight} />
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
       <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}

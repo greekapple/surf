@@ -375,3 +375,14 @@
   .foot { gap: 0 16px; }
   .foot a { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* ---------- T-067 de-AI pass 2 (references-round spec §1 row 5; taste-skill app-screens) ---------- */
+/* The SWELLO mark: a breaking curl in the surf-band data hue, so the brand and the main series share one colour. */
+.wm-mark { width: 24px; height: 24px; margin-right: 6px; fill: none; stroke: var(--hs-hi); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+@media (max-width: 860px) { .wordmark { margin-left: 4px; } }
+/* No text shadows: legibility over photos comes from the photo scrims. */
+.credit, .sp-band.is-photo .sp-title h1, .pz-feat .pz-credit, .dc-photo figcaption, .xco-photo figcaption { text-shadow: none; }
+/* No edge-fade gradients on scrolling tables. */
+.tscroll { background: none; }
+/* Sentence-case labels at a readable size, not tracked capitals. */
+.mm-k, .qcat small, .minis .k, .tile .k, .search-k, .sp-explain-h { text-transform: none; letter-spacing: 0; font-size: 12px; }

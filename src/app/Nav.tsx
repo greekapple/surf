@@ -199,7 +199,7 @@ export function TopNav({area, section, go}: {area: Area; section: string; go: Go
   const def = (id: Area) => AREAS.find((a) => a.id === id)!;
   return (
     <header className="topnav">
-      <a className="wordmark" aria-label="Swello home" aria-current={area === 'home' ? 'page' : undefined} {...linkProps(go, 'home')}>Swello</a>
+      <a className="wordmark" aria-label="Swello home" aria-current={area === 'home' ? 'page' : undefined} {...linkProps(go, 'home')}><svg className="wm-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 17c3.5 0 5-2.2 6.4-5.4C10 8 12 5 16 5c3 0 5 2 5 4.6 0 2-1.5 3.4-3.3 3.4-1.5 0-2.6-1-2.6-2.4 0-1 .6-1.8 1.5-2.1" /><path d="M2 20.5c2.2 0 3.6-.8 5-.8s2.8.8 5 .8 3.6-.8 5-.8 2.8.8 5 .8" /></svg>Swello</a>
       <nav aria-label="Primary"><ul className="areas">
         {(['forecast', 'explore', 'quiver'] as const).map((id) => <AreaMenu key={id} def={def(id)} current={id === area} section={section} go={go} />)}
       </ul></nav>

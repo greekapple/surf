@@ -447,3 +447,14 @@
   .daylight div { gap: 0; } .daylight dd { line-height: 1.2; }
   [data-card=surf] .felt button { min-height: 36px; }
 }
+.sp-brk { font-size: 13px; color: var(--muted); } .sp-brk b { color: var(--text); font-weight: 600; }
+/* T-067: reasons as a condition dot + word (no check marks) */
+.sp-why li i, .sp-explain li > i { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--none); }
+.sp-explain li > i { margin-top: 6px; justify-self: center; }
+.sp-why .g i, .sp-explain .g > i { background: var(--good); } .sp-why .m i, .sp-explain .m > i { background: var(--fair); } .sp-why .b i, .sp-explain .b > i { background: var(--bad); }
+.sp-why .w, .sp-explain .w { font-weight: 600; } .sp-why .g .w, .sp-explain .g .w { color: var(--good-ink, var(--good)); } .sp-why .m .w, .sp-explain .m .w { color: var(--fair-ink, #7d5f00); } .sp-why .b .w, .sp-explain .b .w { color: var(--bad-ink, var(--bad)); }
+.sp-why li { gap: 5px; }
+.sp-rate.unr { color: var(--muted) !important; } /* "Not rated" readable (4.5:1+), not the pale none-band grey */
+/* T-067 (taste-skill app checks): short cells keep their own height (no blank bands). Source notes stay 12 px: they are sublines. */
+.sp-grid { align-items: start; }
+@media (max-width: 860px) { [data-card=surf] { gap: 0; } [data-card=surf] .sp-brk { margin-top: 2px; } [data-card=surf] .felt { margin-top: 2px; } }
