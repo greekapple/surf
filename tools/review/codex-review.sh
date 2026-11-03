@@ -4,9 +4,10 @@
 # limit is hit (marker file), so it never blocks work. Exit 2 = Codex found P0/P1 issues (wakes Claude); 0 otherwise.
 set -u
 cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}" || exit 0
-# worktree commits live in the shared repo: review from the main checkout, where Codex can read .git
-cd "$(dirname "$(cd "$(git rev-parse --git-common-dir)" && pwd)")" || exit 0
+# resolve the commit where we are (a worktree's HEAD is its own branch), THEN move to the main checkout,
+# where Codex can read .git (worktree commits live in the shared repo)
 SHA=$(git rev-parse --short "${1:-HEAD}" 2>/dev/null) || exit 0
+cd "$(dirname "$(cd "$(git rev-parse --git-common-dir)" && pwd)")" || exit 0
 MARK="$(git rev-parse --git-common-dir)/codex-usage-limit"
 [ -f "$MARK" ] && [ "$(cat "$MARK")" = "$(date +%F)" ] && { echo "codex review skipped: usage limit reached today"; exit 0; }
 command -v codex >/dev/null || { echo "codex review skipped: codex CLI not found"; exit 0; }
