@@ -11,3 +11,6 @@ tools/blender/assets/turbosquid-*/
 
 # T-041: local MOP forecast archive (scripts/mop-archive.mjs)
 /data/archive/
+
+# Waves derived from the licensed TurboSquid mesh (no redistribution): build locally with tools/blender/wave_scene.py --glb
+public/media/scale3d-live/*.glb
