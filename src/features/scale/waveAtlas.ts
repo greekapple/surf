@@ -9,7 +9,57 @@ export interface AtlasMeta {
   bed_along_per_m: number; cycle_s: number; break_len_m: number; shoulder_len_m: number; depth_break_m: number;
   celerity_mps: number; peel_speed_mps: number; period_s: number; Lb_m: number;
 }
-export interface Atlas {meta: AtlasMeta; half: Uint16Array; data: Float32Array}
+export interface Atlas {meta: AtlasMeta; data: Float32Array}
+
+/** The buckets the Blender build writes (tools/blender/wave_atlas.py BANDS): id, face height (band midpoint, m) and the family's own
+ *  breaker. The forecast-driven viewer blends the two buckets around the hour's face height; the other breaker is the "-<breaker>" variant. */
+export const ATLAS_BANDS: readonly {id: string; faceM: number; breaker: 'spilling' | 'plunging'}[] = [
+  {id: '1-2', faceM: 0.46, breaker: 'spilling'}, {id: '2-3', faceM: 0.76, breaker: 'spilling'}, {id: '3-4', faceM: 1.07, breaker: 'plunging'}, {id: '4-6', faceM: 1.52, breaker: 'plunging'},
+  {id: '6-8', faceM: 2.13, breaker: 'plunging'}, {id: '8-10', faceM: 2.74, breaker: 'plunging'}, {id: '10-15', faceM: 3.81, breaker: 'plunging'}, {id: '15-plus', faceM: 5.49, breaker: 'plunging'},
+];
+/** File id of a bucket drawn as a given breaker: the family's own breaker is the plain id, the other one has a suffix. */
+export const atlasId = (band: {id: string; breaker: string}, breaker: 'spilling' | 'plunging' | null) => (breaker && breaker !== band.breaker ? `${band.id}-${breaker}` : band.id);
+/** The two buckets around a face height and the blend weight toward the upper one (0 at or below the smallest, 1 at or above the largest). */
+export function bucketsFor(faceM: number): {lo: number; hi: number; w: number} {
+  const B = ATLAS_BANDS;
+  if (!(faceM > B[0].faceM)) return {lo: 0, hi: 0, w: 0};
+  for (let i = 1; i < B.length; i++) if (faceM <= B[i].faceM) return {lo: i - 1, hi: i, w: (faceM - B[i - 1].faceM) / (B[i].faceM - B[i - 1].faceM)};
+  return {lo: B.length - 1, hi: B.length - 1, w: 0};
+}
+/** The size bucket a face height is drawn nearest to (the poster and the Spin fallback use it); '' for no face. */
+export const bucketIdFor = (faceM: number | null) => { if (faceM === null) return ''; const b = bucketsFor(faceM); return ATLAS_BANDS[b.w < 0.5 ? b.lo : b.hi].id; };
+const NUM_META: (keyof AtlasMeta)[] = ['face_m', 'stage_feather', 'stage_pitch', 'stage_land', 'y0_m', 'y1_m', 'bed_along_per_m', 'cycle_s', 'break_len_m', 'shoulder_len_m', 'depth_break_m', 'celerity_mps', 'peel_speed_mps', 'period_s', 'Lb_m'];
+/** Two buckets mixed: every table value and every numeric parameter lerped (the arc-length resampling means the same u is the same
+ *  material point in both, so positions mix without folding). Strings come from the nearer bucket. */
+export function blendAtlas(a: Atlas, b: Atlas, w: number): Atlas {
+  if (w <= 0 || a === b) return a; if (w >= 1) return b;
+  if (a.meta.stages !== b.meta.stages || a.meta.points !== b.meta.points) throw new Error('atlas layouts differ');
+  const near = w < 0.5 ? a : b, meta = {...near.meta} as AtlasMeta;
+  for (const k of NUM_META) (meta as unknown as Record<string, number>)[k] = (a.meta[k] as number) * (1 - w) + (b.meta[k] as number) * w;
+  const data = new Float32Array(a.data.length); for (let i = 0; i < data.length; i++) data[i] = a.data[i] * (1 - w) + b.data[i] * w;
+  return {meta, data};
+}
+/** A bucket scaled by k (for face heights outside the bucket range): every metre-valued table column and parameter times k,
+ *  the dimensionless ones (thin, foam, normals, stage indices, speeds and times) kept. */
+export function scaleAtlas(a: Atlas, k: number): Atlas {
+  if (Math.abs(k - 1) < 1e-6) return a;
+  const {stages: S, points: P} = a.meta, data = new Float32Array(a.data.length);
+  for (let j = 0; j < 2 * S; j++) for (let i = 0; i < P; i++) {
+    const o = (j * P + i) * 4, g = j < S;   // group 0: (y, z, thin, foam); group 1: (thickness, arc, normal_y, normal_z)
+    data[o] = a.data[o] * k; data[o + 1] = a.data[o + 1] * k; data[o + 2] = a.data[o + 2]; data[o + 3] = a.data[o + 3];
+    if (!g) data[o + 1] = a.data[o + 1] * k;
+  }
+  const r = Math.sqrt(k), m = {...a.meta, face_m: a.meta.face_m * k, y0_m: a.meta.y0_m * k, y1_m: a.meta.y1_m * k, depth_break_m: a.meta.depth_break_m * k, Lb_m: a.meta.Lb_m * r, celerity_mps: a.meta.celerity_mps * r,
+    peel_speed_mps: a.meta.peel_speed_mps * r, break_len_m: a.meta.break_len_m * r, shoulder_len_m: a.meta.shoulder_len_m * r};
+  return {meta: m, data};
+}
+/** The swell period's share (P from the forecast hour, the bucket's own period otherwise): wavelength, break cycle and peel length
+ *  follow the period (Lb = T·c, cycle = T·k), so a long-period swell breaks slower and wider than a short one at the same face height. */
+export function withPeriod(a: Atlas, periodS: number | null): Atlas {
+  if (!periodS || !Number.isFinite(periodS) || periodS < 4 || Math.abs(periodS - a.meta.period_s) < 0.05) return a;
+  const r = periodS / a.meta.period_s, meta = {...a.meta, period_s: periodS, Lb_m: a.meta.Lb_m * r, cycle_s: a.meta.cycle_s * r, break_len_m: a.meta.break_len_m * r};
+  return {meta, data: a.data};
+}
 
 /** IEEE half -> float. */
 export function halfToFloat(h: number): number {
@@ -23,7 +73,7 @@ export function makeAtlas(meta: AtlasMeta, buf: ArrayBuffer): Atlas {
   const half = new Uint16Array(buf), n = meta.points * meta.stages * 2 * 4;
   if (half.length !== n) throw new Error(`atlas size ${half.length} != ${n}`);
   const data = new Float32Array(n); for (let i = 0; i < n; i++) data[i] = halfToFloat(half[i]);
-  return {meta, half, data};
+  return {meta, data};
 }
 
 export async function loadAtlas(root: string, band: string): Promise<Atlas> {
