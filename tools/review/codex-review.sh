@@ -4,6 +4,8 @@
 # limit is hit (marker file), so it never blocks work. Exit 2 = Codex found P0/P1 issues (wakes Claude); 0 otherwise.
 set -u
 cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}" || exit 0
+# worktree commits live in the shared repo: review from the main checkout, where Codex can read .git
+cd "$(dirname "$(cd "$(git rev-parse --git-common-dir)" && pwd)")" || exit 0
 SHA=$(git rev-parse --short "${1:-HEAD}" 2>/dev/null) || exit 0
 MARK=.git/codex-usage-limit
 [ -f "$MARK" ] && [ "$(cat "$MARK")" = "$(date +%F)" ] && { echo "codex review skipped: usage limit reached today"; exit 0; }
@@ -11,7 +13,8 @@ command -v codex >/dev/null || { echo "codex review skipped: codex CLI not found
 OUT="docs/reviews/$(date +%F)-$SHA.md"; RAW=$(mktemp)
 TITLE=$(git log -1 --format=%s "$SHA")
 codex review --commit "$SHA" --title "$TITLE" >"$RAW" 2>&1; rc=$?
-if grep -qiE "usage limit|rate limit|quota|too many requests|exceeded your|429" "$RAW"; then
+# only a failed run that says so counts as the usage limit (a review may mention "rate limit" in the code it reviews)
+if [ "$rc" -ne 0 ] && grep -qiE "usage limit|rate limit|quota|too many requests|exceeded your|429" "$RAW"; then
   date +%F > "$MARK"; echo "codex review skipped: ChatGPT usage limit reached (will retry tomorrow)"; rm -f "$RAW"; exit 0
 fi
 # keep Codex's final message (after its last 'codex' marker line); fall back to the tail
