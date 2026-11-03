@@ -190,3 +190,4 @@
 .wel .sp-band-in { padding: 24px 32px 28px; }
 .wk-s { margin-bottom: 16px; }
 @media (max-width: 860px) { .wel .sp-band { height: 300px; } .wel .sp-band-in { padding: 20px; } }
+.wel-glance dd small { display: block; margin-top: 2px; } .wel-pick dd small { display: inline; margin-top: 0; }
