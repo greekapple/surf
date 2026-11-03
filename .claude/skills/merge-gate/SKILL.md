@@ -14,3 +14,7 @@ description: The lead's merge routine for SWELLO worker branches (product/engine
 7. Reply to the worker (merged + next task) and report to the user in plain language: what changed for them, what was verified, what's still open.
 
 Never push while `tools/review/licence-guard.sh` blocks (public repo).
+
+## After a green merge (night of 2026-11-02 onward)
+- Fast-forward `rebuild/swello-v0.16` to `forecast-trust` (local only; its history still holds licensed GLBs, never upload it).
+- Run `tools/review/port-to-clean.sh` to replay the new integration commits onto the scrubbed public line `swello-v0.17`, then upload that one branch explicitly (`git` + `push origin swello-v0.17`, no flags). The licence guard checks it; never bypass, never force.
