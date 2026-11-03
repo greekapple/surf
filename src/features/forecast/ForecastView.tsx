@@ -12,11 +12,13 @@ import {BuoyContext} from './BuoyContext';
 import {boardPickFor} from '../quiver/fit';
 import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, facingOf, surfOf, type CardKey} from './SpotPage';
 import {SpotBand} from './SpotBand';
-import {camFor} from '../../data/cams';
+import {camsFor} from '../../data/cams';
+import {glyphFor} from '../../services/waveGlyph';
+import {userHeight} from '../../services/heightMath';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
 import {CallBar, DaylightRow, FeltRight, NwsBanner} from './Trust';
 import {callFor, daylightFor, surfBandSeries} from './trustApi';
-import {BREAKER_WORD} from '../../services/breaker';
+import {BREAKER_WORD, breakerType} from '../../services/breaker';
 import './forecast.css';
 
 function Sources() {
@@ -94,7 +96,9 @@ export function ForecastView({go}: ViewProps) {
   // T-108: THE board pick (fit.ts boardPickFor, shared with Home, Board Match and Personal) draws on the scale and in the Board Match line; no pick (nothing suits): the favourite, else the first board, labelled as theirs.
   const choice = boardPickFor(boards, spot, selected.forecast, now, p, {bundle});
   const scaleBoard = choice.pick ?? boards.find((b) => b.favorite) ?? boards[0] ?? null;
-  const cam = camFor(spot.id);
+  const cams = camsFor(spot.id), me = userHeight(p);
+  // T-111: the band's drawn wave (used only when the spot has no cam and no photo) is this hour's headline, the same as the Surf card.
+  const glyph = glyphFor(hs, me.feet, selected.forecast.primary?.period, breakerType(spot, selected.forecast).type);
   // T-065: one answer (the call), daylight for the selected day, and the graph's surf band, all from the T-064 logic.
   const records = series.map((h) => h.forecast);
   const call = callFor(spot, selected.forecast, p, {records, bundle, nowMs: now});
@@ -106,7 +110,7 @@ export function ForecastView({go}: ViewProps) {
   const meta = [spot.region, `${spot.type.toLowerCase()} break`, !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
-      <SpotBand spotId={spot.id} hasCam={!!cam}>
+      <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit}>
         <div className="sp-head">
           <div className="sp-title">
             <h1>{spot.name}</h1>
@@ -117,14 +121,20 @@ export function ForecastView({go}: ViewProps) {
             <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{isNow ? ' · now' : ''}</span>
             {!isNow && <button className="btn" onClick={toNow}>Now</button>}
             <button className="btn sp-map" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
-            {cam && <a className="sp-cam" href={cam.url} target="_blank" rel="noopener noreferrer" title={`${cam.view}. Run by ${cam.operator ?? cam.owner}; opens their page in a new tab. Checked ${cam.verified}.`}
-              aria-label={`Live cam by ${cam.owner}, opens their page in a new tab. Shows ${cam.view}`}>Live cam · {cam.owner}</a>}
           </div>
         </div>
       </SpotBand>
       <NwsBanner spotId={spot.id} />
       <CallBar call={call} />
       <DaylightRow d={daylight} />
+      {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages; never embedded. */}
+      {cams.length > 0 && <section className="sp-cams" aria-labelledby="sp-cams-h">
+        <h2 id="sp-cams-h">Cams</h2>
+        <ul>{cams.map((c) => <li key={c.url}>
+          <a className="sp-cam" href={c.url} target="_blank" rel="noopener noreferrer" aria-label={`Live cam by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}>
+            <b>Live cam · {c.owner}</b><span>{c.view}</span><small>{c.operator && c.operator !== c.owner ? `Run by ${c.operator} · ` : ''}checked {c.verified} · opens their site ↗</small>
+          </a></li>)}</ul>
+      </section>}
 
       <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}

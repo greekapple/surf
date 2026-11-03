@@ -178,14 +178,6 @@
    scrim behind the text column (bottom-left, where the greeting sits) keeps white text at >= 4.5:1. */
 
 /* ---------- T-106: the drawn wave (WaveGlyph), the cam-ready hero, six-item cards, a tiny wave per week cell ---------- */
-.wglyph { display: block; flex: none; overflow: visible; }
-.wg-hi { fill: color-mix(in srgb, var(--hs-hi) 26%, transparent); stroke: var(--hs-hi); stroke-width: 1.3; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.wg-lo { fill: color-mix(in srgb, var(--hs-hi) 55%, transparent); }
-.wg-water { fill: none; stroke: currentColor; stroke-opacity: 0.35; stroke-width: 1; vector-effect: non-scaling-stroke; }
-.wg-person { fill: currentColor; opacity: 0.85; }
-.wg-swell { fill: none; stroke: currentColor; stroke-opacity: 0.55; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
-.wg-off { font: 500 11px/1 var(--sans); fill: currentColor; fill-opacity: 0.7; }
-.wglyph-lg .wg-hi { stroke-width: 1.8; }
 
 /* The hero: a calm gradient tinted by the time of day, the greeting on the left, the bet's wave drawn to scale on the right. */
 .wel-hero { --wh-sky: #e4eff5; --wh-sea: #cbdfe8; --wh-ink: #0e1a22; --wh-btn: #0e1a22; --wh-btn-ink: #fff;

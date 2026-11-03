@@ -485,3 +485,25 @@
 /* T-109: the surf estimate is one continuous band with its middle drawn as a line (not a bar per hour). */
 .tl-band { fill: var(--hs-hi); fill-opacity: 0.3; stroke: none; }
 .tl-median { fill: none; stroke: var(--hs-hi); stroke-width: 2; stroke-linejoin: round; }
+
+/* ---------- T-111: the spot hero's media slot (cam, photo, drawn wave, plan) and the Cams row ---------- */
+.sp-drawn { position: absolute; inset: 0; margin: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--hs-hi) 10%, var(--bg)), color-mix(in srgb, var(--hs-hi) 18%, var(--bg))); color: var(--text); }
+/* Desktop: the drawing sits in the band's open middle (the title is left, the time and Map controls right), so nothing overlaps. */
+.sp-drawn .wglyph { position: absolute; left: 50%; bottom: 30px; translate: -50% 0; width: auto; height: min(70%, 120px); }
+.sp-drawn .credit { position: absolute; left: 50%; right: auto; bottom: 8px; translate: -50% 0; white-space: nowrap; font-size: 12px; color: var(--muted); text-shadow: none; top: auto; max-width: none; }
+.sp-band.is-drawn .sp-band-in { background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 70%, transparent) 0%, transparent 60%); }
+.sp-band-cam video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sp-cams { display: grid; gap: 6px; }
+.sp-cams h2 { font: 650 15px/1.3 var(--sans); color: var(--muted); }
+.sp-cams ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.sp-cams .sp-cam { display: grid; gap: 2px; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); text-decoration: none; font-size: 14px; max-width: none; overflow: visible; white-space: normal; }
+.sp-cams .sp-cam:hover { border-color: var(--line-2); background: var(--s1); }
+.sp-cams .sp-cam:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sp-cams .sp-cam b { font-weight: 650; color: var(--accent-ink, var(--accent)); }
+.sp-cams .sp-cam span { color: var(--text); } .sp-cams .sp-cam small { color: var(--muted); font-size: 12.5px; }
+/* Phones: the drawing sits left of the save star, beside the time row; the caption runs in full along the band's bottom edge. */
+@media (max-width: 860px) {
+  .sp-drawn .wglyph { left: auto; right: 64px; bottom: 24px; translate: none; height: 64px; }
+  .sp-band.is-plan .sp-drawn .credit, .sp-drawn .credit { left: auto; right: 12px; top: auto; bottom: 5px; translate: none; max-width: none; overflow: visible; font-size: 12px; }
+  .sp-band.is-plan .sp-drawn .credit .cr-long { display: inline; }
+}

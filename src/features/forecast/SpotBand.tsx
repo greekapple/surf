@@ -2,19 +2,27 @@ import {useEffect, useState, type ReactNode} from 'react';
 import {SpotPhoto} from '../../ui/common';
 import {SPOT_PHOTOS} from '../../ui/photos';
 import {evidenceSpots} from '../../ocean/spots';
+import {spotMediaFor} from '../home/heroMedia';
+import {DRAWN_CAPTION, WaveGlyph} from '../../ui/WaveGlyph';
+import type {Glyph} from '../../services/waveGlyph';
 
 type Ring = [number, number][];
 let coast: Promise<Ring[]> | null = null;
 /** Natural Earth 10 m land (public domain), clipped to California; loaded once, only for spots without a photo. */
 const loadCoast = () => (coast ??= import('../../map/coast.json').then((m) => (m.default as unknown as {rings: Ring[]}).rings));
 
-/** T-050 slim header band: the spot's own credited photograph, or a plan drawn from real coastline geometry when it has none.
- *  The page heading and controls sit over a soft scrim. Nothing is decorative stock or AI. */
-export function SpotBand({spotId, hasCam, children}: {spotId: string; hasCam?: boolean; children: ReactNode}) {
-  const photo = !!SPOT_PHOTOS[spotId]?.length;
+/** T-050 slim header band. T-111: its media slot, in order (heroMedia.spotMediaFor): a SWELLO live cam (none yet), the spot's credited photograph,
+ *  the selected hour's wave drawn to scale beside you, or a plan from real coastline geometry. The heading and controls sit over a soft scrim; the
+ *  band keeps one height whatever it shows (no layout jump). Nothing is decorative stock or AI. */
+export function SpotBand({spotId, glyph, personIn = 70, unit = 'ft', children}: {spotId: string; glyph?: Glyph | null; personIn?: number; unit?: 'ft' | 'm'; children: ReactNode}) {
+  const [camFailed, setCamFailed] = useState(false);
+  const m = camFailed ? {kind: SPOT_PHOTOS[spotId]?.length ? 'photo' as const : glyph ? 'drawn' as const : 'plan' as const} : spotMediaFor(spotId, {photo: !!SPOT_PHOTOS[spotId]?.length, drawn: !!glyph});
   return (
-    <header className={`sp-band ${photo ? 'is-photo' : 'is-plan'}${hasCam ? ' has-cam' : ''}`}>
-      {photo ? <SpotPhoto spotId={spotId} className="sp-band-img" /> : <SpotPlan spotId={spotId} />}
+    <header className={`sp-band ${m.kind === 'photo' || m.kind === 'cam' ? 'is-photo' : 'is-plan'}${m.kind === 'drawn' ? ' is-drawn' : ''}`}>
+      {m.kind === 'cam' ? <figure className="photo sp-band-cam"><video src={m.cam.src} muted autoPlay playsInline loop onError={() => setCamFailed(true)} aria-label={`${m.cam.label}, live view`} /><figcaption className="credit">{m.cam.label}</figcaption></figure>
+        : m.kind === 'photo' ? <SpotPhoto spotId={spotId} className="sp-band-img" />
+        : m.kind === 'drawn' && glyph ? <figure className="sp-drawn"><WaveGlyph glyph={glyph} size="lg" personIn={personIn} unit={unit} /><figcaption className="credit">{DRAWN_CAPTION}</figcaption></figure>
+        : <SpotPlan spotId={spotId} />}
       <div className="sp-band-in">{children}</div>
     </header>
   );

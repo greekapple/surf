@@ -1,5 +1,6 @@
 import {glyphLayout, swellLine, type Glyph} from '../services/waveGlyph';
 import {formatHeight} from '../services/heightMath';
+import './waveglyph.css';
 
 /** T-106: the drawn wave (see services/waveGlyph.ts), in the spot page Wave scale card's style (blue outer/inner range, the same person).
  *  Inline SVG, no images. */

@@ -42,3 +42,5 @@ export const camFor = (spotId: string): Cam | null => CAMS.find((c) => c.spotId 
  *  other owners' pages, so they stay links on the spot page and are never embedded. An entry is added only once our camera streams. */
 export interface OwnCam {spotId: string; /** A stream the browser plays directly (HLS for Safari, or an MP4/WebM loop). */ src: string; label: 'Live cam · SWELLO'; since: string}
 export const OWN_CAMS: readonly OwnCam[] = [];
+/** T-111: every verified public cam for a spot (the spot page lists them as links). */
+export const camsFor = (spotId: string): readonly Cam[] => CAMS.filter((c) => c.spotId === spotId);

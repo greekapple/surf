@@ -1,7 +1,8 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {glyphFor, glyphLayout, steepFromPeriod, swellLine} from '../services/waveGlyph.ts';
-import {heroMediaFor} from '../features/home/heroMedia.ts';
+import {heroMediaFor, spotMediaFor} from '../features/home/heroMedia.ts';
+import {camsFor, CAMS} from '../data/cams.ts';
 import type {HeadlineSurf} from '../services/headlineSurf.ts';
 
 const est = (loFt: number, hiFt: number): HeadlineSurf => ({kind: 'estimate', loFt, hiFt, words: null, wordsNote: '', method: 'mop-v2', methodLabel: '', label: 'model estimate'});
@@ -48,4 +49,15 @@ test('T-106: the hero media order is cam, then the drawing; only https SWELLO ca
   assert.deepEqual(heroMediaFor('spot-2', [cam]), {kind: 'cam', cam});
   assert.deepEqual(heroMediaFor('spot-3', [cam]), {kind: 'drawn'});
   assert.deepEqual(heroMediaFor('spot-2', [{...cam, src: 'http://insecure/ob.m3u8'}]), {kind: 'drawn'});
+});
+
+test('T-111: the spot hero order is own cam, then the credited photo, then the drawn wave, then the coast plan; public cams are links, never media', () => {
+  const cam = {spotId: 'spot-2', src: 'https://stream.example/ob.m3u8', label: 'Live cam · SWELLO' as const, since: '2026-11-03'};
+  assert.deepEqual(spotMediaFor('spot-2', {photo: true, drawn: true}, [cam]), {kind: 'cam', cam});
+  assert.deepEqual(spotMediaFor('spot-2', {photo: true, drawn: true}), {kind: 'photo'});
+  assert.deepEqual(spotMediaFor('cs-county-line', {photo: false, drawn: true}), {kind: 'drawn'});
+  assert.deepEqual(spotMediaFor('cs-county-line', {photo: false, drawn: false}), {kind: 'plan'});
+  // A spot with a verified PUBLIC cam (Morro Rock) still shows its photo: other owners' cams are listed as links, not played in the hero.
+  assert.equal(camsFor('cs-morro-rock').length, 1); assert.deepEqual(spotMediaFor('cs-morro-rock', {photo: true, drawn: true}), {kind: 'photo'});
+  assert.ok(CAMS.every((c) => /^https:\/\//.test(c.url) && c.owner && c.verified), 'every public cam names its owner and when it was checked');
 });
