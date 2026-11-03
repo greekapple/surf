@@ -7,9 +7,10 @@ PATTERN='(turbosquid|public/media/scale3d-live/.*\.(glb|bin)$|public/media/scale
 cmd=$(python3 -c 'import json,sys
 try: print(json.load(sys.stdin).get("tool_input",{}).get("command",""))
 except Exception: print("")' 2>/dev/null)
-# normalise shell spelling before detection (Codex P1s on 9e3099b): join backslash-newline continuations and drop quotes,
+# normalise shell spelling before detection (Codex P1s on 9e3099b, 92f176d): delete backslash-newline continuations exactly as
+# the shell does (no space, so `foo\<newline>bar` is one word `foobar`) and drop quotes,
 # so `git 'push'`, `git "push"` and `git \<newline> push` are all seen as a push
-cmd=$(printf '%s' "$cmd" | python3 -c 'import sys,re; s=sys.stdin.read(); s=re.sub(r"\\\r?\n"," ",s); print(s.replace("\x27","").replace("\"",""), end="")')
+cmd=$(printf '%s' "$cmd" | python3 -c 'import sys,re; s=sys.stdin.read(); s=re.sub(r"\\\r?\n","",s); print(s.replace("\x27","").replace("\"",""), end="")')
 # only act on commands that could run a push (the hook may be invoked for other Bash calls)
 # (a `git … push` within one shell segment, or a --push flag such as `gh repo create --push`; JS `arr.push(` and prose don't count)
 printf '%s' "$cmd" | tr ';&|' '\n\n\n' | grep -Eq '(^|[^[:alnum:]_.-])git([[:space:]]+(-C|-c|--git-dir|--work-tree)[[:space:]]+[^[:space:]]+|[[:space:]]+-[^[:space:]]+)*[[:space:]]+push([[:space:]]|$)|--push([[:space:]=]|$)' || exit 0

@@ -472,3 +472,12 @@ Branch `forecast-trust` (from rebuild/swello-v0.16 fddee20). Codex reviews each 
 ### T-064 (engineering): callFor (Go/Worth a look/Skip/Dark + window + skill-aware why), night-aware rating, surf-band graph series, forecast archive + felt-right signal, NWS alerts service.
 ### T-065 (product): spot page restructure (the Call, one big number, surf graph, Sources & data collapsed, daylight + night shading), Home calls + comparable numbers, felt-right UI, Board Match on size+period, photo pass, NWS banner.
 ### wave-v3 (lead): continues on branch wave-v3.
+
+## T-100 (backlog, engineering): Codex P2s from the morning drain (2026-11-03 06:33)
+None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-11-03-<sha>.md`.
+- a2848f9 `BoardOutline.tsx:19,21`: recorded fins should beat saved cosmetic fins; deck colour should match the showroom's calculation.
+- b7dba5e `mopIssue.ts:17`: refresh cached issue metadata when the forecast refreshes.
+- 7b9c345 `App.tsx:14-18`: a failed lazy-area import should be retryable (not cached as rejected).
+- 047178d `Compare.tsx:25-28`: retry Compare initialisation after forecasts load; `homeDash.ts:103-105`: search today's remaining daylight before moving to tomorrow.
+- 595769a `field.ts:119-120`: keep coverage labels off land pixels; `enclosed.ts:9-11`: normalise longitude before the bay-mask lookup.
+- 26c1512 `call.ts:34`: tell "too much swell" apart from "too little swell" in the reason.
