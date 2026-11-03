@@ -26,4 +26,9 @@ t 0 "git $P origin swello-v0.\\
 17"
 t 2 "git $P origin rebuild/swello-v0.\\
 16"
+# a comment ending in a backslash does not continue; the next line's push must still be caught (Codex P1 on 88ae04d)
+t 2 "# note\\
+git $P origin rebuild/swello-v0.16"
+t 2 "# note\\
+git $P origin swello-v0.17"
 t 0 "ls"

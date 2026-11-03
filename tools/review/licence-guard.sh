@@ -10,15 +10,21 @@ except Exception: print("")' 2>/dev/null)
 # normalise shell spelling before detection (Codex P1s on 9e3099b, 92f176d): delete backslash-newline continuations exactly as
 # the shell does (no space, so `foo\<newline>bar` is one word `foobar`) and drop quotes,
 # so `git 'push'`, `git "push"` and `git \<newline> push` are all seen as a push
-cmd=$(printf '%s' "$cmd" | python3 -c 'import sys,re; s=sys.stdin.read(); s=re.sub(r"\\\r?\n","",s); print(s.replace("\x27","").replace("\"",""), end="")')
+# A comment ending in a backslash does NOT continue (bash runs the next line), so joining would hide the next line's push
+# (Codex P1 on 88ae04d): any command with both a continuation and a '#' is checked strictly, and detection also runs on the unjoined text.
+raw=$cmd
+cmd=$(printf '%s' "$raw" | python3 -c 'import sys,re; s=sys.stdin.read(); s=re.sub(r"\\\r?\n","",s); print(s.replace("\x27","").replace("\"",""), end="")')
+split=$(printf '%s' "$raw" | python3 -c 'import sys,re; s=sys.stdin.read(); s=re.sub(r"\\\r?\n","\n",s); print(s.replace("\x27","").replace("\"",""), end="")')
+forcestrict=0; printf '%s' "$raw" | grep -q '\\$' && printf '%s' "$raw" | grep -q '#' && forcestrict=1
 # only act on commands that could run a push (the hook may be invoked for other Bash calls)
 # (a `git … push` within one shell segment, or a --push flag such as `gh repo create --push`; JS `arr.push(` and prose don't count)
-printf '%s' "$cmd" | tr ';&|' '\n\n\n' | grep -Eq '(^|[^[:alnum:]_.-])git([[:space:]]+(-C|-c|--git-dir|--work-tree)[[:space:]]+[^[:space:]]+|[[:space:]]+-[^[:space:]]+)*[[:space:]]+push([[:space:]]|$)|--push([[:space:]=]|$)' || exit 0
+PUSH_RE='(^|[^[:alnum:]_.-])git([[:space:]]+(-C|-c|--git-dir|--work-tree)[[:space:]]+[^[:space:]]+|[[:space:]]+-[^[:space:]]+)*[[:space:]]+push([[:space:]]|$)|--push([[:space:]=]|$)'
+{ printf '%s' "$cmd" | tr ';&|' '\n\n\n' | grep -Eq "$PUSH_RE" || printf '%s' "$split" | tr ';&|' '\n\n\n' | grep -Eq "$PUSH_RE"; } || exit 0
 
 # strict mode for anything not a single plain `git push <remote> <refs>`: --all/--mirror/--tags, several pushes, git global
 # options before `push` (e.g. -C), aliases or scripts. Then every local branch ahead of its remote base must be clean (fails closed).
 npush=$(printf '%s' "$cmd" | grep -Eo '(^|[^[:alnum:]_-])push([^[:alnum:]_-]|$)' | wc -l | tr -d ' ')
-if [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git[[:space:]]+push([[:space:]]|$)' \
+if [ "$forcestrict" = 1 ] || [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git[[:space:]]+push([[:space:]]|$)' \
    || printf '%s' "$cmd" | grep -Eq -- '--(all|mirror|tags|follow-tags)' \
    || [ "$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//' | tr ' ' '\n' | grep -v '^-' | grep -v '[<>]' | grep -c .)" -lt 2 ]; then
   # (no explicit refspec: push.default / remote.<name>.push decide what goes out, so check every branch)
