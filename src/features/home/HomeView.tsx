@@ -41,9 +41,9 @@ function Ribbon({hours, name}: {hours: RibbonHour[]; name: string}) {
 
 /** Home (T-047, T-051): a dashboard of your spots with a credited real photo where one exists, a 12-hour rating ribbon on hover or tap, and a ranking you can move in time. */
 export function HomeView({go}: ViewProps) {
-  const {data, now, spotOptions, view, setSpot, spot} = useSwello();
+  const {data, now, spotOptions, view, setSpot, spot, spreadV} = useSwello();
   const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
-  const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema}), [bundle]);
+  const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema, spreadV}), [bundle, spreadV]); // spreadV: a wave-model spread arrived, so the ranges are recomputed
   const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
   const cards = useMemo(() => ids.map((id) => dashCard(spotOptions.find((s) => s.id === id)!, view.mapRecords, now, profile, ctx)), [ids.join('|'), spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   const ribbons = useMemo(() => Object.fromEntries(ids.map((id) => [id, ribbon12(spotOptions.find((s) => s.id === id)!, view.mapRecords, now)])), [ids.join('|'), spotOptions, view.mapRecords, now]); // eslint-disable-line react-hooks/exhaustive-deps

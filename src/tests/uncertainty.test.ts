@@ -18,10 +18,11 @@ test('inputs agree: a narrow range around the central height (v2 about ±22%, v1
   for (const c of [0.2, 0.5, 1, 3]) { const i = intervalFor({method: 'v1', centralFt: c})!; assert.ok(i.loFt >= 0 && i.hiFt - i.loFt >= 1, `c=${c}`); }
   assert.equal(intervalFor({method: 'v1', centralFt: 0}), null); assert.equal(intervalFor({method: 'v1', centralFt: NaN}), null);
 });
-test('inputs disagree: the range widens with the model spread and the MOP-vs-offshore gap, and says so beyond a factor of 1.35', () => {
+test('inputs disagree: the range widens with the model spread and the method difference; only the wave-model spread (beyond a factor of 1.35) says "disagree"', () => {
+  const methodOnly = intervalFor({method: 'mop-v2', centralFt: 8, mopOverOffshore: 1.8})!; assert.equal(methodOnly.disagree, false, 'v2 vs v1 are two methods, not two sources'); assert.ok(methodOnly.halfWidth > intervalFor({method: 'mop-v2', centralFt: 8})!.halfWidth); assert.doesNotMatch(methodOnly.note, /disagree/);
   const calm = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.05, models: 3}, mopOverOffshore: 1.04})!, split = intervalFor({method: 'mop-v2', centralFt: 8, modelSpread: {ratio: 1.8, models: 3}, mopOverOffshore: 1.5})!;
   assert.equal(calm.disagree, false); assert.equal(split.disagree, true); assert.ok(split.halfWidth > calm.halfWidth); assert.ok(split.hiFt - split.loFt > calm.hiFt - calm.loFt + 3);
-  assert.match(split.note, /Sources disagree/); assert.ok(split.components.some((c) => c.id === 'model-spread') && split.components.some((c) => c.id === 'mop-vs-offshore'));
+  assert.match(split.note, /Wave models disagree/); assert.ok(split.components.some((c) => c.id === 'model-spread') && split.components.some((c) => c.id === 'mop-vs-offshore'));
   assert.equal(intervalFor({method: 'v1', centralFt: 8, modelSpread: {ratio: 1.8, models: 1}})!.components.some((c) => c.id === 'model-spread'), false, 'one model is not a spread');
   assert.equal(intervalFor({method: 'v1', centralFt: 8, mopOverOffshore: 3})!.components.some((c) => c.id === 'mop-vs-offshore'), false, 'v1 has no MOP');
 });
@@ -55,12 +56,22 @@ test('headlineSurf: the range is built from the central height; narrower than th
   const none = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any, agree = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: {ratio: 1.03, models: 3}}) as any, split = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: {ratio: 2, models: 3}}) as any;
   for (const h of [none, agree, split]) { assert.equal(h.kind, 'estimate'); assert.ok(h.loFt >= 0 && h.hiFt > h.loFt && typeof h.words === 'string' && h.label && h.method && h.methodLabel); assert.ok(h.centralFt > 0); assert.ok(h.loFt <= h.centralFt && h.hiFt >= h.centralFt); }
   const legacy = f.evidence!.faceEstimate.input!.rangeFt!; assert.ok(none.hiFt - none.loFt < legacy[1] - legacy[0], `${none.loFt}–${none.hiFt} vs legacy ${legacy}`);
-  assert.ok(split.hiFt - split.loFt > agree.hiFt - agree.loFt); assert.equal(split.interval.disagree, true); assert.match(split.methodLabel, /model sources disagree/); assert.equal(agree.interval.disagree, false); assert.doesNotMatch(agree.methodLabel, /disagree/);
+  assert.ok(split.hiFt - split.loFt > agree.hiFt - agree.loFt); assert.equal(split.interval.disagree, true); assert.match(split.methodLabel, /wave models disagree/); assert.equal(agree.interval.disagree, false); assert.doesNotMatch(agree.methodLabel, /disagree/);
   assert.ok(Array.isArray(none.interval.components) && none.interval.note.length > 20);
 });
 test('headlineSurf: a calibrated range is unchanged in kind (n observations, calibration label) and has no interval object', () => {
   const f = toLegacy(normalizeOpenMeteo(evidenceSpot('spot-2'), marine(1.5), weather, new Date(T * 1000).toISOString())[1]), base = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any;
-  const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: new Date(T * 1000).toISOString(), loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: base.centralFt, loFt: base.loFt, hiFt: base.hiFt, method: base.method, validAt: '', offshoreHsFt: 5, primaryTpS: 14}});
+  const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: new Date(T * 1000).toISOString(), loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: base.centralFt, loFt: base.loFt, hiFt: base.hiFt, method: base.method, validAt: '', offshoreHsFt: 5, primaryTpS: 14, basis: 'central' as const}});
   const cal = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: Array.from({length: 8}, (_, i) => ob(i)), spread: null}) as any;
   assert.equal(cal.calibration.n, 8); assert.equal(cal.interval, undefined); assert.ok(Math.abs(cal.calibration.ratio - 4 / base.centralFt) < 1e-9);
+});
+
+test('T-073 review fixes: the legacy band is labelled when a record has no central height; calibration only mixes pairs on the central basis', async () => {
+  const f = toLegacy(normalizeOpenMeteo(evidenceSpot('spot-2'), marine(1.5), weather, new Date(T * 1000).toISOString())[1]); delete (f.evidence!.faceEstimate as any).centralFt;
+  const h = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any;
+  assert.match(h.methodLabel, /fixed 0\.7–1\.4 band \(older cached data\)/); assert.equal(h.interval.components.length, 0); assert.match(h.interval.note, /Fixed 0\.7–1\.4 band/);
+  const {fitFor} = await import('../services/calibrationMath.ts');
+  const ob = (i: number, basis?: 'central') => ({id: 'x' + i, schema: 1 as const, spotId: 'spot-2', observedAt: '', loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: 8, loFt: 6, hiFt: 11, method: 'v1' as const, validAt: '', offshoreHsFt: 5, primaryTpS: 14, ...(basis ? {basis} : {})}});
+  assert.equal(fitFor(Array.from({length: 8}, (_, i) => ob(i)), 'spot-2', 'v1').n, 0, 'pairs from the old fixed-band midpoint are not mixed into a fit');
+  assert.equal(fitFor(Array.from({length: 8}, (_, i) => ob(i, 'central')), 'spot-2', 'v1').status, 'active');
 });

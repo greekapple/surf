@@ -12,7 +12,7 @@ export interface ObservationContext {
   estimateRangeFt?: [number, number] | null; // the app's own breaking estimate range for that hour, if one existed
 }
 /** The model's breaking estimate for the observed spot-hour, captured when the observation was logged (past forecasts are not kept). `centralFt` is the midpoint of the uncalibrated range. */
-export interface ModelPair {centralFt: number; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; validAt: string; offshoreHsFt: number | null; primaryTpS: number | null; /** 'archived' = what this device had shown before the session (T-064); 'current' = the run at logging time. */ source?: 'archived' | 'current'; leadH?: number}
+export interface ModelPair {centralFt: number; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; validAt: string; offshoreHsFt: number | null; primaryTpS: number | null; /** 'archived' = what this device had shown before the session (T-064); 'current' = the run at logging time. */ source?: 'archived' | 'current'; leadH?: number; /** 'central' = centralFt is the method's central height (T-073). Pairs without it used the midpoint of the old fixed band and are not mixed into a fit. */ basis?: 'central'}
 export interface SessionObservation {
   id: string; schema: 1; spotId: string;
   observedAt: string;          // ISO UTC, when the surf was observed (start of session)

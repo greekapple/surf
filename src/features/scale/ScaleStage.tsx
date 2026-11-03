@@ -38,7 +38,7 @@ function useTween(target: number, ms = 420): number {
 /** The Wave scale (T-052): a big, to-scale drawing of the hour's estimated face range beside you at your height and a board from your quiver, with body-word ticks,
  *  an hour scrubber, and a browser for the size bands. The AI picture is an optional example, never the default. Nothing here is a measurement. */
 export function ScaleStage() {
-  const {data, now, spot, view} = useSwello();
+  const {data, now, spot, view, spreadV} = useSwello();
   const p = data.state.profile, me = userHeight(p), boards = data.state.boards, bundle = view.ocean.bundle;
   const hours = useMemo(() => {
     const sel = view.selectedTime ?? view.forecast?.timestamp, key = sel ? dayKey(sel) : null;
@@ -46,7 +46,7 @@ export function ScaleStage() {
   }, [view.mapRecords, view.selectedTime, view.forecast, spot.id]);
   const idx = Math.max(0, hours.findIndex((f) => f.timestamp === (view.selectedTime ?? view.forecast?.timestamp)));
   const hour = hours[idx] ?? view.forecast;
-  const hs = useMemo(() => (hour ? headlineSurf(spot.id, hour, {bundle, nowMs: now}) : null), [hour, spot.id, bundle, now]);
+  const hs = useMemo(() => (hour ? headlineSurf(spot.id, hour, {bundle, nowMs: now}) : null), [hour, spot.id, bundle, now, spreadV]);
   const [band, setBand] = useState<number | null>(null);
   useEffect(() => { setBand(null); }, [spot.id, hour?.timestamp]);
   const [boardId, setBoardId] = useState<string>(() => { try { return localStorage.getItem(BOARD_KEY) ?? ''; } catch { return ''; } });

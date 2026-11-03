@@ -46,11 +46,11 @@ const METHOD_LABEL = {'mop-v2': `Model estimate from the CDIP nearshore point ($
 function withInterval(spotId: string, hour: Forecast, ctx: HeadlineContext, method: 'mop-v2' | 'v1', central: number | undefined, legacy: [number, number], mopOverOffshore: number | null) {
   const spread = ctx.spread !== undefined ? ctx.spread : spreadAt(spotId, hour.timestamp);
   const iv = finite(central) ? intervalFor({method, centralFt: central, modelSpread: spread, mopOverOffshore}) : null;
-  return iv ? {lo: iv.loFt, hi: iv.hiFt, interval: {halfWidth: iv.halfWidth, components: iv.components, disagree: iv.disagree, note: iv.note}} : {lo: legacy[0], hi: legacy[1], interval: undefined};
+  return iv ? {lo: iv.loFt, hi: iv.hiFt, interval: {halfWidth: iv.halfWidth, components: iv.components, disagree: iv.disagree, note: iv.note}} : {lo: legacy[0], hi: legacy[1], interval: {halfWidth: Math.log(1.4 / 0.7) / 2, components: [], disagree: false, note: 'Fixed 0.7–1.4 band (record cached before the range was built from its uncertainty); no uncertainty breakdown available.'}};
 }
-const methodLabelFor = (spotId: string, m: 'mop-v2' | 'v1', mopId?: string, interval?: {disagree: boolean}) => {
+const methodLabelFor = (spotId: string, m: 'mop-v2' | 'v1', mopId?: string, interval?: {disagree: boolean; components: unknown[]}) => {
   const basis = guideBasis(spotId), assigned = m === 'mop-v2' && mopId && isGuideProfile(spotId) ? `; point ${mopId} assigned by the facing-match rule` : '';
-  return `${METHOD_LABEL[m]}${assigned}${basis ? `; ${basis}` : ''}${interval?.disagree ? '; model sources disagree, so the range is wider' : ''}`;
+  return `${METHOD_LABEL[m]}${assigned}${basis ? `; ${basis}` : ''}${interval?.disagree ? '; wave models disagree, so the range is wider' : ''}${interval && interval.components.length === 0 ? '; fixed 0.7–1.4 band (older cached data)' : ''}`;
 };
 
 /** Order: v2 where a reviewed MOP point has data for this hour → v1 where presentable → offshore (labelled) → none. */
@@ -61,7 +61,7 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
     if (pick.state === 'ok') {
       const r = mopBreaking(spotId, pick.record);
       if (r.ok && canPresentBreakingEstimate(r.input)) {
-        const off = hour?.evidence?.faceEstimate?.centralFt,  w = withInterval(spotId, hour, ctx, 'mop-v2', r.centralFt, r.input.rangeFt!, off ? r.centralFt / off : null);
+        const off = hour?.evidence?.faceEstimate?.centralFt,  w = withInterval(spotId, hour, ctx, 'mop-v2', r.centralFt, r.input.rangeFt!, finite(off) && off > 0 ? r.centralFt / off : null);
         return calibrated(spotId, {kind: 'estimate', loFt: w.lo, hiFt: w.hi, words: bodyWords(w.lo, w.hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2', methodLabel: methodLabelFor(spotId, 'mop-v2', a.mopId, w.interval), label: ESTIMATE_LABEL, centralFt: r.centralFt, ...(w.interval ? {interval: w.interval} : {}), mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}}, ctx);
       }
     }
