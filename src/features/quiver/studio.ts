@@ -465,32 +465,34 @@ export class Studio {
   }
 
   /** T-072: thumbnails of the preset angles rendered from the live scene (the board as it is now: shape, colour, fins), as image URLs.
-   *  Renders each pose once into a small render target and restores the camera; nothing visible moves. Focus mode only. */
+   *  Each pose is drawn into a corner of the main canvas with the stage's own tone mapping and colour output (a render target would skip both,
+   *  Codex review of fbbb89c), copied out at once, and the full view is redrawn in the same task, so nothing visible moves. Focus mode only. */
   snapshot(presets: Preset[], w = 200, h = 128): Record<string, string> {
     const out: Record<string, string> = {};
     if (this.mode !== 'focus' || this.disposed || !this.sel()?.resin) return out;
-    const cam = this.camera, keep = {pos: cam.position.clone(), aspect: cam.aspect, target: this.controls.target.clone(), flip: this.flipAngle, spin: this.spinAngle};
-    const W = w * 2, H = h * 2, rt = new THREE.WebGLRenderTarget(W, H, {samples: 4, colorSpace: THREE.SRGBColorSpace}), px = new Uint8Array(W * H * 4);
+    const r = this.renderer, cam = this.camera, pr = r.getPixelRatio(), buf = r.getDrawingBufferSize(new THREE.Vector2());
+    const vw = Math.min(w, Math.floor(buf.x / pr)), vh = Math.min(h, Math.floor(buf.y / pr)), W = Math.round(vw * pr), H = Math.round(vh * pr);
+    if (vw < 40 || vh < 30) return out;
+    const keep = {pos: cam.position.clone(), aspect: cam.aspect, target: this.controls.target.clone(), flip: this.flipAngle, spin: this.spinAngle};
     const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d')!;
-    const clear = new THREE.Color(), alpha = this.renderer.getClearAlpha(); this.renderer.getClearColor(clear);
-    this.renderer.setClearColor(0xf1f2f1, 1); // the thumbnail's own light ground (in the stage the canvas is transparent over CSS)
-    cam.aspect = w / h; cam.updateProjectionMatrix();
+    const clear = new THREE.Color(), alpha = r.getClearAlpha(); r.getClearColor(clear);
+    cam.aspect = vw / vh; cam.updateProjectionMatrix();
     try {
+      r.setScissorTest(true); r.setViewport(0, 0, vw, vh); r.setScissor(0, 0, vw, vh); r.setClearColor(0xf1f2f1, 1); // the thumbnail's own light ground
       for (const p of presets) {
         const pose = this.focusPose(p), q = this.presetPose(p);
         cam.position.setFromSpherical(pose.s).add(pose.target); cam.lookAt(pose.target);
         this.flipAngle = pose.flip; this.spinAngle = q.spin;
         for (const rig of this.rigs.values()) this.pose(rig);
-        this.renderer.setRenderTarget(rt); this.renderer.render(this.scene, cam);
-        this.renderer.readRenderTargetPixels(rt, 0, 0, W, H, px);
-        const img = g.createImageData(W, H);
-        for (let y = 0; y < H; y++) img.data.set(px.subarray((H - 1 - y) * W * 4, (H - y) * W * 4), y * W * 4); // WebGL rows are bottom-up
-        g.putImageData(img, 0, 0); out[p] = c.toDataURL('image/jpeg', 0.86);
+        r.render(this.scene, cam);
+        g.clearRect(0, 0, W, H); g.drawImage(r.domElement, 0, buf.y - H, W, H, 0, 0, W, H); // viewport y=0 is the canvas bottom
+        out[p] = c.toDataURL('image/jpeg', 0.86);
       }
     } finally {
-      this.renderer.setRenderTarget(null); this.renderer.setClearColor(clear, alpha); rt.dispose();
+      r.setScissorTest(false); r.setViewport(0, 0, buf.x / pr, buf.y / pr); r.setClearColor(clear, alpha);
       cam.aspect = keep.aspect; cam.updateProjectionMatrix(); cam.position.copy(keep.pos); this.controls.target.copy(keep.target); cam.lookAt(keep.target);
       this.flipAngle = keep.flip; this.spinAngle = keep.spin; for (const rig of this.rigs.values()) this.pose(rig);
+      r.render(this.scene, cam); // redraw the stage now, in this task, so the corner renders are never seen
       this.dirty = true; this.kick();
     }
     return out;
