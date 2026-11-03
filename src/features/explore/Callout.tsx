@@ -35,7 +35,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}:
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? (dataPhase(view.ocean) === 'loading' ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>
-        <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? `${t!.words ? `${t!.words[0].toUpperCase()}${t!.words.slice(1)} · ` : ''}at the break · model estimate` : hs?.kind === 'offshore' ? 'offshore · not surf size' : t?.detail}</small></p>
+        <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? `${t!.words ? `${t!.words[0].toUpperCase()}${t!.words.slice(1)} · ` : ''}surf height · model estimate` : hs?.kind === 'offshore' ? 'offshore · not surf size' : t?.detail}</small></p>
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>

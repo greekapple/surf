@@ -29,15 +29,15 @@ test('v2 is the default where a reviewed MOP point has data for the hour', () =>
   assert.equal(h.method, 'mop-v2'); assert.ok(h.hiFt - h.loFt >= 2 && h.loFt >= 0); assert.equal(h.mop?.id, 'SF023'); assert.equal(h.mop?.product, 'forecast');
   assert.ok(h.words && h.wordsNote.includes('Approximate')); assert.match(h.label, /Est\./); assert.match(h.methodLabel, /unvalidated/);
 });
-test('falls to v1 when the MOP has no record for the hour, refuses (short period / outside window) or the spot has no reviewed point', () => {
+test('falls to v1 only when the nearshore model has no usable record for the hour; if it HAS the hour and refuses (short period, outside the window) the spot shows offshore, never a contradicting v1 (T-077)', () => {
   const far = headlineSurf('spot-2', hour(), {bundle: bundle([rec('2026-11-09T00:00:00.000Z', 1.4, 14, 266)]), nowMs: NOW});
   assert.ok(far.kind === 'estimate' && far.method === 'v1' && far.loFt === 3 && far.hiFt === 5 && far.words === 'waist to head');
-  assert.ok((headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 6, 266)]), nowMs: NOW}) as any).method === 'v1', 'short period refused by v2');
-  assert.ok((headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 100)]), nowMs: NOW}) as any).method === 'v1', 'outside swell window');
+  assert.equal(headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 6, 266)]), nowMs: NOW}).kind, 'offshore', 'short period refused by the nearshore model: no v1 fallback');
+  assert.equal(headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 100)]), nowMs: NOW}).kind, 'offshore', 'outside the swell window per the nearshore model: no v1 fallback');
   assert.ok((headlineSurf('spot-2', hour(), {bundle: null, nowMs: NOW}) as any).method === 'v1');
   assert.ok((headlineSurf('spot-2', hour(), {nowMs: NOW}) as any).method === 'v1');
-  const lm = headlineSurf('spot-3', hour({spotId: 'spot-3'}), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW});
-  assert.ok(lm.kind === 'estimate' && lm.method === 'v1', 'a spot with no reviewed MOP point never uses v2');
+  const lm = headlineSurf('spot-0', hour({spotId: 'spot-0'}), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW});
+  assert.ok(lm.kind === 'estimate' && lm.method === 'v1', 'a spot with no assigned MOP point never uses v2');
 });
 test('v1 estimates that are too narrow, unversioned or missing fall to offshore with its label; never an unlabelled number', () => {
   const narrow = headlineSurf('spot-3', hour({evidence: {faceEstimate: {input: {...v1input, rangeFt: [3, 3.5]}}}}), {nowMs: NOW});
@@ -60,7 +60,7 @@ test('the selector is read-only: the hour and bundle are not changed, and it exp
 });
 test('display strings use the user units and always name the quantity', () => {
   const est = headlineSurf('spot-3', hour(), {nowMs: NOW}), ft = headlineText(est, profile), mt = headlineText(est, {heightUnit: 'm', scale: 'Face'} as any);
-  assert.match(ft.label, /^Est\. .*ft at the break$/); assert.equal(ft.tag, 'model estimate'); assert.match(mt.label, /m at the break$/);
+  assert.match(ft.label, /^Est\. .*ft surf height$/); assert.equal(ft.tag, 'model estimate'); assert.match(mt.label, /m surf height$/);
   const off = headlineText(headlineSurf('spot-3', hour({evidence: {}}), {nowMs: NOW}), profile); assert.match(off.label, /offshore · not surf size$/); assert.equal(off.words, null);
   assert.equal(headlineText({kind: 'none', label: 'No wave height for this hour'}, profile).value, '—');
 });

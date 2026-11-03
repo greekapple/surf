@@ -26,7 +26,7 @@ test('windowLabel spells am/pm once when both ends share it', () => {
 test('a card with data: labelled estimate with words, rating, wind relation, tide, never a bare number', () => {
   const c = dashCard(spot('spot-2'), recs('spot-2'), now, profile);
   assert.equal(c.name, 'Ocean Beach'); assert.equal(c.demo, false); assert.ok(c.validTime);
-  assert.equal(c.surf.headline.kind, 'estimate'); assert.match(c.surf.label, /^Est\. \d+–\d+ ft at the break$/); assert.equal(c.surf.tag, 'model estimate'); assert.ok(c.surf.words);
+  assert.equal(c.surf.headline.kind, 'estimate'); assert.match(c.surf.label, /^Est\. \d+–\d+ ft surf height$/); assert.equal(c.surf.tag, 'model estimate'); assert.ok(c.surf.words);
   assert.match(c.surf.offshoreLabel!, /offshore · not surf size$/);
   assert.ok(c.rating.bars >= 0 && c.rating.bars <= 5); assert.ok(c.wind && /offshore|onshore|cross/.test(c.wind.relation));
 });

@@ -18,8 +18,8 @@ export function logFeltRight(i: {spotId: string; at: string; felt: Felt}, env: L
   if (t < now - 366 * 86400000) return {ok: false, error: 'That time is more than a year ago.'};
   let predicted: FeltEntry['predicted'] = null;
   const was = predictedFor(i.spotId, i.at, now);
-  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) predicted = {loFt: was.lo, hiFt: was.hi, method: was.m, source: 'archived'};
-  else { const f = env.records && recordAt(env.records, i.spotId, t); if (f && Math.floor(Date.parse(f.timestamp) / 3600000) === Math.floor(t / 3600000)) { const h = headlineSurf(i.spotId, f, {bundle: env.bundle, nowMs: now, observations: [], felt: []}); if (h.kind === 'estimate') predicted = {loFt: h.loFt, hiFt: h.hiFt, method: h.method, source: 'current'}; } }
+  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) predicted = {conv: was.cs !== undefined ? true : undefined, loFt: was.lo, hiFt: was.hi, method: was.m, source: 'archived'};
+  else { const f = env.records && recordAt(env.records, i.spotId, t); if (f && Math.floor(Date.parse(f.timestamp) / 3600000) === Math.floor(t / 3600000)) { const h = headlineSurf(i.spotId, f, {bundle: env.bundle, nowMs: now, observations: [], felt: []}); if (h.kind === 'estimate') predicted = {conv: true, loFt: h.loFt, hiFt: h.hiFt, method: h.method, source: 'current'}; } }
   // one signal per spot-hour: the latest replaces the earlier
   const hour = new Date(Math.floor(t / 3600000) * 3600000).toISOString();
   const rest = getFelt().filter((e) => !(e.spotId === i.spotId && e.hour === hour));

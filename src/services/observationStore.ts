@@ -15,7 +15,7 @@ if (typeof window !== 'undefined' && typeof window.addEventListener === 'functio
 /** "Felt right?" signals (T-064): a separate, weaker store than the observations. Direction only. Key `swello-felt-right`. */
 export const FELT_KEY = 'swello-felt-right';
 export type FeltSignal = 'low' | 'right' | 'high';
-export interface FeltEntry {id: string; spotId: string; hour: string; felt: FeltSignal; loggedAt: string; predicted: {loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; source: 'archived' | 'current'} | null}
+export interface FeltEntry {id: string; spotId: string; hour: string; felt: FeltSignal; loggedAt: string; predicted: {/** true = a surf-height (convention) prediction; entries without it predate T-077 and are ignored by the felt nudge */ conv?: true; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; source: 'archived' | 'current'} | null}
 let feltCache: FeltEntry[] | null = null;
 const okFelt = (o: any): o is FeltEntry => o && typeof o.id === 'string' && typeof o.spotId === 'string' && Number.isFinite(Date.parse(o.hour)) && ['low', 'right', 'high'].includes(o.felt);
 export function getFelt(): FeltEntry[] { if (feltCache) return feltCache; try { const v = JSON.parse((typeof localStorage !== 'undefined' ? localStorage.getItem(FELT_KEY) : null) ?? '[]'); feltCache = Array.isArray(v) ? v.filter(okFelt) : []; } catch { feltCache = []; } return feltCache; }

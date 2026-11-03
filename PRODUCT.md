@@ -10,7 +10,7 @@ Surfers checking on a phone at dawn in a beach parking lot (flat fog light, cold
 
 ## Product truth (must never be faked)
 - Retrieved mode uses real public data: Open-Meteo Marine and Weather (model forecasts), NOAA CO-OPS (tide predictions, water levels), NOAA NDBC (buoy observations), CDIP (modelled nearshore), NOAA ERDDAP (regional grids).
-- Offshore significant wave height, swell, observations and estimated breaking-wave (face) height are distinct quantities. Retrieved mode has no calibrated face estimate and must say so; offshore height is never presented as surf size.
+- Offshore significant wave height, swell, observations and estimated surf height by the common surf-report convention (about the nearshore significant wave height; the larger breaking height is shown only as a labelled detail) are distinct quantities. Retrieved mode has no calibrated face estimate and must say so; offshore height is never presented as surf size.
 - Ratings and board recommendations are provisional, uncalibrated heuristics and are labelled as such.
 - Demonstration mode is a fixed illustrative week (Oct 16–22, 2026), clearly labelled, never mixed with retrieved data.
 - Quiver demo boards are fictional examples; board outlines are category approximations, not exact shapes.

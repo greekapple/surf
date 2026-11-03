@@ -15,7 +15,7 @@ const weather = {hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°'
 const records = normalizeOpenMeteo(evidenceSpot('spot-2'), marine, weather, new Date(now).toISOString()).map(toLegacy);
 const hourIso = new Date(t * 1000).toISOString();
 const env = {records, nowMs: now};
-const pair = (central: number, method: 'v1' | 'mop-v2' = 'v1') => ({centralFt: central, loFt: central * 0.7, hiFt: central * 1.4, method, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'central' as const});
+const pair = (central: number, method: 'v1' | 'mop-v2' = 'v1') => ({centralFt: central, loFt: central * 0.7, hiFt: central * 1.4, method, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const});
 const ob = (i: number, observed: number, central: number, spotId = 'spot-2', method: 'v1' | 'mop-v2' = 'v1') => ({id: 'o' + i, schema: 1 as const, spotId, observedAt: hourIso, loggedAt: hourIso, rangeFt: [observed, observed] as [number, number], faceFt: observed, pair: pair(central, method)});
 
 test('median and quartiles', () => {
