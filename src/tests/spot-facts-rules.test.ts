@@ -51,3 +51,52 @@ test('a sheltered spot gets facts but no estimate; a spot with no published faci
   assert.ok(breakingProfiles.length >= 25, `profiles ${breakingProfiles.length}`); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === 1));
   assert.ok(profileFromGuide({...base, facing: null, swellWindow: null}).orientation.value === null);
 });
+
+import {headlineSurf, guideBasis} from '../services/headlineSurf.ts';
+import {explainRating} from '../ratings/explain.ts';
+import {rateOcean} from '../ratings/adapters.ts';
+import {nowcastFor} from '../services/nearshoreSelect.ts';
+import {pickMop as pickMopRecord} from '../services/nearshoreSelect.ts';
+import {normalizeOpenMeteo} from '../ocean/openMeteo.ts';
+import {toLegacy} from '../ocean/bridge.ts';
+
+const T = 1792454400, NOW = T * 1000 + 600000, times = Array.from({length: 30}, (_, i) => T - 3600 + i * 3600);
+const marine = {latitude: 37.6, longitude: -122.6, hourly_units: {wave_height: 'm', swell_wave_height: 'm', swell_wave_direction: '°', swell_wave_period: 's', secondary_swell_wave_height: 'm', secondary_swell_wave_direction: '°', secondary_swell_wave_period: 's', sea_surface_temperature: '°C'},
+  hourly: {time: times, wave_height: times.map(() => 1.6), swell_wave_height: times.map(() => 1.5), swell_wave_direction: times.map(() => 315), swell_wave_period: times.map(() => 14), secondary_swell_wave_height: times.map(() => 0), secondary_swell_wave_direction: times.map(() => 0), secondary_swell_wave_period: times.map(() => 0), sea_surface_temperature: times.map(() => 14)}};
+const weather = {hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°', wind_gusts_10m: 'mp/h'}, hourly: {time: times, wind_speed_10m: times.map(() => 5), wind_direction_10m: times.map(() => 135), wind_gusts_10m: times.map(() => 5)}};
+const rec = (id: string) => normalizeOpenMeteo(evidenceSpot(id), marine, weather, new Date(NOW).toISOString());
+const m = (v: number) => ({value: v, unit: 'ft', source: {retrievedAt: '2026-11-02T00:00:00Z'}});
+const nr = (iso: string, hs: number, mopId?: string) => ({timestamp: iso, height: m(hs), period: m(14), direction: m(300), qualityFlag: 1, product: 'nowcast' as const, ...(mopId ? {mopId} : {})});
+
+test('T-071b: a spot never shows another point\'s nowcast (Linda Mar SM375 vs the Ocean Beach SF023 nowcast)', () => {
+  const iso = new Date(T * 1000).toISOString(), sf023 = [nr(iso, 6.5, 'SF023'), nr(iso, 6.5)];
+  assert.equal(nowcastFor('SM375', sf023), undefined); assert.equal(nowcastFor('SF023', sf023)!.length, 2); assert.deepEqual(nowcastFor('SF023', [nr(iso, 5, 'SM375')]), []);
+  // the selector with SM375 sees only its forecast, never the SF023 record, even for the current hour
+  const fc = [{...nr(iso, 3.1, 'SM375'), product: 'forecast' as const}], pick = pickMopRecord(Date.parse(iso), NOW, nowcastFor('SM375', sf023), fc);
+  assert.ok(pick.state === 'ok' && pick.product === 'forecast' && pick.record.height.value === 3.1);
+  // headlineSurf for Linda Mar uses the SM375 forecast (v2) even though the bundle carries Ocean Beach's nowcast
+  const bundle = {nearshore: sf023, mop: {SM375: {mopId: 'SM375', records: fc, issue: null, retrievedAt: iso, url: 'x'}}} as any;
+  const f = toLegacy(rec('spot-3')[1]), h = headlineSurf('spot-3', f, {bundle, nowMs: NOW, observations: []}) as any;
+  assert.equal(h.kind, 'estimate'); assert.equal(h.method, 'mop-v2'); assert.equal(h.mop.id, 'SM375'); assert.equal(h.mop.product, 'forecast');
+});
+test('T-071b: a guide-derived estimate says once where its inputs came from; Ocean Beach (reviewed) does not', () => {
+  assert.match(guideBasis('spot-3')!, /facing and swell window from published guides \(Surfnerd, Surf-Forecast\), not reviewed; 8 s generic minimum period/); assert.equal(guideBasis('spot-2'), null);
+  const f = toLegacy(rec('spot-0')[1]), h = headlineSurf('spot-0', f, {nowMs: NOW, observations: []}) as any;
+  if (h.kind === 'estimate') { assert.match(h.methodLabel, /published guides/); assert.equal((h.methodLabel.match(/published guides/g) ?? []).length, 1); }
+  const lm = headlineSurf('spot-3', toLegacy(rec('spot-3')[1]), {bundle: {nearshore: [], mop: {SM375: {mopId: 'SM375', records: [{...nr(new Date(T * 1000).toISOString(), 3, 'SM375'), product: 'forecast' as const}], issue: null, retrievedAt: '', url: 'x'}}} as any, nowMs: NOW, observations: []}) as any;
+  assert.match(lm.methodLabel, /SM375 assigned by the facing-match rule/); assert.match(lm.methodLabel, /published guides/);
+});
+test('T-071b: explainRating counts guide-filled facts as "from published guides, not reviewed" and the wind reason says the shore direction is from a guide', () => {
+  const q = rateOcean(evidenceSpot('spot-3'), rec('spot-3')[1], NOW), e = explainRating(q, {spotId: 'spot-3', wind: {mph: 5, relation: 'Offshore'}});
+  assert.ok(e.guideFacts.includes('Beach orientation') && e.guideFacts.includes('Swell window')); assert.ok(!e.unknownFacts.includes('Beach orientation'));
+  assert.match(e.reliability.reasons.at(-1)!, /not reviewed: \d+ come from published guides/);
+  assert.match(e.items.find((i) => /wind/i.test(i.factor))!.reason, /Shore direction comes from a published guide \(approximate, not surveyed\)/);
+  const ob = explainRating(rateOcean(evidenceSpot('spot-2'), rec('spot-2')[1], NOW), {spotId: 'spot-2', wind: {mph: 5, relation: 'Offshore'}});
+  assert.doesNotMatch(ob.items.find((i) => /wind/i.test(i.factor))!.reason, /published guide/, 'the CDIP orientation is not a guide fact');
+});
+test('T-071b: exposure parsing separates wind shelter from swell shelter; sizes are rounded to half feet', () => {
+  assert.notEqual(guideFactsFor('cs-sand-dollar')!.exposure, 'sheltered'); assert.equal(enablement(guideFactsFor('cs-sand-dollar')!).estimate, true);
+  assert.equal(guideFactsFor('cs-asilomar')!.exposure, 'exposed'); assert.equal(guideFactsFor('spot-3')!.exposure, 'somewhat protected'); assert.equal(guideFactsFor('spot-3')!.sizeFt!.max, 12);
+  assert.ok(guideFacts.every((f) => !f.sizeFt || (f.sizeFt.min * 2) % 1 === 0 && (f.sizeFt.max * 2) % 1 === 0));
+  assert.match(breakingProfile('cs-swamis')!.note, /rests on one guide's "exposed" statement/);
+});

@@ -19,7 +19,7 @@ import {AlertsManager} from './AlertsPanels';
 import {JournalList, LogForm, type LogInput} from './JournalPanels';
 import {SawList} from './SawList';
 import {addObservation, checkObservation, downloadText, loadLog, logToCsv, logToJson, removeObservation, saveLog, type ObservationContext} from '../../services/sessionLog';
-import {pickMop} from '../../services/nearshoreSelect';
+import {pickMop, nowcastFor} from '../../services/nearshoreSelect';
 import {assignmentFor} from '../../ocean/mop';
 import {faceEstimateView} from '../forecast/estimate';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
@@ -156,7 +156,7 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
     if (!c.ok) { setObsError(c.error); return false; }
     const context: ObservationContext = {}, t = Date.parse(c.value.observedAt), a = assignmentFor(v.spotId), bundle = view.ocean.bundle;
     if (a && bundle) {
-      const pick = pickMop(t, now, bundle.nearshore, bundle.mop?.[a.mopId]?.records);
+      const pick = pickMop(t, now, nowcastFor(a.mopId, bundle.nearshore), bundle.mop?.[a.mopId]?.records);
       if (pick.state === 'ok') context.mop = {mopId: a.mopId, product: pick.product, validAt: pick.record.timestamp, hsFt: pick.record.height.value, tpS: pick.record.period.value, dpDeg: pick.record.direction.value};
     }
     const f = hourFor(v.spotId);

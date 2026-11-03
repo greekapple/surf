@@ -67,7 +67,7 @@ export function breakingProfileFromGuide(f: GuideFacts): BreakingCalibration | n
   const e = enablement(f); if (!e.estimate || !f.swellWindow || !f.facing) return null;
   const window = clampWindow(f.swellWindow.fromDeg, f.swellWindow.toDeg, f.facing.deg); if (!window) return null;
   return {spotId: f.spotId, faceFactors: [0.7, 1.4], window, minPeriod: GENERIC_MIN_PERIOD_S, shelter: 1,
-    note: `Spot facts from published guides (${f.sources.map((s) => s.site).join(', ')}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${f.facing!.text}. Minimum period is the generic 8 s. Shelter 1 (${f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}). Unvalidated.`};
+    note: `Spot facts from published guides (${f.sources.map((s) => s.site).join(', ')}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${f.facing!.text}. Minimum period is the generic 8 s. Shelter 1 (${f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}${f.waveType && f.waveType !== 'beach' ? `; for this ${f.waveType} that rests on one guide's "exposed" statement` : ''}). Unvalidated.`};
 }
 /** A MOP candidate qualifies when its shore normal is within the tolerance of the guide's facing; the closest one wins. */
 export function pickMop(f: GuideFacts, candidates: {id: string; shoreNormalDeg: number}[]): {id: string; offsetDeg: number} | null {

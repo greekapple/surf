@@ -36,7 +36,7 @@ export const guideFacts: GuideFacts[] = [
   "waveType": "beach",
   "sizeFt": {
    "min": 2,
-   "max": 12.1
+   "max": 12
   },
   "exposure": "somewhat protected",
   "hazards": [
@@ -83,7 +83,7 @@ export const guideFacts: GuideFacts[] = [
   "waveType": "beach",
   "sizeFt": {
    "min": 3,
-   "max": 7.9
+   "max": 8
   },
   "exposure": "exposed",
   "hazards": [
@@ -121,7 +121,7 @@ export const guideFacts: GuideFacts[] = [
   "waveType": "beach",
   "sizeFt": {
    "min": 2,
-   "max": 5.9
+   "max": 6
   },
   "exposure": "sheltered",
   "hazards": [
@@ -155,8 +155,8 @@ export const guideFacts: GuideFacts[] = [
   "bottom": "boulders",
   "waveType": "reef",
   "sizeFt": {
-   "min": 12.1,
-   "max": 29.9
+   "min": 12,
+   "max": 30
   },
   "exposure": "not stated",
   "hazards": [
@@ -193,7 +193,7 @@ export const guideFacts: GuideFacts[] = [
   "waveType": "point",
   "sizeFt": {
    "min": 1,
-   "max": 4.9
+   "max": 5
   },
   "exposure": "sheltered",
   "hazards": [
@@ -229,7 +229,7 @@ export const guideFacts: GuideFacts[] = [
   "waveType": "reef",
   "sizeFt": {
    "min": 2,
-   "max": 9.8
+   "max": 10
   },
   "exposure": "not stated",
   "hazards": [
@@ -572,7 +572,7 @@ export const guideFacts: GuideFacts[] = [
    "min": 3,
    "max": 12
   },
-  "exposure": "somewhat protected",
+  "exposure": "exposed",
   "hazards": [
    "strong currents",
    "heavy paddle-out when big",
@@ -659,7 +659,7 @@ export const guideFacts: GuideFacts[] = [
    "min": 2,
    "max": 8
   },
-  "exposure": "sheltered",
+  "exposure": "exposed",
   "hazards": [
    "rips",
    "rocks",

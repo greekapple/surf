@@ -9,5 +9,7 @@ export interface BreakingCalibration {spotId:string;faceFactors:[number,number];
 const reviewedBreakingProfiles:BreakingCalibration[]=[{spotId:'spot-2',faceFactors:[0.7,1.4],window:[203,323],minPeriod:8,shelter:1,note:'Ocean Beach: window is beach normal 263.49° ±60° (lead decision); minPeriod 8 s and shelter 1 are lead-set, not measured.'}];
 /** T-071: spots whose published guides state the facing and the swell window (and no source calls them sheltered) get a profile of the same shape; Ocean Beach keeps its reviewed one. */
 export const breakingProfiles:BreakingCalibration[]=[...reviewedBreakingProfiles,...guideFacts.filter(f=>!reviewedBreakingProfiles.some(p=>p.spotId===f.spotId)).map(breakingProfileFromGuide).filter((p):p is BreakingCalibration=>p!==null)];
+/** True when a spot's breaking profile comes from published guides (T-071) rather than the reviewed Ocean Beach one. */
+export const isGuideProfile=(spotId:string)=>!reviewedBreakingProfiles.some(p=>p.spotId===spotId)&&breakingProfiles.some(p=>p.spotId===spotId);
 export const breakingProfile=(spotId:string)=>breakingProfiles.find(p=>p.spotId===spotId)??null;
 export function calibrationAvailability(spotId:string){const p=calibrationProfiles.find(x=>x.spotId===spotId);return {available:false as const,profile:p??null,reason:p?'No reviewed coefficients or paired breaking-face observations.':'No spot-specific calibration has been established.'};}
