@@ -29,15 +29,11 @@ if [ "$forcestrict" = 1 ] || [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep 
    || [ "$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//' | tr ' ' '\n' | grep -v '^-' | grep -v '[<>]' | grep -c .)" -lt 2 ]; then
   # (no explicit refspec: push.default / remote.<name>.push decide what goes out, so check every branch)
   git fetch -q --all 2>/dev/null
-  for ref in $(git for-each-ref --format='%(refname:short)' refs/heads); do
-    base=""
-    for cand in "origin/$ref" "origin/surf-history" "origin/HEAD"; do
-      git rev-parse --verify -q "$cand^{commit}" >/dev/null && { base="$cand"; break; }
-    done
-    [ -z "$base" ] && { echo "BLOCKED: licence guard (strict) can't find a remote base for '$ref'" >&2; exit 2; }
-    files=$(git log --name-only --format= "$base..$ref") || { echo "BLOCKED: licence guard (strict) couldn't read '$ref'" >&2; exit 2; }
+  # every local branch AND tag (a tag can carry commits no branch has; engineering, on 7c39504): what isn't on origin yet would go out
+  for ref in $(git for-each-ref --format='%(refname)' refs/heads refs/tags); do
+    files=$(git log --name-only --format= "$ref" --not --remotes=origin) || { echo "BLOCKED: licence guard (strict) couldn't read '$ref'" >&2; exit 2; }
     hit=$(printf '%s\n' "$files" | grep -E "$PATTERN" | sort -u | head -3)
-    [ -n "$hit" ] && { printf 'BLOCKED: this push form is checked strictly and local branch %s carries licensed/derived assets; push one clean branch explicitly (git push origin <branch>) or scrub history:\n%s\n' "$ref" "$hit" >&2; exit 2; }
+    [ -n "$hit" ] && { printf 'BLOCKED: this form is checked strictly and local %s carries licensed/derived assets; send one clean branch explicitly (git <upload> origin <branch>) or scrub history:\n%s\n' "${ref#refs/}" "$hit" >&2; exit 2; }
   done
   exit 0
 fi

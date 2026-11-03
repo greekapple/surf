@@ -31,4 +31,8 @@ t 2 "# note\\
 git $P origin rebuild/swello-v0.16"
 t 2 "# note\\
 git $P origin swello-v0.17"
+# strict mode also checks tags (a tag-only commit with licensed files)
+git tag -f guard-test-licensed rebuild/swello-v0.16 >/dev/null 2>&1
+t 2 "git $P origin --tags"
+git tag -d guard-test-licensed >/dev/null 2>&1
 t 0 "ls"

@@ -481,3 +481,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 047178d `Compare.tsx:25-28`: retry Compare initialisation after forecasts load; `homeDash.ts:103-105`: search today's remaining daylight before moving to tomorrow.
 - 595769a `field.ts:119-120`: keep coverage labels off land pixels; `enclosed.ts:9-11`: normalise longitude before the bay-mask lookup.
 - 26c1512 `call.ts:34`: tell "too much swell" apart from "too little swell" in the reason.
+- T-100 merged f45e916 (engineering 38beca4): 7 of 9 Codex P2s fixed; 1-2 were already fixed by T-098. tsc clean, tests 0 fail, build OK, journeys 8/8, t067 and t052 pass (t052 needed a warm server; cold load under heavy CPU took 8.5 s), Bay label on water at 1440. Guard strict mode now checks tags as well (19 cases).
