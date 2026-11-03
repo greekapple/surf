@@ -5,15 +5,27 @@ export function Legal({page, go}: {page: 'privacy' | 'terms'; go: Go}) {
   return page === 'privacy' ? (
     <article className="legal">
       <h1>Privacy</h1>
-      <p>Last updated October 29, 2026.</p>
+      <p>Last updated November 2, 2026.</p>
       <h2>What stays on your device</h2>
-      <p>Your profile, favourite spots, boards, board looks and traced outlines, journal, theme and units are saved in this browser's local storage. There is no account and nothing is uploaded to us. Board photos you trace are processed in your browser and never sent anywhere.</p>
+      <p>There is no account and nothing you enter is uploaded to us. Everything below is kept in this browser's own storage on this device. Clearing the site's data removes all of it.</p>
+      <ul>
+        <li>Profile, favourite spots, boards, journal sessions and settings (local storage <code>surf-prototype-v1</code>, <code>swello-ui-v1</code>, <code>swello-theme</code>, <code>swello-basemap</code>, <code>swello-recent</code>).</li>
+        <li>Board looks, traced outlines, Board Room drafts and the board used on the wave scale (<code>swello-board-looks</code>, <code>swello-board-outlines</code>, <code>swello-boardroom-drafts</code>, <code>swello-board-prefs</code>, <code>swello-scale-board</code>). Board photos you trace are processed in your browser and never sent anywhere.</li>
+        <li>What you saw, "Felt right?" answers and older forecast checks (<code>swello-session-log</code>, <code>swello-felt-right</code>). They calibrate the surf estimate on this device only.</li>
+        <li>The forecasts you viewed, about two weeks, so your observations are compared with what was predicted (<code>swello-forecast-archive</code>).</li>
+        <li>Journal photos and tags, your profile photo and alert rules (<code>swello-journal-extras</code>, <code>swello-avatar</code>, <code>swello-alerts</code>).</li>
+        <li>Session clips you add and the rides you mark (IndexedDB <code>swello-clips</code>, local storage <code>swello-clip-rides</code>). Video never leaves the device.</li>
+        <li>A feature switch for the nearshore estimate (<code>swello-flag-breaking-v2</code>).</li>
+      </ul>
       <h2>Location</h2>
       <p>Find Spots asks for your location only when you press "Use my location". It is used in the page to sort spots by distance and is not stored or sent to anyone.</p>
       <h2>Services the app contacts</h2>
+      <p>These public data services are contacted to show forecasts. None of them receives anything you entered; as with any website, a service your browser contacts directly sees your IP address.</p>
       <ul>
-        <li>Forecast data: Open-Meteo, NOAA (CO-OPS, NDBC, ERDDAP) and CDIP, through SWELLO's own server.</li>
-        <li>Map imagery: Esri World Imagery tiles, loaded directly by your browser, so Esri receives your IP address as with any website image.</li>
+        <li>Forecast models: Open-Meteo (marine and weather), NOAA CO-OPS (tides), NOAA NDBC (buoys), NOAA ERDDAP (map layers) and CDIP (nearshore points), fetched through SWELLO's own server.</li>
+        <li>Hazard alerts: the National Weather Service alerts API (api.weather.gov), loaded directly by your browser for the spot you open.</li>
+        <li>Map tiles: Esri basemaps (light, dark or satellite, server.arcgisonline.com), loaded directly by your browser.</li>
+        <li>Live cam links open the camera owner's own page in a new tab; nothing is embedded here.</li>
       </ul>
       <h2>Cookies and tracking</h2>
       <p>No cookies, analytics or advertising trackers are used.</p>
