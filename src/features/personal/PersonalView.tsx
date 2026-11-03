@@ -65,6 +65,32 @@ function Page({title, onBack, children, action}: {title: string; onBack: () => v
   );
 }
 
+/** Your height (T-052): saved on the profile in inches, typed as ft/in or cm by the unit preference. The Wave scale draws you at this height; until it is set a labelled 5'10" default is drawn. */
+// T-103: a MODULE-level component. It used to be declared inside PersonalView, so every PersonalView render created a new component type and REMOUNTED the field (losing the person's text and focus)
+// when a save landed.
+function HeightField({p, set}: {p: import('../../models/index').UserProfile; set: (v: Partial<import('../../models/index').UserProfile>) => void}) {
+  const me = userHeight(p), unit = p.heightUnit === 'm' ? 'm' : 'ft';
+  const [text, setText] = useState(me.isDefault ? '' : formatHeight(me.inches, unit)), [err, setErr] = useState('');
+  // T-103: the text follows the saved height only while the person is not editing: a late echo of an earlier save must not overwrite what they are typing (or an invalid entry that is still showing its message).
+  const dirty = useRef(false);
+  useEffect(() => { if (dirty.current) return; setText(userHeight(p).isDefault ? '' : formatHeight(userHeight(p).inches, unit)); }, [p.heightIn, unit]); // eslint-disable-line react-hooks/exhaustive-deps
+  const commit = () => {
+    if (!text.trim()) { dirty.current = false; setErr(''); if (p.heightIn != null) set({heightIn: null}); return; }
+    const v = parseHeight(text, unit);
+    if (v === null) { setErr(unit === 'm' ? 'Enter your height in centimetres, 100 to 230, like 178.' : `Enter your height like 5'10" (3'4" to 7'6").`); return; }
+    dirty.current = false; setErr(''); set({heightIn: v});
+  };
+  return (
+    <>
+      <label className="field"><span>Height ({unit === 'm' ? 'cm' : 'ft and in'})</span>
+        <input value={text} inputMode={unit === 'm' ? 'numeric' : 'text'} placeholder={unit === 'm' ? '178' : `5'10"`} aria-invalid={!!err} aria-describedby="height-help" onChange={(e) => { dirty.current = true; setText(e.target.value); }} onBlur={commit} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }} />
+      </label>
+      <p id="height-help" className={err ? 'pz-err' : 'fine'} role={err ? 'alert' : undefined}>{err || (me.isDefault ? `Not set: the Wave scale draws you at ${formatHeight(me.inches, unit)} (default). Used only to draw you to scale on this device.` : `The Wave scale draws you at ${formatHeight(me.inches, unit)}. Saved on this device.`)}</p>
+      {!me.isDefault && <button type="button" className="btn" onClick={() => { setText(''); setErr(''); set({heightIn: null}); }}>Use the default</button>}
+    </>
+  );
+}
+
 export function PersonalView({section, go}: ViewProps) {
   const {data, view, setSpot, now, spotOptions} = useSwello();
   const [themePref, setThemePref] = useThemePref();
@@ -117,28 +143,6 @@ export function PersonalView({section, go}: ViewProps) {
     setThemePref(THEME_PREFS[next]);
     (e.currentTarget.children[next] as HTMLElement | undefined)?.focus();
   };
-
-  /** Your height (T-052): saved on the profile in inches, typed as ft/in or cm by the unit preference. The Wave scale draws you at this height; until it is set a labelled 5'10" default is drawn. */
-function HeightField({p, set}: {p: import('../../models/index').UserProfile; set: (v: Partial<import('../../models/index').UserProfile>) => void}) {
-  const me = userHeight(p), unit = p.heightUnit === 'm' ? 'm' : 'ft';
-  const [text, setText] = useState(me.isDefault ? '' : formatHeight(me.inches, unit)), [err, setErr] = useState('');
-  useEffect(() => { setText(userHeight(p).isDefault ? '' : formatHeight(userHeight(p).inches, unit)); }, [p.heightIn, unit]); // eslint-disable-line react-hooks/exhaustive-deps
-  const commit = () => {
-    if (!text.trim()) { setErr(''); if (p.heightIn != null) set({heightIn: null}); return; }
-    const v = parseHeight(text, unit);
-    if (v === null) { setErr(unit === 'm' ? 'Enter your height in centimetres, 100 to 230, like 178.' : `Enter your height like 5'10" (3'4" to 7'6").`); return; }
-    setErr(''); set({heightIn: v});
-  };
-  return (
-    <>
-      <label className="field"><span>Height ({unit === 'm' ? 'cm' : 'ft and in'})</span>
-        <input value={text} inputMode={unit === 'm' ? 'numeric' : 'text'} placeholder={unit === 'm' ? '178' : `5'10"`} aria-invalid={!!err} aria-describedby="height-help" onChange={(e) => setText(e.target.value)} onBlur={commit} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }} />
-      </label>
-      <p id="height-help" className={err ? 'pz-err' : 'fine'} role={err ? 'alert' : undefined}>{err || (me.isDefault ? `Not set: the Wave scale draws you at ${formatHeight(me.inches, unit)} (default). Used only to draw you to scale on this device.` : `The Wave scale draws you at ${formatHeight(me.inches, unit)}. Saved on this device.`)}</p>
-      {!me.isDefault && <button type="button" className="btn" onClick={() => { setText(''); setErr(''); set({heightIn: null}); }}>Use the default</button>}
-    </>
-  );
-}
 
 /** Back to the list: also leaves the #alerts hash so the list shows. */
   const toList = () => { if (location.hash) { history.pushState(null, '', location.pathname + location.search); setHash(''); } go('personal', ''); };
