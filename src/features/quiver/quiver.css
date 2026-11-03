@@ -450,3 +450,15 @@
 /* T-065 Board Match on size + period */
 .qv-shape { color: var(--muted); font-size: 14px; }
 .qv-ranks-sp .qv-rank-t p { margin: 0; }
+
+/* ---------- T-072 board showroom (Porsche configurator reference): a real light set, live thumbnails, a hairline spec panel ---------- */
+/* Studio cyclorama: a cool off-white wall that curves into a slightly darker floor; the 3D floor pool, contact and cast shadows sit on it. */
+.br-stage { background: radial-gradient(120% 70% at 50% 62%, #fbfbfa 0%, #f2f3f2 46%, #e3e5e4 100%), #eef0ef; }
+.br-stage::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 38%; pointer-events: none; background: linear-gradient(180deg, rgb(0 0 0 / 0) 0%, rgb(30 34 36 / 0.05) 100%); }
+:root[data-theme='dark'] .br-stage { background: radial-gradient(120% 70% at 50% 62%, #2a3138 0%, #1d242a 55%, #151b20 100%); }
+/* Angle thumbnails rendered from the live scene. */
+.br-thumbs button { width: 112px; padding: 4px 4px 6px; background: var(--s1); }
+.br-th-img { display: block; width: 100%; height: 64px; object-fit: cover; border-radius: 5px; background: #f1f2f1; }
+/* The spec panel: hairline, not a boxed card. */
+.br-panel { border: 0; border-left: 1px solid var(--line); border-radius: 0; background: none; box-shadow: none; padding: 4px 0 18px 24px; }
+@media (max-width: 860px) { .br-panel { border-left: 0; padding: 12px 0 18px; } }

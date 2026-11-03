@@ -155,7 +155,7 @@ export function QuiverView({section, go}: ViewProps) {
   const selPick = sel ? picks.find((x) => x.board.id === sel.id) ?? null : null;
   const matchLine = !sizeOk ? <><b>Board Match:</b> no surf estimate for {view.spot.name} at this hour (offshore height only).</>
     : charOk && mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</>
-    : selPick ? <><b>{selPick.size.label}</b> for {estText}{period !== null ? ` · ${Math.round(period)} s ${selPick.period?.fit === 'ok' ? 'period suits it' : `period (${selPick.period?.note ?? ''})`}` : ''}. Wave shape unknown.</> : null;
+    : selPick ? <><b>Board Match:</b> {selPick.size.label.toLowerCase()} for {estText}{period !== null ? ` · ${Math.round(period)} s ${selPick.period?.fit === 'ok' ? 'period suits it' : `period (${selPick.period?.note ?? ''})`}` : ''}. Wave shape unknown.</> : null;
   const A = (b: Surfboard) => (
     <div className="qv-actions">
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
