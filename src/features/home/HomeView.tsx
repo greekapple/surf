@@ -9,6 +9,7 @@ import {useState} from 'react';
 import {dataPhase} from '../../services/dataPhase';
 import {CallBar} from '../forecast/Trust';
 import {WeekGrid} from './WeekGrid';
+import {Welcome} from './Welcome';
 import {evidenceSpots} from '../../ocean/spots';
 import {callFor} from '../forecast/trustApi';
 import './home.css';
@@ -72,18 +73,22 @@ export function HomeView({go}: ViewProps) {
         // T-067: the week at a glance, saved (or popular) spots first, then the nearest others, up to 8 rows.
         const ref = evidenceSpots.find((e) => e.id === refId);
         const near = ref ? evidenceSpots.filter((e) => !ids.includes(e.id) && spotOptions.some((x) => x.id === e.id)).map((e) => ({id: e.id, d: Math.hypot(e.latitude - ref.latitude, (e.longitude - ref.longitude) * 0.8)})).sort((a, b) => a.d - b.d).map((x) => x.id) : [];
-        const rowIds = [...ids, ...near].slice(0, 8); // nearest by distance, not by rating (nothing is rated after dark)
-        return (
+        const rowIds = [...ids, ...near].slice(0, 6); // nearest by distance, not by rating (nothing is rated after dark)
+        const rowSpots = rowIds.map((id) => spotOptions.find((x) => x.id === id)!).filter(Boolean);
+        const openAt = (id: string, iso: string | null) => { setSpot(id); if (iso) view.selectTime(iso); go('forecast'); };
+        return (<>
+          {/* T-074: the greeting and the day's answer, the best spot's photo, today at a glance and the quiver's pick. */}
+          <Welcome name={profile.displayName ?? null} spots={rowSpots} refSpot={rowSpots[0] ?? spot} records={view.mapRecords} profile={profile} bundle={bundle} extrema={bundle?.extrema}
+            boards={data.state.boards} nowMs={now} onOpen={openAt} />
           <section className="wk-s" aria-labelledby="wk-h">
             <header className="hd-head"><h2 id="wk-h">This week</h2><p className="hd-note">Surf estimate by day, the AM, midday and PM rating under it; tap a day to open it</p></header>
-            <WeekGrid spots={rowIds.map((id) => spotOptions.find((x) => x.id === id)!).filter(Boolean)} records={view.mapRecords} nowMs={now} profile={profile} bundle={bundle} unit={profile.heightUnit}
-              onOpen={(id, iso) => { setSpot(id); if (iso) view.selectTime(iso); go('forecast'); }} />
+            <WeekGrid spots={rowSpots} records={view.mapRecords} nowMs={now} profile={profile} bundle={bundle} unit={profile.heightUnit} onOpen={openAt} />
           </section>
-        );
+        </>);
       })()}
       <section className="hd" aria-labelledby="hd-h">
         <header className="hd-head">
-          <h1 id="hd-h">{personal ? 'Your spots' : 'Popular spots'}</h1>
+          <h2 id="hd-h">{personal ? 'Your spots' : 'Popular spots'}</h2>
           {!personal && <p className="hd-note">Not personalised. <a href="/personal/spots" onClick={(e) => { e.preventDefault(); go('personal', 'spots'); }}>Choose favorite spots</a></p>}
         </header>
         {waiting && <ul className="dc-grid" aria-busy="true" aria-label="Loading your spots">{(ids.length ? ids : POPULAR).slice(0, 3).map((id) => <li key={id} className="dsk" aria-hidden="true"><i className="sk-ph" /><span className="dc-body"><i className="sk-l w50" /><i className="sk-l w70" /><i className="sk-l w90" /></span></li>)}</ul>}
