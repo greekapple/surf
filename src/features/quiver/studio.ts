@@ -104,18 +104,29 @@ const smooth = (a: number, b: number, x: number) => { const t = Math.min(1, Math
 /** Soft overhead strips and a big front softbox over a pale room: resin reads as a photographed board. */
 function studioEnvironment(renderer: THREE.WebGLRenderer) {
   const room = new THREE.Scene();
-  room.add(new THREE.Mesh(new THREE.BoxGeometry(400, 260, 400), new THREE.MeshBasicMaterial({color: new THREE.Color(0xdcdcdc), side: THREE.BackSide})));
+  room.add(new THREE.Mesh(new THREE.BoxGeometry(400, 260, 400), new THREE.MeshBasicMaterial({color: new THREE.Color(0x5c6064), side: THREE.BackSide}))); // T-072: a darker room, so the strips read as highlight lines on the resin
   const panel = (w: number, h: number, pos: [number, number, number], power: number, tint = 0xffffff) => {
     const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({color: new THREE.Color(tint).multiplyScalar(power), side: THREE.DoubleSide}));
     m.position.set(...pos); m.lookAt(0, 40, 0); room.add(m);
   };
   panel(240, 40, [0, 120, 20], 12, 0xfff6ea);        // long overhead strip
+  panel(260, 10, [0, 118, -40], 16, 0xffffff);       // T-072: thin second strip, a crisp highlight line along the rails
+  // T-072: car-studio light strips. Clearcoat reflects only ~4% head-on, so gloss reads as crisp bright lines against a darker room, not as an
+  // evenly lit box. Three long ceiling strips run along the board and a bright band circles the walls, so streaks cross the deck and rails
+  // from any camera angle.
+  for (const z of [-60, 0, 60]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(360, 9), new THREE.MeshBasicMaterial({color: new THREE.Color(0xffffff).multiplyScalar(26), side: THREE.DoubleSide}));
+    m.position.set(0, 128, z); m.rotation.x = Math.PI / 2; room.add(m); }
+  for (let k = 0; k < 4; k++) { const a = (k * Math.PI) / 2, m = new THREE.Mesh(new THREE.PlaneGeometry(396, 14), new THREE.MeshBasicMaterial({color: new THREE.Color(0xfffaf2).multiplyScalar(18), side: THREE.DoubleSide}));
+    m.position.set(Math.sin(a) * 197, 84, Math.cos(a) * 197); m.rotation.y = a; room.add(m); }
+  panel(400, 120, [0, -125, 0], 0.35, 0xb8b4ac);     // T-072: darker floor below, so the bottom and rails pick up contrast
   panel(90, 150, [-150, 70, 130], 6, 0xeef3ff);   // big key softbox, front left
   panel(70, 150, [160, 60, 90], 2.2, 0xffeedd);     // warm fill, right
   panel(30, 190, [-60, 70, -170], 5);               // rim strips behind
   panel(30, 190, [80, 70, -170], 4);
   const pm = new THREE.PMREMGenerator(renderer);
-  const env = pm.fromScene(room, 0.02).texture;
+  // T-072: near/far must contain the room (fromScene defaults to far = 100; the 400-unit room and every panel sat beyond it, so the board reflected
+  // an empty environment and read as flat plastic).
+  const env = pm.fromScene(room, 0.02, 0.1, 1000).texture;
   pm.dispose();
   room.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) { m.geometry.dispose(); (m.material as THREE.Material).dispose(); } });
   return env;
@@ -191,9 +202,12 @@ export class Studio {
   private disposed = false;
   private token = 0;
   private floor: THREE.Mesh;
+  private catcher: THREE.Mesh;
+  private key!: THREE.DirectionalLight;
   private shadowTex = radialTexture(128, [[0, 'rgba(40,36,30,0.62)'], [0.4, 'rgba(40,36,30,0.28)'], [1, 'rgba(40,36,30,0)']]);
-  private finMat = new THREE.MeshPhysicalMaterial({color: 0x4a5258, roughness: 0.28, clearcoat: 0.6, clearcoatRoughness: 0.1, side: THREE.DoubleSide});
-  private baseMat = new THREE.MeshStandardMaterial({color: 0x2c3034, roughness: 0.45});
+  // T-072: fins as smoky fibreglass foils (translucent, clear-coated) so their outline and thin edge read, not a black blob.
+  private finMat = new THREE.MeshPhysicalMaterial({color: 0x7e95a0, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.05, transmission: 0.45, thickness: 0.25, ior: 1.5, attenuationColor: new THREE.Color(0x46606c), attenuationDistance: 0.6, side: THREE.DoubleSide});
+  private baseMat = new THREE.MeshStandardMaterial({color: 0x3a4045, roughness: 0.4});
   private rigs = new Map<string, Rig>();
   private raycaster = new THREE.Raycaster();
 
@@ -219,7 +233,7 @@ export class Studio {
     r.toneMapping = THREE.NeutralToneMapping; r.toneMappingExposure = 1.04;
     r.setClearColor(0x000000, 0);
     this.env = studioEnvironment(r);
-    this.scene.environment = this.env; this.scene.environmentIntensity = 1.3;
+    this.scene.environment = this.env; this.scene.environmentIntensity = 0.42; // T-072: the environment now actually renders (see studioEnvironment); 1.3 washed the colour out
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d4cc, 0.55)); // light set: white wall above, pale floor bounce below
 
     // Gallery floor: a soft pool of light that fades into the CSS backdrop, so there is no hard horizon.
@@ -229,6 +243,13 @@ export class Studio {
     }));
     this.floor.rotation.x = -Math.PI / 2; this.floor.renderOrder = 1; this.scene.add(this.floor);
     const key = new THREE.DirectionalLight(0xfff3e4, 2.4); key.position.set(-80, 220, 160); this.scene.add(key);
+    // T-072: a real soft shadow from the key light onto the floor (focus view), on top of the contact pool. Lineup with the photo room has its own.
+    r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.key = key; key.castShadow = mode === 'focus'; key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 6; key.shadow.bias = -0.0005;
+    Object.assign(key.shadow.camera, {left: -110, right: 110, top: 110, bottom: -110, near: 20, far: 600});
+    this.catcher = new THREE.Mesh(new THREE.PlaneGeometry(700, 700), new THREE.ShadowMaterial({opacity: 0.2}));
+    this.catcher.rotation.x = -Math.PI / 2; this.catcher.position.y = 0.04; this.catcher.receiveShadow = true; this.catcher.renderOrder = 2;
+    this.catcher.visible = mode === 'focus'; this.scene.add(this.catcher);
     const rim = new THREE.DirectionalLight(0xdbe6ff, 1.1); rim.position.set(90, 120, -160); this.scene.add(rim);
     const fill = new THREE.DirectionalLight(0xffffff, 1.0); fill.position.set(120, 60, 220); this.scene.add(fill);
 
@@ -443,6 +464,38 @@ export class Studio {
     this.kick();
   }
 
+  /** T-072: thumbnails of the preset angles rendered from the live scene (the board as it is now: shape, colour, fins), as image URLs.
+   *  Renders each pose once into a small render target and restores the camera; nothing visible moves. Focus mode only. */
+  snapshot(presets: Preset[], w = 200, h = 128): Record<string, string> {
+    const out: Record<string, string> = {};
+    if (this.mode !== 'focus' || this.disposed || !this.sel()?.resin) return out;
+    const cam = this.camera, keep = {pos: cam.position.clone(), aspect: cam.aspect, target: this.controls.target.clone(), flip: this.flipAngle, spin: this.spinAngle};
+    const W = w * 2, H = h * 2, rt = new THREE.WebGLRenderTarget(W, H, {samples: 4, colorSpace: THREE.SRGBColorSpace}), px = new Uint8Array(W * H * 4);
+    const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d')!;
+    const clear = new THREE.Color(), alpha = this.renderer.getClearAlpha(); this.renderer.getClearColor(clear);
+    this.renderer.setClearColor(0xf1f2f1, 1); // the thumbnail's own light ground (in the stage the canvas is transparent over CSS)
+    cam.aspect = w / h; cam.updateProjectionMatrix();
+    try {
+      for (const p of presets) {
+        const pose = this.focusPose(p), q = this.presetPose(p);
+        cam.position.setFromSpherical(pose.s).add(pose.target); cam.lookAt(pose.target);
+        this.flipAngle = pose.flip; this.spinAngle = q.spin;
+        for (const rig of this.rigs.values()) this.pose(rig);
+        this.renderer.setRenderTarget(rt); this.renderer.render(this.scene, cam);
+        this.renderer.readRenderTargetPixels(rt, 0, 0, W, H, px);
+        const img = g.createImageData(W, H);
+        for (let y = 0; y < H; y++) img.data.set(px.subarray((H - 1 - y) * W * 4, (H - y) * W * 4), y * W * 4); // WebGL rows are bottom-up
+        g.putImageData(img, 0, 0); out[p] = c.toDataURL('image/jpeg', 0.86);
+      }
+    } finally {
+      this.renderer.setRenderTarget(null); this.renderer.setClearColor(clear, alpha); rt.dispose();
+      cam.aspect = keep.aspect; cam.updateProjectionMatrix(); cam.position.copy(keep.pos); this.controls.target.copy(keep.target); cam.lookAt(keep.target);
+      this.flipAngle = keep.flip; this.spinAngle = keep.spin; for (const rig of this.rigs.values()) this.pose(rig);
+      this.dirty = true; this.kick();
+    }
+    return out;
+  }
+
   /** Focus presets (deck, bottom, rail, tail, nose, three-quarter, 360). */
   goTo(p: Preset) {
     if (this.mode !== 'focus') return;
@@ -462,6 +515,7 @@ export class Studio {
     if (mode === 'focus') { this.preset = 'deck'; this.spinOn = !this.reduced; this.spinAngle = 0.4; this.flipAngle = 0; }
     else { this.framing = 'all'; this.spinOn = false; this.preset = null; }
     this.floor.visible = !(this.room && mode === 'lineup'); for (const b of this.roomBits) b.visible = !!this.room && mode === 'lineup';
+    this.catcher.visible = mode === 'focus'; this.key.castShadow = mode === 'focus'; // T-072: the cast shadow belongs to the focus set
     this.layout();
     for (const r of this.rigs.values()) this.pose(r);
     this.snapFrame(); this.dirty = true; this.kick();
@@ -594,7 +648,7 @@ export class Studio {
       if (rig.tplKey !== key || !rig.tpl) {
         rig.shape.clear(); rig.resin?.geometry.dispose(); rig.stringer?.geometry.dispose();
         rig.tpl = cloneTpl(tpls[i]); rig.tplKey = key; rig.fillKey = ''; rig.lookKey = ''; rig.finKey = '';
-        rig.resin = new THREE.Mesh(rig.tpl.resin.geom, rig.resinMat); rig.stringer = new THREE.Mesh(rig.tpl.stringer.geom, rig.stringerMat);
+        rig.resin = new THREE.Mesh(rig.tpl.resin.geom, rig.resinMat); rig.stringer = new THREE.Mesh(rig.tpl.stringer.geom, rig.stringerMat); rig.resin.castShadow = rig.stringer.castShadow = true;
         rig.shape.add(rig.resin, rig.stringer);
       }
       this.applyShape(rig);
@@ -747,7 +801,7 @@ export class Studio {
           m.material = (m.material as THREE.Material).name === 'FinBase' ? this.baseMat : this.finMat;
         });
         fin.position.copy(hit.point).addScaledVector(n, -0.05); fin.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), n.clone().negate());
-        fin.scale.setScalar(f.scale);
+        fin.scale.setScalar(f.scale); fin.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.castShadow = true; });
         rig.fins.add(fin);
       }
       this.dirty = true; this.kick();

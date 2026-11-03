@@ -119,6 +119,10 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
     const dims = mine ? d.dims : pickDims(b), tpl = templateFor({type: b.type, length: dims.length}), o = loadOutline(b.id), tr = o ? tracedTpl(b.id, tpl, o) : null;
     return {id: b.id, spec: {template: tpl, ...dims, tail: mine ? d.tail : b.tail}, look: mine ? d.look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {})};
   };
+  // T-072 (Porsche pattern): the angle thumbnails are rendered from the live scene, so they show this board as configured right now.
+  const [thumbs, setThumbs] = useState<Record<string, string>>({}), thumbTimer = useRef(0);
+  const refreshThumbs = () => { window.clearTimeout(thumbTimer.current); thumbTimer.current = window.setTimeout(() => { const s = studio.current; if (s && !shown.current) { const t = s.snapshot(ANGLES.map((a) => a.id)); if (Object.keys(t).length) setThumbs(t); } }, 900); };
+  useEffect(() => () => window.clearTimeout(thumbTimer.current), []);
   const shown = useRef<string | null | undefined>(undefined); // what the stage last showed: undefined (nothing yet), null (one board) or the compared id
   useEffect(() => {
     const s = studio.current; if (!s) return;
@@ -128,6 +132,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
       if (now) { if (was !== now) s.frame('all'); return; }
       // First view, or back from Compare: the chosen angle, still (setMode starts an auto-spin we do not want here).
       if (was !== null) { if (spinRef.current) s.goTo('360'); else { s.setSpin(false); s.goTo(ANGLES[angleRef.current].id); } }
+      refreshThumbs();
     });
   }, [board.id, other?.id, d.dims.length, d.dims.width, d.dims.thickness, d.dims.volume, d.tail, JSON.stringify(d.look)]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -235,7 +240,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
         </div>
         <div className="br-thumbs" role="group" aria-label="Camera angle">
           {ANGLES.map((a, i) => (
-            <button key={a.id} type="button" aria-pressed={!compare && !spin && angle === i} onClick={() => go(i)}><AngleGlyph id={a.id} /><span>{a.label}</span></button>
+            <button key={a.id} type="button" aria-pressed={!compare && !spin && angle === i} onClick={() => go(i)}>{thumbs[a.id] ? <img className="br-th-img" src={thumbs[a.id]} alt="" width={100} height={64} /> : <AngleGlyph id={a.id} />}<span>{a.label}</span></button>
           ))}
         </div>
         {onPick && boards.length > 1 && (
