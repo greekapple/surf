@@ -1,5 +1,23 @@
 {
   "worktree": {
     "baseRef": "head"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git merge *)",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/tools/review/codex-review.sh HEAD",
+            "async": true,
+            "asyncRewake": true,
+            "timeout": 900,
+            "statusMessage": "Codex reviewing the merge"
+          }
+        ]
+      }
+    ]
   }
 }
