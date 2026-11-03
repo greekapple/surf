@@ -15,7 +15,7 @@ const weather = {hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°'
 const records = normalizeOpenMeteo(evidenceSpot('spot-2'), marine, weather, new Date(now).toISOString()).map(toLegacy);
 const hourIso = new Date(t * 1000).toISOString();
 const env = {records, nowMs: now};
-const pair = (central: number, method: 'v1' | 'mop-v2' = 'v1') => ({centralFt: central, loFt: central * 0.7, hiFt: central * 1.4, method, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14});
+const pair = (central: number, method: 'v1' | 'mop-v2' = 'v1') => ({centralFt: central, loFt: central * 0.7, hiFt: central * 1.4, method, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'central' as const});
 const ob = (i: number, observed: number, central: number, spotId = 'spot-2', method: 'v1' | 'mop-v2' = 'v1') => ({id: 'o' + i, schema: 1 as const, spotId, observedAt: hourIso, loggedAt: hourIso, rangeFt: [observed, observed] as [number, number], faceFt: observed, pair: pair(central, method)});
 
 test('median and quartiles', () => {
@@ -53,7 +53,7 @@ test('headline: uncalibrated output is identical below the threshold; at 8 it is
 });
 test('pairing: the model estimate for the same spot-hour (uncalibrated), with offshore Hs and Tp; a different hour or no record pairs nothing', () => {
   const p = pairFor('spot-2', records, t * 1000 + 120000, null, now)!, h = headlineSurf('spot-2', records[1], {nowMs: now, observations: []}) as any;
-  assert.equal(p.method, h.method); assert.equal(p.centralFt, (h.loFt + h.hiFt) / 2); assert.equal(p.validAt, hourIso); assert.ok(p.offshoreHsFt! > 0); assert.equal(p.primaryTpS, 14);
+  assert.equal(p.method, h.method); assert.equal(p.centralFt, h.centralFt); assert.ok(h.centralFt > 0); assert.equal(p.validAt, hourIso); assert.ok(p.offshoreHsFt! > 0); assert.equal(p.primaryTpS, 14);
   assert.equal(pairFor('spot-2', records, (t - 5 * 3600) * 1000, null, now), null); assert.equal(pairFor('spot-2', undefined, t * 1000, null, now), null);
 });
 test('API: log, list, latest same Pacific day, delete, subscribe, validation errors', () => {

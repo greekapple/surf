@@ -7,7 +7,7 @@ import {headlineSurf} from './headlineSurf.ts';
  *  `run` is when WE retrieved the data (the provider does not supply the model issue time), so `lead` is hours from our retrieval to the hour predicted. */
 export const ARCHIVE_KEY = 'swello-forecast-archive';
 export const ARCHIVE_DAYS = 14, ARCHIVE_MAX = 8000, ARCHIVE_THROTTLE_MS = 30 * 60000, MAX_PER_HOUR = 4;
-export interface ArchivedHour {s: string; v: string; lo: number | null; hi: number | null; k: 'estimate' | 'demonstration' | 'offshore' | 'none'; m: 'mop-v2' | 'v1' | null; off: number | null; tp: number | null; run: string; seen: string; lead: number}
+export interface ArchivedHour {s: string; v: string; lo: number | null; hi: number | null; /** the method's central height (T-073) */ c?: number; k: 'estimate' | 'demonstration' | 'offshore' | 'none'; m: 'mop-v2' | 'v1' | null; off: number | null; tp: number | null; run: string; seen: string; lead: number}
 type Store = Pick<Storage, 'getItem' | 'setItem'>;
 const defaultStore = (): Store | null => { try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch { return null; } };
 const ok = (o: any): o is ArchivedHour => o && typeof o.s === 'string' && Number.isFinite(Date.parse(o.v)) && Number.isFinite(Date.parse(o.seen)) && typeof o.k === 'string';
@@ -28,7 +28,7 @@ export function archiveHours(spotId: string, records: Forecast[], bundle: Pick<O
   for (const f of mine) {
     const h = headlineSurf(spotId, f, {nowMs, observations: [], bundle}), run = f.evidence?.offshore.source.retrievedAt, runMs = Date.parse(run ?? ''), v = Date.parse(f.timestamp);
     const lead = Number.isFinite(runMs) ? Math.max(0, (v - runMs) / 3600000) : Math.max(0, (v - nowMs) / 3600000);
-    const e: ArchivedHour = {s: spotId, v: f.timestamp, lo: h.kind === 'estimate' ? h.loFt : h.kind === 'none' ? null : h.kind === 'offshore' || h.kind === 'demonstration' ? h.ft : null, hi: h.kind === 'estimate' ? h.hiFt : h.kind === 'none' ? null : h.ft,
+    const e: ArchivedHour = {s: spotId, v: f.timestamp, ...(h.kind === 'estimate' && Number.isFinite(h.centralFt) ? {c: h.centralFt} : {}), lo: h.kind === 'estimate' ? h.loFt : h.kind === 'none' ? null : h.kind === 'offshore' || h.kind === 'demonstration' ? h.ft : null, hi: h.kind === 'estimate' ? h.hiFt : h.kind === 'none' ? null : h.ft,
       k: h.kind, m: h.kind === 'estimate' ? h.method : null, off: Number.isFinite(f.offshore) ? Math.round(f.offshore * 10) / 10 : null, tp: Number.isFinite(f.primary?.period) ? f.primary.period : null,
       run: Number.isFinite(runMs) ? run! : new Date(nowMs).toISOString(), seen: new Date(nowMs).toISOString(), lead: Math.round(lead * 10) / 10};
     // Snapshots are APPENDED, never overwritten: a later visit (even in the same lead bucket) must not erase what was shown before a session. At most MAX_PER_HOUR are kept per spot-hour: the earliest and the most recent ones.

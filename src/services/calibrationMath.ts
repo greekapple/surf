@@ -20,7 +20,7 @@ export function quantile(a: number[], q: number): number { const s = [...a].sort
 export const observedFt = (o: SessionObservation): number => (typeof o.faceFt === 'number' ? o.faceFt : (o.rangeFt[0] + o.rangeFt[1]) / 2);
 /** The paired observations usable for one spot and method. */
 export function pairsFor(log: SessionObservation[], spotId: string, method: Method) {
-  return log.filter((o) => o.spotId === spotId && o.pair && o.pair.method === method && o.pair.centralFt >= MIN_MODEL_FT).map((o) => ({ratio: observedFt(o) / o.pair!.centralFt, obs: o}));
+  return log.filter((o) => o.spotId === spotId && o.pair && o.pair.basis === 'central' && o.pair.method === method && o.pair.centralFt >= MIN_MODEL_FT).map((o) => ({ratio: observedFt(o) / o.pair!.centralFt, obs: o}));
 }
 export function fitFor(log: SessionObservation[], spotId: string, method: Method, felt: FeltCounts = {low: 0, right: 0, high: 0}): CalibrationFit {
   const r = pairsFor(log, spotId, method).map((x) => x.ratio), n = r.length, fc = feltFactor(felt);
