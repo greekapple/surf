@@ -40,6 +40,7 @@ ap.add_argument('--look', type=float, default=0.0, help='debug: shift the camera
 ap.add_argument('--atlas', default='', help='write the wave-v3 profile atlas for every bucket (or --bands) to this folder, then exit')
 ap.add_argument('--bands', default='', help='with --atlas: comma list of band ids (default: all)')
 ap.add_argument('--breaker', default='', help="with --atlas: force 'spilling' or 'plunging' (default: per bucket family)")
+ap.add_argument('--variants', action='store_true', help='with --atlas: also write the other breaker per bucket (<band>-spilling / -plunging)')
 a = ap.parse_args(argv)
 
 H = a.face
@@ -76,7 +77,7 @@ if a.atlas:
     # wave-v3 P1: the break-cycle profile atlas for the live viewer (licensed-derived: write it to a git-ignored folder)
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import wave_atlas
-    wave_atlas.build_all(HUMP, MID, BARREL, a.atlas, only=[b for b in a.bands.split(',') if b] or None, breaker=a.breaker or None)
+    wave_atlas.build_all(HUMP, MID, BARREL, a.atlas, only=[b for b in a.bands.split(',') if b] or None, breaker=a.breaker or None, variants=a.variants)
     sys.exit(0)
 
 

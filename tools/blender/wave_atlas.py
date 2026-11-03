@@ -335,10 +335,14 @@ def resample(curves, foams, face, floor_m, y0, y1):
     return out
 
 
+def default_breaker(family):
+    return 'spilling' if family == 'spiller' else 'plunging'
+
+
 def build_band(src, band, breaker=None):
     bid, face, family, period, slope, peel = band
     phys = band_physics(face, period, slope, peel)
-    breaker = breaker or ('spilling' if family == 'spiller' else 'plunging')
+    breaker = breaker or default_breaker(family)
     curves, foams, shape = stage_curves(src, face, breaker, phys)
     ymin = min(p[:, 0].min() for p in curves) * face
     ymax = max(p[:, 0].max() for p in curves) * face
@@ -348,8 +352,9 @@ def build_band(src, band, breaker=None):
     peel_sin = math.sin(math.radians(peel))
     bed_along = slope * math.cos(math.radians(peel))     # depth change per metre along the crest line
     cycle_s = period * (0.75 if breaker == 'spilling' else 0.5)
+    # file id: the family's own breaker is the plain band id; the forced other breaker gets a suffix (viewer: waveAtlas.atlasId)
     meta = dict(
-        band=bid, face_m=face, family=family, breaker=breaker, period_s=period, slope=slope, peel_angle_deg=peel, breaker_index=GAMMA,
+        band=bid + ('' if breaker == default_breaker(family) else '-' + breaker), face_m=face, family=family, breaker=breaker, period_s=period, slope=slope, peel_angle_deg=peel, breaker_index=GAMMA,
         stages=NS, points=NP, layout='float16 RGBA, width=points, height=2*stages; rows 0..stages-1 (y, z, thin, foam), '
         'rows stages.. (thickness, arc, normal_y, normal_z); metres, y cross-shore (+ beach), z up',
         stage_feather=S_FEATHER, stage_pitch=S_PITCH, stage_land=S_LAND, y0_m=y0, y1_m=y1,
@@ -368,16 +373,20 @@ def write_band(out_dir, atlas, meta):
         json.dump(meta, fh, indent=1)
 
 
-def build_all(hump, mid, barrel, out_dir, only=None, breaker=None):
+def build_all(hump, mid, barrel, out_dir, only=None, breaker=None, variants=False):
+    """variants: also write the other breaker for every bucket (<band>-spilling / <band>-plunging), so the viewer can draw the
+    forecast hour's estimated breaker type (breaker.ts) at any size."""
     src = Source(hump, mid, barrel)
     res = []
     for band in BANDS:
         if only and band[0] not in only:
             continue
-        atlas, meta, curves = build_band(src, band, breaker)
-        write_band(out_dir, atlas, meta)
-        print('ATLAS', meta['band'], meta['family'], 'xi %.2f' % meta['iribarren'], 'plunge %.2f' % meta['plunge'],
-              'peel %.1f m/s' % meta['peel_speed_mps'], 'break_len %.1f m' % meta['break_len_m'], 'shoulder %.1f m' % meta['shoulder_len_m'],
-              'bytes', atlas.size * 2)
-        res.append((atlas, meta))
+        kinds = [breaker] if breaker else ([None, 'spilling' if default_breaker(band[2]) == 'plunging' else 'plunging'] if variants else [None])
+        for kind in kinds:
+            atlas, meta, curves = build_band(src, band, kind)
+            write_band(out_dir, atlas, meta)
+            print('ATLAS', meta['band'], meta['family'], meta['breaker'], 'xi %.2f' % meta['iribarren'], 'plunge %.2f' % meta['plunge'],
+                  'peel %.1f m/s' % meta['peel_speed_mps'], 'break_len %.1f m' % meta['break_len_m'], 'shoulder %.1f m' % meta['shoulder_len_m'],
+                  'bytes', atlas.size * 2)
+            res.append((atlas, meta))
     return res
