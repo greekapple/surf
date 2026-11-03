@@ -28,7 +28,7 @@ export function useDismiss(open: boolean, close: () => void, box: React.RefObjec
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
-export interface FieldChoice {id: string; label: string; icon: IconName}
+export interface FieldChoice {id: string; label: string; short?: string; icon: IconName}
 /** The single layer control (Windy/Apple): a button that opens one popover with the colour field and two overlays. */
 export function LayerMenu({fields, field, on, setField, flow, setFlow, arrows, setArrows, onPoint, note}: {
   fields: FieldChoice[]; field: string; on: boolean; setField: (id: string | null) => void; flow: boolean; setFlow: (v: boolean) => void; arrows: boolean; setArrows: (v: boolean) => void; onPoint: () => void; note: ReactNode;
@@ -45,7 +45,7 @@ export function LayerMenu({fields, field, on, setField, flow, setFlow, arrows, s
           <div className="xlm-grid" role="radiogroup" aria-label="Colour the sea by">
             {[...fields, {id: '', label: 'None', icon: 'close' as IconName}].map((f) => {
               const sel = f.id ? on && field === f.id : !on;
-              return <button key={f.id || 'none'} role="radio" aria-checked={sel} onClick={() => setField(f.id || null)}><Icon name={f.icon} size={18} /><span>{f.label}</span></button>;
+              return <button key={f.id || 'none'} role="radio" aria-checked={sel} aria-label={f.label} title={f.label} onClick={() => setField(f.id || null)}><Icon name={f.icon} size={18} /><span>{f.short ?? f.label}</span></button>;
             })}
           </div>
           <ul className="xlm-sw">

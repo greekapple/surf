@@ -388,3 +388,11 @@ button.xstatus { cursor: pointer; font: inherit; }
   .cx-act { margin-top: 4px; } .cx-act .btn:first-child { flex: 1; justify-content: center; }
   .qv-duel figcaption b { font-size: 17px; } .qv-duel figcaption .fine { font-size: 12px; }
 }
+/* T-096: the layers popover never overflows. Short chip words (the full honest name is the aria-label and leads the source line), a wrapping
+   grid (3 across on desktop, 2 on phones), and long rows wrap instead of pushing out. */
+.xlm-pop { box-sizing: border-box; max-width: calc(100vw - 24px); overflow-x: hidden; }
+.xlm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.xlm-grid button { min-width: 0; overflow-wrap: anywhere; }
+.xlm-pt { width: 100%; box-sizing: border-box; text-align: left; }
+.xpop-note { overflow-wrap: anywhere; }
+@media (max-width: 860px) { .xlm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .xlm-grid button { min-height: 52px; } }

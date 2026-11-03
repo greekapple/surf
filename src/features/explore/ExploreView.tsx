@@ -28,11 +28,11 @@ import './explore.css';
 
 /** Field layers the regional grids can actually supply. One is shown at a time. */
 type FieldId = 'waves' | 'swell' | 'period' | 'wind';
-const FIELDS: {id: FieldId; label: string; icon: IconName; layer: MapLayer; variable: MapVariable; unit: SpatialFrame['unit']; note: string}[] = [
-  {id: 'waves', label: 'Offshore wave height · not surf size', icon: 'waves', layer: 'WAVES', variable: 'Offshore Hs', unit: 'm', note: 'Combined significant wave height (WW3), offshore'},
-  {id: 'swell', label: 'Swell height', icon: 'tide', layer: 'SWELL', variable: 'Height', unit: 'm', note: 'Swell partition height (WW3), offshore'},
-  {id: 'period', label: 'Wave period', icon: 'forecast', layer: 'WAVES', variable: 'Period', unit: 's', note: 'Peak wave period (WW3)'},
-  {id: 'wind', label: 'Wind', icon: 'wind', layer: 'WIND', variable: 'Speed', unit: 'm/s', note: '10 m wind speed (GFS), 3-hourly'},
+const FIELDS: {id: FieldId; label: string; /** T-096: the chip's word in the layers popover; `label` stays the honest full name */ short: string; icon: IconName; layer: MapLayer; variable: MapVariable; unit: SpatialFrame['unit']; note: string}[] = [
+  {id: 'waves', label: 'Offshore wave height · not surf size', short: 'Offshore waves', icon: 'waves', layer: 'WAVES', variable: 'Offshore Hs', unit: 'm', note: 'Combined significant wave height (WW3), offshore'},
+  {id: 'swell', label: 'Swell height', short: 'Swell', icon: 'tide', layer: 'SWELL', variable: 'Height', unit: 'm', note: 'Swell partition height (WW3), offshore'},
+  {id: 'period', label: 'Wave period', short: 'Period', icon: 'forecast', layer: 'WAVES', variable: 'Period', unit: 's', note: 'Peak wave period (WW3)'},
+  {id: 'wind', label: 'Wind', short: 'Wind', icon: 'wind', layer: 'WIND', variable: 'Speed', unit: 'm/s', note: '10 m wind speed (GFS), 3-hourly'},
 ];
 const sectionField = (section: string): FieldId => (section === 'wind' ? 'wind' : section === 'swell' ? 'swell' : 'waves');
 const fieldSection: Record<FieldId, string> = {waves: '', swell: 'swell', period: '', wind: 'wind'};

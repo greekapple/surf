@@ -408,3 +408,5 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
   .foot a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; justify-content: center; }
 }
 .skip { min-height: 44px; }
+/* T-096: the 44 px header targets (T-095) pushed the bar 13 px past a 320 px screen; tighten the gaps and logo on very narrow phones. */
+@media (max-width: 360px) { .nav-end { gap: 0; } .area-link { padding-left: 2px; min-width: 44px; justify-content: center; } .brand { gap: 6px; } .brand b, .brand span { font-size: 20px; } }
