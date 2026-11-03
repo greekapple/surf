@@ -2,6 +2,7 @@ import L from 'leaflet';
 import type {SpatialFrame} from './spatial';
 import coast from './coast.json';
 import globeLand from './land-globe.json';
+import {isEnclosedWater} from './enclosed';
 
 /** Display ramp (deep blue → cyan → green → yellow → orange → red), shared by the field and its legend. */
 export const RAMP = ['#1b2a7a', '#1f5fbf', '#1fa6d6', '#2fc7a6', '#8fd65a', '#f2d84a', '#f59a32', '#e2502c', '#a3203a'];
@@ -82,7 +83,7 @@ export interface FieldOpts {heat: boolean; flow: boolean; arrows: boolean; opaci
 export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
   const field = fields[0];
   /** First field with a value wins: the regional 0.5° grid, then the global 2° grid underneath. */
-  const sampleAll = (k: 'val' | 'u' | 'v', lat: number, lon: number) => { for (const f of fields) { const v = sample(f, f[k], lat, lon); if (!Number.isNaN(v)) return v; } return NaN; };
+  const sampleAll = (k: 'val' | 'u' | 'v', lat: number, lon: number) => { if (isEnclosedWater(lat, lon)) return NaN; /* T-092: enclosed waters are not covered by the wave-model grid */ for (const f of fields) { const v = sample(f, f[k], lat, lon); if (!Number.isNaN(v)) return v; } return NaN; };
   for (const [name, z] of [['field', 420], ['flow', 430]] as const) if (!map.getPane(name)) { const p = map.createPane(name); p.style.zIndex = String(z); p.style.pointerEvents = 'none'; }
   const mk = (pane: string) => { const c = document.createElement('canvas'); c.className = `xfield-${pane}`; c.setAttribute('aria-hidden', 'true'); c.style.position = 'absolute'; map.getPane(pane)!.append(c); return c; };
   const heat = mk('field'), flow = mk('flow'), mask = document.createElement('canvas');
@@ -99,16 +100,24 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
     // Land mask at screen resolution (also used to keep particles at sea).
     mask.width = s.x; mask.height = s.y; const m = mask.getContext('2d', {willReadFrequently: true})!; m.fillStyle = '#000'; fillLand(m, map);
     lw = s.x; lh = s.y; land = m.getImageData(0, 0, lw, lh).data;
+    const notCovered: {x: number; y: number}[] = [];
     if (opts.heat) {
       const step = 4, w = Math.ceil(s.x / step), h = Math.ceil(s.y / step), img = new ImageData(w, h);
       const lon = Array.from({length: w}, (_, i) => map.containerPointToLatLng([i * step, 0]).lng), lat = Array.from({length: h}, (_, j) => map.containerPointToLatLng([0, j * step]).lat);
+      const encl: number[] = [];
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
+        if (isEnclosedWater(lat[j], lon[i])) { encl.push(i, j); continue; }
         const val = sampleAll('val', lat[j], lon[i]); if (Number.isNaN(val)) continue;
         const [r, g, b] = rampColor((val - range[0]) / (range[1] - range[0])), k = (j * w + i) * 4;
         img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * opts.opacity);
       }
       const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h; tmp.getContext('2d')!.putImageData(img, 0, 0);
       ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.filter = 'blur(5px)'; ctx.drawImage(tmp, 0, 0, w * step, h * step); ctx.filter = 'none';
+      // Enclosed waters (bays, harbours) are NOT covered: a light diagonal hatch says so instead of a colour (T-092).
+      ctx.fillStyle = 'rgb(120 130 140 / 0.30)'; for (let q = 0; q < encl.length; q += 2) if ((encl[q] + encl[q + 1]) % 2 === 0) ctx.fillRect(encl[q] * step, encl[q + 1] * step, step, step);
+      // One quiet "Not covered" label per large enclosed area (bins of 12 x 12 sample cells; a bin needs at least 70 enclosed cells).
+      const bins = new Map<string, {n: number; x: number; y: number}>(); for (let q = 0; q < encl.length; q += 2) { const k = `${Math.floor(encl[q] / 12)}|${Math.floor(encl[q + 1] / 12)}`, b = bins.get(k) ?? {n: 0, x: 0, y: 0}; b.n++; b.x += encl[q]; b.y += encl[q + 1]; bins.set(k, b); }
+      for (const b of [...bins.values()].sort((p, q) => q.n - p.n)) { if (b.n < 70) break; const x = (b.x / b.n) * step, y = (b.y / b.n) * step; if (notCovered.some((m) => Math.hypot(m.x - x, m.y - y) < 260)) continue; notCovered.push({x, y}); }
     }
     if (opts.arrows || (opts.flow && opts.reducedMotion)) {
       ctx.strokeStyle = 'rgb(255 255 255 / 0.85)'; ctx.lineWidth = 1.4; ctx.beginPath();
@@ -122,7 +131,12 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
       ctx.stroke();
     }
     // Trim everything over land so the coastline in the imagery stays crisp.
-    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000'; fillLand(ctx, map); ctx.globalCompositeOperation = 'source-over';
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000'; fillLand(ctx, map);
+    // The 1:10m coastline plus the blur leave a thin fringe of colour on the land edge: trim a 2 px band along the coast as well (T-092).
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.beginPath(); for (const r of rings) r.forEach(([lon, lat], i) => { const p = map.latLngToContainerPoint([lat, lon]); if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.stroke();
+    ctx.globalCompositeOperation = 'source-over';
+    // Labels last, so the land trim cannot clip them (a white halo keeps them legible over the hatch).
+    if (notCovered.length) { ctx.font = '600 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 3; ctx.strokeStyle = 'rgb(255 255 255 / 0.85)'; ctx.fillStyle = 'rgb(60 70 80 / 0.9)'; for (const m of notCovered) { ctx.strokeText('Not covered', m.x, m.y); ctx.fillText('Not covered', m.x, m.y); } }
     // Arrows were trimmed with the field; that is intended (sea state only).
   };
   const onLand = (x: number, y: number) => x < 0 || y < 0 || x >= lw || y >= lh || land[((y | 0) * lw + (x | 0)) * 4 + 3] > 0;
