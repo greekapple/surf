@@ -1,0 +1,58 @@
+# T-090: daily surf-height validation. Runs docs/forecast/data/validate-surf-height.ts (live public feeds: Open-Meteo, CDIP MOP, NDBC), which appends the day's
+# v2 headlines to validation-archive.jsonl and rewrites VALIDATION.md. The two generated files are committed to the separate `validation-data` branch only:
+# the default branch is never written to and no pull request is opened. Needs no secrets (the built-in GITHUB_TOKEN with contents: write is enough).
+# Uses the public repository's free Actions minutes (about 2 to 4 minutes per run).
+name: validate-surf-height
+
+on:
+  schedule:
+    - cron: '17 8 * * *' # 08:17 UTC daily (00:17 PST), after the previous Pacific day's hours have matured
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: validate-surf-height
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Restore the archive from the data branch
+        run: |
+          # distinguish "branch absent" (first run) from a transient fetch failure (fail the run, do not start a new history)
+          if git ls-remote --exit-code --heads origin validation-data >/dev/null 2>&1; then
+            git fetch --depth=1 origin validation-data
+            git show origin/validation-data:docs/forecast/data/validation-archive.jsonl > /tmp/archive.restored
+            mv /tmp/archive.restored docs/forecast/data/validation-archive.jsonl
+          fi
+      - name: Run the validation
+        run: node --experimental-strip-types docs/forecast/data/validate-surf-height.ts
+      - name: Commit the generated files to the data branch
+        run: |
+          set -e
+          cp docs/forecast/data/validation-archive.jsonl /tmp/validation-archive.jsonl
+          cp docs/forecast/VALIDATION.md /tmp/VALIDATION.md
+          git config user.name "swello-validation-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin validation-data >/dev/null 2>&1; then
+            git fetch --depth=1 origin validation-data
+            git checkout -f -B validation-data origin/validation-data
+          else
+            git checkout -f --orphan validation-data
+            git rm -rf --quiet . || true
+          fi
+          mkdir -p docs/forecast/data
+          cp /tmp/validation-archive.jsonl docs/forecast/data/validation-archive.jsonl
+          cp /tmp/VALIDATION.md docs/forecast/VALIDATION.md
+          git add docs/forecast/data/validation-archive.jsonl docs/forecast/VALIDATION.md
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "validation: daily run $(date -u +%Y-%m-%d)"
+          git push origin validation-data

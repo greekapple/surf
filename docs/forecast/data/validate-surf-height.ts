@@ -7,7 +7,7 @@
 // Writes docs/forecast/VALIDATION.md.
 import fs from 'node:fs';
 import {normalizeNearshore} from '../../../src/ocean/nearshore.ts';
-import {mopURL, assignedMopIds, assignmentFor} from '../../../src/ocean/mop.ts';
+import {mopURL, assignedMopIds, assignmentFor, mopPoint} from '../../../src/ocean/mop.ts';
 import {evidenceSpots} from '../../../src/ocean/spots.ts';
 import {marineURL, weatherURL, normalizeOpenMeteo} from '../../../src/ocean/openMeteo.ts';
 import {toLegacy} from '../../../src/ocean/bridge.ts';
@@ -46,7 +46,7 @@ for (const id of assignedMopIds()) {
   } catch { /* point unavailable */ }
 }
 
-type Row = {lead: number; spot: string; central: number; lo: number; hi: number; lo2: number; hi2: number; buoyId?: string; mop?: number; buoy?: number};
+type Row = {off?: number; kd?: number; shelter?: number; depth?: number; windFrac?: number; lead: number; spot: string; central: number; lo: number; hi: number; lo2: number; hi2: number; buoyId?: string; mop?: number; buoy?: number};
 const rows: Row[] = [];
 for (const s of evidenceSpots) {
   const a = assignmentFor(s.id), prof = breakingProfile(s.id); if (!a || !prof || s.orientation === null || !nowcast[a.mopId]) continue;
@@ -63,7 +63,7 @@ for (const s of evidenceSpots) {
     const r = estimateBreaking({swellHsFt: hs * FT, periodS: tp, directionDeg: dp, combinedHsFt: typeof tot === 'number' ? tot * FT : null, secondaryHsFt: null}, prof, s.orientation); if (!r.ok) continue;
     const iv = intervalFor({method: 'v1', centralFt: r.nearshoreFt, leadHours: n * 24, modelSpread: null})!, iv2 = intervalFor({method: 'mop-v2', centralFt: r.nearshoreFt, leadHours: n * 24, modelSpread: null})!;
     const bu = bo?.get(vt), rb = bu ? estimateBreaking({swellHsFt: bu.hs * FT, periodS: bu.tp, directionDeg: ob.dp, combinedHsFt: bu.hs * FT, secondaryHsFt: null}, prof, s.orientation) : null;
-    rows.push({lead: n, spot: s.id, central: r.nearshoreFt, lo: iv.loFt, hi: iv.hiFt, lo2: iv2.loFt, hi2: iv2.hiFt, mop: ob.hs, ...(rb && rb.ok ? {buoy: rb.nearshoreFt, buoyId: nb.b.id} : {})});
+    rows.push({off: hs0 * FT, kd: r.kd, shelter: prof.shelter, depth: mopPoint(a.mopId)?.depthM, windFrac: tot0 / hs0, lead: n, spot: s.id, central: r.nearshoreFt, lo: iv.loFt, hi: iv.hiFt, lo2: iv2.loFt, hi2: iv2.hiFt, mop: ob.hs, ...(rb && rb.ok ? {buoy: rb.nearshoreFt, buoyId: nb.b.id} : {})});
   }
 }
 
@@ -117,6 +117,51 @@ const findings = [
   `- Relative to MOP, our central is about ${pc(1 / a0.bias - 1)} high (observed MOP is ${f2(a0.bias)} of it); relative to the buoy-derived value it is low (${f2(b0.bias)}). The two observations differ from each other by a median ${pc(Math.exp(q(buoyVsMop, .5)) - 1)}, which is bigger than the bias being discussed, so neither source can settle it. This is NOT reconciled with the Ocean Beach finding in src/services/uncertainty.ts (header: MOP ÷ v1 median 1.06, v1 about 6% low, 782 hours, t008-pairs.csv; OB-BIAS-T076.md reports MOP ÷ buoy 0.95). This table averages ${spots.size} spots with guide-derived shelter and window assumptions and uses post-T-081 total Hs; the cause of the opposite sign is unknown (a guess: those spot assumptions). Ocean Beach (spot-2) is in the table like any other spot.`,
   `- Not yet measured: the live v2 headline at lead (section 2 fills in as hours mature, and compares a MOP forecast with the MOP nowcast, i.e. the same model family, not with reality), and surfer-reported heights (T-059 calibration is the only source for that).`,
 ].join('\n');
+// ---- reconciliation (T-090): is the bias spot-dependent, size-dependent, or a v1-vs-v2 chain difference? (lead 0 rows only: no forecast-lead mix)
+const v2cmp: Record<string, number[]> = {};
+for (const id of assignedMopIds()) { try { const fc = normalizeNearshore(await get(mopURL(id, 'forecast', now), true), retrieved, 'mop', 'forecast'); const arr: number[] = []; for (const r of fc) { const vt = hourOf(Date.parse(r.timestamp)), ob = nowcast[id]?.get(vt); if (ob && r.height.value && vt <= now - HOUR && vt >= now - 24 * HOUR) arr.push(ob.hs / r.height.value); } v2cmp[id] = arr; } catch { /* skip */ } }
+const L0 = rows.filter((r) => r.lead === 0 && r.mop !== undefined), med = (a: number[]) => q(a, .5), lr = (a: number, b: number) => Math.log(a / b);
+const corr = (xs: number[], ys: number[]) => { const n = xs.length, mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n; let sxy = 0, sxx = 0, syy = 0; for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; syy += (ys[i] - my) ** 2; } return sxy / Math.sqrt(sxx * syy || 1); };
+const y = L0.map((r) => lr(r.mop!, r.central));
+const preds: [string, number[]][] = [['ln shelter factor', L0.map((r) => Math.log(r.shelter ?? 1))], ['MOP depth (10 vs 15 m)', L0.map((r) => r.depth ?? 0)], ['ln direction factor kd', L0.map((r) => Math.log(r.kd || 1))], ['ln total ÷ swell Hs (wind-sea share)', L0.map((r) => Math.log(r.windFrac || 1))], ['ln offshore swell Hs', L0.map((r) => Math.log(r.off || 1))]];
+const sizeBins: [string, (c: number) => boolean][] = [['< 2 ft', (c) => c < 2], ['2 to 4 ft', (c) => c >= 2 && c < 4], ['4 to 7 ft', (c) => c >= 4 && c < 7], ['7 ft and up', (c) => c >= 7]];
+const perSpot = [...new Set(L0.map((r) => r.spot))].map((id) => { const rs = L0.filter((r) => r.spot === id), a = assignmentFor(id)!; const bu = rs.filter((r) => r.buoy !== undefined); return {id, n: rs.length, mop: med(rs.map((r) => r.mop! / r.central)), buoy: bu.length ? med(bu.map((r) => r.buoy! / r.central)) : NaN, depth: rs[0].depth, shelter: rs[0].shelter, kd: med(rs.map((r) => r.kd ?? NaN)), central: med(rs.map((r) => r.central)), v2: med(v2cmp[a.mopId] ?? []), v2n: (v2cmp[a.mopId] ?? []).length}; }).sort((x, y2) => x.mop - y2.mop);
+const v2all = Object.values(v2cmp).flat(), big20 = perSpot.filter((r) => r.n >= 20), ySpot = big20.map((r) => Math.log(r.mop)), spotCorr = (xs: number[]) => corr(xs, ySpot);
+const nSpotsV2 = new Set(rows.map((r) => r.spot)).size;
+const reconcile = `## 3. Reconciling the bias (lead 0 only, so no lead mix)
+Correlation of ln(MOP nowcast ÷ our central) with candidate drivers. Pooled hours (${L0.length} spot-hours from ${perSpot.length} spots; hours are autocorrelated and spots with many hours dominate; depth has only two values and is confounded with region) and, more honestly, at the spot level (${big20.length} spots with at least 20 hours; Pearson r):
+
+| driver | r, pooled hours | r, spot level (n = ${big20.length}) |
+|---|---|---|
+${preds.slice(0, 2).map(([n, x]) => `| ${n} | ${f2(corr(x, y))} | ${f2(spotCorr(n.startsWith('ln shelter') ? big20.map((r) => Math.log(r.shelter ?? 1)) : big20.map((r) => r.depth ?? 0)))} |`).join('\n')}
+| ln direction factor kd | ${f2(corr(preds[2][1], y))} | ${f2(spotCorr(big20.map((r) => Math.log(r.kd || 1))))} |
+| ln total ÷ swell Hs (wind-sea share) | ${f2(corr(preds[3][1], y))} | n/a |
+| ln offshore swell Hs | ${f2(corr(preds[4][1], y))} | n/a |
+
+The shelter row is constant (the default 1 for every guide-derived profile), so its r is not a measurement.
+
+Median MOP ÷ central by size of the offshore model swell Hs (binned on neither side of the ratio, so no selection effect from the numerator or the denominator):
+
+| offshore swell Hs | n | median MOP ÷ central |
+|---|---|---|
+${sizeBins.map(([n, fn]) => { const s2 = L0.filter((r) => fn(r.off ?? 0)); return `| ${n} | ${s2.length} | ${f2(med(s2.map((r) => r.mop! / r.central)))} |`; }).join('\n')}
+
+The v2 chain (the live headline's centre is the MOP forecast): MOP nowcast ÷ MOP forecast over the last 24 h, ${v2all.length} points across ${Object.values(v2cmp).filter((a) => a.length).length} points: median ${f2(med(v2all))} (1.00 = unbiased). Limits: these are the past-hour values in the latest forecast file (not lead-verified: they may sit in the run's start or hindcast portion), one day, one run, strongly autocorrelated, at the MOP depth rather than the break. ${nSpotsV2} spots in the backtest use a MOP point, which is the chain the live headline shows there.
+
+Per spot (sorted by MOP ÷ central; "v2 chk" = nowcast ÷ MOP forecast over the past 24 h, 8 values per MOP POINT, repeated for spots that share a point; n < 20 hours rows are shown but excluded from the range and counts below):
+
+| spot | hours | MOP ÷ central | buoy-derived ÷ central | MOP depth m | shelter | mean kd | median central ft | v2 chk (n) |
+|---|---|---|---|---|---|---|---|---|
+${perSpot.map((r) => `| ${r.id} | ${r.n} | ${f2(r.mop)} | ${f2(r.buoy)} | ${r.depth ?? '?'} | ${r.shelter === 1 ? 'default 1' : r.shelter ?? '?'} | ${f2(r.kd)} | ${f1(r.central)} | ${f2(r.v2)} (${r.v2n}) |`).join('\n')}
+
+**What the numbers say (indicative, not proven; sentences below are generated from the values above).**
+- Lead 0 only, so forecast lead is not involved. MOP ÷ central varies by spot from ${f2(big20[0]?.mop ?? NaN)} to ${f2(big20[big20.length - 1]?.mop ?? NaN)} among spots with at least 20 hours (${big20.filter((r) => r.mop < 0.9).length} of ${big20.length} below 0.90, ${big20.filter((r) => r.mop > 1.1).length} above 1.10).
+- Spot-level r: depth ${f2(spotCorr(big20.map((r) => r.depth ?? 0)))}, direction factor kd ${f2(spotCorr(big20.map((r) => Math.log(r.kd || 1))))} (n = ${big20.length}, pooled hours show ${f2(corr(preds[1][1], y))} and ${f2(corr(preds[2][1], y))}). Treat as hints: ${big20.length} spots, two depth values confounded with region. Every guide-derived profile uses shelter = 1, so the v1 chain has no island or headland shadowing term; whether that explains the pattern is untested.
+- Ocean Beach (spot-2) reads ${f2(perSpot.find((r) => r.id === 'spot-2')?.mop ?? NaN)} here (n = ${perSpot.find((r) => r.id === 'spot-2')?.n}), versus a median 1.06 over 782 hours in T-008 (uncertainty.ts header). Different windows; the difference is unexplained, and the two findings are not reconciled. (OB-BIAS-T076.md compares the breaking height to MOP at 10 m and finds MOP ÷ buoy 0.95; this table compares surf height at 10 m to MOP at 10 m; those are different quantities.)
+- The live v2 centre is the MOP forecast, not the v1 chain: the nowcast ran ${f2(med(v2all))} of the past-24 h forecast values (see the limits above; the forward archive will measure this over many days and leads). The MOP nowcast is initialised from buoy observations according to CDIP (see src/services/nearshoreSelect.ts), the forecast from the global wave model.
+- Nothing in the estimator was changed on this evidence.
+`;
+
 const md = `# Surf-height validation (T-089)
 
 Generated by \`docs/forecast/data/validate-surf-height.ts\` on ${retrieved.slice(0, 16)}Z. Refresh by rerunning it (it also appends today's live v2 headlines to \`validation-archive.jsonl\` and scores matured ones). Context for honesty, not a certification.
@@ -144,11 +189,12 @@ ${tableFor(rows, 'buoy')}
 Buoy-derived vs MOP-nowcast surf height over the same hours (${both.length} hours): median |ln ratio| = ${f2(q(buoyVsMop, .5))} (about ${pc(Math.exp(q(buoyVsMop, .5)) - 1)}): the two observations themselves differ by that much, so errors smaller than this are not distinguishable.
 
 ## 2. Forward archive of the v2 headline (central and range WITHOUT the model-spread term or calibration) against the MOP nowcast: a MOP forecast scored against the MOP nowcast, i.e. the same model family, not reality
-This run archived ${archived} new spot-hour-lead entries (buckets 0, 1, 3, 5 days, i.e. leads of 0 to 3 h, 18 to 24 h, 66 to 72 h and 114 to 120 h, 3-hourly valid times; one compact line [run hour UTC, spot, valid hour UTC, bucket hours, method, central ft, lo, hi]; the first run for a spot-hour-bucket wins). ${scoredFwd}
+This run archived ${archived} new spot-hour-lead entries (the archive file holds ${fs.existsSync(ARCH) ? fs.readFileSync(ARCH, 'utf8').split('\n').filter(Boolean).length : 0} in total) (buckets 0, 1, 3, 5 days, i.e. leads of 0 to 3 h, 18 to 24 h, 66 to 72 h and 114 to 120 h, 3-hourly valid times; one compact line [run hour UTC, spot, valid hour UTC, bucket hours, method, central ft, lo, hi]; the first run for a spot-hour-bucket wins). ${scoredFwd}
 
 ## Findings (stated plainly)
 ${findings}
 
+${reconcile}
 ## Reading this honestly
 - Range design: half-width in ln units by lead (\`LEAD_SKILL\`: ${LEAD_SKILL.map((x) => x.toFixed(2)).join(', ')} for 0 to 7 days) from the deep-water buoy error of the wave MODELS, rounded outward to whole feet. The coverage above is the test of whether that carries over to the transformed nearshore height.
 - Fourteen days of the feeds in one season (fewer usable hours, see section 1); the backtest scores the v1 chain, not the live v2 headline (until section 2 matures). The buoy conversion reuses the same transform, so it checks the offshore-forecast error, not the transform's physics (OB-BIAS-T076.md covers that).

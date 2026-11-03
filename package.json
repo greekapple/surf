@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node --use-env-proxy node_modules/vite/bin/vite.js --host 0.0.0.0",
     "build": "tsc --noEmit && vite build && node scripts/build-worker.mjs",
-    "test": "node --experimental-strip-types --test src/tests/*.test.ts"
+    "test": "node --experimental-strip-types --test src/tests/*.test.ts",
+    "validate": "node --experimental-strip-types docs/forecast/data/validate-surf-height.ts"
   },
   "dependencies": {
     "leaflet": "1.9.4",
