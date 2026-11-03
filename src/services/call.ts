@@ -6,12 +6,13 @@ import {daylightFor, isDark} from './daylight.ts';
 import {spotHourOf, type SpotHour} from './spotHour.ts';
 import {windowLabel} from './homeDash.ts';
 import {formatWaveHeight} from '../utils/waveHeight.ts';
+import {breakerType, type BreakerEstimate} from './breaker.ts';
 
 /** The Call (T-064): one verdict a surfer can act on, from OUR data only: the surf estimate, the rating, the wind, daylight and the user's skill.
  *  Nothing here is a measured fact or a validated accuracy; `basis` says what it is computed from. */
 export type Verdict = 'Go' | 'Worth a look' | 'Skip' | 'Dark';
 export interface CallWindow {start: string; end: string; label: string}
-export interface Call {verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string}
+export interface Call {verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
 export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs: number}
 
 /** Face-height range each skill is comfortable in, in feet. OUR OWN CHOICES (product rules, not a safety standard).
@@ -24,11 +25,12 @@ export const GO_MIN_SCORE = 65, WORTH_MIN_SCORE = 50; // rating bands: SOLID sta
 
 const fmt = (lo: number, hi: number, p: UserProfile) => formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text;
 
-interface HourCall {verdict: Verdict; why: string[]; hour: SpotHour}
+interface HourCall {verdict: Verdict; why: string[]; hour: SpotHour; breaker: BreakerEstimate}
 /** Verdict for ONE hour (no window). */
 export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx: CallContext): HourCall {
   const hr = spotHourOf(spot, f, ctx.nowMs, profile, {bundle: ctx.bundle}), h = hr.surf.headline, why: string[] = [];
-  if (isDark(spot.id, f.timestamp)) return {verdict: 'Dark', why: ['It is dark: before first light or after last light, so there is no rating.'], hour: hr};
+  const breaker = breakerType(spot, f);
+  if (isDark(spot.id, f.timestamp)) return {verdict: 'Dark', why: ['It is dark: before first light or after last light, so there is no rating.'], hour: hr, breaker};
   const r = SKILL_RANGE_FT[profile.skill] ?? SKILL_RANGE_FT.Intermediate, w = hr.wind, score = hr.rating.score;
   let verdict: Verdict = 'Go', sizeNote = '';
   if (h.kind === 'estimate') {
@@ -39,6 +41,11 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
     else if (h.loFt < r.min * 0.6 && h.hiFt < r.min * 1.6) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is small for the ${who} range.`; }
     else sizeNote = `The estimated ${range} is within the ${who} range.`;
   } else sizeNote = 'No surf-size estimate for this spot, so size is not part of this call.';
+  // Breaker type (T-064 addendum): a plunging break at size is for experienced surfers (our own rule; Surfing Online "Types of Waves" describes plunging waves as hollow, powerful and for experienced surfers). Spilling is forgiving.
+  let breakerNote = '';
+  if (breaker.type === 'plunging' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging and ${fmt(h.loFt, h.hiFt, profile)}: experienced surfers only.`; }
+  else if (breaker.type === 'plunging') breakerNote = 'Plunging breaker: hollow and powerful.';
+  else if (breaker.type === 'spilling') breakerNote = 'Spilling breaker: soft and forgiving.';
   let windNote = '';
   if (w) {
     const mph = w.mph;
@@ -53,14 +60,14 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   else if (score < WORTH_MIN_SCORE) verdict = 'Skip';
   else if (score < GO_MIN_SCORE && verdict === 'Go') verdict = 'Worth a look';
   // the first sentence is the deciding reason in plain English
-  const lead = verdict === 'Skip' ? (windNote && /chop/.test(windNote) ? windNote : sizeNote && !/within/.test(sizeNote) ? sizeNote : null)
+  const lead = verdict === 'Skip' ? (breakerNote && /experienced/.test(breakerNote) ? breakerNote : windNote && /chop/.test(windNote) ? windNote : sizeNote && !/within/.test(sizeNote) ? sizeNote : null)
     : verdict === 'Worth a look' ? (sizeNote && !/within/.test(sizeNote) ? sizeNote : windNote && /roughen/.test(windNote) ? windNote : null) : null;
   const ex = explainRating(hr.rating, {spotId: spot.id, wind: w ? {mph: w.mph, relation: w.relation} : null}), items = ex.items.filter((i) => i.inScore);
   const down = items.find((i) => i.effect === '-' || (i.effect === '~' && i.factor !== 'Rating ceiling')), ceiling = items.find((i) => i.factor === 'Rating ceiling'), up = items.find((i) => i.effect === '+');
   const ratingSentence = ceiling ? ceiling.reason : verdict === 'Go' ? (up ? `${up.factor} is a plus.` : 'The rating is good for this hour.') : down ? `${down.factor}: ${down.reason}` : 'The rating is only middling for this hour.';
   if (lead) why.push(lead); else if (verdict === 'Go') why.push(`${windNote || 'Conditions line up'}${windNote ? '' : '.'} ${sizeNote}`.trim()); else why.push(ratingSentence);
-  for (const s of [sizeNote, windNote, ratingSentence]) if (s && !why.includes(s) && !/^$/.test(s)) why.push(s);
-  return {verdict, why, hour: hr};
+  for (const s of [sizeNote, windNote, breakerNote, ratingSentence]) if (s && !why.includes(s) && !/^$/.test(s)) why.push(s);
+  return {verdict, why, hour: hr, breaker};
 }
 
 /** Best window on one Pacific day: the longest run of daylight hours with the same best verdict (Go, else Worth a look), highest peak first. */
@@ -79,6 +86,12 @@ export function windowOnDay(spot: SurfSpot, dateKey: string, profile: UserProfil
   return null;
 }
 
+const dayName = (iso: string, nowMs: number) => {
+  const d = pacificDate(iso), today = pacificDate(new Date(nowMs).toISOString());
+  if (d === today) return 'today';
+  if (d === pacificDate(new Date(Date.parse(`${today}T12:00:00Z`) + 86400000).toISOString())) return 'tomorrow';
+  return new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long'}).format(new Date(iso));
+};
 /** The call for a spot-hour: its verdict, the best window on that Pacific day (if daylight remains), the next window when it is dark or today's has passed, and why. */
 export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ctx: CallContext): Call {
   const hc = hourCall(spot, hour, profile, ctx), day = pacificDate(hour.timestamp), from = Math.max(ctx.nowMs, Date.parse(hour.timestamp));
@@ -88,11 +101,11 @@ export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ct
   if (hc.verdict === 'Dark' || passed) {
     for (let i = 0; i < 4 && !nextWindow; i++) {
       const d = pacificDate(new Date(Date.parse(`${day}T12:00:00Z`) + i * 86400000).toISOString()), w = windowOnDay(spot, d, profile, ctx, Math.max(from, ctx.nowMs));
-      if (w && Date.parse(w.start) >= ctx.nowMs - 3600000 && !(i === 0 && window && w.start === window.start && !passed)) nextWindow = w;
+      if (w && Date.parse(w.end) > ctx.nowMs) nextWindow = w; // today's window still ahead (before first light) counts
     }
   }
-  const dayWord = nextWindow ? (pacificDate(nextWindow.start) === pacificDate(new Date(ctx.nowMs).toISOString()) ? 'today' : 'tomorrow') : '';
+  const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs) : '';
   const why = hc.verdict === 'Dark' ? [nextWindow ? `It is dark. The next window is ${dayWord} ${nextWindow.label}.` : 'It is dark, and no good window is forecast in the next few days.'] : hc.why;
   const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating (explainRating), wind, daylight (first light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
-  return {verdict: hc.verdict, window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis};
+  return {verdict: hc.verdict, window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
 }

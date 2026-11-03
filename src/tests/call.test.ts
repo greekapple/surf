@@ -78,3 +78,25 @@ test('board period fit: short period is soft for a performance board, fine for a
   assert.equal(periodFit('fish', 17, 62).fit, 'long'); assert.equal(periodFit('longboard', 17, 108).fit, 'ok');
   assert.equal(periodFit('gun', 11).fit, 'short'); assert.equal(periodFit('shortboard', null).fit, 'ok'); assert.match(periodFit('shortboard', 8).note, /8 s swell is short/);
 });
+
+import {nearshoreSlopes} from '../ocean/nearshoreSlope.ts';
+test('callFor carries the estimated breaker type; a plunging break at size is "experienced surfers only" for a non-expert, and still fine for an expert', () => {
+  const r = recs(1.5), f = at(r, noonNov2), ctx = ctxFor(r, noonNov2);
+  const ob = callFor(spot, f, prof('Expert'), ctx); assert.equal(ob.breaker.type, 'spilling'); assert.equal(ob.breaker.label, 'est. breaker type');
+  assert.ok(ob.why.some((w) => /Spilling breaker/.test(w)));
+  // inject a steep slope for Ocean Beach to exercise the plunging rule
+  const saved = nearshoreSlopes[0].tanBeta; nearshoreSlopes[0].tanBeta = 0.1;
+  try {
+    const b = callFor(spot, f, prof('Intermediate'), ctx), e = callFor(spot, f, prof('Expert'), ctx);
+    assert.equal(b.breaker.type, 'plunging'); assert.equal(b.verdict, 'Skip'); assert.match(b.why[0], /^Plunging and .*: experienced surfers only\.$/);
+    assert.ok(!/experienced surfers only/.test(e.why[0])); assert.ok(e.why.some((w) => /Plunging breaker: hollow and powerful/.test(w)));
+  } finally { nearshoreSlopes[0].tanBeta = saved; }
+  const other = allSpots.find((s) => s.id === 'spot-3')!; assert.equal(callFor(other, {...f, spotId: 'spot-3'}, prof('Expert'), ctx).breaker.type, 'unknown');
+});
+
+test('Dark before first light: today\'s upcoming window is the next window ("today"); with none tomorrow the day is named, not "tomorrow"', () => {
+  const r = recs(1.2), pre = '2026-11-02T13:00:00.000Z', c = callFor(spot, at(r, pre), prof('Expert'), ctxFor(r, '2026-11-02T13:30:00Z')); // 5:30 AM PST, first light ~6:08
+  assert.equal(c.verdict, 'Dark'); assert.ok(c.nextWindow); assert.match(c.why[0], /^It is dark\. The next window is today /);
+  const only = r.filter((f) => f.timestamp >= '2026-11-04T00:00:00.000Z'), late = callFor(spot, at(r, dark646pm), prof('Expert'), ctxFor([...only, at(r, dark646pm)], '2026-11-03T02:46:00Z'));
+  if (late.nextWindow) assert.ok(!/tomorrow/.test(late.why[0]) || late.nextWindow.start.slice(0, 10) === '2026-11-03' || late.nextWindow.start.slice(0, 10) === '2026-11-04');
+});
