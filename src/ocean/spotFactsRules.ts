@@ -12,12 +12,14 @@ import type {BreakingCalibration} from './localCalibration.ts';
  *  - T-073: when no guide states a single facing, the facing may be DERIVED FROM COASTLINE GEOMETRY (CDIP MOP shore normals, agency data; build-guide-facts.ts), labelled with that provenance, never as a guide statement.
  *  Where two sources disagree the narrower swell window and the more cautious exposure word are used and the disagreement is kept in `notes`. */
 export interface GuideSource {url: string; title: string; site: string; retrievedOn: string}
-/** A sources entry whose site starts with "CDIP" is the coastline-geometry source of a derived facing, not a spot guide. */
-export const isGeometrySource = (s: {site: string}) => /^CDIP/.test(s.site);
+/** A sources entry whose site names "CDIP coastline geometry" is the coastline-geometry source of a derived facing, not a spot guide. */
+export const isGeometrySource = (s: {site: string}) => /CDIP coastline geometry/.test(s.site);
 export interface GuideFacts {
   spotId: string; sources: GuideSource[];
   facing: {text: string; deg: number; basis?: 'guide' | 'coastline geometry'; sources?: GuideSource[]} | null;
   swellWindow: {text: string; fromDeg: number; toDeg: number; basis: 'exposure' | 'workable'} | null;
+  /** T-073: the guide's workable range (the swell that makes surf), kept even when the exposure range is the window. */
+  workable?: {text: string; fromDeg: number; toDeg: number} | null;
   idealSwell: string | null; windOffshore: string | null; tide: string | null; bottom: string | null; waveType: 'beach' | 'point' | 'reef' | 'jetty' | null;
   sizeFt: {min: number; max: number} | null; exposure: 'exposed' | 'somewhat protected' | 'sheltered' | 'not stated'; hazards: string[]; notes: string;
 }
@@ -29,7 +31,7 @@ export const GENERIC_PERIOD_SOURCES: Source[] = [
 export const MOP_NORMAL_TOLERANCE_DEG = 25;
 const diff = (a: number, b: number) => { const d = Math.abs(((a - b) % 360 + 360) % 360); return d > 180 ? 360 - d : d; };
 
-export interface Enablement {estimate: boolean; shelter: 1 | null; reasons: string[]}
+export interface Enablement {estimate: boolean; shelter: 1 | 0 | null; reasons: string[]}
 /** Whether an estimate may be shown for these guide facts, and why not. */
 export function enablement(f: GuideFacts): Enablement {
   const reasons: string[] = [];
@@ -37,11 +39,14 @@ export function enablement(f: GuideFacts): Enablement {
   if (!f.swellWindow) reasons.push('no source gives the swell directions that work');
   if (f.exposure === 'sheltered' && !openSector(f)) reasons.push('a source calls the spot sheltered, and no source lists the swell directions it is open to');
   else if (f.exposure !== 'sheltered' && f.waveType && f.waveType !== 'beach' && f.exposure !== 'exposed') reasons.push(`a ${f.waveType} break needs a source that says it is exposed`);
-  return {estimate: reasons.length === 0, shelter: reasons.length === 0 ? 1 : null, reasons};
+  if (f.facing && wraps(f)) reasons.push(`the guides' working swell (${f.workable!.text}) lies entirely outside 60° of the ${f.facing.text} facing: it wraps around the point or reef, which the straight-shore estimate cannot represent`);
+  return {estimate: reasons.length === 0, shelter: reasons.length === 0 ? (openSector(f) ? 0 : 1) : null, reasons};
 }
 /** T-073: a sheltered spot has a published open sector when its window comes from a guide's swell-exposure list (the directions it is open to), not from a generic workable range. */
 export const openSector = (f: GuideFacts) => f.exposure === 'sheltered' && f.swellWindow?.basis === 'exposure';
 export const derivedFacing = (f: GuideFacts) => f.facing?.basis === 'coastline geometry';
+/** T-073: the published workable swell range has nothing within ±60° of the facing (Mavericks, Rincon: swell wraps onto the break). */
+export const wraps = (f: GuideFacts) => !!(f.facing && f.workable && clampWindow(f.workable.fromDeg, f.workable.toDeg, f.facing.deg) === null);
 const src = (f: GuideFacts): Source[] => f.sources.filter((s) => !isGeometrySource(s)).map((s) => ({url: s.url, title: s.title, retrievedOn: s.retrievedOn}));
 const guide = <T>(value: T, f: GuideFacts, note?: string): Sourced<T> => ({value, status: 'sourced', sources: src(f), provenance: 'published guide', ...(note ? {note} : {})});
 
@@ -75,8 +80,8 @@ export function clampWindow(fromDeg: number, toDeg: number, facingDeg: number, h
 export function breakingProfileFromGuide(f: GuideFacts): BreakingCalibration | null {
   const e = enablement(f); if (!e.estimate || !f.swellWindow || !f.facing) return null;
   const window = clampWindow(f.swellWindow.fromDeg, f.swellWindow.toDeg, f.facing.deg); if (!window) return null;
-  return {spotId: f.spotId, faceFactors: [0.7, 1.4], window, minPeriod: GENERIC_MIN_PERIOD_S, shelter: 1,
-    note: `Spot facts from published guides (${src(f).length ? [...new Set(f.sources.filter((s) => !isGeometrySource(s)).map((s) => s.site))].join(', ') : 'none'}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${derivedFacing(f) ? `${f.facing.deg}° derived from coastline geometry (CDIP MOP shore normals)` : f.facing.text}. Minimum period is the generic 8 s. Shelter 1 (${openSector(f) ? 'a source calls it sheltered; shelter 1 applies only inside the open sector the guide lists' : f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}${f.waveType && f.waveType !== 'beach' && !openSector(f) ? `; for this ${f.waveType} that rests on one guide's "exposed" statement` : ''}). Unvalidated.`};
+  return {spotId: f.spotId, faceFactors: [0.7, 1.4], window, minPeriod: GENERIC_MIN_PERIOD_S, shelter: e.shelter!,
+    note: `Spot facts from published guides (${src(f).length ? [...new Set(f.sources.filter((s) => !isGeometrySource(s)).map((s) => s.site))].join(', ') : 'none'}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${derivedFacing(f) ? `${f.facing.deg}° derived from coastline geometry (CDIP MOP shore normals)` : f.facing.text}. Minimum period is the generic 8 s. ${openSector(f) ? 'Shelter 0 for the offshore-swell estimate (v1 refuses): a source calls it sheltered, and only the CDIP nearshore model (v2), which includes the sheltering, may estimate inside the open sector the guide lists' : `Shelter 1 (${ f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}${f.waveType && f.waveType !== 'beach' && !openSector(f) ? `; for this ${f.waveType} that rests on one guide's "exposed" statement` : ''}). Unvalidated.`}${openSector(f) ? '. Unvalidated.' : ''}`};
 }
 /** A MOP candidate qualifies when its shore normal is within the tolerance of the guide's facing; the closest one wins. */
 export function pickMop(f: GuideFacts, candidates: {id: string; shoreNormalDeg: number}[]): {id: string; offsetDeg: number} | null {

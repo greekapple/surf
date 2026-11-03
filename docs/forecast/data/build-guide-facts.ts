@@ -41,7 +41,7 @@ const deriveFacing = (spotId: string) => {
   const mean = ((Math.atan2(y, x) / r) % 360 + 360) % 360, dev = Math.max(...pts.map((p) => { const d = Math.abs(p.shoreNormalDeg - mean) % 360; return d > 180 ? 360 - d : d; }));
   if (dev > DERIVE.maxSpreadDeg) return null;
   const deg = Math.round(mean), word = Object.entries(WORD).sort((a, b) => { const da = Math.min(cw(a[1], deg), cw(deg, a[1])), db = Math.min(cw(b[1], deg), cw(deg, b[1])); return da - db; })[0][0];
-  return {text: word, deg, basis: 'coastline geometry', sources: [{url: `https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/${pts[0].id}_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal`, site: 'CDIP coastline geometry (facing)',
+  return {text: word, deg, basis: 'coastline geometry', sources: [{url: `https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/${pts[0].id}_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal`, site: 'facing derived from CDIP coastline geometry',
     title: `CDIP MOP shore normals (agency data) of ${pts.map((p) => `${p.id} ${p.shoreNormalDeg}°`).join(', ')}, within ${DERIVE.radiusKm} km; circular mean ${deg}°, spread ±${Math.round(dev)}°`, retrievedOn: scan.retrievedOn}]};
 };
 const SITE: Record<string, string> = {surfnerd: 'Surfnerd', 'surf-forecast': 'Surf-Forecast.com'};
@@ -54,7 +54,7 @@ for (const r of input) {
   const facing = stated && 'deg' in stated ? {...stated, basis: 'guide'} : derived;
   const sources = [...(r.sources ?? []).map((s: any) => ({url: s.url, site: s.site, title: s.title ?? `${SITE[s.site] ?? s.site} spot guide: ${r.name}`, retrievedOn: s.retrievedOn})), ...(derived ? derived.sources : [])];
   out.push({spotId: r.spotId, sources,
-    facing, swellWindow: win, idealSwell: r.idealSwell ?? null, windOffshore: r.windOffshore ?? null, tide: r.tide ?? null, bottom: r.bottom ?? null, waveType: type,
+    facing, swellWindow: win, workable: w ? {text: r.swellWorkable.text, fromDeg: w[0], toDeg: w[1]} : null, idealSwell: r.idealSwell ?? null, windOffshore: r.windOffshore ?? null, tide: r.tide ?? null, bottom: r.bottom ?? null, waveType: type,
     sizeFt: r.sizeFt && Number.isFinite(r.sizeFt.min) && Number.isFinite(r.sizeFt.max) ? {min: half(r.sizeFt.min), max: half(r.sizeFt.max)} : null, exposure: exposureOf(r.exposure), hazards: Array.isArray(r.hazards) ? r.hazards.map(String) : [],
     notes: [String(r.notes ?? ''), stated && 'conflict' in stated ? `Sources give different facings (${stated.conflict.join(', ')}); ${derived ? `the facing is derived from coastline geometry instead (${derived.deg}°)` : 'none is recorded'}.` : ''].filter(Boolean).join(' ').slice(0, 800)});
 }

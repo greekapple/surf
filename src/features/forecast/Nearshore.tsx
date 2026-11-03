@@ -1,6 +1,7 @@
 import {useSwello} from '../../app/store';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import {assignmentFor, mopCandidates, mopPoint, MOP_ACK} from '../../ocean/mop';
+import {guideFactsFor} from '../../ocean/spotFactsSourced';
 import {pickMop, nowcastFor} from '../../services/nearshoreSelect';
 import {breakingV2Enabled, mopBreaking} from '../../services/breakingV2';
 import {BREAKING_V2_VERSION} from '../../ocean/breakingEstimate';
@@ -22,9 +23,10 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
     const cand = mopCandidates.find((c) => c.spotId === spot.id);
     return <>{head('Not assigned')}<p>No CDIP MOP point has been reviewed for this spot, so no nearshore model is shown.</p>{cand && <p className="fine">Candidate points ({cand.mopIds.join(', ')}) are waiting for review. {cand.note}</p>}</>;
   }
-  const label = `CDIP MOP ${pt.id} · ${pt.depthM} m depth · modelled`;
-  const where = `Transect ${pt.id} · ${pt.lat.toFixed(3)}, ${pt.lon.toFixed(3)} · ${pt.depthM} m depth · shore normal ${pt.shoreNormalDeg}°`;
-  const foot = <p className="fine">{MOP_ACK}{/facing-match rule/.test(a.note) && <> This point was assigned by a facing-match rule (the beach facing from published guides is within 25° of the point's shore normal), not reviewed by a person.</>}</p>;
+  const depth = Math.round(pt.depthM), derived = guideFactsFor(spot.id)?.facing?.basis === 'coastline geometry';
+  const label = `CDIP MOP ${pt.id} · ${depth} m depth · modelled`;
+  const where = `Transect ${pt.id} · ${pt.lat.toFixed(3)}, ${pt.lon.toFixed(3)} · ${depth} m depth · shore normal ${pt.shoreNormalDeg}°`;
+  const foot = <p className="fine">{MOP_ACK}{/facing-match rule/.test(a.note) && (derived ? <> This point was assigned by a facing-match rule, not reviewed by a person. The beach facing here was itself derived from these CDIP shore normals (no guide states one), so the match is not an independent check.</> : <> This point was assigned by a facing-match rule (the beach facing from published guides is within 25° of the point's shore normal), not reviewed by a person.</>)}</p>;
   if (!live) return <>{head(label)}<p>The nearshore model needs retrieved data; none is loaded in demonstration mode.</p><p className="fine">{where}</p></>;
   const bundle = view.ocean.bundle, mop = bundle?.mop?.[pt.id];
   const pick = pickMop(Date.parse(selectedTime), now, nowcastFor(pt.id, bundle?.nearshore), mop?.records);

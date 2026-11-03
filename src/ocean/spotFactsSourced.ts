@@ -30,6 +30,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 337.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "SW to N",
+   "fromDeg": 225,
+   "toDeg": 360
+  },
   "idealSwell": "northwest",
   "windOffshore": "southeast",
   "tide": "mid and high; rising generally better",
@@ -78,6 +83,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 225,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S",
+   "fromDeg": 180,
+   "toDeg": 180
+  },
   "idealSwell": "south southwest (surf-forecast); south (Surfnerd)",
   "windOffshore": "north (both); Surfnerd workable NW to NE",
   "tide": "mid and high (Surfnerd); mid (surf-forecast)",
@@ -122,6 +132,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 270,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "southwest (Surf-Forecast)",
   "windOffshore": "NE",
@@ -171,6 +186,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 337.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "W to NW",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
   "idealSwell": "NW (Surfnerd, Wannasurf); WNW (Surf-Forecast)",
   "windOffshore": "east (also NNE listed)",
   "tide": "low and mid; rising better",
@@ -186,7 +206,7 @@ export const guideFacts: GuideFacts[] = [
    "rocks in the impact zone",
    "sharks"
   ],
-  "notes": "Strictly for expert big-wave surfers (Surfnerd). T-073: the guides' best swell (W to NW) lies outside 60 deg of the SSW facing, so those hours estimate only when the swell direction used (offshore model, or the CDIP point's refracted direction) falls inside the window."
+  "notes": "Strictly for expert big-wave surfers (Surfnerd). T-073: Surf-Forecast calls it an exposed reef break, but its working swell (W to NW, Surfnerd; NW, Wannasurf) lies entirely outside 60 deg of the SSW facing: it wraps onto the reef, which the straight-shore estimate cannot represent, so it refuses."
  },
  {
   "spotId": "spot-7",
@@ -214,6 +234,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 180,
    "toDeg": 315,
    "basis": "workable"
+  },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "west",
   "windOffshore": "NE",
@@ -264,6 +289,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 270,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "southwest (Surfnerd, Surf-Forecast)",
   "windOffshore": "N",
   "tide": "low and mid; rising better",
@@ -306,6 +336,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 202.5,
    "toDeg": 337.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW through N, W best",
+   "fromDeg": 225,
+   "toDeg": 360
   },
   "idealSwell": "Smaller, clean west swells (surf-forecast: WNW)",
   "windOffshore": "East offshore best, tolerates a bit of south (surf-forecast: east; also SE with WNW swell)",
@@ -352,6 +387,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 225,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S through WSW to NW, W best",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "West (surf-forecast: southwest)",
   "windOffshore": "NW offshore; point sheltered from prevailing NW wind (surf-forecast: NE best, some shelter from NW)",
   "tide": "Most of the tide; rising better; heavy backwash near high (surf-forecast: mid tide rising)",
@@ -395,6 +435,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 292.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S through WSW to NW",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "Southwest (both sources)",
   "windOffshore": "NE offshore (both sources)",
@@ -440,6 +485,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to N, W best",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
   "idealSwell": "West (both sources)",
   "windOffshore": "East offshore (both sources)",
   "tide": "Surfnerd: low, mid, high; rising better, dropping tide adds hollowness. Surf-forecast: all stages",
@@ -484,6 +534,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW (swell exposure SSE to WNW)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "West best; reefs favour mid-size west or south swell (surf-forecast: southwest)",
   "windOffshore": "NE offshore (both sources); mornings best",
   "tide": "Mid and high; high best; rising better (surf-forecast: around high)",
@@ -526,6 +581,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 202.5,
    "toDeg": 270,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, SW best",
+   "fromDeg": 180,
+   "toDeg": 360
   },
   "idealSwell": "SW, peaky broken-up swell (surf-forecast: west)",
   "windOffshore": "NE offshore, ENE also offshore (both sources say NE)",
@@ -570,6 +630,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 225,
    "toDeg": 292.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, W best",
+   "fromDeg": 180,
+   "toDeg": 360
   },
   "idealSwell": "West (surf-forecast: northwest)",
   "windOffshore": "East offshore (surf-forecast: east-southeast)",
@@ -616,6 +681,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 337.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to N, NW best",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
   "idealSwell": "Northwest (surf-forecast: west)",
   "windOffshore": "SE offshore (both sources)",
   "tide": "Low, mid, high; rising better (surf-forecast: all stages)",
@@ -661,6 +731,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to N, W best",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
   "idealSwell": "West (both sources)",
   "windOffshore": "East offshore, ENE offshore; holds up reasonably in NW wind (surf-forecast: east)",
   "tide": "Mid best, rising better (both sources)",
@@ -704,6 +779,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 247.5,
    "toDeg": 315,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 360
   },
   "idealSwell": "NW (surfnerd); W (surf-forecast)",
   "windOffshore": "E (surfnerd, surf-forecast); wind exposure NE to SE",
@@ -755,6 +835,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 315,
    "basis": "workable"
   },
+  "workable": {
+   "text": "SSW to NW (Morro Bay page)",
+   "fromDeg": 202.5,
+   "toDeg": 315
+  },
   "idealSwell": "NW (surf-forecast)",
   "windOffshore": "E (surf-forecast, Morro Bay page: wind exposure NE to SE); Morro Strand page says offshore from W, which is odd for a W-facing beach",
   "tide": "all stages (surfnerd Morro Bay, surf-forecast); rising better",
@@ -791,7 +876,7 @@ export const guideFacts: GuideFacts[] = [
    },
    {
     "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/SL092_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal",
-    "site": "CDIP coastline geometry (facing)",
+    "site": "facing derived from CDIP coastline geometry",
     "title": "CDIP MOP shore normals (agency data) of SL092 244.5°, SL091 244.97°, SL093 244.53°, SL090 244.52°, SL094 244.01°, within 1.5 km; circular mean 245°, spread ±0°",
     "retrievedOn": "2026-11-03"
    }
@@ -803,7 +888,7 @@ export const guideFacts: GuideFacts[] = [
    "sources": [
     {
      "url": "https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/SL092_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal",
-     "site": "CDIP coastline geometry (facing)",
+     "site": "facing derived from CDIP coastline geometry",
      "title": "CDIP MOP shore normals (agency data) of SL092 244.5°, SL091 244.97°, SL093 244.53°, SL090 244.52°, SL094 244.01°, within 1.5 km; circular mean 245°, spread ±0°",
      "retrievedOn": "2026-11-03"
     }
@@ -815,6 +900,7 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 270,
    "basis": "exposure"
   },
+  "workable": null,
   "idealSwell": "SW (surfnerd); WNW (surf-forecast)",
   "windOffshore": "NE (both)",
   "tide": "most of the tide, rising better (surfnerd); around high tide (surf-forecast)",
@@ -859,6 +945,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 202.5,
    "toDeg": 315,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 360
   },
   "idealSwell": "WSW (surf-forecast); surfnerd gives no single ideal",
   "windOffshore": "SE per surfnerd note (its wind exposure says NE to SE, offshore E); ESE per surf-forecast",
@@ -906,6 +997,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 315,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S through WSW to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "NW (surfnerd); W (surf-forecast)",
   "windOffshore": "E (both)",
   "tide": "mid and high, rising better (surfnerd); around high (surf-forecast)",
@@ -950,6 +1046,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 270,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
   "idealSwell": "clean head-high or bigger, right works best 6ft+ (surfnerd); NW (surf-forecast)",
   "windOffshore": "NE (both); N sideshore but semi-clean, S to be avoided (surfnerd)",
   "tide": "mid, rising (both)",
@@ -987,6 +1088,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 225,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW to W",
+   "fromDeg": 202.5,
+   "toDeg": 270
   },
   "idealSwell": null,
   "windOffshore": "NE, workable N to E (surfnerd)",
@@ -1029,6 +1135,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 292.5,
    "toDeg": 0,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to NW",
+   "fromDeg": 270,
+   "toDeg": 315
   },
   "idealSwell": "W to NW (surfnerd); NW (surf-forecast)",
   "windOffshore": "ESE (surfnerd, workable E to SE); light SE (surf-forecast)",
@@ -1074,6 +1185,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 315,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "W through E (best from W); range wraps through N",
+   "fromDeg": 270,
+   "toDeg": 90
+  },
   "idealSwell": "W (surfnerd); NW (surf-forecast)",
   "windOffshore": "E (both); wind exposure NE to SE",
   "tide": "high, rising better (both)",
@@ -1097,8 +1213,8 @@ export const guideFacts: GuideFacts[] = [
   "sources": [
    {
     "url": "https://www.mondo.surf/surf-spot/crescent-city-south-beach/guide/10902",
-    "site": "other",
-    "title": "other spot guide: Crescent City (South Beach)",
+    "site": "Mondo Surf",
+    "title": "Mondo Surf spot guide: Crescent City (South Beach)",
     "retrievedOn": "2026-11-02"
    },
    {
@@ -1124,6 +1240,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 180,
    "toDeg": 225,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 360
   },
   "idealSwell": "SW (Surfnerd); WSW (Surf-Forecast)",
   "windOffshore": "NE (Surfnerd, Surf-Forecast)",
@@ -1161,6 +1282,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 292.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "SW (surfnerd and surf-forecast agree)",
   "windOffshore": "NE",
@@ -1213,10 +1339,15 @@ export const guideFacts: GuideFacts[] = [
    "basis": "guide"
   },
   "swellWindow": {
-   "text": "SW to W",
-   "fromDeg": 225,
-   "toDeg": 270,
-   "basis": "exposure"
+   "text": "W to N",
+   "fromDeg": 270,
+   "toDeg": 360,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to N",
+   "fromDeg": 270,
+   "toDeg": 360
   },
   "idealSwell": "NW (Surfnerd); WNW (Surf-Forecast); NW, W (Wannasurf)",
   "windOffshore": "NE (surfnerd); NE (surf-forecast)",
@@ -1234,7 +1365,7 @@ export const guideFacts: GuideFacts[] = [
    "crowds and drop-ins",
    "rocks, sharks (surf-forecast)"
   ],
-  "notes": "Surfnerd says long-period WNW swell can be shadowed by Point Conception, keeping Rincon smaller. Note surf-forecast.com/breaks/Rincon is Puerto Rico, not this spot; used Rincon-Point (labelled Rincon - Indicator). Surfnerd workable window W to N is as stated on page. T-073: Surfnerd lists exposure SE-SSE, S and SW-W; the S pieces are dropped because The Surf Atlas says the Channel Islands block most summer swell at the point. SW to W adjoins the W to N wrap range; W to NW wraps round the point and is outside 60 deg of the SSW facing."
+  "notes": "Surfnerd says long-period WNW swell can be shadowed by Point Conception, keeping Rincon smaller. Note surf-forecast.com/breaks/Rincon is Puerto Rico, not this spot; used Rincon-Point (labelled Rincon - Indicator). T-073: Surfnerd says it faces SSW and works on W to N swell (best NW); Wannasurf NW and W; The Surf Atlas says winter NW and W swell reaches the point through the gap between the Channel Islands and Point Conception and summer swell is mostly blocked. That swell wraps around the point from outside 60 deg of the SSW facing, so the straight-shore estimate refuses; Surfnerd's exposure list (SE-SSE, S, SW-W) has a gap and is kept verbatim."
  },
  {
   "spotId": "cs-c-street",
@@ -1262,6 +1393,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 270,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S through WSW to NW",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "NW (surfnerd); W (surf-forecast)",
   "windOffshore": "NE",
@@ -1307,6 +1443,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 112.5,
    "toDeg": 292.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "roughly S through NW",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "SW (surfnerd); W (surf-forecast)",
   "windOffshore": "NE (NNE offshore per surfnerd); NNE (surf-forecast)",
@@ -1354,6 +1495,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
   "idealSwell": "SW (both sources)",
   "windOffshore": "NE (both sources)",
   "tide": "Surfnerd: most of the tide, rising better. Surf-forecast: best around mid tide",
@@ -1400,6 +1546,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 247.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
   "idealSwell": "S (surfnerd); SW (surf-forecast)",
   "windOffshore": "N (NNW offshore per surfnerd); N (surf-forecast)",
   "tide": "Surfnerd: full range, rising better. Surf-forecast: not stated",
@@ -1443,6 +1594,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 247.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270
   },
   "idealSwell": "large W swell (surfnerd); groundswell best from W (surf-forecast)",
   "windOffshore": "N (both)",
@@ -1488,6 +1644,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "NW swell magnet (surfnerd, no separate ideal); NW to WNW (surf-forecast)",
   "windOffshore": "E (ENE offshore per surfnerd); easterly (surf-forecast)",
   "tide": "Surfnerd: low, mid, high; rising better. Surf-forecast: best around mid tide",
@@ -1531,6 +1692,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 202.5,
    "toDeg": 292.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW to W",
+   "fromDeg": 202.5,
+   "toDeg": 270
   },
   "idealSwell": "surfnerd: best days from crossed-up combo swells (no direction); surf-forecast: SW angle",
   "windOffshore": "ENE (surfnerd); E (surf-forecast)",
@@ -1576,6 +1742,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "surfnerd: south side best on SW, north side handles bigger winter swells; surf-forecast: WSW",
   "windOffshore": "NE (both)",
   "tide": "Surfnerd: both sides all tides, rising better. Surf-forecast: best around mid tide",
@@ -1620,6 +1791,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 157.5,
    "toDeg": 292.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to SW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
   },
   "idealSwell": "S (surfnerd); SSW (surf-forecast)",
   "windOffshore": "N best; NE and E also work, some SE tolerable (surfnerd); offshore from N (surf-forecast)",
@@ -1667,6 +1843,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 292.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "SW (surfnerd); SSW (surf-forecast)",
   "windOffshore": "E (surfnerd, wind exposure NNE to ESE); ENE (surf-forecast)",
   "tide": "Low, mid and high, rising favoured (surfnerd); best around mid tide (surf-forecast)",
@@ -1709,6 +1890,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 135,
    "toDeg": 315,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
   },
   "idealSwell": "SW (both)",
   "windOffshore": "NE (both); wind exposure NNW to ENE, offshore from NNE (surfnerd)",
@@ -1757,6 +1943,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 315,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW, WSW good (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "WSW (surf-forecast); surfnerd says it comes alive with a peaky south swell",
   "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
   "tide": "Favours low, rising generally better (surfnerd, Oceanside Beach); surfable at all stages (surf-forecast)",
@@ -1801,6 +1992,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 315,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "W (both)",
   "windOffshore": "E (surf-forecast); ENE (surfnerd), wind exposure NNE to ESE",
   "tide": "Rising tide generally better (surfnerd); surf-forecast gives no preference",
@@ -1843,6 +2039,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 180,
    "toDeg": 315,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "W (surfnerd); WNW (surf-forecast)",
   "windOffshore": "E (both); wind exposure NNE to ESE (surfnerd)",
@@ -1887,6 +2088,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 202.5,
    "toDeg": 337.5,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "W (surfnerd); WNW (surf-forecast)",
   "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
@@ -1935,6 +2141,11 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 337.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "SW (Surfnerd, Surf-Forecast)",
   "windOffshore": "E",
   "tide": "Good at all stages",
@@ -1976,11 +2187,16 @@ export const guideFacts: GuideFacts[] = [
    "toDeg": 337.5,
    "basis": "exposure"
   },
+  "workable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
   "idealSwell": "NW (Surfnerd); W (Surf-Forecast)",
   "windOffshore": "E",
   "tide": "Best around mid tide",
   "bottom": "sand (Surfnerd); beach and reef (Surf-Forecast)",
-  "waveType": "beach",
+  "waveType": "reef",
   "sizeFt": null,
   "exposure": "exposed",
   "hazards": [
@@ -1991,7 +2207,7 @@ export const guideFacts: GuideFacts[] = [
    "dog waste",
    "crowds"
   ],
-  "notes": "Surf-Forecast page is Ocean Beach Pier (San Diego); its 'Ocean-Beach' page is San Francisco. T-073: Surfnerd's ocean-beach-pier page (San Diego stated on the page) says faces WNW, beachbreak peaks either side of the pier; Surf-Forecast says beach and reef."
+  "notes": "Surf-Forecast page is Ocean Beach Pier (San Diego); its 'Ocean-Beach' page is San Francisco. T-073: Surfnerd's ocean-beach-pier page (San Diego stated on the page) says faces WNW, beachbreak peaks either side of the pier; Surf-Forecast says beach and reef. The wave type keeps both readings (beach and reef)."
  },
  {
   "spotId": "cs-imperial",
@@ -2019,6 +2235,11 @@ export const guideFacts: GuideFacts[] = [
    "fromDeg": 202.5,
    "toDeg": 315,
    "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
   },
   "idealSwell": "W (surfnerd); SW (surf-forecast)",
   "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",

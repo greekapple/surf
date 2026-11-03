@@ -63,9 +63,9 @@ test('service ingests exactly the assigned MOP ids, and the browser routes only 
   assert.equal(serverProviderPath(mopURL('SF023', 'nowcast')), '/api/provider?key=nearshore-SF023');
   assert.equal(serverProviderPath(mopDasURL('SF023')), '/api/provider?key=nearshore-SF023-das');
   assert.equal(serverProviderPath(mopURL('SM376', 'forecast')), null, 'unassigned candidate is not ingested');
-  // T-073: one-letter county prefixes with four digits (San Diego D0457, Santa Barbara B0001) route through the server too
+  // T-073: one-letter county prefixes with four digits (San Diego D0457, Santa Barbara B1084) route through the server too
   assert.equal(serverProviderPath(mopURL('D0457', 'forecast')), '/api/provider?key=nearshore-D0457-forecast');
-  assert.equal(serverProviderPath(mopDasURL('B0001')), '/api/provider?key=nearshore-B0001-das');
+  assert.equal(serverProviderPath(mopDasURL('B1084')), '/api/provider?key=nearshore-B1084-das');
 });
 
 test('distance helper', () => { assert.ok(Math.abs(distanceKm(37.759, -122.51, 37.74811, -122.51886) - 1.44) < 0.05); });

@@ -177,7 +177,7 @@
   ],
   "season": null,
   "minimumPeriodS": null,
-  "notes": "Strictly for expert big-wave surfers (Surfnerd). T-073: the guides' best swell (W to NW) lies outside 60 deg of the SSW facing, so those hours estimate only when the swell direction used (offshore model, or the CDIP point's refracted direction) falls inside the window."
+  "notes": "Strictly for expert big-wave surfers (Surfnerd). T-073: Surf-Forecast calls it an exposed reef break, but its working swell (W to NW, Surfnerd; NW, Wannasurf) lies entirely outside 60 deg of the SSW facing: it wraps onto the reef, which the straight-shore estimate cannot represent, so it refuses."
  },
  {
   "spotId": "spot-7",
@@ -1055,7 +1055,7 @@
   "sources": [
    {
     "url": "https://www.mondo.surf/surf-spot/crescent-city-south-beach/guide/10902",
-    "site": "other",
+    "site": "Mondo Surf",
     "retrievedOn": "2026-11-02"
    },
    {
@@ -1165,7 +1165,7 @@
    "fromDeg": 270,
    "toDeg": 360
   },
-  "swellExposure": "SW to W",
+  "swellExposure": "SE to SSE, S, and SW to W",
   "idealSwell": "NW (Surfnerd); WNW (Surf-Forecast); NW, W (Wannasurf)",
   "windOffshore": "NE (surfnerd); NE (surf-forecast)",
   "tide": "Surfnerd: low, mid, high; rising better; low gives most hollow sections. Surf-forecast: good at all stages",
@@ -1185,7 +1185,7 @@
   ],
   "season": "autumn and winter, about Oct to Feb (surfnerd); winter best, summer mostly flat (surf-forecast)",
   "minimumPeriodS": null,
-  "notes": "Surfnerd says long-period WNW swell can be shadowed by Point Conception, keeping Rincon smaller. Note surf-forecast.com/breaks/Rincon is Puerto Rico, not this spot; used Rincon-Point (labelled Rincon - Indicator). Surfnerd workable window W to N is as stated on page. T-073: Surfnerd lists exposure SE-SSE, S and SW-W; the S pieces are dropped because The Surf Atlas says the Channel Islands block most summer swell at the point. SW to W adjoins the W to N wrap range; W to NW wraps round the point and is outside 60 deg of the SSW facing."
+  "notes": "Surfnerd says long-period WNW swell can be shadowed by Point Conception, keeping Rincon smaller. Note surf-forecast.com/breaks/Rincon is Puerto Rico, not this spot; used Rincon-Point (labelled Rincon - Indicator). T-073: Surfnerd says it faces SSW and works on W to N swell (best NW); Wannasurf NW and W; The Surf Atlas says winter NW and W swell reaches the point through the gap between the Channel Islands and Point Conception and summer swell is mostly blocked. That swell wraps around the point from outside 60 deg of the SSW facing, so the straight-shore estimate refuses; Surfnerd's exposure list (SE-SSE, S, SW-W) has a gap and is kept verbatim."
  },
  {
   "spotId": "cs-c-street",
@@ -1911,7 +1911,7 @@
   "windOffshore": "E",
   "tide": "Best around mid tide",
   "bottom": "sand (Surfnerd); beach and reef (Surf-Forecast)",
-  "waveType": "beach",
+  "waveType": "beach and reef",
   "waveDirection": "both",
   "sizeFt": null,
   "exposure": "exposed (surf-forecast: 'exposed beach and reef break')",
@@ -1925,7 +1925,7 @@
   ],
   "season": "Summer favoured by text; stats say winter, January cleanest",
   "minimumPeriodS": null,
-  "notes": "Surf-Forecast page is Ocean Beach Pier (San Diego); its 'Ocean-Beach' page is San Francisco. T-073: Surfnerd's ocean-beach-pier page (San Diego stated on the page) says faces WNW, beachbreak peaks either side of the pier; Surf-Forecast says beach and reef."
+  "notes": "Surf-Forecast page is Ocean Beach Pier (San Diego); its 'Ocean-Beach' page is San Francisco. T-073: Surfnerd's ocean-beach-pier page (San Diego stated on the page) says faces WNW, beachbreak peaks either side of the pier; Surf-Forecast says beach and reef. The wave type keeps both readings (beach and reef)."
  },
  {
   "spotId": "cs-imperial",
