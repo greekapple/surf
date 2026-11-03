@@ -102,7 +102,7 @@ export function ForecastView({go}: ViewProps) {
   const band = surfBandSeries(spot, records, {bundle, nowMs: now});
   const env = {records: view.mapRecords, bundle, profile: p, nowMs: now};
   // T-108: the subtitle follows what the spot actually has: surf estimates, or only offshore heights.
-  const hasEstimates = band.some((b) => b.kind === 'estimate'), hasTideDrawn = series.some((h) => Number.isFinite(h.forecast.tide.height));
+  const hasEstimates = band.some((b) => b.kind === 'estimate');
   const meta = [spot.region, `${spot.type.toLowerCase()} break`, !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
@@ -156,7 +156,7 @@ export function ForecastView({go}: ViewProps) {
             <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 240 : 280} />
           </div>
           <ul className="legend" aria-hidden="true">
-            {tab === 'surf' && <>{hasEstimates && <li><i style={{background: 'var(--hs-hi)', height: 8}} />Surf estimate (range)</li>}<li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />{hasEstimates ? 'Offshore Hs' : 'Offshore Hs · not surf size'}</li>{hasTideDrawn && <li><i style={{background: 'var(--tide)', height: 0, borderTop: '2px dashed var(--tide)'}} />Tide</li>}</>}
+            {tab === 'surf' && <>{hasEstimates && <><li><i style={{background: 'var(--hs-hi)', opacity: 0.45, height: 8}} />Surf estimate (range)</li><li><i style={{background: 'var(--hs-hi)', height: 0, borderTop: '2px solid var(--hs-hi)'}} />Middle of the range</li></>}<li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />{hasEstimates ? 'Offshore Hs' : 'Offshore Hs · not surf size'}</li></>}
             {tab === 'swell' && <><li><i style={{background: 'var(--sw1)'}} />Primary swell</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li></>}
             {tab === 'wind' && <><li><i style={{background: 'var(--accent)'}} />Wind speed</li><li><i style={{background: 'var(--muted)'}} />Gusts</li><li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to 24+ mph</li></>}
             {tab === 'tide' && <li><i style={{background: 'var(--tide)'}} />Predicted tide, MLLW</li>}

@@ -401,3 +401,26 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* T-099: on phones the map credits line drew over an open Model point / spot card (popups sit below Leaflet's controls layer). It hides only
    while a card is open, and is back as soon as the card closes. */
 @media (max-width: 860px) { .xleaf:has(.leaflet-popup) .leaflet-control-attribution { visibility: hidden; } }
+
+/* ---------- T-109 Compare: a header row at desktop, the whole row is the link, compact two-line rows and one scrolling chip row on phones ---------- */
+.cmpx-list li { display: block; padding: 0; }
+.cx-a, .cmpx-head { display: grid; grid-template-columns: 34px minmax(160px, 1.4fr) 100px 130px 120px 130px minmax(110px, 1fr); align-items: center; gap: 12px; padding: 8px 14px; }
+.cx-a { min-height: 64px; border-radius: 14px; color: inherit; text-decoration: none; }
+.cx-a:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.cmpx-head { min-height: 0; padding-block: 0; color: var(--muted); font-size: 12px; font-weight: 600; }
+@media (max-width: 860px) {
+  .cmpx-head { display: none; }
+  .cx-a { grid-template-columns: 22px minmax(0, 1fr) auto auto; grid-template-areas: 'r n t h' 'r s w w'; column-gap: 10px; row-gap: 2px; min-height: 64px; padding: 8px 12px; }
+  .cx-rank { grid-area: r; } .cx-name { grid-area: n; } .cx-rate { grid-area: t; justify-self: end; } .cx-hs { grid-area: h; justify-self: end; } .cx-sw { grid-area: s; } .cx-wd { grid-area: w; justify-self: end; } .cx-best { display: none; }
+  .cx-name { display: flex; align-items: baseline; gap: 6px; min-width: 0; } .cx-name b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cx-name small { white-space: nowrap; }
+  .cx-sw, .cx-wd { font-size: 13px; }
+  .cmpx-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter, 16px)); padding-inline: var(--gutter, 16px); gap: 12px; }
+  .cmpx-chips::-webkit-scrollbar { display: none; }
+  .cmpx-chips button { flex: none; white-space: nowrap; }
+  .cmpx > *, .cmpx-bar > * { min-width: 0; } .cmpx-bar > .cmpx-chips { flex: 1 1 100%; max-width: calc(100% + 2 * var(--gutter, 16px)); }
+}
+
+/* T-109: map pins keep their small look but get an invisible 44 px tap area (the label row is 22 px tall). */
+.xpin::before { content: ''; position: absolute; left: -6px; right: -6px; top: 50%; height: 44px; translate: 0 -50%; }
+/* T-109: the short phone legend label meets the 12 px minimum (t034); still two short lines. */
+.xleg-ks { font-size: 12px; max-width: 60px; }

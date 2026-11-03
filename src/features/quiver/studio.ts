@@ -132,6 +132,11 @@ function studioEnvironment(renderer: THREE.WebGLRenderer) {
   return env;
 }
 
+const isDarkTheme = () => typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark';
+/** The gallery floor's soft pool of light, fading into the CSS stage: warm white on the light stage, a dark neutral on the dark one (T-109). */
+const floorPool = (dark: boolean) => radialTexture(256, dark
+  ? [[0, 'rgba(70,73,78,0.9)'], [0.35, 'rgba(56,59,63,0.6)'], [0.75, 'rgba(42,45,49,0.18)'], [1, 'rgba(38,41,45,0)']]
+  : [[0, 'rgba(255,253,249,0.92)'], [0.35, 'rgba(250,248,243,0.62)'], [0.75, 'rgba(240,237,230,0.18)'], [1, 'rgba(236,233,226,0)']]);
 function radialTexture(size: number, stops: [number, string][]) {
   const c = document.createElement('canvas'); c.width = c.height = size;
   const g = c.getContext('2d')!, grad = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
@@ -203,6 +208,7 @@ export class Studio {
   private token = 0;
   private floor: THREE.Mesh;
   private catcher: THREE.Mesh;
+  private themeMo: MutationObserver;
   private key!: THREE.DirectionalLight;
   private shadowTex = radialTexture(128, [[0, 'rgba(40,36,30,0.62)'], [0.4, 'rgba(40,36,30,0.28)'], [1, 'rgba(40,36,30,0)']]);
   // T-072: fins as smoky fibreglass foils (translucent, clear-coated) so their outline and thin edge read, not a black blob.
@@ -237,11 +243,11 @@ export class Studio {
     this.scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d4cc, 0.55)); // light set: white wall above, pale floor bounce below
 
     // Gallery floor: a soft pool of light that fades into the CSS backdrop, so there is no hard horizon.
-    this.floor = new THREE.Mesh(new THREE.PlaneGeometry(1500, 1500), new THREE.MeshBasicMaterial({
-      map: radialTexture(256, [[0, 'rgba(255,253,249,0.92)'], [0.35, 'rgba(250,248,243,0.62)'], [0.75, 'rgba(240,237,230,0.18)'], [1, 'rgba(236,233,226,0)']]),
-      transparent: true, depthWrite: false, toneMapped: false,
-    }));
+    this.floor = new THREE.Mesh(new THREE.PlaneGeometry(1500, 1500), new THREE.MeshBasicMaterial({map: floorPool(isDarkTheme()), transparent: true, depthWrite: false, toneMapped: false}));
     this.floor.rotation.x = -Math.PI / 2; this.floor.renderOrder = 1; this.scene.add(this.floor);
+    // T-109: the floor pool follows the page theme (a dark neutral stage in dark mode), also when the theme is switched while the showroom is open.
+    this.themeMo = new MutationObserver(() => { const m = this.floor.material as THREE.MeshBasicMaterial; m.map?.dispose(); m.map = floorPool(isDarkTheme()); m.needsUpdate = true; this.dirty = true; this.kick(); });
+    this.themeMo.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
     const key = new THREE.DirectionalLight(0xfff3e4, 2.4); key.position.set(-80, 220, 160); this.scene.add(key);
     // T-072: a real soft shadow from the key light onto the floor (focus view), on top of the contact pool. Lineup with the photo room has its own.
     r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -478,7 +484,7 @@ export class Studio {
     const clear = new THREE.Color(), alpha = r.getClearAlpha(); r.getClearColor(clear);
     cam.aspect = vw / vh; cam.updateProjectionMatrix();
     try {
-      r.setScissorTest(true); r.setViewport(0, 0, vw, vh); r.setScissor(0, 0, vw, vh); r.setClearColor(0xf1f2f1, 1); // the thumbnail's own light ground
+      r.setScissorTest(true); r.setViewport(0, 0, vw, vh); r.setScissor(0, 0, vw, vh); r.setClearColor(isDarkTheme() ? 0x2b2e32 : 0xf1f2f1, 1); // the thumbnail's own ground (T-109: dark neutral in dark mode)
       for (const p of presets) {
         const pose = this.focusPose(p), q = this.presetPose(p);
         cam.position.setFromSpherical(pose.s).add(pose.target); cam.lookAt(pose.target);
@@ -814,7 +820,7 @@ export class Studio {
     this.disposed = true; cancelAnimationFrame(this.raf);
     document.removeEventListener('visibilitychange', this.onVis);
     this.canvas.removeEventListener('pointerdown', this.onDown); this.canvas.removeEventListener('pointerup', this.onUp); this.canvas.removeEventListener('pointermove', this.onHover);
-    this.ro.disconnect(); this.io.disconnect(); this.controls.dispose();
+    this.ro.disconnect(); this.io.disconnect(); this.themeMo.disconnect(); this.controls.dispose();
     // Template and fin geometry stay cached for the session; everything the scene owns is released here.
     for (const rig of [...this.rigs.values()]) this.removeRig(rig);
     this.floor.geometry.dispose(); const fm = this.floor.material as THREE.MeshBasicMaterial; fm.map?.dispose(); fm.dispose();

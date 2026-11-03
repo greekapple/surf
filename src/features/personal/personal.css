@@ -250,3 +250,5 @@
 .pzl-card { border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); border-radius: 0; background: none; }
 .pzl-row { padding-left: 0; padding-right: 0; }
 @media (max-width: 860px) { .pzl-gh { font-size: 15px; } }
+/* T-109: a long row value ("Surf height (as reports quote)") wraps to a second line on phones instead of running under the gutter as clipped text. */
+@media (max-width: 860px) { .pzl-v { white-space: normal; text-align: right; overflow: visible; } }

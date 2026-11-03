@@ -3,10 +3,10 @@ import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import type {TidePrediction} from '../../ocean/types';
-import {BAND_COLOR, bandOf, hourLabel, titleCase, type HourSample} from './model';
+import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {groupDays, ht, monotonePath, spotLatLon, sunTimes, windColor, windVal, compass, type Day} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT, localHour} from './format';
-import {Condition} from '../../ui/Condition';
+import {Condition, conditionWord} from '../../ui/Condition';
 import type {SurfBandPoint} from './trustApi';
 import {estimateBand, hasEstimateBand} from './trustRules';
 import {Icon} from '../../ui/Icon';
@@ -88,10 +88,14 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0
     : surfBand ? (bAt(h)?.hi !== null && bAt(h)?.hi !== undefined ? (bAt(h)!.lo! + bAt(h)!.hi!) / 2 : 0) : h.heightFt ?? 0);
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
-  const TYs = (v: number) => PB - 8 - ((v - tLo) / (tHi - tLo || 1)) * (PB - PT) * 0.26; // dashed tide under the surf curve
   const i0 = Math.max(0, Math.floor(a) - 1), i1 = Math.min(n - 1, Math.ceil(b) + 1);
   const vis = series.slice(i0, i1 + 1);
   const line = (f: (h: HourSample) => number) => monotonePath(vis.map((h, k) => [X(i0 + k), Y(f(h))]));
+  // T-109: runs of consecutive hours that have a surf estimate, as [x, lo, hi]; the band and median are drawn per run so a gap is never bridged.
+  const estRuns: [number, number, number][][] = [];
+  vis.forEach((h, k) => { const b = bAt(h), ok = b && b.lo !== null && b.hi !== null; if (!ok) { if (estRuns.length && estRuns[estRuns.length - 1].length) estRuns.push([]); return; }
+    if (!estRuns.length) estRuns.push([]); estRuns[estRuns.length - 1].push([X(i0 + k), b!.lo!, b!.hi!]); });
+  for (let r = estRuns.length - 1; r >= 0; r--) if (!estRuns[r].length) estRuns.splice(r, 1);
   const mainPath = line(val);
   // Mid-transition the window can sit past the series (vis empty); an area must never start without a moveto (D-05).
   const areaD = mainPath ? `${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z` : undefined;
@@ -140,7 +144,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   return (
     <div className="tl-body" ref={body} role="slider" tabIndex={0} aria-label="Forecast time. Arrow keys move one hour, Page Up and Page Down one day."
       aria-valuemin={0} aria-valuemax={n - 1} aria-valuenow={sel}
-      aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, ${(() => { const b = bAt(selH); return b && b.lo !== null && b.hi !== null ? `surf estimate ${ht(b.lo, p, 0)} to ${ht(b.hi, p, 0)} ${u}` : `offshore ${ht(selH.heightFt, p)} ${u}`; })()}, ${titleCase(selH.rating.category)}` : ''}
+      aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, ${(() => { const b = bAt(selH); return b && b.lo !== null && b.hi !== null ? `surf estimate ${ht(b.lo, p, 0)} to ${ht(b.hi, p, 0)} ${u}` : `offshore ${ht(selH.heightFt, p)} ${u}`; })()}, ${conditionWord(selH.rating.category)}` : ''}
       onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => (drag.current = false)} onPointerLeave={() => !drag.current && setHover(null)} onKeyDown={onKey}>
       <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
@@ -161,22 +165,24 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               <rect x={XT(prev)} y={PT - 8} width={Math.max(0, XT(rise) - XT(prev))} height={RB - PT + 8} fill="var(--ch-night)" />
               {k === days.length - 1 && <rect x={XT(set)} y={PT - 8} width={inner} height={RB - PT + 8} fill="var(--ch-night)" />}
               <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={RB + 8} />
-              {(d.end - d.start + 1) * pxh > 64 && X(d.end + 0.5) - Math.max(X(d.start - 0.5), G) > 70 &&
-                <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>}
+              {(() => { const room = X(d.end + 0.5) - Math.max(X(d.start - 0.5), G); // T-109: phones get the short day name instead of none
+                return room > 70 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>
+                  : room > 30 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 4} y={14}>{weekdayPT(d.t)}</text> : null; })()}
             </g>;
           })}
           <g key={tab} className="tl-fade">
             {tab === 'surf' && surfBand && <>
-              {/* One bar per hour from the low to the high of the surf estimate (Surfline 07); hours without an estimate stay empty. */}
-              {vis.map((h, k) => { const b = bAt(h); if (!b || b.lo === null || b.hi === null) return null; const x = X(i0 + k), bw = Math.max(1, Math.min(10, pxh * 0.62));
-                return <rect key={`b${h.timestamp}`} className="tl-band" x={x - bw / 2} y={Y(b.hi)} width={bw} height={Math.max(2, Y(b.lo) - Y(b.hi) + (b.lo === b.hi ? 2 : 0))} rx={Math.min(3, bw / 2)} />; })}
+              {/* T-109: one continuous band from the low to the high of the surf estimate, with its median as a line (not a bar per hour);
+                  hours without an estimate break the band, never bridged. The offshore Hs stays a thin muted line. Tide is only on the Tide tab. */}
+              {estRuns.map((run) => <g key={`r${run[0][0]}`}>
+                <path className="tl-band" d={`${monotonePath(run.map(([x, , hi]): [number, number] => [x, Y(hi)]))} L${monotonePath(run.map(([x, lo]): [number, number] => [x, Y(lo)]).reverse()).slice(1)} Z`} />
+                <path className="tl-median" d={monotonePath(run.map(([x, lo, hi]): [number, number] => [x, Y((lo + hi) / 2)]))} />
+              </g>)}
               <path d={line((h) => h.heightFt ?? 0)} fill="none" stroke="var(--muted)" strokeWidth={1.2} strokeLinejoin="round" opacity={0.8} />
-              {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
             </>}
             {tab === 'surf' && !surfBand && <>
               {/* T-108: with no surf estimate the only height drawn is the OFFSHORE Hs, in the Offshore Hs line style (the thin muted line the estimate view uses for it), never the blue "Surf estimate" area. */}
               <path d={mainPath} fill="none" stroke="var(--muted)" strokeWidth={1.4} strokeLinejoin="round" opacity={0.9} />
-              {hasTide && <path d={monotonePath(vis.map((h, k) => [X(i0 + k), TYs(h.forecast.tide.height)]))} fill="none" stroke="var(--tide)" strokeWidth={1.4} strokeDasharray="5 4" />}
             </>}
             {tab === 'swell' && <>
               <path d={areaD} fill="url(#gSw)" />
@@ -236,7 +242,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   );
 }
 
-const SCALE: [string, number, number][] = [['Poor', 0, 25], ['Weak', 25, 40], ['Surfable', 40, 55], ['Not Bad', 55, 65], ['Solid', 65, 75], ['Good', 75, 85], ['Firing', 85, 95], ['Epic', 95, 100]];
+const SCALE: [string, number, number][] = [['Poor', 0, 25], ['Weak', 25, 40], ['Surfable', 40, 55], ['Not bad', 55, 65], ['Solid', 65, 75], ['Good', 75, 85], ['Firing', 85, 95], ['Epic', 95, 100]];
 const HALF: Record<string, number> = {HIGH: 4, MODERATE: 8, LIMITED: 14, INSUFFICIENT: 22};
 /** Rating on the real category thresholds. Band width = reliability tier (a cue, not a measured range). */
 export function QualityBand({score, reliability}: {score: number | null; reliability: string}) {

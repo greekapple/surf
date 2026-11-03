@@ -4,8 +4,9 @@ import coast from './coast.json';
 import globeLand from './land-globe.json';
 import {isEnclosedWater} from './enclosed';
 
-/** Display ramp (deep blue → cyan → green → yellow → orange → red), shared by the field and its legend. */
-export const RAMP = ['#1b2a7a', '#1f5fbf', '#1fa6d6', '#2fc7a6', '#8fd65a', '#f2d84a', '#f59a32', '#e2502c', '#a3203a'];
+/** Display ramp, shared by the field and its legend. T-109 (RULES "no rainbow"): one hue, sequential, pale for low values to deep navy for high,
+ *  so more always reads as darker and the order is never a colour lookup. */
+export const RAMP = ['#eef5fb', '#d3e5f4', '#b0d0ec', '#86b6e0', '#5c99cf', '#3c7cbb', '#2761a1', '#1a4880', '#10325e'];
 /** Value range of the ramp per unit (metres, seconds, metres per second). */
 export const RANGE: Record<string, [number, number]> = {m: [0, 4], s: [6, 18], 'm/s': [0, 15], deg: [0, 360]};
 /** Wider ramps for the ocean-basin view, where storm seas would otherwise saturate the coastal scale. */

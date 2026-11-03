@@ -233,3 +233,5 @@
 .wk-h.wk-stale { color: var(--muted); }
 .wk-stale-tag { font-size: 10px; font-weight: 500; color: var(--muted); }
 .wk-g.is-stale { opacity: 0.45; } /* T-106: its drawing is muted too */
+/* T-109: the night hero is navy in both themes, so its drawn wave uses the dark-theme blue (the light-theme blue sank into it). */
+.wel-night .wel-hero { --hs-hi: #7cc4ff; }

@@ -345,8 +345,6 @@
 
 /* ---------- T-050 Quiver: the rack as a premium wall, one true scale, labels with today's size fit; board-room rail; calmer spec sheet ---------- */
 .qv-rackwrap .qv-stage.qv-room { --rack-floor: 64px; background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #eceae6 calc(100% - var(--rack-floor)), #e4e1dc 100%), repeating-linear-gradient(90deg, transparent 0 199px, rgb(0 0 0 / 0.035) 199px 200px), #fbfaf8; border: 1px solid var(--line); }
-:root[data-theme='dark'] .qv-rackwrap .qv-stage.qv-room { color: #1b2026; } /* T-053: the wall stays a lit, light gallery wall in dark mode (white boards would vanish on a dark one) */
-:root[data-theme='dark'] .qv-rackwrap .qv-rl b { color: #1b2026; } :root[data-theme='dark'] .qv-rackwrap .qv-rl small, :root[data-theme='dark'] .qv-today, :root[data-theme='dark'] .qv-ruler i span { color: #5b6672; }
 .qv-rackwrap .qv-rackrow { inset: 0 0 0 0; padding: 0 72px 0 96px; gap: 40px; align-items: flex-end; }
 .qv-rackwrap .qv-rackrow li { padding-bottom: 0; }
 .qv-rackwrap .qv-rack-b { display: grid; justify-items: center; gap: 10px; padding: 0 0 calc(var(--rack-floor) - 52px); opacity: 1; filter: none; }
@@ -467,8 +465,6 @@
 /* Showroom phone: the fixed Board Match bar must never cover content (it sat over the size-fit line). */
 @media (max-width: 860px) { .br { padding-bottom: calc(96px + var(--tab-h, 64px) + env(safe-area-inset-bottom)); } }
 /* Quiver dark: the wall is a light gallery in both themes, so its labels use the light palette (dark-theme inks were ~1.5–2:1 on it). */
-:root[data-theme='dark'] .qv-rackwrap { --text: #1d1d1f; --muted: #5e5e63; --dim: #6e6e73; --good-ink: #1d7334; --fair-ink: #7d5f00; --line: #e4e8e7; --s2: #eef1f0; }
-:root[data-theme='dark'] .qv-rackwrap .qv-ruler i { border-top-color: rgb(29 29 31 / 0.18); } :root[data-theme='dark'] .qv-rackwrap .qv-ruler { border-right-color: rgb(29 29 31 / 0.1); }
 /* Showroom hotspots: quiet dots that grow on hover, not heavy rings. */
 /* (the button stays a 44 px tap target; only the visible dot shrinks) */
 .br-hot i { width: 14px; height: 14px; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.18); transition: transform 150ms var(--ease); }
@@ -480,3 +476,20 @@
 .qv-duel .nw { white-space: nowrap; } /* T-095: a length never splits across lines */
 /* T-099: phones show the fit line in the fixed bar, so the in-page copy (which sat under the bar) is not repeated. */
 @media (max-width: 860px) { .br-h .br-fit { display: none; } .br-bar p .qv-fit { font-style: normal; } }
+
+/* T-109: showroom controls are 44 px tap targets on phones (the ‹ › angle steppers and Reset view / Full screen). */
+@media (max-width: 860px) { .br-count button { width: 44px; height: 44px; } .br-pill button.ic { min-width: 44px; min-height: 44px; } }
+
+/* T-109: the loading skeleton is the board's outline, laid along the stage like the 3D board, softly pulsing. */
+.br-load { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.br-load .board-art { width: auto; height: min(70%, 60vw); rotate: 90deg; opacity: 0.28; filter: grayscale(1); animation: br-pulse 1.4s ease-in-out infinite alternate; }
+@keyframes br-pulse { from { opacity: 0.16; } to { opacity: 0.34; } }
+@media (prefers-reduced-motion: reduce) { .br-load .board-art { animation: none; } }
+
+/* T-109 (site critique): in dark mode the Quiver wall and the showroom stage are a dark neutral (they were lit light panels, T-053/T-088). White and
+   light boards read clearly against it; the labels use the page's own dark-theme inks. */
+:root[data-theme='dark'] .qv-rackwrap .qv-stage.qv-room { background: linear-gradient(180deg, transparent calc(100% - var(--rack-floor)), #2c2f33 calc(100% - var(--rack-floor)), #25282c 100%), repeating-linear-gradient(90deg, transparent 0 199px, rgb(255 255 255 / 0.03) 199px 200px), #1d2024; border-color: #2f3337; }
+:root[data-theme='dark'] .qv-rackwrap .qv-ruler i { border-top-color: rgb(255 255 255 / 0.14); } :root[data-theme='dark'] .qv-rackwrap .qv-ruler { border-right-color: rgb(255 255 255 / 0.08); }
+:root[data-theme='dark'] .qv-rack-b { filter: drop-shadow(0 14px 12px rgb(0 0 0 / 0.55)); }
+:root[data-theme='dark'] .qv-rack-b:has(.bp-ill) { mix-blend-mode: normal; }
+:root[data-theme='dark'] .br-stage { background: radial-gradient(120% 70% at 50% 62%, #3a3d41 0%, #2b2e32 46%, #1e2023 100%), #26292d; }

@@ -467,3 +467,21 @@
   .sp-band > .photo::after { background: linear-gradient(180deg, rgb(7 12 17 / 0.5), transparent 55%), linear-gradient(90deg, rgb(7 12 17 / 0.72) 0%, rgb(7 12 17 / 0.4) 55%, rgb(7 12 17 / 0.2) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.62), rgb(7 12 17 / 0.3) 45%, transparent 75%); } }
 @media (max-width: 860px) { /* the Home welcome keeps its text at the bottom: no top scrim, so the photo stays visible at night */
   .wel .sp-band > .photo::after { background: linear-gradient(90deg, rgb(7 12 17 / 0.6) 0%, rgb(7 12 17 / 0.3) 55%, rgb(7 12 17 / 0.1) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.55), transparent 60%); } }
+
+/* ---------- T-109: hazard banner (icon + bold title, no coloured stripe; each alert one full-height link that wraps, so end times show) ---------- */
+.nws { display: grid; gap: 12px; padding: 4px 6px; border-left: 0; border-radius: 12px; background: color-mix(in srgb, var(--warn, #b4531a) 7%, transparent); }
+.nws-a { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 10px 8px; border-radius: 8px; color: var(--text); text-decoration: none; font-size: 14px; line-height: 1.4; }
+.nws-a:hover { background: color-mix(in srgb, var(--warn, #b4531a) 8%, transparent); }
+.nws-a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.nws-i { flex: none; margin-top: 1px; fill: none; stroke: var(--warn-ink, var(--warn, #b4531a)); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nws-t b { font-weight: 650; } .nws-w { color: var(--text); } .nws-s { color: var(--muted); font-size: 12.5px; }
+@media (max-width: 860px) { .nws { padding: 2px 4px; } .nws-a { font-size: 13px; padding: 8px 6px; } .nws-a .nws-t { display: block; -webkit-line-clamp: unset; overflow: visible; } }
+/* T-109: the "Felt right?" answers are at least 44 px wide. */
+.felt button { min-width: 44px; }
+/* T-109: the alert row is the link, but its text keeps the page ink (an older `.nws a` rule tinted it link blue and indented it). */
+.nws .nws-a { margin-left: 0; color: var(--text); }
+/* T-109: on phones the hero subtitle wraps to two lines instead of being cut off mid-word. */
+@media (max-width: 860px) { .sp-band .sp-title p { -webkit-line-clamp: 2; } }
+/* T-109: the surf estimate is one continuous band with its middle drawn as a line (not a bar per hour). */
+.tl-band { fill: var(--hs-hi); fill-opacity: 0.3; stroke: none; }
+.tl-median { fill: none; stroke: var(--hs-hi); stroke-width: 2; stroke-linejoin: round; }

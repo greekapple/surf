@@ -24,7 +24,8 @@ const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortb
 type Path = 'dims' | 'scan';
 const eighth = (n: number) => String(Math.round(n * 8) / 8);
 
-function BoardForm({initial, onSave, onCancel, onDirty}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void; onDirty?: (dirty: boolean) => void}) {
+function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void; onDirty?: (dirty: boolean) => void; onDelete?: () => void}) {
+  const [confirmDel, setConfirmDel] = useState(false);
   const [f, setF] = useState(() => initial ? {name: initial.name, manufacturer: initial.manufacturer, model: initial.model, type: initial.type,
     length: `${Math.floor(initial.length / 12)}'${+(initial.length % 12).toFixed(2)}"`, width: String(initial.width), thickness: String(initial.thickness),
     volume: String(initial.volume), fins: initial.fins ?? '', tail: initial.tail ?? '', notes: initial.notes ?? ''} : emptyForm);
@@ -74,7 +75,10 @@ function BoardForm({initial, onSave, onCancel, onDirty}: {initial?: Surfboard; o
       {estimating && <p className="fine">Volume is an estimate from the outline and thickness. Replace it with the number on the board if you have it.</p>}
       <label className="field" style={{marginTop: 12}}><span>Notes</span><textarea value={f.notes} onChange={(e) => setF({...f, notes: e.target.value})} /></label>
       {err && <p role="alert" style={{color: 'var(--warn)', marginTop: 8}}>{err}</p>}
-      <div style={{display: 'flex', gap: 8, marginTop: 12}}><button className="btn primary" type="submit">Save board</button><button className="btn" type="button" onClick={onCancel}>Cancel</button></div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12}}><button className="btn primary" type="submit">Save board</button><button className="btn" type="button" onClick={onCancel}>Cancel</button>
+        {/* T-109: Delete lives in Edit (not on the wall), still behind a confirmation. */}
+        {initial && onDelete && (!confirmDel ? <button className="btn danger" type="button" style={{marginLeft: 'auto'}} onClick={() => setConfirmDel(true)}><Icon name="trash" size={16} />Delete board</button>
+          : <button className="btn danger" type="button" style={{marginLeft: 'auto'}} onClick={onDelete}>Confirm delete {initial.name}</button>)}</div>
     </form>
   );
 }
@@ -98,11 +102,10 @@ export function QuiverView({section, go}: ViewProps) {
   const {data, view, prefs, setPrefs, now} = useSwello();
   const boards = data.state.boards, p = data.state.profile;
   const [editing, setEditing] = useState<Surfboard | 'new' | null>(null);
-  const [confirmDel, setConfirmDel] = useState(false);
   const [flat, setFlat] = useState(false);
   const [cmp, setCmp] = useState<[string, string]>([boards[0]?.id ?? '', boards[1]?.id ?? boards[0]?.id ?? '']);
   const sel = boards.find((b) => b.id === prefs.selectedBoardId) ?? boards[0];
-  const select = (id: string) => { setPrefs({selectedBoardId: id}); setConfirmDel(false); };
+  const select = (id: string) => { setPrefs({selectedBoardId: id}); };
   const f = view.forecast;
   // The same headline estimate as the spot page and Home (T-046): Board Match uses its range when the record has no face value.
   const hs = headlineSurf(view.spot.id, f, {bundle: view.ocean.bundle, nowMs: now});
@@ -117,14 +120,14 @@ export function QuiverView({section, go}: ViewProps) {
   const estText = est ? `est. ${Math.round(est[0])}–${Math.round(est[1])} ft at ${view.spot.name}` : null;
 
   // The form belongs to the section it was opened in. Any route change (pills, menu, back button) leaves it: close it,
-  // or if fields were edited keep it and ask first. Pending Delete confirmations don't survive a section change either.
+  // or if fields were edited keep it and ask first. (Delete lives in the form, T-109, so closing it drops a pending confirmation.)
   const formSection = useRef(section), dirty = useRef(false), seen = useRef(section);
   const [leaving, setLeaving] = useState<string | null>(null);
   const openForm = (b: Surfboard | 'new') => { formSection.current = section; dirty.current = false; setLeaving(null); setEditing(b); };
   const closeForm = () => { setEditing(null); setLeaving(null); dirty.current = false; };
   useEffect(() => {
     if (seen.current === section) return;
-    seen.current = section; setConfirmDel(false);
+    seen.current = section;
     if (!editing) return;
     if (dirty.current) setLeaving(section); else closeForm();
   }, [section]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -140,7 +143,8 @@ export function QuiverView({section, go}: ViewProps) {
           </div>
         </div>
       )}
-      <BoardForm initial={editing === 'new' ? undefined : editing} onCancel={closeForm} onDirty={(d) => { dirty.current = d; }} onSave={(b) => { data.saveBoard(b); select(b.id); closeForm(); }} />
+      <BoardForm initial={editing === 'new' ? undefined : editing} onCancel={closeForm} onDirty={(d) => { dirty.current = d; }} onSave={(b) => { data.saveBoard(b); select(b.id); closeForm(); }}
+        onDelete={editing && editing !== 'new' ? () => { data.deleteBoard(editing.id); closeForm(); } : undefined} />
     </div>
   );
   if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add your first board</button>} />;
@@ -161,8 +165,6 @@ export function QuiverView({section, go}: ViewProps) {
   const A = (b: Surfboard) => (
     <div className="qv-actions">
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
-      {!confirmDel ? <button className="btn danger" onClick={() => setConfirmDel(true)}><Icon name="trash" size={16} />Delete</button>
-        : <button className="btn danger" onClick={() => { data.deleteBoard(b.id); setConfirmDel(false); }}>Confirm delete {b.name}</button>}
     </div>
   );
   return (

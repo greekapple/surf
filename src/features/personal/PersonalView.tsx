@@ -440,12 +440,12 @@ export function PersonalView({section, go}: ViewProps) {
             </Group>
 
             <Group title="Appearance">
-              <Row icon="user" label="Theme" value={cap(themePref)} onClick={() => toPage('appearance')} />
+              <Row icon="theme" label="Theme" value={cap(themePref)} onClick={() => toPage('appearance')} />
             </Group>
 
             <Group title="Data & privacy">
-              <Row icon="account" label="Data source" value={view.dataMode} onClick={() => toPage('account')} />
-              <Row icon="account" label="Backup and storage" value="Local only" onClick={() => toPage('account')} />
+              <Row icon="data" label="Data source" value={view.dataMode} onClick={() => toPage('account')} />
+              <Row icon="backup" label="Backup and storage" value="Local only" onClick={() => toPage('account')} />
               <Row label="Privacy" onClick={() => go('personal', 'privacy')} />
               <Row label="Terms" onClick={() => go('personal', 'terms')} />
             </Group>

@@ -214,8 +214,9 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
           <div className="br-canvas" ref={host}>
             <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={cmpBoard ? `${board.name} and ${cmpBoard.name} side by side at true relative length.` : `3D view of ${board.name}. ${shapeNote} Drag or use the arrow keys to turn it, plus and minus to zoom.`} />
           </div>
-          {!ready && <div className="br-load skel" aria-hidden="true"><i /></div>}
-          {!cmpBoard && (['fins', 'tail', 'nose', 'rail'] as Anchor[]).map((k) => (
+          {/* T-109: while the model loads, the board's own outline (faded, pulsing) instead of a grey block; the hotspots appear only once it has loaded. */}
+          {!ready && <div className="br-load" aria-hidden="true"><BoardOutline b={board} scale={4} /></div>}
+          {ready && !cmpBoard && (['fins', 'tail', 'nose', 'rail'] as Anchor[]).map((k) => (
             <button key={k} type="button" ref={(el) => { hot.current[k] = el; }} className="br-hot" data-k={k} data-on="0" aria-expanded={open === k} aria-controls={`${uid}-pop`}
               aria-label={`${facts[k].k}: ${facts[k].v}`} onClick={() => setOpen(open === k ? null : k)}><i aria-hidden="true" /></button>
           ))}

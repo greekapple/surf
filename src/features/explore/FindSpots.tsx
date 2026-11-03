@@ -1,3 +1,4 @@
+import {conditionWord} from '../../ui/Condition';
 import {useMemo, useState, type CSSProperties} from 'react';
 import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
@@ -6,7 +7,7 @@ import {useSwello} from '../../app/store';
 import {evidenceSpots} from '../../ocean/spots';
 import {rateForecast} from '../../ratings/adapters';
 import {Icon} from '../../ui/Icon';
-import {BAND_COLOR, bandOf, hourLabel, titleCase, type HourSample} from '../forecast/model';
+import {BAND_COLOR, bandOf, hourLabel, type HourSample} from '../forecast/model';
 import {compass, ht, windVal} from '../forecast/helpers';
 import {bestWindowFrom} from '../../services/call';
 import {weekdayPT} from '../forecast/format';
@@ -62,7 +63,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       <button className="fs-main" onClick={() => open(r.s.id, 'forecast')}>
         <span className="fs-name"><b>{r.s.name}</b><small>{r.s.region}{Number.isFinite(r.dist) ? ` · ${Math.round(r.dist)} mi` : ''}</small></span>
         <span className="fs-hs">{r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit}</small></> : '—'}</span>
-        <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{titleCase(r.rating.category)}</em> : <small>no record</small>}</span>
+        <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{conditionWord(r.rating.category)}</em> : <small>no record</small>}</span>
         <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}{r.f && Number.isFinite(r.f.wind.speed) && <StaleTag s={hourFreshness(r.f, now).wind} />}</span>
         <span className="fs-best">{r.best ? `Best ${r.best.when} ${r.best.label}` : ''}</span>
       </button>

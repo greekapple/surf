@@ -1,3 +1,4 @@
+import {Icon} from '../../ui/Icon';
 import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
 import './trust.css';
@@ -66,12 +67,14 @@ export function NwsBanner({spotId}: {spotId: string}) {
   if (!shown.length) return null;
   return (
     <section className="nws" aria-label="National Weather Service alert" role="note">
+      {/* T-109: each alert is one link to its NWS page (a full-height tap target), an icon and the bold title first; it wraps rather than clipping its end time. */}
       {shown.map((a) => (
-        <p key={a.url + a.event}>
-          <b>{a.event}</b>{a.approxZone && <span> for the nearby coast</span>}
-          <span> · {a.onset ? `from ${when(a.onset)} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!)}` : ''}</span>
-          <a href={a.url} target="_blank" rel="noopener noreferrer">{a.sender || 'National Weather Service'}</a>
-        </p>
+        <a key={a.url + a.event} className="nws-a" href={a.url} target="_blank" rel="noopener noreferrer">
+          <Icon name="alert" size={18} className="nws-i" aria-hidden="true" />
+          <span className="nws-t"><b>{a.event}</b>{a.approxZone && <span> for the nearby coast</span>}
+            <span className="nws-w"> · {a.onset ? `from ${when(a.onset)} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!)}` : ''}</span>
+            <small className="nws-s"> · {a.sender || 'National Weather Service'} ↗</small></span>
+        </a>
       ))}
     </section>
   );
