@@ -801,7 +801,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       raf = 0; if (disposed || !visible || document.hidden) return;
       const dt = Math.min(0.05, (now - last) / 1000); worst = Math.max(worst, now - last); last = now; u.uTime.value = (now - t0) / 1000;
       mixer?.update(dt); const r = placeRider(u.uTime.value, dt); followCamera(dt); controls.update(); if (spray && spray.pts.visible) stepSpray(spray, dt, faceM); renderer.render(scene, camera); frames++;
-      if (r && (import.meta.env.DEV || now - riderAt > 100)) { riderAt = now; sampleRider(u.uTime.value, r); }
+      if (r && now - riderAt > (import.meta.env.DEV ? 30 : 100)) { riderAt = now; sampleRider(u.uTime.value, r); } // dev: ~30 Hz for the QA harness (sampling every frame caused GC hitches: 1% low 53.5)
       if (now - statAt > 1000) { el.dataset.fps = String(Math.round(frames * 1000 / (now - statAt))); el.dataset.worstMs = String(Math.round(worst)); el.dataset.geoms = String(renderer.info.memory.geometries); el.dataset.textures = String(renderer.info.memory.textures); frames = 0; worst = 0; statAt = now; }
       raf = requestAnimationFrame(frame);
     };
