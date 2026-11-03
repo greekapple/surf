@@ -29,11 +29,12 @@ const view = (o: SessionObservation): Observation => {
 
 /** The model estimate for one spot-hour, uncalibrated, as a pair; null when the hour has no record or no presentable estimate. */
 export function pairFor(spotId: string, records: Forecast[] | undefined, observedAtMs: number, bundle: LogEnv['bundle'], nowMs: number): ModelPair | null {
+  // Prefer what was PREDICTED before the session (the archive); it needs no current record, so an observation logged days later still pairs.
+  const hourIso = new Date(Math.floor(observedAtMs / 3600000) * 3600000).toISOString(), was = predictedFor(spotId, hourIso, observedAtMs);
+  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) return {centralFt: (was.lo + was.hi) / 2, loFt: was.lo, hiFt: was.hi, method: was.m, validAt: hourIso, offshoreHsFt: was.off, primaryTpS: was.tp, source: 'archived', leadH: was.lead};
+  // Fallback: the run at logging time, which needs a current record for the SAME hour (never a neighbouring one).
   const f = records && recordAt(records, spotId, observedAtMs);
-  if (!f || Math.floor(Date.parse(f.timestamp) / 3600000) !== Math.floor(observedAtMs / 3600000)) return null; // the same hour only, never a neighbouring one
-  // Prefer what was PREDICTED before the session (the archive), then the run at logging time.
-  const was = predictedFor(spotId, f.timestamp, observedAtMs);
-  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) return {centralFt: (was.lo + was.hi) / 2, loFt: was.lo, hiFt: was.hi, method: was.m, validAt: f.timestamp, offshoreHsFt: was.off, primaryTpS: was.tp, source: 'archived', leadH: was.lead};
+  if (!f || Math.floor(Date.parse(f.timestamp) / 3600000) !== Math.floor(observedAtMs / 3600000)) return null;
   const h = headlineSurf(spotId, f, {bundle, nowMs, observations: []});
   if (h.kind !== 'estimate') return null;
   const hs = f.evidence?.offshore?.value ?? (Number.isFinite(f.offshore) ? f.offshore : null), tp = f.primary?.period;
