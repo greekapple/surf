@@ -7,8 +7,27 @@ PATTERN='(turbosquid|public/media/scale3d-live/.*\.(glb|bin)$|public/media/scale
 cmd=$(python3 -c 'import json,sys
 try: print(json.load(sys.stdin).get("tool_input",{}).get("command",""))
 except Exception: print("")' 2>/dev/null)
-# only act on commands that actually run a push (the hook may be invoked for other Bash calls)
-printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git[[:space:]]+push([[:space:]]|$)' || exit 0
+# only act on commands that could run a push (the hook may be invoked for other Bash calls)
+printf '%s' "$cmd" | grep -Eq 'git' && printf '%s' "$cmd" | grep -Eq '(^|[^[:alnum:]_-])push([^[:alnum:]_-]|$)' || exit 0
+
+# strict mode for anything not a single plain `git push <remote> <refs>`: --all/--mirror/--tags, several pushes, git global
+# options before `push` (e.g. -C), aliases or scripts. Then every local branch ahead of its remote base must be clean (fails closed).
+npush=$(printf '%s' "$cmd" | grep -Eo '(^|[^[:alnum:]_-])push([^[:alnum:]_-]|$)' | wc -l | tr -d ' ')
+if [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git[[:space:]]+push([[:space:]]|$)' \
+   || printf '%s' "$cmd" | grep -Eq -- '--(all|mirror|tags)'; then
+  git fetch -q --all 2>/dev/null
+  for ref in $(git for-each-ref --format='%(refname:short)' refs/heads); do
+    base=""
+    for cand in "origin/$ref" "origin/surf-history" "origin/HEAD"; do
+      git rev-parse --verify -q "$cand^{commit}" >/dev/null && { base="$cand"; break; }
+    done
+    [ -z "$base" ] && { echo "BLOCKED: licence guard (strict) can't find a remote base for '$ref'" >&2; exit 2; }
+    files=$(git log --name-only --format= "$base..$ref") || { echo "BLOCKED: licence guard (strict) couldn't read '$ref'" >&2; exit 2; }
+    hit=$(printf '%s\n' "$files" | grep -E "$PATTERN" | sort -u | head -3)
+    [ -n "$hit" ] && { printf 'BLOCKED: this push form is checked strictly and local branch %s carries licensed/derived assets; push one clean branch explicitly (git push origin <branch>) or scrub history:\n%s\n' "$ref" "$hit" >&2; exit 2; }
+  done
+  exit 0
+fi
 # the push part of the command: words after "push" up to the next shell separator
 pushpart=$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//')
 args=(); for w in $pushpart; do case "$w" in -*) ;; *) args+=("$w");; esac; done
