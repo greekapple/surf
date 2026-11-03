@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {enablement, clampWindow, pickMop, breakingProfileFromGuide, profileFromGuide, GENERIC_MIN_PERIOD_S, MOP_NORMAL_TOLERANCE_DEG, type GuideFacts} from '../ocean/spotFactsRules.ts';
+import {enablement, clampWindow, pickMop, breakingProfileFromGuide, profileFromGuide, openSector, derivedFacing, isGeometrySource, GENERIC_MIN_PERIOD_S, MOP_NORMAL_TOLERANCE_DEG, type GuideFacts} from '../ocean/spotFactsRules.ts';
 import {guideFacts, guideFactsFor} from '../ocean/spotFactsSourced.ts';
 import {breakingProfiles, breakingProfile} from '../ocean/localCalibration.ts';
 import {evidenceSpots, evidenceSpot} from '../ocean/spots.ts';
@@ -37,7 +37,8 @@ test('the breaking profile from a guide: generic 8 s minimum, shelter 1, window 
 });
 test('Ocean Beach keeps its reviewed values; guide facing fills orientation only where it was null', () => {
   assert.equal(evidenceSpot('spot-2').orientation, 263.49); assert.deepEqual(breakingProfile('spot-2')!.window, [203, 323]);
-  assert.equal(evidenceSpot('spot-3').orientation, 315); assert.equal(evidenceSpot('spot-0').orientation, 135); assert.equal(evidenceSpot('cs-pismo').orientation, null);
+  assert.equal(evidenceSpot('spot-3').orientation, 315); assert.equal(evidenceSpot('spot-0').orientation, 135); assert.equal(evidenceSpot('cs-shelter-cove').orientation, null);
+  assert.equal(evidenceSpot('cs-pismo').orientation, 245, 'T-073: Pismo\'s facing is derived from coastline geometry');
 });
 test('provenance: every guide entry cites https pages with a retrieval date and the same spots the app lists; every derived value says "published guide"', () => {
   assert.deepEqual(guideFacts.map((f) => f.spotId).sort(), evidenceSpots.map((e) => e.id).sort());
@@ -45,11 +46,43 @@ test('provenance: every guide entry cites https pages with a retrieval date and 
   for (const p of spotProfiles) assert.deepEqual(profileProblems(p), [], p.spotId);
   const lm = spotProfiles.find((p) => p.spotId === 'spot-3')!; assert.equal(lm.orientation.provenance, 'published guide'); assert.equal(lm.periodResponse.provenance, 'published guide (generic)'); assert.equal(lm.mop.value!.id, 'SM375');
 });
-test('a sheltered spot gets facts but no estimate; a spot with no published facing or range gets neither; coverage grows from 1 spot to at least 25', () => {
-  assert.equal(breakingProfile('spot-1'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'spot-1')!.orientation.value!.beachNormalDeg, 225);
-  assert.equal(breakingProfile('cs-pismo'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'cs-pismo')!.orientation.value, null);
-  assert.ok(breakingProfiles.length >= 25, `profiles ${breakingProfiles.length}`); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === 1));
+test('a sheltered spot with no published open sector gets facts but no estimate; a spot with no single facing and no "exposed" reef statement gets neither; coverage is 43 of 45', () => {
+  assert.equal(breakingProfile('spot-7'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'spot-7')!.orientation.value!.beachNormalDeg, 112.5);
+  assert.match(enablement(guideFactsFor('spot-7')!).reasons.join(), /no source lists the swell directions it is open to/);
+  assert.equal(breakingProfile('cs-shelter-cove'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'cs-shelter-cove')!.orientation.value, null);
+  assert.deepEqual(enablement(guideFactsFor('cs-shelter-cove')!).reasons, ['no source states which way the beach faces', 'a reef break needs a source that says it is exposed']);
+  assert.equal(breakingProfiles.length, 43); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === 1));
   assert.ok(profileFromGuide({...base, facing: null, swellWindow: null}).orientation.value === null);
+});
+test('T-073 sheltered with a published open sector: estimate inside that sector only; a generic workable range is not enough', () => {
+  const sh: GuideFacts = {...base, exposure: 'sheltered', facing: {text: 'SW', deg: 225, basis: 'guide'}, swellWindow: {text: 'SSE to SW, WSW to W', fromDeg: 157.5, toDeg: 270, basis: 'exposure'}};
+  assert.equal(openSector(sh), true); assert.equal(enablement(sh).estimate, true);
+  const p = breakingProfileFromGuide(sh)!; assert.deepEqual(p.window, [165, 270]); assert.match(p.note, /shelter 1 applies only inside the open sector/);
+  assert.equal(enablement({...sh, swellWindow: {...sh.swellWindow!, basis: 'workable'}}).estimate, false, 'a workable range says what makes surf, not what the spot is open to');
+  assert.equal(enablement({...sh, waveType: 'point', swellWindow: {...sh.swellWindow!, basis: 'workable'}}).estimate, false);
+  assert.equal(enablement({...base, exposure: 'sheltered', swellWindow: null}).estimate, false);
+  // the real spots: Stinson (Surfnerd sheltered crescent, open SSE–SW and WSW–W), Huntington and Crescent City estimate; Cowell's (land in every direction) does not
+  assert.deepEqual(breakingProfile('spot-1')!.window, [165, 270]); assert.deepEqual(breakingProfile('cs-huntington')!.window, [165, 285]); assert.deepEqual(breakingProfile('cs-crescent-city')!.window, [180, 225]);
+  for (const id of ['spot-1', 'cs-huntington', 'cs-crescent-city']) { const f = guideFactsFor(id)!; assert.equal(f.exposure, 'sheltered', id); assert.equal(f.swellWindow!.basis, 'exposure', id); }
+});
+test('T-073 facing derived from coastline geometry: its own provenance and CDIP sources, never "published guide"; other facts keep the guide sources', () => {
+  const cdip = {url: 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/SL092_forecast.nc.ascii?metaShoreNormal', title: 'CDIP MOP shore normals (agency data) of SL092 244.5°', site: 'CDIP coastline geometry (facing)', retrievedOn: '2026-11-02'};
+  const d: GuideFacts = {...base, sources: [...src, cdip], facing: {text: 'WSW', deg: 245, basis: 'coastline geometry', sources: [cdip]}};
+  assert.equal(derivedFacing(d), true); assert.equal(isGeometrySource(cdip), true);
+  const p = profileFromGuide(d);
+  assert.equal(p.orientation.provenance, 'derived from coastline geometry'); assert.deepEqual(p.orientation.sources.map((s) => s.url), [cdip.url]); assert.match(p.orientation.note!, /derived from coastline geometry/);
+  assert.equal(p.swellWindow.provenance, 'published guide'); assert.ok(p.swellWindow.sources.every((s) => s.url !== cdip.url), 'the CDIP geometry source is not cited for guide facts');
+  assert.match(breakingProfileFromGuide(d)!.note, /245° derived from coastline geometry/); assert.doesNotMatch(breakingProfileFromGuide(d)!.note, /CDIP coastline geometry \(facing\),|guides \([^)]*CDIP/);
+  // the real spot: Pismo's guide gives WSW and SW, so the facing comes from the CDIP shore normals near the pier
+  const pf = guideFactsFor('cs-pismo')!; assert.equal(pf.facing!.basis, 'coastline geometry'); assert.equal(pf.facing!.deg, 245); assert.match(pf.notes, /different facings \(WSW, SW\)/);
+  const pp = spotProfiles.find((x) => x.spotId === 'cs-pismo')!; assert.equal(pp.orientation.provenance, 'derived from coastline geometry'); assert.ok(pp.orientation.sources.every((s) => s.url.startsWith('https://thredds.cdip.ucsd.edu/')));
+  for (const f of guideFacts) if (f.facing?.basis !== 'coastline geometry') assert.equal(spotProfiles.find((x) => x.spotId === f.spotId)!.orientation.provenance === 'derived from coastline geometry', false, f.spotId);
+});
+test('T-073 Rincon and Mavericks: the swell exposure the guide lists sets the window; the wrapping W–NW range stays outside ±60° of the SSW facing', () => {
+  assert.deepEqual(breakingProfile('cs-rincon')!.window, [225, 262.5]); assert.equal(guideFactsFor('cs-rincon')!.swellWindow!.text, 'SW to W'); assert.match(guideFactsFor('cs-rincon')!.notes, /Channel Islands/);
+  assert.equal(clampWindow(270, 360, 202.5), null, 'the W to N workable range alone leaves nothing');
+  assert.deepEqual(breakingProfile('spot-5')!.window, [157.5, 262.5]); assert.equal(guideFactsFor('spot-5')!.exposure, 'exposed');
+  assert.equal(assignmentFor('cs-rincon')!.mopId, 'B0001'); assert.equal(assignmentFor('spot-5')!.mopId, 'SM304');
 });
 
 import {headlineSurf, guideBasis} from '../services/headlineSurf.ts';

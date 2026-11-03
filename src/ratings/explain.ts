@@ -29,7 +29,7 @@ export function explainRating(rating: SurfRating, ctx: ExplainContext): RatingEx
       if (mph === null || rel === 'unknown') { items.push({...base, effect: '?', reason: 'Wind speed or the shore relation is unknown here, so wind is not scored.', inScore: false}); continue; }
       const why = rel === 'onshore' ? (mph > ONSHORE_LIGHT_MPH ? `Onshore ${r1(mph)} mph: held below "good" because onshore above ${ONSHORE_LIGHT_MPH} mph roughens the face (${ONSHORE_SOURCE}).` : `Light onshore ${r1(mph)} mph (up to ${ONSHORE_LIGHT_MPH} mph): small penalty only.`)
         : rel === 'offshore' ? `Offshore ${r1(mph)} mph: grooms the face; strong offshore is penalised.` : `Cross-shore ${r1(mph)} mph: a moderate penalty.`;
-      items.push({...base, reason: why + (prof?.orientation.provenance === 'published guide' ? ' Shore direction comes from a published guide (approximate, not surveyed).' : '')}); continue;
+      items.push({...base, reason: why + (prof?.orientation.provenance === 'published guide' ? ' Shore direction comes from a published guide (approximate, not surveyed).' : prof?.orientation.provenance === 'derived from coastline geometry' ? ' Shore direction is derived from coastline geometry (CDIP MOP shore normals; approximate, not surveyed).' : '')}); continue;
     }
     items.push(base);
   }

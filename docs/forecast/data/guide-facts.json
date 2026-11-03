@@ -98,6 +98,11 @@
     "url": "https://surfnerd.com/surf-forecast/stinson-beach",
     "site": "surfnerd",
     "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Stinson-Beach",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-02"
    }
   ],
   "facing": "SW",
@@ -108,7 +113,7 @@
    "toDeg": 315
   },
   "swellExposure": "SSE to SW, WSW to W",
-  "idealSwell": null,
+  "idealSwell": "southwest (Surf-Forecast)",
   "windOffshore": "NE",
   "tide": "low, mid and high; rising and higher cleaner",
   "bottom": "sand",
@@ -118,13 +123,13 @@
    "min": 2,
    "max": 5.9
   },
-  "exposure": "sheltered (Surfnerd: a sheltered crescent of sand)",
+  "exposure": "sheltered (Surfnerd: a sheltered crescent of sand); Surf-Forecast: fairly exposed beach break",
   "hazards": [
    "numerous shark sightings"
   ],
   "season": "autumn to spring",
   "minimumPeriodS": null,
-  "notes": ""
+  "notes": "T-073: Surfnerd calls it sheltered, Surf-Forecast fairly exposed; the cautious word is kept and the window is Surfnerd's swell exposure (the directions it is open to)."
  },
  {
   "spotId": "spot-5",
@@ -133,6 +138,16 @@
    {
     "url": "https://surfnerd.com/surf-forecast/mavericks",
     "site": "surfnerd",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Mavericks",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/San_Mateo/mavericks/index.html",
+    "site": "wannasurf",
     "retrievedOn": "2026-11-02"
    }
   ],
@@ -143,8 +158,8 @@
    "fromDeg": 270,
    "toDeg": 315
   },
-  "swellExposure": "SSE to WNW and WNW to NNW",
-  "idealSwell": "northwest",
+  "swellExposure": "SSE to WNW, WNW to NNW",
+  "idealSwell": "NW (Surfnerd, Wannasurf); WNW (Surf-Forecast)",
   "windOffshore": "east (also NNE listed)",
   "tide": "low and mid; rising better",
   "bottom": "boulders",
@@ -154,7 +169,7 @@
    "min": 12.1,
    "max": 29.9
   },
-  "exposure": "not stated",
+  "exposure": "exposed (Surf-Forecast: an exposed reef break)",
   "hazards": [
    "heavy currents",
    "rocks in the impact zone",
@@ -162,7 +177,7 @@
   ],
   "season": null,
   "minimumPeriodS": null,
-  "notes": "Strictly for expert big-wave surfers (Surfnerd)."
+  "notes": "Strictly for expert big-wave surfers (Surfnerd). T-073: the guides' best swell (W to NW) lies outside 60 deg of the SSW facing, so those hours estimate only when the swell direction used (offshore model, or the CDIP point's refracted direction) falls inside the window."
  },
  {
   "spotId": "spot-7",
@@ -171,6 +186,11 @@
    {
     "url": "https://surfnerd.com/surf-forecast/cowells",
     "site": "surfnerd",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cowells-Cove",
+    "site": "surf-forecast",
     "retrievedOn": "2026-11-02"
    }
   ],
@@ -192,14 +212,14 @@
    "min": 1,
    "max": 4.9
   },
-  "exposure": "sheltered (Surfnerd: land in every direction)",
+  "exposure": "sheltered (Surfnerd: land in every direction; Surf-Forecast: sheltered point break)",
   "hazards": [
    "crowded with learners",
    "traffic in the water"
   ],
   "season": "year-round",
   "minimumPeriodS": null,
-  "notes": ""
+  "notes": "T-073: Surfnerd says the swell that reaches it wraps around Lighthouse Point; no source lists directions it is open to, and its S to NW range has nothing within 60 deg of the ESE facing."
  },
  {
   "spotId": "spot-8",
@@ -208,6 +228,16 @@
    {
     "url": "https://surfnerd.com/surf-forecast/pleasure-point",
     "site": "surfnerd",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pleasure-Point-First-Peak",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pleasure-Point-Insides",
+    "site": "surf-forecast",
     "retrievedOn": "2026-11-02"
    }
   ],
@@ -219,7 +249,7 @@
    "toDeg": 315
   },
   "swellExposure": "S to W",
-  "idealSwell": "southwest",
+  "idealSwell": "southwest (Surfnerd, Surf-Forecast)",
   "windOffshore": "N",
   "tide": "low and mid; rising better",
   "bottom": "uneven reef, sand",
@@ -229,14 +259,14 @@
    "min": 2,
    "max": 9.8
   },
-  "exposure": "not stated",
+  "exposure": "exposed (Surf-Forecast First Peak and Insides: a fairly exposed reef break)",
   "hazards": [
    "kelp chokes it at bigger lows",
    "very busy lineup"
   ],
   "season": null,
   "minimumPeriodS": null,
-  "notes": "Surfnerd calls it a right-hand point over uneven reef and sand."
+  "notes": "Surfnerd calls it a right-hand point over uneven reef and sand. T-073: Surf-Forecast splits the spot into First Peak and Insides (36.96 N 121.96 W); both are called fairly exposed."
  },
  {
   "spotId": "spot-4",
@@ -340,14 +370,14 @@
     "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": null,
+  "facing": "SW",
   "facingDeg": null,
   "swellWorkable": {
    "text": "S through WSW to NW",
    "fromDeg": 180,
    "toDeg": 315
   },
-  "swellExposure": null,
+  "swellExposure": "SSE to WNW",
   "idealSwell": "Southwest (both sources)",
   "windOffshore": "NE offshore (both sources)",
   "tide": "Mid tide best, rising better (both sources)",
@@ -366,7 +396,7 @@
   ],
   "season": "Surfnerd: breaks reliably year-round; surf-forecast: winter, January most often",
   "minimumPeriodS": null,
-  "notes": "Surfnerd: mainly lefts off south end of cove, a separate right at north end. Surf-forecast calls it a left-hand reef and point, rated fickle by reviewers. Surfnerd difficulty intermediate."
+  "notes": "Surfnerd: mainly lefts off south end of cove, a separate right at north end. Surf-forecast calls it a left-hand reef and point, rated fickle by reviewers. Surfnerd difficulty intermediate. T-073: Surfnerd re-read: faces SW, swell exposure SSE to WNW."
  },
  {
   "spotId": "spot-2",
@@ -738,7 +768,7 @@
   "facing": "WSW (header); text says southwest-facing",
   "facingDeg": 247.5,
   "swellWorkable": null,
-  "swellExposure": "S to W (surfnerd)",
+  "swellExposure": "S to W",
   "idealSwell": "SW (surfnerd); WNW (surf-forecast)",
   "windOffshore": "NE (both)",
   "tide": "most of the tide, rising better (surfnerd); around high tide (surf-forecast)",
@@ -758,7 +788,8 @@
   ],
   "season": "spring, summer, autumn (surfnerd); winter, January best (surf-forecast)",
   "minimumPeriodS": null,
-  "notes": "Sources disagree on ideal swell (SW vs WNW) and season. Surfnerd skill beginner to expert, peaks around the pier. Surfnerd facing given as WSW in one place and 'southwest' in text."
+  "notes": "Sources disagree on ideal swell (SW vs WNW) and season. Surfnerd skill beginner to expert, peaks around the pier. Surfnerd facing given as WSW in one place and 'southwest' in text. T-073: Surfnerd says it sits in the lee of Point San Luis with a slight NW swell shadow (consistent with its S to W exposure). Facing derived from CDIP MOP shore normals because the guide gives two words.",
+  "facingFromCoastline": true
  },
  {
   "spotId": "cs-salmon-creek",
@@ -863,14 +894,14 @@
     "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": "SW (text); characteristics list S",
+  "facing": "SW",
   "facingDeg": 225,
   "swellWorkable": {
    "text": "S to N",
    "fromDeg": 180,
    "toDeg": 360
   },
-  "swellExposure": "S to W (surfnerd)",
+  "swellExposure": "S to W",
   "idealSwell": "clean head-high or bigger, right works best 6ft+ (surfnerd); NW (surf-forecast)",
   "windOffshore": "NE (both); N sideshore but semi-clean, S to be avoided (surfnerd)",
   "tide": "mid, rising (both)",
@@ -893,7 +924,7 @@
   ],
   "season": "autumn, Sep-Nov (surfnerd); winter, December best (surf-forecast)",
   "minimumPeriodS": null,
-  "notes": "Surf-forecast calls it a 'fairly exposed beach break' in text but lists reef in spot info. Surfnerd characteristics list left; narrative mentions a right off the point. Expert only."
+  "notes": "Surf-forecast calls it a 'fairly exposed beach break' in text but lists reef in spot info. Surfnerd characteristics list left; narrative mentions a right off the point. Expert only. T-073: Surfnerd re-read shows one facing, SW (the earlier summary also listed S)."
  },
  {
   "spotId": "cs-shelter-cove",
@@ -905,14 +936,14 @@
     "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": "SW (crescent-shaped cove); characteristics list S",
+  "facing": "S (field); overview says southwest-facing",
   "facingDeg": 225,
   "swellWorkable": {
    "text": "SSW to W",
    "fromDeg": 202.5,
    "toDeg": 270
   },
-  "swellExposure": "SSE to SW (surfnerd)",
+  "swellExposure": "SSE to SW",
   "idealSwell": null,
   "windOffshore": "NE, workable N to E (surfnerd)",
   "tide": "all tides, rising better; Third Reef needs larger swell and low tide (surfnerd)",
@@ -929,7 +960,7 @@
   ],
   "season": "autumn (surfnerd); spring good, winter often blown out, summer small",
   "minimumPeriodS": null,
-  "notes": "No surf-forecast.com page named Shelter Cove (URL 404); only separate breaks (Deadman's, Gale Point) exist there, not fetched as equivalents. Surfnerd narrative also covers Deadman's, No Pass, Gale Point. Skill all levels listed. Page about 2 years old."
+  "notes": "No surf-forecast.com page named Shelter Cove (URL 404); only separate breaks (Deadman's, Gale Point) exist there, not fetched as equivalents. Surfnerd narrative also covers Deadman's, No Pass, Gale Point. Skill all levels listed. Page about 2 years old. T-073: Surf-Forecast's \"exposed reef break\" page is Deadman's, a separate break in the cove, so it is not applied here."
  },
  {
   "spotId": "cs-north-jetty",
@@ -946,14 +977,14 @@
     "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": null,
+  "facing": "WNW",
   "facingDeg": null,
   "swellWorkable": {
    "text": "W to NW",
    "fromDeg": 270,
    "toDeg": 315
   },
-  "swellExposure": "WNW to N (surfnerd)",
+  "swellExposure": "WNW to N",
   "idealSwell": "W to NW (surfnerd); NW (surf-forecast)",
   "windOffshore": "ESE (surfnerd, workable E to SE); light SE (surf-forecast)",
   "tide": "low and mid, rising better (surfnerd); all stages (surf-forecast)",
@@ -972,7 +1003,7 @@
   ],
   "season": "autumn and winter, about Sep-Feb (surfnerd); winter, January (surf-forecast)",
   "minimumPeriodS": null,
-  "notes": "Surfnerd page says Eureka, does not name Humboldt Bay but lists Humboldt Harbor Entrance nearby. Search summary mentioned 4-15 ft text vs 2-8 ft header; page fetch showed 2-8 ft. Skill intermediate/expert; shortboard or gun."
+  "notes": "Surfnerd page says Eureka, does not name Humboldt Bay but lists Humboldt Harbor Entrance nearby. Search summary mentioned 4-15 ft text vs 2-8 ft header; page fetch showed 2-8 ft. Skill intermediate/expert; shortboard or gun. T-073: Surfnerd re-read: faces WNW."
  },
  {
   "spotId": "cs-moonstone",
@@ -1026,24 +1057,38 @@
     "url": "https://www.mondo.surf/surf-spot/crescent-city-south-beach/guide/10902",
     "site": "other",
     "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/South-Beach",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": null,
+  "facing": "SSW",
   "facingDeg": null,
-  "swellWorkable": null,
-  "swellExposure": null,
-  "idealSwell": null,
-  "windOffshore": null,
+  "swellWorkable": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
+  "swellExposure": "S to SW",
+  "idealSwell": "SW (Surfnerd); WSW (Surf-Forecast)",
+  "windOffshore": "NE (Surfnerd, Surf-Forecast)",
   "tide": "medium and high, rising best (mondo.surf)",
   "bottom": "sand",
-  "waveType": null,
+  "waveType": "beach",
   "waveDirection": "both",
   "sizeFt": null,
-  "exposure": "somewhat protected (page: 'protected nature'; sizes often about 40% of swell)",
+  "exposure": "sheltered (Surf-Forecast: sheltered beach break; Mondo: protected)",
   "hazards": [],
   "season": null,
   "minimumPeriodS": null,
-  "notes": "Neither surfnerd nor surf-forecast has a Crescent City page (surfnerd and surf-forecast guessed slugs 404; surf-forecast 'Crescent' is in Washington State). Only Mondo Surf South Beach guide used; South Beach may not equal the app's spot. Mondo describes it as suitable for all levels."
+  "notes": "T-073: Surfnerd and Surf-Forecast cover it as South Beach (the earlier search tried other slugs). Surfnerd places it beside Hwy 101 near Crescent City Harbor; Surf-Forecast puts it at 41.74 N 124.17 W, Del Norte County, 1 km from the Crescent City tide station. Mondo calls it protected, sizes often about 40% of the swell."
  },
  {
   "spotId": "cs-jalama",
@@ -1101,6 +1146,16 @@
     "url": "https://www.surf-forecast.com/breaks/Rincon-Point",
     "site": "surf-forecast",
     "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://thesurfatlas.com/surfing-in-the-usa/rincon-point/",
+    "site": "surfatlas",
+    "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/rincon/index.html",
+    "site": "wannasurf",
+    "retrievedOn": "2026-11-02"
    }
   ],
   "facing": "SSW",
@@ -1110,8 +1165,8 @@
    "fromDeg": 270,
    "toDeg": 360
   },
-  "swellExposure": "SE to SSE, S, and SW to W (as listed)",
-  "idealSwell": "NW (surfnerd); WNW groundswell (surf-forecast)",
+  "swellExposure": "SW to W",
+  "idealSwell": "NW (Surfnerd); WNW (Surf-Forecast); NW, W (Wannasurf)",
   "windOffshore": "NE (surfnerd); NE (surf-forecast)",
   "tide": "Surfnerd: low, mid, high; rising better; low gives most hollow sections. Surf-forecast: good at all stages",
   "bottom": "boulders and sand (surfnerd); not stated (surf-forecast)",
@@ -1130,7 +1185,7 @@
   ],
   "season": "autumn and winter, about Oct to Feb (surfnerd); winter best, summer mostly flat (surf-forecast)",
   "minimumPeriodS": null,
-  "notes": "Surfnerd says long-period WNW swell can be shadowed by Point Conception, keeping Rincon smaller. Note surf-forecast.com/breaks/Rincon is Puerto Rico, not this spot; used Rincon-Point (labelled Rincon - Indicator). Surfnerd workable window W to N is as stated on page."
+  "notes": "Surfnerd says long-period WNW swell can be shadowed by Point Conception, keeping Rincon smaller. Note surf-forecast.com/breaks/Rincon is Puerto Rico, not this spot; used Rincon-Point (labelled Rincon - Indicator). Surfnerd workable window W to N is as stated on page. T-073: Surfnerd lists exposure SE-SSE, S and SW-W; the S pieces are dropped because The Surf Atlas says the Channel Islands block most summer swell at the point. SW to W adjoins the W to N wrap range; W to NW wraps round the point and is outside 60 deg of the SSW facing."
  },
  {
   "spotId": "cs-c-street",
@@ -1460,7 +1515,7 @@
    "fromDeg": 180,
    "toDeg": 315
   },
-  "swellExposure": "SE to SW and WSW to WNW",
+  "swellExposure": "SE to SW, WSW to WNW",
   "idealSwell": "surfnerd: south side best on SW, north side handles bigger winter swells; surf-forecast: WSW",
   "windOffshore": "NE (both)",
   "tide": "Surfnerd: both sides all tides, rising better. Surf-forecast: best around mid tide",
@@ -1480,7 +1535,7 @@
   ],
   "season": "surfnerd not stated directly; surf-forecast: year-round, winter best",
   "minimumPeriodS": null,
-  "notes": "Surfnerd splits the pier into south side (lefts) and north side (rights); separate pages exist for Southside and Northside. Surf-forecast calls it sheltered, surfnerd gives a broad S to NW window."
+  "notes": "Surfnerd splits the pier into south side (lefts) and north side (rights); separate pages exist for Southside and Northside. Surf-forecast calls it sheltered, surfnerd gives a broad S to NW window. T-073: the window is Surfnerd's swell exposure (the directions it is open to)."
  },
  {
   "spotId": "cs-wedge",
@@ -1797,16 +1852,25 @@
     "url": "https://www.surf-forecast.com/breaks/Windansea",
     "site": "surf-forecast",
     "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/windansea-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": null,
+  "facing": "W",
   "facingDeg": null,
-  "swellWorkable": null,
-  "swellExposure": null,
-  "idealSwell": "SW; mostly groundswell",
+  "swellWorkable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S to NNW",
+  "idealSwell": "SW (Surfnerd, Surf-Forecast)",
   "windOffshore": "E",
   "tide": "Good at all stages",
-  "bottom": "reef",
+  "bottom": "reef (rock ledge, Surfnerd)",
   "waveType": "reef",
   "waveDirection": "both",
   "sizeFt": null,
@@ -1818,7 +1882,7 @@
   ],
   "season": "Summer favoured by text; stats say winter, November cleanest",
   "minimumPeriodS": null,
-  "notes": "No Surfnerd Windansea page found (Big Rock, just south, is a different spot; surfnerd windansea slug returned 404). Surf-forecast: right is best, a left also breaks."
+  "notes": "Surf-Forecast: right is best, a left also breaks. T-073: Surfnerd's windansea-beach page (the earlier search tried another slug) states faces W and swell exposure S to NNW."
  },
  {
   "spotId": "cs-ob-sd",
@@ -1828,17 +1892,26 @@
     "url": "https://www.surf-forecast.com/breaks/O-B-pier",
     "site": "surf-forecast",
     "retrievedOn": "2026-11-02"
+   },
+   {
+    "url": "https://surfnerd.com/surf-forecast/ocean-beach-pier",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-02"
    }
   ],
-  "facing": null,
+  "facing": "WNW",
   "facingDeg": null,
-  "swellWorkable": null,
-  "swellExposure": null,
-  "idealSwell": "W; mostly groundswell",
+  "swellWorkable": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "SSW to NNW",
+  "idealSwell": "NW (Surfnerd); W (Surf-Forecast)",
   "windOffshore": "E",
   "tide": "Best around mid tide",
-  "bottom": "beach and reef mix (no finer detail)",
-  "waveType": "other: beach and reef",
+  "bottom": "sand (Surfnerd); beach and reef (Surf-Forecast)",
+  "waveType": "beach",
   "waveDirection": "both",
   "sizeFt": null,
   "exposure": "exposed (surf-forecast: 'exposed beach and reef break')",
@@ -1852,7 +1925,7 @@
   ],
   "season": "Summer favoured by text; stats say winter, January cleanest",
   "minimumPeriodS": null,
-  "notes": "Page is Ocean Beach Pier (San Diego). Surf-forecast 'Ocean-Beach' is San Francisco, surfnerd 'ocean-beach' is San Francisco, no San Diego surfnerd guide found. Surf-forecast also has OB Jetty page (not fetched)."
+  "notes": "Surf-Forecast page is Ocean Beach Pier (San Diego); its 'Ocean-Beach' page is San Francisco. T-073: Surfnerd's ocean-beach-pier page (San Diego stated on the page) says faces WNW, beachbreak peaks either side of the pier; Surf-Forecast says beach and reef."
  },
  {
   "spotId": "cs-imperial",
