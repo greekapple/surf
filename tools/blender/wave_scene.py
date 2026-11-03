@@ -37,6 +37,9 @@ ap.add_argument('--yaw', type=float, default=90.0, help='surfer yaw (deg) so the
 ap.add_argument('--sun', type=float, default=150.0, help='sun azimuth (deg)')
 ap.add_argument('--sunel', type=float, default=14.0)
 ap.add_argument('--look', type=float, default=0.0, help='debug: shift the camera target along the crest (m)')
+ap.add_argument('--atlas', default='', help='write the wave-v3 profile atlas for every bucket (or --bands) to this folder, then exit')
+ap.add_argument('--bands', default='', help='with --atlas: comma list of band ids (default: all)')
+ap.add_argument('--breaker', default='', help="with --atlas: force 'spilling' or 'plunging' (default: per bucket family)")
 a = ap.parse_args(argv)
 
 H = a.face
@@ -68,6 +71,13 @@ HM = max(z for _, z in BARREL) - TROUGH
 K = H / HM  # model units -> metres, so the barrel's trough-to-crest is H
 crest_i = max(range(COLS), key=lambda i: BARREL[i][1])
 tip_i = max(range(crest_i, COLS), key=lambda i: BARREL[i][0] if BARREL[i][1] > FLAT + 0.02 else -1)
+
+if a.atlas:
+    # wave-v3 P1: the break-cycle profile atlas for the live viewer (licensed-derived: write it to a git-ignored folder)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import wave_atlas
+    wave_atlas.build_all(HUMP, MID, BARREL, a.atlas, only=[b for b in a.bands.split(',') if b] or None, breaker=a.breaker or None)
+    sys.exit(0)
 
 
 def lerp(p, q, t):
