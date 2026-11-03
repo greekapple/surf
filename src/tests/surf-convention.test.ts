@@ -53,7 +53,7 @@ test('fallback order: with a nearshore record for the hour that refuses (outside
 test('cached records from before the convention (no breakingFt) are not shown as a surf height; felt signals without the convention marker are ignored', async () => {
   const f = rec('spot-2', 1.5); (f.evidence!.faceEstimate as any).breakingFt = undefined; // an old cached record: centralFt was the breaking height
   const h = headlineSurf('spot-2', f, {nowMs: NOW, observations: [], spread: null}) as any;
-  assert.equal(h.centralFt, undefined); assert.match(h.methodLabel, /fixed 0\.7–1\.4 band \(older cached data\)/);
+  assert.equal(h.kind, 'offshore', 'T-083: the legacy breaking-height range is never relabelled as surf height'); assert.equal(h.centralFt, undefined);
   const {calibrationFor, resetObservationCache} = await import('../services/calibration.ts'); const {resetFeltCache} = await import('../services/observationStore.ts');
   resetObservationCache([]); resetFeltCache([{id: 'a', spotId: 'spot-2', hour: new Date(T * 1000).toISOString(), felt: 'low', loggedAt: '', predicted: {loFt: 4, hiFt: 8, method: 'v1', source: 'archived'}}]);
   assert.equal((calibrationFor('spot-2', 'v1') as any).felt.low, 0, 'an old-basis felt signal does not count'); resetFeltCache([]); resetObservationCache([]);

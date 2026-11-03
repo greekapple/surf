@@ -4,9 +4,9 @@ import {evidenceQuality} from './quality.ts';
 import {toLegacy} from './bridge.ts';
 import {recordSurfRange} from '../services/surfRange.ts';
 import {scoreBoard} from '../recommendation/board.ts';
-export function evidenceMatch(spot:SpotEvidence,r:OceanRecord,p:UserProfile,boards:Surfboard[],nowMs:number=Date.now()):{score:number|null;board:BoardRecommendation|null;reason:string;estimate?:true}{
+export function evidenceMatch(spot:SpotEvidence,r:OceanRecord,p:UserProfile,boards:Surfboard[],surf:{loFt:number;hiFt:number}|null|undefined,nowMs:number=Date.now()):{score:number|null;board:BoardRecommendation|null;reason:string;estimate?:true}{
  /* No measured/calibrated face value: an unvalidated estimate range may stand in, and only then. */
- const sr=r.face.value===null?recordSurfRange(r,nowMs):null,est:[number,number]|null=sr?[sr.loFt,sr.hiFt]:null; /* T-081: the convention surf height and its uncertainty, the same as the headline, not the legacy breaking range */
+ const sr=r.face.value===null?(surf!==undefined?surf:recordSurfRange(r,nowMs)):null,est:[number,number]|null=sr?[sr.loFt,sr.hiFt]:null; /* T-081/T-083: the convention surf height and its uncertainty. Callers pass the HEADLINE's range (`surf`, from services/headlineSurf.ts) so Match agrees with every other surface (v2 where MOP exists); without it the record's own v1 figure is used (offline/tests). null = explicitly no estimate. */
  const quality=evidenceQuality(spot,r,undefined,est),missing=[];
  if(r.face.value===null&&!est)missing.push(r.faceEstimate?.refusal?`breaking-wave height (${r.faceEstimate.refusal.replace(/\.$/,'')})`:'breaking-wave height');if(!r.character||r.character==='Unknown')missing.push('local wave character');if(!spot.difficulty)missing.push('verified experience requirement');if(!spot.hazardsComplete||spot.hazards===null)missing.push('complete hazard assessment');if(quality.score===null)missing.push('sufficient SQI inputs');
  if(missing.length)return {score:null,board:null,reason:`Your Match unavailable: missing ${missing.join(', ')}. ${boards.length?'Your saved boards remain available for comparison.':'No quiver is required to inspect the forecast.'}`};

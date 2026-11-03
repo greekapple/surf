@@ -110,7 +110,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>surf height</span></> : t.detail}</p>
         {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
-        {hs.kind === 'estimate' ? <p className="sp-f" title={hs.methodLabel}>model estimate<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
+        {hs.kind === 'estimate' ? <p className="sp-f" title={hs.methodLabel}>{hs.saved ? `saved copy · retrieved ${hs.saved.retrievedAt ? timeLabelPT(hs.saved.retrievedAt) : 'earlier'} · not live` : 'model estimate'}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
         {observe}
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}

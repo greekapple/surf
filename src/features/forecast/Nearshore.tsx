@@ -49,7 +49,7 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
         <div><span className="k">Direction (from)</span><span className="v">{dp === null ? '—' : <><DirArrow from={dp} color="var(--sw1)" />{Math.round(dp)}<small>° {compass(dp)}</small></>}</span></div>
       </div>
       {v2 && (v2.ok ? <p className="fine"><b>Experimental, off by default ({BREAKING_V2_VERSION}):</b> Est. {formatWaveHeight(v2.input, p).text} at the break, from this MOP point by linear shoaling and refraction. Unvalidated; not used in the rating.</p> : <p className="fine"><b>Experimental ({BREAKING_V2_VERSION}):</b> no estimate. {v2.reason}</p>)}
-      <p className="fine">Valid {when(rec.timestamp)}{step}. {issued ? `Forecast file issued ${when(issued)}; ` : ''}retrieved {when(retrieved)}. {where}. Modeled Hs at depth; for this spot the same value is used as the surf-height estimate (the common surf-report convention). A model value, not a measurement.</p>
+      <p className="fine">Valid {when(rec.timestamp)}{step}. {issued ? `Forecast file issued ${when(issued)}; ` : ''}retrieved {when(retrieved)}. {where}. Modeled Hs at depth; where this point supplies the headline (see its method line; it can be refused for swell outside the window or too short a period) the same value is used as the surf-height estimate (the common surf-report convention). A model value, not a measurement.</p>
       {foot}
     </>
   );

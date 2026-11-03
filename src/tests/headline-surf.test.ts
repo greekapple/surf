@@ -8,7 +8,7 @@ const m = (unit: any, value: number | null) => ({value, unit, source: {} as any}
 const rec = (iso: string, hsM: number, tp: number, dp: number) => ({timestamp: iso, height: m('ft', hsM * FT), period: m('s', tp), direction: m('deg', dp), qualityFlag: 1, mopId: 'SF023', product: 'forecast' as const});
 const T = '2026-11-02T18:00:00.000Z', NOW = Date.parse('2026-11-02T12:00:00Z');
 const v1input = {kind: 'breaking-estimate', valueFt: null, rangeFt: [3, 5] as [number, number], rangeMethod: 'Komar-Gaughan … unvalidated v1'};
-const hour = (o: any = {}) => ({spotId: 'spot-2', timestamp: T, day: 0, hour: 18, face: NaN, offshore: 5.2, availability: {face: false, swell: true, wind: true, tide: true, organization: false}, evidence: {faceEstimate: {input: v1input}}, ...o}) as any;
+const hour = (o: any = {}) => ({spotId: 'spot-2', timestamp: T, day: 0, hour: 18, face: NaN, offshore: 5.2, availability: {face: false, swell: true, wind: true, tide: true, organization: false}, evidence: {faceEstimate: {input: v1input, centralFt: 4, breakingFt: 5}}, ...o}) as any;
 const bundle = (records: any[]) => ({nearshore: [], mop: {SF023: {mopId: 'SF023', records, issue: null, retrievedAt: T, url: 'x'}}}) as any;
 const profile = {heightUnit: 'ft', scale: 'Face'} as any;
 
@@ -31,7 +31,7 @@ test('v2 is the default where a reviewed MOP point has data for the hour', () =>
 });
 test('falls to v1 only when the nearshore model has no usable record for the hour; if it HAS the hour and refuses (short period, outside the window) the spot shows offshore, never a contradicting v1 (T-077)', () => {
   const far = headlineSurf('spot-2', hour(), {bundle: bundle([rec('2026-11-09T00:00:00.000Z', 1.4, 14, 266)]), nowMs: NOW});
-  assert.ok(far.kind === 'estimate' && far.method === 'v1' && far.loFt === 3 && far.hiFt === 5 && far.words === 'waist to head');
+  assert.ok(far.kind === 'estimate' && far.method === 'v1' && far.centralFt === 4 && far.loFt <= 4 && far.hiFt >= 4 && far.words !== null);
   assert.equal(headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 6, 266)]), nowMs: NOW}).kind, 'offshore', 'short period refused by the nearshore model: no v1 fallback');
   assert.equal(headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 100)]), nowMs: NOW}).kind, 'offshore', 'outside the swell window per the nearshore model: no v1 fallback');
   assert.ok((headlineSurf('spot-2', hour(), {bundle: null, nowMs: NOW}) as any).method === 'v1');
