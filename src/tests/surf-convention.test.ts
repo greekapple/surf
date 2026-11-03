@@ -20,8 +20,8 @@ const bundle = (r: any[]) => ({nearshore: [], mop: {SF023: {mopId: 'SF023', reco
 test('v2: the headline central is the MOP Hs at the point (the surf-report convention); the breaking height is kept beside it and is larger; labels say surf height', () => {
   const f = rec('spot-2', 1.5), h = headlineSurf('spot-2', f, {bundle: bundle([mopRec(7.5)]), nowMs: NOW, observations: [], spread: null}) as any;
   assert.equal(h.kind, 'estimate'); assert.equal(h.method, 'mop-v2'); assert.equal(h.centralFt, 7.5); assert.ok(h.breakingFt > 7.5 && h.breakingFt / 7.5 < 1.5, `breaking ${h.breakingFt}`);
-  assert.ok(h.loFt <= 7.5 && h.hiFt >= 7.5); assert.match(h.methodLabel, /Surf height \(common convention/); assert.match(h.methodLabel, /breaking height about \d+ ft/); assert.doesNotMatch(h.methodLabel, /at the break/);
-  const t = headlineText(h, {heightUnit: 'ft', scale: 'Face height'} as any); assert.match(t.label, /^Est\. .* surf height$/); assert.equal(ESTIMATE_LABEL, 'Est. surf height · model estimate'); assert.equal(h.label, ESTIMATE_LABEL);
+  assert.ok(h.loFt <= 7.5 && h.hiFt >= 7.5); assert.match(h.methodLabel, /Surf height \(common convention/); assert.doesNotMatch(h.methodLabel, /at the break|breaking height about/, 'the unit-specific breaking height lives in the detail text, never in the unit-free method label');
+  const t = headlineText(h, {heightUnit: 'ft', scale: 'Face height'} as any), tm = headlineText(h, {heightUnit: 'm', scale: 'Face height'} as any); assert.match(t.detail, /breaking height about [\d.]+ ft/); assert.match(tm.detail, /breaking height about [\d.]+ m\b/); assert.doesNotMatch(tm.detail, /\d ft/, 'metres users never see feet'); assert.match(t.label, /^Est\. .* surf height$/); assert.equal(ESTIMATE_LABEL, 'Est. surf height · model estimate'); assert.equal(h.label, ESTIMATE_LABEL);
 });
 test('v1 is consistent with it: the offshore swell carried to the 10 m reference depth by linear shoaling (an independent calculation agrees), not the larger breaking height', () => {
   const p = breakingProfile('spot-2')!, hsM = 1.5, tp = 14, ks = (() => { const w = 2 * Math.PI / tp; let lo = 1e-6, hi = 10; for (let i = 0; i < 200; i++) { const x = (lo + hi) / 2; (G * x * Math.tanh(x * NEARSHORE_REF_DEPTH_M) > w * w ? (hi = x) : (lo = x)); } const k = (lo + hi) / 2, c = w / k, n = 0.5 * (1 + 2 * k * NEARSHORE_REF_DEPTH_M / Math.sinh(2 * k * NEARSHORE_REF_DEPTH_M)); return Math.sqrt((G * tp / (4 * Math.PI)) / (c * n)); })();
@@ -48,4 +48,13 @@ test('fallback order: with a nearshore record for the hour that refuses (outside
   assert.equal(headlineSurf('spot-2', f, {bundle: bundle([mopRec(7.5, 14, 100)]), nowMs: NOW, observations: [], spread: null}).kind, 'offshore');
   assert.equal(headlineSurf('spot-2', f, {bundle: bundle([mopRec(7.5, 5, 263)]), nowMs: NOW, observations: [], spread: null}).kind, 'offshore');
   assert.equal((headlineSurf('spot-2', f, {bundle: bundle([]), nowMs: NOW, observations: [], spread: null}) as any).method, 'v1'); assert.equal((headlineSurf('spot-2', f, {nowMs: NOW, observations: [], spread: null}) as any).method, 'v1');
+});
+
+test('cached records from before the convention (no breakingFt) are not shown as a surf height; felt signals without the convention marker are ignored', async () => {
+  const f = rec('spot-2', 1.5); (f.evidence!.faceEstimate as any).breakingFt = undefined; // an old cached record: centralFt was the breaking height
+  const h = headlineSurf('spot-2', f, {nowMs: NOW, observations: [], spread: null}) as any;
+  assert.equal(h.centralFt, undefined); assert.match(h.methodLabel, /fixed 0\.7–1\.4 band \(older cached data\)/);
+  const {calibrationFor, resetObservationCache} = await import('../services/calibration.ts'); const {resetFeltCache} = await import('../services/observationStore.ts');
+  resetObservationCache([]); resetFeltCache([{id: 'a', spotId: 'spot-2', hour: new Date(T * 1000).toISOString(), felt: 'low', loggedAt: '', predicted: {loFt: 4, hiFt: 8, method: 'v1', source: 'archived'}}]);
+  assert.equal((calibrationFor('spot-2', 'v1') as any).felt.low, 0, 'an old-basis felt signal does not count'); resetFeltCache([]); resetObservationCache([]);
 });

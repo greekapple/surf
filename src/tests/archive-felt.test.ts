@@ -63,7 +63,7 @@ test('felt right is a weaker, separate signal: it never activates a calibration,
 test('headline: felt signals nudge only an active calibration; uncalibrated output stays identical without observations', () => {
   mem.clear(); resetObservationCache([]); resetFeltCache([]);
   const f = records[1], base = headlineSurf('spot-2', f, {nowMs: now}) as any;
-  resetFeltCache([{id: 'f', spotId: 'spot-2', hour: hourIso, felt: 'low', loggedAt: hourIso, predicted: {loFt: 4, hiFt: 8, method: base.method, source: 'archived'}}]);
+  resetFeltCache([{id: 'f', spotId: 'spot-2', hour: hourIso, felt: 'low', loggedAt: hourIso, predicted: {conv: true, loFt: 4, hiFt: 8, method: base.method, source: 'archived'}}]);
   assert.deepEqual(headlineSurf('spot-2', f, {nowMs: now}), base); assert.equal(calibrationFor('spot-2', base.method).state, 'collecting'); assert.equal((calibrationFor('spot-2', base.method) as any).felt.low, 1);
   resetFeltCache([]);
 });

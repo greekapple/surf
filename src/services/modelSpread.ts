@@ -3,7 +3,7 @@ import {estimateBreaking} from '../ocean/breakingEstimate.ts';
 import {breakingProfile} from '../ocean/localCalibration.ts';
 
 /** Wave-model spread for one spot (T-073): Open-Meteo Marine can return several wave models for the same point in ONE request (`models=a,b,c`), which is what Windy's model compare shows.
- *  For every hour and every model with data we run the same offshore-to-break estimate (v1) on that model's primary swell and take the ratio of the largest to the smallest breaking height.
+ *  For every hour and every model with data we run the same offshore-to-break estimate (v1) on that model's primary swell and take the ratio of the largest to the smallest estimated height (the breaking height, whose ratio is close to that of the surf height).
  *  That ratio is the "model spread" component of the range (services/uncertainty.ts). Models with no data at the spot (land-masked grid cells) are left out; fewer than 2 usable models means no spread, never a guess.
  *  Cost: one extra request per viewed spot (about 16 KB, about 1 s for 4 models x 7 days), cached for 10 minutes; the main forecast load is unchanged. */
 export const SPREAD_MODELS = ['meteofrance_wave', 'ncep_gfswave016', 'gwam', 'ecmwf_wam025'] as const;

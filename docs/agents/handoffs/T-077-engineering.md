@@ -1,0 +1,8 @@
+# T-077 handoff (engineering): surf height by the common convention
+Write-up: `docs/forecast/SURF-CONVENTION-T077.md` (what changed, fallback decision, Ocean Beach week next to Surfline, limits).
+- Headline central = MOP Hs (v2) / offshore swell carried to 10 m (v1, new `nearshoreFt`), labelled "surf height"; breaking height kept as `breakingFt` and shown only in `headlineText().detail` in the user's units (not in the unit-free `methodLabel`, which an early journey-6 failure caught).
+- `headlineSurf` shape compatible: optional `breakingFt`; `centralFt` now means the surf height; the label strings changed ("Est. … surf height"); `FaceEstimate.centralFt` = surf height, `.breakingFt` added. Cached records without `breakingFt` use the labelled fixed band.
+- Calibration basis `'surf-height'` (archive `cs`, felt `conv`): old pairs, archive entries and felt signals are not mixed in.
+- Fallback: a nearshore record that refuses (outside window / short period / no break) gives the labelled offshore height, never v1; v1 only when there is no usable nearshore record. Pismo `guideBasis` fixed (derived facing named as coastline geometry).
+- Data-honesty-reviewer: no P0; P1s fixed (contradictory Nearshore label and contract, stale contract/product copy, uncertainty widths re-measured/caveated, cached-record gate); the felt-signal basis leak fixed; P2s listed as limits (Board Match legacy range, Hawaiian scale, historical docs).
+- Checks: tsc, 414 tests, build; journeys 8/8, t045, t055, t065, t071, t073, t074 pass. t043 and t041 toolkit scripts still match "at the break" (not in the required list). Codex not run.

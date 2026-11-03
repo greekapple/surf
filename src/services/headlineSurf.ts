@@ -26,7 +26,7 @@ export interface HeadlineContext {/** Wave-model spread for the hour, or null; d
 
 /** Calibrates an estimate when this spot has enough paired observations for this method; otherwise returns it untouched (identical to before T-059). */
 function calibrated<T extends Extract<HeadlineSurf, {kind: 'estimate'}>>(spotId: string, h: T, ctx: HeadlineContext): T {
-  const fl = (ctx.felt ?? (ctx.observations ? [] : getFelt())).filter((e) => e.spotId === spotId && e.predicted?.method === h.method), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
+  const fl = (ctx.felt ?? (ctx.observations ? [] : getFelt())).filter((e) => e.spotId === spotId && e.predicted?.conv && e.predicted?.method === h.method), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
   const fit: CalibrationFit = fitFor(ctx.observations ?? getObservations(), spotId, h.method, counts), r = applyFit(fit, h.centralFt ?? h.loFt, h.centralFt ?? h.hiFt);
   if (!r) return h;
   const label = `calibrated with your ${fit.n} observations`;
@@ -54,7 +54,7 @@ function withInterval(spotId: string, hour: Forecast, ctx: HeadlineContext, meth
 }
 const methodLabelFor = (spotId: string, m: 'mop-v2' | 'v1', mopId?: string, interval?: {disagree: boolean; components: unknown[]}, breakingFt?: number) => {
   const basis = guideBasis(spotId), assigned = m === 'mop-v2' && mopId && isGuideProfile(spotId) ? `; point ${mopId} assigned by the facing-match rule` : '';
-  return `${METHOD_LABEL[m]}${assigned}${finite(breakingFt) ? `; breaking height about ${Math.round(breakingFt)} ft` : ''}${basis ? `; ${basis}` : ''}${interval?.disagree ? '; wave models disagree, so the range is wider' : ''}${interval && interval.components.length === 0 ? '; fixed 0.7–1.4 band (older cached data)' : ''}`;
+  return `${METHOD_LABEL[m]}${assigned}${basis ? `; ${basis}` : ''}${interval?.disagree ? '; wave models disagree, so the range is wider' : ''}${interval && interval.components.length === 0 ? '; fixed 0.7–1.4 band (older cached data)' : ''}`;
 };
 
 const offshoreOrNone = (hour: Forecast): HeadlineSurf => (!hour?.evidence && hour?.availability?.face && finite(hour.face) ? {kind: 'demonstration', ft: hour.face, label: 'demonstration face · not a forecast'} : finite(hour?.offshore) && hour.offshore >= 0 ? {kind: 'offshore', ft: hour.offshore, label: 'offshore · not surf size'} : {kind: 'none', label: 'No wave height for this hour'});
@@ -67,7 +67,7 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
     if (pick.state === 'ok') {
       const r = mopBreaking(spotId, pick.record), surf = pick.record.height.value;
       if (r.ok && canPresentBreakingEstimate(r.input) && finite(surf) && surf > 0) {
-        const off = hour?.evidence?.faceEstimate?.centralFt, w = withInterval(spotId, hour, ctx, 'mop-v2', surf, r.input.rangeFt!, finite(off) && off > 0 ? surf / off : null);
+        const off = finite(hour?.evidence?.faceEstimate?.breakingFt) ? hour?.evidence?.faceEstimate?.centralFt : undefined, w = withInterval(spotId, hour, ctx, 'mop-v2', surf, r.input.rangeFt!, finite(off) && off > 0 ? surf / off : null);
         return calibrated(spotId, {kind: 'estimate', loFt: w.lo, hiFt: w.hi, words: bodyWords(w.lo, w.hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2', methodLabel: methodLabelFor(spotId, 'mop-v2', a.mopId, w.interval, r.centralFt), label: ESTIMATE_LABEL, centralFt: surf, breakingFt: r.centralFt, ...(w.interval ? {interval: w.interval} : {}), mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}}, ctx);
       }
       // Fallback order (T-077): when the nearshore model HAS the hour and says the swell cannot make surf here (outside the swell window, below the minimum period, or no breaking), the offshore-swell estimate must not
@@ -77,7 +77,7 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
   }
   const v1 = hour?.evidence?.faceEstimate?.input;
   if (v1 && canPresentBreakingEstimate(v1)) {
-    const c = hour.evidence?.faceEstimate?.centralFt, bk = hour.evidence?.faceEstimate?.breakingFt, w = withInterval(spotId, hour, ctx, 'v1', c, v1.rangeFt!, null);
+    const bk = hour.evidence?.faceEstimate?.breakingFt, c = finite(bk) ? hour.evidence?.faceEstimate?.centralFt : undefined, w =  withInterval(spotId, hour, ctx, 'v1', c, v1.rangeFt!, null);
     return calibrated(spotId, {kind: 'estimate', loFt: w.lo, hiFt: w.hi, words: bodyWords(w.lo, w.hi), wordsNote: BODY_WORDS_NOTE, method: 'v1', methodLabel: methodLabelFor(spotId, 'v1', undefined, w.interval, bk), label: ESTIMATE_LABEL, ...(finite(c) ? {centralFt: c} : {}), ...(finite(bk) ? {breakingFt: bk} : {}), ...(w.interval ? {interval: w.interval} : {})}, ctx);
   }
   if (!hour?.evidence && hour?.availability?.face && finite(hour.face)) return {kind: 'demonstration', ft: hour.face, label: 'demonstration face · not a forecast'};
@@ -89,7 +89,8 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
 export function headlineText(h: HeadlineSurf, p: UserProfile) {
   if (h.kind === 'estimate') {
     const f = formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [h.loFt, h.hiFt], rangeMethod: h.method === 'mop-v2' ? `v2 ${BREAKING_V2_VERSION}` : 'v1'}, p);
-    return {value: f.text, label: `Est. ${f.text} surf height`, words: h.words, tag: 'model estimate', detail: h.methodLabel};
+    const bk = finite(h.breakingFt) ? `; breaking height about ${formatWaveHeight({kind: 'nearshore', valueFt: h.breakingFt}, p, 'technical').text}` : '';
+    return {value: f.text, label: `Est. ${f.text} surf height`, words: h.words, tag: 'model estimate', detail: `${h.methodLabel}${bk}`};
   }
   if (h.kind === 'demonstration') { const f = formatWaveHeight({kind: 'demonstration', valueFt: h.ft}, p); return {value: f.text, label: `${f.text} · ${h.label}`, words: null, tag: 'demonstration', detail: h.label}; }
   if (h.kind === 'offshore') { const f = formatWaveHeight({kind: 'offshore', valueFt: h.ft}, p); return {value: f.text.replace(/^≈ /, ''), label: `${f.text} ${h.label}`, words: null, tag: 'offshore', detail: h.label}; }

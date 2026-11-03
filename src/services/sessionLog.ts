@@ -1,5 +1,5 @@
 /** In-app session log (T-041, decision D-3): the only ground truth for the rating. Local to this browser, never uploaded.
- *  Heights are stored in FEET of face height (trough to crest), the same quantity as the "Est. X–Y ft surf height" labels (the surf-report convention).
+ *  Heights are stored in FEET of face height (trough to crest), the height you would quote, which is what the "Est. X–Y ft surf height" labels estimate (the surf-report convention); the calibration ratio absorbs any difference between the two.
  *  No data is scraped or imported from anywhere else. */
 export const SESSION_LOG_KEY = 'swello-session-log';
 export const SESSION_LOG_SCHEMA = 1;

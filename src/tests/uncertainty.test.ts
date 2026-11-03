@@ -8,7 +8,7 @@ import {evidenceSpot} from '../ocean/spots.ts';
 import {toLegacy} from '../ocean/bridge.ts';
 
 test('the cited constants are what the documentation says', () => {
-  assert.ok(Math.abs(CONVENTION_W - 0.1195) < 0.001); assert.ok(Math.abs(BREAKER_INDEX_W - 0.1621) < 0.001); assert.ok(Math.abs(V1_STEP_W - 0.2000) < 0.001); assert.ok(Math.abs(DISAGREE_HALF - 0.1500) < 0.001);
+  assert.ok(Math.abs(CONVENTION_W - 0.1195) < 0.001); assert.ok(Math.abs(BREAKER_INDEX_W - 0.1621) < 0.001); assert.ok(Math.abs(V1_STEP_W - 0.1733) < 0.001); assert.ok(Math.abs(DISAGREE_HALF - 0.1500) < 0.001);
 });
 test('inputs agree: a narrow range around the central height (v2 about ±22%, v1 about ±26%), always at least 1 ft wide, never negative', () => {
   const v2 = intervalFor({method: 'mop-v2', centralFt: 8})!, v1 = intervalFor({method: 'v1', centralFt: 8})!;

@@ -72,7 +72,7 @@ export interface FeltSummary {low: number; right: number; high: number; factor: 
 /** Calibration status for a spot, for the method its headline normally uses (v2 where the spot has a reviewed MOP point, else v1). `count` is paired observations only. */
 export function calibrationFor(spotId: string, method?: Method): CalibrationState {
   const m: Method = method ?? (assignmentFor(spotId) ? 'mop-v2' : 'v1');
-  const fl = getFelt().filter((e) => e.spotId === spotId && e.predicted?.method === m), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
+  const fl = getFelt().filter((e) => e.spotId === spotId && e.predicted?.conv && e.predicted?.method === m), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
   const f = fitFor(getObservations(), spotId, m, counts), felt = {...counts, factor: f.felt?.factor ?? 1};
   return f.status === 'active' ? {state: 'active', count: f.n, needed: NEEDED, ratio: f.ratio!, iqr: f.iqr!, felt} : {state: 'collecting', count: f.n, needed: NEEDED, felt};
 }
