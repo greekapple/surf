@@ -266,7 +266,7 @@ def stage_curves(src, face, breaker, phys):
             t = (k - S_LAND) / (NS - 1 - S_LAND)
             h = (0.78 - 0.4 * t) * (0.9 + 0.2 * heavy)   # big waves keep a taller foam ball
             adv = landed[ti, 0] - landed[ci, 0] + 0.3 * t * wy
-            w = 0.85 if k == S_LAND + 1 else 1.0
+            w = 0.55 if k == S_LAND + 1 else (0.85 if k == S_LAND + 2 else 1.0)  # a gradual collapse from tube to foam ball
             curves.append(landed + (bore(landed, h, adv, wf=(0.8 + 0.4 * heavy) * wy, back=curves[S_PITCH]) - landed) * w)
     curves = curves[:NS]
     # foam per stage, by geometry (normalised units)
@@ -291,7 +291,7 @@ def stage_curves(src, face, breaker, phys):
             elif k in (S_PITCH, S_PITCH + 1):
                 fo = (0.2 + 0.25 * (k - S_PITCH)) * np.exp(-((i - ti) / 3.0) ** 2)
             elif k == S_LAND:
-                fo = 0.9 * np.exp(-((i - ti) / 4.0) ** 2) + 0.35 * ss(ci, ti, i) * (i <= ti)
+                fo = 0.9 * np.exp(-((i - ti) / (4.0 + 5.0 * heavy)) ** 2) + (0.35 + 0.3 * heavy) * ss(ci, ti, i) * (i <= ti)
             if k > S_LAND:
                 yc = p[ci, 0]
                 f = (1.0 - 0.3 * (k - S_LAND - 1) / (NS - 2 - S_LAND)) * ss(yc - 1.6 * wy, yc - 0.2 * wy, p[:, 0]) * (p[:, 1] > 0.01)

@@ -14,6 +14,7 @@ import {feetInches} from '../forecast/SpotPage';
 import {Spin360} from './Spin360';
 import {bandFolder} from '../../services/scaleFrames';
 import {hasWebGL} from './webgl';
+import {lightingAt} from './solar';
 const WaveLive = lazy(() => import('./WaveLive'));
 import {useHasSpin} from './useHasSpin';
 
@@ -66,6 +67,8 @@ export function ScaleStage() {
   const [liveFailed, setLiveFailed] = useState(false);
   const liveOk = useMemo(() => hasWebGL() && !reduced(), []) && !liveFailed;
   const show3d = (liveOk || spinOk) && mode === '3d';
+  // the 3D light follows the hour (sun position at the spot); after sunset it is twilight, after dark it is kept dim but brightened to stay readable
+  const phase = hour ? lightingAt(spot.id, hour.timestamp)?.phase : undefined, lightNote = phase === 'twilight' ? ' · twilight' : phase === 'night' ? ' · after dark, brightened' : '';
   // play: step through the day's hours
   useEffect(() => {
     if (!play || reduced() || hours.length < 2) { if (play && reduced()) setPlay(false); return; }
@@ -90,8 +93,9 @@ export function ScaleStage() {
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
         {liveOk
           ? <Suspense fallback={<img className="live-poster-only" src={posterPath(SCALE_BANDS[activeBand])} alt="" />}>
-              <WaveLive band={bandFolder(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} onFail={() => setLiveFailed(true)} />
+              <WaveLive band={bandFolder(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} />
               <p className="spin-cap">{SPIN_CAPTION}</p>
+              {hour && <p className="spin-light">Lighting for {when}{lightNote}</p>}
             </Suspense>
           : <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />}
         <p className="sc-spin-band">{spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
