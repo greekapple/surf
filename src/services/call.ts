@@ -26,6 +26,16 @@ export const GO_MIN_SCORE = 65, WORTH_MIN_SCORE = 50; // rating bands: SOLID sta
 const fmt = (lo: number, hi: number, p: UserProfile) => formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text;
 
 interface HourCall {verdict: Verdict; why: string[]; hour: SpotHour; breaker: BreakerEstimate}
+/** Plain-language names and reasons for the rating factors (T-093). The engine's reason text stays available as a detail line. */
+const PLAIN_FACTOR: Record<string, string> = {'Offshore wave potential': 'Swell energy', 'Wind influence': 'Wind', 'Swell alignment': 'Swell direction', 'Tide compatibility': 'Tide'};
+const plainFactor = (name: string, _e: string) => PLAIN_FACTOR[name] ?? name;
+const ENGINE_WORDS = /heuristic|combined hs|primary \d|\bhs\b|score|weight|using .*guide|wave potential/i;
+function plainReasonFor(i: {factor: string; effect: string; reason: string}): string {
+  if (i.factor === 'Offshore wave potential') return i.effect === '-' ? 'The offshore swell is small or short-period: low surf potential.' : i.effect === '~' ? 'The offshore swell is only moderate.' : 'The offshore swell looks good.';
+  if (i.factor === 'Swell alignment') return i.effect === '-' ? 'The swell direction is a poor match for this beach.' : 'The swell direction is only a fair match for this beach.';
+  if (i.factor === 'Tide compatibility') return 'The tide is not ideal for this spot.';
+  return ENGINE_WORDS.test(i.reason) ? `${plainFactor(i.factor, i.effect)} is ${i.effect === '-' ? 'poor' : 'only fair'} for this hour.` : `${plainFactor(i.factor, i.effect)}: ${i.reason}`;
+}
 /** Verdict for ONE hour (no window). */
 export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx: CallContext): HourCall {
   const hr = spotHourOf(spot, f, ctx.nowMs, profile, {bundle: ctx.bundle}), h = hr.surf.headline, why: string[] = [];
@@ -43,16 +53,16 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   } else sizeNote = 'No surf-size estimate for this spot, so size is not part of this call.';
   // Breaker type (T-064 addendum): a plunging break at size is for experienced surfers (our own rule; Surfing Online "Types of Waves" describes plunging waves as hollow, powerful and for experienced surfers). Spilling is forgiving.
   let breakerNote = '';
-  if (breaker.type === 'plunging' && breaker.confidence === 'checked' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging (est.) and ${fmt(h.loFt, h.hiFt, profile)}: experienced surfers only.`; }
-  else if (breaker.type === 'plunging') breakerNote = 'Plunging breaker (est. from a mean seabed slope, not the slope at the break): likely hollow and powerful.';
-  else if (breaker.type === 'spilling') breakerNote = 'Spilling breaker (est. from a mean seabed slope, not the slope at the break): likely soft, but check the shorebreak.';
+  if (breaker.type === 'plunging' && breaker.confidence === 'checked' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging at ${fmt(h.loFt, h.hiFt, profile)}: experts only.`; }
+  else if (breaker.type === 'plunging') breakerNote = 'Likely hollow, powerful.'; // an estimate: Call.breaker carries the label and the slope basis
+  else if (breaker.type === 'spilling') breakerNote = 'Likely soft; check shorebreak.';
   let windNote = '';
   if (w) {
     const mph = w.mph;
     if (w.relation === 'onshore' && mph > ONSHORE_BAD_MPH) { verdict = 'Skip'; windNote = `Onshore wind at ${mph.toFixed(0)} mph will chop it up.`; }
     else if (w.relation === 'cross-shore' && mph > CROSS_BAD_MPH) { verdict = 'Skip'; windNote = `Cross-shore wind at ${mph.toFixed(0)} mph will chop it up.`; }
     else if ((w.relation === 'onshore' && mph > 3) || (w.relation === 'cross-shore' && mph > 8)) { if (verdict === 'Go') verdict = 'Worth a look'; windNote = `${w.relation === 'onshore' ? 'Onshore' : 'Cross-shore'} wind at ${mph.toFixed(0)} mph will roughen the face.`; }
-    else if (w.relation === 'offshore' && mph <= 15) windNote = `${mph < 5 ? 'Light' : 'Offshore'} offshore wind: clean face.`;
+    else if (w.relation === 'offshore' && mph <= 15) windNote = `${mph < 5 ? 'Light offshore' : 'Offshore'} wind: clean face.`;
     else if (w.relation === 'offshore') windNote = `Strong offshore wind at ${mph.toFixed(0)} mph: clean but gusty.`;
     else if (mph <= 3) windNote = 'Wind is nearly calm.';
   }
@@ -60,13 +70,15 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   else if (score < WORTH_MIN_SCORE) verdict = 'Skip';
   else if (score < GO_MIN_SCORE && verdict === 'Go') verdict = 'Worth a look';
   // the first sentence is the deciding reason in plain English
-  const lead = verdict === 'Skip' ? (breakerNote && /experienced/.test(breakerNote) ? breakerNote : windNote && /chop/.test(windNote) ? windNote : sizeNote && !/within/.test(sizeNote) ? sizeNote : null)
+  const lead = verdict === 'Skip' ? (breakerNote && /experts only/.test(breakerNote) ? breakerNote : windNote && /chop/.test(windNote) ? windNote : sizeNote && !/within/.test(sizeNote) ? sizeNote : null)
     : verdict === 'Worth a look' ? (sizeNote && !/within/.test(sizeNote) ? sizeNote : windNote && /roughen/.test(windNote) ? windNote : null) : null;
   const ex = explainRating(hr.rating, {spotId: spot.id, wind: w ? {mph: w.mph, relation: w.relation} : null}), items = ex.items.filter((i) => i.inScore);
   const down = items.find((i) => i.effect === '-' || (i.effect === '~' && i.factor !== 'Rating ceiling')), ceiling = items.find((i) => i.factor === 'Rating ceiling'), up = items.find((i) => i.effect === '+');
-  const ratingSentence = ceiling ? ceiling.reason : verdict === 'Go' ? (up ? `${up.factor} is a plus.` : 'The rating is good for this hour.') : down ? `${down.factor}: ${down.reason}` : 'The rating is only middling for this hour.';
+  // T-093: the first plain reason is plain language; the rating engine's own wording (numbers, 'Heuristic', 'combined Hs') goes to the detail lines after it.
+  const ratingSentence = ceiling ? ceiling.reason : verdict === 'Go' ? (up ? `${plainFactor(up.factor, '+')} is a plus.` : 'The rating is good for this hour.') : down ? plainReasonFor(down) : 'The rating is only middling for this hour.';
+  const ratingDetail = !ceiling && verdict !== 'Go' && down ? `Rating detail, ${down.factor}: ${down.reason}` : '';
   if (lead) why.push(lead); else if (verdict === 'Go') why.push(`${windNote || 'Conditions line up'}${windNote ? '' : '.'} ${sizeNote}`.trim()); else why.push(ratingSentence);
-  for (const s of [sizeNote, windNote, breakerNote, ratingSentence]) if (s && !why.includes(s) && !/^$/.test(s)) why.push(s);
+  for (const s of [sizeNote, windNote, breakerNote, ratingSentence, ratingDetail]) if (s && !why.includes(s) && !/^$/.test(s)) why.push(s);
   return {verdict, why, hour: hr, breaker};
 }
 

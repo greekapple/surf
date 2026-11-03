@@ -83,13 +83,13 @@ import {nearshoreSlopes} from '../ocean/nearshoreSlope.ts';
 test('callFor carries the estimated breaker type; a plunging break at size is "experienced surfers only" for a non-expert, and still fine for an expert', () => {
   const r = recs(1.5), f = at(r, noonNov2), ctx = ctxFor(r, noonNov2);
   const ob = callFor(spot, f, prof('Expert'), ctx); assert.equal(ob.breaker.type, 'spilling'); assert.equal(ob.breaker.label, 'est. breaker type');
-  assert.ok(ob.why.some((w) => /Spilling breaker/.test(w)));
+  assert.ok(ob.why.some((w) => /^Likely soft; check shorebreak\.$/.test(w)));
   // inject a steep slope for Ocean Beach to exercise the plunging rule
   const saved = nearshoreSlopes[0].tanBeta; nearshoreSlopes[0].tanBeta = 0.1;
   try {
     const b = callFor(spot, f, prof('Intermediate'), ctx), e = callFor(spot, f, prof('Expert'), ctx);
-    assert.equal(b.breaker.type, 'plunging'); assert.equal(b.verdict, 'Skip'); assert.match(b.why[0], /^Plunging \(est\.\) and .*: experienced surfers only\.$/);
-    assert.ok(!/experienced surfers only/.test(e.why[0])); assert.ok(e.why.some((w) => /Plunging breaker \(est\. from a mean seabed slope.*\): likely hollow and powerful/.test(w)));
+    assert.equal(b.breaker.type, 'plunging'); assert.equal(b.verdict, 'Skip'); assert.match(b.why[0], /^Plunging at .*: experts only\.$/);
+    assert.ok(!/experts only/.test(e.why[0])); assert.ok(e.why.some((w) => /^Likely hollow, powerful\.$/.test(w)));
   } finally { nearshoreSlopes[0].tanBeta = saved; }
   const other = allSpots.find((s) => s.id === 'spot-3')!; assert.equal(callFor(other, {...f, spotId: 'spot-3'}, prof('Expert'), ctx).breaker.type, 'unknown');
 });
@@ -99,4 +99,24 @@ test('Dark before first light: today\'s upcoming window is the next window ("tod
   assert.equal(c.verdict, 'Dark'); assert.ok(c.nextWindow); assert.match(c.why[0], /^It is dark\. The next window is today /);
   const only = r.filter((f) => f.timestamp >= '2026-11-04T00:00:00.000Z'), late = callFor(spot, at(r, dark646pm), prof('Expert'), ctxFor([...only, at(r, dark646pm)], '2026-11-03T02:46:00Z'));
   if (late.nextWindow) assert.ok(!/tomorrow/.test(late.why[0]) || late.nextWindow.start.slice(0, 10) === '2026-11-03' || late.nextWindow.start.slice(0, 10) === '2026-11-04');
+});
+
+test('T-093: wind note has no doubled word, at light and moderate offshore speeds', () => {
+  const r = recs(1.5), f = at(r, noonNov2), ctx = ctxFor(r, noonNov2), withWind = (mph: number) => ({...f, wind: {...f.wind, speed: mph, gusts: mph, direction: 90}});
+  const light = callFor(spot, withWind(3), prof('Expert'), ctx).why.join(' | '), mod = callFor(spot, withWind(9), prof('Expert'), ctx).why.join(' | ');
+  assert.match(light, /Light offshore wind: clean face\./); assert.match(mod, /(^|\| )Offshore wind: clean face\./);
+  for (const text of [light, mod]) assert.doesNotMatch(text, /\b(\w+) \1\b/i, 'no repeated word');
+});
+
+test('T-093: the first plain reason is plain language; the rating engine\'s own wording moves to a detail line', () => {
+  const ENGINE = /heuristic|combined hs|primary \d|\bhs\b|weight/i;
+  let withDetail = 0, calls = 0;
+  for (const swell of [0.4, 0.8, 1.2, 1.8, 2.4]) for (const skill of ['Beginner', 'Intermediate', 'Expert'] as const) for (const mph of [2, 9, 18]) for (const wdir of [90, 270]) {
+    const r = recs(swell, mph, wdir), f = at(r, noonNov2), c = callFor(spot, f, prof(skill), ctxFor(r, noonNov2)); calls++;
+    assert.doesNotMatch(c.why[0], ENGINE, `first reason is plain: "${c.why[0]}" (swell ${swell}, ${skill}, ${mph} mph from ${wdir})`);
+    if (c.why.some((w) => /^Rating detail, /.test(w))) { withDetail++; assert.ok(c.why.findIndex((w) => /^Rating detail, /.test(w)) > 0, 'the engine detail is never the first line'); }
+    for (const w of c.why.filter((x) => !/^Rating detail, /.test(x))) assert.doesNotMatch(w, /heuristic|combined hs/i, `plain line: "${w}"`);
+  }
+  assert.ok(calls > 50);
+  assert.ok(withDetail > 0, 'the engine detail is kept (for the Why list) in at least one case');
 });
