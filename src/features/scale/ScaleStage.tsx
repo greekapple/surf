@@ -167,7 +167,7 @@ export function ScaleStage() {
           <span className="sc-l" id="sc-board-l">Board</span>
           {boards.length === 0 ? <span className="fine">No boards in your quiver yet.</span> : <div className="sc-chips" role="radiogroup" aria-labelledby="sc-board-l">{boards.map((b) => <button key={b.id} type="button" role="radio" aria-checked={b.id === board?.id} onClick={() => pickBoard(b.id)}>{b.name} <small>{feetInches(b.length)}</small></button>)}</div>}
         </div>
-        {show3d && liveOk && <div className="sc-row">
+        {show3d && liveOk && wave.faceM !== null && <div className="sc-row">
           <span className="sc-l" id="sc-dir-l">Breaks</span>
           <div className="sc-chips" role="radiogroup" aria-labelledby="sc-dir-l">
             <button type="button" role="radio" aria-checked={direction === 'left'} onClick={() => setDirPick('left')}>Left</button>

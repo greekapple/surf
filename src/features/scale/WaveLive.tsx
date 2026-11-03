@@ -201,6 +201,7 @@ void main(){
   vec3 q=vL/(.22*F)+vec3(0.,-t*.35,t*.25);
   float lump=n3(q)*.6+n3(q*2.3+7.)*.3+n3(q*5.3+3.)*.1;
   float cov=smoothstep(.22,.62,foam*(.75+.6*lump));
+  cov=max(cov,smoothstep(.78,.95,foam));                                    // the landed section and foam ball are solid white: no dark holes ("teeth") where a lump dips
   vec3 Nf=normalize(N0+vec3(n3(q*1.7+1.)-.5,0.,n3(q*1.7+9.)-.5)*1.4);
   float bigS=n3(vL/(.75*F)+vec3(3.,-t*.12,t*.1));                         // the same big heads the vertex shader pushes out
   float occl=smoothstep(.18,.82,lump*.55+bigS*.45), lit=mix(.6,clamp(dot(Nf,uSun)*.55+.55,0.,1.),uDirect);
@@ -321,7 +322,7 @@ function emitters(a: Atlas) {
     if (lipOn) { let ti = ci; for (let i = ci; i < 96; i++) if (p.z[i] > 0.4 * zc && p.y[i] > p.y[ti]) ti = i; lip.push(x, p.z[ti], -p.y[ti]); }
     if (s > (spill ? 4 : m.stage_land)) for (let i = ci; i < 96; i++) if (p.foam[i] > 0.6 && p.z[i] > 0.35 * zc) mist.push(x, p.z[i], -p.y[i]);
     // where the lip lands (plunging, 8 ft and up): the most shoreward foamy water of the landing section
-    if (!spill && H >= 2.4 && s > m.stage_land - 0.4 && s < m.stage_land + 1.2) { let li = -1; for (let i = ci; i < 96; i++) if (p.foam[i] > 0.5 && (li < 0 || p.y[i] > p.y[li])) li = i; if (li >= 0) blast.push(x, Math.max(0.05, p.z[li]), -p.y[li]); }
+    if (!spill && H >= 1.8 && s > m.stage_land - 0.4 && s < m.stage_land + 1.2) { let li = -1; for (let i = ci; i < 96; i++) if (p.foam[i] > 0.5 && (li < 0 || p.y[i] > p.y[li])) li = i; if (li >= 0) blast.push(x, Math.max(0.05, p.z[li]), -p.y[li]); }
   }
   return {lip: new Float32Array(lip), crest: new Float32Array(crest), mist: new Float32Array(mist), blast: new Float32Array(blast)};
 }
@@ -393,7 +394,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
             sp.max[i] = sp.life[i] = 1.0 + R() * 1.4; sp.size[i] = (0.25 + R() * 0.35) * (0.5 + 0.35 * H);
           } else if (kind === 3) { // the explosion where the lip lands: a thick white burst up and forward out of the impact
             sp.pos[j + 1] += R() * 0.2 * H; sp.vel[j] = (R() - 0.5) * 1.6 * sq; sp.vel[j + 1] = (0.8 + R() * 1.6) * sq; sp.vel[j + 2] = -(0.3 + R() * 1.4) * sq;
-            sp.max[i] = sp.life[i] = 0.6 + R() * 0.9; sp.size[i] = (0.1 + R() * 0.22) * sq;
+            sp.max[i] = sp.life[i] = 0.7 + R() * 1.0; sp.size[i] = (0.14 + R() * 0.3) * sq;
           } else { // mist over the whitewater
             sp.pos[j] += (R() - 0.5) * 1.2; sp.pos[j + 1] += R() * 0.3 * H; sp.vel[j] = (R() - 0.5) * 0.3; sp.vel[j + 1] = 0.1 + R() * 0.3; sp.vel[j + 2] = (R() - 0.3) * 0.5;
             sp.max[i] = sp.life[i] = 2 + R() * 2; sp.size[i] = (0.5 + R() * 0.6) * (0.5 + 0.4 * H);
@@ -403,7 +404,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
         sp.vel[j + 1] -= gr * dt; if (kind === 1) { sp.vel[j + 2] += 0.6 * dt; sp.size[i] *= 1 + dt * 0.3; } if (kind === 2) sp.size[i] *= 1 + dt * 0.2;
         sp.pos[j] += sp.vel[j] * dt; sp.pos[j + 1] += sp.vel[j + 1] * dt; sp.pos[j + 2] += sp.vel[j + 2] * dt;
         const t = Math.max(0, sp.life[i]) / sp.max[i], env = Math.min(1, (1 - t) * 6) * Math.min(1, t * 2.5);
-        sp.alpha[i] = sp.life[i] > 0 ? env * (kind === 0 ? 0.11 : kind === 1 ? (0.008 + 0.03 * big) * back : kind === 3 ? 0.2 : 0.07 + 0.03 * big) : 0;
+        sp.alpha[i] = sp.life[i] > 0 ? env * (kind === 0 ? 0.11 : kind === 1 ? (0.008 + 0.03 * big) * back : kind === 3 ? 0.3 : 0.07 + 0.03 * big) : 0;
       }
       const g = sp.pts.geometry; (g.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aSize') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aA') as THREE.BufferAttribute).needsUpdate = true;
     };
@@ -414,7 +415,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
       if (placed !== mode) {
         placed = mode;
         if (mode === 'surf') { controls.target.set(sx * tx, H * 0.5, 0); camera.position.set(sx * (tx - 0.75 * d), H * 1.7 + 1.1, -0.7 * d); } // from the channel, slightly down the line
-        else { controls.target.set(0, 0, far * 0.35); camera.position.set(-0.35 * d, 3 + far * 0.08, -0.9 * d); }
+        else { controls.target.set(0, 0, far * 0.3); camera.position.set(-0.3 * d, 2.2 + 1.2 * H, -0.6 * d); } // low over the water, so the swell lines read as lines
       } else if (mode === 'surf') { tmp.copy(camera.position).sub(controls.target); controls.target.set(sx * tx, H * 0.5, 0); camera.position.copy(controls.target).add(tmp); }
       controls.update(); sync();
     };
@@ -457,12 +458,13 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
     const setWave = (w: WaveSpec) => {
       pending = w; const my = ++token;
       const need = w.faceM === null ? [] : composeAtlas(w.faceM, w.breaker, w.periodS).need;
-      const waits: Promise<unknown>[] = need.filter((id) => !ready.has(id)).map(getAtlas); if (!surfer) waits.push(loadSurfer());
+      // the surfer is only needed (and only a failure) for a breaking wave; an offshore-only hour renders its swell without it
+      const needSurfer = !surfer && w.faceM !== null, waits: Promise<unknown>[] = need.filter((id) => !ready.has(id)).map(getAtlas); if (needSurfer) waits.push(loadSurfer());
       const go = () => { if (disposed || my !== token || !pending) return; apply(pending); if (!live0) { live0 = true; setLive(true); cb.current.onReady?.(); } };
       if (!waits.length) { go(); return; }
       Promise.all(waits).then((res) => {
         if (disposed || my !== token) return;
-        if (!surfer) {
+        if (needSurfer && !surfer) {
           const s = res[res.length - 1] as THREE.Group | null; if (!s) throw new Error('no surfer');
           surfer = s.clone(true); surfer.matrixAutoUpdate = false; group.add(surfer);
           surfer.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined; if (mm && 'emissiveIntensity' in mm) mm.emissiveIntensity = 0.15; }); setBoard(boardRef.current);
@@ -507,7 +509,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light}: {wa
     };
     api.current = {setWave, setDir, setLight, setBoard};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync}; // dev-only hook for camera-scripted QA shots
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir}; // dev-only hook for camera-scripted QA shots (setWave: draw any spec)
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;
