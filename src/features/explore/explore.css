@@ -374,3 +374,17 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* T-088 (design critic): the sea-colour legend names what it is (offshore wave height, not surf size). */
 .xleg-k { margin-right: 8px; font-size: 12px; color: var(--muted); white-space: nowrap; }
 @media (max-width: 860px) { .xleg-k { display: none; } } /* phones: the label is in the legend's tap-open note and the layer menu */
+/* T-095: phone tap targets >= 44 px. The play button keeps its visible size but gets a 44 px hit area; spot labels on the map get an invisible
+   vertical hit pad (the visible label stays 22 px). */
+@media (max-width: 860px) {
+  .xt-thin .xplay { position: relative; } .xt-thin .xplay::before { content: ''; position: absolute; inset: -3px; }
+  .xpin { overflow: visible; } .xpin::before { content: ''; position: absolute; inset: -11px 0; }
+}
+/* T-095: on phones the two action buttons took ~150 px of the first row, so names broke one word per line and ran into the height.
+   Name and height on row 1, rating/swell/wind on row 2, actions full width on row 3. */
+@media (max-width: 860px) {
+  .cmpx-list li { grid-template-columns: 28px minmax(0, 1fr) auto auto; grid-template-areas: 'r n n h' 'r t s w' 'r a a a'; column-gap: 12px; row-gap: 6px; padding: 12px 14px; }
+  .cx-rate { justify-self: start; } .cx-name b { overflow-wrap: anywhere; }
+  .cx-act { margin-top: 4px; } .cx-act .btn:first-child { flex: 1; justify-content: center; }
+  .qv-duel figcaption b { font-size: 17px; } .qv-duel figcaption .fine { font-size: 12px; }
+}

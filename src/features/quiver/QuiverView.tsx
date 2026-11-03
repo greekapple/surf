@@ -155,7 +155,7 @@ export function QuiverView({section, go}: ViewProps) {
   const selPick = sel ? picks.find((x) => x.board.id === sel.id) ?? null : null;
   const matchLine = !sizeOk ? <><b>Board Match:</b> no surf estimate for {view.spot.name} at this hour (offshore height only).</>
     : charOk && mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</>
-    : selPick ? <><b>Board Match:</b> {selPick.size.label.toLowerCase()} for {estText}{period !== null ? ` · ${Math.round(period)} s ${selPick.period?.fit === 'ok' ? 'period suits it' : `period (${selPick.period?.note ?? ''})`}` : ''}. Wave shape unknown.</> : null;
+    : selPick ? <><b>Board Match:</b> {({in: `${estText} is in its range`, edge: `${estText} is at the edge of its range`, big: `${estText} is above its range`, small: `${estText} is below its range`} as Record<string, string>)[selPick.size.state] ?? selPick.size.label}{period !== null ? ` · ${Math.round(period)} s ${selPick.period?.fit === 'ok' ? 'period suits it' : `period (${selPick.period?.note ?? ''})`}` : ''}. Wave shape unknown.</> : null;
   const A = (b: Surfboard) => (
     <div className="qv-actions">
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
@@ -270,7 +270,7 @@ export function QuiverView({section, go}: ViewProps) {
             <label key={k} className="field"><span>Board {k + 1}</span><select value={cmp[k]} onChange={(e) => setCmp(k ? [cmp[0], e.target.value] : [e.target.value, cmp[1]])}>{boards.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}</select></label>
           ))}</div>
           <div className="qv-duel">
-            {cmp.map((id, k) => { const b = boards.find((x) => x.id === id); return b ? <figure key={k}><BoardOutline b={b} scale={Math.min(4.2, 330 / Math.max(...cmp.map((c) => boards.find((x) => x.id === c)?.length ?? 1)))} /><figcaption><b>{b.name}</b><span className="fine">{b.type} · {lengthLabel(b.length)}</span></figcaption></figure> : null; })}
+            {cmp.map((id, k) => { const b = boards.find((x) => x.id === id); return b ? <figure key={k}><BoardOutline b={b} scale={Math.min(4.2, 330 / Math.max(...cmp.map((c) => boards.find((x) => x.id === c)?.length ?? 1)))} /><figcaption><b>{b.name}</b><span className="fine">{b.type} · <span className="nw">{lengthLabel(b.length)}</span></span></figcaption></figure> : null; })}
           </div>
           <div className="tscroll" role="region" tabIndex={0} aria-label="Board comparison (scrolls sideways)"><table className="cmp"><thead><tr><th>Spec</th>{cmp.map((id, k) => <th key={k}>{boards.find((b) => b.id === id)?.name ?? '—'}</th>)}</tr></thead><tbody>
             {(['type', 'length', 'width', 'thickness', 'volume', 'fins'] as const).map((key) => <tr key={key}><td>{titleCase(key)}</td>{cmp.map((id, j) => { const v = boards.find((x) => x.id === id)?.[key];

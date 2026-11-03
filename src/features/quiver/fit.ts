@@ -15,8 +15,8 @@ export function sizeFit(b: Surfboard, est: [number, number] | null): SizeFit {
   const r = (n: number) => +n.toFixed(1);
   const range: [number, number] = [r(lo), r(hi)];
   if (elo >= lo && ehi <= hi) return {state: 'in', label: 'In its range', board: range, source};
-  if (ehi < lo) return {state: 'small', label: 'Smaller than its range', board: range, source};
-  if (elo > hi) return {state: 'big', label: 'Bigger than its range', board: range, source};
+  if (ehi < lo) return {state: 'small', label: 'Surf below its range', board: range, source};
+  if (elo > hi) return {state: 'big', label: 'Surf above its range', board: range, source};
   return {state: 'edge', label: 'Edge of its range', board: range, source};
 }
 

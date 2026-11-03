@@ -459,3 +459,11 @@
 @media (max-width: 860px) { [data-card=surf] { gap: 0; } [data-card=surf] .sp-brk { margin-top: 2px; } [data-card=surf] .felt { margin-top: 2px; } }
 /* T-088: the Call's reason gets two lines on phones (one line clipped every reason mid-sentence). */
 @media (max-width: 860px) { .call-why { -webkit-line-clamp: 2; } }
+/* T-095: the subtitle and time sat over bright foam at 2.5:1. A stronger bottom scrim and full-white small text keep every band line >= 4.5:1;
+   the top of the photo stays light. */
+.sp-band > .photo::after { background: linear-gradient(90deg, rgb(7 12 17 / 0.72) 0%, rgb(7 12 17 / 0.4) 55%, rgb(7 12 17 / 0.2) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.62), rgb(7 12 17 / 0.3) 45%, transparent 75%); }
+.sp-band.is-photo .sp-title p, .sp-band.is-photo .sp-time { color: #fff; text-shadow: 0 1px 6px rgb(0 0 0 / 0.45); }
+@media (max-width: 860px) { /* phones put the title at the top of the band: scrim the top too */
+  .sp-band > .photo::after { background: linear-gradient(180deg, rgb(7 12 17 / 0.5), transparent 55%), linear-gradient(90deg, rgb(7 12 17 / 0.72) 0%, rgb(7 12 17 / 0.4) 55%, rgb(7 12 17 / 0.2) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.62), rgb(7 12 17 / 0.3) 45%, transparent 75%); } }
+@media (max-width: 860px) { /* the Home welcome keeps its text at the bottom: no top scrim, so the photo stays visible at night */
+  .wel .sp-band > .photo::after { background: linear-gradient(90deg, rgb(7 12 17 / 0.6) 0%, rgb(7 12 17 / 0.3) 55%, rgb(7 12 17 / 0.1) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.55), transparent 60%); } }

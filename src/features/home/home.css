@@ -205,3 +205,9 @@
 .wk-curve { top: auto; bottom: 4px; height: 12px; }
 .wk-curve path { stroke-opacity: 0.4; }
 .wk-h.wk-none { font-size: 13px; font-weight: 400; color: var(--dim); }
+/* T-095: night was a 60% navy multiply over an already scrimmed photo (nearly black). Now a lighter blue cast keeps the photo visible, and a
+   scrim behind the text column (bottom-left, where the greeting sits) keeps white text at >= 4.5:1. */
+.wel-night .sp-band.is-photo::after { background: linear-gradient(180deg, rgb(120 140 200 / 0.42), rgb(60 75 120 / 0.38)); }
+.wel-night .sp-band.is-photo .wel-in, .wel-dusk .sp-band.is-photo .wel-in { position: relative; z-index: 2; }
+.wel-night .sp-band.is-photo::before, .wel-dusk .sp-band.is-photo::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(120% 90% at 0% 100%, rgb(4 10 22 / 0.62) 0%, rgb(4 10 22 / 0.38) 45%, rgb(4 10 22 / 0) 75%); }

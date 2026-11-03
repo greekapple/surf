@@ -475,3 +475,6 @@
 .br-hot i::after { width: 4px; height: 4px; border-width: 1.5px; }
 .br-hot:hover i, .br-hot:focus-visible i, .br-hot[aria-expanded='true'] i { transform: scale(1.5); box-shadow: 0 0 0 1px #1d1d1f; }
 @media (prefers-reduced-motion: reduce) { .br-hot i { transition: none; } }
+/* T-095: the wall's board arrows are 44 px on phones (were 40). */
+@media (max-width: 860px) { .qv-rackwrap .qv-arrow { width: 44px; height: 44px; margin-top: -22px; } }
+.qv-duel .nw { white-space: nowrap; } /* T-095: a length never splits across lines */
