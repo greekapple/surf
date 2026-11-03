@@ -523,6 +523,18 @@ def export_glb(path):
     """Wave mesh around the surfer (crop) with per-vertex foam/thin/crest packed into COLOR_0 (r=foam, g=thin, b=crest
     distance), modifiers applied except subdivision, plus the surfer. Metres, +z up in Blender (glTF converts to +y up)."""
     R = 18 * H + 12
+    # The set waves out the back and the flat-water chop used to run straight into the crop, leaving a vertical cliff
+    # (the "white wall" seen from behind) where the mesh met the viewer's flat sea. Ease both to flat water well inside it.
+    def crop_fade(co):
+        fy = 1 - smooth(0.55 * R, 0.85 * R, abs(co.y))
+        fx = 1 - smooth(0.55 * 1.6 * R, 0.85 * 1.6 * R, abs(co.x - SURFER_X))
+        return fy * fx
+    cds = me.attributes['crestd'].data
+    for v in me.vertices:
+        f = crop_fade(v.co)
+        if cds[v.index].value >= 9.0:  # flat extensions: they carry the set waves
+            v.co.z *= f
+        vg.add([v.index], vg.weight(v.index) * f, 'REPLACE')
     sub.show_viewport = False
     deps = bpy.context.evaluated_depsgraph_get()
     ev = sea.evaluated_get(deps)
@@ -547,6 +559,11 @@ def export_glb(path):
     wave_ob.select_set(True)
     bpy.context.view_layer.objects.active = wave_ob
     print('GLB verts', len(me2.vertices), 'faces', len(me2.polygons))
+    # check: no cliff at the crop (max |height| of the outermost ring of kept vertices)
+    xs_ = [v.co.x for v in me2.vertices]
+    ys_ = [v.co.y for v in me2.vertices]
+    ring = [abs(v.co.z) for v in me2.vertices if abs(v.co.y) > 0.97 * max(map(abs, ys_)) or v.co.x < min(xs_) + 0.5 or v.co.x > max(xs_) - 0.5]
+    print('CROP EDGE max |z| (m)', round(max(ring), 4) if ring else None)
     bpy.ops.export_scene.gltf(filepath=path, use_selection=True, export_apply=True, export_vertex_color='ACTIVE',
                               export_all_vertex_colors=False, export_materials='NONE', export_draco_mesh_compression_enable=False)
     from mathutils import Matrix as _M
