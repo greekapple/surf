@@ -433,7 +433,6 @@
   .nws { padding: 6px 10px; font-size: 13px; }
   .nws p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .call-why { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-  .call.dark .call-why { display: none; } /* after dark the why only repeats the next window */
   .sp { gap: 12px; }
 }
 /* T-065 rhythm: the call, daylight and alert rows sit close together so the conditions grid stays in the first screen (1440 and 390). */
