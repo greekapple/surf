@@ -8,13 +8,16 @@ import {bodyWords, BODY_WORDS_NOTE} from '../../services/bodyWords';
 import {formatHeight, userHeight} from '../../services/heightMath';
 import {axisTicks, axisTop, bandRange, bodyTicks, faceRange, lerp, timesYourHeight, wavePath, yFor} from '../../services/scaleMath';
 import {SCALE_BANDS} from '../../services/waveScale';
-import {SPIN_CAPTION, framePaths, posterPath, spinCaption} from '../../services/scaleFrames';
+import {framePaths, posterPath, spinCaption} from '../../services/scaleFrames';
 import {timeLabelPT, weekdayPT} from '../forecast/format';
 import {feetInches} from '../forecast/SpotPage';
 import {Spin360} from './Spin360';
-import {bandFolder} from '../../services/scaleFrames';
 import {hasWebGL} from './webgl';
 import {lightingAt} from './solar';
+import {breakerType} from '../../services/breaker';
+import {windOf} from '../../services/spotHour';
+import {LIVE_CAPTION, type WaveSpec} from './waveSpec';
+import {defaultPeel, PEEL_NOTE, peelDirectionFor} from './peelDirection';
 const WaveLive = lazy(() => import('./WaveLive'));
 import {useHasSpin} from './useHasSpin';
 
@@ -23,20 +26,29 @@ const W = 600, BASE = 330, H = 292, X0 = 24, X1 = 104, WAVE_X = 70, WAVE_K = 2.6
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const dayKey = (iso: string) => pacificDate(iso);
 
-/** Animates a number toward its target (200–450 ms), or jumps there under reduced motion. */
-function useTween(target: number, ms = 420): number {
+/** Animates a number toward its target (200–450 ms), or jumps there under reduced motion (or when `jump` is set). */
+function useTween(target: number, ms = 420, jump = false): number {
   const [v, setV] = useState(target), from = useRef(target), raf = useRef(0);
   useEffect(() => {
-    if (reduced() || !Number.isFinite(target)) { setV(target); from.current = target; return; }
+    if (jump || reduced() || !Number.isFinite(target)) { setV(target); from.current = target; return; }
     const a = from.current, t0 = performance.now();
     const step = (t: number) => { const k = Math.min(1, (t - t0) / ms), e = 1 - (1 - k) ** 3; const x = lerp(a, target, e); setV(x); from.current = x; if (k < 1) raf.current = requestAnimationFrame(step); };
     raf.current = requestAnimationFrame(step); return () => cancelAnimationFrame(raf.current);
-  }, [target, ms]);
+  }, [target, ms, jump]);
   return v;
 }
 
+/** A number that follows its target, or null: a jump when either side is null (no wave growing out of nothing), a tween otherwise. */
+function useFaceTween(target: number | null): number | null {
+  const last = useRef(target), jump = target === null || last.current === null;
+  useEffect(() => { last.current = target; }, [target]);
+  const v = useTween(target ?? 0, 420, jump);
+  return target === null ? null : jump ? target : v;
+}
+
 /** The Wave scale (T-052): a big, to-scale drawing of the hour's estimated face range beside you at your height and a board from your quiver, with body-word ticks,
- *  an hour scrubber, and a browser for the size bands. The AI picture is an optional example, never the default. Nothing here is a measurement. */
+ *  an hour scrubber, and (in the Diagram) a browser for the size bands. The 3D view is the hour's own forecast (face height, breaker type, period, wind, light) with a
+ *  left/right control; it has no size browser. The AI picture is an optional example, never the default. Nothing here is a measurement. */
 export function ScaleStage() {
   const {data, now, spot, view} = useSwello();
   const p = data.state.profile, me = userHeight(p), boards = data.state.boards, bundle = view.ocean.bundle;
@@ -49,6 +61,10 @@ export function ScaleStage() {
   const hs = useMemo(() => (hour ? headlineSurf(spot.id, hour, {bundle, nowMs: now}) : null), [hour, spot.id, bundle, now]);
   const [band, setBand] = useState<number | null>(null);
   useEffect(() => { setBand(null); }, [spot.id, hour?.timestamp]);
+  // 3D: the peel direction, defaulting to what the published guides say for this spot (both -> a left), flippable
+  const peel = peelDirectionFor(spot.id), [dirPick, setDirPick] = useState<'left' | 'right' | null>(null);
+  useEffect(() => { setDirPick(null); }, [spot.id]);
+  const direction = dirPick ?? defaultPeel(peel);
   const [boardId, setBoardId] = useState<string>(() => { try { return localStorage.getItem(BOARD_KEY) ?? ''; } catch { return ''; } });
   const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? boards[0] ?? null;
   const [photo, setPhoto] = useState(false), [play, setPlay] = useState(false);
@@ -59,10 +75,22 @@ export function ScaleStage() {
   const m = p.heightUnit === 'm', k = m ? 1 / 0.3048 : 1, y = (ft: number) => yFor(ft, top, BASE, H);
   const words = range ? bodyWords(range[0], range[1]) : null, times = range ? timesYourHeight(range, me.feet) : null;
   const text = hs ? headlineText(hs, p) : null;
+  // the 3D wave is THIS hour's forecast: the estimate's centre (never a band), the estimated breaker type, the swell period, the wind relation
+  const estRange = faceRange(hs), faceFt = estRange ? (estRange[0] + estRange[1]) / 2 : null, faceM = useFaceTween(faceFt === null ? null : faceFt * 0.3048);
+  const wave = useMemo<WaveSpec>(() => {
+    const bt = hour ? breakerType(spot, hour).type : 'unknown', w = hour ? windOf(spot, hour, p) : null, T = hour?.primary?.period;
+    return {faceM, breaker: bt === 'spilling' || bt === 'plunging' ? bt : null, periodS: typeof T === 'number' && Number.isFinite(T) && T > 0 ? T : null,
+      wind: w ? {relation: w.relation, mph: w.mph} : null, offshoreM: hs?.kind === 'offshore' ? hs.ft * 0.3048 : null, direction};
+  }, [faceM, hour, spot, p, hs, direction]);
   const activeBand = band ?? (range ? Math.max(0, SCALE_BANDS.findIndex((b) => (range[0] + range[1]) / 2 >= b.lo && (range[0] + range[1]) / 2 < b.hi)) : 3);
+  const faceText = faceFt === null ? null : p.heightUnit === 'm' ? `${(faceFt * 0.3048).toFixed(1)} m` : `${Math.round(faceFt * 10) / 10} ft`;
+  // the 3D stage's own label: what is drawn and what it is (the estimate's centre; or offshore swell, which is not surf size)
+  const liveLabel = text && estRange ? `Est. ${text.value} · drawn at ${faceText} face · surfer ${p.heightUnit === 'm' ? '1.75 m' : '5′9″'}`
+    : hs?.kind === 'offshore' && text ? `No breaking-wave estimate · ${text.value} offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour · nothing drawn as surf';
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
   // 3D is the main view when renders exist for the band (T-054); the drawn diagram stays one tap away
-  const [mode, setMode] = useState<'3d' | 'diagram'>('3d');
+  const [mode, setModeRaw] = useState<'3d' | 'diagram'>('3d');
+  const setMode = (m: '3d' | 'diagram') => { setModeRaw(m); if (m === '3d') setBand(null); }; // the band browser is a Diagram-only comparison
   // Real-time 3D when WebGL is available and motion is allowed (T-062); otherwise the pre-rendered spin, as before.
   const [liveFailed, setLiveFailed] = useState(false);
   const liveOk = useMemo(() => hasWebGL() && !reduced(), []) && !liveFailed;
@@ -78,12 +106,13 @@ export function ScaleStage() {
   const pickBoard = (id: string) => { setBoardId(id); try { localStorage.setItem(BOARD_KEY, id); } catch { /* per session */ } };
   const ph = (me.feet / top) * H, pw = ph * 0.3, px = 372, bx = px + pw + 26;
   const when = hour ? `${weekdayPT(hour.timestamp)} ${timeLabelPT(hour.timestamp)}` : '';
+  const liveAlt = estRange ? `3D wave of this hour's estimate, ${text?.value ?? ''} ${p.heightUnit}, drawn at ${faceText} face, a ${direction}, with a 1.75 m surfer for scale` : hs?.kind === 'offshore' ? `No breaking-wave estimate; offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour';
   const alt = range ? `Estimated face ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit} beside you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}` : `No face estimate for this hour; you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}`;
   return (
     <section className="sc" aria-label="Wave scale">
       <div className="sc-head">
         <div><h1>Wave scale</h1><p className="fine">{spot.name}{when ? ` · ${when}` : ''}</p></div>
-        {text && <p className="sc-read" aria-live="polite">{band !== null ? <><b>{SCALE_BANDS[band].label}</b> band <span className="sc-tag">comparing</span></> : <><b>{text.value}</b> {words && <span title={BODY_WORDS_NOTE}>{words} ~</span>} <span className="sc-tag">{text.tag}</span></>}</p>}
+        {text && <p className="sc-read" aria-live="polite">{band !== null && mode === 'diagram' ? <><b>{SCALE_BANDS[band].label}</b> band <span className="sc-tag">comparing</span></> : <><b>{text.value}</b> {words && <span title={BODY_WORDS_NOTE}>{words} ~</span>} <span className="sc-tag">{text.tag}</span></>}</p>}
       </div>
 
       {(spinOk || liveOk) && <div className="sc-mode" role="radiogroup" aria-label="View">
@@ -93,12 +122,12 @@ export function ScaleStage() {
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
         {liveOk
           ? <Suspense fallback={<img className="live-poster-only" src={posterPath(SCALE_BANDS[activeBand])} alt="" />}>
-              <WaveLive band={bandFolder(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} />
-              <p className="spin-cap">{SPIN_CAPTION}</p>
+              <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} />
+              <p className="spin-cap">{LIVE_CAPTION}</p>
               {hour && <p className="spin-light">Lighting for {when}{lightNote}</p>}
             </Suspense>
           : <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />}
-        <p className="sc-spin-band">{spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
+        <p className="sc-spin-band">{liveOk ? liveLabel : spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
       </div></figure>}
       <figure className="sc-fig" hidden={show3d}>
         <svg viewBox={`0 0 ${W} 360`} role="img" aria-label={alt} className="sc-svg">
@@ -138,11 +167,19 @@ export function ScaleStage() {
           <span className="sc-l" id="sc-board-l">Board</span>
           {boards.length === 0 ? <span className="fine">No boards in your quiver yet.</span> : <div className="sc-chips" role="radiogroup" aria-labelledby="sc-board-l">{boards.map((b) => <button key={b.id} type="button" role="radio" aria-checked={b.id === board?.id} onClick={() => pickBoard(b.id)}>{b.name} <small>{feetInches(b.length)}</small></button>)}</div>}
         </div>
-        <div className="sc-row">
+        {show3d && liveOk && <div className="sc-row">
+          <span className="sc-l" id="sc-dir-l">Breaks</span>
+          <div className="sc-chips" role="radiogroup" aria-labelledby="sc-dir-l">
+            <button type="button" role="radio" aria-checked={direction === 'left'} onClick={() => setDirPick('left')}>Left</button>
+            <button type="button" role="radio" aria-checked={direction === 'right'} onClick={() => setDirPick('right')}>Right</button>
+          </div>
+          <span className="fine">{PEEL_NOTE[peel]}; a left breaks to the surfer's left as they ride</span>
+        </div>}
+        {!show3d && <div className="sc-row">
           <span className="sc-l" id="sc-band-l">Compare a size</span>
           <div className="sc-chips" role="radiogroup" aria-labelledby="sc-band-l">{SCALE_BANDS.map((b, i) => <button key={b.id} type="button" role="radio" aria-checked={band === i} onClick={() => setBand(i)}>{b.short}</button>)}</div>
           {band !== null && <button type="button" className="btn" onClick={() => setBand(null)}>Back to this hour</button>}
-        </div>
+        </div>}
       </div>
 
       <div className="sc-photo">
