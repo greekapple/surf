@@ -21,7 +21,7 @@ import {SawList} from './SawList';
 import {addObservation, checkObservation, downloadText, loadLog, logToCsv, logToJson, removeObservation, saveLog, type ObservationContext} from '../../services/sessionLog';
 import {pickMop, nowcastFor} from '../../services/nearshoreSelect';
 import {assignmentFor} from '../../ocean/mop';
-import {faceEstimateView} from '../forecast/estimate';
+import {headlineSurf} from '../../services/headlineSurf';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
 import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
 import {pickBoard} from './recommend';
@@ -163,8 +163,8 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
     if (f && Math.abs(Date.parse(f.timestamp) - t) <= 5400000) {
       const spot = spots.find((s) => s.id === v.spotId), h = heroHeight(f, p, view.dataMode);
       if (h.number !== '—') context.heightLabel = `${h.approx ? '≈ ' : ''}${h.number} ${h.unit} (${h.label})`.trim();
-      const est = spot ? faceEstimateView(f, p) : null;
-      if (est?.state === 'range') context.estimateRangeFt = est.rangeFt;
+      const hs = spot ? headlineSurf(spot.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null; // the headline's own range (T-081), so the stored estimate is what the user saw
+      if (hs?.kind === 'estimate') context.estimateRangeFt = [hs.loFt, hs.hiFt];
     }
     const next = addObservation(obsLog, c, context);
     setObsLog(next);
@@ -325,7 +325,7 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
               <Choice label="Heights" value={p.heightUnit} options={['ft', 'm'] as const} onChange={(heightUnit) => set({heightUnit})} />
               <Choice label="Wind" value={p.windUnit} options={['mph', 'kn', 'km/h'] as const} onChange={(windUnit) => set({windUnit})} />
               <Choice label="Breaking-wave scale" value={p.scale} options={['Face height', 'Hawaiian'] as const} onChange={(scale) => set({scale})} />
-              <p className="fine">Hawaiian scale applies only to breaking-wave (face) heights. Offshore heights are never converted.</p>
+              <p className="fine">Hawaiian scale (about half the surf height) applies to surf-height estimates only. Offshore heights are never converted.</p>
             </div>
           </Page>
         );

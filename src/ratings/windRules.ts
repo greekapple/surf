@@ -24,7 +24,13 @@ export const CROSS_FRESH_MPH = 8;
 export const WIND_CEILING = 64;
 export const WIDE_RANGE_FT = 4;
 export const WIDE_RANGE_CEILING = 69;
+import {WIDE_HALF_WIDTH} from '../services/uncertainty.ts';
 export interface Ceiling {id: 'wind-unknown' | 'cross-shore' | 'wide-range'; limit: number; reason: string}
+/** T-081: ceiling from the headline's forecast uncertainty (half-width in ln units from services/uncertainty.ts), replacing the width of the legacy breaking range. */
+export function uncertaintyCeiling(halfWidth: number | null | undefined, threshold = WIDE_HALF_WIDTH): Ceiling | null {
+  if (!enabled || typeof halfWidth !== 'number' || !Number.isFinite(halfWidth) || halfWidth < threshold) return null;
+  return {id: 'wide-range', limit: WIDE_RANGE_CEILING, reason: `The forecast height is uncertain by about ±${Math.round((Math.exp(halfWidth) - 1) * 100)}% (long lead or the wave models disagree): too uncertain for a high rating, which stops at SOLID.`};
+}
 export function windCeilings(relation: string, speedMph: number): Ceiling[] {
   const rel = String(relation).toLowerCase(), out: Ceiling[] = [];
   if (!Number.isFinite(speedMph) || !enabled) return out;

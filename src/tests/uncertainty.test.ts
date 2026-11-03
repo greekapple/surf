@@ -9,7 +9,7 @@ import {breakingProfile} from '../ocean/localCalibration.ts';
 import {toLegacy} from '../ocean/bridge.ts';
 
 test('the measured constants are what the documentation says', () => {
-  assert.equal(SKILL_FLOOR_W, 0.156); assert.ok(LEAD_SKILL.every((v, i) => i === 0 || v > LEAD_SKILL[i - 1]), 'error grows with lead'); assert.ok(Math.abs(skillW(0) - 0.156) < 1e-9 && Math.abs(skillW(72) - 0.181) < 1e-9 && Math.abs(skillW(36) - 0.1655) < 1e-3 && skillW(500) === 0.425 && skillW(NaN) === 0.156); assert.ok(Math.abs(V1_STEP_W - 0.1733) < 0.001); assert.ok(Math.abs(DISAGREE_HALF - 0.1500) < 0.001);
+  assert.equal(SKILL_FLOOR_W, 0.156); assert.ok(LEAD_SKILL.every((v, i) => i === 0 || v > LEAD_SKILL[i - 1]), 'error grows with lead'); assert.ok(Math.abs(skillW(0) - 0.156) < 1e-9 && Math.abs(skillW(72) - 0.181) < 1e-9 && Math.abs(skillW(36) - 0.1655) < 1e-3 && skillW(500) === 0.425 && skillW(NaN) === 0.156); assert.ok(Math.abs(V1_STEP_W - 0.1705) < 0.001); assert.ok(Math.abs(DISAGREE_HALF - 0.1500) < 0.001);
   for (const m of ['meteofrance_wave', 'ecmwf_wam025', 'ncep_gfswave016']) assert.ok(MODEL_SKILL[m].halfWidth <= PRUNE_HALF_WIDTH, m); assert.ok(PRUNED_MODELS.every((m) => MODEL_SKILL[m].halfWidth > 0.18)); assert.match(SKILL_AS_OF, /^2026-11-\d\d$/);
 });
 test('models agree: the range is the measured forecast error at that lead (about ±17% now, ±53% at 7 days) around the central height, rounded outward to whole feet (it contains the stated interval), at least 1 ft wide, never negative', () => {

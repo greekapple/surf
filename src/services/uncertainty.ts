@@ -9,7 +9,7 @@
  *    14 days to 2026-11-03, 660 hours per model and lead, ratio p10 to p90 half-width ln(p90/p10)/2 after dividing each model by its own median ratio: 0.16 at lead 0 days, rising to 0.43 at 7 days (table LEAD_SKILL; docs/forecast/data/model-skill-lead.ts).
  *    Deep-water buoys, one fortnight, not the surf zone: a measured floor, not a guarantee. d = ln(max/min)/2 over the bias-corrected, skill-pruned wave models for that hour: real disagreement,
  *    which grows with lead time. max(), not a sum: the disagreement and the skill figure describe the same forecast error, so adding them would count it twice. d above DISAGREE_HALF (a factor of 1.35 between models) is flagged "disagree".
- *  - wStep = 0.173 = ln(1.40/0.99)/2, v1 only (offshore swell carried to 10 m): the measured scatter of MOP SF023 Hs ÷ the v1 height over 782 hours (docs/forecast/data/t008-pairs.csv). Ocean Beach only; a width, centred on v1, not covering its known 14% low bias.
+ *  - wStep = 0.1705 = ln(1.28/0.91)/2, v1 only (total Hs carried to 10 m): the measured p10 to p90 scatter of MOP SF023 Hs ÷ the v1 height over 782 hours (docs/forecast/data/t008-pairs.csv; median 1.06, so v1 runs about 6% low; it was 1.16 when v1 started from the swell partition). Ocean Beach only; a width, centred on v1, not covering that bias.
  *
  *  Removed in T-078, with reasons: the surf-height convention term (an assumed H1/3 to H1/10 range with no source, now outside the quantity the user chose); the breaker-index term (it described where waves break, no longer the centre);
  *  and the v2-vs-v1 "method difference" (two methods on different partitions, not uncertainty about v2). */
@@ -18,7 +18,7 @@ export const LEAD_SKILL: readonly number[] = [0.156, 0.161, 0.170, 0.181, 0.243,
 export const SKILL_FLOOR_W = LEAD_SKILL[0];
 /** Skill half-width at a lead time in hours (linear between days, held at day 7 beyond). */
 export const skillW = (leadHours: number | undefined) => { const d = Math.max(0, Math.min(7, (Number.isFinite(leadHours) ? (leadHours as number) : 0) / 24)), i = Math.floor(d), f = d - i; return i >= 7 ? LEAD_SKILL[7] : LEAD_SKILL[i] * (1 - f) + LEAD_SKILL[i + 1] * f; };
-export const V1_STEP_W = Math.log(1.40 / 0.99) / 2;
+export const V1_STEP_W = Math.log(1.28 / 0.91) / 2;
 export const DISAGREE_HALF = Math.log(1.35) / 2;
 export const LEGACY_BAND: [number, number] = [0.7, 1.4];
 
@@ -38,3 +38,6 @@ export function intervalFor(i: UncertaintyInput): Interval | null {
   const disagree = d !== null && d > DISAGREE_HALF;
   return {loFt: lo, hiFt: hi, centralFt: i.centralFt, halfWidth: w, components: c, disagree, note: `${c.map((x) => `${x.label} −${Math.round((1 - Math.exp(-x.halfWidth)) * 100)}%/+${Math.round((Math.exp(x.halfWidth) - 1) * 100)}%`).join('; ')}; forecast uncertainty of the model height, rounded outward to whole feet; not a validated confidence interval, and bigger waves in a set can exceed the top of the range.${disagree ? ' Wave models disagree.' : ''}`};
 }
+
+/** T-081: the rating's "too uncertain" ceiling reads the same uncertainty as the headline range (not the legacy breaking range): the rating cannot reach the top bands when the model forecast error is this large. */
+export const WIDE_HALF_WIDTH = 0.25; // a judgement call, not fitted: about ±28%, reached from the measured lead table at roughly 4 days (LEAD_SKILL 0.243 at day 4, 0.32 at day 5), so any hour beyond about 4 days is capped, as is any hour where the models are about 1.65x apart

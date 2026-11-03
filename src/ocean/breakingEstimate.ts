@@ -8,7 +8,7 @@ const G=9.81,FT=1/0.3048;
 export interface BreakingProfile {window:[number,number]|null;minPeriod:number|null;shelter:number|null;faceFactors:[number,number]|null}
 export interface BreakingInputs {swellHsFt:number|null;periodS:number|null;directionDeg:number|null;combinedHsFt:number|null;secondaryHsFt?:number|null}
 export type RefusalCode='no-profile'|'no-orientation'|'null-input'|'short-period'|'outside-window'|'wind-sea-dominant'|'no-shelter';
-export type BreakingResult={ok:true;input:WaveHeightInput;centralFt:number;/** Surf height by the common convention (T-077): the offshore swell carried to the reference depth NEARSHORE_REF_DEPTH_M by linear shoaling (Ks = √(Cg₀/Cg)), times kd and shelter: the same quantity a nearshore model reports at that depth. */nearshoreFt:number;kd:number}|{ok:false;code:RefusalCode;reason:string};
+export type BreakingResult={ok:true;input:WaveHeightInput;centralFt:number;/** Surf height by the common convention (T-077): the offshore swell carried to the reference depth NEARSHORE_REF_DEPTH_M by linear shoaling (Ks = √(Cg₀/Cg)), times kd and shelter: the same quantity a nearshore model reports at that depth. It starts from the TOTAL significant height when one is supplied (wind sea included, as a nearshore model's Hs is), not from the swell partition alone, which ran about 14% low against MOP Hs (T-081). The breaking height (centralFt) stays on the swell partition. */nearshoreFt:number;kd:number}|{ok:false;code:RefusalCode;reason:string};
 const refuse=(code:RefusalCode,reason:string):BreakingResult=>({ok:false,code,reason});
 const num=(v:number|null|undefined):v is number=>typeof v==='number'&&Number.isFinite(v);
 /** Smallest angle between two compass bearings, 0–180. */
@@ -33,7 +33,7 @@ export function estimateBreaking(i:BreakingInputs,p:BreakingProfile|null,normalF
  if(kd<=0)return refuse('outside-window','Swell arrives parallel to or away from the beach normal.');
  const hsM=i.swellHsFt/FT;
  const centralFt=0.39*G**0.2*(i.periodS*(hsM*kd*p.shelter)**2)**0.4*FT;
- const w0=2*Math.PI/i.periodS,cgDeep=G*i.periodS/(4*Math.PI),kRef=wavenumber(i.periodS,NEARSHORE_REF_DEPTH_M),ks=Math.sqrt(cgDeep/groupSpeed(w0,kRef,NEARSHORE_REF_DEPTH_M)),nearshoreFt=hsM*kd*p.shelter*ks*FT;
+ const w0=2*Math.PI/i.periodS,cgDeep=G*i.periodS/(4*Math.PI),kRef=wavenumber(i.periodS,NEARSHORE_REF_DEPTH_M),ks=Math.sqrt(cgDeep/groupSpeed(w0,kRef,NEARSHORE_REF_DEPTH_M)),totalM=num(i.combinedHsFt)&&i.combinedHsFt/FT>hsM?i.combinedHsFt/FT:hsM,nearshoreFt=totalM*kd*p.shelter*ks*FT;
  return {ok:true,kd,centralFt,nearshoreFt,input:{kind:'breaking-estimate',valueFt:null,rangeFt:faceRange(centralFt,p.faceFactors),rangeMethod:BREAKING_METHOD}};
 }
 

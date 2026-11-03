@@ -4,7 +4,8 @@ import type {SurfRating} from './types.ts';
 import {categoryForScore} from './engine.ts';
 import {angle} from '../utils/units.ts';
 import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
-import {capOnshore,windCeilings,rangeCeiling} from './windRules.ts';
+import {capOnshore,windCeilings,uncertaintyCeiling} from './windRules.ts';
+import {recordSurfRange} from '../services/surfRange.ts';
 import {canPresentBreakingEstimate} from '../utils/waveHeight.ts';
 const clamp=(n:number)=>Math.max(0,Math.min(100,n));
 /** Offshore-potential heuristics, not a nearshore transformation or fitted surfing model. */
@@ -43,7 +44,7 @@ export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):S
  if(h===0&&hs===0){score=Math.min(score,24);constraints.push('Zero model offshore energy means POOR offshore potential, not observed Flat surf.');}
  score=Math.min(score,provisionalRules.unvalidatedCap);
  // T-055 ceilings: wind relation unknown / fresh cross-shore / a wide estimate range. Each only lowers the score and is reported when it did.
- const fe=r.faceEstimate?.input,wide=fe&&canPresentBreakingEstimate(fe)?rangeCeiling(fe.rangeFt as [number,number]):null;
+ const fe=r.faceEstimate,sr=fe?recordSurfRange({spotId:s.id,timestamp:r.timestamp,faceEstimate:fe},now):null,wide=sr?uncertaintyCeiling(sr.halfWidth):null;
  const ceilings=[...windCeilings(relation,ws),...(wide?[wide]:[])].filter(c=>score>c.limit);
  for(const c of ceilings){score=Math.min(score,c.limit);constraints.push(c.reason);}
  const category=categoryForScore(score);

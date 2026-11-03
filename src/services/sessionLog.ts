@@ -9,7 +9,7 @@ export interface ObservationContext {
   /** What the app showed or knew when the surfer logged it; used later to compare, never to correct the observation. */
   mop?: {mopId: string; product: 'nowcast' | 'forecast'; validAt: string; hsFt: number | null; tpS: number | null; dpDeg: number | null};
   heightLabel?: string;       // the headline height text shown for that hour, if any
-  estimateRangeFt?: [number, number] | null; // the app's own breaking estimate range for that hour, if one existed
+  estimateRangeFt?: [number, number] | null; // the surf-height range the app showed for that hour (T-081: the headline's convention range), if one existed
 }
 /** The model's breaking estimate for the observed spot-hour, captured when the observation was logged (past forecasts are not kept). `centralFt` is the midpoint of the uncalibrated range. */
 export interface ModelPair {centralFt: number; loFt: number; hiFt: number; method: 'mop-v2' | 'v1'; validAt: string; offshoreHsFt: number | null; primaryTpS: number | null; /** 'archived' = what this device had shown before the session (T-064); 'current' = the run at logging time. */ source?: 'archived' | 'current'; leadH?: number; /** 'surf-height' = centralFt is the surf height by the common convention (T-077). Pairs without it (the old fixed-band midpoint, or T-073's breaking-height centre) are not mixed into a fit. */ basis?: 'surf-height'}
