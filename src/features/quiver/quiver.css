@@ -447,3 +447,6 @@
 .br-h .br-fit { margin-top: 8px; font-size: 13px; }
 .br-h .br-fit .qv-fit { font-size: 13px; }
 @media (max-width: 860px) { .br-h h2 { font-size: 22px; } }
+/* T-065 Board Match on size + period */
+.qv-shape { color: var(--muted); font-size: 14px; }
+.qv-ranks-sp .qv-rank-t p { margin: 0; }
