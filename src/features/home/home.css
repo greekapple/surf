@@ -204,3 +204,4 @@
 .wk-c button { padding-bottom: 18px; }
 .wk-curve { top: auto; bottom: 4px; height: 12px; }
 .wk-curve path { stroke-opacity: 0.4; }
+.wk-h.wk-none { font-size: 13px; font-weight: 400; color: var(--dim); }

@@ -457,3 +457,5 @@
 /* T-067 (taste-skill app checks): short cells keep their own height (no blank bands). Source notes stay 12 px: they are sublines. */
 .sp-grid { align-items: start; }
 @media (max-width: 860px) { [data-card=surf] { gap: 0; } [data-card=surf] .sp-brk { margin-top: 2px; } [data-card=surf] .felt { margin-top: 2px; } }
+/* T-088: the Call's reason gets two lines on phones (one line clipped every reason mid-sentence). */
+@media (max-width: 860px) { .call-why { -webkit-line-clamp: 2; } }

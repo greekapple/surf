@@ -73,3 +73,11 @@ test('a why that only restates the verdict and window is dropped; one that adds 
   assert.equal(firstNewReason(['It is dark. The next window is tomorrow 6 AM–2 PM.'], head), null);
   assert.equal(firstNewReason(['Plunging and 6–9 ft: experienced surfers only.'], 'Skip 7–9 AM'), 'Plunging and 6–9 ft: experienced surfers only.');
 });
+test('T-088: a same-day "today" in the why does not count as new', () => {
+  assert.equal(restatesHeadline('It is dark. The next window is today 6–11 AM.', 'Dark next window 6–11 AM'), true);
+});
+import {uniqueReasons} from '../features/forecast/trustRules.ts';
+test('T-088: the reason list drops reasons already inside an earlier one', () => {
+  assert.deepEqual(uniqueReasons(['Light offshore wind: clean face. The estimated 3–5 ft is within range.', 'The estimated 3–5 ft is within range.', 'Light offshore wind: clean face.', 'Swell is a plus.']),
+    ['Light offshore wind: clean face. The estimated 3–5 ft is within range.', 'Swell is a plus.']);
+});

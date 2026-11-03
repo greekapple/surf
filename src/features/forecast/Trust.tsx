@@ -2,7 +2,7 @@ import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
 import './trust.css';
 import {getFelt} from '../../services/observationStore';
-import {activeAlerts, feltForHour, firstNewReason} from './trustRules';
+import {activeAlerts, feltForHour, firstNewReason, uniqueReasons} from './trustRules';
 import {alertsFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
 
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
@@ -28,7 +28,7 @@ export function CallBar({call, compact = false}: {call: Call; compact?: boolean}
       </button>
       {open && (
         <div id={id} className="call-d">
-          <ul>{call.why.map((r) => <li key={r}>{r}</li>)}</ul>
+          <ul>{uniqueReasons(call.why).map((r) => <li key={r}>{r}</li>)}</ul>
           <p className="call-basis">{call.basis}</p>
         </div>
       )}

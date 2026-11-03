@@ -6,6 +6,7 @@ import {rateForecast} from '../../ratings/adapters';
 import {isDark} from '../forecast/trustApi';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
+import {weekDays} from './weekDays';
 
 /* T-067 "Your spots this week" (T-069: estimate rows first; an offshore-only day is a small grey number, the row label says offshore) (Surfline home pattern): rows are spots, columns 8 days. Each cell is the day's surf range from the T-064/T-057 day
  * logic (dayRange over daylight hours), a three-part AM / midday / PM rating bar (dark parts unrated), and behind the row a soft curve of the
@@ -21,7 +22,8 @@ interface Cell {key: string; dr: DayRange; segs: Seg[]}
 interface Row {spot: SurfSpot; cells: Cell[]}
 
 export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}: {spots: SurfSpot[]; records: Forecast[]; nowMs: number; profile: UserProfile; bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined; unit: string; onOpen: (spotId: string, iso: string | null) => void}) {
-  const keys = useMemo(() => Array.from({length: DAYS}, (_, k) => pt(nowMs + k * 864e5)), [Math.floor(nowMs / 36e5)]); // eslint-disable-line react-hooks/exhaustive-deps
+  // T-088b: no column for a trailing day beyond the forecast horizon (after midnight the 8th day has no records at all).
+  const keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
   const rows: Row[] = useMemo(() => spots.map((spot) => {
     const mine = records.filter((f) => f.spotId === spot.id);
     return {spot, cells: keys.map((key) => {
@@ -55,12 +57,12 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
               {cells.map((c, i) => {
                 const est = c.dr.kind === 'estimate' && c.dr.loFt !== null && c.dr.hiFt !== null, off = c.dr.kind === 'offshore' && c.dr.hiFt !== null;
                 const label = est ? `${n(c.dr.loFt!)}–${n(c.dr.hiFt!)}` : off ? n(c.dr.hiFt!) : '—';
-                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit}` : off ? `surf estimate unavailable, offshore up to ${n(c.dr.hiFt!)} ${unit}` : 'no height'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
+                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit}` : off ? `surf estimate unavailable, offshore up to ${n(c.dr.hiFt!)} ${unit}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>
                     {i === 0 && segPaths.length > 0 && <svg className="wk-curve" viewBox="0 0 800 56" preserveAspectRatio="none" aria-hidden="true">{segPaths.map((d) => <path key={d} d={d} />)}</svg>}
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>
-                      <span className={est ? 'wk-h' : 'wk-h wk-off'}>{label}</span>
+                      <span className={est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none'}>{label}</span>
                       <span className="wk-bar" aria-hidden="true">{c.segs.map((s, k) => <i key={k} className={s.state} style={{background: s.color}} />)}</span>
                     </button>
                   </td>
