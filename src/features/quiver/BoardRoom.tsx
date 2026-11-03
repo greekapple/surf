@@ -248,7 +248,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
             {boards.map((b) => { const maxL = Math.max(...boards.map((x) => x.length)), ft = fits?.get(b.id); return (
               <button key={b.id} type="button" className="br-rail-b" aria-pressed={b.id === board.id} onClick={() => onPick(b.id)}
                 aria-label={`${b.name}, ${lengthLabel(b.length)}${ft && ft.state !== 'none' ? `, ${ft.label.toLowerCase()} today` : ''}${b.id === board.id ? ', on the stage' : ''}`}>
-                <span className="br-rail-o" aria-hidden="true"><BoardOutline b={b} scale={58 / maxL} /></span>
+                <span className="br-rail-o" aria-hidden="true"><BoardOutline b={b} scale={58 / maxL} look={b.id === board.id ? d.look : undefined} /></span>
                 <span className="br-rail-t"><b>{b.name}</b><small>{lengthLabel(b.length)}</small>{ft && ft.state !== 'none' && <em className={`qv-fit ${ft.state}`}>{ft.label}</em>}</span>
               </button>
             ); })}

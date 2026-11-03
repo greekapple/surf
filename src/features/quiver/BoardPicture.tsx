@@ -10,7 +10,7 @@ import {cutout, type Cut} from './cutout';
 function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline | null}) {
   const id = useId().replace(/:/g, '');
   const look = loadLook(b);
-  if (!outline) return <BoardOutline b={b} scale={px} color={look.deck} />;
+  if (!outline) return <BoardOutline b={b} scale={px} look={look} />;
   const L = b.length * px, W = b.width * px, cx = W / 2;
   const half = outline.hw.map((h) => h * L), maxHalf = Math.max(...half), k = maxHalf > 0 ? W / 2 / maxHalf : 1; // stored halves are fractions of length; the typed width wins
   const pts = half.map((h, i) => [(i / (STATIONS - 1)) * L, h * k] as const);
@@ -41,15 +41,9 @@ export function illustrationFor(b: Surfboard, outline: Outline | null) {
 /** The one slot that draws a board picture (rack, annotated stage, phone strip). The person's traced outline or scanned photo first; otherwise
  *  an AI illustration of the board's type, cut out of its white seamless and scaled so its height is the board's real length, labelled as not
  *  their board; otherwise the category outline. `drawn` forces the outline (dark theme stage). */
-export function BoardPicture({b, px, outline, drawn}: {b: Surfboard; px: number; outline: Outline | null; drawn?: boolean}) {
-  const ill = drawn ? null : illustrationFor(b, outline);
-  const src = ill ? `${ill.src}-${px * b.length * (typeof devicePixelRatio === 'number' ? devicePixelRatio : 1) > 700 ? 1400 : 700}.jpg` : null;
-  const [cut, setCut] = useState<Cut | null | 'pending'>('pending');
-  useEffect(() => { if (!src) return; let on = true; setCut('pending'); cutout(src).then((c) => on && setCut(c)); return () => { on = false; }; }, [src]);
-  if (!ill || !src) return <Upright b={b} px={px} outline={outline} />;
-  const h = Math.round(b.length * px);
-  if (cut === 'pending') return <span className="bp-ill bp-wait" style={{height: h, width: Math.round(h * 0.18)}} aria-label={`${b.name}: ${ill.caption}`} role="img" />;
-  if (cut) return <img className="bp-ill bp-cut" src={cut.url} height={h} width={Math.round((h * cut.w) / cut.h)} alt={`${b.name}: ${ill.caption}`} title={ill.caption} decoding="async" />;
-  // Fallback: the JPEG with the soft mask, blended by multiply on its container (no drop shadow, so no box). It has ~5% white above and below.
-  return <img className="bp-ill" src={`${ill.src}-700.jpg`} srcSet={`${ill.src}-700.jpg 1x, ${ill.src}-1400.jpg 2x`} height={h} alt={`${b.name}: ${ill.caption}`} title={ill.caption} decoding="async" />;
+/** The one slot that draws a board picture (wall, phone strip). T-094: the person's traced outline or scanned photo first; otherwise the shared
+ *  2D renderer in the board's own look, the same colour the 3D showroom uses. (The generic AI illustrations by board type are no longer used:
+ *  they showed a type, not the person's board, and did not match the showroom.) */
+export function BoardPicture({b, px, outline}: {b: Surfboard; px: number; outline: Outline | null; drawn?: boolean}) {
+  return <Upright b={b} px={px} outline={outline} />;
 }

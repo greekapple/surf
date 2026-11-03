@@ -1,7 +1,7 @@
 import {useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent} from 'react';
 import type {Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
-import {BoardPicture, illustrationFor} from './BoardPicture';
+import {BoardPicture} from './BoardPicture';
 import {loadOutline} from './outline';
 import {StageArrows, Strip} from './Overlay';
 import type {SizeFit} from './fit';
@@ -77,7 +77,6 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
               <li key={b.id} ref={(el) => { if (el) items.current.set(b.id, el); else items.current.delete(b.id); }} className={b.id === selected.id ? 'on' : ''}>
                 <button type="button" className="qv-rack-b" aria-pressed={b.id === selected.id} tabIndex={b.id === selected.id ? 0 : -1} aria-label={`${b.name}, ${lengthLabel(b.length)}, board ${i + 1} of ${n}${b.demo ? ', example board' : ''}`} onClick={() => onSelect(b.id)}>
                   <BoardPicture b={b} px={base} outline={outlines.get(b.id) ?? null} />
-                  {b.id === selected.id && (() => { const ill = illustrationFor(b, outlines.get(b.id) ?? null); return ill ? <span className="qv-ill-tag" title={ill.caption}>Illustration · AI-generated</span> : null; })()}
                   <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>
                     {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${ft.board[0]}–${ft.board[1]} ft` : undefined}>{ft.label}</em> : null; })()}
                   </span>
