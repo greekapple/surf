@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
-import {ATLAS_BANDS, type Atlas, type AtlasMeta, atlasId, blendAtlas, bucketIdFor, bucketsFor, facePoint, loadAtlas, profileAt, scaleAtlas, stageAt, stripX, surferX, withPeriod} from './waveAtlas';
+import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, bucketIdFor, bucketsFor, facePoint, loadAtlas, profileAt, scaleAtlas, stageAt, stripX, surferX, withPeriod} from './waveAtlas';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
 import {boardGeometry, boardShape} from './boardMesh';
@@ -126,7 +126,7 @@ void main(){
 
 const WATER_FS = /* glsl */ `
 precision highp float;
-uniform float uTime, uFace, uFlowX, uFlowZ, uBl, uPitch, uLand, uFog, uSpill, uChop, uStrip;
+uniform float uTime, uFace, uFlowX, uFlowZ, uBl, uPitch, uLand, uFog, uSpill, uChop, uStrip, uBreak;
 uniform vec3 uSun, uHorizon, uTop, uDeep, uBody, uTurq, uFoam, uFoamShade, uSea, uSunCol, uGlow;
 uniform float uAmb, uDirect;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
@@ -137,7 +137,7 @@ float cellEdge(vec2 p){ vec2 i=floor(p), f=fract(p); float d1=8., d2=8.;
   return sqrt(d2)-sqrt(d1); }
 vec3 skyCol(vec3 r){ float h=clamp(r.y,0.,1.); vec3 c=mix(uHorizon,uTop,pow(h,.55));
   vec2 sh=normalize(uSun.xz+1e-5), rh=normalize(r.xz+1e-5); c+=uGlow*pow(max(dot(sh,rh),0.),3.)*pow(1.-h,3.);   // warm glow low toward the sun (golden hour, twilight)
-  return c+uSunCol*pow(max(dot(r,uSun),0.),48.)*.9; }
+  return c+uSunCol*pow(max(dot(r,uSun),0.),90.)*.7; }   // the sun's halo in the reflection: tighter than before, so the trough is not one cream streak
 // wind chop and capillary ripples: octaves of C1 value noise with analytic slopes (smooth, no grid squares, no long parallel bands),
 // stretched across the wind and drifting; each octave fades once it gets near a pixel, and what fades becomes roughness
 float hq(vec2 p){ vec3 p3=fract(vec3(p.xyx)*.1031); p3+=dot(p3,p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
@@ -202,6 +202,12 @@ void main(){
   float lump=n3(q)*.6+n3(q*2.3+7.)*.3+n3(q*5.3+3.)*.1;
   float cov=smoothstep(.22,.62,foam*(.75+.6*lump));
   cov=max(cov,smoothstep(.78,.95,foam));                                    // the landed section and foam ball are solid white: no dark holes ("teeth") where a lump dips
+  // a spilling forecast (uBreak 1): the crest tumbles a ragged band of foam down the top of the front face of the breaking section, the
+  // open face below it stays green; a plunging one (0) keeps the atlas's clean thrown lip. Only where the section has started to break.
+  // a solid fringe along the very top, its lower edge ragged (low-frequency lumps), so it reads as one tumbling crest and not as flecks
+  float rag=n3(q*.45+vec3(2.,0.,0.))*.6+n3(q*1.1+5.)*.4;
+  float spillBand=smoothstep(.58-.22*rag,.88-.1*rag,hf)*front*smoothstep(uPitch-1.4,uPitch+.2,vS)*uBreak;
+  cov=max(cov,spillBand);
   vec3 Nf=normalize(N0+vec3(n3(q*1.7+1.)-.5,0.,n3(q*1.7+9.)-.5)*1.4);
   float bigS=n3(vL/(.75*F)+vec3(3.,-t*.12,t*.1));                         // the same big heads the vertex shader pushes out
   float occl=smoothstep(.18,.82,lump*.55+bigS*.45), lit=mix(.6,clamp(dot(Nf,uSun)*.55+.55,0.,1.),uDirect);
@@ -249,12 +255,14 @@ const getAtlas = (id: string) => { let p = atlasCache.get(id); if (!p) { p = loa
 export const SURFER_MODEL_M = 1.75;
 const loadSurfer = () => (surferCache ??= loader.loadAsync(LIVE_ROOT + 'surfer.glb').then((g) => g.scene).catch((e) => { surferCache = null; throw e; }));
 
-/** The atlas for a face height and breaker from the loaded buckets: the two buckets around it blended; below or above the range the
- *  end bucket scaled. Null until both buckets are loaded; `need` lists the file ids to load (the variant, then the plain bucket as fallback). */
-export function composeAtlas(faceM: number, breaker: WaveSpec['breaker'], periodS: number | null): {atlas: Atlas | null; need: string[]; bucket: string} {
+/** The atlas for a face height from the loaded buckets: the two buckets around it blended; below or above the range the end bucket
+ *  scaled. Always the bucket family's own atlas: the "-spilling" variants draw the whole section as a wall of whitewater with no open
+ *  face (wave-look round 1), so the forecast's breaker type shapes the water shader (uBreak) instead of swapping the geometry.
+ *  Null until both buckets are loaded; `need` lists the file ids to load. */
+export function composeAtlas(faceM: number, _breaker: WaveSpec['breaker'], periodS: number | null): {atlas: Atlas | null; need: string[]; bucket: string} {
   const b = bucketsFor(faceM), B = ATLAS_BANDS;
-  const pick = (i: number) => { const v = atlasId(B[i], breaker); return ready.get(v) ?? ready.get(B[i].id) ?? null; };
-  const need = [...new Set([atlasId(B[b.lo], breaker), atlasId(B[b.hi], breaker), B[b.lo].id, B[b.hi].id])];
+  const pick = (i: number) => ready.get(B[i].id) ?? null;
+  const need = [...new Set([B[b.lo].id, B[b.hi].id])];
   const lo = pick(b.lo), hi = pick(b.hi), bucket = b.w < 0.5 ? B[b.lo].id : B[b.hi].id;
   if (!lo || !hi) return {atlas: null, need, bucket};
   const a = b.lo === b.hi ? scaleAtlas(lo, faceM / B[b.lo].faceM) : blendAtlas(lo, hi, b.w);
@@ -347,10 +355,12 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const tex = {value: null as THREE.DataTexture | null};
     const u = {
       uTime: {value: 0}, uFace: {value: 1.5}, uNS: {value: 12}, uNP: {value: 96}, uPitch: {value: 4}, uLand: {value: 6}, uDb: {value: 2}, uBed: {value: 0.03}, uSh: {value: 40}, uBl: {value: 40}, uCyc: {value: 6},
-      uX0: {value: -60}, uX1: {value: 60}, uY0: {value: -14}, uY1: {value: 5}, uLb: {value: 57}, uFlowX: {value: 4}, uFlowZ: {value: 3}, uSpill: {value: 0}, uAtlas: tex, uSetH: {value: 0.5}, uStrip: {value: 1}, uChop: {value: 0.7},
+      uX0: {value: -60}, uX1: {value: 60}, uY0: {value: -14}, uY1: {value: 5}, uLb: {value: 57}, uFlowX: {value: 4}, uFlowZ: {value: 3}, uSpill: {value: 0}, uAtlas: tex, uSetH: {value: 0.5}, uStrip: {value: 1}, uChop: {value: 0.7}, uBreak: {value: 0},
       uSun: {value: SUN.clone()}, uHorizon: {value: HORIZON.clone()}, uTop: {value: SKY_TOP.clone()}, uFog: {value: 0.0036}, uSunCol: {value: new THREE.Color('#fff3df')}, uGlow: {value: new THREE.Color(0, 0, 0)}, uAmb: {value: 1}, uDirect: {value: 1},
-      uDeep: {value: new THREE.Color('#041820')}, uBody: {value: new THREE.Color('#164b56')}, uTurq: {value: new THREE.Color('#33b8a2')}, uSea: {value: new THREE.Color('#123c47')},
-      uFoam: {value: new THREE.Color('#eef2f1')}, uFoamShade: {value: new THREE.Color('#66757a')},
+      // water: a dark green-grey base with a greener face and a bright, slightly yellow-green glow where the lip goes thin (Ocean Beach photos:
+      // the face is olive-green against a grey-blue sea, never teal); foam reads white, its cavities a light grey, not slate
+      uDeep: {value: new THREE.Color('#06201f')}, uBody: {value: new THREE.Color('#1c5a4e')}, uTurq: {value: new THREE.Color('#4cc49a')}, uSea: {value: new THREE.Color('#163f46')},
+      uFoam: {value: new THREE.Color('#f3f6f5')}, uFoamShade: {value: new THREE.Color('#8a979c')},
     };
     const stripMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: STRIP_VS, fragmentShader: WATER_FS, side: THREE.DoubleSide});
     const seaMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: SEA_VS, fragmentShader: WATER_FS});
@@ -388,10 +398,10 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         sp.life[i] -= dt;
         if (sp.life[i] <= 0) {
           const k = (R() * m | 0) * 3;
-          sp.pos[j] = src[k] + (R() - 0.5) * 0.4; sp.pos[j + 1] = src[k + 1]; sp.pos[j + 2] = src[k + 2];
-          if (kind === 0) { // droplets thrown off the lip: forward with it, falling, a few blown back
-            sp.vel[j] = (R() - 0.5) * 0.6; sp.vel[j + 1] = (R() - 0.3) * 1.2 * sq; sp.vel[j + 2] = -(0.4 + R() * 1.2) * sq * (R() < 0.15 ? -0.6 : 1);
-            sp.max[i] = sp.life[i] = 0.35 + R() * 0.7; sp.size[i] = (0.05 + R() * 0.09) * (0.6 + 0.3 * H);
+          sp.pos[j] = src[k] + (R() - 0.5) * (kind === 0 ? 1.2 : 0.4); sp.pos[j + 1] = src[k + 1]; sp.pos[j + 2] = src[k + 2];
+          if (kind === 0) { // lip spray: soft puffs thrown forward and down off the lip, spread along it (not dotted lines under each emitter), a few blown back
+            sp.vel[j] = (R() - 0.5) * 0.9; sp.vel[j + 1] = (R() - 0.3) * 1.2 * sq; sp.vel[j + 2] = -(0.4 + R() * 1.2) * sq * (R() < 0.15 ? -0.6 : 1);
+            sp.max[i] = sp.life[i] = 0.35 + R() * 0.7; sp.size[i] = (0.09 + R() * 0.16) * (0.6 + 0.3 * H);
           } else if (kind === 1) { // offshore back-spray: lifted off the crest, carried up and seaward, a soft veil on big days
             sp.pos[j + 1] += R() * 0.08 * H; sp.vel[j] = (R() - 0.5) * 0.5; sp.vel[j + 1] = (0.5 + R() * 1.0) * Math.sqrt(H); sp.vel[j + 2] = (0.8 + R() * 1.8) * Math.sqrt(H) * (0.6 + 0.6 * back);
             sp.max[i] = sp.life[i] = 1.0 + R() * 1.4; sp.size[i] = (0.25 + R() * 0.35) * (0.5 + 0.35 * H);
@@ -407,17 +417,19 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         sp.vel[j + 1] -= gr * dt; if (kind === 1) { sp.vel[j + 2] += 0.6 * dt; sp.size[i] *= 1 + dt * 0.3; } if (kind === 2) sp.size[i] *= 1 + dt * 0.2;
         sp.pos[j] += sp.vel[j] * dt; sp.pos[j + 1] += sp.vel[j + 1] * dt; sp.pos[j + 2] += sp.vel[j + 2] * dt;
         const t = Math.max(0, sp.life[i]) / sp.max[i], env = Math.min(1, (1 - t) * 6) * Math.min(1, t * 2.5);
-        sp.alpha[i] = sp.life[i] > 0 ? env * (kind === 0 ? 0.11 : kind === 1 ? (0.008 + 0.03 * big) * back : kind === 3 ? 0.3 : 0.07 + 0.03 * big) : 0;
+        sp.alpha[i] = sp.life[i] > 0 ? env * (kind === 0 ? 0.075 : kind === 1 ? (0.008 + 0.03 * big) * back : kind === 3 ? 0.3 : 0.07 + 0.03 * big) : 0;
       }
       const g = sp.pts.geometry; (g.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aSize') as THREE.BufferAttribute).needsUpdate = true; (g.getAttribute('aA') as THREE.BufferAttribute).needsUpdate = true;
     };
     let placed: 'none' | 'surf' | 'swell' = 'none', token = 0, pending: WaveSpec | null = null, live0 = false;
     const C = new THREE.Matrix4().set(1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1), Ci = C.clone().invert(), bb = new THREE.Box3(), Mb = new THREE.Matrix4(), Ms = new THREE.Matrix4(), Rx = new THREE.Matrix4().makeRotationX(THREE.MathUtils.degToRad(16)), My = new THREE.Matrix4().makeScale(1, -1, 1);
     const placeCamera = (mode: 'surf' | 'swell', tx: number, H: number, far: number) => {
-      const d = mode === 'surf' ? 6 + H * 2.5 : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
+      const d = mode === 'surf' ? 4.5 + H * 2.6 : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
       if (placed !== mode) {
         placed = mode;
-        if (mode === 'surf') { controls.target.set(sx * tx, H * 0.5, 0); camera.position.set(sx * (tx - 0.75 * d), H * 1.7 + 1.1, -0.7 * d); } // from the channel, slightly down the line
+        // from the channel on the shoulder, eye just under the lip (a surf photographer's water shot: the lip stands against the sky, the horizon sits high)
+        // (eye 0.7 H + 0.55 m: 2.8 m under a 10 ft face, 1.1 m beside a waist-high one, so a small wave is not seen from above and flattened)
+        if (mode === 'surf') { controls.target.set(sx * tx, H * 0.55, 0); camera.position.set(sx * (tx - 0.7 * d), H * 0.7 + 0.55, -0.72 * d); }
         else { controls.target.set(0, 0, far * 0.3); camera.position.set(-0.3 * d, 2.2 + 1.2 * H, -0.6 * d); } // low over the water, so the swell lines read as lines
       } else if (mode === 'surf') { tmp.copy(camera.position).sub(controls.target); controls.target.set(sx * tx, H * 0.5, 0); camera.position.copy(controls.target).add(tmp); }
       controls.update(); sync();
@@ -442,6 +454,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       u.uFace.value = H; u.uNS.value = m.stages; u.uNP.value = m.points; u.uPitch.value = m.stage_pitch; u.uLand.value = m.stage_land; u.uDb.value = m.depth_break_m; u.uBed.value = m.bed_along_per_m;
       u.uSh.value = m.shoulder_len_m; u.uBl.value = m.break_len_m; u.uCyc.value = m.cycle_s; u.uX0.value = x0; u.uX1.value = x1; u.uY0.value = m.y0_m; u.uY1.value = m.y1_m; u.uLb.value = m.Lb_m;
       u.uFlowX.value = Math.min(m.peel_speed_mps, 6); u.uFlowZ.value = Math.min(m.celerity_mps, 4); u.uSpill.value = m.breaker === 'spilling' ? 1 : 0; u.uSetH.value = 0.36 * H; u.uStrip.value = 1;
+      u.uBreak.value = w.breaker === 'spilling' ? 1 : w.breaker === 'plunging' ? 0 : m.breaker === 'spilling' ? 1 : 0;   // the forecast's breaker type, the bucket family's when unknown
       const sx = surferX(m);
       setStripX(strip.geometry, m, sx); setSea(sea.geometry, m); strip.visible = sea.visible = true;
       if (surfer) {
@@ -456,7 +469,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       }
       if (spray) { const e = emitters(atlas); spray.lip = e.lip; spray.crest = e.crest; spray.mist = e.mist; spray.blast = e.blast; spray.pts.visible = true; }
       placeCamera('surf', sx * 0.4, H, 0);
-      el.dataset.mode = 'surf'; el.dataset.face = String(Math.round(H * 100) / 100); el.dataset.breaker = m.breaker; el.dataset.atlasBytes = String(atlas.data.byteLength);
+      el.dataset.mode = 'surf'; el.dataset.face = String(Math.round(H * 100) / 100); el.dataset.breaker = w.breaker ?? m.breaker; el.dataset.atlasFamily = m.breaker; el.dataset.atlasBytes = String(atlas.data.byteLength);
     };
     /** The latest spec wins: applied at once when its buckets are loaded, otherwise after they load (the first call also loads the surfer). */
     const setWave = (w: WaveSpec) => {
@@ -528,7 +541,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const kick = () => { if (!raf && !disposed) { last = performance.now(); raf = requestAnimationFrame(frame); } };
     const vis = () => { if (!document.hidden) kick(); }; document.addEventListener('visibilitychange', vis);
     size(); setDir(waveRef.current.direction); setWave(waveRef.current); kick();
-    for (const b of ATLAS_BANDS) { void getAtlas(b.id); void getAtlas(atlasId(b, b.breaker === 'spilling' ? 'plunging' : 'spilling')); } // warm every bucket (18 KB each) so hour changes are instant
+    for (const b of ATLAS_BANDS) void getAtlas(b.id); // warm every bucket (18 KB each) so hour changes are instant
     const onLost = (e: Event) => { e.preventDefault(); cb.current.onFail?.(); }; canvas.addEventListener('webglcontextlost', onLost);
     return () => {
       disposed = true; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', vis); canvas.removeEventListener('webglcontextlost', onLost); controls.dispose();
