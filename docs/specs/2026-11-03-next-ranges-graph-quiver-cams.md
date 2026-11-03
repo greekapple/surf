@@ -1,5 +1,5 @@
 # Next after the 3D: Surfline-width ranges, undulating graph lines, quiver, then cams on Home
-Status: DRAFT, waiting for the user's approval. The request was relayed by the Fable agent from the user's message in its thread; the user confirms here. Order (user): **the 3D works well → ranges and graph → quiver → cams**. Cams come "once I like the product a little bit more".
+Status: **APPROVED in direction** (user, 2026-11-03 ~15:10, directly: "use surfline for reference … a little differentiated … beach oriented … i meant the lines that undulate similar to surflines not the depiction of the wave to surfer comparison … fix those issues after the 3d works well"). Open question 1 is answered (use Surfline's width, by beach). Open question 2 (quiver) is still open. Order (user): **the 3D works well → ranges and graph → quiver → cams**. Cams come "once I like the product a little bit more".
 
 ## 1. Surf-height ranges: as narrow as Surfline's, per spot
 **Context.**
@@ -33,8 +33,17 @@ Status: DRAFT, waiting for the user's approval. The request was relayed by the F
 - **Validation re-run** (T-089 harness): report how often the measured nowcast falls inside the new band and inside the band ± one step. Expect a lower coverage than 78%; that's why the confidence word exists. The user sees the number.
 - **Owner:** engineering. Level 3 (it changes the meaning of the main number); data-honesty review required.
 
-## 2. Forecast graph: undulating lines like Surfline's
-**Context.** T-109 replaced the barcode with one estimate band plus a median line. The user means Surfline-style forecast lines: smooth curves of surf height and of each swell over the days, not the 3D comparison.
+## 2. Undulating lines like Surfline's (forecast graph AND Home)
+**Context.**
+- T-109 replaced the spot graph's barcode with one estimate band plus a median line.
+- The user means Surfline-style undulating lines: smooth curves of surf height and of each swell over the days. They do NOT mean the wave-next-to-a-person drawings.
+- The lead misread "the little depictions of waves that were simple" as the wave-to-person glyph. T-106 removed the week grid's faint undulating size line (the likely original) and added glyphs in its place.
+
+**Home (new):**
+- Bring back an undulating size line in each week-grid row: a smooth curve through the days' midday sizes (T-107's `centralFt`), clearly visible and with a legend.
+- Give each spot card a small undulating 7-day surf-height line (sparkline) in place of the wave-to-person glyph.
+- The large drawn wave in the hero stays as the cam fallback (§4) until cams exist.
+- The tiny glyphs in the week cells are removed (the line replaces them).
 
 **Target.**
 - **The Surf tab:** a smooth curve (monotone cubic, no overshoot) for the new surf band's top and bottom, with a soft fill between, coloured by the rating along the bottom edge.
@@ -42,7 +51,7 @@ Status: DRAFT, waiting for the user's approval. The request was relayed by the F
 - Day separators, a "now" line, and night shading kept. 390 readable.
 - No new dependency (hand-rolled SVG path smoothing).
 
-**Owner:** product (UI) with engineering's band from §1. Level 2.
+**Owner:** product (UI) with engineering's band from §1. Level 2. Done after the 3D works well (user's order).
 
 ## 3. Quiver (after 1 and 2)
 The user named it next in line but gave no detail. Proposed scope, for the user to confirm or replace: the Board Match explanation in plain words, the board look editor, and the board picks agreeing with the new bands. **Open question 2.**
@@ -69,5 +78,5 @@ The user named it next in line but gave no detail. Proposed scope, for the user 
 - Checks: tsc, tests and build; journeys (after the Open-Meteo reset).
 
 ## Open questions (yours)
-1. **What the range means:** OK to change the range to Surfline's meaning ("typical to sets", narrow) and show uncertainty as a confidence word? Recommended: **yes**. The alternative is keeping it as an uncertainty interval and accepting today's widths.
+1. ~~What the range means~~: answered. Use Surfline's widths and make them beach-oriented. The lead implements it as "typical to sets" with a confidence word, which keeps it honest.
 2. **Quiver scope:** what should change in the quiver? Default if you don't say: Board Match explained in plain words, and picks that agree with the new bands.
