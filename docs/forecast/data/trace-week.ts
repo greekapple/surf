@@ -21,7 +21,7 @@ const med = (a: number[]) => { const b = a.filter(Number.isFinite).sort((x, y) =
 const f1 = (n: number) => (Number.isFinite(n) ? n.toFixed(1) : '–');
 const days = [...new Set(records.map((r) => pacificDate(r.timestamp)))].slice(0, 8);
 console.log(`Ocean Beach, retrieved ${retrieved}. Daylight hours only; ft. MOP rows: ${mop.length} (${mop[0]?.timestamp} … ${mop.at(-1)?.timestamp}).\n`);
-console.log('| Day (PT) | offshore Hs (OM) | primary swell Hs / Tp / Dp | MOP SF023 Hs / Tp / Dp | v2 central (best hr) | headline range at 10 AM | day card (typical) | day envelope | median v2 central, daylight | MOP Hs median ÷ Wed |\n|---|---|---|---|---|---|---|---|---|---|');
+console.log('| Day (PT) | offshore Hs (OM) | primary swell Hs / Tp / Dp | MOP SF023 Hs / Tp / Dp | day card typical (median daylight hour) | headline range at 10 AM | day card (same) | day envelope | median v2 central, daylight | MOP Hs median ÷ Wed |\n|---|---|---|---|---|---|---|---|---|---|');
 const centrals: number[] = [], mopMeds: number[] = [];
 for (const d of days) {
   const hrs = records.filter((r) => pacificDate(r.timestamp) === d && !isDark('spot-2', r.timestamp)); if (hrs.length < 6) continue;

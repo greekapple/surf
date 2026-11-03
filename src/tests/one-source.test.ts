@@ -13,6 +13,7 @@ import {normalizeOpenMeteo} from '../ocean/openMeteo.ts';
 import {evidenceSpot} from '../ocean/spots.ts';
 import {toLegacy} from '../ocean/bridge.ts';
 import {pacificDate} from '../ocean/time.ts';
+import {isDark} from '../services/daylight.ts';
 import {allSpots} from '../data/catalog.ts';
 import {defaultProfile} from '../data/demo.ts';
 
@@ -107,12 +108,18 @@ test('T-057 day card: the main number is spotHour at the chosen hour; the envelo
   assert.equal(ty.loFt, (hr.surf.headline as any).loFt); assert.equal(ty.hiFt, (hr.surf.headline as any).hiFt); assert.equal(ty.hour.surf.value, hr.surf.value);
   // the envelope still covers the typical hour and is the min of lows / max of highs over the same hours
   assert.ok(r.loFt! <= ty.loFt && r.hiFt! >= ty.hiFt); assert.equal(r.kind, 'estimate'); assert.match(r.label!, /^Est\. \d+–\d+ ft$/);
-  assert.match(ty.short, /^(best|mid) \d{1,2}[ap]$/); assert.match(ty.aria, /^typical for the day: /);
+  assert.match(ty.short, /^midday \d{1,2}[ap]$/); assert.match(ty.aria, /^typical for the day, midday \d{1,2} [AP]M$/); assert.equal(ty.how, 'midday');
 });
-test('T-057 day card: with nothing rated the median-size daylight hour stands in and says "mid"', () => {
-  // an unknown wind record has no wind => unrated; strip wind from records
-  const records = recs('spot-2').map((f) => ({...f, availability: {...f.availability, wind: false}, evidence: f.evidence && {...f.evidence, windSpeed: {...f.evidence.windSpeed, value: null}}}));
-  const r = dayRange(spot('spot-2'), records as any, pacificDate(new Date(t * 1000).toISOString()), now, profile);
-  if (r.typical) assert.equal(r.typical.how, 'median');
+test('T-068 day card: the median daylight hour by clock time is chosen, whatever the ratings', () => {
+  // whatever the ratings are (here: no wind at all, so unrated), the card stands for the middle daylight hour by clock time
+  const unrated = recs('spot-2').map((f) => ({...f, availability: {...f.availability, wind: false}, evidence: f.evidence && {...f.evidence, windSpeed: {...f.evidence.windSpeed, value: null}}}));
+  for (const records of [recs('spot-2'), unrated as any]) {
+    const key = pacificDate(new Date(t * 1000).toISOString()), r = dayRange(spot('spot-2'), records, key, now, profile);
+    const day = records.filter((f: any) => pacificDate(f.timestamp) === key && !isDark('spot-2', f.timestamp) && headlineSurf('spot-2', f, {nowMs: now}).kind === 'estimate').sort((a: any, b: any) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
+    if (!day.length) continue; assert.equal(r.typical!.atIso, day[(day.length - 1) >> 1].timestamp); assert.equal(r.typical!.how, 'midday');
+  }
+  // a full November day: the middle of ~6 AM–5 PM light is about 11 AM–noon, and the card names it
+  const full = Array.from({length: 24}, (_, i) => { const base = recs('spot-2')[1]; const ts = new Date(Date.parse('2026-11-04T08:00:00Z') + i * 3600000).toISOString(); return {...base, timestamp: ts, evidence: base.evidence && {...base.evidence, timestamp: ts}}; });
+  const fr = dayRange(spot('spot-2'), full as any, '2026-11-04', now, profile); assert.ok(fr.typical); assert.match(fr.typical!.short, /^midday 1[12][ap]$|^midday 12p$/);
   assert.equal(dayRange(spot('spot-2'), [], 'x', now, profile).typical, null);
 });

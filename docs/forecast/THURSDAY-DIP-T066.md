@@ -24,3 +24,15 @@ Method: `docs/forecast/data/trace-week.ts` fetches the live sources the app uses
 ## Conclusion
 
 Not a bug in the day-card logic: the dip is in our data, only shallower than Surfline's, because our sources forecast a smaller drop. No code change was made. Two product options if the user wants the dip to show more: (a) base the day card on the median daylight hour instead of the best-rated hour (about 1 ft lower on Thursday); (b) show the spread between our sources (offshore model vs MOP) on days where they disagree by more than 30%. Neither makes the estimate more accurate; only observations (T-059) can say which model to trust at Ocean Beach.
+
+## T-068: the user chose "Median daylight hour"
+
+Each day card's main number is now the estimate at that day's median daylight hour by clock time (about midday; daylight from `daylight.ts`), through `spotHour`. The best window stays in the Call; the daylight envelope line is unchanged. Re-run of `trace-week.ts` (same retrieval method, 2026-11-03 03:49 UTC), Ocean Beach, day-card main number:
+
+| Day | Tue Nov 3 | Wed Nov 4 | **Thu Nov 5** | Fri Nov 6 | Sat Nov 7 | Sun Nov 8 | Mon Nov 9 |
+|---|---|---|---|---|---|---|---|
+| Day card before (best-rated hour) | 7–15 | 9–19 | **7–15** | 8–18 | 8–18 | 7–15 | 12–25 |
+| Day card now (median daylight hour) | 7–16 (12p) | 8–17 (12p) | **6–14 (12p)** | 8–18 (12p) | 8–18 (12p) | 7–15 (12p) | 11–24 (11a) |
+| Envelope over daylight | 7–17 | 7–19 | 6–15 | 8–19 | 8–18 | 6–16 | 6–25 |
+
+Thursday now shows as the lowest day of the work week at 6–14 (about 10 ft central) beside Wednesday's 8–17 and Friday's 8–18 (about 12.5–13 central): a drop of about 20–25% in the middle of the face range, where it was about 10% before. It is still shallower than Surfline's Thursday (about -50%), for the reason given above: our sources forecast a smaller drop, and the v2 range factors keep the ranges wide.
