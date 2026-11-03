@@ -490,11 +490,25 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     let mixer: THREE.AnimationMixer | null = null, rideAct: THREE.AnimationAction | null = null, rideDur = 4, cur: {atlas: Atlas; sx: number} | null = null;
     let rider: RiderSample | null = null, riderAt = 0;
     const pt = new THREE.Vector3(), boardBox = new THREE.Box3();
+    /** The board object and its bounds in its own frame. The v3 asset's Board is a Group of child meshes (one per material), a quiver board a
+     *  single Mesh, so the bounds are the union of every mesh under it (Codex P1 on 9682084: reading .geometry on the Group threw). Cached. */
+    const boardBounds = new WeakMap<THREE.Object3D, THREE.Box3>();
+    const boardOf = (): {obj: THREE.Object3D; box: THREE.Box3} | null => {
+      const obj = custom ?? surfer?.getObjectByName('Board'); if (!obj) return null;
+      let box = boardBounds.get(obj);
+      if (!box) {
+        const b = new THREE.Box3(), inv = new THREE.Matrix4(), m = new THREE.Matrix4(); obj.updateMatrixWorld(true); inv.copy(obj.matrixWorld).invert();
+        obj.traverse((c) => { const mesh = c as THREE.Mesh; if (!mesh.isMesh || !mesh.geometry) return; const g = mesh.geometry; if (!g.boundingBox) g.computeBoundingBox();
+          b.union(g.boundingBox!.clone().applyMatrix4(m.multiplyMatrices(inv, mesh.matrixWorld))); });
+        if (b.isEmpty()) return null; box = b; boardBounds.set(obj, box);
+      }
+      return {obj, box};
+    };
     /** Board-to-water gaps (m, crest frame): at the board's bottom centre, and the lowest of the tail, nose and both rails. */
     const contactM = (t: number): [number, number] => {
       if (!surfer || !cur) return [0, 0];
-      const mesh = (custom ?? surfer.getObjectByName('Board')) as THREE.Mesh | null; if (!mesh) return [0, 0];
-      const g = mesh.geometry; if (!g.boundingBox) g.computeBoundingBox(); const bx = g.boundingBox!; boardBox.copy(bx);
+      const bd = boardOf(); if (!bd) return [0, 0];
+      const mesh = bd.obj, bx = bd.box; boardBox.copy(bx);
       const pts: [number, number, number][] = [[0, bx.min.y, 0], [bx.max.x - 0.03, bx.min.y + 0.03, 0], [bx.min.x + 0.15, bx.min.y + 0.08, 0], [0, bx.min.y, bx.max.z - 0.02], [0, bx.min.y, bx.min.z + 0.02]];
       let centre = 0, low = Infinity;
       pts.forEach((p, i) => { pt.set(p[0], p[1], p[2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = pt.y - waterHeightAt(cur!.atlas, pt.x, pt.z, t); if (i === 0) centre = gap; low = Math.min(low, gap); });
@@ -535,8 +549,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     /** Dev: the placement this frame plus each board contact point (crest frame) and the water under it. */
     const probeRider = () => {
       if (!surfer || !cur) return null; const t = u.uTime.value; surfer.updateMatrixWorld(true);
-      const mesh = (custom ?? surfer.getObjectByName('Board')) as THREE.Mesh | null; if (!mesh) return null;
-      const bx = mesh.geometry.boundingBox!; const pts: Record<string, [number, number, number]> = {tail: [bx.max.x - 0.03, bx.min.y + 0.03, 0], nose: [bx.min.x + 0.15, bx.min.y + 0.08, 0], railA: [0, bx.min.y, bx.max.z - 0.02], railB: [0, bx.min.y, bx.min.z + 0.02]};
+      const bd = boardOf(); if (!bd) return null;
+      const mesh = bd.obj, bx = bd.box; const pts: Record<string, [number, number, number]> = {tail: [bx.max.x - 0.03, bx.min.y + 0.03, 0], nose: [bx.min.x + 0.15, bx.min.y + 0.08, 0], railA: [0, bx.min.y, bx.max.z - 0.02], railB: [0, bx.min.y, bx.min.z + 0.02]};
       const out: Record<string, unknown> = {...probe, bbox: [bx.min.toArray(), bx.max.toArray()]};
       for (const [n, p] of Object.entries(pts)) { pt.set(p[0], p[1], p[2]); mesh.localToWorld(pt); group.worldToLocal(pt); out[n] = {x: pt.x, y: pt.y, z: pt.z, water: waterHeightAt(cur.atlas, pt.x, pt.z, t)}; }
       pt.set(0, 0, 0); mesh.localToWorld(pt); group.worldToLocal(pt); out.origin = {x: pt.x, y: pt.y, z: pt.z, water: waterHeightAt(cur.atlas, pt.x, pt.z, t)};
@@ -546,8 +560,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const sampleRider = (t: number, r: {x: number; y: number; z: number; xb: number; move: string}) => {
       if (!surfer || !cur) return;
       surfer.updateMatrixWorld(true);
-      const mesh = (custom ?? surfer.getObjectByName('Board')) as THREE.Mesh | null; if (!mesh) return;
-      const g = mesh.geometry; if (!g.boundingBox) g.computeBoundingBox(); const bx = g.boundingBox!;
+      const bd = boardOf(); if (!bd) return;
+      const mesh = bd.obj, bx = bd.box;
       pt.set(bx.max.x - 0.03, bx.min.y + 0.03, 0); mesh.localToWorld(pt); group.worldToLocal(pt);
       if (spray) { spray.tail[0] = pt.x; spray.tail[1] = pt.y; spray.tail[2] = pt.z; }
       const r3 = (n: number) => Math.round(n * 1000) / 1000, [gc, gl] = contactM(t);
@@ -664,7 +678,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     };
     api.current = {setWave, setDir, setLight, setBoard};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, rider: () => rider, probe: probeRider}; // dev-only hook for camera-scripted QA shots (setWave: draw any spec; rider: the last RiderSample)
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, rider: () => rider, probe: probeRider}; // dev-only hook for camera-scripted QA shots (setWave: draw any spec; rider: the last RiderSample)
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;
