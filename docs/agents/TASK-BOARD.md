@@ -485,3 +485,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 
 ## T-101/T-102 (wave ride, spec docs/specs/2026-11-03-wave-surfer-follow-up.md, APPROVED): A Fable wave-ride (render polish + riding surfer); B product t101-no-ai-photo; C engineering t102-ride-qa
 - T-101 merged af36bcb (product e24b920): AI wave photo removed everywhere. tsc clean, 461 tests, build OK, journeys 8/8, t052 pass (one flaky step, '1440 an impossible height is refused', failed once and passed on rerun: engineering to stabilise). Checked in Chrome: no photo or button, 3D label intact. Open: selectScaleBand notes still say 'illustration' (only tests call it).
+- T-103 merged 40473e2 (engineering 79cf931): height field kept its typed text after a save (HeightField was declared inside PersonalView and remounted). tsc, 461 tests, build, journeys 8/8, t103 race 0/20, t052 pass.
