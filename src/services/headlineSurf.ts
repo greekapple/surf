@@ -1,4 +1,5 @@
 import type {Forecast, UserProfile} from '../models/index.ts';
+import {getMopIssue} from '../ocean/mopIssue.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {assignmentFor} from '../ocean/mop.ts';
 import {BREAKING_V2_VERSION} from '../ocean/breakingEstimate.ts';
@@ -67,8 +68,12 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
   if (h.kind === 'offshore') { const st = firstStale([hour?.evidence?.offshore?.source], nowMs); return st ? {...h, saved: {retrievedAt: st.retrievedAt, reason: st.reason}, label: 'offshore · not surf size · saved or stale' as any} : h; }
   if (h.kind !== 'estimate') return h;
   const mopId = assignmentFor(spotId)?.mopId ?? '', mop: any = (ctx.bundle as any)?.mop?.[mopId];
+  /* T-097/Codex P2: only the source the headline actually used counts (selected product AND this spot's MOP point). A fresh forecast next to an old nowcast at the same timestamp, or another point's nowcast,
+   * must not change the label; the forecast-file and issue-file flags apply to forecast estimates only. */
+  const product = h.method === 'mop-v2' ? h.mop?.product : undefined, at = h.method === 'mop-v2' ? h.mop?.validAt : undefined;
+  const picked = product === 'nowcast' ? nowcastFor(mopId, (ctx.bundle as any)?.nearshore)?.find((r: any) => r.timestamp === at) : product === 'forecast' ? mop?.records?.find((r: any) => r.timestamp === at) : undefined;
   const srcs: any[] = h.method === 'mop-v2'
-    ? [mop?.records?.find((r: any) => r.timestamp === h.mop?.validAt)?.height?.source, (ctx.bundle as any)?.nearshore?.find?.((r: any) => r.timestamp === h.mop?.validAt)?.height?.source, mop?.delivery ? {delivery: mop.delivery, retrievedAt: mop.retrievedAt} : null, mop?.issueDelivery ? {delivery: mop.issueDelivery, retrievedAt: mop.issueRetrievedAt ?? mop.retrievedAt} : null]
+    ? [picked?.height?.source, ...(product === 'forecast' ? [mop?.delivery ? {delivery: mop.delivery, retrievedAt: mop.retrievedAt} : null, (() => { const iss = getMopIssue(mopId); return iss?.delivery ? {delivery: iss.delivery, retrievedAt: iss.retrievedAt ?? mop?.retrievedAt} : null; })()] : [])]
     : [hour?.evidence?.offshore?.source, hour?.evidence?.primary?.height?.source];
   const st = firstStale(srcs, nowMs), sp = spreadStale(spotId, nowMs);
   if (!st && !sp) return h;

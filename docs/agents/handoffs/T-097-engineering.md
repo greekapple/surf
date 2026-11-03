@@ -1,0 +1,10 @@
+# T-097 handoff (engineering): defer the MOP issue files, and the Codex P2s in my files
+## T-097
+- The 40 `.das` requests are gone from the first load (`ocean/pipeline.ts`). `ocean/mopIssue.ts` (+ `hooks/useMopIssue.ts`) fetches one on demand when the Nearshore card mounts; one request for concurrent callers, cached once loaded, a failure shows nothing and can be retried, and the saved-copy flag is kept (the card says "(saved copy)"; the headline label includes it once the file has been loaded). `MopForecast.issue` stays null; the unused `issueDelivery` fields are removed.
+- Measured (`docs/perf/PERF-T097.md`): Home requests 229 -> 189, data on screen 8.5 -> 7.2 s at 1440 and 9.7 -> 7.8 s at 390, about 0.1 to 0.14 MB less; Spot page makes 1 on-demand request.
+## Codex P2s (docs/reviews/2026-11-03-*.md)
+- 3c88490 / b824cf2 `headlineSurf.ts`: the saved/stale check now follows the record the headline USED, selected by product and this spot's MOP id (`nowcastFor` for nowcasts, the point's records for forecasts); forecast-file and issue-file flags apply to forecast estimates only. Test: an old saved forecast beside a fresh nowcast, a saved nowcast beside a fresh forecast, another point's nowcast, and the selected product's own staleness.
+- 3c88490 `Callout.tsx`: offshore map callouts render the headline's own label, so the saved/stale warning is kept.
+- cbf5cbf `validate-surf-height.ts`: matured archive entries are finalised into an append-only `docs/forecast/data/validation-scores.jsonl` (spot, hour, bucket, central, lo, hi, observed), so they keep counting after the hour leaves the nowcast window (verified in a scratch copy with a synthetic entry: the score survives an emptied archive). The forward table has its own header and scores the archived (v2-style) range, instead of reading 0% from the missing `lo2/hi2`.
+- 19c56a2 `tools/ci/validate.yml`: `git ls-remote` exit codes are checked (0 = branch exists, 2 = absent, anything else stops the run) in both steps; the scores file is restored and committed with the archive.
+- Checks: tsc, 446 tests, build, journeys, t045, t055, t073, t074 (see the message to the lead for the results).

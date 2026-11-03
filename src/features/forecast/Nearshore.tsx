@@ -1,4 +1,5 @@
 import {useSwello} from '../../app/store';
+import {useMopIssue} from '../../hooks/useMopIssue';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import {assignmentFor, mopCandidates, mopPoint, MOP_ACK} from '../../ocean/mop';
 import {guideFactsFor} from '../../ocean/spotFactsSourced';
@@ -17,7 +18,7 @@ const when = (iso: string) => `${weekdayPT(iso)} ${dayNumPT(iso)} ${timeLabelPT(
  *  Every value is labelled with the point, depth, product and times. Modelled wave height at depth is never surf height. */
 export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: UserProfile; selectedTime: string; now: number; series?: HourSample[]}) {
   const {view, live} = useSwello();
-  const a = assignmentFor(spot.id), pt = a ? mopPoint(a.mopId) : null;
+  const a = assignmentFor(spot.id), pt = a ? mopPoint(a.mopId) : null, issueInfo = useMopIssue(live ? a?.mopId : null); // the issue time is fetched when this card mounts (T-097)
   const head = (sub: string) => <div className="card-h"><h2>Nearshore model</h2><span>{sub}</span></div>;
   if (!a || !pt) {
     const cand = mopCandidates.find((c) => c.spotId === spot.id);
@@ -36,7 +37,7 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
   }
   const rec = pick.record, isForecast = pick.product === 'forecast';
   const hs = formatWaveHeight({kind: 'nearshore', valueFt: rec.height.value}, p, 'technical'), tp = rec.period.value, dp = rec.direction.value;
-  const issued = isForecast ? mop?.issue?.issuedAt ?? null : null;
+  const issued = isForecast ? issueInfo?.issue?.issuedAt ?? null : null;
   const step = pick.offsetMin !== 0 ? ` (nearest model step, ${Math.abs(pick.offsetMin)} min ${pick.offsetMin < 0 ? 'before' : 'after'} the selected hour)` : '';
   const retrieved = rec.height.source.retrievedAt;
   const v2 = breakingV2Enabled() ? mopBreaking(spot.id, rec) : null;
@@ -49,7 +50,7 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
         <div><span className="k">Direction (from)</span><span className="v">{dp === null ? '—' : <><DirArrow from={dp} color="var(--sw1)" />{Math.round(dp)}<small>° {compass(dp)}</small></>}</span></div>
       </div>
       {v2 && (v2.ok ? <p className="fine"><b>Experimental, off by default ({BREAKING_V2_VERSION}):</b> Est. {formatWaveHeight(v2.input, p).text} at the break, from this MOP point by linear shoaling and refraction. Unvalidated; not used in the rating.</p> : <p className="fine"><b>Experimental ({BREAKING_V2_VERSION}):</b> no estimate. {v2.reason}</p>)}
-      <p className="fine">Valid {when(rec.timestamp)}{step}. {issued ? `Forecast file issued ${when(issued)}; ` : ''}retrieved {when(retrieved)}. {where}. Modeled Hs at depth; where this point supplies the headline (see its method line; it can be refused for swell outside the window or too short a period) the same value is used as the surf-height estimate (the common surf-report convention). A model value, not a measurement.</p>
+      <p className="fine">Valid {when(rec.timestamp)}{step}. {issued ? `Forecast file issued ${when(issued)}${issueInfo?.delivery === 'saved' ? ' (saved copy)' : ''}; ` : ''}retrieved {when(retrieved)}. {where}. Modeled Hs at depth; where this point supplies the headline (see its method line; it can be refused for swell outside the window or too short a period) the same value is used as the surf-height estimate (the common surf-report convention). A model value, not a measurement.</p>
       {foot}
     </>
   );

@@ -27,11 +27,18 @@ jobs:
           node-version: 24
       - name: Restore the archive from the data branch
         run: |
-          # distinguish "branch absent" (first run) from a transient fetch failure (fail the run, do not start a new history)
-          if git ls-remote --exit-code --heads origin validation-data >/dev/null 2>&1; then
+          # ls-remote --exit-code: 0 = the branch exists, 2 = no such branch (first run), anything else = a lookup failure: stop the run rather than start a new history
+          set +e; git ls-remote --exit-code --heads origin validation-data >/dev/null 2>&1; rc=$?; set -e
+          if [ "$rc" -eq 0 ]; then
             git fetch --depth=1 origin validation-data
-            git show origin/validation-data:docs/forecast/data/validation-archive.jsonl > /tmp/archive.restored
-            mv /tmp/archive.restored docs/forecast/data/validation-archive.jsonl
+            for f in validation-archive.jsonl validation-scores.jsonl; do
+              if git cat-file -e "origin/validation-data:docs/forecast/data/$f" 2>/dev/null; then
+                git show "origin/validation-data:docs/forecast/data/$f" > "/tmp/$f.restored"
+                mv "/tmp/$f.restored" "docs/forecast/data/$f"
+              fi
+            done
+          elif [ "$rc" -ne 2 ]; then
+            echo "git ls-remote failed with status $rc; not continuing" >&2; exit 1
           fi
       - name: Run the validation
         run: node --experimental-strip-types docs/forecast/data/validate-surf-height.ts
@@ -39,20 +46,25 @@ jobs:
         run: |
           set -e
           cp docs/forecast/data/validation-archive.jsonl /tmp/validation-archive.jsonl
+          cp docs/forecast/data/validation-scores.jsonl /tmp/validation-scores.jsonl
           cp docs/forecast/VALIDATION.md /tmp/VALIDATION.md
           git config user.name "swello-validation-bot"
           git config user.email "actions@users.noreply.github.com"
-          if git ls-remote --exit-code --heads origin validation-data >/dev/null 2>&1; then
+          set +e; git ls-remote --exit-code --heads origin validation-data >/dev/null 2>&1; rc=$?; set -e
+          if [ "$rc" -eq 0 ]; then
             git fetch --depth=1 origin validation-data
             git checkout -f -B validation-data origin/validation-data
-          else
+          elif [ "$rc" -eq 2 ]; then
             git checkout -f --orphan validation-data
             git rm -rf --quiet . || true
+          else
+            echo "git ls-remote failed with status $rc; not overwriting the data branch" >&2; exit 1
           fi
           mkdir -p docs/forecast/data
           cp /tmp/validation-archive.jsonl docs/forecast/data/validation-archive.jsonl
+          cp /tmp/validation-scores.jsonl docs/forecast/data/validation-scores.jsonl
           cp /tmp/VALIDATION.md docs/forecast/VALIDATION.md
-          git add docs/forecast/data/validation-archive.jsonl docs/forecast/VALIDATION.md
+          git add docs/forecast/data/validation-archive.jsonl docs/forecast/data/validation-scores.jsonl docs/forecast/VALIDATION.md
           if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
           git commit -m "validation: daily run $(date -u +%Y-%m-%d)"
           git push origin validation-data

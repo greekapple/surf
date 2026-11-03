@@ -99,13 +99,24 @@ if (!process.argv.includes('--no-archive')) {
   }
   if (out.length) fs.appendFileSync(ARCH, out.join('\n') + '\n');
 }
-if (fs.existsSync(ARCH)) {
+// Finalise matured archive entries into an append-only scores file, so the evidence does not disappear when the hour leaves the 15-day nowcast window the next day (Codex P2).
+// One line per spot-hour-bucket: [spot, valid hour UTC, bucket hours, central ft, lo, hi, MOP-nowcast Hs ft (0.1)]. The workflow commits it to the data branch with the archive.
+const SCORES = new URL('./validation-scores.jsonl', import.meta.url); if (!fs.existsSync(SCORES)) fs.writeFileSync(SCORES, '');
+const done = new Set<string>(fs.readFileSync(SCORES, 'utf8').split('\n').filter(Boolean).map((l) => { const a = JSON.parse(l); return `${a[0]}|${a[1]}|${a[2]}`; })), fresh: string[] = [];
+if (fs.existsSync(ARCH)) for (const l of fs.readFileSync(ARCH, 'utf8').split('\n').filter(Boolean)) {
+  const [, spot, valid, bucket, , c, lo, hi] = JSON.parse(l), a = assignmentFor(spot), vt = Date.parse(valid + ':00:00Z'), key = `${spot}|${valid}|${bucket}`;
+  if (!a || vt > now - HOUR || done.has(key)) continue;
+  const ob = nowcast[a.mopId]?.get(vt); if (!ob) continue; // no observation in the window yet (or ever): stays in the archive, scored if it appears
+  done.add(key); fresh.push(JSON.stringify([spot, valid, bucket, c, lo, hi, Math.round(ob.hs * 10) / 10]));
+}
+if (fresh.length) fs.appendFileSync(SCORES, fresh.join('\n') + '\n');
+{
   const fr: Row[] = [];
-  for (const l of fs.readFileSync(ARCH, 'utf8').split('\n').filter(Boolean)) {
-    const [, spot, valid, bucket, , c, lo, hi] = JSON.parse(l), a = assignmentFor(spot), vt = Date.parse(valid + ':00:00Z'); if (!a || vt > now - HOUR) continue;
-    const ob = nowcast[a.mopId]?.get(vt); if (ob) fr.push({lead: bucket / 24, spot, central: c, lo, hi, mop: ob.hs});
-  }
-  scoredFwd = fr.length ? `Matured entries so far: ${fr.length}.\n\n${head}\n${LEADS.map((n) => line(n, score(fr.filter((x) => x.lead === n), 'mop'))).join('\n')}` : 'No archived hour has matured yet (the archive starts today; rerun this script daily, entries mature as their hours pass).';
+  for (const l of fs.readFileSync(SCORES, 'utf8').split('\n').filter(Boolean)) { const [spot, , bucket, c, lo, hi, obs] = JSON.parse(l); fr.push({lead: bucket / 24, spot, central: c, lo, hi, lo2: lo, hi2: hi, mop: obs}); }
+  // archived ranges ARE the v2-style ranges (no step term, no model-spread term), so one coverage column is shown, not the backtest's two
+  const lineF = (n: number, m: ReturnType<typeof score>) => `| ${n} | ${m.n} | ${pc(m.cov2)} | ${f1(m.medAbs)} | ${pc(m.medRel)} | ${f2(m.bias)} | ${f1(m.width)} |`;
+  const headF = '| lead (days) | n | coverage, archived v2 range | median abs error, ft | median rel. error | median obs ÷ central | median range width, ft |\n|---|---|---|---|---|---|---|';
+  scoredFwd = fr.length ? `Matured entries so far: ${fr.length} (finalised in \`validation-scores.jsonl\`, which keeps them after the hour leaves the nowcast window).\n\n${headF}\n${LEADS.map((n) => lineF(n, score(fr.filter((x) => x.lead === n), 'mop'))).join('\n')}` : 'No archived hour has matured yet (the archive starts today; rerun this script daily, entries mature as their hours pass).';
 }
 
 const a0 = score(rows.filter((x) => x.lead === 0), 'mop'), a5 = score(rows.filter((x) => x.lead === 5), 'mop'), b0 = score(rows.filter((x) => x.lead === 0), 'buoy'), bAll = score(rows, 'buoy'), mAll = score(rows, 'mop');

@@ -68,6 +68,7 @@ test('a failing provider yields an error, not a number (no stale cache served as
 /* T-084: one freshness rule (saved copy, older than 2 h, dated in the future, undated) for every source behind a spot-hour. */
 import {staleness, firstStale, staleText} from '../services/freshness.ts';
 import {windOf, tideOf} from '../services/spotHour.ts';
+import {setMopIssue, clearMopIssues} from '../ocean/mopIssue.ts';
 import {loadModelSpread, spreadAt, spreadStale, clearSpread} from '../services/modelSpread.ts';
 
 const fresh = new Date(NOW - 600000).toISOString(), old = new Date(NOW - 3 * 3600000).toISOString(), future = new Date(NOW + 3600000).toISOString();
@@ -87,8 +88,9 @@ test('the headline labels an estimate older than 2 h as stale (v1 and v2), never
   assert.equal(v2.method, 'mop-v2'); assert.equal(v2.saved.reason, 'old'); assert.match(v2.methodLabel, /STALE/);
 });
 test('MOP forecast file or DAS issue file served saved: the headline says so', () => {
-  const b = bundle([mopRec(9)]); b.mop.SF023.issueDelivery = 'saved'; b.mop.SF023.retrievedAt = fresh;
+  const b = bundle([mopRec(9)]); b.mop.SF023.retrievedAt = fresh; setMopIssue('SF023', {state: 'ok', issue: null, delivery: 'saved', retrievedAt: fresh});
   const a = headlineSurf('spot-2', rec(), {bundle: b, nowMs: NOW, observations: [], spread: null}) as any; assert.equal(a.saved.reason, 'saved'); assert.match(a.methodLabel, /SAVED copy/);
+  clearMopIssues(); assert.equal((headlineSurf('spot-2', rec(), {bundle: bundle([mopRec(9)]), nowMs: NOW, observations: [], spread: null}) as any).saved, undefined, 'no issue file loaded: nothing claimed about it');
   const c = bundle([mopRec(9)]); c.mop.SF023.delivery = 'saved'; c.mop.SF023.retrievedAt = fresh;
   assert.equal((headlineSurf('spot-2', rec(), {bundle: c, nowMs: NOW, observations: [], spread: null}) as any).saved.reason, 'saved');
 });
@@ -137,4 +139,22 @@ test('the Worker body reaches the Open-Meteo normaliser with the lifted time (30
   assert.equal(staleness(ws({cache: 'fresh'}), NOW)!.reason, 'old', 'no revalidation: 3 h old is stale');
   assert.equal(staleness(ws({cache: 'fresh', validatedAt: fresh}), NOW), null, 'revalidated minutes ago is current');
   assert.equal(staleness(ws({cache: 'stale', validatedAt: fresh}), NOW)!.reason, 'saved', 'saved delivery still wins over a lifted time');
+});
+
+/* Codex P2s (T-097): freshness follows the record the headline actually used (selected product AND this spot's MOP point). */
+test('headline freshness uses only the selected MOP product and this spot\'s point', () => {
+  const T0 = T * 1000, pastNowcast = (hs: number, retrievedAt: string, delivery?: string, mopId = 'SF023') => ({...mopRec(hs, undefined, T0), mopId, product: 'nowcast' as const, height: {value: hs, unit: 'ft', source: {retrievedAt, ...(delivery ? {delivery} : {})}}});
+  // 1. a past hour selects the NOWCAST (fresh); an old, saved FORECAST record at the same timestamp must not label it
+  const oldForecast = {...mopRec(7, undefined, T0), height: {value: 7, unit: 'ft', source: {retrievedAt: old, delivery: 'saved'}}};
+  const b1 = {nearshore: [pastNowcast(8, fresh)], mop: {SF023: {mopId: 'SF023', records: [oldForecast], issue: null, retrievedAt: old, delivery: 'saved', url: 'x'}}} as any;
+  const h1 = headlineSurf('spot-2', {...rec(), timestamp: new Date(T0).toISOString()}, {bundle: b1, nowMs: NOW, observations: [], spread: null}) as any;
+  assert.equal(h1.method, 'mop-v2'); assert.equal(h1.mop.product, 'nowcast'); assert.equal(h1.saved, undefined, 'an unused forecast record or file flag does not mark a fresh nowcast estimate');
+  // 2. a future hour selects the FORECAST (fresh); an old nowcast record at that timestamp is irrelevant
+  const futureTs = T0 + 3600000, b2 = {nearshore: [{...pastNowcast(8, old, 'saved'), timestamp: new Date(futureTs).toISOString()}], mop: {SF023: {mopId: 'SF023', records: [mopRec(9)], issue: null, retrievedAt: fresh, url: 'x'}}} as any;
+  const h2 = headlineSurf('spot-2', rec(), {bundle: b2, nowMs: NOW, observations: [], spread: null}) as any; assert.equal(h2.mop.product, 'forecast'); assert.equal(h2.saved, undefined);
+  // 3. the selected product's own staleness still labels it, and another point's nowcast is ignored
+  const b3 = {nearshore: [pastNowcast(8, old)], mop: {SF023: {mopId: 'SF023', records: [], issue: null, retrievedAt: fresh, url: 'x'}}} as any;
+  const h3 = headlineSurf('spot-2', {...rec(), timestamp: new Date(T0).toISOString()}, {bundle: b3, nowMs: NOW, observations: [], spread: null}) as any; assert.equal(h3.saved?.reason, 'old');
+  const b4 = {nearshore: [pastNowcast(8, fresh, undefined, 'SM375')], mop: {SF023: {mopId: 'SF023', records: [], issue: null, retrievedAt: fresh, url: 'x'}}} as any;
+  assert.notEqual((headlineSurf('spot-2', {...rec(), timestamp: new Date(T0).toISOString()}, {bundle: b4, nowMs: NOW, observations: [], spread: null}) as any).method, 'mop-v2', 'another MOP point\'s nowcast is not used for this spot');
 });
