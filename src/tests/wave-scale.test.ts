@@ -1,8 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync, existsSync} from 'node:fs';
-import {SCALE_BANDS, SCALE_CAPTION, bandIndexFor, selectScaleBand, type ScaleInput} from '../services/waveScale.ts';
-import type {MediaManifest} from '../ui/mediaModel.ts';
+import {readFileSync, readdirSync} from 'node:fs';
+import {SCALE_BANDS, bandIndexFor, selectScaleBand, type ScaleInput} from '../services/waveScale.ts';
 const none: ScaleInput = {estimateRangeFt: null, estimateText: null, demoFaceFt: null, demoText: null, offshoreFt: null, offshoreText: null};
 const sel = (o: Partial<ScaleInput>) => selectScaleBand({...none, ...o});
 const id = (i: number | null) => (i === null ? null : SCALE_BANDS[i].id);
@@ -17,9 +16,9 @@ test('no band for a missing, negative or non-finite height', () => {
   for (const v of [null, undefined, NaN, Infinity, -1]) assert.equal(bandIndexFor(v as number), null, String(v));
 });
 
-test('bands are contiguous and eight, each with a media id', () => {
+test('bands are contiguous and eight', () => {
   assert.equal(SCALE_BANDS.length, 8);
-  SCALE_BANDS.forEach((b, i) => { assert.equal(b.media, `ai-scale-${b.id}`); if (i) assert.equal(b.lo, SCALE_BANDS[i - 1].hi); });
+  SCALE_BANDS.forEach((b, i) => { if (i) assert.equal(b.lo, SCALE_BANDS[i - 1].hi); });
 });
 
 test('a presentable estimate wins and is labelled "Est. … surf height"', () => {
@@ -59,12 +58,10 @@ test('heights below 1 ft use the smallest band and say so', () => {
   assert.match(sel({estimateRangeFt: [0.3, 0.8], estimateText: '0.3–0.8 ft'}).note!, /Smaller than the smallest illustration/);
 });
 
-test('every band has a manifest entry with the scale caption, stills on disk, and loops only where a file exists', () => {
-  const m = JSON.parse(readFileSync(new URL('../../public/media/manifest.json', import.meta.url), 'utf8')) as MediaManifest;
-  for (const b of SCALE_BANDS) {
-    const e = m.entries[b.media];
-    assert.ok(e, b.media); assert.equal(e.kind, 'ai-illustration'); assert.equal(e.caption, SCALE_CAPTION);
-    for (const s of e.sources) assert.ok(existsSync(new URL(`../../public${s.src}`, import.meta.url)), s.src);
-    if (e.video) assert.ok(existsSync(new URL(`../../public${e.video.src}`, import.meta.url)), e.video.src);
-  }
+test('T-101: no AI wave photo anywhere (no manifest entries, no files, no band media id)', () => {
+  const m = JSON.parse(readFileSync(new URL('../../public/media/manifest.json', import.meta.url), 'utf8')) as {entries: Record<string, unknown>};
+  assert.deepEqual(Object.keys(m.entries).filter((k) => k.startsWith('ai-scale-')), []);
+  assert.deepEqual(readdirSync(new URL('../../public/media/ai/', import.meta.url)).filter((f) => f.startsWith('ai-scale-')), []);
+  for (const b of SCALE_BANDS) assert.equal('media' in b, false, b.id);
+  assert.doesNotMatch(readFileSync(new URL('../features/scale/ScaleStage.tsx', import.meta.url), 'utf8'), /example photo|<Media\b/);
 });

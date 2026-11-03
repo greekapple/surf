@@ -1,7 +1,6 @@
 import {lazy, Suspense, useEffect, useMemo, useRef, useState} from 'react';
 import type {Surfboard} from '../../models/index';
 import {useSwello} from '../../app/store';
-import {Media} from '../../ui/Media';
 import {pacificDate} from '../../ocean/time';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {bodyWords, BODY_WORDS_NOTE} from '../../services/bodyWords';
@@ -67,7 +66,7 @@ export function ScaleStage() {
   const direction = dirPick ?? defaultPeel(peel);
   const [boardId, setBoardId] = useState<string>(() => { try { return localStorage.getItem(BOARD_KEY) ?? ''; } catch { return ''; } });
   const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? boards[0] ?? null;
-  const [photo, setPhoto] = useState(false), [play, setPlay] = useState(false);
+  const [play, setPlay] = useState(false);
   const range = band !== null ? bandRange(SCALE_BANDS[band]) : faceRange(hs);
   const lo = useTween(range ? range[0] : 0), hi = useTween(range ? range[1] : 0);
   const boardFt = board ? board.length / 12 : null;
@@ -180,11 +179,6 @@ export function ScaleStage() {
           <div className="sc-chips" role="radiogroup" aria-labelledby="sc-band-l">{SCALE_BANDS.map((b, i) => <button key={b.id} type="button" role="radio" aria-checked={band === i} onClick={() => setBand(i)}>{b.short}</button>)}</div>
           {band !== null && <button type="button" className="btn" onClick={() => setBand(null)}>Back to this hour</button>}
         </div>}
-      </div>
-
-      <div className="sc-photo">
-        <button type="button" className="btn" aria-pressed={photo} aria-expanded={photo} onClick={() => setPhoto((v) => !v)}>{photo ? 'Hide example photo' : 'Show example photo (AI illustration)'}</button>
-        {photo && <div className="sc-photo-stage"><Media key={SCALE_BANDS[activeBand].media} id={SCALE_BANDS[activeBand].media} className="sc-photo-media" eager sizes="(max-width: 860px) 100vw, 70vw" still /></div>}
       </div>
     </section>
   );

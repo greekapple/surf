@@ -1,10 +1,8 @@
 import {PHOTOS} from './photos.ts';
 /** Shown on every AI-generated asset, always. Never optional. */
 export const AI_CAPTION = 'Illustration · AI-generated, not current conditions';
-/** Wave-scale illustrations carry this longer caption (still starts with the forced "Illustration · AI-generated"). */
-export const AI_SCALE_CAPTION = 'Illustration · AI-generated, approximate scale, not current conditions';
 /** The only captions an AI entry may carry. */
-export const AI_CAPTIONS: readonly string[] = [AI_CAPTION, AI_SCALE_CAPTION];
+export const AI_CAPTIONS: readonly string[] = [AI_CAPTION];
 export type MediaKind = 'photo' | 'ai-illustration';
 export interface MediaEntry {
   kind: MediaKind; alt: string;
@@ -45,7 +43,7 @@ export function entryProblems(id: string, e: MediaEntry, all: Record<string, Med
   if (!e.sources?.length) p.push(`${id}: needs at least one image source (the poster for a video)`);
   if (!Array.isArray(e.focal) || e.focal.length !== 2 || e.focal.some((n) => !(n >= 0 && n <= 100))) p.push(`${id}: focal must be [x, y] percentages`);
   if (e.kind === 'ai-illustration') {
-    if (!e.caption || !AI_CAPTIONS.includes(e.caption)) p.push(`${id}: AI entries must carry the caption "${AI_CAPTION}" or "${AI_SCALE_CAPTION}"`);
+    if (!e.caption || !AI_CAPTIONS.includes(e.caption)) p.push(`${id}: AI entries must carry the caption "${AI_CAPTION}"`);
     if (!e.fallback || all[e.fallback]?.kind !== 'photo') p.push(`${id}: AI entries need a fallback photo id`);
   }
   return p;

@@ -19,13 +19,9 @@
 .sc-chips button small { color: var(--muted); font-weight: 400; margin-left: 4px; }
 .sc-chips button[aria-checked='true'] { background: var(--text); color: var(--bg); border-color: var(--text); }
 .sc-chips button[aria-checked='true'] small { color: inherit; opacity: 0.75; }
-.sc-chips button:focus-visible, .sc-row .btn:focus-visible, .sc-photo .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sc-chips button:focus-visible, .sc-row .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .sc-spin-stage { position: relative; aspect-ratio: 4 / 3; max-height: 70svh; border-radius: var(--r3); overflow: hidden; background: #e9eef1; }
-.sc-photo { display: grid; gap: 8px; justify-items: start; }
-.sc-photo-stage { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 60svh; border-radius: var(--r3); overflow: hidden; background: #e9eef1; }
-.sc-photo-media { position: absolute !important; inset: 0; border-radius: 0; height: auto; }
-.sc-photo-media .media-caption { z-index: 2; background: linear-gradient(transparent, rgb(0 0 0 / 0.7)); font-size: 12px; }
-@media (max-width: 640px) { .sc-l { flex-basis: 100%; } .sc-photo-stage, .sc-spin-stage { aspect-ratio: 4 / 3; } }
+@media (max-width: 640px) { .sc-l { flex-basis: 100%; } .sc-spin-stage { aspect-ratio: 4 / 3; } }
 
 /* 3D spin viewer (T-044): drag, swipe or arrow keys through pre-rendered frames. Vertical page scroll stays with the page (touch-action: pan-y). */
 .spin { position: absolute; inset: 0; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: default; outline: none; }

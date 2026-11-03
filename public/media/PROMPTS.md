@@ -21,6 +21,8 @@ Spend: 6 images × 2 + 5 videos × 56 = 292 credits (+1 retry refused by a prese
 ## Round 2 (2026-10-30, user-approved budget up to 500 more credits)
 Wave-scale stills, `nano_banana_2` 2k 16:9, side-on from the channel, surfer for scale, face not identifiable. The size is approximate: AI cannot guarantee a face height, so these show a band, labelled "Illustration · approximate scale".
 
+**Removed 2026-11-03 (T-101, user decision "remove it entirely"):** the `ai-scale-*` stills and loops and their manifest entries are deleted; this table stays as provenance only.
+
 | File | Job | Band / prompt |
 |---|---|---|
 | ai-scale-1-2ft-{1600,900}.jpg | 7e52939d | knee-to-waist, beach break |

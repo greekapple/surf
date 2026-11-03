@@ -1,14 +1,11 @@
-import {AI_SCALE_CAPTION} from '../ui/mediaModel.ts';
-/** Wave-scale bands for the AI illustrations (T-033). Pure: heights and their already-formatted labels come in, a band and an honest label go out. */
-export interface ScaleBand {id: string; /** Media id in public/media/manifest.json. */ media: string; lo: number; hi: number; label: string; short: string}
-const band = (id: string, lo: number, hi: number, label: string, short: string): ScaleBand => ({id, media: `ai-scale-${id}`, lo, hi, label, short});
+/** Wave-scale size bands (T-033; the AI example photos were removed in T-101). Pure: heights and their already-formatted labels come in, a band and an honest label go out. */
+export interface ScaleBand {id: string; lo: number; hi: number; label: string; short: string}
+const band = (id: string, lo: number, hi: number, label: string, short: string): ScaleBand => ({id, lo, hi, label, short});
 /** Lower edge inclusive, upper edge exclusive: exactly 2 ft is the 2–3 ft band. The first band also holds anything smaller; the last is open-ended. */
 export const SCALE_BANDS: readonly ScaleBand[] = [
   band('1-2ft', 0, 2, '1–2 ft', '1–2'), band('2-3ft', 2, 3, '2–3 ft', '2–3'), band('3-4ft', 3, 4, '3–4 ft', '3–4'), band('4-6ft', 4, 6, '4–6 ft', '4–6'),
   band('6-8ft', 6, 8, '6–8 ft', '6–8'), band('8-10ft', 8, 10, '8–10 ft', '8–10'), band('10-15ft', 10, 15, '10–15 ft', '10–15'), band('15-plusft', 15, Infinity, '15+ ft', '15+'),
 ];
-/** Shown on every wave-scale image. */
-export const SCALE_CAPTION = AI_SCALE_CAPTION;
 
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 /** Index of the band containing a height in feet, or null for a missing, negative or non-finite height. */
