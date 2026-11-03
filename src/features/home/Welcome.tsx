@@ -22,17 +22,18 @@ const dayWord = (iso: string, nowMs: number) => { const d = pt(Date.parse(iso));
 
 /** The best bet: across the candidate spots, the next daylight window (today's if still ahead, else the next one), ranked by the verdict at the
  *  window's first hour, then by how soon it starts. Spots without a window are not bets. */
-export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserProfile, bundle: Bundle, nowMs: number): Bet | null {
-  const ctx = {records, bundle, nowMs}, bets: Bet[] = [];
+export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserProfile, bundle: Bundle, nowMs: number): {bet: Bet | null; withData: number; total: number} {
+  const ctx = {records, bundle, nowMs}, bets: Bet[] = []; let withData = 0;
   for (const spot of spots) {
     const mine = records.filter((f) => f.spotId === spot.id).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
-    const cur = mine.find((f) => Date.parse(f.timestamp) + 36e5 > nowMs) ?? mine[mine.length - 1]; if (!cur) continue;
+    const cur = mine.find((f) => Date.parse(f.timestamp) + 36e5 > nowMs); if (!cur) continue; // no current or future record: not evaluated
+    withData++;
     const call = callFor(spot, cur, profile, ctx), w = call.window && Date.parse(call.window.end) > nowMs ? call.window : call.nextWindow; if (!w) continue;
     const rec = mine.find((f) => f.timestamp === w.start); if (!rec) continue;
     const v = hourCall(spot, rec, profile, ctx).verdict; if (v !== 'Go' && v !== 'Worth a look') continue;
     bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs)});
   }
-  return bets.sort((a, b) => RANK[b.verdict] - RANK[a.verdict] || Date.parse(a.window.start) - Date.parse(b.window.start))[0] ?? null;
+  return {bet: bets.sort((a, b) => RANK[b.verdict] - RANK[a.verdict] || Date.parse(a.window.start) - Date.parse(b.window.start))[0] ?? null, withData, total: spots.length};
 }
 
 const greetingWord = (h: number) => (h < 5 ? 'Good evening' : h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening');
@@ -46,24 +47,27 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   boards: Surfboard[]; nowMs: number; onOpen: (spotId: string, iso: string | null) => void;
 }) {
   const hourKey = Math.floor(nowMs / 36e5);
-  const bet = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const {bet, withData, total} = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const spot = bet?.spot ?? refSpot, hi = greetingWord(hourOfDay(nowMs)), who = name?.trim() ? `, ${name.trim().split(/\s+/)[0]}` : '';
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
   const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile) : null;
   const surf = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
   const answer = bet
     ? `${bet.spot.name} is your best bet ${bet.when}, ${bet.window.label}${surf ? `, ${surf}` : ', surf estimate unavailable there'}${wind ? ` and ${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}` : ''}.`
+    : withData === 0 ? `There is no forecast for your spots right now, so there is no answer yet.`
+    : withData < total ? `Nothing worth it in the next few days at the ${withData} of ${total} spots with a forecast; the others have none right now.`
     : `Nothing at your spots looks worth it in the next few days. The forecast below shows why.`;
   // Today at a glance, for the best spot (or your first spot when there is no bet).
   const today = daylightFor(spot.id, pt(nowMs));
-  const nextTide = (extrema ?? []).filter((e) => Date.parse(e.timestamp) > nowMs && e.height.value !== null).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))[0];
   const nowRec = records.filter((f) => f.spotId === spot.id).find((f) => Date.parse(f.timestamp) + 36e5 > nowMs);
+  const tideOk = !!nowRec && nowRec.availability?.tide !== false && Number.isFinite(nowRec.tide?.height);
+  const turns = tideOk ? (nowRec!.tide.extrema?.length ? nowRec!.tide.extrema.map((e) => ({t: e.timestamp, type: e.type})) : (extrema ?? []).filter((e) => e.height.value !== null).map((e) => ({t: e.timestamp, type: e.type}))) : [];
+  const nextTide = turns.filter((e) => Date.parse(e.t) > nowMs).sort((a, b) => Date.parse(a.t) - Date.parse(b.t))[0];
   const water = nowRec && Number.isFinite(nowRec.waterTempF) ? Math.round(nowRec.waterTempF as number) : null;
   // The quiver's pick for the bet: size + period at the window's first hour (wave shape unknown).
   const est: [number, number] | null = at?.surf.headline.kind === 'estimate' ? [at.surf.headline.loFt, at.surf.headline.hiFt] : null;
   const period = bet?.rec.primary && Number.isFinite(bet.rec.primary.period) ? bet.rec.primary.period : null;
   const pick = bet && est ? recommended(rankBoards(boards, est, period))[0] ?? null : null;
-  const u = profile.heightUnit === 'm' ? 'm' : 'ft';
   return (
     <section className={`wel wel-${tintOf(nowMs, spot.id)}`} aria-labelledby="wel-h">
       <SpotBand spotId={spot.id}>
@@ -77,9 +81,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
       <dl className="wel-glance" aria-label={`Today at ${spot.name}`}>
         <div><dt>Sunrise</dt><dd>{clock(today.sunrise)}</dd></div>
         <div><dt>Sunset</dt><dd>{clock(today.sunset)}</dd></div>
-        <div><dt>Next tide</dt><dd>{nextTide ? `${nextTide.type.toLowerCase()} ${clock(nextTide.timestamp)}` : '—'}</dd></div>
+        <div><dt>Next tide</dt><dd title={nextTide ? 'NOAA station prediction, not at the beach' : 'No tide station near this spot'}>{nextTide ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t)} <small>station</small></> : '—'}</dd></div>
         <div><dt>Water</dt><dd>{water !== null ? `${water}°F` : '—'}</dd></div>
-        <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && pick.size.state !== 'none' ? <>{pick.board.name} <small>suits {pick.size.board[0]}–{pick.size.board[1]} {u}, wave shape unknown</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
+        <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && pick.size.state !== 'none' ? <>{pick.board.name} <small>suits {pick.size.board[0]}–{pick.size.board[1]} ft, wave shape unknown</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
       </dl>
     </section>
   );
