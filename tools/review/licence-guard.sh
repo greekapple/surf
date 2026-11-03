@@ -15,7 +15,7 @@ printf '%s' "$cmd" | grep -Eq 'git' && printf '%s' "$cmd" | grep -Eq '(^|[^[:aln
 npush=$(printf '%s' "$cmd" | grep -Eo '(^|[^[:alnum:]_-])push([^[:alnum:]_-]|$)' | wc -l | tr -d ' ')
 if [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git[[:space:]]+push([[:space:]]|$)' \
    || printf '%s' "$cmd" | grep -Eq -- '--(all|mirror|tags|follow-tags)' \
-   || [ "$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//' | tr ' ' '\n' | grep -v '^-' | grep -c .)" -lt 2 ]; then
+   || [ "$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//' | tr ' ' '\n' | grep -v '^-' | grep -v '[<>]' | grep -c .)" -lt 2 ]; then
   # (no explicit refspec: push.default / remote.<name>.push decide what goes out, so check every branch)
   git fetch -q --all 2>/dev/null
   for ref in $(git for-each-ref --format='%(refname:short)' refs/heads); do
@@ -32,7 +32,7 @@ if [ "$npush" != "1" ] || ! printf '%s' "$cmd" | grep -Eq '(^|[;&|[:space:]])git
 fi
 # the push part of the command: words after "push" up to the next shell separator
 pushpart=$(printf '%s' "$cmd" | sed -n 's/.*git[[:space:]]\{1,\}push\(.*\)/\1/p' | sed 's/[;&|].*//')
-args=(); for w in $pushpart; do case "$w" in -*) ;; *) args+=("$w");; esac; done
+args=(); for w in $pushpart; do case "$w" in -*|*'>'*|*'<'*) ;; *) args+=("$w");; esac; done  # skip options and redirections (2>&1, >file)
 remote="${args[0]:-origin}"
 refs=("${args[@]:1}"); [ ${#refs[@]} -eq 0 ] && refs=("$(git rev-parse --abbrev-ref HEAD)")
 git fetch -q "$remote" 2>/dev/null
