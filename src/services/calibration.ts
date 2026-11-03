@@ -38,7 +38,7 @@ export function pairFor(spotId: string, records: Forecast[] | undefined, observe
   const h = headlineSurf(spotId, f, {bundle, nowMs, observations: []});
   if (h.kind !== 'estimate') return null;
   const hs = f.evidence?.offshore?.value ?? (Number.isFinite(f.offshore) ? f.offshore : null), tp = f.primary?.period;
-  return {centralFt: (h.loFt + h.hiFt) / 2, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null, source: 'current'};
+  return {centralFt: h.centralFt ?? (h.loFt + h.hiFt) / 2, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null, source: 'current'};
 }
 
 export function logObservation(i: LogInput, env: LogEnv = {}): {ok: true; obs: Observation} | {ok: false; error: string} {

@@ -6,6 +6,7 @@ import {spots} from '../data/demo';
 import {allSpots} from '../data/catalog';
 import {evidenceSpots} from '../ocean/spots';
 import {useArchive} from '../hooks/useArchive';
+import {useModelSpread} from '../hooks/useModelSpread';
 import type {SurfSpot} from '../models/index';
 import {hourlySeries, type HourSample} from '../features/forecast/model';
 import {slugFor, spotIdForSlug} from './routes';
@@ -26,6 +27,8 @@ export interface Swello {
   data: DataStore;
   view: ForecastState;
   now: number;
+  /** Changes when a wave-model spread arrives (T-073), so ranges can be recomputed. */
+  spreadV: number;
   spot: SurfSpot;
   spotOptions: SurfSpot[];
   series: HourSample[];
@@ -70,9 +73,10 @@ export function SwelloProvider({children}: {children: ReactNode}) {
   };
 
   useArchive(view.selected, view.mapRecords, view.ocean.bundle, live);
+  const spreadV = useModelSpread([view.selected, ...data.state.favorites], live, !!view.ocean.bundle);
   const series = useMemo(() => hourlySeries(view.spot, view.mapRecords, now), [view.spot, view.mapRecords, now]);
   const selected = series.find((h) => h.timestamp === view.selectedTime) ?? null;
 
-  const value: Swello = {data, view, now, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
