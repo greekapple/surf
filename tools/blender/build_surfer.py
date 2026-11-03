@@ -43,23 +43,25 @@ bpy.context.view_layer.update()
 STAND_H = body.dimensions.z
 print('SURFER standing height', round(STAND_H, 4))
 
-# ---------------------------------------------------------------- board (procedural shortboard, nose at -x)
-L, W, T = a.board, 0.49 * (a.board / 1.83) ** 0.35, 0.062
+# ---------------------------------------------------------------- board (procedural 6'0" shortboard, nose at -x): 19.3" wide, 2.4" thick,
+# a real rocker (nose ~4.3", tail ~1.8"), foiled rails (a domed deck thinning to a tucked edge), thin ends, a pointed nose
+L, W, T = a.board, 0.49 * (a.board / 1.83) ** 0.35, 0.061
 
 
 def planshape(t):
     """Half width at t (0 = tail, 1 = nose): squash-ish tail, wide point just behind centre, pulled-in pointed nose."""
     tail = 0.36 + 0.64 * math.sin(min(1.0, t / 0.45) * math.pi / 2) ** 0.9
-    nose = math.cos(max(0.0, (t - 0.45) / 0.55) * math.pi / 2) ** 0.75 if t > 0.45 else 1.0
+    nose = math.cos(max(0.0, (t - 0.45) / 0.55) * math.pi / 2) ** (0.75 + 0.6 * max(0.0, (t - 0.82) / 0.18)) if t > 0.45 else 1.0
     return 0.5 * W * min(tail, nose) * (1.0 if t > 0.004 else 0.85)
 
 
 def rocker(t):
-    return 0.11 * max(0.0, (t - 0.62) / 0.38) ** 2.2 + 0.035 * max(0.0, (0.25 - t) / 0.25) ** 1.8
+    return 0.11 * max(0.0, (t - 0.62) / 0.38) ** 2.2 + 0.045 * max(0.0, (0.3 - t) / 0.3) ** 1.8
 
 
 def thick(t):
-    return T * (0.35 + 0.65 * math.sin(math.pi * min(1.0, max(0.0, t * 0.92 + 0.04))) ** 0.7)
+    """Thickest just behind centre, 1.8" a foot from the tail, under an inch at the tail block and the nose tip."""
+    return T * (0.18 + 0.82 * math.sin(math.pi * min(1.0, max(0.0, t * 0.94 + 0.03))) ** 0.6)
 
 
 bmb = bmesh.new()
@@ -73,8 +75,12 @@ for s_ in range(NS + 1):
     for r_ in range(NR):
         u = 2 * math.pi * r_ / NR
         cu, su = math.cos(u), math.sin(u)
-        y = hw * math.copysign(abs(cu) ** 0.55, cu)
-        z = zr + th * (0.5 + 0.5 * math.copysign(abs(su) ** (0.8 if su > 0 else 1.6), su))  # domed deck, flatter bottom
+        y = hw * cu
+        c = abs(cu)
+        if su >= 0:
+            z = zr + th * (0.1 + 0.9 * (1.0 - c ** 2.4) ** 0.8)   # domed deck foiling down to a 10%-thick rail edge
+        else:
+            z = zr + th * 0.1 * c ** 3                           # flat bottom, a tucked edge rising to meet the rail
         ring.append(bmb.verts.new((x, y, z)))
     rings.append(ring)
 for r0, r1 in zip(rings, rings[1:]):
@@ -189,7 +195,7 @@ for b in pb:
 M = rig.matrix_world
 REST = {b.name: b.matrix_local.copy() for b in rig.data.bones}
 PARENT = {b.name: (b.parent.name if b.parent else None) for b in rig.data.bones}
-FRONT_X, BACK_X = -0.26 * L / 1.83, 0.31 * L / 1.83   # front foot near the middle, back foot over the tail pad
+FRONT_X, BACK_X = -0.13 * L / 1.83, 0.3 * L / 1.83   # front foot just ahead of centre, back foot on the tail pad (a 0.8 m stance)
 ANKLE = pb['foot_r'].head.z                            # ankle height above the sole at rest
 P0 = pb['pelvis'].head.copy()                          # hips at rest (standing)
 
@@ -269,7 +275,9 @@ def pose(P):
     """Set the whole rider from a pose dict (see POSES). Frame: nose -x, wave -y, z up; goofy: right foot forward."""
     reset_pose()
     Rb = board_matrix(*P['board'])
-    set_world('board', Rb)
+    # the board bone is posed relative to its REST (a flat board = the rest pose): the glTF exporter places the Board mesh relative to the
+    # bone's rest, so a bone posed to the object identity (as v3 did) came out rotated -90 deg about x in the viewer (a vertical board)
+    set_world('board', Rb @ REST['board'])
     # feet on the (banked) deck: targets at ankle height above the deck, poles out past the knees, apart (never caving in)
     for side, fx, yaw in (('r', FRONT_X, P['foot_yaw'][0]), ('l', BACK_X, P['foot_yaw'][1])):
         set_world(f'tgt_{side}', Matrix.Translation(Rb @ Vector((fx, -0.02, deck_z(fx) + ANKLE))))
@@ -313,24 +321,41 @@ def pose(P):
 #  top    (USFWS cutback, Santa Cruz snap): extended on the back leg, board turned toward the beach on its heel rail, trailing arm swung
 #         round leading the shoulders, head on the landing
 #  pump   : a small compress between trims
+# wave-round3: the board is FLAT in every key (board=(0,0,0)): its bank, pitch and yaw come from the ride line in the viewer (yaw along the
+# velocity, roll from the turn), so the poses are the body relative to the deck. Six distinct keys, no holds: the clip is always moving.
+# Arms hang and balance (hands at hip-to-chest height, elbows bent), never level; the head looks down the line (twist -: toward the nose).
 POSES = {
-    'trim': dict(board=(4, 0, 0), hips=(0.74, 0.02, -0.04), hip_yaw=-14, foot_yaw=(18, -2),
-                 spine=((-0.22, -0.2, 1.0), (-0.3, -0.25, 1.0), (-0.3, -0.2, 1.0), -12), neck=(-0.1, -0.1, 1.0), head=((-0.05, -0.05, 1.0), -50),
-                 arm_r=((-0.75, -0.35, -0.5), (-0.95, -0.2, 0.05), (-0.9, -0.2, 0.0)), arm_l=((0.3, -0.25, -0.9), (0.1, -0.7, -0.65), (0.0, -0.8, -0.55))),
-    'bottom': dict(board=(36, -4, 10), hips=(0.64, 0.07, -0.14), hip_yaw=-24, foot_yaw=(16, -6),
-                   spine=((-0.06, -0.5, 1.0), (-0.1, -0.6, 1.0), (-0.12, -0.5, 1.0), -18), neck=(-0.06, -0.2, 1.0), head=((0.0, -0.1, 1.0), -58),
-                   arm_r=((-0.7, -0.45, -0.55), (-0.95, -0.2, 0.1), (-0.9, -0.2, 0.0)), arm_l=((0.25, -0.55, -0.8), (-0.15, -0.9, -0.35), (-0.2, -0.9, -0.3))),
-    'top': dict(board=(-24, 6, -19), hips=(0.76, 0.06, 0.1), hip_yaw=22, foot_yaw=(20, 4),
-                spine=((0.0, 0.25, 1.0), (0.02, 0.3, 1.0), (0.04, 0.25, 1.0), 28), neck=(0.0, 0.1, 1.0), head=((0.05, 0.1, 1.0), 5),
-                arm_r=((-0.7, 0.1, -0.7), (-0.95, 0.3, 0.1), (-0.9, 0.3, 0.0)), arm_l=((0.45, 0.6, 0.65), (0.0, 0.95, 0.3), (-0.1, 0.95, 0.2))),
-    'pump': dict(board=(10, -2, 2), hips=(0.74, 0.03, -0.06), hip_yaw=-16, foot_yaw=(18, -3),
-                 spine=((-0.04, -0.3, 1.0), (-0.07, -0.38, 1.0), (-0.08, -0.3, 1.0), -14), neck=(-0.05, -0.12, 1.0), head=((0.0, -0.06, 1.0), -52),
-                 arm_r=((-0.55, -0.4, -0.7), (-0.95, -0.3, -0.05), (-0.9, -0.3, -0.1)), arm_l=((0.35, -0.35, -0.85), (0.0, -0.9, -0.4), (-0.1, -0.9, -0.4))),
+    # trim (Newport, Santa Cruz inside): knees soft, hips a little back, chest down the line, lead hand low in front, trailing hand low behind
+    'trim': dict(board=(0, 0, 0), hips=(0.68, 0.14, -0.03), hip_yaw=-16, foot_yaw=(18, -2),
+                 spine=((-0.25, -0.22, 1.0), (-0.32, -0.28, 1.0), (-0.3, -0.22, 1.0), -14), neck=(-0.12, -0.1, 1.0), head=((-0.08, -0.06, 1.0), -52),
+                 arm_r=((-0.45, -0.3, -0.85), (-0.9, -0.35, -0.25), (-0.9, -0.35, -0.3)), arm_l=((0.35, -0.1, -0.95), (0.2, -0.75, -0.6), (0.15, -0.8, -0.6))),
+    # bottom turn apex (Blacks): deep crouch, hips over the back foot and into the wave, chest to the face, trailing hand down to the water,
+    # lead arm extended forward-down pointing the line, head up the face at the lip
+    'bottom': dict(board=(0, 0, 0), hips=(0.52, 0.28, -0.2), hip_yaw=-24, foot_yaw=(16, -6),
+                   spine=((-0.12, -0.72, 0.8), (-0.14, -0.78, 0.7), (-0.14, -0.7, 0.75), -16), neck=(-0.15, -0.35, 1.0), head=((-0.2, -0.3, 1.0), -48),
+                   arm_r=((-0.6, -0.35, -0.7), (-0.95, -0.2, -0.2), (-0.95, -0.2, -0.25)), arm_l=((0.2, -0.6, -0.8), (-0.1, -0.9, -0.45), (-0.1, -0.9, -0.5))),
+    # climb (Bali coaching "the lift"): extending, shoulders starting to open toward the beach, lead arm rising, trailing arm swinging back low
+    'climb': dict(board=(0, 0, 0), hips=(0.66, 0.22, -0.1), hip_yaw=-4, foot_yaw=(18, -2),
+                  spine=((-0.15, -0.3, 1.0), (-0.12, -0.28, 1.0), (-0.1, -0.2, 1.0), 8), neck=(-0.1, -0.12, 1.0), head=((-0.1, -0.08, 1.0), -32),
+                  arm_r=((-0.5, -0.1, -0.85), (-0.9, 0.05, 0.4), (-0.9, 0.05, 0.3)), arm_l=((0.45, 0.2, -0.85), (0.3, 0.6, -0.7), (0.3, 0.65, -0.7))),
+    # top turn hit (USFWS cutback, Santa Cruz snap): tall on the back leg over the tail, torso twisted toward the beach, the trailing arm swung
+    # up and round leading the shoulders, lead arm pointing at the landing, head looking down at the landing
+    'top': dict(board=(0, 0, 0), hips=(0.74, 0.28, 0.04), hip_yaw=20, foot_yaw=(20, 4),
+                spine=((0.0, 0.2, 1.0), (0.02, 0.26, 1.0), (0.04, 0.22, 1.0), 34), neck=(0.02, 0.2, 1.0), head=((0.05, 0.3, 1.0), -12),
+                arm_r=((-0.55, 0.3, -0.75), (-0.9, 0.3, -0.3), (-0.9, 0.3, -0.35)), arm_l=((0.25, 0.55, 0.8), (-0.2, 0.75, 0.6), (-0.25, 0.75, 0.55))),
+    # recovery (landing off the top): compressed, chest forward over the front foot, both arms low for balance, head back down the line
+    'recover': dict(board=(0, 0, 0), hips=(0.55, 0.18, -0.06), hip_yaw=-12, foot_yaw=(18, -3),
+                    spine=((-0.25, -0.3, 1.0), (-0.3, -0.32, 1.0), (-0.28, -0.26, 1.0), -10), neck=(-0.15, -0.15, 1.0), head=((-0.1, -0.1, 1.0), -50),
+                    arm_r=((-0.3, -0.25, -0.92), (-0.85, -0.3, -0.45), (-0.85, -0.3, -0.5)), arm_l=((0.35, -0.2, -0.92), (0.15, -0.6, -0.78), (0.1, -0.65, -0.75))),
+    # pump: a small compress and forward weight shift between trims
+    'pump': dict(board=(0, 0, 0), hips=(0.6, 0.1, -0.05), hip_yaw=-16, foot_yaw=(18, -3),
+                 spine=((-0.28, -0.25, 1.0), (-0.3, -0.3, 1.0), (-0.28, -0.24, 1.0), -14), neck=(-0.1, -0.1, 1.0), head=((-0.08, -0.06, 1.0), -52),
+                 arm_r=((-0.5, -0.3, -0.8), (-0.9, -0.3, -0.3), (-0.9, -0.3, -0.35)), arm_l=((0.35, -0.15, -0.92), (0.15, -0.7, -0.7), (0.1, -0.75, -0.65))),
 }
-# the ride: 4 s at 24 fps, frame 97 == frame 1 so it loops
-RIDE = [(1, 'trim'), (22, 'bottom'), (38, 'bottom'), (54, 'trim'), (64, 'top'), (74, 'top'), (86, 'pump'), (97, 'trim')]
+# the ride: 4 s at 24 fps, frame 97 == frame 1 so it loops; the key frames match the ride line's waypoint phases in WaveLive.tsx (RIDE_WP)
+RIDE = [(1, 'trim'), (26, 'bottom'), (42, 'climb'), (58, 'top'), (70, 'recover'), (82, 'pump'), (97, 'trim')]
 STILL = 'bottom'
-CHECK_FRAMES = {1, 30, 69, 86}
+CHECK_FRAMES = {1, 26, 42, 58, 70, 82}
 
 
 def fcurves_of(act):
@@ -368,7 +393,7 @@ def bake(src_name, frames, out_name):
             dg.update()
             ev = body.evaluated_get(dg)
             low = min((ev.matrix_world @ v.co).z for v in ev.data.vertices)
-            Rb = M @ pb['board'].matrix
+            Rb = M @ pb['board'].matrix @ REST['board'].inverted()
             dk = Rb @ Vector((BACK_X, -0.02, deck_z(BACK_X)))
             eul = Rb.to_euler('ZYX')
             print(f'SURFER check f{f}: lowest body z {low:.3f}, deck under the back foot z {dk.z:.3f}, sole-to-deck (board frame) {foot_penetration(Rb):+.3f}, '
@@ -481,7 +506,7 @@ if a.preview:
     scene.camera = cam
     cam.data.lens = 50
     tgt = Vector((0, 0, 0.7))
-    for f, name in ((1, 'trim'), (30, 'bottom'), (69, 'top'), (86, 'pump')):
+    for f, name in RIDE[:-1]:
         scene.frame_set(f)
         for n, ang, up in (('front', -60, 0.25), ('side', -110, 0.15), ('back', 120, 0.35)):
             th = math.radians(ang)

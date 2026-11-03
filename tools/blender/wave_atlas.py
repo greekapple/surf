@@ -150,6 +150,27 @@ def fall_lip(p, k):
     return p
 
 
+def relax_face(p, cap_deg=72.0, top=0.8):
+    """A rideable face (wave-round3): below `top` of the crest height the open face is no steeper than cap_deg, so a rider can climb
+    to the upper third for a top turn. The crest and the lip above `top` keep their shape; below it the face (and the cavity the source
+    rows carve under the lip) is pushed toward the beach where it was steeper than the cap, and the trough and the flat water beyond
+    move with it. Normalised units."""
+    p = p.copy()
+    ci, ti, _ = lip_indices(p)
+    zc = p[ci, 1]
+    tanc = math.tan(math.radians(cap_deg))
+    shift = 0.0
+    for i in range(max(ci, ti) + 1, len(p)):
+        p[i, 0] += shift
+        dz = p[i - 1, 1] - p[i, 1]
+        if dz > 0 and p[i, 1] < top * zc:
+            need = p[i - 1, 0] + dz / tanc
+            if p[i, 0] < need:
+                shift += need - p[i, 0]
+                p[i, 0] = need
+    return p
+
+
 def bore(p, h, adv, wf=0.55, back=None):
     """A whitewater bore / foam ball of height h: the back keeps the wave's own back (scaled), the top rises to a rounded front
     whose peak sits adv ahead of the original crest. Points behind the crest keep their place; the rest (crest, lip, cavity,
@@ -245,6 +266,8 @@ def stage_curves(src, face, breaker, phys):
         if not spill and k > S_PITCH:
             p = fall_lip(p, (k - S_PITCH) / (S_LAND - S_PITCH) * (0.55 + 0.45 * plunge))
         p[:, 1] *= hs[k]
+        if k < S_PITCH:   # the unbroken shoulder the rider is on: a rideable face under the lip (wave-round3)
+            p = relax_face(p, 72.0, 0.8)
         curves.append(shape(p))
     if spill:
         # spilling: the crest crumbles from stage 3 on and the foam rolls down a gentle face as a long, low bore

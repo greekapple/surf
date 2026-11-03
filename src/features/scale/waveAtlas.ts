@@ -141,10 +141,22 @@ export function profileAt(a: Atlas, x: number, t = 0, n = a.meta.points, withSec
   return {y, z, foam, thin};
 }
 
+// scratch profiles for the per-frame callers (facePoint, waterHeightAt): no allocation in the render loop
+const SY = new Float64Array(192), SZ = new Float64Array(192);
+function profileInto(a: Atlas, x: number, t: number, n: number, withSections: boolean, y: Float64Array, z: Float64Array) {
+  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), {points: P, stages: S} = a.meta;
+  const fs = clamp(s, 0, S - 1), j0 = Math.floor(fs), j1 = Math.min(S - 1, j0 + 1), ds = fs - j0, r0 = j0 * P * 4, r1 = j1 * P * 4, d = a.data;
+  for (let i = 0; i < n; i++) {
+    const fu = (i / (n - 1)) * (P - 1), i0 = Math.floor(fu), i1 = Math.min(P - 1, i0 + 1), du = fu - i0;
+    y[i] = (d[r0 + i0 * 4] * (1 - du) + d[r0 + i1 * 4] * du) * (1 - ds) + (d[r1 + i0 * 4] * (1 - du) + d[r1 + i1 * 4] * du) * ds;
+    z[i] = ((d[r0 + i0 * 4 + 1] * (1 - du) + d[r0 + i1 * 4 + 1] * du) * (1 - ds) + (d[r1 + i0 * 4 + 1] * (1 - du) + d[r1 + i1 * 4 + 1] * du) * ds) * amp;
+  }
+}
+
 /** A point on the open face (beach side of the crest) at `frac` of trough-to-crest height: [y, z, slope radians]. With `t` the
  *  sections pulses are included (the surface the shader draws at that moment). */
 export function facePoint(a: Atlas, x: number, frac: number, t: number | null = null): [number, number, number] {
-  const {y, z} = profileAt(a, x, t ?? 0, 192, t !== null), n = z.length;
+  const n = 192, y = SY, z = SZ; profileInto(a, x, t ?? 0, n, t !== null, y, z);
   let ci = 0; for (let i = 1; i < n; i++) if (z[i] > z[ci]) ci = i;
   // the front face: from the trough on the beach side (+y) of the crest up to the crest. Walk it upward from the trough and take the first
   // crossing of the target height, so the point is on the face proper, never on the thrown lip above it (which overhangs the same heights).
@@ -166,9 +178,9 @@ export function facePoint(a: Atlas, x: number, frac: number, t: number | null = 
 /** The water surface height at crest-frame (x, z) (z = -y_across, the beach at -z) at time t: the lowest crossing of the profile, so under
  *  an overhanging lip it is the face, not the lip. Outside the profile's reach: still water (0). The rider's board is checked against it. */
 export function waterHeightAt(a: Atlas, x: number, zc: number, t: number): number {
-  const {y, z} = profileAt(a, x, t, 160, true), ya = -zc;
+  const n = 160, y = SY, z = SZ, ya = -zc; profileInto(a, x, t, n, true, y, z);
   let best = Infinity;
-  for (let i = 0; i < y.length - 1; i++) {
+  for (let i = 0; i < n - 1; i++) {
     const y0 = y[i], y1 = y[i + 1];
     if ((y0 - ya) * (y1 - ya) <= 0 && y0 !== y1) { const k = (ya - y0) / (y1 - y0); best = Math.min(best, z[i] + (z[i + 1] - z[i]) * k); }
   }

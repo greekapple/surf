@@ -21,13 +21,23 @@ future public reference page knows what it may show.
 - Top turn: decompress on the climb, swing the trailing arm to lead head, shoulders and hips into the heel-side carve, then compress and
   shift forward to come back down (Bali Surfing Camp "frontside top turn").
 
-## Pose keys (24 fps, 96-frame loop)
-| Frame | Pose | Board (bank, pitch, yaw) | Hips (height × standing, x toward tail, y toward wave) |
-|---|---|---|---|
-| 1 / 97 | trim | 4, 0, 0 | 0.72, 0, -0.02 |
-| 22–38 | bottom | 36, -4, 10 | 0.56, +0.07, -0.14 |
-| 54 | trim | | |
-| 64–74 | top | -28, 8, -38 | 0.66, +0.06, +0.10 |
-| 86 | pump | 10, -2, 2 | 0.63, +0.03, -0.06 |
+## Pose keys (24 fps, 96-frame loop; round 3, wave-round3)
+The board is flat in every key: its heading, pitch and bank come from the viewer's ride line (`WaveLive.tsx` RIDE_WP, the same phases as these
+frames), so the poses are the body relative to the deck. Six distinct keys and no holds, so the clip is always moving.
 
-Bank +: toe rail (the wave side) down. Yaw +: nose toward the wave. These are rider-relative; the viewer banks the whole rider to the face.
+| Frame | Phase | Pose | Hips (height x standing, x toward tail, y toward wave) | What it matches |
+|---|---|---|---|---|
+| 1 / 97 | 0 | trim | 0.68, +0.14, -0.03 | Newport / Santa Cruz inside: knees soft, lead hand low in front, trailing hand low behind, looking down the line |
+| 26 | 0.26 | bottom | 0.52, +0.28, -0.20 | Blacks: deep crouch over the back foot, chest to the face, trailing hand to the water, lead arm pointing the line |
+| 42 | 0.43 | climb | 0.66, +0.22, -0.10 | Bali coaching "the lift": extending, shoulders opening toward the beach, lead arm rising |
+| 58 | 0.6 | top | 0.74, +0.28, +0.04 | USFWS cutback / Santa Cruz snap: tall over the tail, torso twisted toward the beach, trailing arm swung up and round |
+| 70 | 0.72 | recover | 0.55, +0.18, -0.06 | compressed landing, both arms low, head back down the line |
+| 82 | 0.84 | pump | 0.60, +0.10, -0.05 | a small compress between trims |
+
+Viewer layers on top of the clip (all on critically damped springs): the head and shoulders lead the heading by 0.2 s, the arms counter the
+lean, and on the steepest part of the face the torso counters the deck tilt beyond 42 deg (the board goes near-vertical with the legs, the
+body stays up over it).
+
+## Real ride strip
+`Surfing contest - oahu hawaii - north shore - oct 2015.ogv` (Wikimedia Commons, CC BY-SA 4.0), frames 2.4 s to 4.9 s at 0.5 s: the
+6-frame strip our default view is compared with (scratchpad `wave/round3/strips-ours-vs-real.png`).
