@@ -386,3 +386,10 @@
 .tscroll { background: none; }
 /* Sentence-case labels at a readable size, not tracked capitals. */
 .mm-k, .qcat small, .minis .k, .tile .k, .search-k, .sp-explain-h { text-transform: none; letter-spacing: 0; font-size: 12px; }
+/* T-067 typeface (user, 2026-11-02): Instrument Sans for headings, spot names, the wordmark, section titles and the call's verdict; Inter for body,
+   numbers, tables and charts. Explicit list (feature styles set Inter with the font shorthand), slight negative tracking on large sizes. */
+.wordmark, main h1, .legal h1, .legal h2, .hd h1, .hd h2, .wk-s h2, .card-h h2, .sp-src summary h2, .ob-h h2, .saw h2,
+.sp-title h1, .call-v, .dc-name b, .nb-name b, .wk-spot b, .qv-head h1, .qv-spec-h h2, .br-h h2, .qv-rank-t h2, .pz h1, .pz h2 { font-family: var(--display) !important; }
+.wordmark { letter-spacing: -0.03em; }
+.sp-title h1, main h1, .hd h1, .qv-head h1, .br-h h2 { letter-spacing: -0.025em; }
+.call-w { font-family: var(--sans); } /* the window's times stay in the data face */

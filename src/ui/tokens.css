@@ -16,7 +16,17 @@
   font-style: normal;
   font-display: swap;
 }
-/* Inter (SIL OFL 1.1, public/fonts/Inter-OFL.txt): body text. */
+/* Instrument Sans (SIL OFL 1.1, public/fonts/InstrumentSans-OFL.txt; Latin subset of the variable font, wdth 75–100, wght 400–700):
+   headings, spot names, the wordmark, section titles and the call's verdict (user, 2026-11-02). */
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/instrument-sans-latin-var.woff2') format('woff2');
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+/* Inter (SIL OFL 1.1, public/fonts/Inter-OFL.txt): body text, numbers and data. */
 @font-face {
   font-family: 'Inter';
   src: url('/fonts/inter-latin-var.woff2') format('woff2');
@@ -27,7 +37,7 @@
 :root {
   /* Light (Apple-style) is the default theme; the dark palette lives under data-theme="dark". */
   /* Cinematic round (2026-10-30, user pick): Syne for display, Inter for body; system stack as fallback. */
-  --display: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif; /* user 2026-11-02: Syne read as 'AI website'; Inter only */
+  --display: 'Instrument Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif; /* user 2026-11-02 (type trial): Instrument Sans for headings and the mark; Inter for body and data */
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Roboto, system-ui, sans-serif;
   /* Headline face (greeting, spot names, section titles); was DM Serif Display, now the display face. */
   --serif: var(--display);

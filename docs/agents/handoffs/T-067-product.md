@@ -70,3 +70,15 @@ Spec: `docs/specs/2026-11-02-references-round.md` §1, rows 1, 3, 5 and 6. Branc
   - Privacy keys and services; no overflow; console clean.
 - t045 ALL PASS; t065 ALL PASS; t047 ALL PASS. t047's ranking switch failed once while I was editing files during the run and passed on rerun.
 - Final run: t045 54/0, t047 55/0, t065 52/0, t067 30/0, density ALL PASS, journeys 8/8.
+
+## Typeface (user decision, 2026-11-02, added to T-067)
+- **Self-hosted:** Instrument Sans (SIL OFL 1.1), `public/fonts/instrument-sans-latin-var.woff2`, 76 KB. It is a Latin subset of the variable TTF (wdth 75–100, wght 400–700), converted with fonttools in a scratch venv, not a project dependency. The font's own OFL text is in `public/fonts/InstrumentSans-OFL.txt`. `public/fonts-trial/` is not committed.
+- **Applied:** `--display` is now 'Instrument Sans' with an Inter fallback. It covers the wordmark, page h1s, spot names (band, Home cards, nearby, week grid), section titles (This week, Popular spots, Sources & data, What did you see, Board Match and board-room names) and the Call's verdict word. This is an explicit list in `src/ui/app.css`, because feature styles set Inter with the font shorthand. Tracking is −0.025em on large titles and −0.03em on the wordmark. Inter stays for body, numbers, tables and charts; the Call's window times are Inter too.
+- **Proof:**
+  - In Chrome, `document.fonts` reports Instrument Sans loaded (HTTP 200 for the woff2), and `check("700 28px 'Instrument Sans'")` is true.
+  - The spot h1 and the verdict use it; the surf number and the window times use Inter.
+  - Inspector: Home is 91% Inter / 9% Instrument Sans; Spot is 99% Inter (headings only). There's no fallback flag.
+  - At 1440/390: no new wrapping, and t045's first-screen checks still pass.
+- **t047:** its "one font family on Home" check encoded the old Inter-only decision. It now checks "two faces: Instrument Sans for headings, Inter for numbers" (backup kept).
+- **Inspector after the font:** Spot has 0 fails and 3 warnings: dev-server, tiny-text, and ragged-row, which is the trade-off of top-aligning cells (it removed panel-void). Cells have hairline tops and no boxes, so ragged bottoms don't show. Home has 1 fail (covered-text, the fixed phone tab bar, defended) and 1 warning (dev-server).
+- **Checks after the font:** t045 54/0, t047 ALL PASS, t065 52/0, t067 30/0, density ALL PASS, journeys 8/8; tsc OK, unit tests 367/367, build OK.
