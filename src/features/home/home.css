@@ -191,3 +191,11 @@
 .wk-s { margin-bottom: 16px; }
 @media (max-width: 860px) { .wel .sp-band { height: 300px; } .wel .sp-band-in { padding: 20px; } }
 .wel-glance dd small { display: block; margin-top: 2px; } .wel-pick dd small { display: inline; margin-top: 0; }
+.hd-link { min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--accent-ink, var(--accent)); font: 600 14px/1 inherit; cursor: pointer; } .hd-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* T-082: Home within two screens at 1440 now that the nearby list has rows at night. */
+@media (min-width: 861px) {
+  .home { gap: 24px; }
+  .wel .sp-band { height: 236px; }
+  .wel-glance div { padding-top: 10px; padding-bottom: 10px; }
+  .wel { gap: 12px; }
+}

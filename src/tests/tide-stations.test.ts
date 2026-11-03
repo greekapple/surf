@@ -1,14 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {tideStations, tideStation, extraTideStationIds, tideAssignments, nearestTideStations} from '../ocean/tideStations.ts';
+import {tideStations, tideStation, extraTideStationIds, hiloTideStationIds, tideAssignments, nearestTideStations, SF_STATION} from '../ocean/tideStations.ts';
+import {evidenceSpots} from '../ocean/spots.ts';
 import {tideURL, tideExtremaURL, normalizeTides, normalizeTideExtrema, stationOf} from '../ocean/noaa.ts';
 import {serverProviderPath} from '../ocean/server.ts';
-import {ingestionTargets, tideServiceStationIds} from '../../services/forecast-service.mjs';
+import {ingestionTargets, tideServiceStationIds, tideHiloServiceStationIds} from '../../services/forecast-service.mjs';
 
 const payload = {predictions: [{t: '2026-11-01 05:26', v: '-0.437', type: 'L'}, {t: '2026-11-01 12:51', v: '4.251', type: 'H'}]};
 
 test('registry holds the three stations; the two new ones are ingested but assigned to no spot until review', () => {
-  assert.deepEqual(tideStations.map((s) => s.id), ['9414290', '9414131', '9415020']);
+  assert.deepEqual(tideStations.slice(0, 3).map((s) => s.id), ['9414290', '9414131', '9415020']); // T-082 appends the nearest station of every covered spot
   assert.deepEqual(extraTideStationIds, ['9414131', '9415020']);
   assert.deepEqual(tideServiceStationIds, extraTideStationIds, 'service and registry agree');
   assert.deepEqual(tideAssignments, []);
@@ -45,4 +46,24 @@ test('nearest stations for the review list: Linda Mar is closest to Pillar Point
   const near = nearestTideStations(37.6, -122.5);
   assert.equal(near[0].station.id, '9414131'); assert.ok(near[0].distanceKm < 15 && near[0].distanceKm < near[1].distanceKm);
   assert.deepEqual(tideAssignments, []);
+});
+
+// T-082: Home's "Next tide" must never be a dash where a CO-OPS prediction station is within 40 km.
+test('every covered spot has its nearest prediction station within 40 km, and that station is ingested', () => {
+  const ingested = new Set([SF_STATION, ...extraTideStationIds, ...hiloTideStationIds]);
+  const none: string[] = [];
+  for (const e of evidenceSpots) {
+    const near = nearestTideStations(e.latitude, e.longitude)[0];
+    if (!near || near.distanceKm > 40) { none.push(e.name); continue; }
+    assert.ok(ingested.has(near.station.id), `${e.name}: nearest station ${near.station.id} (${near.distanceKm} km) is not ingested`);
+  }
+  assert.deepEqual(none, [], 'spots with no station within 40 km');
+  assert.equal(evidenceSpots.length, 45);
+});
+test('the high/low stations: registry and service agree, the server routes their high/low only, and they have hilo targets', () => {
+  assert.deepEqual(tideHiloServiceStationIds, hiloTideStationIds);
+  for (const id of hiloTideStationIds) assert.ok(tideStation(id), id);
+  assert.equal(serverProviderPath(tideExtremaURL(new Date(), '9413745')), '/api/provider?key=tide-extrema-9413745');
+  const keys = ingestionTargets(Date.parse('2026-11-01T12:00:00Z')).map((t: any) => t.key);
+  for (const id of hiloTideStationIds) { assert.ok(keys.includes('tide-extrema-' + id), id); assert.ok(!keys.includes('tides-' + id), id + ' has no hourly series'); }
 });

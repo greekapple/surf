@@ -7,8 +7,8 @@ import {DirArrow, Icon} from '../../ui/Icon';
 import {rankBoards, recommended} from '../quiver/fit';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
-import {posterPath, spinCaption} from '../../services/scaleFrames';
-import {useHasSpin} from '../scale/useHasSpin';
+import {LIVE_CAPTION} from '../scale/waveSpec';
+import {faceRange} from '../../services/scaleMath';
 import {dayRange} from '../../services/spotHour';
 import {pacificDate} from '../../ocean/time';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
@@ -297,10 +297,12 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
   const label = est ? `Estimated face ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No face estimate this hour; surfer and board only';
-  // T-056: the lead's 3D renders (T-054) are the main visual when this band has frames; the drawn chart stays as the small inset (or the panel).
-  const bi = est ? selectScaleBand({estimateRangeFt: [est.loFt, est.hiFt], estimateText: null, demoFaceFt: null, demoText: null, offshoreFt: null, offshoreText: null}).band : null;
-  const band = bi !== null ? SCALE_BANDS[bi] : null;
-  const spin = useHasSpin(band ?? SCALE_BANDS[0], !!band);
+  // T-082: the card says what the forecast-driven 3D draws for this hour (scale/waveSpec: the estimate's centre via faceRange, surfer 1.75 m / 5'9"),
+  // instead of a fixed size-band poster that may not match the hour. Offshore-only hours say there is no breaking-wave estimate.
+  const fr = faceRange(hs), centreFt = fr ? (fr[0] + fr[1]) / 2 : null;
+  const drawnAt = centreFt === null ? null : p.heightUnit === 'm' ? `${(centreFt * 0.3048).toFixed(1)} m` : `${Math.round(centreFt * 10) / 10} ft`;
+  const scaleLine = drawnAt ? `drawn at ${drawnAt} face · surfer ${p.heightUnit === 'm' ? '1.75 m' : '5′9″'}`
+    : hs.kind === 'offshore' ? `No breaking-wave estimate · ${ht(hs.ft, p)} ${p.heightUnit} offshore swell, not surf size` : 'No breaking-wave estimate for this hour';
   const chart = (
       <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
         {ticks.map((t) => <g key={t}><line x1={22} x2={214} y1={yy(t)} y2={yy(t)} stroke="var(--line)" strokeWidth={1} /><text x={18} y={yy(t) + 4} fontSize={10} textAnchor="end" fill="var(--dim)">{t}</text></g>)}
@@ -324,16 +326,10 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
         <text x={22} y={10} fontSize={10} fill="var(--dim)">{p.heightUnit}</text>
       </svg>);
   const mine = `${board ? `Your ${board.name}, ${feetInches(board.length)}` : 'No board in your quiver'} · you ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}`;
-  if (spin && band) return (
-    <button className="sp-scalep is-3d" onClick={onOpen} aria-label={`Wave scale: 3D illustration of a ${band.label} wave at approximate scale, not current conditions. ${label}. Open the full wave scale`}>
-      <span className="sp-scalep-img"><img src={posterPath(band)} alt="" width={1024} height={768} decoding="async" /><span className="sp-scalep-inset" aria-hidden="true">{chart}</span></span>
-      <span className="sp-scalep-c"><span>3D illustration · approximate scale</span><span>{spinCaption(band, p.heightUnit)}</span><span className="sp-link-t">Full wave scale</span></span>
-    </button>
-  );
   return (
-    <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. Open the full wave scale`}>
+    <button className="sp-scalep" onClick={onOpen} aria-label={`Wave scale: ${label}. ${scaleLine}. Open the full wave scale`}>
       {chart}
-      <span className="sp-scalep-c"><span>{mine}</span><span className="sp-link-t">Full wave scale</span></span>
+      <span className="sp-scalep-c">{drawnAt && <span>{LIVE_CAPTION}</span>}<span className="sp-scale-at">{scaleLine}</span><span>{mine}</span><span className="sp-link-t">Full wave scale</span></span>
     </button>
   );
 }
