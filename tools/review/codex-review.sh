@@ -3,6 +3,7 @@
 # Runs automatically after `git merge` (PostToolUse hook in .claude/settings.json). Stops for the day once the plan's usage
 # limit is hit (marker file), so it never blocks work. Exit 2 = Codex found P0/P1 issues (wakes Claude); 0 otherwise.
 set -u
+SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"   # absolute, so --drain can re-invoke after cd (Codex P2)
 cd "${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel)}" || exit 0
 # resolve the commit where we are (a worktree's HEAD is its own branch), THEN move to the main checkout,
 # where Codex can read .git (worktree commits live in the shared repo)
@@ -13,7 +14,7 @@ QUEUE="$(git rev-parse --git-common-dir)/codex-pending"      # commits skipped a
 if [ "${1:-}" = "--drain" ]; then   # review every queued commit once the limit has reset
   [ -s "$QUEUE" ] || { echo "codex queue empty"; exit 0; }
   rc_all=0; cp "$QUEUE" "$QUEUE.run"; : > "$QUEUE"
-  while read -r q; do [ -n "$q" ] && { "$0" "$q"; r=$?; [ $r -gt $rc_all ] && rc_all=$r; }; done < "$QUEUE.run"
+  while read -r q; do [ -n "$q" ] && { "$SELF" "$q"; r=$?; [ $r -gt $rc_all ] && rc_all=$r; }; done < "$QUEUE.run"
   rm -f "$QUEUE.run"; exit $rc_all
 fi
 last=$(cat "$MARK" 2>/dev/null); case "$last" in ''|*[!0-9]*) last=0;; esac
@@ -30,6 +31,7 @@ if [ "$rc" -ne 0 ] && grep -qiE "usage limit|rate limit|quota|too many requests|
   date +%s > "$MARK"; grep -qx "$SHA" "$QUEUE" 2>/dev/null || echo "$SHA" >> "$QUEUE"
   echo "codex review deferred: ChatGPT usage limit reached; queued $SHA, retrying hourly ($(grep -oiE 'try again[^.]*' "$RAW" | head -1))"; rm -f "$RAW"; exit 0
 fi
+if [ "$rc" -ne 0 ]; then grep -qx "$SHA" "$QUEUE" 2>/dev/null || echo "$SHA" >> "$QUEUE"; echo "codex review failed (exit $rc); $SHA stays queued"; rm -f "$RAW"; exit 0; fi
 # keep Codex's final message (after its last 'codex' marker line); fall back to the tail
 SUMMARY=$(awk '/^codex$/{buf=""; next} {buf=buf $0 "\n"} END{printf "%s", buf}' "$RAW")
 [ -z "$SUMMARY" ] && SUMMARY=$(tail -40 "$RAW")
