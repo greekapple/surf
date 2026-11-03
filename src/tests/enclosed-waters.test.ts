@@ -10,3 +10,9 @@ test('T-092: SF Bay and other enclosed waters are not covered; the open sea, coa
   assert.ok(enclosedCellCount() > 800 && enclosedCellCount() < 8000, `${enclosedCellCount()} cells`);
   assert.equal(isEnclosedWater(0, 0), false); assert.equal(isEnclosedWater(NaN, NaN), false); assert.match(ENCLOSED_NOTE, /not resolve/);
 });
+
+test('T-100: a wrapped world copy of a longitude gives the same answer', async () => {
+  const {isEnclosedWater} = await import('../map/enclosed.ts');
+  for (const [lat, lon] of [[37.82, -122.423], [38.2, -122.95]]) { const a = isEnclosedWater(lat, lon); assert.equal(isEnclosedWater(lat, lon + 360), a); assert.equal(isEnclosedWater(lat, lon - 360), a); }
+  assert.equal(isEnclosedWater(37.82, -122.423 + 360), true, 'Central Bay on the next world copy');
+});

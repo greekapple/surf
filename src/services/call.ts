@@ -30,8 +30,9 @@ interface HourCall {verdict: Verdict; why: string[]; hour: SpotHour; breaker: Br
 const PLAIN_FACTOR: Record<string, string> = {'Offshore wave potential': 'Swell energy', 'Wind influence': 'Wind', 'Swell alignment': 'Swell direction', 'Tide compatibility': 'Tide'};
 const plainFactor = (name: string, _e: string) => PLAIN_FACTOR[name] ?? name;
 const ENGINE_WORDS = /heuristic|combined hs|primary \d|\bhs\b|score|weight|using .*guide|wave potential/i;
-function plainReasonFor(i: {factor: string; effect: string; reason: string}): string {
-  if (i.factor === 'Offshore wave potential') return i.effect === '-' ? 'The offshore swell is small or short-period: low surf potential.' : i.effect === '~' ? 'The offshore swell is only moderate.' : 'The offshore swell looks good.';
+export function plainReasonFor(i: {factor: string; effect: string; reason: string}): string {
+  // The engine also subtracts points for combined Hs above 10 ft, so a low factor is not always a small swell (T-100): say "very large" when the reason's own Hs says so, else stay neutral.
+  if (i.factor === 'Offshore wave potential') return i.effect === '-' ? (Number(/combined Hs (\d+(?:\.\d+)?) ft/i.exec(i.reason)?.[1]) > 10 ? 'The offshore swell is very large: the rating treats that much energy as unfavourable.' : 'The offshore swell energy rates low for this hour: small or short-period.') : i.effect === '~' ? 'The offshore swell is only moderate.' : 'The offshore swell looks good.';
   if (i.factor === 'Swell alignment') return i.effect === '-' ? 'The swell direction is a poor match for this beach.' : 'The swell direction is only a fair match for this beach.';
   if (i.factor === 'Tide compatibility') return 'The tide is not ideal for this spot.';
   return ENGINE_WORDS.test(i.reason) ? `${plainFactor(i.factor, i.effect)} is ${i.effect === '-' ? 'poor' : 'only fair'} for this hour.` : `${plainFactor(i.factor, i.effect)}: ${i.reason}`;

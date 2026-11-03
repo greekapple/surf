@@ -21,3 +21,12 @@ test('Compare at night opens on the next morning\'s first light hour (6–11 AM,
   assert.equal(nextMorningHour(times, pst('2026-11-03T02:00:00'), dark), new Date(pst('2026-11-03T07:00:00')).toISOString(), '2 AM → this morning 7 AM');
   assert.equal(nextMorningHour(times, pst('2026-11-03T21:00:00'), dark), new Date(pst('2026-11-04T07:00:00')).toISOString(), '9 PM → tomorrow 7 AM');
 });
+
+test('T-100: Compare at night finds the NEXT daylight hour, today included, with no fixed 6 AM cutoff', () => {
+  const times = Array.from({length: 48}, (_, i) => new Date(pst('2026-11-03T00:00:00') + i * 36e5).toISOString());
+  const hr = (iso: string) => Number(new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', hourCycle: 'h23'}).format(new Date(iso)));
+  const lateDawn = (iso: string) => hr(iso) < 7 || hr(iso) >= 17; // first light after 6
+  assert.equal(nextMorningHour(times, pst('2026-11-03T06:00:00'), lateDawn), new Date(pst('2026-11-03T07:00:00')).toISOString(), '6 AM, still dark: today 7 AM, not tomorrow');
+  assert.equal(nextMorningHour(times, pst('2026-11-03T18:00:00'), lateDawn), new Date(pst('2026-11-04T07:00:00')).toISOString());
+  assert.equal(nextMorningHour(times, pst('2026-11-03T02:00:00'), () => true), null, 'no daylight in range: null');
+});

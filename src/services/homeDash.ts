@@ -99,10 +99,11 @@ export function nextMorningKey(now: number): string {
 /** The morning tab's words: "This morning" before 6 AM (the morning meant is today's), otherwise "Tomorrow AM". */
 export const rankLabel = (w: RankWhen, now: number): {tab: string; title: string} =>
   w === 'tomorrow-am' && pacificHour(new Date(now).toISOString()) < 6 ? {tab: 'This morning', title: 'Best this morning nearby'} : RANK_LABEL[w];
-/** Compare spots at night (T-099): the first daylight hour of the next morning (6–11 AM Pacific, not dark at the reference spot), or null. */
+/** Compare spots at night (T-099, T-100): the NEXT daylight hour (not dark at the reference spot), today's included, as long as it falls before noon Pacific; otherwise null.
+ *  No fixed 6 AM cutoff: when first light is after 6 the hour is still found today instead of a day later. */
 export function nextMorningHour(times: string[], now: number, dark: (iso: string) => boolean): string | null {
-  const key = nextMorningKey(now);
-  return times.find((iso) => Date.parse(iso) > now && pacificDate(iso) === key && pacificHour(iso) >= 6 && pacificHour(iso) <= 11 && !dark(iso)) ?? null;
+  const first = times.find((iso) => Date.parse(iso) > now && !dark(iso));
+  return first && pacificHour(first) <= 11 ? first : null;
 }
 /** The hour a spot is judged at for a ranking: now, three hours on (both exact hours), or the best-rated hour between 6 and 11 AM Pacific on the next morning (nextMorningKey). Null when that spot has no such hour. */
 export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when: RankWhen): number | null {

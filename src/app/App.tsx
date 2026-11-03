@@ -11,14 +11,21 @@ import '../ui/app.css';
 
 // T-091: only Home is in the first bundle. Every other area (and with it Leaflet, the map's land data, Three.js, the quiver studio) loads when it is opened;
 // Forecast (the likeliest next tap, ~22 KB gzip) is prefetched when the browser is idle; Map and Quiver load on demand.
-const lazyArea = <T,>(load: () => Promise<T>, pick: (m: T) => React.ComponentType<any>) => lazy(() => load().then((m) => ({default: pick(m)})));
-const ForecastView = lazyArea(() => import('../features/forecast/ForecastView'), (m) => m.ForecastView);
-const ExploreView = lazyArea(() => import('../features/explore/ExploreView'), (m) => m.ExploreView);
-const QuiverView = lazyArea(() => import('../features/quiver/QuiverView'), (m) => m.QuiverView);
-const PersonalView = lazyArea(() => import('../features/personal/PersonalView'), (m) => m.PersonalView);
+// React caches a rejected lazy import for good, so each area is a holder whose `retry()` makes a NEW lazy component; the error boundary's "Try again" calls it (T-100).
+const lazyArea = <T,>(load: () => Promise<T>, pick: (m: T) => React.ComponentType<any>) => {
+  const make = () => lazy(() => load().then((m) => ({default: pick(m)})));
+  const area = {C: make(), retry() { area.C = make(); }};
+  return area;
+};
+const forecastArea = lazyArea(() => import('../features/forecast/ForecastView'), (m) => m.ForecastView);
+const exploreArea = lazyArea(() => import('../features/explore/ExploreView'), (m) => m.ExploreView);
+const quiverArea = lazyArea(() => import('../features/quiver/QuiverView'), (m) => m.QuiverView);
+const personalArea = lazyArea(() => import('../features/personal/PersonalView'), (m) => m.PersonalView);
+const areas = [forecastArea, exploreArea, quiverArea, personalArea];
 const prefetch = [() => import('../features/forecast/ForecastView')]; // the likeliest next tap; Map (Leaflet + land data, ~240 KB gzip) and Quiver load on demand
 // Three.js loads only when the Wave Scale section of Forecast opens.
-const ScaleView = lazy(() => import('../features/scale/ScaleView').then((m) => ({default: m.ScaleView})));
+const scaleArea = lazyArea(() => import('../features/scale/ScaleView'), (m) => m.ScaleView); // (read-only use of the scale module: its own files are untouched)
+const resetAreas = () => { for (const a of [...areas, scaleArea]) a.retry(); };
 
 export default function App() {
   useThemeSync();
@@ -47,22 +54,22 @@ export default function App() {
           {strip && <SpotStrip go={navigate} onForecast={area === 'forecast'} />}
         </div>
         <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
-          <ErrorBoundary key={area} label={label}>
+          <ErrorBoundary key={area} label={label} onRetry={resetAreas}>
             <Suspense fallback={<StateMessage title={`Loading ${label}…`} />}>
               {area === 'home' && <HomeView section={section} go={navigate} />}
-              {area === 'forecast' && section !== 'wave-scale' && <ForecastView section={section} go={navigate} />}
-              {area === 'explore' && <ExploreView section={section} go={navigate} />}
-              {area === 'quiver' && <QuiverView section={section} go={navigate} />}
+              {area === 'forecast' && section !== 'wave-scale' && <forecastArea.C section={section} go={navigate} />}
+              {area === 'explore' && <exploreArea.C section={section} go={navigate} />}
+              {area === 'quiver' && <quiverArea.C section={section} go={navigate} />}
             </Suspense>
             {area === 'forecast' && section === 'wave-scale' && (
               <Suspense fallback={<StateMessage title="Loading 3D viewer…" />}>
-                <ScaleView section="" go={navigate} />
+                <scaleArea.C section="" go={navigate} />
               </Suspense>
             )}
             {area === 'personal' && (section === 'privacy' || section === 'terms') && <Legal page={section} go={navigate} />}
             {area === 'personal' && section !== 'privacy' && section !== 'terms' && (
               <Suspense fallback={<StateMessage title="Loading Personal…" />}>
-                <PersonalView section={section} go={navigate} />
+                <personalArea.C section={section} go={navigate} />
               </Suspense>
             )}
           </ErrorBoundary>

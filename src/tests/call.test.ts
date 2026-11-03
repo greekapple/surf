@@ -120,3 +120,11 @@ test('T-093: the first plain reason is plain language; the rating engine\'s own 
   assert.ok(calls > 50);
   assert.ok(withDetail > 0, 'the engine detail is kept (for the Why list) in at least one case');
 });
+
+test('T-100: a very large swell is not described as small or short-period', async () => {
+  const {plainReasonFor} = await import('../services/call.ts');
+  const big = plainReasonFor({factor: 'Offshore wave potential', effect: '-', reason: 'Primary 18.0 ft at 18.0 s; combined Hs 20.0 ft. Heuristic ...'});
+  assert.match(big, /very large/); assert.doesNotMatch(big, /small|short/);
+  const small = plainReasonFor({factor: 'Offshore wave potential', effect: '-', reason: 'Primary 1.0 ft at 5.0 s; combined Hs 1.2 ft.'});
+  assert.match(small, /rates low/);
+});

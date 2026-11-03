@@ -116,7 +116,7 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
       // Enclosed waters (bays, harbours) are NOT covered: a light diagonal hatch says so instead of a colour (T-092).
       ctx.fillStyle = 'rgb(120 130 140 / 0.30)'; for (let q = 0; q < encl.length; q += 2) if ((encl[q] + encl[q + 1]) % 2 === 0) ctx.fillRect(encl[q] * step, encl[q + 1] * step, step, step);
       // One quiet "Not covered" label per large enclosed area (bins of 12 x 12 sample cells; a bin needs at least 70 enclosed cells).
-      const bins = new Map<string, {n: number; x: number; y: number}>(); for (let q = 0; q < encl.length; q += 2) { const k = `${Math.floor(encl[q] / 12)}|${Math.floor(encl[q + 1] / 12)}`, b = bins.get(k) ?? {n: 0, x: 0, y: 0}; b.n++; b.x += encl[q]; b.y += encl[q + 1]; bins.set(k, b); }
+      const bins = new Map<string, {n: number; x: number; y: number}>(); for (let q = 0; q < encl.length; q += 2) { if (land[((Math.min(lh - 1, encl[q + 1] * step) | 0) * lw + (Math.min(lw - 1, encl[q] * step) | 0)) * 4 + 3] > 0) continue; /* T-100: no label from cells on land (the shoreline dilation) */ const k = `${Math.floor(encl[q] / 12)}|${Math.floor(encl[q + 1] / 12)}`, b = bins.get(k) ?? {n: 0, x: 0, y: 0}; b.n++; b.x += encl[q]; b.y += encl[q + 1]; bins.set(k, b); }
       for (const b of [...bins.values()].sort((p, q) => q.n - p.n)) { if (b.n < 70) break; const x = (b.x / b.n) * step, y = (b.y / b.n) * step; if (notCovered.some((m) => Math.hypot(m.x - x, m.y - y) < 260)) continue; notCovered.push({x, y}); }
     }
     if (opts.arrows || (opts.flow && opts.reducedMotion)) {

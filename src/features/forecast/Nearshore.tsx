@@ -18,7 +18,7 @@ const when = (iso: string) => `${weekdayPT(iso)} ${dayNumPT(iso)} ${timeLabelPT(
  *  Every value is labelled with the point, depth, product and times. Modelled wave height at depth is never surf height. */
 export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: UserProfile; selectedTime: string; now: number; series?: HourSample[]}) {
   const {view, live} = useSwello();
-  const a = assignmentFor(spot.id), pt = a ? mopPoint(a.mopId) : null, issueInfo = useMopIssue(live ? a?.mopId : null); // the issue time is fetched when this card mounts (T-097)
+  const a = assignmentFor(spot.id), pt = a ? mopPoint(a.mopId) : null, issueInfo = useMopIssue(live ? a?.mopId : null, view.ocean.bundle?.loadedAt); // the issue time is fetched when this card mounts (T-097)
   const head = (sub: string) => <div className="card-h"><h2>Nearshore model</h2><span>{sub}</span></div>;
   if (!a || !pt) {
     const cand = mopCandidates.find((c) => c.spotId === spot.id);

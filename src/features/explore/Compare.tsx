@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState, type CSSProperties} from 'react';
+import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {isDark} from '../forecast/trustApi';
 import {nextMorningHour} from '../../services/homeDash';
 import {hourFreshness} from '../../services/freshness';
@@ -22,10 +22,14 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
   const [zone, setZone] = useState<string>('All');
   const [sort, setSort] = useState<Sort>('rating');
   // T-099: at night nothing is rated, so Compare opens on the next morning's first daylight hour (the same next-morning rule as Home); the stepper stays free.
+  // The data may arrive after this mounts (a direct or refreshed /explore/compare): decide once, as soon as there is an hour to judge, and never again, so a later pick is never overridden (T-100).
+  const decided = useRef(false);
   useEffect(() => {
-    if (!t || !isDark(view.selected, t)) return;
+    if (decided.current || !t) return;
+    decided.current = true;
+    if (!isDark(view.selected, t)) return;
     const m = nextMorningHour(times, now, (iso) => isDark(view.selected, iso)); if (m) view.selectTime(m);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once, on opening
+  }, [t]); // eslint-disable-line react-hooks/exhaustive-deps -- first available hour only
   const rows = useMemo(() => spotOptions.filter((s) => zone === 'All' || zoneOf(s.region) === zone).map((s, order) => {
     const recs = view.mapRecords.filter((r) => r.spotId === s.id);
     const f = recs.find((r) => r.timestamp === t) ?? null;

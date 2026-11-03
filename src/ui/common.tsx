@@ -49,12 +49,12 @@ export function CameraPanel({spotName}: {spotName: string}) {
   );
 }
 
-export class ErrorBoundary extends Component<{children: ReactNode; label: string}, {failed: boolean}> {
+export class ErrorBoundary extends Component<{children: ReactNode; label: string; onRetry?: () => void}, {failed: boolean}> {
   state = {failed: false};
   static getDerivedStateFromError() { return {failed: true}; }
   render() {
     return this.state.failed
-      ? <StateMessage title={`${this.props.label} could not load`} action={<button className="btn" onClick={() => this.setState({failed: false})}>Try again</button>}>Your saved data is unchanged.</StateMessage>
+      ? <StateMessage title={`${this.props.label} could not load`} action={<button className="btn" onClick={() => { this.props.onRetry?.(); this.setState({failed: false}); }}>Try again</button>}>Your saved data is unchanged.</StateMessage>
       : this.props.children;
   }
 }

@@ -18,3 +18,14 @@ test('T-097: the MOP issue time loads on demand, once, with the freshness flag; 
   await loadMopIssue('SF025', flaky); assert.equal(getMopIssue('SF025')!.state, 'ok');
   assert.ok(events > 0); off();
 });
+
+test('T-100: a refreshed forecast bundle invalidates cached issue metadata and reloads it', async () => {
+  const {syncMopIssueEpoch} = await import('../ocean/mopIssue.ts');
+  clearMopIssues(); syncMopIssueEpoch('2026-11-03T10:00:00Z');
+  let calls = 0; const f = async () => { calls++; return DAS; };
+  await loadMopIssue('SF030', f, () => ({cache: 'stale', retrievedAt: 'x'})); assert.equal(getMopIssue('SF030')!.delivery, 'saved');
+  syncMopIssueEpoch('2026-11-03T10:00:00Z'); assert.ok(getMopIssue('SF030'), 'same bundle: kept');
+  syncMopIssueEpoch('2026-11-03T10:12:00Z'); assert.equal(getMopIssue('SF030'), null, 'new bundle: the old issue time and saved flag are not shown');
+  await loadMopIssue('SF030', f, () => ({cache: 'fresh'})); assert.equal(calls, 2); assert.equal(getMopIssue('SF030')!.delivery, undefined, 'the reload carries the new flag');
+  clearMopIssues();
+});
