@@ -32,7 +32,7 @@ test('T-107 week cell: the day\'s typical (midday) range, never the envelope; th
   assert.match(wc.spread!, /^ranges \d+–\d+ ft over daylight$/); assert.equal(wc.spreadLoFt, dr.loFt); assert.equal(wc.spreadHiFt, dr.hiFt); assert.match(wc.midday!, /^midday \d{1,2}[ap]$/);
 });
 test('T-107 week cell: offshore-only and no-data states are kept', () => {
-  const off = {kind: 'offshore' as const, loFt: 2, hiFt: 9, hours: 8, label: '2–9 offshore', basis: '', typical: {atIso: 'x', how: 'midday' as const, hourLabel: '11 AM', short: 'midday 11a', loFt: 5, hiFt: 5, centralFt: 5, hour: {} as any, aria: ''}};
+  const off = {kind: 'offshore' as const, loFt: 2, hiFt: 9, hours: 8, label: '2–9 ft offshore', basis: '', typical: {atIso: 'x', how: 'midday' as const, hourLabel: '11 AM', short: 'midday 11a', loFt: 5, hiFt: 5, centralFt: 5, hour: {} as any, aria: ''}};
   const o = weekCell(off, 'ft'); assert.equal(o.kind, 'offshore'); assert.equal(o.label, '5'); assert.match(o.spread!, /^offshore heights range 2–9 ft over daylight$/); assert.equal(o.stale, null);
   const none = weekCell({kind: 'none', loFt: null, hiFt: null, hours: 0, label: null, basis: '', typical: null}, 'ft'); assert.equal(none.label, '—'); assert.equal(none.centralFt, null); assert.equal(none.spread, null);
 });

@@ -8,6 +8,7 @@ import {rankBoards, recommended} from '../quiver/fit';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {dayRange} from '../../services/spotHour';
+import {dayText} from '../../services/weekCell';
 import {pacificDate} from '../../ocean/time';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
 import {evidenceSpots} from '../../ocean/spots';
@@ -219,15 +220,17 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const ty = dr.typical, env = dr.kind !== 'none' && dr.loFt !== null && dr.hiFt !== null ? [dr.loFt, dr.hiFt] : null;
         const range = ty ? [ty.loFt, ty.hiFt] : demo.length ? [median(demo.map((x) => x.ft)), median(demo.map((x) => x.ft))] : null;
         const kind = dr.kind === 'estimate' ? 'est.' : dr.kind === 'offshore' ? 'offshore' : demo.length ? 'demo' : '';
-        const lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null;
+        // T-112: the main number is the SAME text the week grid shows (dayText: the midday hour's headline value, in the person's unit and scale); the demo week keeps its own median.
+        const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
+        const envText = env && dr.label ? `${dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '')}${dr.kind === 'offshore' ? ` ${p.heightUnit}` : ''}` : null;
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
-        if (k === cur && env) selNote = `Range over daylight: ${ht(env[0], p, 0)}–${ht(env[1], p, 0)} ${p.heightUnit} (${kind === 'est.' ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
+        if (k === cur && env) selNote = `Range over daylight: ${envText} (${kind === 'est.' ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
         return (
           <button key={d.key} className="sp-day day" data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)}
-            aria-label={`${name}: ${range ? `typically ${lo === hi ? lo : `${lo} to ${hi}`} ${p.heightUnit} ${kind === 'est.' ? 'estimated' : kind}${ty ? `, ${ty.aria}` : ''}${env ? `; range over daylight ${ht(env[0], p, 0)} to ${ht(env[1], p, 0)}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
+            aria-label={`${name}: ${range ? `typically ${mainNum.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week: the highest average rating over its 6 AM–7 PM hours. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
-            <span className="sd-h">{range ? <>{lo === hi ? lo : `${lo}–${hi}`}<small>{p.heightUnit}</small></> : '—'}</span>
+            <span className="sd-h">{range ? <>{mainNum}<small>{unitSuffix}</small></> : '—'}</span>
             <span className="sd-k" title={ty ? ty.aria : undefined}>{kind}{ty ? ` · ${ty.short}` : ''}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
             <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark ? `${b.label}: dark, no rating` : undefined} style={{background: dark ? 'var(--ch-night-strong, #2b3a46)' : b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>

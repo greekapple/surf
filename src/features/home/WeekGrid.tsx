@@ -3,7 +3,7 @@ import {pacificDateMs, pacificHour} from '../../ocean/time';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {OceanBundle} from '../../ocean/types';
 import {dayRange, type DayRange} from '../../services/spotHour';
-import {weekCell, type WeekCell} from '../../services/weekCell';
+import {weekCell, dayText, type WeekCell} from '../../services/weekCell';
 import {rateForecast} from '../../ratings/adapters';
 import {isDark} from '../forecast/trustApi';
 import {BAND_COLOR, bandOf} from '../forecast/model';
@@ -61,7 +61,8 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
               {cells.map((c, i) => {
                 const wc = c.wc, est = wc.kind === 'estimate', off = wc.kind === 'offshore', label = wc.label;
                 const st = wc.stale ? `, ${wc.stale === 'saved' ? 'saved' : 'stale'} source` : '';
-                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${label} ${unit} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${label} ${unit} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
+                const fullText = dayText(c.dr.typical)?.full ?? `${label} ${unit}`; // T-112: unit and Hawaiian qualifier, as the spot page says it
+                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>

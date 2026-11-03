@@ -10,6 +10,8 @@ import {Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from '../forecast/model';
 import {compass, ht, windVal} from '../forecast/helpers';
 import {bestWindowFrom} from '../../services/call';
+import {headlineSurf} from '../../services/headlineSurf';
+import {estimateLabel} from '../../services/headlineLabel';
 import {weekdayPT} from '../forecast/format';
 
 /** Distance bands, by how realistic a session is (straight-line miles; drive time is longer). */
@@ -49,7 +51,8 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       const rating = f ? rateForecast(s, f, now) : null;
       const best = bestWindowFrom(s, p, {records: recs, bundle: view.ocean.bundle, nowMs: now}, now); // T-108: the call's best window, same as the spot page
       const dist = anchor ? miles([anchor.lat, anchor.lon], [e.latitude, e.longitude]) : Infinity;
-      return [{s, e, f, rating, best, dist}];
+      const est = f ? estimateLabel(headlineSurf(s.id, f, {bundle: view.ocean.bundle, nowMs: now}), p) : null; // T-112: the surf estimate where one exists, like the spot page and Compare
+      return [{s, e, f, rating, best, dist, est}];
     });
   }, [spotOptions, view.mapRecords, view.selectedTime, view.ocean.bundle, p, now, anchor?.lat, anchor?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -62,7 +65,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       <i className="fs-bar" style={{background: r.rating ? BAND_COLOR[bandOf(r.rating.category)] : 'var(--none)'}} />
       <button className="fs-main" onClick={() => open(r.s.id, 'forecast')}>
         <span className="fs-name"><b>{r.s.name}</b><small>{r.s.region}{Number.isFinite(r.dist) ? ` · ${Math.round(r.dist)} mi` : ''}</small></span>
-        <span className="fs-hs">{r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit}</small></> : '—'}</span>
+        <span className="fs-hs">{r.f && r.est ? <span title={`${r.est.tag} · ${r.est.detail}`}>{r.est.value}<small> {r.est.suffix}</small><span className="sr-only">: {r.est.tag}. {r.est.detail}</span></span> : r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
         <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{conditionWord(r.rating.category)}</em> : <small>no record</small>}</span>
         <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}{r.f && Number.isFinite(r.f.wind.speed) && <StaleTag s={hourFreshness(r.f, now).wind} />}</span>
         <span className="fs-best">{r.best ? `Best ${r.best.when} ${r.best.label}` : ''}</span>
@@ -106,7 +109,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
           </section>
         );
       })}
-      <p className="fine">Distances are straight-line from {anchor?.label ?? 'the selected spot'}, not driving distance. Heights are offshore model values, not surf height; ratings are provisional.</p>
+      <p className="fine">Distances are straight-line from {anchor?.label ?? 'the selected spot'}, not driving distance. Heights are the surf estimate where one exists (est.), otherwise the offshore model value, labelled offshore (not surf size); ratings are provisional.</p>
     </div>
   );
 }
