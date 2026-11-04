@@ -531,11 +531,16 @@ function OceanMap({section, go}: ViewProps) {
   // Track 2: the card's next-hours bars, from the shown hour: each record's surf estimate (offshore-only and missing hours are gaps) and its rating colour.
   const hoursFor = (id: string): HourBar[] => {
     const t0 = view.selectedTime ? Date.parse(view.selectedTime) : now, s = surfSpot(id);
-    return view.mapRecords.filter((r) => r.spotId === id && Date.parse(r.timestamp) >= t0 && Date.parse(r.timestamp) < t0 + 12 * 36e5)
-      .sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).map((r) => {
-        const h = headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}), rt = !isDark(id, r.timestamp) ? rateForecast(s, r, now) : null, ok = !!rt && rt.score !== null;
-        return {t: Date.parse(r.timestamp), lo: h.kind === 'estimate' ? h.loFt : null, hi: h.kind === 'estimate' ? h.hiFt : null, c: ok ? BAND_COLOR[bandOf(rt!.category)] : 'var(--none)', rated: ok};
-      });
+    const byT = new Map(view.mapRecords.filter((r) => r.spotId === id && Date.parse(r.timestamp) >= t0 && Date.parse(r.timestamp) < t0 + 12 * 36e5).map((r) => [Date.parse(r.timestamp), r]));
+    if (!byT.size) return [];
+    // Codex P2 (T-121): one slot per hour, so an hour with no record shows as a gap instead of the bars closing up.
+    const h0 = Math.ceil(t0 / 36e5) * 36e5;
+    return Array.from({length: 12}, (_, i) => h0 + i * 36e5).filter((t) => t < t0 + 12 * 36e5).map((t) => {
+      const r = byT.get(t);
+      if (!r) return {t, lo: null, hi: null, c: 'var(--none)', rated: false};
+      const h = headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}), rt = !isDark(id, r.timestamp) ? rateForecast(s, r, now) : null, ok = !!rt && rt.score !== null;
+      return {t, lo: h.kind === 'estimate' ? h.loFt : null, hi: h.kind === 'estimate' ? h.hiFt : null, c: ok ? BAND_COLOR[bandOf(rt!.category)] : 'var(--none)', rated: ok};
+    });
   };
   const callSpot = callout ? surfSpot(callout) : null, callRec = callout ? recAt(callout) : undefined;
   const callEv = evidenceSpots.find((e) => e.id === callout);
@@ -617,7 +622,7 @@ function OceanMap({section, go}: ViewProps) {
   const extras = pointExtras(point.data, view.selectedTime); // picker values per layer: wind gust, swell period and direction, from the point forecast at the same hour
   if (pt && pv && !pv.note && (fieldId === 'waves' || fieldId === 'swell') && point.data && view.selectedTime) { // no period for an empty swell partition
     const t = Date.parse(view.selectedTime) / 1000, d = point.data, k = d.time.reduce((best, x, i) => (Math.abs(x - t) < Math.abs(d.time[best] - t) ? i : best), 0);
-    const x = Math.abs(d.time[k] - t) <= 5400 ? (fieldId === 'swell' ? (d.swellPeriod?.[k] ?? d.wavePeriod?.[k]) : (d.wavePeriod?.[k] ?? d.swellPeriod[k])) : null; if (x !== null && x !== undefined) { perS = x; perFromPoint = true; } // the swell layer reads the SWELL period, waves the total sea's
+    const x = Math.abs(d.time[k] - t) <= 5400 ? (fieldId === 'swell' ? d.swellPeriod?.[k] : (d.wavePeriod?.[k] ?? d.swellPeriod[k])) : null; if (x !== null && x !== undefined) { perS = x; perFromPoint = true; } // the swell layer reads the SWELL period only (Codex P2, T-120: never the total sea's in its place), waves the total sea's
   }
   // map-review (b): a 0-ft swell point is wind sea only; the label gives that wind sea's height from the WAVES frame of the same hour (same model
   // family as the swell frame), fetched only while such a point is open.

@@ -522,8 +522,8 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 3D R9 merged ddee6c5 (Fable): a real tube (C-shaped roof, lip thrown out; atlas rebuilt locally in the main checkout), honest in-tube check (R8's 6 ft tube time was head-in-lip), Expert barrels 6/8/12 ft 1.6/4.3/3.6 s, Intermediate cover-ups. 536 tests, journeys 8/8, t104/t062/t034 pass. Known regression: the 6 ft snap recovery clips 0.16–0.22 m for 0.18 s (gate 0.15) with a wake flip; the barrel stall flip samples up. → R10 (roof-aware snap hit).
 - 3D R10 (branch `3d-r10`, Fable, not merged): R9's two regressions only. The barrel stall flip was a 0.6 m jump of the ahead floor at the ahead=0 crossing (fixed: the floor fades across a tube segment; the board never travels backwards over the water): 6 ft Expert heading max 177→4.8, wake 19→0; 12 ft 151→19.5. The 6 ft snap: hitAhead removed, band C's hit drops 0.10 with the pivot plus a measured-end lowering: clip 12→0, board 74–80° at the hit, 4 ft unchanged; wake gate 60→65 (the unwinding slide, 61–62° for 0.05 s). Matrix 18 cells: all gates 0 except the sampler hitch (6 ft Expert jerk 6/1). Tube time 1.57/4.29/3.77 s (was 1.6/4.28/3.77). Findings §12.
 - Codex night-2 drain (19 reviews + R10): 0 P0/P1. P2s, open:
-  - T-120 (data honesty) missing swell period shown as the total-wave period — ExploreView.tsx:578 (c51aa27)
-  - T-121 (data honesty) missing hours closed up in the next-hours strip instead of gaps — ExploreView.tsx:530 (b3a50a9)
+  - T-120 FIXED (data honesty) missing swell period shown as the total-wave period — ExploreView.tsx:578 (c51aa27)
+  - T-121 FIXED (data honesty) missing hours closed up in the next-hours strip instead of gaps — ExploreView.tsx:530 (b3a50a9)
   - T-122 "Spots in view" excludes more of the map than the desktop list covers — ExploreView.tsx:162 (b3a50a9)
   - T-123 MapLibre glField: particle mask palette vs heat setting; arrows not masked on land/enclosed water — glField.ts:99,142 (08e6f04)
   - T-124 MapLibre init should reject when the style can't load — maplibreEngine.ts:84 (08e6f04)
