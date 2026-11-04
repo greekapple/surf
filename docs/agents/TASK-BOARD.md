@@ -531,3 +531,7 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
   - T-126 barrel stall speed floor (2.5 m/s) should scale with wave size — rideSim.ts:155 (3835596)
 - Codex on 3D R7–R9: P1 (3199675) build_atlas.sh copied surfer-v5: already fixed at HEAD by R8 (copies v7; live surfer.glb = v7, checked). P2 open:
   - T-127 rideSim.ts:227 the snap's head lead and arm-drop latch read the lookahead sample (planAt overwrites this.ps), so the early arm drop misses the snap's last 0.3 s; fix in the next 3D round with the glitch matrix.
+
+## T-128: Map zoom rework, one GPU canvas like Windy (spec docs/specs/2026-11-04-map-zoom-rework.md, APPROVED "yes to all")
+- Level 3. Engineering, branch `map-zoom-rework`: (a) particle respawn on big zooms, (b) tile over-fetch + zoom-3 preload, (c) IndexedDB frame cache + Cache-Control, (d) MapLibre default with `?engine=leaflet` fallback. Product: first-paint "from cache · updating" label, pins and 390 sheet on the flipped engine. Lead: zoom films vs Windy, 1440/390, light/dark.
+- Then: the user's R2 bucket + secrets → the 0.25° pipeline workflow (docs/map-pipeline.md).
