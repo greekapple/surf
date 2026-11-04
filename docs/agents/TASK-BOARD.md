@@ -541,3 +541,6 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - T-128 follow-ups (product): map-zoom-jump now fails a case only on ≥2 consecutive bad frames, with a coastline straight-edge exemption (toolkit, backup map-zoom-jump.mjs.pre-t128); MapLibre light+dark 24/24, 4 lone frames logged (dark ocean-out5 9.7% vs 6.5% one frame). North-bay magenta not reproduced on GFS-Wave 0.25°; WW3-fallback path → engineering (low).
 - North-bay magenta closed: the WW3 fallback path is also clean (same enclosed mask in the shader, d30fce3); the earlier sighting was a stale mask JSON. Dark ocean-out5 lone frame: cause unproven, not chased.
 - Production 3D (user 2026-11-04): the licensed wave atlas is deployed to the private Cloudflare site only (npm run deploy → build:cf:private verifies Access first; anonymous requests to /media/scale3d-atlas/* redirect to sign-in). Before a public launch: drop --private-site and clear the TurboSquid licence or ship the waves non-extractable.
+
+## T-130: Every spot shows a surf height (spec docs/specs/2026-11-04-spot-surf-heights.md, APPROVED)
+- Lead: spot facts with citations for Mavericks, Cowell's, Shelter Cove, Rincon. Engineering (after T-129), branch spot-heights: MOP assignments, blocked-hour nearshore range instead of offshore, Flat, measured-nearby. Product: labels. data-honesty-reviewer before merge.

@@ -1,5 +1,5 @@
 # Spots: every spot shows a surf height, never just the offshore number
-Status: **DRAFT, waiting for the user's approval** (user 2026-11-04: "I want every spot that we have so far to have real wave heights, not just offshore estimates").
+Status: **APPROVED** (user 2026-11-04: both answers approved: blocked swell shows the model's small nearshore range, numbers keep the "surf estimate" label) (user 2026-11-04: "I want every spot that we have so far to have real wave heights, not just offshore estimates").
 
 ## Context
 - 45 spots (`src/data/catalog.ts`). The headline number is decided in `src/services/headlineSurf.ts`, in this order:
