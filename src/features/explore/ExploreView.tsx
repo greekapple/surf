@@ -15,7 +15,7 @@ import {conditionWord} from '../../ui/Condition';
 import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
-import {attachField, buildField, RAMP, RANGE, RANGE_WIDE} from '../../map/field';
+import {attachField, buildField, rampFor, RANGE, RANGE_WIDE} from '../../map/field';
 import {addBasemap} from '../../map/basemap';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
@@ -436,7 +436,7 @@ function OceanMap({section, go}: ViewProps) {
           onPlay={() => setPlaying(!playing)} onStep={(d) => { setPlaying(false); stepBy(d); }} onRange={setStep}
           onHorizon={(d) => { setHorizon(d); const t0 = Date.parse(allTimes[0] ?? ''); if (view.selectedTime && Date.parse(view.selectedTime) > t0 + d * 864e5) view.selectTime([...allTimes].filter((t) => Date.parse(t) <= t0 + d * 864e5).pop()!); }}
           onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }} />
-        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={RAMP} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} note={<>{status} {ENCLOSED_NOTE}</>} />
+        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={rampFor((frame ?? gframe)!.unit, wide)} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} note={<>{status} {ENCLOSED_NOTE}</>} />
           : slow && waiting ? <button type="button" className="xchip xstatus" onClick={() => { setSlow(false); spatial.retry(); }}>{status} · <u>Retry</u></button>
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
       </div>

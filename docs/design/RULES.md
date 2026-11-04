@@ -25,3 +25,8 @@ Also from the user's saved reels (`ScreenRecording_10-28-2026 10-05-00_1.MP4`): 
 - Touch targets >= 44 px on phones; inputs >= 16 px font on mobile.
 - Privacy and Terms pages linked from every page footer.
 - Verify in a real browser at 1440 and 390, and look at the screenshots.
+
+## Map colours: Windy's ramp (user decision, 2026-11-04)
+- **Maps use the Windy ramp by user decision, 2026-11-04.** This replaces the "no rainbow" rule (item 4 above and the T-109 one-hue ramp) **for the map's sea-state field only**; every other surface keeps the rule.
+- The stops are sampled from the Windy reference captures (`~/Development/swello-design-references/18-teardown-2026-10-31/windy/`, the wave legend "ft 1.6 3.3 5 6.6 20 30" and the wind map's legend); the sampled values live in `src/map/colors.ts` and are pinned by `src/tests/map-colors.test.ts`. Reference only: no Windy code or imagery ships.
+- The map keeps the honesty rules: the legend says "Offshore wave height · not surf size", opacity stays about 0.72 so the coast and basemap read, land is never painted, enclosed waters stay hatched "Not covered".
