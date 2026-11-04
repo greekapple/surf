@@ -12,8 +12,10 @@ export function legendValue(value:number,unit:SpatialFrame['unit'],p:UserProfile
 /** Windy wave-height ramp: [feet, colour]. Teal for calm, through blue and indigo, to maroon, red and pale salmon for huge seas. */
 export const WINDY_WAVES_FT: readonly (readonly [number, string])[] = [[0, '#329eba'], [1.6, '#2e93ad'], [3.3, '#2d5c88'], [5, '#3664b4'], [6.6, '#4b50b8'], [8, '#8648b4'], [9.5, '#a037a0'], [11.5, '#992d82'],
   [13, '#992a6d'], [15, '#912d4a'], [17.5, '#882f34'], [20, '#a23047'], [24, '#c16162'], [27.5, '#c0776a'], [30, '#c0a39d']];
-/** Windy wind ramp, equally spaced from calm to storm: violet-blue, blue, teal, green, olive, rust, magenta, purple. */
-export const WINDY_WIND = ['#6271b8', '#4f70ad', '#4688a5', '#4a9296', '#45836a', '#4ca250', '#659132', '#a27f49', '#905d53', '#8f435c', '#8c447c', '#7a5898', '#5e70a0'] as const;
+/** Windy wind ramp: [knots, colour], sampled from the wind map's legend strip ("kt 0 5 10 20 30 40 60", equal spacing between ticks, so we interpolate in knots between stops): violet-blue calm, blue, teal, green, olive, rust, magenta, violet, slate at storm. */
+export const WINDY_WIND_KT: readonly (readonly [number, string])[] = [[0, '#6271b8'], [1.75, '#476fa9'], [4.25, '#4688a5'], [6.75, '#4a939a'], [9.25, '#48877b'], [13.5, '#4c9e59'], [18.5, '#589737'], [23.5, '#928f3d'], [26, '#a28146'],
+  [31, '#8e5a53'], [33.5, '#934c5c'], [36, '#8f4268'], [38.5, '#8c447c'], [42, '#7d4986'], [47, '#6e5d9c'], [52, '#5e6ca0'], [57, '#547494'], [62, '#527b92']];
+const KT_PER_MS = 1.943844;
 const FT_PER_M = 1 / 0.3048;
 const hexRgb = (h: string): [number, number, number] => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)) as [number, number, number];
 const mix = (a: string, b: string, f: number): [number, number, number] => { const x = hexRgb(a), y = hexRgb(b); return [0, 1, 2].map((k) => Math.round(x[k] + (y[k] - x[k]) * f)) as [number, number, number]; };
@@ -22,12 +24,16 @@ export function windyWaveColor(metres: number): [number, number, number] {
   const ft = Math.max(0, Math.min(30, metres * FT_PER_M)), s = WINDY_WAVES_FT; let i = s.findIndex(([v]) => ft <= v) - 1; if (i < 0) i = ft <= 0 ? 0 : s.length - 2;
   return mix(s[i][1], s[i + 1][1], (ft - s[i][0]) / (s[i + 1][0] - s[i][0]));
 }
-function windyWindColor(t: number): [number, number, number] { const x = Math.max(0, Math.min(1, t)) * (WINDY_WIND.length - 1), i = Math.min(WINDY_WIND.length - 2, Math.floor(x)); return mix(WINDY_WIND[i], WINDY_WIND[i + 1], x - i); }
-/** The map's colour for a value in a field's unit over the display range [lo, hi]: metres use Windy's wave ramp at the true wave height; period (s) walks the same ramp teal to red across its range; wind (m/s) uses Windy's wind ramp. */
+/** Windy's wind colour for a speed in metres per second (their legend is in knots). */
+export function windyWindColor(ms: number): [number, number, number] {
+  const kt = Math.max(0, Math.min(62, ms * KT_PER_MS)), s = WINDY_WIND_KT; let i = s.findIndex(([v]) => kt <= v) - 1; if (i < 0) i = kt <= 0 ? 0 : s.length - 2;
+  return mix(s[i][1], s[i + 1][1], (kt - s[i][0]) / (s[i + 1][0] - s[i][0]));
+}
+/** The map's colour for a value in a field's unit over the display range [lo, hi]: metres use Windy's wave ramp at the true wave height; period (s) walks the wave ramp teal to red across its range (no Windy capture of its period legend: the honest fallback); wind (m/s) uses Windy's wind ramp at the true speed. */
 export function mapColor(value: number, unit: string, lo: number, hi: number): [number, number, number] {
   const t = Math.max(0, Math.min(1, (value - lo) / (hi - lo || 1)));
   if (unit === 'm') return windyWaveColor(value);
-  if (unit === 'm/s') return windyWindColor(t);
+  if (unit === 'm/s') return windyWindColor(value);
   if (unit === 's') return windyWaveColor((t * 20) / FT_PER_M); // 0..20 ft of the wave ramp (teal to red)
   return windyWaveColor(t * 9);
 }
@@ -45,3 +51,13 @@ export const rampFor = (unit: string, wide = false): string[] => { const [lo, hi
 /** Kept for importers: the coastal wave ramp. */
 export const RAMP = rampFor('m');
 
+
+/** 256-step lookup table of the map colours over the display range, shared by the painter and the tests, so the painted pixel and the pin label come from one function. */
+export function colorLut(unit: string, lo: number, hi: number): Uint8Array {
+  const lut = new Uint8Array(256 * 3); for (let q = 0; q < 256; q++) { const c = mapColor(lo + ((hi - lo) * q) / 255, unit, lo, hi); lut[q * 3] = c[0]; lut[q * 3 + 1] = c[1]; lut[q * 3 + 2] = c[2]; }
+  return lut;
+}
+export const lutIndex = (value: number, lo: number, hi: number) => Math.max(0, Math.min(255, Math.round(((value - lo) / (hi - lo || 1)) * 255))) * 3;
+
+/** Legend tick values (native units: metres, seconds, metres per second) for a unit and view, so each layer's legend carries its own ticks; the caller formats them in the person's units. */
+export const legendTicks = (unit: string, wide = false): number[] => (unit === 'm' ? (wide ? [1, 3, 5, 7, 9] : [1, 2, 3, 4]) : unit === 's' ? (wide ? [6, 10, 14, 18] : [8, 10, 12, 14, 16, 18]) : unit === 'm/s' ? (wide ? [5, 10, 15, 20, 25] : [2.572, 5.144, 10.289, 15]) : []);

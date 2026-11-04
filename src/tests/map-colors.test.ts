@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {WINDY_WAVES_FT, WINDY_WIND, windyWaveColor, mapColor, legendRamp, rampFor, RANGE, RANGE_WIDE} from '../map/colors.ts';
+import {WINDY_WAVES_FT, WINDY_WIND_KT, windyWindColor, legendTicks, windyWaveColor, mapColor, legendRamp, rampFor, RANGE, RANGE_WIDE} from '../map/colors.ts';
 
 // T-115 (user decision 2026-11-04): the map uses Windy's colours, sampled from the reference legend strip. These tests pin the sampled stops and the properties the product needs (a visible gradient, legend == field).
 const hex = (c: number[]) => '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
@@ -25,7 +25,12 @@ test('the legend ramp IS the field\'s function: first and last stops are the col
   }
   assert.notEqual(rampFor('m', false).at(-1), rampFor('m', true).at(-1), 'the wide view reaches different (larger) seas');
 });
-test('wind uses Windy\'s wind ramp from calm to storm; period walks the wave ramp teal to red', () => {
-  assert.equal(hex(mapColor(0, 'm/s', 0, 15)), WINDY_WIND[0]); assert.equal(hex(mapColor(15, 'm/s', 0, 15)), WINDY_WIND.at(-1));
+test('wind uses Windy\'s wind ramp at the true speed (knots on their legend); period walks the wave ramp teal to red', () => {
+  for (const [kt, h] of WINDY_WIND_KT) assert.equal(hex(windyWindColor(kt / 1.943844)), h, `${kt} kt`);
+  assert.equal(hex(mapColor(0, 'm/s', 0, 15)), '#6271b8'); assert.equal(hex(mapColor(40, 'm/s', 0, 15)), '#527b92');
+  assert.notEqual(hex(mapColor(5, 'm/s', 0, 15)), hex(mapColor(12, 'm/s', 0, 15)), 'blue-teal vs green');
   assert.equal(hex(mapColor(6, 's', 6, 18)), '#329eba'); assert.notEqual(hex(mapColor(18, 's', 6, 18)), '#329eba');
+});
+test('each layer carries its own legend ticks inside its display range', () => {
+  for (const unit of ['m', 's', 'm/s']) for (const wide of [false, true]) { const [lo, hi] = (wide ? RANGE_WIDE : RANGE)[unit], t = legendTicks(unit, wide); assert.ok(t.length >= 4, `${unit} ${wide}`); assert.ok(t.every((v) => v >= lo && v <= hi), `${unit} ${wide} in range`); assert.deepEqual([...t].sort((a, b) => a - b), t); }
 });

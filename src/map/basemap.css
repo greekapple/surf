@@ -10,3 +10,7 @@
 .leaflet-container[data-heat='on'].mb-dark { background: #7a7a7d; }
 .leaflet-container[data-heat='on'].mb-dark .xbase { filter: grayscale(1) brightness(2.4) contrast(0.85); }
 .leaflet-container[data-heat='on'].mb-dark .leaflet-pane.leaflet-labels-pane, .leaflet-container[data-heat='on'].mb-dark .leaflet-labels-pane { filter: brightness(1.6); }
+/* T-117: dark theme, the same Windy-style grey basemap but darker (charcoal land, light labels), so the field's colours still read and the map does not glare next to dark chrome. */
+:root[data-theme='dark'] .leaflet-container[data-heat='on'].mb-dark { background: #3b3b3f; }
+:root[data-theme='dark'] .leaflet-container[data-heat='on'].mb-dark .xbase { filter: grayscale(1) brightness(1.45) contrast(0.9); }
+:root[data-theme='dark'] .leaflet-container[data-heat='on'].mb-dark .leaflet-labels-pane { filter: brightness(1.3); }
