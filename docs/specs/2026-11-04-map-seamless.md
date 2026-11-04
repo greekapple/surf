@@ -14,6 +14,11 @@ Status: **APPROVED, queued** (user: "when finished with all tasks you see fit, c
   - a higher-resolution data source and a tiled pre-processing pipeline is a written proposal, not implemented without OK (backend, possible cost).
 - **Repo rules:** public repo; nothing licensed; Open-Meteo/ERDDAP quota (light QA); data honesty (offshore height, not surf size; coastal fill documented and limited to the model's own neighbours; no invented data).
 
+## User decisions (2026-11-04)
+- **Data source:** YES to GFS-Wave 0.25° (NOAA, AWS Open Data, public domain) via a scheduled pre-processing job → one packed 16-bit PNG per (field, hour) on Cloudflare R2 (cents/month).
+  - The user creates/connects the Cloudflare account and bucket; the lead never enters credentials; the job code is built and tested locally first.
+- **MapLibre:** YES to a one-day spike on its own branch after Stages 1 and 3, reporting bundle, fps and effort. No real migration without the user's OK on the numbers.
+
 ## Owners
 - **Engineering:** findings note, rendering (GPU field, worker decode, cache and prefetch), colour scales, land mask and coastal fill, nest blend, coverage, particles, timeline interpolation, performance.
 - **Product:** persistent map and URL state, crossfades and loading UI, legend, popover contrast, spot declutter, point picker, search merge, mobile layout, the Playwright verification script.
