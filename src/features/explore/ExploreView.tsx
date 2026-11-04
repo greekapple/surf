@@ -18,6 +18,7 @@ import {weekdayPT} from '../forecast/format';
 import {createFieldController, buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {schedulePrefetch} from '../../map/spatial';
+import {attachDebugOverlay, debugEnabled, type DebugInfo} from '../../map/debugOverlay';
 import {addBasemap} from '../../map/basemap';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
@@ -502,6 +503,10 @@ function OceanMap({section, go}: ViewProps) {
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
   const modelName = packedGlobal ? 'GFS-Wave 0.25° · NOAA' : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;
+  // Debug overlay (?debug=1, dev only): what the map is painting, from the same frames the field uses.
+  const debugInfo = useRef<DebugInfo | null>(null);
+  { const f = gframe ?? frame; debugInfo.current = f && opts.heat ? {model: modelName, source: f.provider, run: packedGlobal ? (/run ([^)]*)\)/.exec(f.provider)?.[1] ?? '?') : 'n/a (ERDDAP best series, no run id)', validAt: f.validAt, retrievedAt: f.retrievedAt, layer: (paintedDef.label ?? def.label), held: paintedDef.id !== def.id} : null; }
+  useEffect(() => (debugEnabled() ? attachDebugOverlay(() => debugInfo.current) : undefined), []);
 
   return (
     <div ref={rootRef} className="xmap" data-d={phone ? detent : undefined}>

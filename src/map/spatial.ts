@@ -82,6 +82,9 @@ export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<S
 
 /** Coarse worldwide frame from /api/globe (2-degree stride of the native grid): context for the zoomed-out map, under the regional grid. */
 const globeFrames=createFrameCache(mapConfig.cache.globeFrames,mapConfig.cache.globeTtlMs);
+export const globeCacheStats=()=>globeFrames.stats();
+/** Debug overlay (?debug=1): the idle prefetch queue. */
+export const prefetchState={queued:0,done:0,failed:0,running:false};
 export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  const key='globe'+JSON.stringify(spec),hit=globeFrames.get(key);if(hit)return hit;
  const packed=await loadPackedGlobe(spec,signal).catch(()=>null);if(packed){globeFrames.set(key,packed);return packed;} // GFS-Wave 0.25° from the pipeline when a frames base URL is configured and has this exact hour; otherwise the 0.5° service below
@@ -118,7 +121,9 @@ export function schedulePrefetch(layer:MapLayer,variable:MapVariable,time:string
   const t0=Date.parse(time);if(!Number.isFinite(t0))return;const specs:SpatialSpec[]=[];
   for(const h of [...cfg.hoursAhead,...cfg.hoursBack.map(x=>-x)]){const t=t0+h*3600000;if(known.size&&!known.has(Math.floor(t/step)))continue;const sp=spatialSpec(layer,variable,new Date(t).toISOString(),false);if(sp)specs.push(sp);}
   const next=cfg.nextLayer?NEXT_LAYER[layer==='WAVES'&&variable==='Period'?'WAVES':layer]:undefined;if(next){const sp=spatialSpec(next.layer,next.variable,time,false);if(sp)specs.push(sp);}
-  for(const sp of specs){if(cancelled)return;await Promise.allSettled([loadSpatial(sp,ctl.signal),loadGlobe(sp,ctl.signal)]);}
+  prefetchState.queued+=specs.length;prefetchState.running=true;
+  for(const sp of specs){if(cancelled){prefetchState.queued-=specs.length-specs.indexOf(sp);break;}const r=await Promise.allSettled([loadSpatial(sp,ctl.signal),loadGlobe(sp,ctl.signal)]);prefetchState.queued--;if(r.some(x=>x.status==='rejected'))prefetchState.failed++;else prefetchState.done++;}
+  prefetchState.running=prefetchState.queued>0;
  };
  const idle=(typeof window!=='undefined'?(window as unknown as {requestIdleCallback?:(cb:()=>void,o?:{timeout:number})=>number}).requestIdleCallback:undefined),id=idle?idle(()=>{void run().catch(()=>{});},{timeout:cfg.idleTimeoutMs}):setTimeout(()=>{void run().catch(()=>{});},cfg.idleTimeoutMs) as unknown as number;
  return()=>{cancelled=true;ctl.abort();if(!idle)clearTimeout(id);};
