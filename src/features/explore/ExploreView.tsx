@@ -56,6 +56,8 @@ const themeNow = () => (document.documentElement.dataset.theme === 'dark' ? 'dar
 
 /** How many spots carry a name label at this zoom (Surfline map: the selected spot and the best few; the rest are dots). */
 // T-116: labels only for the selected spot and the top-rated few (Windy-quiet); the rest are rating-coloured dots that name themselves on hover or focus.
+/** The popular spots (as Home's "Popular spots"): after favourites, they get labels and survive low-zoom thinning. */
+const POPULAR_SPOTS = ['spot-2', 'spot-0', 'spot-3'];
 const labelBudget = (zoom: number, phone: boolean) => (zoom < 9 ? (phone ? 1 : 2) : zoom < 11 ? (phone ? 2 : 3) : (phone ? 3 : 5));
 
 export function ExploreView({section, go}: ViewProps) {
@@ -94,6 +96,7 @@ function OceanMap({section, go}: ViewProps) {
   const pins = useRef<L.LayerGroup | null>(null);
   // Tap-the-sea point forecast: one popup, one temporary pin.
   const [pt, setPt] = useState<Pt | null>(null);
+  const [livePt, setLivePt] = useState<Pt | null>(null); // Stage 6: the picker's position while it is being dragged or nudged (the value follows it live)
   const closedAt = useRef(0); // T-099: a touch tap on the card's close button also reached the map and opened a new point where the finger was
   const [panel, setPanel] = useState(false); // T-117: the point's hourly panel (expand from the pin label)
   const [sheetOn, setSheetOn] = useState(false); // T-117: phones show the spot sheet only once a spot is picked or the search is used (Windy)
@@ -157,7 +160,7 @@ function OceanMap({section, go}: ViewProps) {
     // Light or dark Esri Canvas basemap by theme (satellite on request), with maxNativeZoom so tiles upscale: src/map/basemap.ts (T-042).
     const disposeBase = addBasemap(m);
     pins.current = L.layerGroup().addTo(m);
-    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup xpl-pop', minWidth: 170, maxWidth: 280, offset: [0, -4], autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
+    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup xpl-pop', minWidth: 170, maxWidth: 280, offset: [0, -16], autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
     popup.current.setContent(popupEl);
     m.on('click', (e: L.LeafletMouseEvent) => { if (Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: e.latlng.lat, lon: (((e.latlng.lng + 180) % 360) + 360) % 360 - 180}); } }); // T-117: the exact point (the label samples the field there)
     map.current = m; if (import.meta.env.DEV) (window as unknown as {__swelloMap?: L.Map}).__swelloMap = m; // test hook for the zoom script (dev only)
@@ -213,7 +216,8 @@ function OceanMap({section, go}: ViewProps) {
     rank.current.clear();
     for (const e of evidenceSpots) {
       const f = recAt(e.id), rating = f ? rateForecast(surfSpot(e.id), f, now) : null;
-      rank.current.set(e.id, rating?.baseScore ?? -1);
+      // Stage 6 label priority: selected > favourites > popular spots > the rest by rating (sel is handled by the declutter sort).
+      rank.current.set(e.id, (data.state.favorites.includes(e.id) ? 3000 : POPULAR_SPOTS.includes(e.id) ? 2000 : 0) + (rating?.baseScore ?? -1));
       const color = rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)';
       // T-116: name · height · rating word. An unrated or dark hour says nothing per spot (one quiet mark in the bottom strip says it is dark).
       const hs = f ? headlineSurf(e.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null;
@@ -229,7 +233,7 @@ function OceanMap({section, go}: ViewProps) {
       markers.current.set(e.id, mk);
     }
     declutterRef.current();
-  }, [view.mapRecords, view.selectedTime, spot.id, p.heightUnit]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [view.mapRecords, view.selectedTime, spot.id, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Sparse labels that never collide: the selected spot first, then the best-rated; a zoom-dependent budget; the rest are dots.
    *  Each label tries right of its pin, then left, else stays a dot until zoomed in. Labels keep clear of the floating controls. */
@@ -237,8 +241,10 @@ function OceanMap({section, go}: ViewProps) {
     const m = map.current;
     const els = evidenceSpots.map((e) => ({id: e.id, el: markers.current.get(e.id)?.getElement()})).filter((x): x is {id: string; el: HTMLElement} => !!x.el);
     els.sort((a, b) => Number(b.el.classList.contains('sel')) - Number(a.el.classList.contains('sel')) || (rank.current.get(b.id) ?? -1) - (rank.current.get(a.id) ?? -1));
-    els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot'));
-    const boxes = els.map(({el}) => ({el, dot: el.querySelector('i')!.getBoundingClientRect(), lab: el.querySelector('.xlabel')?.getBoundingClientRect()}));
+    els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot', 'xthin'));
+    // Stage 6: thin at low zoom: below z6 only the selected spot, favourites, popular spots and the 5 best-rated keep a pin (the rest return on zoom-in).
+    if ((m?.getZoom() ?? 9) < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
+    const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el}) => ({el, dot: el.querySelector('i')!.getBoundingClientRect(), lab: el.querySelector('.xlabel')?.getBoundingClientRect()}));
     const taken: DOMRect[] = boxes.filter((x) => x.dot.width).map((x) => x.dot);
     m?.getContainer().parentElement?.querySelectorAll('.xsearchbox, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xspotpop')
       .forEach((el) => { const r = el.getBoundingClientRect(); if (r.width) taken.push(r); });
@@ -283,6 +289,32 @@ function OceanMap({section, go}: ViewProps) {
     pop.options.autoPanPaddingTopLeft = phone ? L.point(16, 16) : L.point(open ? 380 : 16, 80);
     pop.options.autoPanPaddingBottomRight = L.point(phone ? 64 : 76, phone ? sheetPx() + 70 : 90);
     if (pt) { setCallout(null); pop.setLatLng([pt.lat, pt.lon]).openOn(m); } else m.closePopup(pop);
+  }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Stage 6 (Windy's picker): a draggable handle at the point. Dragging moves the label and its value live (sampled from the painted field, no
+  // network); the hourly point forecast is fetched once, on release. Arrow keys nudge it 0.1° and commit 0.7 s after the last press.
+  const pickMk = useRef<L.Marker | null>(null), pickFocus = useRef(false);
+  useEffect(() => {
+    const m = map.current, hadFocus = pickFocus.current; pickFocus.current = false; // keyboard users keep focus on the picker across a commit
+    pickMk.current?.remove(); pickMk.current = null; setLivePt(null);
+    if (!m || !pt) return;
+    const wrap = (lon: number) => ((((lon + 180) % 360) + 360) % 360) - 180;
+    const mk = L.marker([pt.lat, pt.lon], {draggable: true, keyboard: true, zIndexOffset: 1500, title: 'Point picker: drag it, or use the arrow keys, to read another point', alt: 'Point picker',
+      icon: L.divIcon({className: 'xpick', html: '<i></i>', iconSize: [44, 44], iconAnchor: [22, 22]})}).addTo(m);
+    const live = (ll: L.LatLng) => { popup.current?.setLatLng(ll); setLivePt({lat: ll.lat, lon: wrap(ll.lng)}); };
+    mk.on('dragstart', () => setPanel(false));
+    mk.on('drag', () => live(mk.getLatLng()));
+    mk.on('dragend', () => { const ll = mk.getLatLng(); closedAt.current = Date.now(); setPt({lat: ll.lat, lon: wrap(ll.lng)}); });
+    let t = 0;
+    const key = (e: KeyboardEvent) => {
+      const d: Record<string, [number, number]> = {ArrowUp: [0.1, 0], ArrowDown: [-0.1, 0], ArrowLeft: [0, -0.1], ArrowRight: [0, 0.1]};
+      if (!d[e.key]) return; e.preventDefault(); e.stopPropagation();
+      const ll = mk.getLatLng(), n = L.latLng(ll.lat + d[e.key][0], ll.lng + d[e.key][1]); mk.setLatLng(n); live(n);
+      clearTimeout(t); t = window.setTimeout(() => setPt({lat: n.lat, lon: wrap(n.lng)}), 700);
+    };
+    mk.getElement()?.addEventListener('keydown', key);
+    if (hadFocus) mk.getElement()?.focus({preventScroll: true});
+    pickMk.current = mk;
+    return () => { clearTimeout(t); pickFocus.current = document.activeElement === mk.getElement(); mk.getElement()?.removeEventListener('keydown', key); mk.remove(); };
   }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
   // The card grows when data arrives; re-measure so the popup pans fully into view.
   useEffect(() => { if (pt && (point.data || point.error)) popup.current?.update(); }, [point.data, point.error]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -459,7 +491,8 @@ function OceanMap({section, go}: ViewProps) {
   );
   // T-117: the pin label's value is the painted field's own, at the tapped point; the period comes from the period layer when shown, else the point forecast.
   const fieldsNow = [field, gfield].filter((x): x is Field => !!x);
-  const pv = pt ? sampleField(fieldsNow, pt.lat, pt.lon) : null;
+  const at = livePt ?? pt; // while dragging, the label reads the painted field under the moving picker
+  const pv = at ? sampleField(fieldsNow, at.lat, at.lon) : null;
   let perS: number | null = null, perFromPoint = false;
   if (pt && pv && (fieldId === 'waves' || fieldId === 'swell') && point.data && view.selectedTime) {
     const t = Date.parse(view.selectedTime) / 1000, d = point.data, k = d.time.reduce((best, x, i) => (Math.abs(x - t) < Math.abs(d.time[best] - t) ? i : best), 0);

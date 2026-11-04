@@ -676,3 +676,14 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xload.err { background: #8a2b1f; }
 .xload button { min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: #fff; color: #1d1d1f; font: 600 13px/1 var(--sans); cursor: pointer; }
 @media (max-width: 860px) { .xload { top: 64px; font-size: 12.5px; } .xload button { min-height: 44px; } }
+/* Map-seamless (Stage 5 item, product): the map credits get their own row above the hour bubble's track, so the bubble ("8 PM") never covers them
+   wherever the playhead is (the bubble rides 6 px above the strip and is ~26 px tall). */
+.xleaf .leaflet-bottom { bottom: 88px; }
+@media (max-width: 860px) { .xleaf .leaflet-bottom { bottom: calc(var(--peek, 0px) + 128px); } }
+/* Stage 6: spots thinned at low zoom are hidden (not just unlabelled); they return as the map zooms in. */
+.xpin.xthin { visibility: hidden; pointer-events: none; }
+/* Stage 6: the draggable point picker: a 44 px handle (a small ring with a centre dot), grab cursor; the dark label rides above it. */
+.xpick { display: grid; place-items: center; cursor: grab; }
+.xpick:active { cursor: grabbing; }
+.xpick i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #fff; background: rgb(44 46 50 / 0.86); box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
+.xpick:focus-visible { outline: none; } .xpick:focus-visible i { box-shadow: 0 0 0 3px #d79b1a, 0 1px 4px rgb(0 0 0 / 0.5); }

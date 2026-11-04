@@ -203,7 +203,8 @@ export function TopNav({area, section, go}: {area: Area; section: string; go: Go
       <nav aria-label="Primary"><ul className="areas">
         {(['forecast', 'explore', 'quiver'] as const).map((id) => <AreaMenu key={id} def={def(id)} current={id === area} section={section} go={go} />)}
       </ul></nav>
-      <Search go={go} />
+      {/* Map-seamless Stage 6: one search on the map view. The map has its own (flies to the spot), so the header's is not shown there; "/" focuses the map's. */}
+      {area === 'explore' && (section === '' || section === 'wind' || section === 'swell') ? <MapSearchKey /> : <Search go={go} />}
       <div className="nav-end">
         <DataBadge /><ThemeToggle />
         <ul className="areas me-menu">
@@ -305,4 +306,13 @@ export function TabBar({area, go}: {area: Area; go: Go}) {
       ))}
     </nav>
   );
+}
+
+/** On the map view the "/" shortcut focuses the map's own search box (the header search is not shown there). */
+function MapSearchKey() {
+  useEffect(() => {
+    const key = (e: globalThis.KeyboardEvent) => { const t = e.target as HTMLElement; if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && !t.isContentEditable) { const i = document.querySelector<HTMLInputElement>(".xtb-search input"); if (i) { e.preventDefault(); i.focus(); } } };
+    addEventListener('keydown', key); return () => removeEventListener('keydown', key);
+  }, []);
+  return <span className="search search-map-gap" aria-hidden="true" />;
 }
