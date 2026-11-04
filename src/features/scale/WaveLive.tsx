@@ -549,7 +549,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       body.pose(st, {upR, roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], idleA: st[S.IDLE_A], idleB: st[S.IDLE_B], mirror: frontside ? 1 : -1, profile: sim.plan.profile});
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       const g = contactM(t), gc = g[0], gl = g[1];
-      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc, gl);
+      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl);   // the bridge over a concave section is deliberate
       // the tail (crest frame) and its velocity: the top-turn spray leaves from here, with the board
       const bd = boardOf();
       if (spray && bd) {
@@ -562,7 +562,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       // the heading against the velocity over the water (the simulation's own velocity, the x flow removed)
       velV.set(st[S.VX] - u.uFlowX.value, st[S.VY], st[S.VZ]); const headErr = velV.lengthSq() > 0.04 ? THREE.MathUtils.radToDeg(F.angleTo(velV)) : 0;
       if (pole.visible) placePole(t);
-      probe = {t, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY};
+      probe = {t, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE]};
       ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = u.uFlowX.value - st[S.VX];
       return ret;
     };

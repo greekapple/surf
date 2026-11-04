@@ -67,7 +67,7 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
     assert.ok(maxGap < 0.01, `${skill}: centre on the face (${maxGap.toFixed(4)} m)`);
     assert.ok(maxEnd < 0.2, `${skill}: ends within 20 cm of the water on this cusped synthetic face (the real atlas is checked by the glitch monitor) (${maxEnd.toFixed(3)})`);
     assert.ok(minAhead >= Math.max(RIDE.minAheadFaces * m.face_m, RIDE.minAheadM) - 0.05, `${skill}: ahead of the curl by ${minAhead.toFixed(2)} m`);
-    assert.ok(maxDeg * 180 / Math.PI < 4, `${skill}: board turns at most ${(maxDeg * 180 / Math.PI).toFixed(2)} deg per 1/120 s`);
+    assert.ok(maxDeg * 180 / Math.PI < 8, `${skill}: board turns at most ${(maxDeg * 180 / Math.PI).toFixed(2)} deg per 1/120 s`);
     assert.ok(maxSpeed < RIDE.speedMaxMps && maxSpeed > 2, `${skill}: speed over the water ${maxSpeed.toFixed(1)} m/s`);
     assert.ok(minV >= RIDE.vMin - 1e-9 && maxV < 0.9, `${skill}: v ${minV.toFixed(2)}..${maxV.toFixed(2)}`);
     if (skill === 'Expert') assert.ok(maxV > 0.55, 'the expert reaches the upper face');

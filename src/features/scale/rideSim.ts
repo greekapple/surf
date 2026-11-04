@@ -70,7 +70,7 @@ export function maxFracAt(atlas: Atlas, x: number, t: number, capRad: number): n
 }
 
 // state layout (Float64Array): the render interpolates prev -> cur
-export const S = {X: 0, Y: 1, Z: 2, FX: 3, FY: 4, FZ: 5, UX: 6, UY: 7, UZ: 8, ROLL: 9, COMP: 10, LEAD: 11, IDLE_A: 12, IDLE_B: 13, T: 14, U: 15, V: 16, XB: 17, SPEED: 18, SEG: 19, VX: 20, YAW: 21, VZ: 22, VY: 23, NX: 24, NY: 25, NZ: 26, W0: 27} as const;
+export const S = {X: 0, Y: 1, Z: 2, FX: 3, FY: 4, FZ: 5, UX: 6, UY: 7, UZ: 8, ROLL: 9, COMP: 10, LEAD: 11, IDLE_A: 12, IDLE_B: 13, T: 14, U: 15, V: 16, XB: 17, SPEED: 18, SEG: 19, VX: 20, YAW: 21, VZ: 22, VY: 23, NX: 24, NY: 25, NZ: 26, BRIDGE: 27, W0: 28} as const;
 export const STATE_N = S.W0 + POSES.length;
 
 /** The rider simulation for one wave: fixed steps, every input continuous, nothing random per step. */
@@ -84,7 +84,7 @@ export class RiderSim {
   private readonly wS: Spring[] = POSES.map(() => new Spring());
   private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim'};
   private readonly idlePhase: [number, number];
-  private capRad = RIDE.slopeCapDeg * Math.PI / 180; private lastSlope = 0.8; private lastHf = 1.5;
+  private capRad = RIDE.slopeCapDeg * Math.PI / 180; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
   readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0};
   constructor(atlas: Atlas, skill: Skill, seed: number, flowX: number, stance: Stance | null, t0: number) {
     this.atlas = atlas; this.H = atlas.meta.face_m; this.seed = seed; this.flowX = flowX; this.plan = buildPlan(skill, seed, this.H);
@@ -118,35 +118,44 @@ export class RiderSim {
     let x = xb + ps.u * H; x -= smax0(x - (xb - minAhead), 0.25 * minAhead);   // C1 soft limit, no branch
     // on the face: the planned height, kept under the rideable slope cap (soft), the slope at the point
     // the cap keeps the wave-side rail (rb up the face from the centre) under the slope cap too, not just the centre
-    const capNow = maxFracAt(a, x, t, this.capRad) - RIDE.capMarginV - RIDE.capRailShare * BOARD.railPoint * 0.5 * this.boardW * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); if (!this.started) this.capS.set(capNow); const cap = this.capS.step(capNow, dt, RIDE.capFollowW); this.stats.maxFracNow = cap;
+    const capNow = maxFracAt(a, x, t, this.capRad) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess / Math.max(0.2, this.lastHf) - RIDE.capRailShare * BOARD.railPoint * 0.5 * this.boardW * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); if (!this.started) this.capS.set(capNow); const cap = this.capS.step(capNow, dt, RIDE.capFollowW); this.stats.maxFracNow = cap;
     const v = Math.max(RIDE.vMin, ps.v - smax0(ps.v - cap, 0.04));
     facePointInto(a, x, v, t, FP); const fy = FP[0], slope = FP[2], Hf = Math.max(0.2, FP[3]); this.stats.slopeNow = slope; this.lastSlope = slope; this.lastHf = Hf;
     const z = -fy, y = FP[1];   // the board's bottom centre: this profile point, the one the shader draws
     // velocity (crest frame) from the step; over the water the x flow streams past at flowX
-    const vx = this.started ? (x - c[S.X]) / dt : 0, vy = this.started ? (y - c[S.Y]) / dt : 0, vz = this.started ? (z - c[S.Z]) / dt : 0;
+    const vx = this.started ? (x - this.rx) / dt : 0, vy = this.started ? (y - this.ry) / dt : 0, vz = this.started ? (z - this.rz) / dt : 0; this.rx = x; this.ry = y; this.rz = z;   // the point on the face, before any bridge
     const wx = vx - this.flowX, speed = Math.min(RIDE.speedMaxMps, Math.hypot(wx, vy, vz));
-    // the heading in the face's own plane: angle from "along the crest, down the line" (the shoulder is at -x) toward "up the face"
-    const sAlong = Math.max(0.3, -wx), sUp = Math.hypot(vy, vz) * (vy >= 0 ? 1 : -1), yawT = this.started ? Math.atan2(sUp, sAlong) : 0;
+    // the face's tangent basis at the centre, from short chords ON the face (the same profile the shader draws): L0 along the crest toward
+    // the shoulder (down the line), A up the face, N = L0 x A toward the air side (no sign flip past the vertical)
+    const ea = BOARD.endPoint * 0.5 * this.boardL, rb = BOARD.railPoint * 0.5 * this.boardW, kv = Math.sin(slope) / Hf;   // arc up the face -> height fraction
+    const eT = ea, rT = rb;   // the tangent basis from the board's own span (shorter chords amplified the profile's sampling noise: 18 deg board steps)
+    facePointInto(a, x - eT, v, t, PN); facePointInto(a, x + eT, v, t, PT); facePointInto(a, x, v + rT * kv, t, PW); facePointInto(a, x, v - rT * kv, t, PB);
+    let l0x = -2 * eT, l0y = PN[1] - PT[1], l0z = -(PN[0] - PT[0]), l0n = Math.hypot(l0x, l0y, l0z); l0x /= l0n; l0y /= l0n; l0z /= l0n;
+    let a0x = 0, a0y = PW[1] - PB[1], a0z = -(PW[0] - PB[0]), a0n = Math.hypot(a0x, a0y, a0z) || 1; a0x /= a0n; a0y /= a0n; a0z /= a0n;
+    let nx = l0y * a0z - l0z * a0y, ny = l0z * a0x - l0x * a0z, nz = l0x * a0y - l0y * a0x, nn0 = Math.hypot(nx, ny, nz) || 1; nx /= nn0; ny /= nn0; nz /= nn0;
+    const da = a0x * l0x + a0y * l0y + a0z * l0z; a0x -= da * l0x; a0y -= da * l0y; a0z -= da * l0z; const a0n2 = Math.hypot(a0x, a0y, a0z) || 1; a0x /= a0n2; a0y /= a0n2; a0z /= a0n2;
+    // the board's long axis IS the velocity over the water, projected onto the face's tangent plane (the heading check compares exactly these)
+    const vn = wx * nx + vy * ny + vz * nz; let tx = wx - vn * nx, ty = vy - vn * ny, tz = vz - vn * nz; const tn = Math.hypot(tx, ty, tz);
+    if (!this.started || tn < 0.3) { tx = l0x; ty = l0y; tz = l0z; } else { tx /= tn; ty /= tn; tz /= tn; }
+    // the heading in the face plane (for the turn rate and the sag samples): angle from down-the-line toward up-the-face
+    const yawT = Math.atan2(tx * a0x + ty * a0y + tz * a0z, tx * l0x + ty * l0y + tz * l0z);
     if (!this.started) this.yawS.set(yawT);
-    const yaw = this.yawS.step(yawT, dt, BOARD.yawW), yawRate = this.yawS.v;
-    // the board on the face: its ends and rails are points ON the face (by along-crest x and height fraction, through the same profile
-    // the shader draws), never a column sample that could land on the lip or the back of the wave this close to the crest
-    const ch = Math.cos(yaw), sh = Math.sin(yaw), ea = BOARD.endPoint * 0.5 * this.boardL, rb = BOARD.railPoint * 0.5 * this.boardW, kv = Math.sin(slope) / Hf;   // arc up the face -> height fraction
-    const nx0 = x - ea * ch, nv = v + ea * sh * kv, tx0 = x + ea * ch, tv = v - ea * sh * kv;                         // nose down the line and up by the heading
-    const wx0 = x + rb * sh, wv = v + rb * ch * kv, bx0 = x - rb * sh, bv = v - rb * ch * kv;                          // the wave-side rail and the beach-side rail
+    const yaw = this.yawS.step(this.yawS.x + wrapPi(yawT - this.yawS.x), dt, BOARD.yawW), yawRate = this.yawS.v;
+    // the face's concavity under the board: the ends along the heading and the rails across it, sampled ON the face; how far each chord's
+    // midpoint sits inside the face at the centre (a flat board is that deep there already)
+    const ch = Math.cos(yawT), sh = Math.sin(yawT);
+    const nx0 = x - ea * ch, nv = v + ea * sh * kv, tx0 = x + ea * ch, tv = v - ea * sh * kv, wx0 = x + rb * sh, wv = v + rb * ch * kv, bx0 = x - rb * sh, bv = v - rb * ch * kv;
     facePointInto(a, nx0, nv, t, PN); facePointInto(a, tx0, tv, t, PT); facePointInto(a, wx0, wv, t, PW); facePointInto(a, bx0, bv, t, PB);
-    let lx = nx0 - tx0, ly = PN[1] - PT[1], lz = -(PN[0] - PT[0]), ln = Math.hypot(lx, ly, lz); lx /= ln; ly /= ln; lz /= ln;
-    let ax = wx0 - bx0, ay = PW[1] - PB[1], az = -(PW[0] - PB[0]), an = Math.hypot(ax, ay, az); ax /= an; ay /= an; az /= an;
-    // the face's concavity between the rails: how far the chord's midpoint sits inside the face at the centre (the rails of a flat board
-    // are that deep already), so the rail roll is capped to keep the buried rail within railDepthM
-    const mx = (wx0 + bx0) / 2 - x, my = (PW[1] + PB[1]) / 2 - y, mz = -((PW[0] + PB[0]) / 2) - z, sag = Math.max(0, -(mx * 0 + my * Math.cos(slope) + mz * -Math.sin(slope)));   // along the face normal (toward the beach side), + = chord outside
+    const sagOf = (p: Float64Array, q: Float64Array, px: number, qx: number) => { const mx = (px + qx) / 2 - x, my = (p[1] + q[1]) / 2 - y, mz = -((p[0] + q[0]) / 2) - z; return Math.max(0, -(mx * nx + my * ny + mz * nz)); };
+    const sag = sagOf(PW, PB, wx0, bx0), endSag = sagOf(PN, PT, nx0, tx0);
+    // a rigid board bridges a concave section on its ends: beyond what the rocker absorbs, the centre lifts off the face by the rest
+    // (a deliberate bridge, reported to the monitor as an allowance) and the line is lowered next step toward a flatter part of the face
+    this.endSagExcess = Math.max(0, endSag - BOARD.rockerM); const bridge = Math.min(BOARD.bridgeMaxM, this.endSagExcess);
     const rollCap = Math.min(BOARD.rollMaxDeg * Math.PI / 180, Math.asin(clamp((BOARD.railDepthM - sag) / Math.max(0.05, rb), 0, 1)));
     // rail roll into the turn: tan(roll) = v^2/(g r) = v * yawRate / g, scaled by the skill's carve, capped
     const rollT = clamp(Math.atan(speed * yawRate / G) * pr.carve, -rollCap, rollCap);
     if (!this.started) this.rollS.set(rollT); const roll = this.rollS.step(rollT, dt, BOARD.rollW);
-    // the deck normal = long (down the line) x across (up the face): toward the air side of the face, with no sign flip even where the
-    // chord between the rails passes the vertical; then made perpendicular to the long axis
-    let nx = ly * az - lz * ay, ny = lz * ax - lx * az, nz = lx * ay - ly * ax;
+    const lx = tx, ly = ty, lz = tz;
     const dl = nx * lx + ny * ly + nz * lz; nx -= dl * lx; ny -= dl * ly; nz -= dl * lz; const nn = Math.hypot(nx, ny, nz); nx /= nn; ny /= nn; nz /= nn;
     if (!this.started) { this.fitF[0].set(lx); this.fitF[1].set(ly); this.fitF[2].set(lz); this.fitU[0].set(nx); this.fitU[1].set(ny); this.fitU[2].set(nz); }
     let Fx = this.fitF[0].step(lx, dt, BOARD.fitW), Fy = this.fitF[1].step(ly, dt, BOARD.fitW), Fz = this.fitF[2].step(lz, dt, BOARD.fitW);
@@ -166,7 +175,7 @@ export class RiderSim {
     for (let i = 0; i < POSES.length; i++) { const target = POSES[i] === pose0 ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000); if (!this.started) this.wS[i].set(target); c[S.W0 + i] = this.wS[i].step(target, dt, w); }
     const ph = this.idlePhase, hz1 = BODY.idleHz;
     c[S.IDLE_A] = Math.sin(2 * Math.PI * hz1[0] * t + ph[0]); c[S.IDLE_B] = Math.sin(2 * Math.PI * hz1[1] * t + ph[1]);
-    c[S.X] = x; c[S.Y] = y; c[S.Z] = z; c[S.FX] = Fx; c[S.FY] = Fy; c[S.FZ] = Fz; c[S.UX] = Rx; c[S.UY] = Ry; c[S.UZ] = Rz; c[S.NX] = Ux; c[S.NY] = Uy; c[S.NZ] = Uz;
+    c[S.X] = x + nx * bridge; c[S.Y] = y + ny * bridge; c[S.Z] = z + nz * bridge; c[S.BRIDGE] = bridge; c[S.FX] = Fx; c[S.FY] = Fy; c[S.FZ] = Fz; c[S.UX] = Rx; c[S.UY] = Ry; c[S.UZ] = Rz; c[S.NX] = Ux; c[S.NY] = Uy; c[S.NZ] = Uz;
     c[S.ROLL] = roll; c[S.COMP] = comp; c[S.LEAD] = lead; c[S.U] = u0; c[S.V] = v; c[S.XB] = xb; c[S.SPEED] = speed; c[S.SEG] = seg0; c[S.VX] = vx; c[S.VY] = vy; c[S.VZ] = vz; c[S.YAW] = yaw;
     this.stats.minAheadM = xbNow - x;
     if (!this.started) { this.started = true; this.prev.set(c); }

@@ -22,8 +22,12 @@ export const BOARD = {
   /** rail roll into a turn: tan(roll) = v^2 / (g r), capped, and capped again each step so the buried rail (roll plus the face's
    *  concavity between the rails) never goes deeper than railDepthM */
   rollMaxDeg: 24, railDepthM: 0.09,
+  /** nose/tail rocker the ends can bridge on a concave face before the line is lowered */
+  rockerM: 0.07,
+  /** the centre may lift off a concave section by at most this much (the ends carry the board) */
+  bridgeMaxM: 0.06,
   /** critically damped spring rates (rad/s): the surface fit (pitch and roll), the yaw toward the velocity, the rail roll */
-  fitW: 2 * Math.PI * 8, yawW: 2 * Math.PI * 6, rollW: 2 * Math.PI * 1.2,
+  fitW: 2 * Math.PI * 6, yawW: 2 * Math.PI * 6, rollW: 2 * Math.PI * 1.2,
 } as const;
 
 /** The line planner: wave-relative (u along the crest from the curl in face heights, negative = ahead on the shoulder; v height on the face). */
@@ -32,6 +36,8 @@ export const RIDE = {
   slopeCapDeg: 78, capMarginV: 0.04, vMin: 0.06,
   /** share of the wave-side rail's climb (rail half-width up the face) kept under the cap as well */
   capRailShare: 0.5,
+  /** how much the line is lowered (in face heights per metre of end sag beyond the rocker) so a straight board fits the face's curvature */
+  endSagGain: 2.5,
   /** the cap is a bisection on the sampled face: followed through a spring (rad/s) so its quantisation never reaches the board */
   capFollowW: 2 * Math.PI * 1.5,
   /** the rider follows the moving break point through a spring (rad/s): no twitching with every section pulse */
@@ -77,7 +83,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 0.9, u: -0.95, v: 0.58, move: 'cutback', pose: 'top', comp: 0.4},
       {dt: 0.6, u: -0.85, v: 0.35, move: 'pump', pose: 'pump', comp: 0.75},
     ],
-    carve: 1, compression: 1, armsOutDeg: 0, fadeMs: {trim: 400, bottom: 250, climb: 250, top: 200, recover: 250, pump: 180}, swayDeg: 0.8,
+    carve: 1, compression: 1, armsOutDeg: 0, fadeMs: {trim: 400, bottom: 280, climb: 300, top: 280, recover: 300, pump: 220}, swayDeg: 0.8,
   },
   Intermediate: {
     knots: [
@@ -91,7 +97,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 0.9, u: -1.4, v: 0.46, move: 'trim', pose: 'trim', comp: 0.4},
       {dt: 0.7, u: -1.3, v: 0.34, move: 'pump', pose: 'pump', comp: 0.6},
     ],
-    carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 400, bottom: 300, climb: 300, top: 250, recover: 300, pump: 220}, swayDeg: 1.2,
+    carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 400, bottom: 320, climb: 320, top: 300, recover: 320, pump: 240}, swayDeg: 1.2,
   },
   Beginner: {
     knots: [
