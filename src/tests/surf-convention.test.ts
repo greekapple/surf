@@ -43,10 +43,9 @@ test('guideBasis: a facing derived from coastline geometry is not listed as a gu
   const g = guideBasis('cs-pismo')!; assert.match(g, /^facing derived from coastline geometry \(CDIP\); swell window from published guides \(Surfnerd, Surf-Forecast\), not reviewed/); assert.doesNotMatch(g, /facing and swell window from published guides/);
   assert.match(guideBasis('spot-3')!, /^facing and swell window from published guides/);
 });
-test('fallback order: with a nearshore record for the hour that refuses (outside the window, short period) the spot shows offshore; with no usable nearshore record the offshore-swell estimate is used', () => {
+test('fallback order: with a nearshore record for the hour that refuses (outside the window, short period) the spot shows MOP\'s own nearshore height (T-130); with no usable nearshore record the offshore-swell estimate is used', () => {
   const f = rec('spot-2', 1.5);
-  assert.equal(headlineSurf('spot-2', f, {bundle: bundle([mopRec(7.5, 14, 100)]), nowMs: NOW, observations: [], spread: null}).kind, 'offshore');
-  assert.equal(headlineSurf('spot-2', f, {bundle: bundle([mopRec(7.5, 5, 263)]), nowMs: NOW, observations: [], spread: null}).kind, 'offshore');
+  for (const r of [mopRec(7.5, 14, 100), mopRec(7.5, 5, 263)]) { const h = headlineSurf('spot-2', f, {bundle: bundle([r]), nowMs: NOW, observations: [], spread: null}) as any; assert.equal(h.kind, 'estimate'); assert.ok(h.nearshoreOnly, 'MOP nearshore height, not the offshore number'); }
   assert.equal((headlineSurf('spot-2', f, {bundle: bundle([]), nowMs: NOW, observations: [], spread: null}) as any).method, 'v1'); assert.equal((headlineSurf('spot-2', f, {nowMs: NOW, observations: [], spread: null}) as any).method, 'v1');
 });
 

@@ -29,7 +29,7 @@ test('MOP facing-match rule: Linda Mar (faces NW) takes SM375; Bolinas (faces SE
   assert.equal(MOP_NORMAL_TOLERANCE_DEG, 25);
   const pick = pickMop(lm, [{id: 'SM375', shoreNormalDeg: mopPoint('SM375')!.shoreNormalDeg}, {id: 'SM376', shoreNormalDeg: mopPoint('SM376')!.shoreNormalDeg}]); assert.equal(pick!.id, 'SM375'); assert.ok(pick!.offsetDeg < 6);
   assert.equal(pickMop(bo, [{id: 'MA140', shoreNormalDeg: mopPoint('MA140')!.shoreNormalDeg}]), null);
-  assert.equal(assignmentFor('spot-3')!.mopId, 'SM375'); assert.equal(assignmentFor('spot-0'), null); assert.match(assignmentFor('spot-3')!.note, /facing-match rule/);
+  assert.equal(assignmentFor('spot-3')!.mopId, 'SM375'); assert.equal(assignmentFor('spot-0')?.mopId, 'MA137'); assert.doesNotMatch(assignmentFor('spot-0')!.note, /facing-match rule/); assert.match(assignmentFor('spot-3')!.note, /facing-match rule/);
   for (const a of mopAssignments) assert.ok(a.sourceUrl.startsWith('https://'));
 });
 test('the breaking profile from a guide: generic 8 s minimum, shelter 1, window inside ±60°, shared unvalidated face factors', () => {
@@ -82,7 +82,7 @@ test('T-073 facing derived from coastline geometry: its own provenance and CDIP 
   for (const f of guideFacts) if (f.facing?.basis !== 'coastline geometry') assert.equal(spotProfiles.find((x) => x.spotId === f.spotId)!.orientation.provenance === 'derived from coastline geometry', false, f.spotId);
 });
 test('T-073 wrap rule: Rincon and Mavericks refuse because the guides\' working swell lies entirely outside ±60° of the stated facing', () => {
-  for (const id of ['cs-rincon', 'spot-5']) { assert.equal(breakingProfile(id), null, id); assert.equal(assignmentFor(id), null, id); assert.match(enablement(guideFactsFor(id)!).reasons.join(), /wraps around the point or reef/, id); }
+  for (const id of ['cs-rincon', 'spot-5']) { assert.equal(breakingProfile(id), null, id); assert.equal(assignmentFor(id)?.status, 'sourced', `${id}: T-130 gives the refused spot a reviewed MOP point but still NO breaking profile`); assert.match(enablement(guideFactsFor(id)!).reasons.join(), /wraps around the point or reef/, id); }
   assert.equal(wraps(guideFactsFor('cs-rincon')!), true); assert.equal(guideFactsFor('cs-rincon')!.workable!.text, 'W to N');
   assert.equal(guideFactsFor('cs-rincon')!.swellWindow!.basis, 'workable', 'Surfnerd\'s exposure list has a gap and is kept verbatim, so it gives no range');
   assert.equal(guideFactsFor('spot-5')!.exposure, 'exposed', 'the exposure statement is recorded; the wrap is why it refuses');

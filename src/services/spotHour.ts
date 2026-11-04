@@ -9,7 +9,7 @@ import {windRelationship} from '../recommendation/sqi.ts';
 import {compass, wind as windText} from '../utils/units.ts';
 import {formatWaveHeight} from '../utils/waveHeight.ts';
 import {firstStale, staleText, TIDE_MAX_AGE_MS, type Stale} from './freshness.ts';
-import {headlineSurf, headlineText, type HeadlineSurf} from './headlineSurf.ts';
+import {headlineSurf, headlineText, FLAT_LABEL, type HeadlineSurf} from './headlineSurf.ts';
 
 /** ONE source of truth for the numbers a spot shows at an hour (T-055): the forecast strip chip, the Surf card, Home, the map callout and the scale all read these,
  *  so the same spot and hour can never give two different surf ranges, winds, tides or ratings. Pure; nothing here invents a value. */
@@ -52,11 +52,17 @@ export interface SpotHour {
   surf: {headline: HeadlineSurf; value: string; label: string; words: string | null; tag: string; detail: string; confidenceText?: string; confidenceDetail?: string};
   rating: SurfRating; wind: WindView | null; tide: TideView | null;
 }
+/** T-130: the rating is NOT fed by the nearshore-only height (it keeps judging the offshore swell), so where the headline is MOP's own nearshore height the rating's explanation says which number it used. */
+function ratingNote(h: HeadlineSurf, r: SurfRating): SurfRating {
+  if (h.kind !== 'estimate' || !h.nearshoreOnly) return r;
+  const blocked = ['outside-window', 'short-period', 'no-break'].includes(h.nearshoreOnly.code);
+  return {...r, explanation: `${r.explanation} ${blocked ? 'The rating uses offshore swell; the nearshore model shows the swell mostly blocked here.' : 'The rating uses offshore swell; this spot has no breaking profile, so the headline height is the nearshore model\'s height at its point.'}`};
+}
 /** Everything one surface needs for a spot at an hour. Undefined when the spot has no record for that hour. `nowMs` is the clock the rating and headline are judged at. */
 export function spotHourOf(spot: SurfSpot, f: Forecast, nowMs: number, p: UserProfile, ctx: HourContext = {}): SpotHour {
   const headline = headlineSurf(spot.id, f, {bundle: ctx.bundle, nowMs}), t = headlineText(headline, p);
   return {spotId: spot.id, validTime: f.timestamp, demo: !f.evidence, record: f, surf: {headline, value: t.value, label: t.label, words: t.words, tag: t.tag, detail: t.detail, confidenceText: t.confidenceText, confidenceDetail: t.confidenceDetail},
-    rating: rateForecast(spot, f, nowMs), wind: windOf(spot, f, p, nowMs), tide: tideOf(f, p, nowMs)};
+    rating: ratingNote(headline, rateForecast(spot, f, nowMs)), wind: windOf(spot, f, p, nowMs), tide: tideOf(f, p, nowMs)};
 }
 export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: UserProfile, ctx: HourContext = {}): SpotHour | undefined {
   const f = recordAt(records, spot.id, atMs);
@@ -89,8 +95,8 @@ export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, n
   const est = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'estimate'}> => h.kind === 'estimate');
   if (est.length) {
     const lo = Math.min(...est.map((h) => h.loFt)), hi = Math.max(...est.map((h) => h.hiFt));
-    const text = formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text;
-    return {kind: 'estimate', loFt: lo, hiFt: hi, hours: est.length, label: `Est. ${text}`, basis: `daylight hours (${est.length} of ${hours.length} with an estimate)`, typical: pickTypical('estimate')};
+    const allFlat = est.every((h) => h.nearshoreOnly?.flat), text = allFlat ? FLAT_LABEL : formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text; // T-130: an all-flat day reads Flat, never "Est. 0–0 ft"
+    return {kind: 'estimate', loFt: lo, hiFt: hi, hours: est.length, label: allFlat ? FLAT_LABEL : `Est. ${text}`, basis: `daylight hours (${est.length} of ${hours.length} with an estimate)`, typical: pickTypical('estimate')};
   }
   const off = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'offshore'}> => h.kind === 'offshore').map((h) => h.ft);
   if (off.length) {

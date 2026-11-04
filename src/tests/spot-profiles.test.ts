@@ -22,7 +22,7 @@ test('only sourced facts are values, and every guide-derived value carries its p
     assert.ok(s.sources.length >= 1 && s.sources.every((x: any) => /^https:\/\//.test(x.url) && /^\d{4}-\d\d-\d\d$/.test(x.retrievedOn)), `${p.spotId}.${f}`);
     if (s.sources.some((x: any) => /surfnerd|surf-forecast/.test(x.url))) assert.equal(s.provenance, 'published guide', `${p.spotId}.${f}`);
   }
-  assert.equal(spotProfile('spot-3')!.mop.value!.id, 'SM375'); assert.equal(spotProfile('spot-0')!.mop.value, null, 'Bolinas MA140 is 39° off the guide facing: no MOP, v1 only');
+  assert.equal(spotProfile('spot-3')!.mop.value!.id, 'SM375'); assert.equal(spotProfile('spot-0')!.mop.value!.id, 'MA137', 'Bolinas: MA140 is 39° off the guide facing (no facing-match), so T-130 assigns MA137 by hand, labelled as our choice');
 });
 
 test('the Ocean Beach MOP value matches the reviewed assignment and the CDIP metadata', () => {

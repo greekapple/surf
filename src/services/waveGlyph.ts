@@ -16,6 +16,7 @@ const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 export const steepFromPeriod = (s: number | null | undefined) => (finite(s) && s > 0 ? clamp01((s - 6) / 10) : 0.5);
 
 export function glyphFor(h: HeadlineSurf | null | undefined, personFt: number, periodS: number | null | undefined, breaker: BreakerType | null | undefined): Glyph | null {
+  if (h?.kind === 'estimate' && h.nearshoreOnly?.flat) return null; // T-130: Flat has no wave to draw
   const r = faceRange(h);
   if (r && personFt > 0) return {kind: 'surf', midFt: (r[0] + r[1]) / 2, loFt: r[0], hiFt: r[1], personFt, steep: steepFromPeriod(periodS), curl: breaker === 'plunging'};
   if (h?.kind === 'offshore' && finite(h.ft) && h.ft >= 0) return {kind: 'offshore', ft: h.ft};

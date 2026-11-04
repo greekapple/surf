@@ -29,11 +29,14 @@ test('v2 is the default where a reviewed MOP point has data for the hour', () =>
   assert.equal(h.method, 'mop-v2'); assert.ok(h.hiFt - h.loFt >= 1 && h.loFt >= 0); assert.equal(h.mop?.id, 'SF023'); assert.equal(h.mop?.product, 'forecast');
   assert.ok(h.words && h.wordsNote.includes('Approximate')); assert.match(h.label, /Est\./); assert.match(h.methodLabel, /unvalidated/);
 });
-test('falls to v1 only when the nearshore model has no usable record for the hour; if it HAS the hour and refuses (short period, outside the window) the spot shows offshore, never a contradicting v1 (T-077)', () => {
+test('falls to v1 only when the nearshore model has no usable record for the hour; if it HAS the hour and refuses (short period, outside the window) the spot shows MOP\'s own nearshore height, never a contradicting v1 and never the offshore number (T-077, replaced by T-130)', () => {
   const far = headlineSurf('spot-2', hour(), {bundle: bundle([rec('2026-11-09T00:00:00.000Z', 1.4, 14, 266)]), nowMs: NOW});
   assert.ok(far.kind === 'estimate' && far.method === 'v1' && far.centralFt === 4 && far.loFt <= 4 && far.hiFt >= 4 && far.words !== null);
-  assert.equal(headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 6, 266)]), nowMs: NOW}).kind, 'offshore', 'short period refused by the nearshore model: no v1 fallback');
-  assert.equal(headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 100)]), nowMs: NOW}).kind, 'offshore', 'outside the swell window per the nearshore model: no v1 fallback');
+  for (const [tp, dp, code] of [[6, 266, 'short-period'], [14, 100, 'outside-window']] as const) {
+    const h = headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, tp, dp)]), nowMs: NOW}) as any;
+    assert.equal(h.kind, 'estimate', `${code}: the nearshore model has the hour, so the spot shows its own height (T-130)`); assert.equal(h.method, 'mop-v2'); assert.equal(h.nearshoreOnly.code, code); assert.equal(h.nearshoreOnly.flat, false);
+    assert.ok(Math.abs(h.centralFt - 1.4 * FT) < 0.01, 'the central height is MOP\'s Hs at the point'); assert.match(h.methodLabel, /^MOP nearshore \(CDIP\), 10 m modelled point SF023/); assert.match(h.methodLabel, /outside our rule's swell window/); assert.match(h.methodLabel, /local shelter between the point and the break is not modelled/); assert.match(h.methodLabel, /unvalidated/); assert.doesNotMatch(h.methodLabel, /already includes the blocking/);
+  }
   assert.ok((headlineSurf('spot-2', hour(), {bundle: null, nowMs: NOW}) as any).method === 'v1');
   assert.ok((headlineSurf('spot-2', hour(), {nowMs: NOW}) as any).method === 'v1');
   const lm = headlineSurf('spot-0', hour({spotId: 'spot-0'}), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW});
@@ -63,4 +66,32 @@ test('display strings use the user units and always name the quantity', () => {
   assert.match(ft.label, /^Est\. .*ft surf height$/); assert.equal(ft.tag, 'model estimate'); assert.match(mt.label, /m surf height$/);
   const off = headlineText(headlineSurf('spot-3', hour({evidence: {}}), {nowMs: NOW}), profile); assert.match(off.label, /offshore · not surf size$/); assert.equal(off.words, null);
   assert.equal(headlineText({kind: 'none', label: 'No wave height for this hour'}, profile).value, '—');
+});
+
+// T-130: nearshore-only, Flat, measured nearby, and the four spots with a MOP point but no breaking profile
+test('T-130: a blocked hour whose MOP height is under the flat threshold reads Flat, with the method named', () => {
+  const h = headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 0.1, 14, 100)]), nowMs: NOW}) as any; // 0.33 ft at the point, swell outside the window
+  assert.equal(h.kind, 'estimate'); assert.equal(h.nearshoreOnly.flat, true); assert.equal(h.loFt, 0); assert.equal(h.hiFt, 0); assert.match(h.methodLabel, /under 0\.5 ft, so Flat/);
+  const t = headlineText(h, profile); assert.equal(t.value, 'Flat'); assert.match(t.label, /^Flat/); assert.equal(t.words, null); assert.match(t.detail, /MOP nearshore \(CDIP\)/);
+});
+test('T-130: a small blocked height is a small range (0-1 ft), never the offshore number', () => {
+  const h = headlineSurf('spot-2', hour({offshore: 6}), {bundle: bundle([rec(T, 0.3, 14, 100)]), nowMs: NOW}) as any; // 0.98 ft at the point
+  assert.equal(h.kind, 'estimate'); assert.equal(h.nearshoreOnly.flat, false); assert.ok(h.hiFt <= 2, `range ${h.loFt}-${h.hiFt}`); assert.ok(h.loFt <= 1);
+  assert.doesNotMatch(headlineText(h, profile).value, /6/);
+});
+test('T-130: the four spots with a reviewed MOP point and NO breaking profile show MOP\'s nearshore height as the surf estimate', () => {
+  const pts: [string, string][] = [['spot-5', 'SM306'], ['spot-7', 'SC149'], ['cs-shelter-cove', 'HU029'], ['cs-rincon', 'B0001']];
+  for (const [spotId, mopId] of pts) {
+    const r = {...rec(T, 1.2, 14, 262), mopId}, b = {nearshore: [], mop: {[mopId]: {mopId, records: [r], issue: null, retrievedAt: T, url: 'x'}}} as any;
+    const h = headlineSurf(spotId, hour({spotId, offshore: 9, evidence: {}}), {bundle: b, nowMs: NOW}) as any;
+    assert.equal(h.kind, 'estimate', spotId); assert.equal(h.nearshoreOnly.code, 'no-profile', spotId); assert.equal(h.method, 'mop-v2'); assert.match(h.methodLabel, new RegExp(`modelled point ${mopId}`)); assert.match(h.methodLabel, /no breaking profile/); assert.match(h.methodLabel, /not a breaking estimate/);
+    assert.ok(Math.abs(h.centralFt - 1.2 * FT) < 0.01, spotId);
+  }
+});
+test('T-130: "measured nearby" only when a CDIP nowcast covers the hour (never for a forecast hour)', () => {
+  const nowcast = {...rec(T, 1.4, 14, 266), product: 'nowcast' as const};
+  const near = headlineSurf('spot-2', hour(), {bundle: {nearshore: [nowcast], mop: {}} as any, nowMs: Date.parse(T) + 3600000}) as any;
+  assert.equal(near.kind, 'estimate'); assert.equal(near.mop.product, 'nowcast'); assert.match(near.nowcastNearby.source, /nowcast.*measured buoy waves.*not a measurement at the spot/);
+  const fc = headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, 14, 266)]), nowMs: NOW}) as any;
+  assert.equal(fc.mop.product, 'forecast'); assert.equal(fc.nowcastNearby, undefined);
 });

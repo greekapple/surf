@@ -9,12 +9,13 @@ import {ingestionTargets, mopServiceIds} from '../../services/forecast-service.m
 const hdr = 'time,station,latitude[unit="degrees_north"],longitude[unit="degrees_east"],waveHs[unit="meter"],waveTp[unit="second"],waveDp[unit="degreeT"],waveFlagPrimary';
 const fc = [hdr, '2026-11-01T00:00:00Z,SF023,37.748,-122.518,1.5,14.2,226,1', '2026-11-01T03:00:00Z,SF023,37.748,-122.518,1.4,14.2,227,2', '2026-11-01T06:00:00Z,SF023,37.748,-122.518,,13.3,229,1'].join('\n');
 
+const T130 = ['spot-5', 'spot-7', 'cs-shelter-cove', 'cs-rincon', 'spot-0']; // T-130: reviewed points for the four spots the facing-match rule refused
 test('only reviewed assignments feed the app; candidates stay out of it', () => {
   assert.deepEqual(assignedMopIds().slice(0, 2), ['SF023', 'SM375']); // SM375 by the T-071 facing-match rule (Linda Mar faces NW, SM375 normal 320°)
   assert.ok(assignedMopIds().length >= 40, `T-073: the facing-match rule over every spot's scanned points (${assignedMopIds().length})`);
-  assert.ok(!assignedMopIds().includes('MA140') && !assignmentFor('spot-0'), 'Bolinas still has no point within 25° of its facing');
+  assert.ok(!assignedMopIds().includes('MA140') && assignmentFor('spot-0')?.mopId === 'MA137' && /not owner-reviewed/.test(assignmentFor('spot-0')!.provenance ?? ''), 'Bolinas: no point within 25° of its facing, so T-130 assigns MA137 (the best southerly normal among the bay-mouth points), labelled as our choice');
   for (const a of mopAssignments) assert.ok(['sourced', 'owner-reviewed'].includes(a.status) && a.sourceUrl.startsWith('https://'));
-  for (const c of mopCandidates) for (const id of c.mopIds) assert.ok(!mopAssignments.some((a) => a.mopId === id) || mopAssignments.some((a) => a.mopId === id && /facing-match rule/.test(a.note)), `${id} is a candidate unless the T-071 facing-match rule assigned it`);
+  for (const c of mopCandidates) for (const id of c.mopIds) assert.ok(!mopAssignments.some((a) => a.mopId === id) || mopAssignments.some((a) => a.mopId === id && (/facing-match rule/.test(a.note) || T130.includes(a.spotId))), `${id} is a candidate unless the T-071 facing-match rule (or T-130's reviewed list) assigned it`);
 });
 
 test('every registry point matches the measured candidate file (lookup script output)', () => {

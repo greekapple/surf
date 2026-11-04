@@ -1,7 +1,7 @@
 import type {Forecast, UserProfile} from '../models/index.ts';
 import {getMopIssue} from '../ocean/mopIssue.ts';
 import type {OceanBundle} from '../ocean/types.ts';
-import {assignmentFor} from '../ocean/mop.ts';
+import {assignmentFor, mopPoint} from '../ocean/mop.ts';
 import {BREAKING_V2_VERSION} from '../ocean/breakingEstimate.ts';
 import {mopBreaking} from './breakingV2.ts';
 import {pickMop, nowcastFor} from './nearshoreSelect.ts';
@@ -10,7 +10,7 @@ import {intervalFor} from './uncertainty.ts';
 import {spreadAt, spreadStale} from './modelSpread.ts';
 import {isGuideProfile} from '../ocean/localCalibration.ts';
 import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
-import {isGeometrySource, derivedFacing} from '../ocean/spotFactsRules.ts';
+import {isGeometrySource, derivedFacing, enablement} from '../ocean/spotFactsRules.ts';
 import {bodyWords, BODY_WORDS_NOTE} from './bodyWords.ts';
 import {surfBandFor, setsFactor, confidenceText, type SurfBand, type Confidence} from './surfBand.ts';
 import {allSpots} from '../data/catalog.ts';
@@ -23,7 +23,7 @@ import {canPresentBreakingEstimate, formatWaveHeight} from '../utils/waveHeight.
 /** The headline surf number for a spot-hour (T-046, user decision: an estimated surf range, not offshore height).
  *  Pure and read-only: it NEVER feeds a rating, and a range is only ever an estimate with its method named. */
 export type HeadlineSurf =
-  | {kind: 'estimate'; loFt: number; hiFt: number; /** T-118: the range is the surf BAND (typical wave to the sets), not an interval; the forecast uncertainty is this word and `interval`. */ confidence?: Confidence; band?: SurfBand; words: string | null; wordsNote: string; method: 'mop-v2' | 'v1'; /** Set when the source was a saved copy, older than 2 h, or undated (T-083/T-084): the label says so. */ saved?: {retrievedAt: string; reason?: 'saved' | 'old' | 'future' | 'unknown'}; methodLabel: string; label: string; /** The central SURF HEIGHT by the common convention (T-077: about the nearshore significant wave height) from which the range is built. */ centralFt?: number; /** The breaking height behind it (the nearshore height carried to where the waves break), shown in the detail only. */ breakingFt?: number; /** How the range was built from its uncertainty components (T-073); absent for calibrated ranges. */ interval?: {/** The uncertainty interval this headline no longer shows (T-118), whole feet rounded outward. */ loFt?: number; hiFt?: number; halfWidth: number; components: {id: string; label: string; halfWidth: number}[]; disagree: boolean; note: string}; /** Present only when the range is calibrated with the surfer's own observations (T-059). */ calibration?: {n: number; ratio: number; label: string; uncalibratedFt: [number, number]}; mop?: {id: string; product: 'nowcast' | 'forecast'; validAt: string}}
+  | {kind: 'estimate'; loFt: number; hiFt: number; /** T-118: the range is the surf BAND (typical wave to the sets), not an interval; the forecast uncertainty is this word and `interval`. */ confidence?: Confidence; band?: SurfBand; words: string | null; wordsNote: string; method: 'mop-v2' | 'v1'; /** Set when the source was a saved copy, older than 2 h, or undated (T-083/T-084): the label says so. */ saved?: {retrievedAt: string; reason?: 'saved' | 'old' | 'future' | 'unknown'}; methodLabel: string; label: string; /** The central SURF HEIGHT by the common convention (T-077: about the nearshore significant wave height) from which the range is built. */ centralFt?: number; /** The breaking height behind it (the nearshore height carried to where the waves break), shown in the detail only. */ breakingFt?: number; /** How the range was built from its uncertainty components (T-073); absent for calibrated ranges. */ interval?: {/** The uncertainty interval this headline no longer shows (T-118), whole feet rounded outward. */ loFt?: number; hiFt?: number; halfWidth: number; components: {id: string; label: string; halfWidth: number}[]; disagree: boolean; note: string}; /** Present only when the range is calibrated with the surfer's own observations (T-059). */ calibration?: {n: number; ratio: number; label: string; uncalibratedFt: [number, number]}; mop?: {id: string; product: 'nowcast' | 'forecast'; validAt: string}; /** T-130: set when the number is MOP's own nearshore height at its modelled point because our breaking rules could not (or would not) turn it into a breaking estimate: no breaking profile (Mavericks, Cowell's, Shelter Cove, Rincon), or a swell the rules say cannot make surf here. `flat`: the height is under the flat threshold, so the headline says Flat. */ nearshoreOnly?: {code: string; flat: boolean; reason: string; /** the point was hand-chosen by us (T-130 provenance) or carries a caveat */ hand?: boolean}; /** T-130: the hour is covered by a CDIP nowcast (the nearshore model initialised from measured buoy waves), at the MOP point; never a measurement at the spot itself. */ nowcastNearby?: {source: string}}
   | {kind: 'demonstration'; ft: number; label: string}
   | {kind: 'offshore'; ft: number; label: 'offshore · not surf size' | 'offshore · not surf size · saved copy'; saved?: {retrievedAt: string; reason?: 'saved' | 'old' | 'future' | 'unknown'}}
   | {kind: 'none'; label: string};
@@ -90,6 +90,25 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
   const label = `${h.methodLabel}${st ? `; ${staleText(st)}` : ''}${sp ? `; model-spread term not used (${staleText(sp)})` : ''}`;
   return {...h, ...(st ? {saved: {retrievedAt: st.retrievedAt, reason: st.reason}} : {}), methodLabel: label};
 }
+
+/** T-130: under this central height (ft) the nearshore model says there is nothing to surf: the headline is Flat. A judgement threshold of ours (a report's "Flat" is about half a foot or less), kept in one place. */
+export const FLAT_BELOW_FT = 0.5;
+export const FLAT_LABEL = 'Flat';
+const NOWCAST_SOURCE = 'CDIP nowcast: the nearshore model run on measured buoy waves, at the MOP point (a modelled point 10-15 m deep near the spot), not a measurement at the spot';
+/** T-130: MOP's own nearshore height at the assigned point, shown as the surf estimate where the breaking rules cannot make a number (no profile) or say the swell cannot make surf here (the model's value already includes the blocking and refraction, so it is the honest small number; the offshore height stays in the detail). */
+/** T-130 (lead, honesty): a nearshore-only headline is a model point, not a breaking estimate, so it never carries "high" confidence: "low" when the point was hand-chosen (provenance) or has a caveat, otherwise at most "medium". */
+function nearshoreConfidence(a: {provenance?: string; caveat?: string}, c: Confidence): Confidence { return a.provenance || a.caveat ? 'low' : c === 'high' ? 'medium' : c; }
+function nearshoreOnly(spotId: string, hour: Forecast, ctx: HeadlineContext, a: NonNullable<ReturnType<typeof assignmentFor>>, pick: {record: any; product: 'nowcast' | 'forecast'}, code: string, reason: string, surf: number): Extract<HeadlineSurf, {kind: 'estimate'}> {
+  const pt = mopPoint(a.mopId), flat = surf < FLAT_BELOW_FT, w = withInterval(spotId, hour, ctx, 'mop-v2', surf, [Math.max(0, surf * 0.7), surf * 1.3], null), bd = bandOf(spotId, hour, surf, w);
+  const f = guideFactsFor(spotId), why = code === 'no-profile'
+    ? `no breaking profile for this spot (${f ? enablement(f).reasons.join('; ') || 'its swell window is not settled' : 'no published facts'}), so this is the model's nearshore height at the point, not a breaking estimate`
+    : `outside our rule's swell window (${reason}), so this is the model's nearshore height at the point, not a breaking estimate; local shelter between the point and the break is not modelled`;
+  const nowcastNearby = pick.product === 'nowcast' ? {nowcastNearby: {source: NOWCAST_SOURCE}} : {};
+  const basis = guideBasis(spotId), extra = [a.provenance, a.caveat ? `caveat: ${a.caveat}` : null].filter(Boolean).join('; ');
+  return {kind: 'estimate', loFt: flat ? 0 : bd.lo, hiFt: flat ? 0 : bd.hi, ...(flat ? {} : {confidence: nearshoreConfidence(a, bd.confidence)}), ...(bd.band && !flat ? {band: bd.band} : {}), words: flat ? null : bodyWords(bd.lo, bd.hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2',
+    methodLabel: `MOP nearshore (CDIP), ${pt ? `${pt.depthM} m ` : ''}modelled point ${a.mopId}, unvalidated${flat ? `; under ${FLAT_BELOW_FT} ft, so Flat` : ''}; ${why}; the point is a model location near the spot, not the surf zone${flat ? '' : '; range = the typical wave to the sets (about 1.27 times the significant height), not a confidence interval or a guarantee'}${basis ? `; ${basis}` : ''}${extra ? `; ${extra}` : ''}`,
+    label: ESTIMATE_LABEL, centralFt: surf, ...(w.interval ? {interval: w.interval} : {}), mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}, nearshoreOnly: {code, flat, reason, ...(a.provenance || a.caveat ? {hand: true} : {})}, ...nowcastNearby};
+}
 function headlineCore(spotId: string, hour: Forecast, ctx: HeadlineContext): HeadlineSurf {
   const nowMs = ctx.nowMs ?? Date.now(), a = assignmentFor(spotId), t = Date.parse(hour?.timestamp);
   if (a && ctx.bundle && Number.isFinite(t)) {
@@ -98,11 +117,11 @@ function headlineCore(spotId: string, hour: Forecast, ctx: HeadlineContext): Hea
       const r = mopBreaking(spotId, pick.record), surf = pick.record.height.value;
       if (r.ok && canPresentBreakingEstimate(r.input) && finite(surf) && surf > 0) {
         const off = finite(hour?.evidence?.faceEstimate?.breakingFt) ? hour?.evidence?.faceEstimate?.centralFt : undefined, w = withInterval(spotId, hour, ctx, 'mop-v2', surf, r.input.rangeFt!, finite(off) && off > 0 ? surf / off : null), bd = bandOf(spotId, hour, surf, w);
-        return calibrated(spotId, {kind: 'estimate', loFt: bd.lo, hiFt: bd.hi, confidence: bd.confidence, ...(bd.band ? {band: bd.band} : {}), words: bodyWords(bd.lo, bd.hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2', methodLabel: methodLabelFor(spotId, 'mop-v2', a.mopId, w.interval, r.centralFt), label: ESTIMATE_LABEL, centralFt: surf, breakingFt: r.centralFt, ...(w.interval ? {interval: w.interval} : {}), mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}}, ctx);
+        return calibrated(spotId, {kind: 'estimate', loFt: bd.lo, hiFt: bd.hi, confidence: bd.confidence, ...(bd.band ? {band: bd.band} : {}), words: bodyWords(bd.lo, bd.hi), wordsNote: BODY_WORDS_NOTE, method: 'mop-v2', methodLabel: methodLabelFor(spotId, 'mop-v2', a.mopId, w.interval, r.centralFt), label: ESTIMATE_LABEL, centralFt: surf, breakingFt: r.centralFt, ...(w.interval ? {interval: w.interval} : {}), mop: {id: a.mopId, product: pick.product, validAt: pick.record.timestamp}, ...(pick.product === 'nowcast' ? {nowcastNearby: {source: NOWCAST_SOURCE}} : {})}, ctx);
       }
-      // Fallback order (T-077): when the nearshore model HAS the hour and says the swell cannot make surf here (outside the swell window, below the minimum period, or no breaking), the offshore-swell estimate must not
-      // contradict it, so the spot shows the labelled offshore height. v1 is only the fallback when there is no usable nearshore record for the hour (no data, missing values).
-      if (!r.ok && ['outside-window', 'short-period', 'no-break'].includes(r.code)) return offshoreOrNone(hour);
+      // T-130 (replaces the T-077 offshore fallback, user decision 2026-11-04): when the nearshore model HAS the hour but our rules cannot give a breaking estimate (no profile) or say the swell cannot make surf here
+      // (outside the swell window, below the minimum period, no breaking), the spot shows MOP's own small nearshore height (or Flat), never the larger offshore number. v1 is only the fallback when there is no usable nearshore record.
+      if (finite(surf) && surf >= 0) return nearshoreOnly(spotId, hour, ctx, a, pick, r.ok ? 'unpresentable' : r.code, r.ok ? 'the estimate could not be presented' : r.reason, surf);
     }
   }
   const v1 = hour?.evidence?.faceEstimate?.input;
@@ -132,6 +151,7 @@ export const shownConfidence = (h: Extract<HeadlineSurf, {kind: 'estimate'}>): C
 /** The confidence word with its reason and the full uncertainty interval, for the "Why" text and tooltips: "medium confidence: forecast uncertainty about ±28% (the model forecast may land anywhere from 4 to 8 ft)". */
 function confidenceDetail(h: Extract<HeadlineSurf, {kind: 'estimate'}>, p: UserProfile): string {
   if (!shownConfidence(h)) return '';
+  if (h.nearshoreOnly) return `${confidenceText(h.confidence)}: model point, not a breaking estimate; local shelter not modelled${h.nearshoreOnly.hand ? '; the point was chosen by us and the spot is usually smaller or more sheltered than it' : ''}. The word is our own judgement, not validated`;
   const iv = h.band?.interval ?? (h.interval?.loFt !== undefined && h.interval?.hiFt !== undefined ? {loFt: h.interval.loFt, hiFt: h.interval.hiFt} : null), why = h.band?.confidenceWhy;
   const range = iv ? formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [iv.loFt, iv.hiFt], rangeMethod: h.method === 'mop-v2' ? `v2 ${BREAKING_V2_VERSION}` : 'v1'}, p).text : null;
   return `${confidenceText(h.confidence)}${why ? `: ${why}` : ''}${range ? ` (the model forecast may land anywhere from ${range}${h.band ? '; the band above is the typical wave to the sets, not this interval' : ''})` : ''}. The word is our own judgement from the forecast spread, not validated: in the 14-day check it did not separate how often observed heights fell inside the band (docs/forecast/VALIDATION.md 1c)`;
@@ -140,6 +160,10 @@ function confidenceDetail(h: Extract<HeadlineSurf, {kind: 'estimate'}>, p: UserP
 /** Display strings in the user's units and height scale, ready for a card: value "4–6 ft", label "Est. 4–6 ft surf height". */
 export interface HeadlineText {value: string; label: string; words: string | null; tag: string; detail: string; /** T-118: the confidence word, its text and reason. Empty for saved/stale data and for calibrated estimates (the word describes the model's uncertainty, not that number). */ confidence?: Confidence | null; confidenceText?: string; confidenceDetail?: string}
 export function headlineText(h: HeadlineSurf, p: UserProfile): HeadlineText {
+  if (h.kind === 'estimate' && h.nearshoreOnly?.flat) { // T-130: under the flat threshold the model says there is nothing to surf: Flat, with the method in the detail (never a "0 ft")
+    const blocked = ['outside-window', 'short-period', 'no-break'].includes(h.nearshoreOnly.code);
+    return {value: FLAT_LABEL, label: `${FLAT_LABEL}${blocked ? ' · swell mostly blocked here' : ''}`, confidence: shownConfidence(h), confidenceText: confidenceText(shownConfidence(h)), confidenceDetail: '', words: null, tag: h.saved ? (h.saved.reason === 'saved' ? 'saved estimate' : 'stale estimate') : 'model estimate', detail: h.methodLabel};
+  }
   if (h.kind === 'estimate') {
     const f = formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [h.loFt, h.hiFt], rangeMethod: h.method === 'mop-v2' ? `v2 ${BREAKING_V2_VERSION}` : 'v1'}, p);
     const bk = finite(h.breakingFt) ? `; breaking height about ${formatWaveHeight({kind: 'nearshore', valueFt: h.breakingFt}, p, 'technical').text}` : '';

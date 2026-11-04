@@ -5,7 +5,7 @@ import {scannedMopPoints, scannedMopCandidates} from './mopCandidatesSourced.ts'
  *  Only `assignments` feed the app. `candidates` are measured metadata awaiting the owner's review (docs/forecast/data/mop-candidates.json).
  *  Metadata (position, depth, shore normal) was read from each point's CDIP file; see scripts/mop-lookup.mjs. */
 export interface MopPoint {id: string; lat: number; lon: number; depthM: number; shoreNormalDeg: number; retrievedOn: string}
-export interface MopAssignment {spotId: string; mopId: string; status: 'sourced' | 'owner-reviewed'; reviewedBy?: string; reviewedOn?: string; sourceUrl: string; note: string}
+export interface MopAssignment {spotId: string; mopId: string; status: 'sourced' | 'owner-reviewed'; reviewedBy?: string; reviewedOn?: string; sourceUrl: string; note: string; /** T-130: who chose the point and how (shown wherever the point's number is shown). */ provenance?: string; /** T-130: what the point's number cannot say about THIS spot (shown beside the number and in the Nearshore panel). */ caveat?: string}
 export interface MopCandidate {spotId: string; mopIds: string[]; note: string}
 
 export const MOP_ACK = 'CDIP is primarily supported by the U.S. Army Corps of Engineers (USACE). MOP data: Coastal Data Information Program, Scripps Institution of Oceanography, UC San Diego.';
@@ -18,6 +18,7 @@ const handPoints: MopPoint[] = [
   {id: 'SM375', lat: 37.59973, lon: -122.51654, depthM: 15, shoreNormalDeg: 319.97, retrievedOn: ON},
   {id: 'SM376', lat: 37.60069, lon: -122.51473, depthM: 15, shoreNormalDeg: 339.46, retrievedOn: ON},
   {id: 'MA140', lat: 37.88387, lon: -122.67383, depthM: 15, shoreNormalDeg: 173.55, retrievedOn: ON},
+  {id: 'MA137', lat: 37.88436, lon: -122.67226, depthM: 15, shoreNormalDeg: 184, retrievedOn: '2026-11-03'}, // T-130: Bolinas (docs/forecast/data/mop-candidates-all.json)
 ];
 /** T-073: plus the points near every other spot found by scripts/mop-scan.mjs (src/ocean/mopCandidatesSourced.ts). */
 export const mopPoints: MopPoint[] = [...handPoints, ...scannedMopPoints.filter((p) => !handPoints.some((h) => h.id === p.id))];
@@ -74,3 +75,18 @@ for (const c of mopCandidates) {
   if (pick) mopAssignments.push({spotId: c.spotId, mopId: pick.id, status: 'sourced', sourceUrl: `https://cdip.ucsd.edu/mops/?mop=${pick.id}&xitem=info`,
     note: `${f.facing!.basis === 'coastline geometry' ? `The facing derived from coastline geometry is ${f.facing!.deg}°` : `Published guides say the beach faces ${f.facing!.text} (${f.facing!.deg}°)`}; ${pick.id}'s CDIP shore normal is ${mopPoint(pick.id)!.shoreNormalDeg}°, ${Math.round(pick.offsetDeg)}° away (tolerance 25°), ${mopPoint(pick.id)!.depthM} m depth. Assigned by the facing-match rule, not owner-reviewed.`});
 }
+
+const T130_PROVENANCE = 'Chosen by us from CDIP shore normals (T-130), not owner-reviewed';
+mopAssignments.push(
+  // T-130: spots the facing-match rule refused (wrap or sheltered breaks) or found no point for. The four refused spots have NO breaking profile (the straight-in v1 rule refuses wrap), so they show MOP's own nearshore height at the point as the surf estimate (headlineSurf: nearshoreOnly), never an invented breaking profile.
+  {spotId: 'spot-5', mopId: 'SM306', status: 'sourced', sourceUrl: 'https://cdip.ucsd.edu/mops/?mop=SM306&xitem=info', provenance: T130_PROVENANCE, caveat: 'a 15 m point off the reef; the reef’s focusing is not modelled, so waves at the peak can be much larger',
+    note: 'Mavericks: SM306 (37.49657, −122.50756, 15 m, shore normal 262.5°, 0.69 km). The W-facing point off Pillar Point’s outer reef: the reef works on W–NW swell, which the SSW-facing points (SM302–SM304) inside the harbour lee would miss. A 15 m modelled point, not the reef peak. ' + T130_PROVENANCE + '.'},
+  {spotId: 'spot-7', mopId: 'SC149', status: 'sourced', sourceUrl: 'https://cdip.ucsd.edu/mops/?mop=SC149&xitem=info', provenance: T130_PROVENANCE, caveat: 'the point is at the bay mouth and shared with Steamer Lane; the sheltered cove is usually smaller',
+    note: 'Cowell’s: SC149 (36.94873, −122.02122, 15 m, shore normal 127.5°, 1.48 km). The nearest point in Santa Cruz’s bay with the beach’s SE-ish normal (guide: ESE 112.5°). Cowell’s is a sheltered wrap point, so this point at the bay mouth will read high. ' + T130_PROVENANCE + '.'},
+  {spotId: 'cs-shelter-cove', mopId: 'HU029', status: 'sourced', sourceUrl: 'https://cdip.ucsd.edu/mops/?mop=HU029&xitem=info', provenance: T130_PROVENANCE,
+    note: 'Shelter Cove: HU029 (40.01895, −124.0775, 15 m, shore normal 225°, 0.85 km). No guide states a facing; HU029’s 225° normal lies inside the guide’s exposure (SSE–SW) and workable (SSW–W) sectors. ' + T130_PROVENANCE + '.'},
+  {spotId: 'cs-rincon', mopId: 'B0001', status: 'sourced', sourceUrl: 'https://cdip.ucsd.edu/mops/?mop=B0001&xitem=info', provenance: T130_PROVENANCE,
+    note: 'Rincon: B0001 (34.3688, −119.47874, 10 m, shore normal 190°, 0.47 km). The closest normal to the point’s SSW facing (VE677/VE678 face SSE, 159–161°). ' + T130_PROVENANCE + '.'},
+  {spotId: 'spot-0', mopId: 'MA137', status: 'sourced', sourceUrl: 'https://cdip.ucsd.edu/mops/?mop=MA137&xitem=info', provenance: T130_PROVENANCE, caveat: 'the point is 2.8 km out at the mouth of Bolinas Bay; the beach is more sheltered and usually smaller',
+    note: 'Bolinas: MA137 (37.88436, −122.67226, 15 m, shore normal 184°, 2.8 km). The guide says Bolinas works on S swell (window S, exposure SSE–SW) and faces SE; MA137’s southerly normal is the best match among the bay-mouth points (MA129–MA141, 169–208°, all 2.7–2.8 km out). ' + T130_PROVENANCE + '.'},
+);
