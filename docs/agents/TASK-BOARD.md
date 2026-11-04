@@ -535,3 +535,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 ## T-128: Map zoom rework, one GPU canvas like Windy (spec docs/specs/2026-11-04-map-zoom-rework.md, APPROVED "yes to all")
 - Level 3. Engineering, branch `map-zoom-rework`: (a) particle respawn on big zooms, (b) tile over-fetch + zoom-3 preload, (c) IndexedDB frame cache + Cache-Control, (d) MapLibre default with `?engine=leaflet` fallback. Product: first-paint "from cache · updating" label, pins and 390 sheet on the flipped engine. Lead: zoom films vs Windy, 1440/390, light/dark.
 - Then: the user's R2 bucket + secrets → the 0.25° pipeline workflow (docs/map-pipeline.md).
+- Map frames pipeline live: .github/workflows/map-frames.yml (default branch) → greekapple.github.io/surf every 6 h; first run 12Z 2026-11-04, 57 frames, 219 MB; GFS-Wave vs WW3 within 0.1–0.34 m at 4 offshore points; runs > 18 h fall back to WW3. R2 not needed.
