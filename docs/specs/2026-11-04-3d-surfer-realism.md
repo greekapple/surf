@@ -214,6 +214,21 @@ Per cell, all must hold:
 
 Report a table of these per cell, before vs after.
 
+### M7. Back/torso rotation must not throw the arms (user, 2026-11-04: "the back still turns, making the arm do weird things")
+- **The fault:** the torso/spine rotation is applied and the arms are carried along with it (or a counter-rotation is layered on top), so each turn swings an arm up and around.
+- **Rule:** arm targets are set in the **board/world frame**, not inherited from the spine. When the torso rotates, the shoulders turn but the hands stay near their M1/M2 positions (an IK or aim constraint on each hand), so the arm only moves as much as the move itself asks for.
+- **Limits:**
+  - total spine twist ≤ 35° in trim and pumps, ≤ 60° in bottom turns, ≤ 90° only in cutbacks and snaps;
+  - spread over the lumbar and thoracic bones (no single bone > 20°);
+  - eased in and out over ≥ 0.25 s.
+- **Check:** with the torso rotating through a full cutback, the hand's distance from its target stays ≤ 25 cm, and the wrist stays below the shoulder (except the snap window).
+
+### M8. Different waves, different riding (user, again: "not very realistic for a surfer to do the exact same movements on different sized waves")
+- The M4 table is a REQUIREMENT, not a guide. Measure it: each matrix cell reports its move sequence, and cells in different size bands must differ in moves AND in body (compression depth, spine twist, turn radius, speed).
+- **Small waves (< 4 ft):** at most 3 move types per ride (trim, gentle bottom turn, mellow top turn or cutback), shallow compression (knees ≤ 55°), small twist (≤ 35°), soft rhythm.
+- **Mid and big waves:** the full repertoire, with depth growing with size.
+- **Barrels:** at faces > 6 ft, at least one ride per cycle is a barrel ride (M2 barrel stance + S1 tube), Intermediate and up; beginners never. Reported per cell (barrel time inside the cavity ≥ 0.8 s).
+
 ---
 
 ## Appendix S: Setting the scene so it looks real (the wave, the waves around it, the beach)
