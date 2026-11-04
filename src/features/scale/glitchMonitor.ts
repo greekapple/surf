@@ -31,7 +31,7 @@ export interface GlitchCounts {
 const D = 180 / Math.PI;
 export class GlitchMonitor {
   private objs: THREE.Object3D[] = []; private prevQ: THREE.Quaternion[] = []; private names: string[] = []; private board: THREE.Object3D | null = null;
-  private readonly q = new THREE.Quaternion(); private readonly q2 = new THREE.Quaternion(); private readonly p = new THREE.Vector3(); private readonly s = new THREE.Vector3(); private readonly boardQ = new THREE.Quaternion(); private readonly rigQ = new THREE.Quaternion();
+  private readonly q = new THREE.Quaternion(); private readonly q2 = new THREE.Quaternion(); private readonly p = new THREE.Vector3(); private readonly s = new THREE.Vector3(); private readonly boardQ = new THREE.Quaternion(); private readonly rel = new THREE.Matrix4();
   private primed = false;
   // body-check state (fixed-rate samples)
   private by: Record<string, THREE.Object3D | null> = {};
@@ -218,13 +218,17 @@ export class GlitchMonitor {
     }
     // jerk: angular acceleration of every tracked joint from three fixed-rate samples
     // (round 5: in the RIG's frame, so the board's own pitch, roll and yaw over the face are not counted as every joint's jerk)
-    if (this.rig) { this.rigInv.copy(this.rig.matrixWorld).invert(); this.rigInv.decompose(this.p, this.rigQ, this.s); }   // decompose: the rig carries the rider's scale (and a mirror on a right)
+    // R12: each joint's rotation RELATIVE to the rig is read off the relative matrix (rig^-1 x joint), where the scale and the mirror
+    // cancel exactly. Decomposing the rig's inverse and the joint's world matrix separately left a residual that moved with the rig's
+    // orientation: at the 6 ft hit (the board pivoted 78 deg and rolled 40) the RIGID Root and Board bones read 10-16k deg/s^2.
+    if (this.rig) this.rigInv.copy(this.rig.matrixWorld).invert();
+    const relQ = (o: THREE.Object3D) => { if (this.rig) this.rel.multiplyMatrices(this.rigInv, o.matrixWorld).decompose(this.p, this.q, this.s); else o.matrixWorld.decompose(this.p, this.q, this.s); };
     if (h > 0) for (let i = 0; i < this.objs.length; i++) {
-      this.objs[i].matrixWorld.decompose(this.p, this.q, this.s); if (this.rig) this.q.premultiply(this.rigQ);
+      relQ(this.objs[i]);
       const w = 2 * Math.acos(Math.min(1, Math.abs(this.q.dot(this.bodyQ[i])))) * D / h;   // deg/s over the last window
       if (this.bodyPrimed >= 2) { const acc = Math.abs(w - this.bodyW[i]) / h; if (acc > c.jerkPeak) { c.jerkPeak = acc; c.jerkJoint = this.names[i]; } if (acc > MONITOR.jerkDegS2) { emit('jerk', this.names[i], acc, 0); n++; } }
       this.bodyW[i] = w; this.bodyQ[i].copy(this.q);
-    } else for (let i = 0; i < this.objs.length; i++) { this.objs[i].matrixWorld.decompose(this.p, this.q, this.s); if (this.rig) this.q.premultiply(this.rigQ); this.bodyQ[i].copy(this.q); }
+    } else for (let i = 0; i < this.objs.length; i++) { relQ(this.objs[i]); this.bodyQ[i].copy(this.q); }
     if (this.bodyPrimed < 2) this.bodyPrimed++;
     // head stability: the range of the head's yaw relative to the chest (spine_03)
     if (B.head && B.spine) {

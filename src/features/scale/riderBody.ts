@@ -103,6 +103,13 @@ export class RiderBody {
   headFwd: THREE.Vector3 | null = null;
   /** R11: the yaw corrections applied this frame (deg: hip, shoulders, head) and the raw measurements before them, for the probe */
   readonly yawFixDeg = [0, 0, 0]; readonly yawRawDeg = [0, 0, 0]; leanDeg = 0; leanGateNow = 1;
+  /** R12: the head and the neck of the posed body (rider frame, model metres): the roof cap's crown follows the body it actually has */
+  readonly headR = new THREE.Vector3(0, 1.36, 0.43); readonly neckR = new THREE.Vector3(0, 1.0, 0.4); posedHead = false;
+  /** R12 (BODY.faceClamp): the viewer's probe of a rider-frame point against the water: writes [signed face distance (model m), the face
+   *  normal in the rider frame] into `out`; false when there is no water to measure against */
+  faceProbe: ((xr: number, yr: number, zr: number, out: Float64Array) => boolean) | null = null;
+  private readonly probeOut = new Float64Array(4); private readonly clampVS = [[new Spring(), new Spring(), new Spring()], [new Spring(), new Spring(), new Spring()]];
+  /** the clamp's turn applied this frame per arm (deg), for the probe */ readonly clampDeg = [0, 0];
   private readonly yawS = [new Spring(), new Spring(), new Spring()]; private readonly pitchFwd = new THREE.Vector3(0, 0, 1); private readonly pitchAxis = new THREE.Vector3(1, 0, 0);
   private readonly yawT = [0, 0, 0];
   private readonly idxYaw: {thighL: number; thighR: number; armL: number; armR: number; clavL: number; clavR: number};
@@ -274,6 +281,32 @@ export class RiderBody {
       }
       this.compose(b, par);
     }
+    if (I.head >= 0 && I.neck >= 0) { this.headR.setFromMatrixPosition(this.riderM[I.head]); this.neckR.setFromMatrixPosition(this.riderM[I.neck]); this.posedHead = true; }   // R12: for the roof cap
+    // R12: the face clamp (BODY.faceClamp): each arm turned about its shoulder, along the face normal, until the hand and the elbow hold
+    // off the face; the turn is a rotation vector through its own spring (continuous through zero, as the lean)
+    { const FC = BODY.faceClamp, wC = 2 * Math.PI * FC.hz, out = this.probeOut, Sh = this.va, E = this.vb, Hd = this.vc, ax = this.vd, r = this.ve, nrm = this.vf, cr = this.vg;
+      for (let k = 0; k < 2; k++) {
+        const L = this.arms[k], cs = this.clampVS[k]; let ang = 0; ax.set(0, 0, 0);
+        if (this.faceProbe && L.a >= 0 && L.b >= 0 && L.c >= 0) {
+          Sh.setFromMatrixPosition(this.riderM[L.a]); E.setFromMatrixPosition(this.riderM[L.b]); Hd.setFromMatrixPosition(this.riderM[L.c]);
+          for (let j = 0; j < 2; j++) {
+            const Pt = j === 0 ? Hd : E, hold = j === 0 ? FC.holdM : FC.holdElbowM;
+            if (!this.faceProbe(Pt.x, Pt.y, Pt.z, out)) continue;
+            const push = smoothOnset(hold - out[0], FC.onsetM); if (push <= 0) continue;
+            r.copy(Pt).sub(Sh); nrm.set(out[1], out[2], out[3]); cr.crossVectors(r, nrm); const l = cr.length(), rl = r.length(); if (l < 1e-3 || rl < 1e-2) continue;   // the turn that carries this point along the normal: about r x n, by push / |r x n| (the lever floored at a third of the arm: an arm pointing into the face cannot be turned out of it)
+            const a = Math.min(FC.maxDeg * D2R, push / Math.max(l, 0.33 * rl)); if (a > ang) ang = a; ax.addScaledVector(cr, a / l);
+          }
+          const sl = ax.length(); if (sl > 1e-9) ax.multiplyScalar(1 / sl); else ang = 0;
+        }
+        if (!this.primed) { cs[0].set(ax.x * ang); cs[1].set(ax.y * ang); cs[2].set(ax.z * ang); }
+        const x0 = cs[0].x, y0 = cs[1].x, z0 = cs[2].x;
+        ax.set(cs[0].step(ax.x * ang, dt, wC), cs[1].step(ax.y * ang, dt, wC), cs[2].step(ax.z * ang, dt, wC));
+        // the turn's rate cap: the rotation vector moves at most rateDeg per second (the springs' states scaled back with it)
+        const mv = Math.hypot(ax.x - x0, ax.y - y0, ax.z - z0), lim = FC.rateDeg * D2R * dt;
+        if (mv > lim) { const f = lim / mv; ax.set(x0 + (ax.x - x0) * f, y0 + (ax.y - y0) * f, z0 + (ax.z - z0) * f); cs[0].x = ax.x; cs[1].x = ax.y; cs[2].x = ax.z; cs[0].v *= f; cs[1].v *= f; cs[2].v *= f; }
+        const a2 = ax.length(); this.clampDeg[k] = a2 / D2R;
+        if (a2 > 1e-5) { this.applyDelta(L.a, parent[L.a], ax.multiplyScalar(1 / a2), a2); this.compose(L.a, parent[L.a]); this.compose(L.b, L.a); this.compose(L.c, L.b); }
+      } }
     // 4. legs: two-bone IK to the blended ankle targets, the knee pole over that foot's own toes (its forward direction, flattened onto
     //    the deck) splayed a little outward, the soles flat (the foot's rider-frame rotation from the library)
     for (let k = 0; k < 2; k++) {

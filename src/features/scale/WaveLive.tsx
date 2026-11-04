@@ -49,11 +49,12 @@ float stageAt(float x, float t){
   else s=uPitch+(uNS-1.-uPitch)*clamp(x/uBl,0.,1.);
   return clamp(s+sections(x,t),0.,uNS-1.);
 }
+// R12: a wider, gentler peak, a gentler broken drop and NO static ripple along the crest (the user's "weird little curvature": the lip
+// line bent every few metres, with a hump at the break point). Keep in step with ampAt in waveAtlas.ts.
 float ampAt(float x){
   float a;
-  if (x<0.) { float d=uDb+uBed*(-x), pk=exp(-pow(x/(.55*uSh),2.)); a=pow(uDb/d,.25)*(.42+.58*pk); }
-  else a=1.-.5*smoothstep(.25*uBl,1.05*uBl,x);   // S1 (R7): the broken section loses half its height within a break length (the whitewater ran on at near full height: the 'ruler')
-  float F=max(uFace,.6); a*=1.+.05*sin(x*.37/F+1.3)+.035*sin(x*.91/F+4.1);
+  if (x<0.) { float d=uDb+uBed*(-x), pk=exp(-pow(x/(.9*uSh),2.)); a=pow(uDb/d,.25)*(.62+.38*pk); }
+  else a=1.-.35*smoothstep(.35*uBl,1.25*uBl,x);   // S1 (R7): the broken section loses height within a break length
   return a*smoothstep(uX0,.7*uX0,x)*(1.-smoothstep(.7*uX1,uX1,x));
 }
 // S1 (R7): the crest curved in plan: the shoulder sweeps seaward (+z) away from the peak; the weight fades at both flat tails of the
@@ -620,7 +621,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const monitor = new GlitchMonitor(); monitor.warn = import.meta.env.DEV;
     const st = new Float64Array(STATE_N);
     let rider: RiderSample | null = null, riderAt = 0;
-    const pt = new THREE.Vector3(), boardBox = new THREE.Box3();
+    const pt = new THREE.Vector3(), boardBox = new THREE.Box3(), ptP = new THREE.Vector3(); let probeT = 0;
     const F = new THREE.Vector3(), U = new THREE.Vector3(), Rv = new THREE.Vector3(), Zc = new THREE.Vector3(), posV = new THREE.Vector3(), prevTail = new THREE.Vector3(), noseV = new THREE.Vector3(), upR = new THREE.Vector3(), velV = new THREE.Vector3();
     let haveVel = false, follow = true, dragUntil = 0;
     const camS = [new Spring(), new Spring(), new Spring()];
@@ -639,7 +640,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       return {obj, box};
     };
     /** The drawn board's size for the simulation: the bounds in its own frame times its scale (the model's board is scaled to the band). */
-    const simBoard = () => { const bd = boardOf(); if (bd && sim) sim.setBoard((bd.box.max.x - bd.box.min.x) * bd.obj.scale.x, (bd.box.max.z - bd.box.min.z) * bd.obj.scale.z, bd.box.min.y * bd.obj.scale.y); };
+    const simBoard = () => { const bd = boardOf(); if (bd && sim) { sim.setBoard((bd.box.max.x - bd.box.min.x) * bd.obj.scale.x, (bd.box.max.z - bd.box.min.z) * bd.obj.scale.z, bd.box.min.y * bd.obj.scale.y); sim.riderScale = surferRef.current / SURFER_MODEL_M; } };   // R12: the roof cap's crown scales with the rider
     /** No quiver board: the model's 6'0" x 19.3" board is scaled to the band's length (for the person's height) and width (brief part 2). */
     const fitModelBoard = (H: number) => {
       const orig = surfer?.getObjectByName('Board'); if (!orig || custom) return;
@@ -684,8 +685,10 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       noseV.copy(F).negate(); Zc.copy(Rv); if (frontside) Zc.negate();
       Mb.makeBasis(noseV, U, Zc).setPosition(posV).multiply(Ms);
       upR.set(noseV.y, U.y, Zc.y);   // world up in the rider frame (the basis is orthonormal, mirrored or not)
+      probeT = t; if (!body.faceProbe) body.faceProbe = faceProbe;   // R12: the arms' face clamp reads the water through this
       body.pose(st, {upR, roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], idleA: st[S.IDLE_A], idleB: st[S.IDLE_B], mirror: frontside ? 1 : -1, profile: sim.plan.profile, dt, turning: 1 - Math.max(0, st[S.W0])});
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
+      if (body.posedHead) sim.setHead(body.headR.x, body.headR.y, body.headR.z, body.neckR.x, body.neckR.y, body.neckR.z);   // R12: the roof cap's crown
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
       if (import.meta.env.DEV) { monitor.sample(dt, t, sim.move(), g[2], gl, 'r', sim.stats.slopeNow, frontside);
@@ -728,9 +731,19 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         const hb = bone('head'); if (hb && headFwdLocal) { pA.copy(headFwdLocal).transformDirection(hb.matrixWorld).transformDirection(rigInv); headYaw = Math.atan2(-pA.x, pA.z) * 180 / Math.PI; }
       }
       probe = {t, vis, roof: Number.isFinite(roof) ? roof : -1, inTube: roof >= 0.15 && roof < 3 * cur.atlas.meta.face_m ? 1 : 0, headWet: Number.isNaN(roof) ? 1 : 0, headUp, stage: stageAt(cur.atlas.meta, st[S.X], t, true), frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE], torsoPitch: body.torsoPitchDeg, torsoPitchRaw: body.torsoPitchRawDeg,
-        faceRoll, shoulderYaw, hipYaw, chestYaw, headYaw, turnRoll: st[S.TROLL], lift: st[S.LIFT], yawFixHip: body.yawFixDeg[0], yawFixSh: body.yawFixDeg[1], yawFixHead: body.yawFixDeg[2], yawRawHip: body.yawRawDeg[0], yawRawSh: body.yawRawDeg[1], yawRawHead: body.yawRawDeg[2], lean: body.leanDeg, leanGate: body.leanGateNow};
+        faceRoll, shoulderYaw, hipYaw, chestYaw, headYaw, turnRoll: st[S.TROLL], lift: st[S.LIFT], yawFixHip: body.yawFixDeg[0], yawFixSh: body.yawFixDeg[1], yawFixHead: body.yawFixDeg[2], yawRawHip: body.yawRawDeg[0], yawRawSh: body.yawRawDeg[1], yawRawHead: body.yawRawDeg[2], lean: body.leanDeg, leanGate: body.leanGateNow,
+        slopeCap: sim.stats.slopeCapNow, roofStand: sim.stats.roofStandNow, roofCap: sim.stats.roofCapNow, crouch: sim.stats.crouchNow, planV: sim.planV, clampL: body.clampDeg[0], clampR: body.clampDeg[1]};   // R12: the two caps, the crouch, the arms' face clamp
       ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = -st[S.WX]; ret.vis = vis;
       return ret;
+    };
+    /** R12: a rider-frame point against the water for the body's face clamp: the signed face distance in model metres and the face normal
+     *  (finite differences across the shore and up, in the crest frame) carried into the rider frame. The rig matrix of this frame (Mb). */
+    const faceProbe = (xr: number, yr: number, zr: number, out: Float64Array): boolean => {
+      if (!cur) return false; const k = surferRef.current / SURFER_MODEL_M;
+      ptP.set(xr, yr, zr).applyMatrix4(Mb); const g = faceDistanceAt(cur.atlas, ptP.x, ptP.y, ptP.z, probeT); out[0] = g / k;
+      if (g > 0.3) { out[1] = out[2] = out[3] = 0; return true; }
+      const e = 0.03; let ny = (faceDistanceAt(cur.atlas, ptP.x, ptP.y + e, ptP.z, probeT) - g) / e, nz = (faceDistanceAt(cur.atlas, ptP.x, ptP.y, ptP.z + e, probeT) - g) / e; const nn = Math.hypot(ny, nz) || 1; ny /= nn; nz /= nn;
+      out[1] = ny * noseV.y + nz * noseV.z; out[2] = ny * U.y + nz * U.z; out[3] = ny * Zc.y + nz * Zc.z; return true;
     };
     let probe: Record<string, number> | null = null, headBone: THREE.Object3D | null = null, headFwdLocal: THREE.Vector3 | null = null;
     const bodyGaps: Record<string, number[]> = {}, boneCache = new Map<string, THREE.Object3D | null>(), rigInv = new THREE.Matrix4(), Nv = new THREE.Vector3(), Ab = new THREE.Vector3(), pA = new THREE.Vector3(), pB = new THREE.Vector3(), pC = new THREE.Vector3();

@@ -4,7 +4,7 @@
  *  a flat state vector the render interpolates. Seeded from the forecast hour: the same ride every time. Crest frame: x along the crest
  *  (shoulder at -x, break point at 0+), y up, z seaward. Illustration of the hour, never a measurement. */
 import type {Skill} from '../../models/index.ts';
-import {type Atlas, breakX, faceDistanceAt, facePointInto} from './waveAtlas.ts';
+import {type Atlas, breakX, faceDistanceAt, facePointInto, roofFracAt} from './waveAtlas.ts';
 import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, RIDE_SNAP_PIVOT_DEG, SIM, SKILLS, type SkillProfile, type StyleBand, bandFor, composeBody} from './surfSceneConfig.ts';
 
 export const G = 9.81;
@@ -83,7 +83,7 @@ export function planAt(p: Plan, tau: number, out: PlanSample): PlanSample {
 }
 
 /** The highest height fraction whose face slope stays under the cap at (x, t): bisection on facePointInto. */
-const FP = new Float64Array(4), PN = new Float64Array(4), PT = new Float64Array(4), PW = new Float64Array(4), PB = new Float64Array(4);
+const FP = new Float64Array(4), PN = new Float64Array(4), PT = new Float64Array(4), PW = new Float64Array(4), PB = new Float64Array(4), RP = new Float64Array(4);
 export function maxFracAt(atlas: Atlas, x: number, t: number, capRad: number): number {
   let lo = 0.03, hi = 0.95;
   for (let j = 0; j < 10; j++) { const mid = (lo + hi) / 2; facePointInto(atlas, x, mid, t, FP); if (FP[2] <= capRad) lo = mid; else hi = mid; }
@@ -115,8 +115,15 @@ export class RiderSim {
   private readonly idlePhase: [number, number];
   /** R10: the pivoted hit's lowering of the line (v) while an end of the placed board is too deep (public for the dev probe) */
   hitLow = 0;
+  /** R12: the rider's height against the 1.75 m model (the roof cap's crown scales with it; set by the viewer with the board) */
+  riderScale = 1; /** the plan's own height this step, before the caps (the dev probe) */ planV = 0;
+  /** R12: the posed body's head and neck (rider frame, model metres; the viewer sets them each frame): the roof cap's line is held under
+   *  the crown the body actually has, the standing model only decides the crouch */
+  readonly headR = new Float64Array([-0.1, 1.36, 0.43]); readonly neckR = new Float64Array([-0.1, 1.0, 0.4]); private haveHead = false;
+  setHead(hx: number, hy: number, hz: number, nx: number, ny: number, nz: number) { this.headR[0] = hx; this.headR[1] = hy; this.headR[2] = hz; this.neckR[0] = nx; this.neckR[1] = ny; this.neckR[2] = nz; this.haveHead = true; }
+  private readonly crouchS = new Spring();
   private railMid = 0; private lastPivot = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
-  readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0, sagNow: 0, endSagNow: 0, pxyNow: 0, pxzNow: 0, railLowNow: 0, endLowNow: 0};
+  readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0, sagNow: 0, endSagNow: 0, pxyNow: 0, pxzNow: 0, railLowNow: 0, endLowNow: 0, /** R12: the slope cap alone, the roof cap (standing crown / the blended crown), the crouch 0..1 */ slopeCapNow: 1, roofStandNow: 1, roofCapNow: 1, crouchNow: 0};
   constructor(atlas: Atlas, skill: Skill, seed: number, flowX: number, stance: Stance | null, t0: number) {
     this.atlas = atlas; this.H = atlas.meta.face_m; this.seed = seed; this.flowX = flowX; this.plan = buildPlan(skill, seed, this.H);
     this.stance = stance ?? defaultStance(seed); const r = rng(seed ^ 0x9e3779b9); this.idlePhase = [r() * 2 * Math.PI, r() * 2 * Math.PI];
@@ -141,7 +148,7 @@ export class RiderSim {
   private step(dt: number) {
     const c = this.cur, a = this.atlas, m = a.meta, H = this.H, t = c[S.T] + dt, pr = this.plan.profile;
     c[S.T] = t; this.tau += dt; this.stats.steps++;
-    const ps = planAt(this.plan, this.tau, this.ps), u0 = ps.u, seg0 = ps.seg, pose0 = ps.pose, comp0 = ps.comp;
+    const ps = planAt(this.plan, this.tau, this.ps), u0 = ps.u, seg0 = ps.seg, pose0 = ps.pose, comp0 = ps.comp; this.planV = ps.v;
     // the curl: the break point this instant, followed through a spring (the rider does not twitch with every section pulse)
     const xbNow = breakX(m, t); this.stats.xbNow = xbNow;
     if (!this.started) this.xbS.set(xbNow); const xb = this.xbS.step(xbNow, dt, RIDE.curlFollowW);
@@ -157,7 +164,44 @@ export class RiderSim {
     if (this.started) x = Math.min(x, this.rx + (this.flowX - RIDE.stallMinWaterMps) * dt);
     // on the face: the planned height, kept under the rideable slope cap (soft), the slope at the point
     // the cap keeps the wave-side rail (rb up the face from the centre) under the slope cap too, not just the centre
-    const capNow = maxFracAt(a, x, t, ps.cap * Math.PI / 180) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess * (1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg)) / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); if (!this.started) this.capS.set(capNow); const cap = this.capS.step(capNow, dt, RIDE.capFollowW); this.stats.maxFracNow = cap;
+    let capNow = maxFracAt(a, x, t, ps.cap * Math.PI / 180) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess * (1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg)) / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); this.stats.slopeCapNow = capNow;
+    // R12: the roof cap (RIDE.roof) on the thrown-lip bands: the model crown, carried on the last step's deck basis (F along the board
+    // toward the tail, U the rolled deck normal, Zc toward the toes), must keep its margin of open water above it. The standing crown's
+    // cap decides the crouch (feed-forward from the plan's height, so the crouch never feeds back into its own cap); the line's cap is
+    // the crown blended between standing and crouched by the crouch and the plan's own barrel weight.
+    let crouchT = 0;
+    if (this.plan.band.roofCap) {
+      const RF = RIDE.roof, k = this.riderScale, started = this.started, vHi = Math.min(0.95, capNow + 0.08);
+      // the deck basis of the last step (the first step: the crown straight up, the toes toward the wave)
+      const Fy = started ? c[S.FY] : 0, Fz = started ? c[S.FZ] : 0, Uy = started ? c[S.UY] : 1, Uz = started ? c[S.UZ] : 0;
+      const sgn = this.frontside ? -1 : 1, Zy = started ? sgn * (c[S.FZ] * c[S.UX] - c[S.FX] * c[S.UZ]) : 0, Zz = started ? sgn * (c[S.FX] * Uy - Fy * c[S.UX]) : -sgn;   // Zc = +-(F x U): toward the toes
+      // read NOW and a little AHEAD along the rider's own motion (the cap steps where the thrown zone begins; the cap spring would lag it)
+      const xL = x + (started ? c[S.VX] : 0) * RF.leadS, tL = t + RF.leadS, P = RP;
+      const margin = RF.marginM;
+      const crown = (m: {x: number; up: number; toe: number; heel: number}, lead: boolean): number => {
+        const hz = (this.frontside ? m.toe : -m.heel) * k, hy = (m.up + RF.crownM) * k, hx = -m.x * k, hs = hy - RF.shoulderM * k;   // the rider's nose is at -x: x toward the nose = -F
+        P[0] = Fy * hx + Uy * hy + Zy * hz; P[1] = Fz * hx + Uz * hy + Zz * hz; P[2] = Fy * hx + Uy * hs + Zy * hz; P[3] = Fz * hx + Uz * hs + Zz * hz;
+        return roofFracAt(a, lead ? xL : x, lead ? tL : t, P, margin, RIDE.vMin, vHi);
+      };
+      const standCap = crown(RF.stand, true); this.stats.roofStandNow = standCap;
+      const ck = clamp((ps.v - standCap - RF.crouchFreeV) / RF.crouchV, 0, 1); crouchT = ck * ck * (3 - 2 * ck);
+      // the crown the line is held under follows the body's ACTUAL barrel weight (the pose fades at its own rate; a crown ahead of it
+      // let the standing head into the lip while the pose was still standing)
+      // the line is held under the crown of the body the viewer posed last frame (the head and the neck; the standing model until then)
+      const body = (lead: boolean): number => {
+        if (!this.haveHead) return crown(RF.stand, lead);
+        const H = this.headR, N = this.neckR, hx = -H[0] * k, hy = (H[1] + RF.crownM) * k, hz = H[2] * k, nx = -N[0] * k, ny = N[1] * k, nz = N[2] * k;
+        P[0] = Fy * hx + Uy * hy + Zy * hz; P[1] = Fz * hx + Uz * hy + Zz * hz; P[2] = Fy * nx + Uy * ny + Zy * nz; P[3] = Fz * nx + Uz * ny + Zz * nz;
+        return roofFracAt(a, lead ? xL : x, lead ? tL : t, P, margin, RIDE.vMin, vHi);
+      };
+      const roofCap = Math.min(body(false), body(true));
+      // the snap's hit is the one deliberate pass at the lip: the roof cap fades out with the knot's pivot (as the trim roll does); a
+      // margin that merely shrank with the pivot held the 6 ft hit at the trough (the pivoted crown is inside the thrown lip at every
+      // height on the wall), so the hit is the one place the head may meet the lip, lowered a little by the band's hitDropV
+      const roofW = 1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg), roofEff = roofCap + (1 - roofW) * (vHi - roofCap);
+      this.stats.roofCapNow = roofEff; capNow = Math.min(capNow, roofEff);
+    } else { this.stats.roofStandNow = 1; this.stats.roofCapNow = 1; }
+    if (!this.started) { this.capS.set(capNow); this.crouchS.set(crouchT); } const cap = this.capS.step(capNow, dt, capNow < this.capS.x ? RIDE.capFollowWDown : RIDE.capFollowW), crouch = this.crouchS.step(crouchT, dt, RIDE.roof.crouchW); this.stats.maxFracNow = cap; this.stats.crouchNow = crouch;
     // R10: a pivoted hit (the snap) respects the section it is on: the hollow band's hit drops with the pivot's wind-up (the C-wall's
     // concavity under a near-vertical board), and the measured ends of the placed board lower it further while an end is too deep
     // (hitLow, an integrator: the nose under the lip's underside, the tail out of the wall)
@@ -257,8 +301,11 @@ export class RiderSim {
     // R8: out of the snap the arms' target switches to the next pose a little before the body's (the hands peak at the hit, then drop)
     if (pose0 === 'top') this.snapArmDrop = ps.move === 'top';
     let poseArm = pose0; if (pose0 === 'top' && this.snapArmDrop && this.frontside) { planAt(this.plan, this.tau + BODY.snapArmDropLeadS, this.psArm); if (this.psArm.pose !== 'top') poseArm = this.psArm.pose; }
+    // R12: under a thrown lip the standing poses blend into the barrel crouch by the roof cap's crouch (the viewer maps it to the pig-dog backside)
+    const pivotK = Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg), crouchable = (p: PoseName) => (p === 'trim' || p === 'pump' || p === 'climb' ? 1 : p === 'top' || p === 'recover' ? 1 - pivotK : 0);
+    const crouchPose = crouch > 1e-3 ? crouch * crouchable(pose0) : 0, crouchArm = crouch > 1e-3 ? crouch * crouchable(poseArm) : 0;
     for (let i = 0; i < POSES.length; i++) {
-      const target = POSES[i] === pose0 ? 1 : 0, targetArm = POSES[i] === poseArm ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000) / BODY.fadeScale;
+      const target = (POSES[i] === pose0 ? 1 - crouchPose : 0) + (POSES[i] === 'barrel' ? crouchPose : 0), targetArm = (POSES[i] === poseArm ? 1 - crouchArm : 0) + (POSES[i] === 'barrel' ? crouchArm : 0), w = 4.7 / (pr.fadeMs[POSES[i]] / 1000) / BODY.fadeScale;
       if (!this.started) { this.wS[i].set(target); this.waS[i].set(targetArm); }
       c[S.W0 + i] = this.wS[i].step(target, dt, w); c[S.WA0 + i] = this.waS[i].step(targetArm, dt, w * (POSES[i] === 'top' && targetArm === 0 && this.frontside && this.snapArmDrop ? BODY.snapArmDropFade : BODY.armFadeScale));
     }

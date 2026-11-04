@@ -8,7 +8,7 @@ motion). Goofy-foot frontside on a left; the viewer mirrors it for a right. Roun
 (trim knees ~45 deg, bottom turn ~85, barrel ~100), the hands stay between knee and chest height, the stance is 0.70 m.
 
 Run (MPFB is a user extension, so NOT --factory-startup):
-  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v7.glb [--preview DIR] [--board 1.83]
+  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v8.glb [--preview DIR] [--board 1.83]
 
 Frame of the exported model (Blender, z-up; glTF converts to y-up): board along x with the NOSE AT -X, the surfer faces -Y (toward the
 wave), the board's bottom at z = 0 at rest, true scale (the standing height is printed: SURFER_MODEL_M in WaveLive.tsx must match).
@@ -25,7 +25,7 @@ from mathutils import Matrix, Vector
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 ap = argparse.ArgumentParser()
-ap.add_argument('--out', default='tools/blender/assets/surfer-v7.glb')
+ap.add_argument('--out', default='tools/blender/assets/surfer-v8.glb')
 ap.add_argument('--preview', default='')
 ap.add_argument('--board', type=float, default=1.83, help='board length in metres (6\'0" = 1.83)')
 ap.add_argument('--fps', type=int, default=24)
@@ -392,9 +392,12 @@ POSES = {
     # behind the hip, head down the line and up at the target
     # R8 (surfer-v7): a touch lower still (hips 0.68 of standing, knees ~108) with the torso pitched ~2 deg further: the real chest is almost
     # on the front knee (R7's knees sat 0.16-0.24 m off the deck); the torso stays under the 62 deg pitch gate (R7 measured 59.7 at the apex)
-    'bottom': dict(board=(0, 0, 0), hips=(0.68, 0.12, -0.16), hip_yaw=-24, foot_yaw=(32, 4),
+    # R12 (surfer-v8; the viewer's body-clip gate: on every 6 and 12 ft frontside ride the back hand sat 0.7 m out over the toe rail at
+    # knee height and the knees 0.46 m out, 0.1-0.35 m inside the face once the board is on its rail): the hips over the board (0.08 m
+    # toward the wave, not 0.16) and a touch taller (0.72), the leading hand straight down by the toe rail, the back hand low behind the hip
+    'bottom': dict(board=(0, 0, 0), hips=(0.72, 0.12, -0.08), hip_yaw=-24, foot_yaw=(32, 4),
                    spine=((-0.32, -0.78, 0.54), (-0.32, -0.8, 0.52), (-0.3, -0.76, 0.58), -20), neck=(-0.45, -0.3, 0.84), head=((-0.65, -0.2, 0.73), -40),
-                   arm_r=((-0.12, -0.5, -0.86), (-0.12, -0.52, -0.85), (-0.12, -0.52, -0.85)), arm_l=((0.35, -0.1, -0.93), (0.3, -0.55, -0.78), (0.3, -0.55, -0.78))),
+                   arm_r=((-0.12, -0.42, -0.9), (-0.12, -0.36, -0.92), (-0.12, -0.36, -0.92)), arm_l=((0.35, -0.05, -0.94), (0.3, -0.25, -0.92), (0.3, -0.25, -0.92))),
     # climb (real-bottom-turn-seq t4.5-5.5, real-snap-seq t2-3: extending up the face, still compact): knees ~60, torso ~35, the front
     # hand forward at hip height, the back arm low behind
     'climb': dict(board=(0, 0, 0), hips=(0.88, 0.08, -0.08), hip_yaw=-14, foot_yaw=(34, 6),

@@ -109,17 +109,18 @@ export function stripX(m: AtlasMeta): [number, number] {
   return [-(m.shoulder_len_m * 1.35 + 4 * m.face_m), m.break_len_m * 1.45 + 4 * m.face_m];
 }
 
-/** Height envelope along the crest: shoaling (Green's law) and a focused peak on the shoulder, the broken water losing height
- *  past the cycle, flat at both strip ends, plus a little irregularity. Never uniform. */
+/** Height envelope along the crest: shoaling (Green's law) and a gentle peak at the break, the broken water losing height
+ *  past the cycle, flat at both strip ends. Keep in step with ampAt in the GLSL ALONG block (WaveLive). */
 export function ampAt(m: AtlasMeta, x: number): number {
   const [x0, x1] = stripX(m);
   let a: number;
   if (x < 0) {
-    const d = m.depth_break_m + m.bed_along_per_m * -x, peak = Math.exp(-((x / (0.55 * m.shoulder_len_m)) ** 2));
-    a = Math.pow(m.depth_break_m / d, 0.25) * (0.42 + 0.58 * peak);
-  } else a = 1 - 0.5 * smooth(0.25 * m.break_len_m, 1.05 * m.break_len_m, x);   // S1 (R7): the broken section loses half its height within a break length
-  const w = 1 + 0.05 * Math.sin(x * 0.37 / Math.max(m.face_m, 0.6) + 1.3) + 0.035 * Math.sin(x * 0.91 / Math.max(m.face_m, 0.6) + 4.1);
-  return a * w * smooth(x0, x0 + 0.3 * (0 - x0), x) * (1 - smooth(x1 - 0.3 * x1, x1, x));
+    const d = m.depth_break_m + m.bed_along_per_m * -x, peak = Math.exp(-((x / (0.9 * m.shoulder_len_m)) ** 2));
+    a = Math.pow(m.depth_break_m / d, 0.25) * (0.62 + 0.38 * peak);   // R12: a wider, gentler peak (was 0.42 + 0.58 at 0.55 shoulder lengths: a hump at the break point seen down the line)
+  } else a = 1 - 0.35 * smooth(0.35 * m.break_len_m, 1.25 * m.break_len_m, x);   // S1 (R7): the broken section loses height within a break length (R12: 0.35 over 0.35-1.25 lengths, was half over 0.25-1.05: the drop behind the peak was the hump's other side)
+  // R12: no static ripple along the crest (5% + 3.5% of the height at 17 and 7 face heights: the lip line bent every few metres in the
+  // default view, the user's "weird little curvature"); the sections pulses (stageAt) still make the wave never uniform
+  return a * smooth(x0, x0 + 0.3 * (0 - x0), x) * (1 - smooth(x1 - 0.3 * x1, x1, x));
 }
 
 /** S1 (R7): the crest is gently curved in plan, the shoulder sweeping seaward away from the peak (refraction over the bar; a ruler-straight
@@ -218,6 +219,36 @@ export function waterHeightAt(a: Atlas, x: number, zc: number, t: number): numbe
     if ((y0 - ya) * (y1 - ya) <= 0 && y0 !== y1) { const k = (ya - y0) / (y1 - y0); best = Math.min(best, z[i] + (z[i + 1] - z[i]) * k); }
   }
   return Number.isFinite(best) ? best : 0;
+}
+
+/** R12 (the roof cap): the highest height fraction, scanning UP from `vLo`, at which every model point carried with the face point
+ *  (`pts`: pairs of offsets up and seaward in the crest frame: the rider's crown and shoulders) still has at least `marginM` of open
+ *  water roof above it and is not inside the water (the profile-crossing parity, as roofAboveAt). The FIRST limit met from below is the one returned: on a hollow face
+ *  the crown passes through the thrown lip's root on the way up and would be "clear" again above it, which is no line to ride. `vHi` is
+ *  returned when nothing limits. One profile sample for the whole scan (coarse steps of `stepV`, then three bisections). */
+export function roofFracAt(a: Atlas, x: number, t: number, pts: ArrayLike<number>, marginM: number, vLo: number, vHi: number, stepV = 0.06): number {
+  const n = 192, y = SY, z = SZ; profileInto(a, x, t, n, true, y, z);
+  let ci = 0; for (let i = 1; i < n; i++) if (z[i] > z[ci]) ci = i;
+  const toBeach = y[n - 1] > y[0] ? 1 : -1; let ti = ci; for (let i = ci; i >= 0 && i < n; i += toBeach) if (z[i] < z[ti]) ti = i;
+  const tro = z[ti], crest = z[ci];
+  // the crown's roof at a height fraction: the face point (the first crossing from the trough, as facePointInto) plus the offset
+  const clear = (frac: number): boolean => {
+    const target = tro + Math.min(0.97, Math.max(0.02, frac)) * (crest - tro); let py = NaN;
+    for (let i = ti; i !== ci; i -= toBeach) { const j = i - toBeach; if ((z[i] - target) * (z[j] - target) <= 0 && z[j] !== z[i]) { py = y[i] + (y[j] - y[i]) * (target - z[i]) / (z[j] - z[i]); break; } }
+    if (Number.isNaN(py)) return false;
+    for (let q = 0; q + 1 < pts.length; q += 2) {   // every model point (crest z = -profile y: a seaward offset is -y here)
+      const ya = py - pts[q + 1], yh = target + pts[q]; let best = Infinity, above = 0;
+      for (let i = 0; i < n - 1; i++) { const y0 = y[i], y1 = y[i + 1]; if ((y0 < ya) !== (y1 < ya)) { const zz = z[i] + (z[i + 1] - z[i]) * (ya - y0) / (y1 - y0); if (zz > yh) { above++; if (zz - yh < best) best = zz - yh; } } }
+      if (above % 2 === 1 || best < marginM) return false;
+    }
+    return true;
+  };
+  if (!clear(vLo)) return vLo;
+  let lo = vLo, hi = -1;
+  for (let v = vLo + stepV; v < vHi; v += stepV) { if (clear(v)) lo = v; else { hi = v; break; } }
+  if (hi < 0) return vHi;
+  for (let j = 0; j < 3; j++) { const mid = (lo + hi) / 2; if (clear(mid)) lo = mid; else hi = mid; }
+  return lo;
 }
 
 /** Where the lip is pitching now: the FIRST along-crest x (from the shoulder) where the stage with its travelling pulses reaches
