@@ -6,8 +6,9 @@ import {isEnclosedWater} from './enclosed.ts';
  * sea neighbours so the field reaches the coastline; the land mask then trims it. Display only, never a reading. */
 export type FieldLayer = 'WAVES' | 'SWELL' | 'WIND' | 'PERIOD';
 export interface Field {lats: number[]; lons: number[]; val: Float32Array; u: Float32Array; v: Float32Array; unit: SpatialFrame['unit']; filled: number; wrap: boolean; layer: FieldLayer; validAt: string; source: string}
-/** Which layer a frame is: wind speed, period (s), the offshore wave height ("Offshore Hs"), or swell height. */
-export const layerOfFrame = (f: Pick<SpatialFrame, 'unit' | 'variable'>): FieldLayer => (f.unit === 'm/s' ? 'WIND' : f.unit === 's' ? 'PERIOD' : /offshore hs|waves/i.test(f.variable) ? 'WAVES' : 'SWELL');
+/** Which layer a frame is. Frames carry the WW3/GFS dataset variable as `variable` (spatial.ts: `spec.scalar`): swell is `shgt` (height) and `sper` (period); the total sea is `Thgt` and `Tper`; wind is `ugrd10m`. Wind and period are told apart by unit; a height is SWELL only for the swell scalar, otherwise WAVES
+ *  (the offshore wave height, "Offshore Hs"). The colour ramp and the LUT key on the UNIT, never on this, so the classification only labels the point value. */
+export const layerOfFrame = (f: Pick<SpatialFrame, 'unit' | 'variable'>): FieldLayer => (f.unit === 'm/s' ? 'WIND' : f.unit === 's' ? 'PERIOD' : /^(shgt|sper|sdir)$|swell/i.test(f.variable) ? 'SWELL' : 'WAVES');
 export function buildField(frame: SpatialFrame, wind: boolean): Field | null {
   const lats = [...new Set(frame.cells.map((c) => c.lat))].sort((a, b) => a - b), lons = [...new Set(frame.cells.map((c) => c.lon))].sort((a, b) => a - b);
   const W = lons.length, H = lats.length;

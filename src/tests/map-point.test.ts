@@ -31,8 +31,12 @@ test('null on enclosed water ("Not covered"), outside the grid, and where the ca
   assert.equal(sampleField([field], 37.2, -123.4, () => true), null, 'land');
   assert.equal(sampleField([], 37.2, -123.4), null);
 });
-test('layers: swell height, period and wind are told apart; the regional grid wins over the global one', () => {
-  assert.equal(buildField(frame({variable: 'Height'}), false)!.layer, 'SWELL');
+test('layers: waves, swell height, period and wind are told apart by the real WW3/GFS scalar names; the regional grid wins over the global one', () => {
+  assert.equal(buildField(frame({variable: 'Thgt'}), false)!.layer, 'WAVES', 'the offshore wave height frame (WW3 Thgt)');
+  assert.equal(buildField(frame({variable: 'shgt'}), false)!.layer, 'SWELL', 'the swell height frame (WW3 shgt)');
+  assert.equal(buildField(frame({variable: 'Offshore Hs'}), false)!.layer, 'WAVES');
+  assert.equal(sampleField([buildField(frame({variable: 'Thgt'}), false)!], 37.2, -123.4)!.layer, 'WAVES', 'and in the point value');
+  assert.equal(buildField(frame({unit: 's', variable: 'Tper'}), false)!.layer, 'PERIOD'); assert.equal(buildField(frame({unit: 's', variable: 'sper'}), false)!.layer, 'PERIOD');
   const per = buildField(frame({unit: 's', variable: 'Period'}, () => ({value: 11, direction: 290})), false)!; assert.equal(per.layer, 'PERIOD'); assert.equal(sampleField([per], 37.2, -123.4)!.value, 11);
   const wind = buildField(frame({unit: 'm/s', variable: 'Speed'}, () => ({value: 8, direction: 0})), true)!; assert.equal(wind.layer, 'WIND'); assert.equal(sampleField([wind], 37.2, -123.4)!.unit, 'm/s');
   const regional = buildField(frame(undefined, () => ({value: 2, direction: 270})), false)!, global = buildField(frame({resolution: 2}, () => ({value: 5, direction: 270})), false)!;
