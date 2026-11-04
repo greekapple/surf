@@ -146,9 +146,9 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a long, fast, high line out to the shoulder with the rail set */
   straight: [{dt: 1.5, du: 0.4, dv: 0.05, move: 'trim', pose: 'trim', comp: 0.5}, {dt: 1.3, du: 0.9, dv: 0.02, move: 'trim', pose: 'trim', comp: 0.45}],
   /** stall (weight back, close to the curl), tuck low and hold a high line under the lip, come out ahead of the foam */
-  barrel: [{dt: 0.8, du: -0.3, dv: -0.1, move: 'barrel', pose: 'recover', comp: 0.6, ahead: 0.1}, {dt: 0.6, du: -0.75, dv: -0.15, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.25}, {dt: 1.4, du: -0.9, dv: -0.12, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.4}, {dt: 1.0, du: -0.2, dv: -0.05, move: 'barrel', pose: 'climb', comp: 0.6, ahead: 0.2}],
+  barrel: [{dt: 0.8, du: 0.1, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: 0.7}, {dt: 0.6, du: -0.8, dv: -0.36, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.3}, {dt: 1.4, du: -1.0, dv: -0.38, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.45}, {dt: 0.9, du: 0.1, dv: -0.3, move: 'barrel', pose: 'recover', comp: 0.8, ahead: 0.35}],   // R9: the stall drops the line to the bottom of the face while still ahead of the lip, the rider slides back into the tube along its floor (v ~0.12 at band C, where the thrown lip's roof clears the crouched rider) and comes out low and ahead of the curl before standing up; at the old 0.35-0.4 the head passed through the lip, in and out
   /** a shallow cover-up (Intermediate): the stall and the crouch under the lip, never behind the curl */
-  coverup: [{dt: 0.8, du: -0.2, dv: -0.05, move: 'barrel', pose: 'recover', comp: 0.6, ahead: 0.15}, {dt: 1.2, du: -0.35, dv: 0.0, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: 0.1}, {dt: 0.9, du: 0.2, dv: -0.05, move: 'barrel', pose: 'climb', comp: 0.6, ahead: 0.25}],
+  coverup: [{dt: 0.8, du: -0.2, dv: -0.42, move: 'barrel', pose: 'barrel', comp: 0.85, ahead: 0.5}, {dt: 1.2, du: -0.35, dv: -0.5, move: 'barrel', pose: 'barrel', comp: 0.95, ahead: 0.05}, {dt: 0.9, du: 0.2, dv: -0.42, move: 'barrel', pose: 'recover', comp: 0.7, ahead: 0.4}],   // R9: crouched low on the face under the pitching lip's edge, never behind the curl (at the old v ~0.4 the head sat in the lip for the whole cover-up)
   /** the big-wave bottom turn: long radius, heavy load, deep at the base */
   longBottom: [{dt: 1.4, du: 0.35, dv: -0.45, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.9, du: 0.1, dv: 0.08, move: 'bottom', pose: 'climb', comp: 0.6}],
 };
@@ -160,6 +160,10 @@ export interface StyleBand {
   id: 'A' | 'B' | 'C' | 'D'; minFt: number; label: string;
   /** preferred height on the face, pocket distance (face heights, scaled by the expertise), aggression/compression/spray scales */
   lineV: number; pocketFaces: number; aggression: number; compression: number; spray: number;
+  /** R9: the snap's hit this far ahead of the curl (face heights) on the hollow bands: with the tube drawn (the roof's apex over the
+   *  wall at the pitch), a board pivoted vertical 0.8 m ahead of the break point put its nose 0.3 m into the lip's underside; the real
+   *  snap on a hollow wave is on the shoulder, where the lip is still feathering */
+  hitAhead?: number;
   /** the body of the ride as maneuvers with weights (0..1: the seeded chance of keeping an optional one; 1 = always) */
   moves: {name: ManeuverName; w: number}[];
   /** how fast the drop is against the skill's takeoff (1 = as written; smaller = later, steeper) */
@@ -177,11 +181,11 @@ export const BANDS: readonly StyleBand[] = [
     moves: [{name: 'trim', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 1}, {name: 'pump', w: 0.7}, {name: 'carve', w: 0.8}],
     boardFt: [5.83, 6.5], boardTypes: ['Performance shortboard', 'Everyday shortboard', 'Hybrid', 'Step-up']},
   // big (6-10 ft): deep bottom turns, vertical top turns, and a barrel every ride (Intermediate: a shallow cover-up; Beginner: never)
-  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.5, pocketFaces: 0.5, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85,
+  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.5, pocketFaces: 0.5, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85, hitAhead: 1.1,
     moves: [{name: 'longBottom', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.5}],
     boardFt: [6.17, 6.83], boardTypes: ['Step-up', 'Performance shortboard', 'Gun']},
   // very big (10 ft +): long drawn-out bottom turns, a deep barrel, a high fast line
-  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.58, pocketFaces: 0.8, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7,
+  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.58, pocketFaces: 0.8, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7, hitAhead: 1.1,
     moves: [{name: 'longBottom', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],
     boardFt: [6.67, 7.5], boardTypes: ['Step-up', 'Gun', 'Midlength']},
 ];
@@ -256,7 +260,7 @@ export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: numb
   for (const m of band.moves) {
     const name = m.name in skill.allow ? skill.allow[m.name] : m.name; if (name === null || name === undefined) continue;
     if (m.w < 1 && !keep(m.w)) continue;
-    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
+    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead ?? (k.move === 'top' && k.cap !== undefined ? band.hitAhead : undefined), cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
   }
   if (!out.length) out.push({dt: 1.2, u: -pocket, v: lineV, move: 'trim', pose: 'trim', comp: 0.4});
   return out;

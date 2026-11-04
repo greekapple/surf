@@ -133,8 +133,51 @@ def thicken_lip(p, f):
     return p
 
 
-def fall_lip(p, k):
-    """The lip falls ballistically and lands: k=0 pitched, k=1 tip at the trough. It also travels forward as it falls."""
+def throw_lip(p, amt, thick=0.0, out=0.42, down=0.04, wall=0.06, apex_in=0.8, apex_up=0.04):
+    """R9 (B1, the tube): at the pitch the source barrel row's lip is short (the tip 0.3 face heights out, 0.8 of the crest up), its
+    cavity starts at half height and the roof slants up from that back to an apex well shoreward of the wall, so a crouched rider on the
+    wall has the head in the lip's root. Three moves, normalised units, amt 0..1 scaling all of them (the small bands get less):
+      - the lip is thrown further out and down: the tip goes `out` face heights shoreward and `down` lower (the underside stretches with
+        it, fading to nothing at the cavity back); `thick` bulges the lip's top surface up over the throw (a thick lip reads as one from
+        the side; the cavity under it is untouched, the bulge stays under the crest so the crest index holds);
+      - the hollow is a C, not a wedge: the roof between its apex and the cavity back is drawn seaward by `apex_in` of the apex's lead over
+        the back (the inner wall runs near-vertical from the rider up to the apex, which now sits over the wall); the wall under the back
+        is drawn seaward by `wall`, most at a quarter height, nothing at the trough."""
+    if amt <= 1e-3:
+        return p
+    p = p.copy()
+    ci, ti, ki = lip_indices(p)
+    if ki <= ti + 1 or ti <= ci:
+        return p
+    n = len(p)
+    i = np.arange(n)
+    zc = p[ci, 1]
+    wl = ss(ci + 1, ti, i) * (i <= ti) + (i > ti) * (1 - ss(ti, ki, i))   # 0 at the crest, 1 at the tip, 0 again at the cavity back
+    wl = wl ** 1.3
+    p[:, 0] += out * amt * wl
+    p[:, 1] -= down * amt * zc * wl
+    if thick > 0:
+        s = np.clip((i - ci) / max(ti - ci, 1), 0, 1) * (i <= ti)
+        p[:, 1] = np.minimum(p[:, 1] + thick * amt * zc * np.sin(np.pi * s) ** 1.5, np.maximum(p[:, 1], 0.985 * zc))
+    # the C: the roof's apex (the underside's highest point between the tip and the back) over the wall; the roof between them rotates
+    # about the back (the back and the wall under it stay), and it rises by apex_up (the lip's root thins a little)
+    ai = ti + int(np.argmax(p[ti:ki + 1, 1]))
+    lead = p[ai, 0] - p[ki, 0]
+    if apex_in > 0 and lead > 0 and ai > ti:
+        wa = ss(ti, ai, i) * (i <= ai) + (i > ai) * (i <= ki) * (1 - ss(ai, ki, i))
+        p[:, 0] -= apex_in * amt * lead * wa
+        p[:, 1] += apex_up * amt * zc * wa
+    low = next((j for j in range(ki, n) if p[j, 1] < 0.02), n - 1)
+    zn = np.clip(p[:, 1] / max(zc, 1e-6), 0, 1)
+    ww = (i >= ki) * (i <= low) * np.exp(-((zn - 0.25) / 0.18) ** 2) * (1 - ss(low - 3, low, i))
+    p[:, 0] -= wall * amt * ww
+    return p
+
+
+def fall_lip(p, k, pivot_root=False):
+    """The lip falls ballistically and lands: k=0 pitched, k=1 tip at the trough. It also travels forward as it falls. R9 pivot_root:
+    the underside's fall fades out by the roof's apex instead of the cavity back, so the lip pivots from its root and the tube's roof
+    over the wall holds while the curtain comes down (before, the apex dropped by half the tip's fall and the cavity closed)."""
     if k <= 0:
         return p
     p = p.copy()
@@ -143,7 +186,10 @@ def fall_lip(p, k):
     fwd = 0.45 * drop
     i = np.arange(len(p))
     end = next((j for j in range(ki, len(p)) if p[j, 1] < 0.05), len(p) - 1)
-    w = ss(ci + 1, ti, i) * (i <= ti) + (i > ti) * (1 - ss(ti, max(ki, ti + 2), i))
+    fade_to = max(ki, ti + 2)
+    if pivot_root and ki > ti + 2:
+        fade_to = max(ti + 2, ti + int(np.argmax(p[ti:ki + 1, 1])))
+    w = ss(ci + 1, ti, i) * (i <= ti) + (i > ti) * (1 - ss(ti, fade_to, i))
     w = w ** 1.2
     p[:, 0] += fwd * w
     p[:, 1] -= drop * w
@@ -260,11 +306,14 @@ def stage_curves(src, face, breaker, phys):
         p[:, 0] *= wy
         return p
 
+    hollow = 0.0 if spill else float(ss(0.7, 1.8, face))  # R9: the tube on plunging waves from 4-6 ft up (full at 6-8 ft and above)
     for k in range(S_LAND + 1):
         p = src.chain(cm * cs[k])
         p = thicken_lip(p, 1 - (1 - f_lip) * float(ss(1, S_PITCH, k)))
+        if k >= S_PITCH:
+            p = throw_lip(p, hollow, thick=0.05 + 0.08 * heavy)
         if not spill and k > S_PITCH:
-            p = fall_lip(p, (k - S_PITCH) / (S_LAND - S_PITCH) * (0.55 + 0.45 * plunge))
+            p = fall_lip(p, (k - S_PITCH) / (S_LAND - S_PITCH) * (0.55 + 0.45 * plunge), pivot_root=hollow > 0.5)
         p[:, 1] *= hs[k]
         if k < S_PITCH:   # the unbroken shoulder the rider is on: a rideable face under the lip (wave-round3)
             p = relax_face(p, 72.0, 0.8)
@@ -320,7 +369,7 @@ def stage_curves(src, face, breaker, phys):
                 f = (1.0 - 0.3 * (k - S_LAND - 1) / (NS - 2 - S_LAND)) * ss(yc - 1.6 * wy, yc - 0.2 * wy, p[:, 0]) * (p[:, 1] > 0.01)
                 fo = np.maximum(fo, f)
         foams.append(np.clip(fo, 0, 1))
-    return curves, foams, dict(cm=cm, f_lip=f_lip, sb=sb, wy=wy, heavy=heavy)
+    return curves, foams, dict(cm=cm, f_lip=f_lip, sb=sb, wy=wy, heavy=heavy, hollow=hollow)
 
 
 def resample(curves, foams, face, floor_m, y0, y1):
