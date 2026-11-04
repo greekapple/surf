@@ -5,7 +5,7 @@
  *  (shoulder at -x, break point at 0+), y up, z seaward. Illustration of the hour, never a measurement. */
 import type {Skill} from '../../models/index.ts';
 import {type Atlas, breakX, faceDistanceAt, facePointInto} from './waveAtlas.ts';
-import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, SIM, SKILLS, type SkillProfile, type StyleBand, bandFor, composeBody} from './surfSceneConfig.ts';
+import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, RIDE_SNAP_PIVOT_DEG, SIM, SKILLS, type SkillProfile, type StyleBand, bandFor, composeBody} from './surfSceneConfig.ts';
 
 export const G = 9.81;
 export const POSES: readonly PoseName[] = ['trim', 'bottom', 'climb', 'top', 'recover', 'pump', 'barrel', 'pigdog', 'cutback', 'trimB', 'bottomB', 'climbB', 'topB', 'recoverB', 'pumpB', 'cutbackB'];
@@ -59,7 +59,9 @@ export function visibilityAt(p: Plan, tau: number): number {
 export interface PlanSample {u: number; v: number; comp: number; du: number; dv: number; seg: number; move: Move; pose: PoseName; /** min distance from the curl (face heights), lerped between the knots */ ahead: number;
   /** R8: the slope cap (deg) of the knot being approached, and the board's pivot past its path (deg), smoothstepped from the passed
    *  knot's to the approached knot's (a snap's pivot winds up over the hit segment and unwinds over the recovery) */
-  cap: number; pivot: number}
+  cap: number; pivot: number;
+  /** R10: the segment touches a knot behind the break point (the tube): the absolute `ahead` floor fades out across it */
+  tube: boolean}
 /** The plan at loop time tau (wrapped): position, velocity (per s) and the segment's move and target pose. Hermite with Catmull-Rom tangents. */
 export function planAt(p: Plan, tau: number, out: PlanSample): PlanSample {
   const n = p.knots.length, T = p.times, P = p.period; let t = tau % P; if (t < 0) t += P;
@@ -74,7 +76,7 @@ export function planAt(p: Plan, tau: number, out: PlanSample): PlanSample {
   const K = p.knots, a = K[k], b = K[k1], m = K[km], q = K[kp];
   const ev = (f: (x: Knot) => number, d: boolean) => { const m0 = (f(b) - f(m)) / (t1 - tm), m1 = (f(q) - f(a)) / (tp - t0); return d ? d00 * f(a) + d10 * h * m0 + d01 * f(b) + d11 * h * m1 : h00 * f(a) + h10 * h * m0 + h01 * f(b) + h11 * h * m1; };
   out.u = ev((x) => x.u, false); out.v = ev((x) => x.v, false); out.comp = ev((x) => x.comp, false); out.du = ev((x) => x.u, true); out.dv = ev((x) => x.v, true);
-  const aa = a.ahead ?? RIDE.minAheadFaces, ab = b.ahead ?? RIDE.minAheadFaces; out.ahead = aa + (ab - aa) * s;
+  const aa = a.ahead ?? RIDE.minAheadFaces, ab = b.ahead ?? RIDE.minAheadFaces; out.ahead = aa + (ab - aa) * s; out.tube = aa < 0 || ab < 0;
   out.seg = k; out.move = b.move; out.pose = b.pose;
   const sm = s * s * (3 - 2 * s); out.cap = b.cap ?? RIDE.slopeCapDeg; out.pivot = (a.pivot ?? 0) * (1 - sm) + (b.pivot ?? 0) * sm;
   return out;
@@ -105,10 +107,12 @@ export class RiderSim {
   private readonly xbS = new Spring(); private readonly capS = new Spring(); private readonly yawS = new Spring(); private readonly rollS = new Spring(); private readonly compS = new Spring(); private readonly leadS = new Spring();
   private readonly fitF = [new Spring(), new Spring(), new Spring()]; private readonly fitU = [new Spring(), new Spring(), new Spring()];
   private readonly wS: Spring[] = POSES.map(() => new Spring()); private readonly waS: Spring[] = POSES.map(() => new Spring());
-  private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0};
+  private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, tube: false};
   /** R8: a second sample a little ahead, for the arms' early drop out of the snap */
-  private readonly psArm: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0};
+  private readonly psArm: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, tube: false};
   private readonly idlePhase: [number, number];
+  /** R10: the pivoted hit's lowering of the line (v) while an end of the placed board is too deep (public for the dev probe) */
+  hitLow = 0;
   private railMid = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
   readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0, sagNow: 0, endSagNow: 0, pxyNow: 0, pxzNow: 0, railLowNow: 0, endLowNow: 0};
   constructor(atlas: Atlas, skill: Skill, seed: number, flowX: number, stance: Stance | null, t0: number) {
@@ -140,12 +144,23 @@ export class RiderSim {
     const xbNow = breakX(m, t); this.stats.xbNow = xbNow;
     if (!this.started) this.xbS.set(xbNow); const xb = this.xbS.step(xbNow, dt, RIDE.curlFollowW);
     // along the crest: never closer to the break point than the minimum (soft), whatever the plan says
-    const minAhead = ps.ahead < 0 ? ps.ahead * H : Math.max(ps.ahead * H, RIDE.minAheadM);   // a barrel knot sits BEHIND the break point (inside the tube: negative ahead)
+    // a barrel knot sits BEHIND the break point (inside the tube: negative ahead). R10: the absolute floor fades out under minAheadFaces, so
+    // the lerped `ahead` of the stall crosses 0 continuously (it used to step from 0.6 m to 0 at the crossing: the rider jumped 0.6 m back
+    // into the tube in one step, the "stall flip" of the heading and the wake)
+    const floor = ps.tube ? RIDE.minAheadM * Math.min(1, Math.max(0, ps.ahead) / RIDE.minAheadFaces) : RIDE.minAheadM;
+    const minAhead = ps.ahead < 0 ? ps.ahead * H : Math.max(ps.ahead * H, floor);
     let x = xb + ps.u * H; x -= smax0(x - (xb - minAhead), 0.25 * minAhead);   // C1 soft limit, no branch
+    // R10: the board never travels backwards over the water: toward the break point (+x) it can at most drift with the flow less a minimum
+    // way, so a stall slows the rider against the curl without the heading or the wake flipping
+    if (this.started) x = Math.min(x, this.rx + (this.flowX - RIDE.stallMinWaterMps) * dt);
     // on the face: the planned height, kept under the rideable slope cap (soft), the slope at the point
     // the cap keeps the wave-side rail (rb up the face from the centre) under the slope cap too, not just the centre
     const capNow = maxFracAt(a, x, t, ps.cap * Math.PI / 180) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess * (1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg)) / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); if (!this.started) this.capS.set(capNow); const cap = this.capS.step(capNow, dt, RIDE.capFollowW); this.stats.maxFracNow = cap;
-    const v = Math.max(RIDE.vMin, ps.v - smax0(ps.v - cap, RIDE.capSoftV));
+    // R10: a pivoted hit (the snap) respects the section it is on: the hollow band's hit drops with the pivot's wind-up (the C-wall's
+    // concavity under a near-vertical board), and the measured ends of the placed board lower it further while an end is too deep
+    // (hitLow, an integrator: the nose under the lip's underside, the tail out of the wall)
+    const hitDrop = (this.plan.band.hitDropV ?? 0) * Math.min(1, Math.abs(ps.pivot) / RIDE_SNAP_PIVOT_DEG) + this.hitLow;
+    const v = Math.max(RIDE.vMin, ps.v - smax0(ps.v - (cap - hitDrop), RIDE.capSoftV));
     facePointInto(a, x, v, t, FP); const fy = FP[0], slope = FP[2], Hf = Math.max(0.2, FP[3]); this.stats.slopeNow = slope; this.lastSlope = slope; this.lastHf = Hf;
     const z = -fy, y = FP[1];   // the board's bottom centre: this profile point, the one the shader draws
     // velocity (crest frame) from the step; over the water the x flow streams past at flowX
@@ -218,7 +233,11 @@ export class RiderSim {
       // the tail and nose probes too (the monitor's own points): their depth beyond the rocker lifts the centre next step
       const P = BOARD.probe, hl = 0.5 * this.boardL, tdx = hl - P.tailIn, ndx = hl - P.noseIn;   // the nose leads along F, the tail trails
       const gT = faceDistanceAt(a, bxc - tdx * Fx + P.tailUp * Rx, byc - tdx * Fy + P.tailUp * Ry, bzc - tdx * Fz + P.tailUp * Rz, t), gN = faceDistanceAt(a, bxc + ndx * Fx + P.noseUp * Rx, byc + ndx * Fy + P.noseUp * Ry, bzc + ndx * Fz + P.noseUp * Rz, t);
-      this.endMeas = Math.max(0, -Math.min(gT, gN)); this.stats.endLowNow = Math.min(gT, gN); }
+      this.endMeas = Math.max(0, -Math.min(gT, gN)); this.stats.endLowNow = Math.min(gT, gN);
+      // R10: while a knot's pivot is on, an end deeper than the allowance lowers the line (v per second per metre of excess); the lowering
+      // releases at a fixed rate once the ends clear (and after the pivot unwinds)
+      const endDeep = Math.max(0, this.endMeas - RIDE.hitEndAllowM);
+      this.hitLow = Math.abs(ps.pivot) > 1 && endDeep > 0 ? Math.min(RIDE.hitLowMaxV, this.hitLow + RIDE.hitLowGain * endDeep * dt) : Math.max(0, this.hitLow - RIDE.hitLowReleaseV * dt); }
     // the body: compression (the plan's target plus the turn load), the lead toward the heading ahead, the pose weights with cross-fades
     const compT = clamp(comp0 * pr.compression + 0.5 * Math.min(1, Math.abs(speed * yawRate) / G) * pr.compression, 0, 1);
     if (!this.started) this.compS.set(compT); const comp = this.compS.step(compT, dt, BODY.springW.comp);
@@ -237,7 +256,7 @@ export class RiderSim {
     const ph = this.idlePhase, hz1 = BODY.idleHz;
     c[S.IDLE_A] = Math.sin(2 * Math.PI * hz1[0] * t + ph[0]); c[S.IDLE_B] = Math.sin(2 * Math.PI * hz1[1] * t + ph[1]); c[S.VIS] = visibilityAt(this.plan, this.tau);
     const lift = -this.boardBottom;   // the mesh origin sits this far above its bottom plane, along the rolled deck normal
-    c[S.X] = x + nx * bridge + Rx * lift; c[S.Y] = y + ny * bridge + Ry * lift; c[S.Z] = z + nz * bridge + Rz * lift; c[S.BRIDGE] = bridge; c[S.FX] = Fx; c[S.FY] = Fy; c[S.FZ] = Fz; c[S.UX] = Rx; c[S.UY] = Ry; c[S.UZ] = Rz; c[S.NX] = Ux; c[S.NY] = Uy; c[S.NZ] = Uz;
+    c[S.X] = x + nx * bridge + Rx * lift; c[S.Y] = y + ny * bridge + Ry * lift; c[S.Z] = z + nz * bridge + Rz * lift; c[S.BRIDGE] = bridge; c[S.FX] = Fx; c[S.FY] = Fy; c[S.FZ] = Fz; c[S.UX] = Rx; c[S.UY] = Ry; c[S.UZ] = Rz; c[S.NX] = nx; c[S.NY] = ny; c[S.NZ] = nz;   // R10: the lift direction actually applied (the monitor takes the lift back off along it; the fitted U lagged it by up to 0.1 m at the snap)
     c[S.ROLL] = roll; c[S.COMP] = comp; c[S.LEAD] = lead; c[S.U] = u0; c[S.V] = v; c[S.XB] = xb; c[S.SPEED] = speed; c[S.SEG] = seg0; c[S.VX] = vx; c[S.VY] = vy; c[S.VZ] = vz; c[S.WX] = wx; c[S.WY] = wy; c[S.WZ] = wz; c[S.YAW] = yaw;
     this.stats.minAheadM = xbNow - x;
     if (!this.started) { this.started = true; this.prev.set(c); }

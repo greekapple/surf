@@ -32,8 +32,10 @@ export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1
    *  wake's direction off the tail against the board's velocity over the water (deg from straight behind) */
   torsoPitchDeg: [5, 62] as readonly [number, number],
   /** R8 re-based 45 -> 60: the snap's tail slide (the pivot unwinding) leaves the tail's trail 48-54 deg off the board's heading for ~0.1 s,
-   *  which is the slide, not a trail drawn ahead of the board (the barrel stall's heading flip still reads 172) */
-  wakeDeg: 60} as const;
+   *  which is the slide, not a trail drawn ahead of the board. R10 re-based 60 -> 65: the same slide off the R9 C-wall's hit (the board
+   *  bridging 0.65 m, the tail on a longer lever) reads 61-62 deg for 0.05 s, the board moving forward over the water at 6.7 m/s the
+   *  whole time; the stall flip it was meant to catch (172-179) is fixed in the sim, not here */
+  wakeDeg: 65} as const;
 
 /** The board's wake (brief stage 6): a thin foam trail off the tail, sampled along the actual path, carried with the water, widening
  *  and fading out within lifeS; and the tail spray on turns, scaled by speed and turn load (rail roll), by the band's spray factor and
@@ -89,6 +91,16 @@ export const RIDE = {
    *  curl's concavity on its ends instead of burying them (a 6'0" board up a 6 ft hollow face has its tail near the trough and its nose at
    *  the lip: the chord sags 0.6 m; with 0.3 the ends sat 0.22 m in, the clip gate; 0.4 still 0.19 m; 0.5 still 0.155; 0.55 leaves them within the gate, the tail's fins engaged, the nose cutting the thin lip. The monitor's centre check reads the centre with the lift removed (WaveLive contactM), since in the hollow under the lip the lifted centre's nearest water is the lip's underside, not the face below it) */
   pivotBridgeM: 0.55,
+  /** R10: a pivoted hit respects the section it is on. The ends of the PLACED board are watched: an end deeper than hitEndAllowM (the
+   *  nose in the lip's underside of the R9 tube, the tail in the C-wall below) lowers the line at hitLowGain (v per second per metre of
+   *  excess) while the pivot is on, capped at hitLowMaxV; the lowering releases at hitLowReleaseV (v per second) once the ends clear. The
+   *  allowance is under the monitor's 0.15 gate and over the 4 ft snap's tail (0.10 m at the hit since R8), so band B's hit is as it was.
+   *  (R9 moved the hit 2 m out onto the shoulder instead, `hitAhead`: the recovery back to the pocket became a slide with the tail 0.22 m
+   *  in and the wake 80-128 deg off the heading.) */
+  hitEndAllowM: 0.1, hitLowGain: 12, hitLowReleaseV: 0.3, hitLowMaxV: 0.3,
+  /** R10: the board never travels backwards over the water: toward the break point the rider can at most drift with the flow keeping this
+   *  much way (m/s), so the barrel stall slows against the curl without the heading or the wake flipping */
+  stallMinWaterMps: 2.5,
   /** the cap is a bisection on the sampled face: followed through a spring (rad/s) so its quantisation never reaches the board */
   capFollowW: 2 * Math.PI * 1.5,
   /** the rider follows the moving break point through a spring (rad/s): no twitching with every section pulse */
@@ -160,10 +172,10 @@ export interface StyleBand {
   id: 'A' | 'B' | 'C' | 'D'; minFt: number; label: string;
   /** preferred height on the face, pocket distance (face heights, scaled by the expertise), aggression/compression/spray scales */
   lineV: number; pocketFaces: number; aggression: number; compression: number; spray: number;
-  /** R9: the snap's hit this far ahead of the curl (face heights) on the hollow bands: with the tube drawn (the roof's apex over the
-   *  wall at the pitch), a board pivoted vertical 0.8 m ahead of the break point put its nose 0.3 m into the lip's underside; the real
-   *  snap on a hollow wave is on the shoulder, where the lip is still feathering */
-  hitAhead?: number;
+  /** R10: the snap's hit drops this much (v) with the pivot's wind-up on the hollow band: a near-vertical board on the C-wall of the R9
+   *  tube bridges 0.65 m and still buries its tail at the R8 hit height (0.49 of the face at 6 ft); the measured-end lowering
+   *  (RIDE.hitLow*) only reacts once an end is in */
+  hitDropV?: number;
   /** the body of the ride as maneuvers with weights (0..1: the seeded chance of keeping an optional one; 1 = always) */
   moves: {name: ManeuverName; w: number}[];
   /** how fast the drop is against the skill's takeoff (1 = as written; smaller = later, steeper) */
@@ -181,11 +193,11 @@ export const BANDS: readonly StyleBand[] = [
     moves: [{name: 'trim', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 1}, {name: 'pump', w: 0.7}, {name: 'carve', w: 0.8}],
     boardFt: [5.83, 6.5], boardTypes: ['Performance shortboard', 'Everyday shortboard', 'Hybrid', 'Step-up']},
   // big (6-10 ft): deep bottom turns, vertical top turns, and a barrel every ride (Intermediate: a shallow cover-up; Beginner: never)
-  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.5, pocketFaces: 0.5, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85, hitAhead: 1.1,
+  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.5, pocketFaces: 0.5, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85, hitDropV: 0.1,
     moves: [{name: 'longBottom', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.5}],
     boardFt: [6.17, 6.83], boardTypes: ['Step-up', 'Performance shortboard', 'Gun']},
   // very big (10 ft +): long drawn-out bottom turns, a deep barrel, a high fast line
-  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.58, pocketFaces: 0.8, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7, hitAhead: 1.1,
+  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.58, pocketFaces: 0.8, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7,
     moves: [{name: 'longBottom', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],
     boardFt: [6.67, 7.5], boardTypes: ['Step-up', 'Gun', 'Midlength']},
 ];
@@ -260,7 +272,7 @@ export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: numb
   for (const m of band.moves) {
     const name = m.name in skill.allow ? skill.allow[m.name] : m.name; if (name === null || name === undefined) continue;
     if (m.w < 1 && !keep(m.w)) continue;
-    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead ?? (k.move === 'top' && k.cap !== undefined ? band.hitAhead : undefined), cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
+    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
   }
   if (!out.length) out.push({dt: 1.2, u: -pocket, v: lineV, move: 'trim', pose: 'trim', comp: 0.4});
   return out;
