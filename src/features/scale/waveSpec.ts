@@ -14,6 +14,8 @@ export interface WaveSpec {
   offshoreM: number | null;
   /** Peel direction (a left breaks to the surfer's left as they ride). */
   direction: 'left' | 'right';
+  /** The primary swell's direction against the beach's facing (deg, 0 = straight in; null unknown): the set lines out the back are slanted by it (S3). */
+  swellOffDeg?: number | null;
   /** The rider's inputs (spec 2026-11-04): the profile's skill level, the forecast hour's seed (the same ride every time for the same
    *  hour), the stance (null: a seeded default, the profile has no stance). Riding style is illustration, never a forecast. */
   skill: Skill;
@@ -29,4 +31,4 @@ export function windLook(w: WaveSpec['wind']): {chop: number; back: number} {
   if (w.relation === 'onshore') return {chop: Math.min(1.6, 0.9 + 0.045 * w.mph), back: 0};
   return {chop: Math.min(1.4, 0.85 + 0.03 * w.mph), back: 0};
 }
-export const sameSpec = (a: WaveSpec, b: WaveSpec) => a.faceM === b.faceM && a.breaker === b.breaker && a.periodS === b.periodS && a.offshoreM === b.offshoreM && a.wind?.relation === b.wind?.relation && a.wind?.mph === b.wind?.mph && a.skill === b.skill && a.seed === b.seed && a.stance === b.stance;
+export const sameSpec = (a: WaveSpec, b: WaveSpec) => a.faceM === b.faceM && a.breaker === b.breaker && a.periodS === b.periodS && a.offshoreM === b.offshoreM && a.wind?.relation === b.wind?.relation && a.wind?.mph === b.wind?.mph && a.skill === b.skill && a.seed === b.seed && a.stance === b.stance && a.swellOffDeg === b.swellOffDeg;

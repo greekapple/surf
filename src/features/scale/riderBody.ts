@@ -8,7 +8,7 @@
  *  is clamped to a human range. Allocation-free per frame. */
 import * as THREE from 'three';
 import {BODY, CLIP_FPS, POSE_KEYS, type PoseName, type SkillProfile} from './surfSceneConfig';
-import {POSES, S} from './rideSim';
+import {POSES, S, Spring} from './rideSim';
 
 const D2R = Math.PI / 180;
 /** max(x, 0) with a C1 onset over width w (a corner in a layer's gain is a kink in every joint it drives: the monitor's jerk). */
@@ -16,7 +16,7 @@ const smoothOnset = (x: number, w: number) => (x <= 0 ? 0 : x >= w ? x - w / 2 :
 interface Bones {all: THREE.Bone[]; parent: Int16Array; byName: Map<string, number>}
 /** a two-bone chain plus its calibration from the library's first pose: each bone's own axis and its bend (pole) axis in the bone's local
  *  frame, so the solve builds a full rotation (direction + roll) and never picks an arbitrary roll from a minimal rotation */
-interface Chain {a: number; b: number; c: number; axA: THREE.Vector3; plA: THREE.Vector3; axB: THREE.Vector3; plB: THREE.Vector3; lastP: THREE.Vector3}
+interface Chain {a: number; b: number; c: number; axA: THREE.Vector3; plA: THREE.Vector3; axB: THREE.Vector3; plB: THREE.Vector3; lastP: THREE.Vector3; /** round 5: the two joints' local rotations follow the solve through a rotational spring (state + angular velocity, parent frame) */ qA: THREE.Quaternion; wA: THREE.Vector3; qB: THREE.Quaternion; wB: THREE.Vector3}
 export interface PoseLib {
   /** per pose, per bone: position (3) + quaternion (4) */
   data: Float32Array[]; n: number;
@@ -65,6 +65,10 @@ export interface BodyInput {
   /** +1 frontside (the rider frame maps to the world with det +1), -1 backside (mirrored across the board's long axis) */
   mirror: number;
   profile: SkillProfile;
+  /** the frame's wall time (s): the body's own springs and rate limits (round 5) step by it */
+  dt: number;
+  /** 0..1: how far the rider is from trim (the non-trim pose weight), for the backside head-over-the-shoulder */
+  turning: number;
 }
 
 const blendQ = (lib: Float32Array[], w: Float32Array, k: number, out: Float32Array, o: number) => {
@@ -83,14 +87,22 @@ export class RiderBody {
   readonly idx: Record<string, number>;
   private readonly upRoot = new THREE.Vector3(0, 1, 0); private readonly rootInv = new THREE.Quaternion(); private readonly feetMid = new THREE.Vector3(); private readonly feetMidR = new THREE.Vector3(); private readonly qLean = new THREE.Quaternion();
   private readonly legs: Chain[]; private readonly arms: Chain[];
+  /** which side of the body (rider z sign) each hand hangs on in the trim key: fixed per arm, so the arms-down rotation never flips sign */
+  private readonly armSide = [1, -1];
   private readonly iBarrel = POSES.indexOf('barrel'); private readonly iPig = POSES.indexOf('pigdog');
   /** the blended pose's pelvis height (rider frame) before compression, for the probe */
   hipY = 0;
+  // round 5 (M3): every procedural gain and each hand target goes through its own critically damped spring, and the hands through a
+  // speed cap, so a kink in a layer's input (a clamp reached, a knot change, a key switch) never reaches a joint as a step
+  private readonly leanS = new Spring(); private readonly counterS = new Spring(); private readonly headSideS = new Spring(); private readonly pitchS = new Spring();
+  /** the torso's pitch this frame (deg, + forward over the toes, from the deck normal), before and after the M9 correction, for the probe */
+  torsoPitchDeg = 0; torsoPitchRawDeg = 0;
+  private readonly handS = [new Spring(), new Spring(), new Spring(), new Spring(), new Spring(), new Spring()]; private primed = false;
   constructor(bones: Bones, lib: PoseLib) {
     this.bones = bones; this.lib = lib; this.riderM = bones.all.map(() => new THREE.Matrix4());
     const ix = (n: string) => bones.byName.get(n) ?? -1;
     this.idx = {pelvis: ix('pelvis'), s1: ix('spine_01'), s2: ix('spine_02'), s3: ix('spine_03'), neck: ix('neck_01'), head: ix('head'), root: ix('Root')};
-    const chain = (a: string, b: string, c: string): Chain => ({a: ix(a), b: ix(b), c: ix(c), axA: new THREE.Vector3(0, 1, 0), plA: new THREE.Vector3(0, 0, 1), axB: new THREE.Vector3(0, 1, 0), plB: new THREE.Vector3(0, 0, 1), lastP: new THREE.Vector3(0, 0, 1)});
+    const chain = (a: string, b: string, c: string): Chain => ({a: ix(a), b: ix(b), c: ix(c), axA: new THREE.Vector3(0, 1, 0), plA: new THREE.Vector3(0, 0, 1), axB: new THREE.Vector3(0, 1, 0), plB: new THREE.Vector3(0, 0, 1), lastP: new THREE.Vector3(0, 0, 1), qA: new THREE.Quaternion(), wA: new THREE.Vector3(), qB: new THREE.Quaternion(), wB: new THREE.Vector3()});
     this.legs = [chain('thigh_l', 'calf_l', 'foot_l'), chain('thigh_r', 'calf_r', 'foot_r')];
     this.arms = [chain('upperarm_l', 'lowerarm_l', 'hand_l'), chain('upperarm_r', 'lowerarm_r', 'hand_r')];
     this.isArm = bones.all.map((b) => /^(clavicle|upperarm|lowerarm|hand)_/.test(b.name));
@@ -112,6 +124,7 @@ export class RiderBody {
       R.setFromRotationMatrix(this.riderM[L.b]).invert(); L.axB.copy(A).sub(K).normalize().applyQuaternion(R); L.plB.copy(bend).applyQuaternion(R); L.plB.addScaledVector(L.axB, -L.plB.dot(L.axB)).normalize();
       L.lastP.copy(bend);
     }
+    for (let k = 0; k < 2; k++) { const sh = this.riderM[this.arms[k].a]; if (this.arms[k].a >= 0) this.armSide[k] = this.lib.wrist[0][k * 3 + 2] - sh.elements[14] >= 0 ? 1 : -1; }
   }
   /** Pose the skeleton from the interpolated state. `st` is the lerped state vector (weights at S.W0..). The rig's own matrix is set by the caller. */
   pose(st: Float64Array, inp: BodyInput) {
@@ -141,13 +154,22 @@ export class RiderBody {
     const up = inp.upR, tilt = Math.acos(THREE.MathUtils.clamp(up.y, -1, 1));
     // backside the chest faces down the slope, so the torso counters the deck toward the vertical (over the heels, toward the wave) harder
     const cGain = inp.mirror < 0 ? BODY.torsoCounterBackside.gain : BODY.torsoCounterGain, cMax = inp.mirror < 0 ? BODY.torsoCounterBackside.maxDeg : BODY.torsoCounterMaxDeg;
-    const counter = THREE.MathUtils.clamp(cGain * smoothOnset(tilt - BODY.torsoCounterStartDeg * D2R, 10 * D2R), 0, cMax * D2R) / 3;
+    const dt = Math.min(0.05, Math.max(1e-4, inp.dt)), wS = 2 * Math.PI * BODY.smoothHz;
+    const counterT = THREE.MathUtils.clamp(cGain * smoothOnset(tilt - BODY.torsoCounterStartDeg * D2R, 10 * D2R), 0, cMax * D2R) / 3;
+    if (!this.primed) { this.counterS.set(counterT); }
+    const counter = this.counterS.step(counterT, dt, wS);
     this.va.set(0, 1, 0).cross(up); const okAxis = this.va.lengthSq() > 1e-8; if (okAxis) this.va.normalize();   // from deck-up toward world-up
     // the body above the feet leans from the deck toward the vertical, pivoting about the feet (the leg IK below keeps the soles planted);
     // the pelvis keeps its height off the deck (a pure pivot lowered the hips by a quarter at 42 deg and folded the knees, round 3)
     // the lean is an angulation of the whole standing body (a skier on a traverse): the knee poles and the hand targets turn with it below,
     // so the legs still bend forward in the body's own frame (a pivot alone left the knees over the toes and the hips behind: a chair)
-    const lean = THREE.MathUtils.clamp(BODY.bodyLeanGain * smoothOnset(tilt - BODY.bodyLeanStartDeg * D2R, 8 * D2R), 0, BODY.bodyLeanMaxDeg * D2R);
+    const leanT = THREE.MathUtils.clamp(BODY.bodyLeanGain * smoothOnset(tilt - BODY.bodyLeanStartDeg * D2R, 8 * D2R), 0, BODY.bodyLeanMaxDeg * D2R);
+    if (!this.primed) this.leanS.set(leanT);
+    const lean = Math.max(0, this.leanS.step(leanT, dt, wS));
+    // backside (M2): the head looks over the leading shoulder, toward the wave, through the turns (eased by its own spring)
+    const headSideT = inp.mirror < 0 ? BODY.backsideHeadDeg * D2R * THREE.MathUtils.clamp(inp.turning, 0, 1) : 0;
+    if (!this.primed) this.headSideS.set(headSideT);
+    const headSide = this.headSideS.step(headSideT, dt, wS);
     this.feetMidR.set((this.ankleT[0] + this.ankleT[3]) / 2, (this.ankleT[1] + this.ankleT[4]) / 2, (this.ankleT[2] + this.ankleT[5]) / 2);   // feet midpoint, rider frame
     const leanOn = okAxis && lean > 1e-4; if (leanOn) this.qLean.setFromAxisAngle(this.va, lean); else this.qLean.identity();
     if (leanOn && I.pelvis >= 0) {
@@ -158,18 +180,38 @@ export class RiderBody {
       pel.position.addScaledVector(this.upRoot, h0 * (1 - Math.cos(lean)) * BODY.bodyLeanKeepHeight);
     }
     const lead = THREE.MathUtils.clamp(inp.lead, -BODY.leadMaxDeg * D2R, BODY.leadMaxDeg * D2R) * inp.mirror;
-    const sway = pr.swayDeg * D2R;
+    const sway = pr.swayDeg * D2R, armsDown = BODY.armsDownDeg * D2R * THREE.MathUtils.clamp(inp.turning, 0, 1);
+    // M9 (user, 2026-11-04: "the model leans his head and back BACK"): the torso never pitches behind the deck normal. A first pass composes
+    // the chain as the layers above leave it (the pose, the compression, the lean about the feet, which on backside carries the torso
+    // toward the wave = backward) and reads the pelvis -> neck pitch toward the toes; the spine then hinges forward by what is missing
+    // (spread over the three spine bones, through a spring), so the shoulders stay over the board however the body angulates.
+    for (let b = 0; b < n; b++) this.compose(b, parent[b]);
+    let pitchFix = 0;
+    if (I.pelvis >= 0 && I.neck >= 0) {
+      this.vd.setFromMatrixPosition(this.riderM[I.neck]).sub(this.ve.setFromMatrixPosition(this.riderM[I.pelvis]));
+      const raw = Math.atan2(this.vd.z, Math.max(1e-3, this.vd.y)), lo = BODY.torsoPitchDeg[0] * D2R, hi = BODY.torsoPitchDeg[1] * D2R;
+      // the counter below also pitches the torso (frontside toward the toes, backside away): count it in the target
+      const rawC = raw + counter * 3 * (okAxis ? this.va.x : 0);   // the counter's share about the board axis (signed: + toward the toes)
+      const want = rawC < lo ? lo - rawC : rawC > hi ? hi - rawC : 0;
+      if (!this.primed) this.pitchS.set(want); pitchFix = this.pitchS.step(want, dt, 2 * Math.PI * BODY.pitchHz);
+      this.torsoPitchRawDeg = raw / D2R; this.torsoPitchDeg = (rawC + pitchFix) / D2R;
+    }
     for (let b = 0; b < n; b++) {
       const par = parent[b];
       // the procedural delta for this bone, as (axis in the rider frame, angle)
       let ang = 0; const ax = this.vb;
       if (b === I.s1 || b === I.s2 || b === I.s3) { if (okAxis && counter > 1e-4) { ax.copy(this.va); ang = counter; } }
       if (ang !== 0) this.applyDelta(b, par, ax, ang);
+      if ((b === I.s1 || b === I.s2 || b === I.s3) && Math.abs(pitchFix) > 1e-5) this.applyDelta(b, par, this.vc.set(1, 0, 0), pitchFix / 3);   // forward hinge: y toward z is + about x
       if (b === I.s3) this.applyDelta(b, par, this.vc.set(0, 1, 0), lead * BODY.leadShare.spine);
-      else if (b === I.neck) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.neck, -BODY.limits.neck * D2R, BODY.limits.neck * D2R));
-      else if (b === I.head) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.head, -BODY.limits.head * D2R, BODY.limits.head * D2R));
+      else if (b === I.neck) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.neck + 0.4 * headSide, -BODY.limits.neck * D2R, BODY.limits.neck * D2R));
+      else if (b === I.head) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.head + 0.6 * headSide, -BODY.limits.head * D2R, BODY.limits.head * D2R));
       else if (b === I.pelvis) this.applyDelta(b, par, this.vc.set(0, 1, 0), lead * BODY.leadShare.pelvis);
       else if (b === I.s2) { this.applyDelta(b, par, this.vc.set(1, 0, 0), sway * 0.5 * inp.idleA); this.applyDelta(b, par, this.vc.set(0, 0, 1), sway * 0.5 * inp.idleB); }
+      else if (armsDown > 1e-5 && (b === this.arms[0].a || b === this.arms[1].a)) {
+        // the upper arm comes down toward the body: a rotation about the board axis in the sense that lowers that arm's hand (its side of the body)
+        this.applyDelta(b, par, this.vc.set(1, 0, 0), this.armSide[b === this.arms[0].a ? 0 : 1] * armsDown);
+      }
       this.compose(b, par);
     }
     // 4. legs: two-bone IK to the blended ankle targets, the knee pole over that foot's own toes (its forward direction, flattened onto
@@ -184,13 +226,26 @@ export class RiderBody {
     //    (toward the high rail) and out by the skill's arms-out; the elbow pole down and behind; the hand's rotation from the library
     const rollShift = THREE.MathUtils.clamp(inp.roll * BODY.armRollShare, -0.25, 0.25) * inp.mirror, out = Math.sin(pr.armsOutDeg * D2R) * BODY.armsOutReachM;
     for (let k = 0; k < 2; k++) {
+      if (!BODY.armIK) break;   // the arms ride with the torso as authored in the keys (round 5)
       const sx = k === BODY.frontLeg ? -1 : 1;   // the front arm reaches toward the nose
       this.tgt.set(this.wristT[k * 3] + sx * out, this.wristT[k * 3 + 1], this.wristT[k * 3 + 2] - rollShift);
       if (leanOn) this.tgt.sub(this.feetMidR).applyQuaternion(this.qLean).add(this.feetMidR);
+      // the hand follows its target through a spring and under a speed cap (M3: a key switch moved the back hand 0.5 m in a few frames)
+      const hs = this.handS, o = k * 3, wH = 2 * Math.PI * BODY.handFollowHz, step = BODY.handSpeedMps * dt;
+      if (!this.primed) { hs[o].set(this.tgt.x); hs[o + 1].set(this.tgt.y); hs[o + 2].set(this.tgt.z); }
+      const x0 = hs[o].x, y0 = hs[o + 1].x, z0 = hs[o + 2].x;
+      let nx = hs[o].step(this.tgt.x, dt, wH), ny = hs[o + 1].step(this.tgt.y, dt, wH), nz = hs[o + 2].step(this.tgt.z, dt, wH);
+      const mv = Math.hypot(nx - x0, ny - y0, nz - z0);
+      if (mv > step) { const f = step / mv; nx = x0 + (nx - x0) * f; ny = y0 + (ny - y0) * f; nz = z0 + (nz - z0) * f; hs[o].x = nx; hs[o + 1].x = ny; hs[o + 2].x = nz; hs[o].v *= f; hs[o + 1].v *= f; hs[o + 2].v *= f; }
+      if (I.pelvis >= 0) { const px = this.riderM[I.pelvis].elements[12]; nx = THREE.MathUtils.clamp(nx, px - BODY.handSideMaxM, px + BODY.handSideMaxM); hs[o].x = nx; }
+      this.tgt.set(nx, ny, nz);
       this.pole.set(sx * BODY.elbowPole.out, BODY.elbowPole.down, BODY.elbowPole.back);   // out and behind the chest: a hanging hand never lies along the pole
-      this.solveChain(this.arms[k], this.tgt, this.pole, this.handT, k, BODY.limits.elbowMin, BODY.limits.elbowMax);
+      this.solveChain(this.arms[k], this.tgt, this.pole, this.handT, k, BODY.limits.elbowMin, BODY.limits.elbowMax, BODY.bendPlaneRateDeg * D2R * dt, dt);
     }
+    this.primed = true;
   }
+  /** An hour or stance change re-seats the rider: the springs start from the new targets (not a glide from the old ride). */
+  reseat() { this.primed = false; }
   private compose(b: number, par: number) {
     const bone = this.bones.all[b]; this.local.compose(bone.position, bone.quaternion, bone.scale);
     if (par >= 0) this.riderM[b].multiplyMatrices(this.riderM[par], this.local); else this.riderM[b].copy(this.local);
@@ -204,7 +259,7 @@ export class RiderBody {
   }
   /** Two-bone IK: the chain a -> b -> c (hip/knee/ankle or shoulder/elbow/wrist) reaches target T (rider frame) with the middle joint on the
    *  side of `poleR` (rider frame), the bend within [minDeg, maxDeg]; the end bone takes its rider-frame rotation from `endQ[k]`. */
-  private solveChain(L: Chain, T: THREE.Vector3, poleR: THREE.Vector3, endQ: Float32Array, k: number, minDeg: number, maxDeg: number) {
+  private solveChain(L: Chain, T: THREE.Vector3, poleR: THREE.Vector3, endQ: Float32Array, k: number, minDeg: number, maxDeg: number, maxPlaneRad = Infinity, dt = 0) {
     if (L.a < 0 || L.b < 0 || L.c < 0) return;
     const {parent} = this.bones, H = this.va, K0 = this.vb, A0 = this.vc, tmp = this.ve;
     H.setFromMatrixPosition(this.riderM[L.a]); K0.setFromMatrixPosition(this.riderM[L.b]); A0.setFromMatrixPosition(this.riderM[L.c]);
@@ -216,17 +271,41 @@ export class RiderBody {
     // the bend plane: the pole made perpendicular to d-hat; near-degenerate (the target along the pole) keeps last frame's plane
     K0.copy(poleR); K0.addScaledVector(tmp, -K0.dot(tmp));
     if (K0.lengthSq() < 0.01) { K0.copy(L.lastP); K0.addScaledVector(tmp, -K0.dot(tmp)); if (K0.lengthSq() < 1e-6) K0.set(0, 0, 1).addScaledVector(tmp, -tmp.z); }
-    K0.normalize(); L.lastP.copy(K0);   // p-hat
+    K0.normalize();
+    // the bend plane may turn only so fast per frame (round 5): with the hand near the pole's direction the plane spun with every
+    // centimetre of hand travel, and the upper arm rolled with it at 850-950 deg/s (the round-4 `arm` count)
+    if (maxPlaneRad < Math.PI && this.primed) {
+      const prev = this.vf.copy(L.lastP); prev.addScaledVector(tmp, -prev.dot(tmp));
+      if (prev.lengthSq() > 1e-6) { prev.normalize(); const c = THREE.MathUtils.clamp(K0.dot(prev), -1, 1), ang = Math.acos(c);
+        if (ang > maxPlaneRad) { const s = Math.sin(ang), a = Math.sin(ang - maxPlaneRad) / s, b2 = Math.sin(maxPlaneRad) / s; K0.multiplyScalar(b2).addScaledVector(prev, a).normalize(); } }
+    }
+    L.lastP.copy(K0);   // p-hat
     const cosA = THREE.MathUtils.clamp((l1 * l1 + d * d - l2 * l2) / (2 * l1 * d), -1, 1), sinA = Math.sqrt(1 - cosA * cosA);
     // the joint K = H + l1 (cosA d-hat + sinA p-hat); the first bone's full rotation maps its axis to K - H and its bend axis into the plane
     A0.copy(tmp).multiplyScalar(cosA).addScaledVector(K0, sinA);                      // K - H (unit)
-    this.setBoneRotation(L.a, parent[L.a], L.axA, L.plA, A0, K0); this.compose(L.a, parent[L.a]); this.compose(L.b, L.a); this.compose(L.c, L.b);
+    this.setBoneRotation(L.a, parent[L.a], L.axA, L.plA, A0, K0); if (dt > 0) this.jointSpring(L.a, L.qA, L.wA, dt); this.compose(L.a, parent[L.a]); this.compose(L.b, L.a); this.compose(L.c, L.b);
     // the second bone: its axis toward the (clamped) target, its bend axis in the same plane
     K0.setFromMatrixPosition(this.riderM[L.b]); A0.copy(T).sub(K0).normalize();
-    this.setBoneRotation(L.b, L.a, L.axB, L.plB, A0, L.lastP); this.compose(L.b, L.a); this.compose(L.c, L.b);
+    this.setBoneRotation(L.b, L.a, L.axB, L.plB, A0, L.lastP); if (dt > 0) this.jointSpring(L.b, L.qB, L.wB, dt); this.compose(L.b, L.a); this.compose(L.c, L.b);
     // the end bone: its rider-frame rotation is the library's (sole on the deck, the hand's set)
     this.qa.set(endQ[k * 4], endQ[k * 4 + 1], endQ[k * 4 + 2], endQ[k * 4 + 3]);
     this.qp.setFromRotationMatrix(this.riderM[L.b]).invert(); this.bones.all[L.c].quaternion.copy(this.qp).multiply(this.qa); this.compose(L.c, L.b);
+  }
+  /** Round 5 (M3): the joint's local rotation follows the solve through a critically damped rotational spring (state q, angular velocity
+   *  w in the parent's frame), its speed capped: a joint can then never step, whatever the hand target or the bend plane did this frame.
+   *  The hand bone keeps its rider-frame rotation, so a lagging forearm leaves the hand's set, not its direction. */
+  private jointSpring(b: number, q: THREE.Quaternion, w: THREE.Vector3, dt: number) {
+    const bone = this.bones.all[b], tgt = bone.quaternion;
+    if (!this.primed) { q.copy(tgt); w.set(0, 0, 0); return; }
+    // the error as a rotation vector: e = tgt * q^-1 (parent frame), the short way round
+    this.qa.copy(q).invert().premultiply(tgt); if (this.qa.w < 0) { this.qa.x = -this.qa.x; this.qa.y = -this.qa.y; this.qa.z = -this.qa.z; this.qa.w = -this.qa.w; }
+    const sh = Math.hypot(this.qa.x, this.qa.y, this.qa.z), ang = 2 * Math.atan2(sh, this.qa.w), e = this.vf;
+    if (sh > 1e-9) e.set(this.qa.x, this.qa.y, this.qa.z).multiplyScalar(ang / sh); else e.set(0, 0, 0);
+    const wj = 2 * Math.PI * BODY.jointFollowHz;
+    w.addScaledVector(e, wj * wj * dt); w.multiplyScalar(1 / (1 + 2 * wj * dt));   // implicit damping: stable at any frame rate
+    const sp = w.length(), cap = BODY.jointSpeedDeg * D2R; if (sp > cap) w.multiplyScalar(cap / sp);
+    const th = w.length() * dt; if (th > 1e-9) { this.qb.setFromAxisAngle(this.vg.copy(w).normalize(), th); q.premultiply(this.qb).normalize(); }
+    bone.quaternion.copy(q);
   }
   /** Set bone b's local quaternion so that, in the rider frame, its local `ax` points along `dir` and its local bend axis `pl` lies along
    *  `bendDir` (both unit; bendDir is made perpendicular to dir). A full rotation, so the roll is continuous. */

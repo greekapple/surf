@@ -11,11 +11,13 @@
 import * as THREE from 'three';
 import {MONITOR} from './surfSceneConfig';
 
-export interface GlitchEvent {t: number; kind: 'joint' | 'board' | 'float' | 'clip' | 'knee' | 'pole' | 'wrist' | 'jerk' | 'knock' | 'arm' | 'hip'; joint: string; deg: number; gap: number; move: string}
+export interface GlitchEvent {t: number; kind: 'joint' | 'board' | 'float' | 'clip' | 'knee' | 'pole' | 'wrist' | 'jerk' | 'knock' | 'arm' | 'hip' | 'lean' | 'wake'; joint: string; deg: number; gap: number; move: string}
 export interface GlitchCounts {
   joint: number; board: number; float: number; clip: number; total: number; frames: number; worstJointDeg: number; worstBoardDeg: number; events: GlitchEvent[];
   /** body checks: counts of bad samples, the measured ranges, the wrist-above-shoulder runs (s) and the jerk peak (deg/s^2) */
   knee: number; pole: number; wrist: number; jerk: number; knock: number; arm: number; hip: number; bodySamples: number;
+  /** M9: torso pitch samples outside the range and the measured range (deg, + forward); M10: wake samples pointing off behind and the worst angle */
+  lean: number; torsoPitch: [number, number]; wake: number; wakeMaxDeg: number;
   /** the pelvis' toe-heel offset from the feet midpoint (m, rider frame; + toward the toes): the extremes */
   hipOffMin: number; hipOffMax: number;
   /** the hard gates' measured extremes: min knee-to-knee / foot-to-foot, max knee lateral offset (m), max hand side offset (m), peak arm joint speed (deg/s), fastest hand reversal (s) */
@@ -27,7 +29,7 @@ export interface GlitchCounts {
 const D = 180 / Math.PI;
 export class GlitchMonitor {
   private objs: THREE.Object3D[] = []; private prevQ: THREE.Quaternion[] = []; private names: string[] = []; private board: THREE.Object3D | null = null;
-  private readonly q = new THREE.Quaternion(); private readonly q2 = new THREE.Quaternion(); private readonly p = new THREE.Vector3(); private readonly s = new THREE.Vector3(); private readonly boardQ = new THREE.Quaternion();
+  private readonly q = new THREE.Quaternion(); private readonly q2 = new THREE.Quaternion(); private readonly p = new THREE.Vector3(); private readonly s = new THREE.Vector3(); private readonly boardQ = new THREE.Quaternion(); private readonly rigQ = new THREE.Quaternion();
   private primed = false;
   // body-check state (fixed-rate samples)
   private by: Record<string, THREE.Object3D | null> = {};
@@ -39,7 +41,7 @@ export class GlitchMonitor {
   private readonly handV = new Float64Array(6); private readonly lastRev = [-1, -1]; private readonly handP = new Float64Array(6);
   private headYawMin = Infinity; private headYawMax = -Infinity;
   readonly counts: GlitchCounts = {joint: 0, board: 0, float: 0, clip: 0, total: 0, frames: 0, worstJointDeg: 0, worstBoardDeg: 0, events: [],
-    knee: 0, pole: 0, wrist: 0, jerk: 0, knock: 0, arm: 0, hip: 0, bodySamples: 0, hipOffMin: Infinity, hipOffMax: -Infinity, kneeSepMin: Infinity, kneeLateralMax: 0, handSideMax: 0, armSpeedPeak: 0, armReversalMin: Infinity, kneeDeg: [Infinity, -Infinity], kneeDegFront: [Infinity, -Infinity], kneeDegBack: [Infinity, -Infinity], poleMaxDeg: 0, wristAboveMaxS: 0, wristAboveTotalS: 0, wristAboveWorldS: 0, jerkPeak: 0, jerkJoint: '', headYawRangeDeg: 0};
+    knee: 0, pole: 0, wrist: 0, jerk: 0, knock: 0, arm: 0, hip: 0, bodySamples: 0, lean: 0, torsoPitch: [Infinity, -Infinity], wake: 0, wakeMaxDeg: 0, hipOffMin: Infinity, hipOffMax: -Infinity, kneeSepMin: Infinity, kneeLateralMax: 0, handSideMax: 0, armSpeedPeak: 0, armReversalMin: Infinity, kneeDeg: [Infinity, -Infinity], kneeDegFront: [Infinity, -Infinity], kneeDegBack: [Infinity, -Infinity], poleMaxDeg: 0, wristAboveMaxS: 0, wristAboveTotalS: 0, wristAboveWorldS: 0, jerkPeak: 0, jerkJoint: '', headYawRangeDeg: 0};
   warn = true;
   /** Moves during which a wrist above the shoulder is allowed (the spec: a barrel hand-drag or a big snap). */
   wristAllowed: readonly string[] = MONITOR.wristAllowedMoves;
@@ -49,13 +51,13 @@ export class GlitchMonitor {
     this.objs = bones.slice(); this.prevQ = bones.map(() => new THREE.Quaternion()); this.names = bones.map((b) => b.name); this.board = board; this.primed = false;
     const find = (n: string) => bones.find((b) => b.name === n) ?? null;
     this.by = {thighL: find('thigh_l'), calfL: find('calf_l'), footL: find('foot_l'), ballL: find('ball_l'), thighR: find('thigh_r'), calfR: find('calf_r'), footR: find('foot_r'), ballR: find('ball_r'),
-      armL: find('upperarm_l'), handL: find('hand_l'), armR: find('upperarm_r'), handR: find('hand_r'), foreL: find('lowerarm_l'), foreR: find('lowerarm_r'), head: find('head'), spine: find('spine_03'), pelvis: find('pelvis')};
+      armL: find('upperarm_l'), handL: find('hand_l'), armR: find('upperarm_r'), handR: find('hand_r'), foreL: find('lowerarm_l'), foreR: find('lowerarm_r'), head: find('head'), spine: find('spine_03'), pelvis: find('pelvis'), neck: find('neck_01')};
     this.bodyQ = bones.map(() => new THREE.Quaternion()); this.bodyW = new Float64Array(bones.length);
     this.reset();
   }
   reset() {
     const c = this.counts; c.joint = c.board = c.float = c.clip = c.total = c.frames = 0; c.worstJointDeg = c.worstBoardDeg = 0; c.events.length = 0; this.primed = false;
-    c.knee = c.pole = c.wrist = c.jerk = c.knock = c.arm = c.hip = c.bodySamples = 0; c.hipOffMin = Infinity; c.hipOffMax = -Infinity; c.kneeSepMin = Infinity; c.kneeLateralMax = c.handSideMax = c.armSpeedPeak = 0; c.armReversalMin = Infinity; this.armQ.forEach((q) => q.identity()); this.armPrimed = 0; this.handV.fill(0); this.lastRev[0] = this.lastRev[1] = -1; c.kneeDeg = [Infinity, -Infinity]; c.kneeDegFront = [Infinity, -Infinity]; c.kneeDegBack = [Infinity, -Infinity]; c.poleMaxDeg = 0; c.wristAboveMaxS = c.wristAboveTotalS = c.wristAboveWorldS = 0; c.jerkPeak = 0; c.jerkJoint = ''; c.headYawRangeDeg = 0;
+    c.knee = c.pole = c.wrist = c.jerk = c.knock = c.arm = c.hip = c.bodySamples = c.lean = c.wake = 0; c.torsoPitch = [Infinity, -Infinity]; c.wakeMaxDeg = 0; c.hipOffMin = Infinity; c.hipOffMax = -Infinity; c.kneeSepMin = Infinity; c.kneeLateralMax = c.handSideMax = c.armSpeedPeak = 0; c.armReversalMin = Infinity; this.armQ.forEach((q) => q.identity()); this.armPrimed = 0; this.handV.fill(0); this.lastRev[0] = this.lastRev[1] = -1; c.kneeDeg = [Infinity, -Infinity]; c.kneeDegFront = [Infinity, -Infinity]; c.kneeDegBack = [Infinity, -Infinity]; c.poleMaxDeg = 0; c.wristAboveMaxS = c.wristAboveTotalS = c.wristAboveWorldS = 0; c.jerkPeak = 0; c.jerkJoint = ''; c.headYawRangeDeg = 0;
     this.bodyT = -1; this.bodyPrimed = 0; this.wristRun[0] = this.wristRun[1] = 0; this.wristT = -1; this.headYawMin = Infinity; this.headYawMax = -Infinity;
   }
   /** One frame: world matrices must be current. `frontFoot` names the leg on the nose side ('r' for the goofy model frontside; the mirror
@@ -87,6 +89,14 @@ export class GlitchMonitor {
     // the body checks on their own clock
     if (this.bodyT < 0 || t - this.bodyT >= 1 / MONITOR.bodyHz) { const h = this.bodyT < 0 ? 0 : t - this.bodyT; this.bodyT = t; n += this.bodySample(h, t, move, frontFoot, emit); }
     return n;
+  }
+  /** M10: the wake's first segment (tail -> the previous sample, crest frame) against the board's velocity over the water: it must point
+   *  behind (within MONITOR.wakeDeg of straight back). Called by the viewer when it has both. */
+  wakeSample(t: number, move: string, dx: number, dz: number, vx: number, vz: number) {
+    const c = this.counts, l = Math.hypot(dx, dz), v = Math.hypot(vx, vz); if (l < 0.05 || v < 0.5) return;
+    const ang = Math.acos(THREE.MathUtils.clamp(-(dx * vx + dz * vz) / (l * v), -1, 1)) * D;   // 0 = straight behind
+    if (ang > c.wakeMaxDeg) c.wakeMaxDeg = ang;
+    if (ang > MONITOR.wakeDeg) { c.wake++; c.total++; if (c.events.length < MONITOR.keepEvents && c.wake <= MONITOR.keepPerKind) c.events.push({t: Math.round(t * 1000) / 1000, kind: 'wake', joint: 'wake', deg: Math.round(ang * 10) / 10, gap: 0, move}); if (this.warn) console.warn(`[wave glitch] wake ${ang.toFixed(0)} deg off behind during ${move} at t=${t.toFixed(3)} s`); }
   }
   private bodySample(h: number, t: number, move: string, frontFoot: 'l' | 'r', emit: (kind: GlitchEvent['kind'], joint: string, deg: number, gap: number) => void): number {
     const c = this.counts, B = this.by; let n = 0; c.bodySamples++;
@@ -128,6 +138,12 @@ export class GlitchMonitor {
         if (lat > c.kneeLateralMax) c.kneeLateralMax = lat;
         if (bad || lat > MONITOR.kneeLateralM) { emit('knock', bad ? 'knees' : 'knee_lateral', bad ? ratio : lat, 0); n++; }
       }
+      // M9: the torso pitch (pelvis -> neck) from the deck normal toward the toes; never backward
+      if (rp(B.pelvis, this.a) && rp(B.neck, this.b)) {
+        this.b.sub(this.a); const pitch = Math.atan2(this.b.z, Math.max(1e-3, this.b.y)) * D;
+        if (pitch < c.torsoPitch[0]) c.torsoPitch[0] = pitch; if (pitch > c.torsoPitch[1]) c.torsoPitch[1] = pitch;
+        if (pitch < MONITOR.torsoPitchDeg[0] || pitch > MONITOR.torsoPitchDeg[1]) { emit('lean', 'torso', pitch, 0); n++; }
+      }
       // hips over the feet (no "sitting"): the pelvis' toe-heel offset from the feet midpoint
       if (rp(B.pelvis, this.a) && rp(B.footL, this.b) && rp(B.footR, this.c)) {
         const off = this.a.z - 0.5 * (this.b.z + this.c.z); if (off < c.hipOffMin) c.hipOffMin = off; if (off > c.hipOffMax) c.hipOffMax = off;
@@ -140,7 +156,7 @@ export class GlitchMonitor {
         for (let k = 0; k < 2; k++) {
           const hand = k === 0 ? B.handL : B.handR; if (!rp(hand, this.a)) continue;
           const side = Math.abs(this.a.x - this.e.x); if (side > c.handSideMax) c.handSideMax = side;
-          const boxBad = side > MONITOR.handSideM || this.a.y < kneeY - 0.1 || this.a.y > shoulderY + 0.08;
+          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel') || this.a.y > shoulderY + 0.08;   // in the barrel crouch the hands hang below the knees (the back hand drags the face: M2)
           // the hand's travel in the rider frame: a reversal is the velocity turning back on itself; two within armReversalS is a flail
           if (h > 0 && this.armPrimed >= 1) {
             const vx = (this.a.x - this.handP[k * 3]) / h, vy = (this.a.y - this.handP[k * 3 + 1]) / h, vz = (this.a.z - this.handP[k * 3 + 2]) / h;
@@ -177,12 +193,14 @@ export class GlitchMonitor {
       else this.wristRun[k] = 0;
     }
     // jerk: angular acceleration of every tracked joint from three fixed-rate samples
+    // (round 5: in the RIG's frame, so the board's own pitch, roll and yaw over the face are not counted as every joint's jerk)
+    if (this.rig) { this.rigInv.copy(this.rig.matrixWorld).invert(); this.rigInv.decompose(this.p, this.rigQ, this.s); }   // decompose: the rig carries the rider's scale (and a mirror on a right)
     if (h > 0) for (let i = 0; i < this.objs.length; i++) {
-      this.objs[i].matrixWorld.decompose(this.p, this.q, this.s);
+      this.objs[i].matrixWorld.decompose(this.p, this.q, this.s); if (this.rig) this.q.premultiply(this.rigQ);
       const w = 2 * Math.acos(Math.min(1, Math.abs(this.q.dot(this.bodyQ[i])))) * D / h;   // deg/s over the last window
       if (this.bodyPrimed >= 2) { const acc = Math.abs(w - this.bodyW[i]) / h; if (acc > c.jerkPeak) { c.jerkPeak = acc; c.jerkJoint = this.names[i]; } if (acc > MONITOR.jerkDegS2) { emit('jerk', this.names[i], acc, 0); n++; } }
       this.bodyW[i] = w; this.bodyQ[i].copy(this.q);
-    } else for (let i = 0; i < this.objs.length; i++) { this.objs[i].matrixWorld.decompose(this.p, this.q, this.s); this.bodyQ[i].copy(this.q); }
+    } else for (let i = 0; i < this.objs.length; i++) { this.objs[i].matrixWorld.decompose(this.p, this.q, this.s); if (this.rig) this.q.premultiply(this.rigQ); this.bodyQ[i].copy(this.q); }
     if (this.bodyPrimed < 2) this.bodyPrimed++;
     // head stability: the range of the head's yaw relative to the chest (spine_03)
     if (B.head && B.spine) {

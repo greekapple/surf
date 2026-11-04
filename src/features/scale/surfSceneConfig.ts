@@ -19,7 +19,10 @@ export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1
    *  under armSpeedDegS, no reversal of a hand's travel faster than armReversalS (`arm`) */
   kneeSepRatio: 0.6, kneeLateralM: 0.1, handSideM: 0.7, armSpeedDegS: 360, armReversalS: 0.25,
   /** the hips stay over the feet: the pelvis' toe-heel offset (m) from the feet midpoint, in trim and in turns (`hip` count; "sitting" otherwise) */
-  hipOverFeetM: {trim: 0.1, turn: 0.15, /** plus this much per radian of face slope: the standing body angulates toward the vertical on a steep face */ perSlope: 0.3}} as const;
+  hipOverFeetM: {trim: 0.1, turn: 0.15, /** plus this much per radian of face slope: the standing body angulates toward the vertical on a steep face */ perSlope: 0.3},
+  /** M9 (`lean` count): the torso pitch (pelvis -> neck from the deck normal toward the toes, deg) outside this range; M10 (`wake` count): the
+   *  wake's direction off the tail against the board's velocity over the water (deg from straight behind) */
+  torsoPitchDeg: [5, 50] as readonly [number, number], wakeDeg: 45} as const;
 
 /** The board's wake (brief stage 6): a thin foam trail off the tail, sampled along the actual path, carried with the water, widening
  *  and fading out within lifeS; and the tail spray on turns, scaled by speed and turn load (rail roll), by the band's spray factor and
@@ -250,19 +253,27 @@ export const BODY = {
   /** stance: the model's feet on the deck (fractions of the board length from the centre, nose at -x): front foot ahead of centre, back on the tail pad */
   stanceFrontX: -0.13, stanceBackX: 0.3,
   /** dynamic compression on top of the pose (m of hip drop at comp 1 x skill compression) */
-  compressM: 0.04,
+  compressM: 0.1,
   /** on a steep face the rider stands away from the deck toward the vertical: the whole body above the feet leans by a share of the deck
    *  tilt past a threshold (the legs flex to keep the feet planted), then the torso adds its own counter over three spine bones, both limited */
-  bodyLeanStartDeg: 18, bodyLeanGain: 0.5, bodyLeanMaxDeg: 26, /** share of the pivot's height loss given back (1 = hips keep their height off the deck) */ bodyLeanKeepHeight: 0.7,
-  torsoCounterStartDeg: 30, torsoCounterGain: 0.3, torsoCounterMaxDeg: 8,
+  bodyLeanStartDeg: 18, bodyLeanGain: 0.4, bodyLeanMaxDeg: 16, /** share of the pivot's height loss given back (1 = hips keep their height off the deck) */ bodyLeanKeepHeight: 0.7,
+  torsoCounterStartDeg: 30, torsoCounterGain: 0, torsoCounterMaxDeg: 0,
   /** backside the chest faces down the slope: the torso counters toward the vertical (over the heels, toward the wave) harder */
-  torsoCounterBackside: {gain: 0.6, maxDeg: 26},
+  torsoCounterBackside: {gain: 0, maxDeg: 0},
   /** head and shoulders lead the heading this far ahead (s), limited; the hips follow a share of it */
   leadAheadS: 0.3, leadMaxDeg: 24, leadShare: {pelvis: 0.15, spine: 0.35, neck: 0.25, head: 0.3},
   /** arms counter-balance the rail roll (share of the roll, about the heading), plus the skill's arms-out abduction */
   armRollShare: 0.25,
   /** the arms cross-fade slower than the body (x the pose fade rate): a pose change swings the hands through the longest arcs */
-  armFadeScale: 0.55,
+  armFadeScale: 1,
+  /** round 5 (user: "the arms are still ragdolling", "the joints are disconnected"): the arms are part of the authored pose and move
+   *  only as the whole-body pose blends; the per-hand IK to board-frame targets (M7) is off. The whole body blends on one weight. */
+  armIK: false,
+  /** every pose cross-fade is stretched by this (the whole body on one timing): a 90 deg arm swing between keys then peaks under 360 deg/s */
+  fadeScale: 1.6,
+  /** the authored keys hold the arms out at hip-to-chest height; through the turns (the non-trim weight) both upper arms are brought down
+   *  toward the body by this much (deg), the way the real sequence holds them: the leading hand low by the rail, the trailing arm close */
+  armsDownDeg: 24,
   /** two-bone leg IK: the knee pole points over the toes (rider-frame +z) splayed this much toward the board's end on that leg's side */
   kneePole: {splay: 0.05, footShare: 0.3, maxX: 0.2},
   /** the leg on the nose side: index into the IK legs [l, r] (the model is goofy: right foot forward; the mirror does not change it) */
@@ -278,4 +289,17 @@ export const BODY = {
   limits: {spineTwist: 35, spineBend: 40, neck: 50, head: 60, armSwing: 70, kneeMin: 8, kneeMax: 150, elbowMin: 15, elbowMax: 150},
   /** idle balance: two slow sines (Hz) seeded per hour; never per-frame noise */
   idleHz: [0.33, 0.57] as readonly [number, number], idleBobM: 0.004,
+  /** round 5 (M3): the body's procedural gains (lean, torso counter, backside head) are smoothed by critically damped springs at this
+   *  rate; each hand follows its target through its own spring and under a speed cap (m/s); the elbow's bend plane turns at most this
+   *  fast (deg/s), so a hand near the pole's direction never spins the upper arm */
+  smoothHz: 2.5, handFollowHz: 2.2, handSpeedMps: 1.6, bendPlaneRateDeg: 240,
+  /** the arm joints (upper arm, forearm) follow their IK solve through a rotational spring at this rate, their speed capped (deg/s):
+   *  the M3 limits (360 deg/s, 3000 deg/s^2) hold by construction */
+  jointFollowHz: 1.6, jointSpeedDeg: 300,
+  /** M9: the torso's pitch from the deck normal toward the toes stays inside this range (deg) in every move; the spine hinges forward to keep it */
+  torsoPitchDeg: [12, 46] as readonly [number, number], /** the hinge's own spring rate (Hz): quick, the raw pitch it corrects is already smooth (the v4 top-turn key leans back 30 deg) */ pitchHz: 8,
+  /** the hands stay within this much of the pelvis along the board (m): the joint springs may lag the solve, never past the arm box */
+  handSideMaxM: 0.6,
+  /** backside (M2): the head turns this much further over the leading shoulder, toward the wave, through the turns */
+  backsideHeadDeg: 16,
 } as const;

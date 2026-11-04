@@ -98,17 +98,29 @@ void main(){
 // The sea around the strip: set waves out the back (lifted ridges, sharper crests, fading near the strip so the seam is flat water).
 const SEA_VS = /* glsl */ `
 precision highp float;
-uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip;
+uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip, uLdeep, uSetN, uShore, uSwellX, uCel;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
 float rectMask(vec2 p){ float dx=max(max(uX0-p.x,p.x-uX1),0.), dz=max(max(-uY1-p.y,p.y+uY0),0.); return smoothstep(0.,10.+4.*uFace,length(vec2(dx,dz))); }
+float whitewater(vec2 p, out float foam){
+  // S3: the previous wave as a line of whitewater rolling toward the beach at the broken wave's speed, shrinking into the shore-break
+  float span=uShore-uY1-6., tt=mod(uTime*uCel, span+30.), zc=-uY1-6.-tt;
+  float life=1.-smoothstep(.6*span,span,tt), near=smoothstep(-20.,10.,zc+uShore);
+  float d=p.y-zc, w=mix(3.,6.,min(1.,uFace/3.)), c=cos(clamp(d/w,-1.,1.)*1.5707963);
+  float A=.28*uFace*life*near*(.8+.2*sin(p.x*.05+1.)); foam=smoothstep(.15,.5,c)*life*near*smoothstep(1.,.5,abs(d)/w);
+  // the shore-break: a small line dumping on the sand, pulsing with the period
+  float sb=cos(clamp((p.y-(-uShore+9.+3.*sin(uTime*.5)))/4.,-1.,1.)*1.5707963); foam=max(foam,smoothstep(.3,.8,sb)*.8); A+=.25*sb*sb*sb*(.6+.4*sin(uTime*.5));
+  return A*c*c*c*uStrip;
+}
 float sets(vec2 p){
-  float z=0.;
-  for (int k=0;k<4;k++){ float fk=float(k);
-    float zc=-uY0+uLb*(.65+fk)+.00005*p.x*p.x*(1.+.5*fk);
-    float d=p.y-zc, w=d<0.?.26*uLb:.42*uLb;           // front (beach side) steeper than the back
+  float z=0., zc=-uY0+.65*uLb;
+  // the next lines of the set: spaced by the swell period (1.56 T^2 far out in deep water, the bar's own Lb as they reach it), aligned to
+  // the swell direction (uSwellX: the crest's slant per metre along x), lower and unbroken far out, building as they approach the bar
+  for (int k=0;k<4;k++){ float fk=float(k); if (fk>=uSetN) break;
+    float d=p.y-(zc+uSwellX*p.x)-.00003*p.x*p.x*(1.+.5*fk), w=d<0.?.26*uLb:.42*uLb;           // front (beach side) steeper than the back
     float c=cos(clamp(d/w,-1.,1.)*1.5707963);
-    float A=uSetH*(1.-.21*fk)*(.62+.38*sin(p.x*.011*(1.+.4*fk)+fk*1.9))*(1.-smoothstep(500.,1400.,abs(p.x)));
+    float A=uSetH*(1.-.19*fk)*(.62+.38*sin(p.x*.011*(1.+.4*fk)+fk*1.9))*(1.-smoothstep(500.,1400.,abs(p.x)));
     z+=A*c*c*c;
+    zc+=mix(uLb,uLdeep,(fk+.5)/3.);
   }
   z*=mix(1.,rectMask(p),uStrip);   // no breaking strip (offshore-only hour): the swell lines run through unbroken
   // the wave's own line carries on past both strip ends as a swell ridge (rising from flat water at the seam), so the shoulder and
@@ -122,19 +134,19 @@ float sets(vec2 p){
   return z;
 }
 void main(){
-  vec2 p=position.xz; float e=.6;
-  float z=sets(p), zx=sets(p+vec2(e,0.)), zz=sets(p+vec2(0.,e));
+  vec2 p=position.xz; float e=.6; float f0,f1,f2;
+  float z=sets(p)+whitewater(p,f0), zx=sets(p+vec2(e,0.))+whitewater(p+vec2(e,0.),f1), zz=sets(p+vec2(0.,e))+whitewater(p+vec2(0.,e),f2);
   bool under=uStrip>.5&&p.x>uX0+.01&&p.x<uX1-.01&&p.y>-uY1+.01&&p.y<-uY0-.01;   // under the strip: tucked away below it
   if (under) z=-.8*uFace-.4;
   vN=normalize(mat3(modelMatrix)*vec3(-(zx-z)/e,1.,-(zz-z)/e));
-  vL=vec3(p.x,z,p.y); vW=(modelMatrix*vec4(vL,1.)).xyz; vA=vec4(0.,0.,0.,40.); vS=0.;
+  vL=vec3(p.x,z,p.y); vW=(modelMatrix*vec4(vL,1.)).xyz; vA=vec4(0.,f0*uStrip,0.,40.); vS=0.;
   gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.);
 }`;
 
 const WATER_FS = /* glsl */ `
 precision highp float;
-uniform float uTime, uFace, uFlowX, uFlowZ, uBl, uPitch, uLand, uFog, uSpill, uChop, uStrip, uBreak;
-uniform vec3 uSun, uHorizon, uTop, uDeep, uBody, uTurq, uFoam, uFoamShade, uSea, uSunCol, uGlow;
+uniform float uTime, uFace, uFlowX, uFlowZ, uBl, uPitch, uLand, uFog, uSpill, uChop, uStrip, uBreak, uShore;
+uniform vec3 uSun, uHorizon, uTop, uDeep, uBody, uTurq, uFoam, uFoamShade, uSea, uSunCol, uGlow, uSand;
 uniform float uAmb, uDirect;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
 ${NOISE}
@@ -202,6 +214,11 @@ void main(){
   vec3 face=mix(uDeep,uBody,smoothstep(.0,.75,hf))*mix(.8,1.,smoothstep(3.,.8,thick));
   float fw=max(onFace,smoothstep(.05,.45,hf))*front;
   vec3 body=mix(uSea*mix(1.,.82,smoothstep(.05,.6,hf)*(1.-front)),face,fw);
+  // S2: in front of the wave the water shoals over the sandbar: lighter and more turquoise toward the beach, a sand tint through it in
+  // the shallowest band; behind, out to sea, darker and cleaner (uShore: the shoreline's distance in front, crest frame)
+  float shoal=smoothstep(.0,.75,-vL.z/max(uShore,1.))*(1.-onFace)*(1.-smoothstep(.0,.3,hf));
+  body=mix(body,mix(uTurq*.55,uSand,smoothstep(.55,1.,-vL.z/max(uShore,1.)))*uAmb,shoal*.55);
+  body*=1.-.18*smoothstep(10.,250.,vL.z)*(1.-onFace);
   float glow=clamp(thin*(.4+.6*back*sunUp)*(.4+.6*front)*mix(.55,1.,uAmb),0.,1.)*.8;
   float tube=smoothstep(-.1,-.6,N0.y)*smoothstep(.2,.6,hf);                // the ceiling of the tube: in its own shadow
   body=mix(body,uTurq*(.75+.35*back),glow*.9*(1.-.6*tube));             // the ceiling of the tube stays dark even where the lip is thin
@@ -278,6 +295,35 @@ void main(){
   #include <colorspace_fragment>
 }`;
 
+// S4: the beach-break shoreline in front (crest frame -z): sand rising from the shoreline (height 0 at the water line) to low dunes, a
+// darker wet band with the swash running up and sliding back, pale dry sand, dune grass tones on the ridge; the same haze as the water.
+const BEACH_VS = /* glsl */ `
+uniform float uTime, uShore, uFace; varying vec3 vW; varying float vH; varying vec2 vP;
+${NOISE}
+float sandH(vec2 p){ float d=-p.y-uShore; float h=d*.022-.35;                                       // 1:45 foreshore from 35 cm under the water line
+  h+=smoothstep(60.,140.,d)*(3.5+2.5*vnoise(vec2(p.x*.012,d*.03)))+smoothstep(140.,220.,d)*2.*vnoise(vec2(p.x*.02+3.,d*.02));   // low dunes (4-8 m)
+  h+=smoothstep(230.,330.,d)*(16.+10.*vnoise(vec2(p.x*.006+7.,d*.01)));                                                       // a bluff line behind them (16-26 m) so the backdrop reads from the water
+  h-=.12*vnoise(vec2(p.x*.06,d*.2))*(1.-smoothstep(40.,80.,d)); return h; }
+void main(){ vec4 w0=modelMatrix*vec4(position,1.); vec2 p=w0.xz; float h=sandH(p); vH=h; vP=p; vW=vec3(p.x,h,p.y); gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.); }`;   // the plane is a unit grid scaled and placed by its matrix: the sand is shaped in crest-frame metres
+const BEACH_FS = /* glsl */ `
+uniform float uTime, uShore, uFog, uAmb, uDirect; uniform vec3 uHorizon, uSun, uSand, uSandWet, uDune; varying vec3 vW; varying float vH; varying vec2 vP;
+${NOISE}
+void main(){
+  float d=-vP.y-uShore, dist=length(cameraPosition-vW);
+  // the swash: thin sheets run up the foreshore and slide back (height of the wet edge, m, breathing with the period)
+  float sw=.22+.16*sin(uTime*.55+vP.x*.012)+.06*vnoise(vec2(vP.x*.05,uTime*.3)), wet=1.-smoothstep(sw,sw+.25,vH);
+  vec3 col=mix(uSand,uSandWet,wet*.85);
+  col=mix(col,vec3(.93,.95,.95),(1.-smoothstep(.0,.05,abs(vH-sw)))*.6*smoothstep(0.,1.,sin(uTime*.55+vP.x*.012)*.5+.5));   // the foam edge of the sheet
+  col=mix(col,uDune,smoothstep(2.4,5.,vH)*(.6+.4*vnoise(vec2(vP.x*.1,d*.1))));
+  col*=.94+.06*vnoise(vec2(vP.x*.4,d*.4));
+  col*=uAmb*(.8+.3*mix(.6,clamp(uSun.y*.6+.5,0.,1.),uDirect));
+  float fog=1.-exp(-pow(dist*uFog*.7,2.)); col=mix(col,uHorizon*.99,clamp(fog,0.,1.));   // land hazes less than the water's own fog (the beach must read from the line-up)
+  gl_FragColor=vec4(col,1.);
+  #include <colorspace_fragment>
+}`;
+const HEAD_FS = /* glsl */ `uniform float uFog, uAmb; uniform vec3 uHorizon, uDune; varying vec3 vW; void main(){ float dist=length(cameraPosition-vW); float fog=1.-exp(-pow(dist*uFog*.8,2.)); vec3 c=mix(uDune*.55*uAmb,uHorizon*.99,clamp(fog,0.,1.)); gl_FragColor=vec4(c,1.);
+#include <colorspace_fragment>
+}`;
 const SKY_VS = `varying vec3 vD; void main(){ vD=normalize(position); gl_Position=projectionMatrix*viewMatrix*vec4(position+cameraPosition,1.); gl_Position.z=gl_Position.w; }`;
 const SKY_FS = `uniform vec3 uHorizon,uTop,uSun,uSunCol,uGlow; varying vec3 vD; void main(){ float h=clamp(vD.y,0.,1.); vec3 c=mix(uHorizon,uTop,pow(h,.5));
 vec2 sh=normalize(uSun.xz+1e-5), rh=normalize(vD.xz+1e-5); c+=uGlow*pow(max(dot(sh,rh),0.),3.)*pow(1.-h,3.);
@@ -412,7 +458,11 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       // the face is olive-green against a grey-blue sea, never teal); foam reads white, its cavities a light grey, not slate
       uDeep: {value: new THREE.Color('#06201f')}, uBody: {value: new THREE.Color('#1c5a4e')}, uTurq: {value: new THREE.Color('#4cc49a')}, uSea: {value: new THREE.Color('#163f46')},
       uFoam: {value: new THREE.Color('#f3f6f5')}, uFoamShade: {value: new THREE.Color('#8a979c')},
+      // Appendix S: the set spacing (deep-water wavelength), set count (quality tier), the shoreline distance in front, the swell slant, the broken wave's speed, the sand
+      uLdeep: {value: 250}, uSetN: {value: 4}, uShore: {value: 220}, uSwellX: {value: 0}, uCel: {value: 5}, uSand: {value: new THREE.Color('#c9b48c')}, uSandWet: {value: new THREE.Color('#8d7d60')}, uDune: {value: new THREE.Color('#8a8a6a')},
     };
+    // S6 quality tier: phones draw 2 set lines and a coarser beach (reported in data-tier, never silently dropped)
+    const tier: 'full' | 'phone' = (window.innerWidth < 700 || (window.devicePixelRatio || 1) > 2.5) ? 'phone' : 'full'; u.uSetN.value = tier === 'phone' ? 2 : 4; el.dataset.tier = tier;
     const stripMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: STRIP_VS, fragmentShader: WATER_FS, side: THREE.DoubleSide});
     const seaMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: SEA_VS, fragmentShader: WATER_FS});
     const sky = new THREE.Mesh(new THREE.SphereGeometry(3000, 24, 12), new THREE.ShaderMaterial({uniforms: {uHorizon: u.uHorizon, uTop: u.uTop, uSun: u.uSun, uSunCol: u.uSunCol, uGlow: u.uGlow}, vertexShader: SKY_VS, fragmentShader: SKY_FS, side: THREE.BackSide, depthWrite: false}));
@@ -421,6 +471,23 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     // the crest frame: x along the crest with the shoulder at -x (a left); a right is this frame mirrored (scale.x = -1), surfer included
     const group = new THREE.Group(); scene.add(group);
     const strip = new THREE.Mesh(stripGeometry(), stripMat), sea = new THREE.Mesh(seaGeometry(), seaMat); strip.frustumCulled = sea.frustumCulled = false; strip.visible = sea.visible = false; group.add(strip, sea);
+    // S4: the beach (a grid from 60 m seaward of the shoreline to 700 m inland, positioned per wave by uShore) and a headland silhouette
+    // along one side in the haze (illustrative: the generic beach-break preset, not this spot's coast)
+    const beachMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: BEACH_VS, fragmentShader: BEACH_FS});
+    const beachGeo = new THREE.PlaneGeometry(1, 1, tier === 'phone' ? 48 : 120, tier === 'phone' ? 40 : 96); beachGeo.rotateX(-Math.PI / 2);   // xz plane, unit; scaled in setBeach
+    const beach = new THREE.Mesh(beachGeo, beachMat); beach.frustumCulled = false; beach.visible = false; group.add(beach);
+    const headMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: 'varying vec3 vW; void main(){ vW=(modelMatrix*vec4(position,1.)).xyz; gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.); }', fragmentShader: HEAD_FS, side: THREE.DoubleSide});
+    const headland = new THREE.Mesh(new THREE.BufferGeometry(), headMat); headland.frustumCulled = false; headland.visible = false; group.add(headland);
+    { const pts: number[] = [], n = 24; for (let i = 0; i <= n; i++) { const f = i / n; pts.push(f, 0, 0, f, 1, 0); } const pos = new Float32Array(pts), idx: number[] = []; for (let i = 0; i < n; i++) { const a = i * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
+      headland.geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3)); headland.geometry.setIndex(idx); }
+    const setBeach = (H: number, m: AtlasMeta) => {
+      const shore = 180 + 25 * H; u.uShore.value = shore;   // 150-400 m behind the break (S4), growing with the size
+      beach.scale.set(2 * SEA_FAR, 1, 760); beach.position.set(0, 0, -(shore - 60) - 380); beach.visible = true;
+      // the headland: a ridge from the far shoulder end, out along the beach, its skyline a soft hump 60-140 m high, fading into the haze
+      const pa = headland.geometry.getAttribute('position') as THREE.BufferAttribute, arr = pa.array as Float32Array, n = 24, x0 = m.break_len_m * 1.45 + 300;
+      for (let i = 0; i <= n; i++) { const f = i / n, x = x0 + f * 1400, hgt = 20 + 120 * Math.sin(Math.PI * Math.min(1, f * 1.2)) * (0.8 + 0.2 * Math.sin(f * 9)); arr[i * 6] = x; arr[i * 6 + 1] = -2; arr[i * 6 + 2] = -(shore + 120 + f * 60); arr[i * 6 + 3] = x; arr[i * 6 + 4] = hgt; arr[i * 6 + 5] = -(shore + 120 + f * 60); }
+      pa.needsUpdate = true; headland.visible = true;
+    };
     let custom: THREE.Mesh | null = null, surfer: THREE.Object3D | null = null, spray: Spray | null = null, disposed = false, dir: 'left' | 'right' = 'left';
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true; controls.dampingFactor = 0.08; controls.enablePan = false; controls.minPolarAngle = THREE.MathUtils.degToRad(10); controls.maxPolarAngle = THREE.MathUtils.degToRad(88);
@@ -449,12 +516,14 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       wake.visible = wk.n > 1; if (!wake.visible) return;
       for (let k = 0; k < WK; k++) {
         const i = (wk.head - wk.n + k + WK) % WK, o = i * 6, age = t - wk.pts[o + 4], life = Math.max(0, 1 - age / WAKE.lifeS), on = k >= WK - wk.n ? 1 : 0;
-        const x = wk.pts[o] - flowX * age; facePointInto(atlas, x, wk.pts[o + 1], t, wkP);   // on the face the shader draws, lifted off it along its normal
+        const x = wk.pts[o] + flowX * age; facePointInto(atlas, x, wk.pts[o + 1], t, wkP);   // the water streams toward +x (the shader's E = x - flow t): a sample left on it is carried that way, so the trail streams behind the rider, toward the break (M10; round 4 had the sign the other way and the trail ran ahead)
         const sl = wkP[2], y = wkP[1] + Math.cos(sl) * WAKE.liftM, z = -wkP[0] - Math.sin(sl) * WAKE.liftM, w = 0.5 * (WAKE.widthM + WAKE.spreadM * (1 - life)), rx = wk.pts[o + 2] * w, rz = wk.pts[o + 3] * w;
         const q = k * 6; wk.pos[q] = x - rx; wk.pos[q + 1] = y; wk.pos[q + 2] = z - rz; wk.pos[q + 3] = x + rx; wk.pos[q + 4] = y; wk.pos[q + 5] = z + rz;
         wk.a[k * 2] = wk.a[k * 2 + 1] = WAKE.alpha * life * life * on;
       }
       (wkGeo.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true; (wkGeo.getAttribute('aA') as THREE.BufferAttribute).needsUpdate = true;
+      // M10 check (dev): the trail's first segment (the tail -> the previous sample) against the velocity over the water: it points behind
+      if (import.meta.env.DEV && sim && wk.n === WK) { const a = (WK - 1) * 6, b = (WK - 3) * 6, p = wk.pos; monitor.wakeSample(t, sim.move(), (p[b] + p[b + 3]) / 2 - (p[a] + p[a + 3]) / 2, (p[b + 2] + p[b + 5]) / 2 - (p[a + 2] + p[a + 5]) / 2, st[S.WX], st[S.WZ]); }
     };
     const size = () => { const w = Math.max(1, el.clientWidth), h = Math.max(1, el.clientHeight); renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); spMat.uniforms.uScale.value = (h * dpr) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)); };
     const ro = new ResizeObserver(size); ro.observe(el);
@@ -585,7 +654,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       noseV.copy(F).negate(); Zc.copy(Rv); if (frontside) Zc.negate();
       Mb.makeBasis(noseV, U, Zc).setPosition(posV).multiply(Ms);
       upR.set(noseV.y, U.y, Zc.y);   // world up in the rider frame (the basis is orthonormal, mirrored or not)
-      body.pose(st, {upR, roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], idleA: st[S.IDLE_A], idleB: st[S.IDLE_B], mirror: frontside ? 1 : -1, profile: sim.plan.profile});
+      body.pose(st, {upR, roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], idleA: st[S.IDLE_A], idleB: st[S.IDLE_B], mirror: frontside ? 1 : -1, profile: sim.plan.profile, dt, turning: 1 - Math.max(0, st[S.W0])});
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
@@ -607,7 +676,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       if (pole.visible) placePole(t);
       // the barrel check (dev): the rider's head under a water roof by at least 0.15 m (inside the lip's cavity)
       let roof = Infinity; if (import.meta.env.DEV) { const hb = headBone ?? (headBone = surfer.getObjectByName('head') ?? null); if (hb) { pt.setFromMatrixPosition(hb.matrixWorld); group.worldToLocal(pt); roof = roofAboveAt(cur.atlas, pt.x, pt.y, pt.z, t); } }
-      probe = {t, vis, roof: Number.isFinite(roof) ? roof : -1, inTube: roof >= 0.15 && roof < 3 * cur.atlas.meta.face_m ? 1 : 0, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE]};
+      probe = {t, vis, roof: Number.isFinite(roof) ? roof : -1, inTube: roof >= 0.15 && roof < 3 * cur.atlas.meta.face_m ? 1 : 0, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE], torsoPitch: body.torsoPitchDeg, torsoPitchRaw: body.torsoPitchRawDeg};
       ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = -st[S.WX]; ret.vis = vis;
       return ret;
     };
@@ -668,7 +737,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         const T = w.periodS && w.periodS > 4 ? w.periodS : 12, Lb = T * Math.sqrt(9.81 * 10), Hs = w.offshoreM && w.offshoreM > 0 ? w.offshoreM : 0.25;
         const m = {...(ready.get('4-6')?.meta ?? ({} as AtlasMeta)), face_m: Hs, Lb_m: Lb, y0_m: -0.5 * Lb, y1_m: 5, break_len_m: 40, shoulder_len_m: 40} as AtlasMeta;
         u.uStrip.value = 0; u.uSetH.value = Hs; u.uLb.value = Lb; u.uFace.value = Hs; const [x0, x1] = stripX(m); u.uX0.value = x0; u.uX1.value = x1; u.uY0.value = m.y0_m; u.uY1.value = m.y1_m;
-        setSea(sea.geometry, m); sea.visible = true; strip.visible = false; if (surfer) surfer.visible = false; if (spray) spray.pts.visible = false;
+        setSea(sea.geometry, m); sea.visible = true; strip.visible = false; if (surfer) surfer.visible = false; if (spray) spray.pts.visible = false; setBeach(Hs, m);
         faceM = Hs; placeCamera('swell', 0, Hs, Lb); el.dataset.mode = w.offshoreM ? 'swell' : 'none'; el.dataset.face = ''; delete el.dataset.surfer; delete el.dataset.breaker;
         return;
       }
@@ -680,6 +749,11 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       u.uFace.value = H; u.uNS.value = m.stages; u.uNP.value = m.points; u.uPitch.value = m.stage_pitch; u.uLand.value = m.stage_land; u.uDb.value = m.depth_break_m; u.uBed.value = m.bed_along_per_m;
       u.uSh.value = m.shoulder_len_m; u.uBl.value = m.break_len_m; u.uCyc.value = m.cycle_s; u.uX0.value = x0; u.uX1.value = x1; u.uY0.value = m.y0_m; u.uY1.value = m.y1_m; u.uLb.value = m.Lb_m;
       u.uFlowX.value = Math.min(m.peel_speed_mps, 6); u.uFlowZ.value = Math.min(m.celerity_mps, 4); u.uSpill.value = m.breaker === 'spilling' ? 1 : 0; u.uSetH.value = 0.36 * H; u.uStrip.value = 1;
+      // S3: the set's spacing from the forecast period (deep water 1.56 T^2, the bar's Lb at the break), the swell's slant against the beach,
+      // the broken wave's speed toward the shore; S4: the shoreline
+      const T = w.periodS && w.periodS > 4 ? w.periodS : m.period_s; u.uLdeep.value = 1.56 * T * T; u.uSwellX.value = Math.tan(THREE.MathUtils.degToRad(THREE.MathUtils.clamp(w.swellOffDeg ?? 0, -40, 40))) * (dir === 'right' ? -1 : 1);
+      u.uCel.value = Math.min(m.celerity_mps, 7); setBeach(H, m);
+      el.dataset.scene = JSON.stringify({shore_m: Math.round(u.uShore.value), set_spacing_deep_m: Math.round(u.uLdeep.value), set_spacing_bar_m: Math.round(m.Lb_m), period_s: T, sets: u.uSetN.value, tier});
       u.uBreak.value = w.breaker === 'spilling' ? 1 : w.breaker === 'plunging' ? 0 : m.breaker === 'spilling' ? 1 : 0;   // the forecast's breaker type, the bucket family's when unknown
       const sx = surferX(m);
       setStripX(strip.geometry, m, sx); setSea(sea.geometry, m); strip.visible = sea.visible = true;
@@ -687,7 +761,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       riderOpts.skill = w.skill; riderOpts.seed = w.seed; riderOpts.stance = w.stance;
       const flowX = u.uFlowX.value;
       if (!sim) sim = new RiderSim(atlas, riderOpts.skill, riderOpts.seed, flowX, riderOpts.stance, u.uTime.value); else sim.setWave(atlas, flowX, riderOpts.skill, riderOpts.seed, riderOpts.stance);
-      frontside = isFrontside(sim.stance, dir); cur = {atlas}; haveVel = false; wk.n = 0; wk.last = -1;   // a new wave: no trail from the old one
+      frontside = isFrontside(sim.stance, dir); cur = {atlas}; haveVel = false; wk.n = 0; wk.last = -1; body?.reseat();   // a new wave: no trail from the old one
       if (import.meta.env.DEV) monitor.reset();   // an hour change re-seats the rider: not a glitch
       el.dataset.stance = sim.stance; el.dataset.skill = sim.plan.skill; el.dataset.seed = String(sim.seed); el.dataset.frontside = frontside ? '1' : '0';
       el.dataset.styleBand = sim.plan.band.id;
@@ -793,7 +867,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const onLost = (e: Event) => { e.preventDefault(); cb.current.onFail?.(); }; canvas.addEventListener('webglcontextlost', onLost);
     return () => {
       disposed = true; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', vis); canvas.removeEventListener('webglcontextlost', onLost); controls.dispose();
-      strip.geometry.dispose(); sea.geometry.dispose(); spray?.pts.geometry.dispose(); wkGeo.dispose(); wkMat.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
+      strip.geometry.dispose(); sea.geometry.dispose(); beach.geometry.dispose(); beachMat.dispose(); headland.geometry.dispose(); headMat.dispose(); spray?.pts.geometry.dispose(); wkGeo.dispose(); wkMat.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
       stripMat.dispose(); seaMat.dispose(); spMat.dispose(); sky.geometry.dispose(); (sky.material as THREE.Material).dispose(); renderer.dispose(); canvas.remove(); api.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

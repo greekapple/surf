@@ -216,7 +216,7 @@ export class RiderSim {
     const leadT = clamp(wrapPi(yawA - yaw), -BODY.leadMaxDeg * Math.PI / 180, BODY.leadMaxDeg * Math.PI / 180);
     if (!this.started) this.leadS.set(leadT); const lead = this.leadS.step(leadT, dt, BODY.springW.head);
     for (let i = 0; i < POSES.length; i++) {
-      const target = POSES[i] === pose0 ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000);
+      const target = POSES[i] === pose0 ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000) / BODY.fadeScale;
       if (!this.started) { this.wS[i].set(target); this.waS[i].set(target); }
       c[S.W0 + i] = this.wS[i].step(target, dt, w); c[S.WA0 + i] = this.waS[i].step(target, dt, w * BODY.armFadeScale);
     }
