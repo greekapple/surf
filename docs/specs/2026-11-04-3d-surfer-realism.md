@@ -67,6 +67,10 @@ Status: **APPROVED** (user, 2026-11-04: "fix the issues you are referring to …
 - Set lines spaced by period, ocean surface chop by wind, face shading.
 
 ### Later (noted, not now)
+- **POV mode** (user, 2026-11-04: "should we eventually add a POV mode too? paddling and surfing"):
+  - a first-person view at the person's own eye height (honest scale): paddle out, take off and pop up, ride, and an optional barrel view through the opening on big waves;
+  - a stabilised camera (comfort), reduced motion respected, a lighter phone tier.
+  - Prerequisites: the motion (§A, M9/M10) and the scene (Appendix S) solid, because POV exposes every wave and motion flaw.
 - **Attire by water temperature:** board shorts → spring suit → full wetsuit → hooded full suit, from the forecast water temperature (the spot page already has a wetsuit guide). Only when the user asks.
 - A stance setting (regular/goofy) in the profile, when the user agrees.
 
