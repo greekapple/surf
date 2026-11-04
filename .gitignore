@@ -19,3 +19,7 @@ public/media/scale3d-live/*.glb
 /public/media/scale3d-atlas/
 __pycache__/
 /public/map-frames/
+
+# Cloudflare production build output
+.cf/
+.wrangler/

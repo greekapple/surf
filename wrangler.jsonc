@@ -1,0 +1,12 @@
+// Production on Cloudflare Workers (free plan). Deploy: npm run deploy (the lead runs it with the user's go).
+{
+  "name": "swello",
+  "main": "worker/cloudflare.mjs",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": ".cf/public",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": {"enabled": true}
+}
