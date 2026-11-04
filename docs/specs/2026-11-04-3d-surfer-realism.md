@@ -229,6 +229,23 @@ Report a table of these per cell, before vs after.
 - **Mid and big waves:** the full repertoire, with depth growing with size.
 - **Barrels:** at faces > 6 ft, at least one ride per cycle is a barrel ride (M2 barrel stance + S1 tube), Intermediate and up; beginners never. Reported per cell (barrel time inside the cavity ≥ 0.8 s).
 
+### M9. No leaning back (user, 2026-11-04 ~23:10: "the model leans his head and back BACK, which in turn messes with the arms; it should just move like a real surfer")
+- **Rule:** the torso never pitches backward past vertical relative to the board's up axis, except the brief layback snap (Expert, ≤ 0.4 s, not in this round).
+  - Torso pitch (forward lean from the deck normal) stays within +5° … +45° in every move; trim 10–25°, bottom turn 25–40°.
+  - The head stays over or ahead of the hips, never behind them; head pitch is level to slightly down, looking down the line.
+- **Root cause to check first:** a body-lean or angulation term (lean into the face, the backside counter, the leg IK pulling the pelvis back, or the hip-height keeping) is rotating the whole upper body backward, and the arms (hand targets in the board frame, M7) then stretch to reach.
+  - Fix the torso first. Arms follow naturally once the torso is forward.
+- **Gate:** a new monitor count `lean` (torso pitch < +5° or head behind the hips) = 0 in every cell.
+
+### M10. The wake/contrail comes off the TAIL and trails BEHIND the board (user, 2026-11-04: "the contrail of the surfer is also going the wrong way off the board")
+- The wake must start at the tail (the fins) and stream backward along the path already travelled, i.e. opposite the board's velocity over the water.
+  - It must never appear ahead of the nose or go off sideways in the travel direction.
+- **Check:** the sign of (wake point − tail) · board velocity is negative for all wake samples (a monitor count `wake` = 0). Clip from the side and from behind.
+- **Likely cause:** the ribbon re-seats samples at x − flow·t (run 3) while the rider moves with the peel, or uses the board's nose/axis sign for a right/left mirror.
+
+### Later (user, same message)
+- Barrel riding will need more work, but that's for later; don't prioritise it over M9/M10 and the arms.
+
 ---
 
 ## Appendix S: Setting the scene so it looks real (the wave, the waves around it, the beach)
