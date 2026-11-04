@@ -86,13 +86,13 @@ export function LegendChip({unit, ramp, lo, hi, label, loading, onCycle, ticks}:
   );
 }
 /** T-117: the model chip names the field's real source (never a model we don't use); a press shows the full source and validity note. */
-export function ModelChip({name, note}: {name: string; note: ReactNode}) {
+export function ModelChip({name, sub, note}: {name: string; sub?: string; note: ReactNode}) {
   const [open, setOpen] = useState(false);
   const btn = useRef<HTMLButtonElement>(null), box = useRef<HTMLDivElement>(null);
   useDismiss(open, () => setOpen(false), box, btn);
   return (
     <div className="xmodel">
-      <button ref={btn} className="xchip xmodel-c" aria-expanded={open} aria-label={`Source: ${name}. Show details`} onClick={() => setOpen(!open)}>{name}</button>
+      <button ref={btn} className="xchip xmodel-c" aria-expanded={open} aria-label={`Source: ${name}${sub ? `, ${sub.replace(/…$/, '')}` : ''}. Show details`} onClick={() => setOpen(!open)}>{name}{sub && <span className="xmodel-sub"> · {sub}</span>}</button>
       {open && <div ref={box} className="xpop xleg-pop" role="status"><p className="xpop-t">Source</p><p className="xpop-note">{note}</p></div>}
     </div>
   );

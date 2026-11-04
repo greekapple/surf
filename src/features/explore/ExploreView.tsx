@@ -14,6 +14,7 @@ import {conditionWord} from '../../ui/Condition';
 import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
+import {cacheLabel} from './cacheLabel';
 import {buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {schedulePrefetch} from '../../map/spatial';
@@ -508,7 +509,10 @@ function OceanMap({section, go}: ViewProps) {
   };
   // T-116: after dark nothing is rated, so the map says it once, quietly, instead of on every spot.
   const darkNow = !!view.selectedTime && isDark(spot.id, view.selectedTime);
+  // T-128: a frame drawn from this device's cache says so, with its own valid time, until the fresh frame replaces it.
+  const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso)} ${hourLabel(iso)}`);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
+    : cache && opts.heat ? cache.line
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt)} ${hourLabel(paintedFrame.validAt)}` : 'Loading model…')
     : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
@@ -684,10 +688,11 @@ function OceanMap({section, go}: ViewProps) {
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
         {darkNow && <p className="xdark" role="status">Dark<span className="xdark-l"> at this hour</span> · not rated</p>}
+        {cache && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''} />
         <div className="xb-right">
-          {opts.heat && <ModelChip name={modelName} note={<>{status} {ENCLOSED_NOTE}</>} />}
+          {opts.heat && <ModelChip name={modelName} sub={cache?.chip} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={paintedDef.label} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
         </div>

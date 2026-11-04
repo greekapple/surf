@@ -12,7 +12,10 @@
 .xsearch, .xsheet, .xzoom, .xfabgrp, .xchip, .xtime, .xpop { background: var(--xc); border: 1px solid var(--xc-line); box-shadow: var(--xc-sh); }
 
 /* Search (top left) and the on-demand list sheet under it */
-.xsearchbox { position: absolute; z-index: 1000; left: 16px; top: 16px; width: 340px; display: grid; gap: 8px; max-height: calc(100% - 96px); }
+.xsearchbox { position: absolute; z-index: 1000; left: 16px; top: 16px; width: 340px; display: flex; flex-direction: column; gap: 8px; max-height: calc(100% - 96px); }
+/* T-128: a flex column (was a grid) so the open list sheet shrinks to the box's max-height and the list scrolls inside it; the grid's auto row grew with
+   the list, so a long list ran past the map's bottom and scrolling a row into view scrolled the whole map box (journey 4: clicks hit <html>). */
+.xsearchbox > :not(.xsheet) { flex: none; }
 .xsearch { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 4px 0 14px; border-radius: 12px; color: var(--muted); }
 .xsearch:focus-within { border-color: var(--accent); }
 .xsearch input { flex: 1; min-width: 0; border: 0; background: none; outline: none; color: var(--text); font-size: 15px; }
@@ -703,7 +706,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 @media (max-width: 860px) { .xcredit { left: 12px; bottom: calc(var(--peek, 0px) + 128px); font-size: 11px; line-height: 18px; cursor: pointer; } .xcredit.open { white-space: normal; } }
 /* map-maplibre: MapLibre's own stylesheet sets .maplibregl-map { position: relative }, which collapsed our full-bleed map box to 0 px tall (the canvas fell back
    to its 300 px default and the map took no clicks). The map box fills the page on both engines. */
-.xleaf.maplibregl-map { position: absolute; inset: 0; }
+.xleaf.maplibregl-map { position: absolute; inset: 0; font: inherit; } /* T-128: maplibre-gl.css loads after ours and set the card, pins and chips in 12px/20px Helvetica; the app font wins here, as on Leaflet */
 /* map-maplibre: the page shows the basemap credit itself (.xcredit), so MapLibre's own credit button and logo stay hidden (no duplicate under the strip). */
 .xleaf .maplibregl-ctrl-attrib, .xleaf .maplibregl-ctrl-logo { display: none !important; }
 /* map-maplibre chrome: the dark vector land (#26292d) is almost the pills' own colour, so in dark the layer names, round buttons and zoom lost
@@ -761,3 +764,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xco-cam span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .xco-cam small { color: var(--muted); }
 .xco-cam:hover span { text-decoration: underline; }
 @media (max-width: 860px) { .xsheet.phone .xco .xco-cam { grid-column: 1 / -1; min-height: 44px; } }
+/* T-128 first paint: a cached frame is labelled on the model chip (desktop); phones have no model chip, so the strip carries the same short mark. */
+.xbottom .xmodel-c .xmodel-sub { font-weight: 500; color: inherit; } /* the strip's muted span colour is unreadable on the amber chip */
+.xbottom .xcache { display: none; }
+@media (max-width: 860px) { .xbottom .xcache { display: block; position: absolute; right: 8px; bottom: 100%; margin: 0 0 40px; padding: 3px 8px; border-radius: 999px; background: var(--xw); color: var(--xw-ink); font-size: 11px; } } /* a pill above the strip and the map credit, so the legend keeps its row */
