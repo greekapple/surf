@@ -6,6 +6,7 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {useSpatial} from '../../hooks/useSpatial';
 import {useGlobe} from '../../hooks/useGlobe';
+import {dataPhase} from '../../services/dataPhase';
 import {evidenceSpots} from '../../ocean/spots';
 import {allSpots as spots} from '../../data/catalog';
 import {rateForecast} from '../../ratings/adapters';
@@ -667,7 +668,9 @@ function OceanMap({section, go}: ViewProps) {
           Retry" after 5 s, and on failure a clear error naming the hour that is still shown. */}
       {opts.heat && live && anyLoading && <div className="xprog" aria-hidden="true"><i /></div>}
       {opts.heat && live && (() => {
-        const failed = !spatial.loading && !spatial.frame && !/^Loading/.test(spatial.status), held = (frame ?? gframe)?.validAt;
+        // T-129: before the forecast has chosen an hour (view.selectedTime null) there is no field to have failed: say it is loading, never "Couldn't load"
+        if (!view.selectedTime && dataPhase(view.ocean) === 'loading') return <p className="xload" role="status">Loading the forecast…</p>;
+        const failed = !!view.selectedTime && !spatial.loading && !spatial.frame && !/^Loading/.test(spatial.status), held = (frame ?? gframe)?.validAt;
         // Say what is actually on screen: the held frame may be the previous layer (honest while the new one loads or fails).
         const heldName = shownFor.current !== fieldId ? (FIELDS.find((x) => x.id === shownFor.current)?.short ?? '').toLowerCase() : '';
         const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held)} ${hourLabel(held)}` : '';

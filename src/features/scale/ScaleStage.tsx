@@ -1,6 +1,7 @@
 import {lazy, Suspense, useEffect, useMemo, useRef, useState} from 'react';
 import type {Surfboard} from '../../models/index';
 import {useSwello} from '../../app/store';
+import {dataPhase} from '../../services/dataPhase';
 import {pacificDate} from '../../ocean/time';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {bodyWords, BODY_WORDS_NOTE} from '../../services/bodyWords';
@@ -97,7 +98,9 @@ export function ScaleStage() {
   const faceText = faceFt === null ? null : p.heightUnit === 'm' ? `${(faceFt * 0.3048).toFixed(1)} m` : `${Math.round(faceFt * 10) / 10} ft`;
   // the 3D stage's own label: what is drawn and what it is (the estimate's centre; or offshore swell, which is not surf size)
   const liveLabel = text && estRange ? `Est. ${text.value} · drawn at ${faceText} face · you ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}` // T-099: the 3D surfer is drawn at the person's height, like the Diagram
-    : hs?.kind === 'offshore' && text ? `No breaking-wave estimate · ${text.value} offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour · nothing drawn as surf';
+    : hs?.kind === 'offshore' && text ? `No breaking-wave estimate · ${text.value} offshore swell drawn unbroken, not surf size`
+    : dataPhase(view.ocean) === 'loading' ? 'Loading the forecast…' // T-129: while the forecast is still loading there is no estimate to be missing, so the stage must not claim there is none
+    : 'No breaking-wave estimate for this hour · nothing drawn as surf';
   const liveLabelShown = anyForced(dev) ? `${liveLabel} · dev: forced${dev?.faceFt != null ? ` ${dev.faceFt} ft face` : ''}` : liveLabel;
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
   // 3D is the main view when renders exist for the band (T-054); the drawn diagram stays one tap away

@@ -76,10 +76,10 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
   if(metadataJobs.has(target.dataset))return metadataJobs.get(target.dataset);
   const job=(async()=>{try{const r=await fetcher('https://upwell.pfeg.noaa.gov/erddap/info/'+target.dataset+'/index.json',{signal:AbortSignal.timeout(Math.min(timeoutMs,10000))});if(!r.ok)return old??null;const p=await r.json(),rows=p.table?.rows??[],attr=name=>rows.find(x=>x[1]==='NC_GLOBAL'&&x[2]===name)?.[4];const start=attr('time_coverage_start'),end=attr('time_coverage_end');if(!Number.isFinite(Date.parse(start))||!Number.isFinite(Date.parse(end)))return old??null;const value={start,end,checkedAt:new Date(now()).toISOString(),issuedAt:null};metadata.set(target.dataset,value);if(env?.BUCKET)await env.BUCKET.put('forecast/v10/datasets/'+target.dataset+'.json',JSON.stringify(value));return value;}catch{return old??null}finally{metadataJobs.delete(target.dataset)}})();metadataJobs.set(target.dataset,job);return job;
  }
- async function retrieve(target,env){
+ async function retrieve(target,env,opts={}){
   if(inflight.has(target.key))return inflight.get(target.key);
   const job=(async()=>{
-   const old=await read(env,target.key);if(old&&now()-Date.parse(old.validatedAt??old.retrievedAt)<target.ttl)return {...old,cache:'fresh'};
+   const old=await read(env,target.key);if(old&&now()-Date.parse(old.validatedAt??old.retrievedAt)<target.ttl-(opts.ahead??0))return {...old,cache:'fresh'};
    const last=await failure(env,target),origin=await originFailure(env,target),cooldown=[last,origin].filter(Boolean).sort((a,b)=>Date.parse(b.retryAt)-Date.parse(a.retryAt))[0];
    if(cooldown&&Date.parse(cooldown.retryAt)>now()){if(old)return {...old,cache:'stale',warning:'Provider cooling period; previous retrieval retained.',errorCategory:cooldown.category,retryAt:cooldown.retryAt};const e=new Error('Provider retry window active. '+cooldown.category);e.category=cooldown.category;e.retryAt=cooldown.retryAt;throw e;}
    let url=target.url;const started=now();let attempts=0;
@@ -112,13 +112,14 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
   })();inflight.set(target.key,job);try{return await job}finally{inflight.delete(target.key)}
  }
  async function diagnostics(env){return Promise.all(ingestionTargets(now()).map(async t=>{const value=await read(env,t.key),error=await failure(env,t)??await originFailure(env,t),age=value?Math.max(0,now()-Date.parse(value.retrievedAt)):null;return {key:t.key,provider:value?.model??new URL(t.url).hostname,retrievedAt:value?.retrievedAt??null,issuedAt:value?.issuedAt??null,validRange:value?.validRange??forecastRange(value?.payload),cacheAgeMs:age,ttlMs:t.ttl,state:!value?'unavailable':now()-Date.parse(value.validatedAt??value.retrievedAt)<=t.ttl&&(!error||Date.parse(error.attemptedAt)<Date.parse(value.retrievedAt))?'fresh':'stale',errorCategory:error?.category??null,error:error?.message??null,retryAt:error?.retryAt??null,bytes:value?.bytes??null,durationMs:value?.durationMs??null};}));}
- async function refresh(env){
+ /** opts (cron path, T-129): {perRun, tick, ahead}. The Workers free plan allows 50 subrequests and 10 ms CPU per invocation, so one cron run refreshes ONE rotating slice of at most `perRun` targets (slice = tick mod ceil(targets/perRun)), and only those that will expire within `ahead` ms. No opts = every target (the token-protected /api/refresh). */
+ async function refresh(env,opts={}){
   if(refreshJob)return refreshJob;
-  refreshJob=(async()=>{const targets=ingestionTargets(now()),results=[];let cursor=0;
+  refreshJob=(async()=>{const all=ingestionTargets(now()),count=opts.perRun?Math.ceil(all.length/opts.perRun):1,sliceIndex=count>1?Math.abs(Math.floor(opts.tick??0))%count:0,targets=count>1?all.filter((_,i)=>i%count===sliceIndex):all,results=[];let cursor=0;
    // At most four different provider groups; point-provider origins are serial; regional fields use at most two concurrent requests.
    const byOrigin=new Map();for(const t of targets){const host=new URL(t.url).hostname;if(!byOrigin.has(host))byOrigin.set(host,[]);byOrigin.get(host).push(t);}const groups=[...byOrigin.values()].flatMap(group=>group[0].field?[group.filter((_,i)=>i%2===0),group.filter((_,i)=>i%2===1)]:[group]);
-   await Promise.all(Array.from({length:Math.min(4,groups.length)},async()=>{while(cursor<groups.length){const group=groups[cursor++];for(const t of group){try{const d=await retrieve(t,env);results.push({key:t.key,state:d.cache==='stale'?'stale':'available',retrievedAt:d.retrievedAt,issuedAt:d.issuedAt,model:d.model,sourceURL:d.sourceURL,validRange:d.validRange??forecastRange(d.payload),warning:d.warning??null,errorCategory:d.errorCategory??null,retryAt:d.retryAt??null});}catch(e){results.push({key:t.key,state:'unavailable',message:e.message,errorCategory:e.category??failureCategory(e),retryAt:e.retryAt??null});}}}}));
-   const report={attemptedAt:new Date(now()).toISOString(),persistent:persistent(env),revision:'0.10',results};manifest=report;
+   await Promise.all(Array.from({length:Math.min(4,groups.length)},async()=>{while(cursor<groups.length){const group=groups[cursor++];for(const t of group){try{const d=await retrieve(t,env,{ahead:opts.ahead??0});results.push({key:t.key,state:d.cache==='stale'?'stale':'available',retrievedAt:d.retrievedAt,issuedAt:d.issuedAt,model:d.model,sourceURL:d.sourceURL,validRange:d.validRange??forecastRange(d.payload),warning:d.warning??null,errorCategory:d.errorCategory??null,retryAt:d.retryAt??null});}catch(e){results.push({key:t.key,state:'unavailable',message:e.message,errorCategory:e.category??failureCategory(e),retryAt:e.retryAt??null});}}}}));
+   const report={attemptedAt:new Date(now()).toISOString(),persistent:persistent(env),revision:'0.10',results,...(count>1?{slice:{index:sliceIndex,of:count,targets:targets.length,ofTargets:all.length}}:{})};manifest=report;
    if(env?.BUCKET){await env.BUCKET.put('forecast/v8/status.json',JSON.stringify(report));
     // New compact manifests reference immutable per-retrieval snapshots. Legacy archives are untouched.
     const records=await Promise.all(targets.map(async t=>{const value=await read(env,t.key);if(!value)return {providerKey:t.key,snapshot:null};const key='forecast/v10/snapshots/'+t.key+'/'+value.retrievedAt+'.json';if(!await env.BUCKET.get(key))await env.BUCKET.put(key,JSON.stringify(value));return {providerKey:t.key,snapshot:key,retrievedAt:value.retrievedAt,issuedAt:value.issuedAt,validRange:value.validRange??forecastRange(value.payload)};}));
@@ -171,7 +172,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
    return value;
   })();pointJobs.set(key,job);try{return await job}finally{pointJobs.delete(key)}
  }
-return async function handle(request,env={},ctx={waitUntil:()=>{}}){const url=new URL(request.url);try{
+const handle=async function(request,env={},ctx={waitUntil:()=>{}}){const url=new URL(request.url);try{
   if(url.pathname==='/api/health'){const obj=await fromBucket(env,'forecast/v8/status.json');return json({service:'SURF forecast ingestion',version:'0.8',revision:'0.10',persistent:persistent(env),refresh:obj??manifest,scheduler:'Configured/executed status must be verified from the linked automation, separately from this readback.'});}
   if(url.pathname==='/api/diagnostics')return json({checkedAt:new Date(now()).toISOString(),persistent:persistent(env),providers:await diagnostics(env)});
   if(url.pathname==='/api/refresh'){if(request.method!=='POST')return json({error:'POST required'},405);const origin=request.headers.get('origin');if(origin&&origin!==url.origin)return json({error:'Origin rejected'},403);if(env.REFRESH_TOKEN&&request.headers.get('authorization')!=='Bearer '+env.REFRESH_TOKEN)return json({error:'Refresh authorization required'},403);return json(await refresh(env));}
@@ -184,4 +185,5 @@ return async function handle(request,env={},ctx={waitUntil:()=>{}}){const url=ne
   if(request.method!=='GET'&&request.method!=='HEAD')return new Response('Method not allowed',{status:405});
   const asset=assets[url.pathname]??(!url.pathname.includes('.')?assets['/index.html']:null);if(!asset)return new Response('Not found',{status:404});const bytes=Uint8Array.from(atob(asset.body),c=>c.charCodeAt(0));return new Response(request.method==='HEAD'?null:bytes,{headers:{'Content-Type':asset.type,'Cache-Control':url.pathname.startsWith('/assets/')?'public, max-age=31536000, immutable':'no-cache'}});
  }catch(e){return json({error:e.message??'Forecast service unavailable',category:e.category??failureCategory(e),retryAt:e.retryAt??null},502)}};
+handle.refresh=refresh;return handle;
 }
