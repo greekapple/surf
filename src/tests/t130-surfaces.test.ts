@@ -55,3 +55,19 @@ test('a nearshore-only headline never carries high confidence: low for a hand-ch
   const ob = headlineSurf('spot-2', hr('spot-2'), {bundle: (() => { const r = {...rec('SF023', 1.4), direction: {value: 100, unit: 'deg', source: {}}}; return {nearshore: [], mop: {SF023: {mopId: 'SF023', records: [r], issue: null, retrievedAt: r.timestamp, url: 'x'}}} as never; })(), nowMs: NOW, observations: [], spread: null}) as any;
   assert.ok(ob.nearshoreOnly); assert.notEqual(ob.confidence, 'high'); assert.match(headlineText(ob, profile).confidenceDetail!, /local shelter not modelled/);
 });
+
+test('T-131: the nearshore flags are separate: "chosen by us" only for a point we chose, "usually smaller" only where our own caveat says so; a caveat alone still caps confidence at low', () => {
+  const fresh = {retrievedAt: new Date(NOW - 60000).toISOString(), delivery: 'direct'}, rec = (id: string, dir: number) => ({timestamp: new Date(t0).toISOString(), height: {value: 1.4 * FT, unit: 'ft', source: fresh}, period: {value: 14, unit: 's', source: {}}, direction: {value: dir, unit: 'deg', source: {}}, qualityFlag: 1, mopId: id, product: 'forecast'});
+  const hr = (spotId: string) => ({spotId, timestamp: new Date(t0).toISOString(), day: 0, hour: 10, face: NaN, offshore: 8, availability: {face: false, swell: true, wind: true, tide: true, organization: false}, evidence: {}}) as never;
+  const run = (spotId: string, mopId: string) => { const r = rec(mopId, 278); const h = headlineSurf(spotId, hr(spotId), {bundle: {nearshore: [], mop: {[mopId]: {mopId, records: [r], issue: null, retrievedAt: r.timestamp, url: 'x'}}} as never, nowMs: NOW, observations: [], spread: null}) as any; return {h, detail: headlineText(h, profile).confidenceDetail ?? ''}; };
+  // Bolinas, Cowell's: chosen by us, and our caveat says smaller
+  for (const [s, m] of [['spot-0', 'MA137'], ['spot-7', 'SC149']] as const) { const {h, detail} = run(s, m); assert.ok(h.nearshoreOnly?.hand && h.nearshoreOnly.smaller, s); assert.match(detail, /chosen by us/); assert.match(detail, /usually smaller or more sheltered/); }
+  // Mavericks: chosen by us, but its caveat says the opposite (waves can be larger): never "smaller"
+  { const {h, detail} = run('spot-5', 'SM306'); assert.ok(h.nearshoreOnly?.hand); assert.ok(!h.nearshoreOnly.smaller); assert.match(detail, /chosen by us/); assert.doesNotMatch(detail, /smaller/); }
+  // Carmel: matched by the facing rule (not chosen by us), caveat without a size claim; confidence still low
+  const carmel = mopAssignments.find((a) => a.spotId === 'cs-carmel')!; assert.ok(carmel.caveat && !carmel.provenance && !carmel.smallerThanPoint);
+  assert.match(carmel.caveat!, /https:\/\/www\.surfnerd\.com\/surf-forecast\/carmel-beach/); assert.match(carmel.caveat!, /15 m of water, about 1 km out/); assert.doesNotMatch(carmel.caveat!, /15 m offshore/); assert.match(carmel.caveat!, /does not say whether this shelter reduces wave size, or by how much/);
+  const r = rec('MO646', 100), h = headlineSurf('cs-carmel', hr('cs-carmel'), {bundle: {nearshore: [], mop: {MO646: {mopId: 'MO646', records: [r], issue: null, retrievedAt: r.timestamp, url: 'x'}}} as never, nowMs: NOW, observations: [], spread: null}) as any;
+  assert.ok(h.nearshoreOnly, 'Carmel outside its window is nearshore-only'); assert.ok(!h.nearshoreOnly.hand && h.nearshoreOnly.caveated && !h.nearshoreOnly.smaller); assert.equal(h.confidence, 'low');
+  const d = headlineText(h, profile).confidenceDetail!; assert.doesNotMatch(d, /chosen by us|smaller/); assert.match(d, /local shelter not modelled/);
+});
