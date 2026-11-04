@@ -12,7 +12,7 @@ import fs from 'node:fs';
 const coast = JSON.parse(fs.readFileSync(new URL('../../../src/map/coast.json', import.meta.url), 'utf8')) as {rings: [number, number][][]};
 export const GRID = {lon0: -124.8, lat0: 31.8, step: 0.01, w: 0, h: 0};
 GRID.w = Math.round((-114.4 - GRID.lon0) / GRID.step); GRID.h = Math.round((43.6 - GRID.lat0) / GRID.step);
-const OSM_REACH_KM = 2;
+const OSM_REACH_KM = 8; // T-128: was 2; the Alviso and Coyote Creek sloughs run 5-8 km inland of the Natural Earth bay edge
 /** Named mouths: cells west of the line (inside its latitude span) are open sea. Golden Gate = Point Bonita (37.8157, -122.5296) to Lands End (37.7870, -122.5110). */
 const GATE = {a: [37.8157, -122.5296], b: [37.787, -122.511]};
 const MOUTHS = [{name: 'Golden Gate', latMin: 37.76, latMax: 37.84, lonAt: (lat: number) => GATE.a[1] + ((lat - GATE.a[0]) / (GATE.b[0] - GATE.a[0])) * (GATE.b[1] - GATE.a[1])}];
@@ -54,8 +54,9 @@ export function build(osmWater?: Uint8Array) {
   if (osmWater) { const dBase = edt(enc0), reach = OSM_REACH_KM * OSM_REACH_KM, add: number[] = []; for (let k = 0; k < W * H; k++) if (osmWater[k] && !enc0[k] && dCore[k] > nDil && dBase[k] <= reach && inBox(k % W)) add.push(k); for (const k of add) enc0[k] = 1; }
   // grow the enclosed set by one cell (about 1 km) over the shoreline: shore cells that are land on this grid but water on the screen would otherwise keep a thin line of colour (land cells are trimmed by the land mask anyway)
   const enc = new Uint8Array(W * H); for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { if (!enc0[j * W + i]) continue; for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) { const ii = i + di, jj = j + dj; if (ii >= 0 && jj >= 0 && ii < W && jj < H) enc[jj * W + ii] = 1; } }
+  // (T-128: a cell with any part west of the line is open; a wider OSM reach had pulled the Bonita Cove cell in)
   // mouth lines: water on the OPEN side of a named mouth is open sea whatever the heuristic says (the Golden Gate: Point Bonita to Lands End; everything west of that line is open ocean)
-  for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { if (!enc[j * W + i]) continue; const lon = GRID.lon0 + (i + 0.5) * GRID.step, lat = GRID.lat0 + (j + 0.5) * GRID.step; for (const m of MOUTHS) if (lat >= m.latMin && lat <= m.latMax && lon < m.lonAt(lat)) enc[j * W + i] = 0; }
+  for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { if (!enc[j * W + i]) continue; const lon = GRID.lon0 + (i + 0.5) * GRID.step, lat = GRID.lat0 + (j + 0.5) * GRID.step; for (const m of MOUTHS) if (lat >= m.latMin && lat <= m.latMax && lon - GRID.step / 2 < m.lonAt(lat)) enc[j * W + i] = 0; }
   for (let j = 0; j < H; j++) {
     const runs: number[] = []; let start = -1;
     for (let i = 0; i <= W; i++) { const e = i < W && enc[j * W + i] === 1; if (e) cells++; if (e && start < 0) start = i; if (!e && start >= 0) { runs.push(start, i - start); start = -1; } }

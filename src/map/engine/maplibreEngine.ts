@@ -7,6 +7,7 @@ import {mapConfig} from '../mapConfig.ts';
 import {minZoomFor} from '../mapConfig.ts';
 import {ATTRIBUTION_TEXT, WORLD_SEA_ID, brandedStyle, loadBaseStyle, paintFor, palette} from './style.ts';
 import {createGLFieldController} from './glField.ts';
+import {warmParents, warmWorld} from './tileWarm.ts';
 import type {EngineClick, EngineEvent, EngineOptions, MapEngine, MarkerHandle, MarkerOptions, Theme} from './types.ts';
 
 const ZOFF = 1; // Leaflet zoom = MapLibre zoom + 1
@@ -18,7 +19,7 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
   let theme: Theme = o.theme, heat = el.dataset.heat === 'on';
   const map = new maplibregl.Map({
     container: el, style: brandedStyle(base, theme, heat) as unknown as maplibregl.StyleSpecification, center: [o.view.lon, o.view.lat], zoom: o.view.zoom - ZOFF,
-    minZoom: o.minZoom - ZOFF, maxZoom: o.maxZoom - ZOFF, maxPitch: 0, dragRotate: false, pitchWithRotate: false, attributionControl: false, renderWorldCopies: true, fadeDuration: 150, canvasContextAttributes: {antialias: false},
+    minZoom: o.minZoom - ZOFF, maxZoom: o.maxZoom - ZOFF, maxPitch: 0, dragRotate: false, pitchWithRotate: false, attributionControl: false, renderWorldCopies: true, fadeDuration: 150, maxTileCacheSize: 300, maxTileCacheZoomLevels: 8, canvasContextAttributes: {antialias: false},
   } as maplibregl.MapOptions);
   map.touchZoomRotate.disableRotation(); map.keyboard.disableRotation?.();
   map.addControl(new maplibregl.AttributionControl({compact: true}), 'bottom-left');
@@ -33,6 +34,9 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
   // warm the world-sea polygon once (the worker builds its tile index on first use, which is slower than a zoom animation): shown invisibly at the current zoom, then hidden again
   map.once('idle', () => { try { if (!map.getLayer(WORLD_SEA_ID)) return; map.setLayerZoomRange(WORLD_SEA_ID, 0, 24); map.setPaintProperty(WORLD_SEA_ID, 'fill-opacity', 0); map.setLayoutProperty(WORLD_SEA_ID, 'visibility', 'visible'); map.once('idle', () => { try { map.setLayoutProperty(WORLD_SEA_ID, 'visibility', 'none'); map.setLayerZoomRange(WORLD_SEA_ID, 0, 10); map.setPaintProperty(WORLD_SEA_ID, 'fill-opacity', 1); } catch { /* removed */ } }); } catch { /* style not ready */ } });
   map.on('movestart', () => { if (map.getZoom() < 10) worldSea(true); }); map.on('zoomstart', () => worldSea(true)); map.on('idle', () => worldSea(false));
+  // T-128b: coarser tiles are fetched ahead (into the HTTP cache) so a zoom-out finds its parent level ready.
+  const tileTpl = (base.sources.openmaptiles as {tiles?: string[]} | undefined)?.tiles?.[0];
+  if (tileTpl) { map.once('idle', () => warmWorld(tileTpl)); map.on('moveend', () => { const b = map.getBounds(); warmParents(tileTpl, {west: b.getWest(), east: b.getEast(), south: b.getSouth(), north: b.getNorth()}, map.getZoom()); }); }
   const field = createGLFieldController(map, el);
   const offs: (() => void)[] = [];
   // QA hook (dev only): the native map with Leaflet-equivalent zoom numbers, so one script drives both engines.

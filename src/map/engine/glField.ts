@@ -124,6 +124,7 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
       gl.blendEquation(gl.FUNC_REVERSE_SUBTRACT); gl.uniform1f(U('u_pass'), 0); gl.drawArrays(gl.TRIANGLES, 0, 6);
       gl.blendEquation(gl.FUNC_ADD); gl.uniform1f(U('u_pass'), 1); gl.drawArrays(gl.TRIANGLES, 0, 6);
       gl.colorMask(true, true, true, true); gl.bindVertexArray(null);
+      if (cur && !firstMarked) { firstMarked = true; try { performance.mark('swello:field-first-draw'); } catch { /* no performance API */ } } // first-paint timing (t143)
     }
     if (drawParticles) { this.map.triggerRepaint(); }
     if (drawParticles) this.particles!.draw(gl, {enc: this.enc, encGeo: this.encGeo, fb: this.fb, land, sea, verts, fbW: W, fbH: H, prevFbo, prevViewport, zoom: this.map.getZoom(), cssW: w, cssH: h, opacity: this.mix, wind: this.cur!.layer === 'WIND'});
@@ -153,6 +154,7 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
   getCur() { return this.cur; }
 }
 
+let firstMarked = false;
 export function createGLFieldController(map: maplibregl.Map, el: HTMLElement): GLFieldController {
   let theme: Theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', alive = true, layer: FieldLayer | null = null, anim = 0, ready: Omit<Extract<FrameState, {state: 'ready'}>, 'state'> | null = null;
   const setHeat = (on: boolean) => { try { el.dataset.heat = on ? 'on' : 'off'; } catch { /* removed */ } };

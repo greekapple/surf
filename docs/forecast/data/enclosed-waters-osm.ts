@@ -1,7 +1,7 @@
 // T-092 (rebuild, map-maplibre): the enclosed-water mask with OpenStreetMap water near the existing bays.
 // The 1:10m Natural Earth coastline in enclosed-waters.ts has no tidal creeks, sloughs or salt ponds (Alameda estuary, Redwood Shores, Corte Madera/Larkspur creeks, Bolinas Lagoon channels), so they were classed as open
 // sea and the map painted the model's open-ocean value there. Here the OSM "ocean" water polygons (OpenFreeMap vector tiles of OpenStreetMap, ODbL, fetched once; nothing is committed but the mask) of the tiles
-// around every existing enclosed cell are rasterised at 0.002 degrees, a 0.01 degree cell with more than 5% ocean water counts as water, and the SAME open-core rule decides: water far from the open Pacific is enclosed.
+// around every existing enclosed cell are rasterised at 0.002 degrees, a 0.01 degree cell with more than 0.4% ocean water (T-128: thin tidal sloughs, salt-pond channels and Alameda estuary are 30-100 m wide) counts as water, and the SAME open-core rule decides: water far from the open Pacific is enclosed.
 // Open coast stays open (Drakes Bay, Monterey Bay, the sea outside the Golden Gate): the rule is distance to the open core, unchanged.
 // Run: node --experimental-strip-types docs/forecast/data/enclosed-waters-osm.ts   (needs network; dev dependencies @mapbox/vector-tile and pbf)
 import fs from 'node:fs';
@@ -16,6 +16,8 @@ const lonOf = (x: number) => (x / 2 ** Z) * 360 - 180, latOf = (y: number) => (M
 const base = build(), pad = 0.06; // 6 km
 const tiles = new Set<string>();
 for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { if (!base.enc[j * W + i]) continue; const lon = GRID.lon0 + (i + 0.5) * STEP, lat = GRID.lat0 + (j + 0.5) * STEP; for (let x = tileX(lon - pad); x <= tileX(lon + pad); x++) for (let y = tileY(lat + pad); y <= tileY(lat - pad); y++) tiles.add(`${x}/${y}`); }
+// T-128: the San Francisco Bay region as a whole. Natural Earth (1:10m) calls the Alviso/Milpitas salt-pond sloughs, the Alameda estuary and the Redwood City creeks LAND, so no enclosed cell sat near them and no OSM tile was fetched there: their water was painted with the open-ocean value. Every tile of the bay region is read, and the unchanged open-core rule decides which water is enclosed.
+for (let x = tileX(-122.7); x <= tileX(-121.7); x++) for (let y = tileY(38.2); y <= tileY(37.0); y++) tiles.add(`${x}/${y}`);
 console.log(`${tiles.size} z${Z} tiles around ${base.cells} enclosed cells`);
 
 const tj = (await (await fetch('https://tiles.openfreemap.org/planet')).json()) as {tiles: string[]}, tpl = tj.tiles[0];
@@ -41,7 +43,7 @@ for (const t of tiles) {
   if (++done % 25 === 0) console.log(`${done}/${tiles.size}`);
 }
 const osm = new Uint8Array(W * H); let wc = 0;
-for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { let n = 0; for (let b = 0; b < SUB; b++) for (let a = 0; a < SUB; a++) n += mask[(j * SUB + b) * SW + i * SUB + a]; if (n / (SUB * SUB) > 0.05) { osm[j * W + i] = 1; wc++; } }
+for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { let n = 0; for (let b = 0; b < SUB; b++) for (let a = 0; a < SUB; a++) n += mask[(j * SUB + b) * SW + i * SUB + a]; if (n / (SUB * SUB) > 0.004) { osm[j * W + i] = 1; wc++; } }
 const {rows, cells} = build(osm);
 fs.writeFileSync(new URL('../../../src/map/enclosed-waters.json', import.meta.url), JSON.stringify({source: 'Natural Earth 10m land v5.1.2 (src/map/coast.json) plus OpenStreetMap ocean water near the enclosed cells (OpenFreeMap tiles, ODbL, (c) OpenStreetMap contributors); docs/forecast/data/enclosed-waters-osm.ts', rule: RULE, ...GRID, rows}));
 console.log(`OSM water cells ${wc}, polygons ${polys}; enclosed cells ${base.cells} -> ${cells} (about ${(cells * STEP * STEP * KX * KY).toFixed(0)} km2)`);

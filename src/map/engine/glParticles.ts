@@ -18,7 +18,7 @@ in vec2 a; out vec2 v_uv; void main(){ v_uv = a * 0.5 + 0.5; gl_Position = vec4(
 const ADVECT_FS = `#version 300 es
 precision highp float; precision highp int; precision highp sampler2D;
 uniform sampler2D u_state, u_c0, u_c1; uniform vec4 u_g0, u_d0, u_g1, u_d1; uniform ivec2 u_n; uniform int u_blend;
-uniform vec4 u_view; uniform float u_zoom, u_px, u_time, u_maxAge, u_wind; uniform int u_active; in vec2 v_uv; out vec4 o;
+uniform vec4 u_view; uniform float u_zoom, u_px, u_time, u_maxAge, u_wind; uniform int u_active; uniform float u_respawn; in vec2 v_uv; out vec4 o;
 ${SAMPLER_GLSL}
 // PCG integer hash (the sin-based hash it replaces left a lattice of respawn positions: visible rows of dashes at basin zoom)
 uint pcg(uint v){ uint st = v * 747796405u + 2891336453u; uint w = ((st >> ((st >> 28u) + 4u)) ^ st) * 277803737u; return (w >> 22u) ^ w; }
@@ -29,7 +29,7 @@ void main(){
   if (id >= u_active) { o = vec4(s.xy, u_maxAge + 99.0, float(id)); return; }
   vec2 p = s.xy; float age = s.z; vec4 ok; float real; vec4 f = look(p, ok, real);
   bool inView = p.x >= u_view.x && p.x <= u_view.z && p.y >= u_view.y && p.y <= u_view.w;
-  bool alive = age <= u_maxAge && ok.x > 0.5 && ok.y > 0.5 && ok.z > 0.5 && g_cov > 0.4 && inView;   // wherever the field is shown (the 1-cell coastal fill included, so streaks run to the coast as the colour does); the sea mask keeps them off land
+  bool alive = age <= u_maxAge && ok.x > 0.5 && ok.y > 0.5 && ok.z > 0.5 && g_cov > 0.4 && inView && u_respawn < 0.5;   // wherever the field is shown (the 1-cell coastal fill included, so streaks run to the coast as the colour does); the sea mask keeps them off land
   if (!alive) {   // (re)spawn on the sea inside the view; if no candidate lands on the sea, stay dead until next frame
     age = u_maxAge + 99.0;
     for (int k = 0; k < 6; k++) {
@@ -73,15 +73,24 @@ export function createParticles(gl: WebGL2RenderingContext, host: ParticleHost):
   const upload = () => { for (const s of S) { gl.bindTexture(gl.TEXTURE_2D, s.t); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, SIZE, SIZE, gl.RGBA, gl.FLOAT, init); } };
   upload();
   let trail: {t: WebGLTexture; f: WebGLFramebuffer; w: number; h: number} | null = null, lastView = '', lastT = 0, time = 0;
+  // Big zooms (T-128a): the particles keep their old mercator positions, so a zoom-out piles them into a small square. When the zoom drifts more than ZJUMP levels from where they were last placed, they fade out (FADE_OUT ms), are all respawned uniformly over the new view with staggered ages, and fade back in once the zoom has been still for SETTLE ms.
+  const ZJUMP = 0.3, FADE_OUT = 120, FADE_IN = 260, SETTLE = 90; let zRef = NaN, zLast = NaN, zMoveAt = -1e9, gate = 1, pendingRespawn = false;
   const ensureTrail = (w: number, h: number) => { if (trail && trail.w === w && trail.h === h) return trail; if (trail) { gl.deleteTexture(trail.t); gl.deleteFramebuffer(trail.f); } const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); const f = gl.createFramebuffer()!; gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); trail = {t, f, w, h}; return trail; };
   const API: Particles = {
     ok: true,
-    reset() { upload(); lastView = ''; },
+    reset() { upload(); lastView = ''; zRef = NaN; gate = 1; pendingRespawn = false; },
     draw(g, i) {
       const cur0 = host.getCur(); if (!cur0) return; const now = performance.now(), dt = lastT ? Math.min(3, (now - lastT) / 16.67) : 1; lastT = now; time += 1;
       const V = i.verts, tlx = V[2], tly = V[3], trx = V[6], bly = V[11], u = [tlx, tly, trx, bly]; // viewport in mercator: x from tl to tr, y from tl to bl
       const viewKey = u.map((x) => x.toFixed(6)).join(','), moved = viewKey !== lastView; lastView = viewKey;
-      const zoom = i.zoom, density = (i.wind ? 300 : 340) * (zoom + 1 < 4 ? 1.25 : zoom + 1 > 10 ? 1.4 : 1), active = Math.max(800, Math.min(SIZE * SIZE, Math.round((i.cssW * i.cssH) / density))), maxAge = i.wind ? MAX_AGE_WIND : MAX_AGE_SWELL;
+      const zoom = i.zoom;
+      if (Number.isNaN(zRef)) { zRef = zoom; zLast = zoom; }
+      if (Math.abs(zoom - zLast) > 1e-4) { zMoveAt = now; zLast = zoom; }
+      if (Math.abs(zoom - zRef) > ZJUMP) { pendingRespawn = true; }
+      const zoomingNow = now - zMoveAt < SETTLE;
+      if (pendingRespawn && zoomingNow) gate = Math.max(0, gate - (dt * 16.67) / FADE_OUT); else if (pendingRespawn) { /* settled: respawn everything over the final view, then fade in */ } else gate = Math.min(1, gate + (dt * 16.67) / FADE_IN);
+      const forceRespawn = pendingRespawn && !zoomingNow; if (forceRespawn) { pendingRespawn = false; zRef = zoom; }
+      const density = (i.wind ? 300 : 340) * (zoom + 1 < 4 ? 1.25 : zoom + 1 > 10 ? 1.4 : 1), active = Math.max(800, Math.min(SIZE * SIZE, Math.round((i.cssW * i.cssH) / density))), maxAge = i.wind ? MAX_AGE_WIND : MAX_AGE_SWELL;
       // --- advect (ping-pong) ---
       const next = 1 - cur; g.bindFramebuffer(g.FRAMEBUFFER, S[next].f); g.viewport(0, 0, SIZE, SIZE); g.disable(g.BLEND); g.useProgram(advect); g.bindVertexArray(vao); g.bindBuffer(g.ARRAY_BUFFER, quad);
       const a = g.getAttribLocation(advect, 'a'); g.enableVertexAttribArray(a); g.vertexAttribPointer(a, 2, g.FLOAT, false, 0, 0);
@@ -90,7 +99,7 @@ export function createParticles(gl: WebGL2RenderingContext, host: ParticleHost):
       const g4 = (n: string, v: number[] | undefined) => g.uniform4f(U(n), ...((v ?? [0, 1, 0, 1]) as [number, number, number, number]));
       g4('u_g0', cur0.geo[0]); g4('u_d0', cur0.dim[0]); g4('u_g1', cur0.geo[1] ?? cur0.geo[0]); g4('u_d1', cur0.dim[1] ?? cur0.dim[0]); g.uniform2i(U('u_n'), cur0.n, 1); g.uniform1i(U('u_blend'), cur0.blend ? 1 : 0);
       const pad = 0.02 * (1 / 2 ** Math.max(0, zoom)); g.uniform4f(U('u_view'), Math.min(tlx, trx) - pad, Math.min(tly, bly) - pad, Math.max(tlx, trx) + pad, Math.max(tly, bly) + pad);
-      g.uniform1f(U('u_zoom'), zoom); g.uniform1f(U('u_px'), (i.wind ? 0.55 : 0.7) * dt); g.uniform1f(U('u_time'), time % 1000); g.uniform1f(U('u_maxAge'), maxAge); g.uniform1f(U('u_wind'), i.wind ? 1 : 0); g.uniform1i(U('u_active'), active);
+      g.uniform1f(U('u_zoom'), zoom); g.uniform1f(U('u_px'), (i.wind ? 0.55 : 0.7) * dt); g.uniform1f(U('u_time'), time % 1000); g.uniform1f(U('u_maxAge'), maxAge); g.uniform1f(U('u_wind'), i.wind ? 1 : 0); g.uniform1i(U('u_active'), active); g.uniform1f(U('u_respawn'), forceRespawn || (pendingRespawn && zoomingNow) ? 1 : 0);
       g.drawArrays(g.TRIANGLES, 0, 6); cur = next;
       // --- draw the points into the trail buffer (faded each frame; cleared while the view moves: trails do not reproject) ---
       const tr = ensureTrail(i.fbW, i.fbH); g.bindFramebuffer(g.FRAMEBUFFER, tr.f); g.viewport(0, 0, i.fbW, i.fbH); g.enable(g.BLEND);
@@ -103,7 +112,7 @@ export function createParticles(gl: WebGL2RenderingContext, host: ParticleHost):
       const ca = g.getAttribLocation(compP, 'a'); g.enableVertexAttribArray(ca); g.vertexAttribPointer(ca, 2, g.FLOAT, false, 0, 0);
       g.activeTexture(g.TEXTURE0); g.bindTexture(g.TEXTURE_2D, tr.t); g.uniform1i(g.getUniformLocation(compP, 'u_trail'), 0); g.activeTexture(g.TEXTURE1); g.bindTexture(g.TEXTURE_2D, i.fb); g.uniform1i(g.getUniformLocation(compP, 'u_fb'), 1); g.activeTexture(g.TEXTURE2); g.bindTexture(g.TEXTURE_2D, i.enc); g.uniform1i(g.getUniformLocation(compP, 'u_enc'), 2);
       g.uniform4f(g.getUniformLocation(compP, 'u_view'), tlx, tly, trx, bly); g.uniform4f(g.getUniformLocation(compP, 'u_encGeo'), i.encGeo[0], i.encGeo[1], i.encGeo[2], i.encGeo[3]); g.uniform2f(g.getUniformLocation(compP, 'u_encDim'), i.encGeo[4], i.encGeo[5]);
-      g.uniform3f(g.getUniformLocation(compP, 'u_land'), ...i.land); g.uniform3f(g.getUniformLocation(compP, 'u_sea'), ...i.sea); g.uniform1f(g.getUniformLocation(compP, 'u_op'), i.opacity);
+      g.uniform3f(g.getUniformLocation(compP, 'u_land'), ...i.land); g.uniform3f(g.getUniformLocation(compP, 'u_sea'), ...i.sea); g.uniform1f(g.getUniformLocation(compP, 'u_op'), i.opacity * gate * gate);
       g.blendFunc(g.ONE, g.ONE_MINUS_SRC_ALPHA); g.colorMask(true, true, true, false); g.drawArrays(g.TRIANGLES, 0, 6); g.colorMask(true, true, true, true); g.bindVertexArray(null);
       g.activeTexture(g.TEXTURE0);
     },

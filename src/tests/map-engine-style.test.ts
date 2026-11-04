@@ -31,9 +31,9 @@ test('paintFor recolours by category and leaves unknown layers alone; heat swaps
   assert.deepEqual(paintFor({id: 'label_city', type: 'symbol'}, p), {'text-color': p.label, 'text-halo-color': p.labelHalo}); assert.equal(paintFor({id: 'something', type: 'circle'}, p), null);
   assert.notEqual(p.land, q.land); assert.ok(hexRgb(p.land)[0] < hexRgb(q.land)[0] - 60, 'heat on: darker land so the ramp reads true');
 });
-test('engine flag defaults to leaflet; ?engine=maplibre switches it', () => {
+test('engine flag defaults to maplibre (T-128); ?engine=leaflet is the fallback', () => {
   const g = globalThis as unknown as {location?: {search: string}};
-  g.location = {search: ''}; assert.equal(engineKind(), 'leaflet'); g.location = {search: '?engine=maplibre'}; assert.equal(engineKind(), 'maplibre'); g.location = {search: '?engine=leaflet'}; assert.equal(engineKind(), 'leaflet'); g.location = {search: '?engine=nope'}; assert.equal(engineKind(), 'leaflet'); delete g.location;
+  g.location = {search: ''}; assert.equal(engineKind(), 'maplibre'); g.location = {search: '?engine=maplibre'}; assert.equal(engineKind(), 'maplibre'); g.location = {search: '?engine=leaflet'}; assert.equal(engineKind(), 'leaflet'); g.location = {search: '?engine=nope'}; assert.equal(engineKind(), 'maplibre'); delete g.location;
 });
 
 test('map-maplibre: sea and river names are upright (regular font), smaller and quieter, never italic', () => {
