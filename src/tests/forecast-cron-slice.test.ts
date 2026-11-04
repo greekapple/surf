@@ -59,3 +59,25 @@ test('P1-2: a budgeted cold fill never exceeds the subrequest budget (fetches pl
   assert.ok(fetches + ops <= 1000, `one run used ${fetches + ops} subrequests (fetches ${fetches}, R2 ops ${ops}), limit 1000`);
   assert.ok(r.budget.deferred > 0, 'a cold fill is deferred to later runs'); assert.equal(r.results.length + r.budget.deferred, ingestionTargets(Date.UTC(2026, 10, 4, 12)).length);
 });
+
+// T-129c (Codex P1): every cron run may start in a NEW isolate with no memory; the tail of the targets must not starve.
+test('P1-3: successive runs with NEW service instances on the same bucket complete a cold fill, stay under the budget each run, and a warm run is nearly free', async () => {
+  const NOWMS = Date.UTC(2026, 10, 4, 12), targets = ingestionTargets(NOWMS) as {key: string; url: string; field?: unknown; csv?: boolean; das?: boolean; text?: boolean}[], byUrl = new Map(targets.map((t) => [t.url, t]));
+  const store = new Map<string, string>(); let ops = 0, fetches = 0;
+  const BUCKET = {get: async (k: string) => { ops++; return store.has(k) ? {json: async () => JSON.parse(store.get(k)!)} : null; }, put: async (k: string, v: string) => { ops++; store.set(k, v); }};
+  const fetcher = async (url: string) => { fetches++; const t = byUrl.get(String(url));
+    if (!t || t.field) return new Response('{}', {status: 200});
+    const body = t.csv ? 'time,station,x\n' : t.das ? 'NC_GLOBAL {}' : t.text ? '#YY MM DD' : JSON.stringify({hourly: {time: ['2026-11-04T12:00']}, table: {rows: [[1]]}});
+    return new Response(body, {status: 200, headers: {'content-type': t.csv || t.das || t.text ? 'text/plain' : 'application/json'}}); };
+  const wanted = targets.filter((t) => !t.field).map((t) => 'forecast/v8/latest/' + t.key + '.json'), perRun: number[] = [];
+  let full = -1;
+  for (let run = 0; run < 12; run++) {
+    const svc = createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => NOWMS}); ops = 0; fetches = 0;
+    const r = await svc.refresh({BUCKET}, {...CRON_OPTS, budget: 800, tick: run}); perRun.push(ops + fetches);
+    assert.ok(ops + fetches <= 1000, `run ${run}: ${ops + fetches} subrequests`);
+    if (full < 0 && wanted.every((k) => store.has(k))) { full = run; assert.ok(r.budget.start !== undefined); }
+  }
+  if (process.env.SHOW) console.log('cold fill complete after run', full + 1, '; subrequests per run', perRun.join(','));
+  assert.ok(full >= 0 && full <= 6, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
+  assert.ok(perRun[11] < 40, `a warm run costs ${perRun[11]} subrequests (the index object, no per-target reads)`);
+});
