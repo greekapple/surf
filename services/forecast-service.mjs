@@ -61,8 +61,12 @@ export function packOceanGrid(g,field){
  const bytes=new Uint8Array(q.buffer);let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));
  const la=flip?[...g.lats].reverse():[...g.lats];return {lat0:la[0],dlat:(la[la.length-1]-la[0])/(la.length-1),lon0:g.lons[0],dlon:(g.lons[g.lons.length-1]-g.lons[0])/(g.lons.length-1),nlat:g.nlat,nlon:g.nlon,scale,q:btoa(bin)};
 }
+/** T-129b: how old a stored value may be before the refresh re-fetches it. Visitors (no opts): the target's TTL. The cron: refresh-ahead = min(opts.ahead, 0.3 x TTL), so a value retrieved just now is NOT due on the next run for any TTL class
+ *  (an absolute 40-minute lookahead went negative for 10-30 minute TTLs and refetched everything every run), and never earlier than opts.minAgeMs(target): the politeness floor for the quota-limited hosts. */
+export function dueAfter(target,opts={}){const lead=Math.min(opts.ahead??0,0.3*target.ttl),floor=opts.minAgeMs?opts.minAgeMs(target):0;return Math.max(target.ttl-lead,floor);}
 export function createForecastService({assets={},fetcher=fetch,now=Date.now,random=Math.random,sleep=ms=>new Promise(r=>setTimeout(r,ms)),timeoutMs=18000}={}){
- const memory=new Map(),inflight=new Map(),failures=new Map(),originFailures=new Map(),metadata=new Map(),metadataJobs=new Map();let manifest=null,refreshJob=null;
+ const memory=new Map(),inflight=new Map(),failures=new Map(),originFailures=new Map(),metadata=new Map(),metadataJobs=new Map();let manifest=null,refreshJob=null,counter=null;
+ const dofetch=(...a)=>{if(counter)counter.used++;return fetcher(...a)}; // counts the upstream calls of a budgeted refresh (T-129b)
  const persistent=env=>!!env?.BUCKET&&!env.LOCAL_PREVIEW;
  const json=(data,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
  const fromBucket=async(env,key)=>{const obj=await env?.BUCKET?.get(key);return obj?obj.json():null;};
@@ -74,12 +78,12 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
   if(!target.dataset)return null;
   const old=metadata.get(target.dataset)??await fromBucket(env,'forecast/v10/datasets/'+target.dataset+'.json');if(old&&now()-Date.parse(old.checkedAt)<3600000){metadata.set(target.dataset,old);return old;}
   if(metadataJobs.has(target.dataset))return metadataJobs.get(target.dataset);
-  const job=(async()=>{try{const r=await fetcher('https://upwell.pfeg.noaa.gov/erddap/info/'+target.dataset+'/index.json',{signal:AbortSignal.timeout(Math.min(timeoutMs,10000))});if(!r.ok)return old??null;const p=await r.json(),rows=p.table?.rows??[],attr=name=>rows.find(x=>x[1]==='NC_GLOBAL'&&x[2]===name)?.[4];const start=attr('time_coverage_start'),end=attr('time_coverage_end');if(!Number.isFinite(Date.parse(start))||!Number.isFinite(Date.parse(end)))return old??null;const value={start,end,checkedAt:new Date(now()).toISOString(),issuedAt:null};metadata.set(target.dataset,value);if(env?.BUCKET)await env.BUCKET.put('forecast/v10/datasets/'+target.dataset+'.json',JSON.stringify(value));return value;}catch{return old??null}finally{metadataJobs.delete(target.dataset)}})();metadataJobs.set(target.dataset,job);return job;
+  const job=(async()=>{try{const r=await dofetch('https://upwell.pfeg.noaa.gov/erddap/info/'+target.dataset+'/index.json',{signal:AbortSignal.timeout(Math.min(timeoutMs,10000))});if(!r.ok)return old??null;const p=await r.json(),rows=p.table?.rows??[],attr=name=>rows.find(x=>x[1]==='NC_GLOBAL'&&x[2]===name)?.[4];const start=attr('time_coverage_start'),end=attr('time_coverage_end');if(!Number.isFinite(Date.parse(start))||!Number.isFinite(Date.parse(end)))return old??null;const value={start,end,checkedAt:new Date(now()).toISOString(),issuedAt:null};metadata.set(target.dataset,value);if(env?.BUCKET)await env.BUCKET.put('forecast/v10/datasets/'+target.dataset+'.json',JSON.stringify(value));return value;}catch{return old??null}finally{metadataJobs.delete(target.dataset)}})();metadataJobs.set(target.dataset,job);return job;
  }
  async function retrieve(target,env,opts={}){
   if(inflight.has(target.key))return inflight.get(target.key);
   const job=(async()=>{
-   const old=await read(env,target.key);if(old&&now()-Date.parse(old.validatedAt??old.retrievedAt)<target.ttl-(opts.ahead??0))return {...old,cache:'fresh'};
+   const old=await read(env,target.key);if(old&&now()-Date.parse(old.validatedAt??old.retrievedAt)<dueAfter(target,opts))return {...old,cache:'fresh'};
    const last=await failure(env,target),origin=await originFailure(env,target),cooldown=[last,origin].filter(Boolean).sort((a,b)=>Date.parse(b.retryAt)-Date.parse(a.retryAt))[0];
    if(cooldown&&Date.parse(cooldown.retryAt)>now()){if(old)return {...old,cache:'stale',warning:'Provider cooling period; previous retrieval retained.',errorCategory:cooldown.category,retryAt:cooldown.retryAt};const e=new Error('Provider retry window active. '+cooldown.category);e.category=cooldown.category;e.retryAt=cooldown.retryAt;throw e;}
    let url=target.url;const started=now();let attempts=0;
@@ -88,7 +92,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
     let payload,raw,response;
     for(;;){attempts++;
      try{
-      response=await fetcher(url,{signal:AbortSignal.timeout(timeoutMs),headers:{Accept:target.csv?'text/csv':target.text?'text/plain':'application/json',...(old?.etag?{'If-None-Match':old.etag}:{}),...(old?.lastModified?{'If-Modified-Since':old.lastModified}:{})}});
+      response=await dofetch(url,{signal:AbortSignal.timeout(timeoutMs),headers:{Accept:target.csv?'text/csv':target.text?'text/plain':'application/json',...(old?.etag?{'If-None-Match':old.etag}:{}),...(old?.lastModified?{'If-Modified-Since':old.lastModified}:{})}});
       if(response.status===304&&old){const value={...old,validatedAt:new Date(now()).toISOString()};await save(env,target.key,value);return {...value,cache:'fresh'};}
       if(!response.ok){const e=new Error('Provider HTTP '+response.status);e.status=response.status;e.retryAfter=response.headers.get('retry-after');throw e;}
       if(Number(response.headers.get('content-length'))>3000000)throw Object.assign(new Error('Provider payload exceeds bounded size.'),{validation:true});
@@ -115,17 +119,17 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
  /** opts (cron path, T-129): {perRun, tick, ahead}. The Workers free plan allows 50 subrequests and 10 ms CPU per invocation, so one cron run refreshes ONE rotating slice of at most `perRun` targets (slice = tick mod ceil(targets/perRun)), and only those that will expire within `ahead` ms. No opts = every target (the token-protected /api/refresh). */
  async function refresh(env,opts={}){
   if(refreshJob)return refreshJob;
-  refreshJob=(async()=>{const all=ingestionTargets(now()),count=opts.perRun?Math.ceil(all.length/opts.perRun):1,sliceIndex=count>1?Math.abs(Math.floor(opts.tick??0))%count:0,targets=count>1?all.filter((_,i)=>i%count===sliceIndex):all,results=[];let cursor=0;
+  refreshJob=(async()=>{const all=ingestionTargets(now()),count=opts.perRun?Math.ceil(all.length/opts.perRun):1,sliceIndex=count>1?Math.abs(Math.floor(opts.tick??0))%count:0,targets=count>1?all.filter((_,i)=>i%count===sliceIndex):all,results=[];let cursor=0,deferred=0;const run=opts.budget?{used:0,limit:opts.budget}:null;counter=run;const renv=run&&env?.BUCKET?{...env,BUCKET:{get:k=>{run.used++;return env.BUCKET.get(k)},put:(k,v,o)=>{run.used++;return env.BUCKET.put(k,v,o)}}}:env;
    // At most four different provider groups; point-provider origins are serial; regional fields use at most two concurrent requests.
    const byOrigin=new Map();for(const t of targets){const host=new URL(t.url).hostname;if(!byOrigin.has(host))byOrigin.set(host,[]);byOrigin.get(host).push(t);}const groups=[...byOrigin.values()].flatMap(group=>group[0].field?[group.filter((_,i)=>i%2===0),group.filter((_,i)=>i%2===1)]:[group]);
-   await Promise.all(Array.from({length:Math.min(4,groups.length)},async()=>{while(cursor<groups.length){const group=groups[cursor++];for(const t of group){try{const d=await retrieve(t,env,{ahead:opts.ahead??0});results.push({key:t.key,state:d.cache==='stale'?'stale':'available',retrievedAt:d.retrievedAt,issuedAt:d.issuedAt,model:d.model,sourceURL:d.sourceURL,validRange:d.validRange??forecastRange(d.payload),warning:d.warning??null,errorCategory:d.errorCategory??null,retryAt:d.retryAt??null});}catch(e){results.push({key:t.key,state:'unavailable',message:e.message,errorCategory:e.category??failureCategory(e),retryAt:e.retryAt??null});}}}}));
-   const report={attemptedAt:new Date(now()).toISOString(),persistent:persistent(env),revision:'0.10',results,...(count>1?{slice:{index:sliceIndex,of:count,targets:targets.length,ofTargets:all.length}}:{})};manifest=report;
-   if(env?.BUCKET){await env.BUCKET.put('forecast/v8/status.json',JSON.stringify(report));
+   await Promise.all(Array.from({length:Math.min(4,groups.length)},async()=>{while(cursor<groups.length){const group=groups[cursor++];for(const t of group){if(run&&run.used+3*(results.length+1)+8>run.limit){deferred++;continue;}try{const d=await retrieve(t,renv,{ahead:opts.ahead??0,minAgeMs:opts.minAgeMs});results.push({key:t.key,state:d.cache==='stale'?'stale':'available',retrievedAt:d.retrievedAt,issuedAt:d.issuedAt,model:d.model,sourceURL:d.sourceURL,validRange:d.validRange??forecastRange(d.payload),warning:d.warning??null,errorCategory:d.errorCategory??null,retryAt:d.retryAt??null});}catch(e){results.push({key:t.key,state:'unavailable',message:e.message,errorCategory:e.category??failureCategory(e),retryAt:e.retryAt??null});}}}}));
+   const report={attemptedAt:new Date(now()).toISOString(),persistent:persistent(env),revision:'0.10',results,...(run?{budget:{limit:run.limit,usedBeforeReport:run.used,deferred}}:{}),...(count>1?{slice:{index:sliceIndex,of:count,targets:targets.length,ofTargets:all.length}}:{})};manifest=report;
+   counter=null;if(env?.BUCKET){const done=new Set(results.map(r=>r.key));await renv.BUCKET.put('forecast/v8/status.json',JSON.stringify(report));
     // New compact manifests reference immutable per-retrieval snapshots. Legacy archives are untouched.
-    const records=await Promise.all(targets.map(async t=>{const value=await read(env,t.key);if(!value)return {providerKey:t.key,snapshot:null};const key='forecast/v10/snapshots/'+t.key+'/'+value.retrievedAt+'.json';if(!await env.BUCKET.get(key))await env.BUCKET.put(key,JSON.stringify(value));return {providerKey:t.key,snapshot:key,retrievedAt:value.retrievedAt,issuedAt:value.issuedAt,validRange:value.validRange??forecastRange(value.payload)};}));
+    const records=await Promise.all(targets.filter(t=>!run||done.has(t.key)).map(async t=>{const value=await read(renv,t.key);if(!value)return {providerKey:t.key,snapshot:null};const key='forecast/v10/snapshots/'+t.key+'/'+value.retrievedAt+'.json';if(!await env.BUCKET.get(key))await env.BUCKET.put(key,JSON.stringify(value));return {providerKey:t.key,snapshot:key,retrievedAt:value.retrievedAt,issuedAt:value.issuedAt,validRange:value.validRange??forecastRange(value.payload)};}));
     await env.BUCKET.put('forecast/v8/history/'+report.attemptedAt+'.json',JSON.stringify({schema:2,ingestedAt:report.attemptedAt,records}));
    }return report;
-  })();try{return await refreshJob}finally{refreshJob=null}
+  })();try{return await refreshJob}finally{refreshJob=null;counter=null}
  }
  /** Coarse worldwide frame (2-degree stride of the native 0.5-degree grids) for the zoomed-out map. Fixed fields,
   * 3-hourly valid times within the next 8 days only; cached in memory (no arbitrary URL forwarding). */

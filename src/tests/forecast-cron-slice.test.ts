@@ -30,3 +30,32 @@ test('refresh-ahead: a stored value that would expire within `ahead` is fetched 
   const calls0 = n; const svc2 = mk(); const ahead = await svc2.refresh({BUCKET}, {perRun: 1000, tick: 0, ahead: 30 * 60000}); const f2 = ahead.results.find((x: {key: string}) => x.key === t.key);
   assert.ok(n > calls0); assert.notEqual(f2.state, 'available', 'with ahead 30 min the 20-minutes-left value is fetched again (the stub answers 503 so it is retained as stale)');
 });
+
+// T-129b (Codex P1s)
+import {dueAfter} from '../../services/forecast-service.mjs';
+const MIN = 60000, CRON_OPTS = {ahead: 40 * MIN, minAgeMs: (t: {url: string}) => (/open-meteo\.com|thredds\.cdip\.ucsd\.edu/.test(t.url) ? 60 * MIN : 0)};
+
+test('P1-1: a target retrieved just now is NOT due on the next 5-minute run, for every TTL class; and it is due before its TTL ends', () => {
+  const targets = ingestionTargets(Date.UTC(2026, 10, 4, 12)) as {ttl: number; url: string; key: string}[], ttls = [...new Set(targets.map((t) => t.ttl))];
+  assert.ok(ttls.length >= 5, 'the TTL classes: ' + ttls.map((x) => x / MIN).join(', '));
+  for (const t of targets) { const due = dueAfter(t, CRON_OPTS); assert.ok(due > 5 * MIN, `${t.key}: due after ${due / MIN} min must exceed the 5-minute cron step`); assert.ok(due <= Math.max(t.ttl, 60 * MIN), `${t.key}: due ${due / MIN} min vs ttl ${t.ttl / MIN} min`); }
+  for (const ttl of ttls) { const t = {ttl, url: 'https://example.org/x', key: 'k'}; assert.ok(dueAfter(t, {ahead: 40 * MIN}) >= 0.7 * ttl - 1 && dueAfter(t, {ahead: 40 * MIN}) < ttl, `ttl ${ttl / MIN}`); }
+  assert.equal(dueAfter({ttl: 30 * MIN, url: ''}, {}), 30 * MIN, 'a visitor request (no opts) uses the plain TTL');
+});
+
+test('P1-1: the per-day upstream calls stay inside the free tiers (Open-Meteo, as the cron refreshes them)', () => {
+  const targets = ingestionTargets(Date.UTC(2026, 10, 4, 12)) as {ttl: number; url: string}[], perDay: Record<string, number> = {};
+  for (const t of targets) { const interval = Math.ceil(dueAfter(t, CRON_OPTS) / (5 * MIN)) * 5 * MIN, host = new URL(t.url).hostname; perDay[host] = (perDay[host] ?? 0) + 86400000 / interval; }
+  const om = (perDay['marine-api.open-meteo.com'] ?? 0) + (perDay['api.open-meteo.com'] ?? 0);
+  assert.ok(om < 4000, `Open-Meteo ${Math.round(om)} calls/day (free tier 10,000)`); assert.ok((perDay['thredds.cdip.ucsd.edu'] ?? 0) < 2500);
+});
+
+test('P1-2: a budgeted cold fill never exceeds the subrequest budget (fetches plus R2 operations) in one run', async () => {
+  let fetches = 0, ops = 0; const store = new Map<string, string>();
+  const BUCKET = {get: async (k: string) => { ops++; return store.has(k) ? {json: async () => JSON.parse(store.get(k)!)} : null; }, put: async (k: string, v: string) => { ops++; store.set(k, v); }};
+  const fetcher = async () => { fetches++; return new Response('x', {status: 503}); };
+  const svc = createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => Date.UTC(2026, 10, 4, 12)});
+  const r = await svc.refresh({BUCKET}, {...CRON_OPTS, budget: 800});
+  assert.ok(fetches + ops <= 1000, `one run used ${fetches + ops} subrequests (fetches ${fetches}, R2 ops ${ops}), limit 1000`);
+  assert.ok(r.budget.deferred > 0, 'a cold fill is deferred to later runs'); assert.equal(r.results.length + r.budget.deferred, ingestionTargets(Date.UTC(2026, 10, 4, 12)).length);
+});

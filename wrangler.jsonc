@@ -9,8 +9,8 @@
     "run_worker_first": ["/api/*"]
   },
   // T-129: every forecast source that is due is refreshed into R2 every 5 minutes (worker/cloudflare.mjs `scheduled`), so the first visit after a quiet spell reads a warm cache.
-  // PAUSED 2026-11-04 (Codex P1s on T-129: refresh-ahead > TTL refetched every target every run; the cold fill exceeds the per-invocation subrequest budget). Re-enable after the fix:
-  "triggers": {"crons": []},
+  // T-129b: re-enabled after the Codex P1 fixes (relative refresh-ahead with an hourly floor for Open-Meteo and CDIP; an 800-subrequest budget per run).
+  "triggers": {"crons": ["*/5 * * * *"]},
   // T-129: the persistent forecast cache (forecast-service.mjs reads and writes forecast/v8/latest/*.json through env.BUCKET). The bucket must exist before `wrangler deploy`:
   //   npx wrangler r2 bucket create swello-forecast-cache
   //   npx wrangler r2 bucket lifecycle add swello-forecast-cache expire-archive forecast/v10/ --expire-days 5   (and the same for forecast/v8/history/)
