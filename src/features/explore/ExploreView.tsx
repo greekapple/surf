@@ -25,6 +25,7 @@ import {usePointForecast, type Pt} from './PointCard';
 import {ForecastPanel, PinLabel, pointLine} from './PointPanel';
 import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
+import {parseMapUrl, writeMapUrl} from './mapUrl';
 import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
 import {headlineSurf} from '../../services/headlineSurf';
@@ -66,7 +67,9 @@ export function ExploreView({section, go}: ViewProps) {
 function OceanMap({section, go}: ViewProps) {
   const {view, data, spot, setSpot, now, live} = useSwello();
   const p = data.state.profile;
-  const [fieldId, setFieldId] = useState<FieldId>(sectionField(section));
+  // Map-seamless Stage 1: the view in the URL (?layer, lat, lon, z, t) is read once on load, so a reload or a shared link restores it.
+  const urlInit = useMemo(() => parseMapUrl(typeof location === 'undefined' ? '' : location.search), []);
+  const [fieldId, setFieldId] = useState<FieldId>(urlInit.layer ?? sectionField(section));
   useEffect(() => { setFieldId((f) => (fieldSection[f] === section ? f : sectionField(section))); }, [section]);
   const [hover, setHover] = useState<string | null>(null);
   const hoverRef = useRef<string | null>(null);
@@ -104,23 +107,37 @@ function OceanMap({section, go}: ViewProps) {
   const [slow, setSlow] = useState(false);
   const spatial = useSpatial(def.layer, def.variable, view.selectedTime, false, live && (opts.heat || opts.flow || opts.arrows));
   const waiting = spatial.loading && !spatial.frame;
-  useEffect(() => { setSlow(false); if (!waiting) return; const t = window.setTimeout(() => setSlow(true), 20000); return () => window.clearTimeout(t); }, [waiting, spatial.status]);
+  
   // Keep the last good frame of this field on screen while the next hour loads, so scrubbing doesn't flash blank.
   const shown = useRef<SpatialFrame | null>(null);
-  if (spatial.frame) shown.current = spatial.frame;
-  else if (!spatial.loading) shown.current = null;
+  // Map-seamless Stage 1: a failed load keeps the last good frame too (it used to drop it and blank the sea); the error says which hour is shown.
+  const shownFor = useRef<FieldId>(fieldId); // which layer the held frame belongs to (waves and swell share a unit, so a held frame can be the other layer)
+  if (spatial.frame) { shown.current = spatial.frame; shownFor.current = fieldId; }
   const frame = shown.current && shown.current.unit === def.unit ? shown.current : null;
   const field = useMemo(() => (frame ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer]);
   // Worldwide 2° frame underneath, so colour and flow continue past the California grid to the whole globe.
   const globe = useGlobe(def.layer, def.variable, view.selectedTime, live && (opts.heat || opts.flow || opts.arrows));
   const shownGlobe = useRef<SpatialFrame | null>(null);
   if (globe.frame) shownGlobe.current = globe.frame;
-  else if (!globe.loading) shownGlobe.current = null;
   const gframe = shownGlobe.current && shownGlobe.current.unit === def.unit ? shownGlobe.current : null;
   const gfield = useMemo(() => (gframe ? buildField(gframe, def.layer === 'WIND') : null), [gframe, def.layer]);
+  // Map-seamless Stage 1: a non-blocking "Still loading · Retry" after 5 s (was 20 s); the held frame stays on screen meanwhile.
+  const anyLoading = spatial.loading || globe.loading;
+  useEffect(() => { setSlow(false); if (!anyLoading) return; const t = window.setTimeout(() => setSlow(true), 5000); return () => window.clearTimeout(t); }, [anyLoading, spatial.status]); // eslint-disable-line react-hooks/exhaustive-deps
   const allTimes = view.timeline;
   // The forecast window (1 / 3 / 7 days from the first frame) bounds the slider, stepping and playback.
   const times = allTimes; // T-117: the day strip spans the whole forecast range
+  // Stage 1 URL state: restore the shared hour once the timeline exists (nearest model hour within 3 h; an hour outside the forecast is ignored),
+  // then keep ?layer and ?t current; the map's keys leave the URL with the map (the store keeps ?spot).
+  const tRestored = useRef(!urlInit.t);
+  useEffect(() => {
+    if (tRestored.current || !times.length) return; tRestored.current = true;
+    const want = Date.parse(urlInit.t!), best = times.reduce((b, t) => (Math.abs(Date.parse(t) - want) < Math.abs(Date.parse(b) - want) ? t : b), times[0]);
+    if (Math.abs(Date.parse(best) - want) <= 3 * 36e5 && best !== view.selectedTime) view.selectTime(best);
+  }, [times]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { writeMapUrl({layer: fieldId}); }, [fieldId]);
+  useEffect(() => { if (tRestored.current && view.selectedTime) writeMapUrl({t: new Date(view.selectedTime).toISOString()}); }, [view.selectedTime, times.length]);
+  useEffect(() => () => writeMapUrl({layer: null, lat: null, lon: null, z: null, t: null}), []);
   const sel = times.indexOf(view.selectedTime ?? '');
   const ti = sel >= 0 ? sel : view.selectedTime && times.length && Date.parse(view.selectedTime) > Date.parse(times[times.length - 1]) ? times.length - 1 : 0;
   const recAt = (id: string) => view.mapRecords.find((r) => r.spotId === id && r.timestamp === view.selectedTime);
@@ -128,10 +145,11 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     if (!mapEl.current || map.current) return;
     const small = matchMedia('(max-width: 860px)').matches;
-    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: minZoomFor(mapEl.current.clientWidth || window.innerWidth), maxZoom: mapConfig.view.maxZoom, zoomSnap: mapConfig.view.zoomSnap, worldCopyJump: true, maxBounds: [[-mapConfig.view.maxLat, -540], [mapConfig.view.maxLat, 540]], maxBoundsViscosity: mapConfig.view.maxBoundsViscosity}).setView(small ? [37.5, -122.5] : [37.5, -122.45], small ? 8 : 9);
+    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: minZoomFor(mapEl.current.clientWidth || window.innerWidth), maxZoom: mapConfig.view.maxZoom, zoomSnap: mapConfig.view.zoomSnap, worldCopyJump: true, maxBounds: [[-mapConfig.view.maxLat, -540], [mapConfig.view.maxLat, 540]], maxBoundsViscosity: mapConfig.view.maxBoundsViscosity}).setView(urlInit.lat !== null && urlInit.lon !== null ? [urlInit.lat, urlInit.lon] : small ? [37.5, -122.5] : [37.5, -122.45], urlInit.z ?? (small ? 8 : 9)); // Stage 1: the URL's view; the poles are a hard edge (viscosity 1: no dark band past them)
     const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
     m.on('resize', () => m.setMinZoom(minZoomFor(m.getSize().x))); // the world always fills the width (Stage 1 pole clamp)
+    m.on('moveend', () => { const c = m.getCenter(); writeMapUrl({lat: c.lat, lon: c.lng, z: m.getZoom()}); }); // Stage 1 (product): the URL follows every settled move
     m.on('zoomend moveend resize', () => declutterRef.current()); // panels stay put while the map pans
     L.control.attribution({position: 'bottomleft', prefix: false}).addTo(m);
     // Light or dark Esri Canvas basemap by theme (satellite on request), with maxNativeZoom so tiles upscale: src/map/basemap.ts (T-042).
@@ -467,6 +485,19 @@ function OceanMap({section, go}: ViewProps) {
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
 
+      {/* Map-seamless Stage 1: never a blocking overlay. A thin line while the next frame loads (the previous one stays on screen), "Still loading ·
+          Retry" after 5 s, and on failure a clear error naming the hour that is still shown. */}
+      {opts.heat && live && anyLoading && <div className="xprog" aria-hidden="true"><i /></div>}
+      {opts.heat && live && (() => {
+        const failed = !spatial.loading && !spatial.frame && !/^Loading/.test(spatial.status), held = (frame ?? gframe)?.validAt;
+        // Say what is actually on screen: the held frame may be the previous layer (honest while the new one loads or fails).
+        const heldName = shownFor.current !== fieldId ? (FIELDS.find((x) => x.id === shownFor.current)?.short ?? '').toLowerCase() : '';
+        const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held)} ${hourLabel(held)}` : '';
+        const retry = () => { setSlow(false); spatial.retry(); };
+        if (failed) return <p className="xload err" role="alert">Couldn't load {def.short.toLowerCase()} for {when}{showing} <button type="button" onClick={retry}>Retry</button></p>;
+        if (slow && anyLoading) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
+        return null;
+      })()}
       {/* T-117 (Windy): the layers down the right edge as labelled round thumbnails (a menu button and sheet on phones), the zoom and centre controls under them. */}
       <div className="xfabs">
         <LayerList phone={phone} fields={['waves', 'swell', 'wind', 'period'].map((id) => { const f = FIELDS.find((x) => x.id === id)!; return {...f, short: id === 'waves' ? 'Waves' : f.short, ramp: legendModel(scaleKeyOfField(f.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow(), 14).gradient}; })} field={fieldId} on={opts.heat} setField={(id) => pickField(id as FieldId | null)}
@@ -484,7 +515,6 @@ function OceanMap({section, go}: ViewProps) {
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} onCycle={cycleUnit} />
-          : slow && waiting ? <button type="button" className="xchip xstatus" onClick={() => { setSlow(false); spatial.retry(); }}>{status} · <u>Retry</u></button>
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
         </div>
       </div>

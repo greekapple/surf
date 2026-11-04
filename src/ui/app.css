@@ -413,3 +413,8 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
 
 /* T-109: the spot picker is a 44 px tap target on phones. */
 @media (max-width: 860px) { .spotbtn, .favbar-end .spotbtn { min-height: 44px; } }
+/* Map-seamless Stage 1: the map's cold-load placeholder is the basemap's own grey with a small pill (the map code arrives in a moment). */
+.map-fallback { position: relative; min-height: calc(100dvh - var(--nav-h, 64px)); background: #8b8e92; }
+:root[data-theme='dark'] .map-fallback { background: #3a3d41; }
+.map-fallback span { position: absolute; left: 50%; top: 72px; translate: -50% 0; padding: 6px 14px; border-radius: 999px; background: rgb(44 46 50 / 0.86); color: #fff; font-size: 13px; }
+@media (max-width: 860px) { .map-fallback { min-height: calc(100dvh - var(--nav-h, 56px) - var(--tab-h, 64px)); } }

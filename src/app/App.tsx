@@ -55,7 +55,8 @@ export default function App() {
         </div>
         <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
           <ErrorBoundary key={area} label={label} onRetry={resetAreas}>
-            <Suspense fallback={<StateMessage title={`Loading ${label}…`} />}>
+            {/* Map-seamless Stage 1: a cold load of the map shows the map's own grey ground and a small pill, not a white page. */}
+            <Suspense fallback={area === 'explore' ? <div className="map-fallback" role="status"><span>Loading map…</span></div> : <StateMessage title={`Loading ${label}…`} />}>
               {area === 'home' && <HomeView section={section} go={navigate} />}
               {area === 'forecast' && section !== 'wave-scale' && <forecastArea.C section={section} go={navigate} />}
               {area === 'explore' && <exploreArea.C section={section} go={navigate} />}
