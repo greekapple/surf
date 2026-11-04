@@ -9,7 +9,8 @@
     "test": "node --experimental-strip-types --test src/tests/*.test.ts",
     "validate": "node --experimental-strip-types docs/forecast/data/validate-surf-height.ts",
     "build:cf": "tsc --noEmit && vite build && node scripts/build-cloudflare.mjs",
-    "deploy": "npm run build:cf && wrangler deploy"
+    "deploy": "npm run build:cf:private && wrangler deploy",
+    "build:cf:private": "tsc --noEmit && vite build && node scripts/build-cloudflare.mjs --private-site"
   },
   "dependencies": {
     "leaflet": "1.9.4",
