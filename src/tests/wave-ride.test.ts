@@ -51,13 +51,16 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
   const atlas = synth(meta()), m = atlas.meta, flowX = Math.min(m.peel_speed_mps, 6);
   for (const skill of ['Beginner', 'Intermediate', 'Expert'] as Skill[]) {
     const sim = new RiderSim(atlas, skill, 1234, flowX, null, 0), c = sim.cur, h = 1 / 120;
-    let maxGap = 0, maxEnd = 0, maxDeg = 0, minAhead = Infinity, maxSpeed = 0, maxV = 0, minV = 1, bankOk = 0, bankBad = 0;
+    let maxGap = 0, maxBridge = 0, maxEnd = 0, maxTail = 0, maxDeg = 0, minAhead = Infinity, maxSpeed = 0, maxV = 0, minV = 1, bankOk = 0, bankBad = 0;
     const pF = [0, 0, 0], pU = [0, 0, 0];
     for (let i = 0; i < 120 * 12; i++) {
       sim.advance(h); const t = c[S.T], x = c[S.X], y = c[S.Y], z = c[S.Z];
-      maxGap = Math.max(maxGap, Math.abs(faceDistanceAt(atlas, x, y, z, t)));
+      // the centre minus its deliberate bridge over a concave section (R8: the snap's pivoted board spans more of the face's curve, 1.7 cm here)
+      { const b = c[S.BRIDGE]; maxGap = Math.max(maxGap, Math.abs(faceDistanceAt(atlas, x - c[S.NX] * b, y - c[S.NY] * b, z - c[S.NZ] * b, t))); maxBridge = Math.max(maxBridge, b); }
       // the ends along the board axis, on the bottom plane: within a few cm of the water on this smooth synthetic face
-      const ea = 0.77; for (const sgn of [1, -1]) { const ex = x + sgn * ea * c[S.FX], ey = y + sgn * ea * c[S.FY], ez = z + sgn * ea * c[S.FZ]; maxEnd = Math.max(maxEnd, Math.abs(faceDistanceAt(atlas, ex, ey, ez, t))); }
+      // (R8: a board pivoted up the face in the snap rides on its tail with the nose above the lip, so the nose is only checked while the board
+      // pitches under 30 deg; the tail is always checked, within 10 cm)
+      const ea = 0.77, pitched = Math.abs(c[S.FY]) > 0.5; for (const sgn of [1, -1]) { const ex = x + sgn * ea * c[S.FX], ey = y + sgn * ea * c[S.FY], ez = z + sgn * ea * c[S.FZ]; const g = Math.abs(faceDistanceAt(atlas, ex, ey, ez, t)); if (sgn < 0) maxTail = Math.max(maxTail, g); if (sgn < 0 || !pitched) maxEnd = Math.max(maxEnd, g); }
       minAhead = Math.min(minAhead, breakX(m, t) - x); maxSpeed = Math.max(maxSpeed, c[S.SPEED]); maxV = Math.max(maxV, c[S.V]); minV = Math.min(minV, c[S.V]);
       if (i > 2) { const dF = Math.acos(Math.min(1, pF[0] * c[S.FX] + pF[1] * c[S.FY] + pF[2] * c[S.FZ])), dU = Math.acos(Math.min(1, pU[0] * c[S.UX] + pU[1] * c[S.UY] + pU[2] * c[S.UZ])); maxDeg = Math.max(maxDeg, dF, dU); }
       pF[0] = c[S.FX]; pF[1] = c[S.FY]; pF[2] = c[S.FZ]; pU[0] = c[S.UX]; pU[1] = c[S.UY]; pU[2] = c[S.UZ];
@@ -66,7 +69,9 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
       if (Math.abs(c[S.ROLL]) > 0.05) { const d = (c[S.UX] * rx + c[S.UY] * ry + c[S.UZ] * rz) * Math.sign(c[S.ROLL]); if (d < 0) bankOk++; else bankBad++; }
     }
     assert.ok(maxGap < 0.01, `${skill}: centre on the face (${maxGap.toFixed(4)} m)`);
+    assert.ok(maxBridge < 0.05, `${skill}: the bridge stays small on this smooth face (${maxBridge.toFixed(3)} m)`);
     assert.ok(maxEnd < 0.2, `${skill}: ends within 20 cm of the water on this cusped synthetic face (the real atlas is checked by the glitch monitor) (${maxEnd.toFixed(3)})`);
+    assert.ok(maxTail < 0.1, `${skill}: the tail stays within 10 cm of the water, pivoted or not (${maxTail.toFixed(3)})`);
     assert.ok(minAhead >= Math.max(RIDE.minAheadFaces * m.face_m, RIDE.minAheadM) - 0.05, `${skill}: ahead of the curl by ${minAhead.toFixed(2)} m`);
     assert.ok(maxDeg * 180 / Math.PI < 8, `${skill}: board turns at most ${(maxDeg * 180 / Math.PI).toFixed(2)} deg per 1/120 s`);
     assert.ok(maxSpeed < RIDE.speedMaxMps && maxSpeed > 2, `${skill}: speed over the water ${maxSpeed.toFixed(1)} m/s`);

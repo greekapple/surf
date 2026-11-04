@@ -649,14 +649,14 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       el.dataset.board = JSON.stringify({id: 'model', band: band.id, length_m: Math.round(lenM * 1000) / 1000, width_m: BOARD.bandWidthM[band.id]});
     };
     /** Board-to-face gaps (m, signed normal distance to the face, + out of the water): at the board's bottom centre, and the lowest of the tail, nose and both rails. Allocation-free. */
-    const cpts = new Float64Array(15), gaps: [number, number] = [0, 0];
-    const contactM = (t: number): [number, number] => {
-      gaps[0] = gaps[1] = 0; if (!surfer || !cur) return gaps;
+    const cpts = new Float64Array(15), gaps: [number, number, number] = [0, 0, 0];
+    const contactM = (t: number): [number, number, number] => {
+      gaps[0] = gaps[1] = gaps[2] = 0; if (!surfer || !cur) return gaps;
       const bd = boardOf(); if (!bd) return gaps;
       const mesh = bd.obj, bx = bd.box; boardBox.copy(bx);
       const P = BOARD.probe; cpts.set([0, bx.min.y, 0, bx.max.x - P.tailIn, bx.min.y + P.tailUp, 0, bx.min.x + P.noseIn, bx.min.y + P.noseUp, 0, 0, bx.min.y, bx.max.z - P.railIn, 0, bx.min.y, bx.min.z + P.railIn]);
       let low = Infinity;
-      for (let i = 0; i < 5; i++) { pt.set(cpts[i * 3], cpts[i * 3 + 1], cpts[i * 3 + 2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = faceDistanceAt(cur!.atlas, pt.x, pt.y, pt.z, t); if (i === 0) gaps[0] = gap; low = Math.min(low, gap); }
+      for (let i = 0; i < 5; i++) { pt.set(cpts[i * 3], cpts[i * 3 + 1], cpts[i * 3 + 2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = faceDistanceAt(cur!.atlas, pt.x, pt.y, pt.z, t); if (i === 0) { gaps[0] = gap; const b = st[S.BRIDGE]; gaps[2] = b > 1e-4 ? faceDistanceAt(cur!.atlas, pt.x - st[S.NX] * b, pt.y - st[S.NY] * b, pt.z - st[S.NZ] * b, t) : gap; } low = Math.min(low, gap); }   // R8: [2] the centre with the bridge's lift taken back off (the monitor's centre check): in the hollow under a lip the lifted centre's nearest water is the lip's underside, so gap - bridge under-read by up to 0.08 m at the snap's hit
       gaps[1] = low; return gaps;
     };
     // the 6 ft scale pole (dev): 1 ft bands stood on the trough beside the rider's section
@@ -688,7 +688,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
-      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl, 'r', sim.stats.slopeNow, frontside);   // the bridge over a concave section is deliberate
+      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), g[2], gl, 'r', sim.stats.slopeNow, frontside);   // the bridge over a concave section is deliberate: the centre is checked with the lift taken back off (R8; was gc - bridge)
       // the tail (crest frame) and its velocity: the top-turn spray leaves from here, with the board
       const bd = boardOf();
       if (spray && bd) {
@@ -795,7 +795,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       riderOpts.skill = w.skill; riderOpts.seed = w.seed; riderOpts.stance = w.stance;
       const flowX = u.uFlowX.value;
       if (!sim) sim = new RiderSim(atlas, riderOpts.skill, riderOpts.seed, flowX, riderOpts.stance, u.uTime.value); else sim.setWave(atlas, flowX, riderOpts.skill, riderOpts.seed, riderOpts.stance);
-      frontside = isFrontside(sim.stance, dir); cur = {atlas}; haveVel = false; wk.n = 0; wk.last = -1; body?.reseat();   // a new wave: no trail from the old one
+      frontside = isFrontside(sim.stance, dir); sim.frontside = frontside; cur = {atlas}; haveVel = false; wk.n = 0; wk.last = -1; body?.reseat();   // a new wave: no trail from the old one
       if (import.meta.env.DEV) monitor.reset();   // an hour change re-seats the rider: not a glitch
       el.dataset.stance = sim.stance; el.dataset.skill = sim.plan.skill; el.dataset.seed = String(sim.seed); el.dataset.frontside = frontside ? '1' : '0';
       el.dataset.styleBand = sim.plan.band.id;
@@ -836,7 +836,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       }).catch(() => { if (!disposed && my === token) cb.current.onFail?.(); });
     };
     const setDir = (d: 'left' | 'right') => {
-      if (d === dir) return; dir = d; group.scale.x = d === 'right' ? -1 : 1; group.updateMatrixWorld(true); if (sim) { frontside = isFrontside(sim.stance, dir); el.dataset.frontside = frontside ? '1' : '0'; } if (import.meta.env.DEV) monitor.reset();   // the mirror flips every world rotation in one frame: not a glitch
+      if (d === dir) return; dir = d; group.scale.x = d === 'right' ? -1 : 1; group.updateMatrixWorld(true); if (sim) { frontside = isFrontside(sim.stance, dir); sim.frontside = frontside; el.dataset.frontside = frontside ? '1' : '0'; } if (import.meta.env.DEV) monitor.reset();   // the mirror flips every world rotation in one frame: not a glitch
       camera.position.x *= -1; controls.target.x *= -1; camS[0].set(controls.target.x); camS[1].set(controls.target.y); camS[2].set(controls.target.z); controls.update(); sync(); el.dataset.dir = d;
       if (surfer && surfer.visible) { bb.setFromObject(surfer); el.dataset.surfer = JSON.stringify(bb.min.toArray().concat(bb.max.toArray()).map((n) => Math.round(n * 100) / 100)); }
     };
@@ -874,7 +874,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     /** The rider's own inputs: the profile's skill, the forecast hour's seed, the stance (null: a seeded default per spot-hour). */
     const setRider = (o: {skill?: Skill; seed?: number; stance?: Stance | null}) => {
       if (o.skill !== undefined) riderOpts.skill = o.skill; if (o.seed !== undefined) riderOpts.seed = o.seed; if (o.stance !== undefined) riderOpts.stance = o.stance;
-      if (sim && cur) { sim.setWave(cur.atlas, u.uFlowX.value, riderOpts.skill, riderOpts.seed, riderOpts.stance); frontside = isFrontside(sim.stance, dir); el.dataset.stance = sim.stance; el.dataset.skill = sim.plan.skill; el.dataset.seed = String(sim.seed); el.dataset.frontside = frontside ? '1' : '0'; if (import.meta.env.DEV) monitor.reset(); }
+      if (sim && cur) { sim.setWave(cur.atlas, u.uFlowX.value, riderOpts.skill, riderOpts.seed, riderOpts.stance); frontside = isFrontside(sim.stance, dir); sim.frontside = frontside; el.dataset.stance = sim.stance; el.dataset.skill = sim.plan.skill; el.dataset.seed = String(sim.seed); el.dataset.frontside = frontside ? '1' : '0'; if (import.meta.env.DEV) monitor.reset(); }
     };
     const setPole = (on: boolean) => { pole.visible = on; el.dataset.pole = on ? '1' : '0'; };
     api.current = {setWave, setDir, setLight, setBoard, setRider, setPole};

@@ -163,7 +163,7 @@ export class GlitchMonitor {
         for (let k = 0; k < 2; k++) {
           const hand = k === 0 ? B.handL : B.handR; if (!rp(hand, this.a)) continue;
           const side = Math.abs(this.a.x - this.e.x); if (side > c.handSideMax) c.handSideMax = side;
-          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel' && move !== 'bottom') || (this.a.y > shoulderY + 0.08 && !this.wristAllowed.includes(move));   // in the barrel crouch the hands hang below the knees (the back hand drags the face: M2); the bottom turn's leading hand reaches the water (R7); above the shoulders only in the moves the wrist check allows
+          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel' && move !== 'bottom' && move !== 'takeoff') || (this.a.y > shoulderY + 0.08 && !this.wristAllowed.includes(move));   // R8: the takeoff's drop blends into the same bottom key (the leading hand to the rail); in the barrel crouch the hands hang below the knees (the back hand drags the face: M2); the bottom turn's leading hand reaches the water (R7); above the shoulders only in the moves the wrist check allows
           // the hand's travel in the rider frame: a reversal is the velocity turning back on itself; two within armReversalS is a flail
           if (h > 0 && this.armPrimed >= 1) {
             const vx = (this.a.x - this.handP[k * 3]) / h, vy = (this.a.y - this.handP[k * 3 + 1]) / h, vz = (this.a.z - this.handP[k * 3 + 2]) / h;

@@ -82,7 +82,7 @@ export class RiderBody {
   private readonly bones: Bones; private readonly lib: PoseLib;
   private readonly riderM: THREE.Matrix4[]; private readonly local = new THREE.Matrix4();
   private readonly qa = new THREE.Quaternion(); private readonly qb = new THREE.Quaternion(); private readonly qp = new THREE.Quaternion(); private readonly qd = new THREE.Quaternion();
-  private readonly va = new THREE.Vector3(); private readonly vb = new THREE.Vector3(); private readonly vc = new THREE.Vector3(); private readonly vd = new THREE.Vector3(); private readonly ve = new THREE.Vector3(); private readonly pole = new THREE.Vector3(); private readonly tgt = new THREE.Vector3(); private readonly vf = new THREE.Vector3(); private readonly vg = new THREE.Vector3(); private readonly mA = new THREE.Matrix4(); private readonly mB = new THREE.Matrix4();
+  private readonly va = new THREE.Vector3(); private readonly vLean = new THREE.Vector3(); private readonly vb = new THREE.Vector3(); private readonly vc = new THREE.Vector3(); private readonly vd = new THREE.Vector3(); private readonly ve = new THREE.Vector3(); private readonly pole = new THREE.Vector3(); private readonly tgt = new THREE.Vector3(); private readonly vf = new THREE.Vector3(); private readonly vg = new THREE.Vector3(); private readonly mA = new THREE.Matrix4(); private readonly mB = new THREE.Matrix4();
   private readonly w = new Float32Array(POSES.length); private readonly wa = new Float32Array(POSES.length); private readonly isArm: boolean[];
   readonly ankleT = new Float32Array(6); private readonly footT = new Float32Array(8); private readonly footFT = new Float32Array(6); private readonly wristT = new Float32Array(6); private readonly handT = new Float32Array(8);
   readonly idx: Record<string, number>;
@@ -158,7 +158,12 @@ export class RiderBody {
     const I = this.idx, pr = inp.profile;
     if (I.pelvis >= 0) { const pel = all[I.pelvis]; this.hipY = pel.position.dot(this.upRoot); pel.position.addScaledVector(this.upRoot, -(BODY.compressM * inp.comp) + BODY.idleBobM * inp.idleA); }
     // 3. the chain, parents first, applying each bone's procedural rotation before composing its rider-frame matrix
-    const up = inp.upR, tilt = Math.acos(THREE.MathUtils.clamp(up.y, -1, 1));
+    // R8: the lean answers the deck's ROLL (across the board). Once the board pitches steeply along its axis (the snap's pivot up the face,
+    // |pitch| from 15 to 60 deg, BODY.leanPitchFadeDeg) the along-board share of the tilt is faded out of it: a pivot about the feet
+    // toward the tail put the hips 0.6 m behind the feet at the backside hit and the knees 0.2 m off the hip-foot line (knock); a
+    // 30-45 fade swung the 48 deg backside lean out in 0.1 s (14k jerk on every bone). The takeoff and the turns (|pitch| under 15) are untouched.
+    const upIn = inp.upR, pitchDeg = Math.asin(THREE.MathUtils.clamp(Math.abs(upIn.x), 0, 1)) / D2R, pp = THREE.MathUtils.clamp((pitchDeg - BODY.leanPitchFadeDeg[0]) / (BODY.leanPitchFadeDeg[1] - BODY.leanPitchFadeDeg[0]), 0, 1), pitchShare = pp * pp * (3 - 2 * pp);
+    const up = this.vLean.set(upIn.x * (1 - pitchShare), upIn.y, upIn.z).normalize(), tilt = Math.acos(THREE.MathUtils.clamp(up.y, -1, 1));
     // backside the chest faces down the slope, so the torso counters the deck toward the vertical (over the heels, toward the wave) harder
     const cGain = inp.mirror < 0 ? BODY.torsoCounterBackside.gain : BODY.torsoCounterGain, cMax = inp.mirror < 0 ? BODY.torsoCounterBackside.maxDeg : BODY.torsoCounterMaxDeg;
     const dt = Math.min(0.05, Math.max(1e-4, inp.dt)), wS = 2 * Math.PI * BODY.smoothHz;

@@ -30,7 +30,10 @@ export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1
     /** backside (R7): the body angulates over the heels by most of the slope (BODY.bodyLeanBackside), the pelvis with it */ perSlopeBackside: 0.5},
   /** M9 (`lean` count): the torso pitch (pelvis -> neck from the deck normal toward the toes, deg) outside this range; M10 (`wake` count): the
    *  wake's direction off the tail against the board's velocity over the water (deg from straight behind) */
-  torsoPitchDeg: [5, 62] as readonly [number, number], wakeDeg: 45} as const;
+  torsoPitchDeg: [5, 62] as readonly [number, number],
+  /** R8 re-based 45 -> 60: the snap's tail slide (the pivot unwinding) leaves the tail's trail 48-54 deg off the board's heading for ~0.1 s,
+   *  which is the slide, not a trail drawn ahead of the board (the barrel stall's heading flip still reads 172) */
+  wakeDeg: 60} as const;
 
 /** The board's wake (brief stage 6): a thin foam trail off the tail, sampled along the actual path, carried with the water, widening
  *  and fading out within lifeS; and the tail spray on turns, scaled by speed and turn load (rail roll), by the band's spray factor and
@@ -79,6 +82,13 @@ export const RIDE = {
   capRailShare: 0.5,
   /** how much the line is lowered (in face heights per metre of end sag beyond the rocker) so a straight board fits the face's curvature */
   endSagGain: 2.5,
+  /** R8: a board pivoted up the face by this much (deg) rides on its tail, so the end sag no longer lowers the line (the nose is in the
+   *  air at the hit; the lowering fades back in as the pivot unwinds, which is the snap's rebound down the face) */
+  pivotSagFreeDeg: 40,
+  /** R8: and may bridge the hollow of the lip by this much more than BOARD.bridgeMaxM (m, at the full pivot): the pivoted board spans the
+   *  curl's concavity on its ends instead of burying them (a 6'0" board up a 6 ft hollow face has its tail near the trough and its nose at
+   *  the lip: the chord sags 0.6 m; with 0.3 the ends sat 0.22 m in, the clip gate; 0.4 still 0.19 m; 0.5 still 0.155; 0.55 leaves them within the gate, the tail's fins engaged, the nose cutting the thin lip. The monitor's centre check reads the centre with the lift removed (WaveLive contactM), since in the hollow under the lip the lifted centre's nearest water is the lip's underside, not the face below it) */
+  pivotBridgeM: 0.55,
   /** the cap is a bisection on the sampled face: followed through a spring (rad/s) so its quantisation never reaches the board */
   capFollowW: 2 * Math.PI * 1.5,
   /** the rider follows the moving break point through a spring (rad/s): no twitching with every section pulse */
@@ -97,11 +107,22 @@ export const RIDE = {
   fadeInS: 0.5, fadeOutS: 0.45,
 } as const;
 
+/** R8: the snap's hit (Knot.cap / Knot.pivot). The 6 ft plunging face passes the vertical at about 0.45 of its height (78 deg at 0.39,
+ *  92 at 0.48): under the 78 deg cap the board sat at 0.385 with its long axis along the crest (yaw ~1 deg at the hit: the rider's path
+ *  over the water is the peel speed along the crest, so the velocity never points up the face). The real snap's board is vertical because
+ *  it pivots on its tail past the path. 78 deg at the Expert's carve (Intermediate 0.7 x): at the knot the path already turns down (-10 deg), so the yaw peaks near 68 and the board's long axis near 65 deg on the 74 deg face the cap reaches. */
+export const RIDE_SNAP_CAP_DEG = 89, RIDE_SNAP_PIVOT_DEG = 78;
 export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 'takeoff' | 'kickout' | 'out' | 'barrel' | 'floater';
 /** One knot of the ride: time to reach it from the previous knot (s, at RIDE.refFaceM; the first knot's dt closes the loop from the
  *  last), u, v, the move name, the pose it blends to, the compression target, and how close to the curl it may go (face heights,
  *  RIDE.minAheadFaces when absent). */
-export interface Knot {dt: number; u: number; v: number; move: Move; pose: PoseName; /** compression target 0 (tall) .. 1 (deep) */ comp: number; ahead?: number}
+export interface Knot {dt: number; u: number; v: number; move: Move; pose: PoseName; /** compression target 0 (tall) .. 1 (deep) */ comp: number; ahead?: number;
+  /** R8: the face-slope cap (deg) while approaching this knot (RIDE.slopeCapDeg when absent): the snap's hit rides up to the vertical part
+   *  of the face, within what the atlas face allows (the planned v is still the ceiling) */
+  cap?: number;
+  /** R8: the board pivots past its velocity by this much (deg, up the face) at this knot, the tail sliding: a snap's board goes near-vertical
+   *  at the lip while the rider's path only bends; it unwinds over the next segment */
+  pivot?: number}
 export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump' | 'barrel' | 'pigdog' | 'cutback'
   /** R7 (surfer-v6): backside-specific keys, authored with the wave on the heel side; the viewer routes each frontside pose's weight to
    *  its backside key through BODY.backsideOf when the rider is mirrored */
@@ -109,7 +130,7 @@ export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump' 
 
 /** A maneuver's shape (brief part 2, "implementation shape"): knots relative to the band's line: `du` out from the pocket distance (face
  *  heights, + = further out on the shoulder), `dv` up (+) or down (-) from the band's line height, scaled by the expertise's intensity. */
-export interface ManeuverKnot {dt: number; du: number; dv: number; move: Move; pose: PoseName; comp: number; ahead?: number}
+export interface ManeuverKnot {dt: number; du: number; dv: number; move: Move; pose: PoseName; comp: number; ahead?: number; cap?: number; /** scaled by the skill's carve */ pivot?: number}
 export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'coverup' | 'longBottom';
 export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a trim along the line */
@@ -117,7 +138,7 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a soft open-face carve: a drawn-out bottom turn into a mid-face arc */
   carve: [{dt: 1.0, du: 0.3, dv: -0.3, move: 'bottom', pose: 'bottom', comp: 0.7}, {dt: 0.7, du: 0.05, dv: 0.12, move: 'top', pose: 'climb', comp: 0.45}, {dt: 0.6, du: 0.1, dv: 0, move: 'trim', pose: 'trim', comp: 0.4}],
   /** bottom turn, project up the face, release at the lip, redirect down */
-  snap: [{dt: 0.85, du: 0.3, dv: -0.37, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.5, du: 0.1, dv: 0, move: 'bottom', pose: 'climb', comp: 0.55}, {dt: 0.45, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25}, {dt: 0.5, du: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8}],
+  snap: [{dt: 0.85, du: 0.3, dv: -0.37, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.5, du: 0.1, dv: 0, move: 'bottom', pose: 'climb', comp: 0.55}, {dt: 0.45, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8}],   // R8: the hit rides the face up to the vertical (cap 89 instead of 78) with the board pivoted up the face past its velocity (the tail slides): the board reads near-vertical at the lip, as the real snap (Intermediate+ only: a Beginner's snap is a carve)
   /** roundhouse: a full-rail arc back toward the curl, rebound, back down the line */
   cutback: [{dt: 1.0, du: 0.8, dv: -0.15, move: 'cutback', pose: 'climb', comp: 0.6}, {dt: 0.9, du: 0.2, dv: 0.13, move: 'cutback', pose: 'cutback', comp: 0.4}, {dt: 0.6, du: 0.05, dv: -0.06, move: 'recover', pose: 'recover', comp: 0.75}],   // R7: its own peak key (head and shoulders back to the curl, the leading arm out toward it), then the rebound compact
   /** rhythmic compress/extend through a flat section */
@@ -235,7 +256,7 @@ export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: numb
   for (const m of band.moves) {
     const name = m.name in skill.allow ? skill.allow[m.name] : m.name; if (name === null || name === undefined) continue;
     if (m.w < 1 && !keep(m.w)) continue;
-    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead});
+    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
   }
   if (!out.length) out.push({dt: 1.2, u: -pocket, v: lineV, move: 'trim', pose: 'trim', comp: 0.4});
   return out;
@@ -270,6 +291,9 @@ export const BODY = {
   /** on a steep face the rider stands away from the deck toward the vertical: the whole body above the feet leans by a share of the deck
    *  tilt past a threshold (the legs flex to keep the feet planted), then the torso adds its own counter over three spine bones, both limited */
   bodyLeanStartDeg: 18, bodyLeanGain: 0.4, bodyLeanMaxDeg: 16, /** share of the pivot's height loss given back (1 = hips keep their height off the deck) */ bodyLeanKeepHeight: 0.7,
+  /** R8: the lean answers the deck's roll; its along-board (pitch) share fades out between these board pitches (deg): a board pivoted up
+   *  the face in the snap no longer pivots the body toward the tail (knee knock at the backside hit) */
+  leanPitchFadeDeg: [15, 60] as readonly [number, number],
   torsoCounterStartDeg: 30, torsoCounterGain: 0, torsoCounterMaxDeg: 0,
   /** backside the chest faces down the slope: the torso counters toward the vertical (over the heels, toward the wave) harder */
   torsoCounterBackside: {gain: 0, maxDeg: 0},
@@ -279,6 +303,13 @@ export const BODY = {
   armRollShare: 0.25,
   /** the arms cross-fade slower than the body (x the pose fade rate): a pose change swings the hands through the longest arcs */
   armFadeScale: 0.75,   // R7: the v6 snap key throws the arms up; the hands arrive a hair after the body (a real throw) and the upper arms stay under 360 deg/s
+  /** R8: leaving the snap, the arms' pose target switches to the recovery this much (s) before the body's does: the hands peak at the hit
+   *  and are on their way down as the board comes off the lip (R7's stayed up ~0.4 s into the recovery). The fade rate itself is unchanged:
+   *  a faster critically damped fade of the 150 deg arm arc breaks the 10k deg/s^2 gate (its peak is the arc x the rate squared). */
+  snapArmDropLeadS: 0.15,
+  /** R8: the snap key's own arm weight fades OUT at this x the body's rate (the other arm fades stay at armFadeScale): the 6 ft Expert
+   *  cell's jerk peak is the head (9.9k), its arms sat at 4.4k with the 0.75 fade, so the drop has room to be a third faster */
+  snapArmDropFade: 1.0,
   /** round 5 (user: "the arms are still ragdolling", "the joints are disconnected"): the arms are part of the authored pose and move
    *  only as the whole-body pose blends; the per-hand IK to board-frame targets (M7) is off. The whole body blends on one weight. */
   armIK: false,

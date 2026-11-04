@@ -56,7 +56,10 @@ export function visibilityAt(p: Plan, tau: number): number {
   const sm = (x: number) => { const k = clamp(x, 0, 1); return k * k * (3 - 2 * k); };
   return sm(t / RIDE.fadeInS) * (1 - sm((t - (p.rideEnd - RIDE.fadeOutS)) / RIDE.fadeOutS));
 }
-export interface PlanSample {u: number; v: number; comp: number; du: number; dv: number; seg: number; move: Move; pose: PoseName; /** min distance from the curl (face heights), lerped between the knots */ ahead: number}
+export interface PlanSample {u: number; v: number; comp: number; du: number; dv: number; seg: number; move: Move; pose: PoseName; /** min distance from the curl (face heights), lerped between the knots */ ahead: number;
+  /** R8: the slope cap (deg) of the knot being approached, and the board's pivot past its path (deg), smoothstepped from the passed
+   *  knot's to the approached knot's (a snap's pivot winds up over the hit segment and unwinds over the recovery) */
+  cap: number; pivot: number}
 /** The plan at loop time tau (wrapped): position, velocity (per s) and the segment's move and target pose. Hermite with Catmull-Rom tangents. */
 export function planAt(p: Plan, tau: number, out: PlanSample): PlanSample {
   const n = p.knots.length, T = p.times, P = p.period; let t = tau % P; if (t < 0) t += P;
@@ -72,7 +75,9 @@ export function planAt(p: Plan, tau: number, out: PlanSample): PlanSample {
   const ev = (f: (x: Knot) => number, d: boolean) => { const m0 = (f(b) - f(m)) / (t1 - tm), m1 = (f(q) - f(a)) / (tp - t0); return d ? d00 * f(a) + d10 * h * m0 + d01 * f(b) + d11 * h * m1 : h00 * f(a) + h10 * h * m0 + h01 * f(b) + h11 * h * m1; };
   out.u = ev((x) => x.u, false); out.v = ev((x) => x.v, false); out.comp = ev((x) => x.comp, false); out.du = ev((x) => x.u, true); out.dv = ev((x) => x.v, true);
   const aa = a.ahead ?? RIDE.minAheadFaces, ab = b.ahead ?? RIDE.minAheadFaces; out.ahead = aa + (ab - aa) * s;
-  out.seg = k; out.move = b.move; out.pose = b.pose; return out;
+  out.seg = k; out.move = b.move; out.pose = b.pose;
+  const sm = s * s * (3 - 2 * s); out.cap = b.cap ?? RIDE.slopeCapDeg; out.pivot = (a.pivot ?? 0) * (1 - sm) + (b.pivot ?? 0) * sm;
+  return out;
 }
 
 /** The highest height fraction whose face slope stays under the cap at (x, t): bisection on facePointInto. */
@@ -91,14 +96,20 @@ export const STATE_N = S.WA0 + POSES.length;
 export class RiderSim {
   readonly cur = new Float64Array(STATE_N); readonly prev = new Float64Array(STATE_N);
   plan: Plan; atlas: Atlas; flowX: number; seed: number; stance: Stance; H: number;
+  /** R8: set by the viewer with the stance and the wave's direction; the snap's arm drop (the frontside key's throw) only applies frontside */
+  frontside = true;
+  /** R8: latched through the snap's hit: the snap key's arm weight fades out fast only after a snap, not after the kick-out (which blends through the same key) */
+  private snapArmDrop = false;
   boardL: number = BOARD.lengthM; boardW: number = BOARD.widthM; boardBottom = 0;
   private tau = 0; private acc = 0; private started = false;
   private readonly xbS = new Spring(); private readonly capS = new Spring(); private readonly yawS = new Spring(); private readonly rollS = new Spring(); private readonly compS = new Spring(); private readonly leadS = new Spring();
   private readonly fitF = [new Spring(), new Spring(), new Spring()]; private readonly fitU = [new Spring(), new Spring(), new Spring()];
   private readonly wS: Spring[] = POSES.map(() => new Spring()); private readonly waS: Spring[] = POSES.map(() => new Spring());
-  private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces};
+  private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0};
+  /** R8: a second sample a little ahead, for the arms' early drop out of the snap */
+  private readonly psArm: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0};
   private readonly idlePhase: [number, number];
-  private capRad = RIDE.slopeCapDeg * Math.PI / 180; private railMid = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
+  private railMid = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
   readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0, sagNow: 0, endSagNow: 0, pxyNow: 0, pxzNow: 0, railLowNow: 0, endLowNow: 0};
   constructor(atlas: Atlas, skill: Skill, seed: number, flowX: number, stance: Stance | null, t0: number) {
     this.atlas = atlas; this.H = atlas.meta.face_m; this.seed = seed; this.flowX = flowX; this.plan = buildPlan(skill, seed, this.H);
@@ -133,7 +144,7 @@ export class RiderSim {
     let x = xb + ps.u * H; x -= smax0(x - (xb - minAhead), 0.25 * minAhead);   // C1 soft limit, no branch
     // on the face: the planned height, kept under the rideable slope cap (soft), the slope at the point
     // the cap keeps the wave-side rail (rb up the face from the centre) under the slope cap too, not just the centre
-    const capNow = maxFracAt(a, x, t, this.capRad) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); if (!this.started) this.capS.set(capNow); const cap = this.capS.step(capNow, dt, RIDE.capFollowW); this.stats.maxFracNow = cap;
+    const capNow = maxFracAt(a, x, t, ps.cap * Math.PI / 180) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess * (1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg)) / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); if (!this.started) this.capS.set(capNow); const cap = this.capS.step(capNow, dt, RIDE.capFollowW); this.stats.maxFracNow = cap;
     const v = Math.max(RIDE.vMin, ps.v - smax0(ps.v - cap, RIDE.capSoftV));
     facePointInto(a, x, v, t, FP); const fy = FP[0], slope = FP[2], Hf = Math.max(0.2, FP[3]); this.stats.slopeNow = slope; this.lastSlope = slope; this.lastHf = Hf;
     const z = -fy, y = FP[1];   // the board's bottom centre: this profile point, the one the shader draws
@@ -157,7 +168,7 @@ export class RiderSim {
     const vn = wx * nx + wy * ny + wz * nz; let tx = wx - vn * nx, ty = wy - vn * ny, tz = wz - vn * nz; const tn = Math.hypot(tx, ty, tz);
     if (!this.started || tn < 0.3) { tx = l0x; ty = l0y; tz = l0z; } else { tx /= tn; ty /= tn; tz /= tn; }
     // the heading in the face plane (for the turn rate and the sag samples): angle from down-the-line toward up-the-face
-    const yawT = Math.atan2(tx * a0x + ty * a0y + tz * a0z, tx * l0x + ty * l0y + tz * l0z);
+    const yawT = Math.atan2(tx * a0x + ty * a0y + tz * a0z, tx * l0x + ty * l0y + tz * l0z) + ps.pivot * Math.PI / 180;   // R8: plus the knot's pivot (a snap's board slides its tail up the face past the path)
     if (!this.started) this.yawS.set(yawT);
     const yaw = this.yawS.step(this.yawS.x + wrapPi(yawT - this.yawS.x), dt, BOARD.yawW), yawRate = this.yawS.v;
     // the face's concavity under the board: the ends along the heading and the rails across it, sampled ON the face. The face is a hollow
@@ -181,7 +192,7 @@ export class RiderSim {
     // a rigid board rides a concave section on its rails and ends: beyond what the rocker and the rail's own sink absorb, the centre lifts
     // off the face by the rest (a deliberate bridge, reported to the monitor as an allowance; a convex bump is ridden on the centre, the
     // ends in the air, as a real board does) and the line is lowered next step toward a flatter part of the face
-    this.endSagExcess = Math.max(0, endSag - BOARD.rockerM); const bridge = Math.min(BOARD.bridgeMaxM, Math.max(this.endSagExcess, Math.max(sag, this.started ? this.railMid + this.cur[S.BRIDGE] : 0) - BOARD.railSinkM, this.started ? this.endMeas + this.cur[S.BRIDGE] - BOARD.rockerM : 0));
+    this.endSagExcess = Math.max(0, endSag - BOARD.rockerM); const bridge = Math.min(BOARD.bridgeMaxM + Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg) * RIDE.pivotBridgeM, Math.max(this.endSagExcess, Math.max(sag, this.started ? this.railMid + this.cur[S.BRIDGE] : 0) - BOARD.railSinkM, this.started ? this.endMeas + this.cur[S.BRIDGE] - BOARD.rockerM : 0));
     // the rail may bank into the turn until it is railDepthM deep: the concavity it already sits in (less the lift) plus rb sin(roll). The
     // depth is the one MEASURED at the rails of the placed board last step (the same faceDistanceAt the monitor reads): the chord model
     // under-read a yawed board's rail by up to a quarter, so the model only seeds the first step
@@ -213,12 +224,15 @@ export class RiderSim {
     if (!this.started) this.compS.set(compT); const comp = this.compS.step(compT, dt, BODY.springW.comp);
     planAt(this.plan, this.tau + BODY.leadAheadS, this.ps);
     const sAlongA = Math.max(0.3, this.flowX - this.ps.du * H), sUpA = this.ps.dv * Hf / Math.sin(Math.max(0.2, slope)), yawA = Math.atan2(sUpA, sAlongA);
-    const leadT = clamp(wrapPi(yawA - yaw), -BODY.leadMaxDeg * Math.PI / 180, BODY.leadMaxDeg * Math.PI / 180);
+    const leadT = clamp(wrapPi(yawA - (yaw - ps.pivot * Math.PI / 180)), -BODY.leadMaxDeg * Math.PI / 180, BODY.leadMaxDeg * Math.PI / 180);   // R8: the lead is against the PATH's heading, not the pivoted board's: the head and shoulders turn with the board through the snap (one piece), and the lead's clamp no longer corners when the pivot winds (13k neck jerk)
     if (!this.started) this.leadS.set(leadT); const lead = this.leadS.step(leadT, dt, BODY.springW.head);
+    // R8: out of the snap the arms' target switches to the next pose a little before the body's (the hands peak at the hit, then drop)
+    if (pose0 === 'top') this.snapArmDrop = ps.move === 'top';
+    let poseArm = pose0; if (pose0 === 'top' && this.snapArmDrop && this.frontside) { planAt(this.plan, this.tau + BODY.snapArmDropLeadS, this.psArm); if (this.psArm.pose !== 'top') poseArm = this.psArm.pose; }
     for (let i = 0; i < POSES.length; i++) {
-      const target = POSES[i] === pose0 ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000) / BODY.fadeScale;
-      if (!this.started) { this.wS[i].set(target); this.waS[i].set(target); }
-      c[S.W0 + i] = this.wS[i].step(target, dt, w); c[S.WA0 + i] = this.waS[i].step(target, dt, w * BODY.armFadeScale);
+      const target = POSES[i] === pose0 ? 1 : 0, targetArm = POSES[i] === poseArm ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000) / BODY.fadeScale;
+      if (!this.started) { this.wS[i].set(target); this.waS[i].set(targetArm); }
+      c[S.W0 + i] = this.wS[i].step(target, dt, w); c[S.WA0 + i] = this.waS[i].step(targetArm, dt, w * (POSES[i] === 'top' && targetArm === 0 && this.frontside && this.snapArmDrop ? BODY.snapArmDropFade : BODY.armFadeScale));
     }
     const ph = this.idlePhase, hz1 = BODY.idleHz;
     c[S.IDLE_A] = Math.sin(2 * Math.PI * hz1[0] * t + ph[0]); c[S.IDLE_B] = Math.sin(2 * Math.PI * hz1[1] * t + ph[1]); c[S.VIS] = visibilityAt(this.plan, this.tau);
