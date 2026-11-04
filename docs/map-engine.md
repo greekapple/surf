@@ -1,0 +1,20 @@
+# Map engines: Leaflet (default) and MapLibre (behind a flag)
+
+ExploreView talks to one seam, `MapEngine` (`src/map/engine/types.ts`), never to Leaflet or MapLibre directly. `createEngine(engineKind(), el, opts)` (`src/map/engine/index.ts`) returns the Leaflet adapter (today's map, unchanged) or the MapLibre engine (dynamic import, so its ~280 KB gzipped is only fetched when it runs). Flag: `?engine=maplibre`, else `VITE_MAP_ENGINE=maplibre`, else `leaflet`.
+
+- **Zoom numbers** at the seam are Leaflet-equivalent on both engines (MapLibre's 512 px world = Leaflet zoom − 1), so URL state, `mapConfig.view`, the `far` (9) and `world` (5) classes and `minZoomFor` mean the same thing.
+- **Clicks**: `on('click')` is a clean tap only: never after a drag or pan, never from a marker or from any element inside the container marked `data-map-overlay`.
+- **Markers** are the product's own DOM elements (`addMarker`): the element is the marker (no wrapper). Popups, the picker and spot pins are positioned with `project()` and the `move` events.
+- **QA hook** (dev builds): `window.__xmap` is the native map (Leaflet `L.Map`, or a MapLibre map wrapped so its zoom numbers are Leaflet-equivalent), which `map-verify.mjs` drives on both engines. Dev harness: `/engine-harness.html?engine=…&field=WAVES|SWELL|WIND|PERIOD[&arrows=1]`.
+
+## MapLibre engine (`src/map/engine/`)
+- `style.ts`: OpenFreeMap "positron" vector style (free, no key, attribution required: OpenFreeMap, OpenMapTiles, OpenStreetMap), recoloured to Swello's greys for light and dark, with the sea-state field on (mid-grey land so the ramp reads true) or off (pale land). Layer order, the same in both themes: `background` (= land colour) → `water` (OCEAN polygons only, in the sea colour) → **`swello-field-slot`** → `water_inland` (lakes, rivers) → landcover, landuse, roads, boundaries → labels.
+- `glField.ts` / `glCommon.ts`: the sea-state field is one WebGL custom layer added before the slot. Its fragment shader copies the pixels drawn so far, computes per pixel how much is sea (land colour vs sea colour: exact, anti-aliased coast), and repaints exactly those pixels (`framebuffer − w·sea + w·colour`), so the field sits under every road, boundary and label with no raster land mask and no second coastline. Model-less cells and enclosed waters keep the sea colour (honest: no data there). The shader is a GLSL port of `fieldData.sampleAll` (bilinear, any empty corner = empty, the regional nest feathered into the global grid) and reads the same 512-step ramp LUT as the Leaflet painter, so the colour under the pin is the colour of the value the pin label reads (`t132-colour-eq.mjs`). Held-frame crossfade is done in the shader (old frame mixes into the new over `mapConfig.crossfadeMs`); `onFrame('ready')` fires after the first render of a new frame.
+- `glParticles.ts`: GPU particles. State in two RGBA32F textures (ping-pong), advected in a shader that samples the same grids; born only where the model has a real value (never on land, never in the coastal fill); trails drawn into an offscreen buffer faded per frame and composited through the same sea mask; swell/waves unit speed, wind speed-scaled and shorter-lived; density by screen area and zoom; none under reduced motion or without `EXT_color_buffer_float`.
+- Static direction arrows (`opts.arrows`) are drawn in the same layer.
+
+## What stays the same
+Data honesty is unchanged: the colour is the open-ocean model value (WW3 0.5° or GFS-Wave 0.25° when the pipeline frames are configured), the coastal fill is still capped at 2 cells and never read, enclosed waters are blank, `sampleField` (the pin label) is the one reader. `isLandPoint` still guards the pin label (same coastline data as before); the MapLibre picture no longer uses it.
+
+## Measured (harness, real frames, one load per profile)
+Desktop 1440: 60 fps idle/zoom/pan, 0 long tasks. Phone 390 @ DPR 3, 4× CPU throttle: 60 fps, 0 long tasks. No blank sea during a layer switch. See `docs/map-maplibre-spike.md` for the earlier spike numbers and the bundle cost (+243 KB gzipped, lazy).

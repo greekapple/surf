@@ -400,7 +400,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 @media (max-width: 860px) { .xlm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .xlm-grid button { min-height: 52px; } }
 /* T-099: on phones the map credits line drew over an open Model point / spot card (popups sit below Leaflet's controls layer). It hides only
    while a card is open, and is back as soon as the card closes. */
-@media (max-width: 860px) { .xleaf:has(.leaflet-popup) .leaflet-control-attribution { visibility: hidden; } }
+@media (max-width: 860px) { .xleaf:has(.leaflet-popup, .xpopup.on) :is(.leaflet-control-attribution, .xcredit) { visibility: hidden; } }
 
 /* ---------- T-109 Compare: a header row at desktop, the whole row is the link, compact two-line rows and one scrolling chip row on phones ---------- */
 .cmpx-list li { display: block; padding: 0; }
@@ -687,3 +687,26 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xpick:active { cursor: grabbing; }
 .xpick i { width: 18px; height: 18px; border-radius: 50%; border: 3px solid #fff; background: rgb(44 46 50 / 0.86); box-shadow: 0 1px 4px rgb(0 0 0 / 0.5); }
 .xpick:focus-visible { outline: none; } .xpick:focus-visible i { box-shadow: 0 0 0 3px #d79b1a, 0 1px 4px rgb(0 0 0 / 0.5); }
+
+/* ---------- map-maplibre (product): our own engine-neutral popup shells (anchored with project(); the old Leaflet popup look) ---------- */
+.xpopup { position: absolute; left: 0; top: 0; z-index: 700; will-change: transform; pointer-events: auto; }
+.xpopup .xp-in { padding: 0; border-radius: 14px; background: var(--bg); color: var(--text); box-shadow: var(--xc-sh); }
+.xpopup .xp-tip { width: 14px; height: 14px; margin: -7px auto 0; rotate: 45deg; background: var(--bg); }
+.xspotpop .xp-in { width: 264px; }
+.xpl-pop .xp-in { min-width: 170px; max-width: 280px; border-radius: 6px; background: var(--xw); color: var(--xw-ink); box-shadow: 0 2px 8px rgb(0 0 0 / 0.35); }
+.xpl-pop .xp-tip { width: 10px; height: 10px; margin-top: -5px; background: var(--xw); }
+
+/* map-maplibre: the basemap credit on the MapLibre engine (it draws none); placed and styled like Leaflet's attribution. */
+.xcredit { position: absolute; z-index: 1001; left: 12px; bottom: 88px; max-width: calc(100% - 24px); margin: 0; padding: 1px 6px; border-radius: 4px; font-size: 10px; line-height: 16px;
+  background: rgb(255 255 255 / 0.88); color: #3a3a3c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+:root[data-theme='dark'] .xcredit { background: rgb(28 28 30 / 0.85); color: #e5e5e7; }
+@media (max-width: 860px) { .xcredit { left: 12px; bottom: calc(var(--peek, 0px) + 128px); font-size: 11px; line-height: 18px; cursor: pointer; } .xcredit.open { white-space: normal; } }
+/* map-maplibre: MapLibre's own stylesheet sets .maplibregl-map { position: relative }, which collapsed our full-bleed map box to 0 px tall (the canvas fell back
+   to its 300 px default and the map took no clicks). The map box fills the page on both engines. */
+.xleaf.maplibregl-map { position: absolute; inset: 0; }
+/* map-maplibre: the page shows the basemap credit itself (.xcredit), so MapLibre's own credit button and logo stay hidden (no duplicate under the strip). */
+.xleaf .maplibregl-ctrl-attrib, .xleaf .maplibregl-ctrl-logo { display: none !important; }
+/* map-maplibre chrome: the dark vector land (#26292d) is almost the pills' own colour, so in dark the layer names, round buttons and zoom lost
+   their edge and map labels ran into them. A hairline ring and a more opaque fill keep them distinct over any basemap, field on or off. */
+:root[data-theme='dark'] .xmap { --xw: rgb(52 54 60 / 0.95); --xw-2: rgb(78 80 86 / 0.96); }
+:root[data-theme='dark'] .xmap :is(.xl-t, .xround, .xzoom, .xl-th-more) { box-shadow: 0 0 0 1px rgb(255 255 255 / 0.16), 0 1px 4px rgb(0 0 0 / 0.45); }

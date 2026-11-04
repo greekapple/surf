@@ -12,3 +12,6 @@ export function isEnclosedWater(lat: number, lon: number): boolean {
   return i >= 0 && j >= 0 && i < d.w && j < d.h && grid[j * d.w + i] === 1;
 }
 export const enclosedCellCount = () => grid.reduce((a, b) => a + b, 0);
+
+/** The enclosed-water grid for the GL field shader (1 = enclosed), same data and cell rule as `isEnclosedWater`. */
+export const enclosedGrid = () => ({lon0: d.lon0, lat0: d.lat0, step: d.step, w: d.w, h: d.h, grid});

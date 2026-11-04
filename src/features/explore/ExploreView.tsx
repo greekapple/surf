@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {ENCLOSED_NOTE} from '../../map/enclosed';
 import {createPortal} from 'react-dom';
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
@@ -15,11 +14,10 @@ import {conditionWord} from '../../ui/Condition';
 import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
-import {createFieldController, buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
+import {buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {schedulePrefetch} from '../../map/spatial';
 import {attachDebugOverlay, debugEnabled, type DebugInfo} from '../../map/debugOverlay';
-import {addBasemap} from '../../map/basemap';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
 import {usePointForecast, type Pt} from './PointCard';
@@ -27,6 +25,8 @@ import {ForecastPanel, PinLabel, pointLine} from './PointPanel';
 import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
 import {parseMapUrl, writeMapUrl} from './mapUrl';
+import {createEngine, engineKind, type MapEngine, type MarkerHandle} from '../../map/engine';
+import {currentTheme} from '../../map/basemap';
 import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
 import {headlineSurf} from '../../services/headlineSurf';
@@ -61,6 +61,35 @@ const themeNow = () => (document.documentElement.dataset.theme === 'dark' ? 'dar
 const POPULAR_SPOTS = ['spot-2', 'spot-0', 'spot-3'];
 const labelBudget = (zoom: number, phone: boolean) => (zoom < 9 ? (phone ? 1 : 2) : zoom < 11 ? (phone ? 2 : 3) : (phone ? 3 : 5));
 
+/** An engine-neutral popup shell: an outer box (positioned by useAnchored, marked data-map-overlay so the engine's map click ignores it) with the
+ *  content element (the portal target) and a tip. Same look as the old Leaflet popups (CSS: .xpopup .xp-in / .xp-tip). */
+function overlayBox(cls: string): HTMLElement {
+  const box = document.createElement('div'); box.className = cls; box.dataset.mapOverlay = ''; box.style.display = 'none';
+  const inner = document.createElement('div'); inner.className = 'xp-in'; const tip = document.createElement('div'); tip.className = 'xp-tip';
+  box.append(inner, tip); return box;
+}
+/** Keeps an overlay box anchored (bottom-centre, `dy` px above) at a point on any engine, re-placed on every map move; on open it pans the map
+ *  just enough to bring the box inside `pad` (as Leaflet's popup auto-pan did). */
+function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; lon: number} | null, dy: number, pad: {top: number; left: number; right: number; bottom: number}, autoPan: boolean) {
+  useEffect(() => {
+    if (!eng || !at) { box.style.display = 'none'; box.classList.remove('on'); return; }
+    if (box.parentElement !== eng.container) eng.container.appendChild(box);
+    box.style.display = ''; box.classList.add('on');
+    const place = () => { const q = eng.project(at.lat, at.lon); box.style.transform = `translate(${Math.round(q.x)}px, ${Math.round(q.y + dy)}px) translate(-50%, -100%)`; };
+    place();
+    const offs = (['move', 'moveend', 'zoomend', 'resize'] as const).map((e) => eng.on(e, place));
+    let raf = 0;
+    if (autoPan) raf = requestAnimationFrame(() => {
+      const r = box.getBoundingClientRect(), c = eng.container.getBoundingClientRect(); let dx = 0, dyy = 0;
+      if (r.left < c.left + pad.left) dx = r.left - c.left - pad.left; else if (r.right > c.right - pad.right) dx = r.right - c.right + pad.right;
+      if (r.top < c.top + pad.top) dyy = r.top - c.top - pad.top; else if (r.bottom > c.bottom - pad.bottom) dyy = r.bottom - c.bottom + pad.bottom;
+      if (dx || dyy) eng.panBy(Math.round(dx), Math.round(dyy), {animate: !reduced()});
+    });
+    return () => { cancelAnimationFrame(raf); offs.forEach((f) => f()); };
+  }, [eng, box, at?.lat, at?.lon, dy, autoPan]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => { box.remove(); }, [box]);
+}
+
 export function ExploreView({section, go}: ViewProps) {
   if (section === 'discover') return <FindSpots go={go} />;
   if (section === 'compare') return <CompareSpots go={go} />;
@@ -77,8 +106,11 @@ function OceanMap({section, go}: ViewProps) {
   const [hover, setHover] = useState<string | null>(null);
   const hoverRef = useRef<string | null>(null);
   hoverRef.current = hover;
-  const markers = useRef(new Map<string, L.Marker>());
+  const markers = useRef(new Map<string, MarkerHandle>());
   const rank = useRef(new Map<string, number>());
+  // map-maplibre: each pin's dot and label box relative to its anchor point, measured once per rebuild; the declutter then places them from
+  // project() alone, so a pan or zoom reads no element layout (it used to force a layout of all 45 pins on every move: the phone's long tasks).
+  const geom = useRef(new Map<string, {d: [number, number, number, number]; l: [number, number, number, number] | null}>());
   const step = 3; // T-117: play steps 3 h, as Windy
   const [opts, setOpts] = useState({heat: true, flow: true, arrows: false});
   const [phone, setPhone] = useState(isPhone);
@@ -93,19 +125,18 @@ function OceanMap({section, go}: ViewProps) {
   const [zoom, setZoom] = useState(9);
   const def = FIELDS.find((f) => f.id === fieldId)!;
   const mapEl = useRef<HTMLDivElement>(null);
-  const map = useRef<L.Map | null>(null);
-  const pins = useRef<L.LayerGroup | null>(null);
+  // map-maplibre: ExploreView talks only to the MapEngine seam (Leaflet or MapLibre behind ?engine=), never to a map library directly.
+  const map = useRef<MapEngine | null>(null);
+  const [eng, setEng] = useState<MapEngine | null>(null);
   // Tap-the-sea point forecast: one popup, one temporary pin.
   const [pt, setPt] = useState<Pt | null>(null);
   const [livePt, setLivePt] = useState<Pt | null>(null); // Stage 6: the picker's position while it is being dragged or nudged (the value follows it live)
   const closedAt = useRef(0); // T-099: a touch tap on the card's close button also reached the map and opened a new point where the finger was
   const [panel, setPanel] = useState(false); // T-117: the point's hourly panel (expand from the pin label)
   const [sheetOn, setSheetOn] = useState(false); // T-117: phones show the spot sheet only once a spot is picked or the search is used (Windy)
-  const popup = useRef<L.Popup | null>(null);
-  const popupEl = useMemo(() => document.createElement('div'), []);
-  // Spot callout at the pin (wide screens).
-  const spotPop = useRef<L.Popup | null>(null);
-  const spotPopEl = useMemo(() => document.createElement('div'), []);
+  // The point label and the spot callout are our own DOM, anchored at their point (engine-neutral; data-map-overlay keeps map clicks off them).
+  const popupBox = useMemo(() => overlayBox('xpopup xpl-pop'), []), popupEl = popupBox.firstElementChild as HTMLElement;
+  const spotPopBox = useMemo(() => overlayBox('xpopup xspotpop'), []), spotPopEl = spotPopBox.firstElementChild as HTMLElement;
   const sheetRef = useRef<HTMLElement>(null);
   const point = usePointForecast(pt);
   const [slow, setSlow] = useState(false);
@@ -149,29 +180,28 @@ function OceanMap({section, go}: ViewProps) {
   const recAt = (id: string) => view.mapRecords.find((r) => r.spotId === id && r.timestamp === view.selectedTime);
 
   useEffect(() => {
-    if (!mapEl.current || map.current) return;
-    const small = matchMedia('(max-width: 860px)').matches;
-    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: minZoomFor(mapEl.current.clientWidth || window.innerWidth), maxZoom: mapConfig.view.maxZoom, zoomSnap: mapConfig.view.zoomSnap, worldCopyJump: true, maxBounds: [[-mapConfig.view.maxLat, -540], [mapConfig.view.maxLat, 540]], maxBoundsViscosity: mapConfig.view.maxBoundsViscosity}).setView(urlInit.lat !== null && urlInit.lon !== null ? [urlInit.lat, urlInit.lon] : small ? [37.5, -122.5] : [37.5, -122.45], urlInit.z ?? (small ? 8 : 9)); // Stage 1: the URL's view; the poles are a hard edge (viscosity 1: no dark band past them)
-    const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
-    m.on('zoomend', lod); lod();
-    m.on('resize', () => m.setMinZoom(minZoomFor(m.getSize().x))); // the world always fills the width (Stage 1 pole clamp)
-    m.on('moveend', () => { const c = m.getCenter(); writeMapUrl({lat: c.lat, lon: c.lng, z: m.getZoom()}); }); // Stage 1 (product): the URL follows every settled move
-    m.on('zoomend moveend resize', () => declutterRef.current()); // panels stay put while the map pans
-    L.control.attribution({position: 'bottomleft', prefix: false}).addTo(m);
-    // Light or dark Esri Canvas basemap by theme (satellite on request), with maxNativeZoom so tiles upscale: src/map/basemap.ts (T-042).
-    const disposeBase = addBasemap(m);
-    pins.current = L.layerGroup().addTo(m);
-    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup xpl-pop', minWidth: 170, maxWidth: 280, offset: [0, -16], autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
-    popup.current.setContent(popupEl);
-    m.on('click', (e: L.LeafletMouseEvent) => { if (Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: e.latlng.lat, lon: (((e.latlng.lng + 180) % 360) + 360) % 360 - 180}); } }); // T-117: the exact point (the label samples the field there)
-    map.current = m; if (import.meta.env.DEV) (window as unknown as {__swelloMap?: L.Map}).__swelloMap = m; // test hook for the zoom script (dev only)
-    if (import.meta.env.DEV) Object.assign(window, {__xmap: m}); // browser QA scripts drive zoom through this; stripped from builds
-    return () => { disposeBase(); m.remove(); map.current = null; };
-  }, []);
+    if (!mapEl.current) return;
+    const small = matchMedia('(max-width: 860px)').matches, el = mapEl.current; let alive = true, made: MapEngine | null = null;
+    const init = {view: {lat: urlInit.lat ?? 37.5, lon: urlInit.lon ?? (small ? -122.5 : -122.45), zoom: urlInit.z ?? (small ? 8 : 9)}, // Stage 1: the URL's view
+      minZoom: minZoomFor(el.clientWidth || window.innerWidth), maxZoom: mapConfig.view.maxZoom, theme: currentTheme()};
+    // If the requested engine cannot start (no WebGL, or its code failed to load), fall back to the Leaflet engine: the map never stays empty.
+    const kind = engineKind();
+    void createEngine(kind, el, init).catch((err) => { if (kind === 'leaflet') throw err; console.warn('Map engine', kind, 'unavailable, using Leaflet:', err); el.replaceChildren(); return createEngine('leaflet', el, init); }).then((x) => {
+      if (!alive) { x.dispose(); return; }
+      made = x; map.current = x; fieldCtl.current = x.field;
+      const z = () => setZoom(x.getView().zoom); x.on('zoomend', z); z();
+      x.on('moveend', () => { const v = x.getView(); writeMapUrl({lat: v.lat, lon: v.lon, z: v.zoom}); }); // Stage 1 (product): the URL follows every settled move
+      for (const e of ['zoomend', 'moveend', 'resize'] as const) x.on(e, () => declutterRef.current()); // panels stay put while the map pans
+      // T-117: a clean tap on the sea opens the point there (the engine never reports clicks on markers, overlays, or after a drag); it also closes the spot callout.
+      x.on('click', (c) => { setCallout(null); if (c && Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: c.lat, lon: c.lon}); } });
+      setEng(x);
+    });
+    return () => { alive = false; made?.dispose(); map.current = null; fieldCtl.current = null; };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // T-056: on phones the tile attribution is one line; tapping it shows the full credit (links work once it is open).
   useEffect(() => {
-    const el = rootRef.current?.querySelector<HTMLElement>('.leaflet-control-attribution'); if (!el) return;
+    const el = rootRef.current?.querySelector<HTMLElement>('.leaflet-control-attribution, .xcredit'); if (!el) return;
     el.tabIndex = 0; el.setAttribute('aria-label', 'Map credits. Press to show in full'); el.setAttribute('aria-expanded', 'false');
     const open = (e: Event) => {
       if (!matchMedia('(max-width: 860px)').matches || el.classList.contains('open')) return;
@@ -180,28 +210,19 @@ function OceanMap({section, go}: ViewProps) {
     const key = (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') open(e); };
     el.addEventListener('click', open, true); el.addEventListener('keydown', key);
     return () => { el.removeEventListener('click', open, true); el.removeEventListener('keydown', key); };
-  }, []);
+  }, [eng]);
 
-  // T-043: the spot callout popup (wide screens) and closing it with a tap on the sea.
-  useEffect(() => {
-    const m = map.current;
-    if (!m) return;
-    spotPop.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup xspotpop', minWidth: 264, maxWidth: 264, offset: [0, -8], autoPanPaddingTopLeft: [380, 80], autoPanPaddingBottomRight: [80, 90]}).setContent(spotPopEl);
-    const off = () => setCallout(null);
-    m.on('click', off);
-    return () => { m.off('click', off); };
-  }, [spotPopEl]);
 
   // Map-seamless Stage 1: ONE field controller per map. A layer or hour change draws the new field off-screen and crossfades it over the old one (the old stays until the new is drawn); a frame still loading keeps what is on screen.
   const fieldCtl = useRef<FieldController | null>(null);
   const [paintedFrame, setPainted] = useState<{layer: FieldLayer; validAt: string} | null>(null); const painted = paintedFrame?.layer ?? null; // the layer actually on the canvas (onFrame 'ready'): while a new layer loads the held picture is the previous one, and the legend must say so
-  useEffect(() => { const m = map.current; if (!m) return; fieldCtl.current = createFieldController(m); return () => { fieldCtl.current?.dispose(); fieldCtl.current = null; }; }, []);
+  // (the field controller is the engine's: set when the engine is ready, disposed with it)
   useEffect(() => {
     const fields = [field, gfield].filter((f): f is NonNullable<typeof f> => !!f), ctl = fieldCtl.current;
     if (!ctl) return;
     if (!opts.heat && !opts.flow && !opts.arrows) { ctl.clear(); return; }
     if (fields.length) ctl.update(fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced(), onFrame: (st) => { if (st.state === 'ready') setPainted({layer: st.key.split('|')[0] as FieldLayer, validAt: st.validAt}); }});
-  }, [field, gfield, opts.heat, opts.flow, opts.arrows]);
+  }, [field, gfield, opts.heat, opts.flow, opts.arrows, eng]);
   // Idle prefetch of the neighbouring hours and the next layer once the visible frames have settled (Stage 1).
   useEffect(() => {
     if (!live || spatial.loading || globe.loading || !view.selectedTime) return;
@@ -210,9 +231,9 @@ function OceanMap({section, go}: ViewProps) {
 
   // Spot markers: a rating-coloured dot in a white ring; a name label (with the rating word, no unlabelled number) where room allows.
   useEffect(() => {
-    const g = pins.current;
-    if (!g) return;
-    g.clearLayers();
+    const x = map.current;
+    if (!x) return;
+    markers.current.forEach((mk) => mk.remove());
     markers.current.clear();
     rank.current.clear();
     for (const e of evidenceSpots) {
@@ -226,33 +247,46 @@ function OceanMap({section, go}: ViewProps) {
       const word = rating && rating.score !== null && !isDark(e.id, view.selectedTime ?? '') ? conditionWord(rating.category) : '';
       const sub = [hText, word].filter(Boolean).join(' · ');
       const label = `<span class="xlabel"><b>${e.name}</b>${sub ? `<small>${sub}</small>` : ''}</span>`;
-      const icon = L.divIcon({className: `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`, html: `<i style="--c:${color}"></i>${label}`, iconSize: [22, 22], iconAnchor: [11, 11]});
-      const mk = L.marker([e.latitude, e.longitude], {icon, keyboard: true, title: e.name, alt: e.name, riseOnHover: true})
-        .on('click', () => pickRef.current(e.id))
-        .on('mouseover', () => { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); })
-        .on('mouseout', () => setHover(null)).addTo(g);
+      const el = document.createElement('div');
+      el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`; el.innerHTML = `<i style="--c:${color}"></i>${label}`;
+      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: e.name, keyboard: true, riseOnHover: true,
+        onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
       markers.current.set(e.id, mk);
     }
+    geom.current.clear();
+    const box0 = x.container.getBoundingClientRect();
+    for (const e of evidenceSpots) {
+      const el = markers.current.get(e.id)?.element; if (!el) continue;
+      const q = x.project(e.latitude, e.longitude), cx = box0.left + q.x, cy = box0.top + q.y;
+      const d = el.querySelector('i')!.getBoundingClientRect(), l = el.querySelector('.xlabel')?.getBoundingClientRect();
+      geom.current.set(e.id, {d: [d.left - cx, d.top - cy, d.width, d.height], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] : null});
+    }
     declutterRef.current();
-  }, [view.mapRecords, view.selectedTime, spot.id, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [eng, view.mapRecords, view.selectedTime, spot.id, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Sparse labels that never collide: the selected spot first, then the best-rated; a zoom-dependent budget; the rest are dots.
    *  Each label tries right of its pin, then left, else stays a dot until zoomed in. Labels keep clear of the floating controls. */
   const declutter = () => {
     const m = map.current;
-    const els = evidenceSpots.map((e) => ({id: e.id, el: markers.current.get(e.id)?.getElement()})).filter((x): x is {id: string; el: HTMLElement} => !!x.el);
+    if (!m) return;
+    // Reads first (the map box and the few floating controls), then class writes, then pure geometry from project(): no forced layout per pin.
+    const edge = m.container.getBoundingClientRect();
+    const ctl = Array.from(m.container.parentElement?.querySelectorAll<HTMLElement>('.xsearchbox, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? []).map((el) => el.getBoundingClientRect()).filter((r) => r.width);
+    const els = evidenceSpots.map((e) => ({id: e.id, el: markers.current.get(e.id)?.element})).filter((x): x is {id: string; el: HTMLElement} => !!x.el);
     els.sort((a, b) => Number(b.el.classList.contains('sel')) - Number(a.el.classList.contains('sel')) || (rank.current.get(b.id) ?? -1) - (rank.current.get(a.id) ?? -1));
     els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot', 'xthin'));
     // Stage 6: thin at low zoom: below z6 only the selected spot, favourites, popular spots and the 5 best-rated keep a pin (the rest return on zoom-in).
-    if ((m?.getZoom() ?? 9) < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
-    const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el}) => ({el, dot: el.querySelector('i')!.getBoundingClientRect(), lab: el.querySelector('.xlabel')?.getBoundingClientRect()}));
-    const taken: DOMRect[] = boxes.filter((x) => x.dot.width).map((x) => x.dot);
-    m?.getContainer().parentElement?.querySelectorAll('.xsearchbox, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xspotpop')
-      .forEach((el) => { const r = el.getBoundingClientRect(); if (r.width) taken.push(r); });
-    const edge = m?.getContainer().getBoundingClientRect();
+    if (m.getView().zoom < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
+    const at = new Map(evidenceSpots.map((e) => [e.id, e] as const));
+    const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el, id}) => {
+      const e = at.get(id)!, q = m.project(e.latitude, e.longitude), cx = edge.left + q.x, cy = edge.top + q.y, g = geom.current.get(id);
+      const dot = g ? new DOMRect(cx + g.d[0], cy + g.d[1], g.d[2], g.d[3]) : new DOMRect(cx - 11, cy - 11, 22, 22);
+      return {el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined};
+    });
+    const taken: DOMRect[] = [...boxes.filter((x) => x.dot.width).map((x) => x.dot), ...ctl];
     const inView = (r: DOMRect) => !edge || (r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom);
     const free = (r: DOMRect, own: DOMRect) => (!edge || (r.left >= edge.left + 4 && r.right <= edge.right - 4 && r.top >= edge.top && r.bottom <= edge.bottom)) && !taken.some((t) => t !== own && r.left < t.right + 2 && t.left < r.right + 2 && r.top < t.bottom + 2 && t.top < r.bottom + 2);
-    let budget = labelBudget(m?.getZoom() ?? 9, isPhone());
+    let budget = labelBudget(m.getView().zoom, isPhone());
     for (const {el, dot, lab} of boxes) {
       if (!lab?.width) continue;
       const isSel = el.classList.contains('sel');
@@ -268,12 +302,12 @@ function OceanMap({section, go}: ViewProps) {
     if (!phone) return;
     const t = window.setTimeout(() => {
       const m = map.current, e = evidenceSpots.find((x) => x.id === spot.id), root = rootRef.current; if (!m || !e || !root) return;
-      const box = m.getContainer().getBoundingClientRect(), floor = root.querySelector('.leaflet-control-attribution')?.getBoundingClientRect().top ?? box.bottom;
-      const at = m.latLngToContainerPoint([e.latitude, e.longitude]), want = {x: box.width * 0.4, y: (floor - box.top) * 0.55};
-      m.panBy([at.x - want.x, at.y - want.y], {animate: false});
+      const box = m.container.getBoundingClientRect(), floor = root.querySelector('.leaflet-control-attribution, .xcredit')?.getBoundingClientRect().top ?? box.bottom;
+      const at = m.project(e.latitude, e.longitude), want = {x: box.width * 0.4, y: (floor - box.top) * 0.55};
+      m.panBy(at.x - want.x, at.y - want.y, {animate: false});
     }, 400);
     return () => window.clearTimeout(t);
-  }, [phone]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [phone, eng]); // eslint-disable-line react-hooks/exhaustive-deps
   const declutterRef = useRef(declutter);
   declutterRef.current = declutter;
   // Sheets and popovers open and slide; re-place labels once they settle.
@@ -281,54 +315,40 @@ function OceanMap({section, go}: ViewProps) {
 
   // Hover link between list rows and map markers: toggle a class on the marker element, no rebuild.
   useEffect(() => {
-    markers.current.forEach((mk, id) => { mk.getElement()?.classList.toggle('hl', id === hover); mk.setZIndexOffset(id === hover ? 1000 : 0); });
+    markers.current.forEach((mk, id) => { mk.element.classList.toggle('hl', id === hover); }); // .hl lifts it (CSS z-index on the label)
   }, [hover]);
 
-  useEffect(() => {
-    const m = map.current, pop = popup.current;
-    if (!m || !pop) return;
-    pop.options.autoPanPaddingTopLeft = phone ? L.point(16, 16) : L.point(open ? 380 : 16, 80);
-    pop.options.autoPanPaddingBottomRight = L.point(phone ? 64 : 76, phone ? sheetPx() + 70 : 90);
-    if (pt) { setCallout(null); pop.setLatLng([pt.lat, pt.lon]).openOn(m); } else m.closePopup(pop);
-  }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // The point label sits on the picker (it follows the picker while it is dragged); the spot callout sits on its pin (wide screens only).
+  useEffect(() => { if (pt) setCallout(null); }, [pt]);
   // Stage 6 (Windy's picker): a draggable handle at the point. Dragging moves the label and its value live (sampled from the painted field, no
   // network); the hourly point forecast is fetched once, on release. Arrow keys nudge it 0.1° and commit 0.7 s after the last press.
-  const pickMk = useRef<L.Marker | null>(null), pickFocus = useRef(false);
+  // The handle is created once and moved after (never re-created), so keyboard focus stays on it across commits.
+  const pickMk = useRef<MarkerHandle | null>(null), pickEl = useMemo(() => { const d = document.createElement('div'); d.className = 'xpick'; d.innerHTML = '<i></i>'; d.dataset.mapOverlay = ''; return d; }, []);
   useEffect(() => {
-    const m = map.current, hadFocus = pickFocus.current; pickFocus.current = false; // keyboard users keep focus on the picker across a commit
-    pickMk.current?.remove(); pickMk.current = null; setLivePt(null);
-    if (!m || !pt) return;
-    const wrap = (lon: number) => ((((lon + 180) % 360) + 360) % 360) - 180;
-    const mk = L.marker([pt.lat, pt.lon], {draggable: true, keyboard: true, zIndexOffset: 1500, title: 'Point picker: drag it, or use the arrow keys, to read another point', alt: 'Point picker',
-      icon: L.divIcon({className: 'xpick', html: '<i></i>', iconSize: [44, 44], iconAnchor: [22, 22]})}).addTo(m);
-    const live = (ll: L.LatLng) => { popup.current?.setLatLng(ll); setLivePt({lat: ll.lat, lon: wrap(ll.lng)}); };
-    mk.on('dragstart', () => setPanel(false));
-    mk.on('drag', () => live(mk.getLatLng()));
-    mk.on('dragend', () => { const ll = mk.getLatLng(); closedAt.current = Date.now(); setPt({lat: ll.lat, lon: wrap(ll.lng)}); });
+    const x = map.current;
+    if (!x || !pt) { pickMk.current?.remove(); pickMk.current = null; setLivePt(null); return; }
+    setLivePt(null);
+    if (pickMk.current) { pickMk.current.setLatLon(pt.lat, pt.lon); return; }
+    pickMk.current = x.addMarker({lat: pt.lat, lon: pt.lon, element: pickEl, size: [44, 44], anchor: 'center', draggable: true, keyboard: true, zIndex: 1500,
+      title: 'Point picker: drag it, or use the arrow keys, to read another point',
+      onDrag: (lat, lon) => { setPanel(false); setLivePt({lat, lon}); },
+      onDragEnd: (lat, lon) => { closedAt.current = Date.now(); setPt({lat, lon}); }});
+  }, [pt, eng]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
     let t = 0;
     const key = (e: KeyboardEvent) => {
-      const d: Record<string, [number, number]> = {ArrowUp: [0.1, 0], ArrowDown: [-0.1, 0], ArrowLeft: [0, -0.1], ArrowRight: [0, 0.1]};
-      if (!d[e.key]) return; e.preventDefault(); e.stopPropagation();
-      const ll = mk.getLatLng(), n = L.latLng(ll.lat + d[e.key][0], ll.lng + d[e.key][1]); mk.setLatLng(n); live(n);
-      clearTimeout(t); t = window.setTimeout(() => setPt({lat: n.lat, lon: wrap(n.lng)}), 700);
+      const d: Record<string, [number, number]> = {ArrowUp: [0.1, 0], ArrowDown: [-0.1, 0], ArrowLeft: [0, -0.1], ArrowRight: [0, 0.1]}, mk = pickMk.current;
+      if (!d[e.key] || !mk) return; e.preventDefault(); e.stopPropagation();
+      const ll = mk.getLatLon(), n = {lat: ll.lat + d[e.key][0], lon: ((((ll.lon + d[e.key][1]) + 180) % 360 + 360) % 360) - 180};
+      mk.setLatLon(n.lat, n.lon); setLivePt(n);
+      clearTimeout(t); t = window.setTimeout(() => setPt(n), 700);
     };
-    mk.getElement()?.addEventListener('keydown', key);
-    if (hadFocus) mk.getElement()?.focus({preventScroll: true});
-    pickMk.current = mk;
-    return () => { clearTimeout(t); pickFocus.current = document.activeElement === mk.getElement(); mk.getElement()?.removeEventListener('keydown', key); mk.remove(); };
-  }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
-  // The card grows when data arrives; re-measure so the popup pans fully into view.
-  useEffect(() => { if (pt && (point.data || point.error)) popup.current?.update(); }, [point.data, point.error]); // eslint-disable-line react-hooks/exhaustive-deps
-  // The spot callout follows the selected spot; phones show it in the sheet instead.
-  useEffect(() => {
-    const m = map.current, pop = spotPop.current, e = evidenceSpots.find((x) => x.id === callout);
-    if (!m || !pop) return;
-    if (e && !phone) { pop.options.autoPanPaddingTopLeft = L.point(open ? 380 : 16, 80); pop.setLatLng([e.latitude, e.longitude]).openOn(m); } else m.closePopup(pop);
-  }, [callout, phone]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { if (callout && !phone) spotPop.current?.update(); }, [view.selectedTime, callout, phone]);
+    pickEl.addEventListener('keydown', key); return () => { clearTimeout(t); pickEl.removeEventListener('keydown', key); };
+  }, [pickEl]);
+  useEffect(() => () => { pickMk.current?.remove(); pickMk.current = null; }, [eng]);
   useEffect(() => {
     if (!callout) return;
-    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') { setCallout(null); markers.current.get(spot.id)?.getElement()?.focus(); } };
+    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') { setCallout(null); markers.current.get(spot.id)?.element.focus(); } };
     addEventListener('keydown', key); return () => removeEventListener('keydown', key);
   }, [callout, spot.id]);
 
@@ -351,6 +371,9 @@ function OceanMap({section, go}: ViewProps) {
 
   /** Height of the phone sheet in px (for keeping pins and popups above it). */
   const sheetPx = () => sheetRef.current?.getBoundingClientRect().height ?? 0;
+  const at0 = livePt ?? pt, callEv0 = !phone && callout ? evidenceSpots.find((x) => x.id === callout) : undefined;
+  useAnchored(eng, popupBox, at0 ? {lat: at0.lat, lon: at0.lon} : null, -16, phone ? {top: 16, left: 16, right: 64, bottom: sheetPx() + 70} : {top: 80, left: open ? 380 : 16, right: 76, bottom: 90}, !!pt && !livePt);
+  useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true);
   // The phone peek sizes itself to the spot card; the time bar, legend and attribution sit just above it.
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -364,10 +387,11 @@ function OceanMap({section, go}: ViewProps) {
   const flyToSpot = (id: string, sheetOpen = open) => {
     const m = map.current, e = evidenceSpots.find((x) => x.id === id);
     if (!m || !e) return;
-    const z = Math.max(10, m.getZoom());
+    const cur = m.getView().zoom, z = Math.max(10, cur);
     const shift: [number, number] = phone ? [0, Math.min(sheetPx(), 260) / 2] : [sheetOpen ? -184 : 0, -60];
-    const to = m.unproject(m.project([e.latitude, e.longitude], z).add(shift), z);
-    if (reduced()) m.setView(to, z, {animate: false}); else m.flyTo(to, z, {duration: 1.1});
+    // The shift is in pixels at the target zoom; at the current zoom it is 2^(cur - z) as many (engine-neutral, via project/unproject).
+    const k = 2 ** (cur - z), at = m.project(e.latitude, e.longitude), to = m.unproject(at.x + shift[0] * k, at.y + shift[1] * k);
+    if (reduced()) m.setView({lat: to.lat, lon: to.lon, zoom: z}, {animate: false}); else m.flyTo({lat: to.lat, lon: to.lon, zoom: z}, {durationMs: 1100});
   };
   const flyRef = useRef(flyToSpot);
   flyRef.current = flyToSpot;
@@ -397,8 +421,8 @@ function OceanMap({section, go}: ViewProps) {
   /** A region chip frames that stretch of coast (All: back to the selected spot's area) and filters the list. */
   const pickZone = (z: string) => {
     setZone(z); const m = map.current; if (!m) return;
-    const pts = evidenceSpots.filter((e) => z !== 'All' && zoneOf(e.region) === z).map((e) => [e.latitude, e.longitude] as [number, number]);
-    if (pts.length) m.fitBounds(L.latLngBounds(pts).pad(0.15), {animate: !reduced(), paddingTopLeft: [phone ? 16 : 24, phone ? 120 : 80], paddingBottomRight: [phone ? 64 : 200, phone ? 120 : 80]});
+    const pts = evidenceSpots.filter((e) => z !== 'All' && zoneOf(e.region) === z).map((e) => ({lat: e.latitude, lon: e.longitude}));
+    if (pts.length) m.fitPoints(pts, {padRatio: 0.15, animate: !reduced(), padding: {top: phone ? 120 : 80, left: phone ? 16 : 24, right: phone ? 64 : 200, bottom: phone ? 120 : 80}});
     else flyRef.current(spot.id);
   };
   // T-116: after dark nothing is rated, so the map says it once, quietly, instead of on every spot.
@@ -478,7 +502,7 @@ function OceanMap({section, go}: ViewProps) {
   const showResults = () => { if (phone) { setSheetOn(true); setDetent('half'); } else setOpen(true); };
   const locate = () => {
     if (!navigator.geolocation) { flyToSpot(spot.id); return; }
-    navigator.geolocation.getCurrentPosition((pos) => { const m = map.current; if (m) m.flyTo([pos.coords.latitude, pos.coords.longitude], Math.max(9, m.getZoom()), {animate: !reduced()}); }, () => flyToSpot(spot.id), {timeout: 8000, maximumAge: 600000});
+    navigator.geolocation.getCurrentPosition((pos) => { const m = map.current; if (m) m.flyTo({lat: pos.coords.latitude, lon: pos.coords.longitude, zoom: Math.max(9, m.getView().zoom)}, {reducedMotion: reduced()}); }, () => flyToSpot(spot.id), {timeout: 8000, maximumAge: 600000});
   };
   const topBar = (
     <div className="xtopbar">
@@ -511,6 +535,8 @@ function OceanMap({section, go}: ViewProps) {
   return (
     <div ref={rootRef} className="xmap" data-d={phone ? detent : undefined}>
       <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Drag to pan; use the zoom buttons or scroll to zoom." />
+      {/* The MapLibre engine draws no credit control: the page shows the basemap's attribution (same place and style as Leaflet's). */}
+      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay="">{eng.attribution()}</p>}
 
       {phone && sheetOn ? (
         <section ref={sheetRef} className="xsheet phone" id="xsheet" data-d={detent} aria-label="Spots"
@@ -544,8 +570,8 @@ function OceanMap({section, go}: ViewProps) {
       <div className="xfabs">
         <LayerList phone={phone} fields={['waves', 'swell', 'wind', 'period'].map((id) => { const f = FIELDS.find((x) => x.id === id)!; return {...f, short: id === 'waves' ? 'Waves' : f.short, ramp: legendModel(scaleKeyOfField(f.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow(), 14).gradient}; })} field={fieldId} on={opts.heat} setField={(id) => pickField(id as FieldId | null)}
           flow={opts.flow} setFlow={(v) => setOpts({...opts, flow: v})} arrows={opts.arrows} setArrows={(v) => setOpts({...opts, arrows: v})} note={status}
-          onPoint={() => { const c = map.current!.getCenter(); setPanel(true); setPt({lat: c.lat, lon: c.lng}); }} />
-        <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button></div>
+          onPoint={() => { const c = map.current?.getView(); if (!c) return; setPanel(true); setPt({lat: c.lat, lon: c.lon}); }} />
+        <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomBy(1)}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomBy(-1)}><Icon name="minus" size={18} /></button></div>
         <button className="xround xcenter" aria-label="Center on the selected spot" onClick={() => flyToSpot(spot.id)}><Icon name="star" size={18} /></button>
       </div>
 
