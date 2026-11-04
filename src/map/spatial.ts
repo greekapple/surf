@@ -1,6 +1,7 @@
 import type {MapLayer,MapVariable} from './types.ts';
 export interface SpatialCell {lat:number;lon:number;value:number|null;direction:number|null;speed:number|null}
 import {mapConfig} from './mapConfig.ts';
+import {framesBase,frameAt,loadManifest,loadPackedGrid,packedGroupOf} from './packedFrame.ts';
 /** A gridded frame (Stage 2a): the native global grid as typed arrays, latitude ascending (row-major lat x lon). `val` is the scalar (wind: the speed), `dir` the "from" bearing in degrees (NaN where none). */
 export interface GridData {lat0:number;dlat:number;nlat:number;lon0:number;dlon:number;nlon:number;val:Float32Array;dir:Float32Array|null}
 export interface SpatialFrame {/** cells is empty for a gridded frame; read `grid` */ grid?:GridData;/** the grid spans the whole globe in longitude (wraps at the date line) */ global?:boolean;cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
@@ -83,6 +84,7 @@ export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<S
 const globeFrames=createFrameCache(mapConfig.cache.globeFrames,mapConfig.cache.globeTtlMs);
 export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  const key='globe'+JSON.stringify(spec),hit=globeFrames.get(key);if(hit)return hit;
+ const packed=await loadPackedGlobe(spec,signal).catch(()=>null);if(packed){globeFrames.set(key,packed);return packed;} // GFS-Wave 0.25° from the pipeline when a frames base URL is configured and has this exact hour; otherwise the 0.5° service below
  const fields=[...new Set([spec.scalar,...(spec.direction?[spec.direction]:[])])];
  const got=await Promise.all(fields.map(async field=>{const r=await fetch('/api/ocean?'+new URLSearchParams({field,time:spec.validAt}),{signal});const body=await r.json();if(!r.ok)throw new Error(body.error??'Global grid unavailable.');return {field,...decodeOceanGrid(body)};}));
  const scalar=got[0],vec=got.find(g=>g.field===spec.direction);if(vec&&(vec.nlat!==scalar.nlat||vec.nlon!==scalar.nlon))throw new Error('Global grid shapes differ.');
@@ -120,4 +122,12 @@ export function schedulePrefetch(layer:MapLayer,variable:MapVariable,time:string
  };
  const idle=(typeof window!=='undefined'?(window as unknown as {requestIdleCallback?:(cb:()=>void,o?:{timeout:number})=>number}).requestIdleCallback:undefined),id=idle?idle(()=>{void run().catch(()=>{});},{timeout:cfg.idleTimeoutMs}):setTimeout(()=>{void run().catch(()=>{});},cfg.idleTimeoutMs) as unknown as number;
  return()=>{cancelled=true;ctl.abort();if(!idle)clearTimeout(id);};
+}
+
+/** Stage 2b: the packed GFS-Wave 0.25° frame for this spec, or null (not configured, no such hour, not a packed layer). Direction layers are not packed. */
+async function loadPackedGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame|null>{
+ const base=framesBase(),group=packedGroupOf(spec.scalar);if(!base||!group||spec.unit==='deg')return null;
+ const man=await loadManifest(base,signal);if(!frameAt(man,spec.validAt))return null;
+ const got=await loadPackedGrid(base,man,group,spec.validAt,signal);if(!got)return null;
+ return {cells:[],grid:got.grid,global:true,unit:spec.unit,resolution:got.grid.dlat,validAt:spec.validAt,retrievedAt:man.generatedAt,provider:`NOAA GFS-Wave ${got.grid.dlat}° global (run ${got.run.slice(0,13).replace('T',' ')}Z)${group==='swell'||group==='swellper'?', primary swell partition':''}`,url:got.url,variable:spec.scalar,delivery:'direct',transport:'server'};
 }

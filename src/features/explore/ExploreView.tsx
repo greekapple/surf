@@ -114,13 +114,15 @@ function OceanMap({section, go}: ViewProps) {
   const shownFor = useRef<FieldId>(fieldId); // which layer the held frame belongs to (waves and swell share a unit, so a held frame can be the other layer)
   if (spatial.frame) { shown.current = spatial.frame; shownFor.current = fieldId; }
   const frame = shown.current && shown.current.unit === def.unit ? shown.current : null;
-  const field = useMemo(() => (frame ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer]);
   // Worldwide native 0.5° frame underneath, so colour and flow continue past the California grid to the whole globe.
   const globe = useGlobe(def.layer, def.variable, view.selectedTime, live && (opts.heat || opts.flow || opts.arrows));
   const shownGlobe = useRef<SpatialFrame | null>(null);
   if (globe.frame) shownGlobe.current = globe.frame;
   const gframe = shownGlobe.current && shownGlobe.current.unit === def.unit ? shownGlobe.current : null;
   const gfield = useMemo(() => (gframe ? buildField(gframe, def.layer === 'WIND') : null), [gframe, def.layer]);
+  // Stage 2b: when the global frame is the GFS-Wave 0.25° pipeline frame, it IS the model on screen; the regional WW3 0.5° nest would blend a different model into it, so it is not painted.
+  const packedGlobal = !!gframe?.provider.startsWith('NOAA GFS-Wave');
+  const field = useMemo(() => (frame && !packedGlobal ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer, packedGlobal]);
   // Map-seamless Stage 1: a non-blocking "Still loading · Retry" after 5 s (was 20 s); the held frame stays on screen meanwhile.
   const anyLoading = spatial.loading || globe.loading;
   useEffect(() => { setSlow(false); if (!anyLoading) return; const t = window.setTimeout(() => setSlow(true), 5000); return () => window.clearTimeout(t); }, [anyLoading, spatial.status]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -371,7 +373,7 @@ function OceanMap({section, go}: ViewProps) {
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt)} ${hourLabel(paintedFrame.validAt)}` : 'Loading model…')
-    : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
+    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
   const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
   const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
@@ -466,7 +468,7 @@ function OceanMap({section, go}: ViewProps) {
   const line = pointLine(pv, perS, p, fieldId);
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
-  const modelName = `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;
+  const modelName = packedGlobal ? 'GFS-Wave 0.25° · NOAA' : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;
 
   return (
     <div ref={rootRef} className="xmap" data-d={phone ? detent : undefined}>
