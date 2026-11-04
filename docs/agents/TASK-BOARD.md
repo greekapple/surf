@@ -544,3 +544,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 
 ## T-130: Every spot shows a surf height (spec docs/specs/2026-11-04-spot-surf-heights.md, APPROVED)
 - Lead: spot facts with citations for Mavericks, Cowell's, Shelter Cove, Rincon. Engineering (after T-129), branch spot-heights: MOP assignments, blocked-hour nearshore range instead of offshore, Flat, measured-nearby. Product: labels. data-honesty-reviewer before merge.
+- T-129 merged 97ad9dc (engineering): R2 BUCKET binding swello-forecast-cache, 5-min refresh-ahead cron (Paid plan), honest loading states. 543 tests, journeys 8/8, t034 pass. Deploy waits on the user enabling R2 + Workers Paid, then bucket create + 2 lifecycle rules (5 days).
