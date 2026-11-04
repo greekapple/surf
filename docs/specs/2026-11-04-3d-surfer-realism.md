@@ -84,3 +84,132 @@ Status: **APPROVED** (user, 2026-11-04: "fix the issues you are referring to …
 - **Fable** (3D owner), on a branch per run. The lead gates every merge and shows the user clips.
 - **Repo rules:** no licensed assets staged; third-party reference footage stays in the scratchpad; True Surf is studied as a reference only (no copied assets).
 - If a run's budget runs short: commit what works, report partial.
+
+---
+
+## Appendix M: Motion specification (detailed; the bar every pose and transition is measured against)
+Added 2026-11-04 at the user's request ("make anything more extensive or detailed"). Angles are in degrees.
+- **Knee flexion:** 0 = straight leg.
+- **Hip flexion:** 0 = standing upright.
+- **Torso pitch:** forward lean from vertical.
+- **Board frame:** x = nose direction, y = up off the deck, z = across (toe side +).
+- Values are targets with tolerances, drawn from coaching references and frame studies. Fable refines them from its own reference sheet (docs/3d/MOTION-REFERENCE.md) and records any change with the source.
+
+### M1. Base stance (every move starts from and returns to this)
+- **Feet:**
+  - back foot over the fins (about 15–20% of board length from the tail), front foot just ahead of centre;
+  - stance width ≈ 0.85–1.0 × shoulder width (≈ 45–55 cm for a 1.75 m rider, scaled by height);
+  - front foot angled 30–45° toward the nose, back foot 70–90° (across the board).
+- **Knees:**
+  - both bent, front 35–55°, back 45–70° in trim;
+  - knees tracking over the 2nd–3rd toe (the IK pole points forward and slightly outward, never inward);
+  - knee-to-knee distance ≥ 60% of foot-to-foot (HARD GATE, §A2).
+  - The back knee angles slightly toward the front foot ("knee to knee" coaching cue means pointing, NOT touching).
+- **Hips:**
+  - flexed 20–35°, centred over the board's stringer between the feet;
+  - weight about 55/45 back/front in trim.
+- **Torso:**
+  - pitch 10–25° forward, spine neutral (no slumping round back, no arched back);
+  - shoulders roughly parallel to the board's direction in trim, chest open toward the wave on frontside.
+- **Head:** level, eyes looking down the line ahead of the curl (yaw leads travel by 20–40°); vertical bob ≤ 3 cm per second.
+- **Arms:**
+  - relaxed, slightly bent at the elbow (20–40°);
+  - hands between knee and chest height, ±50 cm to the side of the torso;
+  - the front hand slightly forward over the front foot, the back hand slightly back over the tail.
+
+### M2. Moves (key poses plus timing; transitions eased, no linear blends)
+
+#### Takeoff / pop-up
+- **Duration:** 0.6–1.0 s (beginner 1.2–1.6 s, with a visible knee-down step).
+- **Ends in:** the base stance with deeper compression (knees 55–75°).
+- **Arms:** come forward and down to balance, never above the shoulders.
+- **Big waves (band C):** the drop has a compressed stance (knees 70–90°) and arms out low to the sides for balance.
+
+#### Trim
+- The base stance (M1).
+- Small continuous fore/aft weight shifts (±5 cm, 0.5–1.5 Hz) and micro knee flex (±5°).
+- Arms quiet.
+
+#### Bottom turn (frontside)
+- **Compress into it:** knees front 70–90°, back 80–100°; hips flexed 45–65°; torso pitch 25–40°.
+- **Lean:** into the face up to the lean the speed and radius need (tan θ = v²/(g·r), capped 55°).
+- **Head and shoulders:** they rotate toward the target on the lip ≈ 0.2 s before the hips.
+- **Front arm:** points down the line, then up the face toward the target, at shoulder height or BELOW.
+- **Back arm:** low behind the hip; the inside hand may skim the water on deep turns.
+- **Duration:** 0.6–1.0 s; the deepest compression at the turn's apex.
+
+#### Bottom turn (backside)
+- Same compression.
+- The rider's back faces the wave; the shoulders open toward the face, and the head looks over the leading shoulder.
+- The front arm leads over the toe-side rail, the back hand low near the heel-side rail.
+
+#### Top turn / snap
+- **Extend** up the face (knees 30–45°).
+- **Rotate:** the shoulders rotate first, the hips follow (≥ 0.15 s lag), and the back foot pushes the tail through.
+- **Front arm:** sweeps from pointing up the face to pointing down the line. This is the ONE move where the front hand may rise briefly to about shoulder height (≤ 0.3 s).
+- **Back arm:** stays low.
+- **Duration:** 0.4–0.7 s; recompression (knees back to 50–65°) on the way down.
+
+#### Cutback
+- **Lower and wider than the top turn:** knees 50–70°.
+- **Rotation:** the torso rotates 120–180° over 1.0–1.6 s, the head leading toward the curl.
+- **Arms:** the front arm leads around at chest height, the back arm trails low.
+- Rebound off the whitewater with a quick compress (0.2 s) and extend.
+
+#### Pump
+- A rhythmic compress/extend at 1.2–2 Hz: knees ±15° around 45°, hips ±10°.
+- Weight shifting forward on the down-pump.
+- Arms counter-move a little (≤ 10 cm).
+
+#### Barrel stance (bands B upper / C, Intermediate+ only)
+- **Frontside (facing the wave):**
+  - a deep crouch, knees front 90–110°, back 100–120°, hips flexed 70–90°, torso pitched 35–55° and compact;
+  - the back hand may drag the face to stall (≤ 1.5 s);
+  - the head up, looking at the exit;
+  - the front arm low and forward.
+- **Backside (back to the wave), the pig-dog:**
+  - the back knee drops low toward the deck (100–130°), the front knee 80–100°;
+  - the leading hand grabs the toe-side rail; the back arm low.
+- **Height:** in the tube, the rider fits under the lip (head ≥ 15 cm below the lip's inner surface at all times; the scene checks this).
+- **Duration inside:** 0.8–3 s; exit ahead of the foam ball with a small extension.
+
+#### Kick-out / exit
+- Rising extension (knees 25–40°), then turning over the back of the wave, or straightening out (beginner).
+- Arms relax down.
+
+### M3. Transitions and fluidity
+- **Blend time:** 0.25–0.6 s between moves, ending in the move's own rhythm. Use eased curves (no linear), and continuous velocity in every joint (no corners in the joint-angle curves).
+- **Limits:** peak joint angular speed ≤ 360°/s (arms) and ≤ 300°/s (legs/torso); peak angular acceleration ≤ 3000°/s².
+- **Chains:**
+  - compression/extension travels hips → knees → ankles within 0.1 s, so the body moves as one unit;
+  - rotation is head → shoulders → hips → board, each 0.05–0.15 s behind.
+- **No frozen poses:** every key pose carries micro-motion (±2–5°) so nothing locks.
+- **No repeated motion:** the same move twice in a row must vary by ≥ 10% in depth or timing (seeded), so it doesn't look canned.
+
+### M4. Level and wave size (complexity table)
+
+| | Small (< 4 ft) | Mid (4–6 ft) | Big (6–10 ft) | Very big (10 ft +) |
+|---|---|---|---|---|
+| **Beginner** | trim, gentle turns, upright (knees 30–45°), arms out wide but low | trim and one wide bottom turn, stays on the shoulder | angled takeoff, straight trim to the shoulder, kick-out early | same, very conservative; never in the pocket |
+| **Intermediate** | flowing turns, mellow cutbacks | carves with real rail, top turns, pumps | deep bottom turns, top turns, a shallow cover-up | long lines, one barrel attempt from the shoulder |
+| **Expert** | stylish carves and cutbacks, no aggressive snaps | snaps, roundhouse cutbacks, re-entries | at least one barrel ride per cycle, vertical turns | deep barrel, drawn-out bottom turns, a high fast line |
+
+- The skill also sets the body: beginners are stiffer (×0.6 the compression range, wider stance, arms more out, slower reactions); experts are fully compressed and fluid.
+
+### M5. Character and look
+- **Proportions:** realistic adult, 1.75 m default, scaled to the user's height; athletic but not exaggerated.
+- **Hair:** short, wet, swept back (or a natural short cut), clean against the scalp. No hard hairline edge, no bald band. The MPFB2 CC0 hair system or a modelled hair cap.
+- **Wetsuit:** black full suit with subtle seams, satin roughness (not plastic), and a slightly wet sheen on the shoulders.
+- **Skin:** slightly subsurface or warm; no plastic highlight.
+- **Later (not now):** attire by water temperature (board shorts, spring suit, full suit, hooded suit).
+
+### M6. Measurement (in the glitch monitor and the matrix report)
+Per cell, all must hold:
+- `knock` = 0;
+- `arm` = 0;
+- wrist-above-shoulder ≤ 0.3 s per snap and 0 otherwise (barrel hand-drag excepted);
+- knee angles within each move's range ±10°;
+- peak angular speed and acceleration within the M3 limits;
+- the barrel check (head under the lip, rider inside the cavity ≥ 0.8 s) for cells with barrel rides.
+
+Report a table of these per cell, before vs after.
