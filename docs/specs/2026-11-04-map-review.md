@@ -39,3 +39,18 @@ Status: **APPROVED: fix now** (user: "it is terrible when you zoom in and out, t
 - **New check `t137-swell-coverage.mjs`:** Swell layer at global and basin zoom. Count sea pixels painted vs unpainted; unpainted must be only where the documented no-data rule applies, with smooth edges (no 0.5° steps).
 - **map-verify 1–10** on both engines after the fixes.
 - The lead's own look on both engines, zooming and switching layers, before it's called fixed.
+
+## User decision (2026-11-04, 22:50): model the map closely on Windy; Windy's colours for wave height
+User: "I think we should model it close to Windy … it's beautifully done … use some of its colours, we can keep some, but for wave height let's incorporate that same colour scheme."
+- **Waves and Swell (heights):** Windy's wave-height scheme (ft 1.6 teal → 3.3 light blue → 5 blue → 6.6 indigo/violet → 20 magenta-red → 30 salmon/white), as T-115 had it.
+  - This replaces Swello's own ramp for HEIGHT layers only (the 2026-11-04 "own surf scale" decision is superseded for heights; update RULES.md and the legend).
+  - Keep the fixed absolute scale (no rescaling with zoom).
+  - Re-sample the stops from the lead's fresh live captures (scratchpad map/windy-live/waves-z5-1103-22h.jpg, waves-legend-ft.png, swell1-z4-no-holes.jpg): the map overlay colours, not just the muted legend strip.
+- **Wind and Period:** keep ours for now (the user: "we can keep some"). Revisit if the user asks.
+- **Swell holes, answered by Windy:** Windy's Swell layer has NO holes. Low or absent swell is painted the calm low end (deep blue → teal) of the same ramp (swell1-z4-no-holes.jpg). So for us:
+  - where the model has a total sea state but no swell partition, paint the calm end (0 ft);
+  - the pin says "no swell partition (wind sea only)";
+  - no hatch.
+  - The engineer still confirms what the missing value means in the dataset docs.
+- **Zoom behaviour to match:** Windy's 5-tick zoom-out keeps the whole sea coloured at every frame, with a smooth continuous field (waves-mid-zoomout-5ticks.jpg). That's the bar for t136.
+- **Look and feel to match:** an opaque field, smooth gradients with no visible cells, flat grey land with white labels and thin dark borders, fine white particles at Windy's density.
