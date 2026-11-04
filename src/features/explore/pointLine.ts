@@ -12,10 +12,10 @@ const FT = 1 / 0.3048, MPH = 2.23694;
 /** `kind` is the layer the person chose (what the field shows); it names the value, so wording never depends on how the frame was classified. */
 /** `windSeaM`: the offshore wave height (the WAVES frame) at the same point and hour, for a no-swell cell: there the whole sea is wind sea and can be
  *  big (median 4.5 m in those cells), so a 0-ft swell must never read as calm water. */
-export function pointLine(v: PointValue | null, periodS: number | null, p: UserProfile, kind: 'waves' | 'swell' | 'wind' | 'period', windSeaM?: number | null): {main: string; note: string} | null {
+export function pointLine(v: PointValue | null, periodS: number | null, p: UserProfile, kind: 'waves' | 'swell' | 'wind' | 'period', windSeaM?: number | null, extras?: {gustMs: number | null}): {main: string; note: string} | null {
   if (!v || v.value === null) return null;
   const dir = v.dirFrom !== null ? ` ${compass(v.dirFrom)}` : '';
-  if (kind === 'wind') return {main: `${windVal(v.value * MPH, p)} ${p.windUnit}${dir}`, note: 'wind at 10 m'};
+  if (kind === 'wind') return {main: `${windVal(v.value * MPH, p)} ${p.windUnit}${dir}`, note: extras?.gustMs != null ? `wind at 10 m · gust ${windVal(extras.gustMs * MPH, p)} ${p.windUnit}` : 'wind at 10 m'};
   if (kind === 'period') return {main: `${Math.round(v.value)} s${dir}`, note: 'peak wave period'};
   // An exact 0 is the model's empty swell partition (NO_SWELL_NOTE): no swell system there, the sea is all wind sea. Said as such, with the wind
   // sea's height when the waves frame has it (all of the sea there is wind sea, so total Hs IS the wind-sea height), never as "0 ft" alone.

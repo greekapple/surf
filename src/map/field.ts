@@ -199,12 +199,15 @@ export function createFieldController(map: L.Map, fadeMs: number = mapConfig.cro
   let layers: {dispose: () => void; heat: HTMLCanvasElement; flow: HTMLCanvasElement; timer?: number}[] = [], alive = true, ready: {key: string; validAt: string; source: string} | null = null;
   const setHeat = (on: boolean) => { try { map.getContainer().dataset.heat = on ? 'on' : 'off'; } catch { /* map removed */ } };
   const opacity = (l: {heat: HTMLCanvasElement; flow: HTMLCanvasElement}, v: string) => { for (const c of [l.heat, l.flow]) { c.style.transition = `opacity ${fadeMs}ms ease`; c.style.opacity = v; } };
-  const retire = (l: (typeof layers)[number], immediate = false) => { layers = layers.filter((x) => x !== l); if (immediate) { l.dispose(); return; } opacity(l, '0'); l.timer = window.setTimeout(() => { try { l.dispose(); } catch { /* gone */ } }, fadeMs + 40); };
+  // Layers that are fading out stay TRACKED until they are disposed (their canvases, listeners and particles live fadeMs + 40 ms longer): they count toward the two-layer limit and dispose() cleans them up.
+  const fading = new Set<(typeof layers)[number]>();
+  const kill = (l: (typeof layers)[number]) => { layers = layers.filter((x) => x !== l); fading.delete(l); window.clearTimeout(l.timer); try { l.dispose(); } catch { /* gone */ } };
+  const retire = (l: (typeof layers)[number], immediate = false) => { layers = layers.filter((x) => x !== l); if (immediate) { kill(l); return; } fading.add(l); opacity(l, '0'); l.timer = window.setTimeout(() => kill(l), fadeMs + 40); };
   return {
     update(fields, opts) {
       if (!alive || !fields.length) return;
-      // a third layer while two are fading: retire the oldest at once, so at most two are ever drawn
-      while (layers.length >= 2) retire(layers[0], true);
+      // never more than two layers drawn in total (visible or still fading): the oldest goes at once
+      while (layers.length + fading.size >= 2) kill(fading.size ? fading.values().next().value! : layers[0]);
       const next = attachFieldLayer(map, fields, {...opts, startHidden: layers.length > 0}); setHeat(opts.heat);
       const old = layers.slice(); layers.push(next), ready = {key: frameKey(fields[0]), validAt: fields[0].validAt, source: fields[0].source};
       const announce = () => { if (alive && layers.includes(next)) opts.onFrame?.({state: 'ready', ...ready!}); };
@@ -212,7 +215,7 @@ export function createFieldController(map: L.Map, fadeMs: number = mapConfig.cro
       requestAnimationFrame(() => { if (!alive || !layers.includes(next)) return; opacity(next, '1'); old.forEach((l) => retire(l)); announce(); });
     },
     clear() { setHeat(false); layers.slice().forEach((l) => retire(l)); },
-    dispose() { alive = false; setHeat(false); layers.slice().forEach((l) => { window.clearTimeout(l.timer); try { l.dispose(); } catch { /* gone */ } }); layers = []; },
-    count: () => layers.length,
+    dispose() { alive = false; setHeat(false); [...layers, ...fading].forEach(kill); layers = []; fading.clear(); },
+    count: () => layers.length + fading.size,
   };
 }

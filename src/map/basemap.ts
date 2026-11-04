@@ -37,7 +37,7 @@ export function addBasemap(map: L.Map, onKind?: (k: BasemapKind) => void) {
     const def = BASEMAPS[kind], c = map.getContainer();
     for (const k of ['light', 'dark', 'satellite']) c.classList.toggle('mb-' + k, k === kind);
     // a world-wide coarse layer (tile level 3, 64 tiles) always under the detailed one: a multi-level zoom jump never shows the grey ground or a checkerboard while the new level's tiles load (map review, zoom)
-    world = new L.TileLayer(def.base, {className: 'xbase-world', minZoom: 0, maxZoom: 16, minNativeZoom: 3, maxNativeZoom: 3, keepBuffer: 2, updateWhenZooming: false, updateWhenIdle: true, zIndex: 0}).addTo(map);
+    world = new L.TileLayer(def.base, {className: 'xbase xbase-world', minZoom: 0, maxZoom: 16, minNativeZoom: 3, maxNativeZoom: 3, keepBuffer: 2, updateWhenZooming: false, updateWhenIdle: true, zIndex: 0}).addTo(map);
     base = new PaddedTileLayer(def.base, {className: 'xbase', maxZoom: 16, maxNativeZoom: MAX_NATIVE_ZOOM, attribution: def.attribution, keepBuffer: 8, updateWhenZooming: false, updateWhenIdle: false}).addTo(map); // keep the old-zoom tiles on screen through a zoom, with a wide ring of them loaded
     labels = new PaddedTileLayer(def.labels, {pane: 'labels', maxZoom: 16, maxNativeZoom: MAX_NATIVE_ZOOM, opacity: def.labelOpacity, keepBuffer: 8, updateWhenZooming: false, updateWhenIdle: false}).addTo(map);
     onKind?.(kind);

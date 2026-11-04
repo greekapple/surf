@@ -22,6 +22,7 @@ import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
 import {usePointForecast, type Pt} from './PointCard';
 import {ForecastPanel, PinLabel, pointLine} from './PointPanel';
+import {pointExtras} from '../../map/pointExtras';
 import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
 import {parseMapUrl, writeMapUrl} from './mapUrl';
@@ -179,15 +180,16 @@ function OceanMap({section, go}: ViewProps) {
   const shown = useRef<SpatialFrame | null>(null);
   // Map-seamless Stage 1: a failed load keeps the last good frame too (it used to drop it and blank the sea); the error says which hour is shown.
   const shownFor = useRef<FieldId>(fieldId); // which layer the held frame belongs to (waves and swell share a unit, so a held frame can be the other layer)
-  if (spatial.frame) { shown.current = spatial.frame; shownFor.current = fieldId; }
+  if (spatial.frame) { shown.current = spatial.frame; shownFor.current = fieldId; } else if (!spatial.loading) shown.current = null; // the hold lasts only while the next frame is loading: a finished request with no frame clears it (Codex P1)
   const frame = shown.current && shown.current.unit === def.unit ? shown.current : null;
   // Worldwide native 0.5° frame underneath, so colour and flow continue past the California grid to the whole globe.
   const globe = useGlobe(def.layer, def.variable, view.selectedTime, live && (opts.heat || opts.flow || opts.arrows));
   const shownGlobe = useRef<SpatialFrame | null>(null);
-  if (globe.frame) shownGlobe.current = globe.frame;
+  if (globe.frame) shownGlobe.current = globe.frame; else if (!globe.loading) shownGlobe.current = null;
   const gframe = shownGlobe.current && shownGlobe.current.unit === def.unit ? shownGlobe.current : null;
   const gfield = useMemo(() => (gframe ? buildField(gframe, def.layer === 'WIND') : null), [gframe, def.layer]);
   // Stage 2b: when the global frame is the GFS-Wave 0.25° pipeline frame, it IS the model on screen; the regional WW3 0.5° nest would blend a different model into it, so it is not painted.
+  const settledEmpty = !spatial.loading && !globe.loading && !gframe && !frame;
   const packedGlobal = !!gframe?.provider.startsWith('NOAA GFS-Wave');
   // The regional California grid is the same WW3 0.5° as the native global frame, so once the global frame is here it is painted alone (no nest seam, no second source). Swell height is never painted from the regional grid: it has no "no swell partition" fill (see NO_SWELL_NOTE), so it would show grey holes.
   const nestPainted = !!frame && !packedGlobal && !(gframe && gframe.resolution <= frame.resolution) && def.layer !== 'SWELL';
@@ -255,8 +257,9 @@ function OceanMap({section, go}: ViewProps) {
     const fields = [field, gfield].filter((f): f is NonNullable<typeof f> => !!f), ctl = fieldCtl.current;
     if (!ctl) return;
     if (!opts.heat && !opts.flow && !opts.arrows) { ctl.clear(); return; }
+    if (!fields.length && settledEmpty) { ctl.clear(); setPainted(null); return; } // both requests finished with no usable field: clear the overlay instead of leaving an old frame up unlabelled
     if (fields.length) ctl.update(fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced(), onFrame: (st) => { if (st.state === 'ready') setPainted({layer: st.key.split('|')[0] as FieldLayer, validAt: st.validAt}); }});
-  }, [field, gfield, opts.heat, opts.flow, opts.arrows, eng]);
+  }, [field, gfield, opts.heat, opts.flow, opts.arrows, eng, settledEmpty]);
   // Idle prefetch of the neighbouring hours and the next layer once the visible frames have settled (Stage 1).
   useEffect(() => {
     if (!live || spatial.loading || globe.loading || !view.selectedTime) return;
@@ -569,16 +572,17 @@ function OceanMap({section, go}: ViewProps) {
   const at = livePt ?? pt; // while dragging, the label reads the painted field under the moving picker
   const pv = at ? sampleField(fieldsNow, at.lat, at.lon) : null;
   let perS: number | null = null, perFromPoint = false;
+  const extras = pointExtras(point.data, view.selectedTime); // picker values per layer: wind gust, swell period and direction, from the point forecast at the same hour
   if (pt && pv && !pv.note && (fieldId === 'waves' || fieldId === 'swell') && point.data && view.selectedTime) { // no period for an empty swell partition
     const t = Date.parse(view.selectedTime) / 1000, d = point.data, k = d.time.reduce((best, x, i) => (Math.abs(x - t) < Math.abs(d.time[best] - t) ? i : best), 0);
-    const x = Math.abs(d.time[k] - t) <= 5400 ? (d.wavePeriod?.[k] ?? d.swellPeriod[k]) : null; if (x !== null && x !== undefined) { perS = x; perFromPoint = true; }
+    const x = Math.abs(d.time[k] - t) <= 5400 ? (fieldId === 'swell' ? (d.swellPeriod?.[k] ?? d.wavePeriod?.[k]) : (d.wavePeriod?.[k] ?? d.swellPeriod[k])) : null; if (x !== null && x !== undefined) { perS = x; perFromPoint = true; } // the swell layer reads the SWELL period, waves the total sea's
   }
   // map-review (b): a 0-ft swell point is wind sea only; the label gives that wind sea's height from the WAVES frame of the same hour (same model
   // family as the swell frame), fetched only while such a point is open.
   const wavesGlobe = useGlobe('WAVES', 'Offshore Hs', view.selectedTime, fieldId === 'swell' && !!pv?.note);
   const wavesField = useMemo(() => (wavesGlobe.frame ? buildField(wavesGlobe.frame, false) : null), [wavesGlobe.frame]);
   const windSea = pv?.note && wavesField && at ? sampleField([wavesField], at.lat, at.lon)?.value ?? null : null;
-  const line = pointLine(pv, perS, p, fieldId, windSea);
+  const line = pointLine(pv, perS, p, fieldId, windSea, extras);
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
   const modelName = packedGlobal ? 'GFS-Wave 0.25° · NOAA' : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;

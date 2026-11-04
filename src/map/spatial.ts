@@ -1,6 +1,7 @@
 import type {MapLayer,MapVariable} from './types.ts';
 export interface SpatialCell {lat:number;lon:number;value:number|null;direction:number|null;speed:number|null}
 import {mapConfig} from './mapConfig.ts';
+import {bracket,blendGrids} from './timeBlend.ts';
 import {framesBase,frameAt,loadManifest,loadPackedGrid,packedGroupOf} from './packedFrame.ts';
 /** A gridded frame (Stage 2a): the native global grid as typed arrays, latitude ascending (row-major lat x lon). `val` is the scalar (wind: the speed), `dir` the "from" bearing in degrees (NaN where none). */
 export interface GridData {lat0:number;dlat:number;nlat:number;lon0:number;dlon:number;nlon:number;val:Float32Array;dir:Float32Array|null}
@@ -71,7 +72,7 @@ async function loadSpatialUncached(spec:SpatialSpec,signal:AbortSignal):Promise<
 /** Cache normalized frames as well as HTTP payloads; bounded independently of personal data. */
 export function createFrameCache(limit=32,ttl=600000){
  const frames=new Map<string,{frame:SpatialFrame;expires:number}>();let hits=0,misses=0;
- return {clear(){frames.clear();},get(key:string,now=Date.now()){const old=frames.get(key);if(old&&old.expires>now){hits++;frames.delete(key);frames.set(key,old);return old.frame;}if(old)frames.delete(key);misses++;return null;},set(key:string,frame:SpatialFrame,now=Date.now()){frames.set(key,{frame,expires:now+ttl});while(frames.size>limit)frames.delete(frames.keys().next().value!);},stats:()=>({frames:frames.size,hits,misses,cells:[...frames.values()].reduce((n,x)=>n+x.frame.cells.length,0)})};
+ return {clear(){frames.clear();},has(key:string,now=Date.now()){const o=frames.get(key);return !!o&&o.expires>now;},get(key:string,now=Date.now()){const old=frames.get(key);if(old&&old.expires>now){hits++;frames.delete(key);frames.set(key,old);return old.frame;}if(old)frames.delete(key);misses++;return null;},set(key:string,frame:SpatialFrame,now=Date.now()){frames.set(key,{frame,expires:now+ttl});while(frames.size>limit)frames.delete(frames.keys().next().value!);},stats:()=>({frames:frames.size,hits,misses,cells:[...frames.values()].reduce((n,x)=>n+x.frame.cells.length,0)})};
 }
 const normalizedFrames=createFrameCache(mapConfig.cache.regionalFrames,mapConfig.cache.regionalTtlMs);
 export const spatialCacheStats=()=>normalizedFrames.stats();
@@ -85,6 +86,18 @@ const globeFrames=createFrameCache(mapConfig.cache.globeFrames,mapConfig.cache.g
 export const globeCacheStats=()=>globeFrames.stats();
 /** Debug overlay (?debug=1): the idle prefetch queue. */
 export const prefetchState={queued:0,done:0,failed:0,running:false};
+/** The global frame at an HOURLY time: the model steps are 3-hourly, so between two steps this is a linear blend of the two frames (values by weight, directions as vectors; see timeBlend.ts), labelled as such. Exactly on a step it is that step's frame. A missing second step falls back to the first. */
+export async function loadGlobeAt(spec:SpatialSpec,time:string|null,signal:AbortSignal):Promise<SpatialFrame>{
+ const t=time?Date.parse(time):NaN;if(!Number.isFinite(t))return loadGlobe(spec,signal);
+ const {t0,t1,f}=bracket(t);if(f<0.001||Date.parse(spec.validAt)!==t0)return loadGlobe(spec,signal);
+ const key='blend'+JSON.stringify(spec)+t,hit=globeFrames.get(key);if(hit)return hit;
+ const [a,b]=await Promise.all([loadGlobe(spec,signal),loadGlobe({...spec,validAt:new Date(t1).toISOString()},signal).catch(()=>null)]);
+ if(!b||!a.grid||!b.grid||a.grid.nlat!==b.grid.nlat||a.grid.nlon!==b.grid.nlon)return a;
+ const hh=(ms:number)=>new Date(ms).toISOString().slice(11,16)+'Z';
+ const frame:SpatialFrame={...a,grid:blendGrids(a.grid,b.grid,f),validAt:new Date(t).toISOString(),provider:`${a.provider} · hour interpolated between the model steps at ${hh(t0)} and ${hh(t1)}`};
+ globeFrames.set(key,frame);return frame;
+}
+export const globeCached=(spec:SpatialSpec,time:string|null)=>{const t=time?Date.parse(time):NaN;if(!Number.isFinite(t))return false;const {t0,t1,f}=bracket(t);return f<0.001?globeFrames.has('globe'+JSON.stringify(spec)):globeFrames.has('globe'+JSON.stringify(spec))&&globeFrames.has('globe'+JSON.stringify({...spec,validAt:new Date(t1).toISOString()}))&&Date.parse(spec.validAt)===t0;};
 export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  const key='globe'+JSON.stringify(spec),hit=globeFrames.get(key);if(hit)return hit;
  const packed=await loadPackedGlobe(spec,signal).catch(()=>null);if(packed){globeFrames.set(key,packed);return packed;} // GFS-Wave 0.25° from the pipeline when a frames base URL is configured and has this exact hour; otherwise the 0.5° service below

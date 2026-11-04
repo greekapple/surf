@@ -6,7 +6,7 @@ export const mapConfig = {
   /** Frame caches (decoded frames, in memory): regional frames and the worldwide frames. Prefetch fills them, so they must hold the current hour, its neighbours and the next layer. */
   cache: {regionalFrames: 64, regionalTtlMs: 10 * 60_000, globeFrames: 48, globeTtlMs: 30 * 60_000, /** the Worker answers /api/globe with this Cache-Control max-age (a frame is fixed per field and valid time) */ globeHttpMaxAgeS: 300},
   /** Idle prefetch (Stage 1): after the visible frames have settled, fetch these neighbours one at a time, never on a phone that asked to save data. */
-  prefetch: {hoursAhead: [3, 6], hoursBack: [] as number[], nextLayer: true, idleTimeoutMs: 2500, /** do not prefetch on a slow connection */ skipEffectiveTypes: ['slow-2g', '2g', '3g']},
+  prefetch: {hoursAhead: [3, 6, 9], hoursBack: [] as number[], nextLayer: true, idleTimeoutMs: 2500, /** do not prefetch on a slow connection */ skipEffectiveTypes: ['slow-2g', '2g', '3g']},
   /** Zoom and bounds (Stage 1): the world must fill the viewport width, and the map may not be dragged past the poles. */
   view: {baseMinZoom: 2, maxZoom: 14, tileSize: 256, maxLat: 85, maxBoundsViscosity: 1, zoomSnap: 0.5},
   /** Level of detail thresholds (zoom). */
