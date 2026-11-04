@@ -1,10 +1,12 @@
-"""SWELLO surfer v3 (spec 2026-11-03 wave-surfer follow-up, Track A): a rigged, skinned MPFB2 human (CC0) riding a procedural 6'0"
-shortboard in a black wetsuit, with two clips: `ride` (a 4 s loop: trim -> bottom turn -> top turn -> pump -> trim, keyed against real
-photos, see docs/design/REFERENCES-2026-11-03-surfer.md) and `still` (the bottom turn, for reduced motion). Goofy-foot frontside on a left;
-the viewer mirrors it for a right. Replaces the baked single pose of v2 (which this script used to build).
+"""SWELLO surfer v4 (spec 2026-11-04-3d-surfer-realism, Appendix M; v3 was spec 2026-11-03 Track A): a rigged, skinned MPFB2 human (CC0)
+riding a procedural 6'0" shortboard in a black wetsuit, with a modelled cap of short wet hair, and two clips: `ride` (a pose library the
+viewer samples at POSE_KEYS: trim, bottom turn, climb, top turn, recovery, pump, barrel crouch, backside pig-dog; keyed against the
+references in docs/3d/MOTION-REFERENCE.md and docs/design/REFERENCES-2026-11-03-surfer.md) and `still` (the bottom turn, for reduced
+motion). Goofy-foot frontside on a left; the viewer mirrors it for a right. Round 4: the hips sit at the heights the spec's knee angles give
+(trim knees ~45 deg, bottom turn ~85, barrel ~100), the hands stay between knee and chest height, the stance is 0.70 m.
 
 Run (MPFB is a user extension, so NOT --factory-startup):
-  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v3.glb [--preview DIR] [--board 1.83]
+  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v4.glb [--preview DIR] [--board 1.83]
 
 Frame of the exported model (Blender, z-up; glTF converts to y-up): board along x with the NOSE AT -X, the surfer faces -Y (toward the
 wave), the board's bottom at z = 0 at rest, true scale (the standing height is printed: SURFER_MODEL_M in WaveLive.tsx must match).
@@ -21,7 +23,7 @@ from mathutils import Matrix, Vector
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 ap = argparse.ArgumentParser()
-ap.add_argument('--out', default='tools/blender/assets/surfer-v3.glb')
+ap.add_argument('--out', default='tools/blender/assets/surfer-v4.glb')
 ap.add_argument('--preview', default='')
 ap.add_argument('--board', type=float, default=1.83, help='board length in metres (6\'0" = 1.83)')
 ap.add_argument('--fps', type=int, default=24)
@@ -116,9 +118,10 @@ def mat(name, rgb, rough, sss=0.0, coat=0.0):
     return m
 
 
-suit = mat('Wetsuit', (0.018, 0.018, 0.02), 0.42, coat=0.35)
-skin = mat('Skin', (0.6, 0.41, 0.31), 0.48, sss=0.25)
-hair = mat('Hair', (0.06, 0.04, 0.03), 0.6)
+# less plastic (spec M5): satin neoprene with a faint wet sheen, warm skin with subsurface, dark wet hair with a soft coat
+suit = mat('Wetsuit', (0.02, 0.02, 0.022), 0.56, coat=0.12)
+skin = mat('Skin', (0.58, 0.4, 0.3), 0.6, sss=0.32)
+hair = mat('Hair', (0.05, 0.035, 0.025), 0.38, coat=0.22)
 deck = mat('Board', (0.84, 0.84, 0.8), 0.2, coat=0.5)
 pad = mat('Pad', (0.03, 0.03, 0.03), 0.8)
 for m_ in (suit, skin, hair):
@@ -135,12 +138,7 @@ for v in body.data.vertices:
 head_top = max(v.co.z for v in body.data.vertices)
 for p in body.data.polygons:
     ws = [skin_w[i] for i in p.vertices]
-    if min(ws) > 0.55:
-        c = p.center
-        is_hair = c.z > head_top - 0.15 * (body.dimensions.z / 1.73) and c.y > -0.095
-        p.material_index = 2 if is_hair else 1
-    else:
-        p.material_index = 0
+    p.material_index = 1 if min(ws) > 0.55 else 0   # the hair is a modelled cap (below), not a painted band on the scalp
 for p in bm_me.polygons:  # tail pad: deck faces in the last 18% of the board toward the tail
     if p.center.x > 0.5 * L - 0.18 * L and p.normal.z > 0.5:
         p.material_index = 1
@@ -155,6 +153,62 @@ for mod in list(body.modifiers):
     if mod.type == 'MASK':
         bpy.ops.object.modifier_move_to_index(modifier=mod.name, index=0)
         bpy.ops.object.modifier_apply(modifier=mod.name)
+# ---------------------------------------------------------------- hair: a cap of short wet hair swept back (spec M5: no hairline artefact)
+# scalp vertices: on the head, above a hairline that sits high on the forehead (the face is at -y), lower at the temples and the nape,
+# clear of the ears; the cap is those faces pushed out along their normals, thin at the hairline and thicker toward the crown and back
+head_top = max(v.co.z for v in body.data.vertices)   # the final mesh (the shape keys are applied above)
+_hs = body.dimensions.z / 1.73
+_head_w = {v.index: sum(g.weight for g in v.groups if gi.get(g.group) == 'head') for v in body.data.vertices}
+_hv = [v for v in body.data.vertices if _head_w[v.index] > 0.5 and v.co.z > head_top - 0.26 * _hs]
+_cx = sum(v.co.x for v in _hv) / len(_hv)
+_cy = sum(v.co.y for v in _hv) / len(_hv)
+_cz = head_top - 0.105 * _hs                                                   # about the centre of the cranium
+print('SURFER head weights: verts above top-0.05 with head w>0.5:', sum(1 for v in _hv if v.co.z > head_top - 0.05 * _hs), 'of', sum(1 for v in body.data.vertices if v.co.z > head_top - 0.05 * _hs), 'max z of head-weighted', round(max(v.co.z for v in _hv), 3))
+print('SURFER head centre', round(_cx, 3), round(_cy, 3), round(_cz, 3), 'top', round(head_top, 3), 'y range', round(min(v.co.y for v in _hv), 3), round(max(v.co.y for v in _hv), 3))
+_hz = {}
+for v in _hv:
+    dx, dy, dz = v.co.x - _cx, v.co.y - _cy, v.co.z - _cz
+    r = math.sqrt(dx * dx + dy * dy) + 1e-6
+    el = math.degrees(math.atan2(dz, r))                                       # elevation from the cranium centre
+    az = math.degrees(math.atan2(-dy, abs(dx)))                                # 90 = straight ahead (the face is at -y), -90 = the nape
+    # the hairline's elevation: high on the forehead, lower at the temples, down to the nape at the back
+    if az > 40:
+        line = 30.0
+    elif az > -20:
+        line = 30.0 - (40 - az) * 0.37                                          # temples / above the ears (down to 8 deg)
+    else:
+        line = 8.0 - (-20 - az) * 0.43                                          # the back of the head down to the nape (-22 deg)
+    if el > line:
+        _hz[v.index] = min(1.0, (el - line) / 45.0)
+bm_h = bmesh.new()
+_vmap = {}
+for f in body.data.polygons:
+    if all(i in _hz for i in f.vertices):
+        vs = []
+        for i in f.vertices:
+            if i not in _vmap:
+                v = body.data.vertices[i]
+                t = _hz[i]
+                th_ = (0.003 + 0.014 * min(1.0, t * 1.4) ** 0.8) * _hs
+                th_ *= 1.0 + 0.35 * max(0.0, v.co.y / 0.08)                # swept back: fuller toward the back of the crown
+                _vmap[i] = bm_h.verts.new(v.co + v.normal * th_)
+            vs.append(_vmap[i])
+        try:
+            bm_h.faces.new(vs)
+        except ValueError:
+            pass
+hair_me = bpy.data.meshes.new('Hair')
+bm_h.to_mesh(hair_me)
+bm_h.free()
+hair_obj = bpy.data.objects.new('Hair', hair_me)
+scene.collection.objects.link(hair_obj)
+hair_me.materials.append(hair)
+for pg in hair_me.polygons:
+    pg.use_smooth = True
+hair_obj.vertex_groups.new(name='head').add(list(range(len(hair_me.vertices))), 1.0, 'REPLACE')
+hair_obj.parent = rig
+hair_obj.modifiers.new('Armature', 'ARMATURE').object = rig
+print('SURFER hair cap faces', len(hair_me.polygons), 'verts', len(hair_me.vertices))
 # fingers: their weights move to the hand (23 body bones), the finger bones go
 for side in ('l', 'r'):
     hand = body.vertex_groups[f'hand_{side}']
@@ -195,7 +249,7 @@ for b in pb:
 M = rig.matrix_world
 REST = {b.name: b.matrix_local.copy() for b in rig.data.bones}
 PARENT = {b.name: (b.parent.name if b.parent else None) for b in rig.data.bones}
-FRONT_X, BACK_X = -0.13 * L / 1.83, 0.3 * L / 1.83   # front foot just ahead of centre, back foot on the tail pad (a 0.8 m stance)
+FRONT_X, BACK_X = -0.08 * L / 1.83, 0.3 * L / 1.83   # front foot just ahead of centre, back foot over the fins (a 0.70 m stance, spec M1)
 ANKLE = pb['foot_r'].head.z                            # ankle height above the sole at rest
 P0 = pb['pelvis'].head.copy()                          # hips at rest (standing)
 
@@ -248,10 +302,11 @@ def board_matrix(bank, pitch, yaw):
     return Matrix.Rotation(math.radians(yaw), 4, 'Z') @ Matrix.Rotation(math.radians(-pitch), 4, 'Y') @ Matrix.Rotation(math.radians(bank), 4, 'X')
 
 
-# IK: calves reach the target bones, knees toward the poles
+# IK: calves reach the target bones, knees toward the poles (the pole angle is checked by the knee-separation print per key: -90 knocked them)
+POLE_ANGLE = 0
 for side in ('l', 'r'):
     c = pb[f'calf_{side}'].constraints.new('IK')
-    c.target, c.subtarget, c.pole_target, c.pole_subtarget, c.chain_count, c.pole_angle = rig, f'tgt_{side}', rig, f'pole_{side}', 2, math.radians(-90)
+    c.target, c.subtarget, c.pole_target, c.pole_subtarget, c.chain_count, c.pole_angle = rig, f'tgt_{side}', rig, f'pole_{side}', 2, math.radians(POLE_ANGLE)
 
 
 _gi = {g.index: g.name for g in body.vertex_groups}
@@ -314,48 +369,56 @@ def pose(P):
     upd()
 
 
-# The four poses, keyed against the reference photos (docs/design/REFERENCES-2026-11-03-surfer.md):
-#  trim   (Unsplash Newport, Santa Cruz inside): tall-ish, knees soft, arms low and loose, looking down the line
-#  bottom (Blacks bottom turn): compressed, hips over the back foot and leaning into the wave, toe rail buried, trailing hand to the water,
-#         leading arm pointing the line
-#  top    (USFWS cutback, Santa Cruz snap): extended on the back leg, board turned toward the beach on its heel rail, trailing arm swung
-#         round leading the shoulders, head on the landing
-#  pump   : a small compress between trims
-# wave-round3: the board is FLAT in every key (board=(0,0,0)): its bank, pitch and yaw come from the ride line in the viewer (yaw along the
-# velocity, roll from the turn), so the poses are the body relative to the deck. Six distinct keys, no holds: the clip is always moving.
-# Arms hang and balance (hands at hip-to-chest height, elbows bent), never level; the head looks down the line (twist -: toward the nose).
+# The poses (spec 2026-11-04 Appendix M; references in docs/3d/MOTION-REFERENCE.md). Frame: nose -x, wave (toe side) -y, z up; goofy:
+# the right foot and the right arm are the FRONT ones. The board is FLAT in every key: its bank, pitch and yaw come from the ride line in the
+# viewer, so the poses are the body relative to the deck. Hip heights are fractions of the standing hip height, chosen so the knee flexion
+# lands in the spec's range for the 0.70 m stance (trim ~45 deg -> 0.88, bottom turn ~85 -> 0.70, barrel ~100 -> 0.58). Hands stay between
+# knee and chest height, +-50 cm of the torso; the front hand leads low, the back hand stays low behind the hip (never a raise before a turn).
+# The viewer solves the arms to these hand positions in the board frame (M7), so the torso's own twist never swings them.
 POSES = {
-    # trim (Newport, Santa Cruz inside): knees soft, hips a little back, chest down the line, lead hand low in front, trailing hand low behind
-    'trim': dict(board=(0, 0, 0), hips=(0.68, 0.14, -0.03), hip_yaw=-16, foot_yaw=(18, -2),
-                 spine=((-0.25, -0.22, 1.0), (-0.32, -0.28, 1.0), (-0.3, -0.22, 1.0), -14), neck=(-0.12, -0.1, 1.0), head=((-0.08, -0.06, 1.0), -52),
-                 arm_r=((-0.45, -0.3, -0.85), (-0.9, -0.35, -0.25), (-0.9, -0.35, -0.3)), arm_l=((0.35, -0.1, -0.95), (0.2, -0.75, -0.6), (0.15, -0.8, -0.6))),
-    # bottom turn apex (Blacks): deep crouch, hips over the back foot and into the wave, chest to the face, trailing hand down to the water,
-    # lead arm extended forward-down pointing the line, head up the face at the lip
-    'bottom': dict(board=(0, 0, 0), hips=(0.52, 0.28, -0.2), hip_yaw=-24, foot_yaw=(16, -6),
-                   spine=((-0.12, -0.72, 0.8), (-0.14, -0.78, 0.7), (-0.14, -0.7, 0.75), -16), neck=(-0.15, -0.35, 1.0), head=((-0.2, -0.3, 1.0), -48),
-                   arm_r=((-0.6, -0.35, -0.7), (-0.95, -0.2, -0.2), (-0.95, -0.2, -0.25)), arm_l=((0.2, -0.6, -0.8), (-0.1, -0.9, -0.45), (-0.1, -0.9, -0.5))),
-    # climb (Bali coaching "the lift"): extending, shoulders starting to open toward the beach, lead arm rising, trailing arm swinging back low
-    'climb': dict(board=(0, 0, 0), hips=(0.66, 0.22, -0.1), hip_yaw=-4, foot_yaw=(18, -2),
-                  spine=((-0.15, -0.3, 1.0), (-0.12, -0.28, 1.0), (-0.1, -0.2, 1.0), 8), neck=(-0.1, -0.12, 1.0), head=((-0.1, -0.08, 1.0), -32),
-                  arm_r=((-0.5, -0.1, -0.85), (-0.9, 0.05, 0.4), (-0.9, 0.05, 0.3)), arm_l=((0.45, 0.2, -0.85), (0.3, 0.6, -0.7), (0.3, 0.65, -0.7))),
-    # top turn hit (USFWS cutback, Santa Cruz snap): tall on the back leg over the tail, torso twisted toward the beach, the trailing arm swung
-    # up and round leading the shoulders, lead arm pointing at the landing, head looking down at the landing
-    'top': dict(board=(0, 0, 0), hips=(0.74, 0.28, 0.04), hip_yaw=20, foot_yaw=(20, 4),
-                spine=((0.0, 0.2, 1.0), (0.02, 0.26, 1.0), (0.04, 0.22, 1.0), 34), neck=(0.02, 0.2, 1.0), head=((0.05, 0.3, 1.0), -12),
-                arm_r=((-0.55, 0.3, -0.75), (-0.9, 0.3, -0.3), (-0.9, 0.3, -0.35)), arm_l=((0.25, 0.55, 0.8), (-0.2, 0.75, 0.6), (-0.25, 0.75, 0.55))),
-    # recovery (landing off the top): compressed, chest forward over the front foot, both arms low for balance, head back down the line
-    'recover': dict(board=(0, 0, 0), hips=(0.55, 0.18, -0.06), hip_yaw=-12, foot_yaw=(18, -3),
-                    spine=((-0.25, -0.3, 1.0), (-0.3, -0.32, 1.0), (-0.28, -0.26, 1.0), -10), neck=(-0.15, -0.15, 1.0), head=((-0.1, -0.1, 1.0), -50),
-                    arm_r=((-0.3, -0.25, -0.92), (-0.85, -0.3, -0.45), (-0.85, -0.3, -0.5)), arm_l=((0.35, -0.2, -0.92), (0.15, -0.6, -0.78), (0.1, -0.65, -0.75))),
-    # pump: a small compress and forward weight shift between trims
-    'pump': dict(board=(0, 0, 0), hips=(0.6, 0.1, -0.05), hip_yaw=-16, foot_yaw=(18, -3),
-                 spine=((-0.28, -0.25, 1.0), (-0.3, -0.3, 1.0), (-0.28, -0.24, 1.0), -14), neck=(-0.1, -0.1, 1.0), head=((-0.08, -0.06, 1.0), -52),
-                 arm_r=((-0.5, -0.3, -0.8), (-0.9, -0.3, -0.3), (-0.9, -0.3, -0.35)), arm_l=((0.35, -0.15, -0.92), (0.15, -0.7, -0.7), (0.1, -0.75, -0.65))),
+    # trim: knees ~45, hips flexed ~25, torso pitched ~15 toward the wave, shoulders along the board, looking down the line (-x)
+    'trim': dict(board=(0, 0, 0), hips=(1.0, 0.06, -0.01), hip_yaw=-28, foot_yaw=(35, 8),
+                 spine=((-0.22, -0.3, 1.0), (-0.25, -0.36, 1.0), (-0.22, -0.3, 1.0), -30), neck=(-0.15, -0.1, 1.0), head=((-0.12, -0.06, 1.0), -48),
+                 arm_r=((-0.35, -0.3, -0.88), (-0.85, -0.4, -0.35), (-0.85, -0.4, -0.35)), arm_l=((0.4, -0.2, -0.9), (0.45, -0.6, -0.65), (0.4, -0.65, -0.65))),
+    # bottom turn apex: knees ~85, hips flexed ~55, torso pitched ~35 into the face, weight over the back foot, the front arm pointing down the
+    # line at or below the shoulder, the back hand low by the hip skimming the water, head up the face at the target
+    'bottom': dict(board=(0, 0, 0), hips=(0.86, 0.14, -0.16), hip_yaw=-26, foot_yaw=(32, 4),
+                   spine=((-0.18, -0.7, 0.72), (-0.18, -0.75, 0.66), (-0.18, -0.7, 0.7), -24), neck=(-0.2, -0.3, 1.0), head=((-0.25, -0.25, 1.0), -45),
+                   arm_r=((-0.55, -0.35, -0.75), (-0.92, -0.3, -0.25), (-0.92, -0.3, -0.25)), arm_l=((0.4, -0.35, -0.85), (0.45, -0.7, -0.55), (0.4, -0.75, -0.5))),
+    # climb (extending up the face, shoulders starting to open): knees ~55; the front arm reaches toward the lip at shoulder height, the back
+    # arm stays low behind
+    'climb': dict(board=(0, 0, 0), hips=(0.985, 0.12, -0.08), hip_yaw=-12, foot_yaw=(34, 6),
+                  spine=((-0.14, -0.35, 0.95), (-0.12, -0.34, 0.95), (-0.1, -0.28, 0.95), -4), neck=(-0.1, -0.12, 1.0), head=((-0.1, -0.08, 1.0), -30),
+                  arm_r=((-0.6, -0.25, -0.75), (-0.9, -0.35, 0.25), (-0.9, -0.35, 0.25)), arm_l=((0.45, -0.05, -0.88), (0.5, 0.3, -0.8), (0.5, 0.35, -0.78))),
+    # top turn hit: knees ~40 (tall on the back leg over the tail), torso twisted toward the beach (+y) within 60 deg, the front arm sweeping
+    # down the line at shoulder height (the one brief rise the spec allows), the back arm low, head on the landing
+    'top': dict(board=(0, 0, 0), hips=(1.0, 0.18, 0.03), hip_yaw=18, foot_yaw=(34, 8),
+                spine=((0.0, 0.15, 1.0), (0.02, 0.2, 1.0), (0.04, 0.18, 1.0), 30), neck=(0.02, 0.2, 1.0), head=((0.05, 0.3, 1.0), -10),
+                arm_r=((-0.75, 0.3, -0.6), (-0.9, 0.35, -0.2), (-0.9, 0.35, -0.2)), arm_l=((0.35, 0.3, -0.88), (0.3, 0.6, -0.74), (0.3, 0.65, -0.7))),
+    # recovery (landing off the top): knees ~60, chest forward over the front foot, both arms low for balance, head back down the line
+    'recover': dict(board=(0, 0, 0), hips=(0.96, 0.1, -0.08), hip_yaw=-22, foot_yaw=(34, 6),
+                    spine=((-0.25, -0.45, 0.9), (-0.28, -0.5, 0.85), (-0.25, -0.45, 0.88), -22), neck=(-0.15, -0.15, 1.0), head=((-0.12, -0.1, 1.0), -46),
+                    arm_r=((-0.3, -0.3, -0.9), (-0.8, -0.4, -0.45), (-0.8, -0.4, -0.45)), arm_l=((0.4, -0.25, -0.88), (0.45, -0.6, -0.65), (0.4, -0.65, -0.65))),
+    # pump: a small compress (knees ~55) and forward weight shift between trims, arms quiet
+    'pump': dict(board=(0, 0, 0), hips=(0.985, 0.04, -0.02), hip_yaw=-28, foot_yaw=(35, 8),
+                 spine=((-0.24, -0.35, 1.0), (-0.26, -0.4, 1.0), (-0.24, -0.35, 1.0), -30), neck=(-0.12, -0.1, 1.0), head=((-0.1, -0.06, 1.0), -48),
+                 arm_r=((-0.4, -0.3, -0.86), (-0.86, -0.4, -0.3), (-0.86, -0.4, -0.3)), arm_l=((0.4, -0.2, -0.9), (0.45, -0.6, -0.65), (0.4, -0.65, -0.65))),
+    # barrel crouch (frontside): knees ~100, hips flexed ~80, torso pitched ~45 and compact, head up looking at the exit down the line, the
+    # front arm low and forward, the back hand dragging the face behind the hip
+    'barrel': dict(board=(0, 0, 0), hips=(0.75, 0.08, -0.1), hip_yaw=-16, foot_yaw=(35, 6),
+                   spine=((-0.2, -0.6, 0.78), (-0.22, -0.62, 0.74), (-0.22, -0.55, 0.78), -18), neck=(-0.35, -0.25, 0.9), head=((-0.5, -0.2, 0.85), -40),
+                   arm_r=((-0.5, -0.4, -0.78), (-0.92, -0.3, -0.25), (-0.92, -0.3, -0.25)), arm_l=((0.2, -0.45, -0.87), (0.1, -0.85, -0.52), (0.05, -0.88, -0.48))),
+    # pig-dog (backside tube; the viewer mirrors the rider, so here the wave is on the +y, heel side): the back knee dropped low (~115), the
+    # front knee ~90, the torso twisted to look at the exit over the leading shoulder, the leading (front) hand down on the toe-side rail by
+    # the front foot, the back arm low and back
+    'pigdog': dict(board=(0, 0, 0), hips=(0.65, 0.14, 0.05), hip_yaw=-28, foot_yaw=(40, 4),
+                   spine=((-0.3, -0.35, 0.88), (-0.35, -0.3, 0.88), (-0.4, -0.2, 0.9), -30), neck=(-0.5, 0.0, 0.85), head=((-0.6, 0.1, 0.78), -35),
+                   arm_r=((-0.3, -0.45, -0.85), (-0.35, -0.5, -0.8), (-0.35, -0.5, -0.8)), arm_l=((0.3, -0.1, -0.95), (0.3, -0.5, -0.8), (0.3, -0.55, -0.78))),
 }
-# the ride: 4 s at 24 fps, frame 97 == frame 1 so it loops; the key frames match the ride line's waypoint phases in WaveLive.tsx (RIDE_WP)
-RIDE = [(1, 'trim'), (26, 'bottom'), (42, 'climb'), (58, 'top'), (70, 'recover'), (82, 'pump'), (97, 'trim')]
+# the ride clip: the keys the viewer samples (POSE_KEYS in surfSceneConfig.ts); frame 124 == frame 1 so the clip still loops
+RIDE = [(1, 'trim'), (26, 'bottom'), (42, 'climb'), (58, 'top'), (70, 'recover'), (82, 'pump'), (100, 'barrel'), (112, 'pigdog'), (124, 'trim')]
 STILL = 'bottom'
-CHECK_FRAMES = {1, 26, 42, 58, 70, 82}
+CHECK_FRAMES = {1, 26, 42, 58, 70, 82, 100, 112}
 
 
 def fcurves_of(act):
@@ -396,8 +459,16 @@ def bake(src_name, frames, out_name):
             Rb = M @ pb['board'].matrix @ REST['board'].inverted()
             dk = Rb @ Vector((BACK_X, -0.02, deck_z(BACK_X)))
             eul = Rb.to_euler('ZYX')
-            print(f'SURFER check f{f}: lowest body z {low:.3f}, deck under the back foot z {dk.z:.3f}, sole-to-deck (board frame) {foot_penetration(Rb):+.3f}, '
-                  f'board bank/pitch/yaw {math.degrees(eul.x):.0f}/{math.degrees(-eul.y):.0f}/{math.degrees(eul.z):.0f}')
+            def _knee(side):
+                h, k, a = (M @ pb[f'thigh_{side}'].head), (M @ pb[f'calf_{side}'].head), (M @ pb[f'foot_{side}'].head)
+                return 180 - math.degrees((h - k).angle(a - k))
+            kl, kr = (M @ pb['calf_l'].head), (M @ pb['calf_r'].head)
+            fl, fr = (M @ pb['foot_l'].head), (M @ pb['foot_r'].head)
+            hands = {sd: (M @ pb[f'hand_{sd}'].head) for sd in 'lr'}
+            sh = {sd: (M @ pb[f'upperarm_{sd}'].head) for sd in 'lr'}
+            print(f'SURFER check f{f}: lowest body z {low:.3f}, sole-to-deck (board frame) {foot_penetration(Rb):+.3f}, hips z {(M @ pb["pelvis"].head).z:.2f}, '
+                  f'knee flex front(r)/back(l) {_knee("r"):.0f}/{_knee("l"):.0f} deg, knee sep/foot sep {(kl - kr).length / (fl - fr).length:.2f}, '
+                  f'hands z-shoulder r/l {hands["r"].z - sh["r"].z:+.2f}/{hands["l"].z - sh["l"].z:+.2f} m, hand x off r/l {hands["r"].x:+.2f}/{hands["l"].x:+.2f}')
     out = new_action(out_name)
     for b in pb:
         for c in list(b.constraints):  # the baked pose carries everything
@@ -440,8 +511,8 @@ for _cb, fcs in fcurves_of(ride_src):
     for kp in fc.keyframe_points:
         kp.interpolation = 'BEZIER'
         kp.easing = 'AUTO'
-scene.frame_start, scene.frame_end = 1, 96
-frames = list(range(1, 98))
+scene.frame_start, scene.frame_end = 1, 123
+frames = list(range(1, 125))
 stored_still = None
 # evaluate the still pose with IK before the bake clears constraints
 scene.frame_set(1)
@@ -483,6 +554,7 @@ for act in (ride, still):  # orphan curves of the removed helpers
             if any(f'"{n}"' in fc.data_path for n in ('tgt_l', 'tgt_r', 'pole_l', 'pole_r')):
                 cb.fcurves.remove(fc)
 rig.name, body.name = 'SurferRig', 'Surfer'
+hair_obj.name = 'Hair'
 
 print('SURFER bones final', len(rig.data.bones), 'verts', len(body.data.vertices), 'clips', [(x.name, x.frame_range[:]) for x in (ride, still)])
 
@@ -518,7 +590,7 @@ if a.preview:
 
 # ---------------------------------------------------------------- export: skinned, both clips, no helpers
 bpy.ops.object.select_all(action='DESELECT')
-for o in (rig, body, board):
+for o in (rig, body, board, hair_obj):
     o.select_set(True)
 bpy.context.view_layer.objects.active = rig
 bpy.ops.export_scene.gltf(filepath=a.out, use_selection=True, export_apply=True, export_animations=True, export_animation_mode='ACTIONS',

@@ -36,10 +36,10 @@ test('the plan is a closed C1 loop per skill: continuous, derivative matches a f
     planAt(p, 0, a); planAt(p, p.period, b); assert.ok(Math.abs(a.u - b.u) < 1e-9 && Math.abs(a.v - b.v) < 1e-9, `${skill} closes`);
     const moves = new Set<string>(); let worst = 0;
     for (let t = 0; t < p.period; t += 0.005) { planAt(p, t, a); planAt(p, t + 0.005, b); moves.add(a.move);
-      worst = Math.max(worst, Math.abs((b.u - a.u) / 0.005 - a.du), Math.abs((b.v - a.v) / 0.005 - a.dv)); assert.ok(a.v > -0.05 && a.v < 1 && a.u < 0, `${skill} in range`); }   // the spline may overshoot a knot slightly; the sim clamps v to [vMin, cap]
+      worst = Math.max(worst, Math.abs((b.u - a.u) / 0.005 - a.du), Math.abs((b.v - a.v) / 0.005 - a.dv)); assert.ok(a.v > -0.05 && a.v < 1 && (a.u < 0 || a.move === 'barrel'), `${skill} in range`); }   // the spline may overshoot a knot slightly; the sim clamps v to [vMin, cap]; a barrel knot sits behind the curl (u > 0)
     assert.ok(worst < 0.2, `${skill} derivative vs finite difference: ${worst.toFixed(3)}`);
     for (const m of ['trim', 'bottom', 'top']) assert.ok(moves.has(m), `${skill} has ${m}`);
-    assert.ok(p.period > 6 && p.period < 20, `${skill} period ${p.period.toFixed(1)} s`); assert.equal(p.band.id, 'B'); assert.ok(p.rideEnd < p.period && p.rideEnd > 4, `${skill} ride end ${p.rideEnd.toFixed(1)} s`);
+    assert.ok(p.period > 6 && p.period < 20, `${skill} period ${p.period.toFixed(1)} s`); assert.equal(p.band.id, 'C'); assert.ok(p.rideEnd < p.period && p.rideEnd > 4, `${skill} ride end ${p.rideEnd.toFixed(1)} s`);
     for (const m of ['takeoff', skill === 'Beginner' ? 'out' : 'kickout']) assert.ok(moves.has(m), `${skill} has ${m}`);
   }
   // jitter: a different seed gives a different plan; the same seed the same plan
@@ -85,13 +85,15 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
 });
 
 test('style bands and the expertise layer (brief part 2): thresholds round to 0.5 ft, beginners never barrel or snap, experts play band A softly', () => {
-  assert.equal(bandFor(3.7).id, 'A'); assert.equal(bandFor(3.76).id, 'B'); assert.equal(bandFor(9.7).id, 'B'); assert.equal(bandFor(9.76).id, 'C');
+  assert.equal(bandFor(3.7).id, 'A'); assert.equal(bandFor(3.76).id, 'B'); assert.equal(bandFor(5.7).id, 'B'); assert.equal(bandFor(5.76).id, 'C'); assert.equal(bandFor(9.7).id, 'C'); assert.equal(bandFor(9.76).id, 'D');
   const movesOf = (skill: Skill, H: number) => new Set(buildPlan(skill, 7, H).knots.map((k) => k.move));
   for (const H of [0.61, 1.83, 3.66, 6.1]) { const m = movesOf('Beginner', H); assert.ok(!m.has('barrel') && !m.has('cutback') && !m.has('pump'), `Beginner at ${H} m: ${[...m]}`); assert.ok(m.has('out')); }
-  assert.ok(!movesOf('Intermediate', 3.66).has('barrel'), 'Intermediate: no barrel');
-  assert.ok(movesOf('Expert', 6.1).has('barrel') || movesOf('Expert', 3.66).has('barrel'), 'Expert band C barrels');
+  // round 4: an intermediate's barrel is a cover-up that never goes behind the curl; an expert's goes inside the tube (negative ahead) on every ride from 6 ft
+  assert.ok(buildPlan('Intermediate', 7, 3.66).knots.every((k) => (k.ahead ?? 1) >= 0), 'Intermediate: never behind the curl');
+  for (const H of [1.83, 2.44, 3.66, 6.1]) assert.ok(buildPlan('Expert', 7, H).knots.some((k) => k.move === 'barrel' && (k.ahead ?? 1) < 0), `Expert barrels inside at ${H} m`);
+  assert.ok(!buildPlan('Expert', 7, 1.52).knots.some((k) => k.move === 'barrel'), 'no barrel under 6 ft');
   const a = buildPlan('Expert', 7, 0.61), b = buildPlan('Expert', 7, 1.83);
-  assert.equal(a.band.id, 'A'); assert.equal(b.band.id, 'B');
+  assert.equal(a.band.id, 'A'); assert.equal(b.band.id, 'C'); assert.equal(buildPlan('Expert', 7, 1.37).band.id, 'B');
   const meanComp = (p: ReturnType<typeof buildPlan>) => p.knots.reduce((s, k) => s + k.comp, 0) / p.knots.length;
   assert.ok(meanComp(a) < meanComp(b), 'band A is more upright than band B');
   // the beginner rides further out than the expert on the same wave

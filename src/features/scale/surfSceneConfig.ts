@@ -9,7 +9,17 @@ import type {Skill} from '../../models/index.ts';
 export const SIM = {hz: 120, maxStepsPerFrame: 8, maxFrameS: 0.05} as const;
 
 /** Dev glitch monitor: angular change per frame (the limit is per 1/60 s and scales with the frame's own dt), board-to-water gaps. */
-export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1 / 60, centreGapM: 0.03, lowestGapM: -0.15, keepEvents: 40} as const;
+export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1 / 60, centreGapM: 0.03, lowestGapM: -0.15, keepEvents: 120, keepPerKind: 12,
+  /** body checks (round 4), sampled at bodyHz: knee flexion range (deg, 0 = straight), the knee's direction against the foot's forward
+   *  (deg), a wrist above its shoulder (m margin) for longer than wristAboveS outside the moves that allow it, joint angular acceleration */
+  bodyHz: 30, kneeFlexDeg: [4, 140] as readonly [number, number], kneePoleDeg: 50, wristAboveM: 0.0, wristAboveS: 0.3, jerkDegS2: 3000,
+  wristAllowedMoves: ['barrel', 'top'] as readonly string[],
+  /** the hard gates (spec §A2/§A3, user 2026-11-04): knee-to-knee >= this share of foot-to-foot and each knee within kneeLateralM of its
+   *  hip-foot line along the board (`knock`); hands inside +-handSideM of the torso and between knee and shoulder height, arm joint speed
+   *  under armSpeedDegS, no reversal of a hand's travel faster than armReversalS (`arm`) */
+  kneeSepRatio: 0.6, kneeLateralM: 0.1, handSideM: 0.7, armSpeedDegS: 360, armReversalS: 0.25,
+  /** the hips stay over the feet: the pelvis' toe-heel offset (m) from the feet midpoint, in trim and in turns (`hip` count; "sitting" otherwise) */
+  hipOverFeetM: {trim: 0.1, turn: 0.15, /** plus this much per radian of face slope: the standing body angulates toward the vertical on a steep face */ perSlope: 0.3}} as const;
 
 /** The board's wake (brief stage 6): a thin foam trail off the tail, sampled along the actual path, carried with the water, widening
  *  and fading out within lifeS; and the tail spray on turns, scaled by speed and turn load (rail roll), by the band's spray factor and
@@ -25,7 +35,7 @@ export const POLE = {heightM: 1.8288, bands: 6, radiusM: 0.035, aheadM: 1.2} as 
 export const BOARD = {
   lengthM: 1.83, widthM: 0.49,
   /** the model board's width per style band when the quiver is empty (a wider fish under 4 ft, a pulled-in gun from 10 ft) */
-  bandWidthM: {A: 0.53, B: 0.49, C: 0.46} as Record<'A' | 'B' | 'C', number>,
+  bandWidthM: {A: 0.53, B: 0.49, C: 0.47, D: 0.46} as Record<'A' | 'B' | 'C' | 'D', number>,
   /** the plane-fit chord along the board as a fraction of its half length */
   endPoint: 0.84,
   /** the contact probes on the mesh's bottom plane (m in from the ends/rails, up from the bottom): the monitor's gaps, the sim's rail
@@ -81,12 +91,12 @@ export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 
  *  last), u, v, the move name, the pose it blends to, the compression target, and how close to the curl it may go (face heights,
  *  RIDE.minAheadFaces when absent). */
 export interface Knot {dt: number; u: number; v: number; move: Move; pose: PoseName; /** compression target 0 (tall) .. 1 (deep) */ comp: number; ahead?: number}
-export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump';
+export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump' | 'barrel' | 'pigdog';
 
 /** A maneuver's shape (brief part 2, "implementation shape"): knots relative to the band's line: `du` out from the pocket distance (face
  *  heights, + = further out on the shoulder), `dv` up (+) or down (-) from the band's line height, scaled by the expertise's intensity. */
 export interface ManeuverKnot {dt: number; du: number; dv: number; move: Move; pose: PoseName; comp: number; ahead?: number}
-export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'longBottom';
+export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'coverup' | 'longBottom';
 export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a trim along the line */
   trim: [{dt: 0.7, du: 0.05, dv: 0, move: 'trim', pose: 'trim', comp: 0.45}],
@@ -101,7 +111,9 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a long, fast, high line out to the shoulder with the rail set */
   straight: [{dt: 1.5, du: 0.4, dv: 0.05, move: 'trim', pose: 'trim', comp: 0.5}, {dt: 1.3, du: 0.9, dv: 0.02, move: 'trim', pose: 'trim', comp: 0.45}],
   /** stall (weight back, close to the curl), tuck low and hold a high line under the lip, come out ahead of the foam */
-  barrel: [{dt: 0.8, du: -0.15, dv: -0.05, move: 'barrel', pose: 'recover', comp: 0.5, ahead: 0.1}, {dt: 1.3, du: -0.25, dv: 0.02, move: 'barrel', pose: 'bottom', comp: 1.0, ahead: 0.08}, {dt: 0.9, du: 0.25, dv: -0.05, move: 'barrel', pose: 'climb', comp: 0.6, ahead: 0.2}],
+  barrel: [{dt: 0.8, du: -0.3, dv: -0.1, move: 'barrel', pose: 'recover', comp: 0.6, ahead: 0.1}, {dt: 0.6, du: -0.75, dv: -0.15, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.25}, {dt: 1.4, du: -0.9, dv: -0.12, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.4}, {dt: 1.0, du: -0.2, dv: -0.05, move: 'barrel', pose: 'climb', comp: 0.6, ahead: 0.2}],
+  /** a shallow cover-up (Intermediate): the stall and the crouch under the lip, never behind the curl */
+  coverup: [{dt: 0.8, du: -0.2, dv: -0.05, move: 'barrel', pose: 'recover', comp: 0.6, ahead: 0.15}, {dt: 1.2, du: -0.35, dv: 0.0, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: 0.1}, {dt: 0.9, du: 0.2, dv: -0.05, move: 'barrel', pose: 'climb', comp: 0.6, ahead: 0.25}],
   /** the big-wave bottom turn: long radius, heavy load, deep at the base */
   longBottom: [{dt: 1.4, du: 0.35, dv: -0.45, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.9, du: 0.1, dv: 0.08, move: 'bottom', pose: 'climb', comp: 0.6}],
 };
@@ -110,7 +122,7 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
  *  face to the nearest 0.5 ft before comparing) is fixed in `bandFor` so an hour never flickers between bands. Style is illustration;
  *  only the face height picks the band. */
 export interface StyleBand {
-  id: 'A' | 'B' | 'C'; minFt: number; label: string;
+  id: 'A' | 'B' | 'C' | 'D'; minFt: number; label: string;
   /** preferred height on the face, pocket distance (face heights, scaled by the expertise), aggression/compression/spray scales */
   lineV: number; pocketFaces: number; aggression: number; compression: number; spray: number;
   /** the body of the ride as maneuvers with weights (0..1: the seeded chance of keeping an optional one; 1 = always) */
@@ -121,19 +133,26 @@ export interface StyleBand {
   boardFt: [number, number]; boardTypes: readonly string[];
 }
 export const BANDS: readonly StyleBand[] = [
-  {id: 'A', minFt: 0, label: 'chill, flowing', lineV: 0.55, pocketFaces: 1.0, aggression: 0.3, compression: 0.45, spray: 0.25, dropScale: 1.3,
-    moves: [{name: 'trim', w: 1}, {name: 'carve', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.7}, {name: 'pump', w: 0.5}, {name: 'carve', w: 1}],
+  // small (< 4 ft): at most three move types, upright, little rotation (M8)
+  {id: 'A', minFt: 0, label: 'small: trim and gentle turns', lineV: 0.55, pocketFaces: 1.0, aggression: 0.3, compression: 0.4, spray: 0.25, dropScale: 1.3,
+    moves: [{name: 'trim', w: 1}, {name: 'carve', w: 1}, {name: 'trim', w: 1}, {name: 'pump', w: 0.5}, {name: 'carve', w: 1}],
     boardFt: [5.33, 5.83], boardTypes: ['Fish', 'Groveler', 'Hybrid', 'Everyday shortboard', 'Midlength', 'Longboard']},
-  {id: 'B', minFt: 4, label: 'aggressive shortboard carving', lineV: 0.45, pocketFaces: 0.6, aggression: 0.9, compression: 0.9, spray: 1.0, dropScale: 1.0,
-    moves: [{name: 'trim', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 1}, {name: 'pump', w: 0.7}, {name: 'snap', w: 0.8}],
+  // mid (4-6 ft): carving with real rail, top turns, pumps
+  {id: 'B', minFt: 4, label: 'mid: carves, top turns, pumps', lineV: 0.45, pocketFaces: 0.6, aggression: 0.9, compression: 0.9, spray: 1.0, dropScale: 1.0,
+    moves: [{name: 'trim', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 1}, {name: 'pump', w: 0.7}, {name: 'carve', w: 0.8}],
     boardFt: [5.83, 6.5], boardTypes: ['Performance shortboard', 'Everyday shortboard', 'Hybrid', 'Step-up']},
-  {id: 'C', minFt: 10, label: 'big-wave: barrels and straight lines', lineV: 0.58, pocketFaces: 0.8, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7,
-    moves: [{name: 'longBottom', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 0.8}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],   // the stall into the barrel from a trim, not from far out on the shoulder (that raced the rider back at the peel speed)
+  // big (6-10 ft): deep bottom turns, vertical top turns, and a barrel every ride (Intermediate: a shallow cover-up; Beginner: never)
+  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.5, pocketFaces: 0.5, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85,
+    moves: [{name: 'longBottom', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.5}],
+    boardFt: [6.17, 6.83], boardTypes: ['Step-up', 'Performance shortboard', 'Gun']},
+  // very big (10 ft +): long drawn-out bottom turns, a deep barrel, a high fast line
+  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.58, pocketFaces: 0.8, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7,
+    moves: [{name: 'longBottom', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],
     boardFt: [6.67, 7.5], boardTypes: ['Step-up', 'Gun', 'Midlength']},
 ];
 export const bandFor = (faceFt: number): StyleBand => { const r = Math.round(faceFt * 2) / 2; let b = BANDS[0]; for (const x of BANDS) if (r >= x.minFt) b = x; return b; };
 /** Band C's board grows with the face: 6'8"-7'6" at 10-15 ft, 8'-10' beyond (brief). */
-export const bandBoardFt = (band: StyleBand, faceFt: number): [number, number] => (band.id === 'C' && faceFt >= 15 ? [8, 10] : band.boardFt);
+export const bandBoardFt = (band: StyleBand, faceFt: number): [number, number] => (band.id === 'D' && faceFt >= 15 ? [8, 10] : band.boardFt);
 
 export interface SkillProfile {
   /** the takeoff: the first knot is where the rider appears (its dt is the gap from the previous ride's end, the rider faded out), the
@@ -166,7 +185,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 0.6, u: -1.45, v: 0.85, move: 'kickout', pose: 'top', comp: 0.3},
     ],
     allow: {}, pocketScale: 1, lineVOffset: 0, intensity: 1, slow: 1,
-    carve: 1, compression: 1, armsOutDeg: 0, fadeMs: {trim: 400, bottom: 280, climb: 300, top: 280, recover: 300, pump: 220}, swayDeg: 0.8,
+    carve: 1, compression: 1, armsOutDeg: 0, fadeMs: {trim: 400, bottom: 320, climb: 320, top: 300, recover: 320, pump: 260, barrel: 420, pigdog: 420}, swayDeg: 0.8,
   },
   Intermediate: {
     takeoff: [
@@ -178,8 +197,8 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 0.7, u: -1.95, v: 0.85, move: 'kickout', pose: 'top', comp: 0.3},
     ],
     /** no barrel for an intermediate: the band C high line instead (the brief's "shallow ones only" needs a tube to be drawn first) */
-    allow: {barrel: 'straight'}, pocketScale: 1.6, lineVOffset: -0.03, intensity: 0.7, slow: 1.15,
-    carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 400, bottom: 320, climb: 320, top: 300, recover: 320, pump: 240}, swayDeg: 1.2,
+    allow: {barrel: 'coverup'}, pocketScale: 1.6, lineVOffset: -0.03, intensity: 0.7, slow: 1.15,
+    carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 420, bottom: 360, climb: 360, top: 330, recover: 360, pump: 280, barrel: 450, pigdog: 450}, swayDeg: 1.2,
   },
   Beginner: {
     takeoff: [
@@ -190,8 +209,8 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 1.3, u: -2.9, v: 0.12, move: 'out', pose: 'trim', comp: 0.3},
       {dt: 1.0, u: -3.1, v: 0.07, move: 'out', pose: 'trim', comp: 0.3},
     ],
-    allow: {snap: 'carve', cutback: null, barrel: null, pump: null, longBottom: 'carve'}, pocketScale: 2.6, lineVOffset: -0.08, intensity: 0.45, slow: 1.4,
-    carve: 0.4, compression: 0.35, armsOutDeg: 18, fadeMs: {trim: 400, bottom: 400, climb: 400, top: 350, recover: 400, pump: 300}, swayDeg: 2.2,
+    allow: {snap: 'carve', cutback: null, barrel: null, coverup: null, pump: null, longBottom: 'carve'}, pocketScale: 2.6, lineVOffset: -0.08, intensity: 0.45, slow: 1.4,
+    carve: 0.4, compression: 0.35, armsOutDeg: 18, fadeMs: {trim: 450, bottom: 450, climb: 450, top: 400, recover: 450, pump: 350, barrel: 500, pigdog: 500}, swayDeg: 2.2,
   },
 };
 
@@ -223,7 +242,7 @@ export function boardForBand(band: StyleBand, faceFt: number, boards: readonly {
 
 /** The surfer-v3 clip's key frames (tools/blender/build_surfer.py RIDE, 24 fps): the pose library is sampled from the `ride` clip at these
  *  times once at load; the clip is not played (a mixer that skips unchanged writes was the round-3 popping, see docs/3d/FINDINGS-2026-11-04.md). */
-export const POSE_KEYS: Record<PoseName, number> = {trim: 1, bottom: 26, climb: 42, top: 58, recover: 70, pump: 82};
+export const POSE_KEYS: Record<PoseName, number> = {trim: 1, bottom: 26, climb: 42, top: 58, recover: 70, pump: 82, barrel: 100, pigdog: 112};
 export const CLIP_FPS = 24;
 
 /** The body's procedural layers on top of the blended pose. */
@@ -231,19 +250,32 @@ export const BODY = {
   /** stance: the model's feet on the deck (fractions of the board length from the centre, nose at -x): front foot ahead of centre, back on the tail pad */
   stanceFrontX: -0.13, stanceBackX: 0.3,
   /** dynamic compression on top of the pose (m of hip drop at comp 1 x skill compression) */
-  compressM: 0.1,
+  compressM: 0.04,
   /** on a steep face the rider stands away from the deck toward the vertical: the whole body above the feet leans by a share of the deck
    *  tilt past a threshold (the legs flex to keep the feet planted), then the torso adds its own counter over three spine bones, both limited */
-  bodyLeanStartDeg: 22, bodyLeanGain: 0.75, bodyLeanMaxDeg: 42,
-  torsoCounterStartDeg: 30, torsoCounterGain: 0.5, torsoCounterMaxDeg: 30,
+  bodyLeanStartDeg: 18, bodyLeanGain: 0.5, bodyLeanMaxDeg: 26, /** share of the pivot's height loss given back (1 = hips keep their height off the deck) */ bodyLeanKeepHeight: 0.7,
+  torsoCounterStartDeg: 30, torsoCounterGain: 0.3, torsoCounterMaxDeg: 8,
+  /** backside the chest faces down the slope: the torso counters toward the vertical (over the heels, toward the wave) harder */
+  torsoCounterBackside: {gain: 0.6, maxDeg: 26},
   /** head and shoulders lead the heading this far ahead (s), limited; the hips follow a share of it */
-  leadAheadS: 0.3, leadMaxDeg: 30, leadShare: {pelvis: 0.15, spine: 0.35, neck: 0.25, head: 0.4},
+  leadAheadS: 0.3, leadMaxDeg: 24, leadShare: {pelvis: 0.15, spine: 0.35, neck: 0.25, head: 0.3},
   /** arms counter-balance the rail roll (share of the roll, about the heading), plus the skill's arms-out abduction */
-  armRollShare: 0.4,
+  armRollShare: 0.25,
+  /** the arms cross-fade slower than the body (x the pose fade rate): a pose change swings the hands through the longest arcs */
+  armFadeScale: 0.55,
+  /** two-bone leg IK: the knee pole points over the toes (rider-frame +z) splayed this much toward the board's end on that leg's side */
+  kneePole: {splay: 0.05, footShare: 0.3, maxX: 0.2},
+  /** the leg on the nose side: index into the IK legs [l, r] (the model is goofy: right foot forward; the mirror does not change it) */
+  frontLeg: 1,
+  /** arm IK (M7): the elbow pole (rider frame: out toward that arm's board end, down, back behind the chest), how far (m) the skill's
+   *  arms-out carries each hand toward its board end at 90 deg */
+  elbowPole: {out: 0.6, back: -0.75, down: -0.3}, armsOutReachM: 0.35,
+  /** a pose missing from an older asset (its key past the clip's end) is sampled from this substitute instead */
+  poseFallback: {barrel: 'bottom', pigdog: 'bottom'} as Partial<Record<PoseName, PoseName>>,
   /** spring rates (rad/s) per joint group: core stiff, arms looser, head quick, hips slow */
-  springW: {core: 2 * Math.PI * 1.3, arms: 2 * Math.PI * 0.9, head: 2 * Math.PI * 2.2, hips: 2 * Math.PI * 0.8, comp: 2 * Math.PI * 1.1},
+  springW: {core: 2 * Math.PI * 1.3, arms: 2 * Math.PI * 0.9, head: 2 * Math.PI * 1.2, hips: 2 * Math.PI * 0.8, comp: 2 * Math.PI * 1.1},
   /** human ranges of motion for the procedural additions (deg) */
-  limits: {spineTwist: 35, spineBend: 40, neck: 50, head: 60, armSwing: 70, kneeMin: 8, kneeMax: 150},
+  limits: {spineTwist: 35, spineBend: 40, neck: 50, head: 60, armSwing: 70, kneeMin: 8, kneeMax: 150, elbowMin: 15, elbowMax: 150},
   /** idle balance: two slow sines (Hz) seeded per hour; never per-frame noise */
   idleHz: [0.33, 0.57] as readonly [number, number], idleBobM: 0.004,
 } as const;

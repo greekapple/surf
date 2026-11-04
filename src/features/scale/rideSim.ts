@@ -8,7 +8,7 @@ import {type Atlas, breakX, faceDistanceAt, facePointInto} from './waveAtlas.ts'
 import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, SIM, SKILLS, type SkillProfile, type StyleBand, bandFor, composeBody} from './surfSceneConfig.ts';
 
 export const G = 9.81;
-export const POSES: readonly PoseName[] = ['trim', 'bottom', 'climb', 'top', 'recover', 'pump'];
+export const POSES: readonly PoseName[] = ['trim', 'bottom', 'climb', 'top', 'recover', 'pump', 'barrel', 'pigdog'];
 export type Stance = 'regular' | 'goofy';
 
 /** FNV-1a of a string: the forecast hour's seed (spot id + hour). */
@@ -84,8 +84,8 @@ export function maxFracAt(atlas: Atlas, x: number, t: number, capRad: number): n
 }
 
 // state layout (Float64Array): the render interpolates prev -> cur
-export const S = {X: 0, Y: 1, Z: 2, FX: 3, FY: 4, FZ: 5, UX: 6, UY: 7, UZ: 8, ROLL: 9, COMP: 10, LEAD: 11, IDLE_A: 12, IDLE_B: 13, T: 14, U: 15, V: 16, XB: 17, SPEED: 18, SEG: 19, VX: 20, YAW: 21, VZ: 22, VY: 23, NX: 24, NY: 25, NZ: 26, BRIDGE: 27, WX: 28, WY: 29, WZ: 30, VIS: 31, W0: 32} as const;
-export const STATE_N = S.W0 + POSES.length;
+export const S = {X: 0, Y: 1, Z: 2, FX: 3, FY: 4, FZ: 5, UX: 6, UY: 7, UZ: 8, ROLL: 9, COMP: 10, LEAD: 11, IDLE_A: 12, IDLE_B: 13, T: 14, U: 15, V: 16, XB: 17, SPEED: 18, SEG: 19, VX: 20, YAW: 21, VZ: 22, VY: 23, NX: 24, NY: 25, NZ: 26, BRIDGE: 27, WX: 28, WY: 29, WZ: 30, VIS: 31, W0: 32, /** the arms' own (slower) pose weights */ WA0: 32 + POSES.length} as const;
+export const STATE_N = S.WA0 + POSES.length;
 
 /** The rider simulation for one wave: fixed steps, every input continuous, nothing random per step. */
 export class RiderSim {
@@ -95,7 +95,7 @@ export class RiderSim {
   private tau = 0; private acc = 0; private started = false;
   private readonly xbS = new Spring(); private readonly capS = new Spring(); private readonly yawS = new Spring(); private readonly rollS = new Spring(); private readonly compS = new Spring(); private readonly leadS = new Spring();
   private readonly fitF = [new Spring(), new Spring(), new Spring()]; private readonly fitU = [new Spring(), new Spring(), new Spring()];
-  private readonly wS: Spring[] = POSES.map(() => new Spring());
+  private readonly wS: Spring[] = POSES.map(() => new Spring()); private readonly waS: Spring[] = POSES.map(() => new Spring());
   private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces};
   private readonly idlePhase: [number, number];
   private capRad = RIDE.slopeCapDeg * Math.PI / 180; private railMid = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
@@ -129,7 +129,7 @@ export class RiderSim {
     const xbNow = breakX(m, t); this.stats.xbNow = xbNow;
     if (!this.started) this.xbS.set(xbNow); const xb = this.xbS.step(xbNow, dt, RIDE.curlFollowW);
     // along the crest: never closer to the break point than the minimum (soft), whatever the plan says
-    const minAhead = Math.max(ps.ahead * H, RIDE.minAheadM);   // a barrel knot may sit closer to the curl than the usual floor
+    const minAhead = ps.ahead < 0 ? ps.ahead * H : Math.max(ps.ahead * H, RIDE.minAheadM);   // a barrel knot sits BEHIND the break point (inside the tube: negative ahead)
     let x = xb + ps.u * H; x -= smax0(x - (xb - minAhead), 0.25 * minAhead);   // C1 soft limit, no branch
     // on the face: the planned height, kept under the rideable slope cap (soft), the slope at the point
     // the cap keeps the wave-side rail (rb up the face from the centre) under the slope cap too, not just the centre
@@ -215,7 +215,11 @@ export class RiderSim {
     const sAlongA = Math.max(0.3, this.flowX - this.ps.du * H), sUpA = this.ps.dv * Hf / Math.sin(Math.max(0.2, slope)), yawA = Math.atan2(sUpA, sAlongA);
     const leadT = clamp(wrapPi(yawA - yaw), -BODY.leadMaxDeg * Math.PI / 180, BODY.leadMaxDeg * Math.PI / 180);
     if (!this.started) this.leadS.set(leadT); const lead = this.leadS.step(leadT, dt, BODY.springW.head);
-    for (let i = 0; i < POSES.length; i++) { const target = POSES[i] === pose0 ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000); if (!this.started) this.wS[i].set(target); c[S.W0 + i] = this.wS[i].step(target, dt, w); }
+    for (let i = 0; i < POSES.length; i++) {
+      const target = POSES[i] === pose0 ? 1 : 0, w = 4.7 / (pr.fadeMs[POSES[i]] / 1000);
+      if (!this.started) { this.wS[i].set(target); this.waS[i].set(target); }
+      c[S.W0 + i] = this.wS[i].step(target, dt, w); c[S.WA0 + i] = this.waS[i].step(target, dt, w * BODY.armFadeScale);
+    }
     const ph = this.idlePhase, hz1 = BODY.idleHz;
     c[S.IDLE_A] = Math.sin(2 * Math.PI * hz1[0] * t + ph[0]); c[S.IDLE_B] = Math.sin(2 * Math.PI * hz1[1] * t + ph[1]); c[S.VIS] = visibilityAt(this.plan, this.tau);
     const lift = -this.boardBottom;   // the mesh origin sits this far above its bottom plane, along the rolled deck normal

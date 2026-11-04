@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {clone as cloneSkinned} from 'three/examples/jsm/utils/SkeletonUtils.js';
-import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, bucketIdFor, bucketsFor, faceDistanceAt, facePointInto, loadAtlas, profileAt, scaleAtlas, stageAt, stripX, surferX, withPeriod} from './waveAtlas';
+import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, breakX, bucketIdFor, bucketsFor, faceDistanceAt, facePointInto, loadAtlas, profileAt, roofAboveAt, scaleAtlas, stageAt, stripX, surferX, withPeriod} from './waveAtlas';
 import {RiderSim, S, STATE_N, Spring, type Stance, isFrontside, lerpState} from './rideSim';
 import {RiderBody, samplePoses} from './riderBody';
 import {GlitchMonitor} from './glitchMonitor';
@@ -589,7 +589,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
-      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl);   // the bridge over a concave section is deliberate
+      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl, 'r', sim.stats.slopeNow);   // the bridge over a concave section is deliberate
       // the tail (crest frame) and its velocity: the top-turn spray leaves from here, with the board
       const bd = boardOf();
       if (spray && bd) {
@@ -605,11 +605,13 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       // the heading against the velocity over the water (the simulation's own velocity less the water streaming along the face's x-tangent)
       velV.set(st[S.WX], st[S.WY], st[S.WZ]); const headErr = velV.lengthSq() > 0.04 ? THREE.MathUtils.radToDeg(F.angleTo(velV)) : 0;
       if (pole.visible) placePole(t);
-      probe = {t, vis, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE]};
+      // the barrel check (dev): the rider's head under a water roof by at least 0.15 m (inside the lip's cavity)
+      let roof = Infinity; if (import.meta.env.DEV) { const hb = headBone ?? (headBone = surfer.getObjectByName('head') ?? null); if (hb) { pt.setFromMatrixPosition(hb.matrixWorld); group.worldToLocal(pt); roof = roofAboveAt(cur.atlas, pt.x, pt.y, pt.z, t); } }
+      probe = {t, vis, roof: Number.isFinite(roof) ? roof : -1, inTube: roof >= 0.15 && roof < 3 * cur.atlas.meta.face_m ? 1 : 0, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE]};
       ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = -st[S.WX]; ret.vis = vis;
       return ret;
     };
-    let probe: Record<string, number> | null = null;
+    let probe: Record<string, number> | null = null, headBone: THREE.Object3D | null = null;
     /** Dev: the placement this frame plus each board contact point (crest frame) and the water under it. */
     const probeRider = () => {
       if (!surfer || !cur) return null; const t = u.uTime.value; surfer.updateMatrixWorld(true);
@@ -716,7 +718,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
           const clip = ride ?? still;
           if (clip) {
             const {bones, lib} = samplePoses(surfer, clip); body = new RiderBody(bones, lib);
-            monitor.track(bones.all, surfer.getObjectByName('Board') ?? null);
+            monitor.track(bones.all, surfer.getObjectByName('Board') ?? null, surfer);
             el.dataset.clips = s.clips.map((c) => c.name).join(',');
           }
         }
@@ -769,7 +771,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const setPole = (on: boolean) => { pole.visible = on; el.dataset.pole = on ? '1' : '0'; };
     api.current = {setWave, setDir, setLight, setBoard, setRider, setPole};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake}; // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, body: () => body, profile: (x: number, t?: number) => (cur ? profileAt(cur.atlas, x, t ?? u.uTime.value, 192, true) : null), atlasMeta: () => cur?.atlas.meta ?? null, breakX: (t?: number) => (cur ? breakX(cur.atlas.meta, t ?? u.uTime.value) : null), wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake}; // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;

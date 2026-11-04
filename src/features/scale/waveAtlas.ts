@@ -225,3 +225,15 @@ export function surferX(m: AtlasMeta): number {
   for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; if (stageAt(m, mid, 0, false) < target) lo = mid; else hi = mid; }
   return (lo + hi) / 2;
 }
+
+/** The water roof above a crest-frame point (x, height yh, z): the lowest profile crossing of the point's cross-shore line that sits above
+ *  it (the underside of a thrown lip), as a gap in metres; Infinity with open sky. The barrel check: the rider's head under the lip. */
+export function roofAboveAt(a: Atlas, x: number, yh: number, zc: number, t: number): number {
+  const n = 192, y = SY, z = SZ, ya = -zc; profileInto(a, x, t, n, true, y, z);
+  let best = Infinity;
+  for (let i = 0; i < n - 1; i++) {
+    const y0 = y[i], y1 = y[i + 1];
+    if ((y0 - ya) * (y1 - ya) <= 0 && y0 !== y1) { const k = (ya - y0) / (y1 - y0), zz = z[i] + (z[i + 1] - z[i]) * k; if (zz > yh + 0.02 && zz - yh < best) best = zz - yh; }
+  }
+  return best;
+}
