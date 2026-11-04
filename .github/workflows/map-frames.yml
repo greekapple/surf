@@ -1,0 +1,43 @@
+# Map frames: NOAA GFS-Wave 0.25° (public domain, AWS Open Data) → packed PNGs + manifest → GitHub Pages.
+# The job code comes from the clean public branch (swello-v0.17); only the generated frames are published, never the repo's files.
+# Docs: docs/map-pipeline.md. The app uses these frames when VITE_MAP_FRAMES_BASE points here and falls back to /api/ocean (WW3) when the run is > 18 h old.
+name: Map frames (GFS-Wave 0.25°)
+on:
+  schedule:
+    - cron: '40 4,10,16,22 * * *'   # ~4 h 40 min after each GFS cycle (00/06/12/18 UTC)
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: map-frames
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: swello-v0.17
+          sparse-checkout: tools/map-pipeline
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -q && sudo apt-get install -y -q libeccodes-dev
+      - run: pip install numpy pillow eccodes
+      - run: python tools/map-pipeline/build_frames.py --out site --hours 0-168/3
+      - run: touch site/.nojekyll && du -sh site && python -c "import json;m=json.load(open('site/manifest.json'));print('run',m['run'],'frames',len(m['frames']))"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
