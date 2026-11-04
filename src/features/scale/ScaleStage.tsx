@@ -17,6 +17,9 @@ import {breakerType} from '../../services/breaker';
 import {windOf} from '../../services/spotHour';
 import {LIVE_CAPTION, type WaveSpec} from './waveSpec';
 import {defaultPeel, PEEL_NOTE, peelDirectionFor} from './peelDirection';
+import {hashSeed} from './rideSim';
+import {type DevOverrides, anyForced, readDevOverrides, writeDevOverrides} from './sceneDev';
+import {SceneDevPanel} from './SceneDevPanel';
 const WaveLive = lazy(() => import('./WaveLive'));
 import {useHasSpin} from './useHasSpin';
 
@@ -63,7 +66,9 @@ export function ScaleStage() {
   // 3D: the peel direction, defaulting to what the published guides say for this spot (both -> a left), flippable
   const peel = peelDirectionFor(spot.id), [dirPick, setDirPick] = useState<'left' | 'right' | null>(null);
   useEffect(() => { setDirPick(null); }, [spot.id]);
-  const direction = dirPick ?? defaultPeel(peel);
+  // dev-only overrides (URL params / panel) for tuning and the verification matrix; never in production, and labelled when forced
+  const [dev, setDev] = useState<DevOverrides | null>(() => (import.meta.env.DEV ? readDevOverrides() : null));
+  const direction = dev?.dir ?? dirPick ?? defaultPeel(peel);
   const [boardId, setBoardId] = useState<string>(() => { try { return localStorage.getItem(BOARD_KEY) ?? ''; } catch { return ''; } });
   const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? boards[0] ?? null;
   const [play, setPlay] = useState(false);
@@ -75,17 +80,20 @@ export function ScaleStage() {
   const words = range ? bodyWords(range[0], range[1]) : null, times = range ? timesYourHeight(range, me.feet) : null;
   const text = hs ? headlineText(hs, p) : null;
   // the 3D wave is THIS hour's forecast: the estimate's centre (never a band), the estimated breaker type, the swell period, the wind relation
-  const estRange = faceRange(hs), faceFt = estRange ? (estRange[0] + estRange[1]) / 2 : null, faceM = useFaceTween(faceFt === null ? null : faceFt * 0.3048);
+  const estRange = faceRange(hs), faceFt = dev?.faceFt ?? (estRange ? (estRange[0] + estRange[1]) / 2 : null), faceM = useFaceTween(faceFt === null ? null : faceFt * 0.3048);
   const wave = useMemo<WaveSpec>(() => {
     const bt = hour ? breakerType(spot, hour).type : 'unknown', w = hour ? windOf(spot, hour, p, now) : null, T = hour?.primary?.period;
+    // the rider: the profile's skill, a seed from the spot and hour (the same ride every time), no stance in the profile (seeded default)
+    const seed = dev?.seed ?? hashSeed(`${spot.id}|${hour?.timestamp ?? ''}`);
     return {faceM, breaker: bt === 'spilling' || bt === 'plunging' ? bt : null, periodS: typeof T === 'number' && Number.isFinite(T) && T > 0 ? T : null,
-      wind: w ? {relation: w.relation, mph: w.mph} : null, offshoreM: hs?.kind === 'offshore' ? hs.ft * 0.3048 : null, direction};
-  }, [faceM, hour, spot, p, hs, direction]);
+      wind: w ? {relation: w.relation, mph: w.mph} : null, offshoreM: hs?.kind === 'offshore' ? hs.ft * 0.3048 : null, direction, skill: dev?.skill ?? p.skill, seed, stance: dev?.stance ?? null};
+  }, [faceM, hour, spot, p, hs, direction, dev]);
   const activeBand = band ?? (range ? Math.max(0, SCALE_BANDS.findIndex((b) => (range[0] + range[1]) / 2 >= b.lo && (range[0] + range[1]) / 2 < b.hi)) : 3);
   const faceText = faceFt === null ? null : p.heightUnit === 'm' ? `${(faceFt * 0.3048).toFixed(1)} m` : `${Math.round(faceFt * 10) / 10} ft`;
   // the 3D stage's own label: what is drawn and what it is (the estimate's centre; or offshore swell, which is not surf size)
   const liveLabel = text && estRange ? `Est. ${text.value} · drawn at ${faceText} face · you ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}` // T-099: the 3D surfer is drawn at the person's height, like the Diagram
     : hs?.kind === 'offshore' && text ? `No breaking-wave estimate · ${text.value} offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour · nothing drawn as surf';
+  const liveLabelShown = anyForced(dev) ? `${liveLabel} · dev: forced${dev?.faceFt != null ? ` ${dev.faceFt} ft face` : ''}` : liveLabel;
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
   // 3D is the main view when renders exist for the band (T-054); the drawn diagram stays one tap away
   const [mode, setModeRaw] = useState<'3d' | 'diagram'>('3d');
@@ -121,12 +129,12 @@ export function ScaleStage() {
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
         {liveOk
           ? <Suspense fallback={<img className="live-poster-only" src={posterPath(SCALE_BANDS[activeBand])} alt="" />}>
-              <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} surferM={me.inches * 0.0254} />
+              <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} surferM={me.inches * 0.0254} pole={!!dev?.pole} />
               <p className="spin-cap">{LIVE_CAPTION}</p>
               {hour && <p className="spin-light">Lighting for {when}{lightNote}</p>}
             </Suspense>
           : <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />}
-        <p className="sc-spin-band">{liveOk ? liveLabel : spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
+        <p className="sc-spin-band">{liveOk ? liveLabelShown : spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
       </div></figure>}
       <figure className="sc-fig" hidden={show3d}>
         <svg viewBox={`0 0 ${W} 360`} role="img" aria-label={alt} className="sc-svg">
@@ -174,6 +182,7 @@ export function ScaleStage() {
           </div>
           <span className="fine">{PEEL_NOTE[peel]}; a left breaks to the surfer's left as they ride</span>
         </div>}
+        {show3d && liveOk && dev && <SceneDevPanel value={dev} onChange={(o) => { setDev(o); writeDevOverrides(o); }} />}
         {!show3d && <div className="sc-row">
           <span className="sc-l" id="sc-band-l">Compare a size</span>
           <div className="sc-chips" role="radiogroup" aria-labelledby="sc-band-l">{SCALE_BANDS.map((b, i) => <button key={b.id} type="button" role="radio" aria-checked={band === i} onClick={() => setBand(i)}>{b.short}</button>)}</div>

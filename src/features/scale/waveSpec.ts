@@ -1,5 +1,6 @@
 /** What the live 3D viewer draws for one forecast hour (no three.js here: ScaleStage builds it from spotHour / headlineSurf /
  *  breakerType / windOf without loading the viewer). Everything is the selected spot-hour's forecast; nothing is invented. */
+import type {Skill} from '../../models/index';
 export interface WaveSpec {
   /** The breaking-wave estimate's central face height in metres; null when this hour has no estimate (then nothing is drawn as surf). */
   faceM: number | null;
@@ -13,6 +14,11 @@ export interface WaveSpec {
   offshoreM: number | null;
   /** Peel direction (a left breaks to the surfer's left as they ride). */
   direction: 'left' | 'right';
+  /** The rider's inputs (spec 2026-11-04): the profile's skill level, the forecast hour's seed (the same ride every time for the same
+   *  hour), the stance (null: a seeded default, the profile has no stance). Riding style is illustration, never a forecast. */
+  skill: Skill;
+  seed: number;
+  stance: 'regular' | 'goofy' | null;
 }
 export const LIVE_CAPTION = '3D illustration of this forecast hour · approximate';
 /** Wind -> chop factor on the water texture (1 = the default light-wind texture) and back-spray strength (0..1). Our own illustration mapping. */
@@ -23,4 +29,4 @@ export function windLook(w: WaveSpec['wind']): {chop: number; back: number} {
   if (w.relation === 'onshore') return {chop: Math.min(1.6, 0.9 + 0.045 * w.mph), back: 0};
   return {chop: Math.min(1.4, 0.85 + 0.03 * w.mph), back: 0};
 }
-export const sameSpec = (a: WaveSpec, b: WaveSpec) => a.faceM === b.faceM && a.breaker === b.breaker && a.periodS === b.periodS && a.offshoreM === b.offshoreM && a.wind?.relation === b.wind?.relation && a.wind?.mph === b.wind?.mph;
+export const sameSpec = (a: WaveSpec, b: WaveSpec) => a.faceM === b.faceM && a.breaker === b.breaker && a.periodS === b.periodS && a.offshoreM === b.offshoreM && a.wind?.relation === b.wind?.relation && a.wind?.mph === b.wind?.mph && a.skill === b.skill && a.seed === b.seed && a.stance === b.stance;

@@ -156,6 +156,10 @@ function profileInto(a: Atlas, x: number, t: number, n: number, withSections: bo
 /** A point on the open face (beach side of the crest) at `frac` of trough-to-crest height: [y, z, slope radians]. With `t` the
  *  sections pulses are included (the surface the shader draws at that moment). */
 export function facePoint(a: Atlas, x: number, frac: number, t: number | null = null): [number, number, number] {
+  const out: [number, number, number] = [0, 0, 0]; facePointInto(a, x, frac, t, out); return out;
+}
+/** `facePoint` without allocation: writes [y, z, slope, crest - trough] into `out` (the rider simulation calls it several times per step). */
+export function facePointInto(a: Atlas, x: number, frac: number, t: number | null, out: {[i: number]: number}): void {
   const n = 192, y = SY, z = SZ; profileInto(a, x, t ?? 0, n, t !== null, y, z);
   let ci = 0; for (let i = 1; i < n; i++) if (z[i] > z[ci]) ci = i;
   // the front face: from the trough on the beach side (+y) of the crest up to the crest. Walk it upward from the trough and take the first
@@ -169,10 +173,26 @@ export function facePoint(a: Atlas, x: number, frac: number, t: number | null = 
       // the slope over a few samples either side (one float16 step is too noisy): rise over the run toward the sea
       const lo = Math.max(0, Math.min(n - 1, i + 3 * toBeach)), hi = Math.max(0, Math.min(n - 1, j - 3 * toBeach));
       const k = (target - z0) / (z1 - z0), slope = Math.atan2(z[hi] - z[lo], Math.max(1e-3, (y[lo] - y[hi]) * toBeach));
-      return [y0 + (y1 - y0) * k, target, Math.min(Math.max(slope, 0), Math.PI / 2)];
+      out[0] = y0 + (y1 - y0) * k; out[1] = target; out[2] = Math.min(Math.max(slope, 0), Math.PI / 2); out[3] = z[ci] - tro; return;
     }
   }
-  return [y[ci] + 0.05 * a.meta.face_m, 0.5 * (z[ci] + tro), 0.6];
+  out[0] = y[ci] + 0.05 * a.meta.face_m; out[1] = 0.5 * (z[ci] + tro); out[2] = 0.6; out[3] = z[ci] - tro;
+}
+
+/** Signed distance (m) from a crest-frame point (x, height yh, z) to the front face of the profile at x (trough to crest, the surface the
+ *  rider is on): positive on the beach/air side of the face, negative inside the water. A vertical gap is meaningless on a 70 deg face
+ *  and a column sample lands on the lip or the back near the crest; this is what the board's contact is measured by. */
+export function faceDistanceAt(a: Atlas, x: number, yh: number, zc: number, t: number): number {
+  const n = 192, y = SY, z = SZ, ya = -zc; profileInto(a, x, t, n, true, y, z);
+  let ci = 0; for (let i = 1; i < n; i++) if (z[i] > z[ci]) ci = i;
+  const toBeach = y[n - 1] > y[0] ? 1 : -1; let ti = ci; for (let i = ci; i >= 0 && i < n; i += toBeach) if (z[i] < z[ti]) ti = i;
+  let best = Infinity, sign = 1;
+  for (let i = ti; i !== ci; i -= toBeach) {
+    const j = i - toBeach, ay = y[i], az = z[i], by = y[j], bz = z[j], ey = by - ay, ez = bz - az, l2 = ey * ey + ez * ez; if (l2 < 1e-10) continue;
+    const k = Math.min(1, Math.max(0, ((ya - ay) * ey + (yh - az) * ez) / l2)), py = ay + ey * k, pz = az + ez * k, dy = ya - py, dz = yh - pz, d = Math.hypot(dy, dz);
+    if (d < best) { best = d; const nyv = ez * toBeach, nzv = -ey * toBeach; sign = dy * nyv + dz * nzv >= 0 ? 1 : -1; }   // the face normal toward the beach side
+  }
+  return Number.isFinite(best) ? sign * best : yh;
 }
 
 /** The water surface height at crest-frame (x, z) (z = -y_across, the beach at -z) at time t: the lowest crossing of the profile, so under
@@ -187,10 +207,14 @@ export function waterHeightAt(a: Atlas, x: number, zc: number, t: number): numbe
   return Number.isFinite(best) ? best : 0;
 }
 
-/** Where the lip is pitching now: the along-crest x where the stage (with its travelling pulses) reaches stage_pitch. */
+/** Where the lip is pitching now: the FIRST along-crest x (from the shoulder) where the stage with its travelling pulses reaches
+ *  stage_pitch. The pulses make the stage locally non-monotonic past the break point, so a plain bisection landed on any of several
+ *  crossings and jumped between them; the first crossing is the section the rider is ahead of. */
 export function breakX(m: AtlasMeta, t: number): number {
-  let lo = -m.shoulder_len_m, hi = 0.6 * m.break_len_m;
-  for (let i = 0; i < 36; i++) { const mid = (lo + hi) / 2; if (stageAt(m, mid, t, true) < m.stage_pitch) lo = mid; else hi = mid; }
+  const x0 = -m.shoulder_len_m, x1 = 0.6 * m.break_len_m, n = 96; let lo = x0, hi = x1, found = false;
+  for (let i = 1; i <= n; i++) { const x = x0 + (x1 - x0) * i / n; if (stageAt(m, x, t, true) >= m.stage_pitch) { hi = x; lo = x0 + (x1 - x0) * (i - 1) / n; found = true; break; } }
+  if (!found) return x1;
+  for (let i = 0; i < 24; i++) { const mid = (lo + hi) / 2; if (stageAt(m, mid, t, true) < m.stage_pitch) lo = mid; else hi = mid; }
   return (lo + hi) / 2;
 }
 
