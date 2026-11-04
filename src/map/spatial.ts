@@ -2,7 +2,7 @@ import type {MapLayer,MapVariable} from './types.ts';
 export interface SpatialCell {lat:number;lon:number;value:number|null;direction:number|null;speed:number|null}
 import {mapConfig} from './mapConfig.ts';
 import {bracket,blendGrids} from './timeBlend.ts';
-import {framesBase,frameAt,loadManifest,loadPackedGrid,packedGroupOf} from './packedFrame.ts';
+import {framesBase,frameAt,loadManifest,loadPackedGrid,packedGroupOf,packedRunFresh} from './packedFrame.ts';
 /** A gridded frame (Stage 2a): the native global grid as typed arrays, latitude ascending (row-major lat x lon). `val` is the scalar (wind: the speed), `dir` the "from" bearing in degrees (NaN where none). */
 export interface GridData {lat0:number;dlat:number;nlat:number;lon0:number;dlon:number;nlon:number;val:Float32Array;dir:Float32Array|null}
 export interface SpatialFrame {/** swell height frames: an exact 0 means "no swell partition: wind sea only" (the model leaves the partition empty there), not a measured calm */ noPartition?:boolean;/** cells is empty for a gridded frame; read `grid` */ grid?:GridData;/** the grid spans the whole globe in longitude (wraps at the date line) */ global?:boolean;cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
@@ -145,7 +145,7 @@ export function schedulePrefetch(layer:MapLayer,variable:MapVariable,time:string
 /** Stage 2b: the packed GFS-Wave 0.25° frame for this spec, or null (not configured, no such hour, not a packed layer). Direction layers are not packed. */
 async function loadPackedGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame|null>{
  const base=framesBase(),group=packedGroupOf(spec.scalar);if(!base||!group||spec.unit==='deg')return null;
- const man=await loadManifest(base,signal);if(!frameAt(man,spec.validAt))return null;
+ const man=await loadManifest(base,signal);if(!packedRunFresh(man)||!frameAt(man,spec.validAt))return null;
  const got=await loadPackedGrid(base,man,group,spec.validAt,signal);if(!got)return null;
  return {noPartition:group==='swell'&&!!man.groups.swell?.noPartitionIsZero,cells:[],grid:got.grid,global:true,unit:spec.unit,resolution:got.grid.dlat,validAt:spec.validAt,retrievedAt:man.generatedAt,provider:`NOAA GFS-Wave ${got.grid.dlat}° global (run ${got.run.slice(0,13).replace('T',' ')}Z)${group==='swell'||group==='swellper'?', primary swell partition':''}`,url:got.url,variable:spec.scalar,delivery:'direct',transport:'server'};
 }

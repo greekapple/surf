@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {decodePackedPixels, frameAt, packedGroupOf, type PackedManifest} from '../map/packedFrame.ts';
+import {decodePackedPixels, frameAt, packedGroupOf, packedRunFresh, type PackedManifest} from '../map/packedFrame.ts';
 import {buildField} from '../map/fieldData.ts';
 
 // Stage 2b: the packed GFS-Wave frame, as written by tools/map-pipeline/build_frames.py (R,G = 16-bit value, B = direction, row 0 = north).
@@ -32,4 +32,12 @@ test('frameAt is exact: a different hour is never shifted onto the requested one
   const man = {frames: [{fh: 0, validAt: '2026-11-04T00:00:00Z', files: {waves: 'a'}}, {fh: 3, validAt: '2026-11-04T03:00:00Z', files: {waves: 'b'}}]} as unknown as PackedManifest;
   assert.equal(frameAt(man, '2026-11-04T03:00:00.000Z')?.files.waves, 'b'); assert.equal(frameAt(man, '2026-11-04T04:00:00Z'), null);
   assert.equal(packedGroupOf('Thgt'), 'waves'); assert.equal(packedGroupOf('shgt'), 'swell'); assert.equal(packedGroupOf('ugrd10m'), 'wind'); assert.equal(packedGroupOf('Tdir'), null);
+});
+
+test('packedRunFresh: a run up to 18 h old is used, an older or unreadable run falls back', () => {
+  const now = Date.parse('2026-11-04T18:00:00Z'), m = (run: string) => ({run} as PackedManifest);
+  assert.equal(packedRunFresh(m('2026-11-04T06:00:00Z'), now), true);
+  assert.equal(packedRunFresh(m('2026-11-04T00:00:00Z'), now), true);
+  assert.equal(packedRunFresh(m('2026-11-03T18:00:00Z'), now), false);
+  assert.equal(packedRunFresh(m('not a date'), now), false);
 });

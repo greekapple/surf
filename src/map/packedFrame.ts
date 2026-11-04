@@ -36,6 +36,10 @@ export function loadManifest(base: string, signal?: AbortSignal): Promise<Packed
   return p;
 }
 
+/** A run older than this is not used (the scheduled job publishes every 6 h; three missed runs = stale): the map falls back to /api/ocean (WW3), labelled as such. */
+export const PACKED_MAX_RUN_AGE_MS = 18 * 3600_000;
+export const packedRunFresh = (man: PackedManifest, now = Date.now()): boolean => { const t = Date.parse(man.run); return Number.isFinite(t) && now - t <= PACKED_MAX_RUN_AGE_MS; };
+
 /** Browser only: fetch one packed PNG and read its pixels untouched (no colour management, no premultiplied alpha: the PNG has no alpha channel). */
 export async function loadPackedGrid(base: string, man: PackedManifest, group: string, validAt: string, signal?: AbortSignal): Promise<{grid: GridData; run: string; url: string; source: string} | null> {
   const f = frameAt(man, validAt), file = f?.files[group], g = man.groups[group]; if (!f || !file || !g) return null;
