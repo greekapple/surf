@@ -19,6 +19,11 @@ Status: **APPROVED, queued** (user: "when finished with all tasks you see fit, c
   - The user creates/connects the Cloudflare account and bucket; the lead never enters credentials; the job code is built and tested locally first.
 - **MapLibre:** YES to a one-day spike on its own branch after Stages 1 and 3, reporting bundle, fps and effort. No real migration without the user's OK on the numbers.
 
+- **MapLibre (after the spike, user 2026-11-04): MIGRATE behind a flag, starting now.**
+  - Spike numbers: docs/map-maplibre-spike.md on branch map-maplibre-spike; 0 long tasks, no mid-zoom seam or ghost labels, 60 fps; +243 KB gz on the map route; ~8–12 days.
+  - Leaflet stays the default until map-verify is green on the MapLibre engine; then the user sees it before the switch.
+  - Basemap tiles: OpenFreeMap now (free). Protomaps PMTiles on R2 later only with the user's OK on any spend.
+
 ## Owners
 - **Engineering:** findings note, rendering (GPU field, worker decode, cache and prefetch), colour scales, land mask and coastal fill, nest blend, coverage, particles, timeline interpolation, performance.
 - **Product:** persistent map and URL state, crossfades and loading UI, legend, popover contrast, spot declutter, point picker, search merge, mobile layout, the Playwright verification script.
