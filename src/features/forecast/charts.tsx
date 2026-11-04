@@ -140,7 +140,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   return (
     <div className="tl-body" ref={body} role="slider" tabIndex={0} aria-label="Forecast time. Arrow keys move one hour, Page Up and Page Down one day."
       aria-valuemin={0} aria-valuemax={n - 1} aria-valuenow={sel}
-      aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, ${(() => { const b = bAt(selH); return b && b.lo !== null && b.hi !== null ? `surf estimate ${ht(b.lo, p, 0)} to ${ht(b.hi, p, 0)} ${u}` : `offshore ${ht(selH.heightFt, p)} ${u}`; })()}, ${conditionWord(selH.rating.category)}` : ''}
+      aria-valuetext={selH ? `${weekdayPT(selH.timestamp)} ${hourLabel(selH.timestamp)}, ${(() => { const b = bAt(selH); return b?.flat ? 'surf estimate Flat (model estimate)' : b && b.lo !== null && b.hi !== null ? `surf estimate ${ht(b.lo, p, 0)} to ${ht(b.hi, p, 0)} ${u}` : `offshore ${ht(selH.heightFt, p)} ${u}`; })()}, ${conditionWord(selH.rating.category)}` : ''}
       onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => (drag.current = false)} onPointerLeave={() => !drag.current && setHover(null)} onKeyDown={onKey}>
       <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
@@ -248,7 +248,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
       {tipH && hover && (
         <div className="tl-tip" style={{transform: `translate3d(${tipLeft}px, ${tipTop}px, 0)`, width: TIP_W}}>
           <b>{weekdayPT(tipH.timestamp)} {hourLabel(tipH.timestamp)}<small>{hover.i === sel ? 'selected' : 'preview'}</small></b>
-          {surfBand && <span className={tab === 'surf' ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--hs-hi)'}} /><span className="tl-tip-k">Surf est.</span><em>{(() => { const b = bAt(tipH); return b && b.lo !== null && b.hi !== null ? `${ht(b.lo, p, 0)}–${ht(b.hi, p, 0)} ${u}` : 'unavailable'; })()}</em></span>}
+          {surfBand && <span className={tab === 'surf' ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--hs-hi)'}} /><span className="tl-tip-k">Surf est.</span><em>{(() => { const b = bAt(tipH); return b?.flat ? 'Flat' : b && b.lo !== null && b.hi !== null ? `${ht(b.lo, p, 0)}–${ht(b.hi, p, 0)} ${u}` : 'unavailable'; })()}</em></span>}
           <span className={tab === 'surf' && !surfBand ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--muted)'}} /><span className="tl-tip-k">Offshore Hs</span><em>{ht(tipH.heightFt, p)} {u}</em></span>
           <span className={tab === 'swell' ? 'on' : ''}><Icon name="tide" size={15} style={{color: 'var(--sw1)'}} /><span className="tl-tip-k">Swell</span><em>{tipH.forecast.primary ? `${ht(tipH.forecast.primary.height, p)} ${u} · ${Math.round(tipH.forecast.primary.period)} s · from ${compass(tipH.forecast.primary.direction)}` : '—'}</em></span>
           <span className={tab === 'wind' ? 'on' : ''}><Icon name="wind" size={15} style={{color: wc(tipH.forecast.wind.speed)}} /><span className="tl-tip-k">Wind</span><em>{windVal(tipH.forecast.wind.speed, p)} {p.windUnit} · from {compass(tipH.forecast.wind.direction)}<StaleTag s={hourFreshness(tipH.forecast, now).wind} /></em></span>

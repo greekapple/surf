@@ -1,6 +1,7 @@
 import type {HeadlineSurf} from './headlineSurf.ts';
 import type {BreakerType} from './breaker.ts';
 import {faceRange} from './scaleMath.ts';
+import {isFlat} from './flatSurf.ts';
 
 /** T-106 WaveGlyph: a simple line-drawn wave beside a person, from the forecast. Pure geometry; the SVG only places what this returns.
  *  Honesty: the heights are the same headline range as the number beside it (low and high bound, as the spot page's Wave scale card), drawn
@@ -8,7 +9,9 @@ import {faceRange} from './scaleMath.ts';
  *  surf wave; no estimate gets nothing. Steepness follows the period; a curl only where the estimated breaker type is plunging. */
 export type Glyph =
   | {kind: 'surf'; midFt: number; loFt: number; hiFt: number; personFt: number; steep: number; curl: boolean}
-  | {kind: 'offshore'; ft: number};
+  | {kind: 'offshore'; ft: number}
+  /** T-130: the nearshore model says Flat (under 0.5 ft): still water beside the person, never a tiny drawn wave. */
+  | {kind: 'flat'; personFt: number};
 
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
@@ -16,7 +19,7 @@ const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 export const steepFromPeriod = (s: number | null | undefined) => (finite(s) && s > 0 ? clamp01((s - 6) / 10) : 0.5);
 
 export function glyphFor(h: HeadlineSurf | null | undefined, personFt: number, periodS: number | null | undefined, breaker: BreakerType | null | undefined): Glyph | null {
-  if (h?.kind === 'estimate' && h.nearshoreOnly?.flat) return null; // T-130: Flat has no wave to draw
+  if (isFlat(h)) return personFt > 0 ? {kind: 'flat', personFt} : null; // T-130: the one place that decides a Flat glyph: still water beside the person (never a drawn wave)
   const r = faceRange(h);
   if (r && personFt > 0) return {kind: 'surf', midFt: (r[0] + r[1]) / 2, loFt: r[0], hiFt: r[1], personFt, steep: steepFromPeriod(periodS), curl: breaker === 'plunging'};
   if (h?.kind === 'offshore' && finite(h.ft) && h.ft >= 0) return {kind: 'offshore', ft: h.ft};
@@ -24,7 +27,8 @@ export function glyphFor(h: HeadlineSurf | null | undefined, personFt: number, p
 }
 
 /** A single drawn height (the week cell's midday central size, T-107 `centralFt`): one outline, not a range. Same rules: offshore gets the swell line. */
-export function glyphAt(kind: 'estimate' | 'offshore' | 'none', ft: number | null, personFt: number, periodS: number | null | undefined, breaker: BreakerType | null | undefined): Glyph | null {
+export function glyphAt(kind: 'estimate' | 'offshore' | 'none', ft: number | null, personFt: number, periodS: number | null | undefined, breaker: BreakerType | null | undefined, flat = false): Glyph | null {
+  if (kind === 'estimate' && flat) return personFt > 0 ? {kind: 'flat', personFt} : null; // T-130: a Flat midday is still water, not the model's sub-half-foot height drawn as a wave
   if (!finite(ft) || ft < 0 || kind === 'none') return null;
   if (kind === 'offshore') return {kind: 'offshore', ft};
   return ft > 0 && personFt > 0 ? {kind: 'surf', midFt: ft, loFt: ft, hiFt: ft, personFt, steep: steepFromPeriod(periodS), curl: breaker === 'plunging'} : null;

@@ -20,6 +20,8 @@ import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
 import {headlineSurf, headlineText, type HeadlineSurf} from '../../services/headlineSurf';
 import {formatHeight, userHeight} from '../../services/heightMath';
+import {assignmentFor} from '../../ocean/mop';
+import {isFlat, FLAT_ESTIMATE_TEXT, flatWhy, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
 import type {OceanBundle} from '../../ocean/types';
 
 /* T-045 spot page v3: Surfline's anatomy, each fact once. Conditions grid → Board Match line → 7-day strip → graph/table → nearshore + buoy → sources. */
@@ -109,9 +111,11 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       <Card k="surf" title="Surf" aside={observeEntry}>
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
-        <p className="sp-s">{hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>surf height</span></> : t.detail}</p>
+        <p className="sp-s">{isFlat(hs) ? <span title={hs.kind === 'estimate' ? hs.methodLabel : undefined}>{flatWhy(hs)}</span> : hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>surf height</span></> : t.detail}</p>
         {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
-        {hs.kind === 'estimate' ? <p className="sp-f" title={`${hs.methodLabel}${t.confidenceDetail ? `; ${t.confidenceDetail}` : ''}`}>{hs.saved ? `${hs.saved.reason === 'saved' ? 'saved copy' : 'stale data'} · retrieved ${hs.saved.retrievedAt && Number.isFinite(Date.parse(hs.saved.retrievedAt)) ? timeLabelPT(hs.saved.retrievedAt) : 'at an unknown time'} · not current` : `model estimate${t.confidenceText ? ` · ${t.confidenceText}` : ''}`}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}{t.confidenceDetail ? `. ${t.confidenceDetail}` : ''}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
+        {hs.kind === 'estimate' ? <p className="sp-f" title={`${hs.methodLabel}${t.confidenceDetail ? `; ${t.confidenceDetail}` : ''}`}>{hs.saved ? `${hs.saved.reason === 'saved' ? 'saved copy' : 'stale data'} · retrieved ${hs.saved.retrievedAt && Number.isFinite(Date.parse(hs.saved.retrievedAt)) ? timeLabelPT(hs.saved.retrievedAt) : 'at an unknown time'} · not current` : `model estimate${t.confidenceText ? ` · ${t.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}{t.confidenceDetail ? `. ${t.confidenceDetail}` : ''}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
+        {/* T-130: what the model point cannot say about THIS spot, beside the number (the full provenance stays in Sources & data) */}
+        {hs.kind === 'estimate' && hs.method === 'mop-v2' && assignmentFor(spot.id)?.caveat && <p className="sp-f sp-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
         {observe}
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
@@ -219,16 +223,17 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         // T-057: the card's main number is the estimate at ONE hour (best daylight hour, else the median one), via spotHour; the full envelope is "range over daylight" below.
         const ty = dr.typical, env = dr.kind !== 'none' && dr.loFt !== null && dr.hiFt !== null ? [dr.loFt, dr.hiFt] : null;
         const range = ty ? [ty.loFt, ty.hiFt] : demo.length ? [median(demo.map((x) => x.ft)), median(demo.map((x) => x.ft))] : null;
-        const kind = dr.kind === 'estimate' ? 'est.' : dr.kind === 'offshore' ? 'offshore' : demo.length ? 'demo' : '';
+        const tyFlat = isFlat(ty?.hour?.surf?.headline); // T-130: a Flat midday reads "Flat · model estimate", never "Flat est."
+        const kind = dr.kind === 'estimate' ? (tyFlat ? 'model estimate' : 'est.') : dr.kind === 'offshore' ? 'offshore' : demo.length ? 'demo' : '';
         // T-112: the main number is the SAME text the week grid shows (dayText: the midday hour's headline value, in the person's unit and scale); the demo week keeps its own median.
         const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
         const envText = env && dr.label ? `${dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '')}${dr.kind === 'offshore' ? ` ${p.heightUnit}` : ''}` : null;
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
-        if (k === cur && env) selNote = `Range over daylight: ${envText} (${kind === 'est.' ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
+        if (k === cur && env) selNote = `Range over daylight: ${envText} (${kind === 'est.' || tyFlat ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
         return (
           <button key={d.key} className="sp-day day" data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)}
-            aria-label={`${name}: ${range ? `typically ${mainNum.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
+            aria-label={`${name}: ${range ? `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${mainNum.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week: the highest average rating over its 6 AM–7 PM hours. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
             <span className="sd-h">{range ? <>{mainNum}<small>{unitSuffix}</small></> : '—'}</span>
             <span className="sd-k" title={ty ? ty.aria : undefined}>{kind}{ty ? ` · ${ty.short}` : ''}</span>
@@ -255,7 +260,7 @@ export function HourTable({hours, spot, p, bundle, now, selected, onSelect}: {ho
           return (
             <tr key={x.timestamp} aria-current={x.timestamp === selected ? 'true' : undefined}>
               <th scope="row"><button onClick={() => onSelect(x.timestamp)}>{hourLabel(x.timestamp)}</button></th>
-              <td className="st-surf"><b>{t.value}</b><small>{hs.kind === 'estimate' ? 'est.' : hs.kind === 'offshore' ? 'offshore' : hs.kind === 'demonstration' ? 'demo' : ''}</small></td>
+              <td className="st-surf"><b>{t.value}</b><small>{isFlat(hs) ? '(model estimate)' : hs.kind === 'estimate' ? 'est.' : hs.kind === 'offshore' ? 'offshore' : hs.kind === 'demonstration' ? 'demo' : ''}</small></td>
               <td><span className="st-q" style={{background: BAND_COLOR[bandOf(x.rating.category)]}} />{conditionWord(x.rating.category)}</td>
               <td>{f.primary && fin(f.primary.height) ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /></> : '—'}</td>
               <td>{f.secondary && fin(f.secondary.height) ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /></> : '—'}</td>
@@ -295,16 +300,16 @@ export function BuoyNow({buoy, series, p, now}: {buoy: ObservationSet | null | u
  *  Drawn from data only (no imagery). Without a face estimate the wave is not drawn: offshore height is not surf size. */
 export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserProfile; board: import('../../models/index').Surfboard | null; onOpen: () => void}) {
   const me = userHeight(p), personFt = me.feet; // the surfer's own height (Personal › Surf preferences), else the labelled 5'10" default
-  const est = hs.kind === 'estimate' ? hs : null, boardFt = board ? board.length / 12 : 0;
+  const flat = isFlat(hs), est = hs.kind === 'estimate' && !flat ? hs : null, boardFt = board ? board.length / 12 : 0; // T-130: a Flat hour draws no wave (still water), never a zero-height face
   const top = Math.max(est ? est.hiFt * 1.08 : 0, personFt * 1.15, boardFt * 1.1, 7);
   const m = p.heightUnit === 'm', step = m ? (top * 0.3048 > 5 ? 2 : 1) : top > 14 ? 4 : 2, base = 150, H = 138, y = (ft: number) => base - (ft / top) * H;
   const ticks: number[] = []; for (let v = step; (m ? v / 0.3048 : v) <= top; v += step) ticks.push(v);
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
-  const label = est ? `Estimated surf height ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No surf estimate this hour; surfer and board only';
+  const label = flat ? `${FLAT_ESTIMATE_TEXT}: still water beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall` : est ? `Estimated surf height ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No surf estimate this hour; surfer and board only';
   // T-098 (Codex P2): the caption describes THIS card's drawing: the estimate's range (outer = high bound, inner = low bound) beside the
   // person's own height (userHeight), not the 3D view's single face and fixed 5'9" surfer. Offshore-only hours say there is no breaking-wave estimate.
-  const scaleLine = est ? "The estimate's range, drawn to scale beside you"
+  const scaleLine = flat ? `${FLAT_ESTIMATE_TEXT}: the nearshore model has under half a foot here` : est ? "The estimate's range, drawn to scale beside you"
     : hs.kind === 'offshore' ? `No breaking-wave estimate · ${ht(hs.ft, p)} ${p.heightUnit} offshore swell, not surf size` : 'No breaking-wave estimate for this hour';
   const chart = (
       <svg viewBox="0 0 220 168" role="img" aria-hidden="true">

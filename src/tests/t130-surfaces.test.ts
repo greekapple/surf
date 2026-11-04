@@ -26,12 +26,12 @@ test('a Flat headline beside a rating: the rating says it uses offshore swell an
   assert.equal(flat.surf.value, FLAT_LABEL); assert.match(flat.rating.explanation, /uses offshore swell; the nearshore model shows the swell mostly blocked here/);
   assert.equal(flat.rating.baseScore, none.rating.baseScore, 'the same rating with or without the nearshore height: nothing feeds it');
 });
-test('an all-flat day reads Flat, never "Est. 0–0 ft"; glyph: none for Flat; Flat carries no confidence word', () => {
+test('an all-flat day reads Flat, never "Est. 0–0 ft"; glyph: still water for Flat; Flat carries no confidence word', () => {
   const spot = allSpots.find((s) => s.id === 'spot-2')!, records = recs('spot-2'), key = pacificDate(records[8].timestamp);
   const d = dayRange(spot, records, key, NOW, profile, {bundle: mop('SF023', 0.1)});
   assert.equal(d.kind, 'estimate'); assert.equal(d.label, FLAT_LABEL); assert.doesNotMatch(String(d.label), /0–0/);
   const h = headlineSurf('spot-2', records[8], {bundle: mop('SF023', 0.1), nowMs: NOW}) as any;
-  assert.equal(glyphFor(h, 69, 14, null), null); assert.equal(h.confidence, undefined);
+  assert.deepEqual(glyphFor(h, 69, 14, null), {kind: 'flat', personFt: 69}, 'Flat draws still water beside the person (product), never a wave'); assert.equal(h.confidence, undefined);
 });
 test('the caveats and provenance of the hand-chosen points are data on the assignment, and reach the method line on screen', () => {
   const by = (id: string) => mopAssignments.find((a) => a.spotId === id)!;

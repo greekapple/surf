@@ -10,6 +10,7 @@ const fmt = (ft: number, unit: 'ft' | 'm') => (unit === 'm' ? `${(ft * 0.3048).t
 
 export function glyphAria(g: Glyph, personIn: number, unit: 'ft' | 'm'): string {
   const r = (ft: number) => (unit === 'm' ? (ft * 0.3048).toFixed(1) : String(Math.round(ft)));
+  if (g.kind === 'flat') return `Flat (model estimate): the nearshore model has under half a foot here; still water drawn beside a ${formatHeight(personIn, unit)} person`;
   return g.kind === 'surf'
     ? `Drawn to scale: est. ${r(g.loFt)}–${r(g.hiFt)} ${unit} surf height beside a ${formatHeight(personIn, unit)} person${g.curl ? ', curling (est. plunging)' : ''}`
     : `Offshore swell only, ${fmt(g.ft, unit)} offshore; no surf estimate to draw`;
@@ -30,6 +31,16 @@ export function WaveGlyph({glyph, size, personIn, unit, decorative = false, clas
       {size !== 'xs' && <text className="wg-off" x={W / 2} y={H * 0.42} textAnchor="middle">offshore only</text>}
     </svg>
   );
+  if (glyph.kind === 'flat') { // T-130: still water at the person's feet, to the same scale as a surf glyph's person (pad 2, 8% headroom)
+    const base = H - 2, ph = (H - 4) / 1.08, pw = Math.max(2, ph * 0.3), x = W * 0.62;
+    return (
+      <svg className={`wglyph wglyph-${size} is-flat ${className}`} viewBox={`0 0 ${W} ${H}`} width={W} height={H} {...a11y}>
+        <path className="wg-water" d={`M0 ${base} H${W}`} />
+        <Person x={x} w={pw} h={ph} base={base} />
+        {size !== 'xs' && <text className="wg-off" x={W * 0.3} y={H * 0.62} textAnchor="middle">Flat</text>}
+      </svg>
+    );
+  }
   const L = glyphLayout(glyph, W, H);
   return (
     <svg className={`wglyph wglyph-${size} ${className}`} viewBox={`0 0 ${W} ${H}`} width={W} height={H} {...a11y}>

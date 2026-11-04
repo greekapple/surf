@@ -768,3 +768,8 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xbottom .xmodel-c .xmodel-sub { font-weight: 500; color: inherit; } /* the strip's muted span colour is unreadable on the amber chip */
 .xbottom .xcache { display: none; }
 @media (max-width: 860px) { .xbottom .xcache { display: block; position: absolute; right: 8px; bottom: 100%; margin: 0 0 40px; padding: 3px 8px; border-radius: 999px; background: var(--xw); color: var(--xw-ink); font-size: 11px; } } /* a pill above the strip and the map credit, so the legend keeps its row */
+/* T-130: a Flat hour is a thin flat mark on the baseline (the model says under 0.5 ft), not an empty slot and not a gap */
+.xco-bars .flat { background: linear-gradient(var(--c), var(--c)) bottom / 100% 3px no-repeat; }
+.xco-bars .nr.flat { background-image: linear-gradient(color-mix(in srgb, var(--muted) 70%, transparent), color-mix(in srgb, var(--muted) 70%, transparent)); }
+/* T-130: what the model point cannot say about this spot, under the card's number (same line as the spot page's Surf card) */
+.xco-cav { margin: 2px 0 0; font-size: 11px; line-height: 1.35; color: var(--muted); }

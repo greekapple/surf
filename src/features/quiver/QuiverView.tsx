@@ -4,6 +4,7 @@ import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
 import {scoreBoard} from '../../recommendation/board';
 import {headlineSurf} from '../../services/headlineSurf';
+import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
 import {boardPickFor, sizeFit} from './fit';
 import {lengthLabel, parseDimension, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
@@ -117,7 +118,7 @@ export function QuiverView({section, go}: ViewProps) {
   const faceOk = sizeOk && charOk;
   // Today's size fit per board (real numbers: the board's range vs the estimate), shown on the rack and in the board room.
   const fits = useMemo(() => new Map(boards.map((b) => [b.id, sizeFit(b, est)])), [boards, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
-  const estText = est ? `est. ${Math.round(est[0])}–${Math.round(est[1])} ft at ${view.spot.name}` : null;
+  const estText = isFlat(hs) ? `${FLAT_ESTIMATE_TEXT} at ${view.spot.name}` : est ? `est. ${Math.round(est[0])}–${Math.round(est[1])} ft at ${view.spot.name}` : null; // T-130
 
   // The form belongs to the section it was opened in. Any route change (pills, menu, back button) leaves it: close it,
   // or if fields were edited keep it and ask first. (Delete lives in the form, T-109, so closing it drops a pending confirmation.)

@@ -16,6 +16,7 @@ import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
 import {cacheLabel} from './cacheLabel';
+import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
 import {buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {schedulePrefetch} from '../../map/spatial';
@@ -298,7 +299,7 @@ function OceanMap({section, go}: ViewProps) {
       const color = rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)';
       // T-116: name · height · rating word. An unrated or dark hour says nothing per spot (one quiet mark in the bottom strip says it is dark).
       const hs = f ? headlineSurf(e.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null;
-      const hText = hs?.kind === 'estimate' ? `${ht(hs.loFt, p, 0)}–${ht(hs.hiFt, p, 0)} ${p.heightUnit}` : hs?.kind === 'offshore' ? `${ht(hs.ft, p, 0)} ${p.heightUnit} offshore` : '';
+      const hText = isFlat(hs) ? 'Flat' : hs?.kind === 'estimate' ? `${ht(hs.loFt, p, 0)}–${ht(hs.hiFt, p, 0)} ${p.heightUnit}` : hs?.kind === 'offshore' ? `${ht(hs.ft, p, 0)} ${p.heightUnit} offshore` : '';
       const word = rating && rating.score !== null && !isDark(e.id, view.selectedTime ?? '') ? conditionWord(rating.category) : '';
       const sub = [hText, word].filter(Boolean).join(' · ');
       const label = `<span class="xlabel"><b>${e.name}</b>${sub ? `<small>${sub}</small>` : ''}</span>`;
@@ -493,7 +494,7 @@ function OceanMap({section, go}: ViewProps) {
   const byView = zone === 'In view' && !needle;
   // the same height text as the spot's pin: the surf estimate, or the offshore height said as offshore
   const pinHeight = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null;
-    return h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : null; };
+    return isFlat(h) ? FLAT_ESTIMATE_TEXT : h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : null; };
   const score = (id: string) => { const r = recAt(id), rt = r && !isDark(id, r.timestamp) ? rateForecast(surfSpot(id), r, now) : null; return rt && rt.score !== null ? rt.score : null; };
   const hiAt = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null; return h?.kind === 'estimate' ? h.hiFt : -1; };
   const list = byView
@@ -544,7 +545,7 @@ function OceanMap({section, go}: ViewProps) {
       const r = byT.get(t);
       if (!r) return {t, lo: null, hi: null, c: 'var(--none)', rated: false};
       const h = headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}), rt = !isDark(id, r.timestamp) ? rateForecast(s, r, now) : null, ok = !!rt && rt.score !== null;
-      return {t, lo: h.kind === 'estimate' ? h.loFt : null, hi: h.kind === 'estimate' ? h.hiFt : null, c: ok ? BAND_COLOR[bandOf(rt!.category)] : 'var(--none)', rated: ok};
+      return {t, lo: h.kind === 'estimate' ? h.loFt : null, hi: h.kind === 'estimate' ? h.hiFt : null, flat: isFlat(h), c: ok ? BAND_COLOR[bandOf(rt!.category)] : 'var(--none)', rated: ok};
     });
   };
   const callSpot = callout ? surfSpot(callout) : null, callRec = callout ? recAt(callout) : undefined;

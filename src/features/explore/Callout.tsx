@@ -1,4 +1,6 @@
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
+import {assignmentFor} from '../../ocean/mop';
+import {isFlat, flatWhy, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
 import type {SurfRating} from '../../ratings/types';
 import {windOf} from '../../services/spotHour';
 import {dataPhase} from '../../services/dataPhase';
@@ -22,7 +24,7 @@ export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile, nowMs?: nu
  *  Used as the map popup at the pin (wide screens) and as the bottom sheet's peek (phones). */
 /** One bar of the card's next-hours strip: the hour's surf estimate (lo–hi ft) or a gap (offshore-only or missing: never drawn as surf), coloured
  *  by that hour's rating (neutral when unrated or dark). */
-export interface HourBar {t: number; lo: number | null; hi: number | null; c: string; rated: boolean}
+export interface HourBar {t: number; lo: number | null; hi: number | null; /** T-130: the nearshore model is under the flat threshold: a flat mark, not an empty bar */ flat?: boolean; c: string; rated: boolean}
 const hourLabel = (t: number) => new Date(t).toLocaleTimeString('en-US', {hour: 'numeric', timeZone: 'America/Los_Angeles'}).replace(':00', '').replace(' ', '').toLowerCase();
 
 /** Track 2 (Surfline's next-hours bars): the surf estimate hour by hour from the shown hour, the same headline selector as the number above. */
@@ -31,16 +33,17 @@ export function NextHours({hours, p}: {hours: HourBar[]; p: UserProfile}) {
   if (vals.length < 2) return null;
   const top = Math.max(2, ...vals), est = hours.filter((h) => h.lo !== null && h.hi !== null);
   const lo = Math.min(...est.map((h) => h.lo!)), hi = Math.max(...est.map((h) => h.hi!));
-  const label = `Surf estimate for the next ${hours.length > 1 ? Math.round((hours[hours.length - 1].t - hours[0].t) / 36e5) + 1 : 1} hours, from ${hourLabel(hours[0].t)}: between ${ht(lo, p, 0)} and ${ht(hi, p, 0)} ${p.heightUnit}`
+  const nFlat = est.filter((h) => h.flat).length, span = `${hours.length > 1 ? Math.round((hours[hours.length - 1].t - hours[0].t) / 36e5) + 1 : 1} hours, from ${hourLabel(hours[0].t)}`;
+  const label = (nFlat === est.length ? `Surf estimate for the next ${span}: Flat (model estimate)` : `Surf estimate for the next ${span}: between ${ht(lo, p, 0)} and ${ht(hi, p, 0)} ${p.heightUnit}${nFlat ? `; ${nFlat} hours Flat` : ''}`)
     + (est.length < hours.length ? `; ${hours.length - est.length} hours have no surf estimate` : '');
   return (
     <div className="xco-hrs" role="img" aria-label={label}>
       <div className="xco-bars" aria-hidden="true">
-        {hours.map((h) => <span key={h.t} className={h.hi === null ? 'gap' : h.rated ? undefined : 'nr'} style={{'--c': h.c} as React.CSSProperties} title={h.hi === null ? `${hourLabel(h.t)}: no surf estimate` : `${hourLabel(h.t)}: ${ht(h.lo!, p, 0)}–${ht(h.hi, p, 0)} ${p.heightUnit}`}>
-          {h.hi !== null && <i style={{height: `${(h.hi / top) * 100}%`}}><b style={{height: `${(h.lo! / h.hi) * 100}%`}} /></i>}
+        {hours.map((h) => <span key={h.t} className={h.hi === null ? 'gap' : [h.rated ? '' : 'nr', h.flat ? 'flat' : ''].filter(Boolean).join(' ') || undefined} style={{'--c': h.c} as React.CSSProperties} title={h.hi === null ? `${hourLabel(h.t)}: no surf estimate` : h.flat ? `${hourLabel(h.t)}: Flat (model estimate)` : `${hourLabel(h.t)}: ${ht(h.lo!, p, 0)}–${ht(h.hi, p, 0)} ${p.heightUnit}`}>
+          {h.hi !== null && !h.flat && h.hi > 0 && <i style={{height: `${(h.hi / top) * 100}%`}}><b style={{height: `${(h.lo! / h.hi) * 100}%`}} /></i>}
         </span>)}
       </div>
-      <div className="xco-hx" aria-hidden="true"><span>{hourLabel(hours[0].t)}</span><span>{ht(top, p, 0)} {p.heightUnit} max</span><span>{hourLabel(hours[hours.length - 1].t)}</span></div>
+      <div className="xco-hx" aria-hidden="true"><span>{hourLabel(hours[0].t)}</span><span>{nFlat === est.length ? 'Flat' : `${ht(top, p, 0)} ${p.heightUnit} max`}</span><span>{hourLabel(hours[hours.length - 1].t)}</span></div>
     </div>
   );
 }
@@ -61,7 +64,8 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? (dataPhase(view.ocean) === 'loading' ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>
-        <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : `model estimate${t!.confidenceText ? ` · ${t!.confidenceText}` : ''}`}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
+        <p className="xco-ht">{isFlat(hs) ? <b>Flat</b> : big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{isFlat(hs) ? `model estimate · ${flatWhy(hs)}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}` : hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : `model estimate${t!.confidenceText ? ` · ${t!.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
+        {hs?.kind === 'estimate' && hs.method === 'mop-v2' && assignmentFor(spot.id)?.caveat && <p className="xco-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
       {f && hours && <NextHours hours={hours} p={p} />}

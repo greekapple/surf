@@ -6,6 +6,7 @@ import {daylightFor, isDark} from './daylight.ts';
 import {spotHourOf, type SpotHour} from './spotHour.ts';
 import {windowLabel} from './homeDash.ts';
 import {formatWaveHeight} from '../utils/waveHeight.ts';
+import {isFlat} from './flatSurf.ts';
 import {breakerType, type BreakerEstimate} from './breaker.ts';
 
 /** The Call (T-064): one verdict a surfer can act on, from OUR data only: the surf estimate, the rating, the wind, daylight and the user's skill.
@@ -46,7 +47,8 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   let verdict: Verdict = 'Go', sizeNote = '';
   // T-108: the person's OWN preferred range (Personal › Preferred conditions) is what the call names; the skill table stays the safety ceiling and floor (Skip) it never overrides.
   const lo0 = profile.minWave, hi0 = profile.maxWave, own = Number.isFinite(lo0) && Number.isFinite(hi0) && lo0 > 0 && hi0 > lo0 ? {min: lo0, max: hi0} : null;
-  if (h.kind === 'estimate') {
+  if (isFlat(h)) { verdict = 'Skip'; sizeNote = 'Flat (model estimate): the nearshore model has under half a foot here, so there is nothing to surf.'; } // T-130: never "the estimated 0–0 ft"
+  else if (h.kind === 'estimate') {
     const range = fmt(h.loFt, h.hiFt, profile), who = profile.skill.toLowerCase();
     if (h.loFt > r.max) { verdict = 'Skip'; sizeNote = `The estimated ${range} is above the ${who} range (up to ${r.max} ft).`; }
     else if (h.hiFt < r.min) { verdict = 'Skip'; sizeNote = `The estimated ${range} is below the ${who} range (from ${r.min} ft): too small to surf well.`; }
