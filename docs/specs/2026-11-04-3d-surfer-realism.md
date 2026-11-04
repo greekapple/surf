@@ -213,3 +213,86 @@ Per cell, all must hold:
 - the barrel check (head under the lip, rider inside the cavity ≥ 0.8 s) for cells with barrel rides.
 
 Report a table of these per cell, before vs after.
+
+---
+
+## Appendix S: Setting the scene so it looks real (the wave, the waves around it, the beach)
+Added 2026-11-04 (user: "clarify the earlier fixes … the beach in the background, waves behind the wave or in front, setting the scene to look real"). It expands §B and §C and the open stages 7–9 of the original brief (docs/specs/2026-11-04-3d-real-surfing.md). Order: §A surfer first, then S1 (needed for barrels), then S2–S6. Each stage leaves the scene working, at 60 fps.
+
+### S1. The wave itself (stage 8)
+- **Shape along the crest:**
+  - a **peak** that tapers into a **shoulder** on the open side and ends into the foam on the broken side, not one endless uniform tube;
+  - crest height varies ±10–20% along the line;
+  - the crest is gently curved toward the beach (refraction), not ruler-straight;
+  - the wave fades out at its far ends instead of running off-screen at full height.
+- **Breaking by type** (from the forecast breaker type and the band):
+  - **Spilling (small / band A):** the crest crumbles from the top, white water spilling down the face, no tube.
+  - **Plunging (band B):** a steep face, the lip throwing at sections, short cover-ups.
+  - **Heavy plunging (band C, 10 ft+):** a thick lip throwing out and down onto the flats, with a full **tube**: a hollow cavity readable from the side, wide enough for a crouched rider (≥ 1.3 × the rider's crouched height at the exit) and spitting mist out of the end.
+- **Peeling:**
+  - the curl point advances down the line continuously at a size-appropriate speed (3–6 m/s small, 6–10 m/s mid, 10–15 m/s big/hollow);
+  - the surfer's line stays tied to it (already true since run 1);
+  - the scale label stays honest: the face height at the rider's position matches "drawn at X ft face" within 10% (fix the run-2 shoulder taper so the pole reads right, or draw the label's height at the peak and say so).
+- **Lip:** thickness grows with size (about 0.1 × face at band A, 0.2 × face at band C), translucent green where it's thin and backlit by the forecast sun, feathering spray off the top when the wind is offshore.
+- **Whitewater:**
+  - a churning **foam ball** at the curl with real volume (not a flat decal), a rolling white mass behind it that keeps moving shoreward;
+  - everything grows continuously, nothing pops in a frame;
+  - mist and spray where the lip lands.
+
+### S2. Water in front of and behind the wave
+- **In front (between the wave and the beach):**
+  - a visible trough at the base of the face, with water drawing up the face ahead of the curl;
+  - leftover foam lines, streaks and reformed whitewater from earlier waves drifting toward the beach and dissolving over 10–30 s;
+  - lighter, more turquoise colour as the water gets shallower (the sandbar), with a sand tint through the water in the shallowest band.
+- **Behind (out to sea):** cleaner, darker, deeper-blue water; no foam except the occasional whitecap when the wind is strong.
+- **Bathymetry implied:** the wave breaks over a sandbar (beach break preset); the colour change and the line where waves start breaking show where it is.
+
+### S3. Waves behind (the set) and in front (the last wave)
+- **Behind:**
+  - the next 2–4 swell lines of the set coming in, spaced by the forecast swell period (wavelength ≈ 1.56 × T² m in deep water, shorter as they reach the bar);
+  - aligned to the forecast swell direction;
+  - lower and unbroken far out, building as they approach the sandbar;
+  - one per cycle becomes the next ridden wave, so the loop is continuous and believable.
+- **In front:** the previous wave as whitewater rolling toward the beach (a reformed white line), shrinking as it reaches the shore-break.
+- **A secondary swell** (when the forecast has one): a fainter cross-pattern of lines from its own direction.
+- **Lulls:** occasional calm between sets (seeded), so it isn't a metronome.
+
+### S4. The beach (stage 7, beach-break preset now; point and reef presets later per spot)
+- **Shoreline** in the direction the waves travel, far enough away to frame the scene without crowding the wave (visible but secondary: about 150–400 m behind the break at default zoom).
+- **Sand:**
+  - a dry pale band, a darker reflective **wet-sand** band, and the swash line where thin sheets of water run up and slide back (animated);
+  - small shore-break waves dumping on the sand.
+- **Backdrop:**
+  - low dunes or bluffs behind the beach, softened by haze matched to the forecast lighting;
+  - a soft headland silhouette along one side to frame the break;
+  - low-poly or impostor so it's cheap.
+- **For Ocean Beach SF specifically** (when a spot-preset system exists): long straight beach, a low seawall/dunes, Sutro Heights headland to the north. Not now; the generic beach-break preset first.
+- **Camera:** orbiting toward the shore must clearly read as a beach break; toward the horizon it must still read as open ocean; no clipping through the beach or the dunes.
+
+### S5. Ocean surface, wind and light
+- **Surface:** a multi-octave surface (summed Gerstner or FFT) with crisp small chop; no smearing.
+- **Wind-driven** (from the forecast wind relation and speed):
+  - **offshore:** clean glassy faces and spray blowing back off the lip;
+  - **onshore:** choppy, crumbly faces and whitecaps out the back;
+  - **cross-shore:** chop at an angle.
+- **Light** (keep the forecast lighting):
+  - the lip glows green/teal when backlit;
+  - a darker, deeper colour low on the face;
+  - Fresnel reflection matched to the sky;
+  - sun glint on the water;
+  - haze toward the horizon.
+- **Tide** (optional, data exists): low tide moves the shoreline out and makes the wave hollower; high tide moves it in and softer.
+
+### S6. Performance and honesty
+- **Quality tiers:** set lines, foam detail, beach detail and spray scale down on phones; never silently dropped. 60 fps desktop, ≥ 30 fps on a recent phone, no per-frame allocations.
+- **Labels:** "3D illustration of this forecast hour · approximate" stays. The beach and set count are illustrative; only the face height, breaker type, period, swell direction, wind and light come from the forecast.
+
+### Verification for Appendix S
+- **Orbit stills** at each band (2, 6, 12, 20 ft): toward shore (the beach reads clearly), toward the horizon (open ocean), side-on (the tube at band C, the face and lip), and from behind the wave (the set lines coming in).
+- **Side by side** with real photos (refs-drone, refs/ob-*) and the True Surf frames (refs-motion) at matching angles.
+- **Measurements:**
+  - the set spacing matches 1.56 × T² within 15% in deep water;
+  - the tube cavity fits the crouched rider at band C;
+  - the face height at the rider matches the label within 10%;
+  - no grey or empty sky band; no clipping during a full orbit;
+  - real-GPU fps per band.
