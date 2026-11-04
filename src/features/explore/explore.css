@@ -752,3 +752,12 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xpin.maplibregl-marker { width: 22px !important; height: 22px !important; overflow: visible; }
 .xpin.maplibregl-marker i { margin-left: 1px; }
 .xpin.maplibregl-marker.xdot:not(.sel) i { margin: 4px; }
+
+/* Track 2: cam badge on the pin (spots with a verified public cam) and the card's link to the owner's page */
+.xpin .xcam { position: absolute; left: 13px; top: -5px; display: grid; place-items: center; width: 14px; height: 14px; border-radius: 50%; background: var(--text); color: var(--bg);
+  box-shadow: 0 0 0 1.5px var(--bg); pointer-events: none; }
+.xpin .xcam svg { fill: currentColor; }
+.xco-cam { display: flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 2px; color: var(--text); font-size: 13px; font-weight: 600; text-decoration: none; }
+.xco-cam span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .xco-cam small { color: var(--muted); }
+.xco-cam:hover span { text-decoration: underline; }
+@media (max-width: 860px) { .xsheet.phone .xco .xco-cam { grid-column: 1 / -1; min-height: 44px; } }

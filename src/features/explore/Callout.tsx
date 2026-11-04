@@ -8,6 +8,7 @@ import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {useSwello} from '../../app/store';
 import {compass, ht, windVal} from '../forecast/helpers';
 import {SpotThumb} from '../../ui/SpotThumb';
+import {camsFor} from '../../data/cams';
 
 /** Wind at a spot with its relation to the beach, or an honest gap. */
 export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile, nowMs?: number) {
@@ -64,6 +65,8 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
       {f && hours && <NextHours hours={hours} p={p} />}
+      {camsFor(spot.id).map((c) => <a key={c.url} className="xco-cam" href={c.url} target="_blank" rel="noopener noreferrer" title={`Shows ${c.view}`}
+        aria-label={`Live cam by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}><Icon name="camera" size={15} /><span>Live cam · {c.owner}</span><small>↗</small></a>)}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>
     </div>
   );

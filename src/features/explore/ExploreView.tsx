@@ -33,6 +33,8 @@ import {ZONES, zoneOf} from '../../data/zones';
 import {headlineSurf} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
 import {SpotCallout, type HourBar} from './Callout';
+import {camsFor} from '../../data/cams';
+const CAMERA_D = 'M4 7.5h3l1.6-2h6.8l1.6 2h3V18H4zM12 15.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'; // the app's camera icon (ui/Icon), drawn inline in the pin's DOM
 import './explore.css';
 
 /** Field layers the regional grids can actually supply. One is shown at a time. */
@@ -302,8 +304,10 @@ function OceanMap({section, go}: ViewProps) {
       // never shown without its "offshore" word, so those spots fall back to the dot (their full label still says "offshore").
       const chip = hs?.kind === 'estimate' ? `<span class="xhchip" aria-hidden="true">${hText}</span>` : '';
       const el = document.createElement('div');
-      el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`; el.style.setProperty('--c', color); el.innerHTML = `<i></i>${label}${chip}`;
-      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: e.name, keyboard: true, riseOnHover: true,
+      el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
+      const cam = camsFor(e.id).length > 0;
+      el.style.setProperty('--c', color); el.innerHTML = `<i></i>${cam ? `<em class="xcam" aria-hidden="true"><svg viewBox="0 0 24 24" width="9" height="9"><path d="${CAMERA_D}"/></svg></em>` : ''}${label}${chip}`;
+      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: cam ? `${e.name} · has a public live cam` : e.name, keyboard: true, riseOnHover: true,
         onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
       markers.current.set(e.id, mk);
     }
