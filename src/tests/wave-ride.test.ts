@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makeAtlas, faceDistanceAt, breakX, type AtlasMeta} from '../features/scale/waveAtlas.ts';
 import {RiderSim, S, buildPlan, planAt, defaultStance, hashSeed, isFrontside, lerpState, STATE_N, Spring, wrapPi} from '../features/scale/rideSim.ts';
-import {RIDE, SKILLS, bandFor, boardForBand} from '../features/scale/surfSceneConfig.ts';
+import {BOARD, RIDE, SKILLS, bandFor, boardForBand} from '../features/scale/surfSceneConfig.ts';
 import type {Skill} from '../models/index.ts';
 
 const meta = (o: Partial<AtlasMeta> = {}): AtlasMeta => ({band: '4-6', face_m: 1.52, family: 'peeler', breaker: 'plunging', stages: 12, points: 96, stage_feather: 2, stage_pitch: 4, stage_land: 6,
@@ -51,16 +51,17 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
   const atlas = synth(meta()), m = atlas.meta, flowX = Math.min(m.peel_speed_mps, 6);
   for (const skill of ['Beginner', 'Intermediate', 'Expert'] as Skill[]) {
     const sim = new RiderSim(atlas, skill, 1234, flowX, null, 0), c = sim.cur, h = 1 / 120;
-    let maxGap = 0, maxBridge = 0, maxEnd = 0, maxTail = 0, maxDeg = 0, minAhead = Infinity, maxSpeed = 0, maxV = 0, minV = 1, bankOk = 0, bankBad = 0;
+    let maxGap = 0, maxBridge = 0, maxRoll = 0, maxEnd = 0, maxTail = 0, maxDeg = 0, minAhead = Infinity, maxSpeed = 0, maxV = 0, minV = 1, bankOk = 0, bankBad = 0;
     const pF = [0, 0, 0], pU = [0, 0, 0];
     for (let i = 0; i < 120 * 12; i++) {
       sim.advance(h); const t = c[S.T], x = c[S.X], y = c[S.Y], z = c[S.Z];
       // the centre minus its deliberate bridge over a concave section (R8: the snap's pivoted board spans more of the face's curve, 1.7 cm here)
-      { const b = c[S.BRIDGE]; maxGap = Math.max(maxGap, Math.abs(faceDistanceAt(atlas, x - c[S.NX] * b, y - c[S.NY] * b, z - c[S.NZ] * b, t))); maxBridge = Math.max(maxBridge, b); }
+      // R11: plus the rail pivot's lift (the board on its rail: the centre sits rb sin(roll) above the face, the engaged rail in it)
+      const lf = c[S.LIFT]; { const b = c[S.BRIDGE] + lf; maxGap = Math.max(maxGap, Math.abs(faceDistanceAt(atlas, x - c[S.NX] * b, y - c[S.NY] * b, z - c[S.NZ] * b, t))); maxBridge = Math.max(maxBridge, c[S.BRIDGE]); maxRoll = Math.max(maxRoll, Math.abs(c[S.ROLL])); }
       // the ends along the board axis, on the bottom plane: within a few cm of the water on this smooth synthetic face
       // (R8: a board pivoted up the face in the snap rides on its tail with the nose above the lip, so the nose is only checked while the board
       // pitches under 30 deg; the tail is always checked, within 10 cm)
-      const ea = 0.77, pitched = Math.abs(c[S.FY]) > 0.5; for (const sgn of [1, -1]) { const ex = x + sgn * ea * c[S.FX], ey = y + sgn * ea * c[S.FY], ez = z + sgn * ea * c[S.FZ]; const g = Math.abs(faceDistanceAt(atlas, ex, ey, ez, t)); if (sgn < 0) maxTail = Math.max(maxTail, g); if (sgn < 0 || !pitched) maxEnd = Math.max(maxEnd, g); }
+      const ea = 0.77, pitched = Math.abs(c[S.FY]) > 0.5; for (const sgn of [1, -1]) { const ex = x + sgn * ea * c[S.FX] - c[S.NX] * lf, ey = y + sgn * ea * c[S.FY] - c[S.NY] * lf, ez = z + sgn * ea * c[S.FZ] - c[S.NZ] * lf; const g = Math.abs(faceDistanceAt(atlas, ex, ey, ez, t)); if (sgn < 0) maxTail = Math.max(maxTail, g); if (sgn < 0 || !pitched) maxEnd = Math.max(maxEnd, g); }
       minAhead = Math.min(minAhead, breakX(m, t) - x); maxSpeed = Math.max(maxSpeed, c[S.SPEED]); maxV = Math.max(maxV, c[S.V]); minV = Math.min(minV, c[S.V]);
       if (i > 2) { const dF = Math.acos(Math.min(1, pF[0] * c[S.FX] + pF[1] * c[S.FY] + pF[2] * c[S.FZ])), dU = Math.acos(Math.min(1, pU[0] * c[S.UX] + pU[1] * c[S.UY] + pU[2] * c[S.UZ])); maxDeg = Math.max(maxDeg, dF, dU); }
       pF[0] = c[S.FX]; pF[1] = c[S.FY]; pF[2] = c[S.FZ]; pU[0] = c[S.UX]; pU[1] = c[S.UY]; pU[2] = c[S.UZ];
@@ -77,6 +78,7 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
     assert.ok(maxSpeed < RIDE.speedMaxMps && maxSpeed > 2, `${skill}: speed over the water ${maxSpeed.toFixed(1)} m/s`);
     assert.ok(minV >= RIDE.vMin - 1e-9 && maxV < 0.9, `${skill}: v ${minV.toFixed(2)}..${maxV.toFixed(2)}`);
     if (skill === 'Expert') assert.ok(maxV > 0.55, 'the expert reaches the upper face');
+    assert.ok(maxRoll > 0.2 && maxRoll <= BOARD.rollMaxDeg * Math.PI / 180 + 1e-9, `${skill}: the board rides on its rail (max roll ${(maxRoll * 180 / Math.PI).toFixed(1)} deg)`);
     assert.ok(bankOk > 0 && bankBad === 0, `${skill}: the rail banks into the turn (${bankOk} ok, ${bankBad} wrong)`);
     const w = [...SKILLS[skill].takeoff, ...SKILLS[skill].exit]; assert.ok(w.every((k) => k.u < 0));
   }

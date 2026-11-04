@@ -96,14 +96,22 @@ export class RiderBody {
   hipY = 0;
   // round 5 (M3): every procedural gain and each hand target goes through its own critically damped spring, and the hands through a
   // speed cap, so a kink in a layer's input (a clamp reached, a knot change, a key switch) never reaches a joint as a step
-  private readonly leanS = new Spring(); private readonly counterS = new Spring(); private readonly headSideS = new Spring(); private readonly pitchS = new Spring();
+  private readonly leanVS = [new Spring(), new Spring(), new Spring()]; private readonly counterS = new Spring(); private readonly headSideS = new Spring(); private readonly pitchS = new Spring();
   /** the torso's pitch this frame (deg, + forward over the toes, from the deck normal), before and after the M9 correction, for the probe */
   torsoPitchDeg = 0; torsoPitchRawDeg = 0;
+  /** R11: the head bone's forward (the face) in its own frame, from the bind pose (set by the viewer); the yaw layer needs it */
+  headFwd: THREE.Vector3 | null = null;
+  /** R11: the yaw corrections applied this frame (deg: hip, shoulders, head) and the raw measurements before them, for the probe */
+  readonly yawFixDeg = [0, 0, 0]; readonly yawRawDeg = [0, 0, 0]; leanDeg = 0; leanGateNow = 1;
+  private readonly yawS = [new Spring(), new Spring(), new Spring()]; private readonly pitchFwd = new THREE.Vector3(0, 0, 1); private readonly pitchAxis = new THREE.Vector3(1, 0, 0);
+  private readonly yawT = [0, 0, 0];
+  private readonly idxYaw: {thighL: number; thighR: number; armL: number; armR: number; clavL: number; clavR: number};
   private readonly handS = [new Spring(), new Spring(), new Spring(), new Spring(), new Spring(), new Spring()]; private primed = false;
   constructor(bones: Bones, lib: PoseLib) {
     this.bones = bones; this.lib = lib; this.riderM = bones.all.map(() => new THREE.Matrix4());
     const ix = (n: string) => bones.byName.get(n) ?? -1;
     this.idx = {pelvis: ix('pelvis'), s1: ix('spine_01'), s2: ix('spine_02'), s3: ix('spine_03'), neck: ix('neck_01'), head: ix('head'), root: ix('Root')};
+    this.idxYaw = {thighL: ix('thigh_l'), thighR: ix('thigh_r'), armL: ix('upperarm_l'), armR: ix('upperarm_r'), clavL: ix('clavicle_l'), clavR: ix('clavicle_r')};
     const chain = (a: string, b: string, c: string): Chain => ({a: ix(a), b: ix(b), c: ix(c), axA: new THREE.Vector3(0, 1, 0), plA: new THREE.Vector3(0, 0, 1), axB: new THREE.Vector3(0, 1, 0), plB: new THREE.Vector3(0, 0, 1), lastP: new THREE.Vector3(0, 0, 1), qA: new THREE.Quaternion(), wA: new THREE.Vector3(), qB: new THREE.Quaternion(), wB: new THREE.Vector3()});
     this.legs = [chain('thigh_l', 'calf_l', 'foot_l'), chain('thigh_r', 'calf_r', 'foot_r')];
     this.arms = [chain('upperarm_l', 'lowerarm_l', 'hand_l'), chain('upperarm_r', 'lowerarm_r', 'hand_r')];
@@ -163,7 +171,10 @@ export class RiderBody {
     // toward the tail put the hips 0.6 m behind the feet at the backside hit and the knees 0.2 m off the hip-foot line (knock); a
     // 30-45 fade swung the 48 deg backside lean out in 0.1 s (14k jerk on every bone). The takeoff and the turns (|pitch| under 15) are untouched.
     const upIn = inp.upR, pitchDeg = Math.asin(THREE.MathUtils.clamp(Math.abs(upIn.x), 0, 1)) / D2R, pp = THREE.MathUtils.clamp((pitchDeg - BODY.leanPitchFadeDeg[0]) / (BODY.leanPitchFadeDeg[1] - BODY.leanPitchFadeDeg[0]), 0, 1), pitchShare = pp * pp * (3 - 2 * pp);
-    const up = this.vLean.set(upIn.x * (1 - pitchShare), upIn.y, upIn.z).normalize(), tilt = Math.acos(THREE.MathUtils.clamp(up.y, -1, 1));
+    // R11: once the along-board share is taken out, what is left of world-up can be short (the board near vertical AND rolled 40 deg at the
+    // hit: the lean's axis then flipped between frames, 25 deg/frame on the thigh and the head); the lean fades out with that length
+    const upRem = this.vLean.set(upIn.x * (1 - pitchShare), upIn.y, upIn.z).length(), leanGate = THREE.MathUtils.smoothstep(upRem, BODY.leanUpFade[0], BODY.leanUpFade[1]);
+    const up = this.vLean.normalize(), tilt = Math.acos(THREE.MathUtils.clamp(up.y, -1, 1));
     // backside the chest faces down the slope, so the torso counters the deck toward the vertical (over the heels, toward the wave) harder
     const cGain = inp.mirror < 0 ? BODY.torsoCounterBackside.gain : BODY.torsoCounterGain, cMax = inp.mirror < 0 ? BODY.torsoCounterBackside.maxDeg : BODY.torsoCounterMaxDeg;
     const dt = Math.min(0.05, Math.max(1e-4, inp.dt)), wS = 2 * Math.PI * BODY.smoothHz;
@@ -176,15 +187,21 @@ export class RiderBody {
     // the lean is an angulation of the whole standing body (a skier on a traverse): the knee poles and the hand targets turn with it below,
     // so the legs still bend forward in the body's own frame (a pivot alone left the knees over the toes and the hips behind: a chair)
     const lGain = inp.mirror < 0 ? BODY.bodyLeanBackside.gain : BODY.bodyLeanGain, lMax = inp.mirror < 0 ? BODY.bodyLeanBackside.maxDeg : BODY.bodyLeanMaxDeg;   // backside stands up toward the vertical (R6)
-    const leanT = THREE.MathUtils.clamp(lGain * smoothOnset(tilt - BODY.bodyLeanStartDeg * D2R, 8 * D2R), 0, lMax * D2R);
-    if (!this.primed) this.leanS.set(leanT);
-    const lean = Math.max(0, this.leanS.step(leanT, dt, wS));
+    const leanT = THREE.MathUtils.clamp(lGain * smoothOnset(tilt - BODY.bodyLeanStartDeg * D2R, 8 * D2R), 0, lMax * D2R) * leanGate;
+    // R11: the lean is smoothed as a ROTATION VECTOR (axis x angle), not as an angle about this frame's axis: the axis (0,1,0) x up flips
+    // from +x to -x the instant world-up's toe-side component crosses zero (the deck rolled through level at the hit) while the angle
+    // still lagged in its spring, which moved the pelvis and the neck 11-13 cm in one frame
+    const lv = this.leanVS, ax0 = okAxis ? this.va : this.vd.set(0, 0, 0); if (!okAxis) { ax0.set(1, 0, 0); }
+    if (!this.primed) { lv[0].set(ax0.x * leanT); lv[1].set(ax0.y * leanT); lv[2].set(ax0.z * leanT); }
+    this.vd.set(lv[0].step(ax0.x * leanT, dt, wS), lv[1].step(ax0.y * leanT, dt, wS), lv[2].step(ax0.z * leanT, dt, wS));
+    const lean = this.vd.length(); if (lean > 1e-6) this.va.copy(this.vd).multiplyScalar(1 / lean);   // the smoothed axis replaces this frame's
+    this.leanDeg = lean / D2R; this.leanGateNow = leanGate;
     // backside (M2): the head looks over the leading shoulder, toward the wave, through the turns (eased by its own spring)
     const headSideT = inp.mirror < 0 ? BODY.backsideHeadDeg * D2R * THREE.MathUtils.clamp(inp.turning, 0, 1) : 0;
     if (!this.primed) this.headSideS.set(headSideT);
     const headSide = this.headSideS.step(headSideT, dt, wS);
     this.feetMidR.set((this.ankleT[0] + this.ankleT[3]) / 2, (this.ankleT[1] + this.ankleT[4]) / 2, (this.ankleT[2] + this.ankleT[5]) / 2);   // feet midpoint, rider frame
-    const leanOn = okAxis && lean > 1e-4; if (leanOn) this.qLean.setFromAxisAngle(this.va, lean); else this.qLean.identity();
+    const leanOn = lean > 1e-4; if (leanOn) this.qLean.setFromAxisAngle(this.va, lean); else this.qLean.identity();
     if (leanOn && I.pelvis >= 0) {
       const pel = all[I.pelvis]; this.feetMid.copy(this.feetMidR).applyQuaternion(this.rootInv);   // feet midpoint, Root frame
       this.vd.copy(this.va).applyQuaternion(this.rootInv).normalize(); this.qd.setFromAxisAngle(this.vd, lean);
@@ -203,16 +220,38 @@ export class RiderBody {
     if (I.pelvis >= 0 && I.neck >= 0) {
       this.vd.setFromMatrixPosition(this.riderM[I.neck]).sub(this.ve.setFromMatrixPosition(this.riderM[I.pelvis]));
       const range = inp.mirror < 0 ? BODY.torsoPitchDegBackside : BODY.torsoPitchDeg;   // backside: upright (R6)
-      let raw = Math.atan2(this.vd.z, Math.max(1e-3, this.vd.y)); const lo = range[0] * D2R, hi = range[1] * D2R;
+      // R11: the pitch is read in the CHEST'S OWN facing (the horizontal perpendicular of the shoulder line), not toward the toes: with
+      // the shoulders turned toward the nose (the yaw layer below, up to ~60 deg at the hit) a chest pitched 40 deg forward has next to no
+      // component toward the toes and read as upright; the hinge turns about the shoulder line for the same reason
+      const fw = this.pitchFwd.set(0, 0, 1), YI = this.idxYaw;
+      if (YI.armR >= 0 && YI.armL >= 0) { this.vf.setFromMatrixPosition(this.riderM[YI.armR]).sub(this.vg.setFromMatrixPosition(this.riderM[YI.armL])); fw.set(this.vf.z, 0, -this.vf.x); if (fw.lengthSq() < 1e-6) fw.set(0, 0, 1); fw.normalize(); }
+      this.pitchAxis.set(fw.z, 0, -fw.x);   // up x facing: a + hinge pitches the chest forward in its facing
+      let raw = Math.atan2(this.vd.dot(fw), Math.max(1e-3, this.vd.y)); const lo = range[0] * D2R, hi = range[1] * D2R;
       // R7 backside: the pitch is read against the LEG LINE (feet -> pelvis), not the deck normal: the body angulates over the heels toward
       // the vertical on a steep face (the lean above), and the torso stays flexed forward of the legs, as the real backside sequence
       // shows; against the deck normal that read as "leaning back" and the hinge folded the chest toward the beach (R6's bow)
-      if (inp.mirror < 0) { this.vf.setFromMatrixPosition(this.riderM[I.pelvis]).sub(this.feetMidR); raw -= Math.atan2(this.vf.z, Math.max(1e-3, this.vf.y)); }
+      if (inp.mirror < 0) { this.vf.setFromMatrixPosition(this.riderM[I.pelvis]).sub(this.feetMidR); raw -= Math.atan2(this.vf.dot(fw), Math.max(1e-3, this.vf.y)); }
       // the counter below also pitches the torso (frontside toward the toes, backside away): count it in the target
       const rawC = raw + counter * 3 * (okAxis ? this.va.x : 0);   // the counter's share about the board axis (signed: + toward the toes)
       const want = rawC < lo ? lo - rawC : rawC > hi ? hi - rawC : 0;
       if (!this.primed) this.pitchS.set(want); pitchFix = this.pitchS.step(want, dt, 2 * Math.PI * BODY.pitchHz);
       this.torsoPitchRawDeg = raw / D2R; this.torsoPitchDeg = (rawC + pitchFix) / D2R;
+    }
+    // R11: the body's yaw against the stringer (BODY.yawTargets): the hip line, the shoulder line and the head's facing are read off the
+    // composed chain (rider frame) and corrected toward the pose-blended targets; each correction is cumulative down the chain (the
+    // spine's fix sits on top of the pelvis', the head's on both), through its own spring. A pose without a target fades the fix out.
+    const Y = this.idxYaw, fix = this.yawFixDeg, tg = this.yawT; let yawOn = 0; tg[0] = tg[1] = tg[2] = 0;
+    for (let i = 0; i < POSES.length; i++) { if (w[i] <= 0) continue; const tt = BODY.yawTargets[POSES[i]]; if (!tt) continue; yawOn += w[i]; tg[0] += w[i] * tt[0]; tg[1] += w[i] * tt[1]; tg[2] += w[i] * tt[2]; }
+    if (yawOn > 1e-6) { tg[0] /= yawOn; tg[1] /= yawOn; tg[2] /= yawOn; }
+    const lineYaw = (a: number, b: number) => { this.vd.setFromMatrixPosition(this.riderM[a]).sub(this.ve.setFromMatrixPosition(this.riderM[b])); return Math.atan2(-this.vd.z, -this.vd.x) / D2R; };   // trailing (l) -> leading (r)
+    const mHip = Y.thighR >= 0 && Y.thighL >= 0 ? lineYaw(Y.thighR, Y.thighL) : NaN, mSh = Y.armR >= 0 && Y.armL >= 0 ? lineYaw(Y.armR, Y.armL) : NaN;
+    let mHead = NaN; if (this.headFwd && I.head >= 0) { this.vd.copy(this.headFwd).transformDirection(this.riderM[I.head]); mHead = Math.atan2(-this.vd.x, this.vd.z) / D2R; }
+    this.yawRawDeg[0] = mHip; this.yawRawDeg[1] = mSh; this.yawRawDeg[2] = mHead;
+    const wY = 2 * Math.PI * BODY.yawHz, wrapD = (d: number) => ((d + 540) % 360) - 180;
+    for (let k = 0; k < 3; k++) {
+      const m = this.yawRawDeg[k], prior = k === 0 ? 0 : fix[0] + (k === 2 ? fix[1] : 0);   // the fixes already applied above this joint this frame
+      const want = Number.isNaN(m) ? 0 : yawOn * wrapD(tg[k] - (m + prior));
+      if (!this.primed) this.yawS[k].set(want); fix[k] = this.yawS[k].step(want, dt, wY);
     }
     for (let b = 0; b < n; b++) {
       const par = parent[b];
@@ -220,11 +259,14 @@ export class RiderBody {
       let ang = 0; const ax = this.vb;
       if (b === I.s1 || b === I.s2 || b === I.s3) { if (okAxis && counter > 1e-4) { ax.copy(this.va); ang = counter; } }
       if (ang !== 0) this.applyDelta(b, par, ax, ang);
-      if ((b === I.s1 || b === I.s2 || b === I.s3) && Math.abs(pitchFix) > 1e-5) this.applyDelta(b, par, this.vc.set(1, 0, 0), pitchFix / 3);   // forward hinge: y toward z is + about x
+      if ((b === I.s1 || b === I.s2 || b === I.s3) && Math.abs(pitchFix) > 1e-5) this.applyDelta(b, par, this.vc.copy(this.pitchAxis), pitchFix / 3);   // forward hinge about the shoulder line (R11; was the stringer: y toward z is + about x)
+      // R11 yaw fixes: a + yaw about the rider's up turns the chest toward the TAIL, so the fix (+ = toward the nose) is applied negated
+      if (b === I.s1 || b === I.s2 || b === I.s3) this.applyDelta(b, par, this.vc.set(0, 1, 0), -fix[1] * D2R / 3);
       if (b === I.s3) this.applyDelta(b, par, this.vc.set(0, 1, 0), lead * BODY.leadShare.spine);
-      else if (b === I.neck) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.neck + 0.4 * headSide, -BODY.limits.neck * D2R, BODY.limits.neck * D2R));
-      else if (b === I.head) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.head + 0.6 * headSide, -BODY.limits.head * D2R, BODY.limits.head * D2R));
-      else if (b === I.pelvis) this.applyDelta(b, par, this.vc.set(0, 1, 0), lead * BODY.leadShare.pelvis);
+      else if (b === I.neck) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.neck + 0.4 * headSide - fix[2] * D2R * BODY.yawHeadSplit.neck, -BODY.limits.neck * D2R, BODY.limits.neck * D2R));
+      else if (b === I.head) this.applyDelta(b, par, this.vc.set(0, 1, 0), THREE.MathUtils.clamp(lead * BODY.leadShare.head + 0.6 * headSide - fix[2] * D2R * BODY.yawHeadSplit.head, -BODY.limits.head * D2R, BODY.limits.head * D2R));
+      else if (b === I.pelvis) this.applyDelta(b, par, this.vc.set(0, 1, 0), lead * BODY.leadShare.pelvis - fix[0] * D2R);
+      else if (b === Y.clavL || b === Y.clavR) this.applyDelta(b, par, this.vc.set(0, 1, 0), (fix[0] + fix[1]) * D2R * (1 - BODY.yawArmsFollow));   // the arms keep most of their authored rider-frame direction
       else if (b === I.s2) { this.applyDelta(b, par, this.vc.set(1, 0, 0), sway * 0.5 * inp.idleA); this.applyDelta(b, par, this.vc.set(0, 0, 1), sway * 0.5 * inp.idleB); }
       else if (armsDown > 1e-5 && (b === this.arms[0].a || b === this.arms[1].a)) {
         // the upper arm comes down toward the body: a rotation about the board axis in the sense that lowers that arm's hand (its side of the body)

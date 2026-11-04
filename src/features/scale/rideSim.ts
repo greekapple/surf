@@ -91,7 +91,9 @@ export function maxFracAt(atlas: Atlas, x: number, t: number, capRad: number): n
 }
 
 // state layout (Float64Array): the render interpolates prev -> cur
-export const S = {X: 0, Y: 1, Z: 2, FX: 3, FY: 4, FZ: 5, UX: 6, UY: 7, UZ: 8, ROLL: 9, COMP: 10, LEAD: 11, IDLE_A: 12, IDLE_B: 13, T: 14, U: 15, V: 16, XB: 17, SPEED: 18, SEG: 19, VX: 20, YAW: 21, VZ: 22, VY: 23, NX: 24, NY: 25, NZ: 26, BRIDGE: 27, WX: 28, WY: 29, WZ: 30, VIS: 31, W0: 32, /** the arms' own (slower) pose weights */ WA0: 32 + POSES.length} as const;
+export const S = {X: 0, Y: 1, Z: 2, FX: 3, FY: 4, FZ: 5, UX: 6, UY: 7, UZ: 8, ROLL: 9, COMP: 10, LEAD: 11, IDLE_A: 12, IDLE_B: 13, T: 14, U: 15, V: 16, XB: 17, SPEED: 18, SEG: 19, VX: 20, YAW: 21, VZ: 22, VY: 23, NX: 24, NY: 25, NZ: 26, BRIDGE: 27, WX: 28, WY: 29, WZ: 30, VIS: 31,
+  /** R11: the turn's share of the roll (rad; the spray and the wake read this, not the trim roll) and the rail pivot's lift of the centre off the face along N (m; the monitor takes it back off with the bridge) */
+  TROLL: 32, LIFT: 33, W0: 34, /** the arms' own (slower) pose weights */ WA0: 34 + POSES.length} as const;
 export const STATE_N = S.WA0 + POSES.length;
 
 /** The rider simulation for one wave: fixed steps, every input continuous, nothing random per step. */
@@ -104,7 +106,7 @@ export class RiderSim {
   private snapArmDrop = false;
   boardL: number = BOARD.lengthM; boardW: number = BOARD.widthM; boardBottom = 0;
   private tau = 0; private acc = 0; private started = false;
-  private readonly xbS = new Spring(); private readonly capS = new Spring(); private readonly yawS = new Spring(); private readonly rollS = new Spring(); private readonly compS = new Spring(); private readonly leadS = new Spring();
+  private readonly xbS = new Spring(); private readonly capS = new Spring(); private readonly yawS = new Spring(); private readonly rollS = new Spring(); private readonly turnRollS = new Spring(); private readonly compS = new Spring(); private readonly leadS = new Spring();
   private readonly fitF = [new Spring(), new Spring(), new Spring()]; private readonly fitU = [new Spring(), new Spring(), new Spring()];
   private readonly wS: Spring[] = POSES.map(() => new Spring()); private readonly waS: Spring[] = POSES.map(() => new Spring());
   private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, tube: false};
@@ -113,7 +115,7 @@ export class RiderSim {
   private readonly idlePhase: [number, number];
   /** R10: the pivoted hit's lowering of the line (v) while an end of the placed board is too deep (public for the dev probe) */
   hitLow = 0;
-  private railMid = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
+  private railMid = 0; private lastPivot = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
   readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0, sagNow: 0, endSagNow: 0, pxyNow: 0, pxzNow: 0, railLowNow: 0, endLowNow: 0};
   constructor(atlas: Atlas, skill: Skill, seed: number, flowX: number, stance: Stance | null, t0: number) {
     this.atlas = atlas; this.H = atlas.meta.face_m; this.seed = seed; this.flowX = flowX; this.plan = buildPlan(skill, seed, this.H);
@@ -208,14 +210,21 @@ export class RiderSim {
     // off the face by the rest (a deliberate bridge, reported to the monitor as an allowance; a convex bump is ridden on the centre, the
     // ends in the air, as a real board does) and the line is lowered next step toward a flatter part of the face
     this.endSagExcess = Math.max(0, endSag - BOARD.rockerM); const bridge = Math.min(BOARD.bridgeMaxM + Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg) * RIDE.pivotBridgeM, Math.max(this.endSagExcess, Math.max(sag, this.started ? this.railMid + this.cur[S.BRIDGE] : 0) - BOARD.railSinkM, this.started ? this.endMeas + this.cur[S.BRIDGE] - BOARD.rockerM : 0));
-    // the rail may bank into the turn until it is railDepthM deep: the concavity it already sits in (less the lift) plus rb sin(roll). The
-    // depth is the one MEASURED at the rails of the placed board last step (the same faceDistanceAt the monitor reads): the chord model
-    // under-read a yawed board's rail by up to a quarter, so the model only seeds the first step
-    const railSag = this.started ? this.railMid : Math.max(0, sag - bridge), rbEff = this.started ? this.rbEff : rb;
-    const rollCap = Math.min(BOARD.rollMaxDeg * Math.PI / 180, Math.asin(clamp((BOARD.railDepthM - BOARD.railMarginM - railSag) / Math.max(0.05, rbEff), 0, 1)));
-    // rail roll into the turn: tan(roll) = v^2/(g r) = v * yawRate / g, scaled by the skill's carve, capped
-    const rollT = clamp(Math.atan(speed * yawRate / G) * pr.carve, -rollCap, rollCap);
-    if (!this.started) this.rollS.set(rollT); const roll = clamp(this.rollS.step(rollT, dt, BOARD.rollW), -rollCap, rollCap); this.rollS.x = roll;   // the spring may not lag past the cap: the rail depth is the brief's hard limit
+    // R11: the board on its rail (BOARD.trimRoll* / turnRoll*): the trim roll toward the wave (a share of the face slope, per move, faded
+    // out with the snap's pivot) plus the turn roll into the turn, tan(roll) = v^2/(g r) = v * yawRate / g x the skill's carve. The board
+    // pivots about the engaged rail (the lift below), so no rail-depth cap is needed any more: the engaged rail sits at its tuck.
+    const rollCap = BOARD.rollMaxDeg * Math.PI / 180, turnCap = BOARD.turnRollMaxDeg * Math.PI / 180;
+    const bp = Math.asin(clamp(Math.abs(ly), 0, 1)) * 180 / Math.PI, pf = clamp((bp - BOARD.trimRollPitchFade[0]) / (BOARD.trimRollPitchFade[1] - BOARD.trimRollPitchFade[0]), 0, 1);
+    const trimRoll = Math.min(BOARD.trimRollMaxDeg * Math.PI / 180, BOARD.trimRollShare * slope) * (BOARD.trimRollByMove[ps.move] ?? 1) * (1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg)) * (1 - pf * pf * (3 - 2 * pf));
+    // the snap's pivot (up the face) is a tail slide, not a carve: its wind-up rate is taken out of the roll's yaw rate (with it in, the
+    // board rolled 45 deg on its tail at the lip and the tail dug 0.26 m into the C-wall at 5 ft; the real board at the lip is flat to the
+    // face). The cutback's pivot (down the face) is a carve on the heel rail and keeps its rate.
+    const pivotRate = this.started ? (ps.pivot - this.lastPivot) * Math.PI / 180 / dt : 0; this.lastPivot = ps.pivot;
+    const turnRollT = clamp(Math.atan(speed * (yawRate - (ps.pivot > 0 ? pivotRate : 0)) / G) * pr.carve, -turnCap, turnCap);
+    const rollT = clamp(trimRoll + turnRollT, -rollCap, rollCap);
+    if (!this.started) { this.rollS.set(rollT); this.turnRollS.set(turnRollT); } const roll = clamp(this.rollS.step(rollT, dt, BOARD.rollW), -rollCap, rollCap); this.rollS.x = roll; const turnRoll = this.turnRollS.step(turnRollT, dt, BOARD.rollW);
+    // the rail pivot: the centre lifts off the face by the engaged rail's arm less its tuck (the other rail is in the air)
+    const lift0 = Math.max(0, rb * Math.sin(Math.abs(roll)) - BOARD.railSinkM);
     const dl = nx * lx + ny * ly + nz * lz; nx -= dl * lx; ny -= dl * ly; nz -= dl * lz; const nn = Math.hypot(nx, ny, nz); nx /= nn; ny /= nn; nz /= nn;
     if (!this.started) { this.fitF[0].set(lx); this.fitF[1].set(ly); this.fitF[2].set(lz); this.fitU[0].set(nx); this.fitU[1].set(ny); this.fitU[2].set(nz); }
     let Fx = this.fitF[0].step(lx, dt, BOARD.fitW), Fy = this.fitF[1].step(ly, dt, BOARD.fitW), Fz = this.fitF[2].step(lz, dt, BOARD.fitW);
@@ -227,7 +236,7 @@ export class RiderSim {
     const Rx = Ux * cr + kx * sr, Ry = Uy * cr + ky * sr, Rz = Uz * cr + kz * sr;
     // the placed board's rails against the face (the across axis of the rolled deck, at the bottom plane): their mid depth is the sag the
     // next step's roll cap starts from, their split per sin(roll) the effective rail arm; both smooth, so the cap is too
-    { const bxc = x + nx * bridge, byc = y + ny * bridge, bzc = z + nz * bridge, ax = Fy * Rz - Fz * Ry, ay = Fz * Rx - Fx * Rz, az = Fx * Ry - Fy * Rx;   // F x U_rolled: across
+    { const bl = bridge + lift0, bxc = x + nx * bl, byc = y + ny * bl, bzc = z + nz * bl, ax = Fy * Rz - Fz * Ry, ay = Fz * Rx - Fx * Rz, az = Fx * Ry - Fy * Rx;   // F x U_rolled: across
       const g1 = faceDistanceAt(a, bxc + rb * ax, byc + rb * ay, bzc + rb * az, t), g2 = faceDistanceAt(a, bxc - rb * ax, byc - rb * ay, bzc - rb * az, t);
       const gH = Math.max(g1, g2), gL = Math.min(g1, g2), sa = Math.abs(Math.sin(roll)); this.railMid = Math.max(0, -(gH + gL) / 2); if (sa > 0.05) this.rbEff = clamp((gH - gL) / (2 * sa), 0.6 * rb, 2 * rb); this.stats.railLowNow = gL;
       // the tail and nose probes too (the monitor's own points): their depth beyond the rocker lifts the centre next step
@@ -256,8 +265,9 @@ export class RiderSim {
     const ph = this.idlePhase, hz1 = BODY.idleHz;
     c[S.IDLE_A] = Math.sin(2 * Math.PI * hz1[0] * t + ph[0]); c[S.IDLE_B] = Math.sin(2 * Math.PI * hz1[1] * t + ph[1]); c[S.VIS] = visibilityAt(this.plan, this.tau);
     const lift = -this.boardBottom;   // the mesh origin sits this far above its bottom plane, along the rolled deck normal
-    c[S.X] = x + nx * bridge + Rx * lift; c[S.Y] = y + ny * bridge + Ry * lift; c[S.Z] = z + nz * bridge + Rz * lift; c[S.BRIDGE] = bridge; c[S.FX] = Fx; c[S.FY] = Fy; c[S.FZ] = Fz; c[S.UX] = Rx; c[S.UY] = Ry; c[S.UZ] = Rz; c[S.NX] = nx; c[S.NY] = ny; c[S.NZ] = nz;   // R10: the lift direction actually applied (the monitor takes the lift back off along it; the fitted U lagged it by up to 0.1 m at the snap)
-    c[S.ROLL] = roll; c[S.COMP] = comp; c[S.LEAD] = lead; c[S.U] = u0; c[S.V] = v; c[S.XB] = xb; c[S.SPEED] = speed; c[S.SEG] = seg0; c[S.VX] = vx; c[S.VY] = vy; c[S.VZ] = vz; c[S.WX] = wx; c[S.WY] = wy; c[S.WZ] = wz; c[S.YAW] = yaw;
+    const bl = bridge + lift0;
+    c[S.X] = x + nx * bl + Rx * lift; c[S.Y] = y + ny * bl + Ry * lift; c[S.Z] = z + nz * bl + Rz * lift; c[S.BRIDGE] = bridge; c[S.LIFT] = lift0; c[S.FX] = Fx; c[S.FY] = Fy; c[S.FZ] = Fz; c[S.UX] = Rx; c[S.UY] = Ry; c[S.UZ] = Rz; c[S.NX] = nx; c[S.NY] = ny; c[S.NZ] = nz;   // R10: the lift direction actually applied (the monitor takes the lift back off along it; the fitted U lagged it by up to 0.1 m at the snap)
+    c[S.ROLL] = roll; c[S.TROLL] = turnRoll; c[S.COMP] = comp; c[S.LEAD] = lead; c[S.U] = u0; c[S.V] = v; c[S.XB] = xb; c[S.SPEED] = speed; c[S.SEG] = seg0; c[S.VX] = vx; c[S.VY] = vy; c[S.VZ] = vz; c[S.WX] = wx; c[S.WY] = wy; c[S.WZ] = wz; c[S.YAW] = yaw;
     this.stats.minAheadM = xbNow - x;
     if (!this.started) { this.started = true; this.prev.set(c); }
   }

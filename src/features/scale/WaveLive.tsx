@@ -7,7 +7,7 @@ import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, breakX, bucketIdFor
 import {RiderSim, S, STATE_N, Spring, type Stance, isFrontside, lerpState} from './rideSim';
 import {RiderBody, samplePoses} from './riderBody';
 import {GlitchMonitor} from './glitchMonitor';
-import {BOARD, POLE, SIM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
+import {BOARD, MONITOR, POLE, SIM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
 import type {Skill} from '../../models/index';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
@@ -58,7 +58,7 @@ float ampAt(float x){
 }
 // S1 (R7): the crest curved in plan: the shoulder sweeps seaward (+z) away from the peak; the weight fades at both flat tails of the
 // profile so the strip's edges stay put. Keep in step with bendZ / bendW in waveAtlas.ts.
-float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .12*uSh*s*s; }
+float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .04*uSh*s*s; }   // R11: 0.12 -> 0.04, see BEND_Z in waveAtlas.ts
 float bendW(float u){ return smoothstep(0.,.3,u)*(1.-smoothstep(.9,1.,u)); }`;
 
 const STRIP_VS = /* glsl */ `
@@ -104,7 +104,7 @@ const SEA_VS = /* glsl */ `
 precision highp float;
 uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip, uLdeep, uSetN, uShore, uSwellX, uCel, uSh;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
-float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .12*uSh*s*s; }
+float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .04*uSh*s*s; }   // R11: 0.12 -> 0.04, see BEND_Z in waveAtlas.ts
 float rectMask(vec2 p){ float dx=max(max(uX0-p.x,p.x-uX1),0.), dz=max(max(-uY1-p.y,p.y+uY0),0.); return smoothstep(0.,10.+4.*uFace,length(vec2(dx,dz))); }
 float whitewater(vec2 p){
   // S3: the previous wave as a line of whitewater rolling toward the beach at the broken wave's speed, shrinking into the shore-break.
@@ -656,7 +656,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       const mesh = bd.obj, bx = bd.box; boardBox.copy(bx);
       const P = BOARD.probe; cpts.set([0, bx.min.y, 0, bx.max.x - P.tailIn, bx.min.y + P.tailUp, 0, bx.min.x + P.noseIn, bx.min.y + P.noseUp, 0, 0, bx.min.y, bx.max.z - P.railIn, 0, bx.min.y, bx.min.z + P.railIn]);
       let low = Infinity;
-      for (let i = 0; i < 5; i++) { pt.set(cpts[i * 3], cpts[i * 3 + 1], cpts[i * 3 + 2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = faceDistanceAt(cur!.atlas, pt.x, pt.y, pt.z, t); if (i === 0) { gaps[0] = gap; const b = st[S.BRIDGE]; gaps[2] = b > 1e-4 ? faceDistanceAt(cur!.atlas, pt.x - st[S.NX] * b, pt.y - st[S.NY] * b, pt.z - st[S.NZ] * b, t) : gap; } low = Math.min(low, gap); }   // R8: [2] the centre with the bridge's lift taken back off (the monitor's centre check): in the hollow under a lip the lifted centre's nearest water is the lip's underside, so gap - bridge under-read by up to 0.08 m at the snap's hit
+      for (let i = 0; i < 5; i++) { pt.set(cpts[i * 3], cpts[i * 3 + 1], cpts[i * 3 + 2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = faceDistanceAt(cur!.atlas, pt.x, pt.y, pt.z, t); if (i === 0) { gaps[0] = gap; const b = st[S.BRIDGE] + st[S.LIFT]; gaps[2] = b > 1e-4 ? faceDistanceAt(cur!.atlas, pt.x - st[S.NX] * b, pt.y - st[S.NY] * b, pt.z - st[S.NZ] * b, t) : gap; } low = Math.min(low, gap); }   // R8: [2] the centre with the bridge's lift taken back off (the monitor's centre check): in the hollow under a lip the lifted centre's nearest water is the lip's underside, so gap - bridge under-read by up to 0.08 m at the snap's hit
       gaps[1] = low; return gaps;
     };
     // the 6 ft scale pole (dev): 1 ft bands stood on the trough beside the rider's section
@@ -688,16 +688,20 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
-      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), g[2], gl, 'r', sim.stats.slopeNow, frontside);   // the bridge over a concave section is deliberate: the centre is checked with the lift taken back off (R8; was gc - bridge)
+      if (import.meta.env.DEV) { monitor.sample(dt, t, sim.move(), g[2], gl, 'r', sim.stats.slopeNow, frontside);
+        // R11: the body-clip gate (spec item 4): each joint against the water, on the body clock; wet = inside the water body by the
+        // profile-crossing parity (roofAboveAt is NaN there), which also catches the inside of the lip where the face distance is positive
+        if (monitor.bodyTick(t)) for (const jn of MONITOR.bodyClipJoints) { const jb = boneCache.get(jn) ?? (boneCache.has(jn) ? null : (boneCache.set(jn, surfer.getObjectByName(jn) ?? null), boneCache.get(jn)!)); if (!jb) continue;
+          pt.setFromMatrixPosition(jb.matrixWorld); group.worldToLocal(pt); const jg = faceDistanceAt(cur.atlas, pt.x, pt.y, pt.z, t), jr = roofAboveAt(cur.atlas, pt.x, pt.y, pt.z, t); bodyGaps[jn] = [Math.round(jg * 1000) / 1000, Number.isNaN(jr) ? 1 : 0, Math.round(pt.x * 100) / 100, Math.round(pt.y * 100) / 100, Math.round(pt.z * 100) / 100]; monitor.bodyClipSample(t, sim.move(), jn, jg, Number.isNaN(jr)); } }   // the bridge over a concave section is deliberate: the centre is checked with the lift taken back off (R8; was gc - bridge)
       // the tail (crest frame) and its velocity: the top-turn spray leaves from here, with the board
       const bd = boardOf();
       if (spray && bd) {
         pt.set(bd.box.max.x - 0.03, bd.box.min.y + 0.03, 0); bd.obj.localToWorld(pt); group.worldToLocal(pt);
         if (haveVel && dt > 0) { spray.tailVel[0] = (pt.x - prevTail.x) / dt; spray.tailVel[1] = (pt.y - prevTail.y) / dt; spray.tailVel[2] = (pt.z - prevTail.z) / dt; }
         prevTail.copy(pt); spray.tail[0] = pt.x; spray.tail[1] = pt.y; spray.tail[2] = pt.z;
-        const mv = sim.move(), load = THREE.MathUtils.smoothstep(Math.abs(st[S.ROLL]), WAKE.sprayRoll0, WAKE.sprayRoll1) * Math.min(1, st[S.SPEED] / WAKE.spraySpeed);
+        const mv = sim.move(), load = THREE.MathUtils.smoothstep(Math.abs(st[S.TROLL]), WAKE.sprayRoll0, WAKE.sprayRoll1) * Math.min(1, st[S.SPEED] / WAKE.spraySpeed);
         spray.tailOn = WAKE.sprayMoves.includes(mv) && vis > 0.5 ? load * sim.plan.band.spray * sim.plan.profile.carve : 0;
-        const os = st[S.ROLL] > 0 ? 1 : -1; spray.tailOut[0] = Rv.x * os; spray.tailOut[1] = Rv.y * os; spray.tailOut[2] = Rv.z * os;   // the rail the deck banks away from
+        const os = st[S.TROLL] > 0 ? 1 : -1; spray.tailOut[0] = Rv.x * os; spray.tailOut[1] = Rv.y * os; spray.tailOut[2] = Rv.z * os;   // the rail the deck banks away from
         if (vis > 0.5 && st[S.SPEED] > 1) wakeSample(pt.x, Math.max(0.02, st[S.V] + (pt.y - st[S.Y]) / cur.atlas.meta.face_m), Rv.x, Rv.z, t);   // the tail's height fraction: the centre's plus its drop
       }
       haveVel = true;
@@ -707,17 +711,35 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       // the barrel check (dev): the rider's head under a water roof by at least 0.15 m (inside the lip's cavity)
       // R9: roof is NaN with the head inside the water (buried in the lip), which is not "inside the tube"; headUp = the head over the board's centre (the crouch)
       let roof = Infinity, headUp = 0; if (import.meta.env.DEV) { const hb = headBone ?? (headBone = surfer.getObjectByName('head') ?? null); if (hb) { pt.setFromMatrixPosition(hb.matrixWorld); group.worldToLocal(pt); roof = roofAboveAt(cur.atlas, pt.x, pt.y, pt.z, t); headUp = pt.y - st[S.Y]; } }
-      probe = {t, vis, roof: Number.isFinite(roof) ? roof : -1, inTube: roof >= 0.15 && roof < 3 * cur.atlas.meta.face_m ? 1 : 0, headWet: Number.isNaN(roof) ? 1 : 0, headUp, stage: stageAt(cur.atlas.meta, st[S.X], t, true), frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE], torsoPitch: body.torsoPitchDeg, torsoPitchRaw: body.torsoPitchRawDeg};
+      // R11 orientation probe (dev): the board's roll against the LOCAL FACE (deg; + = the deck rolled toward the wave, the wave-side rail
+      // engaged, the beach-side rail lifted) and the body against the STRINGER in the rider frame (nose -x, deck up +y, toe side +z, the
+      // same frame mirrored or not): the shoulder line and the hip line (trailing -> leading, deg from the stringer; + = the chest turned
+      // toward the nose), the chest's and the head's facing (deg from the toe side toward the nose; 90 = straight down the line)
+      let faceRoll = 0, shoulderYaw = 0, hipYaw = 0, chestYaw = 0, headYaw = 0;
+      if (import.meta.env.DEV) {
+        Nv.set(st[S.NX], st[S.NY], st[S.NZ]).normalize(); Ab.crossVectors(Nv, F).normalize(); faceRoll = Math.atan2(U.dot(Ab), U.dot(Nv)) * 180 / Math.PI;
+        rigInv.copy(surfer.matrixWorld).invert();
+        const bone = (n: string) => { let b = boneCache.get(n); if (b === undefined) { b = surfer!.getObjectByName(n) ?? null; boneCache.set(n, b); } return b; };
+        const at = (n: string, v: THREE.Vector3) => { const b = bone(n); if (!b) return false; v.setFromMatrixPosition(b.matrixWorld).applyMatrix4(rigInv); return true; };
+        if (at('upperarm_r', pA) && at('upperarm_l', pB)) { pA.sub(pB); shoulderYaw = Math.atan2(-pA.z, -pA.x) * 180 / Math.PI;
+          if (at('neck_01', pB) && at('spine_03', pC)) { pB.sub(pC); pC.crossVectors(pB, pA); chestYaw = Math.atan2(-pC.x, pC.z) * 180 / Math.PI; } }
+        if (at('thigh_r', pA) && at('thigh_l', pB)) { pA.sub(pB); hipYaw = Math.atan2(-pA.z, -pA.x) * 180 / Math.PI; }
+        // the head's facing: the bind pose's forward (+z, the face) carried by the head bone
+        const hb = bone('head'); if (hb && headFwdLocal) { pA.copy(headFwdLocal).transformDirection(hb.matrixWorld).transformDirection(rigInv); headYaw = Math.atan2(-pA.x, pA.z) * 180 / Math.PI; }
+      }
+      probe = {t, vis, roof: Number.isFinite(roof) ? roof : -1, inTube: roof >= 0.15 && roof < 3 * cur.atlas.meta.face_m ? 1 : 0, headWet: Number.isNaN(roof) ? 1 : 0, headUp, stage: stageAt(cur.atlas.meta, st[S.X], t, true), frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE], torsoPitch: body.torsoPitchDeg, torsoPitchRaw: body.torsoPitchRawDeg,
+        faceRoll, shoulderYaw, hipYaw, chestYaw, headYaw, turnRoll: st[S.TROLL], lift: st[S.LIFT], yawFixHip: body.yawFixDeg[0], yawFixSh: body.yawFixDeg[1], yawFixHead: body.yawFixDeg[2], yawRawHip: body.yawRawDeg[0], yawRawSh: body.yawRawDeg[1], yawRawHead: body.yawRawDeg[2], lean: body.leanDeg, leanGate: body.leanGateNow};
       ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = -st[S.WX]; ret.vis = vis;
       return ret;
     };
-    let probe: Record<string, number> | null = null, headBone: THREE.Object3D | null = null;
+    let probe: Record<string, number> | null = null, headBone: THREE.Object3D | null = null, headFwdLocal: THREE.Vector3 | null = null;
+    const bodyGaps: Record<string, number[]> = {}, boneCache = new Map<string, THREE.Object3D | null>(), rigInv = new THREE.Matrix4(), Nv = new THREE.Vector3(), Ab = new THREE.Vector3(), pA = new THREE.Vector3(), pB = new THREE.Vector3(), pC = new THREE.Vector3();
     /** Dev: the placement this frame plus each board contact point (crest frame) and the water under it. */
     const probeRider = () => {
       if (!surfer || !cur) return null; const t = u.uTime.value; surfer.updateMatrixWorld(true);
       const bd = boardOf(); if (!bd) return null;
       const mesh = bd.obj, bx = bd.box, P = BOARD.probe; const pts: Record<string, [number, number, number]> = {tail: [bx.max.x - P.tailIn, bx.min.y + P.tailUp, 0], nose: [bx.min.x + P.noseIn, bx.min.y + P.noseUp, 0], railA: [0, bx.min.y, bx.max.z - P.railIn], railB: [0, bx.min.y, bx.min.z + P.railIn]};
-      const out: Record<string, unknown> = {...probe, bbox: [bx.min.toArray(), bx.max.toArray()], frontside, stance: sim?.stance, skill: sim?.plan.skill, seed: sim?.seed, period: sim?.plan.period};
+      const out: Record<string, unknown> = {...probe, bodyGaps, bbox: [bx.min.toArray(), bx.max.toArray()], frontside, stance: sim?.stance, skill: sim?.plan.skill, seed: sim?.seed, period: sim?.plan.period};
       for (const [n, p] of Object.entries(pts)) { pt.set(p[0], p[1], p[2]); mesh.localToWorld(pt); group.worldToLocal(pt); out[n] = {x: pt.x, y: pt.y, z: pt.z, gap: faceDistanceAt(cur.atlas, pt.x, pt.y, pt.z, t)}; }
       pt.set(0, 0, 0); mesh.localToWorld(pt); group.worldToLocal(pt); out.origin = {x: pt.x, y: pt.y, z: pt.z, gap: faceDistanceAt(cur.atlas, pt.x, pt.y, pt.z, t)};
       out.F = F.toArray(); out.U = U.toArray();
@@ -827,6 +849,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
           const clip = ride ?? still;
           if (clip) {
             const {bones, lib} = samplePoses(surfer, clip); body = new RiderBody(bones, lib);
+            surfer.traverse((o) => { const sm = o as THREE.SkinnedMesh; if (headFwdLocal || !sm.isSkinnedMesh) return; const i = sm.skeleton.bones.findIndex((b) => b.name === 'head'); if (i >= 0) headFwdLocal = new THREE.Vector3(0, 0, 1).transformDirection(sm.skeleton.boneInverses[i]); });   // R11: the head's forward (the face, +z in the bind pose) in the bone's frame, for the yaw layer and the probe
+            body.headFwd = headFwdLocal;
             monitor.track(bones.all, surfer.getObjectByName('Board') ?? null, surfer);
             el.dataset.clips = s.clips.map((c) => c.name).join(',');
           }

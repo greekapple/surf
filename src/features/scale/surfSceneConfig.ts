@@ -35,7 +35,9 @@ export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1
    *  which is the slide, not a trail drawn ahead of the board. R10 re-based 60 -> 65: the same slide off the R9 C-wall's hit (the board
    *  bridging 0.65 m, the tail on a longer lever) reads 61-62 deg for 0.05 s, the board moving forward over the water at 6.7 m/s the
    *  whole time; the stall flip it was meant to catch (172-179) is fixed in the sim, not here */
-  wakeDeg: 65} as const;
+  wakeDeg: 65,
+  /** R11 (`bodyclip` count): a body joint more than this (m) below the front face, or inside the lip; the joints checked by the viewer */
+  bodyClipM: 0.05, bodyClipJoints: ['head', 'neck_01', 'pelvis', 'hand_l', 'hand_r', 'lowerarm_l', 'lowerarm_r', 'calf_l', 'calf_r', 'foot_l', 'foot_r', 'ball_l', 'ball_r'] as readonly string[]} as const;
 
 /** The board's wake (brief stage 6): a thin foam trail off the tail, sampled along the actual path, carried with the water, widening
  *  and fading out within lifeS; and the tail spray on turns, scaled by speed and turn load (rail roll), by the band's spray factor and
@@ -57,11 +59,21 @@ export const BOARD = {
   /** the contact probes on the mesh's bottom plane (m in from the ends/rails, up from the bottom): the monitor's gaps, the sim's rail
    *  depth and the dev probe all read these same points */
   probe: {tailIn: 0.03, tailUp: 0.03, noseIn: 0.15, noseUp: 0.08, railIn: 0.02},
-  /** rail roll into a turn: tan(roll) = v^2 / (g r), capped, and capped again each step so the buried rail (roll plus the face's
-   *  concavity between the rails) never goes deeper than railDepthM */
-  rollMaxDeg: 24, railDepthM: 0.09,
-  /** the roll cap aims this much under railDepthM: the depth it works from is last step's measurement */
-  railMarginM: 0.02,
+  /** R11: the board rides ON ITS RAIL, not flat to the face. The roll is the sum of two parts, both about the board's long axis, and the
+   *  board pivots about the ENGAGED rail (the one the deck rolls toward): that rail sits in the face by its tuck (railSinkM) and the
+   *  centre lifts off the face by rb sin(roll) (the other rail is in the air). Before R11 the roll turned about the centre and buried the
+   *  engaged rail, so a rail-depth cap held every roll under ~17 deg and the board lay flat on the face in trim (faceRoll 0-5 deg measured
+   *  at 6 ft; the real trim frames show the deck rolled 20-40 deg toward the wave, the beach-side rail out of the water).
+   *  (1) the TRIM roll: across a sloped face the board rides more level than the face (the lift must carry the weight, the inside rail
+   *  holds the line): a share of the local face slope toward the wave, capped; scaled per move (a straight drop or a tube line rides
+   *  flatter) and faded out with the snap's pivot (a board on its tail is not trimming).
+   *  (2) the TURN roll into the turn: tan(roll) = v^2 / (g r) = v yawRate / g x the skill's carve, capped at turnRollMaxDeg: toward the
+   *  wave in the bottom turn (the inside rail), toward the beach at the top and in the cutback (the deck faces the beach, as the real
+   *  frames show at the lip and through the cutback). */
+  rollMaxDeg: 55, trimRollShare: 0.6, trimRollMaxDeg: 40, turnRollMaxDeg: 45,
+  /** the trim roll also fades out as the board pitches up its long axis (deg; a board standing on its tail is not trimming) */
+  trimRollPitchFade: [25, 50] as readonly [number, number],
+  trimRollByMove: {takeoff: 0.35, kickout: 0.7, out: 0.6, barrel: 0.6} as Partial<Record<string, number>>,
   /** nose/tail rocker the ends can bridge on a concave face before the line is lowered */
   rockerM: 0.07,
   /** how far a set rail sits into a concave face before the centre lifts off it (the rail's own thickness and tuck) */
@@ -124,6 +136,8 @@ export const RIDE = {
  *  over the water is the peel speed along the crest, so the velocity never points up the face). The real snap's board is vertical because
  *  it pivots on its tail past the path. 78 deg at the Expert's carve (Intermediate 0.7 x): at the knot the path already turns down (-10 deg), so the yaw peaks near 68 and the board's long axis near 65 deg on the 74 deg face the cap reaches. */
 export const RIDE_SNAP_CAP_DEG = 89, RIDE_SNAP_PIVOT_DEG = 78;
+/** R11: the cutback's pivot (deg, down the face past the path, x the skill's carve): the board on its heel rail at the peak */
+export const RIDE_CUTBACK_PIVOT_DEG = 55;
 export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 'takeoff' | 'kickout' | 'out' | 'barrel' | 'floater';
 /** One knot of the ride: time to reach it from the previous knot (s, at RIDE.refFaceM; the first knot's dt closes the loop from the
  *  last), u, v, the move name, the pose it blends to, the compression target, and how close to the curl it may go (face heights,
@@ -152,7 +166,7 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** bottom turn, project up the face, release at the lip, redirect down */
   snap: [{dt: 0.85, du: 0.3, dv: -0.37, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.5, du: 0.1, dv: 0, move: 'bottom', pose: 'climb', comp: 0.55}, {dt: 0.45, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8}],   // R8: the hit rides the face up to the vertical (cap 89 instead of 78) with the board pivoted up the face past its velocity (the tail slides): the board reads near-vertical at the lip, as the real snap (Intermediate+ only: a Beginner's snap is a carve)
   /** roundhouse: a full-rail arc back toward the curl, rebound, back down the line */
-  cutback: [{dt: 1.0, du: 0.8, dv: -0.15, move: 'cutback', pose: 'climb', comp: 0.6}, {dt: 0.9, du: 0.2, dv: 0.13, move: 'cutback', pose: 'cutback', comp: 0.4}, {dt: 0.6, du: 0.05, dv: -0.06, move: 'recover', pose: 'recover', comp: 0.75}],   // R7: its own peak key (head and shoulders back to the curl, the leading arm out toward it), then the rebound compact
+  cutback: [{dt: 1.0, du: 0.8, dv: -0.15, move: 'cutback', pose: 'climb', comp: 0.6}, {dt: 0.9, du: 0.2, dv: 0.13, move: 'cutback', pose: 'cutback', comp: 0.4, pivot: -RIDE_CUTBACK_PIVOT_DEG}, {dt: 0.6, du: 0.05, dv: -0.06, move: 'recover', pose: 'recover', comp: 0.75}],   // R11: the peak knot pivots the board DOWN the face past its path (the nose back toward the curl): the rider's path over the water barely turns (the peel speed dominates: yaw -2..5 deg through the whole cutback before R11, the board flat), and the pivot's wind-up is the yaw rate that puts the board on its heel rail, as the real t6-t7.5 frames   // R7: its own peak key (head and shoulders back to the curl, the leading arm out toward it), then the rebound compact
   /** rhythmic compress/extend through a flat section */
   pump: [{dt: 0.6, du: 0.1, dv: -0.1, move: 'pump', pose: 'pump', comp: 0.75}, {dt: 0.5, du: 0.0, dv: 0.05, move: 'pump', pose: 'trim', comp: 0.4}],
   /** a long, fast, high line out to the shoulder with the rail set */
@@ -310,6 +324,8 @@ export const BODY = {
   /** R8: the lean answers the deck's roll; its along-board (pitch) share fades out between these board pitches (deg): a board pivoted up
    *  the face in the snap no longer pivots the body toward the tail (knee knock at the backside hit) */
   leanPitchFadeDeg: [15, 60] as readonly [number, number],
+  /** R11: and fades out as what is left of world-up after that (its length, 0..1) gets short: the lean's axis is undefined there */
+  leanUpFade: [0.15, 0.6] as readonly [number, number],
   torsoCounterStartDeg: 30, torsoCounterGain: 0, torsoCounterMaxDeg: 0,
   /** backside the chest faces down the slope: the torso counters toward the vertical (over the heels, toward the wave) harder */
   torsoCounterBackside: {gain: 0, maxDeg: 0},
@@ -372,4 +388,20 @@ export const BODY = {
   handSideMaxM: 0.6,
   /** backside (M2): the head turns this much further over the leading shoulder, toward the wave, through the turns */
   backsideHeadDeg: 0,   // R7: the v6 backside keys author the head over the leading shoulder
+  /** R11 (user: "the surfer's body orientation is still really bad"): the body's YAW against the stringer, measured on the composed
+   *  chain and corrected toward a per-pose target (the M9 pattern), in the rider frame: [hip line, shoulder line, head facing] in deg.
+   *  The hip and shoulder lines are the trailing -> leading joint, 0 = along the stringer, + = the chest turned toward the nose; the head
+   *  is its facing from the toe side toward the nose (90 = straight down the line). Measured before R11 (frontside, 6 ft Expert): trim
+   *  hips 24 / shoulders 46 / head 110, bottom 22 / 30 / 100, the hit (top) 6 / 24 / -17 with the chest twisted toward the TAIL (the
+   *  key copied the chest-to-the-beach of a backside reference), the head past the nose toward the beach everywhere (the rider looked at
+   *  the camera). The real frames: in trim the hips near the stringer and the shoulders a little open, the head down the line; the
+   *  bottom turn's chest at the lip ahead, the head at the lip (short of the nose, toward the wave); the hit's chest open past the nose
+   *  with the head down the face; the cutback's shoulders and head back toward the curl. The targets blend with the pose weights; a
+   *  pose without a target fades the correction out (cutback keys: authored against the real sequence, left as they are). */
+  yawTargets: {trim: [12, 32, 85], pump: [12, 32, 85], bottom: [20, 45, 70], climb: [25, 50, 80], top: [35, 60, 105], recover: [25, 45, 90], barrel: [15, 35, 85],
+    trimB: [15, 40, 95], pumpB: [15, 40, 95], bottomB: [20, 40, 105], climbB: [25, 50, 115], topB: [25, 55, 115], recoverB: [20, 45, 100], pigdog: [20, 50, 110]} as Partial<Record<PoseName, readonly [number, number, number]>>,
+  /** the correction's spread: the hip fix on the pelvis, the shoulder fix over the three spine bones, the head fix over neck and head;
+   *  the arms keep this share of the shoulder fix (0 = the hands stay where the key put them in the rider frame, the clavicles counter
+   *  the chest's turn; 1 = carried round with the chest) */
+  yawHeadSplit: {neck: 0.5, head: 0.5}, yawArmsFollow: 1, yawHz: 4,
 } as const;

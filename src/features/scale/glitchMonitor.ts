@@ -11,13 +11,15 @@
 import * as THREE from 'three';
 import {MONITOR} from './surfSceneConfig';
 
-export interface GlitchEvent {t: number; kind: 'joint' | 'board' | 'float' | 'clip' | 'knee' | 'pole' | 'wrist' | 'jerk' | 'knock' | 'arm' | 'hip' | 'lean' | 'wake'; joint: string; deg: number; gap: number; move: string}
+export interface GlitchEvent {t: number; kind: 'joint' | 'board' | 'float' | 'clip' | 'knee' | 'pole' | 'wrist' | 'jerk' | 'knock' | 'arm' | 'hip' | 'lean' | 'wake' | 'bodyclip'; joint: string; deg: number; gap: number; move: string}
 export interface GlitchCounts {
   joint: number; board: number; float: number; clip: number; total: number; frames: number; worstJointDeg: number; worstBoardDeg: number; events: GlitchEvent[];
   /** body checks: counts of bad samples, the measured ranges, the wrist-above-shoulder runs (s) and the jerk peak (deg/s^2) */
   knee: number; pole: number; wrist: number; jerk: number; knock: number; arm: number; hip: number; bodySamples: number;
   /** M9: torso pitch samples outside the range and the measured range (deg, + forward); M10: wake samples pointing off behind and the worst angle */
   lean: number; torsoPitch: [number, number]; wake: number; wakeMaxDeg: number;
+  /** R11: body joints inside the wave body (in the water by more than MONITOR.bodyClipM, or inside the lip): bad samples, the deepest (m) and its joint */
+  bodyclip: number; bodyClipMin: number; bodyClipJoint: string; /** per move:joint, [bad samples, deepest gap] */ bodyClipBy: Record<string, [number, number]>;
   /** the pelvis' toe-heel offset from the feet midpoint (m, rider frame; + toward the toes): the extremes */
   hipOffMin: number; hipOffMax: number;
   /** the hard gates' measured extremes: min knee-to-knee / foot-to-foot, max knee lateral offset (m), max hand side offset (m), peak arm joint speed (deg/s), fastest hand reversal (s) */
@@ -41,7 +43,7 @@ export class GlitchMonitor {
   private readonly handV = new Float64Array(6); private readonly lastRev = [-1, -1]; private readonly handP = new Float64Array(6);
   private headYawMin = Infinity; private headYawMax = -Infinity;
   readonly counts: GlitchCounts = {joint: 0, board: 0, float: 0, clip: 0, total: 0, frames: 0, worstJointDeg: 0, worstBoardDeg: 0, events: [],
-    knee: 0, pole: 0, wrist: 0, jerk: 0, knock: 0, arm: 0, hip: 0, bodySamples: 0, lean: 0, torsoPitch: [Infinity, -Infinity], wake: 0, wakeMaxDeg: 0, hipOffMin: Infinity, hipOffMax: -Infinity, kneeSepMin: Infinity, kneeLateralMax: 0, handSideMax: 0, armSpeedPeak: 0, armReversalMin: Infinity, kneeDeg: [Infinity, -Infinity], kneeDegFront: [Infinity, -Infinity], kneeDegBack: [Infinity, -Infinity], poleMaxDeg: 0, wristAboveMaxS: 0, wristAboveTotalS: 0, wristAboveWorldS: 0, jerkPeak: 0, jerkJoint: '', headYawRangeDeg: 0};
+    knee: 0, pole: 0, wrist: 0, jerk: 0, knock: 0, arm: 0, hip: 0, bodySamples: 0, lean: 0, torsoPitch: [Infinity, -Infinity], wake: 0, wakeMaxDeg: 0, bodyclip: 0, bodyClipMin: Infinity, bodyClipJoint: '', bodyClipBy: {}, hipOffMin: Infinity, hipOffMax: -Infinity, kneeSepMin: Infinity, kneeLateralMax: 0, handSideMax: 0, armSpeedPeak: 0, armReversalMin: Infinity, kneeDeg: [Infinity, -Infinity], kneeDegFront: [Infinity, -Infinity], kneeDegBack: [Infinity, -Infinity], poleMaxDeg: 0, wristAboveMaxS: 0, wristAboveTotalS: 0, wristAboveWorldS: 0, jerkPeak: 0, jerkJoint: '', headYawRangeDeg: 0};
   warn = true;
   /** Moves during which a wrist above the shoulder is allowed (the spec: a barrel hand-drag or a big snap). */
   wristAllowed: readonly string[] = MONITOR.wristAllowedMoves;
@@ -57,7 +59,7 @@ export class GlitchMonitor {
   }
   reset() {
     const c = this.counts; c.joint = c.board = c.float = c.clip = c.total = c.frames = 0; c.worstJointDeg = c.worstBoardDeg = 0; c.events.length = 0; this.primed = false;
-    c.knee = c.pole = c.wrist = c.jerk = c.knock = c.arm = c.hip = c.bodySamples = c.lean = c.wake = 0; c.torsoPitch = [Infinity, -Infinity]; c.wakeMaxDeg = 0; c.hipOffMin = Infinity; c.hipOffMax = -Infinity; c.kneeSepMin = Infinity; c.kneeLateralMax = c.handSideMax = c.armSpeedPeak = 0; c.armReversalMin = Infinity; this.armQ.forEach((q) => q.identity()); this.armPrimed = 0; this.handV.fill(0); this.lastRev[0] = this.lastRev[1] = -1; c.kneeDeg = [Infinity, -Infinity]; c.kneeDegFront = [Infinity, -Infinity]; c.kneeDegBack = [Infinity, -Infinity]; c.poleMaxDeg = 0; c.wristAboveMaxS = c.wristAboveTotalS = c.wristAboveWorldS = 0; c.jerkPeak = 0; c.jerkJoint = ''; c.headYawRangeDeg = 0;
+    c.knee = c.pole = c.wrist = c.jerk = c.knock = c.arm = c.hip = c.bodySamples = c.lean = c.wake = c.bodyclip = 0; c.torsoPitch = [Infinity, -Infinity]; c.wakeMaxDeg = 0; c.bodyClipMin = Infinity; c.bodyClipJoint = ''; c.bodyClipBy = {}; c.hipOffMin = Infinity; c.hipOffMax = -Infinity; c.kneeSepMin = Infinity; c.kneeLateralMax = c.handSideMax = c.armSpeedPeak = 0; c.armReversalMin = Infinity; this.armQ.forEach((q) => q.identity()); this.armPrimed = 0; this.handV.fill(0); this.lastRev[0] = this.lastRev[1] = -1; c.kneeDeg = [Infinity, -Infinity]; c.kneeDegFront = [Infinity, -Infinity]; c.kneeDegBack = [Infinity, -Infinity]; c.poleMaxDeg = 0; c.wristAboveMaxS = c.wristAboveTotalS = c.wristAboveWorldS = 0; c.jerkPeak = 0; c.jerkJoint = ''; c.headYawRangeDeg = 0;
     this.bodyT = -1; this.bodyPrimed = 0; this.wristRun[0] = this.wristRun[1] = 0; this.wristT = -1; this.headYawMin = Infinity; this.headYawMax = -Infinity;
   }
   /** One frame: world matrices must be current. `frontFoot` names the leg on the nose side ('r' for the goofy model frontside; the mirror
@@ -90,6 +92,18 @@ export class GlitchMonitor {
     if (this.bodyT < 0 || t - this.bodyT >= 1 / MONITOR.bodyHz) { const h = this.bodyT < 0 ? 0 : t - this.bodyT; this.bodyT = t; n += this.bodySample(h, t, move, frontFoot, emit); }
     return n;
   }
+  /** R11 (spec item 4): a body joint inside the wave body. The viewer calls this on the body clock with each joint's signed distance to the
+   *  front face (m, - = in the water) and whether the point is inside the water at all (the profile-crossing parity, which also catches the
+   *  inside of the lip, where the face distance is positive). Counted when wet by more than MONITOR.bodyClipM below the face, or wet anywhere
+   *  past the face (the lip). The hands in the barrel may drag the face (the spec's hand drag). */
+  bodyClipSample(t: number, move: string, joint: string, gap: number, wet: boolean) {
+    const c = this.counts; if (!wet) return; if (gap < c.bodyClipMin) { c.bodyClipMin = gap; c.bodyClipJoint = joint; }
+    if (move === 'barrel' && joint.startsWith('hand')) return;
+    if (gap < -MONITOR.bodyClipM || gap > 0) { c.bodyclip++; c.total++; const key = move + ':' + joint, e = c.bodyClipBy[key] ?? (c.bodyClipBy[key] = [0, Infinity]); e[0]++; if (gap < e[1]) e[1] = Math.round(gap * 1000) / 1000; if (c.events.length < MONITOR.keepEvents && c.bodyclip <= MONITOR.keepPerKind) c.events.push({t: Math.round(t * 1000) / 1000, kind: 'bodyclip', joint, deg: 0, gap: Math.round(gap * 1000) / 1000, move}); if (this.warn) console.warn(`[wave glitch] bodyclip ${joint} ${gap.toFixed(3)} m during ${move} at t=${t.toFixed(3)} s`); }
+  }
+  /** the body-clock tick the viewer should sample the joints on (true once per MONITOR.bodyHz period) */
+  bodyTick(t: number): boolean { return this.bodyClipT < 0 || t - this.bodyClipT >= 1 / MONITOR.bodyHz ? (this.bodyClipT = t, true) : false; }
+  private bodyClipT = -1;
   /** M10: the wake's first segment (tail -> the previous sample, crest frame) against the board's velocity over the water: it must point
    *  behind (within MONITOR.wakeDeg of straight back). Called by the viewer when it has both. */
   wakeSample(t: number, move: string, dx: number, dz: number, vx: number, vz: number) {
@@ -145,9 +159,12 @@ export class GlitchMonitor {
       // M9: the torso pitch (pelvis -> neck) toward the toes; never backward. Frontside from the deck normal; backside (R7) from the
       // LEG LINE (feet midpoint -> pelvis): there the whole body angulates over the heels toward the vertical on a steep face (the deck
       // normal leans toward the beach by the face slope), and a torso upright over bent knees is what the real sequence shows, not a fold
+      // R11: read in the chest's own facing (the horizontal perpendicular of the shoulder line): the yaw layer turns the shoulders up to
+      // ~60 deg toward the nose at the hit, where a chest pitched forward has next to no component toward the toes
       if (rp(B.pelvis, this.a) && rp(B.neck, this.b)) {
-        this.b.sub(this.a); let pitch = Math.atan2(this.b.z, Math.max(1e-3, this.b.y)) * D;
-        if (!this.frontside && rp(B.footL, this.c) && rp(B.footR, this.d)) { this.c.add(this.d).multiplyScalar(0.5); this.a.sub(this.c); pitch -= Math.atan2(this.a.z, Math.max(1e-3, this.a.y)) * D; }
+        this.b.sub(this.a); this.e.set(0, 0, 1); if (rp(B.armR, this.c) && rp(B.armL, this.d)) { this.c.sub(this.d); this.e.set(this.c.z, 0, -this.c.x); if (this.e.lengthSq() < 1e-6) this.e.set(0, 0, 1); this.e.normalize(); }
+        let pitch = Math.atan2(this.b.dot(this.e), Math.max(1e-3, this.b.y)) * D;
+        if (!this.frontside && rp(B.footL, this.c) && rp(B.footR, this.d)) { this.c.add(this.d).multiplyScalar(0.5); this.a.sub(this.c); pitch -= Math.atan2(this.a.dot(this.e), Math.max(1e-3, this.a.y)) * D; }
         if (pitch < c.torsoPitch[0]) c.torsoPitch[0] = pitch; if (pitch > c.torsoPitch[1]) c.torsoPitch[1] = pitch;
         if (pitch < MONITOR.torsoPitchDeg[0] || pitch > MONITOR.torsoPitchDeg[1]) { emit('lean', 'torso', pitch, 0); n++; }
       }
