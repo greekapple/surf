@@ -31,11 +31,11 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}:
       <SpotThumb spotId={spot.id} className="xco-photo" sizes="(max-width: 860px) 100vw, 264px" />
       <div className="xco-h">
         <div><h3>{spot.name}</h3><p>{region} · {when}</p></div>
-        {rating && <Condition category={rating.category} />}
+        {rating && rating.score !== null && <Condition category={rating.category} />}{/* T-116: an unrated (dark) hour shows no pill; the bottom strip says it is dark */}
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? (dataPhase(view.ocean) === 'loading' ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>
-        <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? `${t!.words ? `${t!.words[0].toUpperCase()}${t!.words.slice(1)} · ` : ''}surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : 'model estimate'}` : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
+        <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : 'model estimate'}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>

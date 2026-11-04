@@ -29,33 +29,36 @@ export function useDismiss(open: boolean, close: () => void, box: React.RefObjec
 }
 
 export interface FieldChoice {id: string; label: string; short?: string; icon: IconName}
-/** The single layer control (Windy/Apple): a button that opens one popover with the colour field and two overlays. */
-export function LayerMenu({fields, field, on, setField, flow, setFlow, arrows, setArrows, onPoint, note}: {
+/** T-116: the layers as a plain vertical list on the map's right edge (Windy): one row per layer, text label and icon, the active row filled.
+ *  Pressing the active row turns the sea colour off. "More" holds the overlays, the model point and the source note. */
+export function LayerList({fields, field, on, setField, flow, setFlow, arrows, setArrows, onPoint, note}: {
   fields: FieldChoice[]; field: string; on: boolean; setField: (id: string | null) => void; flow: boolean; setFlow: (v: boolean) => void; arrows: boolean; setArrows: (v: boolean) => void; onPoint: () => void; note: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const btn = useRef<HTMLButtonElement>(null), box = useRef<HTMLDivElement>(null);
   useDismiss(open, () => setOpen(false), box, btn);
   return (
-    <div className="xlm">
-      <button ref={btn} className="xfab" aria-label="Map layers" aria-expanded={open} aria-controls="xlm-pop" onClick={() => setOpen(!open)}><Icon name="layers" size={20} /></button>
-      {open && (
-        <div ref={box} className="xpop xlm-pop" id="xlm-pop" role="dialog" aria-label="Map layers">
-          <p className="xpop-t">Colour the sea by</p>
-          <div className="xlm-grid" role="radiogroup" aria-label="Colour the sea by">
-            {[...fields, {id: '', label: 'None', icon: 'close' as IconName}].map((f) => {
-              const sel = f.id ? on && field === f.id : !on;
-              return <button key={f.id || 'none'} role="radio" aria-checked={sel} aria-label={f.label} title={f.label} onClick={() => setField(f.id || null)}><Icon name={f.icon} size={18} /><span>{f.short ?? f.label}</span></button>;
-            })}
+    <div className="xlayers">
+      <div className="xl-list" role="radiogroup" aria-label="Colour the sea by">
+        {fields.map((f) => {
+          const sel = on && field === f.id;
+          return <button key={f.id} type="button" role="radio" aria-checked={sel} aria-label={f.label} title={f.label} onClick={() => setField(sel ? null : f.id)}><span className="xl-t">{f.short ?? f.label}</span><Icon name={f.icon} size={18} /></button>;
+        })}
+      </div>
+      <div className="xlm">
+        <button ref={btn} type="button" className="xl-more" aria-label="More map options" aria-expanded={open} aria-controls="xlm-pop" onClick={() => setOpen(!open)}><span className="xl-t">More</span><Icon name="layers" size={18} /></button>
+        {open && (
+          <div ref={box} className="xpop xlm-pop" id="xlm-pop" role="dialog" aria-label="More map options">
+            <ul className="xlm-sw">
+              <li><button role="switch" aria-checked={on} onClick={() => setField(on ? null : field)}><span>Sea colour</span><i className="xsw" aria-hidden="true" /></button></li>
+              <li><button role="switch" aria-checked={flow} onClick={() => setFlow(!flow)}><span>Flow animation</span><i className="xsw" aria-hidden="true" /></button></li>
+              <li><button role="switch" aria-checked={arrows} onClick={() => setArrows(!arrows)}><span>Swell direction arrows</span><i className="xsw" aria-hidden="true" /></button></li>
+            </ul>
+            <button className="xlm-pt" onClick={() => { setOpen(false); onPoint(); }}><Icon name="forecast" size={16} />Model point at map centre</button>
+            <p className="xpop-note">{note}</p>
           </div>
-          <ul className="xlm-sw">
-            <li><button role="switch" aria-checked={flow} onClick={() => setFlow(!flow)}><span>Flow animation</span><i className="xsw" aria-hidden="true" /></button></li>
-            <li><button role="switch" aria-checked={arrows} onClick={() => setArrows(!arrows)}><span>Swell direction arrows</span><i className="xsw" aria-hidden="true" /></button></li>
-          </ul>
-          <button className="xlm-pt" onClick={() => { setOpen(false); onPoint(); }}><Icon name="forecast" size={16} />Model point at map centre</button>
-          <p className="xpop-note">{note}</p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

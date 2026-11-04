@@ -134,8 +134,8 @@
 .xpin.sel i { box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 45%, transparent), 0 1px 3px rgb(0 0 0 / 0.35); }
 .xlabel { display: grid; padding: 3px 9px; border-radius: 8px; background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); line-height: 1.2; pointer-events: none; }
 .xpin.lft .xlabel { position: absolute; right: calc(100% + 6px); }
-.xpin.xdot:not(.hl):not(:hover) .xlabel { visibility: hidden; }
-.xpin.xdot:is(.hl, :hover) .xlabel { position: absolute; left: calc(100% + 6px); z-index: 1; }
+.xpin.xdot:not(.hl):not(:hover):not(:focus-visible) .xlabel { visibility: hidden; }
+.xpin.xdot:is(.hl, :hover, :focus-visible) .xlabel { position: absolute; left: calc(100% + 6px); z-index: 1; }
 .xlabel b { font-size: 13px; font-weight: 650; }
 .xlabel small { font-size: 12px; color: var(--muted); }
 
@@ -424,3 +424,75 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xpin::before { content: ''; position: absolute; left: -6px; right: -6px; top: 50%; height: 44px; translate: 0 -50%; }
 /* T-109: the short phone legend label meets the 12 px minimum (t034); still two short lines. */
 .xleg-ks { font-size: 12px; max-width: 60px; }
+
+/* ---------- T-116: Windy-like chrome (function first): flat controls, a top bar, a right-edge layer list, one bottom strip, a small phone peek ---------- */
+/* Flatter surfaces: a hairline and a faint lift, no heavy floating-card shadow. */
+.xmap { --xc-sh: 0 1px 2px rgb(0 0 0 / 0.1); }
+
+/* Top bar: find a spot + region chips in one compact bar (top left). */
+.xsearchbox { width: auto; max-width: calc(100% - 210px); }
+.xtopbar { display: flex; align-items: center; gap: 6px; padding: 4px; border-radius: 12px; background: var(--xc); border: 1px solid var(--xc-line); box-shadow: var(--xc-sh); min-width: 0; }
+.xtb-search { flex: 0 0 220px; min-height: 40px; padding: 0 2px 0 10px; border: 0; box-shadow: none; background: color-mix(in srgb, var(--text) 5%, var(--xc)); border-radius: 9px; }
+.xtb-list { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 8px; background: none; color: var(--muted); cursor: pointer; }
+.xtb-list:hover { color: var(--text); background: var(--s1); }
+.xtb-chips { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.xtb-chips::-webkit-scrollbar { display: none; }
+.xtb-chips button { flex: none; min-height: 36px; padding: 0 11px; border: 0; border-radius: 8px; background: none; color: var(--muted); font: 550 13px/1 var(--sans); white-space: nowrap; cursor: pointer; }
+.xtb-chips button:hover { color: var(--text); background: var(--s1); }
+.xtb-chips button[aria-pressed='true'] { background: var(--text); color: var(--bg); }
+
+/* Layer list on the right edge: text label then icon, the active row filled; no card. */
+.xlayers { display: grid; justify-items: end; gap: 2px; }
+.xl-list { display: grid; justify-items: end; gap: 2px; }
+.xl-list button, .xl-more { display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-height: 40px; padding: 0 4px 0 12px; border: 0; border-radius: 10px;
+  background: color-mix(in srgb, var(--xc) 86%, transparent); color: var(--text); font: 550 13px/1 var(--sans); cursor: pointer; }
+.xl-list button svg, .xl-more svg { flex: none; width: 32px; height: 32px; padding: 7px; border-radius: 8px; box-sizing: border-box; }
+.xl-list button:hover, .xl-more:hover { background: var(--xc); }
+.xl-list button[aria-checked='true'] { background: var(--text); color: var(--bg); }
+.xl-more[aria-expanded='true'] { color: var(--accent); }
+.xlayers .xlm-pop { top: auto; bottom: 0; }
+.xfabs { gap: 8px; }
+.xzoom, .xfabgrp { box-shadow: none; }
+
+/* One bottom strip (Windy): the scrubber across, the legend at its right end, the dark-hour mark at its left. */
+.xbottom { left: 0; right: 0; bottom: 0; align-items: center; justify-content: flex-start; gap: 12px; min-height: 56px; padding: 6px 12px; box-sizing: border-box;
+  background: var(--xc); border-top: 1px solid var(--xc-line); pointer-events: auto; }
+.xbottom .xtime:not(.open) { flex: 1 1 auto; min-width: 0; max-width: 720px; border: 0; box-shadow: none; background: none; }
+.xbottom .xtime.open { position: absolute; left: 12px; bottom: calc(100% + 8px); }
+.xbottom .xleg, .xbottom > .xstatus { position: static; margin-left: auto; }
+.xbottom .xleg .xchip { border: 0; box-shadow: none; background: none; }
+.xdark { flex: none; margin: 0; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.xleaf .leaflet-bottom { bottom: 60px; }
+
+@media (max-width: 860px) {
+  /* Phone top bar: search above a scrolling chip row, full width under the header; layers move below it on the right. */
+  .xsearchbox { left: 8px; right: 8px; top: 8px; width: auto; max-width: none; }
+  .xtopbar { display: grid; gap: 4px; }
+  .xtb-search { flex: none; min-height: 44px; }
+  .xtb-search input { font-size: 16px; }
+  .xtb-chips button { min-height: 44px; }
+  .xfabs { top: 116px; right: 8px; }
+  .xzoom { display: none; } /* pinch to zoom on phones; the locate button stays */
+  .xl-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .xl-list button, .xl-more { width: 44px; min-height: 44px; padding: 0; justify-content: center; }
+  .xlayers .xlm-pop { bottom: auto; }
+  /* Bottom strip above the peek: the scrubber, then the legend across the full width under it (Windy 390). */
+  .xbottom { left: 0; right: 0; bottom: var(--peek); flex-wrap: wrap; gap: 4px 8px; padding: 6px 8px; }
+  .xbottom .xtime:not(.open) { flex: 1 1 100%; max-width: none; order: 1; }
+  .xbottom .xleg, .xbottom > .xstatus { flex: 1 1 100%; margin-left: 0; order: 2; max-width: none; }
+  .xbottom .xleg .xchip { width: 100%; justify-content: space-between; padding: 0 4px; }
+  .xbottom .xleg .xchip i { flex: 1; width: auto; }
+  .xdark { order: 2; flex: none; }
+  .xbottom .xleg { flex: 1 1 0; min-width: 0; }
+  .xbottom .xleg-ks { max-width: none; white-space: nowrap; }
+  .xbottom .xtime.open { left: 0; right: 0; bottom: 0; position: absolute; }
+  .xleaf .leaflet-bottom { bottom: calc(var(--peek) + 104px); }
+  /* The peek is the selected spot's essentials only, at most a quarter of the map's height; tap or drag the handle for the list. */
+  .xsheet.phone[data-d='peek'] { max-height: 25%; overflow: hidden; }
+  .xsheet.phone[data-d='peek'] .xco-photo, .xsheet.phone[data-d='peek'] .xco-words { display: none; } /* the label (surf height · model estimate) and the wind stay */
+  .xsheet.phone[data-d='peek'] .xgrab { margin-bottom: 4px; }
+  .xsheet.phone[data-d='peek'] .xco { padding-bottom: 8px; }
+}
+@media (max-width: 860px) { .xdark-l { display: none; } }
+/* T-116: every control in the strip and top bar is at least 44 px wide on phones. */
+@media (max-width: 860px) { .xbottom .xplay, .xtb-chips button { min-width: 44px; } }
