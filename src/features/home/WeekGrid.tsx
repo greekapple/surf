@@ -9,14 +9,11 @@ import {isDark} from '../forecast/trustApi';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
 import {weekDays} from './weekDays';
-import {glyphAt, type Glyph} from '../../services/waveGlyph';
-import {breakerType} from '../../services/breaker';
-import {userHeight} from '../../services/heightMath';
-import {WaveGlyph} from '../../ui/WaveGlyph';
+import {monotonePath} from '../forecast/helpers';
 
 /* T-067 "Your spots this week" (T-069: estimate rows first; an offshore-only day is a small grey number, the row label says offshore) (Surfline home pattern): rows are spots, columns 8 days. Each cell is the MIDDAY hour's
- * surf range (T-107 weekCell; the daylight spread is in the title and aria, the section note says "at midday"), a three-part AM / midday / PM rating bar (dark parts unrated), and
- * (T-106, replacing the faint row curve) a tiny drawing of that midday central size beside you, muted when its source is saved or stale. Offshore-only days are muted ("7 off"), never styled as surf. A cell opens that spot at that day's representative hour. */
+ * surf range (T-107 weekCell; the daylight spread is in the title and aria, the section note says "at midday"), a three-part AM / midday / PM rating bar (dark parts unrated),  and
+ * (T-119, the user's "lines that undulate", replacing T-106's tiny drawings) a smooth line across each row through the days' midday sizes. Offshore-only days are muted ("7 off"), never styled as surf. A cell opens that spot at that day's representative hour. */
 
 const DAYS = 8, BLOCKS = [7, 12, 17] as const, BLOCK_WORD = ['AM', 'midday', 'PM'];
 const pt = pacificDateMs; // cached formatter (T-091)
@@ -24,13 +21,12 @@ const dayHead = (key: string, k: number) => { if (k === 0) return 'Today'; const
 const hourOf = (iso: string) => pacificHour(iso) % 24;
 
 type Seg = {state: 'dark' | 'none' | 'rated'; color: string; word: string};
-interface Cell {key: string; dr: DayRange; wc: WeekCell; segs: Seg[]; glyph: Glyph | null}
+interface Cell {key: string; dr: DayRange; wc: WeekCell; segs: Seg[]}
 interface Row {spot: SurfSpot; cells: Cell[]}
 
 export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}: {spots: SurfSpot[]; records: Forecast[]; nowMs: number; profile: UserProfile; bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined; unit: string; onOpen: (spotId: string, iso: string | null) => void}) {
   // T-088b: no column for a trailing day beyond the forecast horizon (after midnight the 8th day has no records at all).
   const keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
-  const me = userHeight(profile);
   const rows: Row[] = useMemo(() => spots.map((spot) => {
     const mine = records.filter((f) => f.spotId === spot.id);
     return {spot, cells: keys.map((key) => {
@@ -42,10 +38,8 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
         const r = rateForecast(spot, f, nowMs);
         return r.score === null ? {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} not rated`} : {state: 'rated', color: BAND_COLOR[bandOf(r.category)], word: `${BLOCK_WORD[i]} ${conditionWord(r.category).toLowerCase()}`};
       });
-      // T-106: the tiny drawing is the cell's own midday central size (wc.centralFt, the same value as the number), period and est. breaker from that hour.
-      const wc = weekCell(dr, unit), tf = dr.typical ? mine.find((r) => r.timestamp === dr.typical!.atIso) : undefined;
-      const glyph = tf ? glyphAt(wc.kind, wc.centralFt, me.feet, tf.primary?.period, breakerType(spot, tf).type) : null;
-      return {key, dr, wc, segs, glyph};
+      const wc = weekCell(dr, unit);
+      return {key, dr, wc, segs};
     })};
   }).map((r, i) => ({r, i, est: r.cells.filter((c) => c.dr.kind === 'estimate').length}))
     .sort((a, b) => b.est - a.est || a.i - b.i).map((x) => x.r), [spots, records, keys, nowMs, profile, bundle, unit]); // T-069: spots with surf estimates first
@@ -54,19 +48,27 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
       <table className="wk-t">
         <thead><tr><th scope="col" className="wk-spot">Spot</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
         <tbody>{rows.map(({spot, cells}) => {
+          // T-119 (Surfline-style, the user's "lines that undulate"): a smooth monotone curve through the days' midday sizes (wc.centralFt, the cell's own
+          // number) on the row's own scale (its lowest to highest day, padded), so the week's shape reads; the numbers above carry the values.
+          // Estimate days only: a day without an estimate breaks the line.
+          const vs = cells.map((c) => (c.wc.kind === 'estimate' ? c.wc.centralFt : null)).filter((v): v is number => v !== null);
+          const rLo = Math.min(...vs), rHi = Math.max(...vs), span = Math.max(2, rHi - rLo), base = rLo - (span - (rHi - rLo)) / 2;
+          const runs: [number, number][][] = []; let cur: [number, number][] = [];
+          cells.forEach((c, i) => { if (c.wc.kind === 'estimate' && c.wc.centralFt !== null) cur.push([(i + 0.5) * 100, 36 - ((c.wc.centralFt - base) / span) * 32]); else if (cur.length) { runs.push(cur); cur = []; } }); if (cur.length) runs.push(cur);
           return (
             <tr key={spot.id}>
               <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}{(() => { const off = cells.filter((c) => c.dr.kind === 'offshore').length, est = cells.filter((c) => c.dr.kind === 'estimate').length;
                 return off ? <span className="wk-kind"> · {est ? 'offshore where grey' : 'offshore only'}</span> : null; })()}</small></th>
               {cells.map((c, i) => {
+                const line = i === 0 && runs.length ? <svg className="wk-line" style={{width: `${keys.length * 100}%`}} viewBox={`0 0 ${keys.length * 100} 40`} preserveAspectRatio="none" aria-hidden="true">{runs.map((r) => r.length > 1 ? <path key={r[0][0]} d={monotonePath(r)} /> : <circle key={r[0][0]} cx={r[0][0]} cy={r[0][1]} r={2.5} />)}</svg> : null;
                 const wc = c.wc, est = wc.kind === 'estimate', off = wc.kind === 'offshore', label = wc.label;
                 const st = wc.stale ? `, ${wc.stale === 'saved' ? 'saved' : 'stale'} source` : '';
                 const fullText = dayText(c.dr.typical)?.full ?? `${label} ${unit}`; // T-112: unit and Hawaiian qualifier, as the spot page says it
                 const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${fullText}${wc.confidence ? `, ${wc.confidence} confidence` : ''} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>
+                    {line}
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>
-                      {c.glyph && <WaveGlyph glyph={c.glyph} size="xs" personIn={me.inches} unit={profile.heightUnit} decorative className={'wk-g' + (wc.stale ? ' is-stale' : '')} />}
                       <span className={(est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none') + (wc.stale ? ' wk-stale' : '')} data-central-ft={wc.centralFt ?? undefined} title={wc.spread ? `${wc.midday}${st}; ${wc.spread}` : undefined}>{label}{wc.stale && <small className="wk-stale-tag"> {wc.stale}</small>}</span>
                       <span className="wk-bar" aria-hidden="true">{c.segs.map((s, k) => <i key={k} className={s.state} style={{background: s.color}} />)}</span>
                     </button>

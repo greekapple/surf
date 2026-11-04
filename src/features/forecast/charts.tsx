@@ -52,6 +52,9 @@ const niceStep = (range: number) => [0.5, 1, 2, 5, 10, 20].find((s) => range / s
 const signed = (v: number, p: UserProfile) => `${v < 0 ? '-' : '+'}${ht(Math.abs(v), p)}`;
 const TIP_W = 236;
 /** The forecast spine: one series per tab (surf, swell, wind, tide) plus the rating ribbon and night on one time axis. */
+/** T-119: the swell components drawn on the Swell tab, each its own colour. */
+const SWELLS = [{k: 'primary', cls: 'sw1'}, {k: 'secondary', cls: 'sw2'}, {k: 'tertiary', cls: 'sw3'}] as const;
+
 export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300, tab = 'surf', hourWindow = false, band}: TimelineProps) {
   const body = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(900);
@@ -77,7 +80,9 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const surfBand = tab === 'surf' && hasEstimateBand(bandAt.values());
   /** The hour's surf-estimate band, or undefined: offshore and demonstration points are not surf estimates (CONTRACTS.md), so they never become bars. */
   const bAt = (h: HourSample) => estimateBand(bandAt.get(h.timestamp));
-  const hsMax = Math.max(1, ...series.map((h) => Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0, bAt(h)?.hi ?? 0))) * 1.12;
+  // T-119: the Swell tab scales to the swells alone (the surf band's top squashed them into the bottom third).
+  const hsMax = Math.max(1, ...series.map((h) => tab === 'swell' ? Math.max(h.forecast.primary?.height ?? 0, h.forecast.secondary?.height ?? 0, h.forecast.tertiary?.height ?? 0)
+    : Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0, bAt(h)?.hi ?? 0))) * 1.12;
   const wMax = Math.max(10, ...series.map((h) => Math.max(h.forecast.wind.speed || 0, h.forecast.wind.gusts || 0))) * 1.12;
   const [lo, hi] = tab === 'wind' ? [0, wMax] : tab === 'tide' ? [tLo - (tHi - tLo || 1) * 0.15, tHi + (tHi - tLo || 1) * 0.2] : [0, hsMax];
   const Y = (v: number) => PB - ((v - lo) / (hi - lo || 1)) * (PB - PT);
@@ -99,15 +104,6 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const mainPath = line(val);
   // Mid-transition the window can sit past the series (vis empty); an area must never start without a moveto (D-05).
   const areaD = mainPath ? `${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z` : undefined;
-  /** Day peaks of the primary swell, labelled with period (only where the day is wide enough to read). */
-  const peaks = tab !== 'swell' ? [] : days.flatMap((d) => {
-    let best = -1;
-    for (let i = d.start; i <= d.end; i++) { const pr = series[i]?.forecast.primary; if (pr && Number.isFinite(pr.period) && (best < 0 || pr.height > series[best].forecast.primary!.height)) best = i; }
-    if (best < 0 || (d.end - d.start + 1) * pxh < 34) return [];
-    const x = X(best);
-    // A falling day peaks at its first hour, on the plot edge: keep the dot there and pull only the label inside.
-    return x >= G && x <= W - PAD ? [{h: series[best], i: best, lx: Math.min(W - PAD - 14, Math.max(G + 14, x))}] : [];
-  }).reduce<{h: HourSample; i: number; lx: number}[]>((kept, pk) => (kept.length && pk.lx - kept[kept.length - 1].lx < 34 ? kept : [...kept, pk]), []); // "13s" is ~24 px wide
   const [lat, lon] = spotLatLon(spot);
   const nowI = series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
 
@@ -149,6 +145,9 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
       <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
           <linearGradient id="gHs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs-hi)" stopOpacity="0.5" /><stop offset="1" stopColor="var(--hs)" stopOpacity="0.03" /></linearGradient>
+          <linearGradient id="gRate" gradientUnits="userSpaceOnUse" x1={X(i0)} x2={X(Math.max(i0 + 1, i1))} y1="0" y2="0">
+            {vis.map((h, k) => <stop key={h.timestamp} offset={vis.length > 1 ? k / (vis.length - 1) : 0} stopColor={BAND_COLOR[bandOf(h.rating.category)]} />)}
+          </linearGradient>
           <linearGradient id="gSw" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--sw1)" stopOpacity="0.28" /><stop offset="1" stopColor="var(--sw1)" stopOpacity="0.02" /></linearGradient>
           <linearGradient id="gWd" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--accent)" stopOpacity="0.4" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0.03" /></linearGradient>
           <linearGradient id="gTd" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--tide)" stopOpacity="0.38" /><stop offset="1" stopColor="var(--tide)" stopOpacity="0.03" /></linearGradient>
@@ -174,10 +173,16 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
             {tab === 'surf' && surfBand && <>
               {/* T-109: one continuous band from the low to the high of the surf estimate, with its median as a line (not a bar per hour);
                   hours without an estimate break the band, never bridged. The offshore Hs stays a thin muted line. Tide is only on the Tide tab. */}
-              {estRuns.map((run) => <g key={`r${run[0][0]}`}>
-                <path className="tl-band" d={`${monotonePath(run.map(([x, , hi]): [number, number] => [x, Y(hi)]))} L${monotonePath(run.map(([x, lo]): [number, number] => [x, Y(lo)]).reverse()).slice(1)} Z`} />
-                <path className="tl-median" d={monotonePath(run.map(([x, lo, hi]): [number, number] => [x, Y((lo + hi) / 2)]))} />
-              </g>)}
+              {/* T-119 (Surfline-style undulating lines): each run's top and bottom are monotone cubic curves (no overshoot) through every third hour
+                  plus the run's ends, so whole-foot steps in the hourly estimate read as one smooth swell of size; a soft fill between; the bottom edge is
+                  coloured by the hour's rating. */}
+              {estRuns.map((run) => { const pts = run.filter((_, k) => k % 3 === 0 || k === run.length - 1);
+                return <g key={`r${run[0][0]}`}>
+                  <path className="tl-band" d={`${monotonePath(pts.map(([x, , hi]): [number, number] => [x, Y(hi)]))} L${monotonePath(pts.map(([x, lo]): [number, number] => [x, Y(lo)]).reverse()).slice(1)} Z`} />
+                  <path className="tl-top" d={monotonePath(pts.map(([x, , hi]): [number, number] => [x, Y(hi)]))} />
+                  <path className="tl-median" d={monotonePath(pts.map(([x, lo, hi]): [number, number] => [x, Y((lo + hi) / 2)]))} />
+                  <path className="tl-bot" d={monotonePath(pts.map(([x, lo]): [number, number] => [x, Y(lo)]))} stroke="url(#gRate)" />
+                </g>; })}
               <path d={line((h) => h.heightFt ?? 0)} fill="none" stroke="var(--muted)" strokeWidth={1.2} strokeLinejoin="round" opacity={0.8} />
             </>}
             {tab === 'surf' && !surfBand && <>
@@ -185,11 +190,24 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               <path d={mainPath} fill="none" stroke="var(--muted)" strokeWidth={1.4} strokeLinejoin="round" opacity={0.9} />
             </>}
             {tab === 'swell' && <>
+              {/* T-119 (Surfline-style): one smooth line per swell component (primary, secondary, third), distinct colours; every 6 h (12 h when the
+                  hours are tight, as on a phone) a direction arrow on the line (pointing where the swell travels) and, on the primary, its period. */}
               <path d={areaD} fill="url(#gSw)" />
-              <path d={mainPath} fill="none" stroke="var(--sw1)" strokeWidth={2} strokeLinejoin="round" />
-              {vis.some((h) => h.forecast.secondary) && <path d={line((h) => h.forecast.secondary?.height ?? 0)} fill="none" stroke="var(--sw2)" strokeWidth={1.5} strokeDasharray="5 4" />}
-              {peaks.map(({h, i, lx}) => <g key={`pk${h.timestamp}`}><circle cx={X(i)} cy={Y(h.forecast.primary!.height)} r={3} fill="var(--sw1)" />
-                <text className="tl-pk" x={lx} y={Y(h.forecast.primary!.height) - 9} textAnchor="middle">{Math.round(h.forecast.primary!.period)}s</text></g>)}
+              {SWELLS.map(({k, cls}) => {
+                const comp = (h: HourSample) => h.forecast[k] ?? null;
+                if (!vis.some((h) => comp(h))) return null;
+                const runs: [number, number][][] = []; let cur: [number, number][] = [];
+                vis.forEach((h, j) => { const c = comp(h); if (c && Number.isFinite(c.height)) cur.push([X(i0 + j), Y(c.height)]); else if (cur.length) { runs.push(cur); cur = []; } }); if (cur.length) runs.push(cur);
+                const every = pxh * 6 < 34 ? 12 : 6, labelEvery = [6, 12, 24].find((s) => pxh * s >= 30) ?? 24;
+                return <g key={k} className={`tl-sw ${cls}`}>
+                  {runs.map((r) => <path key={r[0][0]} d={monotonePath(r.filter((_, j) => j % 2 === 0 || j === r.length - 1))} />)}
+                  {vis.map((h, j) => { const c = comp(h); if (!c || !Number.isFinite(c.height) || localHour(h.timestamp) % every) return null;
+                    const x = X(i0 + j), y = Y(c.height);
+                    return <g key={h.timestamp}>
+                      <g transform={`translate(${x} ${y}) rotate(${(c.direction + 180) % 360})`}><path className="tl-sw-dir" d="M0 -5 L3.6 4 L0 2.2 L-3.6 4Z" /></g>
+                      {k === 'primary' && localHour(h.timestamp) % labelEvery === 0 && <text className="tl-pk" x={x} y={y - 9} textAnchor="middle">{Math.round(c.period)}s</text>}
+                    </g>; })}
+                </g>; })}
             </>}
             {tab === 'wind' && <>
               <path d={areaD} fill="url(#gWd)" />

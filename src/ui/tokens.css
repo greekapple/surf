@@ -69,6 +69,7 @@
   --hs-hi: #0a6cc2;
   --sw1: #0e2a47;
   --sw2: #5b6fb8;
+  --sw3: #b06a10; /* T-119: the third swell, distinct from the two blues */
   --tide: #4f6b80;
   --good: #248a3d;
   --good-ink: #1d7334;
@@ -123,6 +124,7 @@
   --hs-hi: #7cc4ff;
   --sw1: #f2f8fc;
   --sw2: #6fb2e3;
+  --sw3: #f0b45a;
   --tide: #9db5c8;
   --good: #3fbf7f;
   --good-ink: #5fd69a;

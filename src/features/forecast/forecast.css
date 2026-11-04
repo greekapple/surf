@@ -507,3 +507,11 @@
   .sp-band.is-plan .sp-drawn .credit, .sp-drawn .credit { left: auto; right: 12px; top: auto; bottom: 5px; translate: none; max-width: none; overflow: visible; font-size: 12px; }
   .sp-band.is-plan .sp-drawn .credit .cr-long { display: inline; }
 }
+/* T-119: undulating lines (Surfline-style): the surf band's smooth top and rating-coloured bottom, and one smooth line per swell component. */
+.tl-top { fill: none; stroke: var(--hs-hi); stroke-width: 1.6; stroke-linejoin: round; }
+.tl-bot { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.tl-median { stroke-width: 1.2; stroke-dasharray: 3 3; opacity: 0.75; }
+.tl-sw path:not(.tl-sw-dir) { fill: none; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+.tl-sw.sw1 path:not(.tl-sw-dir) { stroke: var(--sw1); } .tl-sw.sw2 path:not(.tl-sw-dir) { stroke: var(--sw2); stroke-width: 1.8; } .tl-sw.sw3 path:not(.tl-sw-dir) { stroke: var(--sw3); stroke-width: 1.6; }
+.tl-sw.sw1 .tl-sw-dir { fill: var(--sw1); } .tl-sw.sw2 .tl-sw-dir { fill: var(--sw2); } .tl-sw.sw3 .tl-sw-dir { fill: var(--sw3); }
+.tl-sw-dir { stroke: var(--bg); stroke-width: 0.8; }

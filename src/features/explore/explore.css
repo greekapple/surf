@@ -643,3 +643,6 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* T-117: the phone layer sheet opens above the bottom strip (it sat under it, so its last row could not be tapped). */
 @media (max-width: 860px) { .xl-sheet { z-index: 1010; } }
 @media (max-width: 860px) { .xfabs:has(.xl-sheet) { z-index: 1010; } } /* the sheet lives in the controls' stacking context */
+/* T-119 (t034 density on the T-117 chrome): 16 px side gutter for the phone strip, 12 px between the search box and locate, and between round buttons. */
+.xtb-search { gap: 12px; }
+@media (max-width: 860px) { .xbottom { padding-inline: 16px; } .xfabs { gap: 12px; } }
