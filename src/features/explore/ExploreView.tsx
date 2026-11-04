@@ -15,7 +15,9 @@ import {conditionWord} from '../../ui/Condition';
 import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
-import {attachField, buildField, rampFor, RANGE, RANGE_WIDE, sampleField, type Field} from '../../map/field';
+import {createFieldController, buildField, legendModel, sampleField, type Field, type FieldController} from '../../map/field';
+import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
+import {schedulePrefetch} from '../../map/spatial';
 import {addBasemap} from '../../map/basemap';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
@@ -47,12 +49,9 @@ const isPhone = () => typeof matchMedia === 'function' && matchMedia(PHONE).matc
 type Detent = 'peek' | 'half' | 'full';
 const DETENTS: Detent[] = ['peek', 'half', 'full'];
 
-/** Legend end values in the user's units. */
-function legendEnds(unit: SpatialFrame['unit'], hu: string, wu: string, wide = false) {
-  const [a, b] = (wide ? RANGE_WIDE : RANGE)[unit] ?? [0, 1];
-  const f = (v: number) => (unit === 'm' ? (hu === 'ft' ? v / 0.3048 : v) : unit === 'm/s' ? v * (wu === 'mph' ? 2.23694 : wu === 'kn' ? 1.94384 : 3.6) : v).toFixed(0);
-  return [f(a), `${f(b)}+`] as const;
-}
+/** Stage 3: ONE fixed scale per layer (mapConfig.scales); the legend is built from the same ramp the painter uses, in the person's units. */
+const scaleKeyOfField = (id: FieldId): ScaleKey => id.toUpperCase() as ScaleKey;
+const themeNow = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light') as 'light' | 'dark';
 
 /** How many spots carry a name label at this zoom (Surfline map: the selected spot and the best few; the rest are dots). */
 // T-116: labels only for the selected spot and the top-rated few (Windy-quiet); the rest are rating-coloured dots that name themselves on hover or focus.
@@ -86,7 +85,6 @@ function OceanMap({section, go}: ViewProps) {
   const [callout, setCallout] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const [zoom, setZoom] = useState(9);
-  const wide = zoom < 5; // ocean-basin view uses the wider colour ramp
   const def = FIELDS.find((f) => f.id === fieldId)!;
   const mapEl = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
@@ -130,9 +128,10 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     if (!mapEl.current || map.current) return;
     const small = matchMedia('(max-width: 860px)').matches;
-    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: 2, maxZoom: 14, zoomSnap: 0.5, worldCopyJump: true, maxBounds: [[-85, -540], [85, 540]], maxBoundsViscosity: 0.8}).setView(small ? [37.5, -122.5] : [37.5, -122.45], small ? 8 : 9);
+    const m = L.map(mapEl.current, {zoomControl: false, attributionControl: false, minZoom: minZoomFor(mapEl.current.clientWidth || window.innerWidth), maxZoom: mapConfig.view.maxZoom, zoomSnap: mapConfig.view.zoomSnap, worldCopyJump: true, maxBounds: [[-mapConfig.view.maxLat, -540], [mapConfig.view.maxLat, 540]], maxBoundsViscosity: mapConfig.view.maxBoundsViscosity}).setView(small ? [37.5, -122.5] : [37.5, -122.45], small ? 8 : 9);
     const lod = () => { m.getContainer().classList.toggle('far', m.getZoom() < 9); m.getContainer().classList.toggle('world', m.getZoom() < 5); setZoom(m.getZoom()); };
     m.on('zoomend', lod); lod();
+    m.on('resize', () => m.setMinZoom(minZoomFor(m.getSize().x))); // the world always fills the width (Stage 1 pole clamp)
     m.on('zoomend moveend resize', () => declutterRef.current()); // panels stay put while the map pans
     L.control.attribution({position: 'bottomleft', prefix: false}).addTo(m);
     // Light or dark Esri Canvas basemap by theme (satellite on request), with maxNativeZoom so tiles upscale: src/map/basemap.ts (T-042).
@@ -169,12 +168,20 @@ function OceanMap({section, go}: ViewProps) {
     return () => { m.off('click', off); };
   }, [spotPopEl]);
 
+  // Map-seamless Stage 1: ONE field controller per map. A layer or hour change draws the new field off-screen and crossfades it over the old one (the old stays until the new is drawn); a frame still loading keeps what is on screen.
+  const fieldCtl = useRef<FieldController | null>(null);
+  useEffect(() => { const m = map.current; if (!m) return; fieldCtl.current = createFieldController(m); return () => { fieldCtl.current?.dispose(); fieldCtl.current = null; }; }, []);
   useEffect(() => {
-    const m = map.current;
-    const fields = [field, gfield].filter((f): f is NonNullable<typeof f> => !!f);
-    if (!m || !fields.length) return;
-    return attachField(m, fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced(), wide});
-  }, [field, gfield, opts.heat, opts.flow, opts.arrows, wide]);
+    const fields = [field, gfield].filter((f): f is NonNullable<typeof f> => !!f), ctl = fieldCtl.current;
+    if (!ctl) return;
+    if (!opts.heat && !opts.flow && !opts.arrows) { ctl.clear(); return; }
+    if (fields.length) ctl.update(fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced()});
+  }, [field, gfield, opts.heat, opts.flow, opts.arrows]);
+  // Idle prefetch of the neighbouring hours and the next layer once the visible frames have settled (Stage 1).
+  useEffect(() => {
+    if (!live || spatial.loading || globe.loading || !view.selectedTime) return;
+    return schedulePrefetch(def.layer, def.variable, view.selectedTime, times);
+  }, [live, spatial.loading, globe.loading, view.selectedTime, def.layer, def.variable]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Spot markers: a rating-coloured dot in a white ring; a name label (with the rating word, no unlabelled number) where room allows.
   useEffect(() => {
@@ -347,8 +354,9 @@ function OceanMap({section, go}: ViewProps) {
     : spatial.loading && !frame ? 'Loading model…'
     : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${frame ? 'California 0.5°' : ''}${frame && gframe ? ' + ' : ''}${gframe ? 'global 2°' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
-  const ends = frame || gframe ? legendEnds((frame ?? gframe)!.unit, p.heightUnit, p.windUnit, wide) : null;
-  const unitLabel = def.unit === 'm' ? p.heightUnit : def.unit === 'm/s' ? p.windUnit : 's';
+  const legend = legendModel(scaleKeyOfField(fieldId), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
+  const ends = frame || gframe ? ([legend.lo, legend.hi] as const) : null;
+  const unitLabel = legend.unitLabel;
   const when = view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : 'this hour';
 
   /** Offshore height range at a spot across the shared hour +/- 3 h (from the model records, not invented). */
@@ -461,7 +469,7 @@ function OceanMap({section, go}: ViewProps) {
 
       {/* T-117 (Windy): the layers down the right edge as labelled round thumbnails (a menu button and sheet on phones), the zoom and centre controls under them. */}
       <div className="xfabs">
-        <LayerList phone={phone} fields={['waves', 'swell', 'wind', 'period'].map((id) => { const f = FIELDS.find((x) => x.id === id)!; return {...f, short: id === 'waves' ? 'Waves' : f.short, ramp: rampFor(f.unit)}; })} field={fieldId} on={opts.heat} setField={(id) => pickField(id as FieldId | null)}
+        <LayerList phone={phone} fields={['waves', 'swell', 'wind', 'period'].map((id) => { const f = FIELDS.find((x) => x.id === id)!; return {...f, short: id === 'waves' ? 'Waves' : f.short, ramp: legendModel(scaleKeyOfField(f.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow(), 14).gradient}; })} field={fieldId} on={opts.heat} setField={(id) => pickField(id as FieldId | null)}
           flow={opts.flow} setFlow={(v) => setOpts({...opts, flow: v})} arrows={opts.arrows} setArrows={(v) => setOpts({...opts, arrows: v})} note={status}
           onPoint={() => { const c = map.current!.getCenter(); setPanel(true); setPt({lat: c.lat, lon: c.lng}); }} />
         <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button></div>
@@ -475,7 +483,7 @@ function OceanMap({section, go}: ViewProps) {
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} note={<>{status} {ENCLOSED_NOTE}</>} />}
-        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={rampFor((frame ?? gframe)!.unit, wide)} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} onCycle={cycleUnit} />
+        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} onCycle={cycleUnit} />
           : slow && waiting ? <button type="button" className="xchip xstatus" onClick={() => { setSlow(false); spatial.retry(); }}>{status} · <u>Retry</u></button>
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
         </div>

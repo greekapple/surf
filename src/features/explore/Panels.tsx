@@ -73,11 +73,11 @@ export function LayerList({fields, field, on, setField, flow, setFlow, arrows, s
 }
 
 /** T-117 (Windy): the legend with the unit inside it; a tap cycles the unit (ft/m for heights, mph/kn/km/h for wind). The honest name stays on it. */
-export function LegendChip({unit, ramp, lo, hi, label, loading, onCycle}: {unit: string; ramp: string[]; lo: string; hi: string; label: string; loading: boolean; onCycle: (() => void) | null}) {
+export function LegendChip({unit, ramp, lo, hi, label, loading, onCycle, ticks}: {unit: string; ramp: string[]; lo: string; hi: string; label: string; loading: boolean; onCycle: (() => void) | null; /** Stage 3: tick labels at the scale's breakpoints (evenly spaced along the ramp), from the same config as the painter. */ ticks?: {pos: number; label: string}[]}) {
   return (
     <div className="xleg">
-      <button className="xchip" aria-label={`${label} legend, ${lo} to ${hi} ${unit}.${onCycle ? ' Press to change the unit' : ''}`} data-loading={loading || undefined} onClick={onCycle ?? undefined} disabled={!onCycle}>
-        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b><span className="xleg-lo">{lo}</span><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} /><span>{hi}</span>
+      <button className="xchip" aria-label={`${label} legend, fixed scale ${ticks ? ticks.map((x) => x.label).join(', ') : `${lo} to ${hi}`} ${unit}.${onCycle ? ' Press to change the unit' : ''}`} title={ticks ? `Fixed scale, ${unit}: ${ticks.map((x) => x.label).join(' · ')}` : undefined} data-loading={loading || undefined} onClick={onCycle ?? undefined} disabled={!onCycle}>
+        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b><span className="xleg-lo">{lo}</span><span className="xleg-bar"><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} />{ticks && <span className="xleg-tk" aria-hidden="true">{ticks.map((x) => <em key={x.pos}>{x.label}</em>)}</span>}</span><span>{hi}</span>
       </button>
     </div>
   );

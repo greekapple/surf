@@ -646,3 +646,22 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* T-119 (t034 density on the T-117 chrome): 16 px side gutter for the phone strip, 12 px between the search box and locate, and between round buttons. */
 .xtb-search { gap: 12px; }
 @media (max-width: 860px) { .xbottom { padding-inline: 16px; } .xfabs { gap: 12px; } }
+
+/* Stage 3: the legend carries tick labels at the scale's breakpoints, under the gradient (evenly spaced like the ramp). Desktop only; phones keep the compact chip. */
+.xleg-bar { display: inline-flex; flex-direction: column; gap: 2px; }
+.xleg-tk { display: none; }
+@media (min-width: 861px) {
+  .xleg-tk { display: flex; justify-content: space-between; font-size: 10px; line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .xleg-tk em { font-style: normal; flex: 0 0 auto; }
+  .xchip .xleg-bar i { width: 190px; height: 8px; border-radius: 4px; }
+}
+
+/* Stage 3 (contrast, WCAG AA): the layer pills' white ink (.xl-list button, for text over the sea colour) also hit the buttons INSIDE the "More" popover, which sits in the same list: white on the popover's pale panel (1.07:1).
+   The popover keeps the normal text colour. The attribution is readable over the grey map in both themes (it measured 1.51:1). */
+.xl-list .xpop button, .xl-list .xpop .xlm-sw button, .xl-list .xpop .xlm-grid button { color: var(--text); background: none; }
+.xl-list .xpop .xlm-grid button[aria-checked='true'] { color: var(--accent-ink, var(--accent)); }
+.xl-list .xpop button:hover { background: var(--s1); }
+.leaflet-container .leaflet-control-attribution { background: rgb(255 255 255 / 0.88); color: #3a3a3c; }
+.leaflet-container .leaflet-control-attribution a { color: #1f4f8f; }
+:root[data-theme='dark'] .leaflet-container .leaflet-control-attribution { background: rgb(28 28 30 / 0.85); color: #e5e5e7; }
+:root[data-theme='dark'] .leaflet-container .leaflet-control-attribution a { color: #8ab4f8; }

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {buildField, sampleAll, sampleField} from '../map/fieldData.ts';
-import {colorLut, lutIndex, mapColor, RANGE} from '../map/colors.ts';
+import {colorLut, lutIndex, layerColor, scaleKeyOf} from '../map/ramps.ts';
 import type {SpatialFrame} from '../map/spatial.ts';
 
 // T-117: the point value behind a tap label comes from the SAME sampler as the painted colour, so the label equals the colour under the pin.
@@ -18,9 +18,9 @@ test('sampleField reads the same value the painter samples, with direction, laye
   }
 });
 test('the label equals the colour under the pin: the painted pixel (lookup table) matches the colour of the label value', () => {
-  const field = buildField(frame(), false)!, [lo, hi] = RANGE.m, lut = colorLut('m', lo, hi);
+  const field = buildField(frame(), false)!, key = scaleKeyOf(field.layer)!, lut = colorLut(key);
   for (const [lat, lon] of [[37.2, -123.4], [36.6, -124.1], [38.4, -122.9], [37.7, -125]]) {
-    const pv = sampleField([field], lat, lon)!, q = lutIndex(pv.value!, lo, hi), painted = [lut[q], lut[q + 1], lut[q + 2]], exact = mapColor(pv.value!, 'm', lo, hi);
+    const pv = sampleField([field], lat, lon)!, q = lutIndex(key, pv.value!), painted = [lut[q], lut[q + 1], lut[q + 2]], exact = layerColor(key, pv.value!);
     assert.ok(Math.hypot(painted[0] - exact[0], painted[1] - exact[1], painted[2] - exact[2]) < 6, `${lat},${lon}: painted ${painted} vs label colour ${exact}`);
   }
 });

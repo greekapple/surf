@@ -1,5 +1,6 @@
 import type {MapLayer,MapVariable} from './types.ts';
 export interface SpatialCell {lat:number;lon:number;value:number|null;direction:number|null;speed:number|null}
+import {mapConfig} from './mapConfig.ts';
 export interface SpatialFrame {cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
 export const erddap='https://upwell.pfeg.noaa.gov/erddap/griddap/';
 export interface SpatialSpec {dataset:string;scalar:string;direction:string|null;unit:SpatialFrame['unit'];wind:boolean;validAt:string}
@@ -69,7 +70,7 @@ export function createFrameCache(limit=32,ttl=600000){
  const frames=new Map<string,{frame:SpatialFrame;expires:number}>();let hits=0,misses=0;
  return {clear(){frames.clear();},get(key:string,now=Date.now()){const old=frames.get(key);if(old&&old.expires>now){hits++;frames.delete(key);frames.set(key,old);return old.frame;}if(old)frames.delete(key);misses++;return null;},set(key:string,frame:SpatialFrame,now=Date.now()){frames.set(key,{frame,expires:now+ttl});while(frames.size>limit)frames.delete(frames.keys().next().value!);},stats:()=>({frames:frames.size,hits,misses,cells:[...frames.values()].reduce((n,x)=>n+x.frame.cells.length,0)})};
 }
-const normalizedFrames=createFrameCache();
+const normalizedFrames=createFrameCache(mapConfig.cache.regionalFrames,mapConfig.cache.regionalTtlMs);
 export const spatialCacheStats=()=>normalizedFrames.stats();
 export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  if(signal.aborted)throw new DOMException('Aborted','AbortError');const key=JSON.stringify(spec),cached=normalizedFrames.get(key);if(cached)return cached;
@@ -77,7 +78,7 @@ export async function loadSpatial(spec:SpatialSpec,signal:AbortSignal):Promise<S
 }
 
 /** Coarse worldwide frame from /api/globe (2-degree stride of the native grid): context for the zoomed-out map, under the regional grid. */
-const globeFrames=createFrameCache(24,1800000);
+const globeFrames=createFrameCache(mapConfig.cache.globeFrames,mapConfig.cache.globeTtlMs);
 export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  const key='globe'+JSON.stringify(spec),hit=globeFrames.get(key);if(hit)return hit;
  const fields=[...new Set([spec.scalar,...(spec.direction?[spec.direction]:[])])];
@@ -86,4 +87,23 @@ export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<Spa
  const cells=[...scalar.values].map(([k,c])=>{const v=vector?.values.get(k)?.value??null;if(spec.wind){const w=c.value===null||v===null?null:windVector(c.value,v);return {lat:c.lat,lon:c.lon,value:spec.unit==='deg'?w?.direction??null:w?.speed??null,direction:w?.direction??null,speed:w?.speed??null};}return {...c,direction:v,speed:null};});
  const frame:SpatialFrame={cells,unit:spec.unit,resolution:2,validAt:spec.validAt,retrievedAt:scalar.retrievedAt,provider:spec.wind?'NOAA/NCEP GFS global (2°) via NOAA ERDDAP':'WW3 global (2°) via NOAA ERDDAP',url:scalar.url,variable:spec.scalar,delivery:'direct',transport:'server'};
  if(signal.aborted)throw new DOMException('Aborted','AbortError');globeFrames.set(key,frame);return frame;
+}
+
+/** The layer a surfer most likely opens next (waves → swell → wind → waves), for the idle prefetch. */
+const NEXT_LAYER:Record<string,{layer:MapLayer;variable:MapVariable}>={WAVES:{layer:'SWELL',variable:'Height'},SWELL:{layer:'WIND',variable:'Speed'},WIND:{layer:'WAVES',variable:'Offshore Hs'}};
+/** Map-seamless Stage 1: once the visible frames have settled, fetch the neighbouring hours (config: +3 h, +6 h, -3 h) and the same hour of the next likely layer into the frame caches, one at a time, on idle. Skipped when the browser asks to save data
+ *  or the connection is slow. Returns a canceller (a new view cancels the old run). Never throws. */
+export function schedulePrefetch(layer:MapLayer,variable:MapVariable,time:string,times:string[]=[]):()=>void{
+ const cfg=mapConfig.prefetch,conn=(typeof navigator!=='undefined'?(navigator as unknown as {connection?:{saveData?:boolean;effectiveType?:string}}).connection:undefined);
+ if(conn?.saveData||(conn?.effectiveType&&(cfg.skipEffectiveTypes as readonly string[]).includes(conn.effectiveType)))return()=>{};
+ const ctl=new AbortController();let cancelled=false;
+ const step=10800000,known=new Set(times.map(t=>Math.floor(Date.parse(t)/step)));
+ const run=async()=>{
+  const t0=Date.parse(time);if(!Number.isFinite(t0))return;const specs:SpatialSpec[]=[];
+  for(const h of [...cfg.hoursAhead,...cfg.hoursBack.map(x=>-x)]){const t=t0+h*3600000;if(known.size&&!known.has(Math.floor(t/step)))continue;const sp=spatialSpec(layer,variable,new Date(t).toISOString(),false);if(sp)specs.push(sp);}
+  const next=cfg.nextLayer?NEXT_LAYER[layer==='WAVES'&&variable==='Period'?'WAVES':layer]:undefined;if(next){const sp=spatialSpec(next.layer,next.variable,time,false);if(sp)specs.push(sp);}
+  for(const sp of specs){if(cancelled)return;await Promise.allSettled([loadSpatial(sp,ctl.signal),loadGlobe(sp,ctl.signal)]);}
+ };
+ const idle=(typeof window!=='undefined'?(window as unknown as {requestIdleCallback?:(cb:()=>void,o?:{timeout:number})=>number}).requestIdleCallback:undefined),id=idle?idle(()=>{void run().catch(()=>{});},{timeout:cfg.idleTimeoutMs}):setTimeout(()=>{void run().catch(()=>{});},cfg.idleTimeoutMs) as unknown as number;
+ return()=>{cancelled=true;ctl.abort();if(!idle)clearTimeout(id);};
 }

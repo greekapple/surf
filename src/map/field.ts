@@ -2,13 +2,13 @@ import L from 'leaflet';
 import type {SpatialFrame} from './spatial';
 import coast from './coast.json';
 import globeLand from './land-globe.json';
-import {colorLut, lutIndex} from './colors';
 
 /** Display ramps (T-115, user decision 2026-11-04: Windy's colours, see colors.ts mapColor). The field and its legend read the same function over the same range. */
-export {RANGE, RANGE_WIDE, rampFor, RAMP} from './colors'; // display ranges and legend ramps live in colors.ts (pure, unit-tested); the field reads the same ones
-import {RANGE, RANGE_WIDE} from './colors';
+export {legendModel, scaleKeyOf} from './ramps';
+import {colorLut, lutIndex, scaleKeyOf, type Theme} from './ramps';
 
 import {isEnclosedWater} from './enclosed';
+import {mapConfig} from './mapConfig';
 import {buildField, sampleAll as sampleAllFields, sampleField as sampleFieldBase, layerOfFrame, type Field, type FieldLayer, type PointValue} from './fieldData';
 export {buildField, layerOfFrame, type Field, type FieldLayer, type PointValue};
 
@@ -38,15 +38,14 @@ function fillLand(ctx: CanvasRenderingContext2D, map: L.Map, b: L.LatLngBounds =
 const FIELD_ALPHA = 1;
 export interface FieldOpts {heat: boolean; flow: boolean; arrows: boolean; opacity: number; reducedMotion: boolean; wide?: boolean}
 /** Draws the smooth heatmap, direction arrows and animated flow in two panes under the spot markers. Returns a disposer. */
-export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
+export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & {/** Start fully transparent: the controller fades it in once it has been drawn. */ startHidden?: boolean}) {
   const field = fields[0], ALPHA = Math.max(opts.opacity, FIELD_ALPHA);
-  map.getContainer().dataset.heat = opts.heat ? 'on' : 'off'; // the basemap swaps to its dark canvas under the field (basemap.ts)
 
   const sampleAll = (k: 'val' | 'u' | 'v', lat: number, lon: number) => sampleAllFields(fields, k, lat, lon); // the one shared sampler (fieldData.ts): the point label reads the same values
   for (const [name, z] of [['field', 420], ['flow', 430]] as const) if (!map.getPane(name)) { const p = map.createPane(name); p.style.zIndex = String(z); p.style.pointerEvents = 'none'; }
-  const mk = (pane: string) => { const c = document.createElement('canvas'); c.className = `xfield-${pane}`; c.setAttribute('aria-hidden', 'true'); c.style.position = 'absolute'; map.getPane(pane)!.append(c); return c; };
+  const mk = (pane: string) => { const c = document.createElement('canvas'); c.className = `xfield-${pane}`; c.setAttribute('aria-hidden', 'true'); c.style.position = 'absolute'; if (opts.startHidden) c.style.opacity = '0'; map.getPane(pane)!.append(c); return c; };
   const heat = mk('field'), flow = mk('flow'), mask = document.createElement('canvas');
-  const range = (opts.wide ? RANGE_WIDE : RANGE)[field.unit] ?? [0, 1];
+  const scaleKey = scaleKeyOf(field.layer), themeNow = (): Theme => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'); // ONE fixed scale per layer (mapConfig.scales); never rescaled by zoom
   let raf = 0, moving = false, parts: {x: number; y: number; age: number}[] = [], land = new Uint8ClampedArray(0), lw = 0, lh = 0, lm = 1; // lm: the land mask's scale (half resolution on a big padded canvas)
   const size = () => map.getSize();
   // T-115: the heat canvas is drawn PADDED (PAD = half the viewport on every side, so a one-level zoom-out, the wheel and the +/- buttons, is covered edge to edge) so a pan or a zoom-out shows field, not an unpainted edge, and it carries Leaflet's zoom-animated class:
@@ -74,13 +73,13 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
       const encl: number[] = [];
       // Colour lookup table (256 steps over the range) and an inland skip: a cell whose own pixel and its four neighbours 3 cells away are all land is never painted (the land trim removes it anyway),
       // so most of an inland viewport costs five mask reads instead of a grid sample. Cells near the coast are still sampled, so the blur reaches the shoreline as before.
-      const lut = colorLut(field.unit, range[0], range[1]);
+      const lut = scaleKey ? colorLut(scaleKey, themeNow()) : new Uint8Array(512 * 3);
       const isLand = (x: number, y: number) => { const xi = Math.max(0, Math.min(lw - 1, (x * lm) | 0)), yi = Math.max(0, Math.min(lh - 1, (y * lm) | 0)); return land[(yi * lw + xi) * 4 + 3] > 0; }, R = 3 * step;
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
         const cx = i * step, cy = j * step; if (isLand(cx, cy) && isLand(cx + R, cy) && isLand(cx - R, cy) && isLand(cx, cy + R) && isLand(cx, cy - R)) continue;
         if (isEnclosedWater(lat[j], lon[i])) { encl.push(i, j); continue; }
         const val = sampleAll('val', lat[j], lon[i]); if (Number.isNaN(val)) continue;
-        const q = lutIndex(val, range[0], range[1]), r = lut[q], g = lut[q + 1], b = lut[q + 2], k = (j * w + i) * 4;
+        const q = scaleKey ? lutIndex(scaleKey, val) : 0, r = lut[q], g = lut[q + 1], b = lut[q + 2], k = (j * w + i) * 4;
         img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * ALPHA);
       }
       const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h; tmp.getContext('2d')!.putImageData(img, 0, 0);
@@ -170,6 +169,36 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
   let pending = 0;
   const end = () => { if (pending) return; pending = requestAnimationFrame(() => { pending = 0; moving = false; redraw(); }); }; // moveend and zoomend arrive together: one redraw per frame
   map.on('movestart zoomstart', start); map.on('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.on('moveend zoomend resize', end);
+  const themeWatch = new MutationObserver(() => end()); themeWatch.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']}); // the ramp's lightness is tuned per theme: redraw when it flips
   redraw(); if (animate) raf = requestAnimationFrame(tick);
-  return () => { map.getContainer().dataset.heat = 'off'; cancelAnimationFrame(raf); cancelAnimationFrame(pending); map.off('movestart zoomstart', start); map.off('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.off('moveend zoomend resize', end); heat.remove(); flow.remove(); };
+  const dispose = () => { themeWatch.disconnect(); cancelAnimationFrame(raf); cancelAnimationFrame(pending); map.off('movestart zoomstart', start); map.off('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.off('moveend zoomend resize', end); heat.remove(); flow.remove(); };
+  return {dispose, heat, flow};
+}
+
+/** Compatibility wrapper: attach and return the disposer. */
+export const attachField = (map: L.Map, fields: Field[], opts: FieldOpts) => attachFieldLayer(map, fields, opts).dispose;
+
+/** Held-frame swap (map-seamless Stage 1). One controller per map keeps the CURRENT field on screen while a new one is prepared: `update` draws the new field into its own transparent canvases, then, once drawn,
+ *  fades it in over `crossfadeMs` while the previous one fades out and is disposed. A layer or hour change therefore never shows an empty overlay; `update` with no fields keeps what is on screen (a frame still loading);
+ *  `clear` fades the field out (the layer has no field, or the sea colour is off). The container's `data-heat` flag (the basemap's dark-grey switch) follows the controller, not each attachment. */
+export interface FieldController {update(fields: Field[], opts: FieldOpts): void; clear(): void; dispose(): void; /** QA: how many field layers exist right now (2 during a crossfade). */ count(): number}
+export function createFieldController(map: L.Map, fadeMs: number = mapConfig.crossfadeMs): FieldController {
+  let layers: {dispose: () => void; heat: HTMLCanvasElement; flow: HTMLCanvasElement; timer?: number}[] = [], alive = true;
+  const setHeat = (on: boolean) => { try { map.getContainer().dataset.heat = on ? 'on' : 'off'; } catch { /* map removed */ } };
+  const opacity = (l: {heat: HTMLCanvasElement; flow: HTMLCanvasElement}, v: string) => { for (const c of [l.heat, l.flow]) { c.style.transition = `opacity ${fadeMs}ms ease`; c.style.opacity = v; } };
+  const retire = (l: (typeof layers)[number], immediate = false) => { layers = layers.filter((x) => x !== l); if (immediate) { l.dispose(); return; } opacity(l, '0'); l.timer = window.setTimeout(() => { try { l.dispose(); } catch { /* gone */ } }, fadeMs + 40); };
+  return {
+    update(fields, opts) {
+      if (!alive || !fields.length) return;
+      // a third layer while two are fading: retire the oldest at once, so at most two are ever drawn
+      while (layers.length >= 2) retire(layers[0], true);
+      const next = attachFieldLayer(map, fields, {...opts, startHidden: layers.length > 0}); setHeat(opts.heat);
+      const old = layers.slice(); layers.push(next);
+      if (!old.length) return; // first field: appears at once (nothing to hold)
+      requestAnimationFrame(() => { if (!alive || !layers.includes(next)) return; opacity(next, '1'); old.forEach((l) => retire(l)); });
+    },
+    clear() { setHeat(false); layers.slice().forEach((l) => retire(l)); },
+    dispose() { alive = false; setHeat(false); layers.slice().forEach((l) => { window.clearTimeout(l.timer); try { l.dispose(); } catch { /* gone */ } }); layers = []; },
+    count: () => layers.length,
+  };
 }
