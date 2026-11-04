@@ -101,14 +101,17 @@ precision highp float;
 uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip, uLdeep, uSetN, uShore, uSwellX, uCel;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
 float rectMask(vec2 p){ float dx=max(max(uX0-p.x,p.x-uX1),0.), dz=max(max(-uY1-p.y,p.y+uY0),0.); return smoothstep(0.,10.+4.*uFace,length(vec2(dx,dz))); }
-float whitewater(vec2 p, out float foam){
-  // S3: the previous wave as a line of whitewater rolling toward the beach at the broken wave's speed, shrinking into the shore-break
+float whitewater(vec2 p){
+  // S3: the previous wave as a line of whitewater rolling toward the beach at the broken wave's speed, shrinking into the shore-break.
+  // R6 (user's recording: "white water pops up in front of the wave periodically"): it grows from nothing over its first 14 m out from
+  // under the foam ball (born at full height it appeared as a detached white block past the end of the broken section); its foam is
+  // drawn per fragment (WATER_FS wwFoam), not per vertex
   float span=uShore-uY1-6., tt=mod(uTime*uCel, span+30.), zc=-uY1-6.-tt;
-  float life=1.-smoothstep(.6*span,span,tt), near=smoothstep(-20.,10.,zc+uShore);
+  float life=smoothstep(0.,14.,tt)*(1.-smoothstep(.6*span,span,tt)), near=smoothstep(-20.,10.,zc+uShore);
   float d=p.y-zc, w=mix(3.,6.,min(1.,uFace/3.)), c=cos(clamp(d/w,-1.,1.)*1.5707963);
-  float A=.28*uFace*life*near*(.8+.2*sin(p.x*.05+1.)); foam=smoothstep(.15,.5,c)*life*near*smoothstep(1.,.5,abs(d)/w);
+  float A=.28*uFace*life*near*(.8+.2*sin(p.x*.05+1.));
   // the shore-break: a small line dumping on the sand, pulsing with the period
-  float sb=cos(clamp((p.y-(-uShore+9.+3.*sin(uTime*.5)))/4.,-1.,1.)*1.5707963); foam=max(foam,smoothstep(.3,.8,sb)*.8); A+=.25*sb*sb*sb*(.6+.4*sin(uTime*.5));
+  float sb=cos(clamp((p.y-(-uShore+9.+3.*sin(uTime*.5)))/4.,-1.,1.)*1.5707963); A+=.25*sb*sb*sb*(.6+.4*sin(uTime*.5));
   return A*c*c*c*uStrip;
 }
 float sets(vec2 p){
@@ -134,22 +137,31 @@ float sets(vec2 p){
   return z;
 }
 void main(){
-  vec2 p=position.xz; float e=.6; float f0,f1,f2;
-  float z=sets(p)+whitewater(p,f0), zx=sets(p+vec2(e,0.))+whitewater(p+vec2(e,0.),f1), zz=sets(p+vec2(0.,e))+whitewater(p+vec2(0.,e),f2);
+  vec2 p=position.xz; float e=.6;
+  float z=sets(p)+whitewater(p), zx=sets(p+vec2(e,0.))+whitewater(p+vec2(e,0.)), zz=sets(p+vec2(0.,e))+whitewater(p+vec2(0.,e));
   bool under=uStrip>.5&&p.x>uX0+.01&&p.x<uX1-.01&&p.y>-uY1+.01&&p.y<-uY0-.01;   // under the strip: tucked away below it
   if (under) z=-.8*uFace-.4;
   vN=normalize(mat3(modelMatrix)*vec3(-(zx-z)/e,1.,-(zz-z)/e));
-  vL=vec3(p.x,z,p.y); vW=(modelMatrix*vec4(vL,1.)).xyz; vA=vec4(0.,f0*uStrip,0.,40.); vS=0.;
+  vL=vec3(p.x,z,p.y); vW=(modelMatrix*vec4(vL,1.)).xyz; vA=vec4(0.,0.,0.,40.); vS=0.;   // vA.w 40: the sea (the fragment shader adds the whitewater line's foam)
   gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.);
 }`;
 
 const WATER_FS = /* glsl */ `
 precision highp float;
-uniform float uTime, uFace, uFlowX, uFlowZ, uBl, uPitch, uLand, uFog, uSpill, uChop, uStrip, uBreak, uShore;
+uniform float uTime, uFace, uFlowX, uFlowZ, uBl, uPitch, uLand, uFog, uSpill, uChop, uStrip, uBreak, uShore, uCel, uY1;
 uniform vec3 uSun, uHorizon, uTop, uDeep, uBody, uTurq, uFoam, uFoamShade, uSea, uSunCol, uGlow, uSand;
 uniform float uAmb, uDirect;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
 ${NOISE}
+// the previous wave's whitewater line and the shore-break foam (S3), per fragment: the same line SEA_VS lifts (keep the two in step)
+float wwFoam(vec2 p){
+  float span=uShore-uY1-6., tt=mod(uTime*uCel, span+30.), zc=-uY1-6.-tt;
+  float life=smoothstep(0.,14.,tt)*(1.-smoothstep(.6*span,span,tt)), near=smoothstep(-20.,10.,zc+uShore);
+  float d=p.y-zc, w=mix(3.,6.,min(1.,uFace/3.)), c=cos(clamp(d/w,-1.,1.)*1.5707963);
+  float f=smoothstep(.15,.5,c)*life*near*smoothstep(1.,.5,abs(d)/w);
+  float sb=cos(clamp((p.y-(-uShore+9.+3.*sin(uTime*.5)))/4.,-1.,1.)*1.5707963);
+  return max(f,smoothstep(.3,.8,sb)*.8)*uStrip;
+}
 vec2 h22(vec2 p){ p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))); return fract(sin(p)*43758.5453); }
 float cellEdge(vec2 p){ vec2 i=floor(p), f=fract(p); float d1=8., d2=8.;
   for (int y=-1;y<=1;y++) for (int x=-1;x<=1;x++){ vec2 g=vec2(float(x),float(y)); vec2 r=g+h22(i+g)-f; float d=dot(r,r); if (d<d1){ d2=d1; d1=d; } else if (d<d2) d2=d; }
@@ -179,6 +191,7 @@ void main(){
   float t=uTime, F=max(uFace,.3);
   vec3 V=normalize(cameraPosition-vW); float dist=length(cameraPosition-vW);
   float thin=vA.x, foam=vA.y, arc=vA.z, thick=vA.w;
+  if (thick>39.) foam=wwFoam(vL.xz);                            // the sea: the previous wave's line (exact per fragment; per vertex it aliased into pulsing blotches on the coarse far grid)
   vec3 N0=normalize(vN);
   float steep=1.-clamp(N0.y,0.,1.), onFace=smoothstep(.15,.6,steep);
   float front=smoothstep(-.1,.4,-N0.z);                       // facing the beach
@@ -273,22 +286,22 @@ void main(){
   float bright=clamp(occl*.55+lit*.45+.15,0.,1.)*mix(.5,1.,under)*base;
   vec3 fcol=mix(seamCol,mix(uFoamShade,uFoam,bright)*uAmb,mix(.62,1.,head))*mix(vec3(1.),uTop/max(max(uTop.r,uTop.g),max(uTop.b,.01)),.3*(1.-uDirect));
   col=mix(col,fcol,cov);
-  // lacy foam: trails behind the broken section and a decaying band inside, thinning into lace with age
+  // leftover foam: streaks behind the broken section and in the trough in front, thinning with age
   // (only where the section has already broken: nothing on the clean water in front of the pocket)
   float behind=smoothstep(.1*uBl,.3*uBl,vL.x)*exp(-max(vL.z,0.)/(uFlowZ*3.+4.*F))*step(0.,vL.z);
   float broken=1.-smoothstep(1.4*uBl,2.6*uBl,vL.x);
-  // the trough in front: the previous wave's lace (a thin white web on dark water) instead of a smooth pale reflection streak
   float trough=(1.-onFace)*smoothstep(.0,.15*F,-vL.z)*(1.-smoothstep(1.5*F+2.,6.*F+10.,-vL.z))*(1.-smoothstep(.05,.3,hf))*.1;
   float lm=max(broken*behind,trough)*(1.-cov)*(1.-onFace)*(uSpill>.5?1.2:1.)*uStrip;   // nothing has broken when there is no strip (swell-only hour)
   if (lm>.02){
-    vec2 w=E+vec2(vnoise(E*.3),vnoise(E*.3+5.))*2.5;                 // warp: organic, not a honeycomb
+    // R6 (user's recording: grey cloudy smudges on the flats, bursts of white speckles up close): thin streaks drawn out along the water's
+    // travel (z), drifting with it and dissolving slowly; too fine to draw -> gone, never an even haze (the round-5 cell web turned into
+    // grey haze blobs at any normal distance and into a speckle web as the camera came near)
+    vec2 w=E+vec2(vnoise(E*.3),vnoise(E*.3+5.))*2.5;                 // warp: organic
     float sc=1./max(F*.3,.5);
-    float ce=cellEdge(w*1.1*sc)*.6+cellEdge(w*2.9*sc+3.)*.4;
-    float fpatch=smoothstep(.5,.8,vnoise(E*.12*sc)*.7+vnoise(E*.5*sc+4.)*.3+.3*lm);  // foam patches, fewer with age
-    float lace=fpatch*(1.-smoothstep(.02,.07+.12*lm,ce));                          // thin threads with holes: lace
-    lace=mix(lace,fpatch*.2,smoothstep(.12,.45,px*2.9*sc));                        // once the threads are sub-pixel: an even haze, no speckle
-    lace*=smoothstep(.03,.4,lm);
-    col=mix(col,uFoam*(.82+.12*lit)*uAmb,clamp(lace,0.,1.)*.85*(1.-smoothstep(150.,500.,dist)));
+    float sk=vnoise(vec2(w.x*4.5*sc, w.y*.3*sc))*.6+vnoise(vec2(w.x*9.*sc+3., w.y*.7*sc))*.4;
+    float pch=smoothstep(.5,.8,vnoise(E*.1*sc)*.7+vnoise(E*.35*sc+4.)*.3+.25*lm);   // fewer streaks with age
+    float streak=pch*smoothstep(.62,.74,sk)*(1.-smoothstep(.06,.25,px*4.5*sc))*smoothstep(.03,.4,lm);
+    col=mix(col,uFoam*(.82+.12*lit)*uAmb,clamp(streak,0.,1.)*.45*(1.-smoothstep(150.,500.,dist)));
   }
   float fog=1.-exp(-pow(dist*uFog,2.)); col=mix(col,uHorizon*.99,clamp(fog,0.,1.));
   gl_FragColor=vec4(col,1.);
@@ -368,7 +381,10 @@ export function composeAtlas(faceM: number, _breaker: WaveSpec['breaker'], perio
 
 // fixed vertex counts: an hour change rewrites positions in place (no geometry churn), the index never changes
 const NX = 384, NU = 160, TAIL_L = 46, TAIL_R = 62, SEA_IN = 42, SEA_Z1 = 18, SEA_Z2 = 40, SEA_TAIL = 26, SEA_FAR = 2600;
-const SEA_NX = 2 * SEA_TAIL + SEA_IN + 2, SEA_NZ = 2 * SEA_TAIL + SEA_Z1 + 2 + SEA_Z2;
+/** R6: uniform rows in front of the strip (SEA_FRONT rows, SEA_FRONT_M m each) before the geometric tail: the previous wave's 3-6 m line
+ *  lifted on 3-9 m geometric rows aliased into blotches that pulsed as it crossed each vertex */
+const SEA_FRONT = 24, SEA_FRONT_M = 2;
+const SEA_NX = 2 * SEA_TAIL + SEA_IN + 2, SEA_NZ = 2 * SEA_TAIL + SEA_FRONT + SEA_Z1 + 2 + SEA_Z2;
 /** Along-crest sample x for the strip: fine and uniform around the surfer and the break, quadratic tails to the strip ends. */
 function crestX(m: AtlasMeta, xs: number, out: Float32Array) {
   const [x0, x1] = stripX(m), H = m.face_m, a = Math.max(x0, xs - 10 * H - 6), b = Math.min(x1, 0.6 * m.break_len_m + 6 * H), nf = NX - TAIL_L - TAIL_R;
@@ -397,7 +413,9 @@ function seaAxes(m: AtlasMeta) {
   xs[k++] = x0; xs[k++] = x0 + 0.02; for (let i = 1; i < SEA_IN - 1; i++) xs[k++] = x0 + 0.02 + (x1 - x0 - 0.04) * i / (SEA_IN - 1); xs[k++] = x1 - 0.02; xs[k++] = x1;
   for (let i = 1; i <= SEA_TAIL; i++) xs[k++] = x1 + (SEA_FAR - x1) * geo(i);
   k = 0;
-  for (let i = SEA_TAIL; i >= 1; i--) zs[k++] = zA - (zA + SEA_FAR) * geo(i);
+  const zF = zA - SEA_FRONT * SEA_FRONT_M;
+  for (let i = SEA_TAIL; i >= 1; i--) zs[k++] = zF - (zF + SEA_FAR) * geo(i);
+  for (let i = 0; i < SEA_FRONT; i++) zs[k++] = zF + i * SEA_FRONT_M;
   zs[k++] = zA; zs[k++] = zA + 0.02; for (let i = 1; i < SEA_Z1 - 1; i++) zs[k++] = zA + 0.02 + (zB - zA - 0.04) * i / (SEA_Z1 - 1); zs[k++] = zB - 0.02; zs[k++] = zB;
   for (let i = 1; i <= SEA_Z2; i++) zs[k++] = zB + (zC - zB) * i / SEA_Z2;
   for (let i = 1; i <= SEA_TAIL; i++) zs[k++] = zC + (SEA_FAR - zC) * geo(i);
@@ -707,12 +725,16 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       // surf: the wave with the rider in it (the rider about 40% in from the shoulder side, wave and person both readable), from the water
       // on the beach side a little down the line, eye just under the lip; a narrow (phone) frame backs off further. Once placed, the follow
       // camera (frame loop) tracks the rider; while the follow is paused by a drag, an hour change re-centres as before.
-      const d = mode === 'surf' ? (5.5 + H * 2.8) * (camera.aspect < 1 ? 1.35 : 1) : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
+      // R6 (user: "the surfer's tiny", and the rider read as lying on the board): the camera is a third closer and lower (3.4 + 2.0 H, eye
+      // 0.15 d above the face's middle: polar ~81.5 deg, 6.5 deg of drag travel before the 88 deg clamp) and sits further down the line on the shoulder side (the surf-photo angle), so the frontside rider's
+      // pitched torso shows in profile instead of foreshortened from behind: a crouched rider on a 5 ft face is about a fifth of the frame
+      // height (12 ft: an eighth) with the whole face beside him. The scale maths is untouched: the pole still measures the label's face.
+      const d = mode === 'surf' ? (3.4 + H * 2.0) * (camera.aspect < 1 ? 1.35 : 1) : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
       if (placed !== mode) {
         placed = mode;
-        // eye a little above the lip looking slightly down (polar ~78 deg), so a vertical drag has travel both ways (T-062: the old eye-level
+        // eye a little above the lip looking slightly down (polar ~81 deg), so a vertical drag has travel both ways (T-062: the old eye-level
         // placement sat 2 deg from the polar clamp)
-        if (mode === 'surf') { controls.target.set(sx * tx, H * 0.5, 0); camera.position.set(sx * (tx - 0.42 * d), H * 0.5 + 0.22 * d, -0.95 * d); }
+        if (mode === 'surf') { controls.target.set(sx * tx, H * 0.5, 0); camera.position.set(sx * (tx - 0.75 * d), H * 0.5 + 0.15 * d, -0.66 * d); }
         else { controls.target.set(0, 0, far * 0.3); camera.position.set(-0.3 * d, 2.2 + 1.2 * H, -0.6 * d); } // low over the water, so the swell lines read as lines
         camS[0].set(controls.target.x); camS[1].set(controls.target.y); camS[2].set(controls.target.z);
       } else if (mode === 'surf' && !(follow && performance.now() > dragUntil)) { tmp.copy(camera.position).sub(controls.target); controls.target.set(sx * tx, H * 0.5, 0); camera.position.copy(controls.target).add(tmp); camS[0].set(controls.target.x); camS[1].set(controls.target.y); camS[2].set(controls.target.z); }

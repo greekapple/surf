@@ -22,7 +22,7 @@ export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1
   hipOverFeetM: {trim: 0.1, turn: 0.15, /** plus this much per radian of face slope: the standing body angulates toward the vertical on a steep face */ perSlope: 0.3},
   /** M9 (`lean` count): the torso pitch (pelvis -> neck from the deck normal toward the toes, deg) outside this range; M10 (`wake` count): the
    *  wake's direction off the tail against the board's velocity over the water (deg from straight behind) */
-  torsoPitchDeg: [5, 50] as readonly [number, number], wakeDeg: 45} as const;
+  torsoPitchDeg: [5, 62] as readonly [number, number], wakeDeg: 45} as const;
 
 /** The board's wake (brief stage 6): a thin foam trail off the tail, sampled along the actual path, carried with the water, widening
  *  and fading out within lifeS; and the tail spray on turns, scaled by speed and turn load (rail roll), by the band's spray factor and
@@ -159,7 +159,8 @@ export const bandBoardFt = (band: StyleBand, faceFt: number): [number, number] =
 
 export interface SkillProfile {
   /** the takeoff: the first knot is where the rider appears (its dt is the gap from the previous ride's end, the rider faded out), the
-   *  rest the drop */
+   *  rest the drop. R6 (user's recording: the rider read as lying on the board for long stretches): the rider appears already standing
+   *  (trim, tall) at the top of the face and drops within about a second; no paddle or pop-up phase is drawn */
   takeoff: Knot[];
   /** the exit: a kick-out over the lip (the rider fades out at the last knot) or a straighten-out in front of the foam */
   exit: Knot[];
@@ -180,7 +181,7 @@ export interface SkillProfile {
 export const SKILLS: Record<Skill, SkillProfile> = {
   Expert: {
     takeoff: [
-      {dt: 2.4, u: -0.45, v: 0.8, move: 'takeoff', pose: 'recover', comp: 0.7},
+      {dt: 2.4, u: -0.45, v: 0.8, move: 'takeoff', pose: 'trim', comp: 0.3},
       {dt: 0.85, u: -0.7, v: 0.12, move: 'takeoff', pose: 'bottom', comp: 1.0},
     ],
     exit: [
@@ -192,8 +193,8 @@ export const SKILLS: Record<Skill, SkillProfile> = {
   },
   Intermediate: {
     takeoff: [
-      {dt: 2.8, u: -0.95, v: 0.75, move: 'takeoff', pose: 'recover', comp: 0.6},
-      {dt: 1.1, u: -1.2, v: 0.15, move: 'takeoff', pose: 'bottom', comp: 0.8},
+      {dt: 2.8, u: -0.95, v: 0.75, move: 'takeoff', pose: 'trim', comp: 0.3},
+      {dt: 0.9, u: -1.2, v: 0.15, move: 'takeoff', pose: 'bottom', comp: 0.8},
     ],
     exit: [
       {dt: 0.8, u: -1.6, v: 0.55, move: 'kickout', pose: 'climb', comp: 0.45},
@@ -205,8 +206,8 @@ export const SKILLS: Record<Skill, SkillProfile> = {
   },
   Beginner: {
     takeoff: [
-      {dt: 3.2, u: -1.9, v: 0.7, move: 'takeoff', pose: 'recover', comp: 0.45},
-      {dt: 1.6, u: -2.3, v: 0.25, move: 'takeoff', pose: 'bottom', comp: 0.5},
+      {dt: 3.2, u: -1.9, v: 0.7, move: 'takeoff', pose: 'trim', comp: 0.3},
+      {dt: 1.0, u: -2.3, v: 0.25, move: 'takeoff', pose: 'bottom', comp: 0.5},
     ],
     exit: [
       {dt: 1.3, u: -2.9, v: 0.12, move: 'out', pose: 'trim', comp: 0.3},
@@ -270,10 +271,10 @@ export const BODY = {
    *  only as the whole-body pose blends; the per-hand IK to board-frame targets (M7) is off. The whole body blends on one weight. */
   armIK: false,
   /** every pose cross-fade is stretched by this (the whole body on one timing): a 90 deg arm swing between keys then peaks under 360 deg/s */
-  fadeScale: 1.6,
+  fadeScale: 2.0,   // R6: 2.0 (the v5 keys swing the hands further between the bottom turn and the snap; at 1.6 the arm joints peaked at 449 deg/s)
   /** the authored keys hold the arms out at hip-to-chest height; through the turns (the non-trim weight) both upper arms are brought down
    *  toward the body by this much (deg), the way the real sequence holds them: the leading hand low by the rail, the trailing arm close */
-  armsDownDeg: 24,
+  armsDownDeg: 0,   // R6: the v5 keys hold the arms where the real sequences do; nothing procedural pulls them further
   /** two-bone leg IK: the knee pole points over the toes (rider-frame +z) splayed this much toward the board's end on that leg's side */
   kneePole: {splay: 0.05, footShare: 0.3, maxX: 0.2},
   /** the leg on the nose side: index into the IK legs [l, r] (the model is goofy: right foot forward; the mirror does not change it) */
@@ -297,7 +298,13 @@ export const BODY = {
    *  the M3 limits (360 deg/s, 3000 deg/s^2) hold by construction */
   jointFollowHz: 1.6, jointSpeedDeg: 300,
   /** M9: the torso's pitch from the deck normal toward the toes stays inside this range (deg) in every move; the spine hinges forward to keep it */
-  torsoPitchDeg: [12, 46] as readonly [number, number], /** the hinge's own spring rate (Hz): quick, the raw pitch it corrects is already smooth (the v4 top-turn key leans back 30 deg) */ pitchHz: 8,
+  torsoPitchDeg: [12, 58] as readonly [number, number],
+  /** R6: backside the chest faces down the face, so the same pitch toward the toes folds the body over the nose toward the beach (the
+   *  user's recording, seed 11 = regular on a left: the rider read as lying on the board); a real backside crouch stays far more upright */
+  torsoPitchDegBackside: [13, 24] as readonly [number, number],
+  /** R6: backside the deck normal already leans toward the beach by the face slope, so the body above the feet angulates toward the
+   *  vertical (over the heels, into the wave) with a much stronger lean than frontside; a real backside crouch stands near vertical */
+  bodyLeanBackside: {gain: 0.8, maxDeg: 24}, /** the hinge's own spring rate (Hz): quick, the raw pitch it corrects is already smooth (the v4 top-turn key leans back 30 deg) */ pitchHz: 8,
   /** the hands stay within this much of the pelvis along the board (m): the joint springs may lag the solve, never past the arm box */
   handSideMaxM: 0.6,
   /** backside (M2): the head turns this much further over the leading shoulder, toward the wave, through the turns */

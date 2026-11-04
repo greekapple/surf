@@ -163,7 +163,8 @@ export class RiderBody {
     // the pelvis keeps its height off the deck (a pure pivot lowered the hips by a quarter at 42 deg and folded the knees, round 3)
     // the lean is an angulation of the whole standing body (a skier on a traverse): the knee poles and the hand targets turn with it below,
     // so the legs still bend forward in the body's own frame (a pivot alone left the knees over the toes and the hips behind: a chair)
-    const leanT = THREE.MathUtils.clamp(BODY.bodyLeanGain * smoothOnset(tilt - BODY.bodyLeanStartDeg * D2R, 8 * D2R), 0, BODY.bodyLeanMaxDeg * D2R);
+    const lGain = inp.mirror < 0 ? BODY.bodyLeanBackside.gain : BODY.bodyLeanGain, lMax = inp.mirror < 0 ? BODY.bodyLeanBackside.maxDeg : BODY.bodyLeanMaxDeg;   // backside stands up toward the vertical (R6)
+    const leanT = THREE.MathUtils.clamp(lGain * smoothOnset(tilt - BODY.bodyLeanStartDeg * D2R, 8 * D2R), 0, lMax * D2R);
     if (!this.primed) this.leanS.set(leanT);
     const lean = Math.max(0, this.leanS.step(leanT, dt, wS));
     // backside (M2): the head looks over the leading shoulder, toward the wave, through the turns (eased by its own spring)
@@ -189,7 +190,8 @@ export class RiderBody {
     let pitchFix = 0;
     if (I.pelvis >= 0 && I.neck >= 0) {
       this.vd.setFromMatrixPosition(this.riderM[I.neck]).sub(this.ve.setFromMatrixPosition(this.riderM[I.pelvis]));
-      const raw = Math.atan2(this.vd.z, Math.max(1e-3, this.vd.y)), lo = BODY.torsoPitchDeg[0] * D2R, hi = BODY.torsoPitchDeg[1] * D2R;
+      const range = inp.mirror < 0 ? BODY.torsoPitchDegBackside : BODY.torsoPitchDeg;   // backside: upright (R6)
+      const raw = Math.atan2(this.vd.z, Math.max(1e-3, this.vd.y)), lo = range[0] * D2R, hi = range[1] * D2R;
       // the counter below also pitches the torso (frontside toward the toes, backside away): count it in the target
       const rawC = raw + counter * 3 * (okAxis ? this.va.x : 0);   // the counter's share about the board axis (signed: + toward the toes)
       const want = rawC < lo ? lo - rawC : rawC > hi ? hi - rawC : 0;
