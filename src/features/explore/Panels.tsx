@@ -29,51 +29,68 @@ export function useDismiss(open: boolean, close: () => void, box: React.RefObjec
 }
 
 export interface FieldChoice {id: string; label: string; short?: string; icon: IconName}
-/** T-116: the layers as a plain vertical list on the map's right edge (Windy): one row per layer, text label and icon, the active row filled.
- *  Pressing the active row turns the sea colour off. "More" holds the overlays, the model point and the source note. */
-export function LayerList({fields, field, on, setField, flow, setFlow, arrows, setArrows, onPoint, note}: {
-  fields: FieldChoice[]; field: string; on: boolean; setField: (id: string | null) => void; flow: boolean; setFlow: (v: boolean) => void; arrows: boolean; setArrows: (v: boolean) => void; onPoint: () => void; note: ReactNode;
+/** T-117 (Windy): the layers down the right edge, each a label and a round thumbnail painted with that layer's own colour scale; the active one is
+ *  highlighted. Pressing the active layer turns the sea colour off. "More" holds the overlays, the model point and the source note. Phones show
+ *  the same list in a sheet behind one round menu button. */
+export interface LayerItem extends FieldChoice {ramp: string[]}
+export function LayerList({fields, field, on, setField, flow, setFlow, arrows, setArrows, onPoint, note, phone}: {
+  fields: LayerItem[]; field: string; on: boolean; setField: (id: string | null) => void; flow: boolean; setFlow: (v: boolean) => void; arrows: boolean; setArrows: (v: boolean) => void; onPoint: () => void; note: ReactNode; phone: boolean;
 }) {
-  const [open, setOpen] = useState(false);
-  const btn = useRef<HTMLButtonElement>(null), box = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false), [menu, setMenu] = useState(false);
+  const btn = useRef<HTMLButtonElement>(null), box = useRef<HTMLDivElement>(null), mbtn = useRef<HTMLButtonElement>(null), mbox = useRef<HTMLDivElement>(null);
   useDismiss(open, () => setOpen(false), box, btn);
-  return (
-    <div className="xlayers">
-      <div className="xl-list" role="radiogroup" aria-label="Colour the sea by">
-        {fields.map((f) => {
-          const sel = on && field === f.id;
-          return <button key={f.id} type="button" role="radio" aria-checked={sel} aria-label={f.label} title={f.label} onClick={() => setField(sel ? null : f.id)}><span className="xl-t">{f.short ?? f.label}</span><Icon name={f.icon} size={18} /></button>;
-        })}
-      </div>
+  useDismiss(menu, () => setMenu(false), mbox, mbtn);
+  const list = (
+    <div className="xl-list" role="radiogroup" aria-label="Colour the sea by">
+      {fields.map((f) => {
+        const sel = on && field === f.id;
+        return <button key={f.id} type="button" role="radio" aria-checked={sel} aria-label={f.label} title={f.label} onClick={() => { setField(sel ? null : f.id); setMenu(false); }}>
+          <span className="xl-t">{f.short ?? f.label}</span><i className="xl-th" style={{background: `conic-gradient(from 200deg, ${f.ramp.join(',')}, ${f.ramp[0]})`}} aria-hidden="true"><Icon name={f.icon} size={15} /></i></button>;
+      })}
       <div className="xlm">
-        <button ref={btn} type="button" className="xl-more" aria-label="More map options" aria-expanded={open} aria-controls="xlm-pop" onClick={() => setOpen(!open)}><span className="xl-t">More</span><Icon name="layers" size={18} /></button>
+        <button ref={btn} type="button" className="xl-more" aria-label="More map options" aria-expanded={open} aria-controls="xlm-pop" onClick={() => setOpen(!open)}><span className="xl-t">More layers…</span><i className="xl-th xl-th-more" aria-hidden="true"><Icon name="layers" size={15} /></i></button>
         {open && (
           <div ref={box} className="xpop xlm-pop" id="xlm-pop" role="dialog" aria-label="More map options">
             <ul className="xlm-sw">
               <li><button role="switch" aria-checked={on} onClick={() => setField(on ? null : field)}><span>Sea colour</span><i className="xsw" aria-hidden="true" /></button></li>
-              <li><button role="switch" aria-checked={flow} onClick={() => setFlow(!flow)}><span>Flow animation</span><i className="xsw" aria-hidden="true" /></button></li>
+              <li><button role="switch" aria-checked={flow} onClick={() => setFlow(!flow)}><span>Particles animation</span><i className="xsw" aria-hidden="true" /></button></li>
               <li><button role="switch" aria-checked={arrows} onClick={() => setArrows(!arrows)}><span>Swell direction arrows</span><i className="xsw" aria-hidden="true" /></button></li>
             </ul>
-            <button className="xlm-pt" onClick={() => { setOpen(false); onPoint(); }}><Icon name="forecast" size={16} />Model point at map centre</button>
+            <button className="xlm-pt" onClick={() => { setOpen(false); setMenu(false); onPoint(); }}><Icon name="forecast" size={16} />Point forecast at map centre</button>
             <p className="xpop-note">{note}</p>
           </div>
         )}
       </div>
     </div>
   );
+  if (!phone) return <div className="xlayers">{list}</div>;
+  return (
+    <div className="xlayers phone">
+      <button ref={mbtn} type="button" className="xround xl-menu" aria-label="Map layers" aria-expanded={menu} aria-controls="xl-sheet" onClick={() => setMenu(!menu)}><Icon name="menu" size={22} /></button>
+      {menu && <div ref={mbox} className="xl-sheet" id="xl-sheet" role="dialog" aria-label="Map layers">{list}</div>}
+    </div>
+  );
 }
 
-/** One legend chip with the unit inside it (Windy); a press shows the source and validity. */
-export function LegendChip({unit, ramp, lo, hi, label, loading, note}: {unit: string; ramp: string[]; lo: string; hi: string; label: string; loading: boolean; note: ReactNode}) {
+/** T-117 (Windy): the legend with the unit inside it; a tap cycles the unit (ft/m for heights, mph/kn/km/h for wind). The honest name stays on it. */
+export function LegendChip({unit, ramp, lo, hi, label, loading, onCycle}: {unit: string; ramp: string[]; lo: string; hi: string; label: string; loading: boolean; onCycle: (() => void) | null}) {
+  return (
+    <div className="xleg">
+      <button className="xchip" aria-label={`${label} legend, ${lo} to ${hi} ${unit}.${onCycle ? ' Press to change the unit' : ''}`} data-loading={loading || undefined} onClick={onCycle ?? undefined} disabled={!onCycle}>
+        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b><span className="xleg-lo">{lo}</span><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} /><span>{hi}</span>
+      </button>
+    </div>
+  );
+}
+/** T-117: the model chip names the field's real source (never a model we don't use); a press shows the full source and validity note. */
+export function ModelChip({name, note}: {name: string; note: ReactNode}) {
   const [open, setOpen] = useState(false);
   const btn = useRef<HTMLButtonElement>(null), box = useRef<HTMLDivElement>(null);
   useDismiss(open, () => setOpen(false), box, btn);
   return (
-    <div className="xleg">
-      <button ref={btn} className="xchip" aria-expanded={open} aria-label={`${label} legend, ${lo} to ${hi} ${unit}. Show source`} data-loading={loading || undefined} onClick={() => setOpen(!open)}>
-        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b><span className="xleg-lo">{lo}</span><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} /><span>{hi}</span>
-      </button>
-      {open && <div ref={box} className="xpop xleg-pop" role="status"><p className="xpop-t">{label}</p><p className="xpop-note">{note}</p></div>}
+    <div className="xmodel">
+      <button ref={btn} className="xchip xmodel-c" aria-expanded={open} aria-label={`Source: ${name}. Show details`} onClick={() => setOpen(!open)}>{name}</button>
+      {open && <div ref={box} className="xpop xleg-pop" role="status"><p className="xpop-t">Source</p><p className="xpop-note">{note}</p></div>}
     </div>
   );
 }
@@ -81,72 +98,28 @@ export function LegendChip({unit, ramp, lo, hi, label, loading, note}: {unit: st
 const fmtDay = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', month: 'short', day: 'numeric'});
 export const stampLabel = (iso: string) => `${fmtDay.format(new Date(iso))} · ${timeLabelPT(iso).replace(':00', '')}`;
 
-export const STEPS = [{h: 1, label: '1h'}, {h: 3, label: '3h'}, {h: 24, label: '1d'}] as const;
-export const HORIZONS = [{d: 1, label: '1 day'}, {d: 3, label: '3 days'}, {d: 7, label: '7 days'}] as const;
-
-interface TimeProps {
-  times: string[]; index: number; stamp: string | null; playing: boolean; step: number; horizon: number;
-  onPlay: () => void; onStep: (dir: -1 | 1) => void; onRange: (h: number) => void; onHorizon: (d: number) => void; onScrub: (i: number) => void;
-  days: {t: string; i: number; label: string}[]; valueText: string;
-}
-
-/** The time scrubber (Windy): a thin bar (play, the hour, progress) until touched; opens to the full card, folds back when idle. */
-export function TimeBar(props: TimeProps) {
-  const [open, setOpen] = useState(false);
-  const box = useRef<HTMLDivElement>(null), idle = useRef(0);
-  const {times, index, playing} = props, n = times.length, pct = n > 1 ? (index / (n - 1)) * 100 : 0;
-  // Fold back 5 s after the last touch, unless playing or keyboard focus is inside.
-  const poke = () => {
-    clearTimeout(idle.current);
-    idle.current = window.setTimeout(() => { const a = document.activeElement; if (!(box.current?.contains(a) && a?.matches(':focus-visible')) && !playingRef.current) setOpen(false); }, 5000);
-  };
-  const playingRef = useRef(playing); playingRef.current = playing;
-  useEffect(() => { if (open) poke(); return () => clearTimeout(idle.current); }, [open, playing, index]); // eslint-disable-line react-hooks/exhaustive-deps
-  useDismiss(open, () => { if (!playingRef.current) setOpen(false); }, box);
+const fmtWd = (style: 'long' | 'short') => new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: style}), fmtDn = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', day: 'numeric'});
+const wdLong = fmtWd('long'), wdShort = fmtWd('short');
+const fmtWeekLong = {format: (d: Date) => `${wdLong.format(d)} ${fmtDn.format(d)}`}, fmtWeekShort = {format: (d: Date) => `${wdShort.format(d)} ${fmtDn.format(d)}`}; // "Tuesday 3" (Windy), not Intl's "3 Tuesday"
+const dayKey = (iso: string) => new Date(iso).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
+/** T-117 (Windy): the bottom timeline is one full-width day strip: play on the left, each day a segment, the hour in a bubble over the playhead.
+ *  Drag or click anywhere on the strip, or use the arrow keys (a native range input underneath carries the value for screen readers). */
+export function DayStrip({times, index, playing, onPlay, onScrub, valueText}: {times: string[]; index: number; playing: boolean; onPlay: () => void; onScrub: (i: number) => void; valueText: string}) {
+  const n = times.length, pct = n > 1 ? (index / (n - 1)) * 100 : 0;
+  const days: {k: string; t: string; from: number; to: number}[] = [];
+  times.forEach((t, i) => { const k = dayKey(t), d = days[days.length - 1]; if (d && d.k === k) d.to = i; else days.push({k, t, from: i, to: i}); });
+  const hour = times[index] ? timeLabelPT(times[index]).replace(':00', '') : '—';
   return (
-    <div ref={box} className={`xtime${open ? ' open' : ''}`} data-valuetext={props.valueText} onPointerDown={poke} onKeyDown={poke}>
-      {open ? <TimeCard {...props} onClose={() => setOpen(false)} /> : (
-        <div className="xt-thin">
-          <button className="xplay" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={(e) => { e.stopPropagation(); props.onPlay(); }}><Icon name={playing ? 'pause' : 'play'} size={14} /></button>
-          <button className="xt-open" aria-label={`Forecast hour ${props.valueText}. Open time controls`} aria-expanded={false} onClick={() => setOpen(true)}>
-            <b><span className="xt-long">{props.stamp ?? '—'}</span><span className="xt-short">{props.valueText || '—'}</span></b><span className="xt-line" aria-hidden="true"><i style={{width: `${pct}%`}} /></span>
-          </button>
+    <div className="xstrip" data-valuetext={valueText}>
+      <button className="xplay xround" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={onPlay}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>
+      <div className="xs-track">
+        <div className="xs-days" aria-hidden="true">
+          {days.map((d) => <span key={d.k} style={{width: `${((d.to - d.from + 1) / Math.max(1, n)) * 100}%`}} data-on={index >= d.from && index <= d.to || undefined}>
+            <b className="xs-long">{fmtWeekLong.format(new Date(d.t))}</b><b className="xs-short">{fmtWeekShort.format(new Date(d.t))}</b><b className="xs-tiny">{wdShort.format(new Date(d.t))}</b></span>)}
         </div>
-      )}
-    </div>
-  );
-}
-
-function TimeCard({times, index, stamp, playing, step, horizon, onPlay, onStep, onRange, onHorizon, onScrub, days, valueText, onClose}: TimeProps & {onClose: () => void}) {
-  const n = times.length, pct = (i: number) => (n > 1 ? (i / (n - 1)) * 100 : 0);
-  const dots = times.map((t, i) => ({t, i, big: localHour(t) === 0})).filter((d) => d.big || localHour(d.t) % 6 === 0);
-  return (
-    <div className="xt-card">
-      <div className="xt-top">
-        <b className="xt-now">{stamp ?? '—'}</b>
-        <div className="xt-step" role="group" aria-label="Step forecast hour">
-          <button aria-label={`Back ${step === 24 ? '1 day' : `${step} h`}`} disabled={index <= 0} onClick={() => onStep(-1)}><Icon name="chevron" size={16} style={{transform: 'rotate(90deg)'}} /></button>
-          <button aria-label={`Forward ${step === 24 ? '1 day' : `${step} h`}`} disabled={index >= n - 1} onClick={() => onStep(1)}><Icon name="chevron" size={16} style={{transform: 'rotate(-90deg)'}} /></button>
-        </div>
-        <div className="xt-range" role="group" aria-label="Step size and play speed">
-          {STEPS.map((s) => <button key={s.h} aria-pressed={step === s.h} onClick={() => onRange(s.h)}>{s.label}</button>)}
-        </div>
-        <label className="xt-hor"><span className="sr">Forecast window</span>
-          <select value={horizon} onChange={(e) => onHorizon(Number(e.target.value))}>{HORIZONS.map((h) => <option key={h.d} value={h.d}>{h.label}</option>)}</select>
-          <Icon name="chevron" size={14} />
-        </label>
-        <button className="xt-x" aria-label="Fold time controls" onClick={onClose}><Icon name="chevron" size={16} /></button>
-      </div>
-      <div className="xt-bot">
-        <button className="xplay" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={onPlay}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>
-        <div className="xtrack">
-          <div className="xt-dots" aria-hidden="true">
-            {dots.map((d) => <i key={d.t} data-big={d.big || undefined} data-on={d.i <= index || undefined} style={{left: `${pct(d.i)}%`}} />)}
-          </div>
-          <div className="xt-days" aria-hidden="true">{days.map((d) => <span key={d.t} style={{left: `${pct(d.i)}%`}}>{d.label}</span>)}</div>
-          <input type="range" min={0} max={Math.max(0, n - 1)} value={index} aria-label="Forecast hour" aria-valuetext={valueText}
-            style={{'--pct': `${pct(index)}%`} as CSSProperties} onChange={(e) => onScrub(Number(e.target.value))} />
-        </div>
+        <i className="xs-fill" style={{width: `${pct}%`}} aria-hidden="true" />
+        <span className="xs-bubble" style={{left: `${pct}%`}} aria-hidden="true">{hour}</span>
+        <input type="range" min={0} max={Math.max(0, n - 1)} value={index} aria-label="Forecast hour" aria-valuetext={valueText} onChange={(e) => onScrub(Number(e.target.value))} />
       </div>
     </div>
   );

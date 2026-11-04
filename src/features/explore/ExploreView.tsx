@@ -15,14 +15,15 @@ import {conditionWord} from '../../ui/Condition';
 import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
-import {attachField, buildField, rampFor, RANGE, RANGE_WIDE} from '../../map/field';
+import {attachField, buildField, rampFor, RANGE, RANGE_WIDE, sampleField, type Field} from '../../map/field';
 import {addBasemap} from '../../map/basemap';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
-import {PointCard, usePointForecast, type Pt} from './PointCard';
+import {usePointForecast, type Pt} from './PointCard';
+import {ForecastPanel, PinLabel, pointLine} from './PointPanel';
 import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
-import {LayerList, LegendChip, SpotRow, TimeBar, stampLabel} from './Panels';
+import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
 import {headlineSurf} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
@@ -73,8 +74,7 @@ function OceanMap({section, go}: ViewProps) {
   hoverRef.current = hover;
   const markers = useRef(new Map<string, L.Marker>());
   const rank = useRef(new Map<string, number>());
-  const [step, setStep] = useState(3);
-  const [horizon, setHorizon] = useState(7);
+  const step = 3; // T-117: play steps 3 h, as Windy
   const [opts, setOpts] = useState({heat: true, flow: true, arrows: false});
   const [phone, setPhone] = useState(isPhone);
   useEffect(() => { const mq = matchMedia(PHONE), on = () => setPhone(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
@@ -94,13 +94,13 @@ function OceanMap({section, go}: ViewProps) {
   // Tap-the-sea point forecast: one popup, one temporary pin.
   const [pt, setPt] = useState<Pt | null>(null);
   const closedAt = useRef(0); // T-099: a touch tap on the card's close button also reached the map and opened a new point where the finger was
-  const [pinned, setPinned] = useState<Pt | null>(null);
+  const [panel, setPanel] = useState(false); // T-117: the point's hourly panel (expand from the pin label)
+  const [sheetOn, setSheetOn] = useState(false); // T-117: phones show the spot sheet only once a spot is picked or the search is used (Windy)
   const popup = useRef<L.Popup | null>(null);
   const popupEl = useMemo(() => document.createElement('div'), []);
   // Spot callout at the pin (wide screens).
   const spotPop = useRef<L.Popup | null>(null);
   const spotPopEl = useMemo(() => document.createElement('div'), []);
-  const pinLayer = useRef<L.LayerGroup | null>(null);
   const sheetRef = useRef<HTMLElement>(null);
   const point = usePointForecast(pt);
   const [slow, setSlow] = useState(false);
@@ -122,7 +122,7 @@ function OceanMap({section, go}: ViewProps) {
   const gfield = useMemo(() => (gframe ? buildField(gframe, def.layer === 'WIND') : null), [gframe, def.layer]);
   const allTimes = view.timeline;
   // The forecast window (1 / 3 / 7 days from the first frame) bounds the slider, stepping and playback.
-  const times = useMemo(() => { const t0 = Date.parse(allTimes[0] ?? ''); return Number.isFinite(t0) ? allTimes.filter((t) => Date.parse(t) <= t0 + horizon * 864e5) : allTimes; }, [allTimes, horizon]);
+  const times = allTimes; // T-117: the day strip spans the whole forecast range
   const sel = times.indexOf(view.selectedTime ?? '');
   const ti = sel >= 0 ? sel : view.selectedTime && times.length && Date.parse(view.selectedTime) > Date.parse(times[times.length - 1]) ? times.length - 1 : 0;
   const recAt = (id: string) => view.mapRecords.find((r) => r.spotId === id && r.timestamp === view.selectedTime);
@@ -138,10 +138,9 @@ function OceanMap({section, go}: ViewProps) {
     // Light or dark Esri Canvas basemap by theme (satellite on request), with maxNativeZoom so tiles upscale: src/map/basemap.ts (T-042).
     const disposeBase = addBasemap(m);
     pins.current = L.layerGroup().addTo(m);
-    pinLayer.current = L.layerGroup().addTo(m);
-    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup', minWidth: 248, maxWidth: 248, autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
+    popup.current = L.popup({closeButton: false, closeOnClick: false, autoClose: false, className: 'xpopup xpl-pop', minWidth: 170, maxWidth: 280, offset: [0, -4], autoPanPaddingTopLeft: [16, 16], autoPanPaddingBottomRight: [16, 70]});
     popup.current.setContent(popupEl);
-    m.on('click', (e: L.LeafletMouseEvent) => Date.now() - closedAt.current > 400 && setPt({lat: Math.round(e.latlng.lat * 10) / 10, lon: Math.round((((e.latlng.lng + 180) % 360 + 360) % 360 - 180) * 10) / 10}));
+    m.on('click', (e: L.LeafletMouseEvent) => { if (Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: e.latlng.lat, lon: (((e.latlng.lng + 180) % 360) + 360) % 360 - 180}); } }); // T-117: the exact point (the label samples the field there)
     map.current = m; if (import.meta.env.DEV) (window as unknown as {__swelloMap?: L.Map}).__swelloMap = m; // test hook for the zoom script (dev only)
     if (import.meta.env.DEV) Object.assign(window, {__xmap: m}); // browser QA scripts drive zoom through this; stripped from builds
     return () => { disposeBase(); m.remove(); map.current = null; };
@@ -259,14 +258,6 @@ function OceanMap({section, go}: ViewProps) {
   }, [pt]); // eslint-disable-line react-hooks/exhaustive-deps
   // The card grows when data arrives; re-measure so the popup pans fully into view.
   useEffect(() => { if (pt && (point.data || point.error)) popup.current?.update(); }, [point.data, point.error]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    const g = pinLayer.current;
-    if (!g) return;
-    g.clearLayers();
-    if (!pinned) return;
-    const icon = L.divIcon({className: 'xpinned', html: '<i></i>', iconSize: [18, 18], iconAnchor: [9, 9]});
-    L.marker([pinned.lat, pinned.lon], {icon, keyboard: true, title: `Pinned model point ${pinned.lat}, ${pinned.lon}`, alt: `Pinned model point ${pinned.lat}, ${pinned.lon}`}).on('click', () => setPt(pinned)).addTo(g);
-  }, [pinned]);
   // The spot callout follows the selected spot; phones show it in the sheet instead.
   useEffect(() => {
     const m = map.current, pop = spotPop.current, e = evidenceSpots.find((x) => x.id === callout);
@@ -293,7 +284,7 @@ function OceanMap({section, go}: ViewProps) {
   // Play speed follows the step: 1 h frames are slow and detailed, 1 d frames sweep the whole week quickly.
   useEffect(() => {
     if (!playing || !times.length) return;
-    const id = setInterval(() => stepRef.current(1, true), step === 1 ? 800 : step === 3 ? 600 : 450);
+    const id = setInterval(() => stepRef.current(1, true), 600);
     return () => clearInterval(id);
   }, [playing, times.length, step]);
 
@@ -303,10 +294,11 @@ function OceanMap({section, go}: ViewProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = sheetRef.current, root = rootRef.current;
+    if (root && (!phone || !sheetOn)) root.style.setProperty('--peek', '0px'); // T-117: no spot sheet, so the strip sits on the map's bottom edge
     if (!phone || !el || !root || typeof ResizeObserver !== 'function') return;
     const ro = new ResizeObserver(() => { if (detent === 'peek') root.style.setProperty('--peek', `${Math.round(el.getBoundingClientRect().height)}px`); });
     ro.observe(el); return () => ro.disconnect();
-  }, [phone, detent]);
+  }, [phone, detent, sheetOn]);
   /** Glide to a spot; the target sits in the free part of the map, clear of the list sheet or the phone sheet. */
   const flyToSpot = (id: string, sheetOpen = open) => {
     const m = map.current, e = evidenceSpots.find((x) => x.id === id);
@@ -321,7 +313,7 @@ function OceanMap({section, go}: ViewProps) {
   /** Choose a spot: select it, open its callout (popup or the phone sheet's peek) and bring it into view. */
   const pickSpot = (id: string, fromList = false) => {
     setSpot(id); setCallout(id); setPt(null);
-    if (phone) setDetent('peek');
+    if (phone) { setDetent('peek'); setSheetOn(true); }
     else if (fromList) setOpen(false);
     flyRef.current(id, phone ? false : fromList ? false : open);
   };
@@ -357,10 +349,6 @@ function OceanMap({section, go}: ViewProps) {
     : spatial.status;
   const ends = frame || gframe ? legendEnds((frame ?? gframe)!.unit, p.heightUnit, p.windUnit, wide) : null;
   const unitLabel = def.unit === 'm' ? p.heightUnit : def.unit === 'm/s' ? p.windUnit : 's';
-  const allDays = times.map((t, i) => ({t, i})).filter(({t}, k) => k === 0 || weekdayPT(t) !== weekdayPT(times[k - 1]));
-  // A partial first day too short to hold its label is dropped; the readout still names the day.
-  const dayStarts = allDays.filter((d, k) => k > 0 || !allDays[1] || allDays[1].i >= 10).map(({t, i}) => ({t, i, label: weekdayPT(t)}));
-  const stamp = view.selectedTime ? stampLabel(view.selectedTime) : null;
   const when = view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : 'this hour';
 
   /** Offshore height range at a spot across the shared hour +/- 3 h (from the model records, not invented). */
@@ -405,6 +393,9 @@ function OceanMap({section, go}: ViewProps) {
   const showList = phone ? detent !== 'peek' : open;
   const listBody = (
     <div className="xlist" aria-label="Spots">
+      <div className="xtb-chips" role="group" aria-label="Region">
+        {['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={zone === z} onClick={() => pickZone(z)}>{z}</button>)}
+      </div>
       {!list.length && <p className="fine">No spot matches “{q}”{zone !== 'All' ? ` in ${zone}` : ''}.</p>}
       <ul>{list.map((e, i) => {
         const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
@@ -419,33 +410,47 @@ function OceanMap({section, go}: ViewProps) {
       {!live && <p className="fine">The demonstration week shows spots only.</p>}
     </div>
   );
-  // T-116: one compact top bar on the map (Windy): find a spot plus the region chips, replacing the floating "Spots 45" toggle. Typing or focusing
-  // shows the matching spots (a dropdown on wide screens, the sheet's list on phones).
-  const showResults = () => { if (phone) setDetent('half'); else setOpen(true); };
+  // T-117 (Windy): top left, a search box with a locate button. Focusing or typing shows the region chips and matching spots (a dropdown on wide
+  // screens, the sheet on phones).
+  const showResults = () => { if (phone) { setSheetOn(true); setDetent('half'); } else setOpen(true); };
+  const locate = () => {
+    if (!navigator.geolocation) { flyToSpot(spot.id); return; }
+    navigator.geolocation.getCurrentPosition((pos) => { const m = map.current; if (m) m.flyTo([pos.coords.latitude, pos.coords.longitude], Math.max(9, m.getZoom()), {animate: !reduced()}); }, () => flyToSpot(spot.id), {timeout: 8000, maximumAge: 600000});
+  };
   const topBar = (
     <div className="xtopbar">
       <label className="xsearch xtb-search"><Icon name="search" size={16} /><span className="sr">Find a spot on the map</span>
-        <input type="search" value={q} placeholder="Find a spot" autoComplete="off" aria-controls="xsheet" aria-expanded={showList}
+        <input type="search" value={q} placeholder="Search spots" autoComplete="off" aria-controls="xsheet" aria-expanded={showList}
           onFocus={showResults} onChange={(e) => { setQ(e.target.value); showResults(); }}
           onKeyDown={(e) => { if (e.key === 'Enter' && list[0]) { e.preventDefault(); pickSpot(list[0].id, true); (e.target as HTMLInputElement).blur(); } if (e.key === 'Escape') { setQ(''); setOpen(false); } }} />
-        {!phone && <button type="button" className="xtb-list" aria-label={open ? 'Hide the spot list' : `Show all ${list.length} spots`} aria-expanded={open} aria-controls="xsheet" onClick={() => setOpen(!open)}><Icon name="chevron" size={16} style={open ? {transform: 'rotate(180deg)'} : undefined} /></button>}
+        <button type="button" className="xtb-loc" aria-label="Go to my location (or the selected spot)" onClick={locate}><Icon name="locate" size={17} /></button>
       </label>
-      <div className="xtb-chips" role="group" aria-label="Region">
-        {['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={zone === z} onClick={() => pickZone(z)}>{z}</button>)}
-      </div>
     </div>
   );
+  // T-117: the pin label's value is the painted field's own, at the tapped point; the period comes from the period layer when shown, else the point forecast.
+  const fieldsNow = [field, gfield].filter((x): x is Field => !!x);
+  const pv = pt ? sampleField(fieldsNow, pt.lat, pt.lon) : null;
+  let perS: number | null = null, perFromPoint = false;
+  if (pt && pv && (fieldId === 'waves' || fieldId === 'swell') && point.data && view.selectedTime) {
+    const t = Date.parse(view.selectedTime) / 1000, d = point.data, k = d.time.reduce((best, x, i) => (Math.abs(x - t) < Math.abs(d.time[best] - t) ? i : best), 0);
+    const x = Math.abs(d.time[k] - t) <= 5400 ? (d.wavePeriod?.[k] ?? d.swellPeriod[k]) : null; if (x !== null && x !== undefined) { perS = x; perFromPoint = true; }
+  }
+  const line = pointLine(pv, perS, p, fieldId);
+  const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
+    : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
+  const modelName = `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;
 
   return (
     <div ref={rootRef} className="xmap" data-d={phone ? detent : undefined}>
       <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Drag to pan; use the zoom buttons or scroll to zoom." />
 
-      {phone ? (
+      {phone && sheetOn ? (
         <section ref={sheetRef} className="xsheet phone" id="xsheet" data-d={detent} aria-label="Spots"
           style={drag !== null ? ({height: `${drag}px`, transition: 'none'} as CSSProperties) : undefined}>
           <button className="xgrab" aria-label={`Spot sheet: ${detent === 'peek' ? 'selected spot' : detent === 'half' ? 'half height' : 'full list'}. Press to resize`}
             onPointerDown={onHandleDown} onPointerMove={onHandleMove} onPointerUp={onHandleUp} onPointerCancel={() => { dragFrom.current = null; setDrag(null); }} onKeyDown={handleKey}
             onClick={() => { if (dragged.current) { dragged.current = false; return; } setDetent(DETENTS[(DETENTS.indexOf(detent) + 1) % 3]); }}><i /></button>
+          <button className="xsheet-x" aria-label="Close the spot sheet" onClick={() => { setSheetOn(false); setDetent('peek'); setCallout(null); }}><Icon name="close" size={16} /></button>
           {showList ? listBody : peek$}
         </section>
       ) : null}
@@ -454,32 +459,32 @@ function OceanMap({section, go}: ViewProps) {
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
 
-      {/* T-116: the layers are a plain list on the right edge (Waves · Swell · Wind · Period), the zoom and locate controls under it. */}
+      {/* T-117 (Windy): the layers down the right edge as labelled round thumbnails (a menu button and sheet on phones), the zoom and centre controls under them. */}
       <div className="xfabs">
-        <LayerList fields={['waves', 'swell', 'wind', 'period'].map((id) => FIELDS.find((x) => x.id === id)!)} field={fieldId} on={opts.heat} setField={(id) => pickField(id as FieldId | null)}
+        <LayerList phone={phone} fields={['waves', 'swell', 'wind', 'period'].map((id) => { const f = FIELDS.find((x) => x.id === id)!; return {...f, short: id === 'waves' ? 'Waves' : f.short, ramp: rampFor(f.unit)}; })} field={fieldId} on={opts.heat} setField={(id) => pickField(id as FieldId | null)}
           flow={opts.flow} setFlow={(v) => setOpts({...opts, flow: v})} arrows={opts.arrows} setArrows={(v) => setOpts({...opts, arrows: v})} note={status}
-          onPoint={() => { const c = map.current!.getCenter(); setPt({lat: Math.round(c.lat * 10) / 10, lon: Math.round(c.lng * 10) / 10}); }} />
+          onPoint={() => { const c = map.current!.getCenter(); setPanel(true); setPt({lat: c.lat, lon: c.lng}); }} />
         <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomIn()}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomOut()}><Icon name="minus" size={18} /></button></div>
-        <div className="xfabgrp">
-          <button className="xfab" aria-label="Center on selected spot" onClick={() => flyToSpot(spot.id)}><Icon name="locate" size={18} /></button>
-        </div>
+        <button className="xround xcenter" aria-label="Center on the selected spot" onClick={() => flyToSpot(spot.id)}><Icon name="star" size={18} /></button>
       </div>
 
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
         {darkNow && <p className="xdark" role="status">Dark<span className="xdark-l"> at this hour</span> · not rated</p>}
-        <TimeBar times={times} index={ti} stamp={stamp} playing={playing} step={step} horizon={horizon} days={dayStarts}
-          valueText={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''}
-          onPlay={() => setPlaying(!playing)} onStep={(d) => { setPlaying(false); stepBy(d); }} onRange={setStep}
-          onHorizon={(d) => { setHorizon(d); const t0 = Date.parse(allTimes[0] ?? ''); if (view.selectedTime && Date.parse(view.selectedTime) > t0 + d * 864e5) view.selectTime([...allTimes].filter((t) => Date.parse(t) <= t0 + d * 864e5).pop()!); }}
-          onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }} />
-        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={rampFor((frame ?? gframe)!.unit, wide)} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} note={<>{status} {ENCLOSED_NOTE}</>} />
+        <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
+          valueText={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''} />
+        <div className="xb-right">
+          {opts.heat && <ModelChip name={modelName} note={<>{status} {ENCLOSED_NOTE}</>} />}
+        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={rampFor((frame ?? gframe)!.unit, wide)} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} onCycle={cycleUnit} />
           : slow && waiting ? <button type="button" className="xchip xstatus" onClick={() => { setSlow(false); spatial.retry(); }}>{status} · <u>Retry</u></button>
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
+        </div>
       </div>
+      {pt && panel && <ForecastPanel pt={pt} data={point.data} error={point.error} time={view.selectedTime} p={p} bundle={view.ocean.bundle}
+        onClose={() => setPanel(false)} onOpenSpot={(id) => { setSpot(id); go('forecast'); }} />}
 
-      {pt && createPortal(<PointCard pt={pt} state={point} time={view.selectedTime} p={p} pinned={!!pinned && pinned.lat === pt.lat && pinned.lon === pt.lon}
-        onPin={() => setPinned(pinned && pinned.lat === pt.lat && pinned.lon === pt.lon ? null : pt)} onClose={() => { closedAt.current = Date.now(); setPt(null); }} />, popupEl)}
+      {pt && createPortal(<PinLabel layer={def.short === 'Offshore waves' ? 'Waves' : def.short} icon={def.icon} line={line} periodFromPoint={perFromPoint} expanded={panel}
+        onExpand={() => setPanel(!panel)} onClose={() => { closedAt.current = Date.now(); setPt(null); setPanel(false); }} />, popupEl)}
       {!phone && callout$ && createPortal(callout$, spotPopEl)}
     </div>
   );

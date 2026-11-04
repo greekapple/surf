@@ -32,4 +32,7 @@ test('/api/point rejects bad input without calling a provider and fetches only f
   assert.ok(urls.every((u) => u.startsWith('https://marine-api.open-meteo.com/') || u.startsWith('https://api.open-meteo.com/')));
   await h(new Request('https://s.test/api/point?lat=36.9&lon=-122.5'));
   assert.equal(urls.length, 2, 'second request is served from the cache');
+  // T-117: gust, secondary swell and wave direction/period are asked for in the same two requests (no extra upstream calls).
+  assert.ok(urls.some((u) => /wind_gusts_10m/.test(u)) && urls.some((u) => /secondary_swell_wave_height/.test(u) && /wave_direction/.test(u)));
+  for (const k of ['waveDirection', 'wavePeriod', 'swell2Height', 'swell2Period', 'swell2Direction', 'windGust']) assert.ok(Array.isArray(body[k]), k);
 });
