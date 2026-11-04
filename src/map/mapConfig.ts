@@ -11,6 +11,9 @@ export const mapConfig = {
   view: {baseMinZoom: 2, maxZoom: 14, tileSize: 256, maxLat: 85, maxBoundsViscosity: 1, zoomSnap: 0.5},
   /** Level of detail thresholds (zoom). */
   zoom: {far: 9, world: 5},
+  /** Stage 2a: the coastal fill paints model-less cells next to the coast from their nearest ocean neighbours, at most this many cells deep (0.5° each at the native grid: 2 = about 110 km), so the colour reaches the shoreline
+   *  without inventing a field over land or ice; everything beyond stays empty. The regional nest is blended into the global grid over `nestFeatherDeg` inside its own boundary. */
+  fill: {coastCells: 2, nestFeatherDeg: 1.5},
   /** Field opacity over the sea (the basemap under it is a flat mid-grey land); land is never painted. */
   fieldAlpha: 1,
   /** Colour scales (Stage 3, user decision 2026-11-04: Swello's own surf-first ramps, not a copy of any other map). ONE fixed absolute scale per layer: it never depends on zoom, viewport, region or time.

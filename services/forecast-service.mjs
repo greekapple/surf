@@ -40,6 +40,27 @@ for(const st of tideServiceStationIds){const q={...noaa,station:st,product:'pred
  for(const field of regionalFields){const wind=field.endsWith('10m'),dataset=wind?'NCEP_Global_Best':'NWW3_Global_Best';const query=`${field}[(${start.toISOString().replace('.000Z','Z')}):${wind?1:3}:(${end})]${wind?'':'[(0)]'}[(32):1:(42.5)][(233):1:(243)]`;targets.push({key:'grid-'+field,ttl:21600000,field,dataset,url:'https://upwell.pfeg.noaa.gov/erddap/griddap/'+dataset+'.json?'+query.replaceAll('[','%5B').replaceAll(']','%5D')});}
  return targets;
 }
+/** Map-seamless Stage 2a: a NATIVE 0.5-degree global frame. ERDDAP serves the grid as OPeNDAP binary (.dods): a text header, "Data:", then for each variable two big-endian uint32 element counts and the values (Float32 for the array, Float32/64 for the maps).
+ *  `parseDodsGrid` reads one 2-D (lat x lon) float array plus its latitude and longitude maps. Pure, so it is unit-tested with a hand-built file. */
+export function parseDodsGrid(buffer){
+ const bytes=new Uint8Array(buffer),marker=new TextEncoder().encode('\nData:\n');let at=-1;
+ outer:for(let i=0;i<Math.min(bytes.length,4096);i++){for(let j=0;j<marker.length;j++)if(bytes[i+j]!==marker[j])continue outer;at=i+marker.length;break;}
+ if(at<0)throw new Error('DODS data marker not found');
+ const header=new TextDecoder().decode(bytes.subarray(0,at)),m=/\[latitude = (\d+)\]\[longitude = (\d+)\]/.exec(header);if(!m)throw new Error('DODS grid shape not found');
+ const nlat=+m[1],nlon=+m[2],view=new DataView(buffer);let o=at;
+ const arr=(n,size,read)=>{if(view.getUint32(o)!==n||view.getUint32(o+4)!==n)throw new Error('DODS length mismatch');o+=8;const out=new Float64Array(n);for(let i=0;i<n;i++){out[i]=read(o+i*size);}o+=n*size;return out;};
+ const f32=at=>view.getFloat32(at),f64=at=>view.getFloat64(at);
+ const hasDepth=/\bdepth\[depth = 1\]/.test(header),values=arr(nlat*nlon,4,f32);arr(1,8,f64);if(hasDepth)arr(1,4,f32);const wide=/Float64 latitude\[/.test(header),lats=wide?arr(nlat,8,f64):arr(nlat,4,f32),lons=wide?arr(nlon,8,f64):arr(nlon,4,f32); // GFS's coordinate maps are Float64, WW3's Float32
+ return {nlat,nlon,values,lats,lons};
+}
+const GRID_SCALE={Thgt:1000,shgt:1000,Tper:100,sper:100,Tdir:50,sdir:50,ugrd10m:300,vgrd10m:300};
+/** Packs a parsed grid for the wire: latitude ascending, Int16 little-endian values scaled per field (NaN = -32768), base64. */
+export function packOceanGrid(g,field){
+ const scale=GRID_SCALE[field],wind=field.endsWith('10m'),flip=g.lats[0]>g.lats[g.nlat-1],q=new Int16Array(g.nlat*g.nlon);
+ for(let y=0;y<g.nlat;y++){const sy=flip?g.nlat-1-y:y;for(let x=0;x<g.nlon;x++){const v=g.values[sy*g.nlon+x];q[y*g.nlon+x]=Number.isFinite(v)&&Math.abs(v*scale)<32760&&(wind||v>=0)?Math.round(v*scale):-32768;}}
+ const bytes=new Uint8Array(q.buffer);let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));
+ const la=flip?[...g.lats].reverse():[...g.lats];return {lat0:la[0],dlat:(la[la.length-1]-la[0])/(la.length-1),lon0:g.lons[0],dlon:(g.lons[g.lons.length-1]-g.lons[0])/(g.lons.length-1),nlat:g.nlat,nlon:g.nlon,scale,q:btoa(bin)};
+}
 export function createForecastService({assets={},fetcher=fetch,now=Date.now,random=Math.random,sleep=ms=>new Promise(r=>setTimeout(r,ms)),timeoutMs=18000}={}){
  const memory=new Map(),inflight=new Map(),failures=new Map(),originFailures=new Map(),metadata=new Map(),metadataJobs=new Map();let manifest=null,refreshJob=null;
  const persistent=env=>!!env?.BUCKET&&!env.LOCAL_PREVIEW;
@@ -107,7 +128,17 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
  }
  /** Coarse worldwide frame (2-degree stride of the native 0.5-degree grids) for the zoomed-out map. Fixed fields,
   * 3-hourly valid times within the next 8 days only; cached in memory (no arbitrary URL forwarding). */
- const globeCache=new Map(),globeJobs=new Map();
+ const globeCache=new Map(),globeJobs=new Map(),oceanCache=new Map(),oceanJobs=new Map();
+ /** One native 0.5-degree global field at one valid time (map-seamless Stage 2a), packed (see packOceanGrid); cached in memory, bounded, fixed fields and datasets only. */
+ async function oceanGrid(field,time){
+  if(!regionalFields.includes(field))throw Object.assign(new Error('Unknown global field'),{status:400});
+  const t=Date.parse(time),day=86400000;if(!Number.isFinite(t)||t%10800000!==0||t<now()-day||t>now()+8*day)throw Object.assign(new Error('Global frames are 3-hourly within the forecast range'),{status:400});
+  const wind=field.endsWith('10m'),dataset=wind?'NCEP_Global_Best':'NWW3_Global_Best',nlat=wind?361:311,iso=new Date(t).toISOString().replace('.000Z','Z');
+  const url='https://upwell.pfeg.noaa.gov/erddap/griddap/'+dataset+'.dods?'+(`${field}[(${iso})]${wind?'':'[(0)]'}[0:1:${nlat-1}][0:1:719]`).replaceAll('[','%5B').replaceAll(']','%5D');
+  const hit=oceanCache.get(url);if(hit&&hit.expires>now())return hit.value;
+  if(!oceanJobs.has(url))oceanJobs.set(url,(async()=>{const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeoutMs*2);try{const r=await fetcher(url,{signal:c.signal});if(r.status===404)throw Object.assign(new Error('No global model frame at this valid time'),{status:404,code:'no_frame'});if(!r.ok)throw new Error('Global grid HTTP '+r.status);const buf=await r.arrayBuffer();if(buf.byteLength>4000000)throw new Error('Global grid payload exceeds bounded size.');const value={...packOceanGrid(parseDodsGrid(buf),field),retrievedAt:new Date(now()).toISOString(),url,dataset,field,validAt:iso};oceanCache.set(url,{value,expires:now()+1800000});while(oceanCache.size>24)oceanCache.delete(oceanCache.keys().next().value);return value;}finally{clearTimeout(timer);oceanJobs.delete(url);}})());
+  return oceanJobs.get(url);
+ }
  async function globeFrame(field,time){
   if(!regionalFields.includes(field))throw Object.assign(new Error('Unknown global field'),{status:400});
   const t=Date.parse(time),day=86400000;if(!Number.isFinite(t)||t%10800000!==0||t<now()-day||t>now()+8*day)throw Object.assign(new Error('Global frames are 3-hourly within the forecast range'),{status:400});
@@ -141,6 +172,7 @@ return async function handle(request,env={},ctx={waitUntil:()=>{}}){const url=ne
   if(url.pathname==='/api/refresh'){if(request.method!=='POST')return json({error:'POST required'},405);const origin=request.headers.get('origin');if(origin&&origin!==url.origin)return json({error:'Origin rejected'},403);if(env.REFRESH_TOKEN&&request.headers.get('authorization')!=='Bearer '+env.REFRESH_TOKEN)return json({error:'Refresh authorization required'},403);return json(await refresh(env));}
   if(url.pathname==='/api/provider'){const key=url.searchParams.get('key'),target=ingestionTargets(now()).find(t=>t.key===key&&!t.field);if(!target)return json({error:'Unknown fixed provider key'},400);return json(await retrieve(target,env));}
   if(url.pathname==='/api/point'){const v=validatePoint(url.searchParams.get('lat'),url.searchParams.get('lon'));if(!v.ok)return json({error:v.error},400);try{return json(await pointForecast(v.lat,v.lon))}catch(e){return json({error:e.message??'Point forecast unavailable'},e.status??502)}}
+  if(url.pathname==='/api/ocean'){try{const g=await oceanGrid(url.searchParams.get('field')??'',url.searchParams.get('time')??'');return Response.json(g,{headers:{'Cache-Control':'public, max-age=300'}})}catch(e){return json({error:e.message,code:e.code},e.status??502)}}
   if(url.pathname==='/api/globe'){try{const g=await globeFrame(url.searchParams.get('field')??'',url.searchParams.get('time')??'');return Response.json(g,{headers:{'Cache-Control':'public, max-age=300'}})}catch(e){return json({error:e.message,code:e.code},e.status??502)}}
   if(url.pathname==='/api/grid'){const field=url.searchParams.get('field'),time=url.searchParams.get('time'),target=ingestionTargets(now()).find(t=>t.field===field);if(!target||!time||!Number.isFinite(Date.parse(time)))return json({error:'Invalid regional field or timestamp'},400);const value=await retrieve(target,env),table=value.payload.table,ti=table.columnNames.indexOf('time'),rows=table.rows.filter(r=>Date.parse(r[ti])===Date.parse(time));if(!rows.length)return json({error:'No exact regional model frame at this valid time',code:'no_frame'},404);return json({...value,payload:{table:{...table,rows}}});}
   if(url.pathname.startsWith('/api/'))return json({error:'Unknown endpoint'},404);

@@ -1,7 +1,9 @@
 import type {MapLayer,MapVariable} from './types.ts';
 export interface SpatialCell {lat:number;lon:number;value:number|null;direction:number|null;speed:number|null}
 import {mapConfig} from './mapConfig.ts';
-export interface SpatialFrame {cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
+/** A gridded frame (Stage 2a): the native global grid as typed arrays, latitude ascending (row-major lat x lon). `val` is the scalar (wind: the speed), `dir` the "from" bearing in degrees (NaN where none). */
+export interface GridData {lat0:number;dlat:number;nlat:number;lon0:number;dlon:number;nlon:number;val:Float32Array;dir:Float32Array|null}
+export interface SpatialFrame {/** cells is empty for a gridded frame; read `grid` */ grid?:GridData;/** the grid spans the whole globe in longitude (wraps at the date line) */ global?:boolean;cells:SpatialCell[];validAt:string;retrievedAt:string;provider:string;url:string;unit:'m'|'s'|'deg'|'m/s';resolution:number;variable:string;warnings?:string[];delivery?:'direct'|'saved';transport?:'server'|'browser'|'snapshot'}
 export const erddap='https://upwell.pfeg.noaa.gov/erddap/griddap/';
 export interface SpatialSpec {dataset:string;scalar:string;direction:string|null;unit:SpatialFrame['unit'];wind:boolean;validAt:string}
 /** Bounded native 0.5-degree regional subset (California coast, 32–42.5°N, 117–127°W). Never derived from surf-spot points. */
@@ -82,11 +84,23 @@ const globeFrames=createFrameCache(mapConfig.cache.globeFrames,mapConfig.cache.g
 export async function loadGlobe(spec:SpatialSpec,signal:AbortSignal):Promise<SpatialFrame>{
  const key='globe'+JSON.stringify(spec),hit=globeFrames.get(key);if(hit)return hit;
  const fields=[...new Set([spec.scalar,...(spec.direction?[spec.direction]:[])])];
- const got=await Promise.all(fields.map(async field=>{const r=await fetch('/api/globe?'+new URLSearchParams({field,time:spec.validAt}),{signal});const body=await r.json();if(!r.ok)throw new Error(body.error??'Global grid unavailable.');const t=body.payload.table,ix=(n:string)=>t.columnNames.indexOf(n),[la,lo,vi]=['latitude','longitude',field].map(ix);if([la,lo,vi].some(i=>i<0))throw new Error('Global grid columns missing.');const m=new Map<string,{lat:number;lon:number;value:number|null}>();for(const row of t.rows as unknown[][]){const lat=row[la],raw=row[lo],v=row[vi];if(typeof lat!=='number'||typeof raw!=='number')continue;const lon=raw>=180?raw-360:raw;let value=typeof v==='number'&&Number.isFinite(v)?v:null;if(value!==null&&!spec.wind&&value<0)value=null;m.set(`${lat},${lon}`,{lat,lon,value});}return {field,values:m,url:String(body.sourceURL),retrievedAt:String(body.retrievedAt)};}));
- const scalar=got[0],vector=got.find(g=>g.field===spec.direction);
- const cells=[...scalar.values].map(([k,c])=>{const v=vector?.values.get(k)?.value??null;if(spec.wind){const w=c.value===null||v===null?null:windVector(c.value,v);return {lat:c.lat,lon:c.lon,value:spec.unit==='deg'?w?.direction??null:w?.speed??null,direction:w?.direction??null,speed:w?.speed??null};}return {...c,direction:v,speed:null};});
- const frame:SpatialFrame={cells,unit:spec.unit,resolution:2,validAt:spec.validAt,retrievedAt:scalar.retrievedAt,provider:spec.wind?'NOAA/NCEP GFS global (2°) via NOAA ERDDAP':'WW3 global (2°) via NOAA ERDDAP',url:scalar.url,variable:spec.scalar,delivery:'direct',transport:'server'};
+ const got=await Promise.all(fields.map(async field=>{const r=await fetch('/api/ocean?'+new URLSearchParams({field,time:spec.validAt}),{signal});const body=await r.json();if(!r.ok)throw new Error(body.error??'Global grid unavailable.');return {field,...decodeOceanGrid(body)};}));
+ const scalar=got[0],vec=got.find(g=>g.field===spec.direction);if(vec&&(vec.nlat!==scalar.nlat||vec.nlon!==scalar.nlon))throw new Error('Global grid shapes differ.');
+ const n=scalar.nlat*scalar.nlon,val=new Float32Array(n),dir=spec.direction?new Float32Array(n):null;
+ for(let k=0;k<n;k++){
+  if(spec.wind){const u=scalar.values[k],v=vec!.values[k];if(Number.isNaN(u)||Number.isNaN(v)){val[k]=NaN;dir![k]=NaN;continue;}const w=windVector(u,v);val[k]=spec.unit==='deg'?(w.direction??NaN):w.speed;dir![k]=w.direction??NaN;}
+  else{val[k]=scalar.values[k];if(dir)dir[k]=vec?vec.values[k]:NaN;}
+ }
+ const frame:SpatialFrame={cells:[],grid:{lat0:scalar.lat0,dlat:scalar.dlat,nlat:scalar.nlat,lon0:scalar.lon0,dlon:scalar.dlon,nlon:scalar.nlon,val,dir},global:true,unit:spec.unit,resolution:scalar.dlat,validAt:spec.validAt,retrievedAt:scalar.retrievedAt,provider:spec.wind?`NOAA/NCEP GFS global (${scalar.dlat}° native) via NOAA ERDDAP`:`WW3 global (${scalar.dlat}° native) via NOAA ERDDAP`,url:scalar.url,variable:spec.scalar,delivery:'direct',transport:'server'};
  if(signal.aborted)throw new DOMException('Aborted','AbortError');globeFrames.set(key,frame);return frame;
+}
+/** Decodes one /api/ocean payload (packed Int16, scaled, NaN = -32768) into Float32 values. */
+export function decodeOceanGrid(b:{lat0:number;dlat:number;nlat:number;lon0:number;dlon:number;nlon:number;scale:number;q:string;retrievedAt:string;url:string}){
+ const bin=atob(b.q),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
+ const q=new Int16Array(bytes.buffer,0,Math.floor(bytes.length/2)),values=new Float32Array(q.length);
+ if(q.length!==b.nlat*b.nlon)throw new Error('Global grid size mismatch.');
+ for(let i=0;i<q.length;i++)values[i]=q[i]===-32768?NaN:q[i]/b.scale;
+ return {lat0:b.lat0,dlat:b.dlat,nlat:b.nlat,lon0:b.lon0,dlon:b.dlon,nlon:b.nlon,values,retrievedAt:b.retrievedAt,url:b.url};
 }
 
 /** The layer a surfer most likely opens next (waves → swell → wind → waves), for the idle prefetch. */

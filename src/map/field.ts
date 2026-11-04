@@ -66,29 +66,22 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
     // Land mask at screen resolution (also used to keep particles at sea).
     lm = W * H > 2.5e6 ? 0.5 : 1; mask.width = Math.round(W * lm); mask.height = Math.round(H * lm); const m = mask.getContext('2d', {willReadFrequently: true})!; m.setTransform(lm, 0, 0, lm, padX * lm, padY * lm); m.fillStyle = '#000'; fillLand(m, map, heatBounds);
     lw = mask.width; lh = mask.height; land = m.getImageData(0, 0, lw, lh).data;
-    const notCovered: {x: number; y: number}[] = [];
     if (opts.heat) {
       const step = W * H > 2.5e6 ? 6 : 4, w = Math.ceil(W / step), h = Math.ceil(H / step), img = new ImageData(w, h);
       const lon = Array.from({length: w}, (_, i) => map.containerPointToLatLng([i * step - padX, 0]).lng), lat = Array.from({length: h}, (_, j) => map.containerPointToLatLng([0, j * step - padY]).lat);
-      const encl: number[] = [];
       // Colour lookup table (256 steps over the range) and an inland skip: a cell whose own pixel and its four neighbours 3 cells away are all land is never painted (the land trim removes it anyway),
-      // so most of an inland viewport costs five mask reads instead of a grid sample. Cells near the coast are still sampled, so the blur reaches the shoreline as before.
+      // so most of an inland viewport costs five mask reads instead of a grid sample. Cells near the coast are still sampled, so the colour reaches the shoreline.
       const lut = scaleKey ? colorLut(scaleKey, themeNow()) : new Uint8Array(512 * 3);
       const isLand = (x: number, y: number) => { const xi = Math.max(0, Math.min(lw - 1, (x * lm) | 0)), yi = Math.max(0, Math.min(lh - 1, (y * lm) | 0)); return land[(yi * lw + xi) * 4 + 3] > 0; }, R = 3 * step;
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
         const cx = i * step, cy = j * step; if (isLand(cx, cy) && isLand(cx + R, cy) && isLand(cx - R, cy) && isLand(cx, cy + R) && isLand(cx, cy - R)) continue;
-        if (isEnclosedWater(lat[j], lon[i])) { encl.push(i, j); continue; }
+        if (isEnclosedWater(lat[j], lon[i])) continue; // enclosed water (bays, harbours, estuaries): no model value there, so it stays TRANSPARENT: no invented colour, no hatch (Stage 2a, user: "never the hatch")
         const val = sampleAll('val', lat[j], lon[i]); if (Number.isNaN(val)) continue;
         const q = scaleKey ? lutIndex(scaleKey, val) : 0, r = lut[q], g = lut[q + 1], b = lut[q + 2], k = (j * w + i) * 4;
         img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * ALPHA);
       }
       const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h; tmp.getContext('2d')!.putImageData(img, 0, 0);
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.filter = `blur(${step * 1.25}px)`; ctx.drawImage(tmp, -padX, -padY, w * step, h * step); ctx.filter = 'none';
-      // Enclosed waters (bays, harbours) are NOT covered: a light diagonal hatch says so instead of a colour (T-092).
-      ctx.fillStyle = 'rgb(215 222 230 / 0.34)'; for (let q = 0; q < encl.length; q += 2) if ((encl[q] + encl[q + 1]) % 2 === 0) ctx.fillRect(encl[q] * step - padX, encl[q + 1] * step - padY, step, step);
-      // One quiet "Not covered" label per large enclosed area (bins of 12 x 12 sample cells; a bin needs at least 70 enclosed cells).
-      const bins = new Map<string, {n: number; x: number; y: number}>(); for (let q = 0; q < encl.length; q += 2) { if (land[((Math.min(lh - 1, encl[q + 1] * step * lm) | 0) * lw + (Math.min(lw - 1, encl[q] * step * lm) | 0)) * 4 + 3] > 0) continue; /* T-100: no label from cells on land (the shoreline dilation) */ const k = `${Math.floor(encl[q] / 12)}|${Math.floor(encl[q + 1] / 12)}`, b = bins.get(k) ?? {n: 0, x: 0, y: 0}; b.n++; b.x += encl[q]; b.y += encl[q + 1]; bins.set(k, b); }
-      for (const b of [...bins.values()].sort((p, q) => q.n - p.n)) { if (b.n < 70) break; const x = (b.x / b.n) * step - padX, y = (b.y / b.n) * step - padY; if (notCovered.some((m) => Math.hypot(m.x - x, m.y - y) < 260)) continue; notCovered.push({x, y}); }
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(tmp, -padX, -padY, w * step, h * step); ctx.filter = 'none';
     }
     if (opts.arrows) {
       ctx.strokeStyle = 'rgb(255 255 255 / 0.85)'; ctx.lineWidth = 1.4; ctx.beginPath();
@@ -106,8 +99,6 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
     // The 1:10m coastline plus the blur leave a thin fringe of colour on the land edge: trim a 2 px band along the coast as well (T-092).
     ctx.strokeStyle = '#000'; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.beginPath(); for (const r of rings) r.forEach(([lon, lat], i) => { const p = map.latLngToContainerPoint([lat, lon]); if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.stroke();
     ctx.globalCompositeOperation = 'source-over';
-    // Labels last, so the land trim cannot clip them (a white halo keeps them legible over the hatch).
-    if (notCovered.length) { ctx.font = '600 11px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 3; ctx.strokeStyle = 'rgb(255 255 255 / 0.85)'; ctx.fillStyle = 'rgb(60 70 80 / 0.9)'; for (const m of notCovered) { ctx.strokeText('Not covered', m.x, m.y); ctx.fillText('Not covered', m.x, m.y); } }
     // Arrows were trimmed with the field; that is intended (sea state only).
     heat.dataset.drawMs = (performance.now() - t0).toFixed(1); // QA: the redraw cost of the last zoom/pan (t115-zoom.mjs)
   };
@@ -181,9 +172,15 @@ export const attachField = (map: L.Map, fields: Field[], opts: FieldOpts) => att
 /** Held-frame swap (map-seamless Stage 1). One controller per map keeps the CURRENT field on screen while a new one is prepared: `update` draws the new field into its own transparent canvases, then, once drawn,
  *  fades it in over `crossfadeMs` while the previous one fades out and is disposed. A layer or hour change therefore never shows an empty overlay; `update` with no fields keeps what is on screen (a frame still loading);
  *  `clear` fades the field out (the layer has no field, or the sea colour is off). The container's `data-heat` flag (the basemap's dark-grey switch) follows the controller, not each attachment. */
-export interface FieldController {update(fields: Field[], opts: FieldOpts): void; clear(): void; dispose(): void; /** QA: how many field layers exist right now (2 during a crossfade). */ count(): number}
+/** What the controller reports to the view (map-seamless Stage 1, agreed with product): fetching stays in `useSpatial`/`useGlobe`, so `loading` and `failed` are derived there; the field reports only when a new frame has actually been PAINTED. key = `${layer}|${validAt}`. */
+export type FrameState =
+  | {state: 'loading'; key: string; sinceMs: number}
+  | {state: 'ready'; key: string; validAt: string; source: string}
+  | {state: 'failed'; key: string; error: string; heldValidAt: string | null};
+export const frameKey = (f: Pick<Field, 'layer' | 'validAt'>) => `${f.layer}|${f.validAt}`;
+export interface FieldController {update(fields: Field[], opts: FieldOpts & {onFrame?: (s: FrameState) => void}): void; clear(): void; dispose(): void; /** QA: how many field layers exist right now (2 during a crossfade). */ count(): number}
 export function createFieldController(map: L.Map, fadeMs: number = mapConfig.crossfadeMs): FieldController {
-  let layers: {dispose: () => void; heat: HTMLCanvasElement; flow: HTMLCanvasElement; timer?: number}[] = [], alive = true;
+  let layers: {dispose: () => void; heat: HTMLCanvasElement; flow: HTMLCanvasElement; timer?: number}[] = [], alive = true, ready: {key: string; validAt: string; source: string} | null = null;
   const setHeat = (on: boolean) => { try { map.getContainer().dataset.heat = on ? 'on' : 'off'; } catch { /* map removed */ } };
   const opacity = (l: {heat: HTMLCanvasElement; flow: HTMLCanvasElement}, v: string) => { for (const c of [l.heat, l.flow]) { c.style.transition = `opacity ${fadeMs}ms ease`; c.style.opacity = v; } };
   const retire = (l: (typeof layers)[number], immediate = false) => { layers = layers.filter((x) => x !== l); if (immediate) { l.dispose(); return; } opacity(l, '0'); l.timer = window.setTimeout(() => { try { l.dispose(); } catch { /* gone */ } }, fadeMs + 40); };
@@ -193,9 +190,10 @@ export function createFieldController(map: L.Map, fadeMs: number = mapConfig.cro
       // a third layer while two are fading: retire the oldest at once, so at most two are ever drawn
       while (layers.length >= 2) retire(layers[0], true);
       const next = attachFieldLayer(map, fields, {...opts, startHidden: layers.length > 0}); setHeat(opts.heat);
-      const old = layers.slice(); layers.push(next);
-      if (!old.length) return; // first field: appears at once (nothing to hold)
-      requestAnimationFrame(() => { if (!alive || !layers.includes(next)) return; opacity(next, '1'); old.forEach((l) => retire(l)); });
+      const old = layers.slice(); layers.push(next), ready = {key: frameKey(fields[0]), validAt: fields[0].validAt, source: fields[0].source};
+      const announce = () => { if (alive && layers.includes(next)) opts.onFrame?.({state: 'ready', ...ready!}); };
+      if (!old.length) { announce(); return; } // first field: appears at once (nothing to hold)
+      requestAnimationFrame(() => { if (!alive || !layers.includes(next)) return; opacity(next, '1'); old.forEach((l) => retire(l)); announce(); });
     },
     clear() { setHeat(false); layers.slice().forEach((l) => retire(l)); },
     dispose() { alive = false; setHeat(false); layers.slice().forEach((l) => { window.clearTimeout(l.timer); try { l.dispose(); } catch { /* gone */ } }); layers = []; },

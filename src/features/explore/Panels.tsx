@@ -77,7 +77,7 @@ export function LegendChip({unit, ramp, lo, hi, label, loading, onCycle, ticks}:
   return (
     <div className="xleg">
       <button className="xchip" aria-label={`${label} legend, fixed scale ${ticks ? ticks.map((x) => x.label).join(', ') : `${lo} to ${hi}`} ${unit}.${onCycle ? ' Press to change the unit' : ''}`} title={ticks ? `Fixed scale, ${unit}: ${ticks.map((x) => x.label).join(' · ')}` : undefined} data-loading={loading || undefined} onClick={onCycle ?? undefined} disabled={!onCycle}>
-        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b><span className="xleg-lo">{lo}</span><span className="xleg-bar"><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} />{ticks && <span className="xleg-tk" aria-hidden="true">{ticks.map((x) => <em key={x.pos}>{x.label}</em>)}</span>}</span><span>{hi}</span>
+        {/offshore/i.test(label) && <><span className="xleg-k">{label}</span><span className="xleg-ks">Offshore Hs · not surf</span></>}<b>{unit}</b>{!ticks && <span className="xleg-lo">{lo}</span>}<span className="xleg-bar"><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} />{ticks && <span className="xleg-tk" aria-hidden="true">{ticks.map((x, i) => <em key={x.pos} className={i === 0 || i === ticks.length - 1 || i === Math.round((ticks.length - 1) * 0.7) ? 'maj' : undefined} style={{left: `${x.pos * 100}%`}}>{x.label}</em>)}</span>}</span>{!ticks && <span>{hi}</span>}
       </button>
     </div>
   );

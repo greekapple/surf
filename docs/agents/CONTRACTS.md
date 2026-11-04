@@ -33,3 +33,9 @@ Every displayed photo comes from `PHOTOS` and shows photographer and licence. Ge
 `src/ui/tokens.css` (global, dark legacy areas) and the `.coast` scope in `src/features/home/home.css`
 (light Home). Accent `--signal` (#ff5a1f) is reserved for navigation state and the single key accent.
 Type: Archivo variable (width axis for display).
+
+## Map field: what the colour is and is not (map-seamless Stage 2a)
+- The field is NOAA WW3 (waves, swell, period) and GFS (wind) at their native 0.5° grid, served by `/api/ocean` (ERDDAP `.dods`, packed Int16, cached in memory 30 min per field+hour per server instance, so ERDDAP is fetched once per field per 30 min per instance, not per user; the response echoes the requested valid time, which for these 3-hourly datasets is a stored step). The California frame is a faster-loading subset of the SAME WW3/GFS 0.5° grid, blended into the global frame over 1.5° at its edge so no rectangle shows (`mapConfig.fill.nestFeatherDeg`).
+- **Coastal fill:** cells the model leaves empty next to the coast (land mask, ice, the 0.5° coastline) are filled from their nearest ocean neighbours at most **2 cells (about 110 km) deep** (`mapConfig.fill.coastCells`), display only, never a reading (the pin label returns nothing in a filled cell); beyond that the field stays empty. It was 8 passes (up to 16°).
+- **Enclosed water** (bays, harbours, estuaries) has no model value: it is transparent, with no hatch, no label and no colour. Nothing is blurred into it.
+- The map colour is open-ocean model height, not surf size at a spot; the legend names the layer actually painted.

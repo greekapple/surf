@@ -40,5 +40,6 @@ test('layers: waves, swell height, period and wind are told apart by the real WW
   const per = buildField(frame({unit: 's', variable: 'Period'}, () => ({value: 11, direction: 290})), false)!; assert.equal(per.layer, 'PERIOD'); assert.equal(sampleField([per], 37.2, -123.4)!.value, 11);
   const wind = buildField(frame({unit: 'm/s', variable: 'Speed'}, () => ({value: 8, direction: 0})), true)!; assert.equal(wind.layer, 'WIND'); assert.equal(sampleField([wind], 37.2, -123.4)!.unit, 'm/s');
   const regional = buildField(frame(undefined, () => ({value: 2, direction: 270})), false)!, global = buildField(frame({resolution: 2}, () => ({value: 5, direction: 270})), false)!;
-  assert.equal(sampleField([regional, global], 37.2, -123.4)!.value, 2);
+  const both = sampleField([regional, global], 37.2, -123.4)!.value; // Stage 2a: the nest is feathered into the global grid near its edge, so the regional value leads but is not a hard rectangle
+  assert.ok(both >= 2 && both < 2.5, `the regional value leads (${both})`);
 });

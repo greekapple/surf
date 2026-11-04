@@ -15,7 +15,7 @@ import {conditionWord} from '../../ui/Condition';
 import {BAND_COLOR, bandOf, hourLabel} from '../forecast/model';
 import {ht} from '../forecast/helpers';
 import {weekdayPT} from '../forecast/format';
-import {createFieldController, buildField, legendModel, sampleField, type Field, type FieldController} from '../../map/field';
+import {createFieldController, buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {schedulePrefetch} from '../../map/spatial';
 import {addBasemap} from '../../map/basemap';
@@ -115,7 +115,7 @@ function OceanMap({section, go}: ViewProps) {
   if (spatial.frame) { shown.current = spatial.frame; shownFor.current = fieldId; }
   const frame = shown.current && shown.current.unit === def.unit ? shown.current : null;
   const field = useMemo(() => (frame ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer]);
-  // Worldwide 2° frame underneath, so colour and flow continue past the California grid to the whole globe.
+  // Worldwide native 0.5° frame underneath, so colour and flow continue past the California grid to the whole globe.
   const globe = useGlobe(def.layer, def.variable, view.selectedTime, live && (opts.heat || opts.flow || opts.arrows));
   const shownGlobe = useRef<SpatialFrame | null>(null);
   if (globe.frame) shownGlobe.current = globe.frame;
@@ -188,12 +188,13 @@ function OceanMap({section, go}: ViewProps) {
 
   // Map-seamless Stage 1: ONE field controller per map. A layer or hour change draws the new field off-screen and crossfades it over the old one (the old stays until the new is drawn); a frame still loading keeps what is on screen.
   const fieldCtl = useRef<FieldController | null>(null);
+  const [paintedFrame, setPainted] = useState<{layer: FieldLayer; validAt: string} | null>(null); const painted = paintedFrame?.layer ?? null; // the layer actually on the canvas (onFrame 'ready'): while a new layer loads the held picture is the previous one, and the legend must say so
   useEffect(() => { const m = map.current; if (!m) return; fieldCtl.current = createFieldController(m); return () => { fieldCtl.current?.dispose(); fieldCtl.current = null; }; }, []);
   useEffect(() => {
     const fields = [field, gfield].filter((f): f is NonNullable<typeof f> => !!f), ctl = fieldCtl.current;
     if (!ctl) return;
     if (!opts.heat && !opts.flow && !opts.arrows) { ctl.clear(); return; }
-    if (fields.length) ctl.update(fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced()});
+    if (fields.length) ctl.update(fields, {heat: opts.heat, flow: opts.flow, arrows: opts.arrows, opacity: 0.72, reducedMotion: reduced(), onFrame: (st) => { if (st.state === 'ready') setPainted({layer: st.key.split('|')[0] as FieldLayer, validAt: st.validAt}); }});
   }, [field, gfield, opts.heat, opts.flow, opts.arrows]);
   // Idle prefetch of the neighbouring hours and the next layer once the visible frames have settled (Stage 1).
   useEffect(() => {
@@ -369,11 +370,12 @@ function OceanMap({section, go}: ViewProps) {
   const darkNow = !!view.selectedTime && isDark(spot.id, view.selectedTime);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
-    : spatial.loading && !frame ? 'Loading model…'
-    : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${frame ? 'California 0.5°' : ''}${frame && gframe ? ' + ' : ''}${gframe ? 'global 2°' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
+    : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt)} ${hourLabel(paintedFrame.validAt)}` : 'Loading model…')
+    : frame || gframe ? `${def.label} · ${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''} · valid ${weekdayPT((frame ?? gframe)!.validAt)} ${hourLabel((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
-  const legend = legendModel(scaleKeyOfField(fieldId), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
-  const ends = frame || gframe ? ([legend.lo, legend.hi] as const) : null;
+  const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
+  const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
+  const ends = frame || gframe || (opts.heat && painted) ? ([legend.lo, legend.hi] as const) : null;
   const unitLabel = legend.unitLabel;
   const when = view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : 'this hour';
 
@@ -514,7 +516,7 @@ function OceanMap({section, go}: ViewProps) {
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} note={<>{status} {ENCLOSED_NOTE}</>} />}
-        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={def.label} loading={spatial.loading || globe.loading} onCycle={cycleUnit} />
+        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={paintedDef.label} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
         </div>
       </div>

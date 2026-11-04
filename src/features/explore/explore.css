@@ -647,14 +647,15 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xtb-search { gap: 12px; }
 @media (max-width: 860px) { .xbottom { padding-inline: 16px; } .xfabs { gap: 12px; } }
 
-/* Stage 3: the legend carries tick labels at the scale's breakpoints, under the gradient (evenly spaced like the ramp). Desktop only; phones keep the compact chip. */
-.xleg-bar { display: inline-flex; flex-direction: column; gap: 2px; }
-.xleg-tk { display: none; }
-@media (min-width: 861px) {
-  .xleg-tk { display: flex; justify-content: space-between; font-size: 10px; line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .xleg-tk em { font-style: normal; flex: 0 0 auto; }
-  .xchip .xleg-bar i { width: 190px; height: 8px; border-radius: 4px; }
-}
+/* Stage 3: the legend is a gradient with tick labels at the scale's breakpoints, positioned along the bar (evenly spaced like the ramp). Phones show the gradient with three major ticks (first, about 10 ft, last); desktop shows them all. */
+.xleg-bar { position: relative; display: flex; flex-direction: column; gap: 3px; flex: 1 1 auto; min-width: 72px; }
+.xchip .xleg-bar i { display: block; width: 100%; height: 8px; border-radius: 4px; }
+.xleg-tk { position: relative; display: block; height: 11px; font-size: 10px; line-height: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.xleg-tk em { position: absolute; top: 0; transform: translateX(-50%); font-style: normal; white-space: nowrap; }
+.xleg-bar { padding: 0 10px; } /* room for the end labels, centred on the bar's ends (bar and ticks share the box, so they stay aligned) */
+.xleg-tk em:not(.maj) { display: none; }
+@media (min-width: 861px) { .xleg-bar { flex: none; width: 230px; } .xleg-tk em:not(.maj) { display: block; } }
+@media (max-width: 860px) { .xchip .xleg-bar { flex: 1 1 auto; } .xbottom .xleg .xchip .xleg-bar i { width: 100%; flex: none; } }
 
 /* Stage 3 (contrast, WCAG AA): the layer pills' white ink (.xl-list button, for text over the sea colour) also hit the buttons INSIDE the "More" popover, which sits in the same list: white on the popover's pale panel (1.07:1).
    The popover keeps the normal text colour. The attribution is readable over the grey map in both themes (it measured 1.51:1). */
