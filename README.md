@@ -2,7 +2,7 @@
 
 Incremental React + TypeScript + Vite update on the recovered, subsequently deployed v0.10 source. Existing Home, Forecast, Explore, Leaflet map, Quiver showroom, Personal settings and saved data are retained. No new dependency, storage schema or backend calibration was introduced.
 
-**v0.11 is a local release candidate, not deployed or migrated.** The existing private Site currently serves the approved v0.10 release at https://surf-quiver-lab.miloasinclaire.chatgpt.site. That deployment succeeded after the historical v0.10 handoffs were written. Those reports describe their own earlier inspection boundaries; they are not the current hosting status. The pre-v0.11 Git base is `541a1d00d98eaa879992a148a4c432042419f763`.
+**Production (2026-11-04):** Cloudflare Workers at https://swello.surf-prototype.workers.dev, private behind Cloudflare Access; deploy with `npm run deploy` (`wrangler.jsonc`, `scripts/build-cloudflare.mjs`). The earlier ChatGPT-hosted Site (`surf-quiver-lab…chatgpt.site`) and its scheduled refresh were retired the same day. The pre-v0.11 Git base is `541a1d00d98eaa879992a148a4c432042419f763`.
 
 ## Run and verify
 
@@ -98,7 +98,7 @@ npm test
 npm run build
 ```
 
-Vite serves the development app; deploy `dist/` after building. No Astra-only runtime, account or API key is required for the default preview. Existing `.openai/hosting.json` identifies the current private Site: preserve it when continuing that Site. Give a separate copy its own deployment identity before publishing elsewhere.
+Vite serves the development app. Production: `npm run deploy` builds the static assets into `.cf/public` (licensed meshes left out) and deploys the `/api` Worker (`worker/cloudflare.mjs`) to Cloudflare. No account or API key is required for the local preview.
 
 Public forecasts and OpenStreetMap tiles require internet access. NOAA NDBC browser CORS limitations retain the explicitly historical observation fallback. Missing nearshore calibration withholds real surf ratings and breaking-wave estimates. Source and unit labels remain inspectable. Browser boards/preferences are separate from source exports; use Profile → Data management → Export JSON to move them.
 

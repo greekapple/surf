@@ -1,3 +1,5 @@
+> **Retired 2026-11-04.** The ChatGPT-hosted Site and its scheduled refresh were deleted by the user when production moved to Cloudflare Workers. Kept as history only; nothing below is current.
+
 # v0.11 operational boundary
 
 The approved v0.10 Site was deployed after the historical stabilization notes below. v0.11 remains local and retains the same backend revision 0.10 / API contract 0.8. Current Site metadata shows the original single refresh schedule enabled (00:05/06:05/12:05/18:05 America/Los_Angeles). No new run, successful persistent readback, hosted freshness, scheduler change or v0.11 deployment was verified/performed during this work. An enabled schedule is not evidence of successful execution. No duplicate job was created.
