@@ -71,9 +71,10 @@ export interface BodyInput {
   turning: number;
 }
 
-const blendQ = (lib: Float32Array[], w: Float32Array, k: number, out: Float32Array, o: number) => {
+const blendQ = (lib: Float32Array[], w: Float32Array, k: number, out: Float32Array, o: number, primed: boolean) => {
   let x = 0, y = 0, z = 0, ww = 0, rx = 0, ry = 0, rz = 0, rw = 1;
-  for (let i = 0; i < POSES.length; i++) { const f = lib[i]; let a = f[k * 4], b2 = f[k * 4 + 1], c = f[k * 4 + 2], d = f[k * 4 + 3]; if (i === 0) { rx = a; ry = b2; rz = c; rw = d; } if (a * rx + b2 * ry + c * rz + d * rw < 0) { a = -a; b2 = -b2; c = -c; d = -d; } x += w[i] * a; y += w[i] * b2; z += w[i] * c; ww += w[i] * d; }
+  if (primed) { rx = out[o]; ry = out[o + 1]; rz = out[o + 2]; rw = out[o + 3]; }   // hemisphere against last frame's result (R7), the first pose on the first frame
+  for (let i = 0; i < POSES.length; i++) { const f = lib[i]; let a = f[k * 4], b2 = f[k * 4 + 1], c = f[k * 4 + 2], d = f[k * 4 + 3]; if (i === 0 && !primed) { rx = a; ry = b2; rz = c; rw = d; } if (a * rx + b2 * ry + c * rz + d * rw < 0) { a = -a; b2 = -b2; c = -c; d = -d; } x += w[i] * a; y += w[i] * b2; z += w[i] * c; ww += w[i] * d; }
   const l = Math.hypot(x, y, z, ww) || 1; out[o] = x / l; out[o + 1] = y / l; out[o + 2] = z / l; out[o + 3] = ww / l;
 };
 
@@ -89,7 +90,8 @@ export class RiderBody {
   private readonly legs: Chain[]; private readonly arms: Chain[];
   /** which side of the body (rider z sign) each hand hangs on in the trim key: fixed per arm, so the arms-down rotation never flips sign */
   private readonly armSide = [1, -1];
-  private readonly iBarrel = POSES.indexOf('barrel'); private readonly iPig = POSES.indexOf('pigdog');
+  /** R7: per pose, the index of its backside key (BODY.backsideOf), -1 when it has none; the plan only ever names frontside poses */
+  private readonly backIdx = POSES.map((n) => { const b = BODY.backsideOf[n]; return b ? POSES.indexOf(b) : -1; });
   /** the blended pose's pelvis height (rider frame) before compression, for the probe */
   hipY = 0;
   // round 5 (M3): every procedural gain and each hand target goes through its own critically damped spring, and the hands through a
@@ -132,21 +134,26 @@ export class RiderBody {
     // 1. blend the library (normalised weights; quaternions nlerp'd with a consistent hemisphere). The arms blend on their own slower
     //    weights (S.WA0..): a pose change swings the hands through the longest arcs. Backside rides the pig-dog instead of the crouch.
     const norm = (dst: Float32Array, o: number) => { let sum = 0; for (let i = 0; i < POSES.length; i++) { dst[i] = Math.max(0, st[o + i]); sum += dst[i]; } if (sum < 1e-6) { dst[0] = 1; sum = 1; }
-      if (this.iBarrel >= 0 && this.iPig >= 0) { if (inp.mirror < 0) { dst[this.iPig] += dst[this.iBarrel]; dst[this.iBarrel] = 0; } else { dst[this.iBarrel] += dst[this.iPig]; dst[this.iPig] = 0; } }
+      // backside (mirrored) rides the backside keys: each frontside pose's weight moves to its own backside key (R7; the barrel -> pig-dog since round 4)
+      if (inp.mirror < 0) for (let i = 0; i < POSES.length; i++) { const j = this.backIdx[i]; if (j >= 0 && dst[i] > 0) { dst[j] += dst[i]; dst[i] = 0; } }
       for (let i = 0; i < POSES.length; i++) dst[i] /= sum; };
     norm(w, S.W0); norm(wa, S.WA0);
     for (let b = 0; b < n; b++) {
       let px = 0, py = 0, pz = 0, qx = 0, qy = 0, qz = 0, qw = 0, rx = 0, ry = 0, rz = 0, rw = 1;
-      const wb = this.isArm[b] ? wa : w;
+      const wb = this.isArm[b] ? wa : w, bone = all[b];
+      // the nlerp hemisphere: against LAST FRAME's rotation of this bone once primed (R7: with the first weighted pose as the reference, a
+      // reference switch between keys whose arm rotations differ by ~120-180 deg re-signed the sum inconsistently and the upper arm
+      // stepped 68 deg in one frame at the end of the snap); the first weighted pose only on the first frame
+      let haveRef = this.primed; if (haveRef) { rx = bone.quaternion.x; ry = bone.quaternion.y; rz = bone.quaternion.z; rw = bone.quaternion.w; }
       for (let i = 0; i < POSES.length; i++) { const wi = wb[i]; if (wi <= 0) continue; const d = lib.data[i], o = b * 7;
         px += wi * d[o]; py += wi * d[o + 1]; pz += wi * d[o + 2];
-        let x = d[o + 3], y = d[o + 4], z = d[o + 5], ww = d[o + 6]; if (qw === 0 && qx === 0 && qy === 0 && qz === 0) { rx = x; ry = y; rz = z; rw = ww; }
+        let x = d[o + 3], y = d[o + 4], z = d[o + 5], ww = d[o + 6]; if (!haveRef) { rx = x; ry = y; rz = z; rw = ww; haveRef = true; }
         if (x * rx + y * ry + z * rz + ww * rw < 0) { x = -x; y = -y; z = -z; ww = -ww; }
         qx += wi * x; qy += wi * y; qz += wi * z; qw += wi * ww; }
-      const bone = all[b]; bone.position.set(px, py, pz); bone.quaternion.set(qx, qy, qz, qw).normalize();
+      bone.position.set(px, py, pz); bone.quaternion.set(qx, qy, qz, qw).normalize();
     }
     for (let k = 0; k < 6; k++) { let v = 0, h = 0, f = 0; for (let i = 0; i < POSES.length; i++) { v += w[i] * lib.ankle[i][k]; h += wa[i] * lib.wrist[i][k]; f += w[i] * lib.footF[i][k]; } this.ankleT[k] = v; this.wristT[k] = h; this.footFT[k] = f; }
-    for (let k = 0; k < 2; k++) { blendQ(lib.footQ, w, k, this.footT, k * 4); blendQ(lib.handQ, wa, k, this.handT, k * 4); }
+    for (let k = 0; k < 2; k++) { blendQ(lib.footQ, w, k, this.footT, k * 4, this.primed); blendQ(lib.handQ, wa, k, this.handT, k * 4, this.primed); }
     // 2. compression and idle bob on the pelvis (along the rider's up, in the Root's frame)
     const I = this.idx, pr = inp.profile;
     if (I.pelvis >= 0) { const pel = all[I.pelvis]; this.hipY = pel.position.dot(this.upRoot); pel.position.addScaledVector(this.upRoot, -(BODY.compressM * inp.comp) + BODY.idleBobM * inp.idleA); }
@@ -178,7 +185,7 @@ export class RiderBody {
       this.vd.copy(this.va).applyQuaternion(this.rootInv).normalize(); this.qd.setFromAxisAngle(this.vd, lean);
       const h0 = pel.position.dot(this.upRoot) - this.feetMid.dot(this.upRoot);
       pel.position.sub(this.feetMid).applyQuaternion(this.qd).add(this.feetMid); pel.quaternion.premultiply(this.qd);
-      pel.position.addScaledVector(this.upRoot, h0 * (1 - Math.cos(lean)) * BODY.bodyLeanKeepHeight);
+      pel.position.addScaledVector(this.upRoot, h0 * (1 - Math.cos(lean)) * (inp.mirror < 0 ? BODY.bodyLeanBackside.keepHeight : BODY.bodyLeanKeepHeight));
     }
     const lead = THREE.MathUtils.clamp(inp.lead, -BODY.leadMaxDeg * D2R, BODY.leadMaxDeg * D2R) * inp.mirror;
     const sway = pr.swayDeg * D2R, armsDown = BODY.armsDownDeg * D2R * THREE.MathUtils.clamp(inp.turning, 0, 1);
@@ -191,7 +198,11 @@ export class RiderBody {
     if (I.pelvis >= 0 && I.neck >= 0) {
       this.vd.setFromMatrixPosition(this.riderM[I.neck]).sub(this.ve.setFromMatrixPosition(this.riderM[I.pelvis]));
       const range = inp.mirror < 0 ? BODY.torsoPitchDegBackside : BODY.torsoPitchDeg;   // backside: upright (R6)
-      const raw = Math.atan2(this.vd.z, Math.max(1e-3, this.vd.y)), lo = range[0] * D2R, hi = range[1] * D2R;
+      let raw = Math.atan2(this.vd.z, Math.max(1e-3, this.vd.y)); const lo = range[0] * D2R, hi = range[1] * D2R;
+      // R7 backside: the pitch is read against the LEG LINE (feet -> pelvis), not the deck normal: the body angulates over the heels toward
+      // the vertical on a steep face (the lean above), and the torso stays flexed forward of the legs, as the real backside sequence
+      // shows; against the deck normal that read as "leaning back" and the hinge folded the chest toward the beach (R6's bow)
+      if (inp.mirror < 0) { this.vf.setFromMatrixPosition(this.riderM[I.pelvis]).sub(this.feetMidR); raw -= Math.atan2(this.vf.z, Math.max(1e-3, this.vf.y)); }
       // the counter below also pitches the torso (frontside toward the toes, backside away): count it in the target
       const rawC = raw + counter * 3 * (okAxis ? this.va.x : 0);   // the counter's share about the board axis (signed: + toward the toes)
       const want = rawC < lo ? lo - rawC : rawC > hi ? hi - rawC : 0;

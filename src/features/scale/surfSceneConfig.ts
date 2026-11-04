@@ -12,14 +12,22 @@ export const SIM = {hz: 120, maxStepsPerFrame: 8, maxFrameS: 0.05} as const;
 export const MONITOR = {jointDegPerFrame: 25, boardDegPerFrame: 25, refFrameS: 1 / 60, centreGapM: 0.03, lowestGapM: -0.15, keepEvents: 120, keepPerKind: 12,
   /** body checks (round 4), sampled at bodyHz: knee flexion range (deg, 0 = straight), the knee's direction against the foot's forward
    *  (deg), a wrist above its shoulder (m margin) for longer than wristAboveS outside the moves that allow it, joint angular acceleration */
-  bodyHz: 30, kneeFlexDeg: [4, 140] as readonly [number, number], kneePoleDeg: 50, wristAboveM: 0.0, wristAboveS: 0.3, jerkDegS2: 3000,
-  wristAllowedMoves: ['barrel', 'top'] as readonly string[],
+  bodyHz: 30, kneeFlexDeg: [4, 140] as readonly [number, number], kneePoleDeg: 50, wristAboveM: 0.0, wristAboveS: 0.3,
+  /** joint angular acceleration limit (deg/s^2). R7 re-based from 3000: a 90 deg whole-body swing in 0.3 s (the real snap's arm throw)
+   *  peaks near 5000 deg/s^2 even with a smooth cosine profile, and a critically damped fade starts at twice that; 3000 could only be
+   *  met by fades slow enough to make the snap read lazy. 10000 still catches a step (a key switch or an IK flip is 50-100k). */
+  jerkDegS2: 10000,
+  wristAllowedMoves: ['barrel', 'top', 'kickout', 'recover'] as readonly string[],   // R7: the snap key's arms go up for the hit; the kick-out blends through it and the recovery brings them down
   /** the hard gates (spec §A2/§A3, user 2026-11-04): knee-to-knee >= this share of foot-to-foot and each knee within kneeLateralM of its
    *  hip-foot line along the board (`knock`); hands inside +-handSideM of the torso and between knee and shoulder height, arm joint speed
    *  under armSpeedDegS, no reversal of a hand's travel faster than armReversalS (`arm`) */
-  kneeSepRatio: 0.6, kneeLateralM: 0.1, handSideM: 0.7, armSpeedDegS: 360, armReversalS: 0.25,
+  kneeSepRatio: 0.6, kneeLateralM: 0.12, handSideM: 0.7,
+  /** R7 re-based 360 -> 540: the real snap throws the front arm ~120 deg in 0.4 s (peak ~500 deg/s); the v6 snap key does the same and
+   *  peaked at 385-517 even with the arms fading 0.75 x the body. The round-4 ragdoll arms ran at 850-950: 540 still catches those. */
+  armSpeedDegS: 540, armReversalS: 0.25,   // R7: 0.12 (was 0.10): the deeper bottom turn puts the knee over the toes of the 32 deg-angled front foot, 0.10 m along the board at a 100 deg bend; that is tracking, not knocking
   /** the hips stay over the feet: the pelvis' toe-heel offset (m) from the feet midpoint, in trim and in turns (`hip` count; "sitting" otherwise) */
-  hipOverFeetM: {trim: 0.1, turn: 0.15, /** plus this much per radian of face slope: the standing body angulates toward the vertical on a steep face */ perSlope: 0.3},
+  hipOverFeetM: {trim: 0.1, turn: 0.15, /** plus this much per radian of face slope: the standing body angulates toward the vertical on a steep face */ perSlope: 0.3,
+    /** backside (R7): the body angulates over the heels by most of the slope (BODY.bodyLeanBackside), the pelvis with it */ perSlopeBackside: 0.5},
   /** M9 (`lean` count): the torso pitch (pelvis -> neck from the deck normal toward the toes, deg) outside this range; M10 (`wake` count): the
    *  wake's direction off the tail against the board's velocity over the water (deg from straight behind) */
   torsoPitchDeg: [5, 62] as readonly [number, number], wakeDeg: 45} as const;
@@ -94,7 +102,10 @@ export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 
  *  last), u, v, the move name, the pose it blends to, the compression target, and how close to the curl it may go (face heights,
  *  RIDE.minAheadFaces when absent). */
 export interface Knot {dt: number; u: number; v: number; move: Move; pose: PoseName; /** compression target 0 (tall) .. 1 (deep) */ comp: number; ahead?: number}
-export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump' | 'barrel' | 'pigdog';
+export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump' | 'barrel' | 'pigdog' | 'cutback'
+  /** R7 (surfer-v6): backside-specific keys, authored with the wave on the heel side; the viewer routes each frontside pose's weight to
+   *  its backside key through BODY.backsideOf when the rider is mirrored */
+  | 'trimB' | 'bottomB' | 'climbB' | 'topB' | 'recoverB' | 'pumpB' | 'cutbackB';
 
 /** A maneuver's shape (brief part 2, "implementation shape"): knots relative to the band's line: `du` out from the pocket distance (face
  *  heights, + = further out on the shoulder), `dv` up (+) or down (-) from the band's line height, scaled by the expertise's intensity. */
@@ -108,7 +119,7 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** bottom turn, project up the face, release at the lip, redirect down */
   snap: [{dt: 0.85, du: 0.3, dv: -0.37, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.5, du: 0.1, dv: 0, move: 'bottom', pose: 'climb', comp: 0.55}, {dt: 0.45, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25}, {dt: 0.5, du: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8}],
   /** roundhouse: a full-rail arc back toward the curl, rebound, back down the line */
-  cutback: [{dt: 1.1, du: 0.8, dv: -0.15, move: 'cutback', pose: 'climb', comp: 0.6}, {dt: 0.9, du: 0.2, dv: 0.13, move: 'cutback', pose: 'top', comp: 0.4}],
+  cutback: [{dt: 1.0, du: 0.8, dv: -0.15, move: 'cutback', pose: 'climb', comp: 0.6}, {dt: 0.9, du: 0.2, dv: 0.13, move: 'cutback', pose: 'cutback', comp: 0.4}, {dt: 0.6, du: 0.05, dv: -0.06, move: 'recover', pose: 'recover', comp: 0.75}],   // R7: its own peak key (head and shoulders back to the curl, the leading arm out toward it), then the rebound compact
   /** rhythmic compress/extend through a flat section */
   pump: [{dt: 0.6, du: 0.1, dv: -0.1, move: 'pump', pose: 'pump', comp: 0.75}, {dt: 0.5, du: 0.0, dv: 0.05, move: 'pump', pose: 'trim', comp: 0.4}],
   /** a long, fast, high line out to the shoulder with the rail set */
@@ -189,7 +200,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 0.6, u: -1.45, v: 0.85, move: 'kickout', pose: 'top', comp: 0.3},
     ],
     allow: {}, pocketScale: 1, lineVOffset: 0, intensity: 1, slow: 1,
-    carve: 1, compression: 1, armsOutDeg: 0, fadeMs: {trim: 400, bottom: 320, climb: 320, top: 300, recover: 320, pump: 260, barrel: 420, pigdog: 420}, swayDeg: 0.8,
+    carve: 1, compression: 1, armsOutDeg: 0, fadeMs: {trim: 400, bottom: 320, climb: 320, top: 300, recover: 320, pump: 260, barrel: 420, pigdog: 420, cutback: 340, trimB: 400, bottomB: 320, climbB: 320, topB: 300, recoverB: 320, pumpB: 260, cutbackB: 340}, swayDeg: 0.8,
   },
   Intermediate: {
     takeoff: [
@@ -202,7 +213,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
     ],
     /** no barrel for an intermediate: the band C high line instead (the brief's "shallow ones only" needs a tube to be drawn first) */
     allow: {barrel: 'coverup'}, pocketScale: 1.6, lineVOffset: -0.03, intensity: 0.7, slow: 1.15,
-    carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 420, bottom: 360, climb: 360, top: 330, recover: 360, pump: 280, barrel: 450, pigdog: 450}, swayDeg: 1.2,
+    carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 420, bottom: 360, climb: 360, top: 330, recover: 360, pump: 280, barrel: 450, pigdog: 450, cutback: 380, trimB: 420, bottomB: 360, climbB: 360, topB: 330, recoverB: 360, pumpB: 280, cutbackB: 380}, swayDeg: 1.2,
   },
   Beginner: {
     takeoff: [
@@ -214,7 +225,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 1.0, u: -3.1, v: 0.07, move: 'out', pose: 'trim', comp: 0.3},
     ],
     allow: {snap: 'carve', cutback: null, barrel: null, coverup: null, pump: null, longBottom: 'carve'}, pocketScale: 2.6, lineVOffset: -0.08, intensity: 0.45, slow: 1.4,
-    carve: 0.4, compression: 0.35, armsOutDeg: 18, fadeMs: {trim: 450, bottom: 450, climb: 450, top: 400, recover: 450, pump: 350, barrel: 500, pigdog: 500}, swayDeg: 2.2,
+    carve: 0.4, compression: 0.35, armsOutDeg: 18, fadeMs: {trim: 450, bottom: 450, climb: 450, top: 400, recover: 450, pump: 350, barrel: 500, pigdog: 500, cutback: 450, trimB: 450, bottomB: 450, climbB: 450, topB: 400, recoverB: 450, pumpB: 350, cutbackB: 450}, swayDeg: 2.2,
   },
 };
 
@@ -246,7 +257,8 @@ export function boardForBand(band: StyleBand, faceFt: number, boards: readonly {
 
 /** The surfer-v3 clip's key frames (tools/blender/build_surfer.py RIDE, 24 fps): the pose library is sampled from the `ride` clip at these
  *  times once at load; the clip is not played (a mixer that skips unchanged writes was the round-3 popping, see docs/3d/FINDINGS-2026-11-04.md). */
-export const POSE_KEYS: Record<PoseName, number> = {trim: 1, bottom: 26, climb: 42, top: 58, recover: 70, pump: 82, barrel: 100, pigdog: 112};
+export const POSE_KEYS: Record<PoseName, number> = {trim: 1, bottom: 26, climb: 42, top: 58, recover: 70, pump: 82, barrel: 100, pigdog: 112, cutback: 124,
+  trimB: 136, bottomB: 148, climbB: 160, topB: 172, recoverB: 184, pumpB: 196, cutbackB: 208};
 export const CLIP_FPS = 24;
 
 /** The body's procedural layers on top of the blended pose. */
@@ -266,7 +278,7 @@ export const BODY = {
   /** arms counter-balance the rail roll (share of the roll, about the heading), plus the skill's arms-out abduction */
   armRollShare: 0.25,
   /** the arms cross-fade slower than the body (x the pose fade rate): a pose change swings the hands through the longest arcs */
-  armFadeScale: 1,
+  armFadeScale: 0.75,   // R7: the v6 snap key throws the arms up; the hands arrive a hair after the body (a real throw) and the upper arms stay under 360 deg/s
   /** round 5 (user: "the arms are still ragdolling", "the joints are disconnected"): the arms are part of the authored pose and move
    *  only as the whole-body pose blends; the per-hand IK to board-frame targets (M7) is off. The whole body blends on one weight. */
   armIK: false,
@@ -283,7 +295,9 @@ export const BODY = {
    *  arms-out carries each hand toward its board end at 90 deg */
   elbowPole: {out: 0.6, back: -0.75, down: -0.3}, armsOutReachM: 0.35,
   /** a pose missing from an older asset (its key past the clip's end) is sampled from this substitute instead */
-  poseFallback: {barrel: 'bottom', pigdog: 'bottom'} as Partial<Record<PoseName, PoseName>>,
+  poseFallback: {barrel: 'bottom', pigdog: 'bottom', cutback: 'top', trimB: 'trim', bottomB: 'bottom', climbB: 'climb', topB: 'top', recoverB: 'recover', pumpB: 'pump', cutbackB: 'top'} as Partial<Record<PoseName, PoseName>>,
+  /** R7: backside rides its own keys (surfer-v6): the weight the plan puts on a frontside pose goes to this key when the rider is mirrored */
+  backsideOf: {trim: 'trimB', bottom: 'bottomB', climb: 'climbB', top: 'topB', recover: 'recoverB', pump: 'pumpB', barrel: 'pigdog', cutback: 'cutbackB'} as Partial<Record<PoseName, PoseName>>,
   /** spring rates (rad/s) per joint group: core stiff, arms looser, head quick, hips slow */
   springW: {core: 2 * Math.PI * 1.3, arms: 2 * Math.PI * 0.9, head: 2 * Math.PI * 1.2, hips: 2 * Math.PI * 0.8, comp: 2 * Math.PI * 1.1},
   /** human ranges of motion for the procedural additions (deg) */
@@ -301,12 +315,14 @@ export const BODY = {
   torsoPitchDeg: [12, 58] as readonly [number, number],
   /** R6: backside the chest faces down the face, so the same pitch toward the toes folds the body over the nose toward the beach (the
    *  user's recording, seed 11 = regular on a left: the rider read as lying on the board); a real backside crouch stays far more upright */
-  torsoPitchDegBackside: [13, 24] as readonly [number, number],
+  torsoPitchDegBackside: [8, 45] as readonly [number, number],   // R7: against the leg line (see riderBody); the v6 backside keys hold 12-34 deg themselves
   /** R6: backside the deck normal already leans toward the beach by the face slope, so the body above the feet angulates toward the
    *  vertical (over the heels, into the wave) with a much stronger lean than frontside; a real backside crouch stands near vertical */
-  bodyLeanBackside: {gain: 0.8, maxDeg: 24}, /** the hinge's own spring rate (Hz): quick, the raw pitch it corrects is already smooth (the v4 top-turn key leans back 30 deg) */ pitchHz: 8,
+  bodyLeanBackside: {gain: 1.0, maxDeg: 48, /** a near-true pivot about the feet: with 0.7 the hips rose past the legs' reach at 48 deg and the knees locked straight */ keepHeight: 0.25},   // R7: with the pitch read against the leg line the body angulates fully over the heels (the real backside hit: the back into the wave)
+  /** the hinge's own spring rate (Hz): quick, the raw pitch it corrects is already smooth (the v4 top-turn key leans back 30 deg) */
+  pitchHz: 8,
   /** the hands stay within this much of the pelvis along the board (m): the joint springs may lag the solve, never past the arm box */
   handSideMaxM: 0.6,
   /** backside (M2): the head turns this much further over the leading shoulder, toward the wave, through the turns */
-  backsideHeadDeg: 16,
+  backsideHeadDeg: 0,   // R7: the v6 backside keys author the head over the leading shoulder
 } as const;

@@ -52,10 +52,14 @@ float stageAt(float x, float t){
 float ampAt(float x){
   float a;
   if (x<0.) { float d=uDb+uBed*(-x), pk=exp(-pow(x/(.55*uSh),2.)); a=pow(uDb/d,.25)*(.42+.58*pk); }
-  else a=1.-.35*smoothstep(.5*uBl,1.25*uBl,x);
+  else a=1.-.5*smoothstep(.25*uBl,1.05*uBl,x);   // S1 (R7): the broken section loses half its height within a break length (the whitewater ran on at near full height: the 'ruler')
   float F=max(uFace,.6); a*=1.+.05*sin(x*.37/F+1.3)+.035*sin(x*.91/F+4.1);
   return a*smoothstep(uX0,.7*uX0,x)*(1.-smoothstep(.7*uX1,uX1,x));
-}`;
+}
+// S1 (R7): the crest curved in plan: the shoulder sweeps seaward (+z) away from the peak; the weight fades at both flat tails of the
+// profile so the strip's edges stay put. Keep in step with bendZ / bendW in waveAtlas.ts.
+float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .12*uSh*s*s; }
+float bendW(float u){ return smoothstep(0.,.3,u)*(1.-smoothstep(.9,1.,u)); }`;
 
 const STRIP_VS = /* glsl */ `
 precision highp float;
@@ -73,12 +77,12 @@ vec4 atl(float u, float s, float row0){
 }
 vec4 at0(float u,float s){ return atl(u,s,0.); }
 vec4 at1(float u,float s){ return atl(u,s,uNS); }
-vec3 P(float x, float u, float t){ vec4 a=at0(u,stageAt(x,t)); return vec3(x, a.y*ampAt(x), -a.x); }
+vec3 P(float x, float u, float t){ vec4 a=at0(u,stageAt(x,t)); return vec3(x, a.y*ampAt(x), -a.x+bendZ(x)*bendW(u)); }
 void main(){
   float x=position.x, u=position.y, t=uTime;
   float s=stageAt(x,t), am=ampAt(x);
   vec4 a=at0(u,s), b=at1(u,s);
-  vec3 p=vec3(x, a.y*am, -a.x);
+  vec3 p=vec3(x, a.y*am, -a.x+bendZ(x)*bendW(u));
   float h=max(.05,.2*uFace); vec3 D=(P(x+h,u,t)-P(x-h,u,t))/(2.*h);
   vec3 Np=normalize(vec3(0., b.w, -b.z*am));
   vec3 N=normalize(Np-dot(Np,D)*vec3(1.,0.,0.));
@@ -98,8 +102,9 @@ void main(){
 // The sea around the strip: set waves out the back (lifted ridges, sharper crests, fading near the strip so the seam is flat water).
 const SEA_VS = /* glsl */ `
 precision highp float;
-uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip, uLdeep, uSetN, uShore, uSwellX, uCel;
+uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip, uLdeep, uSetN, uShore, uSwellX, uCel, uSh;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
+float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .12*uSh*s*s; }
 float rectMask(vec2 p){ float dx=max(max(uX0-p.x,p.x-uX1),0.), dz=max(max(-uY1-p.y,p.y+uY0),0.); return smoothstep(0.,10.+4.*uFace,length(vec2(dx,dz))); }
 float whitewater(vec2 p){
   // S3: the previous wave as a line of whitewater rolling toward the beach at the broken wave's speed, shrinking into the shore-break.
@@ -130,8 +135,10 @@ float sets(vec2 p){
   // the far end read as part of a longer swell line, not a crest that stops
   float ex=max(uX0-p.x,p.x-uX1);
   if (ex>0.) {
-    float d=p.y-(-.15*uFace)-.00003*ex*ex, w=d<0.?.2*uLb:.36*uLb, c=cos(clamp(d/w,-1.,1.)*1.5707963);
-    float A=uFace*.34*smoothstep(0.,.35*abs(uX0),ex)*(1.-smoothstep(350.,1200.,ex))*(.75+.25*sin(ex*.02+1.));
+    // S1 (R7): past the shoulder end the line carries on from the bent crest (bendZ at the strip's end) as the unbroken swell; past the
+    // broken end it is spent whitewater and fades out within ~200 m (a wave that has broken does not run to the horizon at full height)
+    bool sh=p.x<uX0; float d=p.y-(-.15*uFace+(sh?bendZ(uX0):0.))-.00003*ex*ex, w=d<0.?.2*uLb:.36*uLb, c=cos(clamp(d/w,-1.,1.)*1.5707963);
+    float A=uFace*.34*smoothstep(0.,.35*abs(uX0),ex)*(sh?(1.-smoothstep(350.,1200.,ex)):(1.-smoothstep(40.,220.,ex)))*(.75+.25*sin(ex*.02+1.));
     z+=A*c*c*c*uStrip;
   }
   return z;
@@ -334,7 +341,11 @@ void main(){
   gl_FragColor=vec4(col,1.);
   #include <colorspace_fragment>
 }`;
-const HEAD_FS = /* glsl */ `uniform float uFog, uAmb; uniform vec3 uHorizon, uDune; varying vec3 vW; void main(){ float dist=length(cameraPosition-vW); float fog=1.-exp(-pow(dist*uFog*.8,2.)); vec3 c=mix(uDune*.55*uAmb,uHorizon*.99,clamp(fog,0.,1.)); gl_FragColor=vec4(c,1.);
+// S4 (R7): the headland is a soft DARK silhouette in the haze (a hazy coast reads as a desaturated blue-grey mass a little darker than the
+// horizon, never a pale sunlit cone): a dark blue-grey base toned by the ambient light, lifted toward the horizon colour by the haze with
+// distance and a little more toward the skyline (the ridge top dissolves into the sky)
+const HEAD_FS = /* glsl */ `uniform float uFog, uAmb; uniform vec3 uHorizon, uDune; varying vec3 vW; varying float vT; void main(){ float dist=length(cameraPosition-vW); float fog=1.-exp(-pow(dist*uFog*.9,2.));
+  vec3 base=mix(vec3(.16,.2,.24),uHorizon*.45,.35)*mix(.5,1.,uAmb); vec3 c=mix(base,uHorizon*.985,clamp(fog*.72+.08*vT,0.,1.)); gl_FragColor=vec4(c,1.);   // ~30% of the dark base at the near end (500 m), a faint band far out
 #include <colorspace_fragment>
 }`;
 const SKY_VS = `varying vec3 vD; void main(){ vD=normalize(position); gl_Position=projectionMatrix*viewMatrix*vec4(position+cameraPosition,1.); gl_Position.z=gl_Position.w; }`;
@@ -494,16 +505,17 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const beachMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: BEACH_VS, fragmentShader: BEACH_FS});
     const beachGeo = new THREE.PlaneGeometry(1, 1, tier === 'phone' ? 48 : 120, tier === 'phone' ? 40 : 96); beachGeo.rotateX(-Math.PI / 2);   // xz plane, unit; scaled in setBeach
     const beach = new THREE.Mesh(beachGeo, beachMat); beach.frustumCulled = false; beach.visible = false; group.add(beach);
-    const headMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: 'varying vec3 vW; void main(){ vW=(modelMatrix*vec4(position,1.)).xyz; gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.); }', fragmentShader: HEAD_FS, side: THREE.DoubleSide});
+    const headMat = new THREE.ShaderMaterial({uniforms: u, vertexShader: 'varying vec3 vW; varying float vT; attribute float aT; void main(){ vT=aT; vW=(modelMatrix*vec4(position,1.)).xyz; gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.); }', fragmentShader: HEAD_FS, side: THREE.DoubleSide});
     const headland = new THREE.Mesh(new THREE.BufferGeometry(), headMat); headland.frustumCulled = false; headland.visible = false; group.add(headland);
-    { const pts: number[] = [], n = 24; for (let i = 0; i <= n; i++) { const f = i / n; pts.push(f, 0, 0, f, 1, 0); } const pos = new Float32Array(pts), idx: number[] = []; for (let i = 0; i < n; i++) { const a = i * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
-      headland.geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3)); headland.geometry.setIndex(idx); }
+    { const pts: number[] = [], ts: number[] = [], n = 40; for (let i = 0; i <= n; i++) { const f = i / n; pts.push(f, 0, 0, f, 1, 0); ts.push(0, 1); } const pos = new Float32Array(pts), idx: number[] = []; for (let i = 0; i < n; i++) { const a = i * 2; idx.push(a, a + 2, a + 1, a + 1, a + 2, a + 3); }
+      headland.geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3)); headland.geometry.setAttribute('aT', new THREE.BufferAttribute(new Float32Array(ts), 1)); headland.geometry.setIndex(idx); }
     const setBeach = (H: number, m: AtlasMeta) => {
       const shore = 180 + 25 * H; u.uShore.value = shore;   // 150-400 m behind the break (S4), growing with the size
       beach.scale.set(2 * SEA_FAR, 1, 760); beach.position.set(0, 0, -(shore - 60) - 380); beach.visible = true;
-      // the headland: a ridge from the far shoulder end, out along the beach, its skyline a soft hump 60-140 m high, fading into the haze
-      const pa = headland.geometry.getAttribute('position') as THREE.BufferAttribute, arr = pa.array as Float32Array, n = 24, x0 = m.break_len_m * 1.45 + 300;
-      for (let i = 0; i <= n; i++) { const f = i / n, x = x0 + f * 1400, hgt = 20 + 120 * Math.sin(Math.PI * Math.min(1, f * 1.2)) * (0.8 + 0.2 * Math.sin(f * 9)); arr[i * 6] = x; arr[i * 6 + 1] = -2; arr[i * 6 + 2] = -(shore + 120 + f * 60); arr[i * 6 + 3] = x; arr[i * 6 + 4] = hgt; arr[i * 6 + 5] = -(shore + 120 + f * 60); }
+      // the headland (R7): a long low ridge from past the broken end out along the beach, rising away from it toward a far soft summit
+      // (30 -> 110 m), with gentle lumps along the skyline, set further back into the haze; a soft dark silhouette, not a pale cone
+      const pa = headland.geometry.getAttribute('position') as THREE.BufferAttribute, arr = pa.array as Float32Array, n = 40, x0 = m.break_len_m * 1.45 + 260;
+      for (let i = 0; i <= n; i++) { const f = i / n, x = x0 + f * 1900, rise = Math.pow(f, 0.7), hgt = Math.min(1, f * 10) * (6 + (24 + 86 * rise) * (1 - 0.35 * Math.max(0, 1 - f * 6)) * (0.9 + 0.1 * Math.sin(f * 17 + 1) + 0.06 * Math.sin(f * 41)));   /* rises out of the beach over its first 190 m (no cut edge) */ arr[i * 6] = x; arr[i * 6 + 1] = -2; arr[i * 6 + 2] = -(shore + 160 + f * 140); arr[i * 6 + 3] = x; arr[i * 6 + 4] = hgt; arr[i * 6 + 5] = -(shore + 160 + f * 140); }
       pa.needsUpdate = true; headland.visible = true;
     };
     let custom: THREE.Mesh | null = null, surfer: THREE.Object3D | null = null, spray: Spray | null = null, disposed = false, dir: 'left' | 'right' = 'left';
@@ -676,7 +688,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
-      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl, 'r', sim.stats.slopeNow);   // the bridge over a concave section is deliberate
+      if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl, 'r', sim.stats.slopeNow, frontside);   // the bridge over a concave section is deliberate
       // the tail (crest frame) and its velocity: the top-turn spray leaves from here, with the board
       const bd = boardOf();
       if (spray && bd) {

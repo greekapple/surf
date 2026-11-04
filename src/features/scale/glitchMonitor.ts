@@ -36,7 +36,7 @@ export class GlitchMonitor {
   private bodyQ: THREE.Quaternion[] = []; private bodyW: Float64Array = new Float64Array(0); private bodyT = -1; private bodyPrimed = 0;
   private readonly a = new THREE.Vector3(); private readonly b = new THREE.Vector3(); private readonly c = new THREE.Vector3(); private readonly d = new THREE.Vector3(); private readonly e = new THREE.Vector3();
   private readonly wristRun = [0, 0]; private wristT = -1;
-  private rig: THREE.Object3D | null = null; private readonly rigInv = new THREE.Matrix4(); private slopeRad = 0;
+  private rig: THREE.Object3D | null = null; private readonly rigInv = new THREE.Matrix4(); private slopeRad = 0; private frontside = true;
   private readonly armQ = [new THREE.Quaternion(), new THREE.Quaternion(), new THREE.Quaternion(), new THREE.Quaternion()]; private armPrimed = 0;
   private readonly handV = new Float64Array(6); private readonly lastRev = [-1, -1]; private readonly handP = new Float64Array(6);
   private headYawMin = Infinity; private headYawMax = -Infinity;
@@ -62,8 +62,8 @@ export class GlitchMonitor {
   }
   /** One frame: world matrices must be current. `frontFoot` names the leg on the nose side ('r' for the goofy model frontside; the mirror
    *  does not change it). Returns the number of new warnings. */
-  sample(dt: number, t: number, move: string, centreGap: number, lowGap: number, frontFoot: 'l' | 'r' = 'r', slopeRad = 0): number {
-    this.slopeRad = slopeRad;
+  sample(dt: number, t: number, move: string, centreGap: number, lowGap: number, frontFoot: 'l' | 'r' = 'r', slopeRad = 0, frontside = true): number {
+    this.slopeRad = slopeRad; this.frontside = frontside;
     const c = this.counts, scale = Math.max(1, dt / MONITOR.refFrameS), limitJ = MONITOR.jointDegPerFrame * scale, limitB = MONITOR.boardDegPerFrame * scale; let n = 0;
     const emit = (kind: GlitchEvent['kind'], joint: string, deg: number, gap: number) => {
       c[kind]++; c.total++; n++;
@@ -114,7 +114,11 @@ export class GlitchMonitor {
         this.d.copy(this.c).sub(this.a).normalize();                                   // hip -> ankle
         this.b.sub(this.a); this.b.addScaledVector(this.d, -this.b.dot(this.d));        // knee offset, perpendicular
         this.e.sub(this.c); this.e.addScaledVector(this.d, -this.e.dot(this.d));        // foot forward, perpendicular
-        if (this.b.lengthSq() > 1e-4 && this.e.lengthSq() > 1e-6) {
+        // R7: with the body angulated over the heels (backside, 48 deg) the hip-ankle line runs nearly along the foot, the foot's perpendicular
+        // part shrinks to a few cm of noise and the angle against it is meaningless (it read 60-174 deg with the knee plainly over the
+        // toes); the check needs at least 10 cm of foot direction across the leg line (the foot is ~0.18 m long: a leg line within ~35 deg
+        // of the foot skips it, as the back leg's does at 48 deg of angulation). The knee-separation and lateral gates still watch knocking.
+        if (this.b.lengthSq() > 1e-4 && this.e.lengthSq() > 0.01) {
           const pole = Math.acos(THREE.MathUtils.clamp(this.b.dot(this.e) / (this.b.length() * this.e.length()), -1, 1)) * D;
           if (pole > c.poleMaxDeg) c.poleMaxDeg = pole;
           if (pole > MONITOR.kneePoleDeg && flex > 25) { emit('pole', 'knee_' + side.toLowerCase(), pole, 0); n++; }   // a nearly straight leg has no meaningful knee direction
@@ -138,16 +142,19 @@ export class GlitchMonitor {
         if (lat > c.kneeLateralMax) c.kneeLateralMax = lat;
         if (bad || lat > MONITOR.kneeLateralM) { emit('knock', bad ? 'knees' : 'knee_lateral', bad ? ratio : lat, 0); n++; }
       }
-      // M9: the torso pitch (pelvis -> neck) from the deck normal toward the toes; never backward
+      // M9: the torso pitch (pelvis -> neck) toward the toes; never backward. Frontside from the deck normal; backside (R7) from the
+      // LEG LINE (feet midpoint -> pelvis): there the whole body angulates over the heels toward the vertical on a steep face (the deck
+      // normal leans toward the beach by the face slope), and a torso upright over bent knees is what the real sequence shows, not a fold
       if (rp(B.pelvis, this.a) && rp(B.neck, this.b)) {
-        this.b.sub(this.a); const pitch = Math.atan2(this.b.z, Math.max(1e-3, this.b.y)) * D;
+        this.b.sub(this.a); let pitch = Math.atan2(this.b.z, Math.max(1e-3, this.b.y)) * D;
+        if (!this.frontside && rp(B.footL, this.c) && rp(B.footR, this.d)) { this.c.add(this.d).multiplyScalar(0.5); this.a.sub(this.c); pitch -= Math.atan2(this.a.z, Math.max(1e-3, this.a.y)) * D; }
         if (pitch < c.torsoPitch[0]) c.torsoPitch[0] = pitch; if (pitch > c.torsoPitch[1]) c.torsoPitch[1] = pitch;
         if (pitch < MONITOR.torsoPitchDeg[0] || pitch > MONITOR.torsoPitchDeg[1]) { emit('lean', 'torso', pitch, 0); n++; }
       }
       // hips over the feet (no "sitting"): the pelvis' toe-heel offset from the feet midpoint
       if (rp(B.pelvis, this.a) && rp(B.footL, this.b) && rp(B.footR, this.c)) {
         const off = this.a.z - 0.5 * (this.b.z + this.c.z); if (off < c.hipOffMin) c.hipOffMin = off; if (off > c.hipOffMax) c.hipOffMax = off;
-        const lim = (move === 'trim' || move === 'pump' ? MONITOR.hipOverFeetM.trim : MONITOR.hipOverFeetM.turn) + MONITOR.hipOverFeetM.perSlope * this.slopeRad;
+        const lim = (move === 'trim' || move === 'pump' ? MONITOR.hipOverFeetM.trim : MONITOR.hipOverFeetM.turn) + (this.frontside ? MONITOR.hipOverFeetM.perSlope : MONITOR.hipOverFeetM.perSlopeBackside) * this.slopeRad;
         if (Math.abs(off) > lim) { emit('hip', 'pelvis', off, 0); n++; }
       }
       // arms: hands inside the box, the arm joints' speed, no fast reversal of a hand's travel
@@ -156,7 +163,7 @@ export class GlitchMonitor {
         for (let k = 0; k < 2; k++) {
           const hand = k === 0 ? B.handL : B.handR; if (!rp(hand, this.a)) continue;
           const side = Math.abs(this.a.x - this.e.x); if (side > c.handSideMax) c.handSideMax = side;
-          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel') || this.a.y > shoulderY + 0.08;   // in the barrel crouch the hands hang below the knees (the back hand drags the face: M2)
+          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel' && move !== 'bottom') || (this.a.y > shoulderY + 0.08 && !this.wristAllowed.includes(move));   // in the barrel crouch the hands hang below the knees (the back hand drags the face: M2); the bottom turn's leading hand reaches the water (R7); above the shoulders only in the moves the wrist check allows
           // the hand's travel in the rider frame: a reversal is the velocity turning back on itself; two within armReversalS is a flail
           if (h > 0 && this.armPrimed >= 1) {
             const vx = (this.a.x - this.handP[k * 3]) / h, vy = (this.a.y - this.handP[k * 3 + 1]) / h, vz = (this.a.z - this.handP[k * 3 + 2]) / h;

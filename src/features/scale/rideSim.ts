@@ -8,7 +8,7 @@ import {type Atlas, breakX, faceDistanceAt, facePointInto} from './waveAtlas.ts'
 import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, SIM, SKILLS, type SkillProfile, type StyleBand, bandFor, composeBody} from './surfSceneConfig.ts';
 
 export const G = 9.81;
-export const POSES: readonly PoseName[] = ['trim', 'bottom', 'climb', 'top', 'recover', 'pump', 'barrel', 'pigdog'];
+export const POSES: readonly PoseName[] = ['trim', 'bottom', 'climb', 'top', 'recover', 'pump', 'barrel', 'pigdog', 'cutback', 'trimB', 'bottomB', 'climbB', 'topB', 'recoverB', 'pumpB', 'cutbackB'];
 export type Stance = 'regular' | 'goofy';
 
 /** FNV-1a of a string: the forecast hour's seed (spot id + hour). */

@@ -7,7 +7,7 @@ motion). Goofy-foot frontside on a left; the viewer mirrors it for a right. Roun
 (trim knees ~45 deg, bottom turn ~85, barrel ~100), the hands stay between knee and chest height, the stance is 0.70 m.
 
 Run (MPFB is a user extension, so NOT --factory-startup):
-  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v5.glb [--preview DIR] [--board 1.83]
+  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v6.glb [--preview DIR] [--board 1.83]
 
 Frame of the exported model (Blender, z-up; glTF converts to y-up): board along x with the NOSE AT -X, the surfer faces -Y (toward the
 wave), the board's bottom at z = 0 at rest, true scale (the standing height is printed: SURFER_MODEL_M in WaveLive.tsx must match).
@@ -24,7 +24,7 @@ from mathutils import Matrix, Vector
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 ap = argparse.ArgumentParser()
-ap.add_argument('--out', default='tools/blender/assets/surfer-v5.glb')
+ap.add_argument('--out', default='tools/blender/assets/surfer-v6.glb')
 ap.add_argument('--preview', default='')
 ap.add_argument('--board', type=float, default=1.83, help='board length in metres (6\'0" = 1.83)')
 ap.add_argument('--fps', type=int, default=24)
@@ -385,12 +385,13 @@ POSES = {
     'trim': dict(board=(0, 0, 0), hips=(1.0, 0.04, -0.03), hip_yaw=-28, foot_yaw=(35, 8),
                  spine=((-0.15, -0.34, 0.93), (-0.15, -0.36, 0.92), (-0.15, -0.32, 0.94), -30), neck=(-0.2, -0.1, 1.0), head=((-0.3, -0.05, 0.95), -48),
                  arm_r=((-0.15, -0.15, -0.97), (-0.45, -0.35, -0.82), (-0.45, -0.35, -0.82)), arm_l=((0.2, 0.05, -0.97), (0.35, -0.3, -0.88), (0.35, -0.3, -0.88))),
-    # bottom turn apex (real-bottom-turn-seq t3.0-4.0): knees ~85, hips low and back, chest over the front knee (torso ~50 into the face),
-    # the leading (front) arm hanging straight down by the toe rail with the hand at knee height, the back arm close and low behind the
-    # hip, head down the line and up at the target
-    'bottom': dict(board=(0, 0, 0), hips=(0.80, 0.12, -0.14), hip_yaw=-24, foot_yaw=(32, 4),
-                   spine=((-0.3, -0.7, 0.64), (-0.3, -0.72, 0.62), (-0.3, -0.68, 0.66), -20), neck=(-0.45, -0.25, 0.85), head=((-0.65, -0.15, 0.75), -40),
-                   arm_r=((-0.2, -0.45, -0.87), (-0.25, -0.42, -0.87), (-0.25, -0.42, -0.87)), arm_l=((0.35, -0.1, -0.93), (0.3, -0.55, -0.78), (0.3, -0.55, -0.78))),
+    # bottom turn apex (real-bottom-turn-seq t3.0-4.0; R7 deeper, the lead's cross-reference: the real one is much LOWER, the chest over
+    # the front knee, the leading arm hanging nearly straight down to the water): knees ~100, hips low and back over the heels, torso
+    # ~60 into the face, the leading (front) arm straight down past the toe rail with the hand near the deck, the back arm close and low
+    # behind the hip, head down the line and up at the target
+    'bottom': dict(board=(0, 0, 0), hips=(0.72, 0.12, -0.16), hip_yaw=-24, foot_yaw=(32, 4),
+                   spine=((-0.32, -0.76, 0.56), (-0.32, -0.78, 0.54), (-0.3, -0.74, 0.6), -20), neck=(-0.45, -0.3, 0.84), head=((-0.65, -0.2, 0.73), -40),
+                   arm_r=((-0.12, -0.5, -0.86), (-0.12, -0.52, -0.85), (-0.12, -0.52, -0.85)), arm_l=((0.35, -0.1, -0.93), (0.3, -0.55, -0.78), (0.3, -0.55, -0.78))),
     # climb (real-bottom-turn-seq t4.5-5.5, real-snap-seq t2-3: extending up the face, still compact): knees ~60, torso ~35, the front
     # hand forward at hip height, the back arm low behind
     'climb': dict(board=(0, 0, 0), hips=(0.88, 0.08, -0.08), hip_yaw=-14, foot_yaw=(34, 6),
@@ -398,9 +399,17 @@ POSES = {
                   arm_r=((-0.4, -0.3, -0.87), (-0.6, -0.3, -0.74), (-0.6, -0.3, -0.74)), arm_l=((0.4, 0.0, -0.92), (0.45, -0.35, -0.82), (0.45, -0.35, -0.82))),
     # top turn / snap (real-snap-seq t5-6): the one whole-body throw: legs extending over the tail (knees ~45), the torso twisted toward
     # the beach (+y) but still pitched ~18 forward (never back), the front arm sweeping up to shoulder height, the back arm out and low
+    # R7 (the lead's cross-reference, real-snap-seq t6): at the lip the arms go UP AND OUT for the moment of the hit: the front arm
+    # straight up past the head toward the nose, the back arm forward and up at chest height, the back leg extended over the tail
     'top': dict(board=(0, 0, 0), hips=(0.94, 0.16, 0.02), hip_yaw=18, foot_yaw=(34, 8),
                 spine=((0.0, -0.3, 0.95), (0.02, -0.28, 0.96), (0.04, -0.25, 0.97), 32), neck=(0.0, -0.1, 1.0), head=((0.05, 0.1, 1.0), -10),
-                arm_r=((-0.8, 0.3, -0.3), (-0.85, 0.3, 0.2), (-0.85, 0.3, 0.2)), arm_l=((0.5, 0.35, -0.78), (0.45, 0.6, -0.65), (0.45, 0.6, -0.65))),
+                arm_r=((-0.85, 0.2, 0.49), (-0.88, 0.15, 0.45), (-0.88, 0.15, 0.45)), arm_l=((0.45, 0.4, -0.8), (0.2, 0.85, 0.49), (0.2, 0.85, 0.49))),   # ~120 deg from the hanging trim arm (a 170 deg swing sat near the quaternion antipode and stepped in the blend)
+    # R7 cutback peak (real-cutback-seq t7.5): standing taller than the turns (knees ~65), the head and shoulders turned back toward the
+    # curl (+x, the wave side) leading the rotation, the leading arm extended out and back toward the curl at shoulder height, the back
+    # hand dropping toward the water on the outside, the chest still forward over the knees
+    'cutback': dict(board=(0, 0, 0), hips=(0.86, 0.06, -0.08), hip_yaw=22, foot_yaw=(34, 6),
+                    spine=((0.05, -0.42, 0.9), (0.08, -0.42, 0.9), (0.1, -0.4, 0.91), 48), neck=(0.2, -0.3, 0.93), head=((0.3, -0.25, 0.92), 25),
+                    arm_r=((0.5, -0.8, -0.33), (0.6, -0.78, -0.18), (0.6, -0.78, -0.18)), arm_l=((0.3, 0.2, -0.93), (0.35, 0.55, -0.76), (0.35, 0.55, -0.76))),
     # recovery (real-snap-seq t7-8, real-cutback-seq t9: landing compact): knees ~70, torso ~40 over the front foot, both arms wide and
     # low for balance (hands at knee height), head back down the line
     'recover': dict(board=(0, 0, 0), hips=(0.84, 0.08, -0.08), hip_yaw=-20, foot_yaw=(34, 6),
@@ -421,11 +430,53 @@ POSES = {
     'pigdog': dict(board=(0, 0, 0), hips=(0.75, 0.14, 0.05), hip_yaw=-28, foot_yaw=(40, 4),
                    spine=((-0.3, -0.35, 0.88), (-0.35, -0.3, 0.88), (-0.4, -0.2, 0.9), -30), neck=(-0.5, 0.0, 0.85), head=((-0.6, 0.1, 0.78), -35),
                    arm_r=((-0.3, -0.45, -0.85), (-0.35, -0.5, -0.8), (-0.35, -0.5, -0.8)), arm_l=((0.3, -0.1, -0.95), (0.3, -0.5, -0.8), (0.3, -0.55, -0.78))),
+    # ---- BACKSIDE keys (R7, surfer-v6; real-backside-seq). The viewer mirrors the rider across the board's long axis for backside, so
+    # these are authored with the WAVE ON THE +y (HEEL) SIDE and the beach at -y (the toe side): after the mirror the wave is where the
+    # frontside keys have it. What the real sequence shows and R6's mirrored frontside keys did not: the torso fairly upright over bent
+    # knees (not folded toward the beach), the hips over the heels, the head turned over the leading (nose-side) shoulder toward the wave,
+    # the arms bent and close to the chest (a brief balancing reach only), the leading hand reaching to the toe-side rail in the low turn.
+    # trimB: knees ~50, torso ~18 forward over the knees, hips a touch over the heels, shoulders open toward the nose, head over the leading
+    # shoulder, arms bent and quiet in front of the body at waist height
+    'trimB': dict(board=(0, 0, 0), hips=(0.97, 0.04, 0.03), hip_yaw=-30, foot_yaw=(38, 10),
+                  spine=((-0.12, -0.3, 0.95), (-0.12, -0.3, 0.95), (-0.12, -0.26, 0.96), -42), neck=(-0.2, 0.0, 0.98), head=((-0.3, 0.1, 0.95), -60),
+                  arm_r=((-0.1, -0.3, -0.95), (-0.35, -0.8, -0.49), (-0.35, -0.8, -0.49)), arm_l=((0.15, -0.2, -0.97), (0.25, -0.85, -0.47), (0.25, -0.85, -0.47))),
+    # bottomB (t17: the LOW backside bottom turn): a deep crouch (knees ~95), hips low and over the heels, the torso pitched over the
+    # knees toward the toes but not folded (~40), the head turned toward the face, the leading hand reaching down toward the toe-side rail,
+    # the back arm bent and low behind the hip
+    'bottomB': dict(board=(0, 0, 0), hips=(0.76, 0.1, 0.1), hip_yaw=-26, foot_yaw=(36, 8),
+                    spine=((-0.25, -0.6, 0.76), (-0.25, -0.62, 0.74), (-0.22, -0.56, 0.8), -36), neck=(-0.4, -0.1, 0.91), head=((-0.5, 0.0, 0.87), -62),
+                    arm_r=((-0.2, -0.55, -0.81), (-0.3, -0.65, -0.7), (-0.3, -0.65, -0.7)), arm_l=((0.3, -0.15, -0.94), (0.35, -0.6, -0.72), (0.35, -0.6, -0.72))),
+    # climbB (t13, coming up the face): compact, knees ~65, torso ~28, the shoulders opened toward the wave, the head over the leading
+    # shoulder at the lip, both arms bent close to the chest
+    'climbB': dict(board=(0, 0, 0), hips=(0.88, 0.08, 0.06), hip_yaw=-24, foot_yaw=(36, 8),
+                   spine=((-0.15, -0.42, 0.9), (-0.15, -0.42, 0.9), (-0.15, -0.38, 0.91), -50), neck=(-0.3, -0.05, 0.95), head=((-0.4, 0.1, 0.91), -68),
+                   arm_r=((-0.2, -0.35, -0.92), (-0.5, -0.7, -0.5), (-0.5, -0.7, -0.5)), arm_l=((0.2, -0.25, -0.95), (0.3, -0.8, -0.52), (0.3, -0.8, -0.52))),
+    # topB (t12, the backside hit): the weight over the tail, the body compact and upright-ish, the back to the wave with the head looking
+    # over the leading shoulder at the lip, both arms bent close to the chest (an arm reaching toward the nose read as a bow from the beach)
+    'topB': dict(board=(0, 0, 0), hips=(0.9, 0.14, 0.04), hip_yaw=-20, foot_yaw=(36, 10),
+                 spine=((-0.05, -0.28, 0.96), (-0.03, -0.28, 0.96), (0.0, -0.25, 0.97), -56), neck=(-0.2, 0.05, 0.98), head=((-0.3, 0.2, 0.93), -74),
+                 arm_r=((-0.35, -0.4, -0.85), (-0.65, -0.65, -0.4), (-0.65, -0.65, -0.4)), arm_l=((0.25, -0.3, -0.92), (0.15, -0.9, -0.41), (0.15, -0.9, -0.41))),
+    # recoverB (t14, coming down): upright-ish over the board on bent knees (~75), the leading arm out to the side toward the nose at
+    # waist-to-chest height for balance, the trailing arm low behind, head back down the line
+    'recoverB': dict(board=(0, 0, 0), hips=(0.84, 0.08, 0.05), hip_yaw=-26, foot_yaw=(36, 8),
+                     spine=((-0.15, -0.35, 0.92), (-0.17, -0.36, 0.92), (-0.15, -0.32, 0.94), -38), neck=(-0.3, 0.0, 0.95), head=((-0.4, 0.05, 0.92), -62),
+                     arm_r=((-0.85, -0.3, -0.43), (-0.95, -0.25, -0.2), (-0.95, -0.25, -0.2)), arm_l=((0.35, -0.1, -0.93), (0.4, -0.45, -0.8), (0.4, -0.45, -0.8))),
+    # pumpB: trimB compressed a little (knees ~62), arms quiet
+    'pumpB': dict(board=(0, 0, 0), hips=(0.9, 0.03, 0.04), hip_yaw=-30, foot_yaw=(38, 10),
+                  spine=((-0.14, -0.36, 0.92), (-0.15, -0.37, 0.92), (-0.14, -0.33, 0.93), -42), neck=(-0.22, 0.0, 0.98), head=((-0.32, 0.1, 0.94), -60),
+                  arm_r=((-0.15, -0.3, -0.94), (-0.4, -0.8, -0.45), (-0.4, -0.8, -0.45)), arm_l=((0.2, -0.2, -0.96), (0.3, -0.85, -0.44), (0.3, -0.85, -0.44))),
+    # cutbackB: the backside roundhouse peak: the shoulders and head turn back over the trailing shoulder toward the curl (+x, +y), the
+    # leading arm swings back and low toward the curl, the back arm low over the toe-side water, standing taller (knees ~65)
+    'cutbackB': dict(board=(0, 0, 0), hips=(0.86, 0.06, 0.06), hip_yaw=20, foot_yaw=(36, 8),
+                     spine=((0.05, -0.38, 0.92), (0.08, -0.38, 0.92), (0.1, -0.36, 0.93), 55), neck=(0.2, -0.2, 0.96), head=((0.3, -0.1, 0.95), 40),
+                     arm_r=((0.35, 0.1, -0.93), (0.5, 0.3, -0.81), (0.5, 0.3, -0.81)), arm_l=((0.25, -0.35, -0.9), (0.3, -0.7, -0.65), (0.3, -0.7, -0.65))),
 }
-# the ride clip: the keys the viewer samples (POSE_KEYS in surfSceneConfig.ts); frame 124 == frame 1 so the clip still loops
-RIDE = [(1, 'trim'), (26, 'bottom'), (42, 'climb'), (58, 'top'), (70, 'recover'), (82, 'pump'), (100, 'barrel'), (112, 'pigdog'), (124, 'trim')]
+# the ride clip: the keys the viewer samples (POSE_KEYS in surfSceneConfig.ts); the last frame == frame 1 so the clip still loops
+RIDE = [(1, 'trim'), (26, 'bottom'), (42, 'climb'), (58, 'top'), (70, 'recover'), (82, 'pump'), (100, 'barrel'), (112, 'pigdog'), (124, 'cutback'),
+        (136, 'trimB'), (148, 'bottomB'), (160, 'climbB'), (172, 'topB'), (184, 'recoverB'), (196, 'pumpB'), (208, 'cutbackB'), (220, 'trim')]
 STILL = 'bottom'
-CHECK_FRAMES = {1, 26, 42, 58, 70, 82, 100, 112}
+CHECK_FRAMES = {f for f, _ in RIDE[:-1]}
+CLIP_END = RIDE[-1][0]
 
 
 def fcurves_of(act):
@@ -472,8 +523,9 @@ def bake(src_name, frames, out_name):
             kl, kr = (M @ pb['calf_l'].head), (M @ pb['calf_r'].head)
             fl, fr = (M @ pb['foot_l'].head), (M @ pb['foot_r'].head)
             hands = {sd: (M @ pb[f'hand_{sd}'].head) for sd in 'lr'}
+            _tv = (M @ pb["neck_01"].head) - (M @ pb["pelvis"].head); _tp = math.degrees(math.atan2(-_tv.y, max(1e-3, _tv.z)))
             sh = {sd: (M @ pb[f'upperarm_{sd}'].head) for sd in 'lr'}
-            print(f'SURFER check f{f}: lowest body z {low:.3f}, sole-to-deck (board frame) {foot_penetration(Rb):+.3f}, hips z {(M @ pb["pelvis"].head).z:.2f}, '
+            print(f'SURFER check f{f} {dict(RIDE).get(f, "?")}: torso {_tp:.0f} deg toward the toes, lowest body z {low:.3f}, sole-to-deck (board frame) {foot_penetration(Rb):+.3f}, hips z {(M @ pb["pelvis"].head).z:.2f}, '
                   f'knee flex front(r)/back(l) {_knee("r"):.0f}/{_knee("l"):.0f} deg, knee sep/foot sep {(kl - kr).length / (fl - fr).length:.2f}, '
                   f'hands z-shoulder r/l {hands["r"].z - sh["r"].z:+.2f}/{hands["l"].z - sh["l"].z:+.2f} m, hand x off r/l {hands["r"].x:+.2f}/{hands["l"].x:+.2f}')
     out = new_action(out_name)
@@ -518,8 +570,8 @@ for _cb, fcs in fcurves_of(ride_src):
     for kp in fc.keyframe_points:
         kp.interpolation = 'BEZIER'
         kp.easing = 'AUTO'
-scene.frame_start, scene.frame_end = 1, 123
-frames = list(range(1, 125))
+scene.frame_start, scene.frame_end = 1, CLIP_END - 1
+frames = list(range(1, CLIP_END + 1))
 stored_still = None
 # evaluate the still pose with IK before the bake clears constraints
 scene.frame_set(1)

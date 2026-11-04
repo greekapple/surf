@@ -117,10 +117,19 @@ export function ampAt(m: AtlasMeta, x: number): number {
   if (x < 0) {
     const d = m.depth_break_m + m.bed_along_per_m * -x, peak = Math.exp(-((x / (0.55 * m.shoulder_len_m)) ** 2));
     a = Math.pow(m.depth_break_m / d, 0.25) * (0.42 + 0.58 * peak);
-  } else a = 1 - 0.35 * smooth(0.5 * m.break_len_m, 1.25 * m.break_len_m, x);
+  } else a = 1 - 0.5 * smooth(0.25 * m.break_len_m, 1.05 * m.break_len_m, x);   // S1 (R7): the broken section loses half its height within a break length
   const w = 1 + 0.05 * Math.sin(x * 0.37 / Math.max(m.face_m, 0.6) + 1.3) + 0.035 * Math.sin(x * 0.91 / Math.max(m.face_m, 0.6) + 4.1);
   return a * w * smooth(x0, x0 + 0.3 * (0 - x0), x) * (1 - smooth(x1 - 0.3 * x1, x1, x));
 }
+
+/** S1 (R7): the crest is gently curved in plan, the shoulder sweeping seaward away from the peak (refraction over the bar; a ruler-straight
+ *  line read as an endless wall): the crest-frame z shift (+ seaward, metres) at along-crest x, 0 at and past the break point, growing as
+ *  the square of the distance out along the shoulder to 0.12 x shoulder_len at 1.2 shoulder lengths out, then held. A pure translation
+ *  of the profile across the shore: the face height at the rider is untouched. Keep in step with bendZ in the GLSL ALONG block. */
+export function bendZ(m: AtlasMeta, x: number): number { const s = clamp(-x / (1.2 * m.shoulder_len_m), 0, 1); return 0.12 * m.shoulder_len_m * s * s; }
+/** The bend's weight along the profile: full over the wave itself, fading to 0 at both flat tails so the strip's edges (and the sea seam
+ *  under them) stay where they are; the tails stretch to take up the shift. Keep in step with bendW in the GLSL ALONG block. */
+export function bendW(u: number): number { return smooth(0, 0.3, u) * (1 - smooth(0.9, 1, u)); }
 
 /** Bilinear sample of the atlas like the GPU's linear filter at texel centres: group 0 = (y, z, thin, foam), 1 = (thickness, arc, ny, nz). */
 export function sample(a: Atlas, u: number, s: number, group: 0 | 1 = 0): [number, number, number, number] {
@@ -136,19 +145,19 @@ export function sample(a: Atlas, u: number, s: number, group: 0 | 1 = 0): [numbe
 
 /** The cross-section at x (time t): arrays of (y, z) with the height envelope applied. */
 export function profileAt(a: Atlas, x: number, t = 0, n = a.meta.points, withSections = true): {y: number[]; z: number[]; foam: number[]; thin: number[]} {
-  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), y: number[] = [], z: number[] = [], foam: number[] = [], thin: number[] = [];
-  for (let i = 0; i < n; i++) { const p = sample(a, i / (n - 1), s); y.push(p[0]); z.push(p[1] * amp); thin.push(p[2]); foam.push(p[3]); }
+  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), bz = bendZ(a.meta, x), y: number[] = [], z: number[] = [], foam: number[] = [], thin: number[] = [];
+  for (let i = 0; i < n; i++) { const u = i / (n - 1), p = sample(a, u, s); y.push(p[0] - bz * bendW(u)); z.push(p[1] * amp); thin.push(p[2]); foam.push(p[3]); }   // atlas y is -z: the bend moves the wave seaward
   return {y, z, foam, thin};
 }
 
 // scratch profiles for the per-frame callers (facePoint, waterHeightAt): no allocation in the render loop
 const SY = new Float64Array(192), SZ = new Float64Array(192);
 function profileInto(a: Atlas, x: number, t: number, n: number, withSections: boolean, y: Float64Array, z: Float64Array) {
-  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), {points: P, stages: S} = a.meta;
+  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), bz = bendZ(a.meta, x), {points: P, stages: S} = a.meta;
   const fs = clamp(s, 0, S - 1), j0 = Math.floor(fs), j1 = Math.min(S - 1, j0 + 1), ds = fs - j0, r0 = j0 * P * 4, r1 = j1 * P * 4, d = a.data;
   for (let i = 0; i < n; i++) {
-    const fu = (i / (n - 1)) * (P - 1), i0 = Math.floor(fu), i1 = Math.min(P - 1, i0 + 1), du = fu - i0;
-    y[i] = (d[r0 + i0 * 4] * (1 - du) + d[r0 + i1 * 4] * du) * (1 - ds) + (d[r1 + i0 * 4] * (1 - du) + d[r1 + i1 * 4] * du) * ds;
+    const uu = i / (n - 1), fu = uu * (P - 1), i0 = Math.floor(fu), i1 = Math.min(P - 1, i0 + 1), du = fu - i0;
+    y[i] = (d[r0 + i0 * 4] * (1 - du) + d[r0 + i1 * 4] * du) * (1 - ds) + (d[r1 + i0 * 4] * (1 - du) + d[r1 + i1 * 4] * du) * ds - bz * bendW(uu);
     z[i] = ((d[r0 + i0 * 4 + 1] * (1 - du) + d[r0 + i1 * 4 + 1] * du) * (1 - ds) + (d[r1 + i0 * 4 + 1] * (1 - du) + d[r1 + i1 * 4 + 1] * du) * ds) * amp;
   }
 }
