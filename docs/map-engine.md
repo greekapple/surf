@@ -18,3 +18,15 @@ Data honesty is unchanged: the colour is the open-ocean model value (WW3 0.5° o
 
 ## Measured (harness, real frames, one load per profile)
 Desktop 1440: 60 fps idle/zoom/pan, 0 long tasks. Phone 390 @ DPR 3, 4× CPU throttle: 60 fps, 0 long tasks. No blank sea during a layer switch. See `docs/map-maplibre-spike.md` for the earlier spike numbers and the bundle cost (+243 KB gzipped, lazy).
+
+## Added 2026-11-04 (night): map review and Windy P1
+- **Zoom (Leaflet):** at `zoomanim` the canvas painter draws the field for the TARGET view (zoom, centre) and animates it into place with the layer-bounds maths; `zoomend` only fixes its final size and position in the same task. A world tile layer (level 3, same `xbase` tint) sits under the detailed tiles so a multi-level jump never shows grey ground. No base overlay, no old scaled frame.
+- **Zoom (MapLibre):** an always-in-memory world-sea polygon (`swello-world-sea`, our simplified land rings as holes) paints the sea under the vector tiles while the map moves below zoom 10 and is hidden at idle; the TileJSON is resolved with the style. Known limit: a big zoom-out at coast zoom can show 1–2 frames before the next tile level arrives (tile over-fetch would be the fix; a parent-tile cache warm-up was tried and did not help reliably).
+- **Particles (MapLibre):** PCG integer hash for respawn positions (the sin hash left visible rows).
+- **Swell:** an empty swell partition (WW3 `shgt`, GFS-Wave `SWELL:1`) means wind sea only (measured: total = wind-wave height to the centimetre); swell height is 0 there (`Field.noPartition`, server fill, pipeline `noPartitionIsZero`), the pin and legend say so; no hatch.
+- **Colours:** Windy's wave-height colours for Waves and Swell (explicit stops in `mapConfig.scales.*.stops`); Wind and Period keep Swello's LCH ramps; wind legend ticks are whole numbers.
+- **Edges:** soft coverage (`sampleSoft` / `sampleAllSoft`, renormalised weights over shown corners) in the Leaflet painter and the GL shader.
+- **Timeline:** hourly frames are a linear blend of the 3-hourly steps (`timeBlend.ts`, `loadGlobeAt`), labelled in the source text; idle prefetch runs 9 h ahead.
+- **Picker:** wind gust and swell period from the point forecast at the same hour (`pointExtras.ts`, through product's `pointLine`).
+- **Held frames:** the hold lasts only while loading; a finished request with no frame clears the overlay (the failure notice shows); fading layers are tracked until disposed.
+- **Checks (toolkit):** t128 (seam), t130–t135 (GL field), t136 (zoom jumps, `BIGWHEEL=1`), t137 (swell coverage), t138 (interpolation), t139 (held frame on failure), t140 (layer retirement); product's `map-verify.mjs` and `map-zoom-jump.mjs`.
