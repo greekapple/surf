@@ -615,7 +615,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* T-117 polish: a compact pin label (value line + one short line), a compact table, day labels that fit their day. */
 .xpl { min-width: 0; padding: 4px 4px 4px 10px; }
 .xpl-v b { white-space: nowrap; }
-.xpl-v small { white-space: nowrap; }
+.xpl-v small { white-space: normal; max-width: 220px; display: block; } /* map-review b: a longer note (no swell partition) wraps inside the card */
 .xpl .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .xpanel-t th, .xpanel-t td { padding: 3px 6px; }
 .xpanel-t th[scope='row'] small { display: inline; margin-left: 4px; }
@@ -710,3 +710,15 @@ button.xstatus { cursor: pointer; font: inherit; }
    their edge and map labels ran into them. A hairline ring and a more opaque fill keep them distinct over any basemap, field on or off. */
 :root[data-theme='dark'] .xmap { --xw: rgb(52 54 60 / 0.95); --xw-2: rgb(78 80 86 / 0.96); }
 :root[data-theme='dark'] .xmap :is(.xl-t, .xround, .xzoom, .xl-th-more) { box-shadow: 0 0 0 1px rgb(255 255 255 / 0.16), 0 1px 4px rgb(0 0 0 / 0.45); }
+
+/* Track 2 (best of Surfline): the rating colour on the dot (--c, set on the pin) and as a thin left edge of the label; text stays neutral (AA). */
+.xpin i { background: radial-gradient(circle, var(--c) 0 5px, #fff 5.5px); }
+.xpin.xdot:not(.sel) i { background: radial-gradient(circle, var(--c) 0 4px, #fff 4.5px); }
+.xlabel { border-left: 3px solid var(--c, transparent); padding-left: 7px; }
+/* the compact height chip: shown where the full label has no room (declutter adds .xchipon; .clft puts it left of the dot) */
+.xhchip { display: none; padding: 1px 6px 1px 5px; border-radius: 6px; border-left: 3px solid var(--c, transparent); background: var(--bg); color: var(--text);
+  font: 650 11.5px/16px var(--sans); white-space: nowrap; box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); pointer-events: none; }
+.xpin.xchipon .xhchip { display: block; }
+.xpin.xchipon .xlabel { position: absolute; left: calc(100% + 6px); }
+.xpin.xchipon.clft .xhchip { position: absolute; right: calc(100% + 6px); } /* mirror of the right side: dot margin 3 + gap 6 = 9 px from the dot's disc either way */
+.xpin.xchipon:is(.hl, :hover, :focus-visible) .xhchip { visibility: hidden; } /* hover shows the full label in its place */

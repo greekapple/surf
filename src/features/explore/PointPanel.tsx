@@ -14,17 +14,7 @@ import type {PointData, Pt} from './PointCard';
 const FT = 1 / 0.3048, MPH = 2.23694, TIDE_KM = 40, SPOT_KM = 60;
 const kmBetween = (a: Pt, b: {latitude: number; longitude: number}) => Math.hypot((a.lat - b.latitude) * 111, (a.lon - b.longitude) * 111 * Math.cos((a.lat * Math.PI) / 180));
 
-/** The label line for a sampled value: "12 ft W · 11 s offshore". Period comes from the field when the layer is period, else from the point forecast. */
-/** `kind` is the layer the person chose (what the field shows); it names the value, so wording never depends on how the frame was classified. */
-export function pointLine(v: PointValue | null, periodS: number | null, p: UserProfile, kind: 'waves' | 'swell' | 'wind' | 'period'): {main: string; note: string} | null {
-  if (!v || v.value === null) return null;
-  const dir = v.dirFrom !== null ? ` ${compass(v.dirFrom)}` : '';
-  if (kind === 'wind') return {main: `${windVal(v.value * MPH, p)} ${p.windUnit}${dir}`, note: 'wind at 10 m'};
-  if (kind === 'period') return {main: `${Math.round(v.value)} s${dir}`, note: 'peak wave period'};
-  if (v.note) return {main: `0 ${p.heightUnit}`, note: `swell: ${v.note}`}; // an exact 0 is the model's empty swell partition (NO_SWELL_NOTE), said as such
-  const per = periodS !== null ? ` · ${Math.round(periodS)} s` : '';
-  return {main: `${ht(v.value * FT, p)} ${p.heightUnit}${dir}${per}`, note: kind === 'swell' ? 'swell · offshore, not surf size' : 'offshore · not surf size'};
-}
+export {pointLine} from './pointLine';
 
 export function PinLabel({layer, icon, line, periodFromPoint, expanded, onExpand, onClose}: {
   layer: string; icon: IconName; line: {main: string; note: string} | null; periodFromPoint: boolean; expanded: boolean; onExpand: () => void; onClose: () => void;

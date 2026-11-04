@@ -69,15 +69,42 @@ function overlayBox(cls: string): HTMLElement {
   box.append(inner, tip); return box;
 }
 /** Keeps an overlay box anchored (bottom-centre, `dy` px above) at a point on any engine, re-placed on every map move; on open it pans the map
- *  just enough to bring the box inside `pad` (as Leaflet's popup auto-pan did). */
-function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; lon: number} | null, dy: number, pad: {top: number; left: number; right: number; bottom: number}, autoPan: boolean) {
+ *  just enough to bring the box inside `pad` (as Leaflet's popup auto-pan did).
+ *  map-review (c): when the point has a marker (`anchorEl`: the picker, the selected pin) the box follows that element's painted position, every
+ *  frame from movestart to moveend. Leaflet animates zooms with a CSS transform and fires no move events meanwhile, so a projected point lagged
+ *  the marker by up to 200 px (and thousands on a 3-level zoom) until zoomend; the marker's own box is where the eye is, on both engines. */
+function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; lon: number} | null, dy: number, pad: {top: number; left: number; right: number; bottom: number}, autoPan: boolean, anchorEl?: () => HTMLElement | null | undefined) {
   useEffect(() => {
     if (!eng || !at) { box.style.display = 'none'; box.classList.remove('on'); return; }
     if (box.parentElement !== eng.container) eng.container.appendChild(box);
     box.style.display = ''; box.classList.add('on');
-    const place = () => { const q = eng.project(at.lat, at.lon); box.style.transform = `translate(${Math.round(q.x)}px, ${Math.round(q.y + dy)}px) translate(-50%, -100%)`; };
+    const where = () => {
+      const a = anchorEl?.(), r = a?.isConnected ? a.getBoundingClientRect() : null;
+      if (r && r.width) { const c = eng.container.getBoundingClientRect(); return {x: r.left + r.width / 2 - c.left, y: r.top + r.height / 2 - c.top}; }
+      return eng.project(at.lat, at.lon);
+    };
+    const place = () => { const q = where(); box.style.transform = `translate(${Math.round(q.x)}px, ${Math.round(q.y + dy)}px) translate(-50%, -100%)`; };
     place();
-    const offs = (['move', 'moveend', 'zoomend', 'resize'] as const).map((e) => eng.on(e, place));
+    // While the map moves: if the marker (or a wrapper of it) moves by a CSS transition (Leaflet's zoom), the box runs the same move with the
+    // same timing, started at the same instant; reading the marker's box each frame would always trail it by one frame (the transition is
+    // sampled after rAF). Otherwise (MapLibre moves markers per frame from JS) the box is re-placed from the marker every frame.
+    let follow = 0, base: {x: number; y: number} | null = null, mirror: Animation | null = null, src: Animation | null = null;
+    const transitionOf = (a: HTMLElement) => { for (let n: HTMLElement | null = a; n && n !== eng.container; n = n.parentElement) {
+      const t = n.getAnimations().find((x) => x.playState === 'running' && (x.effect as KeyframeEffect | null)?.getKeyframes().some((k) => k.transform)); if (t) return t; } return null; };
+    const mirrorOf = (t: Animation) => {
+      const kf = (t.effect as KeyframeEffect).getKeyframes(), from = new DOMMatrix(String(kf[0].transform)), to = new DOMMatrix(String(kf.at(-1)!.transform)), tm = t.effect!.getTiming();
+      const b = base ?? where(), at2 = (x: number, y: number) => `translate(${Math.round(x)}px, ${Math.round(y + dy)}px) translate(-50%, -100%)`;
+      const m = box.animate([{transform: at2(b.x, b.y)}, {transform: at2(b.x + to.e - from.e, b.y + to.f - from.f)}], {duration: Number(tm.duration), easing: tm.easing, fill: 'forwards'});
+      if (t.startTime !== null) m.startTime = t.startTime; // still pending: aligned in the loop once the browser has timed it
+      return m;
+    };
+    const loop = () => { const a = anchorEl?.();
+      if (!mirror) { const t = a?.isConnected ? transitionOf(a) : null; if (t) { src = t; mirror = mirrorOf(t); } else place(); }
+      else if (src && src.startTime !== null && mirror.startTime !== src.startTime) mirror.startTime = src.startTime;
+      follow = requestAnimationFrame(loop); };
+    const start = () => { if (follow || !anchorEl) return; base = where(); follow = requestAnimationFrame(loop); };
+    const stop = () => { cancelAnimationFrame(follow); follow = 0; mirror?.cancel(); mirror = null; src = null; base = null; place(); };
+    const offs = [...(['move', 'resize'] as const).map((e) => eng.on(e, place)), eng.on('movestart', start), eng.on('moveend', stop), eng.on('zoomend', stop)];
     let raf = 0;
     if (autoPan) raf = requestAnimationFrame(() => {
       const r = box.getBoundingClientRect(), c = eng.container.getBoundingClientRect(); let dx = 0, dyy = 0;
@@ -85,7 +112,7 @@ function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; 
       if (r.top < c.top + pad.top) dyy = r.top - c.top - pad.top; else if (r.bottom > c.bottom - pad.bottom) dyy = r.bottom - c.bottom + pad.bottom;
       if (dx || dyy) eng.panBy(Math.round(dx), Math.round(dyy), {animate: !reduced()});
     });
-    return () => { cancelAnimationFrame(raf); offs.forEach((f) => f()); };
+    return () => { cancelAnimationFrame(raf); cancelAnimationFrame(follow); mirror?.cancel(); offs.forEach((f) => f()); };
   }, [eng, box, at?.lat, at?.lon, dy, autoPan]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => { box.remove(); }, [box]);
 }
@@ -102,7 +129,12 @@ function OceanMap({section, go}: ViewProps) {
   // Map-seamless Stage 1: the view in the URL (?layer, lat, lon, z, t) is read once on load, so a reload or a shared link restores it.
   const urlInit = useMemo(() => parseMapUrl(typeof location === 'undefined' ? '' : location.search), []);
   const [fieldId, setFieldId] = useState<FieldId>(urlInit.layer ?? sectionField(section));
-  useEffect(() => { setFieldId((f) => (fieldSection[f] === section ? f : sectionField(section))); }, [section]);
+  // A link's ?layer= wins on arrival: its section is opened (swell and wind have their own) instead of the section resetting the layer (it was lost).
+  const urlLayerFirst = useRef(!!urlInit.layer);
+  useEffect(() => {
+    if (urlLayerFirst.current) { urlLayerFirst.current = false; const want = fieldSection[urlInit.layer!]; if (want !== section) { go('explore', want); return; } }
+    setFieldId((f) => (fieldSection[f] === section ? f : sectionField(section)));
+  }, [section]); // eslint-disable-line react-hooks/exhaustive-deps
   const [hover, setHover] = useState<string | null>(null);
   const hoverRef = useRef<string | null>(null);
   hoverRef.current = hover;
@@ -110,7 +142,7 @@ function OceanMap({section, go}: ViewProps) {
   const rank = useRef(new Map<string, number>());
   // map-maplibre: each pin's dot and label box relative to its anchor point, measured once per rebuild; the declutter then places them from
   // project() alone, so a pan or zoom reads no element layout (it used to force a layout of all 45 pins on every move: the phone's long tasks).
-  const geom = useRef(new Map<string, {d: [number, number, number, number]; l: [number, number, number, number] | null}>());
+  const geom = useRef(new Map<string, {d: [number, number, number, number]; l: [number, number, number, number] | null; c: [number, number, number, number] | null}>());
   const step = 3; // T-117: play steps 3 h, as Windy
   const [opts, setOpts] = useState({heat: true, flow: true, arrows: false});
   const [phone, setPhone] = useState(isPhone);
@@ -249,8 +281,11 @@ function OceanMap({section, go}: ViewProps) {
       const word = rating && rating.score !== null && !isDark(e.id, view.selectedTime ?? '') ? conditionWord(rating.category) : '';
       const sub = [hText, word].filter(Boolean).join(' · ');
       const label = `<span class="xlabel"><b>${e.name}</b>${sub ? `<small>${sub}</small>` : ''}</span>`;
+      // Track 2 (Surfline's pins): a compact height chip where the full label has no room. Surf estimates only: an offshore-only number is
+      // never shown without its "offshore" word, so those spots fall back to the dot (their full label still says "offshore").
+      const chip = hs?.kind === 'estimate' ? `<span class="xhchip" aria-hidden="true">${hText}</span>` : '';
       const el = document.createElement('div');
-      el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`; el.innerHTML = `<i style="--c:${color}"></i>${label}`;
+      el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`; el.style.setProperty('--c', color); el.innerHTML = `<i></i>${label}${chip}`;
       const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: e.name, keyboard: true, riseOnHover: true,
         onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
       markers.current.set(e.id, mk);
@@ -261,7 +296,9 @@ function OceanMap({section, go}: ViewProps) {
       const el = markers.current.get(e.id)?.element; if (!el) continue;
       const q = x.project(e.latitude, e.longitude), cx = box0.left + q.x, cy = box0.top + q.y;
       const d = el.querySelector('i')!.getBoundingClientRect(), l = el.querySelector('.xlabel')?.getBoundingClientRect();
-      geom.current.set(e.id, {d: [d.left - cx, d.top - cy, d.width, d.height], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] : null});
+      let c: [number, number, number, number] | null = null; const ch = el.querySelector('.xhchip');
+      if (ch) { el.classList.add('xdot', 'xchipon'); const r = ch.getBoundingClientRect(); if (r.width) c = [r.left - cx, r.top - cy, r.width, r.height]; el.classList.remove('xdot', 'xchipon'); }
+      geom.current.set(e.id, {d: [d.left - cx, d.top - cy, d.width, d.height], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] : null, c});
     }
     declutterRef.current();
   }, [eng, view.mapRecords, view.selectedTime, spot.id, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -276,27 +313,38 @@ function OceanMap({section, go}: ViewProps) {
     const ctl = Array.from(m.container.parentElement?.querySelectorAll<HTMLElement>('.xsearchbox, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? []).map((el) => el.getBoundingClientRect()).filter((r) => r.width);
     const els = evidenceSpots.map((e) => ({id: e.id, el: markers.current.get(e.id)?.element})).filter((x): x is {id: string; el: HTMLElement} => !!x.el);
     els.sort((a, b) => Number(b.el.classList.contains('sel')) - Number(a.el.classList.contains('sel')) || (rank.current.get(b.id) ?? -1) - (rank.current.get(a.id) ?? -1));
-    els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot', 'xthin'));
+    els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot', 'xthin', 'xchipon', 'clft'));
     // Stage 6: thin at low zoom: below z6 only the selected spot, favourites, popular spots and the 5 best-rated keep a pin (the rest return on zoom-in).
     if (m.getView().zoom < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
     const at = new Map(evidenceSpots.map((e) => [e.id, e] as const));
     const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el, id}) => {
       const e = at.get(id)!, q = m.project(e.latitude, e.longitude), cx = edge.left + q.x, cy = edge.top + q.y, g = geom.current.get(id);
       const dot = g ? new DOMRect(cx + g.d[0], cy + g.d[1], g.d[2], g.d[3]) : new DOMRect(cx - 11, cy - 11, 22, 22);
-      return {el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined};
+      return {el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined, chip: g?.c ? new DOMRect(cx + g.c[0], cy + g.c[1], g.c[2], g.c[3]) : undefined};
     });
     const taken: DOMRect[] = [...boxes.filter((x) => x.dot.width).map((x) => x.dot), ...ctl];
     const inView = (r: DOMRect) => !edge || (r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom);
     const free = (r: DOMRect, own: DOMRect) => (!edge || (r.left >= edge.left + 4 && r.right <= edge.right - 4 && r.top >= edge.top && r.bottom <= edge.bottom)) && !taken.some((t) => t !== own && r.left < t.right + 2 && t.left < r.right + 2 && r.top < t.bottom + 2 && t.top < r.bottom + 2);
     let budget = labelBudget(m.getView().zoom, isPhone());
-    for (const {el, dot, lab} of boxes) {
+    const chipsOn = m.getView().zoom >= 7; // mid zoom and closer (Surfline's coloured height pins); wider views keep dots
+    const small: typeof boxes = [];
+    for (const b of boxes) {
+      const {el, dot, lab} = b;
       if (!lab?.width) continue;
       const isSel = el.classList.contains('sel');
-      if (!isSel && (budget <= 0 || !inView(dot))) { el.classList.add('xdot'); continue; }
+      if (!isSel && (budget <= 0 || !inView(dot))) { el.classList.add('xdot'); small.push(b); continue; }
       const left = new DOMRect(dot.left - 8 - lab.width, lab.top, lab.width, lab.height);
       if (free(lab, dot) || (isSel && !free(left, dot))) { taken.push(lab); budget--; }
       else if (free(left, dot)) { taken.push(left); el.classList.add('lft'); budget--; }
-      else el.classList.add('xdot');
+      else { el.classList.add('xdot'); small.push(b); }
+    }
+    // Then a height chip for the dots that are in view, best-ranked first (same order), right of the dot or left, never over anything.
+    if (chipsOn) for (const {el, dot, chip} of small) {
+      if (!chip?.width || !inView(dot)) continue;
+      // `chip` is the measured right-hand box; the left one mirrors it about the dot's centre (CSS keeps both gaps equal).
+      const mid = dot.left + dot.width / 2, right = chip, left = new DOMRect(2 * mid - chip.right, chip.top, chip.width, chip.height);
+      if (free(right, dot)) { taken.push(right); el.classList.add('xchipon'); }
+      else if (free(left, dot)) { taken.push(left); el.classList.add('xchipon', 'clft'); }
     }
   };
   // T-058: on phones the map opens with the selected spot in the clear area above the time bar (never under it or the attribution).
@@ -374,8 +422,8 @@ function OceanMap({section, go}: ViewProps) {
   /** Height of the phone sheet in px (for keeping pins and popups above it). */
   const sheetPx = () => sheetRef.current?.getBoundingClientRect().height ?? 0;
   const at0 = livePt ?? pt, callEv0 = !phone && callout ? evidenceSpots.find((x) => x.id === callout) : undefined;
-  useAnchored(eng, popupBox, at0 ? {lat: at0.lat, lon: at0.lon} : null, -16, phone ? {top: 16, left: 16, right: 64, bottom: sheetPx() + 70} : {top: 80, left: open ? 380 : 16, right: 76, bottom: 90}, !!pt && !livePt);
-  useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true);
+  useAnchored(eng, popupBox, at0 ? {lat: at0.lat, lon: at0.lon} : null, -16, phone ? {top: 16, left: 16, right: 64, bottom: sheetPx() + 70} : {top: 80, left: open ? 380 : 16, right: 76, bottom: 90}, !!pt && !livePt, () => pickMk.current?.element);
+  useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true, () => (callEv0 ? markers.current.get(callEv0.id)?.element : null));
   // The phone peek sizes itself to the spot card; the time bar, legend and attribution sit just above it.
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -521,11 +569,16 @@ function OceanMap({section, go}: ViewProps) {
   const at = livePt ?? pt; // while dragging, the label reads the painted field under the moving picker
   const pv = at ? sampleField(fieldsNow, at.lat, at.lon) : null;
   let perS: number | null = null, perFromPoint = false;
-  if (pt && pv && (fieldId === 'waves' || fieldId === 'swell') && point.data && view.selectedTime) {
+  if (pt && pv && !pv.note && (fieldId === 'waves' || fieldId === 'swell') && point.data && view.selectedTime) { // no period for an empty swell partition
     const t = Date.parse(view.selectedTime) / 1000, d = point.data, k = d.time.reduce((best, x, i) => (Math.abs(x - t) < Math.abs(d.time[best] - t) ? i : best), 0);
     const x = Math.abs(d.time[k] - t) <= 5400 ? (d.wavePeriod?.[k] ?? d.swellPeriod[k]) : null; if (x !== null && x !== undefined) { perS = x; perFromPoint = true; }
   }
-  const line = pointLine(pv, perS, p, fieldId);
+  // map-review (b): a 0-ft swell point is wind sea only; the label gives that wind sea's height from the WAVES frame of the same hour (same model
+  // family as the swell frame), fetched only while such a point is open.
+  const wavesGlobe = useGlobe('WAVES', 'Offshore Hs', view.selectedTime, fieldId === 'swell' && !!pv?.note);
+  const wavesField = useMemo(() => (wavesGlobe.frame ? buildField(wavesGlobe.frame, false) : null), [wavesGlobe.frame]);
+  const windSea = pv?.note && wavesField && at ? sampleField([wavesField], at.lat, at.lon)?.value ?? null : null;
+  const line = pointLine(pv, perS, p, fieldId, windSea);
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
   const modelName = packedGlobal ? 'GFS-Wave 0.25° · NOAA' : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;
