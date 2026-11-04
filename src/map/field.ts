@@ -9,7 +9,7 @@ import {colorLut, lutIndex, scaleKeyOf, type Theme} from './ramps';
 
 import {isEnclosedWater} from './enclosed';
 import {mapConfig} from './mapConfig';
-import {buildField, sampleAll as sampleAllFields, sampleField as sampleFieldBase, layerOfFrame, type Field, type FieldLayer, type PointValue} from './fieldData';
+import {sampleAllSoft, coverageAlpha, buildField, sampleAll as sampleAllFields, sampleField as sampleFieldBase, layerOfFrame, type Field, type FieldLayer, type PointValue} from './fieldData';
 export {buildField, layerOfFrame, type Field, type FieldLayer, type PointValue};
 
 const rings = (coast as {rings: number[][][]}).rings;
@@ -25,8 +25,8 @@ export function isLandPoint(lat: number, lon: number): boolean {
 /** T-117 point API: the layer value, direction, layer, valid time and source at a point, sampled exactly as the map paints it. Null on land, enclosed water ("Not covered") or outside the grid. */
 export const sampleField = (fields: Field[], lat: number, lon: number): PointValue | null => sampleFieldBase(fields, lat, lon, isLandPoint);
 /** Fills land: the detailed California coast, then the simplified world (only rings in view). Separate fills so overlaps never cancel. */
-function fillLand(ctx: CanvasRenderingContext2D, map: L.Map, b: L.LatLngBounds = map.getBounds()) {
-  const trace = (r: number[][], dLon = 0) => r.forEach(([lon, lat], i) => { const p = map.latLngToContainerPoint([lat, lon + dLon]); if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); });
+function fillLand(ctx: CanvasRenderingContext2D, toC: (lat: number, lon: number) => {x: number; y: number}, b: L.LatLngBounds) {
+  const trace = (r: number[][], dLon = 0) => r.forEach(([lon, lat], i) => { const p = toC(lat, lon + dLon); if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); });
   ctx.beginPath(); for (const r of rings) trace(r); ctx.fill('evenodd');
   const w = b.getWest(), e = b.getEast(), sLat = b.getSouth(), nLat = b.getNorth();
   ctx.beginPath();
@@ -52,11 +52,16 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
   // during a zoom it is CSS-transformed with the map's own animation (zoomanim, the same pattern as L.ImageOverlay and L.Canvas), so it never disappears and the basemap's grey tile grid never shows through.
   const PAD = 0.5; let padX = 0, padY = 0, heatBounds: L.LatLngBounds = map.getBounds();
   heat.classList.add('leaflet-zoom-animated');
+  // The painter can draw for the CURRENT view or for a TARGET view (zoom, centre): at Leaflet's `zoomanim` the new frame is drawn for where the zoom will end and animated into place by the same
+  // layer-bounds maths, so a zoom jump of any size shows the new, correctly scaled frame from the first animation frame: no floating old rectangle, no grey sea, no double image (map review).
+  let view: {zoom: number; center: L.LatLng} | null = null, target: {zoom: number; center: L.LatLng} | null = null; // target = the view the current canvas was drawn for
+  const c2ll = (x: number, y: number) => { if (!view) return map.containerPointToLatLng([x, y]); const s = size(), o = map.project(view.center, view.zoom).subtract(s.divideBy(2)); return map.unproject(o.add([x, y]), view.zoom); };
+  const ll2c = (lat: number, lon: number) => { if (!view) return map.latLngToContainerPoint([lat, lon]); const s = size(); return map.project([lat, lon], view.zoom).subtract(map.project(view.center, view.zoom)).add(s.divideBy(2)); };
   const place = (c: HTMLCanvasElement, dpr: number, padded = false) => {
     const s = size(), px = padded ? Math.round(s.x * PAD) : 0, py = padded ? Math.round(s.y * PAD) : 0, cw = s.x + 2 * px, ch = s.y + 2 * py;
     c.width = Math.round(cw * dpr); c.height = Math.round(ch * dpr); c.style.width = cw + 'px'; c.style.height = ch + 'px';
-    L.DomUtil.setPosition(c, map.containerPointToLayerPoint([-px, -py]));
-    if (padded) { padX = px; padY = py; heatBounds = L.latLngBounds(map.containerPointToLatLng([-px, -py]), map.containerPointToLatLng([s.x + px, s.y + py])); }
+    if (!view) L.DomUtil.setPosition(c, map.containerPointToLayerPoint([-px, -py]));
+    if (padded) { padX = px; padY = py; heatBounds = L.latLngBounds(c2ll(-px, -py), c2ll(s.x + px, s.y + py)); }
   };
   const drawHeat = () => {
     const t0 = performance.now();
@@ -64,11 +69,11 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
     ctx.setTransform(1, 0, 0, 1, padX, padY); // from here on every coordinate is a container point, as before; the canvas just extends past the viewport
     ctx.clearRect(-padX, -padY, W, H);
     // Land mask at screen resolution (also used to keep particles at sea).
-    lm = W * H > 2.5e6 ? 0.5 : 1; mask.width = Math.round(W * lm); mask.height = Math.round(H * lm); const m = mask.getContext('2d', {willReadFrequently: true})!; m.setTransform(lm, 0, 0, lm, padX * lm, padY * lm); m.fillStyle = '#000'; fillLand(m, map, heatBounds);
+    lm = W * H > 2.5e6 ? 0.5 : 1; mask.width = Math.round(W * lm); mask.height = Math.round(H * lm); const m = mask.getContext('2d', {willReadFrequently: true})!; m.setTransform(lm, 0, 0, lm, padX * lm, padY * lm); m.fillStyle = '#000'; fillLand(m, ll2c, heatBounds);
     lw = mask.width; lh = mask.height; land = m.getImageData(0, 0, lw, lh).data;
     if (opts.heat) {
       const step = W * H > 2.5e6 ? 6 : 4, w = Math.ceil(W / step), h = Math.ceil(H / step), img = new ImageData(w, h);
-      const lon = Array.from({length: w}, (_, i) => map.containerPointToLatLng([i * step - padX, 0]).lng), lat = Array.from({length: h}, (_, j) => map.containerPointToLatLng([0, j * step - padY]).lat);
+      const lon = Array.from({length: w}, (_, i) => c2ll(i * step - padX, 0).lng), lat = Array.from({length: h}, (_, j) => c2ll(0, j * step - padY).lat);
       // Colour lookup table (256 steps over the range) and an inland skip: a cell whose own pixel and its four neighbours 3 cells away are all land is never painted (the land trim removes it anyway),
       // so most of an inland viewport costs five mask reads instead of a grid sample. Cells near the coast are still sampled, so the colour reaches the shoreline.
       const lut = scaleKey ? colorLut(scaleKey, themeNow()) : new Uint8Array(512 * 3);
@@ -76,9 +81,9 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
         const cx = i * step, cy = j * step; if (isLand(cx, cy) && isLand(cx + R, cy) && isLand(cx - R, cy) && isLand(cx, cy + R) && isLand(cx, cy - R)) continue;
         if (isEnclosedWater(lat[j], lon[i])) continue; // enclosed water (bays, harbours, estuaries): no model value there, so it stays TRANSPARENT: no invented colour, no hatch (Stage 2a, user: "never the hatch")
-        const val = sampleAll('val', lat[j], lon[i]); if (Number.isNaN(val)) continue;
-        const q = scaleKey ? lutIndex(scaleKey, val) : 0, r = lut[q], g = lut[q + 1], b = lut[q + 2], k = (j * w + i) * 4;
-        img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * ALPHA);
+        const sv = sampleAllSoft(fields, lat[j], lon[i]); if (Number.isNaN(sv.v)) continue; // soft coverage: a coverage edge fades over one cell instead of stepping in 0.5 degree squares
+        const q = scaleKey ? lutIndex(scaleKey, sv.v) : 0, r = lut[q], g = lut[q + 1], b = lut[q + 2], k = (j * w + i) * 4;
+        img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * ALPHA * coverageAlpha(sv.cov));
       }
       const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h; tmp.getContext('2d')!.putImageData(img, 0, 0);
       ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(tmp, -padX, -padY, w * step, h * step); ctx.filter = 'none';
@@ -95,9 +100,9 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
       ctx.stroke();
     }
     // Trim everything over land so the coastline in the imagery stays crisp.
-    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000'; fillLand(ctx, map, heatBounds);
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000'; fillLand(ctx, ll2c, heatBounds);
     // The 1:10m coastline plus the blur leave a thin fringe of colour on the land edge: trim a 2 px band along the coast as well (T-092).
-    ctx.strokeStyle = '#000'; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.beginPath(); for (const r of rings) r.forEach(([lon, lat], i) => { const p = map.latLngToContainerPoint([lat, lon]); if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.stroke();
+    ctx.strokeStyle = '#000'; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.beginPath(); for (const r of rings) r.forEach(([lon, lat], i) => { const p = ll2c(lat, lon); if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.stroke();
     ctx.globalCompositeOperation = 'source-over';
     // Arrows were trimmed with the field; that is intended (sea state only).
     heat.dataset.drawMs = (performance.now() - t0).toFixed(1); // QA: the redraw cost of the last zoom/pan (t115-zoom.mjs)
@@ -149,16 +154,27 @@ export function attachFieldLayer(map: L.Map, fields: Field[], opts: FieldOpts & 
     }
     ctx.stroke();
   };
-  const redraw = () => { drawHeat(); if (animate || still) resetFlow(); };
-  // Zoom (T-115): the existing canvas rides Leaflet's zoom animation (transform + scale from the same layer-bounds maths L.Canvas uses) instead of being hidden and redrawn afterwards; the redraw is swapped in
-  // at the end in one frame (the resize and the repaint happen in the same task, so there is no blank frame). Particles pause for the movement and resume after the redraw.
+  /** The canvas drawn at zoomanim IS the settled view when zoom and centre agree (a few metres at most): then only its size and place are fixed, no second draw. */
+  const atTarget = () => !!target && Math.abs(target.zoom - map.getZoom()) < 1e-6 && Math.abs(target.center.lat - map.getCenter().lat) < 2e-5 && Math.abs(target.center.lng - map.getCenter().lng) < 2e-5;
+  const redraw = () => {
+    if (atTarget()) { // the frame drawn at zoomanim IS this view: just put it at its final scale and place (no second draw)
+      const s = size(); heat.style.width = s.x + 2 * padX + 'px'; heat.style.height = s.y + 2 * padY + 'px'; L.DomUtil.setPosition(heat, map.containerPointToLayerPoint([-padX, -padY]));
+    } else drawHeat();
+    target = null; if (animate || still) resetFlow();
+  };
+  // Zoom (map review): at `zoomanim` the frame is drawn for the TARGET view and animated into place with the layer-bounds maths L.ImageOverlay and L.Canvas use. The first animation frame already shows the new
+  // frame at the right scale, so a 1-to-6-level jump never shows a floating old rectangle, grey sea or two images; zoomend only fixes its final size and position. Particles pause for the movement and resume after.
   const zoomAnim = (e: L.ZoomAnimEvent) => {
-    const scale = map.getZoomScale(e.zoom, map.getZoom()), offset = (map as unknown as {_latLngBoundsToNewLayerBounds(b: L.LatLngBounds, z: number, c: L.LatLng): L.Bounds})._latLngBoundsToNewLayerBounds(heatBounds, e.zoom, e.center).min;
-    if (offset) L.DomUtil.setTransform(heat, offset, scale);
+    const t0 = performance.now(); view = {zoom: e.zoom, center: e.center};
+    try {
+      drawHeat(); const scale = map.getZoomScale(e.zoom, map.getZoom()), off = (map as unknown as {_latLngBoundsToNewLayerBounds(b: L.LatLngBounds, z: number, c: L.LatLng): L.Bounds})._latLngBoundsToNewLayerBounds(heatBounds, e.zoom, e.center).min;
+      const s = size(); heat.style.width = (s.x + 2 * padX) / scale + 'px'; heat.style.height = (s.y + 2 * padY) / scale + 'px'; if (off) L.DomUtil.setTransform(heat, off, scale); target = {zoom: e.zoom, center: e.center};
+    } finally { view = null; }
+    heat.dataset.zoomDrawMs = (performance.now() - t0).toFixed(1);
   };
   const start = () => { moving = true; flow.getContext('2d')?.clearRect(0, 0, flow.width, flow.height); };
   let pending = 0;
-  const end = () => { if (pending) return; pending = requestAnimationFrame(() => { pending = 0; moving = false; redraw(); }); }; // moveend and zoomend arrive together: one redraw per frame
+  const end = () => { if (target) { /* a zoom just ended: put the frame in its final place in this same task, never a frame later (the pane resets at zoomend, so a stale transform would show displaced for a frame) */ cancelAnimationFrame(pending); pending = 0; moving = false; redraw(); return; } if (atTarget()) { cancelAnimationFrame(pending); pending = 0; moving = false; redraw(); return; } /* the frame for this view is already drawn: fix its place in the same task as zoomend (no frame with the stale transform) */ if (pending) return; pending = requestAnimationFrame(() => { pending = 0; moving = false; redraw(); }); }; // moveend and zoomend arrive together: one redraw per frame
   map.on('movestart zoomstart', start); map.on('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.on('moveend zoomend resize', end);
   const themeWatch = new MutationObserver(() => end()); themeWatch.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']}); // the ramp's lightness is tuned per theme: redraw when it flips
   redraw(); if (animate) raf = requestAnimationFrame(tick);

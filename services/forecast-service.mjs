@@ -128,7 +128,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
  }
  /** Coarse worldwide frame (2-degree stride of the native 0.5-degree grids) for the zoomed-out map. Fixed fields,
   * 3-hourly valid times within the next 8 days only; cached in memory (no arbitrary URL forwarding). */
- const globeCache=new Map(),globeJobs=new Map(),oceanCache=new Map(),oceanJobs=new Map();
+ const globeCache=new Map(),globeJobs=new Map(),oceanCache=new Map(),oceanJobs=new Map(),rawCache=new Map();
  /** One native 0.5-degree global field at one valid time (map-seamless Stage 2a), packed (see packOceanGrid); cached in memory, bounded, fixed fields and datasets only. */
  async function oceanGrid(field,time){
   if(!regionalFields.includes(field))throw Object.assign(new Error('Unknown global field'),{status:400});
@@ -136,7 +136,12 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
   const wind=field.endsWith('10m'),dataset=wind?'NCEP_Global_Best':'NWW3_Global_Best',nlat=wind?361:311,iso=new Date(t).toISOString().replace('.000Z','Z');
   const url='https://upwell.pfeg.noaa.gov/erddap/griddap/'+dataset+'.dods?'+(`${field}[(${iso})]${wind?'':'[(0)]'}[0:1:${nlat-1}][0:1:719]`).replaceAll('[','%5B').replaceAll(']','%5D');
   const hit=oceanCache.get(url);if(hit&&hit.expires>now())return hit.value;
-  if(!oceanJobs.has(url))oceanJobs.set(url,(async()=>{const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeoutMs*2);try{const r=await fetcher(url,{signal:c.signal});if(r.status===404)throw Object.assign(new Error('No global model frame at this valid time'),{status:404,code:'no_frame'});if(!r.ok)throw new Error('Global grid HTTP '+r.status);const buf=await r.arrayBuffer();if(buf.byteLength>4000000)throw new Error('Global grid payload exceeds bounded size.');const value={...packOceanGrid(parseDodsGrid(buf),field),retrievedAt:new Date(now()).toISOString(),url,dataset,field,validAt:iso};oceanCache.set(url,{value,expires:now()+1800000});while(oceanCache.size>24)oceanCache.delete(oceanCache.keys().next().value);return value;}finally{clearTimeout(timer);oceanJobs.delete(url);}})());
+  /** One ERDDAP grid, parsed (kept briefly: the swell frame needs the total-height frame of the same hour to tell "no swell partition" from "no data"). */
+  const fetchParsed=async(fld,u,signal)=>{const old=rawCache.get(u);if(old&&old.expires>now())return old.g;const r=await fetcher(u,{signal});if(r.status===404)throw Object.assign(new Error('No global model frame at this valid time'),{status:404,code:'no_frame'});if(!r.ok)throw new Error('Global grid HTTP '+r.status);const buf=await r.arrayBuffer();if(buf.byteLength>4000000)throw new Error('Global grid payload exceeds bounded size.');const g=parseDodsGrid(buf);rawCache.set(u,{g,expires:now()+600000});while(rawCache.size>6)rawCache.delete(rawCache.keys().next().value);return g;};
+  if(!oceanJobs.has(url))oceanJobs.set(url,(async()=>{const c=new AbortController(),timer=setTimeout(()=>c.abort(),timeoutMs*2);try{const g=await fetchParsed(field,url,c.signal);
+   // WW3 and GFS-Wave leave the swell partition EMPTY (NaN) where the sea is wind sea only; there the total height equals the wind-wave height to the centimetre (measured: median |Hs - Hs_wind| = 0.000 m over 12,303 such WW3 cells). That is "no swell partition", not missing data: the swell HEIGHT is 0 there, marked in the payload (noPartition) so the app can say so. Period and direction stay empty (there is no swell to have one).
+   let noPartition=false;if(field==='shgt'){const tu=url.replace(/shgt/g,'Thgt'),tg=await fetchParsed('Thgt',tu,c.signal);if(tg.values.length===g.values.length){for(let i=0;i<g.values.length;i++)if(Number.isNaN(g.values[i])&&Number.isFinite(tg.values[i]))g.values[i]=0;noPartition=true;}}
+   const value={...packOceanGrid(g,field),retrievedAt:new Date(now()).toISOString(),url,dataset,field,validAt:iso,...(noPartition?{noPartition:true}:{})};oceanCache.set(url,{value,expires:now()+1800000});while(oceanCache.size>24)oceanCache.delete(oceanCache.keys().next().value);return value;}finally{clearTimeout(timer);oceanJobs.delete(url);}})());
   return oceanJobs.get(url);
  }
  async function globeFrame(field,time){

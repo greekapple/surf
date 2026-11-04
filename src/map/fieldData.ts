@@ -6,7 +6,7 @@ import {mapConfig} from './mapConfig.ts';
 /** A regular lat/lon grid built from the provider's cells. Land cells (null) are filled from their nearest
  * sea neighbours so the field reaches the coastline; the land mask then trims it. Display only, never a reading. */
 export type FieldLayer = 'WAVES' | 'SWELL' | 'WIND' | 'PERIOD';
-export interface Field {lats: number[]; lons: number[]; val: Float32Array; u: Float32Array; v: Float32Array; unit: SpatialFrame['unit']; filled: number; /** 1 where the cell has a real model value; 0 where it was empty and the coastal fill painted it (display only, never a reading) */ real: Uint8Array; wrap: boolean; layer: FieldLayer; validAt: string; source: string}
+export interface Field {/** swell height: an exact 0 = "no swell partition: wind sea only" (WW3 and GFS-Wave leave the partition empty where the sea is all wind sea) */ noPartition?: boolean; lats: number[]; lons: number[]; val: Float32Array; u: Float32Array; v: Float32Array; unit: SpatialFrame['unit']; filled: number; /** 1 where the cell has a real model value; 0 where it was empty and the coastal fill painted it (display only, never a reading) */ real: Uint8Array; wrap: boolean; layer: FieldLayer; validAt: string; source: string}
 /** Which layer a frame is. Frames carry the WW3/GFS dataset variable as `variable` (spatial.ts: `spec.scalar`): swell is `shgt` (height) and `sper` (period); the total sea is `Thgt` and `Tper`; wind is `ugrd10m`. Wind and period are told apart by unit; a height is SWELL only for the swell scalar, otherwise WAVES
  *  (the offshore wave height, "Offshore Hs"). The colour ramp and the LUT key on the UNIT, never on this, so the classification only labels the point value. */
 export const layerOfFrame = (f: Pick<SpatialFrame, 'unit' | 'variable'>): FieldLayer => (f.unit === 'm/s' ? 'WIND' : f.unit === 's' ? 'PERIOD' : /^(shgt|sper|sdir)$|swell/i.test(f.variable) ? 'SWELL' : 'WAVES');
@@ -51,7 +51,7 @@ export function buildField(frame: SpatialFrame, wind: boolean): Field | null {
     }
   }
   if (val.every((x) => Number.isNaN(x))) return null;
-  return {lats, lons, val, u, v, unit: frame.unit, filled, real, wrap: frame.global ?? frame.resolution >= 2, layer: layerOfFrame(frame), validAt: frame.validAt, source: frame.provider}; // coarse frames are global and wrap at the date line
+  return {lats, lons, val, u, v, unit: frame.unit, noPartition: frame.noPartition, filled, real, wrap: frame.global ?? frame.resolution >= 2, layer: layerOfFrame(frame), validAt: frame.validAt, source: frame.provider}; // coarse frames are global and wrap at the date line
 }
 
 /** Bilinear sample; NaN outside the grid. */
@@ -79,13 +79,39 @@ export function sampleAll(fields: Field[], k: 'val' | 'u' | 'v', lat: number, lo
   for (const f of fields) { const v = sample(f, f[k], lat, lon); if (!Number.isNaN(v)) return v; }
   return NaN;
 }
+const shownCache = new WeakMap<Field, Uint8Array>();
+/** The cells the painters show: a real model cell, or a filled cell next to one (the coastal display fill is ONE cell deep on screen). Same rule as the GL field. */
+export function shownMask(f: Field): Uint8Array {
+  let m = shownCache.get(f); if (m) return m; const W = f.lons.length, H = f.lats.length; m = new Uint8Array(W * H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { let near = false; for (let dy = -1; dy <= 1 && !near; dy++) for (let dx = -1; dx <= 1; dx++) { const yy = y + dy; if (yy < 0 || yy >= H) continue; let xx = x + dx; if (f.wrap) xx = (xx + W) % W; else if (xx < 0 || xx >= W) continue; if (f.real[yy * W + xx]) { near = true; break; } } if (near && !Number.isNaN(f.val[y * W + x])) m[y * W + x] = 1; }
+  shownCache.set(f, m); return m;
+}
+/** For PAINTING only (the pin label keeps the strict `sample`): bilinear over the SHOWN corners with their weights renormalised, plus the coverage (the weight of the shown corners): 1 inside the field, falling smoothly to 0 over the last cell, so a coverage edge is smooth instead of a stair of 0.5 degree squares. Inside the field it equals `sample`. */
+export function sampleSoft(f: Field, lat: number, lon: number): {v: number; cov: number} {
+  const {lats, lons} = f, W = lons.length, H = lats.length, dLon = (lons[W - 1] - lons[0]) / (W - 1); if (f.wrap) lon = ((((lon - lons[0]) % 360) + 360) % 360) + lons[0];
+  if (lat < lats[0] || lat > lats[H - 1] || lon < lons[0] || (!f.wrap && lon > lons[W - 1])) return {v: NaN, cov: 0};
+  const gx = (lon - lons[0]) / dLon, gy = ((lat - lats[0]) / (lats[H - 1] - lats[0])) * (H - 1), x0 = f.wrap ? Math.floor(gx) % W : Math.min(W - 2, Math.floor(gx)), x1 = f.wrap ? (x0 + 1) % W : x0 + 1;
+  const y0 = Math.min(H - 2, Math.floor(gy)), fx = gx - Math.floor(gx), fy = gy - y0, sh = shownMask(f), idx = [y0 * W + x0, y0 * W + x1, (y0 + 1) * W + x0, (y0 + 1) * W + x1], w = [(1 - fx) * (1 - fy), fx * (1 - fy), (1 - fx) * fy, fx * fy];
+  let sw = 0, sv = 0; for (let i = 0; i < 4; i++) if (sh[idx[i]]) { sw += w[i]; sv += w[i] * f.val[idx[i]]; }
+  return sw > 0.02 ? {v: sv / sw, cov: sw} : {v: NaN, cov: 0};
+}
+/** `sampleAll` for painting: the regional nest feathered into the global grid, each with soft coverage. */
+export function sampleAllSoft(fields: Field[], lat: number, lon: number): {v: number; cov: number} {
+  if (isEnclosedWater(lat, lon)) return {v: NaN, cov: 0};
+  const nest = fields[0];
+  if (fields.length > 1 && nest && !nest.wrap) { const r = sampleSoft(nest, lat, lon); let g = {v: NaN, cov: 0}; for (const f of fields.slice(1)) { g = sampleSoft(f, lat, lon); if (g.cov > 0) break; } if (r.cov <= 0) return g; if (g.cov <= 0) return r; const w = nestWeight(nest, lat, lon); return {v: g.v + (r.v - g.v) * w, cov: g.cov + (r.cov - g.cov) * w}; }
+  for (const f of fields) { const s = sampleSoft(f, lat, lon); if (s.cov > 0) return s; }
+  return {v: NaN, cov: 0};
+}
+export const coverageAlpha = (cov: number) => { const t = Math.max(0, Math.min(1, (cov - 0.35) / 0.5)); return t * t * (3 - 2 * t); };
 /** 0 at the nest's boundary rising smoothly (smoothstep) to 1 `nestFeatherDeg` inside it. */
 export function nestWeight(f: Pick<Field, 'lats' | 'lons'>, lat: number, lon: number, featherDeg: number = mapConfig.fill.nestFeatherDeg): number {
   const d = Math.min(lat - f.lats[0], f.lats[f.lats.length - 1] - lat, lon - f.lons[0], f.lons[f.lons.length - 1] - lon), t = Math.max(0, Math.min(1, d / featherDeg));
   return t * t * (3 - 2 * t);
 }
 /** The point value behind a tap label (T-117 API). */
-export interface PointValue {value: number | null; unit: 'm' | 's' | 'm/s'; dirFrom: number | null; layer: FieldLayer; validAt: string; source: string}
+export const NO_SWELL_NOTE = 'no swell partition: wind sea only';
+export interface PointValue {/** set where the value is not a measurement of calm: see NO_SWELL_NOTE */ note?: string; value: number | null; unit: 'm' | 's' | 'm/s'; dirFrom: number | null; layer: FieldLayer; validAt: string; source: string}
 /** Samples the field exactly as the map paints it (same grids, same bilinear interpolation, same enclosed-water rule), so the label equals the colour under the pin. Null on land or enclosed water or outside the grid.
  *  Land: the wave grid is filled to the shore for display and trimmed by the coastline, so a point is "land" when the caller's land test says so (`isLand`), e.g. the coast polygons; this module stays geometry-free. */
 export function sampleField(fields: Field[], lat: number, lon: number, isLand?: (lat: number, lon: number) => boolean): PointValue | null {
@@ -95,7 +121,7 @@ export function sampleField(fields: Field[], lat: number, lon: number, isLand?: 
   if (!isRealCell(f, lat, lon)) return null; // inside the coastal fill: painted for the eye, but no model reading there
   const blended = fields.length > 1 && f === fields[0] && !f.wrap && nestWeight(f, lat, lon) < 1;
   const u = sampleAll(fields, 'u', lat, lon), v = sampleAll(fields, 'v', lat, lon), dirFrom = Number.isNaN(u) || Number.isNaN(v) || (u === 0 && v === 0) ? null : ((Math.atan2(-u, -v) * 180) / Math.PI + 360) % 360;
-  return {value, unit: f.unit === 'deg' ? 'm' : f.unit, dirFrom, layer: f.layer, validAt: f.validAt, source: blended ? `${f.source} (blended into the global grid near the nest edge)` : f.source};
+  return {...(f.noPartition && value === 0 ? {note: NO_SWELL_NOTE} : {}), value, unit: f.unit === 'deg' ? 'm' : f.unit, dirFrom, layer: f.layer, validAt: f.validAt, source: blended ? `${f.source} (blended into the global grid near the nest edge)` : f.source};
 }
 /** True when the nearest grid cell holds a real model value (not one the coastal fill painted). */
 export function isRealCell(f: Field, lat: number, lon: number): boolean {

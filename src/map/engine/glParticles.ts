@@ -20,7 +20,9 @@ precision highp float; precision highp int; precision highp sampler2D;
 uniform sampler2D u_state, u_c0, u_c1; uniform vec4 u_g0, u_d0, u_g1, u_d1; uniform ivec2 u_n; uniform int u_blend;
 uniform vec4 u_view; uniform float u_zoom, u_px, u_time, u_maxAge, u_wind; uniform int u_active; in vec2 v_uv; out vec4 o;
 ${SAMPLER_GLSL}
-float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
+// PCG integer hash (the sin-based hash it replaces left a lattice of respawn positions: visible rows of dashes at basin zoom)
+uint pcg(uint v){ uint st = v * 747796405u + 2891336453u; uint w = ((st >> ((st >> 28u) + 4u)) ^ st) * 277803737u; return (w >> 22u) ^ w; }
+float rnd(uint a, uint b){ return float(pcg(a ^ pcg(b + 0x9e3779b9u))) / 4294967295.0; }
 vec4 look(vec2 m, out vec4 ok, out float real){ float lat = degrees(atan(sinh(PI * (1.0 - 2.0 * m.y)))), lon = m.x * 360.0 - 180.0; return sampleAll(u_c0, u_c1, u_g0, u_d0, u_g1, u_d1, u_n.x, u_blend > 0, lat, lon, ok, real); }
 void main(){
   ivec2 ip = ivec2(gl_FragCoord.xy); int id = ip.y * ${SIZE} + ip.x; vec4 s = texelFetch(u_state, ip, 0);
@@ -31,9 +33,9 @@ void main(){
   if (!alive) {   // (re)spawn on the sea inside the view; if no candidate lands on the sea, stay dead until next frame
     age = u_maxAge + 99.0;
     for (int k = 0; k < 6; k++) {
-      vec2 r = vec2(hash(vec2(float(id), u_time + float(k) * 7.31)), hash(vec2(u_time * 1.7 + float(k), float(id) * 0.37)));
+      uint uid = uint(id), ut = uint(u_time), uk = uint(k); vec2 r = vec2(rnd(uid, ut * 8u + uk), rnd(uid + 104729u, ut * 8u + uk + 4000000u));
       vec2 c = vec2(mix(u_view.x, u_view.z, r.x), mix(u_view.y, u_view.w, r.y)); vec4 ok2; float real2; vec4 f2 = look(c, ok2, real2);
-      if (ok2.x > 0.5 && ok2.y > 0.5 && ok2.z > 0.5 && g_cov > 0.6) { p = c; age = hash(vec2(float(id), u_time)) * u_maxAge * 0.6; f = f2; ok = ok2; break; }
+      if (ok2.x > 0.5 && ok2.y > 0.5 && ok2.z > 0.5 && g_cov > 0.6) { p = c; age = rnd(uid + 7u, ut + 99991u) * u_maxAge * 0.6; f = f2; ok = ok2; break; }
     }
     o = vec4(p, age, float(id)); return;
   }

@@ -5,7 +5,7 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import {mapConfig} from '../mapConfig.ts';
 import {minZoomFor} from '../mapConfig.ts';
-import {ATTRIBUTION_TEXT, brandedStyle, loadBaseStyle, paintFor, palette} from './style.ts';
+import {ATTRIBUTION_TEXT, WORLD_SEA_ID, brandedStyle, loadBaseStyle, paintFor, palette} from './style.ts';
 import {createGLFieldController} from './glField.ts';
 import type {EngineClick, EngineEvent, EngineOptions, MapEngine, MarkerHandle, MarkerOptions, Theme} from './types.ts';
 
@@ -28,6 +28,11 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
   const brand = () => { const p = palette(theme, heat); for (const l of map.getStyle().layers) { const ov = paintFor(l, p); if (ov) for (const [k, v] of Object.entries(ov)) { try { map.setPaintProperty(l.id, k, v as never); } catch { /* property not on this layer */ } } } };
   const mo = new MutationObserver(() => { const h = el.dataset.heat === 'on'; if (h !== heat) { heat = h; if (map.isStyleLoaded()) brand(); else map.once('idle', brand); } }); mo.observe(el, {attributes: true, attributeFilter: ['data-heat']});
   const to = new MutationObserver(() => api.setTheme(themeNow())); to.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+  // While the map moves (below zoom 6.5) the always-loaded world-sea polygon paints the sea under the tiles, so a multi-level zoom-out never shows land-coloured "sea" while the new level's tiles load; hidden again at idle (its coast is coarser than the tiles').
+  const worldSea = (on: boolean) => { try { if (map.getLayer(WORLD_SEA_ID)) map.setLayoutProperty(WORLD_SEA_ID, 'visibility', on ? 'visible' : 'none'); } catch { /* style not ready */ } };
+  // warm the world-sea polygon once (the worker builds its tile index on first use, which is slower than a zoom animation): shown invisibly at the current zoom, then hidden again
+  map.once('idle', () => { try { if (!map.getLayer(WORLD_SEA_ID)) return; map.setLayerZoomRange(WORLD_SEA_ID, 0, 24); map.setPaintProperty(WORLD_SEA_ID, 'fill-opacity', 0); map.setLayoutProperty(WORLD_SEA_ID, 'visibility', 'visible'); map.once('idle', () => { try { map.setLayoutProperty(WORLD_SEA_ID, 'visibility', 'none'); map.setLayerZoomRange(WORLD_SEA_ID, 0, 10); map.setPaintProperty(WORLD_SEA_ID, 'fill-opacity', 1); } catch { /* removed */ } }); } catch { /* style not ready */ } });
+  map.on('movestart', () => { if (map.getZoom() < 10) worldSea(true); }); map.on('zoomstart', () => worldSea(true)); map.on('idle', () => worldSea(false));
   const field = createGLFieldController(map, el);
   const offs: (() => void)[] = [];
   // QA hook (dev only): the native map with Leaflet-equivalent zoom numbers, so one script drives both engines.

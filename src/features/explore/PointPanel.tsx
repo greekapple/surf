@@ -21,6 +21,7 @@ export function pointLine(v: PointValue | null, periodS: number | null, p: UserP
   const dir = v.dirFrom !== null ? ` ${compass(v.dirFrom)}` : '';
   if (kind === 'wind') return {main: `${windVal(v.value * MPH, p)} ${p.windUnit}${dir}`, note: 'wind at 10 m'};
   if (kind === 'period') return {main: `${Math.round(v.value)} s${dir}`, note: 'peak wave period'};
+  if (v.note) return {main: `0 ${p.heightUnit}`, note: `swell: ${v.note}`}; // an exact 0 is the model's empty swell partition (NO_SWELL_NOTE), said as such
   const per = periodS !== null ? ` · ${Math.round(periodS)} s` : '';
   return {main: `${ht(v.value * FT, p)} ${p.heightUnit}${dir}${per}`, note: kind === 'swell' ? 'swell · offshore, not surf size' : 'offshore · not surf size'};
 }

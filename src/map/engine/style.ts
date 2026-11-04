@@ -4,9 +4,17 @@
 // → `water_inland` (lakes, rivers) → OSM landcover/landuse/roads/boundaries → labels. The field is drawn over the sea only: its shader reads the pixels already drawn (land vs sea colour) and
 // repaints exactly the sea pixels, anti-aliased coast included, so the vector coastline, bays and every label, road and boundary above it stay crisp (no raster land mask, no second coastline).
 import type {Theme} from './types.ts';
+import globeLand from '../land-globe.json' with {type: 'json'};
 
 export const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron';
 export const FIELD_SLOT_ID = 'swello-field-slot'; // the field layers are added `beforeId` this id; identical in light and dark
+export const WORLD_SEA_ID = 'swello-world-sea';
+/** The whole world's sea as ONE polygon (a world rectangle with our own simplified land rings as holes). Always in memory, so it can paint the sea at once while the vector tiles of a new zoom level are still loading (a multi-level zoom-out); the engine shows it only while the map moves, below zoom 10, and hides it when the precise tiles are in (its coast is coarser than the tiles'). */
+export function worldSeaGeoJSON(): GeoJSON.Feature<GeoJSON.Polygon> {
+  const MAXLAT = 85.05, clamp = (v: number) => Math.max(-MAXLAT, Math.min(MAXLAT, v));
+  const holes = (globeLand as {rings: {r: number[][]}[]}).rings.map((x) => { const r = x.r.map(([lo, la]) => [lo, clamp(la)] as [number, number]); if (r.length && (r[0][0] !== r.at(-1)![0] || r[0][1] !== r.at(-1)![1])) r.push(r[0]); return r.reverse(); }).filter((r) => r.length >= 4);
+  return {type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [[[-180, -MAXLAT], [180, -MAXLAT], [180, MAXLAT], [-180, MAXLAT], [-180, -MAXLAT]], ...holes]}};
+}
 export const ATTRIBUTION = '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
 export const ATTRIBUTION_TEXT = 'OpenFreeMap © OpenMapTiles Data from OpenStreetMap';
 
@@ -26,6 +34,7 @@ export function paintFor(layer: {id: string; type: string}, p: Palette): Paint |
   if (type === 'fill') {
     if (id === 'water') return {'fill-color': p.sea, 'fill-antialias': true};
     if (id === 'water_inland') return {'fill-color': p.lake};
+    if (id === WORLD_SEA_ID) return {'fill-color': p.sea};
     if (id.startsWith('landcover_ice') || id.startsWith('landcover_glacier')) return {'fill-color': p.landAlt2};
     if (id === 'park' || id.startsWith('landcover') || id.startsWith('landuse')) return {'fill-color': p.landAlt};
     if (id === 'building') return {'fill-color': p.landAlt2};
@@ -49,7 +58,12 @@ export function paintFor(layer: {id: string; type: string}, p: Palette): Paint |
 let baseP: Promise<StyleSpec> | null = null;
 export interface StyleSpec {version: number; sources: Record<string, unknown>; layers: Layer[]; glyphs?: string; sprite?: string; [k: string]: unknown}
 interface Layer {id: string; type: string; source?: string; 'source-layer'?: string; filter?: unknown; paint?: Paint; layout?: Record<string, unknown>; [k: string]: unknown}
-export const loadBaseStyle = (): Promise<StyleSpec> => (baseP ??= fetch(STYLE_URL).then(async (r) => { if (!r.ok) throw new Error('Map style unavailable.'); return (await r.json()) as StyleSpec; }).catch((e) => { baseP = null; throw e; }));
+/** The style plus the tile source resolved to explicit tile URLs (one fewer round trip at cold load; also what lets a second, coarse source over the same tiles exist: see `water_world`). */
+export const loadBaseStyle = (): Promise<StyleSpec> => (baseP ??= Promise.all([fetch(STYLE_URL), fetch('https://tiles.openfreemap.org/planet')]).then(async ([r, t]) => {
+  if (!r.ok) throw new Error('Map style unavailable.'); const style = (await r.json()) as StyleSpec;
+  if (t.ok) { const tj = (await t.json()) as {tiles?: string[]; minzoom?: number; maxzoom?: number; attribution?: string}; if (tj.tiles?.length) style.sources.openmaptiles = {type: 'vector', tiles: tj.tiles, minzoom: tj.minzoom ?? 0, maxzoom: tj.maxzoom ?? 14, attribution: tj.attribution}; }
+  return style;
+}).catch((e) => { baseP = null; throw e; }));
 
 /** The branded style: positron's layers recoloured; `water` keeps only the ocean (the sea colour the field shader looks for), lakes and rivers move after the field slot; the slot is an empty layer the field layers are added before. */
 export function brandedStyle(base: StyleSpec, theme: Theme, heat: boolean): StyleSpec {
@@ -69,7 +83,8 @@ export function brandedStyle(base: StyleSpec, theme: Theme, heat: boolean): Styl
       continue;
     }
     layers.push(nl);
+    if (l.id === 'background') layers.push({id: WORLD_SEA_ID, type: 'fill', source: WORLD_SEA_ID, layout: {visibility: 'none'}, maxzoom: 10, paint: {'fill-color': p.sea, 'fill-antialias': false}});
   }
   const sources = {...base.sources}; delete (sources as Record<string, unknown>).ne2_shaded;
-  return {...base, sources: {...sources, [FIELD_SLOT_ID]: {type: 'geojson', data: {type: 'FeatureCollection', features: []}}}, layers};
+  return {...base, sources: {...sources, [FIELD_SLOT_ID]: {type: 'geojson', data: {type: 'FeatureCollection', features: []}}, [WORLD_SEA_ID]: {type: 'geojson', data: worldSeaGeoJSON(), maxzoom: 5, tolerance: 2, buffer: 8}}, layers};
 }

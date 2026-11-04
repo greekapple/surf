@@ -157,7 +157,9 @@ function OceanMap({section, go}: ViewProps) {
   const gfield = useMemo(() => (gframe ? buildField(gframe, def.layer === 'WIND') : null), [gframe, def.layer]);
   // Stage 2b: when the global frame is the GFS-Wave 0.25° pipeline frame, it IS the model on screen; the regional WW3 0.5° nest would blend a different model into it, so it is not painted.
   const packedGlobal = !!gframe?.provider.startsWith('NOAA GFS-Wave');
-  const field = useMemo(() => (frame && !packedGlobal ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer, packedGlobal]);
+  // The regional California grid is the same WW3 0.5° as the native global frame, so once the global frame is here it is painted alone (no nest seam, no second source). Swell height is never painted from the regional grid: it has no "no swell partition" fill (see NO_SWELL_NOTE), so it would show grey holes.
+  const nestPainted = !!frame && !packedGlobal && !(gframe && gframe.resolution <= frame.resolution) && def.layer !== 'SWELL';
+  const field = useMemo(() => (nestPainted && frame ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer, nestPainted]);
   // Map-seamless Stage 1: a non-blocking "Still loading · Retry" after 5 s (was 20 s); the held frame stays on screen meanwhile.
   const anyLoading = spatial.loading || globe.loading;
   useEffect(() => { setSlow(false); if (!anyLoading) return; const t = window.setTimeout(() => setSlow(true), 5000); return () => window.clearTimeout(t); }, [anyLoading, spatial.status]); // eslint-disable-line react-hooks/exhaustive-deps

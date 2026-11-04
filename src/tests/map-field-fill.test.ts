@@ -45,3 +45,12 @@ test('a coastal-fill cell gives no pin reading; a real cell does; calm wind has 
   const calm = grid(5, 10, (_, x) => (x < 3 ? 0 : NaN)); calm.dir = Float32Array.from(calm.val, () => NaN);
   const w = buildField(frame(calm, {unit: 'm/s', variable: 'ugrd10m'}), true)!; assert.equal(w.u[2 * 10 + 1], 0); assert.equal(w.v[2 * 10 + 1], 0);
 });
+
+test('painting is soft at a coverage edge: coverage falls smoothly over the last cell (no 0.5 degree stair), equals the strict sample inside the field', async () => {
+  const {sampleSoft, sampleAllSoft, coverageAlpha, sample} = await import('../map/fieldData.ts');
+  const f = buildField(frame(grid(5, 12, (_, x) => (x < 6 ? 3 : NaN))), false)!; // ocean 6 columns, then no data
+  assert.equal(sampleSoft(f, 32, 200.5).v, sample(f, f.val, 32, 200.5), 'inside: identical to the strict sample'); assert.equal(sampleSoft(f, 32, 200.5).cov, 1);
+  const cov = (lon: number) => sampleSoft(f, 32, lon).cov; let last = 2, steps = 0, maxStep = 0; for (let lon = 202.5; lon <= 204.2; lon += 0.02) { const c = cov(lon); if (c > last + 1e-9) assert.fail('coverage must not rise'); if (last !== 2) maxStep = Math.max(maxStep, last - c); last = c; steps += c > 0 && c < 1 ? 1 : 0; }
+  assert.ok(steps > 8, `a fade over many samples, not a step (${steps})`); assert.ok(maxStep < 0.15, `largest change per 0.02 deg ${maxStep.toFixed(3)}`); assert.equal(coverageAlpha(1), 1); assert.equal(coverageAlpha(0), 0); assert.ok(coverageAlpha(0.6) > 0.3 && coverageAlpha(0.6) < 0.9);
+  assert.equal(sampleAllSoft([f], 37.8, -122.4).cov, 0, 'outside the grid / enclosed: nothing painted');
+});

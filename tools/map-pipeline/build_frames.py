@@ -126,7 +126,11 @@ def frame_images(fields, groups):
         else:
             if a not in fields:
                 continue
-            out[g] = pack(fields[a], fields.get(b, np.full((NLAT, NLON), np.nan)), SCALES[g])
+            scalar = fields[a]
+            if g == 'swell' and 'HTSGW' in fields:
+                # GFS-Wave leaves the swell partition EMPTY where the sea is wind sea only (measured: |HTSGW - WVHGT| median 0.000 m over those cells). That is 'no swell partition', not missing data: swell height is 0 there. Real partitions are never exactly 0 (minimum seen 0.03 m), so an exact 0 in this group means 'no partition'.
+                scalar = np.where(~np.isfinite(scalar) & np.isfinite(fields['HTSGW']), 0.0, scalar)
+            out[g] = pack(scalar, fields.get(b, np.full((NLAT, NLON), np.nan)), SCALES[g])
     return out
 
 
@@ -168,7 +172,8 @@ def main():
         "grid": {"nlon": NLON, "nlat": NLAT, "lon0": 0.0, "lat0": 90.0, "dlon": 0.25, "dlat": -0.25, "rowZero": "north"},
         "encoding": {"value": "R*256+G, divided by scale; 65535 = no data", "direction": "B*360/255 degrees FROM; 255 = none"},
         "groups": {g: {"scale": SCALES[g], "unit": UNITS[g], "scalar": GROUPS[g][0] if g != "wind" else "speed(UGRD,VGRD)",
-                       "direction": GROUPS[g][1] if g != "wind" else "from(UGRD,VGRD)"} for g in groups},
+                       "direction": GROUPS[g][1] if g != "wind" else "from(UGRD,VGRD)",
+                       **({"noPartitionIsZero": True} if g == "swell" else {})} for g in groups},
         "frames": frames,
     }
     with open(os.path.join(a.out, "manifest.json"), "w") as fp:

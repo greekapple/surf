@@ -2,7 +2,7 @@
 // the browser loader at the bottom is only used when a frames base URL is configured, otherwise the map keeps using /api/ocean (WW3 0.5°).
 import type {GridData} from './spatial.ts';
 
-export interface PackedGroup {scale: number; unit: string}
+export interface PackedGroup {scale: number; unit: string; /** swell height: an exact 0 = no swell partition (wind sea only) */ noPartitionIsZero?: boolean}
 export interface PackedManifest {version: number; source: string; run: string; generatedAt: string; grid: {nlon: number; nlat: number; lon0: number; lat0: number; dlon: number; dlat: number}; groups: Record<string, PackedGroup>; frames: {fh: number; validAt: string; files: Record<string, string>}[]}
 
 /** Which pipeline group carries a spatialSpec's scalar (WW3 variable names are what the rest of the map uses). */

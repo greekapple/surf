@@ -17,7 +17,7 @@ test('with the field on, lakes and rivers never read as sea to the shader (its s
 test('layer order: background, ocean water, the field slot, inland water, then land detail and labels; one slot id in light and dark', () => {
   for (const theme of ['light', 'dark'] as const) {
     const s = brandedStyle(base, theme, true), ids = s.layers.map((l) => l.id);
-    assert.deepEqual(ids.slice(0, 4), ['background', 'park', 'water', FIELD_SLOT_ID]); assert.equal(ids[4], 'water_inland'); assert.ok(ids.indexOf('landcover_wood') > ids.indexOf('water_inland') && ids.indexOf('label_city') > ids.indexOf(FIELD_SLOT_ID));
+    assert.deepEqual(ids.filter((i) => i !== 'swello-world-sea').slice(0, 4), ['background', 'park', 'water', FIELD_SLOT_ID]); assert.equal(ids[ids.indexOf(FIELD_SLOT_ID) + 1], 'water_inland'); assert.ok(ids.indexOf('landcover_wood') > ids.indexOf('water_inland') && ids.indexOf('label_city') > ids.indexOf(FIELD_SLOT_ID));
     assert.equal(FIELD_SLOT_ID, 'swello-field-slot'); assert.ok(!('ne2_shaded' in s.sources), 'the natural-earth raster is dropped'); assert.ok(FIELD_SLOT_ID in s.sources);
   }
 });

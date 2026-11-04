@@ -14,3 +14,4 @@
 :root[data-theme='dark'] .leaflet-container[data-heat='on'].mb-dark { background: #3b3b3f; }
 :root[data-theme='dark'] .leaflet-container[data-heat='on'].mb-dark .xbase { filter: grayscale(1) brightness(1.45) contrast(0.9); }
 :root[data-theme='dark'] .leaflet-container[data-heat='on'].mb-dark .leaflet-labels-pane { filter: brightness(1.3); }
+

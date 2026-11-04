@@ -28,14 +28,16 @@ export const currentTheme = (): 'light' | 'dark' => (document.documentElement.da
 /** Adds the basemap and follows theme changes. Returns a disposer. */
 export function addBasemap(map: L.Map, onKind?: (k: BasemapKind) => void) {
   if (!map.getPane('labels')) { const p = map.createPane('labels'); p.style.zIndex = '450'; p.style.pointerEvents = 'none'; }
-  let base: L.TileLayer | null = null, labels: L.TileLayer | null = null, shown: BasemapKind | null = null;
+  let base: L.TileLayer | null = null, labels: L.TileLayer | null = null, world: L.TileLayer | null = null, shown: BasemapKind | null = null;
   const show = () => {
     // T-115: with the sea-state field on, the light theme gets the Esri DARK grey canvas underneath (Windy draws its ramp on a dark grey base; a light base washes the colours out). The field sets data-heat on the container.
     const heat = map.getContainer().dataset.heat === 'on', pref = readBasemapPref(), kind = pref === 'satellite' ? 'satellite' : heat ? 'dark' : basemapFor(pref, currentTheme());
     if (kind === shown) return;
-    base?.remove(); labels?.remove(); shown = kind;
+    base?.remove(); labels?.remove(); world?.remove(); shown = kind;
     const def = BASEMAPS[kind], c = map.getContainer();
     for (const k of ['light', 'dark', 'satellite']) c.classList.toggle('mb-' + k, k === kind);
+    // a world-wide coarse layer (tile level 3, 64 tiles) always under the detailed one: a multi-level zoom jump never shows the grey ground or a checkerboard while the new level's tiles load (map review, zoom)
+    world = new L.TileLayer(def.base, {className: 'xbase-world', minZoom: 0, maxZoom: 16, minNativeZoom: 3, maxNativeZoom: 3, keepBuffer: 2, updateWhenZooming: false, updateWhenIdle: true, zIndex: 0}).addTo(map);
     base = new PaddedTileLayer(def.base, {className: 'xbase', maxZoom: 16, maxNativeZoom: MAX_NATIVE_ZOOM, attribution: def.attribution, keepBuffer: 8, updateWhenZooming: false, updateWhenIdle: false}).addTo(map); // keep the old-zoom tiles on screen through a zoom, with a wide ring of them loaded
     labels = new PaddedTileLayer(def.labels, {pane: 'labels', maxZoom: 16, maxNativeZoom: MAX_NATIVE_ZOOM, opacity: def.labelOpacity, keepBuffer: 8, updateWhenZooming: false, updateWhenIdle: false}).addTo(map);
     onKind?.(kind);
@@ -44,5 +46,5 @@ export function addBasemap(map: L.Map, onKind?: (k: BasemapKind) => void) {
   const mo = new MutationObserver(show); mo.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
   const mh = new MutationObserver(show); mh.observe(map.getContainer(), {attributes: true, attributeFilter: ['data-heat']});
   window.addEventListener('storage', show);
-  return () => { mo.disconnect(); mh.disconnect(); window.removeEventListener('storage', show); base?.remove(); labels?.remove(); };
+  return () => { mo.disconnect(); mh.disconnect(); window.removeEventListener('storage', show); base?.remove(); labels?.remove(); world?.remove(); };
 }
