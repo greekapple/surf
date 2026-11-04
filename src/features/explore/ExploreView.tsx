@@ -32,7 +32,7 @@ import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
 import {headlineSurf} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
-import {SpotCallout} from './Callout';
+import {SpotCallout, type HourBar} from './Callout';
 import './explore.css';
 
 /** Field layers the regional grids can actually supply. One is shown at a time. */
@@ -150,7 +150,19 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => { const mq = matchMedia(PHONE), on = () => setPhone(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
   // Wide screens: the spot list is a slim sheet under its toggle, open only on demand. Phones: a bottom sheet with three detents.
   const [open, setOpen] = useState(false);
-  const [q, setQ] = useState(''), [zone, setZone] = useState('All'); // T-116: the map's top bar (search + region chips)
+  const [q, setQ] = useState(''), [zone, setZone] = useState('In view'); // Track 2: the list opens on the spots in view (Surfline's synced list)
+  const [inView, setInView] = useState<Set<string> | null>(null);
+  // "In view" = the part of the map a person can see: not under the time strip, the phone sheet or the open desktop list.
+  const seenRef = useRef(() => {});
+  seenRef.current = () => {
+    const x = map.current; if (!x) return;
+    const c = x.container.getBoundingClientRect(); let L = c.left, R = c.right, T = c.top, B = c.bottom;
+    const strip = x.container.parentElement?.querySelector('.xbottom')?.getBoundingClientRect(); if (strip?.height) B = Math.min(B, strip.top);
+    const sheet = x.container.parentElement?.querySelector('.xsheet.phone')?.getBoundingClientRect(); if (sheet?.height) B = Math.min(B, sheet.top);
+    const panel = x.container.parentElement?.querySelector('.xsearchbox .xsheet')?.getBoundingClientRect(); if (panel?.width) L = Math.max(L, panel.right);
+    const ids = evidenceSpots.filter((e) => { const q = x.project(e.latitude, e.longitude), px = c.left + q.x, py = c.top + q.y; return px >= L && px <= R && py >= T && py <= B; }).map((e) => e.id);
+    setInView((old) => (old && old.size === ids.length && ids.every((id) => old.has(id)) ? old : new Set(ids)));
+  }; // T-116: the map's top bar (search + region chips)
   const [detent, setDetent] = useState<Detent>('peek');
   const [drag, setDrag] = useState<number | null>(null);
   const [callout, setCallout] = useState<string | null>(null);
@@ -226,7 +238,9 @@ function OceanMap({section, go}: ViewProps) {
       if (!alive) { x.dispose(); return; }
       made = x; map.current = x; fieldCtl.current = x.field;
       const z = () => setZoom(x.getView().zoom); x.on('zoomend', z); z();
-      x.on('moveend', () => { const v = x.getView(); writeMapUrl({lat: v.lat, lon: v.lon, z: v.zoom}); }); // Stage 1 (product): the URL follows every settled move
+      x.on('moveend', () => { const v = x.getView(); writeMapUrl({lat: v.lat, lon: v.lon, z: v.zoom}); });
+      // Track 2: which spots are in view, after every settled move (the "In view" list follows the map)
+      x.on('moveend', () => seenRef.current()); seenRef.current(); // Stage 1 (product): the URL follows every settled move
       for (const e of ['zoomend', 'moveend', 'resize'] as const) x.on(e, () => declutterRef.current()); // panels stay put while the map pans
       // T-117: a clean tap on the sea opens the point there (the engine never reports clicks on markers, overlays, or after a drag); it also closes the spot callout.
       x.on('click', (c) => { setCallout(null); if (c && Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: c.lat, lon: c.lon}); } });
@@ -469,11 +483,21 @@ function OceanMap({section, go}: ViewProps) {
   const regionRank = new Map<string, number>();
   for (const e of evidenceSpots) regionRank.set(e.region, Math.min(regionRank.get(e.region) ?? Infinity, dist(e)));
   const needle = q.trim().toLowerCase();
-  const list = [...evidenceSpots].filter((e) => (zone === 'All' || zoneOf(e.region) === zone) && (!needle || e.name.toLowerCase().includes(needle) || e.region.toLowerCase().includes(needle)))
-    .sort((a, b) => (regionRank.get(a.region)! - regionRank.get(b.region)!) || b.latitude - a.latitude);
+  // Track 2 "In view": the spots inside the map's bounds, best rated first, then the larger surf estimate; unrated (or dark) last. Typing searches every spot.
+  const byView = zone === 'In view' && !needle;
+  // the same height text as the spot's pin: the surf estimate, or the offshore height said as offshore
+  const pinHeight = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null;
+    return h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : null; };
+  const score = (id: string) => { const r = recAt(id), rt = r && !isDark(id, r.timestamp) ? rateForecast(surfSpot(id), r, now) : null; return rt && rt.score !== null ? rt.score : null; };
+  const hiAt = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null; return h?.kind === 'estimate' ? h.hiFt : -1; };
+  const list = byView
+    ? evidenceSpots.filter((e) => inView?.has(e.id)).map((e) => ({e, s: score(e.id), h: hiAt(e.id)}))
+      .sort((a, b) => (a.s === null ? 1 : 0) - (b.s === null ? 1 : 0) || (b.s ?? 0) - (a.s ?? 0) || b.h - a.h).map((x) => x.e)
+    : [...evidenceSpots].filter((e) => (zone === 'All' || zone === 'In view' || zoneOf(e.region) === zone) && (!needle || e.name.toLowerCase().includes(needle) || e.region.toLowerCase().includes(needle)))
+      .sort((a, b) => (regionRank.get(a.region)! - regionRank.get(b.region)!) || b.latitude - a.latitude);
   /** A region chip frames that stretch of coast (All: back to the selected spot's area) and filters the list. */
   const pickZone = (z: string) => {
-    setZone(z); const m = map.current; if (!m) return;
+    setZone(z); const m = map.current; if (!m || z === 'In view') return; // "In view" follows the map; it never moves it
     const pts = evidenceSpots.filter((e) => z !== 'All' && zoneOf(e.region) === z).map((e) => ({lat: e.latitude, lon: e.longitude}));
     if (pts.length) m.fitPoints(pts, {padRatio: 0.15, animate: !reduced(), padding: {top: phone ? 120 : 80, left: phone ? 16 : 24, right: phone ? 64 : 200, bottom: phone ? 120 : 80}});
     else flyRef.current(spot.id);
@@ -500,14 +524,23 @@ function OceanMap({section, go}: ViewProps) {
     const lo = Math.floor(Math.min(...hs)), hi = Math.ceil(Math.max(...hs));
     return `${lo === hi ? lo : `${lo}–${hi}`} ${p.heightUnit} offshore`;
   };
+  // Track 2: the card's next-hours bars, from the shown hour: each record's surf estimate (offshore-only and missing hours are gaps) and its rating colour.
+  const hoursFor = (id: string): HourBar[] => {
+    const t0 = view.selectedTime ? Date.parse(view.selectedTime) : now, s = surfSpot(id);
+    return view.mapRecords.filter((r) => r.spotId === id && Date.parse(r.timestamp) >= t0 && Date.parse(r.timestamp) < t0 + 12 * 36e5)
+      .sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).map((r) => {
+        const h = headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}), rt = !isDark(id, r.timestamp) ? rateForecast(s, r, now) : null, ok = !!rt && rt.score !== null;
+        return {t: Date.parse(r.timestamp), lo: h.kind === 'estimate' ? h.loFt : null, hi: h.kind === 'estimate' ? h.hiFt : null, c: ok ? BAND_COLOR[bandOf(rt!.category)] : 'var(--none)', rated: ok};
+      });
+  };
   const callSpot = callout ? surfSpot(callout) : null, callRec = callout ? recAt(callout) : undefined;
   const callEv = evidenceSpots.find((e) => e.id === callout);
   const callout$ = callSpot && callEv ? (
-    <SpotCallout spot={callSpot} region={callEv.region} f={callRec} rating={callRec ? rateForecast(callSpot, callRec, now) : null} when={when} p={p}
+    <SpotCallout spot={callSpot} region={callEv.region} f={callRec} rating={callRec ? rateForecast(callSpot, callRec, now) : null} when={when} p={p} hours={hoursFor(callSpot.id)}
       onOpen={() => go('forecast')} onClose={phone ? undefined : () => setCallout(null)} />
   ) : null;
   const peek$ = phone ? (
-    <SpotCallout spot={spot} region={here.region} f={f} rating={rating} when={when} p={p} onOpen={() => go('forecast')} />
+    <SpotCallout spot={spot} region={here.region} f={f} rating={rating} when={when} p={p} hours={hoursFor(spot.id)} onOpen={() => go('forecast')} />
   ) : null;
 
   // Phone sheet: drag the handle between detents, or press it to step through them.
@@ -531,16 +564,19 @@ function OceanMap({section, go}: ViewProps) {
     if (e.key === 'ArrowDown') { e.preventDefault(); setDetent(DETENTS[Math.max(0, DETENTS.indexOf(detent) - 1)]); }
   };
   const showList = phone ? detent !== 'peek' : open;
+  useEffect(() => { const t = window.setTimeout(() => seenRef.current(), 320); return () => clearTimeout(t); }, [open, detent, sheetOn, phone]); // after the sheet's own transition
   const listBody = (
     <div className="xlist" aria-label="Spots">
       <div className="xtb-chips" role="group" aria-label="Region">
-        {['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={zone === z} onClick={() => pickZone(z)}>{z}</button>)}
+        {['In view', 'All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={zone === z} onClick={() => pickZone(z)}>{z}</button>)}
       </div>
-      {!list.length && <p className="fine">No spot matches “{q}”{zone !== 'All' ? ` in ${zone}` : ''}.</p>}
+      {byView && <p className="xinv-h" aria-live="polite">{list.length ? `${list.length} spot${list.length === 1 ? '' : 's'} in view · best rated first` : 'No surf spot in view: zoom out or pan along the coast.'}</p>}
+      {!byView && !list.length && <p className="fine">No spot matches “{q}”{zone !== 'All' && zone !== 'In view' ? ` in ${zone}` : ''}.</p>}
       <ul>{list.map((e, i) => {
         const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
-        const head = i === 0 || list[i - 1].region !== e.region ? <p className="xregion">{e.region}</p> : null;
-        return <li key={e.id}>{head}<SpotRow id={e.id} name={e.name} sub={rangeAt(e.id) ?? 'No record at this hour'} category={rt?.category ?? null}
+        const head = !byView && (i === 0 || list[i - 1].region !== e.region) ? <p className="xregion">{e.region}</p> : null;
+        const rated = !!rt && rt.score !== null && !!r && !isDark(e.id, r.timestamp), sub = (byView ? pinHeight(e.id) : null) ?? rangeAt(e.id) ?? 'No record at this hour';
+        return <li key={e.id}>{head}<SpotRow id={e.id} name={e.name} sub={byView ? `${e.region} · ${sub}${rated ? '' : ' · not rated'}` : sub} category={rated ? rt!.category : null}
           current={e.id === spot.id} highlighted={hover === e.id} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
       })}</ul>
       <p className="xmore">
@@ -565,6 +601,8 @@ function OceanMap({section, go}: ViewProps) {
           onKeyDown={(e) => { if (e.key === 'Enter' && list[0]) { e.preventDefault(); pickSpot(list[0].id, true); (e.target as HTMLInputElement).blur(); } if (e.key === 'Escape') { setQ(''); setOpen(false); } }} />
         <button type="button" className="xtb-loc" aria-label="Go to my location (or the selected spot)" onClick={locate}><Icon name="locate" size={17} /></button>
       </label>
+      {!phone && !open && inView && inView.size > 0 && <button type="button" className="xinview" aria-controls="xsheet" aria-expanded={false}
+        onClick={() => { setQ(''); setZone('In view'); setOpen(true); }}>{inView.size} spot{inView.size === 1 ? '' : 's'} in view<Icon name="chevron" size={14} /></button>}
     </div>
   );
   // T-117: the pin label's value is the painted field's own, at the tapped point; the period comes from the period layer when shown, else the point forecast.

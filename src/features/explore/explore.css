@@ -722,3 +722,33 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xpin.xchipon .xlabel { position: absolute; left: calc(100% + 6px); }
 .xpin.xchipon.clft .xhchip { position: absolute; right: calc(100% + 6px); } /* mirror of the right side: dot margin 3 + gap 6 = 9 px from the dot's disc either way */
 .xpin.xchipon:is(.hl, :hover, :focus-visible) .xhchip { visibility: hidden; } /* hover shows the full label in its place */
+/* Track 2: the spot card's next-hours bars (surf estimate per record: solid to the low value, lighter to the high; gaps where there is no surf estimate) */
+.xco-hrs { display: grid; gap: 3px; }
+.xco-bars { display: flex; align-items: flex-end; gap: 2px; height: 40px; padding-bottom: 1px; border-bottom: 1px solid var(--line, rgb(127 127 127 / 0.3)); }
+.xco-bars > span { flex: 1; height: 100%; display: flex; align-items: flex-end; min-width: 0; }
+.xco-bars i { width: 100%; display: flex; align-items: flex-end; border-radius: 2px 2px 0 0; background: color-mix(in srgb, var(--c) 40%, transparent); }
+.xco-bars b { width: 100%; border-radius: 2px 2px 0 0; background: var(--c); }
+.xco-bars .nr i { background: color-mix(in srgb, var(--muted) 30%, transparent); } .xco-bars .nr b { background: color-mix(in srgb, var(--muted) 70%, transparent); }
+.xco-bars .gap { background: repeating-linear-gradient(90deg, transparent 0 2px, rgb(127 127 127 / 0.25) 2px 3px) bottom / 100% 3px no-repeat; }
+.xco-hx { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .xsheet.phone .xco .xco-hrs { grid-column: 1 / -1; } }
+
+/* Track 2: "Spots in view" (the list follows the map) */
+.xinview { justify-self: start; display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; padding: 5px 10px 5px 12px; border: 1px solid var(--xc-line); border-radius: 999px;
+  background: var(--xc); color: var(--text); box-shadow: var(--xc-sh); font: 600 13px/1.2 var(--sans); cursor: pointer; }
+.xinview:hover { background: var(--s1); }
+.xinview svg { color: var(--muted); }
+.xinv-h { margin: 4px 2px 6px; font-size: 12px; color: var(--muted); }
+/* The region chips sit inside .xlist, whose row rule (.xlist button: full width, 52 px grid) turned every chip into a stacked full-width button. */
+.xlist .xtb-chips button { width: auto; display: inline-flex; align-items: center; grid-template-columns: none; gap: 0; min-height: 32px; padding: 0 11px; border-radius: 999px; }
+@media (max-width: 860px) { .xlist .xtb-chips button { min-height: 44px; } }
+/* While the desktop list is open, the map credit moves right of it (it was drawn over the list's last rows). */
+@media (min-width: 861px) { .xmap:has(.xsearchbox .xsheet) :is(.xcredit, .leaflet-bottom.leaflet-left) { left: 372px; } }
+/* Phones: the region chips are one sideways-scrolling row, so the list starts high in the sheet (they wrapped to three rows). */
+@media (max-width: 860px) { .xsheet.phone .xtb-chips { flex-wrap: nowrap; overflow-x: auto; padding: 8px 4px 4px; } }
+/* MapLibre centres a marker's own box on its point. `.xpin { width: auto !important }` made that box the dot AND its label, so every spot's dot
+   was drawn off its true place (by half the label's width, and up by half its height). The marker box stays 22 × 22 (the dot), as Leaflet
+   anchors it; the label and chip overflow to the side as before. */
+.xpin.maplibregl-marker { width: 22px !important; height: 22px !important; overflow: visible; }
+.xpin.maplibregl-marker i { margin-left: 1px; }
+.xpin.maplibregl-marker.xdot:not(.sel) i { margin: 4px; }

@@ -19,8 +19,33 @@ export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile, nowMs?: nu
 
 /** T-043 spot callout (Apple Maps style): name, rating, the labelled height, wind with its shore relation, one action.
  *  Used as the map popup at the pin (wide screens) and as the bottom sheet's peek (phones). */
-export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}: {
-  spot: SurfSpot; region: string; f: Forecast | undefined; rating: SurfRating | null; when: string; p: UserProfile; onOpen: () => void; onClose?: () => void;
+/** One bar of the card's next-hours strip: the hour's surf estimate (lo–hi ft) or a gap (offshore-only or missing: never drawn as surf), coloured
+ *  by that hour's rating (neutral when unrated or dark). */
+export interface HourBar {t: number; lo: number | null; hi: number | null; c: string; rated: boolean}
+const hourLabel = (t: number) => new Date(t).toLocaleTimeString('en-US', {hour: 'numeric', timeZone: 'America/Los_Angeles'}).replace(':00', '').replace(' ', '').toLowerCase();
+
+/** Track 2 (Surfline's next-hours bars): the surf estimate hour by hour from the shown hour, the same headline selector as the number above. */
+export function NextHours({hours, p}: {hours: HourBar[]; p: UserProfile}) {
+  const vals = hours.flatMap((h) => (h.hi !== null ? [h.hi] : []));
+  if (vals.length < 2) return null;
+  const top = Math.max(2, ...vals), est = hours.filter((h) => h.lo !== null && h.hi !== null);
+  const lo = Math.min(...est.map((h) => h.lo!)), hi = Math.max(...est.map((h) => h.hi!));
+  const label = `Surf estimate for the next ${hours.length > 1 ? Math.round((hours[hours.length - 1].t - hours[0].t) / 36e5) + 1 : 1} hours, from ${hourLabel(hours[0].t)}: between ${ht(lo, p, 0)} and ${ht(hi, p, 0)} ${p.heightUnit}`
+    + (est.length < hours.length ? `; ${hours.length - est.length} hours have no surf estimate` : '');
+  return (
+    <div className="xco-hrs" role="img" aria-label={label}>
+      <div className="xco-bars" aria-hidden="true">
+        {hours.map((h) => <span key={h.t} className={h.hi === null ? 'gap' : h.rated ? undefined : 'nr'} style={{'--c': h.c} as React.CSSProperties} title={h.hi === null ? `${hourLabel(h.t)}: no surf estimate` : `${hourLabel(h.t)}: ${ht(h.lo!, p, 0)}–${ht(h.hi, p, 0)} ${p.heightUnit}`}>
+          {h.hi !== null && <i style={{height: `${(h.hi / top) * 100}%`}}><b style={{height: `${(h.lo! / h.hi) * 100}%`}} /></i>}
+        </span>)}
+      </div>
+      <div className="xco-hx" aria-hidden="true"><span>{hourLabel(hours[0].t)}</span><span>{ht(top, p, 0)} {p.heightUnit} max</span><span>{hourLabel(hours[hours.length - 1].t)}</span></div>
+    </div>
+  );
+}
+
+export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, hours}: {
+  spot: SurfSpot; region: string; f: Forecast | undefined; rating: SurfRating | null; when: string; p: UserProfile; onOpen: () => void; onClose?: () => void; hours?: HourBar[];
 }) {
   const {view, now} = useSwello();
   // The same headline selector as the spot page and Home (T-046), so the map, Home and the spot page agree on the range.
@@ -38,6 +63,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose}:
         <p className="xco-ht">{big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : `model estimate${t!.confidenceText ? ` · ${t!.confidenceText}` : ''}`}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
+      {f && hours && <NextHours hours={hours} p={p} />}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>
     </div>
   );
