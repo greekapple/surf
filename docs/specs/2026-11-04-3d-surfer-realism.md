@@ -3,8 +3,8 @@ Status: **APPROVED** (user, 2026-11-04: "fix the issues you are referring to …
 
 ## What the user saw (Ocean Beach, Wed 8 AM, 11.5 ft face, Intermediate)
 - **The movement still isn't fluid:** "the idea is there but it's not executed very well". It needs to improve drastically.
-- **The knees look wrong.**
-- **The arm goes up far too high before every turn.**
+- **The knees look wrong:** "knees are literally touching each other" (2026-11-04, second look).
+- **The arm goes up far too high before every turn; the arms are still wild.**
 - **The hairline looks bad:** give him a better, more realistic hairstyle.
 - **Too little difference by size and skill:** simpler surfing should go with smaller waves and lower experience, and more technical riding with bigger waves.
 - **No barrel riding yet:** these waves are barrelling, so above 6 ft one of the rides should be a barrel ride, crouched inside the tube and visible from the side, or just coming out of it.
@@ -25,11 +25,21 @@ Status: **APPROVED** (user, 2026-11-04: "fix the issues you are referring to …
    - no hyperextension, no knock-knee or bow-leg artefacts;
    - feet planted with the board's tilt.
    - The IK must respect the knee pole direction (the knee points over the toes).
+   - **HARD GATE (user, 2026-11-04: "knees are literally touching each other, which is extremely inaccurate"):**
+     - the knee-to-knee distance is ≥ 60% of the foot-to-foot distance at all times (a surfer's knees are about shoulder width apart, over the feet);
+     - each knee stays within ±10 cm (lateral, in the board plane) of the line from its hip to its foot;
+     - the knees NEVER touch or cross.
+     - Measured every frame by the glitch monitor (`knock` count); must be 0 in every matrix cell.
 3. **Arms:**
    - no high arm raise before turns;
    - real surfers keep their arms low to mid, lead with the front arm pointing where they're going, the back arm low and behind;
    - turns are driven by the shoulders and hips;
    - arm motion is small and damped, never a raise-and-drop each turn.
+   - **HARD GATE (user, 2026-11-04: "the arms are still wild"):**
+     - wrists stay below shoulder height except: the front hand in a big snap (≤ 0.3 s), or the back hand dragging the face in a barrel stall;
+     - hands stay inside a box ±70 cm sideways of the torso and between the knee and the shoulder height;
+     - arm joint angular speed ≤ 360°/s, with no reversal faster than 0.25 s.
+     - Measured by the glitch monitor (`arm` count, wrist-above-shoulder seconds per minute); 0 violations in every matrix cell.
 4. **Fluidity:**
    - continuous motion between moves (blend in the move's own rhythm, about 0.3–0.6 s, with no pose holding still mid-move);
    - compression and extension as one smooth wave through the legs;
