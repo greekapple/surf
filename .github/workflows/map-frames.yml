@@ -1,4 +1,4 @@
-# Map frames: NOAA GFS-Wave 0.25° (public domain, AWS Open Data) → packed PNGs + manifest → GitHub Pages.
+# Map frames: NOAA GFS-Wave 0.25° (public domain, AWS Open Data) → packed PNGs + manifest → GitHub Pages (every 6 h + manual run).
 # The job code comes from the clean public branch (swello-v0.17); only the generated frames are published, never the repo's files.
 # Docs: docs/map-pipeline.md. The app uses these frames when VITE_MAP_FRAMES_BASE points here and falls back to /api/ocean (WW3) when the run is > 18 h old.
 name: Map frames (GFS-Wave 0.25°)
