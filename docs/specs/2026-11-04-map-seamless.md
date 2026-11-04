@@ -8,7 +8,7 @@ Status: **APPROVED, queued** (user: "when finished with all tasks you see fit, c
   - the T-092 enclosed-water mask with the "Not covered" hatch;
   - T-115/T-117: Windy wave/wind ramps, opaque field, grey land basemap, zoom transform, point API `sampleField`, Windy-like chrome (`src/features/explore/*`).
 - **The "0–30+ vs 0–13+" legend** is T-115's fixed coastal (0–4 m) vs basin (0–9 m) domain switch by zoom. The brief calls it a bug: one absolute scale per layer.
-- **Colour direction:** this brief (newer) says Swello's own surf-first ramps with fixed breakpoints, "not a Windy copy". The 2026-11-04 earlier instruction was "same colors as Windy". **The lead asked the user which wins** (open question 1).
+- **Colour direction:** this brief (newer) says Swello's own surf-first ramps with fixed breakpoints, "not a Windy copy". The 2026-11-04 earlier instruction was "same colors as Windy". **User decision (2026-11-04): Swello's own surf scale.** Follow this brief's Stage 3: own ramps with the surf breakpoints, readable in grayscale and for colorblind users, one fixed absolute scale per layer. This replaces the Windy ramps from T-115/T-117; update the RULES.md map note accordingly.
 - **Gates the brief sets for the user:**
   - a library migration (Leaflet → MapLibre GL) needs a written case and the user's OK first;
   - a higher-resolution data source and a tiled pre-processing pipeline is a written proposal, not implemented without OK (backend, possible cost).
