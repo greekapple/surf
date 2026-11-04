@@ -60,5 +60,6 @@
 .sc-dev { font-size: 12px; color: var(--dim); border: 1px dashed var(--line); border-radius: 8px; padding: 6px 10px; }
 .sc-dev summary { cursor: pointer; }
 .sc-dev-row { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 6px 0; align-items: center; }
-.sc-dev-row label { display: inline-flex; align-items: center; gap: 4px; }
+.sc-dev-row label, .sc-dev summary { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }   /* dev-only, but still a 44 px tap target when shown */
+.sc-dev-row input, .sc-dev-row select { min-height: 32px; }
 .sc-dev-row input[type="number"] { width: 5em; }

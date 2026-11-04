@@ -7,7 +7,7 @@ import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, bucketIdFor, bucket
 import {RiderSim, S, STATE_N, Spring, type Stance, isFrontside, lerpState} from './rideSim';
 import {RiderBody, samplePoses} from './riderBody';
 import {GlitchMonitor} from './glitchMonitor';
-import {POLE, SIM} from './surfSceneConfig';
+import {BOARD, POLE, SIM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
 import type {Skill} from '../../models/index';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
@@ -302,8 +302,9 @@ const loadSurfer = () => (surferCache ??= loader.loadAsync(LIVE_ROOT + 'surfer.g
  *  (ahead_m, negative = behind), the clip's current move (trim | bottom | top | pump), the height fraction on the face (frac, 0 trough ..
  *  1 crest), the board's heading against its measured velocity over the water (heading_err_deg), the board centre on the canvas
  *  (screen, fractions 0..1 from the top left), the along-crest velocity in the crest frame (vx_mps) and over the water (v_water_mps, + down
- *  the line: the crest frame moves with the peel, so x oscillates while the water-relative speed never reverses). */
-export interface RiderSample {x: number; y: number; z: number; contact_m: number; low_m: number; ahead_m: number; move: string; frac: number; heading_err_deg: number; screen: [number, number]; vx_mps: number; v_water_mps: number}
+ *  the line: the crest frame moves with the peel, so x oscillates while the water-relative speed never reverses), and the rider's
+ *  visibility (a ride runs takeoff -> maneuvers -> kick-out, fades out, and the next one fades in at the peak). */
+export interface RiderSample {x: number; y: number; z: number; contact_m: number; low_m: number; ahead_m: number; move: string; frac: number; heading_err_deg: number; screen: [number, number]; vx_mps: number; v_water_mps: number; /** 0..1: faded out between the kick-out and the next takeoff */ vis: number}
 
 /** The atlas for a face height from the loaded buckets: the two buckets around it blended; below or above the range the end bucket
  *  scaled. Always the bucket family's own atlas: the "-spilling" variants draw the whole section as a wall of whitewater with no open
@@ -368,7 +369,7 @@ function setSea(g: THREE.BufferGeometry, m: AtlasMeta) {
 
 // spray: lip spray off the pitching lip, offshore back-spray off the feathering crest, soft mist over the whitewater, the landing burst
 const N_LIP = 700, N_BACK = 520, N_MIST = 240, N_BLAST = 420, N_TAIL = 220, SPRAY_N = N_LIP + N_BACK + N_MIST + N_BLAST + N_TAIL;
-interface Spray {pts: THREE.Points; pos: Float32Array; vel: Float32Array; life: Float32Array; max: Float32Array; size: Float32Array; alpha: Float32Array; lip: Float32Array; crest: Float32Array; mist: Float32Array; blast: Float32Array; tail: Float32Array; tailVel: Float32Array; tailOn: number}
+interface Spray {pts: THREE.Points; pos: Float32Array; vel: Float32Array; life: Float32Array; max: Float32Array; size: Float32Array; alpha: Float32Array; lip: Float32Array; crest: Float32Array; mist: Float32Array; blast: Float32Array; tail: Float32Array; tailVel: Float32Array; /** the turn's outside, crest frame (the fan is thrown this way) */ tailOut: Float32Array; tailOn: number}
 /** Emitters from the atlas (static stage): crest-frame points (x, up, -y). */
 function emitters(a: Atlas) {
   const m = a.meta, H = m.face_m, lip: number[] = [], crest: number[] = [], mist: number[] = [], blast: number[] = [], spill = m.breaker === 'spilling';
@@ -430,6 +431,31 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     controls.addEventListener('start', () => { dragUntil = Infinity; });
     controls.addEventListener('end', () => { dragUntil = performance.now() + 3000; camS[0].set(controls.target.x); camS[1].set(controls.target.y); camS[2].set(controls.target.z); });
     const spMat = new THREE.ShaderMaterial({uniforms: {uScale: {value: 600}, uAmb: u.uAmb}, vertexShader: SPRAY_VS, fragmentShader: SPRAY_FS, transparent: true, depthWrite: false});
+    // the board's wake (brief stage 6): a ribbon of the tail's last positions on the water, carried with the flow, widening and fading
+    // within WAKE.lifeS, re-seated on the water each frame (the face it was left on morphs). Allocation-free per frame.
+    // each sample keeps the tail's along-crest x and its height fraction v on the face (the water streams along the face's own x lines, so a
+    // sample re-seated at (x - flow t, v) stays on the water; a fixed cross-shore z ran up the crest as the face bent away along the line)
+    const WK = WAKE.points, wk = {pos: new Float32Array(WK * 2 * 3), a: new Float32Array(WK * 2), pts: new Float32Array(WK * 6), n: 0, head: 0, last: -1}, wkP = new Float64Array(4);   // pts: x, v, rx, rz, t, (spare)
+    const wkGeo = new THREE.BufferGeometry();
+    wkGeo.setAttribute('position', new THREE.BufferAttribute(wk.pos, 3).setUsage(THREE.DynamicDrawUsage)); wkGeo.setAttribute('aA', new THREE.BufferAttribute(wk.a, 1).setUsage(THREE.DynamicDrawUsage));
+    { const idx = new Uint16Array((WK - 1) * 6); for (let i = 0; i < WK - 1; i++) { const a = i * 2, o = i * 6; idx[o] = a; idx[o + 1] = a + 1; idx[o + 2] = a + 2; idx[o + 3] = a + 1; idx[o + 4] = a + 3; idx[o + 5] = a + 2; } wkGeo.setIndex(new THREE.BufferAttribute(idx, 1)); }
+    const wkMat = new THREE.ShaderMaterial({uniforms: {uAmb: u.uAmb}, vertexShader: 'attribute float aA; varying float vA; void main(){ vA=aA; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }', fragmentShader: 'uniform float uAmb; varying float vA; void main(){ gl_FragColor=vec4(vec3(.93,.96,.97)*uAmb, vA);\n#include <colorspace_fragment>\n}', transparent: true, depthWrite: false, side: THREE.DoubleSide});
+    const wake = new THREE.Mesh(wkGeo, wkMat); wake.frustumCulled = false; wake.visible = false; group.add(wake);
+    const wakeSample = (x: number, v: number, rx: number, rz: number, t: number) => {
+      if (t - wk.last < WAKE.sampleS) return; wk.last = t; const o = wk.head * 6; wk.pts[o] = x; wk.pts[o + 1] = v; wk.pts[o + 2] = rx; wk.pts[o + 3] = rz; wk.pts[o + 4] = t;
+      wk.head = (wk.head + 1) % WK; wk.n = Math.min(WK, wk.n + 1);
+    };
+    const stepWake = (t: number, atlas: Atlas, flowX: number) => {
+      wake.visible = wk.n > 1; if (!wake.visible) return;
+      for (let k = 0; k < WK; k++) {
+        const i = (wk.head - wk.n + k + WK) % WK, o = i * 6, age = t - wk.pts[o + 4], life = Math.max(0, 1 - age / WAKE.lifeS), on = k >= WK - wk.n ? 1 : 0;
+        const x = wk.pts[o] - flowX * age; facePointInto(atlas, x, wk.pts[o + 1], t, wkP);   // on the face the shader draws, lifted off it along its normal
+        const sl = wkP[2], y = wkP[1] + Math.cos(sl) * WAKE.liftM, z = -wkP[0] - Math.sin(sl) * WAKE.liftM, w = 0.5 * (WAKE.widthM + WAKE.spreadM * (1 - life)), rx = wk.pts[o + 2] * w, rz = wk.pts[o + 3] * w;
+        const q = k * 6; wk.pos[q] = x - rx; wk.pos[q + 1] = y; wk.pos[q + 2] = z - rz; wk.pos[q + 3] = x + rx; wk.pos[q + 4] = y; wk.pos[q + 5] = z + rz;
+        wk.a[k * 2] = wk.a[k * 2 + 1] = WAKE.alpha * life * life * on;
+      }
+      (wkGeo.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true; (wkGeo.getAttribute('aA') as THREE.BufferAttribute).needsUpdate = true;
+    };
     const size = () => { const w = Math.max(1, el.clientWidth), h = Math.max(1, el.clientHeight); renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); spMat.uniforms.uScale.value = (h * dpr) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)); };
     const ro = new ResizeObserver(size); ro.observe(el);
 
@@ -438,7 +464,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       for (let i = 0; i < n; i++) life[i] = -Math.random() * 2;
       const g = new THREE.BufferGeometry();
       g.setAttribute('position', new THREE.BufferAttribute(pos, 3).setUsage(THREE.DynamicDrawUsage)); g.setAttribute('aSize', new THREE.BufferAttribute(size, 1).setUsage(THREE.DynamicDrawUsage)); g.setAttribute('aA', new THREE.BufferAttribute(alpha, 1).setUsage(THREE.DynamicDrawUsage));
-      const pts = new THREE.Points(g, spMat); pts.frustumCulled = false; const e = new Float32Array(0); return {pts, pos, vel, life, max, size, alpha, lip: e, crest: e, mist: e, blast: e, tail: new Float32Array(3), tailVel: new Float32Array(3), tailOn: 0};
+      const pts = new THREE.Points(g, spMat); pts.frustumCulled = false; const e = new Float32Array(0); return {pts, pos, vel, life, max, size, alpha, lip: e, crest: e, mist: e, blast: e, tail: new Float32Array(3), tailVel: new Float32Array(3), tailOut: new Float32Array(3), tailOn: 0};
     };
     const R = Math.random;
     let faceM = 1.5, pow = 1, back = 0;
@@ -465,7 +491,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
           } else if (kind === 4) { // the rider's tail spray at the top turn: water leaving the tail with the board's velocity plus a kick up and
             // back, then left behind as the water streams past (it is water: it keeps the flow, so it trails the rider down the line) under gravity
             const f = 0.6 + 0.5 * Math.min(1.5, Math.sqrt(surferRef.current / SURFER_MODEL_M));
-            sp.vel[j] = sp.tailVel[0] + 0.6 * u.uFlowX.value + (R() + 0.1) * 1.4 * f; sp.vel[j + 1] = sp.tailVel[1] * 0.5 + (1.4 + R() * 2.6) * f; sp.vel[j + 2] = sp.tailVel[2] * 0.5 - (0.2 + R() * 1.8) * f;
+            const out = (0.8 + R() * 2.4) * f * sp.tailOn;   // thrown to the outside of the turn, more the harder the turn
+            sp.vel[j] = sp.tailVel[0] + 0.6 * u.uFlowX.value + (R() + 0.1) * 1.4 * f + sp.tailOut[0] * out; sp.vel[j + 1] = sp.tailVel[1] * 0.5 + (1.4 + R() * 2.6) * f + sp.tailOut[1] * out; sp.vel[j + 2] = sp.tailVel[2] * 0.5 - (0.2 + R() * 1.8) * f + sp.tailOut[2] * out;
             sp.max[i] = sp.life[i] = 0.35 + R() * 0.6; sp.size[i] = 0.08 + R() * 0.2;
           } else { // mist over the whitewater
             sp.pos[j] += (R() - 0.5) * 1.2; sp.pos[j + 1] += R() * 0.3 * H; sp.vel[j] = (R() - 0.5) * 0.3; sp.vel[j + 1] = 0.1 + R() * 0.3; sp.vel[j + 2] = (R() - 0.3) * 0.5;
@@ -488,6 +515,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     // premultiplied onto a stale mixer write (the round-3 popping, docs/3d/FINDINGS-2026-11-04.md).
     const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
     let sim: RiderSim | null = null, body: RiderBody | null = null, cur: {atlas: Atlas} | null = null, frontside = true;
+    // the rider's materials, faded in at the takeoff and out at the kick-out (spec stage 4: a ride has a start and an end)
+    const fadeMats: THREE.Material[] = []; let shownVis = -1;
     const riderOpts: {skill: Skill; seed: number; stance: Stance | null} = {skill: 'Intermediate', seed: 1, stance: null};
     const monitor = new GlitchMonitor(); monitor.warn = import.meta.env.DEV;
     const st = new Float64Array(STATE_N);
@@ -510,13 +539,23 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       }
       return {obj, box};
     };
+    /** The drawn board's size for the simulation: the bounds in its own frame times its scale (the model's board is scaled to the band). */
+    const simBoard = () => { const bd = boardOf(); if (bd && sim) sim.setBoard((bd.box.max.x - bd.box.min.x) * bd.obj.scale.x, (bd.box.max.z - bd.box.min.z) * bd.obj.scale.z, bd.box.min.y * bd.obj.scale.y); };
+    /** No quiver board: the model's 6'0" x 19.3" board is scaled to the band's length (for the person's height) and width (brief part 2). */
+    const fitModelBoard = (H: number) => {
+      const orig = surfer?.getObjectByName('Board'); if (!orig || custom) return;
+      const faceFt = H / 0.3048, band = bandFor(faceFt), [lo, hi] = bandBoardFt(band, faceFt), riderFt = surferRef.current / 0.3048;
+      const lenM = (lo + hi) / 2 * 0.3048 * riderFt / (5 + 10 / 12), bd = boardOf(); if (!bd) return;
+      orig.scale.set(lenM / (bd.box.max.x - bd.box.min.x), 1, BOARD.bandWidthM[band.id] / (bd.box.max.z - bd.box.min.z)); orig.updateMatrixWorld(true);
+      el.dataset.board = JSON.stringify({id: 'model', band: band.id, length_m: Math.round(lenM * 1000) / 1000, width_m: BOARD.bandWidthM[band.id]});
+    };
     /** Board-to-face gaps (m, signed normal distance to the face, + out of the water): at the board's bottom centre, and the lowest of the tail, nose and both rails. Allocation-free. */
     const cpts = new Float64Array(15), gaps: [number, number] = [0, 0];
     const contactM = (t: number): [number, number] => {
       gaps[0] = gaps[1] = 0; if (!surfer || !cur) return gaps;
       const bd = boardOf(); if (!bd) return gaps;
       const mesh = bd.obj, bx = bd.box; boardBox.copy(bx);
-      cpts.set([0, bx.min.y, 0, bx.max.x - 0.03, bx.min.y + 0.03, 0, bx.min.x + 0.15, bx.min.y + 0.08, 0, 0, bx.min.y, bx.max.z - 0.02, 0, bx.min.y, bx.min.z + 0.02]);
+      const P = BOARD.probe; cpts.set([0, bx.min.y, 0, bx.max.x - P.tailIn, bx.min.y + P.tailUp, 0, bx.min.x + P.noseIn, bx.min.y + P.noseUp, 0, 0, bx.min.y, bx.max.z - P.railIn, 0, bx.min.y, bx.min.z + P.railIn]);
       let low = Infinity;
       for (let i = 0; i < 5; i++) { pt.set(cpts[i * 3], cpts[i * 3 + 1], cpts[i * 3 + 2]); mesh.localToWorld(pt); group.worldToLocal(pt); const gap = faceDistanceAt(cur!.atlas, pt.x, pt.y, pt.z, t); if (i === 0) gaps[0] = gap; low = Math.min(low, gap); }
       gaps[1] = low; return gaps;
@@ -535,7 +574,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       if (!cur || !sim) return null; const t = st[S.T], x = pole.position.x, pr = profileAt(cur.atlas, x, t, 192, true); let crest = -Infinity; for (const z of pr.z) crest = Math.max(crest, z);
       return {x, troughY: pole.position.y, topY: pole.position.y + POLE.heightM, crestY: crest, faceM: crest - pole.position.y, labelFaceM: cur.atlas.meta.face_m};
     };
-    const ret = {x: 0, y: 0, z: 0, xb: 0, move: 'trim', frac: 0, headErr: 0, vx: 0, vWater: 0};
+    const ret = {x: 0, y: 0, z: 0, xb: 0, move: 'trim', frac: 0, headErr: 0, vx: 0, vWater: 0, vis: 1};
     const placeRider = (alpha: number, dt: number) => {
       if (!surfer || !cur || !sim || !body || !surfer.visible) return null;
       lerpState(sim.prev, sim.cur, alpha, st); const t = st[S.T]; u.uTime.value = t;   // the water is drawn at the rider's time
@@ -548,6 +587,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       upR.set(noseV.y, U.y, Zc.y);   // world up in the rider frame (the basis is orthonormal, mirrored or not)
       body.pose(st, {upR, roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], idleA: st[S.IDLE_A], idleB: st[S.IDLE_B], mirror: frontside ? 1 : -1, profile: sim.plan.profile});
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
+      const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
       const g = contactM(t), gc = g[0], gl = g[1];
       if (import.meta.env.DEV) monitor.sample(dt, t, sim.move(), gc - st[S.BRIDGE], gl);   // the bridge over a concave section is deliberate
       // the tail (crest frame) and its velocity: the top-turn spray leaves from here, with the board
@@ -556,14 +596,17 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         pt.set(bd.box.max.x - 0.03, bd.box.min.y + 0.03, 0); bd.obj.localToWorld(pt); group.worldToLocal(pt);
         if (haveVel && dt > 0) { spray.tailVel[0] = (pt.x - prevTail.x) / dt; spray.tailVel[1] = (pt.y - prevTail.y) / dt; spray.tailVel[2] = (pt.z - prevTail.z) / dt; }
         prevTail.copy(pt); spray.tail[0] = pt.x; spray.tail[1] = pt.y; spray.tail[2] = pt.z;
-        spray.tailOn = sim.move() === 'top' ? THREE.MathUtils.smoothstep(Math.abs(st[S.ROLL]), 0.12, 0.3) : 0;
+        const mv = sim.move(), load = THREE.MathUtils.smoothstep(Math.abs(st[S.ROLL]), WAKE.sprayRoll0, WAKE.sprayRoll1) * Math.min(1, st[S.SPEED] / WAKE.spraySpeed);
+        spray.tailOn = WAKE.sprayMoves.includes(mv) && vis > 0.5 ? load * sim.plan.band.spray * sim.plan.profile.carve : 0;
+        const os = st[S.ROLL] > 0 ? 1 : -1; spray.tailOut[0] = Rv.x * os; spray.tailOut[1] = Rv.y * os; spray.tailOut[2] = Rv.z * os;   // the rail the deck banks away from
+        if (vis > 0.5 && st[S.SPEED] > 1) wakeSample(pt.x, Math.max(0.02, st[S.V] + (pt.y - st[S.Y]) / cur.atlas.meta.face_m), Rv.x, Rv.z, t);   // the tail's height fraction: the centre's plus its drop
       }
       haveVel = true;
-      // the heading against the velocity over the water (the simulation's own velocity, the x flow removed)
-      velV.set(st[S.VX] - u.uFlowX.value, st[S.VY], st[S.VZ]); const headErr = velV.lengthSq() > 0.04 ? THREE.MathUtils.radToDeg(F.angleTo(velV)) : 0;
+      // the heading against the velocity over the water (the simulation's own velocity less the water streaming along the face's x-tangent)
+      velV.set(st[S.WX], st[S.WY], st[S.WZ]); const headErr = velV.lengthSq() > 0.04 ? THREE.MathUtils.radToDeg(F.angleTo(velV)) : 0;
       if (pole.visible) placePole(t);
-      probe = {t, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE]};
-      ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = u.uFlowX.value - st[S.VX];
+      probe = {t, vis, frac: st[S.V], u: st[S.U], x: st[S.X], y: st[S.Y], z: st[S.Z], xb: sim.stats.xbNow, xbFollowed: st[S.XB], roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], gap: gc, lowGap: gl, speed: st[S.SPEED], maxFrac: sim.stats.maxFracNow, slope: sim.stats.slopeNow, yaw: st[S.YAW], hipY: body.hipY, bridge: st[S.BRIDGE]};
+      ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = -st[S.WX]; ret.vis = vis;
       return ret;
     };
     let probe: Record<string, number> | null = null;
@@ -571,7 +614,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const probeRider = () => {
       if (!surfer || !cur) return null; const t = u.uTime.value; surfer.updateMatrixWorld(true);
       const bd = boardOf(); if (!bd) return null;
-      const mesh = bd.obj, bx = bd.box; const pts: Record<string, [number, number, number]> = {tail: [bx.max.x - 0.03, bx.min.y + 0.03, 0], nose: [bx.min.x + 0.15, bx.min.y + 0.08, 0], railA: [0, bx.min.y, bx.max.z - 0.02], railB: [0, bx.min.y, bx.min.z + 0.02]};
+      const mesh = bd.obj, bx = bd.box, P = BOARD.probe; const pts: Record<string, [number, number, number]> = {tail: [bx.max.x - P.tailIn, bx.min.y + P.tailUp, 0], nose: [bx.min.x + P.noseIn, bx.min.y + P.noseUp, 0], railA: [0, bx.min.y, bx.max.z - P.railIn], railB: [0, bx.min.y, bx.min.z + P.railIn]};
       const out: Record<string, unknown> = {...probe, bbox: [bx.min.toArray(), bx.max.toArray()], frontside, stance: sim?.stance, skill: sim?.plan.skill, seed: sim?.seed, period: sim?.plan.period};
       for (const [n, p] of Object.entries(pts)) { pt.set(p[0], p[1], p[2]); mesh.localToWorld(pt); group.worldToLocal(pt); out[n] = {x: pt.x, y: pt.y, z: pt.z, gap: faceDistanceAt(cur.atlas, pt.x, pt.y, pt.z, t)}; }
       pt.set(0, 0, 0); mesh.localToWorld(pt); group.worldToLocal(pt); out.origin = {x: pt.x, y: pt.y, z: pt.z, gap: faceDistanceAt(cur.atlas, pt.x, pt.y, pt.z, t)};
@@ -580,13 +623,13 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     };
     /** Dev/QA sample (~30 Hz in dev, ~10 Hz otherwise): the board's tail in the crest frame, its gap to the water, how far ahead of the
      *  break point, the move, the height fraction, the heading error, the canvas position and the along-crest speeds. */
-    const sampleRider = (t: number, r: {x: number; y: number; z: number; xb: number; move: string; frac: number; headErr: number; vx: number; vWater: number}) => {
+    const sampleRider = (t: number, r: {x: number; y: number; z: number; xb: number; move: string; frac: number; headErr: number; vx: number; vWater: number; vis: number}) => {
       if (!surfer || !cur) return;
       const bd = boardOf(); if (!bd) return;
       const mesh = bd.obj;
       const r3 = (n: number) => Math.round(n * 1000) / 1000, g = contactM(t), gc = g[0], gl = g[1];
       pt.set(0, 0, 0); mesh.localToWorld(pt); pt.project(camera);
-      rider = {x: r3(prevTail.x), y: r3(prevTail.y), z: r3(prevTail.z), contact_m: r3(gc), low_m: r3(gl), ahead_m: r3(r.xb - r.x), move: r.move, frac: r3(r.frac), heading_err_deg: Math.round(r.headErr * 10) / 10, screen: [r3((pt.x + 1) / 2), r3((1 - pt.y) / 2)], vx_mps: r3(r.vx), v_water_mps: r3(r.vWater)};
+      rider = {x: r3(prevTail.x), y: r3(prevTail.y), z: r3(prevTail.z), contact_m: r3(gc), low_m: r3(gl), ahead_m: r3(r.xb - r.x), move: r.move, frac: r3(r.frac), heading_err_deg: Math.round(r.headErr * 10) / 10, screen: [r3((pt.x + 1) / 2), r3((1 - pt.y) / 2)], vx_mps: r3(r.vx), v_water_mps: r3(r.vWater), vis: Math.round(r.vis * 100) / 100};
       if (import.meta.env.DEV) el.dataset.rider = JSON.stringify(rider);
     };
     const placeCamera = (mode: 'surf' | 'swell', tx: number, H: number, far: number) => {
@@ -642,11 +685,12 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       riderOpts.skill = w.skill; riderOpts.seed = w.seed; riderOpts.stance = w.stance;
       const flowX = u.uFlowX.value;
       if (!sim) sim = new RiderSim(atlas, riderOpts.skill, riderOpts.seed, flowX, riderOpts.stance, u.uTime.value); else sim.setWave(atlas, flowX, riderOpts.skill, riderOpts.seed, riderOpts.stance);
-      frontside = isFrontside(sim.stance, dir); cur = {atlas}; haveVel = false;
+      frontside = isFrontside(sim.stance, dir); cur = {atlas}; haveVel = false; wk.n = 0; wk.last = -1;   // a new wave: no trail from the old one
       if (import.meta.env.DEV) monitor.reset();   // an hour change re-seats the rider: not a glitch
       el.dataset.stance = sim.stance; el.dataset.skill = sim.plan.skill; el.dataset.seed = String(sim.seed); el.dataset.frontside = frontside ? '1' : '0';
+      el.dataset.styleBand = sim.plan.band.id;
       if (surfer) {
-        const bd = boardOf(); if (bd) sim.setBoard(bd.box.max.x - bd.box.min.x, bd.box.max.z - bd.box.min.z);
+        fitModelBoard(H); simBoard();
         surfer.visible = true; sim.advance(2 / SIM.hz); placeRider(1, 1 / 60); surfer.updateMatrixWorld(true);
         bb.setFromObject(surfer); el.dataset.surfer = JSON.stringify(bb.min.toArray().concat(bb.max.toArray()).map((n) => Math.round(n * 100) / 100));
       }
@@ -667,7 +711,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         if (needSurfer && !surfer) {
           const s = res[res.length - 1] as {scene: THREE.Group; clips: THREE.AnimationClip[]} | null; if (!s) throw new Error('no surfer');
           surfer = cloneSkinned(s.scene) as THREE.Group; surfer.matrixAutoUpdate = false; group.add(surfer);
-          surfer.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined; if (mm && 'emissiveIntensity' in mm) mm.emissiveIntensity = 0.15; (o as THREE.Mesh).frustumCulled = false; }); setBoard(boardRef.current);
+          surfer.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined; if (mm && 'emissiveIntensity' in mm) mm.emissiveIntensity = 0.15; if (mm) { mm.transparent = true; fadeMats.push(mm); } (o as THREE.Mesh).frustumCulled = false; }); setBoard(boardRef.current);
           const ride = THREE.AnimationClip.findByName(s.clips, 'ride'), still = THREE.AnimationClip.findByName(s.clips, 'still');
           const clip = ride ?? still;
           if (clip) {
@@ -703,16 +747,19 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     // P5b: the selected Quiver board replaces the model's board at its true size, the deck under the feet where the model's was
     const setBoard = (b: Surfboard | null) => {
       if (!surfer) return;
-      if (custom) { custom.parent?.remove(custom); custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); custom = null; }
+      if (custom) { custom.parent?.remove(custom); custom.geometry.dispose(); const cm = custom.material as THREE.Material; cm.dispose(); const i = fadeMats.indexOf(cm); if (i >= 0) fadeMats.splice(i, 1); custom = null; }
       const orig = surfer.getObjectByName('Board'); if (!orig) return;
-      orig.visible = !b; delete el.dataset.board; if (!b) return;
+      orig.visible = !b; delete el.dataset.board; if (!b) { if (cur) { fitModelBoard(cur.atlas.meta.face_m); simBoard(); } return; }
+      orig.scale.set(1, 1, 1); orig.updateMatrixWorld(true);   // the quiver board takes the model board's unscaled frame
       const g = boardGeometry(boardShape(b, loadOutline(b.id)?.hw ?? null)), geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(g.positions, 3)); geo.setIndex(g.indices); geo.computeVertexNormals();
       let base: THREE.Material | null = null; orig.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.Material | undefined; if (mm && !base) base = mm; });
       const mat: THREE.Material = base ? (base as THREE.Material).clone() : new THREE.MeshStandardMaterial({color: 0xf2f0ea, roughness: 0.45}); mat.side = THREE.DoubleSide;
+      mat.transparent = true; fadeMats.push(mat);
       custom = new THREE.Mesh(geo, mat); custom.name = 'QuiverBoard'; custom.position.copy(orig.position); custom.quaternion.copy(orig.quaternion); custom.scale.copy(orig.scale);
       orig.parent?.add(custom); surfer.updateMatrixWorld(true);
       geo.computeBoundingBox(); const bx = geo.boundingBox!; el.dataset.board = JSON.stringify({id: b.id, length_m: Math.round((bx.max.x - bx.min.x) * 1000) / 1000, width_m: Math.round((bx.max.z - bx.min.z) * 1000) / 1000});
+      simBoard();   // the sim rides the new board's bottom and rails
     };
     /** The rider's own inputs: the profile's skill, the forecast hour's seed, the stance (null: a seeded default per spot-hour). */
     const setRider = (o: {skill?: Skill; seed?: number; stance?: Stance | null}) => {
@@ -722,7 +769,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const setPole = (on: boolean) => { pole.visible = on; el.dataset.pole = on ? '1' : '0'; };
     api.current = {setWave, setDir, setLight, setBoard, setRider, setPole};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck}; // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake}; // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;
@@ -732,7 +779,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       const dt = Math.min(0.05, (now - last) / 1000); worst = Math.max(worst, now - last); last = now;
       let r: typeof ret | null = null;
       if (sim && surfer && surfer.visible && cur) { const alpha = reduced ? 1 : sim.advance(dt); r = placeRider(alpha, dt); } else u.uTime.value = (now - t0) / 1000;
-      followCamera(dt); controls.update(); if (spray && spray.pts.visible) stepSpray(spray, dt, faceM); renderer.render(scene, camera); frames++;
+      followCamera(dt); controls.update(); if (spray && spray.pts.visible) stepSpray(spray, dt, faceM); if (cur && surfer && surfer.visible) stepWake(u.uTime.value, cur.atlas, u.uFlowX.value); else wake.visible = false; renderer.render(scene, camera); frames++;
       if (r && now - riderAt > (import.meta.env.DEV ? 30 : 100)) { riderAt = now; sampleRider(u.uTime.value, r); } // dev: ~30 Hz for the QA harness (sampling every frame caused GC hitches: 1% low 53.5)
       if (now - statAt > 1000) { el.dataset.fps = String(Math.round(frames * 1000 / (now - statAt))); el.dataset.worstMs = String(Math.round(worst)); el.dataset.geoms = String(renderer.info.memory.geometries); el.dataset.textures = String(renderer.info.memory.textures); frames = 0; worst = 0; statAt = now; }
       raf = requestAnimationFrame(frame);
@@ -744,7 +791,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const onLost = (e: Event) => { e.preventDefault(); cb.current.onFail?.(); }; canvas.addEventListener('webglcontextlost', onLost);
     return () => {
       disposed = true; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', vis); canvas.removeEventListener('webglcontextlost', onLost); controls.dispose();
-      strip.geometry.dispose(); sea.geometry.dispose(); spray?.pts.geometry.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
+      strip.geometry.dispose(); sea.geometry.dispose(); spray?.pts.geometry.dispose(); wkGeo.dispose(); wkMat.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
       stripMat.dispose(); seaMat.dispose(); spMat.dispose(); sky.geometry.dispose(); (sky.material as THREE.Material).dispose(); renderer.dispose(); canvas.remove(); api.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

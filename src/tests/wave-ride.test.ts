@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makeAtlas, faceDistanceAt, breakX, type AtlasMeta} from '../features/scale/waveAtlas.ts';
 import {RiderSim, S, buildPlan, planAt, defaultStance, hashSeed, isFrontside, lerpState, STATE_N, Spring, wrapPi} from '../features/scale/rideSim.ts';
-import {RIDE, SKILLS} from '../features/scale/surfSceneConfig.ts';
+import {RIDE, SKILLS, bandFor, boardForBand} from '../features/scale/surfSceneConfig.ts';
 import type {Skill} from '../models/index.ts';
 
 const meta = (o: Partial<AtlasMeta> = {}): AtlasMeta => ({band: '4-6', face_m: 1.52, family: 'peeler', breaker: 'plunging', stages: 12, points: 96, stage_feather: 2, stage_pitch: 4, stage_land: 6,
@@ -32,14 +32,15 @@ test('the spring is critically damped and stable through a 50 ms step', () => {
 
 test('the plan is a closed C1 loop per skill: continuous, derivative matches a finite difference, moves cycle trim/bottom/top', () => {
   for (const skill of ['Beginner', 'Intermediate', 'Expert'] as Skill[]) {
-    const p = buildPlan(skill, 42, 1.83), a = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim' as const, pose: 'trim' as const}, b = {...a};
+    const p = buildPlan(skill, 42, 1.83), a = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim' as const, pose: 'trim' as const, ahead: 0.32}, b = {...a};
     planAt(p, 0, a); planAt(p, p.period, b); assert.ok(Math.abs(a.u - b.u) < 1e-9 && Math.abs(a.v - b.v) < 1e-9, `${skill} closes`);
     const moves = new Set<string>(); let worst = 0;
     for (let t = 0; t < p.period; t += 0.005) { planAt(p, t, a); planAt(p, t + 0.005, b); moves.add(a.move);
-      worst = Math.max(worst, Math.abs((b.u - a.u) / 0.005 - a.du), Math.abs((b.v - a.v) / 0.005 - a.dv)); assert.ok(a.v > 0 && a.v < 0.9 && a.u < 0, `${skill} in range`); }
+      worst = Math.max(worst, Math.abs((b.u - a.u) / 0.005 - a.du), Math.abs((b.v - a.v) / 0.005 - a.dv)); assert.ok(a.v > -0.05 && a.v < 1 && a.u < 0, `${skill} in range`); }   // the spline may overshoot a knot slightly; the sim clamps v to [vMin, cap]
     assert.ok(worst < 0.2, `${skill} derivative vs finite difference: ${worst.toFixed(3)}`);
     for (const m of ['trim', 'bottom', 'top']) assert.ok(moves.has(m), `${skill} has ${m}`);
-    assert.ok(p.period > 3 && p.period < 12, `${skill} period ${p.period.toFixed(1)} s`);
+    assert.ok(p.period > 6 && p.period < 20, `${skill} period ${p.period.toFixed(1)} s`); assert.equal(p.band.id, 'B'); assert.ok(p.rideEnd < p.period && p.rideEnd > 4, `${skill} ride end ${p.rideEnd.toFixed(1)} s`);
+    for (const m of ['takeoff', skill === 'Beginner' ? 'out' : 'kickout']) assert.ok(moves.has(m), `${skill} has ${m}`);
   }
   // jitter: a different seed gives a different plan; the same seed the same plan
   assert.notDeepEqual(buildPlan('Expert', 1, 1.83).times, buildPlan('Expert', 2, 1.83).times);
@@ -72,7 +73,7 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
     assert.ok(minV >= RIDE.vMin - 1e-9 && maxV < 0.9, `${skill}: v ${minV.toFixed(2)}..${maxV.toFixed(2)}`);
     if (skill === 'Expert') assert.ok(maxV > 0.55, 'the expert reaches the upper face');
     assert.ok(bankOk > 0 && bankBad === 0, `${skill}: the rail banks into the turn (${bankOk} ok, ${bankBad} wrong)`);
-    const w = SKILLS[skill].knots; assert.ok(w.every((k) => k.u < 0));
+    const w = [...SKILLS[skill].takeoff, ...SKILLS[skill].exit]; assert.ok(w.every((k) => k.u < 0));
   }
   // determinism: the same seed replays the same ride; a different seed does not
   const a = new RiderSim(atlas, 'Expert', 99, flowX, null, 0), b = new RiderSim(atlas, 'Expert', 99, flowX, null, 0), d = new RiderSim(atlas, 'Expert', 100, flowX, null, 0);
@@ -81,4 +82,22 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
   // the render interpolation stays between the two states
   const out = new Float64Array(STATE_N); lerpState(a.prev, a.cur, 0.5, out); assert.ok(Math.abs(out[S.X] - (a.prev[S.X] + a.cur[S.X]) / 2) < 1e-12);
   assert.ok(Math.abs(wrapPi(3 * Math.PI)) - Math.PI < 1e-9);
+});
+
+test('style bands and the expertise layer (brief part 2): thresholds round to 0.5 ft, beginners never barrel or snap, experts play band A softly', () => {
+  assert.equal(bandFor(3.7).id, 'A'); assert.equal(bandFor(3.76).id, 'B'); assert.equal(bandFor(9.7).id, 'B'); assert.equal(bandFor(9.76).id, 'C');
+  const movesOf = (skill: Skill, H: number) => new Set(buildPlan(skill, 7, H).knots.map((k) => k.move));
+  for (const H of [0.61, 1.83, 3.66, 6.1]) { const m = movesOf('Beginner', H); assert.ok(!m.has('barrel') && !m.has('cutback') && !m.has('pump'), `Beginner at ${H} m: ${[...m]}`); assert.ok(m.has('out')); }
+  assert.ok(!movesOf('Intermediate', 3.66).has('barrel'), 'Intermediate: no barrel');
+  assert.ok(movesOf('Expert', 6.1).has('barrel') || movesOf('Expert', 3.66).has('barrel'), 'Expert band C barrels');
+  const a = buildPlan('Expert', 7, 0.61), b = buildPlan('Expert', 7, 1.83);
+  assert.equal(a.band.id, 'A'); assert.equal(b.band.id, 'B');
+  const meanComp = (p: ReturnType<typeof buildPlan>) => p.knots.reduce((s, k) => s + k.comp, 0) / p.knots.length;
+  assert.ok(meanComp(a) < meanComp(b), 'band A is more upright than band B');
+  // the beginner rides further out than the expert on the same wave
+  const avg = (p: ReturnType<typeof buildPlan>) => p.knots.reduce((s, k) => s + k.u, 0) / p.knots.length;
+  assert.ok(avg(buildPlan('Beginner', 7, 1.83)) < avg(buildPlan('Intermediate', 7, 1.83)) && avg(buildPlan('Intermediate', 7, 1.83)) < avg(b));
+  // the quiver board follows the band: a fish under 4 ft, a step-up at 12 ft, none without a quiver
+  const q = [{id: 'f', type: 'Fish', length: 68}, {id: 's', type: 'Performance shortboard', length: 72}, {id: 'g', type: 'Step-up', length: 84}];
+  assert.equal(boardForBand(bandFor(2), 2, q, 5.83), 'f'); assert.equal(boardForBand(bandFor(6), 6, q, 5.83), 's'); assert.equal(boardForBand(bandFor(12), 12, q, 5.83), 'g'); assert.equal(boardForBand(bandFor(12), 12, [], 5.83), null);
 });

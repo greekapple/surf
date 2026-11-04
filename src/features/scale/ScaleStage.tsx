@@ -18,7 +18,8 @@ import {windOf} from '../../services/spotHour';
 import {LIVE_CAPTION, type WaveSpec} from './waveSpec';
 import {defaultPeel, PEEL_NOTE, peelDirectionFor} from './peelDirection';
 import {hashSeed} from './rideSim';
-import {type DevOverrides, anyForced, readDevOverrides, writeDevOverrides} from './sceneDev';
+import {type DevOverrides, anyForced, readDevOverrides, showDevPanel, writeDevOverrides} from './sceneDev';
+import {bandFor, boardForBand} from './surfSceneConfig';
 import {SceneDevPanel} from './SceneDevPanel';
 const WaveLive = lazy(() => import('./WaveLive'));
 import {useHasSpin} from './useHasSpin';
@@ -70,7 +71,11 @@ export function ScaleStage() {
   const [dev, setDev] = useState<DevOverrides | null>(() => (import.meta.env.DEV ? readDevOverrides() : null));
   const direction = dev?.dir ?? dirPick ?? defaultPeel(peel);
   const [boardId, setBoardId] = useState<string>(() => { try { return localStorage.getItem(BOARD_KEY) ?? ''; } catch { return ''; } });
-  const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? boards[0] ?? null;
+  // the board: the person's pick, else the quiver board the hour's style band calls for (brief part 2: fish under 4 ft, shortboard 4-9,
+  // step-up/gun from 10), else the first; the model's own board is scaled to the band when the quiver is empty (WaveLive)
+  const bandFaceFt = dev?.faceFt ?? (hs ? (() => { const r = faceRange(hs); return r ? (r[0] + r[1]) / 2 : null; })() : null);
+  const autoBoardId = bandFaceFt !== null ? boardForBand(bandFor(bandFaceFt), bandFaceFt, boards, me.feet) : null;
+  const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? boards.find((b) => b.id === autoBoardId) ?? boards[0] ?? null;
   const [play, setPlay] = useState(false);
   const range = band !== null ? bandRange(SCALE_BANDS[band]) : faceRange(hs);
   const lo = useTween(range ? range[0] : 0), hi = useTween(range ? range[1] : 0);
@@ -182,7 +187,7 @@ export function ScaleStage() {
           </div>
           <span className="fine">{PEEL_NOTE[peel]}; a left breaks to the surfer's left as they ride</span>
         </div>}
-        {show3d && liveOk && dev && <SceneDevPanel value={dev} onChange={(o) => { setDev(o); writeDevOverrides(o); }} />}
+        {show3d && liveOk && dev && showDevPanel(dev) && <SceneDevPanel value={dev} onChange={(o) => { setDev(o); writeDevOverrides(o); }} />}
         {!show3d && <div className="sc-row">
           <span className="sc-l" id="sc-band-l">Compare a size</span>
           <div className="sc-chips" role="radiogroup" aria-labelledby="sc-band-l">{SCALE_BANDS.map((b, i) => <button key={b.id} type="button" role="radio" aria-checked={band === i} onClick={() => setBand(i)}>{b.short}</button>)}</div>
