@@ -62,7 +62,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
                 const wc = c.wc, est = wc.kind === 'estimate', off = wc.kind === 'offshore', label = wc.label;
                 const st = wc.stale ? `, ${wc.stale === 'saved' ? 'saved' : 'stale'} source` : '';
                 const fullText = dayText(c.dr.typical)?.full ?? `${label} ${unit}`; // T-112: unit and Hawaiian qualifier, as the spot page says it
-                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
+                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${est ? `surf estimate ${fullText}${wc.confidence ? `, ${wc.confidence} confidence` : ''} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 return (
                   <td key={c.key} className={i === 0 ? 'wk-c wk-first' : 'wk-c'}>
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>

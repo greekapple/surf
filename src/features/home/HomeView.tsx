@@ -66,7 +66,7 @@ export function HomeView({go}: ViewProps) {
   /** The same kind of number everywhere: the surf estimate, or a muted line when only offshore height exists (never styled as surf). */
   const surfOf = (c: DashCard, small = false) => c.surf.headline.kind === 'offshore'
     ? <span className="dc-na">Surf est. unavailable · offshore {c.surf.value}</span>
-    : <><span className="dc-val">{c.surf.value}</span>{!small && <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>}<span className={small ? 'dc-tag-sm' : 'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span></>;
+    : <><span className="dc-val">{c.surf.value}</span>{!small && <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>}<span className={small ? 'dc-tag-sm' : 'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{c.surf.tag}</span>{!small && c.surf.confidenceText && <span className="dc-conf" title={c.surf.confidenceDetail}> · {c.surf.confidenceText}</span>}</>;
   const open = (id: string) => (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setSpot(id); go('forecast'); };
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];

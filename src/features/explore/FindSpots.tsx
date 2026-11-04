@@ -65,7 +65,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       <i className="fs-bar" style={{background: r.rating ? BAND_COLOR[bandOf(r.rating.category)] : 'var(--none)'}} />
       <button className="fs-main" onClick={() => open(r.s.id, 'forecast')}>
         <span className="fs-name"><b>{r.s.name}</b><small>{r.s.region}{Number.isFinite(r.dist) ? ` · ${Math.round(r.dist)} mi` : ''}</small></span>
-        <span className="fs-hs">{r.f && r.est ? <span title={`${r.est.tag} · ${r.est.detail}`}>{r.est.value}<small> {r.est.suffix}</small><span className="sr-only">: {r.est.tag}. {r.est.detail}</span></span> : r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
+        <span className="fs-hs">{r.f && r.est ? <span title={`${r.est.tag} · ${r.est.detail}`}>{r.est.value}<small> {r.est.suffix}{r.est.confidenceText ? ` · ${r.est.confidenceText}` : ''}</small><span className="sr-only">: {r.est.tag}. {r.est.confidenceText}. {r.est.detail}</span></span> : r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
         <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{conditionWord(r.rating.category)}</em> : <small>no record</small>}</span>
         <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}{r.f && Number.isFinite(r.f.wind.speed) && <StaleTag s={hourFreshness(r.f, now).wind} />}</span>
         <span className="fs-best">{r.best ? `Best ${r.best.when} ${r.best.label}` : ''}</span>

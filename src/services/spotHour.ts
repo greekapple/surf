@@ -49,13 +49,13 @@ export function tideOf(f: Forecast, p: UserProfile, nowMs: number = Date.now()):
 
 export interface SpotHour {
   spotId: string; validTime: string; demo: boolean; record: Forecast;
-  surf: {headline: HeadlineSurf; value: string; label: string; words: string | null; tag: string; detail: string};
+  surf: {headline: HeadlineSurf; value: string; label: string; words: string | null; tag: string; detail: string; confidenceText?: string; confidenceDetail?: string};
   rating: SurfRating; wind: WindView | null; tide: TideView | null;
 }
 /** Everything one surface needs for a spot at an hour. Undefined when the spot has no record for that hour. `nowMs` is the clock the rating and headline are judged at. */
 export function spotHourOf(spot: SurfSpot, f: Forecast, nowMs: number, p: UserProfile, ctx: HourContext = {}): SpotHour {
   const headline = headlineSurf(spot.id, f, {bundle: ctx.bundle, nowMs}), t = headlineText(headline, p);
-  return {spotId: spot.id, validTime: f.timestamp, demo: !f.evidence, record: f, surf: {headline, value: t.value, label: t.label, words: t.words, tag: t.tag, detail: t.detail},
+  return {spotId: spot.id, validTime: f.timestamp, demo: !f.evidence, record: f, surf: {headline, value: t.value, label: t.label, words: t.words, tag: t.tag, detail: t.detail, confidenceText: t.confidenceText, confidenceDetail: t.confidenceDetail},
     rating: rateForecast(spot, f, nowMs), wind: windOf(spot, f, p, nowMs), tide: tideOf(f, p, nowMs)};
 }
 export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: UserProfile, ctx: HourContext = {}): SpotHour | undefined {

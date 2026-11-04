@@ -70,7 +70,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
           <span className="cx-rank">{k + 1}</span>
           <span className="cx-name"><b>{s.name}</b><small>{s.region}</small></span>
           <span className="cx-rate">{rating ? <em style={{'--c': BAND_COLOR[bandOf(rating.category)]} as CSSProperties}>{conditionWord(rating.category)}</em> : <small>no record</small>}</span>
-          <span className="cx-hs">{f && est ? <span title={`${est.tag} · ${est.detail}`}>{est.value}<small> {est.suffix}</small><span className="sr-only">: {est.tag}. {est.detail}</span></span> : f ? <>{ht(f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
+          <span className="cx-hs">{f && est ? <span title={`${est.tag} · ${est.detail}`}>{est.value}<small> {est.suffix}{est.confidenceText ? ` · ${est.confidenceText}` : ''}</small><span className="sr-only">: {est.tag}. {est.confidenceText}. {est.detail}</span></span> : f ? <>{ht(f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
           <span className="cx-sw">{f?.primary ? <><DirArrow from={f.primary.direction} size={13} /> {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</span>
           <span className="cx-wd">{f && Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit}<StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</span>
           <span className="cx-best">{best ? `Best ${best.when} ${best.label}` : ''}</span>

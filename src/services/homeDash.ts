@@ -13,7 +13,7 @@ import {windowRanges, WINDOW_MIN_SCORE} from './windows.ts';
 /** Data for the Home dashboard (T-047). Pure; each card says only what the data supports, and the rating is the existing one (the surf estimate never feeds it). */
 export interface DashCard {
   id: string; name: string; region: string; demo: boolean; validTime: string | null;
-  surf: {headline: HeadlineSurf; value: string; label: string; words: string | null; tag: string; offshoreLabel: string | null};
+  surf: {headline: HeadlineSurf; value: string; label: string; words: string | null; tag: string; offshoreLabel: string | null; /** T-118: the confidence word and its reason (estimates only). */ confidenceText?: string; confidenceDetail?: string};
   rating: {category: string; score: number | null; bars: number};
   wind: {label: string; relation: string} | null;
   tide: {state: 'rising' | 'falling' | 'unknown'; label: string | null} | null;
@@ -54,7 +54,7 @@ export function dashCard(spot: SurfSpot, records: Forecast[], now: number, profi
   const offshore = headline.kind === 'estimate' && finite(cur.offshore) ? headlineText({kind: 'offshore', ft: cur.offshore, label: 'offshore · not surf size'}, profile).label : null;
   return {
     ...base, demo: hr.demo, validTime: hr.validTime,
-    surf: {headline, value: text.value, label: text.label, words: text.words, tag: text.tag, offshoreLabel: offshore},
+    surf: {headline, value: text.value, label: text.label, words: text.words, tag: text.tag, offshoreLabel: offshore, confidenceText: text.confidenceText, confidenceDetail: text.confidenceDetail},
     rating: {category: String(rating.category), score: finite(rating.score) ? rating.score : null, bars: ratingBars(rating.score)},
     wind: hr.wind ? {label: hr.wind.label, relation: hr.wind.relation} : null,
     tide: hr.tide ? {state: hr.tide.state, label: hr.tide.heightLabel} : null,

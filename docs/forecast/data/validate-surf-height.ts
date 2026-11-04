@@ -15,6 +15,9 @@ import {estimateBreaking} from '../../../src/ocean/breakingEstimate.ts';
 import {breakingProfile} from '../../../src/ocean/localCalibration.ts';
 import {intervalFor, LEAD_SKILL} from '../../../src/services/uncertainty.ts';
 import {headlineSurf} from '../../../src/services/headlineSurf.ts';
+import {surfBandFor, setsFactor, CONFIDENCE_HIGH_W, CONFIDENCE_MEDIUM_W} from '../../../src/services/surfBand.ts';
+import {breakerType} from '../../../src/services/breaker.ts';
+import {allSpots} from '../../../src/data/catalog.ts';
 
 const FT = 1 / 0.3048, HOUR = 3600000, now = Date.now(), retrieved = new Date(now).toISOString(), LEADS = [0, 1, 3, 5];
 const get = async (u: string, text = false) => { const r = await fetch(u, {signal: AbortSignal.timeout(90000)}); if (!r.ok) throw new Error(`${r.status} ${u.slice(0, 80)}`); return text ? r.text() : r.json(); };
@@ -46,7 +49,7 @@ for (const id of assignedMopIds()) {
   } catch { /* point unavailable */ }
 }
 
-type Row = {off?: number; kd?: number; shelter?: number; depth?: number; windFrac?: number; lead: number; spot: string; central: number; lo: number; hi: number; lo2: number; hi2: number; buoyId?: string; mop?: number; buoy?: number};
+type Row = {off?: number; kd?: number; shelter?: number; depth?: number; windFrac?: number; lead: number; spot: string; central: number; lo: number; hi: number; lo2: number; hi2: number; /** T-118: the surf band shown now (typical wave to the sets) and its confidence word. */ bLo?: number; bHi?: number; conf?: string; buoyId?: string; mop?: number; buoy?: number};
 const rows: Row[] = [];
 for (const s of evidenceSpots) {
   const a = assignmentFor(s.id), prof = breakingProfile(s.id); if (!a || !prof || s.orientation === null || !nowcast[a.mopId]) continue;
@@ -62,20 +65,28 @@ for (const s of evidenceSpots) {
     if (!ob || vt > now - HOUR || ![hs, tp, dp].every((x) => typeof x === 'number') || hs <= 0) continue;
     const r = estimateBreaking({swellHsFt: hs * FT, periodS: tp, directionDeg: dp, combinedHsFt: typeof tot === 'number' ? tot * FT : null, secondaryHsFt: null}, prof, s.orientation); if (!r.ok) continue;
     const iv = intervalFor({method: 'v1', centralFt: r.nearshoreFt, leadHours: n * 24, modelSpread: null})!, iv2 = intervalFor({method: 'mop-v2', centralFt: r.nearshoreFt, leadHours: n * 24, modelSpread: null})!;
+    const spotType = allSpots.find((x) => x.id === s.id)?.type, brk = breakerType({id: s.id}, {primary: {height: hs * FT, period: tp, direction: dp}} as any), band = surfBandFor({centralFt: r.nearshoreFt, setsFactor: setsFactor(spotType, brk), halfWidth: iv2.halfWidth, disagree: false, interval: {loFt: iv2.loFt, hiFt: iv2.hiFt}});
     const bu = bo?.get(vt), rb = bu ? estimateBreaking({swellHsFt: bu.hs * FT, periodS: bu.tp, directionDeg: ob.dp, combinedHsFt: bu.hs * FT, secondaryHsFt: null}, prof, s.orientation) : null;
-    rows.push({off: hs0 * FT, kd: r.kd, shelter: prof.shelter, depth: mopPoint(a.mopId)?.depthM, windFrac: tot0 / hs0, lead: n, spot: s.id, central: r.nearshoreFt, lo: iv.loFt, hi: iv.hiFt, lo2: iv2.loFt, hi2: iv2.hiFt, mop: ob.hs, ...(rb && rb.ok ? {buoy: rb.nearshoreFt, buoyId: nb.b.id} : {})});
+    rows.push({off: hs0 * FT, kd: r.kd, shelter: prof.shelter, depth: mopPoint(a.mopId)?.depthM, windFrac: tot0 / hs0, lead: n, spot: s.id, central: r.nearshoreFt, lo: iv.loFt, hi: iv.hiFt, lo2: iv2.loFt, hi2: iv2.hiFt, bLo: band.loFt, bHi: band.hiFt, conf: band.confidence, mop: ob.hs, ...(rb && rb.ok ? {buoy: rb.nearshoreFt, buoyId: nb.b.id} : {})});
   }
 }
 
 const q = (a: number[], p: number) => { const b = [...a].sort((x, y) => x - y); return b.length ? b[Math.min(b.length - 1, Math.floor(p * b.length))] : NaN; };
 function score(rs: Row[], key: 'mop' | 'buoy') {
-  const r = rs.filter((x) => typeof x[key] === 'number');
-  return {n: r.length, cov2: r.filter((x) => x[key]! >= x.lo2 && x[key]! <= x.hi2).length / Math.max(1, r.length), cov: r.filter((x) => x[key]! >= x.lo && x[key]! <= x.hi).length / Math.max(1, r.length), medAbs: q(r.map((x) => Math.abs(x[key]! - x.central)), .5), medRel: Math.exp(q(r.map((x) => Math.abs(Math.log(x[key]! / x.central))), .5)) - 1, bias: q(r.map((x) => x[key]! / x.central), .5), width: q(r.map((x) => x.hi - x.lo), .5)};
+  const r = rs.filter((x) => typeof x[key] === 'number'), rb = r.filter((x) => x.bLo !== undefined);
+  const covB = rb.filter((x) => x[key]! >= x.bLo! && x[key]! <= x.bHi!).length / Math.max(1, rb.length), covB1 = rb.filter((x) => x[key]! >= x.bLo! - 1 && x[key]! <= x.bHi! + 1).length / Math.max(1, rb.length), below = rb.filter((x) => x[key]! < x.bLo!).length / Math.max(1, rb.length), above = rb.filter((x) => x[key]! > x.bHi!).length / Math.max(1, rb.length), bandWidth = q(rb.map((x) => x.bHi! - x.bLo!), .5);
+  return {nb: rb.length, covB, covB1, below, above, bandWidth, n: r.length, cov2: r.filter((x) => x[key]! >= x.lo2 && x[key]! <= x.hi2).length / Math.max(1, r.length), cov: r.filter((x) => x[key]! >= x.lo && x[key]! <= x.hi).length / Math.max(1, r.length), medAbs: q(r.map((x) => Math.abs(x[key]! - x.central)), .5), medRel: Math.exp(q(r.map((x) => Math.abs(Math.log(x[key]! / x.central))), .5)) - 1, bias: q(r.map((x) => x[key]! / x.central), .5), width: q(r.map((x) => x.hi - x.lo), .5)};
 }
 const pc = (n: number) => (Number.isFinite(n) ? (100 * n).toFixed(0) + '%' : 'n/a'), f1 = (n: number) => (Number.isFinite(n) ? n.toFixed(1) : 'n/a'), f2 = (n: number) => (Number.isFinite(n) ? n.toFixed(2) : 'n/a');
 const line = (n: number, m: ReturnType<typeof score>) => `| ${n === 0 ? '0' : n + ' (Hs-error only)'} | ${m.n} | ${pc(m.cov)} | ${pc(m.cov2)} | ${f1(m.medAbs)} | ${pc(m.medRel)} | ${f2(m.bias)} | ${f1(m.width)} |`;
 const tableFor = (rs: Row[], key: 'mop' | 'buoy') => LEADS.map((n) => line(n, score(rs.filter((x) => x.lead === n), key))).join('\n');
 const head = '| lead (days) | n distinct hours | coverage, v1 range (incl. ±17% offshore step) | coverage, v2-style range (no step; what v2 spots show) | median abs error, ft | median rel. error | median obs ÷ central | median range width, ft |\n|---|---|---|---|---|---|---|---|';
+const lineB = (n: number, m: ReturnType<typeof score>) => `| ${n === 0 ? '0' : n + ' (Hs-error only)'} | ${m.nb} | ${pc(m.covB)} | ${pc(m.covB1)} | ${pc(m.below)} | ${pc(m.above)} | ${f1(m.bandWidth)} |`;
+const headB = '| lead (days) | n | observed inside the band | inside the band ± 1 ft | below the band | above the band | median band width, ft |\n|---|---|---|---|---|---|---|';
+const tableB = (rs: Row[], key: 'mop' | 'buoy') => LEADS.map((n) => lineB(n, score(rs.filter((x) => x.lead === n), key))).join('\n');
+const byConf = (rs: Row[], key: 'mop' | 'buoy') => ['high', 'medium', 'low'].map((c) => { const m = score(rs.filter((x) => x.conf === c), key); return `| ${c} | ${m.nb} | ${pc(m.covB)} | ${pc(m.covB1)} | ${f1(m.medAbs)} | ${pc(m.medRel)} |`; }).join('\n');
+const cH = score(rows.filter((x) => x.conf === 'high'), 'mop'), cL = score(rows.filter((x) => x.conf === 'low'), 'mop'), cM = score(rows.filter((x) => x.conf === 'medium'), 'mop');
+const confFinding = cH.nb && cL.nb && Math.abs(cH.covB - cL.covB) < 0.05 ? `**Finding: the word did not separate how often the observed height fell inside the band** (high ${pc(cH.covB)} vs low ${pc(cL.covB)}${cM.nb ? `, medium ${pc(cM.covB)}` : ', no medium rows at the tested leads of 0, 1, 3 and 5 days'}). The thresholds are our own judgement and the word is NOT validated; the leads of 1 day and more score the Hs error only (see section 1), which understates the difference between a short and a long lead. The surfaces and the tooltips say so.` : `The word separates the coverage here (high ${pc(cH.covB)}, low ${pc(cL.covB)}); that is one fortnight, so it is still a judgement, not a validation.`;
 const big = rows.filter((r) => r.central >= 3), spots = new Set(rows.map((r) => r.spot)), buoySpots = new Set(rows.filter((r) => r.buoy !== undefined).map((r) => r.spot));
 const both = rows.filter((r) => r.buoy !== undefined && r.mop !== undefined), buoyVsMop = both.map((r) => Math.abs(Math.log(r.buoy! / r.mop!)));
 
@@ -94,7 +105,7 @@ if (!process.argv.includes('--no-archive')) {
       const key = `${s.id}|${new Date(vt).toISOString().slice(0, 13)}|${bucket}`; if (seen.has(key)) continue;
       const h = headlineSurf(s.id, f, {bundle: {nearshore: [], mop}, nowMs: now, observations: [], felt: [], spread: null}) as any;
       if (h.kind !== 'estimate' || h.method !== 'mop-v2' || !Number.isFinite(h.centralFt)) continue;
-      seen.add(key); out.push(JSON.stringify([retrieved.slice(0, 13), s.id, new Date(vt).toISOString().slice(0, 13), bucket, 'v2', Math.round(h.centralFt * 10) / 10, h.loFt, h.hiFt])); archived++;
+      seen.add(key); out.push(JSON.stringify([retrieved.slice(0, 13), s.id, new Date(vt).toISOString().slice(0, 13), bucket, 'v2', Math.round(h.centralFt * 10) / 10, h.loFt, h.hiFt, h.interval?.loFt ?? null, h.interval?.hiFt ?? null])); archived++; // T-118: lo/hi are the surf BAND the app shows; the last two are the uncertainty interval it used to show (older entries have only lo/hi, which were that interval)
     }
   }
   if (out.length) fs.appendFileSync(ARCH, out.join('\n') + '\n');
@@ -104,19 +115,19 @@ if (!process.argv.includes('--no-archive')) {
 const SCORES = new URL('./validation-scores.jsonl', import.meta.url); if (!fs.existsSync(SCORES)) fs.writeFileSync(SCORES, '');
 const done = new Set<string>(fs.readFileSync(SCORES, 'utf8').split('\n').filter(Boolean).map((l) => { const a = JSON.parse(l); return `${a[0]}|${a[1]}|${a[2]}`; })), fresh: string[] = [];
 if (fs.existsSync(ARCH)) for (const l of fs.readFileSync(ARCH, 'utf8').split('\n').filter(Boolean)) {
-  const [, spot, valid, bucket, , c, lo, hi] = JSON.parse(l), a = assignmentFor(spot), vt = Date.parse(valid + ':00:00Z'), key = `${spot}|${valid}|${bucket}`;
+  const [, spot, valid, bucket, , c, lo, hi, ivLo, ivHi] = JSON.parse(l), a = assignmentFor(spot), vt = Date.parse(valid + ':00:00Z'), key = `${spot}|${valid}|${bucket}`;
   if (!a || vt > now - HOUR || done.has(key)) continue;
   const ob = nowcast[a.mopId]?.get(vt); if (!ob) continue; // no observation in the window yet (or ever): stays in the archive, scored if it appears
-  done.add(key); fresh.push(JSON.stringify([spot, valid, bucket, c, lo, hi, Math.round(ob.hs * 10) / 10]));
+  done.add(key); fresh.push(JSON.stringify([spot, valid, bucket, c, lo, hi, Math.round(ob.hs * 10) / 10, ivLo ?? null, ivHi ?? null]));
 }
 if (fresh.length) fs.appendFileSync(SCORES, fresh.join('\n') + '\n');
 {
   const fr: Row[] = [];
-  for (const l of fs.readFileSync(SCORES, 'utf8').split('\n').filter(Boolean)) { const [spot, , bucket, c, lo, hi, obs] = JSON.parse(l); fr.push({lead: bucket / 24, spot, central: c, lo, hi, lo2: lo, hi2: hi, mop: obs}); }
+  for (const l of fs.readFileSync(SCORES, 'utf8').split('\n').filter(Boolean)) { const [spot, , bucket, c, lo, hi, obs, ivLo, ivHi] = JSON.parse(l), band = typeof ivLo === 'number'; fr.push({lead: bucket / 24, spot, central: c, lo: band ? ivLo : lo, hi: band ? ivHi : hi, lo2: band ? ivLo : lo, hi2: band ? ivHi : hi, ...(band ? {bLo: lo, bHi: hi} : {}), mop: obs}); } // entries from before T-118 stored the interval as lo/hi: they score as the interval only
   // archived ranges ARE the v2-style ranges (no step term, no model-spread term), so one coverage column is shown, not the backtest's two
   const lineF = (n: number, m: ReturnType<typeof score>) => `| ${n} | ${m.n} | ${pc(m.cov2)} | ${f1(m.medAbs)} | ${pc(m.medRel)} | ${f2(m.bias)} | ${f1(m.width)} |`;
-  const headF = '| lead (days) | n | coverage, archived v2 range | median abs error, ft | median rel. error | median obs ÷ central | median range width, ft |\n|---|---|---|---|---|---|---|';
-  scoredFwd = fr.length ? `Matured entries so far: ${fr.length} (finalised in \`validation-scores.jsonl\`, which keeps them after the hour leaves the nowcast window).\n\n${headF}\n${LEADS.map((n) => lineF(n, score(fr.filter((x) => x.lead === n), 'mop'))).join('\n')}` : 'No archived hour has matured yet (the archive starts today; rerun this script daily, entries mature as their hours pass).';
+  const headF = '| lead (days) | n | coverage, archived v2 uncertainty interval | median abs error, ft | median rel. error | median obs ÷ central | median interval width, ft |\n|---|---|---|---|---|---|---|';
+  scoredFwd = fr.length ? `Matured entries so far: ${fr.length} (finalised in \`validation-scores.jsonl\`, which keeps them after the hour leaves the nowcast window; ${fr.filter((x) => x.bLo !== undefined).length} carry the surf band, the rest were archived before T-118 and score as the interval only).\n\n${headF}\n${LEADS.map((n) => lineF(n, score(fr.filter((x) => x.lead === n), 'mop'))).join('\n')}\n\nSurf band (entries archived since T-118):\n\n${headB}\n${tableB(fr.filter((x) => x.bLo !== undefined), 'mop')}` : 'No archived hour has matured yet (the archive starts today; rerun this script daily, entries mature as their hours pass).';
 }
 
 const a0 = score(rows.filter((x) => x.lead === 0), 'mop'), a5 = score(rows.filter((x) => x.lead === 5), 'mop'), b0 = score(rows.filter((x) => x.lead === 0), 'buoy'), bAll = score(rows, 'buoy'), mAll = score(rows, 'mop');
@@ -196,6 +207,27 @@ Buoy Hs and peak period go through \`estimateBreaking(...).nearshoreFt\` with th
 
 ${head}
 ${tableFor(rows, 'buoy')}
+
+### 1c. The surf band (T-118): what the main number now shows, against both observations
+The headline range is no longer an uncertainty interval: it is the typical wave (the convention surf height, rounded down to whole feet) up to the sets (about 1.27 times that, a little by beach: point or reef breaks +0.04, a plunging breaker +0.05 or +0.025, a spilling one -0.04), snapped to Surfline's reporting widths (under 2 ft: 1 ft; 2 to 6: 1 to 2; 6 to 10: 2 to 3; 10 to 15: 3; 15 and up: 5). It describes "what you will see", not forecast error, so its coverage of a single observed value is EXPECTED to be lower than the interval's; the forecast uncertainty is the confidence word beside it. The band here uses the v2-style half-width (no offshore step, no model-spread term) for the confidence word, exactly like the live v2 headline. "Inside the band ± 1 ft" is the tolerance of one reporting step.
+
+Against the CDIP MOP nowcast (the model that assimilates buoys; not independent):
+
+${headB}
+${tableB(rows, 'mop')}
+
+Against the nearest buoy through the same transform:
+
+${headB}
+${tableB(rows, 'buoy')}
+
+Does the confidence word carry information? Observed-inside-band and error by confidence word, against the MOP nowcast (all leads pooled; the word is high up to a half-width of ${CONFIDENCE_HIGH_W.toFixed(2)} (about the first three days of the measured lead table), medium up to ${CONFIDENCE_MEDIUM_W.toFixed(2)}, low beyond; this backtest has no model-spread term, so no row is low because of disagreement):
+
+| confidence | n | inside the band | inside ± 1 ft | median abs error, ft | median rel. error |
+|---|---|---|---|---|---|
+${byConf(rows, 'mop')}
+
+${confFinding}
 
 Buoy-derived vs MOP-nowcast surf height over the same hours (${both.length} hours): median |ln ratio| = ${f2(q(buoyVsMop, .5))} (about ${pc(Math.exp(q(buoyVsMop, .5)) - 1)}): the two observations themselves differ by that much, so errors smaller than this are not distinguishable.
 

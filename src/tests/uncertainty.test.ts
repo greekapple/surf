@@ -58,8 +58,9 @@ test('headlineSurf: the range is built from the central height; narrower than th
   const f = toLegacy(normalizeOpenMeteo(evidenceSpot('spot-2'), marine(1.5), weather, new Date(T * 1000).toISOString())[1]);
   const none = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any, agree = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: {ratio: 1.03, models: 3}}) as any, split = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: {ratio: 2, models: 3}}) as any;
   for (const h of [none, agree, split]) { assert.equal(h.kind, 'estimate'); assert.ok(h.loFt >= 0 && h.hiFt > h.loFt && typeof h.words === 'string' && h.label && h.method && h.methodLabel); assert.ok(h.centralFt > 0); assert.ok(h.loFt <= h.centralFt && h.hiFt >= h.centralFt); }
-  const legacy = f.evidence!.faceEstimate.input!.rangeFt!; assert.ok(none.hiFt - none.loFt < legacy[1] - legacy[0], `${none.loFt}–${none.hiFt} vs legacy ${legacy}`);
-  assert.ok(split.hiFt - split.loFt > agree.hiFt - agree.loFt); assert.equal(split.interval.disagree, true); assert.match(split.methodLabel, /wave models disagree/); assert.equal(agree.interval.disagree, false); assert.doesNotMatch(agree.methodLabel, /disagree/);
+  // T-118: the headline range is the surf BAND (typical to sets); the forecast uncertainty interval is kept in `interval` and drives the confidence word.
+  const legacy = f.evidence!.faceEstimate.input!.rangeFt!; assert.ok(none.interval.hiFt - none.interval.loFt < legacy[1] - legacy[0], `${none.interval.loFt}–${none.interval.hiFt} vs legacy ${legacy}`);
+  assert.ok(split.interval.hiFt - split.interval.loFt > agree.interval.hiFt - agree.interval.loFt); assert.equal(split.confidence, 'low'); assert.equal(split.interval.disagree, true); assert.match(split.methodLabel, /wave models disagree/); assert.equal(agree.interval.disagree, false); assert.doesNotMatch(agree.methodLabel, /disagree/);
   assert.ok(Array.isArray(none.interval.components) && none.interval.note.length > 20);
 });
 test('headlineSurf: a calibrated range is unchanged in kind (n observations, calibration label) and has no interval object', () => {
