@@ -5,12 +5,13 @@ const colors=['#223c8e','#317cb5','#46b6b2','#81be6b','#e9cf64','#d67556','#9b43
 export function forecastColor(value:number,unit:SpatialFrame['unit']){const stops=colorScale(unit),v=Math.max(stops[0],Math.min(stops.at(-1)!,value));let i=stops.findIndex((n,j)=>j>0&&v<=n)-1;i=Math.max(0,i);const t=(v-stops[i])/(stops[i+1]-stops[i]);const rgb=(hex:string)=>[1,3,5].map(j=>parseInt(hex.slice(j,j+2),16));const palette=unit==='deg'?['#223c8e','#317cb5','#46b6b2','#81be6b','#e9cf64','#9b437e','#223c8e']:colors;const a=rgb(palette[i]),b=rgb(palette[i+1]);return `rgb(${a.map((n,j)=>Math.round(n+(b[j]-n)*t)).join(',')})`;}
 export function legendValue(value:number,unit:SpatialFrame['unit'],p:UserProfile){return unit==='m'?`${(p.heightUnit==='ft'?value/.3048:value).toFixed(1)} ${p.heightUnit}`:unit==='m/s'?`${(value*(p.windUnit==='mph'?2.2369362921:p.windUnit==='kn'?1.9438444924:3.6)).toFixed(0)} ${p.windUnit}`:`${value} ${unit==='deg'?'°':unit}`;}
 
-/* T-115 (user decision 2026-11-04): the map uses WINDY's colour ramps. The stops were sampled from the legend strips of the reference captures
+/* T-115 (user decision 2026-11-04): the map uses WINDY's colour ramps. Up to 5 ft the stops were sampled from the legend strips of the reference captures
  * ~/Development/swello-design-references/18-teardown-2026-10-31/windy/1440-02-waves-layer.png (waves and swell share one ramp, legend "ft 1.6 3.3 5 6.6 20 30") and 1440-01-wind-map.png.
+ * Above 6.6 ft the stops follow the live OVERLAY of a big-swell frame (Windy, 2026-11-03 7 PM, the lead's capture waves-1568-big-swell.jpg), because Windy paints large seas violet, magenta, rose, crimson, far more saturated than the strip it shows in its legend.
  * Third-party reference only: the colours are sampled values, nothing of Windy's code or imagery ships. */
 /** Windy wave-height ramp: [feet, colour]. Teal for calm, through blue and indigo, to maroon, red and pale salmon for huge seas. */
-export const WINDY_WAVES_FT: readonly (readonly [number, string])[] = [[0, '#329eba'], [1.6, '#2e93ad'], [3.3, '#2d5c88'], [5, '#3664b4'], [6.6, '#38397f'], [9.2, '#533666'], [10.9, '#6b3552'], [12.7, '#7f3139'],
-  [14.4, '#903537'], [16.2, '#a03d43'], [19.7, '#b04551'], [24, '#c16162'], [27.5, '#c0776a'], [30, '#c0a39d']];
+export const WINDY_WAVES_FT: readonly (readonly [number, string])[] = [[0, '#329eba'], [1.6, '#2e93ad'], [3.3, '#2d5c88'], [5, '#3664b4'], [6.6, '#4b50b8'], [8, '#8648b4'], [9.5, '#a037a0'], [11.5, '#992d82'],
+  [13, '#992a6d'], [15, '#912d4a'], [17.5, '#882f34'], [20, '#a23047'], [24, '#c16162'], [27.5, '#c0776a'], [30, '#c0a39d']];
 /** Windy wind ramp, equally spaced from calm to storm: violet-blue, blue, teal, green, olive, rust, magenta, purple. */
 export const WINDY_WIND = ['#6271b8', '#4f70ad', '#4688a5', '#4a9296', '#45836a', '#4ca250', '#659132', '#a27f49', '#905d53', '#8f435c', '#8c447c', '#7a5898', '#5e70a0'] as const;
 const FT_PER_M = 1 / 0.3048;

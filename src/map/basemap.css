@@ -1,7 +1,12 @@
 /* Ground and tile treatment per basemap (T-042). Specificity is higher than explore.css's `.xleaf` and `.xleaf .xbase` on purpose:
    the light basemap must never sit on, or be filtered towards, the old dark ground. */
 .leaflet-container.mb-light { background: #e4eaee; }
-.leaflet-container.mb-dark { background: #10212d; }
+.leaflet-container.mb-dark { background: #262a2e; } /* near the Esri dark canvas's land, so a tile that has not arrived reads as map, not as a hole */
 .leaflet-container.mb-satellite { background: #0a1c29; }
 .xleaf.mb-light .xbase, .xleaf.mb-dark .xbase { filter: none; }
 .leaflet-container.mb-light .leaflet-tile, .leaflet-container.mb-dark .leaflet-tile { image-rendering: auto; }
+
+/* T-115 round 2: with the sea-state field on, the basemap looks like Windy's: flat mid-grey land with light labels (the Esri dark grey canvas brightened and desaturated; no new tile provider). */
+.leaflet-container[data-heat='on'].mb-dark { background: #7a7a7d; }
+.leaflet-container[data-heat='on'].mb-dark .xbase { filter: grayscale(1) brightness(2.4) contrast(0.85); }
+.leaflet-container[data-heat='on'].mb-dark .leaflet-pane.leaflet-labels-pane, .leaflet-container[data-heat='on'].mb-dark .leaflet-labels-pane { filter: brightness(1.6); }

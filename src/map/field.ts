@@ -71,21 +71,24 @@ function fillLand(ctx: CanvasRenderingContext2D, map: L.Map, b: L.LatLngBounds =
   ctx.fill('evenodd');
 }
 
+/** Field opacity (T-115 round 2): Windy paints its ramp fully opaque over the sea on a flat mid-grey land basemap, so the legend colours read true; `opts.opacity` is only a floor. Land is never painted. */
+const FIELD_ALPHA = 1;
 export interface FieldOpts {heat: boolean; flow: boolean; arrows: boolean; opacity: number; reducedMotion: boolean; wide?: boolean}
 /** Draws the smooth heatmap, direction arrows and animated flow in two panes under the spot markers. Returns a disposer. */
 export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
-  const field = fields[0];
+  const field = fields[0], ALPHA = Math.max(opts.opacity, FIELD_ALPHA);
+  map.getContainer().dataset.heat = opts.heat ? 'on' : 'off'; // the basemap swaps to its dark canvas under the field (basemap.ts)
   /** First field with a value wins: the regional 0.5° grid, then the global 2° grid underneath. */
   const sampleAll = (k: 'val' | 'u' | 'v', lat: number, lon: number) => { if (isEnclosedWater(lat, lon)) return NaN; /* T-092: enclosed waters are not covered by the wave-model grid */ for (const f of fields) { const v = sample(f, f[k], lat, lon); if (!Number.isNaN(v)) return v; } return NaN; };
   for (const [name, z] of [['field', 420], ['flow', 430]] as const) if (!map.getPane(name)) { const p = map.createPane(name); p.style.zIndex = String(z); p.style.pointerEvents = 'none'; }
   const mk = (pane: string) => { const c = document.createElement('canvas'); c.className = `xfield-${pane}`; c.setAttribute('aria-hidden', 'true'); c.style.position = 'absolute'; map.getPane(pane)!.append(c); return c; };
   const heat = mk('field'), flow = mk('flow'), mask = document.createElement('canvas');
   const range = (opts.wide ? RANGE_WIDE : RANGE)[field.unit] ?? [0, 1];
-  let raf = 0, moving = false, parts: {x: number; y: number; age: number}[] = [], land = new Uint8ClampedArray(0), lw = 0, lh = 0;
+  let raf = 0, moving = false, parts: {x: number; y: number; age: number}[] = [], land = new Uint8ClampedArray(0), lw = 0, lh = 0, lm = 1; // lm: the land mask's scale (half resolution on a big padded canvas)
   const size = () => map.getSize();
-  // T-115: the heat canvas is drawn PADDED (PAD of the viewport on every side) so a pan or a zoom-out shows field, not an unpainted edge, and it carries Leaflet's zoom-animated class:
+  // T-115: the heat canvas is drawn PADDED (PAD = half the viewport on every side, so a one-level zoom-out, the wheel and the +/- buttons, is covered edge to edge) so a pan or a zoom-out shows field, not an unpainted edge, and it carries Leaflet's zoom-animated class:
   // during a zoom it is CSS-transformed with the map's own animation (zoomanim, the same pattern as L.ImageOverlay and L.Canvas), so it never disappears and the basemap's grey tile grid never shows through.
-  const PAD = 0.25; let padX = 0, padY = 0, heatBounds: L.LatLngBounds = map.getBounds();
+  const PAD = 0.5; let padX = 0, padY = 0, heatBounds: L.LatLngBounds = map.getBounds();
   heat.classList.add('leaflet-zoom-animated');
   const place = (c: HTMLCanvasElement, dpr: number, padded = false) => {
     const s = size(), px = padded ? Math.round(s.x * PAD) : 0, py = padded ? Math.round(s.y * PAD) : 0, cw = s.x + 2 * px, ch = s.y + 2 * py;
@@ -99,30 +102,30 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
     ctx.setTransform(1, 0, 0, 1, padX, padY); // from here on every coordinate is a container point, as before; the canvas just extends past the viewport
     ctx.clearRect(-padX, -padY, W, H);
     // Land mask at screen resolution (also used to keep particles at sea).
-    mask.width = W; mask.height = H; const m = mask.getContext('2d', {willReadFrequently: true})!; m.setTransform(1, 0, 0, 1, padX, padY); m.fillStyle = '#000'; fillLand(m, map, heatBounds);
-    lw = W; lh = H; land = m.getImageData(0, 0, lw, lh).data;
+    lm = W * H > 2.5e6 ? 0.5 : 1; mask.width = Math.round(W * lm); mask.height = Math.round(H * lm); const m = mask.getContext('2d', {willReadFrequently: true})!; m.setTransform(lm, 0, 0, lm, padX * lm, padY * lm); m.fillStyle = '#000'; fillLand(m, map, heatBounds);
+    lw = mask.width; lh = mask.height; land = m.getImageData(0, 0, lw, lh).data;
     const notCovered: {x: number; y: number}[] = [];
     if (opts.heat) {
-      const step = 4, w = Math.ceil(W / step), h = Math.ceil(H / step), img = new ImageData(w, h);
+      const step = W * H > 2.5e6 ? 6 : 4, w = Math.ceil(W / step), h = Math.ceil(H / step), img = new ImageData(w, h);
       const lon = Array.from({length: w}, (_, i) => map.containerPointToLatLng([i * step - padX, 0]).lng), lat = Array.from({length: h}, (_, j) => map.containerPointToLatLng([0, j * step - padY]).lat);
       const encl: number[] = [];
       // Colour lookup table (256 steps over the range) and an inland skip: a cell whose own pixel and its four neighbours 3 cells away are all land is never painted (the land trim removes it anyway),
       // so most of an inland viewport costs five mask reads instead of a grid sample. Cells near the coast are still sampled, so the blur reaches the shoreline as before.
       const lut = new Uint8Array(256 * 3); for (let q = 0; q < 256; q++) { const c = mapColor(range[0] + ((range[1] - range[0]) * q) / 255, field.unit, range[0], range[1]); lut[q * 3] = c[0]; lut[q * 3 + 1] = c[1]; lut[q * 3 + 2] = c[2]; }
-      const isLand = (x: number, y: number) => { const xi = Math.max(0, Math.min(lw - 1, x | 0)), yi = Math.max(0, Math.min(lh - 1, y | 0)); return land[(yi * lw + xi) * 4 + 3] > 0; }, R = 3 * step;
+      const isLand = (x: number, y: number) => { const xi = Math.max(0, Math.min(lw - 1, (x * lm) | 0)), yi = Math.max(0, Math.min(lh - 1, (y * lm) | 0)); return land[(yi * lw + xi) * 4 + 3] > 0; }, R = 3 * step;
       for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
         const cx = i * step, cy = j * step; if (isLand(cx, cy) && isLand(cx + R, cy) && isLand(cx - R, cy) && isLand(cx, cy + R) && isLand(cx, cy - R)) continue;
         if (isEnclosedWater(lat[j], lon[i])) { encl.push(i, j); continue; }
         const val = sampleAll('val', lat[j], lon[i]); if (Number.isNaN(val)) continue;
         const q = Math.max(0, Math.min(255, Math.round(((val - range[0]) / (range[1] - range[0] || 1)) * 255))) * 3, r = lut[q], g = lut[q + 1], b = lut[q + 2], k = (j * w + i) * 4;
-        img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * opts.opacity);
+        img.data[k] = r; img.data[k + 1] = g; img.data[k + 2] = b; img.data[k + 3] = Math.round(255 * ALPHA);
       }
       const tmp = document.createElement('canvas'); tmp.width = w; tmp.height = h; tmp.getContext('2d')!.putImageData(img, 0, 0);
-      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.filter = 'blur(5px)'; ctx.drawImage(tmp, -padX, -padY, w * step, h * step); ctx.filter = 'none';
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.filter = `blur(${step * 1.25}px)`; ctx.drawImage(tmp, -padX, -padY, w * step, h * step); ctx.filter = 'none';
       // Enclosed waters (bays, harbours) are NOT covered: a light diagonal hatch says so instead of a colour (T-092).
-      ctx.fillStyle = 'rgb(120 130 140 / 0.30)'; for (let q = 0; q < encl.length; q += 2) if ((encl[q] + encl[q + 1]) % 2 === 0) ctx.fillRect(encl[q] * step - padX, encl[q + 1] * step - padY, step, step);
+      ctx.fillStyle = 'rgb(215 222 230 / 0.34)'; for (let q = 0; q < encl.length; q += 2) if ((encl[q] + encl[q + 1]) % 2 === 0) ctx.fillRect(encl[q] * step - padX, encl[q + 1] * step - padY, step, step);
       // One quiet "Not covered" label per large enclosed area (bins of 12 x 12 sample cells; a bin needs at least 70 enclosed cells).
-      const bins = new Map<string, {n: number; x: number; y: number}>(); for (let q = 0; q < encl.length; q += 2) { if (land[((Math.min(lh - 1, encl[q + 1] * step) | 0) * lw + (Math.min(lw - 1, encl[q] * step) | 0)) * 4 + 3] > 0) continue; /* T-100: no label from cells on land (the shoreline dilation) */ const k = `${Math.floor(encl[q] / 12)}|${Math.floor(encl[q + 1] / 12)}`, b = bins.get(k) ?? {n: 0, x: 0, y: 0}; b.n++; b.x += encl[q]; b.y += encl[q + 1]; bins.set(k, b); }
+      const bins = new Map<string, {n: number; x: number; y: number}>(); for (let q = 0; q < encl.length; q += 2) { if (land[((Math.min(lh - 1, encl[q + 1] * step * lm) | 0) * lw + (Math.min(lw - 1, encl[q] * step * lm) | 0)) * 4 + 3] > 0) continue; /* T-100: no label from cells on land (the shoreline dilation) */ const k = `${Math.floor(encl[q] / 12)}|${Math.floor(encl[q + 1] / 12)}`, b = bins.get(k) ?? {n: 0, x: 0, y: 0}; b.n++; b.x += encl[q]; b.y += encl[q + 1]; bins.set(k, b); }
       for (const b of [...bins.values()].sort((p, q) => q.n - p.n)) { if (b.n < 70) break; const x = (b.x / b.n) * step - padX, y = (b.y / b.n) * step - padY; if (notCovered.some((m) => Math.hypot(m.x - x, m.y - y) < 260)) continue; notCovered.push({x, y}); }
     }
     if (opts.arrows || (opts.flow && opts.reducedMotion)) {
@@ -146,7 +149,7 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
     // Arrows were trimmed with the field; that is intended (sea state only).
     heat.dataset.drawMs = (performance.now() - t0).toFixed(1); // QA: the redraw cost of the last zoom/pan (t115-zoom.mjs)
   };
-  const onLand = (x: number, y: number) => { const xi = (x | 0) + padX, yi = (y | 0) + padY; return xi < 0 || yi < 0 || xi >= lw || yi >= lh || land[(yi * lw + xi) * 4 + 3] > 0; };
+  const onLand = (x: number, y: number) => { const xi = ((x + padX) * lm) | 0, yi = ((y + padY) * lm) | 0; return xi < 0 || yi < 0 || xi >= lw || yi >= lh || land[(yi * lw + xi) * 4 + 3] > 0; };
   const spawn = () => { const s = size(); return {x: Math.random() * s.x, y: Math.random() * s.y, age: Math.random() * 80}; };
   const animate = !opts.reducedMotion && opts.flow;
   const resetFlow = () => {
@@ -181,5 +184,5 @@ export function attachField(map: L.Map, fields: Field[], opts: FieldOpts) {
   const end = () => { if (pending) return; pending = requestAnimationFrame(() => { pending = 0; moving = false; redraw(); }); }; // moveend and zoomend arrive together: one redraw per frame
   map.on('movestart zoomstart', start); map.on('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.on('moveend zoomend resize', end);
   redraw(); if (animate) raf = requestAnimationFrame(tick);
-  return () => { cancelAnimationFrame(raf); cancelAnimationFrame(pending); map.off('movestart zoomstart', start); map.off('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.off('moveend zoomend resize', end); heat.remove(); flow.remove(); };
+  return () => { map.getContainer().dataset.heat = 'off'; cancelAnimationFrame(raf); cancelAnimationFrame(pending); map.off('movestart zoomstart', start); map.off('zoomanim', zoomAnim as L.LeafletEventHandlerFn); map.off('moveend zoomend resize', end); heat.remove(); flow.remove(); };
 }
