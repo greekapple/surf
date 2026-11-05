@@ -29,22 +29,39 @@ export function boardShape(b: Pick<Surfboard, 'length' | 'width' | 'thickness' |
   return {length: L, width: W, thickness: T, half: (u) => categoryHalf(b.type, u)};
 }
 
-/** Positions and indices: rings along the board, a domed deck and flatter bottom; the deck under the feet (mid-board) sits at MODEL_DECK_M. */
+/** Positions and indices: rings along the board, a domed deck over a flat bottom with tucked rails, the foil thinning to a few mm at the
+ *  nose and tail, and a thruster set (two side fins toed in and canted, a centre fin) standing off the bottom at the tail; the deck under
+ *  the feet (mid-board) sits at MODEL_DECK_M. R13 (user: "the board itself needs a rework"): the old foil kept half the thickness at the
+ *  tips (a slab with rounded ends) and there were no fins; the shape is still an approximation, true to the entered dimensions. */
 export function boardGeometry(s: BoardShape, ns = 64, nr = 20): {positions: Float32Array; indices: number[]; deckMid: number} {
   const {length: L, width: W, thickness: T} = s, k = Math.sqrt(L / 1.83);
   const rocker = (t: number) => (0.11 * Math.max(0, (t - 0.62) / 0.38) ** 2.2 + 0.035 * Math.max(0, (0.25 - t) / 0.25) ** 1.8) * k; // t: 0 tail, 1 nose
-  const thick = (t: number) => T * (0.35 + 0.65 * Math.sin(Math.PI * Math.min(1, Math.max(0, t * 0.92 + 0.04))) ** 0.7);
+  const thick = (t: number) => T * (0.1 + 0.9 * Math.sin(Math.PI * Math.min(1, Math.max(0, t * 0.94 + 0.03))) ** 1.15);   // the foil: full in the middle, ~3 mm at the tips
   const deckMid = rocker(0.5) + thick(0.5), lift = MODEL_DECK_M - deckMid, pos: number[] = [], idx: number[] = [];
   for (let i = 0; i <= ns; i++) {
     const t = i / ns, x = (0.5 - t) * L, hw = Math.max(s.half(1 - t) * W, 0.004), th = thick(t), zr = rocker(t) + lift;
     for (let j = 0; j < nr; j++) {
       const a = 2 * Math.PI * j / nr, cu = Math.cos(a), su = Math.sin(a);
-      const across = hw * Math.sign(cu) * Math.abs(cu) ** 0.55, up = zr + th * (0.5 + 0.5 * Math.sign(su) * Math.abs(su) ** (su > 0 ? 0.8 : 1.6));
+      // the rail: full (|cos|^0.45) with its apex a little under the deck line; the deck domed, the bottom flat to a tucked edge
+      const across = hw * Math.sign(cu) * Math.abs(cu) ** 0.45, up = zr + th * (0.42 + (su > 0 ? 0.58 * su ** 0.9 : -0.42 * Math.abs(su) ** 2.4));
       pos.push(x, up, -across); // Blender (x, y, z) -> glTF (x, z, -y)
     }
   }
   for (let i = 0; i < ns; i++) for (let j = 0; j < nr; j++) { const a = i * nr + j, b = i * nr + (j + 1) % nr, c = a + nr, d = b + nr; idx.push(a, c, b, b, c, d); }
-  const tailC = pos.length / 3; pos.push(0.5 * L, rocker(0) + lift + thick(0) * 0.5, 0); const noseC = pos.length / 3; pos.push(-0.5 * L, rocker(1) + lift + thick(1) * 0.5, 0);
+  const tailC = pos.length / 3; pos.push(0.5 * L, rocker(0) + lift + thick(0) * 0.42, 0); const noseC = pos.length / 3; pos.push(-0.5 * L, rocker(1) + lift + thick(1) * 0.42, 0);
   for (let j = 0; j < nr; j++) { idx.push(tailC, (j + 1) % nr, j); idx.push(noseC, ns * nr + j, ns * nr + (j + 1) % nr); }
+  // the fins: a thin plate each (two faces 4 mm apart), the profile in the fin's own plane (u along the board toward the tail, d down);
+  // the side fins' leading edges 0.3 L from the tail, toed in 3 deg and canted out 6 deg, the centre fin 0.1 L from the tail
+  const fin = (xLead: number, z0: number, side: number) => {
+    const depth = 0.115 * k, base = 0.11 * k, prof = [[0, 0], [base, 0], [base * 0.95, -depth * 0.45], [base * 0.68, -depth], [base * 0.42, -depth * 0.92], [base * 0.12, -depth * 0.5]];
+    const toe = side * 3 * Math.PI / 180, cant = side * 6 * Math.PI / 180, ct = Math.cos(toe), st = Math.sin(toe), cc = Math.cos(cant), sc = Math.sin(cant);
+    const t0 = 0.5 - xLead / L, yBase = rocker(t0) + lift + 0.002;   // the bottom at the fin's base (the plate sits in the bottom skin)
+    const i0 = pos.length / 3;
+    for (const sgn of [-1, 1]) for (const [u, d] of prof) { const zc = sgn * 0.002, dz = d * sc, dy = d * cc; pos.push(xLead + u * ct - zc * st, yBase + dy, z0 - dz + u * st + zc * ct); }
+    const n = prof.length; for (let q = 1; q + 1 < n; q++) { idx.push(i0, i0 + q + 1, i0 + q); idx.push(i0 + n, i0 + n + q, i0 + n + q + 1); }
+    for (let q = 0; q < n; q++) { const a = i0 + q, b = i0 + (q + 1) % n, c = a + n, d = b + n; idx.push(a, b, c, b, d, c); }
+  };
+  const xSide = 0.5 * L - 0.3 * L, zSide = Math.max(s.half(1 - (0.5 - xSide / L)) * W, 0.02) - 0.035 * k;
+  fin(xSide, zSide, 1); fin(xSide, -zSide, -1); fin(0.5 * L - 0.1 * L, 0, 0);
   return {positions: new Float32Array(pos), indices: idx, deckMid: MODEL_DECK_M};
 }

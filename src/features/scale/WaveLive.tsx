@@ -7,7 +7,7 @@ import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, breakX, bucketIdFor
 import {RiderSim, S, STATE_N, Spring, type Stance, isFrontside, lerpState} from './rideSim';
 import {RiderBody, samplePoses} from './riderBody';
 import {GlitchMonitor} from './glitchMonitor';
-import {BOARD, MONITOR, POLE, SIM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
+import {BOARD, BODY, MONITOR, POLE, RIDE, SIM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
 import type {Skill} from '../../models/index';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
@@ -306,10 +306,10 @@ void main(){
     // grey haze blobs at any normal distance and into a speckle web as the camera came near)
     vec2 w=E+vec2(vnoise(E*.3),vnoise(E*.3+5.))*2.5;                 // warp: organic
     float sc=1./max(F*.3,.5);
-    float sk=vnoise(vec2(w.x*4.5*sc, w.y*.3*sc))*.6+vnoise(vec2(w.x*9.*sc+3., w.y*.7*sc))*.4;
+    float sk=vnoise(vec2(w.x*2.2*sc, w.y*.3*sc))*.6+vnoise(vec2(w.x*4.5*sc+3., w.y*.7*sc))*.4;   // R13: streaks half as fine across the crest (the user's 11.5 ft shot: seen along the crest from the beach the 4.5x / 9x streaks foreshortened into a speckled smear along the foot of the face)
     float pch=smoothstep(.5,.8,vnoise(E*.1*sc)*.7+vnoise(E*.35*sc+4.)*.3+.25*lm);   // fewer streaks with age
     float streak=pch*smoothstep(.62,.74,sk)*(1.-smoothstep(.06,.25,px*4.5*sc))*smoothstep(.03,.4,lm);
-    col=mix(col,uFoam*(.82+.12*lit)*uAmb,clamp(streak,0.,1.)*.45*(1.-smoothstep(150.,500.,dist)));
+    col=mix(col,uFoam*(.82+.12*lit)*uAmb,clamp(streak,0.,1.)*.32*(1.-smoothstep(150.,500.,dist)));
   }
   float fog=1.-exp(-pow(dist*uFog,2.)); col=mix(col,uHorizon*.99,clamp(fog,0.,1.));
   gl_FragColor=vec4(col,1.);
@@ -705,7 +705,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         const mv = sim.move(), load = THREE.MathUtils.smoothstep(Math.abs(st[S.TROLL]), WAKE.sprayRoll0, WAKE.sprayRoll1) * Math.min(1, st[S.SPEED] / WAKE.spraySpeed);
         spray.tailOn = WAKE.sprayMoves.includes(mv) && vis > 0.5 ? load * sim.plan.band.spray * sim.plan.profile.carve : 0;
         const os = st[S.TROLL] > 0 ? 1 : -1; spray.tailOut[0] = Rv.x * os; spray.tailOut[1] = Rv.y * os; spray.tailOut[2] = Rv.z * os;   // the rail the deck banks away from
-        if (vis > 0.5 && st[S.SPEED] > 1) wakeSample(pt.x, Math.max(0.02, st[S.V] + (pt.y - st[S.Y]) / cur.atlas.meta.face_m), Rv.x, Rv.z, t);   // the tail's height fraction: the centre's plus its drop
+        if (vis > 0.5 && st[S.SPEED] > 1 && mv !== 'takeoff') wakeSample(pt.x, Math.max(0.02, st[S.V] + (pt.y - st[S.Y]) / cur.atlas.meta.face_m), Rv.x, Rv.z, t);   // the tail's height fraction: the centre's plus its drop
       }
       haveVel = true;
       // the heading against the velocity over the water (the simulation's own velocity less the water streaming along the face's x-tangent)
@@ -917,7 +917,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const setPole = (on: boolean) => { pole.visible = on; el.dataset.pole = on ? '1' : '0'; };
     api.current = {setWave, setDir, setLight, setBoard, setRider, setPole};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, body: () => body, profile: (x: number, t?: number) => (cur ? profileAt(cur.atlas, x, t ?? u.uTime.value, 192, true) : null), atlasMeta: () => cur?.atlas.meta ?? null, breakX: (t?: number) => (cur ? breakX(cur.atlas.meta, t ?? u.uTime.value) : null), wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake}; // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, body: () => body, profile: (x: number, t?: number) => (cur ? profileAt(cur.atlas, x, t ?? u.uTime.value, 192, true) : null), atlasMeta: () => cur?.atlas.meta ?? null, breakX: (t?: number) => (cur ? breakX(cur.atlas.meta, t ?? u.uTime.value) : null), wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake, cfg: {BODY, RIDE, BOARD}, scene: group};   // R13: cfg: the live config objects (the limb audit switches layers off one at a time); scene: the wave group (the spray and the wake) // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;

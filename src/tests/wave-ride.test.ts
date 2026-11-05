@@ -80,7 +80,8 @@ test('the rider simulation: board on the water, ahead of the curl, smooth, deter
     if (skill === 'Expert') assert.ok(maxV > 0.55, 'the expert reaches the upper face');
     assert.ok(maxRoll > 0.2 && maxRoll <= BOARD.rollMaxDeg * Math.PI / 180 + 1e-9, `${skill}: the board rides on its rail (max roll ${(maxRoll * 180 / Math.PI).toFixed(1)} deg)`);
     assert.ok(bankOk > 0 && bankBad === 0, `${skill}: the rail banks into the turn (${bankOk} ok, ${bankBad} wrong)`);
-    const w = [...SKILLS[skill].takeoff, ...SKILLS[skill].exit]; assert.ok(w.every((k) => k.u < 0));
+    // R13: the takeoff's and the exit's u are relative to the band's pocket; placed, they are ahead of the curl on every band
+    for (const H of [0.61, 1.52, 1.83, 3.66]) assert.ok(buildPlan(skill, 1234, H).knots.filter((k) => k.move === 'takeoff' || k.move === 'kickout' || k.move === 'out').every((k) => k.u < 0), `${skill}: takeoff and exit ahead of the curl at ${H} m`);
   }
   // determinism: the same seed replays the same ride; a different seed does not
   const a = new RiderSim(atlas, 'Expert', 99, flowX, null, 0), b = new RiderSim(atlas, 'Expert', 99, flowX, null, 0), d = new RiderSim(atlas, 'Expert', 100, flowX, null, 0);

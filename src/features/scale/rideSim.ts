@@ -44,8 +44,9 @@ export function buildPlan(skill: Skill, seed: number, faceM: number): Plan {
   const profile = SKILLS[skill], r = rng(seed), s = Math.max(RIDE.durScaleMin, Math.sqrt(Math.max(0.3, faceM) / RIDE.refFaceM));
   const faceFt = faceM / 0.3048, band = bandFor(faceFt);
   const body = composeBody(band, profile, (w) => r() < w);
-  const takeoff = profile.takeoff.map((k, i) => (i === 0 ? k : {...k, dt: k.dt * band.dropScale}));   // the drop: later and steeper on a big wave
-  const seq = [...takeoff, ...body, ...profile.exit];
+  const pocketU = -band.pocketFaces * profile.pocketScale;   // R13: the takeoff and the exit sit relative to the band's line, as the moves do
+  const takeoff = profile.takeoff.map((k, i) => ({...k, u: pocketU + k.u, dt: i === 0 ? k.dt : k.dt * band.dropScale}));   // the drop: later and steeper on a big wave
+  const seq = [...takeoff, ...body, ...profile.exit.map((k) => ({...k, u: pocketU + k.u}))];
   const knots: Knot[] = seq.map((k) => ({...k, dt: k.dt * s * (1 + RIDE.jitterDur * (2 * r() - 1)), v: clamp(k.v + RIDE.jitterV * (2 * r() - 1), RIDE.vMin, 0.85)}));
   const times = new Float64Array(knots.length); for (let i = 1; i < knots.length; i++) times[i] = times[i - 1] + knots[i].dt;
   return {skill, profile, band, knots, times, period: times[knots.length - 1] + knots[0].dt, rideEnd: times[knots.length - 1]};
