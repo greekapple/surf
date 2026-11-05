@@ -566,6 +566,6 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 3D R13 merged 5d4a0b2 (Fable): open-face trim ahead of the curl (bodyclip 0 in 16/18; 5 ft 17 → 0), backside arms re-authored (surfer-v9c), board foil/rails/fins, user-shot fixes, pose tools + recognisability (backside 5.4 → 6.2%, thin data). Restore tag 3d-before-r13 (R12). Known → R14 (spec docs/specs/2026-11-05-3d-r14-arms-barrel.md): 6 ft barrel 3.7 → 0.45 s, straight back arm, snap inside barrel rides, backside wrist/arm gate hits, over-rotation.
 - 3D R14 merged cf1f242 (Fable): back arm bent and forward (surfer-v10), barrel ride = turn at the fold → stall → tube → exit (no clip in the turn), 6 ft tube 0.1 → 3.5 s, 8 ft ~4.5, 12 ft 4.8; bodyclip 0 in 17/18, pop 0. 560 tests, journeys 8/8, t104/t034/t062 pass. Restore tag 3d-before-r13. Open: 6 ft tube marginal (roof 0.15 m), 6 ft frontside bodyclip 7–9, 12 ft backside new hit gates, over-rotation + fluidity unchanged, backside barrel (pig-dog) proposal in FINDINGS §16 not built.
 - Codex night 3 (8 reviews incl. T-132, R13, R14): 0 P0/P1. P2s open:
-  - T-137 photo-credit tap targets overlap when the credit wraps to two lines (forecast.css:530, 070515d)
+  - T-137 FIXED caf6bd1: photo-credit tap targets overlap when the credit wraps to two lines (forecast.css:530, 070515d)
   - T-138 pose tools hard-code the scratchpad session path (tools/pose/trace_ours.py:6-8, 5d4a0b2)
   - T-139 board fin triangles face inward (boardMesh.ts:61-62, 5d4a0b2)
