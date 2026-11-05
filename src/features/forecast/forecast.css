@@ -524,9 +524,10 @@
   .sp-band.is-photo > .photo { display: contents; }
   .sp-band.is-photo .sp-band-in { flex: none; height: 144px; }
   .sp-band.is-photo.has-cam .sp-band-in { height: 176px; }
-  .sp-band.is-photo .credit { order: 2; position: relative; inset: auto; z-index: 3; max-width: none; margin: 0; padding: 0 12px 14px 14px; text-align: left; white-space: normal; font-size: 12px; line-height: 24px; color: rgb(255 255 255 / 0.88); }
-  /* 44 px tap targets: the padding (8 px above, 16 px below) is pulled back by negative margins, so a line still takes 24 px; the extra reaches
-     6 px up into the heading's bottom padding (clear of the star and Now) and down into the credit's own padding. */
-  .sp-band.is-photo .credit a { display: inline-block; box-sizing: border-box; min-height: 44px; padding: 8px 0 16px; margin: -6px 0 -14px; line-height: 20px; }
+  .sp-band.is-photo .credit { order: 2; position: relative; inset: auto; z-index: 3; max-width: none; margin: -6px 0 0; padding: 0 12px 2px 14px; text-align: left; white-space: normal; font-size: 12px; line-height: 44px; color: rgb(255 255 255 / 0.88); }
+  /* T-137: each credit line is 44 px tall and each link fills its line, so the 44 px tap targets never overlap: not each other when the credit
+     wraps to two lines, and not the star or Now above (the targets stay inside the credit's own box). */
+  .sp-band.is-photo .credit a { display: inline-block; box-sizing: border-box; min-height: 44px; min-width: 44px; padding: 12px 0; margin: 0; line-height: 20px; vertical-align: top; }
+  .sp-band.is-photo .credit .cr-tail { white-space: nowrap; }
   .sp-band.is-photo .credit .cr-sep { padding: 0 2px; }
 }

@@ -21,10 +21,10 @@ export function SpotPhoto({spotId, index = 0, className = '', children, height}:
         loading="lazy"
         decoding="async"
       />
-      {/* T-132: the full attribution is the caption's title, so a phone band can truncate the photographer in view while the licence stays whole. */}
+      {/* T-132: the full attribution is also the caption's title; on phones the credit is shown whole as the hero's last line (forecast.css). */}
       <figcaption className="credit" title={`Photo: ${p.generic ? 'generic photo, not this spot · ' : ''}${who} · ${p.license}`}>
         {p.generic ? <span className="cr-gen">Generic photo, not this spot · </span> : null}
-        <a className="cr-who" href={p.source} target="_blank" rel="noreferrer">{who}</a><span className="cr-sep"> · </span><a className="cr-lic" href={p.licenseUrl} target="_blank" rel="noreferrer">{p.license}</a>
+        <a className="cr-who" href={p.source} target="_blank" rel="noreferrer">{who}</a><span className="cr-tail"><span className="cr-sep"> · </span><a className="cr-lic" href={p.licenseUrl} target="_blank" rel="noreferrer">{p.license}</a></span>
       </figcaption>
       {children && <div className="photo-body">{children}</div>}
     </figure>
