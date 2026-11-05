@@ -7,9 +7,10 @@
 # (Euclidean) with the same move label; per move and overall, beside the chance level (the move's share of the real frames).
 # Labels: the real frames by clip (single-move clips) or by time segment (SEGMENTS below); ours by the ride plan's move (the recording's
 # labels.json, carried into out2/ours-<tag>-moves.json by trace_ours.py), with the side (front/back) from the tag.
-#   python3 -I recognise.py <oursTag> [<oursTag> ...]      e.g. recognise.py r12-6e-bs r13c-6e-bs
+#   SWELLO_POSE_OUT2=<the tracer's out2 dir> python3 -I recognise.py <oursTag> [<oursTag> ...]      e.g. recognise.py r12-6e-bs r13c-6e-bs
+# (T-138: the directory comes from the environment, never a hard-coded scratchpad path)
 import csv, json, math, os, sys
-S = '/private/tmp/claude-501/-Users-milosin-Development-projects-surf/250e1e66-bb9b-4659-a5ff-86bd5a0084e7/scratchpad/pose/out2'
+S = os.environ.get('SWELLO_POSE_OUT2') or sys.exit('set SWELLO_POSE_OUT2 to the tracer\'s out2 directory (pose/out2/<clip>/poses.json + angles.csv)')
 K = 10
 J13 = ['nose', 'l_sh', 'r_sh', 'l_el', 'r_el', 'l_wr', 'r_wr', 'l_hip', 'r_hip', 'l_knee', 'r_knee', 'l_ank', 'r_ank']
 ANG = ['knee_l', 'knee_r', 'hip_l', 'hip_r', 'elbow_l', 'elbow_r', 'shoulder_l', 'shoulder_r', 'torso_lean', 'wrist_l_above_hip', 'wrist_r_above_hip', 'hip_height', 'stance_width']

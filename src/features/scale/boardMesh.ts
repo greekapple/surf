@@ -58,8 +58,11 @@ export function boardGeometry(s: BoardShape, ns = 64, nr = 20): {positions: Floa
     const t0 = 0.5 - xLead / L, yBase = rocker(t0) + lift + 0.002;   // the bottom at the fin's base (the plate sits in the bottom skin)
     const i0 = pos.length / 3;
     for (const sgn of [-1, 1]) for (const [u, d] of prof) { const zc = sgn * 0.002, dz = d * sc, dy = d * cc; pos.push(xLead + u * ct - zc * st, yBase + dy, z0 - dz + u * st + zc * ct); }
-    const n = prof.length; for (let q = 1; q + 1 < n; q++) { idx.push(i0, i0 + q + 1, i0 + q); idx.push(i0 + n, i0 + n + q, i0 + n + q + 1); }
-    for (let q = 0; q < n; q++) { const a = i0 + q, b = i0 + (q + 1) % n, c = a + n, d = b + n; idx.push(a, b, c, b, d, c); }
+    // R15 (T-139): the profile runs clockwise in the fin's plane (along the base toward the tail, then round the tip), so the fan on the
+    // -z plate is wound in profile order and the +z plate's reversed, the strip between them likewise: every triangle faces OUT (the
+    // signed volume of each fin reads +3.5e-5 m^3; it read -3.5e-5 with the windings the other way round, the plates and the strip all inward)
+    const n = prof.length; for (let q = 1; q + 1 < n; q++) { idx.push(i0, i0 + q, i0 + q + 1); idx.push(i0 + n, i0 + n + q + 1, i0 + n + q); }
+    for (let q = 0; q < n; q++) { const a = i0 + q, b = i0 + (q + 1) % n, c = a + n, d = b + n; idx.push(a, c, b, b, c, d); }
   };
   const xSide = 0.5 * L - 0.3 * L, zSide = Math.max(s.half(1 - (0.5 - xSide / L)) * W, 0.02) - 0.035 * k;
   fin(xSide, zSide, 1); fin(xSide, -zSide, -1); fin(0.5 * L - 0.1 * L, 0, 0);

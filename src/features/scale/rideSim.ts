@@ -61,6 +61,7 @@ export interface PlanSample {u: number; v: number; comp: number; du: number; dv:
   /** R8: the slope cap (deg) of the knot being approached, and the board's pivot past its path (deg), smoothstepped from the passed
    *  knot's to the approached knot's (a snap's pivot winds up over the hit segment and unwinds over the recovery) */
   cap: number; pivot: number;
+  /** R15: the knot's rail roll (deg), smoothstepped as the pivot is */ rail: number;
   /** R10: the segment touches a knot behind the break point (the tube): the absolute `ahead` floor fades out across it */
   tube: boolean}
 /** The plan at loop time tau (wrapped): position, velocity (per s) and the segment's move and target pose. Hermite with Catmull-Rom tangents. */
@@ -79,7 +80,7 @@ export function planAt(p: Plan, tau: number, out: PlanSample): PlanSample {
   out.u = ev((x) => x.u, false); out.v = ev((x) => x.v, false); out.comp = ev((x) => x.comp, false); out.du = ev((x) => x.u, true); out.dv = ev((x) => x.v, true);
   const aa = a.ahead ?? RIDE.minAheadFaces, ab = b.ahead ?? RIDE.minAheadFaces; out.ahead = aa + (ab - aa) * s; out.tube = aa < 0 || ab < 0;
   out.seg = k; out.move = b.move; out.pose = b.pose;
-  const sm = s * s * (3 - 2 * s); out.cap = b.cap ?? RIDE.slopeCapDeg; out.pivot = (a.pivot ?? 0) * (1 - sm) + (b.pivot ?? 0) * sm;
+  const sm = s * s * (3 - 2 * s); out.cap = b.cap ?? RIDE.slopeCapDeg; out.pivot = (a.pivot ?? 0) * (1 - sm) + (b.pivot ?? 0) * sm; out.rail = (a.rail ?? 0) * (1 - sm) + (b.rail ?? 0) * sm;
   return out;
 }
 
@@ -110,9 +111,9 @@ export class RiderSim {
   private readonly xbS = new Spring(); private readonly capS = new Spring(); private readonly yawS = new Spring(); private readonly rollS = new Spring(); private readonly turnRollS = new Spring(); private readonly compS = new Spring(); private readonly leadS = new Spring();
   private readonly fitF = [new Spring(), new Spring(), new Spring()]; private readonly fitU = [new Spring(), new Spring(), new Spring()];
   private readonly wS: Spring[] = POSES.map(() => new Spring()); private readonly waS: Spring[] = POSES.map(() => new Spring());
-  private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, tube: false};
+  private readonly ps: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, rail: 0, tube: false};
   /** R8: a second sample a little ahead, for the arms' early drop out of the snap */
-  private readonly psArm: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, tube: false};
+  private readonly psArm: PlanSample = {u: 0, v: 0, comp: 0, du: 0, dv: 0, seg: 0, move: 'trim', pose: 'trim', ahead: RIDE.minAheadFaces, cap: RIDE.slopeCapDeg, pivot: 0, rail: 0, tube: false};
   private readonly idlePhase: [number, number];
   /** R10: the pivoted hit's lowering of the line (v) while an end of the placed board is too deep (public for the dev probe) */
   hitLow = 0;
@@ -199,7 +200,10 @@ export class RiderSim {
       // the snap's hit is the one deliberate pass at the lip: the roof cap fades out with the knot's pivot (as the trim roll does); a
       // margin that merely shrank with the pivot held the 6 ft hit at the trough (the pivoted crown is inside the thrown lip at every
       // height on the wall), so the hit is the one place the head may meet the lip, lowered a little by the band's hitDropV
-      const roofW = 1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg), roofEff = roofCap + (1 - roofW) * (vHi - roofCap);
+      // R15: the full fade is the HIT's (the `top` move); the bottom turn's carve-up pivot (RIDE_BOTTOM_PIVOT_DEG) winds up through the
+      // `bottom` move and fades the cap by half its share: the full fade let the frontside head, leaning into the face on the rail, meet
+      // the face by 0.06-0.12 m, and no fade held both sides at the trough through the carve-up (frac 0.06 into the hit, yaw 14-18 deg)
+      const roofW = 1 - (ps.move === 'top' ? 1 : 0.5) * Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg), roofEff = roofCap + (1 - roofW) * (vHi - roofCap);
       this.stats.roofCapNow = roofEff; capNow = Math.min(capNow, roofEff);
     } else { this.stats.roofStandNow = 1; this.stats.roofCapNow = 1; }
     if (!this.started) { this.capS.set(capNow); this.crouchS.set(crouchT); } const cap = this.capS.step(capNow, dt, capNow < this.capS.x ? RIDE.capFollowWDown : RIDE.capFollowW), crouch = this.crouchS.step(crouchT, dt, RIDE.roof.crouchW); this.stats.maxFracNow = cap; this.stats.crouchNow = crouch;
@@ -265,7 +269,9 @@ export class RiderSim {
     // board rolled 45 deg on its tail at the lip and the tail dug 0.26 m into the C-wall at 5 ft; the real board at the lip is flat to the
     // face). The cutback's pivot (down the face) is a carve on the heel rail and keeps its rate.
     const pivotRate = this.started ? (ps.pivot - this.lastPivot) * Math.PI / 180 / dt : 0; this.lastPivot = ps.pivot;
-    const turnRollT = clamp(Math.atan(speed * (yawRate - (ps.pivot > 0 ? pivotRate : 0)) / G) * pr.carve, -turnCap, turnCap);
+    // R15: plus the knot's authored rail (the bottom turn's inside rail: the path over the water barely turns at the peel speed, so the
+    // carve's own roll reads 10-15 deg where the real board sits on its rail at 40-55)
+    const turnRollT = clamp(Math.atan(speed * (yawRate - (ps.pivot > 0 ? pivotRate : 0)) / G) * pr.carve + ps.rail * Math.PI / 180, -turnCap, turnCap);
     const rollT = clamp(trimRoll + turnRollT, -rollCap, rollCap);
     if (!this.started) { this.rollS.set(rollT); this.turnRollS.set(turnRollT); } const roll = clamp(this.rollS.step(rollT, dt, BOARD.rollW), -rollCap, rollCap); this.rollS.x = roll; const turnRoll = this.turnRollS.step(turnRollT, dt, BOARD.rollW);
     // the rail pivot: the centre lifts off the face by the engaged rail's arm less its tuck (the other rail is in the air)

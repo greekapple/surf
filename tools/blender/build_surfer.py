@@ -1,4 +1,4 @@
-"""SWELLO surfer v10 (R14, 2026-11-05: the BACK arm bent 120-130 deg with the forearm across toward the front arm and the hand in front of the body, trim / pump / bottom / climb / recovery on both sides, backside a touch tighter, from the Surf Ranch and backside frames; v9 R13, 2026-11-04: the arms out and bent in the trim, pump and every backside key, as the skeleton traces of real
+"""SWELLO surfer v11 (R15, 2026-11-05: the barrel crouch lower, hips 0.62 -> 0.58 of standing (the pig-dog stays at 0.62: its dropped back knee crossed the 140 deg gate in the viewer at 0.58 and 0.55, with the ride's own compression on top): the 6 ft tube's roof over the crouched head read 0.15-0.16 m at v10, the margin the tube flag wants and no more; v10 R14: the BACK arm bent 120-130 deg with the forearm across toward the front arm and the hand in front of the body, trim / pump / bottom / climb / recovery on both sides, backside a touch tighter, from the Surf Ranch and backside frames; v9 R13, 2026-11-04: the arms out and bent in the trim, pump and every backside key, as the skeleton traces of real
 surfers measure them; v8 R12: the frontside bottom turn's hands by the rails; v7 R8, 2026-11-05: the frontside bottom turn a touch lower with the chest on the front knee, the backside hit compact;
 v6 R7: the backside key set, the deeper bottom turn, the snap and cutback keys; v5 R6, 2026-11-05: whole-body keys re-authored against the real sequences in the lead's refs-motion index; v4 was spec
 2026-11-04-3d-surfer-realism Appendix M, v3 spec 2026-11-03 Track A): a rigged, skinned MPFB2 human (CC0)
@@ -9,7 +9,7 @@ motion). Goofy-foot frontside on a left; the viewer mirrors it for a right. Roun
 (trim knees ~45 deg, bottom turn ~85, barrel ~100), the hands stay between knee and chest height, the stance is 0.70 m.
 
 Run (MPFB is a user extension, so NOT --factory-startup):
-  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v10.glb [--preview DIR] [--board 1.83]
+  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v11.glb [--preview DIR] [--board 1.83]
 
 Frame of the exported model (Blender, z-up; glTF converts to y-up): board along x with the NOSE AT -X, the surfer faces -Y (toward the
 wave), the board's bottom at z = 0 at rest, true scale (the standing height is printed: SURFER_MODEL_M in WaveLive.tsx must match).
@@ -26,7 +26,7 @@ from mathutils import Matrix, Vector
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 ap = argparse.ArgumentParser()
-ap.add_argument('--out', default='tools/blender/assets/surfer-v10.glb')
+ap.add_argument('--out', default='tools/blender/assets/surfer-v11.glb')
 ap.add_argument('--preview', default='')
 ap.add_argument('--board', type=float, default=1.83, help='board length in metres (6\'0" = 1.83)')
 ap.add_argument('--fps', type=int, default=24)
@@ -428,13 +428,13 @@ POSES = {
                  arm_r=((-0.5, -0.4, -0.77), (-0.7, -0.55, -0.45), (-0.7, -0.55, -0.45)), arm_l=((-0.05, -0.1, -0.99), (-0.85, -0.25, -0.5), (-0.85, -0.25, -0.5))),   # R14 (surfer-v10): the back arm as the trim's, a touch lower   # R13 (surfer-v9): as the trim, a little lower
     # barrel crouch (real-barrel-seq t4, frontside): knees ~100, torso ~45 and compact, head up looking at the exit down the line, the
     # front arm low and forward, the back hand dragging the face behind the hip (hands below the knees allowed here)
-    'barrel': dict(board=(0, 0, 0), hips=(0.62, 0.08, -0.1), hip_yaw=-16, foot_yaw=(35, 6),   # R14 (surfer-v10): hips 0.75 -> 0.62, the torso ~50 deg: the crouched crown ~0.08 m lower (the 6 ft tube's roof over the head read 0.11-0.15 m at the old crouch, under the 0.15 the tube wants)
+    'barrel': dict(board=(0, 0, 0), hips=(0.58, 0.08, -0.1), hip_yaw=-16, foot_yaw=(35, 6),   # R15 (surfer-v11): hips 0.62 -> 0.58 (the crown ~0.04 m lower: the 6 ft roof over the head 0.15-0.16 m at v10; 0.55 put the viewer's knees past the 140 deg gate once the ride's compression came on top)   # R14 (surfer-v10): hips 0.75 -> 0.62, the torso ~50 deg: the crouched crown ~0.08 m lower (the 6 ft tube's roof over the head read 0.11-0.15 m at the old crouch, under the 0.15 the tube wants)
                    spine=((-0.25, -0.72, 0.64), (-0.27, -0.72, 0.63), (-0.25, -0.66, 0.7), -18), neck=(-0.4, -0.25, 0.86), head=((-0.55, -0.2, 0.8), -40),
                    arm_r=((-0.45, -0.4, -0.8), (-0.7, -0.35, -0.62), (-0.7, -0.35, -0.62)), arm_l=((0.2, -0.5, -0.84), (0.1, -0.85, -0.5), (0.1, -0.85, -0.5))),
     # pig-dog (backside tube; the viewer mirrors the rider, so here the wave is on the +y, heel side): the back knee dropped low (~115),
     # the front knee ~90, the torso twisted to look at the exit over the leading shoulder, the leading (front) hand down on the toe-side
     # rail by the front foot, the back arm low and back
-    'pigdog': dict(board=(0, 0, 0), hips=(0.62, 0.14, 0.05), hip_yaw=-28, foot_yaw=(40, 4),   # R14 (surfer-v10): hips 0.75 -> 0.62 as the frontside crouch
+    'pigdog': dict(board=(0, 0, 0), hips=(0.62, 0.14, 0.05), hip_yaw=-28, foot_yaw=(40, 4),   # R15 (surfer-v11): left at 0.62: the pig-dog's dropped back knee is already ~129 deg at 0.58 and the ride's compression on top of it crossed the 140 deg gate (71 knee counts at 0.55, 59 at 0.58 over a 6 ft backside ride); the frontside crouch is 0.58   # R14 (surfer-v10): hips 0.75 -> 0.62 as the frontside crouch
                    spine=((-0.3, -0.42, 0.85), (-0.35, -0.37, 0.86), (-0.4, -0.27, 0.88), -30), neck=(-0.5, 0.0, 0.85), head=((-0.6, 0.1, 0.78), -35),
                    arm_r=((-0.3, -0.45, -0.85), (-0.35, -0.5, -0.8), (-0.35, -0.5, -0.8)), arm_l=((0.3, -0.1, -0.95), (0.3, -0.5, -0.8), (0.3, -0.55, -0.78))),
     # ---- BACKSIDE keys (R7, surfer-v6; real-backside-seq). The viewer mirrors the rider across the board's long axis for backside, so

@@ -1,8 +1,9 @@
 # Real-clip angle statistics: per clip (optionally per time segment), the median and the 10-90% range of every angles.csv column over
-# the confident frames (conf >= 0.5). python3 -I realstats.py [clip[:t0-t1[:label]] ...]  (no args: every traced clip, whole)
+# the confident frames (conf >= 0.5). SWELLO_POSE_OUT2=<the tracer's out2 dir> python3 -I realstats.py [clip[:t0-t1[:label]] ...]
+# (no args: every traced clip, whole; T-138: the directory comes from the environment, never a hard-coded scratchpad path)
 import csv, glob, os, sys
 import statistics as st
-OUT2 = '/private/tmp/claude-501/-Users-milosin-Development-projects-surf/250e1e66-bb9b-4659-a5ff-86bd5a0084e7/scratchpad/pose/out2'
+OUT2 = os.environ.get('SWELLO_POSE_OUT2') or sys.exit('set SWELLO_POSE_OUT2 to the tracer\'s out2 directory (pose/out2/<clip>/angles.csv)')
 COLS = ['knee_l', 'knee_r', 'hip_l', 'hip_r', 'elbow_l', 'elbow_r', 'shoulder_l', 'shoulder_r', 'torso_lean', 'wrist_l_above_hip', 'wrist_r_above_hip', 'hip_height', 'stance_width']
 def q(v, p):
     v = sorted(v); n = len(v)
