@@ -94,6 +94,9 @@ export const BOARD = {
 export const RIDE = {
   /** the face is rideable up to this slope; the planned v is capped under it (minus a margin) each step */
   slopeCapDeg: 78, capMarginV: 0.04, vMin: 0.06,
+  /** R17: the planner's ceiling on a knot's height (after the jitter): 0.85 held the hit's planned v under the slope cap's soft
+   *  turnover, so a hit planned at the top of the face still measured 0.50 at 6 ft; the caps decide the real ceiling each step */
+  vMaxPlan: 0.98,
   /** width (in v) of the soft limit against the cap: a planned line that runs into the cap turns over this much of the face rather than
    *  at a corner (0.04 made a 6 g vertical reversal at the 20 ft top turn, which the board's yaw spring could not follow) */
   capSoftV: 0.12,
@@ -161,14 +164,22 @@ export const RIDE = {
  *  92 at 0.48): under the 78 deg cap the board sat at 0.385 with its long axis along the crest (yaw ~1 deg at the hit: the rider's path
  *  over the water is the peel speed along the crest, so the velocity never points up the face). The real snap's board is vertical because
  *  it pivots on its tail past the path. 78 deg at the Expert's carve (Intermediate 0.7 x): at the knot the path already turns down (-10 deg), so the yaw peaks near 68 and the board's long axis near 65 deg on the 74 deg face the cap reaches. */
-export const RIDE_SNAP_CAP_DEG = 89, RIDE_SNAP_PIVOT_DEG = 78;
+export const RIDE_SNAP_CAP_DEG = 110, RIDE_SNAP_PIVOT_DEG = 78;   // R17: the cap 89 -> 110: at the fold the 6 ft face is vertical at 0.80 of its height and its lip's tip at 0.89 (`geo17-before.log`), so a hit held under the vertical, less the cap's margins, sat at 0.68 at best; the board's centre may now reach the lip's root where the face leans 20 deg past the vertical (the pivoted nose cuts the throw, as the real snap's)
 /** R11: the cutback's pivot (deg, down the face past the path, x the skill's carve): the board on its heel rail at the peak */
 export const RIDE_CUTBACK_PIVOT_DEG = 55;
 /** R15: the bottom turn's rail (deg, the deck rolled toward the wave on top of the trim roll at the apex; Knot.rail, x the skill's carve)
  *  and the pivot of its carve back up the face (deg, the nose up the face past the path as the board leaves the apex, winding on into
  *  the hit's pivot). The real bottom turn (`bottom-turn-fs`): the board on its inside rail 40-55 deg at the apex, the nose pointing at
  *  the lip while the path still runs along the base. R14 measured the apex's face roll at 28-33 deg (the trim roll's share of the slope). */
-export const RIDE_BOTTOM_RAIL_DEG = 22, RIDE_BOTTOM_PIVOT_DEG = 14;
+export const RIDE_BOTTOM_RAIL_DEG = 22, RIDE_BOTTOM_PIVOT_DEG = 30;   // R17: the pivot 14 -> 30: the bottom turn's exit heading (the path up the face plus the pivot) read 25-31 deg at 6 ft, the real exit points 45-70 deg up the face
+/** R17: the hit's height (absolute v, the top of the face: the apex of a snap sits in the top 15-20 % of the face, the tail near the lip)
+ *  and the top turn's (just under the lip, under the ordinary slope cap: the small bands and the Beginner). The slope cap and the roof
+ *  cap still decide what the face at the knot allows; ManeuverKnot.vAbs makes both independent of the band's line and the skill's intensity. */
+export const RIDE_HIT_V = 0.95, RIDE_TOP_TURN_V = 0.74, RIDE_TOP_TURN_CAP_DEG = 82;
+/** R17 (item 4, "move the hit point"): the hit sits this much past the fold (face heights, further out on the shoulder), where the lip's
+ *  throw is thinner (6 ft: 0.36 m at the fold, 0.22 m at +0.5 faces; 12 ft: 0.52 -> 0.34; `geo17-before.log`): at the fold the front foot
+ *  on the pivoted deck sat 0.07 (6 ft) / 0.16 m (12 ft) inside the thrown lip at the apex */
+export const RIDE_HIT_FOLD_DU = 0.4;
 export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 'takeoff' | 'kickout' | 'out' | 'barrel' | 'floater' | /** R14: the stall back into the pocket before the tube (the monitor and the roll treat it as the barrel) */ 'stall';
 /** One knot of the ride: time to reach it from the previous knot (s, at RIDE.refFaceM; the first knot's dt closes the loop from the
  *  last), u, v, the move name, the pose it blends to, the compression target, and how close to the curl it may go (face heights,
@@ -194,15 +205,17 @@ export interface ManeuverKnot {dt: number; du: number; dv: number; move: Move; p
   /** R13: an ABSOLUTE u (face heights from the curl, + = behind the break point) instead of the pocket offset: the barrel's knots are placed
    *  against the tube, not the band's line, so moving the line out onto the open face (R13) leaves the barrel where R12 measured it */ uAbs?: number;
   /** R14: u relative to the FOLD (RIDE.foldAheadM ahead of the break point, in face heights at the plan's face; + = further out): the
-   *  barrel ride's turn happens where the lip is just starting to pitch, whatever the band's line */ duFold?: number}
+   *  barrel ride's turn happens where the lip is just starting to pitch, whatever the band's line */ duFold?: number;
+  /** R17: an ABSOLUTE v (fraction of the face) instead of the line offset: the hit's and the top turn's apex are set against the face's
+   *  top, not the band's line and the skill's intensity (the Intermediate's 0.7 x put the 6 ft cover-up hit at 0.575) */ vAbs?: number}
 export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'coverup' | 'longBottom' | 'barrelRide' | 'coverupRide';
 export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a trim along the line */
   trim: [{dt: 0.7, du: 0.05, dv: 0, move: 'trim', pose: 'trim', comp: 0.45}],
   /** a soft open-face carve: a drawn-out bottom turn into a mid-face arc */
-  carve: [{dt: 1.0, du: 0.3, dv: -0.3, move: 'bottom', pose: 'bottom', comp: 0.7}, {dt: 0.7, du: 0.05, dv: 0.12, move: 'top', pose: 'climb', comp: 0.45}, {dt: 0.6, du: 0.1, dv: 0, move: 'trim', pose: 'trim', comp: 0.4}],
+  carve: [{dt: 1.2, du: 0.3, dv: -0.3, move: 'bottom', pose: 'bottom', comp: 0.7}, {dt: 0.8, du: 0.05, dv: 0.12, vAbs: RIDE_TOP_TURN_V, move: 'top', pose: 'climb', comp: 0.45, cap: RIDE_TOP_TURN_CAP_DEG}, {dt: 0.6, du: 0.1, dv: 0, move: 'trim', pose: 'trim', comp: 0.4}],   // R17 (item 5): the TOP TURN variant for the small bands and the Beginner (the snap's substitute): a longer bottom turn (1.0 -> 1.2 s), then the turn just under the lip (RIDE_TOP_TURN_V, absolute: band A's line + 0.12 x the intensity put it at 0.52-0.67) under the ordinary slope cap and without the snap's pivot, so a 2-4 ft wave never throws the rider over its lip
   /** bottom turn, project up the face, release at the lip, redirect down */
-  snap: [{dt: 0.85, du: 0.3, dv: -0.37, move: 'bottom', pose: 'bottom', comp: 1.0, rail: RIDE_BOTTOM_RAIL_DEG}, {dt: 0.5, du: 0.1, dv: 0, move: 'bottom', pose: 'climb', comp: 0.55, rail: RIDE_BOTTOM_RAIL_DEG * 0.5}, {dt: 0.45, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8}],   // R8: the hit rides the face up to the vertical (cap 89 instead of 78) with the board pivoted up the face past its velocity (the tail slides): the board reads near-vertical at the lip, as the real snap (Intermediate+ only: a Beginner's snap is a carve)
+  snap: [{dt: 1.1, du: 0.3, dv: -0.37, move: 'bottom', pose: 'bottom', comp: 1.0, rail: RIDE_BOTTOM_RAIL_DEG}, {dt: 0.6, du: 0.1, dv: 0.1, move: 'bottom', pose: 'climb', comp: 0.55, rail: RIDE_BOTTOM_RAIL_DEG * 0.5, pivot: RIDE_BOTTOM_PIVOT_DEG}, {dt: 0.55, du: 0, duFold: RIDE_HIT_FOLD_DU, dv: 0.35, vAbs: RIDE_HIT_V, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: 0, duFold: RIDE_HIT_FOLD_DU + 0.1, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8}],   // R17: the bottom turn 0.85 + 0.5 -> 1.1 + 0.6 s, its carve-up a climb with the nose pivoted up the face (as longBottom's), the hit at the top of the face (RIDE_HIT_V) AT THE FOLD (duFold, as the barrel ride's): 1.3 faces ahead on a 4 ft face the wall is vertical at 0.63 of its height and thrown above, so the R8 hit at 0.69 planned sat at 0.5; at the fold (3.6 m ahead) the face is vertical at 0.83 with a 0.09 m throw, the pitching section a snap hits   // R8: the hit rides the face up to the vertical (cap 89 instead of 78) with the board pivoted up the face past its velocity (the tail slides): the board reads near-vertical at the lip, as the real snap (Intermediate+ only: a Beginner's snap is a carve)
   /** roundhouse: a full-rail arc back toward the curl, rebound, back down the line */
   cutback: [{dt: 1.0, du: 0.8, dv: -0.15, move: 'cutback', pose: 'climb', comp: 0.6}, {dt: 0.9, du: 0.2, dv: 0.13, move: 'cutback', pose: 'cutback', comp: 0.4, pivot: -RIDE_CUTBACK_PIVOT_DEG}, {dt: 0.6, du: 0.05, dv: -0.06, move: 'recover', pose: 'recover', comp: 0.75}],   // R11: the peak knot pivots the board DOWN the face past its path (the nose back toward the curl): the rider's path over the water barely turns (the peel speed dominates: yaw -2..5 deg through the whole cutback before R11, the board flat), and the pivot's wind-up is the yaw rate that puts the board on its heel rail, as the real t6-t7.5 frames   // R7: its own peak key (head and shoulders back to the curl, the leading arm out toward it), then the rebound compact
   /** rhythmic compress/extend through a flat section */
@@ -217,10 +230,10 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
    *  THERE (the R8 pivot, ahead of the cavity: the R13 snap hit 3.1 m ahead at 6 ft sat in the lip's throw, board clip 5), come down, then a
    *  visible STALL back into the pocket (the sim caps the drift at the flow less 2.5 m/s, so the curl catches the rider up over ~1.5 s with
    *  the weight back in the barrel crouch), the tube knots at the R12/R13 positions, the exit ahead of the foam */
-  barrelRide: [{dt: 0.5, du: 0, duFold: 0, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: 0, duFold: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},
+  barrelRide: [{dt: 0.6, du: 0, duFold: RIDE_HIT_FOLD_DU, dv: 0.35, vAbs: RIDE_HIT_V, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: 0, duFold: RIDE_HIT_FOLD_DU + 0.1, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},   // R17: the hit's height is absolute (RIDE_HIT_V, the top of the face; the band's line + 0.35 planned it at 0.71 and the 6 ft hit measured 0.50), its climb from the bottom turn's exit takes 0.6 s, the hit point sits past the fold (RIDE_HIT_FOLD_DU) and the recovery lands a little further out still (the path over the water used to reverse along the crest at the apex: wake 130 deg off the heading for 3 samples)
     {dt: 1.3, du: 0.1, uAbs: -0.9, dv: -0.22, move: 'stall', pose: 'barrel', comp: 0.8, ahead: 0.7}, {dt: 0.7, du: -0.8, uAbs: 0.25, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: -0.25}, {dt: 1.8, du: -1.0, uAbs: 0.35, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: -0.3}, {dt: 0.9, du: 0.1, uAbs: -0.6, dv: -0.22, move: 'barrel', pose: 'recover', comp: 0.7, ahead: 0.35}],   // R15: the stall's and the tube's comp 0.1 lower (0.9 / 1 / 1 / 0.8): the crouch key is deeper now (surfer-v11) and the ride's own compression on top of it folded the knees past the gate   // R14: the second tube knot 1.4 -> 1.8 s (the stall is its own move now; the 6 ft tube read 2.3 s in the barrel move + 0.6 in the stall)
   /** R14: the Intermediate's cover-up ride in the same order (its line sits 1.6 x further out, so the turn is relative to it, as the snap's was) */
-  coverupRide: [{dt: 0.5, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.23, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},
+  coverupRide: [{dt: 0.6, du: -0.2, dv: 0.35, vAbs: RIDE_HIT_V, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.23, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},   // R17: the hit at RIDE_HIT_V (absolute: the Intermediate's intensity 0.7 put it at 0.575)
     {dt: 1.0, du: -0.2, uAbs: -0.6, dv: -0.42, move: 'stall', pose: 'barrel', comp: 0.75, ahead: 0.5}, {dt: 1.2, du: -0.35, uAbs: -0.45, dv: -0.5, move: 'barrel', pose: 'barrel', comp: 0.85, ahead: 0.05}, {dt: 0.9, du: 0.2, uAbs: -1.0, dv: -0.42, move: 'barrel', pose: 'recover', comp: 0.6, ahead: 0.4}],   // R15: comp 0.1 lower, as the barrel ride's
   /** R15 (the user: "make the bottom turn before a hit more defined"): the bottom turn INTO the hit on the big bands. The drop (the takeoff's
    *  last knot) runs out to the apex at the base of the face, further out on the shoulder than the line (du 0.5: the rider drives down and
@@ -229,7 +242,7 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
    *  top turn at the fold. R14's barrel ride had a 0.6 s dip (dv -0.12, the climb key) in front of its hit and this move's 1.4 s apex two
    *  knots earlier, with a 0.9 s climb to the line between them that the frontside roof cap held at the trough anyway (`bturn-before-6e-fs`:
    *  the rider rode the trough for 2.9 s, frac 0.06-0.15, yaw -19..3, then stood up into the hit). ~1.25 s at 6 ft, scaled with the face. */
-  longBottom: [{dt: 0.8, du: 0.5, dv: -0.45, move: 'bottom', pose: 'bottom', comp: 1.0, rail: RIDE_BOTTOM_RAIL_DEG}, {dt: 0.45, du: 0.2, dv: -0.1, move: 'bottom', pose: 'climb', comp: 0.6, rail: RIDE_BOTTOM_RAIL_DEG * 0.5, pivot: RIDE_BOTTOM_PIVOT_DEG}],
+  longBottom: [{dt: 1.2, du: 0.5, dv: -0.45, move: 'bottom', pose: 'bottom', comp: 1.0, rail: RIDE_BOTTOM_RAIL_DEG}, {dt: 0.6, du: 0.15, dv: 0.1, move: 'bottom', pose: 'climb', comp: 0.6, rail: RIDE_BOTTOM_RAIL_DEG * 0.5, pivot: RIDE_BOTTOM_PIVOT_DEG}],   // R17: 0.8 + 0.45 -> 1.2 + 0.6 s at 6 ft (the user: "a surfer's bottom turn is a little longer"; the real `bottom-turn-fs` holds the rail ~2 s), and the carve-up knot CLIMBS (dv -0.1 -> +0.1: a metre up the face before the hit's own climb) with the nose pivoted further up the face (RIDE_BOTTOM_PIVOT_DEG 30), so the exit points up at the lip instead of along the trough
 };
 
 /** Wave-height style bands (brief part 2): each forecast hour picks one from the drawn face height. The threshold rule (round the drawn
@@ -247,6 +260,8 @@ export interface StyleBand {
   roofCap?: boolean;
   /** R15: scales the bottom turn's rail (Knot.rail; 1 when absent) */
   bottomRail?: number;
+  /** R17: scales the hit's pivot (the `top` knots' Knot.pivot; 1 when absent): the very big band's turn is drawn out, less vertical */
+  hitPivot?: number;
   /** the body of the ride as maneuvers with weights (0..1: the seeded chance of keeping an optional one; 1 = always) */
   moves: {name: ManeuverName; w: number}[];
   /** how fast the drop is against the skill's takeoff (1 = as written; smaller = later, steeper) */
@@ -264,11 +279,11 @@ export const BANDS: readonly StyleBand[] = [
     moves: [{name: 'trim', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 1}, {name: 'pump', w: 0.7}, {name: 'carve', w: 0.8}],
     boardFt: [5.83, 6.5], boardTypes: ['Performance shortboard', 'Everyday shortboard', 'Hybrid', 'Step-up']},
   // big (6-10 ft): deep bottom turns, vertical top turns, and a barrel every ride (Intermediate: a shallow cover-up; Beginner: never)
-  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.36, pocketFaces: 1.9, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85, hitDropV: 0.1, roofCap: true,
+  {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.36, pocketFaces: 1.9, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85, hitDropV: 0.05, roofCap: true,   // R17: hitDropV 0.1 -> 0.05 (the hit goes to the top of the face; the measured ends' lowering, RIDE.hitLow*, still answers a buried tail)
     moves: [{name: 'longBottom', w: 1}, {name: 'barrelRide', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.5}],   // R14: the snap, the trim and the barrel became ONE barrel ride (the turn at the fold, then the stall into the tube); the user: "it just randomly throws a snap for the barrel"
     boardFt: [6.17, 6.83], boardTypes: ['Step-up', 'Performance shortboard', 'Gun']},
   // very big (10 ft +): long drawn-out bottom turns, a deep barrel, a high fast line
-  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.5, pocketFaces: 1.2, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7, hitDropV: 0.25, roofCap: true,   // R14: the barrel ride's turn on a 12 ft face buried the front foot 0.2 m at the lip (bodyclip 7 + 10 through the hit and the recovery): the pivoted hit sits 0.25 lower
+  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.5, pocketFaces: 1.2, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7, hitDropV: 0.06, hitPivot: 0.8, roofCap: true,   // R17: hitDropV 0.25 -> 0.06 and the hit's pivot 0.8 x (62 deg): at the full pivot the front foot's ball on the deck sat 0.06-0.10 m inside the 12 ft lip's throw for 3-4 samples at the apex (the hit at the top of the face; measured ends still lower it)   // R14: the barrel ride's turn on a 12 ft face buried the front foot 0.2 m at the lip (bodyclip 7 + 10 through the hit and the recovery): the pivoted hit sits 0.25 lower
     moves: [{name: 'longBottom', w: 1}, {name: 'barrelRide', w: 1}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],   // R14: the barrel ride (with its turn at the fold) instead of trim + barrel
     boardFt: [6.67, 7.5], boardTypes: ['Step-up', 'Gun', 'Midlength']},
 ];
@@ -344,7 +359,7 @@ export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: numb
   for (const m of band.moves) {
     const name = m.name in skill.allow ? skill.allow[m.name] : m.name; if (name === null || name === undefined) continue;
     if (m.w < 1 && !keep(m.w)) continue;
-    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: k.duFold !== undefined ? -(fold + k.duFold) : k.uAbs !== undefined ? k.uAbs : -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve, rail: k.rail === undefined ? undefined : k.rail * skill.carve * (band.bottomRail ?? 1)});
+    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: k.duFold !== undefined ? -(fold + k.duFold) : k.uAbs !== undefined ? k.uAbs : -(pocket + k.du), v: k.vAbs !== undefined ? k.vAbs : lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve * (k.move === 'top' ? band.hitPivot ?? 1 : 1), rail: k.rail === undefined ? undefined : k.rail * skill.carve * (band.bottomRail ?? 1)});
   }
   if (!out.length) out.push({dt: 1.2, u: -pocket, v: lineV, move: 'trim', pose: 'trim', comp: 0.4});
   return out;

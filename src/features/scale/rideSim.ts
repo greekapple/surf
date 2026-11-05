@@ -47,7 +47,7 @@ export function buildPlan(skill: Skill, seed: number, faceM: number): Plan {
   const pocketU = -band.pocketFaces * profile.pocketScale;   // R13: the takeoff and the exit sit relative to the band's line, as the moves do
   const takeoff = profile.takeoff.map((k, i) => ({...k, u: pocketU + k.u, dt: i === 0 ? k.dt : k.dt * band.dropScale}));   // the drop: later and steeper on a big wave
   const seq = [...takeoff, ...body, ...profile.exit.map((k) => ({...k, u: pocketU + k.u}))];
-  const knots: Knot[] = seq.map((k) => ({...k, dt: k.dt * s * (1 + RIDE.jitterDur * (2 * r() - 1)), v: clamp(k.v + RIDE.jitterV * (2 * r() - 1), RIDE.vMin, 0.85)}));
+  const knots: Knot[] = seq.map((k) => ({...k, dt: k.dt * s * (1 + RIDE.jitterDur * (2 * r() - 1)), v: clamp(k.v + RIDE.jitterV * (2 * r() - 1), RIDE.vMin, RIDE.vMaxPlan)}));
   const times = new Float64Array(knots.length); for (let i = 1; i < knots.length; i++) times[i] = times[i - 1] + knots[i].dt;
   return {skill, profile, band, knots, times, period: times[knots.length - 1] + knots[0].dt, rideEnd: times[knots.length - 1]};
 }
@@ -166,7 +166,11 @@ export class RiderSim {
     if (this.started) x = Math.min(x, this.rx + (this.flowX - RIDE.stallMinWaterMps) * dt);
     // on the face: the planned height, kept under the rideable slope cap (soft), the slope at the point
     // the cap keeps the wave-side rail (rb up the face from the centre) under the slope cap too, not just the centre
-    let capNow = maxFracAt(a, x, t, ps.cap * Math.PI / 180) - RIDE.capMarginV - RIDE.endSagGain * this.endSagExcess * (1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg)) / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) / Math.max(0.2, this.lastHf); this.stats.slopeCapNow = capNow;
+    // R17: the cap's margin and the rail's share fade with the knot's pivot as the end sag does: a board pivoted up the face rides on
+    // its tail, so neither its centre's margin under the cap nor its wave-side rail's climb hold the hit under the lip (0.10 of a 6 ft
+    // face: the hit measured 0.71-0.72 of the crest with them, the spec asks for 0.8)
+    const pivotFree = 1 - Math.min(1, Math.abs(ps.pivot) / RIDE.pivotSagFreeDeg);
+    let capNow = maxFracAt(a, x, t, ps.cap * Math.PI / 180) - RIDE.capMarginV * pivotFree - RIDE.endSagGain * this.endSagExcess * pivotFree / Math.max(0.2, this.lastHf) - RIDE.capRailShare * (0.5 * this.boardW - BOARD.probe.railIn) * Math.sin(this.lastSlope) * pivotFree / Math.max(0.2, this.lastHf); this.stats.slopeCapNow = capNow;
     // R12: the roof cap (RIDE.roof) on the thrown-lip bands: the model crown, carried on the last step's deck basis (F along the board
     // toward the tail, U the rolled deck normal, Zc toward the toes), must keep its margin of open water above it. The standing crown's
     // cap decides the crouch (feed-forward from the plan's height, so the crouch never feeds back into its own cap); the line's cap is
