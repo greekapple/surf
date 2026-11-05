@@ -263,7 +263,6 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
         <header className="br-h">
           <h2><span className="br-name">{board.name}</span></h2>
           <p>{[board.type, maker || null, board.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
-          {referenceFor(board) && <p className="br-ref">{MODELLED_NOTE}</p>}
           {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {ft.board[0]}–{ft.board[1]} ft</span></p> : null; })()}
           <p className="br-match">{match}</p>
         </header>

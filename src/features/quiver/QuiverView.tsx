@@ -12,7 +12,7 @@ import {StateMessage} from '../../ui/common';
 import {titleCase} from '../forecast/model';
 import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
-import {MODELLED_NOTE, referenceFor} from '../../data/referenceBoards';
+import {MODELLED_NOTE, referenceFor, volumeLabel} from '../../data/referenceBoards';
 import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
 import {SpecCard, StageArrows, Strip} from './Overlay';
@@ -89,7 +89,7 @@ const okN = (n: number | undefined): n is number => typeof n === 'number' && Num
 /** The stored numbers, as recorded (never filled in). */
 function specRows(b: Surfboard): [string, string][] {
   return [['Length', okN(b.length) ? lengthLabel(b.length) : 'Not recorded'], ['Width', okN(b.width) ? inches(b.width) : 'Not recorded'],
-    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? `${+b.volume.toFixed(1)} L` : 'Not recorded'],
+    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? volumeLabel(b) : 'Not recorded'],
     ['Fins', b.fins?.trim() || 'Not recorded'], ['Tail', b.tail?.trim() || 'Not recorded']];
 }
 
@@ -184,7 +184,6 @@ export function QuiverView({section, go}: ViewProps) {
               <div className="qv-spec-h">
                 <h2>{sel.name}</h2>
                 <p className="fine">{[[sel.manufacturer, sel.model].filter(Boolean).join(' ') || null, sel.type, sel.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
-                {referenceFor(sel) && <p className="fine qv-ref">{MODELLED_NOTE}</p>}
               </div>
               <dl className="qv-spec-l">
                 {specRows(sel).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}

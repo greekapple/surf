@@ -18,6 +18,8 @@ export interface ReferenceBoard {
   /** measured from the side-profile photo, inches over the flat spot; the flat spot as a fraction of the length from the tail */
   rocker?: {noseIn: number; tailIn: number; flatFromTail: number};
   softTop?: boolean;
+  /** where a published number comes from when it is not the maker's: shown beside the volume (the Seaside's is read off a retailer photo) */
+  volumeNote?: string;
   look: {deck: string; bottom: string; fade: number; finish: 'gloss' | 'matte'; pattern?: DeckPattern};
 }
 
@@ -36,6 +38,7 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
     model: 'Seaside (Helium)',
     hw: [0.0114, 0.035, 0.0569, 0.0735, 0.0883, 0.1007, 0.1112, 0.1199, 0.1285, 0.1346, 0.141, 0.1451, 0.1497, 0.1515, 0.155, 0.1585, 0.1599, 0.1602, 0.1602, 0.1602,
       0.1602, 0.1585, 0.1585, 0.1567, 0.155, 0.1515, 0.1497, 0.1462, 0.1433, 0.1396, 0.1359, 0.1322, 0.1287, 0.1234, 0.1182, 0.1112, 0.105, 0.0972, 0.0902, 0.0341],
+    volumeNote: 'retailer photo',
     look: {deck: '#f4f3ef', bottom: '#f4f3ef', fade: 0.35, finish: 'gloss'},
   },
   // Wavestorm 8' Classic, 8'0" x 22 1/2" x 3 1/4", 86 L (ridershack.com, costco.co.uk). Soft-top: blue stripes on a white foam deck, blue rails,
@@ -57,18 +60,36 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
   },
 };
 
-/** The reference model behind a board record: only for the example ids, and only while the record still names that model. */
-export function referenceFor(b: Pick<Surfboard, 'id'> & Partial<Pick<Surfboard, 'model'>>): ReferenceBoard | null {
-  const r = REFERENCE_BOARDS[b.id];
-  return r && b.model === r.model ? r : null;
+/** The reference model behind a board record: only for an example (demo) board that still carries the published record's model, length,
+ *  width and thickness. An edited example board loses the "published specs" label and the stretched reference outline. */
+export function referenceFor(b: Pick<Surfboard, 'id'> & Partial<Pick<Surfboard, 'model' | 'demo' | 'length' | 'width' | 'thickness'>>): ReferenceBoard | null {
+  const r = REFERENCE_BOARDS[b.id], pub = demoBoards.find((d) => d.id === b.id);
+  return r && pub && b.demo === true && b.model === r.model && b.length === pub.length && b.width === pub.width && b.thickness === pub.thickness ? r : null;
 }
 
-/** Saved example boards from before the real models (the fictional 'Demo Workshop' records, same ids, still marked demo) become the new
- *  records; the person's favourite flag is kept. Anything else (edited boards, the person's own) is untouched. */
+/** The volume as displayed: a number from a retailer photo carries that qualifier while the record is still the published one. */
+export function volumeLabel(b: Parameters<typeof referenceFor>[0] & {volume?: number}, v: number | undefined = b.volume): string {
+  const note = referenceFor(b)?.volumeNote;
+  return typeof v === 'number' && Number.isFinite(v) ? `${+v.toFixed(1)} L${note && v === b.volume ? ` (${note})` : ''}` : 'Not recorded';
+}
+
+/** The four fictional records the app shipped before the real models (git history: the 'Demo Workshop' examples), frozen. A saved board
+ *  migrates only while EVERY one of these fields is still as shipped; an edited board (showroom saves keep demo:true) is left alone. */
+const OLD_DEMO: Record<string, {name: string; manufacturer: string; model: string; type: string; length: number; width: number; thickness: number; volume: number; tail?: string; fins?: string; rocker: string; character: string}> = {
+  'demo-fish': {name: 'Small-day fish', manufacturer: 'Demo Workshop', model: 'Drift (fictional)', type: 'Fish', length: 70, width: 21, thickness: 2.625, volume: 36, tail: 'Swallow', fins: 'Twin', rocker: 'Low', character: 'Soft'},
+  'demo-short': {name: 'Everyday driver', manufacturer: 'Demo Workshop', model: 'Arc (fictional)', type: 'Performance shortboard', length: 72, width: 19.5, thickness: 2.5, volume: 30, tail: 'Squash', fins: 'Thruster', rocker: 'High', character: 'Steep'},
+  'demo-long': {name: 'Easy cruiser', manufacturer: 'Demo Workshop', model: 'Glide (fictional)', type: 'Longboard', length: 108, width: 22.5, thickness: 3, volume: 72, tail: 'Round', fins: 'Single', rocker: 'Low', character: 'Soft'},
+  'demo-step': {name: 'Bigger-day option', manufacturer: 'Demo Workshop', model: 'Reach (fictional)', type: 'Step-up', length: 78, width: 19.5, thickness: 2.75, volume: 35, rocker: 'High', character: 'Powerful'},
+};
+const isOldRecord = (b: Surfboard) => { const o = OLD_DEMO[b.id]; return !!o && (Object.keys(o) as (keyof typeof o)[]).every((k) => (b as unknown as Record<string, unknown>)[k] === o[k]) && b.tail === o.tail && b.fins === o.fins
+  && [b.construction, b.notes, b.specificationSource, b.photoDataURL, b.backPhotoDataURL].every((v) => v === undefined); };
+
+/** Saved example boards from before the real models become the new records (the favourite flag is kept) only while they are still exactly the
+ *  old shipped record. Anything else (edited examples, the person's own boards) is untouched. */
 export function migrateDemoBoards(boards: Surfboard[]): Surfboard[] {
   return boards.map((b) => {
-    if (!b.demo) return b;
+    if (!b.demo || !isOldRecord(b)) return b;
     const next = demoBoards.find((d) => d.id === b.id);
-    return next && b.manufacturer === 'Demo Workshop' ? {...structuredClone(next), favorite: b.favorite} : b;
+    return next ? {...structuredClone(next), favorite: b.favorite} : b;
   });
 }

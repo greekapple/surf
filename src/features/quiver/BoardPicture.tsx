@@ -4,7 +4,7 @@ import {lengthLabel} from '../../utils/units';
 import {BoardOutline} from './BoardOutline';
 import {effectiveDeck, loadLook} from './looks';
 import {referenceFor} from '../../data/referenceBoards';
-import {STATIONS, type Outline} from './outline';
+import {STATIONS, loadOutline, type Outline} from './outline';
 import {cutout, type Cut} from './cutout';
 
 /** A board standing on its tail, nose up. A traced board uses its own outline (and deck photo when scanned); any other board is the category outline in the board's colour. Never an exact scan unless the person scanned it. */
@@ -17,7 +17,7 @@ function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline |
   const pts = half.map((h, i) => [(i / (STATIONS - 1)) * L, h * k] as const);
   const d = `M${cx},0 ` + pts.map(([y, h]) => `L${cx + h},${y}`).join(' ') + ' ' + [...pts].reverse().map(([y, h]) => `L${cx - h},${y}`).join(' ') + 'Z';
   return (
-    <svg className="outline-svg" width={W + 2} height={L + 2} viewBox={`-1 -1 ${W + 2} ${L + 2}`} role="img" aria-label={`${b.name}, ${referenceFor(b) && !outline.tex ? 'outline modelled from the maker\'s product photo' : 'traced from your photo'}, ${lengthLabel(b.length)} by ${b.width} inches`}>
+    <svg className="outline-svg" width={W + 2} height={L + 2} viewBox={`-1 -1 ${W + 2} ${L + 2}`} role="img" aria-label={`${b.name}, ${referenceFor(b) && !loadOutline(b.id) ? 'outline modelled from the maker\'s product photo' : 'traced from your photo'}, ${lengthLabel(b.length)} by ${b.width} inches`}>
       <defs><clipPath id={`rk-${id}`}><path d={d} /></clipPath></defs>
       {outline.tex
         ? <g clipPath={`url(#rk-${id})`}><g transform={`translate(${cx},0) rotate(90)`}><image href={outline.tex} x={0} y={-W / 2} width={L} height={W} preserveAspectRatio="none" /></g></g>

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {demoBoards} from '../data/demo.ts';
-import {MODELLED_NOTE, REFERENCE_BOARDS, migrateDemoBoards, referenceFor} from '../data/referenceBoards.ts';
+import {MODELLED_NOTE, REFERENCE_BOARDS, migrateDemoBoards, referenceFor, volumeLabel} from '../data/referenceBoards.ts';
 import {boardCurves, boardParamsFor, buildBoard} from '../features/scale/boardMesh.ts';
 import {defaultLook, finsFromText} from '../features/quiver/looks.ts';
 import {validDimensions} from '../utils/units.ts';
@@ -71,16 +71,17 @@ test('real boards: buildBoard params per board (photo fields, tail, fins, soft-t
 test('real boards: the reference follows the model, looks and fins', () => {
   assert.ok(referenceFor(byId('demo-short')));
   assert.equal(referenceFor({...byId('demo-short'), model: 'My own board'}), null, 'a re-purposed example board loses the reference shape');
-  assert.equal(referenceFor({id: 'mine', model: 'Ghost'}), null);
+  assert.equal(referenceFor({id: 'mine', model: 'Ghost'}), null); assert.equal(referenceFor({id: 'demo-short', model: 'Inferno 72 C1 Carbon'}), null, 'without demo and the published dimensions there is no reference');
   assert.equal(defaultLook(byId('demo-short')).pattern, 'carbon');
   assert.equal(defaultLook(byId('demo-long')).pattern, 'stripes'); assert.equal(defaultLook(byId('demo-long')).finish, 'matte');
   assert.equal(defaultLook(byId('demo-fish')).fins, 'quad'); assert.equal(defaultLook(byId('demo-step')).pattern, undefined);
   assert.equal(finsFromText({fins: 'Quad', type: 'Fish'}), 'quad'); assert.equal(finsFromText({fins: '2+1', type: 'Longboard'}), 'thruster');
 });
 
-test('real boards: saved fictional example boards migrate (same ids, favourite kept); edited and own boards do not', () => {
+test('real boards: saved fictional example boards migrate (same ids, favourite kept) only while still the exact old record; edited and own boards do not', () => {
+  const oldFish: Surfboard = {id: 'demo-fish', name: 'Small-day fish', manufacturer: 'Demo Workshop', model: 'Drift (fictional)', type: 'Fish', length: 70, width: 21, thickness: 2.625, volume: 36, tail: 'Swallow', fins: 'Twin', rocker: 'Low', character: 'Soft', favorite: true, demo: true};
   const old: Surfboard[] = [
-    {id: 'demo-fish', name: 'Small-day fish', manufacturer: 'Demo Workshop', model: 'Drift (fictional)', type: 'Fish', length: 70, width: 21, thickness: 2.625, volume: 36, favorite: true, demo: true},
+    oldFish,
     {id: 'demo-short', name: 'My driver', manufacturer: 'Demo Workshop', model: 'Arc (fictional)', type: 'Performance shortboard', length: 72, width: 19.5, thickness: 2.5, volume: 30, favorite: false, demo: false},
     {id: 'mine', name: 'Mine', manufacturer: 'Me', model: 'X', type: 'Fish', length: 66, width: 21, thickness: 2.5, volume: 33, favorite: false},
   ];
@@ -88,4 +89,30 @@ test('real boards: saved fictional example boards migrate (same ids, favourite k
   assert.equal(m[0].model, 'Seaside (Helium)'); assert.equal(m[0].favorite, true); assert.equal(m[0].id, 'demo-fish');
   assert.equal(m[1], old[1]); assert.equal(m[2], old[2]);
   assert.deepEqual(migrateDemoBoards(structuredClone(demoBoards)), demoBoards, 'the new records are stable');
+  // an edited example board (the showroom saves keep demo:true) is left alone, whatever field the person changed
+  for (const edit of [{length: 71}, {width: 21.5}, {thickness: 2.7}, {volume: 38}, {tail: 'Round'}, {fins: 'Quad'}, {name: 'My fish'}, {model: 'Drift 2'}, {manufacturer: 'Me'}, {type: 'Hybrid'}, {rocker: 'High'}, {character: 'Steep'}, {construction: 'PU'}, {notes: 'my note'}] as Partial<Surfboard>[]) {
+    const edited = {...oldFish, ...edit}; assert.equal(migrateDemoBoards([edited])[0], edited, `edited ${Object.keys(edit)[0]} stays as saved`);
+  }
+  // the other three old records migrate when untouched (frozen table)
+  const oldStep: Surfboard = {id: 'demo-step', name: 'Bigger-day option', manufacturer: 'Demo Workshop', model: 'Reach (fictional)', type: 'Step-up', length: 78, width: 19.5, thickness: 2.75, volume: 35, rocker: 'High', character: 'Powerful', favorite: false, demo: true};
+  assert.equal(migrateDemoBoards([oldStep])[0].model, 'Ghost'); assert.equal(migrateDemoBoards([{...oldStep, tail: 'Squash'}])[0].tail, 'Squash', 'a step-up that gained a tail was edited');
+  assert.equal(migrateDemoBoards([{...oldStep, tail: 'Squash'}])[0].model, 'Reach (fictional)');
+});
+
+test('real boards (honesty): an edited example board loses the published-specs label and the reference outline; the volume qualifier and unset character', () => {
+  for (const d of demoBoards) {
+    assert.ok(referenceFor(d), d.id);
+    for (const edit of [{length: d.length + 1}, {width: d.width + 0.25}, {thickness: d.thickness + 0.125}, {demo: false}, {demo: undefined}] as Partial<Surfboard>[]) assert.equal(referenceFor({...d, ...edit}), null, `${d.id} ${Object.keys(edit)[0]}`);
+    assert.equal(d.character, undefined, `${d.id}: character is not published, so it is unset`);
+    assert.match(d.notes ?? '', /https?:\/\//, `${d.id}: the exact source URL is in the notes`);
+  }
+  const fish = demoBoards.find((d) => d.id === 'demo-fish')!;
+  assert.equal(volumeLabel(fish), '41.1 L (retailer photo)'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L', 'an edited board carries no retailer qualifier');
+  assert.equal(volumeLabel(demoBoards.find((d) => d.id === 'demo-short')!), '29.4 L');
+});
+
+test('real boards: the small-day band accepts a soft-top (where Longboard was listed), and boardForBand still picks the Ghost for a big day', async () => {
+  const {BANDS, bandFor, boardForBand} = await import('../features/scale/surfSceneConfig.ts');
+  assert.ok(BANDS[0].boardTypes.includes('Soft-top'));
+  assert.equal(boardForBand(bandFor(12), 12, demoBoards, 5 + 10 / 12), 'demo-step', 'a 12 ft day gets the Ghost, not the Inferno');
 });

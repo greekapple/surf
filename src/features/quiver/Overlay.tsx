@@ -4,7 +4,7 @@ import {Icon} from '../../ui/Icon';
 import {lengthLabel} from '../../utils/units';
 import {inches} from './format';
 import {loadOutline, wallOutline} from './outline';
-import {MODELLED_NOTE, referenceFor} from '../../data/referenceBoards';
+import {MODELLED_NOTE, referenceFor, volumeLabel} from '../../data/referenceBoards';
 import {BoardPicture} from './BoardPicture';
 
 export interface Dims {length: number; width: number; thickness: number; volume: number}
@@ -36,7 +36,7 @@ export function SpecCard({board, dims, action}: {board: Surfboard; dims: Dims; a
       </div>
       <dl className="qv-specs">
         <div><dt>Length</dt><dd>{lengthLabel(dims.length)}</dd></div><div><dt>Width</dt><dd>{inches(dims.width)}</dd></div>
-        <div><dt>Thickness</dt><dd>{inches(dims.thickness)}</dd></div><div><dt>Volume</dt><dd>{+dims.volume.toFixed(1)} L</dd></div>
+        <div><dt>Thickness</dt><dd>{inches(dims.thickness)}</dd></div><div><dt>Volume</dt><dd>{volumeLabel(board, dims.volume)}</dd></div>
       </dl>
       {action}
     </section>

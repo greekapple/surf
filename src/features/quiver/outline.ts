@@ -355,8 +355,8 @@ function readAll(): Record<string, unknown> {
   try { const v = JSON.parse(localStorage.getItem(OUTLINES_KEY) ?? '{}'); return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; } catch { return {}; }
 }
 /** The outline a board is drawn with on the wall: the person's own traced outline, else an example model's (src/data/referenceBoards.ts). */
-export function wallOutline(b: {id: string; model?: string}): Outline | null {
-  return loadOutline(b.id) ?? (() => { const r = referenceFor({id: b.id, model: b.model}); return r ? {v: 1 as const, hw: r.hw} : null; })();
+export function wallOutline(b: Parameters<typeof referenceFor>[0]): Outline | null {
+  return loadOutline(b.id) ?? (() => { const r = referenceFor(b); return r ? {v: 1 as const, hw: r.hw} : null; })();
 }
 export function loadOutline(id: string): Outline | null {
   const r = readAll()[id] as {v?: unknown; hw?: unknown} | undefined;

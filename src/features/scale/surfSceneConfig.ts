@@ -273,7 +273,7 @@ export const BANDS: readonly StyleBand[] = [
   // small (< 4 ft): at most three move types, upright, little rotation (M8)
   {id: 'A', minFt: 0, label: 'small: trim and gentle turns', lineV: 0.55, pocketFaces: 1.0, aggression: 0.3, compression: 0.4, spray: 0.25, dropScale: 1.3,
     moves: [{name: 'trim', w: 1}, {name: 'carve', w: 1}, {name: 'trim', w: 1}, {name: 'pump', w: 0.5}, {name: 'carve', w: 1}],
-    boardFt: [5.33, 5.83], boardTypes: ['Fish', 'Groveler', 'Hybrid', 'Everyday shortboard', 'Midlength', 'Longboard']},
+    boardFt: [5.33, 5.83], boardTypes: ['Fish', 'Groveler', 'Hybrid', 'Everyday shortboard', 'Midlength', 'Longboard', 'Soft-top']},
   // mid (4-6 ft): carving with real rail, top turns, pumps
   {id: 'B', minFt: 4, label: 'mid: carves, top turns, pumps', lineV: 0.34, pocketFaces: 1.5, aggression: 0.9, compression: 0.9, spray: 1.0, dropScale: 1.0, bottomRail: 0,   // R15: no authored rail on this band's bottom turn: the 4-6 ft trough is tight (the face rises within a metre of the board) and the frontside head, over the toe rail in the bottom key, went 0.2 m into it at the apex with the full rail (35 bodyclip counts over a 5 ft ride; half the rail 14; R14's 1-3 without); the roof cap on this band instead held the whole ride at the trough. The snap's own bottom knot (deep, comp 1) and the new spray fan stay
     moves: [{name: 'trim', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 1}, {name: 'pump', w: 0.7}, {name: 'carve', w: 0.8}],
