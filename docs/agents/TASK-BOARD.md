@@ -79,6 +79,7 @@ States: BACKLOG → READY → IN PROGRESS → REVIEW → VERIFIED → COMPLETE �
 | T-012 | R3: Explore map to reference D: smooth ocean-clipped field, legend, arrows, basemap, slider shows model-frame range and nearest frame, mobile | frontend-engineer | READY | qa-tester, design-critic |
 | T-009 | Mobile horizontal overflow: /forecast 477 px, /personal 422 px at a 390 px viewport (since at least 94dcf40; the QA check was blind to it) | frontend-engineer | COMPLETE (with T-005) | — |
 | T-005 | Light/dark theme tokens; non-Home areas on the light theme; theme preference | frontend-engineer | COMPLETE | — |
+| Q-REAL | Quiver example boards are four real models (spec `docs/specs/2026-11-05-quiver-real-boards.md`): Inferno 72 C1 Carbon, Seaside (Helium), Wavestorm 8' Classic, Pyzel Ghost. Outlines traced from the deck product photos (numbers only, `src/data/referenceBoards.ts`; photos never committed), Wavestorm rocker measured from its side-profile photo, soft-top build, quad fins, procedural carbon/stripes decks, old fictional demo records migrate (same ids), the wave defaults to the Inferno. Approximate: foil, rails, bottom and the other rockers are category-typical | frontend-engineer | REVIEW (branch `quiver-real-boards`) | lead merge |
 
 ---
 

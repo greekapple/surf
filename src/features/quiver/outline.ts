@@ -1,3 +1,4 @@
+import {referenceFor} from '../../data/referenceBoards.ts';
 /** Trace a board outline from a top-down photo, in the browser only: threshold, largest blob, main axis, half-widths. */
 export const OUTLINES_KEY = 'swello-board-outlines';
 export const STATIONS = 40;
@@ -352,6 +353,10 @@ export const scaleFrame = (f: Frame, k: number): Frame => ({ox: f.ox * k, oy: f.
 
 function readAll(): Record<string, unknown> {
   try { const v = JSON.parse(localStorage.getItem(OUTLINES_KEY) ?? '{}'); return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; } catch { return {}; }
+}
+/** The outline a board is drawn with on the wall: the person's own traced outline, else an example model's (src/data/referenceBoards.ts). */
+export function wallOutline(b: {id: string; model?: string}): Outline | null {
+  return loadOutline(b.id) ?? (() => { const r = referenceFor({id: b.id, model: b.model}); return r ? {v: 1 as const, hw: r.hw} : null; })();
 }
 export function loadOutline(id: string): Outline | null {
   const r = readAll()[id] as {v?: unknown; hw?: unknown} | undefined;

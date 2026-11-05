@@ -1,6 +1,30 @@
-import {templateTpl, type Tpl} from './studio';
-import {halfAt, outlineKey, type Outline} from './outline';
+import {stationTpl, templateTpl, type Tpl} from './studio';
+import {halfAt, loadOutline, outlineKey, type Outline} from './outline';
 import type {Template} from './looks';
+import type {Surfboard} from '../../models/index';
+import {boardParamsFor, type BoardParams} from '../scale/boardMesh';
+import {quiverTemplate} from '../scale/boardObject';
+import {referenceFor} from '../../data/referenceBoards';
+
+/** The board's `buildBoard` params: its record's numbers, the person's traced outline when there is one, else the example model's traced
+ *  outline, measured rocker and soft-top build (src/data/referenceBoards.ts), else the category's. One function for the wave and the showroom. */
+export function paramsForBoard(b: Pick<Surfboard, 'id' | 'length' | 'width' | 'thickness' | 'type' | 'tail' | 'fins'> & Partial<Pick<Surfboard, 'model'>>): BoardParams {
+  return boardParamsFor(b, loadOutline(b.id)?.hw ?? null, referenceFor(b));
+}
+
+const refCache = new Map<string, Promise<Tpl>>();
+/** An example model in the showroom: its own `buildBoard` hull at its own numbers (outline, rocker, rails, no stringer on a soft-top), not a
+ *  category template re-fitted. Null for any other board. */
+export function referenceTpl(b: Surfboard, dims: {length: number; width: number; thickness: number}, tail?: string): {tpl: Promise<Tpl>; key: string} | null {
+  if (!referenceFor(b) || loadOutline(b.id)) return null;
+  const key = `ref:${b.id}:${dims.length}:${dims.width}:${dims.thickness}:${tail ?? b.tail ?? ''}`;
+  let p = refCache.get(key);
+  if (!p) {
+    p = Promise.resolve().then(() => { const t = quiverTemplate(paramsForBoard({...b, ...dims, tail: tail || b.tail})); return stationTpl(t.resin, t.stringer, t.width, t.thickness); });
+    refCache.set(key, p);
+  }
+  return {tpl: p, key};
+}
 
 const cache = new Map<string, Promise<Tpl>>();
 

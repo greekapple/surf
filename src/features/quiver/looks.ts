@@ -1,9 +1,11 @@
 import type {Surfboard} from '../../models/index';
+import {referenceFor, type DeckPattern} from '../../data/referenceBoards.ts';
 
 /** The look of a board in the showroom. Kept apart from the backup schema: it is cosmetic, per device. */
 export type Finish = 'gloss' | 'matte' | 'clear';
-export type FinSet = 'single' | 'twin' | 'thruster' | 'none';
-export interface Look {deck: string; bottom: string; fade: number; finish: Finish; tint: string; fins: FinSet}
+export type FinSet = 'single' | 'twin' | 'thruster' | 'quad' | 'none';
+/** `pattern`: a procedural deck pattern of the example models (a carbon weave, a soft-top's stripes); `deck` is then the rail colour. */
+export interface Look {deck: string; bottom: string; fade: number; finish: Finish; tint: string; fins: FinSet; pattern?: DeckPattern}
 export type Template = 'shortboard' | 'fish' | 'longboard' | 'gun' | 'midlength';
 
 export const LOOKS_KEY = 'swello-board-looks';
@@ -35,13 +37,16 @@ export function finsFromText(b: Pick<Surfboard, 'fins' | 'type'>): FinSet {
   const t = (b.fins ?? '').toLowerCase();
   if (t.includes('single')) return 'single';
   if (t.includes('twin')) return 'twin';
-  if (/thruster|tri|quad|2\+1/.test(t)) return 'thruster';
+  if (t.includes('quad')) return 'quad';
+  if (/thruster|tri|2\+1/.test(t)) return 'thruster';
   return b.type === 'Longboard' ? 'single' : b.type === 'Fish' ? 'twin' : 'thruster';
 }
 
 const hash = (s: string) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
 
-export function defaultLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
+export function defaultLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'> & Partial<Pick<Surfboard, 'model'>>): Look {
+  const ref = referenceFor(b);   // an example model: colours in the spirit of the real board (no logos or graphics)
+  if (ref) return {...ref.look, tint: 'none', fins: finsFromText(b), ...(ref.look.pattern ? {pattern: ref.look.pattern} : {})};
   // Shop-floor defaults (reference: Swello showcase, showroom panel): glassed white, blue resin, natural wood, bone, deep ocean.
   const h = hash(b.id), SHOP = ['#f3efe7', '#2f78ad', '#c4a17a', '#e9e2d3', '#1d4a6b'];
   const deck = SHOP[h % SHOP.length];
@@ -50,7 +55,8 @@ export function defaultLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
 
 const HEX = /^#[0-9a-f]{6}$/i;
 const FINISHES: Finish[] = ['gloss', 'matte', 'clear'];
-const FIN_SETS: FinSet[] = ['single', 'twin', 'thruster', 'none'];
+const FIN_SETS: FinSet[] = ['single', 'twin', 'thruster', 'quad', 'none'];
+const PATTERNS: DeckPattern[] = ['carbon', 'stripes'];
 
 function sanitise(raw: unknown, fallback: Look): Look {
   if (!raw || typeof raw !== 'object') return fallback;
@@ -62,6 +68,7 @@ function sanitise(raw: unknown, fallback: Look): Look {
     finish: FINISHES.includes(r.finish as Finish) ? (r.finish as Finish) : fallback.finish,
     tint: TINTS.some((t) => t.key === r.tint) ? (r.tint as string) : fallback.tint,
     fins: FIN_SETS.includes(r.fins as FinSet) ? (r.fins as FinSet) : fallback.fins,
+    ...(PATTERNS.includes(r.pattern as DeckPattern) ? {pattern: r.pattern as DeckPattern} : !('deck' in r) && fallback.pattern ? {pattern: fallback.pattern} : {}),
   };
 }
 
@@ -72,7 +79,7 @@ function readAll(): Record<string, unknown> {
   } catch { return {}; }
 }
 
-export function loadLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
+export function loadLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'> & Partial<Pick<Surfboard, 'model'>>): Look {
   return sanitise(readAll()[b.id], defaultLook(b));
 }
 
@@ -83,7 +90,7 @@ export function saveLook(id: string, look: Look): boolean {
 
 /** T-098 (Codex P2): the look a board is SHOWN with: the saved cosmetic look, but the board record's own Fins field wins when it says something
  *  (the same precedence the showroom's saved state uses), so editing Fins updates the wall, Compare and the showroom alike. */
-export function resolvedLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'>): Look {
+export function resolvedLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'> & Partial<Pick<Surfboard, 'model'>>): Look {
   const look = loadLook(b);
   return b.fins && b.fins.trim() ? {...look, fins: finsFromText(b)} : look;
 }
@@ -96,9 +103,17 @@ const rgbLin = (hex: string) => [16, 8, 0].map((s) => toLin((parseInt(hex.slice(
 
 /** T-098 (Codex P2): the effective deck colour, computed exactly as the showroom renders it (Studio.applyLook): foam for a clear finish, and a resin
  *  tint applied multiplicatively at 78% in linear light (three.js colour management). Returns sRGB hex. */
-export function effectiveDeck(look: Pick<Look, 'deck' | 'finish' | 'tint'>): string {
-  const base = rgbLin(look.finish === 'clear' ? FOAM_HEX : look.deck);
+/** The colour a patterned deck reads as from a distance (the 2D wall, the wave scene): the carbon weave's charcoal, the soft-top's stripes' blue. */
+export const PATTERN_HEX: Record<DeckPattern, string> = {carbon: '#24262a', stripes: '#3f72c2'};
+export function effectiveDeck(look: Pick<Look, 'deck' | 'finish' | 'tint'> & {pattern?: DeckPattern}): string {
+  const base = rgbLin(look.pattern ? PATTERN_HEX[look.pattern] : look.finish === 'clear' ? FOAM_HEX : look.deck);
   const tint = TINTS.find((t) => t.key === look.tint);
   const out = tint && tint.key !== 'none' ? (() => { const t = rgbLin(tint.hex); return base.map((c, i) => c + (c * t[i] - c) * 0.78); })() : base;
   return '#' + out.map((v) => toSrgb(v).toString(16).padStart(2, '0')).join('');
+}
+
+/** The wave scene's board colours from a look: the deck as it reads (the pattern's colour), the bottom for a soft-top's slick skin. */
+export function waveColours(look: Look): {deck: number; bottom: number} {
+  const hex = (h: string) => parseInt(h.slice(1), 16);
+  return {deck: hex(look.pattern ? PATTERN_HEX[look.pattern] : look.deck), bottom: hex(look.bottom)};
 }

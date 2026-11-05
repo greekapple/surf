@@ -12,6 +12,7 @@ import {StateMessage} from '../../ui/common';
 import {titleCase} from '../forecast/model';
 import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
+import {MODELLED_NOTE, referenceFor} from '../../data/referenceBoards';
 import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
 import {SpecCard, StageArrows, Strip} from './Overlay';
@@ -183,6 +184,7 @@ export function QuiverView({section, go}: ViewProps) {
               <div className="qv-spec-h">
                 <h2>{sel.name}</h2>
                 <p className="fine">{[[sel.manufacturer, sel.model].filter(Boolean).join(' ') || null, sel.type, sel.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
+                {referenceFor(sel) && <p className="fine qv-ref">{MODELLED_NOTE}</p>}
               </div>
               <dl className="qv-spec-l">
                 {specRows(sel).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
@@ -221,7 +223,7 @@ export function QuiverView({section, go}: ViewProps) {
             <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
             {sel.notes && <p className="fine">{sel.notes}</p>}
           </div>
-          <p className="fine">{sel.demo ? 'Example board. ' : ''}{outline?.tex ? `The deck is your photo of the board; the outline is traced from it. Rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>
+          <p className="fine">{sel.demo ? 'Example board. ' : ''}{!outline && referenceFor(sel) ? `${MODELLED_NOTE}: the outline is traced from the maker's product photo and scaled to the published size; foil, rails and bottom are typical for the type${referenceFor(sel)?.rocker ? ' (the rocker is measured from the side-profile photo)' : ''}. Not an exact replica.` : outline?.tex ? `The deck is your photo of the board; the outline is traced from it. Rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>
         </section>
       )}
 

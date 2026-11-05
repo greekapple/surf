@@ -76,7 +76,9 @@ export function ScaleStage() {
   // step-up/gun from 10), else the first; the model's own board is scaled to the band when the quiver is empty (WaveLive)
   const bandFaceFt = dev?.faceFt ?? (hs ? (() => { const r = faceRange(hs); return r ? (r[0] + r[1]) / 2 : null; })() : null);
   const autoBoardId = bandFaceFt !== null ? boardForBand(bandFor(bandFaceFt), bandFaceFt, boards, me.feet) : null;
-  const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? boards.find((b) => b.id === autoBoardId) ?? boards[0] ?? null;
+  // spec 2026-11-05 (real boards): when the default would be one of the example boards, the wave rides the example shortboard (the Inferno 72)
+  const fallback = boards.find((b) => b.id === autoBoardId) ?? boards[0] ?? null;
+  const board: Surfboard | null = boards.find((b) => b.id === boardId) ?? (fallback?.demo ? boards.find((b) => b.id === 'demo-short' && b.demo) ?? fallback : fallback);
   const [play, setPlay] = useState(false);
   const range = band !== null ? bandRange(SCALE_BANDS[band]) : faceRange(hs);
   const lo = useTween(range ? range[0] : 0), hi = useTween(range ? range[1] : 0);

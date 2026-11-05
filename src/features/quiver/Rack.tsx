@@ -2,7 +2,7 @@ import {useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEven
 import type {Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
 import {BoardPicture} from './BoardPicture';
-import {loadOutline} from './outline';
+import {wallOutline} from './outline';
 import {StageArrows, Strip} from './Overlay';
 import type {SizeFit} from './fit';
 
@@ -17,7 +17,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
   const [said, setSaid] = useState('');
   const idx = Math.max(0, boards.findIndex((b) => b.id === selected.id)), n = boards.length;
   const maxLen = Math.max(...boards.map((b) => b.length));
-  const outlines = useMemo(() => new Map(boards.map((b) => [b.id, loadOutline(b.id)])), [boards]);
+  const outlines = useMemo(() => new Map(boards.map((b) => [b.id, wallOutline(b)])), [boards]);
 
   useEffect(() => { const m = matchMedia('(max-width: 860px)'), f = () => setPhone(m.matches); m.addEventListener('change', f); return () => m.removeEventListener('change', f); }, []);
   useEffect(() => {

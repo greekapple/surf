@@ -5,7 +5,8 @@ import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
 import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
-import {tracedTpl} from './traced';
+import {referenceTpl, tracedTpl} from './traced';
+import {MODELLED_NOTE, referenceFor} from '../../data/referenceBoards';
 import {Studio, type Anchor, type BoardEntry, type Preset} from './studio';
 import {BoardOutline} from './BoardOutline';
 import type {SizeFit} from './fit';
@@ -18,7 +19,7 @@ type Dims = {length: number; width: number; thickness: number; volume: number};
 const ANGLES: {id: Exclude<Preset, '360'>; label: string}[] = [
   {id: 'three', label: '¾ view'}, {id: 'deck', label: 'Deck'}, {id: 'bottom', label: 'Bottom'}, {id: 'rail', label: 'Rail'}, {id: 'tail', label: 'Tail'}, {id: 'nose', label: 'Nose'},
 ];
-const FIN_SETS: {id: FinSet; label: string}[] = [{id: 'single', label: 'Single'}, {id: 'twin', label: 'Twin'}, {id: 'thruster', label: 'Thruster'}, {id: 'none', label: 'None'}];
+const FIN_SETS: {id: FinSet; label: string}[] = [{id: 'single', label: 'Single'}, {id: 'twin', label: 'Twin'}, {id: 'thruster', label: 'Thruster'}, {id: 'quad', label: 'Quad'}, {id: 'none', label: 'None'}];
 const TAILS = ['Squash', 'Round', 'Pin', 'Swallow', 'Square'];
 const BUILDS: {id: string; label: string; finish: Finish}[] = [{id: 'PU', label: 'PU / polyester', finish: 'gloss'}, {id: 'Epoxy', label: 'Epoxy', finish: 'clear'}, {id: 'Soft-top', label: 'Soft-top', finish: 'matte'}];
 const STEP: Record<keyof Dims, number> = {length: 1, width: 0.25, thickness: 0.125, volume: 0.5};
@@ -115,8 +116,10 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
   // The selected board follows the draft live; Compare adds a second board at true relative length.
   const other = compare ? boards.find((b) => b.id === compare && b.id !== board.id) ?? null : null;
   const entry = (b: Surfboard, mine: boolean): BoardEntry => {
-    const dims = mine ? d.dims : pickDims(b), tpl = templateFor({type: b.type, length: dims.length}), o = loadOutline(b.id), tr = o ? tracedTpl(b.id, tpl, o) : null;
-    return {id: b.id, spec: {template: tpl, ...dims, tail: mine ? d.tail : b.tail}, look: mine ? d.look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {})};
+    const dims = mine ? d.dims : pickDims(b), tpl = templateFor({type: b.type, length: dims.length}), o = loadOutline(b.id), tail = mine ? d.tail : b.tail;
+    // an example model (no outline of the person's own): its own hull at its own numbers, its procedural deck pattern along its traced outline
+    const ref = o ? null : referenceFor(b), rt = ref ? referenceTpl(b, dims, tail) : null, tr = rt ?? (o ? tracedTpl(b.id, tpl, o) : null);
+    return {id: b.id, spec: {template: tpl, ...dims, tail, ...(rt ? {exact: true, softTop: !!ref?.softTop} : {})}, look: mine ? d.look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {}), ...(ref ? {patternHw: ref.hw} : {})};
   };
   // T-072 (Porsche pattern): the angle thumbnails are rendered from the live scene, so they show this board as configured right now.
   const [thumbs, setThumbs] = useState<Record<string, string>>({}), thumbTimer = useRef(0);
@@ -193,7 +196,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
   };
   const maker = [board.manufacturer, board.model].filter(Boolean).join(' · ') || 'Shaper not recorded';
   const outline = loadOutline(board.id);
-  const shapeNote = outline?.tex ? 'Deck from your photo; outline traced from it.' : outline ? 'Outline traced from your photo.' : `${board.type} category shape scaled to these numbers, not a scan.`;
+  const shapeNote = outline?.tex ? 'Deck from your photo; outline traced from it.' : outline ? 'Outline traced from your photo.' : referenceFor(board) ? `${MODELLED_NOTE}: the outline traced from the maker's product photo, scaled to these numbers; foil, rails and bottom are typical for the type, not the exact shape.` : `${board.type} category shape scaled to these numbers, not a scan.`;
   const cmpBoard = other;
 
   const pill = (
@@ -260,6 +263,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
         <header className="br-h">
           <h2><span className="br-name">{board.name}</span></h2>
           <p>{[board.type, maker || null, board.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
+          {referenceFor(board) && <p className="br-ref">{MODELLED_NOTE}</p>}
           {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {ft.board[0]}–{ft.board[1]} ft</span></p> : null; })()}
           <p className="br-match">{match}</p>
         </header>
@@ -283,7 +287,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
           <h3 id={`${uid}-g-fins`}>Fins <span className="sel">{finWord(d.look.fins)}</span></h3>
           <div className="br-row">{FIN_SETS.map((f) => (
             <Swatch key={f.id} on={d.look.fins === f.id} label={`Fins: ${f.label}`} onClick={() => setLook({fins: f.id})}>
-              <svg viewBox="0 0 40 24" aria-hidden="true" className="br-fin"><path d="M2 12 C 10 3, 30 3, 38 12 C 30 21, 10 21, 2 12 Z" />{f.id === 'single' && <rect x="6" y="11" width="6" height="2" />}{f.id === 'twin' && <><rect x="8" y="7.5" width="6" height="2" /><rect x="8" y="14.5" width="6" height="2" /></>}{f.id === 'thruster' && <><rect x="9" y="7.5" width="5" height="2" /><rect x="9" y="14.5" width="5" height="2" /><rect x="4" y="11" width="5" height="2" /></>}</svg>
+              <svg viewBox="0 0 40 24" aria-hidden="true" className="br-fin"><path d="M2 12 C 10 3, 30 3, 38 12 C 30 21, 10 21, 2 12 Z" />{f.id === 'single' && <rect x="6" y="11" width="6" height="2" />}{f.id === 'twin' && <><rect x="8" y="7.5" width="6" height="2" /><rect x="8" y="14.5" width="6" height="2" /></>}{f.id === 'thruster' && <><rect x="9" y="7.5" width="5" height="2" /><rect x="9" y="14.5" width="5" height="2" /><rect x="4" y="11" width="5" height="2" /></>}{f.id === 'quad' && <><rect x="10" y="7.5" width="5" height="2" /><rect x="10" y="14.5" width="5" height="2" /><rect x="4" y="8.5" width="4" height="2" /><rect x="4" y="13.5" width="4" height="2" /></>}</svg>
               <span>{f.label}</span>
             </Swatch>
           ))}</div>
@@ -305,9 +309,9 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
         </section>
 
         <section className="br-group" aria-labelledby={`${uid}-g-col`}>
-          <h3 id={`${uid}-g-col`}>Colour <span className="sel">{SWATCHES.find((s) => s.hex.toLowerCase() === d.look.deck.toLowerCase())?.name ?? 'Custom'}</span></h3>
+          <h3 id={`${uid}-g-col`}>Colour <span className="sel">{d.look.pattern === 'carbon' ? 'Carbon weave' : d.look.pattern === 'stripes' ? 'Blue stripes' : SWATCHES.find((s) => s.hex.toLowerCase() === d.look.deck.toLowerCase())?.name ?? 'Custom'}</span></h3>
           <div className="br-row col">{SWATCHES.map((s) => (
-            <Swatch key={s.hex} on={s.hex.toLowerCase() === d.look.deck.toLowerCase()} label={`Colour: ${s.name}`} style={{'--sw': s.hex} as CSSProperties} onClick={() => setLook({deck: s.hex, finish: d.look.finish === 'clear' ? 'gloss' : d.look.finish})} />
+            <Swatch key={s.hex} on={s.hex.toLowerCase() === d.look.deck.toLowerCase()} label={`Colour: ${s.name}`} style={{'--sw': s.hex} as CSSProperties} onClick={() => setLook({deck: s.hex, finish: d.look.finish === 'clear' ? 'gloss' : d.look.finish, pattern: undefined})} />
           ))}</div>
         </section>
 

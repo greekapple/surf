@@ -11,10 +11,10 @@ import {BOARD, BODY, MONITOR, POLE, RIDE, SIM, WAKE, bandBoardFt, bandFor} from 
 import type {Skill} from '../../models/index';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
-import {REFERENCE_BOARD, boardCurves, boardParamsFor, type BoardParams} from './boardMesh';
+import {REFERENCE_BOARD, boardCurves, type BoardParams} from './boardMesh';
 import {buildBoardObject, type BoardObject} from './boardObject';
-import {loadLook} from '../quiver/looks';
-import {loadOutline} from '../quiver/outline';
+import {loadLook, waveColours} from '../quiver/looks';
+import {paramsForBoard} from '../quiver/traced';
 import type {Surfboard} from '../../models/index';
 
 /** Real-time 3D wave (T-062, wave-v3, forecast-driven): a plain grid whose vertex shader samples a break-cycle profile atlas by (u along
@@ -900,7 +900,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     // deck through RiderBody.deckAt (the keys were planted on the reference deck, board-deck.json).
     const REF_CURVES = boardCurves(REFERENCE_BOARD), boardM = new THREE.Matrix4();
     const hookDeck = () => { if (!body || !boardObj) return; const g = boardObj.group, c = boardObj.curves; body.deckRef = REF_CURVES.deckAt; body.deckAt = (x, z) => c.deckAt(x / g.scale.x, z / g.scale.z) * g.scale.y; };
-    const mountBoard = (params: BoardParams, deckColor?: number) => {
+    const mountBoard = (params: BoardParams, deckColor?: number, bottomColor?: number) => {
       if (!surfer) return;
       if (!boardHolder) {
         const old = surfer.getObjectByName('Board'); if (old) old.removeFromParent();
@@ -909,14 +909,14 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         boardHolder = new THREE.Group(); boardHolder.name = 'BoardHolder'; boardM.copy(surfer.matrixWorld).invert().multiply(bone.matrixWorld).invert(); boardM.decompose(boardHolder.position, boardHolder.quaternion, boardHolder.scale); bone.add(boardHolder);
       }
       if (boardObj) { boardHolder.remove(boardObj.group, boardObj.shadows); for (const m of boardObj.materials) { const i = fadeMats.indexOf(m); if (i >= 0) fadeMats.splice(i, 1); } boardObj.dispose(); boardObj = null; }
-      boardObj = buildBoardObject(params, deckColor); for (const m of boardObj.materials) { m.transparent = true; fadeMats.push(m); }
+      boardObj = buildBoardObject(params, deckColor, bottomColor); for (const m of boardObj.materials) { m.transparent = true; fadeMats.push(m); }
       boardHolder.add(boardObj.group, boardObj.shadows); surfer.updateMatrixWorld(true); hookDeck();
     };
     const setBoard = (b: Surfboard | null) => {
       if (!surfer) return;
       delete el.dataset.board;
       if (!b) { mountBoard(REFERENCE_BOARD); if (cur) fitModelBoard(cur.atlas.meta.face_m); simBoard(); return; }
-      mountBoard(boardParamsFor(b, loadOutline(b.id)?.hw ?? null), new THREE.Color(loadLook(b).deck).getHex());
+      const wc = waveColours(loadLook(b)); mountBoard(paramsForBoard(b), wc.deck, wc.bottom);   // an example model: its traced outline, rocker and build
       const bx = boardObj!.data.bounds; el.dataset.board = JSON.stringify({id: b.id, length_m: Math.round((bx.max[0] - bx.min[0]) * 1000) / 1000, width_m: Math.round((bx.max[2] - bx.min[2]) * 1000) / 1000});
       simBoard();   // the sim rides the new board's bottom and rails
     };

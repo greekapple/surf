@@ -52,15 +52,22 @@ function blobTexture() {
 
 export const BOARD_PARTS: BoardPart[] = ['resin', 'wax', 'stringer', 'pad', 'fin', 'finbox'];
 /** One material per part. `deck` is the resin's base colour (the Quiver's deck colour when a quiver board is shown). */
-export function boardMaterials(deck = 0xf4f1ea): Record<BoardPart, THREE.Material> {
+export function boardMaterials(deck = 0xf4f1ea, softTop?: {foam: number; bottom: number}): Record<BoardPart, THREE.Material> {
   const wax = waxNormal(); wax.repeat.set(1 / 0.14, 1 / 0.14);
-  return {
+  const base = {
     resin: new THREE.MeshPhysicalMaterial({color: deck, roughness: 0.2, metalness: 0, clearcoat: 0.85, clearcoatRoughness: 0.1, specularIntensity: 0.9}),
     wax: new THREE.MeshPhysicalMaterial({color: 0xf7f4ec, roughness: 0.8, metalness: 0, clearcoat: 0, normalMap: wax, normalScale: new THREE.Vector2(0.3, 0.3)}),
     stringer: new THREE.MeshStandardMaterial({color: 0xc9a66a, roughness: 0.4, metalness: 0, transparent: true, opacity: 0.92}),
     pad: new THREE.MeshStandardMaterial({color: 0xffffff, map: padMap(), roughness: 0.92, metalness: 0, normalMap: padNormal(), normalScale: new THREE.Vector2(0.7, 0.7)}),
     fin: new THREE.MeshPhysicalMaterial({color: 0x8ea3ab, roughness: 0.22, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.06, side: THREE.DoubleSide}),
     finbox: new THREE.MeshStandardMaterial({color: 0x141414, roughness: 0.55, metalness: 0}),
+  };
+  if (!softTop) return base;
+  // a soft-top: the deck faces ('wax' group) are matte foam with a faint closed-cell bump, the rails and bottom a slick (HDPE-like) skin, no resin gloss
+  base.wax.dispose(); base.resin.dispose();
+  return {...base,
+    wax: new THREE.MeshPhysicalMaterial({color: softTop.foam, roughness: 0.92, metalness: 0, clearcoat: 0, sheen: 0.3, sheenRoughness: 0.8, normalMap: wax, normalScale: new THREE.Vector2(0.12, 0.12)}),
+    resin: new THREE.MeshPhysicalMaterial({color: softTop.bottom, roughness: 0.38, metalness: 0, clearcoat: 0.15, clearcoatRoughness: 0.35, specularIntensity: 0.6}),
   };
 }
 /** The pad's texture coordinates: u along the pad (0 front, 1 back), v across (-1..1); the colour map spans it once, the grooves 12 times. */
@@ -85,8 +92,8 @@ export interface BoardObject {
 }
 const _n = new Float32Array(3), _up = new THREE.Vector3(), _q = new THREE.Quaternion(), _y = new THREE.Vector3(0, 1, 0), _qy = new THREE.Quaternion();
 /** The board as a three.js object in the surfer model's board frame (nose at -x, y up, z across, the bottom's flat spot at y = 0). */
-export function buildBoardObject(params: BoardParams, deckColor?: number): BoardObject {
-  const data = buildBoard(params), geo = boardGeometry(data), mats = boardMaterials(deckColor); padUvFix(mats.pad as THREE.MeshStandardMaterial);
+export function buildBoardObject(params: BoardParams, deckColor?: number, bottomColor?: number): BoardObject {
+  const data = buildBoard(params), geo = boardGeometry(data), mats = boardMaterials(deckColor, params.softTop?.value ? {foam: deckColor ?? 0xf2f2ee, bottom: bottomColor ?? 0xf2f3f4} : undefined); padUvFix(mats.pad as THREE.MeshStandardMaterial);
   const materials = BOARD_PARTS.map((p) => mats[p]);
   const mesh = new THREE.Mesh(geo, materials); mesh.name = 'BoardHull'; mesh.frustumCulled = false;
   const group = new THREE.Group(); group.name = 'Board'; group.add(mesh);

@@ -28,7 +28,11 @@ export interface BoardParams {
   rail: Field<RailKind>; tail: Field<TailKind>; fins: Field<FinSetup>;
   /** the Quiver's traced half-widths (fractions of the length, nose to tail); rescaled so the widest point is the entered width */
   traced?: number[] | null;
+  /** a soft-top (foam deck, slick bottom): fat rounded rails, a flat bottom, no stringer; the deck faces are the foam part ('wax' group) */
+  softTop?: Field<boolean>;
 }
+/** What a reference model adds over the category (src/data/referenceBoards.ts): its traced outline, a measured rocker, the soft-top flag. */
+export interface ReferenceShape {hw?: number[]; rocker?: {noseIn: number; tailIn: number; flatFromTail: number}; softTop?: boolean}
 const F = <T,>(value: T, source: BoardSource = 'default'): Field<T> => ({value, source});
 
 /** The reference board: 5'10" x 19 1/4" x 2 3/8", squash, thruster (FINDINGS section 18 for the sources of every number). */
@@ -41,20 +45,26 @@ export const REFERENCE_BOARD: BoardParams = {
 };
 
 /** Category defaults for a Quiver board (its dimensions are the record's, the rest typical for the type). */
-export function boardParamsFor(b: Pick<Surfboard, 'length' | 'width' | 'thickness' | 'type'> & {tail?: string; fins?: string}, traced?: number[] | null): BoardParams {
+export function boardParamsFor(b: Pick<Surfboard, 'length' | 'width' | 'thickness' | 'type'> & {tail?: string; fins?: string}, traced?: number[] | null, ref?: ReferenceShape | null): BoardParams {
   const type = b.type, longish = type === 'Longboard' || type === 'Funboard' || type === 'Soft-top', fishy = type === 'Fish', mid = type === 'Midlength' || type === 'Hybrid' || type === 'Groveler', gun = type === 'Gun' || type === 'Step-up';
   const tailText = (b.tail ?? '').toLowerCase(), finText = (b.fins ?? '').toLowerCase();
   const tail: TailKind = /swallow|fish/.test(tailText) ? 'swallow' : /pin/.test(tailText) ? 'pin' : /round|thumb|diamond/.test(tailText) ? 'round' : /squash|square/.test(tailText) ? 'squash' : fishy ? 'swallow' : gun ? 'pin' : longish || mid ? 'round' : 'squash';
   const fins: FinSetup = /quad/.test(finText) ? 'quad' : /twin|keel/.test(finText) ? 'twin' : /single/.test(finText) ? 'single' : /thruster|tri|2\s*\+\s*1/.test(finText) ? 'thruster' : fishy ? 'twin' : longish ? 'single' : 'thruster';
   const q = (v: number) => F(v, 'quiver');
-  return {
+  const soft = !!ref?.softTop, own = traced && traced.length > 2 ? traced : null, refHw = !own && ref?.hw && ref.hw.length > 2 ? ref.hw : null;
+  const out: BoardParams = {
     lengthM: q((b.length || 70) * IN), widthM: q((b.width || 19.5) * IN), thicknessM: q((b.thickness || 2.4) * IN),
     outline: F(longish ? {wideFromNose: 0.5, noseW12: 0.78, tailW12: 0.7, tailBlock: 0.3} : fishy ? {wideFromNose: 0.47, noseW12: 0.7, tailW12: 0.86, tailBlock: 0.55} : mid ? {wideFromNose: 0.5, noseW12: 0.7, tailW12: 0.72, tailBlock: 0.3} : gun ? {wideFromNose: 0.47, noseW12: 0.5, tailW12: 0.58, tailBlock: 0.1} : REFERENCE_BOARD.outline.value),
     rocker: F(longish ? {noseM: 0.11, tailM: 0.07, flatFromTail: 0.4} : fishy ? {noseM: 0.09, tailM: 0.04, flatFromTail: 0.42} : gun ? {noseM: 0.15, tailM: 0.07, flatFromTail: 0.45} : REFERENCE_BOARD.rocker.value),
     foil: F(longish ? {nose12: 0.72, tail12: 0.72, peakFromNose: 0.48} : REFERENCE_BOARD.foil.value),
     rail: F(longish || fishy ? 'soft' : gun ? 'hard' : 'medium', tailText || finText ? 'quiver' : 'default'), tail: F(tail, tailText ? 'quiver' : 'default'), fins: F(fins, finText ? 'quiver' : 'default'),
-    traced: traced ?? null,
+    traced: own ?? refHw ?? null,
   };
+  // the reference model: the traced deck photo (its outline), the measured rocker and the soft-top build are 'photo' fields; the rest stay as above
+  if (refHw) out.outline = F(out.outline.value, 'photo');
+  if (ref?.rocker) out.rocker = F({noseM: ref.rocker.noseIn * IN, tailM: ref.rocker.tailIn * IN, flatFromTail: ref.rocker.flatFromTail}, 'photo');
+  if (soft) { out.softTop = F(true, 'photo'); out.rail = F('soft', 'photo'); }
+  return out;
 }
 
 /** Monotone (Fritsch-Carlson) cubic through the points: smooth, no overshoot between them. */
@@ -117,12 +127,12 @@ export function boardCurves(p: BoardParams): BoardCurves {
   const tp = 1 - f.peakFromNose;
   const thickCurve = monotone([0, in12, tp, 1 - in12, 1], [tail === 'pin' ? 0.2 : 0.3, f.tail12, 1, f.nose12, 0.08]);
   const thick = (t: number) => Math.max(0.004, T * thickCurve(t) * (1 - t < rNose / L ? Math.max(0.3, Math.sqrt(Math.max(0, (1 - t) * L / rNose))) : 1));
-  const railD = p.rail.value === 'soft' ? 0.06 : p.rail.value === 'hard' ? -0.05 : 0;
+  const soft = !!p.softTop?.value, railD = soft ? 0.1 : p.rail.value === 'soft' ? 0.06 : p.rail.value === 'hard' ? -0.05 : 0;   // a soft-top's rails are fatter and rounder still
   const apex = (t: number) => Math.min(0.55, Math.max(0.2, 0.3 + 0.18 * Math.min(1, t / 0.6) + railD));
   const edgeK = (t: number) => 2.2 + 1.6 * Math.max(0, 1 - t / 0.45) - railD * 6;
   // the bottom: a single concave through the middle (deepest just ahead of the fins) running into a shallow double concave at the tail
   const c1 = (t: number) => 0.004 * k * Math.max(0, 1 - Math.pow((t - 0.42) / 0.36, 2)), c2 = (t: number) => 0.0022 * k * Math.max(0, 1 - Math.pow((t - 0.16) / 0.2, 2));
-  const concave = (t: number, q: number) => { const aq = Math.min(1, Math.abs(q)); return c1(t) * (1 - aq * aq) + c2(t) * Math.max(0, 1 - Math.pow((aq - 0.5) / 0.45, 2)); };
+  const concave = (t: number, q: number) => { if (soft) return 0; const aq = Math.min(1, Math.abs(q)); return c1(t) * (1 - aq * aq) + c2(t) * Math.max(0, 1 - Math.pow((aq - 0.5) / 0.45, 2)); };
   const tOf = (x: number) => Math.min(1, Math.max(0, 0.5 - x / L));
   const deckAt = (x: number, z: number) => { const t = tOf(x), hw = halfCut(t), q = Math.min(1, Math.abs(z) / hw), s = Math.sqrt(Math.max(0, 1 - q * q * q * q)), a = apex(t); return rocker(t) + thick(t) * (a + (1 - a) * Math.pow(s, DECK_K)); };
   const bottomAt = (x: number, z: number) => { const t = tOf(x), hw = halfCut(t), q = Math.min(1, Math.abs(z) / hw), s = Math.sqrt(Math.max(0, 1 - q * q * q * q)); return rocker(t) + thick(t) * apex(t) * (1 - Math.pow(s, edgeK(t))) + concave(t, q) * s; };
@@ -147,7 +157,7 @@ export interface BuildOptions {segments?: number; ring?: number; stringer?: bool
  *  edges, the stringer as a thin ribbon on the deck and the bottom, the tail pad (three pieces, a kick), foiled fins (a flat inside face,
  *  a cambered outside face, fin boxes), faced outward (T-139). About 4.7k triangles at the defaults. */
 export function buildBoard(p: BoardParams, opt: BuildOptions = {}): BoardGeometryData {
-  const c = boardCurves(p), {L, W} = c, ns = opt.segments ?? 64, nr = opt.ring ?? 26, k = Math.sqrt(L / 1.778);
+  const soft = !!p.softTop?.value, c = boardCurves(p), {L, W} = c, ns = opt.segments ?? 64, nr = opt.ring ?? 26, k = Math.sqrt(L / 1.778);
   const pos: number[] = [], uv: number[] = [], parts: Record<BoardPart, number[]> = {resin: [], wax: [], stringer: [], pad: [], fin: [], finbox: []};
   const V = (x: number, y: number, z: number, u = x, v = z) => { pos.push(x, y, z); uv.push(u, v); return pos.length / 3 - 1; };
   const tri = (part: BoardPart, a: number, b: number, d: number) => parts[part].push(a, b, d);
@@ -170,7 +180,7 @@ export function buildBoard(p: BoardParams, opt: BuildOptions = {}): BoardGeometr
   for (let i = 0; i < ns; i++) {
     const xm = (ringX[i] + ringX[i + 1]) / 2, inWax = xm > c.waxX[0] && xm < c.waxX[1];
     for (let j = 0; j < nr; j++) {
-      const a = ringStart[i] + j, b = ringStart[i] + (j + 1) % nr, d = a + nr, e = b + nr, part: BoardPart = deckFace(j) && inWax ? 'wax' : 'resin';
+      const a = ringStart[i] + j, b = ringStart[i] + (j + 1) % nr, d = a + nr, e = b + nr, part: BoardPart = deckFace(j) && (inWax || soft) ? 'wax' : 'resin';
       tri(part, a, b, d); tri(part, b, e, d);   // outward (the signed volume of the hull reads +, see the test)
     }
   }
@@ -178,7 +188,7 @@ export function buildBoard(p: BoardParams, opt: BuildOptions = {}): BoardGeometr
   for (let j = 0; j < nr; j++) { tri('resin', tailC, ringStart[0] + j, ringStart[0] + (j + 1) % nr); tri('resin', noseC, ringStart[ns] + (j + 1) % nr, ringStart[ns] + j); }
   const hullEnd = pos.length;
   // ---- the stringer: a 5 mm ribbon 0.4 mm proud of the deck and the bottom, along the centreline
-  if (opt.stringer !== false) {
+  if (opt.stringer ?? !soft) {   // a soft-top has no visible stringer
     const sw = 0.0025 * k, n = ns, dk: number[] = [], bt: number[] = [];   // the ribbon at the rings' own x (the Quiver's station map keys on x)
     // the ribbon's x follows the tail's own cut: the swallow's rings are sheared forward at the stringer (the notch), so the ribbon is too
     const notchAt = (t: number, x0: number) => (c.notchM > 0 && t * L < c.notchM * 1.4 ? x0 - c.notchM * Math.max(0, 1 - sw / Math.max(c.halfCut(t), 0.01)) * Math.max(0, 1 - t * L / (c.notchM * 1.4)) : x0);
