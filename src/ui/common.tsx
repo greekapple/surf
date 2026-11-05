@@ -7,6 +7,7 @@ export function SpotPhoto({spotId, index = 0, className = '', children, height}:
   const list = SPOT_PHOTOS[spotId];
   const id = list ? list[index % list.length] : GENERIC_PHOTOS[index % GENERIC_PHOTOS.length];
   const p = PHOTOS[id];
+  const who = p.photographer || 'Wikimedia Commons';
   const [ready, setReady] = useState(false);
   return (
     <figure className={`photo ${className}`} style={height ? {height} : undefined}>
@@ -20,9 +21,10 @@ export function SpotPhoto({spotId, index = 0, className = '', children, height}:
         loading="lazy"
         decoding="async"
       />
-      <figcaption className="credit">
-        {p.generic ? 'Generic photo, not this spot · ' : ''}
-        <a href={p.source} target="_blank" rel="noreferrer">{p.photographer || 'Wikimedia Commons'}</a> · <a href={p.licenseUrl} target="_blank" rel="noreferrer">{p.license}</a>
+      {/* T-132: the full attribution is the caption's title, so a phone band can truncate the photographer in view while the licence stays whole. */}
+      <figcaption className="credit" title={`Photo: ${p.generic ? 'generic photo, not this spot · ' : ''}${who} · ${p.license}`}>
+        {p.generic ? <span className="cr-gen">Generic photo, not this spot · </span> : null}
+        <a className="cr-who" href={p.source} target="_blank" rel="noreferrer">{who}</a><span className="cr-sep"> · </span><a className="cr-lic" href={p.licenseUrl} target="_blank" rel="noreferrer">{p.license}</a>
       </figcaption>
       {children && <div className="photo-body">{children}</div>}
     </figure>
