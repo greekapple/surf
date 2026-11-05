@@ -116,8 +116,8 @@ export function buildBoardObject(params: BoardParams, deckColor?: number, bottom
 
 /** The Quiver showroom's template from the same geometry: the hull (resin) and the stringer ribbon as two meshes in the showroom's unit
  *  frame (nose at +x, length 1, y up), with the width and thickness as fractions of the length (what `stationTpl` expects). */
-export function quiverTemplate(params: BoardParams): {resin: THREE.Mesh; stringer: THREE.Mesh; width: number; thickness: number} {
-  const data = buildBoard(params, {fins: false, pad: false}), L = data.curves.L, n = data.positions.length / 3, pos = new Float32Array(n * 3);
+export function quiverTemplate(params: BoardParams, detail?: {segments?: number; ring?: number}): {resin: THREE.Mesh; stringer: THREE.Mesh; width: number; thickness: number} {
+  const data = buildBoard(params, {fins: false, pad: false, ...detail}), L = data.curves.L, n = data.positions.length / 3, pos = new Float32Array(n * 3);
   for (let i = 0; i < n; i++) { pos[i * 3] = -data.positions[i * 3] / L; pos[i * 3 + 1] = data.positions[i * 3 + 1] / L; pos[i * 3 + 2] = data.positions[i * 3 + 2] / L; }
   const part = (parts: BoardPart[]) => {
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos.slice(), 3));

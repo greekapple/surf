@@ -463,7 +463,9 @@
 
 /* ---------- T-088 design-critic fixes ---------- */
 /* Showroom phone: the fixed Board Match bar must never cover content (it sat over the size-fit line). */
-@media (max-width: 860px) { .br { padding-bottom: calc(96px + var(--tab-h, 64px) + env(safe-area-inset-bottom)); } }
+/* quiver-look: the showroom's actions, source line and footer follow .br, so padding .br for the fixed Board Match bar left a ~250 px gap in the middle
+   of the page. The page end already clears the bar and the tab bar (the panel's controls keep their scroll-margin above them). */
+@media (max-width: 860px) { .br { padding-bottom: 16px; } }
 /* Quiver dark: the wall is a light gallery in both themes, so its labels use the light palette (dark-theme inks were ~1.5–2:1 on it). */
 /* Showroom hotspots: quiet dots that grow on hover, not heavy rings. */
 /* (the button stays a 44 px tap target; only the visible dot shrinks) */
@@ -471,6 +473,9 @@
 .br-hot i::after { width: 4px; height: 4px; border-width: 1.5px; }
 .br-hot:hover i, .br-hot:focus-visible i, .br-hot[aria-expanded='true'] i { transform: scale(1.5); box-shadow: 0 0 0 1px #1d1d1f; }
 @media (prefers-reduced-motion: reduce) { .br-hot i { transition: none; } }
+/* quiver-look: the hotspot rings read as screws on the board in every view, so they show only when someone is exploring: the pointer over the
+   stage, keyboard focus inside it, an open hotspot, or a touch on the board itself (BoardRoom sets .hot-on for a few seconds). */
+.br-stage:not(:hover):not(:focus-within):not(.hot-on):not(:has(.br-hot[aria-expanded='true'])) .br-hot { opacity: 0; pointer-events: none; }
 /* T-095: the wall's board arrows are 44 px on phones (were 40). */
 @media (max-width: 860px) { .qv-rackwrap .qv-arrow { width: 44px; height: 44px; margin-top: -22px; } }
 .qv-duel .nw { white-space: nowrap; } /* T-095: a length never splits across lines */

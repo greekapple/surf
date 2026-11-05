@@ -20,7 +20,9 @@ export function referenceTpl(b: Surfboard, dims: {length: number; width: number;
   const key = `ref:${b.id}:${dims.length}:${dims.width}:${dims.thickness}:${tail ?? b.tail ?? ''}`;
   let p = refCache.get(key);
   if (!p) {
-    p = Promise.resolve().then(() => { const t = quiverTemplate(paramsForBoard({...b, ...dims, tail: tail || b.tail})); return stationTpl(t.resin, t.stringer, t.width, t.thickness); });
+    // quiver-look: a soft-top's fat rounded rails and long outline showed facets at the default 64 x 26; it gets a finer hull.
+    const soft = !!referenceFor(b)?.softTop;
+    p = Promise.resolve().then(() => { const t = quiverTemplate(paramsForBoard({...b, ...dims, tail: tail || b.tail}), soft ? {segments: 160, ring: 48} : undefined); return stationTpl(t.resin, t.stringer, t.width, t.thickness); });
     refCache.set(key, p);
   }
   return {tpl: p, key};

@@ -3,7 +3,7 @@ import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {REFERENCE_BOARD, boardParamsFor} from '../scale/boardMesh';
 import {quiverTemplate} from '../scale/boardObject';
-import {TINTS, type Look, type Template} from './looks';
+import {STRIPE_BANDS, TINTS, type Look, type Template} from './looks';
 
 /** Scene units are inches: floor at y = 0. A board's own axes: +X nose, +Y deck, Z width. */
 export type Preset = 'deck' | 'bottom' | 'rail' | 'tail' | 'nose' | 'three' | '360';
@@ -16,7 +16,8 @@ export interface ShapeSpec {template: Template; length: number; width: number; t
   /** a soft-top: no stringer, a slick bottom under a matte foam deck */ softTop?: boolean}
 /** One board on the rack. `tpl`/`tplKey` override the category template (a board traced from a photo). */
 export interface BoardEntry {id: string; spec: ShapeSpec; look: Look; tpl?: Promise<Tpl>; tplKey?: string; /** The user's own deck photo (JPEG data URL), straightened with the nose at the left. */ deckTex?: string;
-  /** the outline's half-widths (40, nose to tail) a procedural deck pattern (look.pattern) follows */ patternHw?: number[]}
+  /** the outline's half-widths (40, nose to tail) a procedural deck pattern (look.pattern) follows */ patternHw?: number[];
+  /** quiver-look: an example model's trim (looks.trimFor): the centre line (null = none shows) and the fin colour */ trim?: {stringer: string | null; fin: string} | null}
 
 const WHITE = new THREE.Color(1, 1, 1);
 const WOOD = 0xbd9a68, FOAM = 0xece6d6; // FOAM must equal looks.ts FOAM_HEX (the 2D renderer's effectiveDeck mirrors applyLook; test: board-look.test.ts)
@@ -114,14 +115,16 @@ function patternCanvas(kind: 'carbon' | 'stripes', hw: number[]): HTMLCanvasElem
   const W = 1024, H = 256, c = document.createElement('canvas'); c.width = W; c.height = 2 * H;
   const g = c.getContext('2d')!; g.fillStyle = '#fff'; g.fillRect(0, 0, W, 2 * H);
   const img = g.createImageData(W, H), d = img.data, mx = Math.max(...hw), n = hw.length;
-  const STRIPES: [number, number, number, number][] = [[0.02, 0xa8, 0xd2, 0xec], [0.33, 0xfb, 0xfc, 0xfc], [0.38, 0x18, 0x31, 0x88], [0.45, 0xb5, 0xc6, 0xea], [0.64, 0x12, 0x80, 0xc8], [0.73, 0xc9, 0xdc, 0xf0], [0.9, 0x15, 0x37, 0x8f], [9, 0x10, 0x2a, 0x6c]];
+  // quiver-look: the shared soft-top palette (navy rail band, royal and sky bands on white), the same table the 2D wall draws
+  const STRIPES: [number, number, number, number][] = STRIPE_BANDS.map(([r, h]) => [r, parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]);
   for (let x = 0; x < W; x++) {
     const f = (x / (W - 1)) * (n - 1), i = Math.min(n - 2, Math.floor(f)), h = Math.max(1e-3, (hw[i] + (hw[i + 1] - hw[i]) * (f - i)) / mx);
     for (let y = 0; y < H; y++) {
       const r = Math.abs(1 - 2 * (y + 0.5) / H) / h, o = (y * W + x) * 4;   // 0 on the centreline, 1 at the rail
       let R: number, G: number, B: number;
       if (kind === 'carbon') {
-        const tx = Math.floor(x / 4), ty = Math.floor(y / 4), warp = ((tx + ty) & 3) < 2, ph = warp ? (x % 4) / 4 : (y % 4) / 4, v = 9 + 15 * Math.sin(Math.PI * ph) + (warp ? 4 : 0);
+        // quiver-look: 7 px tows (about half an inch on the board) and more contrast, so the twill reads at 1440 under a satin finish
+        const tx = Math.floor(x / 7), ty = Math.floor(y / 7), warp = ((tx + ty) & 3) < 2, ph = warp ? (x % 7) / 7 : (y % 7) / 7, v = 12 + 30 * Math.sin(Math.PI * ph) + (warp ? 8 : 0);
         const rim = smooth(0.8, 0.86, r);   // the white rail band of the reference photo, about a sixth of the half-width
         R = v + (243 - v) * rim; G = v + 1 + (241 - v - 1) * rim; B = v + 4 + (236 - v - 4) * rim;
       } else { const s = STRIPES.find((b) => r < b[0])!; R = s[1]; G = s[2]; B = s[3]; }
@@ -203,6 +206,8 @@ interface Rig {
   id: string; root: THREE.Group; orient: THREE.Group; flip: THREE.Group; shape: THREE.Group; fins: THREE.Group;
   shadowRoot: THREE.Group; shadow: THREE.Mesh;
   resinMat: THREE.MeshPhysicalMaterial; stringerMat: THREE.MeshPhysicalMaterial;
+  /** quiver-look: the example model's trim, and its own fin material when it has a fin colour */
+  trim: {stringer: string | null; fin: string} | null; finMatOwn: THREE.MeshPhysicalMaterial | null;
   tpl: Tpl | null; tplKey: string; resin: THREE.Mesh | null; stringer: THREE.Mesh | null;
   spec: ShapeSpec; look: Look; fillKey: string; lookKey: string; finKey: string;
   x: number; lift: number;
@@ -441,11 +446,17 @@ export class Studio {
   private presetPose(p: Preset) {
     const L = this.sel()?.spec.length ?? 72, y = FOCUS_Y;
     switch (p) {
-      case 'deck': return {az: -24, el: 52, m: 1.0, flip: 0, spin: STAND, target: new THREE.Vector3(0, y, 0)};
-      case 'bottom': return {az: -24, el: 52, m: 1.0, flip: Math.PI, spin: STAND, target: new THREE.Vector3(0, y, 0)};
+      // quiver-look: Deck and Bottom look straight down with the board turned nose-up on screen (spin = azimuth + 90°), like the makers'
+      // top-down product photos, so the traced outline reads; the target sits a little toward the tail so the board clears the toolbar.
+      case 'deck': case 'bottom': {
+        const az = -24, sh = this.camera.aspect < 1.3 ? 0 : L * 0.04, a = THREE.MathUtils.degToRad(az);
+        return {az, el: 88.5, m: 1.0, flip: p === 'bottom' ? Math.PI : 0, spin: THREE.MathUtils.degToRad(az + 90), target: new THREE.Vector3(Math.sin(a) * sh, y, Math.cos(a) * sh)};
+      }
       case 'rail': return {az: 4, el: 7, m: 1.0, flip: 0, spin: 0, target: new THREE.Vector3(0, y - 1, 0)};
-      case 'tail': return {az: -96, el: 20, m: 0.5, flip: 0, spin: 0, target: new THREE.Vector3(-L * 0.3, y - 1, 0)};
-      case 'nose': return {az: 84, el: 20, m: 0.5, flip: 0, spin: 0, target: new THREE.Vector3(L * 0.3, y - 1, 0)};
+      // quiver-look: Tail and Nose from a low three-quarter (22°, about 45° off the board's axis), not end-on, so the outline's end, the fins and
+      // the rocker read instead of a foreshortened oval.
+      case 'tail': return {az: -51, el: 22, m: 0.55, flip: 0, spin: 0, target: new THREE.Vector3(-L * 0.28, y - 1, 0)};
+      case 'nose': return {az: 40, el: 22, m: 0.55, flip: 0, spin: 0, target: new THREE.Vector3(L * 0.28, y - 1, 0)};
       case 'three': return {az: 30, el: 36, m: 1.0, flip: 0, spin: STAND, target: new THREE.Vector3(0, y, 0)};
       default: return {az: 32, el: 22, m: 1.06, flip: 0, spin: 0, target: new THREE.Vector3(0, y, 0)};
     }
@@ -461,7 +472,8 @@ export class Studio {
     // spin angle: its length across the frame, and at most L·sin(elevation) plus thickness tall. A whole-board sphere left a wide
     // stage half empty (T-016: the board filled ~55% of the stage height).
     const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2);
-    const d = p === 'tail' || p === 'nose' ? this.sphereDist(R * 0.5) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
+    // (Deck and Bottom: a phone's stage has pills over its top and bottom, so the board gets more vertical room there.)
+    const d = p === 'tail' || p === 'nose' ? this.sphereDist(R * 0.55) : p === 'deck' || p === 'bottom' ? this.fitDist((sp?.width ?? 20) * 1.5, L * (this.camera.aspect < 1.3 ? 1.75 : 1.42)) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
     return {s: new THREE.Spherical(Math.max(d, 20), Math.PI / 2 - THREE.MathUtils.degToRad(q.el), THREE.MathUtils.degToRad(q.az)), target: q.target, flip: q.flip};
   }
   private currentPose() {
@@ -656,6 +668,7 @@ export class Studio {
     const rig: Rig = {
       id, root: new THREE.Group(), orient: new THREE.Group(), flip: new THREE.Group(), shape: new THREE.Group(), fins: new THREE.Group(), shadowRoot: new THREE.Group(), shadow,
       resinMat: deckMaterial(), stringerMat: new THREE.MeshPhysicalMaterial({color: WOOD}),
+      trim: null, finMatOwn: null,
       tpl: null, tplKey: '', resin: null, stringer: null, spec, look, fillKey: '', lookKey: '', finKey: '', x: 0, lift: 0, texSrc: '', tex: null, base: 0.2, cx: NaN,
     };
     rig.root.userData.rigId = id;
@@ -667,7 +680,7 @@ export class Studio {
   private removeRig(rig: Rig) {
     this.scene.remove(rig.root, rig.shadowRoot); this.rigs.delete(rig.id);
     rig.resin?.geometry.dispose(); rig.stringer?.geometry.dispose();
-    rig.tex?.dispose(); rig.resinMat.dispose(); rig.stringerMat.dispose(); (rig.shadow.material as THREE.Material).dispose(); rig.shadow.geometry.dispose();
+    rig.tex?.dispose(); rig.resinMat.dispose(); rig.stringerMat.dispose(); rig.finMatOwn?.dispose(); (rig.shadow.material as THREE.Material).dispose(); rig.shadow.geometry.dispose();
   }
 
   /** Sync the rack to the boards given. The first call frames the selected board; later calls only update shapes. */
@@ -683,7 +696,7 @@ export class Studio {
     this.selectedId = selectedId;
     entries.forEach((e, i) => {
       const rig = this.rigs.get(e.id) ?? this.addRig(e.id, e.spec, e.look), key = e.tplKey ?? e.spec.template;
-      rig.spec = e.spec; rig.look = e.look; if (!e.deckTex && e.look.pattern && e.patternHw) this.setPattern(rig, e.look.pattern, e.patternHw); else this.setDeckTex(rig, e.deckTex ?? '');
+      rig.spec = e.spec; rig.look = e.look; this.setTrim(rig, e.trim ?? null); if (!e.deckTex && e.look.pattern && e.patternHw) this.setPattern(rig, e.look.pattern, e.patternHw); else this.setDeckTex(rig, e.deckTex ?? '');
       if (rig.tplKey !== key || !rig.tpl) {
         rig.shape.clear(); rig.resin?.geometry.dispose(); rig.stringer?.geometry.dispose();
         rig.tpl = cloneTpl(tpls[i]); rig.tplKey = key; rig.fillKey = ''; rig.lookKey = ''; rig.finKey = '';
@@ -779,12 +792,24 @@ export class Studio {
     else if (look.finish === 'clear') { m.roughness = 0.32; m.clearcoat = 1; m.clearcoatRoughness = 0.04; m.sheen = 0.12; m.sheenRoughness = 0.5; m.sheenColor.set(0xfff4e0); m.envMapIntensity = 1.0; }
     else { m.roughness = 0.34; m.clearcoat = 1; m.clearcoatRoughness = 0.03; m.sheen = 0.18; m.sheenRoughness = 0.55; m.sheenColor.set(0xf6f2ea); m.envMapIntensity = 1.05; }
     (m.userData.bottomRough as {value: number}).value = rig.spec.softTop ? 0.3 : -1;
-    if (rig.spec.softTop) { m.roughness = 0.9; m.clearcoat = 0; m.sheen = 0.3; m.sheenRoughness = 0.8; m.envMapIntensity = 0.8; m.normalScale.set(0.1, 0.1); }   // closed-cell foam, no resin gloss   // a soft-top: the slick bottom skin under the matte foam deck
+    // quiver-look: a white sheen at 0.3 washed the soft-top's navy and royal into periwinkle; foam keeps its colour with a faint, deck-tinted sheen.
+    if (rig.spec.softTop) { m.roughness = 0.9; m.clearcoat = 0; m.sheen = 0.06; m.sheenRoughness = 0.9; m.sheenColor.set(0xdfe6f2); m.envMapIntensity = 0.55; m.normalScale.set(0.1, 0.1); }   // closed-cell foam, no resin gloss   // a soft-top: the slick bottom skin under the matte foam deck
     if (rig.stringer) rig.stringer.visible = !rig.spec.softTop && look.pattern !== 'carbon';   // no stringer shows through a soft-top's foam or the carbon deck
-    if (look.pattern === 'carbon') { m.sheen = 0.04; m.envMapIntensity = 0.9; }
-    w.color.set(WOOD); if (hasTint) w.color.multiply(tintC.clone().lerp(new THREE.Color(1, 1, 1), 0.5));
+    // quiver-look: carbon is a satin weave, not polished metal: roughness ~0.48, a thin soft clearcoat, the weave's relief in the normal map.
+    if (look.pattern === 'carbon') { m.roughness = 0.48; m.clearcoat = 0.25; m.clearcoatRoughness = 0.4; m.sheen = 0.04; m.envMapIntensity = 0.7; m.normalScale.set(0.22, 0.22); }
+    if (rig.stringer && rig.trim && rig.trim.stringer === null) rig.stringer.visible = false;   // an example model whose photos show no centre line
+    w.color.set(rig.trim?.stringer ?? WOOD); if (hasTint) w.color.multiply(tintC.clone().lerp(new THREE.Color(1, 1, 1), 0.5));
     w.roughness = look.finish === 'matte' ? 0.7 : 0.45; w.clearcoat = look.finish === 'matte' ? 0 : 0.8; w.clearcoatRoughness = 0.06;
     m.needsUpdate = true; w.needsUpdate = true;
+  }
+
+  /** quiver-look: an example model's trim. Its fins are solid, satin-glossed foils in the model's colour (black, the soft-top's blue) instead of
+   *  the default smoky glass; the stringer colour is applied in applyLook. */
+  private setTrim(rig: Rig, trim: {stringer: string | null; fin: string} | null) {
+    const k = (t: typeof trim) => (t ? `${t.stringer}|${t.fin}` : '');
+    if (k(trim) === k(rig.trim)) return;
+    rig.trim = trim; rig.finMatOwn?.dispose(); rig.finMatOwn = null; rig.lookKey = ''; rig.finKey = '';
+    if (trim) rig.finMatOwn = new THREE.MeshPhysicalMaterial({color: new THREE.Color(trim.fin), roughness: 0.32, clearcoat: 0.8, clearcoatRoughness: 0.12, side: THREE.DoubleSide});
   }
 
   /** A procedural deck pattern for an example model (drawn once per outline into the same atlas as a deck photo). */
@@ -816,7 +841,7 @@ export class Studio {
   private placeFins(rig: Rig) {
     const s = rig.spec, look = rig.look, tpl = rig.tpl, body = rig.resin;
     if (!tpl || !body) return;
-    const key = [look.fins, s.length, s.width, s.thickness, s.volume, rig.tplKey, rig.fillKey].join('|');
+    const key = [look.fins, s.length, s.width, s.thickness, s.volume, rig.tplKey, rig.fillKey, rig.trim?.fin ?? ''].join('|');
     if (key === rig.finKey) return;
     rig.finKey = key;
     rig.fins.clear();
@@ -853,7 +878,7 @@ export class Studio {
         const fin = node.clone(true);
         fin.traverse((o) => {
           const m = o as THREE.Mesh; if (!m.isMesh) return;
-          m.material = (m.material as THREE.Material).name === 'FinBase' ? this.baseMat : this.finMat;
+          m.material = (m.material as THREE.Material).name === 'FinBase' ? this.baseMat : rig.finMatOwn ?? this.finMat;
         });
         fin.position.copy(hit.point).addScaledVector(n, -0.05); fin.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), n.clone().negate());
         fin.scale.setScalar(f.scale); fin.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.castShadow = true; });

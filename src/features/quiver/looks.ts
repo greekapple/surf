@@ -95,6 +95,25 @@ export function resolvedLook(b: Pick<Surfboard, 'id' | 'fins' | 'type'> & Partia
   return b.fins && b.fins.trim() ? {...look, fins: finsFromText(b)} : look;
 }
 
+/** quiver-look: the trim of an example model, in the spirit of its product photos (colours only): the centre line (null = none shows, as on
+ *  the carbon deck and the soft-top's foam) and the fin colour. Boards that are not example models keep the wood stringer and the smoky fins. */
+export interface Trim {stringer: string | null; fin: string}
+const REF_TRIM: Record<string, Trim> = {
+  'Inferno 72 C1 Carbon': {stringer: null, fin: '#17191c'},
+  'Seaside (Helium)': {stringer: '#3b3f45', fin: '#17191c'},
+  "8' Classic": {stringer: null, fin: '#2b6fd6'},
+  Ghost: {stringer: '#55595f', fin: '#17191c'},
+};
+export function trimFor(b: Parameters<typeof referenceFor>[0]): Trim | null {
+  const r = referenceFor(b);
+  return r ? REF_TRIM[r.model] ?? null : null;
+}
+/** The soft-top's deck stripes, centre line out: [up to this fraction of the half-width, colour]. White centre, sky and royal bands, a navy rail
+ *  band (the Wavestorm's palette, no graphics). The 3D deck atlas and the 2D wall both draw from this table. */
+export const STRIPE_BANDS: [number, string][] = [[0.4, '#f7f8f8'], [0.47, '#7cc3ee'], [0.52, '#f7f8f8'], [0.6, '#2b6fd6'], [0.66, '#7cc3ee'], [0.8, '#2b6fd6'], [9, '#1d3f8f']];
+/** The carbon deck's white rail band starts at this fraction of the half-width. */
+export const CARBON_RIM = 0.83;
+
 /** The foam colour a clear (epoxy) finish shows instead of the deck colour; the showroom's Studio uses the same value. */
 export const FOAM_HEX = '#ece6d6';
 const toLin = (c: number) => { const v = c / 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
@@ -104,7 +123,7 @@ const rgbLin = (hex: string) => [16, 8, 0].map((s) => toLin((parseInt(hex.slice(
 /** T-098 (Codex P2): the effective deck colour, computed exactly as the showroom renders it (Studio.applyLook): foam for a clear finish, and a resin
  *  tint applied multiplicatively at 78% in linear light (three.js colour management). Returns sRGB hex. */
 /** The colour a patterned deck reads as from a distance (the 2D wall, the wave scene): the carbon weave's charcoal, the soft-top's stripes' blue. */
-export const PATTERN_HEX: Record<DeckPattern, string> = {carbon: '#24262a', stripes: '#3f72c2'};
+export const PATTERN_HEX: Record<DeckPattern, string> = {carbon: '#24262a', stripes: '#2b6fd6'};
 export function effectiveDeck(look: Pick<Look, 'deck' | 'finish' | 'tint'> & {pattern?: DeckPattern}): string {
   const base = rgbLin(look.pattern ? PATTERN_HEX[look.pattern] : look.finish === 'clear' ? FOAM_HEX : look.deck);
   const tint = TINTS.find((t) => t.key === look.tint);

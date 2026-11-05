@@ -2,7 +2,7 @@ import {useEffect, useId, useState} from 'react';
 import type {BoardType, Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
 import {BoardOutline} from './BoardOutline';
-import {effectiveDeck, loadLook} from './looks';
+import {loadLook} from './looks';
 import {referenceFor} from '../../data/referenceBoards';
 import {STATIONS, loadOutline, type Outline} from './outline';
 import {cutout, type Cut} from './cutout';
@@ -21,8 +21,8 @@ function Upright({b, px, outline}: {b: Surfboard; px: number; outline: Outline |
       <defs><clipPath id={`rk-${id}`}><path d={d} /></clipPath></defs>
       {outline.tex
         ? <g clipPath={`url(#rk-${id})`}><g transform={`translate(${cx},0) rotate(90)`}><image href={outline.tex} x={0} y={-W / 2} width={L} height={W} preserveAspectRatio="none" /></g></g>
-        : <path d={d} fill={effectiveDeck(look)} fillOpacity={0.92} />}
-      <path d={d} fill="none" stroke="var(--board-line)" />
+        : <BoardOutline b={b} scale={px} look={look} decorative at={-1} />} {/* quiver-look: the shared renderer draws the traced shape, trim and pattern */}
+      {outline.tex && <path d={d} fill="none" stroke="var(--board-line)" />}
     </svg>
   );
 }

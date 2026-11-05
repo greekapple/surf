@@ -3,7 +3,7 @@ import type {Surfboard} from '../../models/index';
 import {Icon} from '../../ui/Icon';
 import {lengthLabel, validDimensions} from '../../utils/units';
 import {inches} from './format';
-import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, type Finish, type FinSet, type Look} from './looks';
+import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, trimFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
 import {referenceTpl, tracedTpl} from './traced';
 import {MODELLED_NOTE, referenceFor} from '../../data/referenceBoards';
@@ -119,7 +119,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
     const dims = mine ? d.dims : pickDims(b), tpl = templateFor({type: b.type, length: dims.length}), o = loadOutline(b.id), tail = mine ? d.tail : b.tail;
     // an example model (no outline of the person's own): its own hull at its own numbers, its procedural deck pattern along its traced outline
     const ref = o ? null : referenceFor(b), rt = ref ? referenceTpl(b, dims, tail) : null, tr = rt ?? (o ? tracedTpl(b.id, tpl, o) : null);
-    return {id: b.id, spec: {template: tpl, ...dims, tail, ...(rt ? {exact: true, softTop: !!ref?.softTop} : {})}, look: mine ? d.look : loadLook(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {}), ...(ref ? {patternHw: ref.hw} : {})};
+    return {id: b.id, spec: {template: tpl, ...dims, tail, ...(rt ? {exact: true, softTop: !!ref?.softTop} : {})}, look: mine ? d.look : loadLook(b), trim: trimFor(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {}), ...(ref ? {patternHw: ref.hw} : {})};
   };
   // T-072 (Porsche pattern): the angle thumbnails are rendered from the live scene, so they show this board as configured right now.
   const [thumbs, setThumbs] = useState<Record<string, string>>({}), thumbTimer = useRef(0);
@@ -159,7 +159,13 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
 
   // Phones: a quick sideways flick on the stage steps the angle; slower drags orbit.
   const flick = useRef<{x: number; y: number; t: number} | null>(null);
-  const onDown = (e: RPointerEvent) => { if (e.pointerType === 'touch') flick.current = {x: e.clientX, y: e.clientY, t: performance.now()}; };
+  const hotTimer = useRef(0);
+  useEffect(() => () => window.clearTimeout(hotTimer.current), []);
+  const onDown = (e: RPointerEvent) => {
+    if (e.pointerType === 'touch') flick.current = {x: e.clientX, y: e.clientY, t: performance.now()};
+    // quiver-look: a touch on the board itself (not the stage's controls) shows the hotspots for a while; hover and focus show them on desktop
+    if (e.pointerType !== 'mouse' && e.target instanceof HTMLCanvasElement) { const st = wrap.current; st?.classList.add('hot-on'); window.clearTimeout(hotTimer.current); hotTimer.current = window.setTimeout(() => st?.classList.remove('hot-on'), 4000); }
+  };
   const onUp = (e: RPointerEvent) => {
     const f = flick.current; flick.current = null;
     if (!f || compare || performance.now() - f.t > 350) return;
