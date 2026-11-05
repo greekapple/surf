@@ -54,6 +54,11 @@ export const BOARD = {
   lengthM: 1.83, widthM: 0.49,
   /** the model board's width per style band when the quiver is empty (a wider fish under 4 ft, a pulled-in gun from 10 ft) */
   bandWidthM: {A: 0.53, B: 0.49, C: 0.47, D: 0.46} as Record<'A' | 'B' | 'C' | 'D', number>,
+  /** R16 (correction cycle 1): the sim's contact plane (the plane the bottom probes sit on, what rides on the water) lies this far under
+   *  the drawn board's lowest point (the fin tips, as R11-R15 measured the Quiver board), times sqrt(length / 1.83). The sole plant pulls
+   *  the body 2-4 cm down to the deck the keys floated over; the board rides that much higher, so the rider keeps the R15 offset from the
+   *  face (the frontside clip probes read 4 / 4 with the plant alone, R15 1 / 2). */
+  contactBelowM: 0.03,
   /** the plane-fit chord along the board as a fraction of its half length */
   endPoint: 0.84,
   /** the contact probes on the mesh's bottom plane (m in from the ends/rails, up from the bottom): the monitor's gaps, the sim's rail
@@ -405,6 +410,8 @@ export const BODY = {
   armsDownDeg: 0,   // R6: the v5 keys hold the arms where the real sequences do; nothing procedural pulls them further
   /** two-bone leg IK: the knee pole points over the toes (rider-frame +z) splayed this much toward the board's end on that leg's side */
   kneePole: {splay: 0.05, footShare: 0.3, maxX: 0.2},
+  /** R16: the lowest sole point is planted this far over the drawn deck (m), on every board, in every blended pose */
+  soleGapM: 0.003,
   /** the leg on the nose side: index into the IK legs [l, r] (the model is goofy: right foot forward; the mirror does not change it) */
   frontLeg: 1,
   /** arm IK (M7): the elbow pole (rider frame: out toward that arm's board end, down, back behind the chest), how far (m) the skill's

@@ -84,7 +84,66 @@ export class RiderBody {
   private readonly qa = new THREE.Quaternion(); private readonly qb = new THREE.Quaternion(); private readonly qp = new THREE.Quaternion(); private readonly qd = new THREE.Quaternion();
   private readonly va = new THREE.Vector3(); private readonly vLean = new THREE.Vector3(); private readonly vb = new THREE.Vector3(); private readonly vc = new THREE.Vector3(); private readonly vd = new THREE.Vector3(); private readonly ve = new THREE.Vector3(); private readonly pole = new THREE.Vector3(); private readonly tgt = new THREE.Vector3(); private readonly vf = new THREE.Vector3(); private readonly vg = new THREE.Vector3(); private readonly mA = new THREE.Matrix4(); private readonly mB = new THREE.Matrix4();
   private readonly w = new Float32Array(POSES.length); private readonly wa = new Float32Array(POSES.length); private readonly isArm: boolean[];
-  readonly ankleT = new Float32Array(6); private readonly footT = new Float32Array(8); private readonly footFT = new Float32Array(6); private readonly wristT = new Float32Array(6); private readonly handT = new Float32Array(8);
+  readonly ankleT = new Float32Array(6); private readonly footT = new Float32Array(8); readonly footFT = new Float32Array(6); private readonly wristT = new Float32Array(6); private readonly handT = new Float32Array(8);
+  /** R16: the deck the feet are planted on. `deckAt` is the DRAWN board's deck height at (x, z) in the rider frame (metres, scaled with
+   *  the board), `deckRef` the reference board's the keys were authored on (boardMesh.ts REFERENCE_BOARD, the same deck the Blender
+   *  builder planted the soles on): each ankle target moves by the difference under the sole's centre and the sole tilts from the
+   *  reference deck's normal to the drawn deck's, so a Quiver board's dome and rocker (or the band-scaled model board) carry the feet.
+   *  Both null (or the same function) leaves the keys untouched. */
+  deckAt: ((x: number, z: number) => number) | null = null; deckRef: ((x: number, z: number) => number) | null = null;
+  /** R16: per foot this frame: the deck shift applied (m) and the sole's tilt (deg), for the probe */ readonly footLift = [0, 0]; readonly footTilt = [0, 0];
+  private readonly footAdj = new Float32Array(8); private readonly nRef = new THREE.Vector3(); private readonly nNow = new THREE.Vector3(); private readonly qTilt = new THREE.Quaternion();
+  /** R16: the sole points per leg (the lowest vertices of the foot mesh in the bind pose, in the foot bone's and the ball bone's own
+   *  frames): each frame the lowest of them is planted BODY.soleGapM over the drawn deck by moving the ankle target, whatever the key's
+   *  own height was (the builder plants the lower foot per key; the other floated up to 3 cm) */
+  private sole: {foot: Float32Array; ball: Float32Array; ballIdx: number}[] | null = null; private readonly qSole = new THREE.Quaternion(); private readonly vSole = new THREE.Vector3();
+  /** the sole's gap over the deck after the plant (m), per foot, for the probe */ readonly soleGap = [0, 0];
+  /** the mean of the two feet's lifts this frame (m): the pelvis and the hands move by it, so the body follows its feet to the deck */ plantShift = 0;
+  /** R16: the feet on the drawn deck. Per leg: the sole tilts from the reference deck's normal to the drawn deck's under the sole's centre
+   *  (~9 cm ahead of the ankle along the foot) and the lowest sole point (the foot's and the ball's, rotated as the foot will be) is put
+   *  BODY.soleGapM over deckAt(x, z) by moving the ankle target; the targets go back into ankleT, the foot rotations into footAdj. */
+  private plantFeet(all: THREE.Bone[]) {
+    let sum = 0;
+    for (let k = 0; k < 2; k++) {
+      this.tgt.set(this.ankleT[k * 3], this.ankleT[k * 3 + 1], this.ankleT[k * 3 + 2]); this.footLift[k] = 0; this.footTilt[k] = 0;
+      for (let q = 0; q < 4; q++) this.footAdj[k * 4 + q] = this.footT[k * 4 + q];
+      if (this.deckAt && this.deckRef && this.deckAt !== this.deckRef) {
+        const cx = this.tgt.x + 0.09 * this.footFT[k * 3], cz = this.tgt.z + 0.09 * this.footFT[k * 3 + 2], e = 0.01, dA = this.deckAt, dR = this.deckRef;
+        this.nRef.set(-(dR(cx + e, cz) - dR(cx - e, cz)) / (2 * e), 1, -(dR(cx, cz + e) - dR(cx, cz - e)) / (2 * e)).normalize();
+        this.nNow.set(-(dA(cx + e, cz) - dA(cx - e, cz)) / (2 * e), 1, -(dA(cx, cz + e) - dA(cx, cz - e)) / (2 * e)).normalize();
+        this.qTilt.setFromUnitVectors(this.nRef, this.nNow); this.footTilt[k] = 2 * Math.acos(Math.min(1, Math.abs(this.qTilt.w))) / D2R;
+        this.qa.set(this.footT[k * 4], this.footT[k * 4 + 1], this.footT[k * 4 + 2], this.footT[k * 4 + 3]); this.qa.premultiply(this.qTilt);
+        this.footAdj[k * 4] = this.qa.x; this.footAdj[k * 4 + 1] = this.qa.y; this.footAdj[k * 4 + 2] = this.qa.z; this.footAdj[k * 4 + 3] = this.qa.w;
+      }
+      if (this.sole && this.deckAt) {
+        const S = this.sole[k], dA = this.deckAt, qF = this.qSole.set(this.footAdj[k * 4], this.footAdj[k * 4 + 1], this.footAdj[k * 4 + 2], this.footAdj[k * 4 + 3]), pt = this.vSole; let gap = Infinity;
+        for (let i = 0; i < S.foot.length; i += 3) { pt.set(S.foot[i], S.foot[i + 1], S.foot[i + 2]).applyQuaternion(qF).add(this.tgt); const g = pt.y - dA(pt.x, pt.z); if (g < gap) gap = g; }
+        if (S.ballIdx >= 0 && S.ball.length) { const bb = all[S.ballIdx]; this.qb.copy(qF).multiply(bb.quaternion); this.vd.copy(bb.position).applyQuaternion(qF).add(this.tgt);
+          for (let i = 0; i < S.ball.length; i += 3) { pt.set(S.ball[i], S.ball[i + 1], S.ball[i + 2]).applyQuaternion(this.qb).add(this.vd); const g = pt.y - dA(pt.x, pt.z); if (g < gap) gap = g; } }
+        if (gap < Infinity) { const lift = THREE.MathUtils.clamp(BODY.soleGapM - gap, -0.08, 0.08); this.ankleT[k * 3 + 1] += lift; this.footLift[k] = lift; this.soleGap[k] = gap + lift; }
+      }
+      sum += this.footLift[k];
+    }
+    this.plantShift = sum / 2;
+    for (let k = 0; k < 2; k++) this.wristT[k * 3 + 1] += this.plantShift;   // the hands ride with the body
+  }
+  setSole(mesh: THREE.SkinnedMesh) {
+    const names = mesh.skeleton.bones.map((b) => b.name), si = mesh.geometry.getAttribute('skinIndex'), sw = mesh.geometry.getAttribute('skinWeight'), pos = mesh.geometry.getAttribute('position'), v = new THREE.Vector3(), out: typeof this.sole = [];
+    for (const side of ['l', 'r']) {
+      const pick = (bone: string): Float32Array => {
+        const bi = names.indexOf(bone); if (bi < 0) return new Float32Array(0);
+        const toLocal = new THREE.Matrix4().multiplyMatrices(mesh.skeleton.boneInverses[bi], mesh.bindMatrix), cands: {y: number; p: THREE.Vector3}[] = [];
+        for (let i = 0; i < pos.count; i++) { let w = 0; for (let q = 0; q < 4; q++) if (si.getComponent(i, q) === bi) w += sw.getComponent(i, q); if (w < 0.5) continue;
+          v.fromBufferAttribute(pos, i); const y = v.clone().applyMatrix4(mesh.bindMatrix).y; cands.push({y, p: v.clone().applyMatrix4(toLocal)}); }
+        // the sole: every vertex within 12 mm of the foot's lowest point in the bind pose (the heel, the ball, the toes, both edges), at most 240
+        cands.sort((a, b) => a.y - b.y); const floor = cands.length ? cands[0].y + 0.012 : 0; let n = 0; while (n < cands.length && n < 240 && cands[n].y <= floor) n++; const arr = new Float32Array(n * 3);
+        for (let i = 0; i < n; i++) { arr[i * 3] = cands[i].p.x; arr[i * 3 + 1] = cands[i].p.y; arr[i * 3 + 2] = cands[i].p.z; }
+        return arr;
+      };
+      out.push({foot: pick('foot_' + side), ball: pick('ball_' + side), ballIdx: this.bones.byName.get('ball_' + side) ?? -1});
+    }
+    this.sole = out;
+  }
   readonly idx: Record<string, number>;
   private readonly upRoot = new THREE.Vector3(0, 1, 0); private readonly rootInv = new THREE.Quaternion(); private readonly feetMid = new THREE.Vector3(); private readonly feetMidR = new THREE.Vector3(); private readonly qLean = new THREE.Quaternion();
   private readonly legs: Chain[]; private readonly arms: Chain[];
@@ -169,9 +228,13 @@ export class RiderBody {
     }
     for (let k = 0; k < 6; k++) { let v = 0, h = 0, f = 0; for (let i = 0; i < POSES.length; i++) { v += w[i] * lib.ankle[i][k]; h += wa[i] * lib.wrist[i][k]; f += w[i] * lib.footF[i][k]; } this.ankleT[k] = v; this.wristT[k] = h; this.footFT[k] = f; }
     for (let k = 0; k < 2; k++) { blendQ(lib.footQ, w, k, this.footT, k * 4, this.primed); blendQ(lib.handQ, wa, k, this.handT, k * 4, this.primed); }
+    // R16: plant the feet on the drawn deck (the ankle targets and the soles' tilt), then move the BODY with them: the pelvis and the hands
+    // shift by the mean lift, so the keys' leg bend and the rider's height over the deck stay as authored (correction cycle 1: with the
+    // feet alone pulled 2-4 cm down to a Quiver board's deck the knees and calves dropped into the face and the frontside clip probes doubled)
+    this.plantFeet(all);
     // 2. compression and idle bob on the pelvis (along the rider's up, in the Root's frame)
     const I = this.idx, pr = inp.profile;
-    if (I.pelvis >= 0) { const pel = all[I.pelvis]; this.hipY = pel.position.dot(this.upRoot); pel.position.addScaledVector(this.upRoot, -(BODY.compressM * inp.comp) + BODY.idleBobM * inp.idleA); }
+    if (I.pelvis >= 0) { const pel = all[I.pelvis]; this.hipY = pel.position.dot(this.upRoot); pel.position.addScaledVector(this.upRoot, -(BODY.compressM * inp.comp) + BODY.idleBobM * inp.idleA + this.plantShift); }
     // 3. the chain, parents first, applying each bone's procedural rotation before composing its rider-frame matrix
     // R8: the lean answers the deck's ROLL (across the board). Once the board pitches steeply along its axis (the snap's pivot up the face,
     // |pitch| from 15 to 60 deg, BODY.leanPitchFadeDeg) the along-board share of the tilt is faded out of it: a pivot about the feet
@@ -312,8 +375,8 @@ export class RiderBody {
     for (let k = 0; k < 2; k++) {
       this.pole.set(THREE.MathUtils.clamp(BODY.kneePole.footShare * this.footFT[k * 3], -BODY.kneePole.maxX, BODY.kneePole.maxX), 0, Math.max(0.3, this.footFT[k * 3 + 2])); this.pole.normalize(); this.pole.x += BODY.kneePole.splay * (k === BODY.frontLeg ? -1 : 1);
       if (leanOn) this.pole.applyQuaternion(this.qLean);
-      this.tgt.set(this.ankleT[k * 3], this.ankleT[k * 3 + 1], this.ankleT[k * 3 + 2]);
-      this.solveChain(this.legs[k], this.tgt, this.pole, this.footT, k, BODY.limits.kneeMin, BODY.limits.kneeMax);
+      this.tgt.set(this.ankleT[k * 3], this.ankleT[k * 3 + 1], this.ankleT[k * 3 + 2]);   // planted by plantFeet (the lift is in ankleT, the sole's tilt in footAdj)
+      this.solveChain(this.legs[k], this.tgt, this.pole, this.footAdj, k, BODY.limits.kneeMin, BODY.limits.kneeMax);
     }
     // 5. arms (M7): each hand solved to its blended library position in the rider (board) frame, shifted a little to counter the rail roll
     //    (toward the high rail) and out by the skill's arms-out; the elbow pole down and behind; the hand's rotation from the library

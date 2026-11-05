@@ -11,7 +11,9 @@ import {BOARD, BODY, MONITOR, POLE, RIDE, SIM, WAKE, bandBoardFt, bandFor} from 
 import type {Skill} from '../../models/index';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
-import {boardGeometry, boardShape} from './boardMesh';
+import {REFERENCE_BOARD, boardCurves, boardParamsFor, type BoardParams} from './boardMesh';
+import {buildBoardObject, type BoardObject} from './boardObject';
+import {loadLook} from '../quiver/looks';
 import {loadOutline} from '../quiver/outline';
 import type {Surfboard} from '../../models/index';
 
@@ -519,7 +521,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       for (let i = 0; i <= n; i++) { const f = i / n, x = x0 + f * 1900, rise = Math.pow(f, 0.7), hgt = Math.min(1, f * 10) * (6 + (24 + 86 * rise) * (1 - 0.35 * Math.max(0, 1 - f * 6)) * (0.9 + 0.1 * Math.sin(f * 17 + 1) + 0.06 * Math.sin(f * 41)));   /* rises out of the beach over its first 190 m (no cut edge) */ arr[i * 6] = x; arr[i * 6 + 1] = -2; arr[i * 6 + 2] = -(shore + 160 + f * 140); arr[i * 6 + 3] = x; arr[i * 6 + 4] = hgt; arr[i * 6 + 5] = -(shore + 160 + f * 140); }
       pa.needsUpdate = true; headland.visible = true;
     };
-    let custom: THREE.Mesh | null = null, surfer: THREE.Object3D | null = null, spray: Spray | null = null, disposed = false, dir: 'left' | 'right' = 'left';
+    let boardObj: BoardObject | null = null, boardHolder: THREE.Group | null = null, surfer: THREE.Object3D | null = null, spray: Spray | null = null, disposed = false, dir: 'left' | 'right' = 'left';
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true; controls.dampingFactor = 0.08; controls.enablePan = false; controls.minPolarAngle = THREE.MathUtils.degToRad(10); controls.maxPolarAngle = THREE.MathUtils.degToRad(88);
     controls.minDistance = 2.2; controls.maxDistance = 70; controls.rotateSpeed = 0.7; controls.zoomSpeed = 0.9; controls.touches = {ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE};
@@ -625,28 +627,27 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const F = new THREE.Vector3(), U = new THREE.Vector3(), Rv = new THREE.Vector3(), Zc = new THREE.Vector3(), posV = new THREE.Vector3(), prevTail = new THREE.Vector3(), noseV = new THREE.Vector3(), upR = new THREE.Vector3(), velV = new THREE.Vector3();
     let haveVel = false, follow = true, dragUntil = 0;
     const camS = [new Spring(), new Spring(), new Spring()];
-    /** The board object and its bounds in its own frame. The v3 asset's Board is a Group of child meshes (one per material), a quiver board a
-     *  single Mesh, so the bounds are the union of every mesh under it (Codex P1 on 9682084: reading .geometry on the Group threw). Cached. */
+    /** The board object (R16: built by the viewer, `mountBoard`) and its bounds in its own frame: the union of every mesh under it
+     *  (Codex P1 on 9682084: reading .geometry on the Group threw). Cached per object. */
     const boardBounds = new WeakMap<THREE.Object3D, THREE.Box3>();
     const boardOf = (): {obj: THREE.Object3D; box: THREE.Box3} | null => {
-      const obj = custom ?? surfer?.getObjectByName('Board'); if (!obj) return null;
+      const obj = boardObj?.group; if (!obj || !boardObj) return null;
       let box = boardBounds.get(obj);
       if (!box) {
-        const b = new THREE.Box3(), inv = new THREE.Matrix4(), m = new THREE.Matrix4(); obj.updateMatrixWorld(true); inv.copy(obj.matrixWorld).invert();
-        obj.traverse((c) => { const mesh = c as THREE.Mesh; if (!mesh.isMesh || !mesh.geometry) return; const g = mesh.geometry; if (!g.boundingBox) g.computeBoundingBox();
-          b.union(g.boundingBox!.clone().applyMatrix4(m.multiplyMatrices(inv, mesh.matrixWorld))); });
-        if (b.isEmpty()) return null; box = b; boardBounds.set(obj, box);
+        // the board's box (fins included, as the R15 Quiver board's was), its floor dropped by BOARD.contactBelowM to the contact plane
+        const hb = boardObj.data.bounds, L = boardObj.curves.L;
+        box = new THREE.Box3(new THREE.Vector3(hb.min[0], hb.min[1] - BOARD.contactBelowM * Math.sqrt(L / 1.83), hb.min[2]), new THREE.Vector3(hb.max[0], hb.max[1], hb.max[2])); boardBounds.set(obj, box);
       }
       return {obj, box};
     };
     /** The drawn board's size for the simulation: the bounds in its own frame times its scale (the model's board is scaled to the band). */
     const simBoard = () => { const bd = boardOf(); if (bd && sim) { sim.setBoard((bd.box.max.x - bd.box.min.x) * bd.obj.scale.x, (bd.box.max.z - bd.box.min.z) * bd.obj.scale.z, bd.box.min.y * bd.obj.scale.y); sim.riderScale = surferRef.current / SURFER_MODEL_M; } };   // R12: the roof cap's crown scales with the rider
-    /** No quiver board: the model's 6'0" x 19.3" board is scaled to the band's length (for the person's height) and width (brief part 2). */
+    /** No quiver board: the reference 5'10" x 19 1/4" board is scaled to the band's length (for the person's height) and width (brief part 2). */
     const fitModelBoard = (H: number) => {
-      const orig = surfer?.getObjectByName('Board'); if (!orig || custom) return;
+      if (!boardObj || boardObj.params !== REFERENCE_BOARD) return;
       const faceFt = H / 0.3048, band = bandFor(faceFt), [lo, hi] = bandBoardFt(band, faceFt), riderFt = surferRef.current / 0.3048;
       const lenM = (lo + hi) / 2 * 0.3048 * riderFt / (5 + 10 / 12), bd = boardOf(); if (!bd) return;
-      orig.scale.set(lenM / (bd.box.max.x - bd.box.min.x), 1, BOARD.bandWidthM[band.id] / (bd.box.max.z - bd.box.min.z)); orig.updateMatrixWorld(true);
+      boardObj.group.scale.set(lenM / (bd.box.max.x - bd.box.min.x), 1, BOARD.bandWidthM[band.id] / (bd.box.max.z - bd.box.min.z)); boardObj.group.updateMatrixWorld(true);
       el.dataset.board = JSON.stringify({id: 'model', band: band.id, length_m: Math.round(lenM * 1000) / 1000, width_m: BOARD.bandWidthM[band.id]});
     };
     /** Board-to-face gaps (m, signed normal distance to the face, + out of the water): at the board's bottom centre, and the lowest of the tail, nose and both rails. Allocation-free. */
@@ -687,6 +688,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       upR.set(noseV.y, U.y, Zc.y);   // world up in the rider frame (the basis is orthonormal, mirrored or not)
       probeT = t; if (!body.faceProbe) body.faceProbe = faceProbe;   // R12: the arms' face clamp reads the water through this
       body.pose(st, {upR, roll: st[S.ROLL], lead: st[S.LEAD], comp: st[S.COMP], idleA: st[S.IDLE_A], idleB: st[S.IDLE_B], mirror: frontside ? 1 : -1, profile: sim.plan.profile, dt, turning: 1 - Math.max(0, st[S.W0])});
+      if (boardObj) for (let k = 0; k < 2; k++) { const fx = body.footFT[k * 3], fz = body.footFT[k * 3 + 2]; boardObj.placeBlob(k, body.ankleT[k * 3] + 0.09 * fx, body.ankleT[k * 3 + 2] + 0.09 * fz, Math.atan2(-fx, -fz), 0.46, 0.3, st[S.VIS]); }   // R16: the contact shadows under the soles
       surfer.matrix.copy(Mb); surfer.updateMatrixWorld(true);
       if (body.posedHead) sim.setHead(body.headR.x, body.headR.y, body.headR.z, body.neckR.x, body.neckR.y, body.neckR.z);   // R12: the roof cap's crown
       const vis = st[S.VIS]; if (Math.abs(vis - shownVis) > 0.002) { shownVis = vis; for (const mm of fadeMats) { mm.opacity = vis; mm.depthWrite = vis > 0.98; } }
@@ -861,7 +863,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
           const ride = THREE.AnimationClip.findByName(s.clips, 'ride'), still = THREE.AnimationClip.findByName(s.clips, 'still');
           const clip = ride ?? still;
           if (clip) {
-            const {bones, lib} = samplePoses(surfer, clip); body = new RiderBody(bones, lib);
+            const {bones, lib} = samplePoses(surfer, clip); body = new RiderBody(bones, lib); hookDeck(); { const bm = bodyMesh(); if (bm) body.setSole(bm); }   // R16: the soles' points for the plant
             surfer.traverse((o) => { const sm = o as THREE.SkinnedMesh; if (headFwdLocal || !sm.isSkinnedMesh) return; const i = sm.skeleton.bones.findIndex((b) => b.name === 'head'); if (i >= 0) headFwdLocal = new THREE.Vector3(0, 0, 1).transformDirection(sm.skeleton.boneInverses[i]); });   // R11: the head's forward (the face, +z in the bind pose) in the bone's frame, for the yaw layer and the probe
             body.headFwd = headFwdLocal;
             monitor.track(bones.all, surfer.getObjectByName('Board') ?? null, surfer);
@@ -892,22 +894,53 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       if (l) { hemi.color.copy(c(l.hemiSky)); hemi.groundColor.copy(c(l.hemiGround)); hemi.intensity = l.hemiIntensity; } else { hemi.color.set(0xdfeaf2); hemi.groundColor.set(0x2b5d70); hemi.intensity = 1.1; }
       el.dataset.sunEl = l ? String(Math.round(l.elevation * 10) / 10) : ''; el.dataset.light = l ? l.phase : 'neutral';
     };
-    // P5b: the selected Quiver board replaces the model's board at its true size, the deck under the feet where the model's was
+    // R16: the viewer builds the board (boardMesh.ts buildBoard, the one function the Quiver uses too) and parents it to the `board` bone:
+    // the reference 5'10" (scaled to the band) or the selected Quiver board at its true size (P5b), with the deck colour of its look.
+    // The GLB-baked board of surfer-v11 and older (a 6'0" with a second formula) is dropped when present; the feet follow the drawn
+    // deck through RiderBody.deckAt (the keys were planted on the reference deck, board-deck.json).
+    const REF_CURVES = boardCurves(REFERENCE_BOARD), boardM = new THREE.Matrix4();
+    const hookDeck = () => { if (!body || !boardObj) return; const g = boardObj.group, c = boardObj.curves; body.deckRef = REF_CURVES.deckAt; body.deckAt = (x, z) => c.deckAt(x / g.scale.x, z / g.scale.z) * g.scale.y; };
+    const mountBoard = (params: BoardParams, deckColor?: number) => {
+      if (!surfer) return;
+      if (!boardHolder) {
+        const old = surfer.getObjectByName('Board'); if (old) old.removeFromParent();
+        const bone = surfer.getObjectByName('board') ?? surfer; surfer.updateMatrixWorld(true);
+        // the holder sits at the rider frame's identity under the bone (the bone is at its rest in every key): its local = inverse of the bone's rider-frame rest
+        boardHolder = new THREE.Group(); boardHolder.name = 'BoardHolder'; boardM.copy(surfer.matrixWorld).invert().multiply(bone.matrixWorld).invert(); boardM.decompose(boardHolder.position, boardHolder.quaternion, boardHolder.scale); bone.add(boardHolder);
+      }
+      if (boardObj) { boardHolder.remove(boardObj.group, boardObj.shadows); for (const m of boardObj.materials) { const i = fadeMats.indexOf(m); if (i >= 0) fadeMats.splice(i, 1); } boardObj.dispose(); boardObj = null; }
+      boardObj = buildBoardObject(params, deckColor); for (const m of boardObj.materials) { m.transparent = true; fadeMats.push(m); }
+      boardHolder.add(boardObj.group, boardObj.shadows); surfer.updateMatrixWorld(true); hookDeck();
+    };
     const setBoard = (b: Surfboard | null) => {
       if (!surfer) return;
-      if (custom) { custom.parent?.remove(custom); custom.geometry.dispose(); const cm = custom.material as THREE.Material; cm.dispose(); const i = fadeMats.indexOf(cm); if (i >= 0) fadeMats.splice(i, 1); custom = null; }
-      const orig = surfer.getObjectByName('Board'); if (!orig) return;
-      orig.visible = !b; delete el.dataset.board; if (!b) { if (cur) { fitModelBoard(cur.atlas.meta.face_m); simBoard(); } return; }
-      orig.scale.set(1, 1, 1); orig.updateMatrixWorld(true);   // the quiver board takes the model board's unscaled frame
-      const g = boardGeometry(boardShape(b, loadOutline(b.id)?.hw ?? null)), geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(g.positions, 3)); geo.setIndex(g.indices); geo.computeVertexNormals();
-      let base: THREE.Material | null = null; orig.traverse((o) => { const mm = (o as THREE.Mesh).material as THREE.Material | undefined; if (mm && !base) base = mm; });
-      const mat: THREE.Material = base ? (base as THREE.Material).clone() : new THREE.MeshStandardMaterial({color: 0xf2f0ea, roughness: 0.45}); mat.side = THREE.DoubleSide;
-      mat.transparent = true; fadeMats.push(mat);
-      custom = new THREE.Mesh(geo, mat); custom.name = 'QuiverBoard'; custom.position.copy(orig.position); custom.quaternion.copy(orig.quaternion); custom.scale.copy(orig.scale);
-      orig.parent?.add(custom); surfer.updateMatrixWorld(true);
-      geo.computeBoundingBox(); const bx = geo.boundingBox!; el.dataset.board = JSON.stringify({id: b.id, length_m: Math.round((bx.max.x - bx.min.x) * 1000) / 1000, width_m: Math.round((bx.max.z - bx.min.z) * 1000) / 1000});
+      delete el.dataset.board;
+      if (!b) { mountBoard(REFERENCE_BOARD); if (cur) fitModelBoard(cur.atlas.meta.face_m); simBoard(); return; }
+      mountBoard(boardParamsFor(b, loadOutline(b.id)?.hw ?? null), new THREE.Color(loadLook(b).deck).getHex());
+      const bx = boardObj!.data.bounds; el.dataset.board = JSON.stringify({id: b.id, length_m: Math.round((bx.max[0] - bx.min[0]) * 1000) / 1000, width_m: Math.round((bx.max[2] - bx.min[2]) * 1000) / 1000});
       simBoard();   // the sim rides the new board's bottom and rails
+    };
+    /** R16 dev: each foot's sole against the drawn deck (board frame): the lowest foot vertex's height over the deck under it (mm, negative =
+     *  through the deck), where it is, the sole's centre, how many vertices sit more than 1 mm through, plus the deck-follow shift and tilt. */
+    /** the body's skinned mesh (the hair cap is skinned too, so the one with the most vertices) */
+    const bodyMesh = (): THREE.SkinnedMesh | null => { let sm: THREE.SkinnedMesh | null = null; surfer?.traverse((o) => { const m = o as THREE.SkinnedMesh; if (m.isSkinnedMesh && (!sm || m.geometry.getAttribute('position').count > sm.geometry.getAttribute('position').count)) sm = m; }); return sm; };
+    let footVerts: {mesh: THREE.SkinnedMesh; l: number[]; r: number[]} | null = null;
+    const footContact = () => {
+      if (!surfer || !boardObj || !boardHolder) return null;
+      if (!footVerts) {
+        const sm = bodyMesh(); if (!sm) return null;
+        const skinned = sm as THREE.SkinnedMesh, names = skinned.skeleton.bones.map((bn) => bn.name), si = skinned.geometry.getAttribute('skinIndex'), sw = skinned.geometry.getAttribute('skinWeight'), l: number[] = [], r: number[] = [];
+        for (let i = 0; i < si.count; i++) { let wl = 0, wr = 0; for (let q = 0; q < 4; q++) { const n = names[si.getComponent(i, q)], w = sw.getComponent(i, q); if (n === 'foot_l' || n === 'ball_l') wl += w; if (n === 'foot_r' || n === 'ball_r') wr += w; } if (wl > 0.5) l.push(i); if (wr > 0.5) r.push(i); }
+        footVerts = {mesh: skinned, l, r};
+      }
+      const inv = new THREE.Matrix4().copy(boardHolder.matrixWorld).invert(), g = boardObj.group, c = boardObj.curves, out: Record<string, unknown> = {}, v = new THREE.Vector3();
+      for (const [side, list] of [['l', footVerts.l], ['r', footVerts.r]] as const) {
+        let min = Infinity, mx = 0, mz = 0, sx = 0, sz = 0, below = 0;
+        for (const i of list) { footVerts.mesh.getVertexPosition(i, v); v.applyMatrix4(footVerts.mesh.matrixWorld).applyMatrix4(inv); const d = v.y - c.deckAt(v.x / g.scale.x, v.z / g.scale.z) * g.scale.y; sx += v.x; sz += v.z; if (d < min) { min = d; mx = v.x; mz = v.z; } if (d < -0.001) below++; }
+        out[side] = {soleToDeckMm: Math.round(min * 10000) / 10, at: [Math.round(mx * 100) / 100, Math.round(mz * 100) / 100], centre: [Math.round(sx / list.length * 100) / 100, Math.round(sz / list.length * 100) / 100], throughCount: below, verts: list.length};
+      }
+      out.liftMm = body ? body.footLift.map((x) => Math.round(x * 1000)) : null; out.plantedGapMm = body ? body.soleGap.map((x) => Math.round(x * 10000) / 10) : null; out.tiltDeg = body ? body.footTilt.map((x) => Math.round(x * 10) / 10) : null; out.boardScale = [Math.round(g.scale.x * 100) / 100, Math.round(g.scale.z * 100) / 100];
+      return out;
     };
     /** The rider's own inputs: the profile's skill, the forecast hour's seed, the stance (null: a seeded default per spot-hour). */
     const setRider = (o: {skill?: Skill; seed?: number; stance?: Stance | null}) => {
@@ -917,7 +950,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const setPole = (on: boolean) => { pole.visible = on; el.dataset.pole = on ? '1' : '0'; };
     api.current = {setWave, setDir, setLight, setBoard, setRider, setPole};
     setLight(lightRef.current);
-    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, body: () => body, profile: (x: number, t?: number) => (cur ? profileAt(cur.atlas, x, t ?? u.uTime.value, 192, true) : null), atlasMeta: () => cur?.atlas.meta ?? null, breakX: (t?: number) => (cur ? breakX(cur.atlas.meta, t ?? u.uTime.value) : null), wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake, cfg: {BODY, RIDE, BOARD}, scene: group};   // R13: cfg: the live config objects (the limb audit switches layers off one at a time); scene: the wave group (the spray and the wake) // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
+    if (import.meta.env.DEV) (window as unknown as {__wave?: unknown}).__wave = {camera, controls, uniforms: u, sync, setWave, setDir, setBoard, setRider, setPole, setLight, rider: () => rider, probe: probeRider, footContact, board: () => boardObj, surfer: () => surfer, sim: () => sim, glitches: () => monitor.counts, resetGlitches: () => monitor.reset(), poleCheck, body: () => body, profile: (x: number, t?: number) => (cur ? profileAt(cur.atlas, x, t ?? u.uTime.value, 192, true) : null), atlasMeta: () => cur?.atlas.meta ?? null, breakX: (t?: number) => (cur ? breakX(cur.atlas.meta, t ?? u.uTime.value) : null), wake: () => ({n: wk.n, visible: wake.visible, pos: Array.from(wk.pos.slice((WK - 1) * 6)), a: Array.from(wk.a.slice(WK * 2 - 2))}), wakeMesh: wake, cfg: {BODY, RIDE, BOARD}, scene: group};   // R13: cfg: the live config objects (the limb audit switches layers off one at a time); scene: the wave group (the spray and the wake) // dev-only hook for QA: setWave draws any spec; rider is the last RiderSample; glitches the monitor's counts
 
     // render loop: only while visible and the tab is shown
     let frames = 0, statAt = performance.now(), visible = true, raf = 0, last = performance.now(), t0 = last, worst = 0;
@@ -939,7 +972,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const onLost = (e: Event) => { e.preventDefault(); cb.current.onFail?.(); }; canvas.addEventListener('webglcontextlost', onLost);
     return () => {
       disposed = true; cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', vis); canvas.removeEventListener('webglcontextlost', onLost); controls.dispose();
-      strip.geometry.dispose(); sea.geometry.dispose(); beach.geometry.dispose(); beachMat.dispose(); headland.geometry.dispose(); headMat.dispose(); spray?.pts.geometry.dispose(); wkGeo.dispose(); wkMat.dispose(); tex.value?.dispose(); if (custom) { custom.geometry.dispose(); (custom.material as THREE.Material).dispose(); }
+      boardObj?.dispose(); strip.geometry.dispose(); sea.geometry.dispose(); beach.geometry.dispose(); beachMat.dispose(); headland.geometry.dispose(); headMat.dispose(); spray?.pts.geometry.dispose(); wkGeo.dispose(); wkMat.dispose(); tex.value?.dispose();
       stripMat.dispose(); seaMat.dispose(); spMat.dispose(); sky.geometry.dispose(); (sky.material as THREE.Material).dispose(); renderer.dispose(); canvas.remove(); api.current = null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

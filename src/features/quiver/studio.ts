@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {REFERENCE_BOARD, boardParamsFor} from '../scale/boardMesh';
+import {quiverTemplate} from '../scale/boardObject';
 import {TINTS, type Look, type Template} from './looks';
 
 /** Scene units are inches: floor at y = 0. A board's own axes: +X nose, +Y deck, Z width. */
@@ -66,19 +68,16 @@ export function stationTpl(resin: THREE.Mesh, stringer: THREE.Mesh, width: numbe
   return out;
 }
 
+/** R16: the category templates come from the same `buildBoard` the wave rides (boardMesh.ts), no template GLBs any more: the shortboard
+ *  is the reference 5'10" x 19 1/4" x 2 3/8", the others the category defaults at a typical size (the rack rescales each to the record). */
+const TEMPLATE_BOARD: Record<Template, Parameters<typeof boardParamsFor>[0]> = {
+  shortboard: {type: 'Performance shortboard', length: 70, width: 19.25, thickness: 2.375}, fish: {type: 'Fish', length: 68, width: 21, thickness: 2.5}, longboard: {type: 'Longboard', length: 110, width: 22.5, thickness: 3},
+  gun: {type: 'Gun', length: 84, width: 19, thickness: 2.75}, midlength: {type: 'Midlength', length: 86, width: 21, thickness: 2.75},
+};
 function loadTemplate(name: Template): Promise<Tpl> {
   let p = tplCache.get(name);
   if (!p) {
-    p = loader.loadAsync(`${base()}board-${name}.glb`).then((g) => {
-      let resin: THREE.Mesh | undefined, stringer: THREE.Mesh | undefined, meta: {width?: number; thickness?: number} = {};
-      g.scene.traverse((o) => {
-        if (typeof o.userData?.thickness === 'number') meta = o.userData;
-        const m = o as THREE.Mesh;
-        if (m.isMesh) { if ((m.material as THREE.Material).name === 'Stringer') stringer = m; else resin = m; }
-      });
-      if (!resin || !stringer) throw new Error('board model is missing a part');
-      return stationTpl(resin, stringer, meta.width ?? 0.27, meta.thickness ?? 0.035);
-    });
+    p = Promise.resolve().then(() => { const t = quiverTemplate(name === 'shortboard' ? REFERENCE_BOARD : boardParamsFor(TEMPLATE_BOARD[name])); return stationTpl(t.resin, t.stringer, t.width, t.thickness); });
     tplCache.set(name, p);
   }
   return p;

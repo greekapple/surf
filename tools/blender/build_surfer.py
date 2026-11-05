@@ -1,4 +1,7 @@
-"""SWELLO surfer v11 (R15, 2026-11-05: the barrel crouch lower, hips 0.62 -> 0.58 of standing (the pig-dog stays at 0.62: its dropped back knee crossed the 140 deg gate in the viewer at 0.58 and 0.55, with the ride's own compression on top): the 6 ft tube's roof over the crouched head read 0.15-0.16 m at v10, the margin the tube flag wants and no more; v10 R14: the BACK arm bent 120-130 deg with the forearm across toward the front arm and the hand in front of the body, trim / pump / bottom / climb / recovery on both sides, backside a touch tighter, from the Surf Ranch and backside frames; v9 R13, 2026-11-04: the arms out and bent in the trim, pump and every backside key, as the skeleton traces of real
+"""SWELLO surfer v12 (R16, 2026-11-05: NO board in the GLB any more: the viewer builds the board itself (src/features/scale/boardMesh.ts, one
+buildBoard for the wave and the Quiver) and parents it to the `board` bone; the feet are keyed onto that board's deck, read from the exported
+grid tools/blender/assets/board-deck.json (node --experimental-strip-types tools/board-deck.ts), the reference 5'10" x 19 1/4" x 2 3/8";
+the back foot 0.06 m further back (BACK_X 0.36 -> 0.42, a 0.64 m stance) so it stands on the tail pad; v11 R15: the barrel crouch lower, hips 0.62 -> 0.58 of standing (the pig-dog stays at 0.62: its dropped back knee crossed the 140 deg gate in the viewer at 0.58 and 0.55, with the ride's own compression on top): the 6 ft tube's roof over the crouched head read 0.15-0.16 m at v10, the margin the tube flag wants and no more; v10 R14: the BACK arm bent 120-130 deg with the forearm across toward the front arm and the hand in front of the body, trim / pump / bottom / climb / recovery on both sides, backside a touch tighter, from the Surf Ranch and backside frames; v9 R13, 2026-11-04: the arms out and bent in the trim, pump and every backside key, as the skeleton traces of real
 surfers measure them; v8 R12: the frontside bottom turn's hands by the rails; v7 R8, 2026-11-05: the frontside bottom turn a touch lower with the chest on the front knee, the backside hit compact;
 v6 R7: the backside key set, the deeper bottom turn, the snap and cutback keys; v5 R6, 2026-11-05: whole-body keys re-authored against the real sequences in the lead's refs-motion index; v4 was spec
 2026-11-04-3d-surfer-realism Appendix M, v3 spec 2026-11-03 Track A): a rigged, skinned MPFB2 human (CC0)
@@ -9,11 +12,11 @@ motion). Goofy-foot frontside on a left; the viewer mirrors it for a right. Roun
 (trim knees ~45 deg, bottom turn ~85, barrel ~100), the hands stay between knee and chest height, the stance is 0.70 m.
 
 Run (MPFB is a user extension, so NOT --factory-startup):
-  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v11.glb [--preview DIR] [--board 1.83]
+  blender -b --python tools/blender/build_surfer.py -- --out tools/blender/assets/surfer-v12.glb [--preview DIR] [--deck board-deck.json]
 
 Frame of the exported model (Blender, z-up; glTF converts to y-up): board along x with the NOSE AT -X, the surfer faces -Y (toward the
 wave), the board's bottom at z = 0 at rest, true scale (the standing height is printed: SURFER_MODEL_M in WaveLive.tsx must match).
-Skeleton: the MPFB game_engine rig minus the fingers (23 body bones) plus a `board` bone (child of Root) the board mesh is parented to.
+Skeleton: the MPFB game_engine rig minus the fingers (23 body bones) plus a `board` bone (child of Root) the viewer parents its board to.
 Bank/yaw/pitch of the board inside the clips are rider-relative; the viewer banks the whole rider to the wave face.
 """
 import argparse
@@ -26,9 +29,9 @@ from mathutils import Matrix, Vector
 
 argv = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 ap = argparse.ArgumentParser()
-ap.add_argument('--out', default='tools/blender/assets/surfer-v11.glb')
+ap.add_argument('--out', default='tools/blender/assets/surfer-v12.glb')
 ap.add_argument('--preview', default='')
-ap.add_argument('--board', type=float, default=1.83, help='board length in metres (6\'0" = 1.83)')
+ap.add_argument('--deck', default='', help='the deck-height grid exported by tools/board-deck.ts (default: tools/blender/assets/board-deck.json next to this script)')
 ap.add_argument('--fps', type=int, default=24)
 a = ap.parse_args(argv)
 
@@ -48,59 +51,32 @@ bpy.context.view_layer.update()
 STAND_H = body.dimensions.z
 print('SURFER standing height', round(STAND_H, 4))
 
-# ---------------------------------------------------------------- board (procedural 6'0" shortboard, nose at -x): 19.3" wide, 2.4" thick,
-# a real rocker (nose ~4.3", tail ~1.8"), foiled rails (a domed deck thinning to a tucked edge), thin ends, a pointed nose
-L, W, T = a.board, 0.49 * (a.board / 1.83) ** 0.35, 0.061
+# ---------------------------------------------------------------- the board: NOT built here any more (R16). The viewer draws it from
+# boardMesh.ts; the feet are keyed onto that board's deck, read from the exported grid (metres; x along the board with the nose at -x, y
+# across; bilinear between the samples). The grid's frame is the glTF one (x, y-up, z across): here z = deck height, y = across.
+import json  # noqa: E402
+import os  # noqa: E402
+_deck_path = a.deck or os.path.join(os.path.dirname(os.path.abspath(__file__)), 'assets', 'board-deck.json')
+with open(_deck_path) as _f:
+    DECK = json.load(_f)
+L, W, T = DECK['lengthM'], DECK['widthM'], DECK['thicknessM']
+_XS, _ZS, _DECK, _BOT = DECK['xs'], DECK['zs'], DECK['deck'], DECK['bottom']
 
 
-def planshape(t):
-    """Half width at t (0 = tail, 1 = nose): squash-ish tail, wide point just behind centre, pulled-in pointed nose."""
-    tail = 0.36 + 0.64 * math.sin(min(1.0, t / 0.45) * math.pi / 2) ** 0.9
-    nose = math.cos(max(0.0, (t - 0.45) / 0.55) * math.pi / 2) ** (0.75 + 0.6 * max(0.0, (t - 0.82) / 0.18)) if t > 0.45 else 1.0
-    return 0.5 * W * min(tail, nose) * (1.0 if t > 0.004 else 0.85)
+def _grid(grid, x, y):
+    """Bilinear sample of a (len(xs) x len(zs)) grid at board x and across y (clamped to the grid)."""
+    fx = (max(_XS[0], min(_XS[-1], x)) - _XS[0]) / (_XS[-1] - _XS[0]) * (len(_XS) - 1)
+    fy = (max(_ZS[0], min(_ZS[-1], y)) - _ZS[0]) / (_ZS[-1] - _ZS[0]) * (len(_ZS) - 1)
+    i, j = min(len(_XS) - 2, int(fx)), min(len(_ZS) - 2, int(fy))
+    u, v = fx - i, fy - j
+    return (grid[i][j] * (1 - u) + grid[i + 1][j] * u) * (1 - v) + (grid[i][j + 1] * (1 - u) + grid[i + 1][j + 1] * u) * v
 
 
-def rocker(t):
-    return 0.11 * max(0.0, (t - 0.62) / 0.38) ** 2.2 + 0.045 * max(0.0, (0.3 - t) / 0.3) ** 1.8
+def deck_z(x, y=0.0):
+    return _grid(_DECK, x, y)
 
 
-def thick(t):
-    """Thickest just behind centre, 1.8" a foot from the tail, under an inch at the tail block and the nose tip."""
-    return T * (0.18 + 0.82 * math.sin(math.pi * min(1.0, max(0.0, t * 0.94 + 0.03))) ** 0.6)
-
-
-bmb = bmesh.new()
-rings = []
-NS, NR = 60, 20
-for s_ in range(NS + 1):
-    t = s_ / NS
-    x = (0.5 - t) * L  # nose (t=1) at -x
-    hw, th, zr = max(planshape(t), 0.004), thick(t), rocker(t)
-    ring = []
-    for r_ in range(NR):
-        u = 2 * math.pi * r_ / NR
-        cu, su = math.cos(u), math.sin(u)
-        y = hw * cu
-        c = abs(cu)
-        if su >= 0:
-            z = zr + th * (0.1 + 0.9 * (1.0 - c ** 2.4) ** 0.8)   # domed deck foiling down to a 10%-thick rail edge
-        else:
-            z = zr + th * 0.1 * c ** 3                           # flat bottom, a tucked edge rising to meet the rail
-        ring.append(bmb.verts.new((x, y, z)))
-    rings.append(ring)
-for r0, r1 in zip(rings, rings[1:]):
-    for j in range(NR):
-        bmb.faces.new((r0[j], r1[j], r1[(j + 1) % NR], r0[(j + 1) % NR]))
-bmb.faces.new(list(reversed(rings[0])))
-bmb.faces.new(rings[-1])
-bm_me = bpy.data.meshes.new('Board')
-bmb.to_mesh(bm_me)
-bmb.free()
-board = bpy.data.objects.new('Board', bm_me)
-scene.collection.objects.link(board)
-for p in bm_me.polygons:
-    p.use_smooth = True
-deck_z = lambda x: rocker(0.5 - x / L) + thick(0.5 - x / L)  # noqa: E731
+print('SURFER board (viewer-built):', DECK['source'], 'L', L, 'W', W, 'T', T, 'deck mid', round(deck_z(0.0), 4))
 
 # ---------------------------------------------------------------- materials (before the finger groups are merged away)
 
@@ -125,12 +101,8 @@ def mat(name, rgb, rough, sss=0.0, coat=0.0):
 suit = mat('Wetsuit', (0.02, 0.02, 0.022), 0.56, coat=0.12)
 skin = mat('Skin', (0.58, 0.4, 0.3), 0.6, sss=0.32)
 hair = mat('Hair', (0.05, 0.035, 0.025), 0.38, coat=0.22)
-deck = mat('Board', (0.84, 0.84, 0.8), 0.2, coat=0.5)
-pad = mat('Pad', (0.03, 0.03, 0.03), 0.8)
 for m_ in (suit, skin, hair):
     body.data.materials.append(m_)
-board.data.materials.append(deck)
-board.data.materials.append(pad)
 FINGER = ('index', 'middle', 'pinky', 'ring', 'thumb')
 SKIN_BONES = {'head', 'hand_l', 'hand_r', 'foot_l', 'foot_r', 'ball_l', 'ball_r'}
 SKIN_BONES |= {b.name for b in rig.data.bones if any(s in b.name for s in FINGER)}
@@ -142,9 +114,6 @@ head_top = max(v.co.z for v in body.data.vertices)
 for p in body.data.polygons:
     ws = [skin_w[i] for i in p.vertices]
     p.material_index = 1 if min(ws) > 0.55 else 0   # the hair is a modelled cap (below), not a painted band on the scalp
-for p in bm_me.polygons:  # tail pad: deck faces in the last 18% of the board toward the tail
-    if p.center.x > 0.5 * L - 0.18 * L and p.normal.z > 0.5:
-        p.material_index = 1
 
 # ---------------------------------------------------------------- bake the body targets and the mask, keep the armature modifier
 bpy.ops.object.select_all(action='DESELECT')
@@ -239,8 +208,6 @@ for n in ('tgt_l', 'tgt_r', 'pole_l', 'pole_r'):
     h = eb.new(n)
     h.head, h.tail, h.use_deform = (0, 0, 0), (0, 0, 0.05), False
 bpy.ops.object.mode_set(mode='OBJECT')
-board.parent, board.parent_type, board.parent_bone = rig, 'BONE', 'board'
-board.matrix_parent_inverse = (rig.matrix_world @ rig.data.bones['board'].matrix_local @ Matrix.Translation((0, 0.1, 0))).inverted()  # bone parenting pivots at the tail
 bpy.context.view_layer.update()
 print('SURFER bones', len(rig.data.bones), [b.name for b in rig.data.bones])
 
@@ -252,7 +219,7 @@ for b in pb:
 M = rig.matrix_world
 REST = {b.name: b.matrix_local.copy() for b in rig.data.bones}
 PARENT = {b.name: (b.parent.name if b.parent else None) for b in rig.data.bones}
-FRONT_X, BACK_X = -0.22 * L / 1.83, 0.36 * L / 1.83   # a 0.58 m stance (v5; v4's 0.38 m could not crouch to the real sequences' knee angles): front foot ahead of centre, back foot over the fins
+FRONT_X, BACK_X = -0.22, 0.42   # R16: a 0.64 m stance, the back foot on the tail pad (v5-v11: 0.58 m, the back foot 0.36 m behind centre, 0.17 m ahead of a real pad; v4's 0.38 m could not crouch to the real sequences' knee angles)
 ANKLE = pb['foot_r'].head.z                            # ankle height above the sole at rest
 P0 = pb['pelvis'].head.copy()                          # hips at rest (standing)
 
@@ -313,19 +280,20 @@ for side in ('l', 'r'):
 
 
 _gi = {g.index: g.name for g in body.vertex_groups}
-FOOT_IDX = [v.index for v in body.data.vertices if sum(g.weight for g in v.groups if _gi.get(g.group) in ('foot_l', 'foot_r', 'ball_l', 'ball_r')) > 0.5]
+FOOT_IDX = {side: [v.index for v in body.data.vertices if sum(g.weight for g in v.groups if _gi.get(g.group) in (f'foot_{side}', f'ball_{side}')) > 0.5] for side in ('l', 'r')}
 
 
-def foot_penetration(Rb):
-    """How far the lowest foot vertex sits below the deck, measured in the board's own (banked) frame; negative = through the deck."""
+def foot_penetration(Rb, side=None):
+    """How far the lowest foot vertex (of one side, or both) sits below the deck, measured in the board's own (banked) frame; negative =
+    through the deck. R16: per side, so each foot is planted on its own (before, the lower foot's lift floated the other up to 3 cm)."""
     dg = bpy.context.evaluated_depsgraph_get()
     dg.update()
     ev = body.evaluated_get(dg)
     Ri, Mw = Rb.inverted(), ev.matrix_world
     pen = 1.0
-    for i in FOOT_IDX:
+    for i in (FOOT_IDX[side] if side else FOOT_IDX['l'] + FOOT_IDX['r']):
         p = Ri @ (Mw @ ev.data.vertices[i].co)
-        pen = min(pen, p.z - deck_z(max(-0.5 * L, min(0.5 * L, p.x))))
+        pen = min(pen, p.z - deck_z(max(-0.5 * L, min(0.5 * L, p.x)), p.y))
     return pen
 
 
@@ -362,13 +330,17 @@ def pose(P):
     aim('lowerarm_l', la)
     aim('hand_l', ha)
     upd()
-    # plant the soles: lift both IK targets along the deck normal by whatever the lowest foot vertex sits through the deck (two passes)
-    for _ in range(2):
-        pen = foot_penetration(Rb)
-        if pen > -0.002:
-            break
+    # plant the soles (R16: each foot on its own): move each IK target along the deck normal until that foot's lowest vertex sits
+    # 3 mm over the deck (three passes, up or down)
+    for _ in range(3):
+        moved = False
         for side in ('l', 'r'):
-            set_world(f'tgt_{side}', Matrix.Translation((M @ pb[f'tgt_{side}'].matrix).to_translation() + Rb @ Vector((0, 0, -pen + 0.004))))
+            pen = foot_penetration(Rb, side)
+            if abs(pen - 0.003) > 0.0015:
+                set_world(f'tgt_{side}', Matrix.Translation((M @ pb[f'tgt_{side}'].matrix).to_translation() + Rb @ Vector((0, 0, 0.003 - pen))))
+                moved = True
+        if not moved:
+            break
     upd()
 
 
@@ -535,7 +507,7 @@ def bake(src_name, frames, out_name):
             hands = {sd: (M @ pb[f'hand_{sd}'].head) for sd in 'lr'}
             _tv = (M @ pb["neck_01"].head) - (M @ pb["pelvis"].head); _tp = math.degrees(math.atan2(-_tv.y, max(1e-3, _tv.z)))
             sh = {sd: (M @ pb[f'upperarm_{sd}'].head) for sd in 'lr'}
-            print(f'SURFER check f{f} {dict(RIDE).get(f, "?")}: torso {_tp:.0f} deg toward the toes, lowest body z {low:.3f}, sole-to-deck (board frame) {foot_penetration(Rb):+.3f}, hips z {(M @ pb["pelvis"].head).z:.2f}, '
+            print(f'SURFER check f{f} {dict(RIDE).get(f, "?")}: torso {_tp:.0f} deg toward the toes, lowest body z {low:.3f}, sole-to-deck (board frame) front(r)/back(l) {foot_penetration(Rb, 'r'):+.3f}/{foot_penetration(Rb, 'l'):+.3f}, hips z {(M @ pb["pelvis"].head).z:.2f}, '
                   f'knee flex front(r)/back(l) {_knee("r"):.0f}/{_knee("l"):.0f} deg, knee sep/foot sep {(kl - kr).length / (fl - fr).length:.2f}, '
                   f'hands z-shoulder r/l {hands["r"].z - sh["r"].z:+.2f}/{hands["l"].z - sh["l"].z:+.2f} m, hand x off r/l {hands["r"].x:+.2f}/{hands["l"].x:+.2f}')
     out = new_action(out_name)
@@ -659,7 +631,7 @@ if a.preview:
 
 # ---------------------------------------------------------------- export: skinned, both clips, no helpers
 bpy.ops.object.select_all(action='DESELECT')
-for o in (rig, body, board, hair_obj):
+for o in (rig, body, hair_obj):
     o.select_set(True)
 bpy.context.view_layer.objects.active = rig
 bpy.ops.export_scene.gltf(filepath=a.out, use_selection=True, export_apply=True, export_animations=True, export_animation_mode='ACTIONS',
