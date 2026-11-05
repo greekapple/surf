@@ -98,7 +98,7 @@ export class GlitchMonitor {
    *  past the face (the lip). The hands in the barrel may drag the face (the spec's hand drag). */
   bodyClipSample(t: number, move: string, joint: string, gap: number, wet: boolean) {
     const c = this.counts; if (!wet) return; if (gap < c.bodyClipMin) { c.bodyClipMin = gap; c.bodyClipJoint = joint; }
-    if (move === 'barrel' && joint.startsWith('hand')) return;
+    if ((move === 'barrel' || move === 'stall') && joint.startsWith('hand')) return;   // R14: the stall's back hand drags the face as the barrel's does
     if (gap < -MONITOR.bodyClipM || gap > 0) { c.bodyclip++; c.total++; const key = move + ':' + joint, e = c.bodyClipBy[key] ?? (c.bodyClipBy[key] = [0, Infinity]); e[0]++; if (gap < e[1]) e[1] = Math.round(gap * 1000) / 1000; if (c.events.length < MONITOR.keepEvents && c.bodyclip <= MONITOR.keepPerKind) c.events.push({t: Math.round(t * 1000) / 1000, kind: 'bodyclip', joint, deg: 0, gap: Math.round(gap * 1000) / 1000, move}); if (this.warn) console.warn(`[wave glitch] bodyclip ${joint} ${gap.toFixed(3)} m during ${move} at t=${t.toFixed(3)} s`); }
   }
   /** the body-clock tick the viewer should sample the joints on (true once per MONITOR.bodyHz period) */
@@ -180,7 +180,7 @@ export class GlitchMonitor {
         for (let k = 0; k < 2; k++) {
           const hand = k === 0 ? B.handL : B.handR; if (!rp(hand, this.a)) continue;
           const side = Math.abs(this.a.x - this.e.x); if (side > c.handSideMax) c.handSideMax = side;
-          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel' && move !== 'bottom' && move !== 'takeoff') || (this.a.y > shoulderY + 0.08 && !this.wristAllowed.includes(move));   // R8: the takeoff's drop blends into the same bottom key (the leading hand to the rail); in the barrel crouch the hands hang below the knees (the back hand drags the face: M2); the bottom turn's leading hand reaches the water (R7); above the shoulders only in the moves the wrist check allows
+          const boxBad = side > MONITOR.handSideM || (this.a.y < kneeY - 0.1 && move !== 'barrel' && move !== 'stall' && move !== 'bottom' && move !== 'takeoff') || (this.a.y > shoulderY + 0.08 && !this.wristAllowed.includes(move));   // R8: the takeoff's drop blends into the same bottom key (the leading hand to the rail); in the barrel crouch the hands hang below the knees (the back hand drags the face: M2); the bottom turn's leading hand reaches the water (R7); above the shoulders only in the moves the wrist check allows
           // the hand's travel in the rider frame: a reversal is the velocity turning back on itself; two within armReversalS is a flail
           if (h > 0 && this.armPrimed >= 1) {
             const vx = (this.a.x - this.handP[k * 3]) / h, vy = (this.a.y - this.handP[k * 3 + 1]) / h, vz = (this.a.z - this.handP[k * 3 + 2]) / h;

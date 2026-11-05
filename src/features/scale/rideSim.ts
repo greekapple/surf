@@ -43,7 +43,7 @@ export interface Plan {skill: Skill; profile: SkillProfile; band: StyleBand; kno
 export function buildPlan(skill: Skill, seed: number, faceM: number): Plan {
   const profile = SKILLS[skill], r = rng(seed), s = Math.max(RIDE.durScaleMin, Math.sqrt(Math.max(0.3, faceM) / RIDE.refFaceM));
   const faceFt = faceM / 0.3048, band = bandFor(faceFt);
-  const body = composeBody(band, profile, (w) => r() < w);
+  const body = composeBody(band, profile, (w) => r() < w, faceM);
   const pocketU = -band.pocketFaces * profile.pocketScale;   // R13: the takeoff and the exit sit relative to the band's line, as the moves do
   const takeoff = profile.takeoff.map((k, i) => ({...k, u: pocketU + k.u, dt: i === 0 ? k.dt : k.dt * band.dropScale}));   // the drop: later and steeper on a big wave
   const seq = [...takeoff, ...body, ...profile.exit.map((k) => ({...k, u: pocketU + k.u}))];

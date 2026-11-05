@@ -73,7 +73,7 @@ export const BOARD = {
   rollMaxDeg: 55, trimRollShare: 0.6, trimRollMaxDeg: 40, turnRollMaxDeg: 45,
   /** the trim roll also fades out as the board pitches up its long axis (deg; a board standing on its tail is not trimming) */
   trimRollPitchFade: [25, 50] as readonly [number, number],
-  trimRollByMove: {takeoff: 0.35, kickout: 0.7, out: 0.6, barrel: 0.6} as Partial<Record<string, number>>,
+  trimRollByMove: {takeoff: 0.35, kickout: 0.7, out: 0.6, barrel: 0.6, stall: 0.6} as Partial<Record<string, number>>,
   /** nose/tail rocker the ends can bridge on a concave face before the line is lowered */
   rockerM: 0.07,
   /** how far a set rail sits into a concave face before the centre lifts off it (the rail's own thickness and tuck) */
@@ -121,6 +121,10 @@ export const RIDE = {
   curlFollowW: 2 * Math.PI * 0.6,
   /** never closer to the break point than this (face heights, with an absolute floor in metres), whatever the plan says */
   minAheadFaces: 0.32, minAheadM: 0.6,
+  /** R14: where the wave STARTS TO FOLD, ahead of the break point (m): the lip's tip passes the 0.1 face point at 3.0 m at 6 ft, 3.25 at
+   *  8 ft and 3.0 at 12 ft on this atlas (`geo-{6,8,12}-fold.log`; the throw is a property of the breaker rows, not the height), so the
+   *  barrel ride's turn (ManeuverKnot.duFold) sits a board length further out, on the steep open section ahead of the cavity */
+  foldAheadM: 3.6,
   /** maneuver durations scale with sqrt(face height / this) (bigger waves, longer arcs), never below this factor (a top turn on a 2 ft
    *  wave still takes a human amount of time) */
   refFaceM: 1.83, durScaleMin: 0.8,
@@ -142,7 +146,7 @@ export const RIDE = {
    *  46-85). Where the STANDING crown cannot fit under the lip at the plan's height, the trim and pump poses blend into the crouch
    *  (`crouchV`: the crouch is full once the plan's v sits this far above the standing cap, after `crouchFreeV`), so the rider under a
    *  thrown lip is tucked, as the real tube frames, not a standing rider in a cave. */
-  roof: {stand: {x: -0.1, up: 1.36, toe: 0.43, heel: 0.5}, crouch: {x: -0.12, up: 1.08, toe: 0.44, heel: -0.11}, crownM: 0.1, /** the shoulders: this far below the head, checked as well (the head past a lip's tip with the chest in its root is no line) */ shoulderM: 0.36, marginM: 0.15,
+  roof: {stand: {x: -0.1, up: 1.36, toe: 0.43, heel: 0.5}, crouch: {x: -0.12, up: 1.0, toe: 0.44, heel: -0.11}, crownM: 0.1, /** the shoulders: this far below the head, checked as well (the head past a lip's tip with the chest in its root is no line) */ shoulderM: 0.36, marginM: 0.15,
     crouchFreeV: 0.03, crouchV: 0.12,
     /** the crouch's own spring (rad/s); the cap is read this far ahead (s) along the rider's motion, since it steps where the thrown
      *  zone begins and the cap spring lags a step by about this much */ crouchW: 2 * Math.PI * 1.1, leadS: 0.35},
@@ -155,7 +159,7 @@ export const RIDE = {
 export const RIDE_SNAP_CAP_DEG = 89, RIDE_SNAP_PIVOT_DEG = 78;
 /** R11: the cutback's pivot (deg, down the face past the path, x the skill's carve): the board on its heel rail at the peak */
 export const RIDE_CUTBACK_PIVOT_DEG = 55;
-export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 'takeoff' | 'kickout' | 'out' | 'barrel' | 'floater';
+export type Move = 'trim' | 'bottom' | 'top' | 'recover' | 'pump' | 'cutback' | 'takeoff' | 'kickout' | 'out' | 'barrel' | 'floater' | /** R14: the stall back into the pocket before the tube (the monitor and the roll treat it as the barrel) */ 'stall';
 /** One knot of the ride: time to reach it from the previous knot (s, at RIDE.refFaceM; the first knot's dt closes the loop from the
  *  last), u, v, the move name, the pose it blends to, the compression target, and how close to the curl it may go (face heights,
  *  RIDE.minAheadFaces when absent). */
@@ -175,8 +179,10 @@ export type PoseName = 'trim' | 'bottom' | 'climb' | 'top' | 'recover' | 'pump' 
  *  heights, + = further out on the shoulder), `dv` up (+) or down (-) from the band's line height, scaled by the expertise's intensity. */
 export interface ManeuverKnot {dt: number; du: number; dv: number; move: Move; pose: PoseName; comp: number; ahead?: number; cap?: number; /** scaled by the skill's carve */ pivot?: number;
   /** R13: an ABSOLUTE u (face heights from the curl, + = behind the break point) instead of the pocket offset: the barrel's knots are placed
-   *  against the tube, not the band's line, so moving the line out onto the open face (R13) leaves the barrel where R12 measured it */ uAbs?: number}
-export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'coverup' | 'longBottom';
+   *  against the tube, not the band's line, so moving the line out onto the open face (R13) leaves the barrel where R12 measured it */ uAbs?: number;
+  /** R14: u relative to the FOLD (RIDE.foldAheadM ahead of the break point, in face heights at the plan's face; + = further out): the
+   *  barrel ride's turn happens where the lip is just starting to pitch, whatever the band's line */ duFold?: number}
+export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'coverup' | 'longBottom' | 'barrelRide' | 'coverupRide';
 export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a trim along the line */
   trim: [{dt: 0.7, du: 0.05, dv: 0, move: 'trim', pose: 'trim', comp: 0.45}],
@@ -194,6 +200,15 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   barrel: [{dt: 1.2, du: 0.1, uAbs: -0.9, dv: -0.22, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: 0.7}, {dt: 0.7, du: -0.8, uAbs: 0.25, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.25}, {dt: 1.4, du: -1.0, uAbs: 0.35, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.3}, {dt: 0.9, du: 0.1, uAbs: -0.6, dv: -0.22, move: 'barrel', pose: 'recover', comp: 0.8, ahead: 0.35}],   // R13: the tube knots at the R12 Expert positions (uAbs; band C's pocket was 0.5); the stall starts further out and takes longer (the line now sits 1.9 faces ahead: the stall from there in 0.8 s read 2.7 m/s against the flow, wake 75 deg off the heading, 10 counts); the dv against the lower line give the same planned tube height as R12 (0.06 at 6 ft, 0.2 at 12 ft); the tube knots a little shallower (0.25 / 0.35, ahead -0.25 / -0.3): with the longer run-in the spline overshot to 0.9 m behind the break point (R12's measured 0.4-0.6), where the 6 ft lip's roof over the crouched head is 0.13 m, not 0.25, and the tube time read 0.2 s   // R9: the stall drops the line to the bottom of the face while still ahead of the lip, the rider slides back into the tube along its floor (v ~0.12 at band C, where the thrown lip's roof clears the crouched rider) and comes out low and ahead of the curl before standing up; at the old 0.35-0.4 the head passed through the lip, in and out
   /** a shallow cover-up (Intermediate): the stall and the crouch under the lip, never behind the curl */
   coverup: [{dt: 0.8, du: -0.2, uAbs: -0.6, dv: -0.42, move: 'barrel', pose: 'barrel', comp: 0.85, ahead: 0.5}, {dt: 1.2, du: -0.35, uAbs: -0.45, dv: -0.5, move: 'barrel', pose: 'barrel', comp: 0.95, ahead: 0.05}, {dt: 0.9, du: 0.2, uAbs: -1.0, dv: -0.42, move: 'barrel', pose: 'recover', comp: 0.7, ahead: 0.4}],   // R13: uAbs = the R12 Intermediate positions (band C pocket 0.8)   // R9: crouched low on the face under the pitching lip's edge, never behind the curl (at the old v ~0.4 the head sat in the lip for the whole cover-up)
+  /** R14 (the user's barrel-ride order; spec 2026-11-05 item 2): drive forward down the line to where the wave starts to fold, the top turn
+   *  THERE (the R8 pivot, ahead of the cavity: the R13 snap hit 3.1 m ahead at 6 ft sat in the lip's throw, board clip 5), come down, then a
+   *  visible STALL back into the pocket (the sim caps the drift at the flow less 2.5 m/s, so the curl catches the rider up over ~1.5 s with
+   *  the weight back in the barrel crouch), the tube knots at the R12/R13 positions, the exit ahead of the foam */
+  barrelRide: [{dt: 0.6, du: 0.15, dv: -0.12, move: 'bottom', pose: 'climb', comp: 0.55}, {dt: 0.5, du: 0, duFold: 0, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: 0, duFold: -0.03, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},
+    {dt: 1.3, du: 0.1, uAbs: -0.9, dv: -0.22, move: 'stall', pose: 'barrel', comp: 0.9, ahead: 0.7}, {dt: 0.7, du: -0.8, uAbs: 0.25, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.25}, {dt: 1.8, du: -1.0, uAbs: 0.35, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 1.0, ahead: -0.3}, {dt: 0.9, du: 0.1, uAbs: -0.6, dv: -0.22, move: 'barrel', pose: 'recover', comp: 0.8, ahead: 0.35}],   // R14: the second tube knot 1.4 -> 1.8 s (the stall is its own move now; the 6 ft tube read 2.3 s in the barrel move + 0.6 in the stall)
+  /** R14: the Intermediate's cover-up ride in the same order (its line sits 1.6 x further out, so the turn is relative to it, as the snap's was) */
+  coverupRide: [{dt: 0.6, du: 0.15, dv: -0.12, move: 'bottom', pose: 'climb', comp: 0.55}, {dt: 0.5, du: -0.2, dv: 0.35, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.23, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},
+    {dt: 1.0, du: -0.2, uAbs: -0.6, dv: -0.42, move: 'stall', pose: 'barrel', comp: 0.85, ahead: 0.5}, {dt: 1.2, du: -0.35, uAbs: -0.45, dv: -0.5, move: 'barrel', pose: 'barrel', comp: 0.95, ahead: 0.05}, {dt: 0.9, du: 0.2, uAbs: -1.0, dv: -0.42, move: 'barrel', pose: 'recover', comp: 0.7, ahead: 0.4}],
   /** the big-wave bottom turn: long radius, heavy load, deep at the base */
   longBottom: [{dt: 1.4, du: 0.35, dv: -0.45, move: 'bottom', pose: 'bottom', comp: 1.0}, {dt: 0.9, du: 0.1, dv: 0.08, move: 'bottom', pose: 'climb', comp: 0.6}],
 };
@@ -229,11 +244,11 @@ export const BANDS: readonly StyleBand[] = [
     boardFt: [5.83, 6.5], boardTypes: ['Performance shortboard', 'Everyday shortboard', 'Hybrid', 'Step-up']},
   // big (6-10 ft): deep bottom turns, vertical top turns, and a barrel every ride (Intermediate: a shallow cover-up; Beginner: never)
   {id: 'C', minFt: 6, label: 'big: deep turns and a barrel', lineV: 0.36, pocketFaces: 1.9, aggression: 0.8, compression: 0.85, spray: 0.8, dropScale: 0.85, hitDropV: 0.1, roofCap: true,
-    moves: [{name: 'longBottom', w: 1}, {name: 'snap', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.5}],
+    moves: [{name: 'longBottom', w: 1}, {name: 'barrelRide', w: 1}, {name: 'trim', w: 1}, {name: 'cutback', w: 0.5}],   // R14: the snap, the trim and the barrel became ONE barrel ride (the turn at the fold, then the stall into the tube); the user: "it just randomly throws a snap for the barrel"
     boardFt: [6.17, 6.83], boardTypes: ['Step-up', 'Performance shortboard', 'Gun']},
   // very big (10 ft +): long drawn-out bottom turns, a deep barrel, a high fast line
-  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.5, pocketFaces: 1.2, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7, roofCap: true,
-    moves: [{name: 'longBottom', w: 1}, {name: 'trim', w: 1}, {name: 'barrel', w: 1}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],
+  {id: 'D', minFt: 10, label: 'very big: drawn-out turns, a deep barrel, high lines', lineV: 0.5, pocketFaces: 1.2, aggression: 0.6, compression: 0.7, spray: 0.6, dropScale: 0.7, hitDropV: 0.25, roofCap: true,   // R14: the barrel ride's turn on a 12 ft face buried the front foot 0.2 m at the lip (bodyclip 7 + 10 through the hit and the recovery): the pivoted hit sits 0.25 lower
+    moves: [{name: 'longBottom', w: 1}, {name: 'barrelRide', w: 1}, {name: 'straight', w: 1}, {name: 'trim', w: 1}],   // R14: the barrel ride (with its turn at the fold) instead of trim + barrel
     boardFt: [6.67, 7.5], boardTypes: ['Step-up', 'Gun', 'Midlength']},
 ];
 export const bandFor = (faceFt: number): StyleBand => { const r = Math.round(faceFt * 2) / 2; let b = BANDS[0]; for (const x of BANDS) if (r >= x.minFt) b = x; return b; };
@@ -285,7 +300,7 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 0.7, u: -1.0, v: 0.85, move: 'kickout', pose: 'top', comp: 0.3},
     ],
     /** no barrel for an intermediate: the band C high line instead (the brief's "shallow ones only" needs a tube to be drawn first) */
-    allow: {barrel: 'coverup'}, pocketScale: 1.6, lineVOffset: -0.03, intensity: 0.7, slow: 1.15,
+    allow: {barrel: 'coverup', barrelRide: 'coverupRide'}, pocketScale: 1.6, lineVOffset: -0.03, intensity: 0.7, slow: 1.15,
     carve: 0.7, compression: 0.7, armsOutDeg: 6, fadeMs: {trim: 420, bottom: 360, climb: 360, top: 330, recover: 520, pump: 280, barrel: 450, pigdog: 450, cutback: 520, trimB: 420, bottomB: 360, climbB: 360, topB: 330, recoverB: 520, pumpB: 280, cutbackB: 520}, swayDeg: 1.2,   // R12: recover / cutback -> 520
   },
   Beginner: {
@@ -297,18 +312,18 @@ export const SKILLS: Record<Skill, SkillProfile> = {
       {dt: 1.3, u: -1.35, v: 0.12, move: 'out', pose: 'trim', comp: 0.3},
       {dt: 1.0, u: -1.55, v: 0.07, move: 'out', pose: 'trim', comp: 0.3},
     ],
-    allow: {snap: 'carve', cutback: null, barrel: null, coverup: null, pump: null, longBottom: 'carve'}, pocketScale: 2.6, lineVOffset: -0.08, intensity: 0.45, slow: 1.4,
+    allow: {snap: 'carve', cutback: null, barrel: null, coverup: null, barrelRide: null, coverupRide: null, pump: null, longBottom: 'carve'}, pocketScale: 2.6, lineVOffset: -0.08, intensity: 0.45, slow: 1.4,
     carve: 0.4, compression: 0.35, armsOutDeg: 18, fadeMs: {trim: 450, bottom: 450, climb: 450, top: 400, recover: 560, pump: 350, barrel: 500, pigdog: 500, cutback: 560, trimB: 450, bottomB: 450, climbB: 450, topB: 400, recoverB: 560, pumpB: 350, cutbackB: 560}, swayDeg: 2.2,   // R12: recover / cutback -> 560
   },
 };
 
 /** The ride body for a band and expertise (the maneuver library composed, filtered and scaled): absolute knots in (u, v). */
-export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: number) => boolean): Knot[] {
-  const out: Knot[] = [], pocket = band.pocketFaces * skill.pocketScale, lineV = band.lineV + skill.lineVOffset;
+export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: number) => boolean, faceM: number): Knot[] {
+  const out: Knot[] = [], pocket = band.pocketFaces * skill.pocketScale, lineV = band.lineV + skill.lineVOffset, fold = RIDE.foldAheadM / Math.max(0.3, faceM);   // R14: the fold in face heights at this face
   for (const m of band.moves) {
     const name = m.name in skill.allow ? skill.allow[m.name] : m.name; if (name === null || name === undefined) continue;
     if (m.w < 1 && !keep(m.w)) continue;
-    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: k.uAbs !== undefined ? k.uAbs : -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
+    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: k.duFold !== undefined ? -(fold + k.duFold) : k.uAbs !== undefined ? k.uAbs : -(pocket + k.du), v: lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve});
   }
   if (!out.length) out.push({dt: 1.2, u: -pocket, v: lineV, move: 'trim', pose: 'trim', comp: 0.4});
   return out;
