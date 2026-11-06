@@ -23,3 +23,5 @@ __pycache__/
 # Cloudflare production build output
 .cf/
 .wrangler/
+# wave-proc: traced from the licensed rows, licensed-derived (private site only)
+public/media/scale3d-proc/

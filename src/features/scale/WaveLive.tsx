@@ -26,7 +26,10 @@ import type {Surfboard} from '../../models/index';
  *  Loaded lazily; Spin360 stays the fallback (no WebGL, reduced motion, or no atlas files). */
 const BASE = import.meta.env.BASE_URL ?? '/';
 export const LIVE_ROOT = BASE + 'media/scale3d-live/';
-export const ATLAS_ROOT = BASE + 'media/scale3d-atlas/';
+/** wave-proc: the procedural break-cycle atlas (tools/blender/proc_source.py, no licensed input) next to the licensed one; `?atlas=licensed`
+ *  or `?atlas=proc` picks one while the two are compared. */
+const ATLAS_KIND = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('atlas') : null;
+export const ATLAS_ROOT = BASE + (ATLAS_KIND === 'proc' ? 'media/scale3d-proc/' : 'media/scale3d-atlas/');
 /** The light comes from the sun's position at the spot and hour (P5a); null keeps a neutral daylight. */
 export interface LiveLight {spotId: string; iso: string}
 
@@ -61,7 +64,7 @@ float ampAt(float x){
 }
 // S1 (R7): the crest curved in plan: the shoulder sweeps seaward (+z) away from the peak; the weight fades at both flat tails of the
 // profile so the strip's edges stay put. Keep in step with bendZ / bendW in waveAtlas.ts.
-float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .04*uSh*s*s; }   // R11: 0.12 -> 0.04, see BEND_Z in waveAtlas.ts
+float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .04*uSh*s*s*s*(4.-3.*s); }   // R11: 0.12 -> 0.04, see BEND_Z in waveAtlas.ts; N5: eased 4s^3-3s^4, zero slope at the end
 float bendW(float u){ return smoothstep(0.,.3,u)*(1.-smoothstep(.9,1.,u)); }`;
 
 const STRIP_VS = /* glsl */ `
@@ -107,7 +110,7 @@ const SEA_VS = /* glsl */ `
 precision highp float;
 uniform float uTime, uFace, uLb, uX0, uX1, uY0, uY1, uSetH, uStrip, uLdeep, uSetN, uShore, uSwellX, uCel, uSh;
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
-float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .04*uSh*s*s; }   // R11: 0.12 -> 0.04, see BEND_Z in waveAtlas.ts
+float bendZ(float x){ float s=clamp(-x/(1.2*uSh),0.,1.); return .04*uSh*s*s*s*(4.-3.*s); }   // R11: 0.12 -> 0.04, see BEND_Z in waveAtlas.ts; N5: eased 4s^3-3s^4, zero slope at the end
 float rectMask(vec2 p){ float dx=max(max(uX0-p.x,p.x-uX1),0.), dz=max(max(-uY1-p.y,p.y+uY0),0.); return smoothstep(0.,10.+4.*uFace,length(vec2(dx,dz))); }
 float whitewater(vec2 p){
   // S3: the previous wave as a line of whitewater rolling toward the beach at the broken wave's speed, shrinking into the shore-break.

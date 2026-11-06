@@ -127,7 +127,10 @@ export function ampAt(m: AtlasMeta, x: number): number {
  *  line read as an endless wall): the crest-frame z shift (+ seaward, metres) at along-crest x, 0 at and past the break point, growing as
  *  the square of the distance out along the shoulder to 0.12 x shoulder_len at 1.2 shoulder lengths out, then held. A pure translation
  *  of the profile across the shore: the face height at the rider is untouched. Keep in step with bendZ in the GLSL ALONG block. */
-export function bendZ(m: AtlasMeta, x: number): number { const s = clamp(-x / (1.2 * m.shoulder_len_m), 0, 1); return BEND_Z * m.shoulder_len_m * s * s; }
+export function bendZ(m: AtlasMeta, x: number): number { const s = clamp(-x / (1.2 * m.shoulder_len_m), 0, 1); return BEND_Z * m.shoulder_len_m * s * s * s * (4 - 3 * s); }
+/** N5 (user: the lip "at the very end of the wave" hooks): the sweep was s^2 then held, so the crest line turned about 3 degrees seaward and snapped
+ *  straight at 1.2 shoulder lengths while the height was still fading out to the strip end (the kink read as a hook). It is now 4s^3 - 3s^4: the
+ *  same size near the rider (0.31 vs 0.25 at half way) and the same total, with zero slope at the end, so the crest runs straight into the fade. */
 /** R11 (user: "the wave has a weird little curvature that's inaccurate"): R7's plan-view sweep of the shoulder, 0.12 of the shoulder length at
  *  1.2 shoulder lengths out, is reduced to a third: real refraction bends the line gently and only far down the shoulder, never visibly
  *  near the rider. The GLSL copies in WaveLive carry the same constant. */

@@ -133,7 +133,14 @@ def thicken_lip(p, f):
     return p
 
 
-def throw_lip(p, amt, thick=0.0, out=0.42, down=0.04, wall=0.06, apex_in=0.8, apex_up=0.04):
+# N5 (night 5, track 2): the extra tube room at full `room` (see throw_lip)
+ROOM_APEX_IN, ROOM_APEX_UP, ROOM_WALL, ROOM_OUT = 0.12, 0.03, 0.04, 0.04
+# per-band gain on `room` by face height (m): the small plungers need more of it for the same ~12%, the big reef/Mavericks bands more still
+ROOM_FACE = [1.52, 2.13, 2.74, 3.81, 5.49]
+ROOM_GAIN = [2.2, 0.9, 1.0, 1.7, 1.7]
+
+
+def throw_lip(p, amt, thick=0.0, out=0.42, down=0.04, wall=0.06, apex_in=0.8, apex_up=0.04, room=0.0):
     """R9 (B1, the tube): at the pitch the source barrel row's lip is short (the tip 0.3 face heights out, 0.8 of the crest up), its
     cavity starts at half height and the roof slants up from that back to an apex well shoreward of the wall, so a crouched rider on the
     wall has the head in the lip's root. Three moves, normalised units, amt 0..1 scaling all of them (the small bands get less):
@@ -142,13 +149,20 @@ def throw_lip(p, amt, thick=0.0, out=0.42, down=0.04, wall=0.06, apex_in=0.8, ap
         the side; the cavity under it is untouched, the bulge stays under the crest so the crest index holds);
       - the hollow is a C, not a wedge: the roof between its apex and the cavity back is drawn seaward by `apex_in` of the apex's lead over
         the back (the inner wall runs near-vertical from the rider up to the apex, which now sits over the wall); the wall under the back
-        is drawn seaward by `wall`, most at a quarter height, nothing at the trough."""
+        is drawn seaward by `wall`, most at a quarter height, nothing at the trough.
+    N5 `room` (0..1, the barrel-roominess knob; 0 = the R9 tube unchanged): a rounder, hollower C from 4-6 ft up. The roof apex is drawn a
+    little further back over the wall and a little higher, the wall under the back a little further seaward, the lip thrown a touch
+    further: together about 10-15% more room inside the tube between the pitch and the landing. Same wave, same lip, same timing."""
     if amt <= 1e-3:
         return p
     p = p.copy()
     ci, ti, ki = lip_indices(p)
     if ki <= ti + 1 or ti <= ci:
         return p
+    apex_in = min(0.97, apex_in + ROOM_APEX_IN * room)
+    apex_up += ROOM_APEX_UP * room
+    wall += ROOM_WALL * room
+    out += ROOM_OUT * room
     n = len(p)
     i = np.arange(n)
     zc = p[ci, 1]
@@ -307,11 +321,12 @@ def stage_curves(src, face, breaker, phys):
         return p
 
     hollow = 0.0 if spill else float(ss(0.7, 1.8, face))  # R9: the tube on plunging waves from 4-6 ft up (full at 6-8 ft and above)
+    room = 0.0 if spill else float(ss(1.2, 1.5, face)) * float(np.interp(face, ROOM_FACE, ROOM_GAIN))   # N5: a slightly rounder, hollower tube from 4-6 ft up (none below, none on spillers)
     for k in range(S_LAND + 1):
         p = src.chain(cm * cs[k])
         p = thicken_lip(p, 1 - (1 - f_lip) * float(ss(1, S_PITCH, k)))
         if k >= S_PITCH:
-            p = throw_lip(p, hollow, thick=0.05 + 0.08 * heavy)
+            p = throw_lip(p, hollow, thick=0.05 + 0.08 * heavy, room=room)
         if not spill and k > S_PITCH:
             p = fall_lip(p, (k - S_PITCH) / (S_LAND - S_PITCH) * (0.55 + 0.45 * plunge), pivot_root=hollow > 0.5)
         p[:, 1] *= hs[k]

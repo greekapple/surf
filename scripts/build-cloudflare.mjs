@@ -14,7 +14,7 @@ if (process.argv.includes('--private-site')) {
   if (!r || r.status < 300 || r.status > 399 || !/\.cloudflareaccess\.com\//.test(to)) throw new Error(`--private-site: ${SITE} is not behind Cloudflare Access (status ${r?.status ?? 'none'}); refusing to include licensed assets`);
   allowLicensed = true;
 }
-const LICENSED = /(turbosquid|^media\/scale3d-live\/(?!surfer\.glb$).*\.(glb|bin)$|^media\/scale3d-atlas\/|\.fbx$)/i;
+const LICENSED = /(turbosquid|^media\/scale3d-live\/(?!surfer\.glb$).*\.(glb|bin)$|^media\/scale3d-atlas\/|^media\/scale3d-proc\/|\.fbx$)/i;
 const SKIP = /^(server\/|\.openai\/)/;
 await fs.rm('.cf', {recursive: true, force: true});
 let kept = 0, dropped = [];

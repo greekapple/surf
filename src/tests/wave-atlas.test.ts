@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ampAt, facePoint, halfToFloat, makeAtlas, sample, stageAt, stripX, surferX, type AtlasMeta} from '../features/scale/waveAtlas.ts';
+import {ampAt, bendZ, facePoint, halfToFloat, makeAtlas, sample, stageAt, stripX, surferX, type AtlasMeta} from '../features/scale/waveAtlas.ts';
 
 const meta = (o: Partial<AtlasMeta> = {}): AtlasMeta => ({band: '4-6', face_m: 1.52, family: 'peeler', breaker: 'plunging', stages: 12, points: 96, stage_feather: 2, stage_pitch: 4, stage_land: 6,
   y0_m: -14, y1_m: 5, bed_along_per_m: 0.027, cycle_s: 6.5, break_len_m: 38, shoulder_len_m: 40, depth_break_m: 1.95, celerity_mps: 4.37, peel_speed_mps: 5.9, period_s: 13, Lb_m: 57, ...o});
@@ -40,3 +40,14 @@ test('atlas sampling and the face point', () => {
   const [fy, fz, slope] = facePoint(a, xs, 0.1); assert.ok(fy > 0 && fy < 2 && fz > 0 && slope > 0.3);
 });
 test('atlas size is checked', () => { assert.throws(() => makeAtlas(meta(), new ArrayBuffer(10))); });
+
+test('N5: the shoulder sweep ends with zero slope, so the crest runs straight into the end fade (no hook)', () => {
+  const m = meta(), end = -1.2 * m.shoulder_len_m, h = 0.01;
+  assert.equal(bendZ(m, 0), 0);
+  assert.ok(Math.abs(bendZ(m, end) - 0.04 * m.shoulder_len_m) < 1e-9);
+  assert.equal(bendZ(m, end * 1.4), bendZ(m, end));
+  const slope = (x: number) => Math.abs(bendZ(m, x - h) - bendZ(m, x + h)) / (2 * h);
+  assert.ok(slope(end + 0.05) < 0.002, 'about flat at the end of the sweep: ' + slope(end + 0.05));
+  let prev = 0; for (let x = 0; x >= end; x -= 0.5) { const b = bendZ(m, x); assert.ok(b >= prev - 1e-9); prev = b; }   // monotone
+  assert.ok(bendZ(m, 0.5 * end) < 0.0125 * m.shoulder_len_m * 1.5, 'near the rider no larger than before (x1.25)');
+});
