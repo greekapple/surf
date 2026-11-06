@@ -18,6 +18,8 @@ export interface ReferenceBoard {
   /** measured from the side-profile photo, inches over the flat spot; the flat spot as a fraction of the length from the tail */
   rocker?: {noseIn: number; tailIn: number; flatFromTail: number};
   softTop?: boolean;
+  /** quiver-polish: measured on the deck photo where the 40-station trace is too coarse: the nose tip's radius and a swallow's notch depth (inches) */
+  tipRIn?: number; notchIn?: number;
   /** where a published number comes from when it is not the maker's: shown beside the volume (the Seaside's is read off a retailer photo) */
   volumeNote?: string;
   look: {deck: string; bottom: string; fade: number; finish: 'gloss' | 'matte'; pattern?: DeckPattern};
@@ -37,7 +39,10 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
   'demo-fish': {
     model: 'Seaside (Helium)',
     hw: [0.0114, 0.035, 0.0569, 0.0735, 0.0883, 0.1007, 0.1112, 0.1199, 0.1285, 0.1346, 0.141, 0.1451, 0.1497, 0.1515, 0.155, 0.1585, 0.1599, 0.1602, 0.1602, 0.1602,
-      0.1602, 0.1585, 0.1585, 0.1567, 0.155, 0.1515, 0.1497, 0.1462, 0.1433, 0.1396, 0.1359, 0.1322, 0.1287, 0.1234, 0.1182, 0.1112, 0.105, 0.0972, 0.0902, 0.0341],
+      0.1602, 0.1585, 0.1585, 0.1567, 0.155, 0.1515, 0.1497, 0.1462, 0.1433, 0.1396, 0.1359, 0.1322, 0.1287, 0.1234, 0.1182, 0.1112, 0.105, 0.0972, 0.081, 0.067],
+    // quiver-polish: the last two stations re-measured on the deck photo (the first trace dipped into the notch, which rounded the lobes off);
+    // the tip's radius (about 3 cm) and the notch depth (about 2.1", 3% of the length) measured on the deck and bottom photos.
+    tipRIn: 1.2, notchIn: 2.1,
     volumeNote: 'retailer photo',
     look: {deck: '#f4f3ef', bottom: '#f4f3ef', fade: 0.35, finish: 'gloss'},
   },
@@ -49,7 +54,7 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
       0.1152, 0.1139, 0.1124, 0.1106, 0.1086, 0.1073, 0.1051, 0.103, 0.1007, 0.0974, 0.0952, 0.0915, 0.0869, 0.081, 0.0753, 0.0704, 0.0625, 0.054, 0.0436, 0.0263],
     rocker: {noseIn: 5.05, tailIn: 2.3, flatFromTail: 0.48},
     softTop: true,
-    look: {deck: '#173c98', bottom: '#f2f3f4', fade: 0.3, finish: 'matte', pattern: 'stripes'},
+    look: {deck: '#1d3f8f', bottom: '#f2f3f4', fade: 0.3, finish: 'matte', pattern: 'stripes'},   // quiver-polish: the rail band in the photo's deep navy
   },
   // Pyzel Ghost, 6'6" x 20 1/2" x 3", 40.1 L (cleanlinesurf.com; the spec card in the retailer's photo). White.
   'demo-step': {

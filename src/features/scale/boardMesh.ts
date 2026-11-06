@@ -30,9 +30,11 @@ export interface BoardParams {
   traced?: number[] | null;
   /** a soft-top (foam deck, slick bottom): fat rounded rails, a flat bottom, no stringer; the deck faces are the foam part ('wax' group) */
   softTop?: Field<boolean>;
+  /** quiver-polish: a reference model's nose-tip radius and swallow notch depth (m), measured on its photos; the category values otherwise */
+  tipRM?: Field<number>; notchM?: Field<number>;
 }
 /** What a reference model adds over the category (src/data/referenceBoards.ts): its traced outline, a measured rocker, the soft-top flag. */
-export interface ReferenceShape {hw?: number[]; rocker?: {noseIn: number; tailIn: number; flatFromTail: number}; softTop?: boolean}
+export interface ReferenceShape {hw?: number[]; rocker?: {noseIn: number; tailIn: number; flatFromTail: number}; softTop?: boolean; tipRIn?: number; notchIn?: number}
 const F = <T,>(value: T, source: BoardSource = 'default'): Field<T> => ({value, source});
 
 /** The reference board: 5'10" x 19 1/4" x 2 3/8", squash, thruster (FINDINGS section 18 for the sources of every number). */
@@ -64,6 +66,8 @@ export function boardParamsFor(b: Pick<Surfboard, 'length' | 'width' | 'thicknes
   if (refHw) out.outline = F(out.outline.value, 'photo');
   if (ref?.rocker) out.rocker = F({noseM: ref.rocker.noseIn * IN, tailM: ref.rocker.tailIn * IN, flatFromTail: ref.rocker.flatFromTail}, 'photo');
   if (soft) { out.softTop = F(true, 'photo'); out.rail = F('soft', 'photo'); }
+  if (refHw && ref?.tipRIn) out.tipRM = F(ref.tipRIn * IN, 'photo');
+  if (refHw && ref?.notchIn && tail === 'swallow') out.notchM = F(ref.notchIn * IN, 'photo');
   return out;
 }
 
@@ -115,7 +119,7 @@ export function boardCurves(p: BoardParams): BoardCurves {
   }
   // the nose tip rounded (a circle of radius rNose tangent to the outline) and the tail's cut: the squash's corners rounded, the round
   // tail a half circle, the pin to a point, the swallow a block with the notch (the notch is in the x of the tail rings, see buildBoard)
-  const rNose = 0.02 * k, hwEnd = half(0), rCorner = tail === 'squash' ? Math.min(0.03 * k, hwEnd * 0.5) : tail === 'swallow' ? Math.min(0.012, hwEnd * 0.3) : tail === 'round' ? hwEnd : Math.min(0.012, hwEnd);
+  const rNose = p.tipRM?.value ?? 0.02 * k, hwEnd = half(0), rCorner = tail === 'squash' ? Math.min(0.03 * k, hwEnd * 0.5) : tail === 'swallow' ? Math.min(0.012, hwEnd * 0.3) : tail === 'round' ? hwEnd : Math.min(0.012, hwEnd);
   const halfCut = (t: number) => {
     let h = half(t);
     const dn = (1 - t) * L; if (dn < rNose) h = Math.min(h, Math.sqrt(Math.max(0, 2 * rNose * dn - dn * dn)));
@@ -138,7 +142,7 @@ export function boardCurves(p: BoardParams): BoardCurves {
   const bottomAt = (x: number, z: number) => { const t = tOf(x), hw = halfCut(t), q = Math.min(1, Math.abs(z) / hw), s = Math.sqrt(Math.max(0, 1 - q * q * q * q)); return rocker(t) + thick(t) * apex(t) * (1 - Math.pow(s, edgeK(t))) + concave(t, q) * s; };
   const deckNormalAt = (x: number, z: number, out: Float32Array | number[]) => { const e = 0.004, dx = (deckAt(x + e, z) - deckAt(x - e, z)) / (2 * e), dz = (deckAt(x, z + e) - deckAt(x, z - e)) / (2 * e), l = Math.hypot(dx, 1, dz); out[0] = -dx / l; out[1] = 1 / l; out[2] = -dz / l; };
   const padLen = Math.min(0.44 * k, 0.26 * L), padBack = 0.5 * L - 0.045 * k - (tail === 'swallow' ? 0.03 * k : 0);
-  return {L, W, T, half, halfCut, rocker, thick, apex, edgeK, concave, deckAt, bottomAt, deckNormalAt, notchM: tail === 'swallow' ? 0.095 * k : 0, waxX: [-0.42 * L, padBack - padLen], padX: [padBack - padLen, padBack]};
+  return {L, W, T, half, halfCut, rocker, thick, apex, edgeK, concave, deckAt, bottomAt, deckNormalAt, notchM: tail === 'swallow' ? p.notchM?.value ?? 0.095 * k : 0, waxX: [-0.42 * L, padBack - padLen], padX: [padBack - padLen, padBack]};
 }
 
 export type BoardPart = 'resin' | 'wax' | 'stringer' | 'pad' | 'fin' | 'finbox';

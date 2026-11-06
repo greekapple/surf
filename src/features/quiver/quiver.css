@@ -475,7 +475,10 @@
 @media (prefers-reduced-motion: reduce) { .br-hot i { transition: none; } }
 /* quiver-look: the hotspot rings read as screws on the board in every view, so they show only when someone is exploring: the pointer over the
    stage, keyboard focus inside it, an open hotspot, or a touch on the board itself (BoardRoom sets .hot-on for a few seconds). */
-.br-stage:not(:hover):not(:focus-within):not(.hot-on):not(:has(.br-hot[aria-expanded='true'])) .br-hot { opacity: 0; pointer-events: none; }
+/* quiver-polish: on touch screens :hover sticks after a tap and :focus-within matches a tapped stage button, which showed the rings after any tap on
+   the angle arrows; there only a touch on the board (.hot-on), keyboard focus or an open hotspot shows them. */
+@media (hover: hover) { .br-stage:not(:hover):not(.hot-on):not(:has(:focus-visible)):not(:has(.br-hot[aria-expanded='true'])) .br-hot { opacity: 0; pointer-events: none; } }
+@media (hover: none) { .br-stage:not(.hot-on):not(:has(:focus-visible)):not(:has(.br-hot[aria-expanded='true'])) .br-hot { opacity: 0; pointer-events: none; } }
 /* T-095: the wall's board arrows are 44 px on phones (were 40). */
 @media (max-width: 860px) { .qv-rackwrap .qv-arrow { width: 44px; height: 44px; margin-top: -22px; } }
 .qv-duel .nw { white-space: nowrap; } /* T-095: a length never splits across lines */

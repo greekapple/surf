@@ -101,7 +101,7 @@ export interface Trim {stringer: string | null; fin: string}
 const REF_TRIM: Record<string, Trim> = {
   'Inferno 72 C1 Carbon': {stringer: null, fin: '#17191c'},
   'Seaside (Helium)': {stringer: '#3b3f45', fin: '#17191c'},
-  "8' Classic": {stringer: null, fin: '#2b6fd6'},
+  "8' Classic": {stringer: null, fin: '#2350c4'},   // quiver-polish: the photo's deeper royal fins
   Ghost: {stringer: '#55595f', fin: '#17191c'},
 };
 export function trimFor(b: Parameters<typeof referenceFor>[0]): Trim | null {

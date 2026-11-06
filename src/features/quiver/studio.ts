@@ -102,7 +102,8 @@ function deckMaterial() {
       .replace('#include <common>', '#include <common>\nuniform float uBottomRough;');
     sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nattribute float deckw;\nvarying float vDeckW;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvDeckW = deckw;');
     sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vDeckW;')
-      .replace('#include <map_fragment>', '#ifdef USE_MAP\n vec4 sampledDiffuseColor = texture2D( map, vMapUv );\n diffuseColor.rgb *= mix( vec3( 1.0 ), sampledDiffuseColor.rgb, vDeckW );\n#endif');
+      // quiver-polish: the atlas's top half is the deck, its lower half the bottom (white unless a pattern fills it, e.g. the carbon bottom)
+      .replace('#include <map_fragment>', '#ifdef USE_MAP\n vec4 sampledDiffuseColor = texture2D( map, vMapUv );\n vec4 sampledBottom = texture2D( map, vec2( vMapUv.x, vMapUv.y - 0.5 ) );\n diffuseColor.rgb *= mix( sampledBottom.rgb, sampledDiffuseColor.rgb, vDeckW );\n#endif');
   };
   return m;
 }
@@ -116,7 +117,10 @@ function patternCanvas(kind: 'carbon' | 'stripes', hw: number[]): HTMLCanvasElem
   const g = c.getContext('2d')!; g.fillStyle = '#fff'; g.fillRect(0, 0, W, 2 * H);
   const img = g.createImageData(W, H), d = img.data, mx = Math.max(...hw), n = hw.length;
   // quiver-look: the shared soft-top palette (navy rail band, royal and sky bands on white), the same table the 2D wall draws
-  const STRIPES: [number, number, number, number][] = STRIPE_BANDS.map(([r, h]) => [r, parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]);
+  // quiver-polish: the studio lights lift saturated matte foam about 2x; the blue bands are pre-darkened for the 3D atlas (whites unchanged) so the
+  // rendered deck lands on the photo's navy, royal and sky. The 2D wall draws STRIPE_BANDS as they are.
+  const FOAM_K = 0.62, dk = (v: number, white: boolean) => (white ? v : Math.round(v * FOAM_K));
+  const STRIPES: [number, number, number, number][] = STRIPE_BANDS.map(([r, h]) => { const w = h.toLowerCase() === '#f7f8f8'; return [r, dk(parseInt(h.slice(1, 3), 16), w), dk(parseInt(h.slice(3, 5), 16), w), dk(parseInt(h.slice(5, 7), 16), w)]; });
   for (let x = 0; x < W; x++) {
     const f = (x / (W - 1)) * (n - 1), i = Math.min(n - 2, Math.floor(f)), h = Math.max(1e-3, (hw[i] + (hw[i + 1] - hw[i]) * (f - i)) / mx);
     for (let y = 0; y < H; y++) {
@@ -124,7 +128,7 @@ function patternCanvas(kind: 'carbon' | 'stripes', hw: number[]): HTMLCanvasElem
       let R: number, G: number, B: number;
       if (kind === 'carbon') {
         // quiver-look: 7 px tows (about half an inch on the board) and more contrast, so the twill reads at 1440 under a satin finish
-        const tx = Math.floor(x / 7), ty = Math.floor(y / 7), warp = ((tx + ty) & 3) < 2, ph = warp ? (x % 7) / 7 : (y % 7) / 7, v = 12 + 30 * Math.sin(Math.PI * ph) + (warp ? 8 : 0);
+        const tx = Math.floor(x / 7), ty = Math.floor(y / 7), warp = ((tx + ty) & 3) < 2, ph = warp ? (x % 7) / 7 : (y % 7) / 7, v = 7 + 24 * Math.sin(Math.PI * ph) + (warp ? 6 : 0);   // quiver-polish: darker, so the deck reads black from above as on the photo
         const rim = smooth(0.8, 0.86, r);   // the white rail band of the reference photo, about a sixth of the half-width
         R = v + (243 - v) * rim; G = v + 1 + (241 - v - 1) * rim; B = v + 4 + (236 - v - 4) * rim;
       } else { const s = STRIPES.find((b) => r < b[0])!; R = s[1]; G = s[2]; B = s[3]; }
@@ -132,6 +136,21 @@ function patternCanvas(kind: 'carbon' | 'stripes', hw: number[]): HTMLCanvasElem
     }
   }
   g.putImageData(img, 0, 0);
+  if (kind === 'carbon') {
+    // quiver-polish: the Inferno's bottom is carbon too (black weave inside a thin white rail band, the bottom photo): the atlas's lower half,
+    // which the resin shader samples where the surface faces down. Darker than the deck, so it reads black, not charcoal, under the lights.
+    const lo = g.createImageData(W, H), e = lo.data;
+    for (let x = 0; x < W; x++) {
+      const f = (x / (W - 1)) * (n - 1), i = Math.min(n - 2, Math.floor(f)), h = Math.max(1e-3, (hw[i] + (hw[i + 1] - hw[i]) * (f - i)) / mx);
+      for (let y = 0; y < H; y++) {
+        const r = Math.abs(1 - 2 * (y + 0.5) / H) / h, o = (y * W + x) * 4;
+        const tx = Math.floor(x / 7), ty = Math.floor(y / 7), warp = ((tx + ty) & 3) < 2, ph = warp ? (x % 7) / 7 : (y % 7) / 7, v = 5 + 20 * Math.sin(Math.PI * ph) + (warp ? 5 : 0);
+        const rim = smooth(0.9, 0.95, r);   // a thinner band than the deck's
+        e[o] = v + (243 - v) * rim; e[o + 1] = v + 1 + (241 - v - 1) * rim; e[o + 2] = v + 3 + (236 - v - 3) * rim; e[o + 3] = 255;
+      }
+    }
+    g.putImageData(lo, 0, H);
+  }
   return c;
 }
 
@@ -449,14 +468,15 @@ export class Studio {
       // quiver-look: Deck and Bottom look straight down with the board turned nose-up on screen (spin = azimuth + 90°), like the makers'
       // top-down product photos, so the traced outline reads; the target sits a little toward the tail so the board clears the toolbar.
       case 'deck': case 'bottom': {
-        const az = -24, sh = this.camera.aspect < 1.3 ? 0 : L * 0.04, a = THREE.MathUtils.degToRad(az);
+        const az = -24, sh = 0, a = THREE.MathUtils.degToRad(az);   // quiver-polish: centred (a wide stage's toolbar sits bottom-left, clear of a vertical board)
         return {az, el: 88.5, m: 1.0, flip: p === 'bottom' ? Math.PI : 0, spin: THREE.MathUtils.degToRad(az + 90), target: new THREE.Vector3(Math.sin(a) * sh, y, Math.cos(a) * sh)};
       }
       case 'rail': return {az: 4, el: 7, m: 1.0, flip: 0, spin: 0, target: new THREE.Vector3(0, y - 1, 0)};
       // quiver-look: Tail and Nose from a low three-quarter (22°, about 45° off the board's axis), not end-on, so the outline's end, the fins and
       // the rocker read instead of a foreshortened oval.
-      case 'tail': return {az: -51, el: 22, m: 0.55, flip: 0, spin: 0, target: new THREE.Vector3(-L * 0.28, y - 1, 0)};
-      case 'nose': return {az: 40, el: 22, m: 0.55, flip: 0, spin: 0, target: new THREE.Vector3(L * 0.28, y - 1, 0)};
+      // quiver-polish: a phone's square stage cut the board's far end off; there the end view aims nearer the middle and frames more of the board
+      case 'tail': return {az: -51, el: 22, m: 0.55, flip: 0, spin: 0, target: new THREE.Vector3(-L * (this.camera.aspect < 1.3 ? 0.12 : 0.28), y - 1, 0)};
+      case 'nose': return {az: 40, el: 22, m: 0.55, flip: 0, spin: 0, target: new THREE.Vector3(L * (this.camera.aspect < 1.3 ? 0.12 : 0.28), y - 1, 0)};
       case 'three': return {az: 30, el: 36, m: 1.0, flip: 0, spin: STAND, target: new THREE.Vector3(0, y, 0)};
       default: return {az: 32, el: 22, m: 1.06, flip: 0, spin: 0, target: new THREE.Vector3(0, y, 0)};
     }
@@ -473,7 +493,7 @@ export class Studio {
     // stage half empty (T-016: the board filled ~55% of the stage height).
     const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2);
     // (Deck and Bottom: a phone's stage has pills over its top and bottom, so the board gets more vertical room there.)
-    const d = p === 'tail' || p === 'nose' ? this.sphereDist(R * 0.55) : p === 'deck' || p === 'bottom' ? this.fitDist((sp?.width ?? 20) * 1.5, L * (this.camera.aspect < 1.3 ? 1.75 : 1.42)) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
+    const d = p === 'tail' || p === 'nose' ? this.sphereDist(R * (this.camera.aspect < 1.3 ? 0.82 : 0.55)) : p === 'deck' || p === 'bottom' ? this.fitDist((sp?.width ?? 20) * 1.5, L * (this.camera.aspect < 1.3 ? 1.75 : 1.16)) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
     return {s: new THREE.Spherical(Math.max(d, 20), Math.PI / 2 - THREE.MathUtils.degToRad(q.el), THREE.MathUtils.degToRad(q.az)), target: q.target, flip: q.flip};
   }
   private currentPose() {
@@ -779,7 +799,11 @@ export class Studio {
     const f = 0.05 + look.fade * 0.85, photo = !!rig.tex, pattern = rig.texSrc.startsWith('pattern:');
     const col = tpl.resin.geom.getAttribute('color') as THREE.BufferAttribute, nr = tpl.resin.nrm0, c = new THREE.Color();
     for (let i = 0; i < col.count; i++) {
-      if (pattern) c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1])).lerp(WHITE, smooth(0.45, 0.8, nr[i * 3 + 1]));   // the rails in the look's colour, the deck white under the pattern
+      if (pattern && look.pattern === 'carbon') c.copy(deck);   // quiver-polish: the carbon atlas colours deck, rails and bottom itself
+      // quiver-polish: a soft-top's rails are the solid band colour from just below the rail's apex (the old -f..f blend left the apex half white,
+      // so the navy read as a bright royal); the slick bottom stays the bottom colour
+      else if (pattern && look.pattern === 'stripes') c.copy(bottom).lerp(deck.clone().multiplyScalar(0.62), smooth(-0.55, -0.3, nr[i * 3 + 1])).lerp(WHITE, smooth(0.45, 0.8, nr[i * 3 + 1]));
+      else if (pattern) c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1])).lerp(WHITE, smooth(0.45, 0.8, nr[i * 3 + 1]));   // the rails in the look's colour, the deck white under the pattern
       else if (photo) c.copy(bottom).lerp(WHITE, smooth(0.45, 0.8, nr[i * 3 + 1])); else c.copy(bottom).lerp(deck, smooth(-f, f, nr[i * 3 + 1]));
       col.setXYZ(i, c.r, c.g, c.b);
     }
@@ -793,10 +817,11 @@ export class Studio {
     else { m.roughness = 0.34; m.clearcoat = 1; m.clearcoatRoughness = 0.03; m.sheen = 0.18; m.sheenRoughness = 0.55; m.sheenColor.set(0xf6f2ea); m.envMapIntensity = 1.05; }
     (m.userData.bottomRough as {value: number}).value = rig.spec.softTop ? 0.3 : -1;
     // quiver-look: a white sheen at 0.3 washed the soft-top's navy and royal into periwinkle; foam keeps its colour with a faint, deck-tinted sheen.
-    if (rig.spec.softTop) { m.roughness = 0.9; m.clearcoat = 0; m.sheen = 0.06; m.sheenRoughness = 0.9; m.sheenColor.set(0xdfe6f2); m.envMapIntensity = 0.55; m.normalScale.set(0.1, 0.1); }   // closed-cell foam, no resin gloss   // a soft-top: the slick bottom skin under the matte foam deck
+    if (rig.spec.softTop) { m.roughness = 0.9; m.clearcoat = 0; m.sheen = 0.06; m.sheenRoughness = 0.9; m.sheenColor.set(0xdfe6f2); m.envMapIntensity = 0.45; m.normalScale.set(0.1, 0.1); }   // closed-cell foam, no resin gloss   // a soft-top: the slick bottom skin under the matte foam deck
     if (rig.stringer) rig.stringer.visible = !rig.spec.softTop && look.pattern !== 'carbon';   // no stringer shows through a soft-top's foam or the carbon deck
     // quiver-look: carbon is a satin weave, not polished metal: roughness ~0.48, a thin soft clearcoat, the weave's relief in the normal map.
-    if (look.pattern === 'carbon') { m.roughness = 0.48; m.clearcoat = 0.25; m.clearcoatRoughness = 0.4; m.sheen = 0.04; m.envMapIntensity = 0.7; m.normalScale.set(0.22, 0.22); }
+    // quiver-polish: straight-down views reflected the overhead light strips and turned the black weave mid-grey; carbon takes less of the room
+    if (look.pattern === 'carbon') { m.roughness = 0.5; m.clearcoat = 0.12; m.clearcoatRoughness = 0.45; m.sheen = 0.02; m.envMapIntensity = 0.32; m.specularIntensity = 0.35; m.normalScale.set(0.22, 0.22); }
     if (rig.stringer && rig.trim && rig.trim.stringer === null) rig.stringer.visible = false;   // an example model whose photos show no centre line
     w.color.set(rig.trim?.stringer ?? WOOD); if (hasTint) w.color.multiply(tintC.clone().lerp(new THREE.Color(1, 1, 1), 0.5));
     w.roughness = look.finish === 'matte' ? 0.7 : 0.45; w.clearcoat = look.finish === 'matte' ? 0 : 0.8; w.clearcoatRoughness = 0.06;

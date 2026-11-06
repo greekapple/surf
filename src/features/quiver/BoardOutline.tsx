@@ -3,6 +3,7 @@ import type {Surfboard} from '../../models/index';
 import {lengthLabel} from '../../utils/units';
 import {CARBON_RIM, STRIPE_BANDS, effectiveDeck, resolvedLook, trimFor, type Look} from './looks';
 import {wallOutline} from './outline';
+import {referenceFor} from '../../data/referenceBoards';
 
 /** T-094: the one 2D board renderer (wall, phone strip, board-room rail, Compare, Board Match), drawn to the board's real length and width in the
  *  board's own look (the same `looks` record the 3D showroom uses): deck colour with the resin tint, gloss or matte rail shading, the stringer and
@@ -36,12 +37,20 @@ export function BoardOutline({b, scale = 3.4, look, decorative, at}: {b: BoardLi
   let halfAt: (f: number) => number;
   /** The outline at a fraction r of the half-width (1 = the rail): the deck pattern's bands are drawn with it. */
   let path: (r: number) => string;
-  const notchD = tk.notch ? W * tk.notch : 0;
+  // quiver-polish: an example model's notch depth and nose-tip radius as measured on its photos (the 3D mesh uses the same numbers)
+  const ref = rec && traced ? referenceFor(rec) : null;
+  const notchD = tk.notch ? (ref?.notchIn ? ref.notchIn * scale : W * tk.notch) : 0, tipR = ref?.tipRIn ? ref.tipRIn * scale : 0;
   if (traced) {
     const n = traced.length, mx = Math.max(...traced), k = mx > 0 ? hw / mx : 0;
     halfAt = (f: number) => { const u = Math.min(n - 1, Math.max(0, f * (n - 1))), i = Math.min(n - 2, Math.floor(u)); return (traced[i] + (traced[i + 1] - traced[i]) * (u - i)) * k; };
     path = (r: number) => {
-      const pts = traced.map((h, i) => [(i / (n - 1)) * L, h * k * r] as const);
+      let pts = traced.map((h, i) => [(i / (n - 1)) * L, h * k * r] as [number, number]);
+      if (tipR > 0) {
+        // a round nose tip: between the tip and the first station the outline follows the measured tip radius, not a straight cut
+        const d1 = L / (n - 1), tip: [number, number][] = [];
+        for (let j = 1; j < 8; j++) { const yy = (d1 * j) / 8, lin = (traced[0] + (traced[1] - traced[0]) * (j / 8)) * k * r; tip.push([yy, Math.min(lin, Math.sqrt(Math.max(0, 2 * tipR * yy - yy * yy)) * r)]); }
+        pts = [[0, 0], ...tip, ...pts.slice(1)];
+      }
       const right = pts.map(([yy, h]) => `L${(cx + h).toFixed(2)},${yy.toFixed(2)}`).join(' ');
       const left = [...pts].reverse().map(([yy, h]) => `L${(cx - h).toFixed(2)},${yy.toFixed(2)}`).join(' ');
       return `M${cx},0 ${right} ${notchD && r >= 1 ? `L${cx},${(L - notchD).toFixed(2)}` : ''} ${left}Z`;
