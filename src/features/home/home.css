@@ -130,7 +130,10 @@
 @media (max-width: 860px) {
   .wk { margin-inline: calc(-1 * var(--gutter, 16px)); padding-inline: var(--gutter, 16px); }
   .wk-t { min-width: 680px; }
-  .wk-t .wk-spot { position: sticky; left: 0; z-index: 2; background: var(--bg); width: 120px; }
+  /* phone-week-line: the sticky spot names sit above the rows' size line (.wk-line, z-index 2), so the line passes behind them when the week is
+     scrolled sideways; their background (and a patch to their left) also covers the scroller's left gutter, so no scrolled number shows beside the names. */
+  .wk-t .wk-spot { position: sticky; left: 0; z-index: 3; background: var(--bg); width: 120px; }
+  .wk-t .wk-spot::before { content: ''; position: absolute; top: -1px; bottom: 0; right: 100%; width: var(--gutter, 16px); background: var(--bg); }   /* box-shadow does not paint on collapsed-table cells */
   .wk-c button { min-height: 52px; padding: 6px; }
 }
 /* T-069: an offshore-only day is visibly secondary: a small grey number; the row label carries the word "offshore". */
