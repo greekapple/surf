@@ -46,6 +46,14 @@ export const WAKE = {points: 44, sampleS: 0.045, lifeS: 1.6, widthM: 0.22, sprea
   /** tail spray: roll (rad) where the fan starts and is full, the speed (m/s) for a full fan, which moves throw it */
   sprayRoll0: 0.07, sprayRoll1: 0.28, spraySpeed: 7, sprayMoves: ['top', 'cutback', 'recover', 'bottom'] as readonly string[]} as const;   // R15: the bottom turn's fan off the rail (the load reads the turn roll, which carries the knot's rail). The whitewater pop check (R6) reads 32-40 pop frames and ~2000 "outside" frames over 60 s at 5 ft from the default camera with or without it, and the same on the R14 code under the same light (`pop-before.log`): it is the white deck of the rolled board it counts, not the fan
 
+/** 3d-next (spec 2026-11-06 item 2, "surf-photo framing"): the default surf camera. A longer lens on the same orbit (the R6 distance
+ *  3.4 + 2.0 H, eye 0.15 d over the target: polar ~81.5 deg, so T-062's drags keep their travel), so the rider is a quarter to a third of
+ *  the frame height instead of ~0.19 (the lead's audit: ~15 %), and the follow target sits further toward the curl so the pitching lip
+ *  and the whitewater stay in the frame beside him. `fov` vertical (deg; the swell view keeps 42), `towardCurlH` / `upH` the follow
+ *  target's offset from the rider (face heights), `followS` the follow spring's period (s; a tighter frame needs a quicker follow: the
+ *  barrel's exit runs at 3-4 m/s along the crest). */
+export const SURF_CAM = {fov: 32, swellFov: 42, towardCurlH: 0.5, upH: 0.22, followS: 0.8} as const;
+
 /** The 6 ft scale pole: 1 ft bands, stood on the trough at the rider's own along-crest position, this far out on the flat in front. */
 export const POLE = {heightM: 1.8288, bands: 6, radiusM: 0.035, aheadM: 1.2} as const;
 
@@ -157,7 +165,9 @@ export const RIDE = {
   roof: {stand: {x: -0.1, up: 1.36, toe: 0.43, heel: 0.5}, crouch: {x: -0.12, up: 1.0, toe: 0.44, heel: -0.11}, crownM: 0.1, /** the shoulders: this far below the head, checked as well (the head past a lip's tip with the chest in its root is no line) */ shoulderM: 0.36, marginM: 0.15,
     crouchFreeV: 0, crouchV: 0.12,   // R15: the crouch starts as soon as the plan's height meets the standing cap (0.03 above it let the rider stand up under the lip at the barrel's exit for two samples, the head -0.06 m)
     /** the crouch's own spring (rad/s); the cap is read this far ahead (s) along the rider's motion, since it steps where the thrown
-     *  zone begins and the cap spring lags a step by about this much */ crouchW: 2 * Math.PI * 1.1, leadS: 0.35},
+     *  zone begins and the cap spring lags a step by about this much */ crouchW: 2 * Math.PI * 1.1, leadS: 0.35,
+    /** 3d-next: the moves in which a floor the standing crown cannot fit under means a full crouch (the tube and its exit) */
+    floorCrouchMoves: ['stall', 'barrel', 'trim'] as readonly string[]},
 } as const;
 
 /** R8: the snap's hit (Knot.cap / Knot.pivot). The 6 ft plunging face passes the vertical at about 0.45 of its height (78 deg at 0.39,
@@ -207,7 +217,24 @@ export interface ManeuverKnot {dt: number; du: number; dv: number; move: Move; p
   /** R14: u relative to the FOLD (RIDE.foldAheadM ahead of the break point, in face heights at the plan's face; + = further out): the
    *  barrel ride's turn happens where the lip is just starting to pitch, whatever the band's line */ duFold?: number;
   /** R17: an ABSOLUTE v (fraction of the face) instead of the line offset: the hit's and the top turn's apex are set against the face's
-   *  top, not the band's line and the skill's intensity (the Intermediate's 0.7 x put the 6 ft cover-up hit at 0.575) */ vAbs?: number}
+   *  top, not the band's line and the skill's intensity (the Intermediate's 0.7 x put the 6 ft cover-up hit at 0.575) */ vAbs?: number;
+  /** 3d-next: a knot INSIDE the breaking section, placed by the atlas's own break cycle: this share of the way from where the lip pitches
+   *  (stage_pitch, the break point) to where it lands (stage_land), behind the break point, in metres from the atlas (`TubeAt`), so the
+   *  rider is where the lip is actually thrown over him whatever the bucket, the period or the face. Its `uAbs` is the line kept when the
+   *  plan has no atlas (the R17 position) */ kTube?: number;
+  /** 3d-next: the u (face heights, like uAbs) this knot takes when the tube knots are placed by the atlas: the exit out of the deeper tube */ uTube?: number; /** 3d-next: and its time (s) then */ dtTube?: number}
+/** 3d-next: where the tube knots go: u (face heights behind the break point) for a share k of the pitch-to-land section; null = no atlas
+ *  (the knots keep their uAbs). Built by rideSim.buildPlan from the atlas meta. */
+export type TubeAt = ((k: number) => number) | null;
+/** 3d-next (spec 2026-11-06 item 1, "a real barrel ride"): the barrel ride's tube knots by the break cycle. Before, the tube knots sat at
+ *  uAbs 0.25 / 0.35 faces (0.5-0.6 m behind the break point at 6 ft) and the stall's spring and the drift cap held the rider 1.5 m AHEAD
+ *  of it for most of the move: stage 3.6-4.1 (stage_pitch 4), the unbroken shoulder with the lip a band above it from the default camera.
+ *  `inK` / `deepK` the two tube knots, `aheadPadFaces` the slack on the minimum-ahead limit past the knot (the limit must not hold the
+ *  rider short of the knot). The stall keeps its R17 knot (1.6 m ahead at 6 ft): placed just behind the break point, the spline out of
+ *  the recovery turned back along the crest at once (the wake 66-86 deg off the heading in the recovery, 3-6 counts per ride). */
+export const RIDE_TUBE = {inK: 0.16, deepK: 0.27, aheadPadFaces: 0.35, /** the exit knot (face heights ahead of the break point, negative): from the deeper tube the R17 exit (0.6 faces out) left the rider standing up in the trim under the lip ahead of the break point (head wet, or the barrel crouch's hand under the knee in the trim) */ exitU: -1.3, /** its time (s): 5-6 m along the crest at 6 ft (the R17 0.9 s put the exit at 14 m/s over the water and the rider out of the default frame for 0.4 s as the follow camera lagged) */ exitS: 1.5, /** the deep knot's time (s; R17 1.8): the 0.6 s the exit gained comes out of the dwell, so the ride's period (and the
+   *  seeded phase of the section pulses it meets) is the R17 one: with the period 0.6 s longer the hit's recovery met another pulse phase and
+   *  read the wake gate 3-6 times (70-104 deg for 0.03-0.05 s), the R15/R17 recovery wake that depends on that phase */ deepS: 1.2};
 export type ManeuverName = 'trim' | 'carve' | 'snap' | 'cutback' | 'pump' | 'straight' | 'barrel' | 'coverup' | 'longBottom' | 'barrelRide' | 'coverupRide';
 export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
   /** a trim along the line */
@@ -231,7 +258,7 @@ export const MANEUVERS: Record<ManeuverName, ManeuverKnot[]> = {
    *  visible STALL back into the pocket (the sim caps the drift at the flow less 2.5 m/s, so the curl catches the rider up over ~1.5 s with
    *  the weight back in the barrel crouch), the tube knots at the R12/R13 positions, the exit ahead of the foam */
   barrelRide: [{dt: 0.6, du: 0, duFold: RIDE_HIT_FOLD_DU, dv: 0.35, vAbs: RIDE_HIT_V, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: 0, duFold: RIDE_HIT_FOLD_DU + 0.1, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},   // R17: the hit's height is absolute (RIDE_HIT_V, the top of the face; the band's line + 0.35 planned it at 0.71 and the 6 ft hit measured 0.50), its climb from the bottom turn's exit takes 0.6 s, the hit point sits past the fold (RIDE_HIT_FOLD_DU) and the recovery lands a little further out still (the path over the water used to reverse along the crest at the apex: wake 130 deg off the heading for 3 samples)
-    {dt: 1.3, du: 0.1, uAbs: -0.9, dv: -0.22, move: 'stall', pose: 'barrel', comp: 0.8, ahead: 0.7}, {dt: 0.7, du: -0.8, uAbs: 0.25, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: -0.25}, {dt: 1.8, du: -1.0, uAbs: 0.35, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: -0.3}, {dt: 0.9, du: 0.1, uAbs: -0.6, dv: -0.22, move: 'barrel', pose: 'recover', comp: 0.7, ahead: 0.35}],   // R15: the stall's and the tube's comp 0.1 lower (0.9 / 1 / 1 / 0.8): the crouch key is deeper now (surfer-v11) and the ride's own compression on top of it folded the knees past the gate   // R14: the second tube knot 1.4 -> 1.8 s (the stall is its own move now; the 6 ft tube read 2.3 s in the barrel move + 0.6 in the stall)
+    {dt: 1.3, du: 0.1, uAbs: -0.9, dv: -0.22, move: 'stall', pose: 'barrel', comp: 0.8, ahead: 0.7}, {dt: 0.7, du: -0.8, uAbs: 0.25, kTube: RIDE_TUBE.inK, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: -0.25}, {dt: 1.8, du: -1.0, uAbs: 0.35, kTube: RIDE_TUBE.deepK, dtTube: RIDE_TUBE.deepS, dv: -0.3, move: 'barrel', pose: 'barrel', comp: 0.9, ahead: -0.3}, {dt: 0.9, du: 0.1, uAbs: -0.6, uTube: RIDE_TUBE.exitU, dtTube: RIDE_TUBE.exitS, dv: -0.22, move: 'barrel', pose: 'recover', comp: 0.7, ahead: 0.35}],   // 3d-next: the two tube knots by the break cycle and the exit (uTube) clear of the lip's throw (kTube, RIDE_TUBE), the uAbs / ahead the line without an atlas   // R15: the stall's and the tube's comp 0.1 lower (0.9 / 1 / 1 / 0.8): the crouch key is deeper now (surfer-v11) and the ride's own compression on top of it folded the knees past the gate   // R14: the second tube knot 1.4 -> 1.8 s (the stall is its own move now; the 6 ft tube read 2.3 s in the barrel move + 0.6 in the stall)
   /** R14: the Intermediate's cover-up ride in the same order (its line sits 1.6 x further out, so the turn is relative to it, as the snap's was) */
   coverupRide: [{dt: 0.6, du: -0.2, dv: 0.35, vAbs: RIDE_HIT_V, move: 'top', pose: 'top', comp: 0.25, cap: RIDE_SNAP_CAP_DEG, pivot: RIDE_SNAP_PIVOT_DEG}, {dt: 0.5, du: -0.23, dv: -0.03, move: 'recover', pose: 'recover', comp: 0.8},   // R17: the hit at RIDE_HIT_V (absolute: the Intermediate's intensity 0.7 put it at 0.575)
     {dt: 1.0, du: -0.2, uAbs: -0.6, dv: -0.42, move: 'stall', pose: 'barrel', comp: 0.75, ahead: 0.5}, {dt: 1.2, du: -0.35, uAbs: -0.45, dv: -0.5, move: 'barrel', pose: 'barrel', comp: 0.85, ahead: 0.05}, {dt: 0.9, du: 0.2, uAbs: -1.0, dv: -0.42, move: 'barrel', pose: 'recover', comp: 0.6, ahead: 0.4}],   // R15: comp 0.1 lower, as the barrel ride's
@@ -354,12 +381,16 @@ export const SKILLS: Record<Skill, SkillProfile> = {
 };
 
 /** The ride body for a band and expertise (the maneuver library composed, filtered and scaled): absolute knots in (u, v). */
-export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: number) => boolean, faceM: number): Knot[] {
+export function composeBody(band: StyleBand, skill: SkillProfile, keep: (w: number) => boolean, faceM: number, tubeAt: TubeAt = null): Knot[] {
   const out: Knot[] = [], pocket = band.pocketFaces * skill.pocketScale, lineV = band.lineV + skill.lineVOffset, fold = RIDE.foldAheadM / Math.max(0.3, faceM);   // R14: the fold in face heights at this face
   for (const m of band.moves) {
     const name = m.name in skill.allow ? skill.allow[m.name] : m.name; if (name === null || name === undefined) continue;
     if (m.w < 1 && !keep(m.w)) continue;
-    for (const k of MANEUVERS[name]) out.push({dt: k.dt * skill.slow, u: k.duFold !== undefined ? -(fold + k.duFold) : k.uAbs !== undefined ? k.uAbs : -(pocket + k.du), v: k.vAbs !== undefined ? k.vAbs : lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve * (k.move === 'top' ? band.hitPivot ?? 1 : 1), rail: k.rail === undefined ? undefined : k.rail * skill.carve * (band.bottomRail ?? 1)});
+    for (const k of MANEUVERS[name]) {
+      // 3d-next: a tube knot by the break cycle (behind the break point); its minimum-ahead limit opens past it so it never holds the rider short
+      const uT = k.kTube !== undefined && tubeAt ? tubeAt(k.kTube) : null, uX = k.uTube !== undefined && tubeAt ? k.uTube : null;
+      out.push({dt: (tubeAt && k.dtTube !== undefined ? k.dtTube : k.dt) * skill.slow, u: uT !== null ? uT : uX !== null ? uX : k.duFold !== undefined ? -(fold + k.duFold) : k.uAbs !== undefined ? k.uAbs : -(pocket + k.du), v: k.vAbs !== undefined ? k.vAbs : lineV + k.dv * skill.intensity, move: k.move, pose: k.pose, comp: k.comp * band.compression / 0.9, ahead: uT !== null ? -(uT + RIDE_TUBE.aheadPadFaces) : k.ahead, cap: k.cap, pivot: k.pivot === undefined ? undefined : k.pivot * skill.carve * (k.move === 'top' ? band.hitPivot ?? 1 : 1), rail: k.rail === undefined ? undefined : k.rail * skill.carve * (band.bottomRail ?? 1)});
+    }
   }
   if (!out.length) out.push({dt: 1.2, u: -pocket, v: lineV, move: 'trim', pose: 'trim', comp: 0.4});
   return out;
@@ -485,5 +516,40 @@ export const BODY = {
   /** the correction's spread: the hip fix on the pelvis, the shoulder fix over the three spine bones, the head fix over neck and head;
    *  the arms keep this share of the shoulder fix (0 = the hands stay where the key put them in the rider frame, the clavicles counter
    *  the chest's turn; 1 = carried round with the chest) */
+  /** 3d-next (spec 2026-11-06 item 3, the user: the arms "still just look very awkward"): the ARM CARRIAGE, a layer on the keyed arms.
+   *  Measured at the default camera on R17 (6 ft Expert, rider frame, medians): in trim the front arm hung straight (elbow 162-165) with the
+   *  hand 0.11-0.15 m under the chest, the back arm near straight too (148-150) at hip height 0.4-0.5 m out over the toes; in the bottom
+   *  turn the front arm straight down by the hip (176) and the trailing hand at the hip, not toward the face. The pros (bottom-turn-fs,
+   *  snap-cutback-closeup, reunion-turns-barrels): the front arm leads down the line at chest height, a little bent; the back arm bent
+   *  ~90-110 and carried low and out for balance; in the bottom turn the trailing hand reaches down toward the face.
+   *  Per arm, a designed hand point in the rider frame: along the board (x) and across it (z) from that arm's own shoulder, its height
+   *  (y) from the chest (spine_03) or the hip (pelvis): `[dx toward the nose, dy, dz toward the toes, ref 0 = chest / 1 = hip]` (a first
+   *  cut read the offsets in the chest's own frame: the shoulder line is turned 30-45 deg off the stringer and the torso pitched 40-50 deg
+   *  in the bottom turn, so "forward" pulled the front hand to the heel side and "down" put both hands on the knees). Blended over the arms'
+   *  own pose weights (no thresholds: a pose without an entry has weight 0 and the layer fades with the weights' springs); the elbow is
+   *  placed by a two-bone solve whose bend plane comes from a POLE FIXED IN THE CHEST FRAME (never the arm's current plane, which is
+   *  undefined for a straight arm: the round-4 ragdoll), and the keyed upper arm and forearm are turned onto it by the minimal rotations,
+   *  scaled by the blended weight (0 = the keys as authored). The face clamp still runs after it. */
+  armCarry: {
+    weight: {trim: 1, pump: 1, bottom: 1, recover: 0.35, trimB: 1, pumpB: 1, bottomB: 1, recoverB: 0.35} as Partial<Record<PoseName, number>>,
+    /** the designed hand [dx toward the nose, dy, dz toward the toes, ref: 0 the chest, 1 the hip, 2 its own shoulder] (the back hand from its shoulder: read from the hip, the 8 ft bottom turn crouch put it inside the elbow's closest reach and the forearm flipped 39 deg in a frame); class `turn` for the bottom key, `trim` for the rest (the climb counted half a turn at first: with the weight spring the 12 ft backside hit kept the back hand under the knee, the arm box 8 times) */
+    front: {trim: [0.30, -0.02, 0.05, 0], turn: [0.28, 0.0, 0.0, 0]} as Record<'trim' | 'turn', readonly [number, number, number, number]>,
+    back: {trim: [-0.15, -0.42, -0.15, 2], turn: [-0.12, -0.48, 0.1, 2]} as Record<'trim' | 'turn', readonly [number, number, number, number]>,
+    /** the back hand's dz is toward the FACE (frontside the toes, backside the heels): in the turn the trailing hand reaches toward it, in trim it is carried a little away from it (toward the toes in trim the frontside back hand met the 70 deg wall of the drop: hand_l -0.06 for 1-2 samples) */
+    backTurnFaceSide: true, /** backside the face is behind the rider: the trailing hand reaches further back to it (at 0.12 it crossed in front of the hip) */ backTurnDzBackside: 0.35,
+    /** the elbow poles in the chest frame [u, up, f] */
+    poleFront: [0, -0.8, -0.3] as readonly [number, number, number], poleBack: [-0.85, 0, -0.3] as readonly [number, number, number],
+    /** the carriage fades with the pole's component square to the reach (0..1): a pole along the reach leaves the bend plane undefined */
+    poleFade: [0.15, 0.4] as readonly [number, number],
+    /** and with the turn it asks of a bone (rad): near 180 deg the minimal rotation's axis is undefined (fades out from 140 to 170 deg) */
+    flipFadeRad: [140 * Math.PI / 180, 170 * Math.PI / 180] as readonly [number, number],
+    /** the elbow's range (deg, interior) the solve keeps to */
+    elbowDeg: [70, 172] as readonly [number, number],
+    /** the designed hand follows its blend through a critically damped spring (Hz) under a speed cap (m/s), so neither a quick pose blend (the 8 ft takeoff swung the back forearm at 550-630 deg/s, over the 540 gate) nor a jittering input (the hip clamp, the chest frame) reaches the arm as a step or a flicker (the 8 ft bottom turn's front hand reversed three frames running) */
+    followHz: 2.5, speedMps: 1.2,
+    /** the corrections' angular speed cap (deg/s) */
+    rateDeg: 200,
+    /** the blended weight's own spring (Hz) */
+    weightHz: 1.2},
   yawHeadSplit: {neck: 0.5, head: 0.5}, yawArmsFollow: 1, yawHz: 1.5,   // R15: tried 2 for the over-rotation (the frontside recovery's shoulders 86 -> 69 with the lower targets): the faster correction carried the arms round with the chest and the 5 ft backside cutback's hands rose from p95 1.98 to 2.16 m/s with 6 arm counts, so the rate stays and the targets carry the item   // R12 (user, R11 live: "the arms and movements are still too jerky and abrupt"): the yaw corrections at 1.5 Hz, not 4 (a 60 deg correction at a knot change started at 37k deg/s^2; the head out of the cutback read 990 deg/s, 12k deg/s^2 at 5 ft Intermediate backside)
 } as const;

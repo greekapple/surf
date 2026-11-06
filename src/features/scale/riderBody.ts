@@ -344,6 +344,7 @@ export class RiderBody {
       }
       this.compose(b, par);
     }
+    this.armCarry(inp.mirror, dt);
     if (I.head >= 0 && I.neck >= 0) { this.headR.setFromMatrixPosition(this.riderM[I.head]); this.neckR.setFromMatrixPosition(this.riderM[I.neck]); this.posedHead = true; }   // R12: for the roof cap
     // R12: the face clamp (BODY.faceClamp): each arm turned about its shoulder, along the face normal, until the hand and the elbow hold
     // off the face; the turn is a rotation vector through its own spring (continuous through zero, as the lean)
@@ -400,8 +401,67 @@ export class RiderBody {
     }
     this.primed = true;
   }
+  /** 3d-next: the arm carriage (BODY.armCarry): each arm turned from its keyed place toward a designed one in the chest frame, by the
+   *  arms' blended carriage weight. No state of its own: everything it reads (the composed chain, the arms' pose weights) is already
+   *  continuous, so it cannot step; at weight 0 it leaves the keys exactly as they are. Per frame, for the front (hand_r, the model's
+   *  nose-side arm) and the back arm: the designed hand = shoulder + offset (u, up, f); the elbow by a two-bone solve with the bend plane
+   *  from the chest-fixed pole; the upper arm turned by the minimal rotation from its keyed direction onto the solved one, then the forearm
+   *  likewise, each scaled by the weight (a slerp from identity). The hand keeps its set against the forearm. */
+  private readonly cq = new THREE.Quaternion(); private readonly cI = new THREE.Quaternion(); private readonly cS = new THREE.Vector3(); private readonly cE = new THREE.Vector3(); private readonly cH = new THREE.Vector3(); private readonly cT = new THREE.Vector3(); private readonly cP = new THREE.Vector3(); private readonly cU = new THREE.Vector3(); private readonly cUp = new THREE.Vector3(); private readonly cF = new THREE.Vector3(); private readonly cD = new THREE.Vector3(); private readonly cA = new THREE.Vector3(); private readonly cB = new THREE.Vector3(); private readonly cN = new THREE.Vector3(); private readonly cSd = new THREE.Vector3();
+  /** the carriage weight applied this frame per arm [back, front] and the elbow it aimed at (deg), for the probe */ readonly carryW = [0, 0]; readonly carryElbow = [0, 0];
+  private readonly carryS = [new Spring(), new Spring(), new Spring(), new Spring(), new Spring(), new Spring()]; private readonly carryPrimed = [false, false];
+  /** the correction applied to each bone (upper, fore per arm, rider frame) follows its target under an angular speed cap (AC.rateDeg): the keyed arm's own swing and the correction's change of axis added up to 630-840 deg/s on the back forearm at 2 ft (the gate is 540) */
+  private readonly carryQ = [new THREE.Quaternion(), new THREE.Quaternion(), new THREE.Quaternion(), new THREE.Quaternion()]; private readonly carryWS = new Spring(); private carryWPrimed = false;
+  private carryRate(j: number, dt: number) { const q = this.carryQ[j], tgt = this.cI, ang = q.angleTo(tgt), cap = BODY.armCarry.rateDeg * D2R * dt; if (ang > cap) q.slerp(tgt, cap / ang); else q.copy(tgt); this.cI.copy(q); }
+  private armCarry(mirror: number, dt: number) {
+    const AC = BODY.armCarry, I = this.idx, Y = this.idxYaw, wa = this.wa, {parent} = this.bones;
+    if (I.pelvis < 0 || I.neck < 0 || Y.armL < 0 || Y.armR < 0) return;
+    // the blended weight and the turn share (the bottom key) over the arms' own pose weights
+    let wT0 = 0, turn = 0; for (let i = 0; i < POSES.length; i++) { const wi = wa[i]; if (wi <= 0) continue; const n = POSES[i], c = AC.weight[n] ?? 0; wT0 += wi * c; if (n === 'bottom' || n === 'bottomB') turn += wi * c;  }
+    const tShare = wT0 > 1e-6 ? THREE.MathUtils.clamp(turn / wT0, 0, 1) : 0;
+    // the weight itself through a critically damped spring (AC.weightHz): the kick-out's climb -> top handed the carriage back to the keys in ~0.2 s and the back hand reversed twice (8 ft)
+    if (!this.carryWPrimed) { this.carryWS.set(wT0); this.carryWPrimed = true; } const wT = THREE.MathUtils.clamp(this.carryWS.step(wT0, dt, 2 * Math.PI * AC.weightHz), 0, 1);
+    this.carryW[0] = this.carryW[1] = wT;   // computed even at weight 0, so the target springs below never hold a stale point
+    // the chest frame: u back shoulder -> front shoulder (the model's right arm is the front one), up pelvis -> neck, f = up x u (toward the toes when square)
+    const U = this.cU.setFromMatrixPosition(this.riderM[Y.armR]).sub(this.cA.setFromMatrixPosition(this.riderM[Y.armL])).normalize();
+    const Up = this.cUp.setFromMatrixPosition(this.riderM[I.neck]).sub(this.cB.setFromMatrixPosition(this.riderM[I.pelvis])); Up.addScaledVector(U, -Up.dot(U)).normalize();
+    const F = this.cF.crossVectors(Up, U).normalize();
+    // the designed hands are read in the rider frame (BODY.armCarry); the heights from the chest and the hip; the poles in the chest frame
+    const chestY = I.s3 >= 0 ? this.cN.setFromMatrixPosition(this.riderM[I.s3]).y : this.cN.setFromMatrixPosition(this.riderM[I.neck]).y - 0.2, hipY = this.cSd.setFromMatrixPosition(this.riderM[I.pelvis]).y, hipX = this.cSd.x;   // the designed hand stays within BODY.handSideMaxM of the pelvis along the board (the monitor's arm box is 0.7)
+    for (let k = 0; k < 2; k++) {
+      const L = this.arms[k]; if (L.a < 0 || L.b < 0 || L.c < 0) continue;
+      const front = k === BODY.frontLeg, D = front ? AC.front : AC.back, P0 = front ? AC.poleFront : AC.poleBack;
+      const ft = D.trim, fn = D.turn, side = !front && AC.backTurnFaceSide ? mirror : 1;
+      const ox = ft[0] + (fn[0] - ft[0]) * tShare, oy = ft[1] + (fn[1] - ft[1]) * tShare, fnz = !front && mirror < 0 ? AC.backTurnDzBackside : fn[2], oz = (ft[2] + (fnz - ft[2]) * tShare) * side, rf = ft[3] + (fn[3] - ft[3]) * tShare;
+      const S = this.cS.setFromMatrixPosition(this.riderM[L.a]), E0 = this.cE.setFromMatrixPosition(this.riderM[L.b]), H0 = this.cH.setFromMatrixPosition(this.riderM[L.c]);
+      const l1 = E0.distanceTo(S), l2 = H0.distanceTo(E0); if (l1 < 1e-4 || l2 < 1e-4) continue;
+      const T = this.cT.set(THREE.MathUtils.clamp(S.x - ox, hipX - BODY.handSideMaxM, hipX + BODY.handSideMaxM), (rf <= 1 ? (1 - rf) * chestY + rf * hipY : S.y) + oy, S.z + oz);   // the rider frame: the nose at -x, the toes at +z
+      { const sp = this.carryS, o = k * 3, wF = 2 * Math.PI * AC.followHz, cap = AC.speedMps * dt; if (!this.carryPrimed[k]) { sp[o].set(T.x); sp[o + 1].set(T.y); sp[o + 2].set(T.z); this.carryPrimed[k] = true; }
+        const x0 = sp[o].x, y0 = sp[o + 1].x, z0 = sp[o + 2].x; let nx = sp[o].step(T.x, dt, wF), ny = sp[o + 1].step(T.y, dt, wF), nz = sp[o + 2].step(T.z, dt, wF); const mv = Math.hypot(nx - x0, ny - y0, nz - z0);
+        if (mv > cap) { const f = cap / mv; nx = x0 + (nx - x0) * f; ny = y0 + (ny - y0) * f; nz = z0 + (nz - z0) * f; sp[o].x = nx; sp[o + 1].x = ny; sp[o + 2].x = nz; sp[o].v *= f; sp[o + 1].v *= f; sp[o + 2].v *= f; }
+        T.set(nx, ny, nz); }
+      if (wT < 1e-4) continue;
+      // the reach within the elbow's range
+      const dMin = Math.sqrt(l1 * l1 + l2 * l2 - 2 * l1 * l2 * Math.cos(AC.elbowDeg[0] * D2R)), dMax = Math.sqrt(l1 * l1 + l2 * l2 - 2 * l1 * l2 * Math.cos(AC.elbowDeg[1] * D2R));
+      const Dh = this.cD.copy(T).sub(S); let d = Dh.length(); if (d < 1e-5) continue; Dh.multiplyScalar(1 / d); const dRaw = d; d = THREE.MathUtils.clamp(d, dMin, dMax);   // a target near the shoulder has no stable direction: the carriage fades out under the elbow's closest reach (below) T.copy(S).addScaledVector(Dh, d);
+      // the bend plane from the chest-fixed pole (perpendicular to the reach); the elbow on that side
+      const Pp = this.cP.set(0, 0, 0).addScaledVector(U, P0[0]).addScaledVector(Up, P0[1]).addScaledVector(F, P0[2]); Pp.addScaledVector(Dh, -Pp.dot(Dh));
+      const ppL = Pp.length(); if (ppL < 1e-6) continue; Pp.multiplyScalar(1 / ppL); const wk = wT * THREE.MathUtils.smoothstep(ppL, AC.poleFade[0], AC.poleFade[1]) * THREE.MathUtils.smoothstep(dRaw, 0.5 * dMin, dMin);   // a pole near the reach leaves the plane undefined: the carriage fades out there instead of flipping (the 2 ft takeoff's back forearm stepped 46 deg in a frame with a pole along the reach)
+      const cosA = THREE.MathUtils.clamp((l1 * l1 + d * d - l2 * l2) / (2 * l1 * d), -1, 1), sinA = Math.sqrt(1 - cosA * cosA);
+      this.carryElbow[k] = Math.acos(THREE.MathUtils.clamp((l1 * l1 + l2 * l2 - d * d) / (2 * l1 * l2), -1, 1)) / D2R;
+      // the upper arm: keyed direction -> solved direction, by the weight
+      this.cA.copy(E0).sub(S).normalize(); this.cB.copy(Dh).multiplyScalar(cosA).addScaledVector(Pp, sinA);   // unit
+      this.cq.setFromUnitVectors(this.cA, this.cB); this.cI.identity().slerp(this.cq, wk * (1 - THREE.MathUtils.smoothstep(this.cA.angleTo(this.cB), AC.flipFadeRad[0], AC.flipFadeRad[1])));
+      this.carryRate(k * 2, dt); this.applyQuat(L.a, parent[L.a], this.cI); this.compose(L.a, parent[L.a]); this.compose(L.b, L.a); this.compose(L.c, L.b);
+      // the forearm: from its (moved) keyed direction onto the designed hand, by the weight
+      E0.setFromMatrixPosition(this.riderM[L.b]); H0.setFromMatrixPosition(this.riderM[L.c]);
+      this.cA.copy(H0).sub(E0).normalize(); this.cB.copy(T).sub(E0); if (this.cB.lengthSq() < 1e-8) continue; this.cB.normalize();
+      this.cq.setFromUnitVectors(this.cA, this.cB); this.cI.identity().slerp(this.cq, wk * (1 - THREE.MathUtils.smoothstep(this.cA.angleTo(this.cB), AC.flipFadeRad[0], AC.flipFadeRad[1])));
+      this.carryRate(k * 2 + 1, dt); this.applyQuat(L.b, L.a, this.cI); this.compose(L.b, L.a); this.compose(L.c, L.b);
+    }
+  }
   /** An hour or stance change re-seats the rider: the springs start from the new targets (not a glide from the old ride). */
-  reseat() { this.primed = false; }
+  reseat() { this.primed = false; this.carryPrimed[0] = this.carryPrimed[1] = false; for (const q of this.carryQ) q.identity(); this.carryWPrimed = false; }
   private compose(b: number, par: number) {
     const bone = this.bones.all[b]; this.local.compose(bone.position, bone.quaternion, bone.scale);
     if (par >= 0) this.riderM[b].multiplyMatrices(this.riderM[par], this.local); else this.riderM[b].copy(this.local);

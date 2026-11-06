@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {makeAtlas, faceDistanceAt, breakX, type AtlasMeta} from '../features/scale/waveAtlas.ts';
-import {RiderSim, S, buildPlan, planAt, defaultStance, hashSeed, isFrontside, lerpState, STATE_N, Spring, wrapPi} from '../features/scale/rideSim.ts';
+import {RiderSim, S, buildPlan, planAt, defaultStance, hashSeed, isFrontside, lerpState, STATE_N, Spring, tubeAtFor, wrapPi} from '../features/scale/rideSim.ts';
 import {BOARD, RIDE, SKILLS, bandFor, boardForBand} from '../features/scale/surfSceneConfig.ts';
 import type {Skill} from '../models/index.ts';
 
@@ -110,4 +110,19 @@ test('style bands and the expertise layer (brief part 2): thresholds round to 0.
   // the quiver board follows the band: a fish under 4 ft, a step-up at 12 ft, none without a quiver
   const q = [{id: 'f', type: 'Fish', length: 68}, {id: 's', type: 'Performance shortboard', length: 72}, {id: 'g', type: 'Step-up', length: 84}];
   assert.equal(boardForBand(bandFor(2), 2, q, 5.83), 'f'); assert.equal(boardForBand(bandFor(6), 6, q, 5.83), 's'); assert.equal(boardForBand(bandFor(12), 12, q, 5.83), 'g'); assert.equal(boardForBand(bandFor(12), 12, [], 5.83), null);
+});
+
+test('3d-next: the barrel ride\'s tube knots sit inside the breaking section, placed by the atlas\'s break cycle', () => {
+  const m = meta({face_m: 1.83, break_len_m: 38.6}), perM = (m.stage_land - m.stage_pitch) / (m.stages - 1 - m.stage_pitch) * m.break_len_m;   // metres behind the break point per unit k
+  assert.equal(tubeAtFor(null, 1.83), null);
+  const tube = tubeAtFor(m, 1.83)!; assert.ok(Math.abs(tube(1) * 1.83 - perM) < 1e-9, 'k = 1 is where the lip lands');
+  for (const H of [1.83, 2.44]) {
+    const withAtlas = buildPlan('Expert', 7, H, {...m, face_m: H}).knots.filter((k) => k.move === 'barrel' && (k.ahead ?? 1) < 0), without = buildPlan('Expert', 7, H).knots.filter((k) => k.move === 'barrel' && (k.ahead ?? 1) < 0);
+    assert.ok(withAtlas.length >= 2 && without.length === withAtlas.length);
+    // behind the break point, between the pitch (k 0) and the landing (k 1), deeper than the R17 line, and the minimum-ahead limit opens past each knot
+    for (const k of withAtlas) { const dxM = k.u * H; assert.ok(dxM > 0.5 && dxM < perM, `${H} m: tube knot ${dxM.toFixed(2)} m behind`); assert.ok(-(k.ahead ?? 0) > k.u, 'the ahead limit never holds the rider short of the knot'); }
+    assert.ok(Math.max(...withAtlas.map((k) => k.u)) > Math.max(...without.map((k) => k.u)), 'deeper than the R17 line');
+  }
+  // waves too small for a tube keep their line: no barrel under 6 ft with or without the atlas
+  assert.ok(!buildPlan('Expert', 7, 1.52, {...m, face_m: 1.52}).knots.some((k) => k.move === 'barrel'));
 });

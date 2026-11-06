@@ -4,8 +4,8 @@
  *  a flat state vector the render interpolates. Seeded from the forecast hour: the same ride every time. Crest frame: x along the crest
  *  (shoulder at -x, break point at 0+), y up, z seaward. Illustration of the hour, never a measurement. */
 import type {Skill} from '../../models/index.ts';
-import {type Atlas, breakX, faceDistanceAt, facePointInto, roofFracAt} from './waveAtlas.ts';
-import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, RIDE_SNAP_PIVOT_DEG, SIM, SKILLS, type SkillProfile, type StyleBand, bandFor, composeBody} from './surfSceneConfig.ts';
+import {type Atlas, type AtlasMeta, breakX, faceDistanceAt, facePointInto, roofFracAt} from './waveAtlas.ts';
+import {BOARD, BODY, type Knot, type Move, type PoseName, RIDE, RIDE_SNAP_PIVOT_DEG, SIM, SKILLS, type SkillProfile, type StyleBand, type TubeAt, bandFor, composeBody} from './surfSceneConfig.ts';
 
 export const G = 9.81;
 export const POSES: readonly PoseName[] = ['trim', 'bottom', 'climb', 'top', 'recover', 'pump', 'barrel', 'pigdog', 'cutback', 'trimB', 'bottomB', 'climbB', 'topB', 'recoverB', 'pumpB', 'cutbackB'];
@@ -35,15 +35,23 @@ export class Spring {
   }
 }
 
+/** 3d-next: the tube knots' place from the atlas's break cycle (ManeuverKnot.kTube): past the break point (where the stage reaches
+ *  stage_pitch) the stage climbs linearly over break_len_m to the last stage (waveAtlas.stageAt), so a share k of the pitch-to-land section
+ *  lies k (land - pitch) / (stages - 1 - pitch) break lengths behind it; in face heights. Null without a meta. */
+export function tubeAtFor(meta: AtlasMeta | null, faceM: number): TubeAt {
+  if (!meta || !(meta.stage_land > meta.stage_pitch) || !(meta.stages - 1 > meta.stage_pitch)) return null;
+  const perK = (meta.stage_land - meta.stage_pitch) / (meta.stages - 1 - meta.stage_pitch) * meta.break_len_m / Math.max(0.3, faceM);
+  return (k) => k * perK;
+}
 /** The ride plan: takeoff, the body of maneuvers, the exit, then (unseen) back to the takeoff: a non-uniform Catmull-Rom spline in
  *  (u, v, comp) over one closed period, seeded jitter. `rideEnd` is the loop time of the exit's last knot (the rider is faded out past it). */
 export interface Plan {skill: Skill; profile: SkillProfile; band: StyleBand; knots: Knot[]; times: Float64Array; period: number; rideEnd: number}
 /** The band comes from the drawn face height (ft, rounded to 0.5 before the threshold); the expertise filters and scales its moves; the
  *  seed decides the optional maneuvers and jitters every duration and height. */
-export function buildPlan(skill: Skill, seed: number, faceM: number): Plan {
+export function buildPlan(skill: Skill, seed: number, faceM: number, meta: AtlasMeta | null = null): Plan {
   const profile = SKILLS[skill], r = rng(seed), s = Math.max(RIDE.durScaleMin, Math.sqrt(Math.max(0.3, faceM) / RIDE.refFaceM));
   const faceFt = faceM / 0.3048, band = bandFor(faceFt);
-  const body = composeBody(band, profile, (w) => r() < w, faceM);
+  const body = composeBody(band, profile, (w) => r() < w, faceM, tubeAtFor(meta, faceM));
   const pocketU = -band.pocketFaces * profile.pocketScale;   // R13: the takeoff and the exit sit relative to the band's line, as the moves do
   const takeoff = profile.takeoff.map((k, i) => ({...k, u: pocketU + k.u, dt: i === 0 ? k.dt : k.dt * band.dropScale}));   // the drop: later and steeper on a big wave
   const seq = [...takeoff, ...body, ...profile.exit.map((k) => ({...k, u: pocketU + k.u}))];
@@ -127,7 +135,7 @@ export class RiderSim {
   private railMid = 0; private lastPivot = 0; private rbEff = BOARD.widthM / 2; private endMeas = 0; private lastSlope = 0.8; private lastHf = 1.5; private endSagExcess = 0; private rx = 0; private ry = 0; private rz = 0;
   readonly stats = {steps: 0, maxFracNow: 1, slopeNow: 0, xbNow: 0, minAheadM: 0, sagNow: 0, endSagNow: 0, pxyNow: 0, pxzNow: 0, railLowNow: 0, endLowNow: 0, /** R12: the slope cap alone, the roof cap (standing crown / the blended crown), the crouch 0..1 */ slopeCapNow: 1, roofStandNow: 1, roofCapNow: 1, crouchNow: 0};
   constructor(atlas: Atlas, skill: Skill, seed: number, flowX: number, stance: Stance | null, t0: number) {
-    this.atlas = atlas; this.H = atlas.meta.face_m; this.seed = seed; this.flowX = flowX; this.plan = buildPlan(skill, seed, this.H);
+    this.atlas = atlas; this.H = atlas.meta.face_m; this.seed = seed; this.flowX = flowX; this.plan = buildPlan(skill, seed, this.H, atlas.meta);
     this.stance = stance ?? defaultStance(seed); const r = rng(seed ^ 0x9e3779b9); this.idlePhase = [r() * 2 * Math.PI, r() * 2 * Math.PI];
     this.cur[S.T] = t0; this.tau = (seed % 1000) / 1000 * this.plan.rideEnd;   // the ride starts at a seeded phase (the first one is already under way)
   }
@@ -135,7 +143,7 @@ export class RiderSim {
   setWave(atlas: Atlas, flowX: number, skill: Skill, seed: number, stance: Stance | null) {
     const same = skill === this.plan.skill && seed === this.seed;
     this.atlas = atlas; this.H = atlas.meta.face_m; this.flowX = flowX; this.seed = seed;
-    if (!same) { this.plan = buildPlan(skill, seed, this.H); this.stance = stance ?? defaultStance(seed); } else if (stance) this.stance = stance;
+    if (!same) { this.plan = buildPlan(skill, seed, this.H, atlas.meta); this.stance = stance ?? defaultStance(seed); } else if (stance) this.stance = stance;
     this.started = false;
   }
   /** The board mesh's size and where its bottom plane sits below its origin (m, <= 0): the bottom is what rides the face. */
@@ -189,7 +197,14 @@ export class RiderSim {
         P[0] = Fy * hx + Uy * hy + Zy * hz; P[1] = Fz * hx + Uz * hy + Zz * hz; P[2] = Fy * hx + Uy * hs + Zy * hz; P[3] = Fz * hx + Uz * hs + Zz * hz;
         return roofFracAt(a, lead ? xL : x, lead ? tL : t, P, margin, RIDE.vMin, vHi);
       };
-      const standCap = crown(RF.stand, true); this.stats.roofStandNow = standCap;
+      // 3d-next: where the standing crown does not fit even at the floor (roofFracAt returns the floor itself), the cap reads a crouch's
+      // width under the floor, so the crouch is full: before, the floor read as "fits" (v - cap = 0, no crouch) and the rider stood up
+      // under the lip at the tube's exit (the head wet 0.27-0.37 s at 6 ft frontside in the trim after the barrel). Only through the tube
+      // and its exit (RF.floorCrouchMoves): in the bottom turn's carve-up the crouch blended the climb into the barrel key (the calf 0.08 m
+      // in the face) and on the kick-out it read as a duck under a lip the rider is leaving
+      let standCap = crown(RF.stand, true);
+      if (standCap <= RIDE.vMin + 1e-6 && RF.floorCrouchMoves.includes(ps.move) && roofFracAt(a, xL, tL, P, margin, RIDE.vMin, RIDE.vMin + 1e-3) <= RIDE.vMin + 1e-6) standCap = RIDE.vMin - RF.crouchV;
+      this.stats.roofStandNow = standCap;
       const ck = clamp((ps.v - standCap - RF.crouchFreeV) / RF.crouchV, 0, 1); crouchT = ck * ck * (3 - 2 * ck);
       // the crown the line is held under follows the body's ACTUAL barrel weight (the pose fades at its own rate; a crown ahead of it
       // let the standing head into the lip while the pose was still standing)

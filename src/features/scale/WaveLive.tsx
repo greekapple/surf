@@ -7,7 +7,7 @@ import {ATLAS_BANDS, type Atlas, type AtlasMeta, blendAtlas, breakX, bucketIdFor
 import {RiderSim, S, STATE_N, Spring, type Stance, isFrontside, lerpState} from './rideSim';
 import {RiderBody, samplePoses} from './riderBody';
 import {GlitchMonitor} from './glitchMonitor';
-import {BOARD, BODY, MONITOR, POLE, RIDE, SIM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
+import {BOARD, BODY, MONITOR, POLE, RIDE, SIM, SURF_CAM, WAKE, bandBoardFt, bandFor} from './surfSceneConfig';
 import type {Skill} from '../../models/index';
 import {type WaveSpec, sameSpec, windLook} from './waveSpec';
 import {type Lighting, lightingAt} from './solar';
@@ -783,6 +783,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
       // 0.15 d above the face's middle: polar ~81.5 deg, 6.5 deg of drag travel before the 88 deg clamp) and sits further down the line on the shoulder side (the surf-photo angle), so the frontside rider's
       // pitched torso shows in profile instead of foreshortened from behind: a crouched rider on a 5 ft face is about a fifth of the frame
       // height (12 ft: an eighth) with the whole face beside him. The scale maths is untouched: the pole still measures the label's face.
+      // 3d-next: the surf view on a longer lens (SURF_CAM.fov; the swell view keeps its own)
+      const fov = mode === 'surf' ? SURF_CAM.fov : SURF_CAM.swellFov; if (camera.fov !== fov) { camera.fov = fov; size(); }
       const d = mode === 'surf' ? (3.4 + H * 2.0) * (camera.aspect < 1 ? 1.35 : 1) : 14 + far * 0.25, sx = dir === 'right' ? -1 : 1;
       if (placed !== mode) {
         placed = mode;
@@ -800,8 +802,8 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
     const followCamera = (dt: number) => {
       if (!surfer || !cur || !surfer.visible || placed !== 'surf' || !follow || performance.now() < dragUntil) return;
       const H = cur.atlas.meta.face_m, sgn = dir === 'right' ? -1 : 1;
-      tmp.copy(posV); group.localToWorld(tmp); tmp.x += sgn * 0.45 * H; tmp.y += 0.22 * H;
-      const w = 2 * Math.PI / 1.4, nx = camS[0].step(tmp.x, dt, w), ny = camS[1].step(tmp.y, dt, w), nz = camS[2].step(tmp.z, dt, w);
+      tmp.copy(posV); group.localToWorld(tmp); tmp.x += sgn * SURF_CAM.towardCurlH * H; tmp.y += SURF_CAM.upH * H;   // 3d-next: further toward the curl (was 0.45 H), a quicker follow (was 1.4 s) for the longer lens
+      const w = 2 * Math.PI / SURF_CAM.followS, nx = camS[0].step(tmp.x, dt, w), ny = camS[1].step(tmp.y, dt, w), nz = camS[2].step(tmp.z, dt, w);
       tmp.set(nx - controls.target.x, ny - controls.target.y, nz - controls.target.z);
       controls.target.add(tmp); camera.position.add(tmp);
     };
