@@ -986,7 +986,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
   useEffect(() => { api.current?.setPole(pole); }, [pole]);
   return (
     <div className={'live' + (live ? ' is-live' : '')} data-state={live ? 'live' : 'loading'} data-band={bucketIdFor(wave.faceM)} data-dir={wave.direction} data-mode={wave.faceM === null ? (wave.offshoreM ? 'swell' : 'none') : 'surf'} role="group" aria-label={`3D view, ${alt}. Drag to orbit, scroll or pinch to zoom.`}>
-      <img className="live-poster" src={poster} alt="" aria-hidden="true" draggable={false} />
+      <div className="live-poster live-loading" aria-hidden="true"><span>Loading the 3D wave…</span></div>   {/* not the old pre-rendered still (`poster`): it showed a superseded wave and surfer before the live scene */}
       <div ref={host} className="live-host" />
     </div>
   );

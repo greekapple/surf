@@ -49,6 +49,8 @@
 .live:active { cursor: grabbing; }
 .live-poster, .live-poster-only { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; transition: opacity 0.5s ease; }
 .live-poster-only { position: absolute; }
+.live-loading { background: linear-gradient(180deg, #dfe7ec 0%, #cfdbe2 46%, #3f6f78 54%, #23474f 100%); display: flex; align-items: flex-end; justify-content: center; }
+.live-loading span { margin-bottom: 14%; padding: 6px 12px; border-radius: 99px; background: rgb(255 255 255 / 0.8); color: #1d1d1f; font: 500 12px/1 var(--sans); }
 .live.is-live .live-poster { opacity: 0; }
 .live-host { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s ease; }
 .live.is-live .live-host { opacity: 1; }

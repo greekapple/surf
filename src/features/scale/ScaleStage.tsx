@@ -138,7 +138,7 @@ export function ScaleStage() {
       </div>}
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
         {liveOk
-          ? <Suspense fallback={<img className="live-poster-only" src={posterPath(SCALE_BANDS[activeBand])} alt="" />}>
+          ? <Suspense fallback={<div className="live-poster-only live-loading" aria-hidden="true"><span>Loading the 3D wave…</span></div>}>
               <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} surferM={me.inches * 0.0254} pole={!!dev?.pole} />
               <p className="spin-cap">{LIVE_CAPTION}</p>
               {hour && <p className="spin-light">Lighting for {when}{lightNote}</p>}
