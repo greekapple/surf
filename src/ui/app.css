@@ -351,9 +351,12 @@
 .favbar-edit { font-size: 13px; color: var(--muted); }
 @media (max-width: 860px) {
   .topnav { gap: 10px; }
-  .search { flex: 0 0 auto; margin-left: auto; }
-  .searchbar { width: 40px; padding: 0; justify-content: center; border-color: transparent; background: none; }
-  .searchbar span, .searchbar kbd { display: none; }
+  /* phone-search: the full search field on phones too (was an icon): it takes the room between the logo and the controls, the label truncates
+     rather than overflow, and the whole pill is the 44 px tap target that opens the same search overlay. */
+  .search { flex: 1 1 auto; min-width: 0; max-width: none; }
+  .searchbar { min-width: 0; gap: 8px; padding: 0 12px; }
+  .searchbar span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .searchbar kbd { display: none; }
   .favbar { gap: 8px; padding: 0 12px; }
   .topnav .areas.me-menu { display: flex; } /* phones keep the avatar (Personal) in the bar; the area links move to the tab bar */
   .me-area .area-more { display: none; }
@@ -403,7 +406,8 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
 @media (max-width: 860px) { main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main .pz h1 { font-size: 26px !important; } }
 /* T-095: phone tap targets >= 44 px (header search, theme and profile; footer links; the skip link). */
 @media (max-width: 860px) {
-  .searchbar, .iconbtn { width: 44px; height: 44px; }
+  .iconbtn { width: 44px; height: 44px; }
+  .searchbar { width: 100%; height: 44px; }
   .area-link { height: 44px; }
   .foot a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; justify-content: center; }
 }
@@ -418,3 +422,12 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
 :root[data-theme='dark'] .map-fallback { background: #3a3d41; }
 .map-fallback span { position: absolute; left: 50%; top: 72px; translate: -50% 0; padding: 6px 14px; border-radius: 999px; background: rgb(44 46 50 / 0.86); color: #fff; font-size: 13px; }
 @media (max-width: 860px) { .map-fallback { min-height: calc(100dvh - var(--nav-h, 56px) - var(--tab-h, 64px)); } }
+
+/* phone-search: room for the full search field at 390 px. The 520 px rules above (gap 8, nav-end gap 2) were overridden by the later 860 and 1100 px
+   blocks; restated here last, with a slightly smaller wordmark, so the field shows "Search spots" in full next to the logo and the 44 px controls. */
+@media (max-width: 520px) {
+  .topnav { gap: 8px; }
+  .nav-end { gap: 2px; }
+  .wordmark { font-size: 21px; padding-right: 0; margin-left: 0; }
+  .searchbar { gap: 5px; padding: 0 8px 0 10px; }
+}
