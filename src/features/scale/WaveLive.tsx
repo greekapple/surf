@@ -73,13 +73,14 @@ uniform sampler2D uAtlas;
 ${ALONG}
 ${NOISE}
 varying vec3 vW; varying vec3 vN; varying vec4 vA; varying float vS; varying vec3 vL;
-// manual bilinear with full-precision weights (hardware filtering quantises them to 1/256, which shows as banding along the crest)
+// manual filtering with full-precision weights (hardware filtering quantises them to 1/256, which shows as banding along the crest):
+// linear along the profile, Catmull-Rom across the stage rows (wave-kink: linear put a crease across the face at every whole stage;
+// keep in step with stageWeights / sample in waveAtlas.ts)
+vec4 atr(int i0, int i1, float du, int j){ return mix(texelFetch(uAtlas,ivec2(i0,j),0),texelFetch(uAtlas,ivec2(i1,j),0),du); }
 vec4 atl(float u, float s, float row0){
   float fu=clamp(u,0.,1.)*(uNP-1.), fs=clamp(s,0.,uNS-1.);
-  int i0=int(floor(fu)), j0=int(floor(fs)); int i1=min(i0+1,int(uNP)-1), j1=min(j0+1,int(uNS)-1); float du=fu-float(i0), ds=fs-float(j0); int r=int(row0);
-  vec4 a=mix(texelFetch(uAtlas,ivec2(i0,j0+r),0),texelFetch(uAtlas,ivec2(i1,j0+r),0),du);
-  vec4 b=mix(texelFetch(uAtlas,ivec2(i0,j1+r),0),texelFetch(uAtlas,ivec2(i1,j1+r),0),du);
-  return mix(a,b,ds);
+  int i0=int(floor(fu)), j0=int(floor(fs)), nS=int(uNS); int i1=min(i0+1,int(uNP)-1); float du=fu-float(i0), t=fs-float(j0), t2=t*t, t3=t2*t; int r=int(row0);
+  return atr(i0,i1,du,max(j0-1,0)+r)*(.5*(-t3+2.*t2-t))+atr(i0,i1,du,j0+r)*(.5*(3.*t3-5.*t2+2.))+atr(i0,i1,du,min(j0+1,nS-1)+r)*(.5*(-3.*t3+4.*t2+t))+atr(i0,i1,du,min(j0+2,nS-1)+r)*(.5*(t3-t2));
 }
 vec4 at0(float u,float s){ return atl(u,s,0.); }
 vec4 at1(float u,float s){ return atl(u,s,uNS); }

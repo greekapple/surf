@@ -214,21 +214,41 @@ def relax_face(p, cap_deg=72.0, top=0.8):
     """A rideable face (wave-round3): below `top` of the crest height the open face is no steeper than cap_deg, so a rider can climb
     to the upper third for a top turn. The crest and the lip above `top` keep their shape; below it the face (and the cavity the source
     rows carve under the lip) is pushed toward the beach where it was steeper than the cap, and the trough and the flat water beyond
-    move with it. Normalised units."""
+    move with it. Normalised units.
+    Wave-kink (2026-11-06): no ledge and no crease where the cap starts. Below `top` no segment may run back seaward either (a feathering
+    lip's underside dipping under `top` used to survive the push as a horizontal shelf across the face: a Z fold read as a ridge a
+    third of the way down), and the cap eases in over a band around `top` (from `top` + 0.08 to `top` - 0.06 of the crest height)
+    instead of switching on at one height (a hard 100 -> 72 deg corner there)."""
     p = p.copy()
     ci, ti, _ = lip_indices(p)
     zc = p[ci, 1]
     tanc = math.tan(math.radians(cap_deg))
     shift = 0.0
-    for i in range(max(ci, ti) + 1, len(p)):
+    # the lip kept above the cap: from its tip on. A "tip" below the cap band is no lip (an early row whose near-vertical face bulges
+    # beachward low down): the cap then runs from the crest, or that face kept a slight overhang down to 0.3 of the crest
+    s0 = max(ci, ti) if p[ti, 1] >= (top + 0.08) * zc else ci
+    for i in range(s0 + 1, len(p)):
         p[i, 0] += shift
         dz = p[i - 1, 1] - p[i, 1]
-        if dz > 0 and p[i, 1] < top * zc:
-            need = p[i - 1, 0] + dz / tanc
+        w = float(ss(top + 0.08, top - 0.06, p[i, 1] / max(zc, 1e-6)))
+        if w > 0:
+            need = p[i - 1, 0] + max(dz, 0.0) / tanc
             if p[i, 0] < need:
-                shift += need - p[i, 0]
-                p[i, 0] = need
+                d = w * (need - p[i, 0])
+                shift += d
+                p[i, 0] += d
     return p
+
+
+def face_y(p, fr):
+    """The open face's cross-shore position at `fr` of the crest height: the first crossing walking up from the beach end."""
+    ci = crest_index(p)
+    tg = fr * p[ci, 1]
+    for i in range(len(p) - 1, ci, -1):
+        if (p[i, 1] - tg) * (p[i - 1, 1] - tg) <= 0 and p[i, 1] != p[i - 1, 1]:
+            k = (tg - p[i, 1]) / (p[i - 1, 1] - p[i, 1])
+            return p[i, 0] + k * (p[i - 1, 0] - p[i, 0])
+    return float('nan')
 
 
 def bore(p, h, adv, wf=0.55, back=None):
@@ -333,6 +353,23 @@ def stage_curves(src, face, breaker, phys):
         if k < S_PITCH:   # the unbroken shoulder the rider is on: a rideable face under the lip (wave-round3)
             p = relax_face(p, 72.0, 0.8)
         curves.append(shape(p))
+    if not spill:
+        # Wave-kink (2026-11-06): one open face through the pitch. The shoulder rows (k < S_PITCH) carry the rideable, relaxed face; the
+        # pitching rows carry the tube (no relax, the wall under it drawn seaward), so their open face and trough sat 0.3-0.5 face heights
+        # further out to sea than the row before: a jump between two adjacent rows that the viewer drew as a step in the surface with a
+        # twisted, creased patch at the peel (the "waterfall" streak: sky and glint on that patch) and a jog in the trough foam. The
+        # pitching rows are moved toward the beach by that offset, so the face and the trough run on continuously and the crest and the lip
+        # advance over them as the lip throws (what a real wave does); the move fades to nothing down the back (the back's base stays).
+        # The tube's own shape is untouched; the bore rows are built from the landed row, so they follow.
+        dlt = float(np.mean([face_y(curves[S_PITCH - 1], f) - face_y(curves[S_PITCH], f) for f in (0.15, 0.3)]))
+        if np.isfinite(dlt):
+            for k in range(S_PITCH, S_LAND + 1):
+                p = curves[k].copy()
+                ci = crest_index(p)
+                w = np.ones(len(p))
+                w[:ci] = np.clip(p[:ci, 1] / max(p[ci, 1], 1e-6), 0, 1)
+                p[:, 0] += dlt * w
+                curves[k] = p
     if spill:
         # spilling: the crest crumbles from stage 3 on and the foam rolls down a gentle face as a long, low bore
         curves = curves[:4]

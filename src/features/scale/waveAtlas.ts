@@ -50,7 +50,10 @@ export function scaleAtlas(a: Atlas, k: number): Atlas {
     if (!g) data[o + 1] = a.data[o + 1] * k;
   }
   const r = Math.sqrt(k), m = {...a.meta, face_m: a.meta.face_m * k, y0_m: a.meta.y0_m * k, y1_m: a.meta.y1_m * k, depth_break_m: a.meta.depth_break_m * k, Lb_m: a.meta.Lb_m * r, celerity_mps: a.meta.celerity_mps * r,
-    peel_speed_mps: a.meta.peel_speed_mps * r, break_len_m: a.meta.break_len_m * r, shoulder_len_m: a.meta.shoulder_len_m * r};
+    peel_speed_mps: a.meta.peel_speed_mps * r, break_len_m: a.meta.break_len_m * r, shoulder_len_m: a.meta.shoulder_len_m * k};
+  // wave-kink: the shoulder is a depth taper (the build: (H / 0.5 - depth) / bed slope, linear in H), so it scales with the face like the
+  // depth does; at sqrt(k) a scaled-up wave squeezed the shoulder's last stages, and the face's swing into the pitch, into too short a
+  // crest (the open face swung 0.36 m per m at 25 ft). The peel speed and break length are celerity-based: sqrt(k) stays.
   return {meta: m, data};
 }
 /** The swell period's share (P from the forecast hour, the bucket's own period otherwise): wavelength, break cycle and peel length
@@ -139,14 +142,26 @@ export const BEND_Z = 0.04;
  *  under them) stay where they are; the tails stretch to take up the shift. Keep in step with bendW in the GLSL ALONG block. */
 export function bendW(u: number): number { return smooth(0, 0.3, u) * (1 - smooth(0.9, 1, u)); }
 
-/** Bilinear sample of the atlas like the GPU's linear filter at texel centres: group 0 = (y, z, thin, foam), 1 = (thickness, arc, ny, nz). */
+/** Wave-kink (2026-11-06): the weights of the four stage rows around a fractional stage (Catmull-Rom: through every row, C1 between them).
+ *  Linear between rows put a crease in the surface at every whole stage (the slope of the shape change jumps there), and near the break
+ *  point, where the stage runs fastest along the crest, those creases stood across the face. Rows past the ends repeat the end row.
+ *  Keep in step with crw() in the GLSL (WaveLive STRIP_VS). */
+export function stageWeights(fs: number, S: number, out: {j: number[]; w: number[]}): void {
+  const j0 = Math.floor(fs), t = fs - j0, t2 = t * t, t3 = t2 * t;
+  out.j[0] = Math.max(0, j0 - 1); out.j[1] = j0; out.j[2] = Math.min(S - 1, j0 + 1); out.j[3] = Math.min(S - 1, j0 + 2);
+  out.w[0] = (-t3 + 2 * t2 - t) / 2; out.w[1] = (3 * t3 - 5 * t2 + 2) / 2; out.w[2] = (-3 * t3 + 4 * t2 + t) / 2; out.w[3] = (t3 - t2) / 2;
+}
+const SW = {j: [0, 0, 0, 0], w: [0, 0, 0, 0]};
+/** A sample of the atlas as the vertex shader takes it: linear along the profile (u), Catmull-Rom across the stage rows (stageWeights).
+ *  group 0 = (y, z, thin, foam), 1 = (thickness, arc, ny, nz). */
 export function sample(a: Atlas, u: number, s: number, group: 0 | 1 = 0): [number, number, number, number] {
   const {points: P, stages: S} = a.meta;
-  const fu = clamp(u, 0, 1) * (P - 1), fs = clamp(s, 0, S - 1), i0 = Math.floor(fu), j0 = Math.floor(fs), i1 = Math.min(P - 1, i0 + 1), j1 = Math.min(S - 1, j0 + 1), du = fu - i0, ds = fs - j0;
-  const row = (j: number) => (j + group * S) * P * 4, out: [number, number, number, number] = [0, 0, 0, 0];
-  for (let c = 0; c < 4; c++) {
-    const v00 = a.data[row(j0) + i0 * 4 + c], v10 = a.data[row(j0) + i1 * 4 + c], v01 = a.data[row(j1) + i0 * 4 + c], v11 = a.data[row(j1) + i1 * 4 + c];
-    out[c] = (v00 * (1 - du) + v10 * du) * (1 - ds) + (v01 * (1 - du) + v11 * du) * ds;
+  const fu = clamp(u, 0, 1) * (P - 1), i0 = Math.floor(fu), i1 = Math.min(P - 1, i0 + 1), du = fu - i0;
+  stageWeights(clamp(s, 0, S - 1), S, SW);
+  const out: [number, number, number, number] = [0, 0, 0, 0];
+  for (let k = 0; k < 4; k++) {
+    const r = (SW.j[k] + group * S) * P * 4, w = SW.w[k];
+    for (let c = 0; c < 4; c++) out[c] += (a.data[r + i0 * 4 + c] * (1 - du) + a.data[r + i1 * 4 + c] * du) * w;
   }
   return out;
 }
@@ -161,12 +176,13 @@ export function profileAt(a: Atlas, x: number, t = 0, n = a.meta.points, withSec
 // scratch profiles for the per-frame callers (facePoint, waterHeightAt): no allocation in the render loop
 const SY = new Float64Array(192), SZ = new Float64Array(192);
 function profileInto(a: Atlas, x: number, t: number, n: number, withSections: boolean, y: Float64Array, z: Float64Array) {
-  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), bz = bendZ(a.meta, x), {points: P, stages: S} = a.meta;
-  const fs = clamp(s, 0, S - 1), j0 = Math.floor(fs), j1 = Math.min(S - 1, j0 + 1), ds = fs - j0, r0 = j0 * P * 4, r1 = j1 * P * 4, d = a.data;
+  const s = stageAt(a.meta, x, t, withSections), amp = ampAt(a.meta, x), bz = bendZ(a.meta, x), {points: P, stages: S} = a.meta, d = a.data;
+  stageWeights(clamp(s, 0, S - 1), S, SW);
+  const r0 = SW.j[0] * P * 4, r1 = SW.j[1] * P * 4, r2 = SW.j[2] * P * 4, r3 = SW.j[3] * P * 4, w0 = SW.w[0], w1 = SW.w[1], w2 = SW.w[2], w3 = SW.w[3];
   for (let i = 0; i < n; i++) {
-    const uu = i / (n - 1), fu = uu * (P - 1), i0 = Math.floor(fu), i1 = Math.min(P - 1, i0 + 1), du = fu - i0;
-    y[i] = (d[r0 + i0 * 4] * (1 - du) + d[r0 + i1 * 4] * du) * (1 - ds) + (d[r1 + i0 * 4] * (1 - du) + d[r1 + i1 * 4] * du) * ds - bz * bendW(uu);
-    z[i] = ((d[r0 + i0 * 4 + 1] * (1 - du) + d[r0 + i1 * 4 + 1] * du) * (1 - ds) + (d[r1 + i0 * 4 + 1] * (1 - du) + d[r1 + i1 * 4 + 1] * du) * ds) * amp;
+    const uu = i / (n - 1), fu = uu * (P - 1), i0 = Math.floor(fu), i1 = Math.min(P - 1, i0 + 1), du = fu - i0, eu = 1 - du, a0 = i0 * 4, a1 = i1 * 4;
+    y[i] = (d[r0 + a0] * eu + d[r0 + a1] * du) * w0 + (d[r1 + a0] * eu + d[r1 + a1] * du) * w1 + (d[r2 + a0] * eu + d[r2 + a1] * du) * w2 + (d[r3 + a0] * eu + d[r3 + a1] * du) * w3 - bz * bendW(uu);
+    z[i] = ((d[r0 + a0 + 1] * eu + d[r0 + a1 + 1] * du) * w0 + (d[r1 + a0 + 1] * eu + d[r1 + a1 + 1] * du) * w1 + (d[r2 + a0 + 1] * eu + d[r2 + a1 + 1] * du) * w2 + (d[r3 + a0 + 1] * eu + d[r3 + a1 + 1] * du) * w3) * amp;
   }
 }
 
