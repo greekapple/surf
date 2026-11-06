@@ -239,3 +239,8 @@
 .dc-spark-a { fill: color-mix(in srgb, var(--hs-hi) 16%, transparent); }
 .dc-spark-now { fill: var(--bg); stroke: var(--hs-hi); stroke-width: 1.6; }
 .dc-spark-t { font: 500 10px/1 var(--sans); fill: var(--muted); }
+
+/* week-grid-tablet: at 601-860 px the week overflowed its scroller by only a few pixels (min-width 680 + the gutters), so "scrolling" just slid the
+   first day's numbers under the sticky spot names and left them cut at the column's edge. There all seven days fit (64 px or more each), so the table
+   takes the width it has and does not scroll; phones (<= 600 px) keep the scrolling week with the sticky names. */
+@media (min-width: 601px) and (max-width: 860px) { .wk-t { min-width: 0; } }
