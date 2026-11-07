@@ -595,7 +595,7 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
   - **Live:**
     - `certainty` (56c40aa);
     - `how-right` (5db81f2), with the R2 lifecycle `expire-howright` (35 d) added and a clean cron run seen after deploy. The first how-right numbers are expected about Nov 10.
-  - **Merged, docs only:** `honest-ratings`, the RATING-AUDIT: no rule changed. The beginner >4 ft Skip is a user decision.
+  - **Merged, docs only:** `honest-ratings`, the RATING-AUDIT: no rule changed. The beginner >4 ft Skip was declined by the user (2026-11-07).
   - **Toolkit:** t034 counts absolute ::after hit areas (backup `.pre-hitarea`).
   - **Stale toolkit scripts:** home-shots.mjs (`.hello h1`) and t057-days.mjs (night-only).
   - **Morning report:** vault `80-Handoffs/2026-11-07-morning-report-night6.md`.
