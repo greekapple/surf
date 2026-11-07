@@ -77,7 +77,7 @@ for (const c of mopCandidates) {
 }
 
 /** T-131: a guide-stated shelter shown with the point's number (the guide gives no size factor, so none is claimed). */
-const carmel = mopAssignments.find((x) => x.spotId === 'cs-carmel'); if (carmel) carmel.caveat = 'surfnerd (https://www.surfnerd.com/surf-forecast/carmel-beach, retrieved 2026-11-04): "The kelp and cove give the beach real shelter"; the point is in 15 m of water, about 1 km out; the guide does not say whether this shelter reduces wave size, or by how much';
+const carmel = mopAssignments.find((x) => x.spotId === 'cs-carmel'); if (carmel) { carmel.caveat = 'a guide says the kelp and cove give real shelter, but not by how much'; carmel.note += ' Shelter: surfnerd (https://www.surfnerd.com/surf-forecast/carmel-beach, retrieved 2026-11-04): "The kelp and cove give the beach real shelter"; the point is in 15 m of water, about 1 km out; the guide does not say whether this shelter reduces wave size, or by how much.'; }   // one short line beside the number; the source and quote in the Nearshore panel's note
 
 const T130_PROVENANCE = 'Chosen by us from CDIP shore normals (T-130), not owner-reviewed';
 mopAssignments.push(

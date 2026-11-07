@@ -66,7 +66,9 @@ test('T-131: the nearshore flags are separate: "chosen by us" only for a point w
   { const {h, detail} = run('spot-5', 'SM306'); assert.ok(h.nearshoreOnly?.hand); assert.ok(!h.nearshoreOnly.smaller); assert.match(detail, /chosen by us/); assert.doesNotMatch(detail, /smaller/); }
   // Carmel: matched by the facing rule (not chosen by us), caveat without a size claim; confidence still low
   const carmel = mopAssignments.find((a) => a.spotId === 'cs-carmel')!; assert.ok(carmel.caveat && !carmel.provenance && !carmel.smallerThanPoint);
-  assert.match(carmel.caveat!, /https:\/\/www\.surfnerd\.com\/surf-forecast\/carmel-beach/); assert.match(carmel.caveat!, /15 m of water, about 1 km out/); assert.doesNotMatch(carmel.caveat!, /15 m offshore/); assert.match(carmel.caveat!, /does not say whether this shelter reduces wave size, or by how much/);
+  // the sourced quote and its URL sit in the Nearshore panel's note; beside the number, one short line that still claims no size effect
+  assert.match(carmel.note, /https:\/\/www\.surfnerd\.com\/surf-forecast\/carmel-beach/); assert.match(carmel.note, /15 m of water, about 1 km out/); assert.doesNotMatch(carmel.note, /15 m offshore/); assert.match(carmel.note, /does not say whether this shelter reduces wave size, or by how much/);
+  assert.match(carmel.caveat!, /^a guide says the kelp and cove give real shelter, but not by how much/); assert.ok(carmel.caveat!.length < 200, 'the caveat beside the number stays short');
   const r = rec('MO646', 100), h = headlineSurf('cs-carmel', hr('cs-carmel'), {bundle: {nearshore: [], mop: {MO646: {mopId: 'MO646', records: [r], issue: null, retrievedAt: r.timestamp, url: 'x'}}} as never, nowMs: NOW, observations: [], spread: null}) as any;
   assert.ok(h.nearshoreOnly, 'Carmel outside its window is nearshore-only'); assert.ok(!h.nearshoreOnly.hand && h.nearshoreOnly.caveated && !h.nearshoreOnly.smaller); assert.equal(h.confidence, 'low');
   const d = headlineText(h, profile).confidenceDetail!; assert.doesNotMatch(d, /chosen by us|smaller/); assert.match(d, /local shelter not modelled/);
