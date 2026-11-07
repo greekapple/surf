@@ -67,14 +67,14 @@ export function deleteObservation(id: string): boolean {
   if (!log.some((o) => o.id === id)) return false;
   setObservations(log.filter((o) => o.id !== id)); return true;
 }
-export type CalibrationState = {state: 'collecting'; count: number; needed: number; felt: FeltSummary} | {state: 'active'; count: number; needed: number; ratio: number; iqr: [number, number]; felt: FeltSummary};
+export type CalibrationState = {state: 'collecting'; count: number; needed: number; felt: FeltSummary} | {state: 'active'; count: number; needed: number; ratio: number; rawRatio: number; weight: number; iqr: [number, number]; felt: FeltSummary};
 export interface FeltSummary {low: number; right: number; high: number; factor: number}
 /** Calibration status for a spot, for the method its headline normally uses (v2 where the spot has a reviewed MOP point, else v1). `count` is paired observations only. */
 export function calibrationFor(spotId: string, method?: Method): CalibrationState {
   const m: Method = method ?? (assignmentFor(spotId) ? 'mop-v2' : 'v1');
   const fl = getFelt().filter((e) => e.spotId === spotId && e.predicted?.conv && e.predicted?.method === m), counts = {low: fl.filter((e) => e.felt === 'low').length, right: fl.filter((e) => e.felt === 'right').length, high: fl.filter((e) => e.felt === 'high').length};
   const f = fitFor(getObservations(), spotId, m, counts), felt = {...counts, factor: f.felt?.factor ?? 1};
-  return f.status === 'active' ? {state: 'active', count: f.n, needed: NEEDED, ratio: f.ratio!, iqr: f.iqr!, felt} : {state: 'collecting', count: f.n, needed: NEEDED, felt};
+  return f.status === 'active' ? {state: 'active', count: f.n, needed: NEEDED, ratio: f.ratio!, rawRatio: f.rawRatio!, weight: f.weight!, iqr: f.iqr!, felt} : {state: 'collecting', count: f.n, needed: NEEDED, felt};
 }
 export const getObservationsSnapshot = getObservations;
 export {subscribeObservations, resetObservationCache, NEEDED};

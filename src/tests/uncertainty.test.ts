@@ -67,7 +67,7 @@ test('headlineSurf: a calibrated range is unchanged in kind (n observations, cal
   const f = toLegacy(normalizeOpenMeteo(evidenceSpot('spot-2'), marine(1.5), weather, new Date(T * 1000).toISOString())[1]), base = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: [], spread: null}) as any;
   const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: new Date(T * 1000).toISOString(), loggedAt: '', rangeFt: [4, 4] as [number, number], faceFt: 4, pair: {centralFt: base.centralFt, loFt: base.loFt, hiFt: base.hiFt, method: base.method, validAt: '', offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const, transfer: base.transfer?.factor ?? 1 /* T-131 phase 2: pairs record the factor in their central */}});
   const cal = headlineSurf('spot-2', f, {nowMs: T * 1000, observations: Array.from({length: 8}, (_, i) => ob(i)), spread: null}) as any;
-  assert.equal(cal.calibration.n, 8); assert.equal(cal.interval, undefined); assert.ok(Math.abs(cal.calibration.ratio - 4 / base.centralFt) < 1e-9);
+  assert.equal(cal.calibration.n, 8); assert.equal(cal.interval, undefined); assert.ok(Math.abs(cal.calibration.rawRatio - 4 / base.centralFt) < 1e-9); assert.ok(Math.abs(cal.calibration.ratio - Math.min(2, Math.max(0.5, 1 + (4 / base.centralFt - 1) * 0.5))) < 1e-9, 'step 3: shrunk half way toward 1 at 8 reports, held in 0.5-2x');
 });
 
 test('T-073 review fixes: the legacy band is labelled when a record has no central height; calibration only mixes pairs on the central basis', async () => {

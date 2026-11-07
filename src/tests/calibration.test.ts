@@ -26,7 +26,7 @@ test('median and quartiles', () => {
 test('threshold: 7 paired observations change nothing; the 8th activates the fit', () => {
   const log = Array.from({length: 8}, (_, i) => ob(i, 6, 4));
   assert.equal(fitFor(log.slice(0, 7), 'spot-2', 'v1').status, 'collecting'); assert.equal(fitFor(log.slice(0, 7), 'spot-2', 'v1').n, 7);
-  const f = fitFor(log, 'spot-2', 'v1'); assert.equal(f.status, 'active'); assert.equal(f.needed, NEEDED); assert.equal(NEEDED, 8); assert.equal(f.ratio, 1.5);
+  const f = fitFor(log, 'spot-2', 'v1'); assert.equal(f.status, 'active'); assert.equal(f.needed, NEEDED); assert.equal(NEEDED, 8); assert.equal(f.rawRatio, 1.5); assert.equal(f.ratio, 1.25, 'shrunk half way toward 1 at 8 reports');
 });
 test('the fit is per spot and per method; unpaired and tiny-model observations are not counted', () => {
   const log = [...Array.from({length: 8}, (_, i) => ob(i, 6, 4, 'spot-3')), {...ob(9, 5, 4), pair: undefined}, ob(10, 5, 0.2)];
@@ -49,8 +49,8 @@ test('headline: uncalibrated output is identical below the threshold; at 8 it is
   assert.deepEqual(seven, base); assert.equal(base.calibration, undefined);
   const mid = (base.loFt + base.hiFt) / 2, log = Array.from({length: 8}, (_, i) => ob(i, mid * 0.5, mid));
   const cal = headlineSurf('spot-2', f, {nowMs: now, observations: log}) as any;
-  assert.equal(cal.kind, 'estimate'); assert.equal(cal.calibration.n, 8); assert.match(cal.calibration.label, /^calibrated with your 8 observations$/); assert.match(cal.methodLabel, /calibrated with your 8 observations/);
-  assert.ok(cal.hiFt < base.hiFt); assert.ok(cal.hiFt >= mid * 0.5 * 1.15 - 1e-9); assert.deepEqual(cal.calibration.uncalibratedFt, [base.loFt, base.hiFt]);
+  assert.equal(cal.kind, 'estimate'); assert.equal(cal.calibration.n, 8); assert.match(cal.calibration.label, /^tuned to your 8 reports here$/); assert.match(cal.methodLabel, /tuned to your 8 reports here/); assert.doesNotMatch(cal.methodLabel, /\d ft\)/, 'no unit-bound numbers in the method line'); assert.match(cal.methodLabel, /model's own band is shown beside it/);
+  assert.ok(cal.hiFt < base.hiFt); assert.ok(cal.hiFt >= mid * 0.75 * 1.15 - 1e-9); assert.equal(cal.calibration.rawRatio, 0.5); assert.equal(cal.calibration.ratio, 0.75); assert.equal(cal.calibration.weight, 0.5); assert.deepEqual(cal.calibration.uncalibratedFt, [base.loFt, base.hiFt]);
 });
 test('pairing: the model estimate for the same spot-hour (uncalibrated), with offshore Hs and Tp; a different hour or no record pairs nothing', () => {
   const p = pairFor('spot-2', records, t * 1000 + 120000, null, now)!, h = headlineSurf('spot-2', records[1], {nowMs: now, observations: []}) as any;
@@ -79,4 +79,22 @@ test('eight logged observations activate the calibration through the API and the
   const c = calibrationFor('spot-2', 'v1'); assert.equal(c.state, 'active'); assert.equal(c.count, 8);
   const h = headlineSurf('spot-2', records[1], {nowMs: now}) as any; assert.equal(h.calibration?.n, 8);
   resetObservationCache([]);
+});
+
+test('step 3: shrinkage toward 1 is explicit (weight n/(n+8)) and a few wild reports cannot swing the number', async () => {
+  const {SHRINK_K, RATIO_LIMITS, shrinkWeight} = await import('../services/calibrationMath.ts');
+  assert.equal(SHRINK_K, 8); assert.deepEqual([...RATIO_LIMITS], [0.5, 2]);
+  assert.equal(shrinkWeight(0), 0); assert.equal(shrinkWeight(8), 0.5); assert.equal(shrinkWeight(24), 0.75);
+  // 8 reports all saying double the model: the applied ratio is 1.5, not 2
+  const dbl = fitFor(Array.from({length: 8}, (_, i) => ob(i, 8, 4)), 'spot-2', 'v1'); assert.equal(dbl.rawRatio, 2); assert.equal(dbl.ratio, 1.5);
+  // the same median with 24 reports moves further toward the person's own scale (three quarters of the way)
+  const lots = fitFor(Array.from({length: 24}, (_, i) => ob(i, 8, 4)), 'spot-2', 'v1'); assert.equal(lots.ratio, 1.75);
+  // absurd reports (every session "double overhead" over a 1 ft model): held at the cap, never 14x
+  const wild = fitFor(Array.from({length: 40}, (_, i) => ob(i, 14, 1)), 'spot-2', 'v1'); assert.equal(wild.rawRatio, 14); assert.equal(wild.ratio, RATIO_LIMITS[1]);
+  const tiny = fitFor(Array.from({length: 40}, (_, i) => ob(i, 0.5, 4)), 'spot-2', 'v1'); assert.equal(tiny.ratio, RATIO_LIMITS[0]);
+  // the spread is the person's own (the middle half of their ratios), moved with the shrunk centre, not narrowed
+  const mixed = fitFor([...Array.from({length: 4}, (_, i) => ob(i, 4, 4)), ...Array.from({length: 4}, (_, i) => ob(10 + i, 8, 4))], 'spot-2', 'v1');
+  assert.equal(mixed.rawRatio, 1.5); assert.equal(mixed.ratio, 1.25); assert.ok(Math.abs(mixed.iqr![1] / mixed.iqr![0] - 2) < 1e-9, 'same relative width as the raw quartiles 1 and 2'); assert.ok(Math.abs(mixed.iqr![0] - 1.25 / 1.5) < 1e-9);
+  // the shrunk fit stays inside the person's spread and the model, never outside both
+  assert.ok(mixed.ratio! >= 1 && mixed.ratio! <= mixed.rawRatio!);
 });

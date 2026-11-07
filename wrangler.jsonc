@@ -14,6 +14,8 @@
   // T-129: the persistent forecast cache (forecast-service.mjs reads and writes forecast/v8/latest/*.json through env.BUCKET). The bucket must exist before `wrangler deploy`:
   //   npx wrangler r2 bucket create swello-forecast-cache
   //   npx wrangler r2 bucket lifecycle add swello-forecast-cache expire-archive forecast/v10/ --expire-days 5   (and the same for forecast/v8/history/)
+  // How right we've been (services/how-right.mjs): one daily capture of what we showed (howright/v1/shown/, about 20 KB a day) and the scorecard. Keep 35 days of captures:
+  //   npx wrangler r2 bucket lifecycle add swello-forecast-cache expire-howright howright/v1/shown/ --expire-days 35
   "r2_buckets": [{"binding": "BUCKET", "bucket_name": "swello-forecast-cache"}],
   "observability": {"enabled": true}
 }

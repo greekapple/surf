@@ -59,7 +59,8 @@ test('felt right is a weaker, separate signal: it never activates a calibration,
   const few = Array.from({length: 7}, (_, i) => ob(i)), many = Array.from({length: 8}, (_, i) => ob(i)), lots = {low: 50, right: 0, high: 0};
   assert.equal(fitFor(few, 'spot-2', 'v1', lots).status, 'collecting');
   const base = fitFor(many, 'spot-2', 'v1'), up = fitFor(many, 'spot-2', 'v1', {low: 2, right: 5, high: 0}), down = fitFor(many, 'spot-2', 'v1', {low: 0, right: 0, high: 3}), cap = fitFor(many, 'spot-2', 'v1', lots);
-  assert.equal(base.ratio, 0.5); assert.ok(Math.abs(up.ratio! - 0.5 * 1.06) < 1e-9); assert.ok(Math.abs(down.ratio! - 0.5 * 0.91) < 1e-9); assert.ok(Math.abs(cap.ratio! - 0.5 * (1 + FELT_CAP)) < 1e-9); assert.equal(feltFactor({low: 1, right: 9, high: 1}), 1);
+  // beyond-Surfline step 3: the median 0.5 is shrunk half way toward 1 at 8 reports (0.75); the felt nudge multiplies that
+  assert.equal(base.rawRatio, 0.5); assert.equal(base.ratio, 0.75); assert.ok(Math.abs(up.ratio! - 0.75 * 1.06) < 1e-9); assert.ok(Math.abs(down.ratio! - 0.75 * 0.91) < 1e-9); assert.ok(Math.abs(cap.ratio! - 0.75 * (1 + FELT_CAP)) < 1e-9); assert.equal(feltFactor({low: 1, right: 9, high: 1}), 1);
 });
 test('headline: felt signals nudge only an active calibration; uncalibrated output stays identical without observations', () => {
   mem.clear(); resetObservationCache([]); resetFeltCache([]);

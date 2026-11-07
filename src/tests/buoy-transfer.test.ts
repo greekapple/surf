@@ -90,4 +90,7 @@ test('personal calibration does not compound with the factor: old and new Ocean 
   const log = [...Array(8)].map((_, i) => obs(i, i % 2 ? old : fresh));
   assert.equal(pairsFor(log, 'spot-2', 'v1').length, 8);
   const fit = fitFor(log, 'spot-2', 'v1'); assert.equal(fit.status, 'active'); assert.ok(Math.abs(fit.ratio! - 1) < 1e-9, `ratio ${fit.ratio}`);
+  // step 3: a surfer who sees 1.3x the CORRECTED height gets a ratio measured against the corrected number (raw 1.3, never 1.3 x 1.482), shrunk toward 1
+  const big = [...Array(8)].map((_, i) => ({...obs(i, i % 2 ? old : fresh), faceFt: raw * 1.482 * 1.3}));
+  const f2 = fitFor(big, 'spot-2', 'v1'); assert.ok(Math.abs(f2.rawRatio! - 1.3) < 1e-9, `raw ${f2.rawRatio}`); assert.ok(Math.abs(f2.ratio! - 1.15) < 1e-9, `applied ${f2.ratio}`);
 });

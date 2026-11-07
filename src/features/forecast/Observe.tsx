@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState, useSyncExternalStore} from 'react';
 import type {UserProfile} from '../../models/index';
-import {BODY_WORD_LIST, WORD_FACE_FT, calibrationFor, getObservationsSnapshot, latestObservation, logObservation, subscribeObservations, type BodyWord, type Observation, type ObserveEnv, type Quality} from './observeApi';
+import {BODY_WORD_LIST, NEEDED, WORD_FACE_FT, calibrationFor, getObservationsSnapshot, latestObservation, logObservation, subscribeObservations, type BodyWord, type Observation, type ObserveEnv, type Quality} from './observeApi';
 
 /* T-060 "What did you see?": two taps (a size in body words, optionally a quality), then Save. Defaults to now; the time is one tap to change.
  * The observation is the surfer's own, always labelled so, and feeds engineering's calibration (T-059). No modal, no form fields. */
@@ -66,7 +66,7 @@ export function ObservePanel({spotName, spotId, p, env, onDone}: {spotName: stri
         <button type="button" className="ob-save" disabled={!word} onClick={save}>{word ? `Save ${sawWords(word)}` : 'Pick a size'}</button>
         <button type="button" className="sp-link" onClick={() => onDone(null)}>Cancel</button>
       </div>
-      <p className="ob-note">Your own observation, kept on this device. It calibrates the surf estimate for {spotName} once there are enough.</p>
+      <p className="ob-note">Your own observation, kept on this device. After {NEEDED} of them it tunes the surf height for {spotName}, shown beside the model's own.</p>
     </section>
   );
 }
@@ -76,11 +76,12 @@ export const ObserveEntry = ({onOpen}: {onOpen: () => void}) => <button type="bu
 export function ObservedLine({spotId, nowMs}: {spotId: string; nowMs: number}) {
   useObservations();
   const last = latestObservation(spotId, nowMs), cal = calibrationFor(spotId);
-  if (!last && cal.count === 0) return null;
+  if (!last && (cal.count === 0 || cal.state === 'active')) return null;
   return (
     <div className="ob-line">
       {last && <p className="ob-saw"><span>You saw ~{sawWords(last.word)} · {clock(Date.parse(last.observedAt))}</span> <span className="ob-own">your observation{last.paired ? '' : ' · not counted: no forecast for that hour'}</span></p>}
-      {cal.count > 0 && <p className="ob-cal">{cal.state === 'active' ? `Calibrated with your ${cal.count} observations` : `Calibrating: ${cal.count} of ${cal.needed} observations`}</p>}
+      {/* step 3: once active, the Surf card's "tuned to your N reports here" line says it (with the model beside it); this line only counts up to it */}
+      {cal.state === 'collecting' && cal.count > 0 && <p className="ob-cal">Your reports here: {cal.count} of the {cal.needed} that match a forecast hour, before they tune the surf height</p>}
     </div>
   );
 }

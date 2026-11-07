@@ -24,6 +24,8 @@ import {formatHeight, userHeight} from '../../services/heightMath';
 import {assignmentFor} from '../../ocean/mop';
 import {isFlat, FLAT_ESTIMATE_TEXT, flatWhy, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
 import type {OceanBundle} from '../../ocean/types';
+import {HowRightLine} from './HowRight';
+import {TunedLine} from './Tuned';
 
 /* T-045 spot page v3: Surfline's anatomy, each fact once. Conditions grid → Board Match line → 7-day strip → graph/table → nearshore + buoy → sources. */
 
@@ -114,9 +116,10 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
         <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{isFlat(hs) ? <span title={hs.kind === 'estimate' ? hs.methodLabel : undefined}>{flatWhy(hs)}</span> : hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>surf height</span></> : t.detail}</p>
         {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
-        {hs.kind === 'estimate' ? <p className="sp-f" title={`${hs.methodLabel}${t.confidenceDetail ? `; ${t.confidenceDetail}` : ''}`}>{hs.saved ? `${hs.saved.reason === 'saved' ? 'saved copy' : 'stale data'} · retrieved ${hs.saved.retrievedAt && Number.isFinite(Date.parse(hs.saved.retrievedAt)) ? timeLabelPT(hs.saved.retrievedAt) : 'at an unknown time'} · not current` : `model estimate${transferTag(hs) ? ` · ${transferTag(hs)}` : ''}${t.confidenceText ? ` · ${t.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}{t.confidenceDetail ? `. ${t.confidenceDetail}` : ''}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
+        {hs.kind === 'estimate' && hs.calibration && !hs.saved ? <TunedLine hs={hs as Parameters<typeof TunedLine>[0]['hs']} p={p} spotName={spot.name} /> : hs.kind === 'estimate' ? <p className="sp-f" title={`${hs.methodLabel}${t.confidenceDetail ? `; ${t.confidenceDetail}` : ''}`}>{hs.saved ? `${hs.saved.reason === 'saved' ? 'saved copy' : 'stale data'} · retrieved ${hs.saved.retrievedAt && Number.isFinite(Date.parse(hs.saved.retrievedAt)) ? timeLabelPT(hs.saved.retrievedAt) : 'at an unknown time'} · not current` : `model estimate${transferTag(hs) ? ` · ${transferTag(hs)}` : ''}${t.confidenceText ? ` · ${t.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}{t.confidenceDetail ? `. ${t.confidenceDetail}` : ''}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
         {/* T-130: what the model point cannot say about THIS spot, beside the number (the full provenance stays in Sources & data) */}
         {hs.kind === 'estimate' && (hs.method === 'mop-v2' || hs.transfer) && assignmentFor(spot.id)?.caveat && <p className="sp-f sp-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
+        <HowRightLine spotId={spot.id} p={p} />
         {observe}
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}

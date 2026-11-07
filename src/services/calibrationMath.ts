@@ -13,7 +13,15 @@ export interface FeltCounts {low: number; right: number; high: number}
 /** "Felt right?" is a WEAKER, direction-only signal: it can nudge an ACTIVE calibration (never activate one) by 3% per net vote, at most ±15%. Our own choice. `low` = the forecast was too low (raise it). */
 export const FELT_STEP = 0.03, FELT_CAP = 0.15;
 export const feltFactor = (f: FeltCounts) => 1 + Math.max(-FELT_CAP, Math.min(FELT_CAP, FELT_STEP * (f.low - f.high)));
-export interface CalibrationFit {n: number; needed: number; status: 'collecting' | 'active'; ratio?: number; iqr?: [number, number]; felt?: FeltCounts & {factor: number}}
+/** Beyond-Surfline step 3: a few reports must not swing the number. Once active, the median ratio is SHRUNK toward 1 (the model unchanged) with the weight
+ *  n / (n + SHRINK_K): at the 8 reports that activate it, half way (a median of 1.5 becomes 1.25); at 24 reports, three quarters; it approaches the person's own
+ *  median only as reports pile up. The result (after the felt nudge) is then held inside RATIO_LIMITS: never under half or over double the model. Both are our
+ *  own choice (a prior worth about one activation's worth of reports; a cap no sensible personal scale should reach), not fitted. */
+export const SHRINK_K = 8;
+export const RATIO_LIMITS: readonly [number, number] = [0.5, 2];
+export const shrinkWeight = (n: number) => (n > 0 ? n / (n + SHRINK_K) : 0);
+const clampRatio = (r: number) => Math.min(RATIO_LIMITS[1], Math.max(RATIO_LIMITS[0], r));
+export interface CalibrationFit {n: number; needed: number; status: 'collecting' | 'active'; /** the ratio applied: shrunk toward 1, felt-nudged, held in RATIO_LIMITS */ ratio?: number; /** the plain median of the person's ratios, before any of that */ rawRatio?: number; /** the shrinkage weight n / (n + SHRINK_K) */ weight?: number; iqr?: [number, number]; felt?: FeltCounts & {factor: number}}
 
 export const median = (a: number[]): number => { const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 /** Linear-interpolated quantile (type 7). */
@@ -40,7 +48,9 @@ export function v1CentralOnCurrentScale(spotId: string, pair: {centralFt: number
 export function fitFor(log: SessionObservation[], spotId: string, method: Method, felt: FeltCounts = {low: 0, right: 0, high: 0}): CalibrationFit {
   const r = pairsFor(log, spotId, method).map((x) => x.ratio), n = r.length, fc = feltFactor(felt);
   if (n < NEEDED) return {n, needed: NEEDED, status: 'collecting', felt: {...felt, factor: 1}};
-  return {n, needed: NEEDED, status: 'active', ratio: median(r) * fc, iqr: [quantile(r, 0.25) * fc, quantile(r, 0.75) * fc], felt: {...felt, factor: fc}};
+  const raw = median(r), w = shrinkWeight(n), ratio = clampRatio((1 + (raw - 1) * w) * fc), shift = raw > 0 ? ratio / raw : 1;
+  // the person's spread (their middle half of ratios) moves with the shrunk centre; its width is theirs
+  return {n, needed: NEEDED, status: 'active', ratio, rawRatio: raw, weight: w, iqr: [quantile(r, 0.25) * shift, quantile(r, 0.75) * shift], felt: {...felt, factor: fc}};
 }
 /** The calibrated range for one hour: central = ratio × model central; low/high from the observed IQR of the ratio, floored at ±15% of the calibrated central, rounded outward to whole feet (the same rule as the uncalibrated range since T-078). */
 export function applyFit(fit: CalibrationFit, modelLoFt: number, modelHiFt: number): {loFt: number; hiFt: number; centralFt: number} | null {
