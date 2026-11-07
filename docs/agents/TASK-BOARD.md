@@ -591,3 +591,11 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
     - `how-right`: a "How right we've been" line from real buoys (a cached daily job), and personal learning made visible ("tuned to your N reports"), with shrinkage.
   - **Queued after:** cautious ratings checked against logged sessions; one size convention explained per spot; the coloured coast rating strip.
 - Certainty (branch `certainty`, 2026-11-06; data-honesty cycle 1 applied): every day and hour carries one of four levels (`src/services/certainty.ts`): the existing "high / medium / low confidence" (one vocabulary, one engine) and "too far out" past the horizon where the measured wave-model error alone spans a factor of two (w >= ln 2 / 2, about 5.7 days from `LEAD_SKILL`). The band stays the number everywhere (T-118); where the models disagree a "models differ" note shows and "could be X–Y ft" is in the detail. Shown in the week grid (hatched, muted, "too far out", size line stops), the spot page's day cards and the note under them, the Forecast timeline (band masked fainter, dashed could-be range, hatched past the horizon, "How sure" in the tooltip) and Home's first sentence (only when models differ); no best bet past the horizon. Never called accuracy. Archive not used (36 matured entries).
+- Night 6 (2026-11-06/07):
+  - **Live:**
+    - `certainty` (56c40aa);
+    - `how-right` (5db81f2), with the R2 lifecycle `expire-howright` (35 d) added and a clean cron run seen after deploy. The first how-right numbers are expected about Nov 10.
+  - **Merged, docs only:** `honest-ratings`, the RATING-AUDIT: no rule changed. The beginner >4 ft Skip is a user decision.
+  - **Toolkit:** t034 counts absolute ::after hit areas (backup `.pre-hitarea`).
+  - **Stale toolkit scripts:** home-shots.mjs (`.hello h1`) and t057-days.mjs (night-only).
+  - **Morning report:** vault `80-Handoffs/2026-11-07-morning-report-night6.md`.
