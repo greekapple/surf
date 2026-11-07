@@ -531,3 +531,21 @@
   .sp-band.is-photo .credit .cr-tail { white-space: nowrap; }
   .sp-band.is-photo .credit .cr-sep { padding: 0 2px; }
 }
+
+/* certainty (2026-11-06): the day cards fade with how sure the day is, the same marks as Home's week grid. Uncertain: muted number over a light hatch;
+   too far out: no number (it is in the note under the strip), a denser hatch, faded rating. Solid and likely look as before; the word sits in the small line. */
+.sp .sp-day { --sd-hatch: color-mix(in srgb, var(--text) 9%, transparent); }
+.sp .sp-day.is-low { background-image: repeating-linear-gradient(135deg, var(--sd-hatch) 0 1px, transparent 1px 7px); }
+.sp .sp-day.is-low .sd-h { color: var(--muted); }
+.sp .sp-day.is-too-far { --sd-hatch: color-mix(in srgb, var(--text) 13%, transparent); background-image: repeating-linear-gradient(135deg, var(--sd-hatch) 0 1px, transparent 1px 4px); }
+.sp .sp-day.is-too-far .sd-q { opacity: 0.45; }
+.sd-far { display: inline-block; font-size: 13px; font-weight: 600; line-height: 23px; color: var(--muted); white-space: nowrap; }
+/* certainty on the Forecast timeline: the band is masked fainter where the day is less certain, a dashed outline shows the range widened over the wave
+   models where they disagree, and the hours past the horizon sit under a hatch labelled "too far out to call". */
+.tl-wide path { fill: none; stroke: var(--hs-hi); stroke-width: 1.2; stroke-dasharray: 4 3; stroke-opacity: 0.8; stroke-linecap: round; }
+.tl-far-line { stroke: var(--ch-ink, var(--text)); stroke-opacity: 0.2; stroke-width: 1; }
+.tl-far-t { font: 600 11px/1 var(--sans); fill: var(--muted); }
+.tl-body .tl-tip > span.tl-tip-sure > i { display: block; width: 11px; height: 11px; margin-left: 2px; border-radius: 2px; border: 1px solid var(--line-2); background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--text) 30%, transparent) 0 1px, transparent 1px 4px); }
+.legend i.lg-sure { height: 8px; background: linear-gradient(90deg, var(--hs-hi), color-mix(in srgb, var(--hs-hi) 25%, transparent)); opacity: 0.6; }
+.legend i.lg-wide { height: 8px; border: 1px dashed var(--hs-hi); background: none; }
+.legend i.lg-far { height: 8px; border: 1px solid var(--line-2); background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--text) 30%, transparent) 0 1px, transparent 1px 4px); }

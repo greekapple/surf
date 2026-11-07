@@ -11,6 +11,7 @@ import {dataPhase} from '../../services/dataPhase';
 import {transferTag} from '../../services/headlineSurf';
 import {CallBar} from '../forecast/Trust';
 import {WeekGrid} from './WeekGrid';
+import {HORIZON_DAYS_TEXT} from '../../services/certainty';
 import {Welcome} from './Welcome';
 import {evidenceSpots} from '../../ocean/spots';
 import {callFor, isDark} from '../forecast/trustApi';
@@ -88,7 +89,7 @@ export function HomeView({go}: ViewProps) {
           <Welcome name={profile.displayName ?? null} spots={pool} refSpot={rowSpots[0] ?? spot} records={view.mapRecords} profile={profile} bundle={bundle} extrema={bundle?.extrema}
             boards={data.state.boards} nowMs={now} onOpen={openAt} stationTides={view.ocean.bundle?.stationTides} />
           <section className="wk-s" aria-labelledby="wk-h">
-            <header className="hd-head"><h2 id="wk-h">This week</h2><p className="hd-note">Surf estimate at midday by day, the AM, midday and PM rating under it, and <span className="wk-key" aria-hidden="true" />the shape of the midday size through the week; tap a day for every hour</p></header>
+            <header className="hd-head"><h2 id="wk-h">This week</h2><p className="hd-note">Surf estimate at midday by day, the AM, midday and PM rating under it, and <span className="wk-key" aria-hidden="true" />the shape of the midday size through the week. <span className="wk-key wk-key-hatch" aria-hidden="true" />Hatched: less certain, or too far out past {HORIZON_DAYS_TEXT}. Tap a day for every hour</p></header>
             <WeekGrid spots={rowSpots} records={view.mapRecords} nowMs={now} profile={profile} bundle={bundle} unit={profile.heightUnit} onOpen={openAt} />
           </section>
         </>);

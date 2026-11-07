@@ -10,6 +10,10 @@ import {Condition, conditionWord} from '../../ui/Condition';
 import type {SurfBandPoint} from './trustApi';
 import {estimateBand, hasEstimateBand} from './trustRules';
 import {Icon} from '../../ui/Icon';
+import {CERTAINTY_WORD, type Certainty} from '../../services/certainty';
+
+/** certainty (2026-11-06): how strongly the surf band is drawn per hour (a mask; our own choice of steps, matching the day cards' fade). */
+const SURE_OPACITY: Record<Certainty, number> = {high: 1, medium: 0.82, low: 0.5, 'too-far': 0.32};
 
 /** Wind-speed colour for marks on the current ground: the pastel Windy-like ramp is mixed toward black in the light theme (--wind-darken). */
 /** Wind ramp darkened by --wind-darken. Browsers without color-mix (Safari < 16.2) get the plain ramp colour so arrows still draw. */
@@ -101,6 +105,11 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   vis.forEach((h, k) => { const b = bAt(h), ok = b && b.lo !== null && b.hi !== null; if (!ok) { if (estRuns.length && estRuns[estRuns.length - 1].length) estRuns.push([]); return; }
     if (!estRuns.length) estRuns.push([]); estRuns[estRuns.length - 1].push([X(i0 + k), b!.lo!, b!.hi!]); });
   for (let r = estRuns.length - 1; r >= 0; r--) if (!estRuns[r].length) estRuns.splice(r, 1);
+  // certainty (2026-11-06): runs of hours where the wave models disagree, as [x, wideLo, wideHi]: drawn as a dashed outline around the band (the range widened over the models).
+  const wideRuns: [number, number, number][][] = []; let wr: [number, number, number][] = [];
+  vis.forEach((h, k) => { const w = bAt(h)?.wide; if (w) wr.push([X(i0 + k), w.loFt, w.hiFt]); else if (wr.length) { wideRuns.push(wr); wr = []; } }); if (wr.length) wideRuns.push(wr);
+  // The first visible hour past the forecast horizon ("too far out"); lead only grows with time, so every later hour is past it too.
+  const farK = vis.findIndex((h) => bandAt.get(h.timestamp)?.certainty === 'too-far'), farX = farK >= 0 ? Math.max(G, X(i0 + farK) - pxh / 2) : null;
   const mainPath = line(val);
   // Mid-transition the window can sit past the series (vis empty); an area must never start without a moveto (D-05).
   const areaD = mainPath ? `${mainPath} L${X(i1)},${PB} L${X(i0)},${PB}Z` : undefined;
@@ -152,6 +161,11 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
           <linearGradient id="gWd" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--accent)" stopOpacity="0.4" /><stop offset="1" stopColor="var(--accent)" stopOpacity="0.03" /></linearGradient>
           <linearGradient id="gTd" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--tide)" stopOpacity="0.38" /><stop offset="1" stopColor="var(--tide)" stopOpacity="0.03" /></linearGradient>
           <clipPath id="tlclip"><rect x={G} y={0} width={inner} height={height} /></clipPath>
+          <linearGradient id="gSure" gradientUnits="userSpaceOnUse" x1={X(i0)} x2={X(Math.max(i0 + 1, i1))} y1="0" y2="0">
+            {vis.map((h, k) => { const c = bandAt.get(h.timestamp)?.certainty; return <stop key={h.timestamp} offset={vis.length > 1 ? k / (vis.length - 1) : 0} stopColor="#fff" stopOpacity={c ? SURE_OPACITY[c] : 1} />; })}
+          </linearGradient>
+          <mask id="mSure" maskUnits="userSpaceOnUse" x={0} y={0} width={W} height={height}><rect x={0} y={0} width={W} height={height} fill="url(#gSure)" /></mask>
+          <pattern id="pFar" width={6} height={6} patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1={0} y1={0} x2={0} y2={6} className="tl-far-line" /></pattern>
         </defs>
         <g key={`ax${tab}`} className="tl-fade">
           {ticks.map((v) => <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 8} y={Y(v) + 4} textAnchor="end">{tab === 'tide' && v > 0 ? '+' : ''}{tickText(v)}{v === ticks[ticks.length - 1] ? ` ${unit}` : ''}</text></g>)}
@@ -176,6 +190,12 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               {/* T-119 (Surfline-style undulating lines): each run's top and bottom are monotone cubic curves (no overshoot) through every third hour
                   plus the run's ends, so whole-foot steps in the hourly estimate read as one smooth swell of size; a soft fill between; the bottom edge is
                   coloured by the hour's rating. */}
+              {farX !== null && <g className="tl-far">
+                <rect x={farX} y={PT - 8} width={Math.max(0, W - farX)} height={PB - PT + 8} fill="url(#pFar)" />
+                {W - PAD - farX > 96 && <text className="tl-far-t" x={farX + 6} y={PT + 6}>too far out to call</text>}
+              </g>}
+              {wideRuns.map((r0) => { const run = r0.filter((_, k) => k % 3 === 0 || k === r0.length - 1); return run.length > 1 && <g key={`w${run[0][0]}`} className="tl-wide"><path d={monotonePath(run.map(([x, , hi]): [number, number] => [x, Y(hi)]))} /><path d={monotonePath(run.map(([x, lo]): [number, number] => [x, Y(lo)]))} /></g>; })}
+              <g mask="url(#mSure)">
               {estRuns.map((run) => { const pts = run.filter((_, k) => k % 3 === 0 || k === run.length - 1);
                 return <g key={`r${run[0][0]}`}>
                   <path className="tl-band" d={`${monotonePath(pts.map(([x, , hi]): [number, number] => [x, Y(hi)]))} L${monotonePath(pts.map(([x, lo]): [number, number] => [x, Y(lo)]).reverse()).slice(1)} Z`} />
@@ -183,6 +203,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
                   <path className="tl-median" d={monotonePath(pts.map(([x, lo, hi]): [number, number] => [x, Y((lo + hi) / 2)]))} />
                   <path className="tl-bot" d={monotonePath(pts.map(([x, lo]): [number, number] => [x, Y(lo)]))} stroke="url(#gRate)" />
                 </g>; })}
+              </g>
               <path d={line((h) => h.heightFt ?? 0)} fill="none" stroke="var(--muted)" strokeWidth={1.2} strokeLinejoin="round" opacity={0.8} />
             </>}
             {tab === 'surf' && !surfBand && <>
@@ -249,6 +270,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
         <div className="tl-tip" style={{transform: `translate3d(${tipLeft}px, ${tipTop}px, 0)`, width: TIP_W}}>
           <b>{weekdayPT(tipH.timestamp)} {hourLabel(tipH.timestamp)}<small>{hover.i === sel ? 'selected' : 'preview'}</small></b>
           {surfBand && <span className={tab === 'surf' ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--hs-hi)'}} /><span className="tl-tip-k">Surf est.</span><em>{(() => { const b = bAt(tipH); return b?.flat ? 'Flat' : b && b.lo !== null && b.hi !== null ? `${ht(b.lo, p, 0)}–${ht(b.hi, p, 0)} ${u}` : 'unavailable'; })()}</em></span>}
+          {surfBand && (() => { const b = bAt(tipH), c = b?.certainty; return c ? <span className="tl-tip-sure"><i /><span className="tl-tip-k">How sure</span><em>{CERTAINTY_WORD[c]}{b?.wide ? ` · models differ; could be ${ht(b.wide.loFt, p, 0)}–${ht(b.wide.hiFt, p, 0)} ${u}` : ''}</em></span> : null; })()}
           <span className={tab === 'surf' && !surfBand ? 'on' : ''}><Icon name="waves" size={15} style={{color: 'var(--muted)'}} /><span className="tl-tip-k">Offshore Hs</span><em>{ht(tipH.heightFt, p)} {u}</em></span>
           <span className={tab === 'swell' ? 'on' : ''}><Icon name="tide" size={15} style={{color: 'var(--sw1)'}} /><span className="tl-tip-k">Swell</span><em>{tipH.forecast.primary ? `${ht(tipH.forecast.primary.height, p)} ${u} · ${Math.round(tipH.forecast.primary.period)} s · from ${compass(tipH.forecast.primary.direction)}` : '—'}</em></span>
           <span className={tab === 'wind' ? 'on' : ''}><Icon name="wind" size={15} style={{color: wc(tipH.forecast.wind.speed)}} /><span className="tl-tip-k">Wind</span><em>{windVal(tipH.forecast.wind.speed, p)} {p.windUnit} · from {compass(tipH.forecast.wind.direction)}<StaleTag s={hourFreshness(tipH.forecast, now).wind} /></em></span>

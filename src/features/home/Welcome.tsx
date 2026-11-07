@@ -16,6 +16,7 @@ import type {OwnCam} from '../../data/cams';
 import {NwsBanner} from '../forecast/Trust';
 import {boardPickFor} from '../quiver/fit';
 import {heroEstimateText} from '../../services/headlineLabel';
+import {certaintyOf, wideText, HORIZON_HOURS} from '../../services/certainty';
 import {greetingLine} from './greeting';
 import {rankBets} from './betRank';
 import {evidenceSpots} from '../../ocean/spots';
@@ -46,6 +47,7 @@ export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserPro
     withData++;
     const call = callFor(spot, cur, profile, ctx), w = call.window && Date.parse(call.window.end) > nowMs ? call.window : call.nextWindow; if (!w) continue;
     const rec = mine.find((f) => f.timestamp === w.start); if (!rec) continue;
+    if (Date.parse(w.start) - nowMs >= HORIZON_HOURS * 36e5) continue; // certainty: never a best bet past the horizon (too far out to call)
     const v = hourCall(spot, rec, profile, ctx).verdict; if (v !== 'Go' && v !== 'Worth a look') continue;
     bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs), sized: spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline.kind === 'estimate'});
   }
@@ -71,7 +73,10 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const spot = bet?.spot ?? refSpot, greeting = greetingLine(hourOfDay(nowMs), name?.trim() ? name.trim().split(/\s+/)[0] : null);
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
   const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile, nowMs) : null;
-  const surf = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
+  const surf0 = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
+  // certainty (2026-11-06): the first read stays one sentence; it only adds words when the size is shaky: "(models differ; could be 4–9 ft)" after the band where the models disagree; no best bet past the horizon.
+  const cv = bet && at ? certaintyOf(bet.spot.id, at.surf.headline, bet.rec.timestamp, nowMs) : null;
+  const surf = surf0 && cv ? (cv.level === 'too-far' ? 'too far out to size yet' : cv.disagree ? `${surf0} (models differ${cv.wide ? `; could be ${wideText(cv.wide, profile).full}` : ''})` : surf0) : surf0; // the band stays the number (T-118), as in the hero caption below; the confidence word is in that caption
   const windWords = wind ? `${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}${wind.stale ? (wind.stale.reason === 'saved' ? ' (saved data)' : ' (stale data)') : ''}` : null;
   const answer = bet && bet.sized && surf
     ? `${bet.spot.name} is your best bet ${bet.when}, ${bet.window.label}, ${surf}${windWords ? ` and ${windWords}` : ''}.`

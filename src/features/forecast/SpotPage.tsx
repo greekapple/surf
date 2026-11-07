@@ -8,6 +8,7 @@ import {rankBoards, recommended} from '../quiver/fit';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {dayRange} from '../../services/spotHour';
+import {dayCertainty, certainLabel} from '../../services/certainty';
 import {dayText} from '../../services/weekCell';
 import {pacificDate} from '../../ocean/time';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
@@ -229,14 +230,16 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
         const envText = env && dr.label ? `${dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '')}${dr.kind === 'offshore' ? ` ${p.heightUnit}` : ''}` : null;
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
-        if (k === cur && env) selNote = `Range over daylight: ${envText} (${kind === 'est.' || tyFlat ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
+        // certainty (2026-11-06): the midday hour's level. Past the horizon the card says "too far out" (the model's number moves to the note under the strip and the tooltips); where the models disagree the band stays the number, with "models differ" and what it could be in the detail.
+        const cv = dr.kind === 'none' ? null : dayCertainty(spot.id, dr, now), far = cv?.level === 'too-far', shown = certainLabel(mainNum, unitSuffix, cv, p);
+        if (k === cur && env) selNote = `${cv ? `${far ? 'Too far out to call' : `${cv.word.replace(/^\w/, (c) => c.toUpperCase())}${shown.note ? `, ${shown.note}` : ''}`}: ${cv.why}. ${far ? `The model says ${(shown.detail ?? '').replace(/^the model says /, '')} at ${ty?.short ?? 'midday'}. ` : shown.detail ? `${shown.detail.replace(/^\w/, (c) => c.toUpperCase())}. ` : ''}` : ''}Range over daylight: ${envText} (${kind === 'est.' || tyFlat ? 'estimated' : kind}, ${dr.hours} daylight hours)`;
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
         return (
-          <button key={d.key} className="sp-day day" data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)}
-            aria-label={`${name}: ${range ? `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${mainNum.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
+          <button key={d.key} className={`sp-day day${cv ? ` is-${cv.level}` : ''}`} data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)} data-certainty={cv?.level}
+            aria-label={`${name}: ${range ? `${far ? `too far out to call, ${shown.detail}` : `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${shown.text.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}`}${cv && !far ? `, ${cv.word}` : ''}${shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week: the highest average rating over its 6 AM–7 PM hours. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
-            <span className="sd-h">{range ? <>{mainNum}<small>{unitSuffix}</small></> : '—'}</span>
-            <span className="sd-k" title={ty ? ty.aria : undefined}>{kind}{ty ? ` · ${ty.short}` : ''}</span>
+            <span className="sd-h" title={cv ? `${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
+            <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{cv && !far ? `${kind} · ${shown.note ?? cv.word}` : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
             <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark ? `${b.label}: dark, no rating` : undefined} style={{background: dark ? 'var(--ch-night-strong, #2b3a46)' : b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
           </button>

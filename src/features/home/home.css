@@ -244,3 +244,15 @@
    first day's numbers under the sticky spot names and left them cut at the column's edge. There all seven days fit (64 px or more each), so the table
    takes the width it has and does not scroll; phones (<= 600 px) keep the scrolling week with the sticky names. */
 @media (min-width: 601px) and (max-width: 860px) { .wk-t { min-width: 0; } }
+
+/* certainty (2026-11-06): how sure each day is. Solid and likely days look as before; an uncertain day's number goes muted over a light hatch; a day past the
+   horizon says "too far out" over a denser hatch, its rating bar fades and the size line stops before it. The hatch is information (less certain), not decoration. */
+.wk-c { --wk-hatch: color-mix(in srgb, var(--text) 9%, transparent); }
+.wk-c.is-low button, .wk-c.is-too-far button { background-image: repeating-linear-gradient(135deg, var(--wk-hatch) 0 1px, transparent 1px 7px); }
+.wk-c.is-too-far { --wk-hatch: color-mix(in srgb, var(--text) 13%, transparent); }
+.wk-c.is-too-far button { background-image: repeating-linear-gradient(135deg, var(--wk-hatch) 0 1px, transparent 1px 4px); }
+.wk-c.is-low .wk-h { color: var(--muted); }
+.wk-h.wk-far { font-size: 12px; font-weight: 500; line-height: 15px; color: var(--muted); }
+.wk-c.is-too-far .wk-bar { opacity: 0.45; }
+.wk-why { display: block; font-size: 11px; font-weight: 450; color: var(--muted); line-height: 13px; }
+.wk-key-hatch { height: 9px; border: 1px solid var(--line-2); border-radius: 2px; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--text) 25%, transparent) 0 1px, transparent 1px 4px); margin-left: 2px; }
