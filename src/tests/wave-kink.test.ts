@@ -7,7 +7,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {ATLAS_BANDS, type Atlas, type AtlasMeta, ampAt, bendW, bendZ, blendAtlas, breakX, bucketsFor, makeAtlas, profileAt, scaleAtlas, sections, stageAt, stripX, withPeriod} from '../features/scale/waveAtlas.ts';
+import {ATLAS_BANDS, type Atlas, type AtlasMeta, ampAt, bendW, bendZ, blendAtlas, breakX, bucketsFor, faceDistanceAt, makeAtlas, profileAt, scaleAtlas, sections, stageAt, stripX, withPeriod} from '../features/scale/waveAtlas.ts';
 
 const ROOT = process.env.SWELLO_ATLAS_ROOT ?? new URL('../../public/media/', import.meta.url).pathname;   // the env var: another checkout's atlases (before/after runs)
 const KINDS = ['scale3d-atlas', 'scale3d-proc'];
@@ -106,4 +106,39 @@ test('the GLSL along-crest block computes the same stage, height, sections and b
     }
     for (let u = 0; u <= 1; u += 0.01) assert.ok(Math.abs(g.bendW(u) - bendW(u)) < 1e-12);
   }
+});
+
+/** The board's contact (faceDistanceAt) knows which side of the open face a point is on. The rebuilt atlases bunch 13-15 profile samples
+ *  within 5 cm part way up a big face; the sign came from the one nearest segment, whose direction there is noise, and a board rail 0.1 m
+ *  in the air read as under water: the sim lifted the board for it and the rail read deeper still (12 ft Expert snap recovery, 0.67 m).
+ *  A point 0.3 m out from the face (toward the beach, nothing else of the profile in between) must read positive, 0.3 m in negative. */
+test('faceDistanceAt reads the side of the open face correctly on the real atlases, 6-16 ft', (tt) => {
+  let checked = 0; const bad: string[] = [];
+  for (const kind of KINDS) for (const ft of [6, 8, 10, 12.5, 14, 16]) {
+    const a = compose(kind, ft * 0.3048, null); if (!a) { tt.diagnostic(`${kind}: atlas files absent, skipped`); continue; }
+    const m = a.meta, H = m.face_m;
+    for (const t of [0, 0.7, 1.6, 2.9, 4.1]) {
+      const bx = breakX(m, t);
+      for (let x = bx - 2 * H; x <= bx + 3 * H; x += 0.5 * H) {
+        const p = profileAt(a, x, t, 480, true), n = p.z.length;
+        let ci = 0; for (let i = 1; i < n; i++) if (p.z[i] > p.z[ci]) ci = i;
+        const tb = p.y[n - 1] > p.y[0] ? 1 : -1; let ti = ci; for (let i = ci; i >= 0 && i < n; i += tb) if (p.z[i] < p.z[ti]) ti = i;
+        const tro = p.z[ti], crest = p.z[ci];
+        // crossings of a horizontal line at height h strictly between ya0 and ya1 (any part of the profile)
+        const crosses = (h: number, ya0: number, ya1: number) => { for (let i = 0; i < n - 1; i++) { if ((p.z[i] - h) * (p.z[i + 1] - h) > 0 || p.z[i] === p.z[i + 1]) continue; const k = (h - p.z[i]) / (p.z[i + 1] - p.z[i]), yc = p.y[i] + k * (p.y[i + 1] - p.y[i]); if (yc > Math.min(ya0, ya1) + 1e-3 && yc < Math.max(ya0, ya1) - 1e-3) return true; } return false; };
+        for (const f of [0.2, 0.35, 0.5, 0.65, 0.8]) {
+          const h = tro + f * (crest - tro); let yf = NaN;
+          for (let i = ti; i !== ci; i -= tb) { const j = i - tb; if ((p.z[i] - h) * (p.z[j] - h) <= 0 && p.z[i] !== p.z[j]) { yf = p.y[i] + (h - p.z[i]) / (p.z[j] - p.z[i]) * (p.y[j] - p.y[i]); break; } }
+          if (!Number.isFinite(yf)) continue;
+          for (const [off, want] of [[0.3, 1], [-0.3, -1]] as const) {
+            const ya = yf + off * tb; if (crosses(h, yf, ya)) continue;
+            const d = faceDistanceAt(a, x, h, -ya, t); checked++;
+            if (Math.sign(d) !== want) bad.push(`${kind} ${ft} ft t${t} x${(x - bx).toFixed(1)} f${f} ${off > 0 ? 'air' : 'water'}: ${d.toFixed(3)}`);
+          }
+        }
+      }
+    }
+  }
+  if (!checked) return;
+  assert.ok(bad.length === 0, `${bad.length} of ${checked} points on the wrong side:\n${bad.slice(0, 12).join('\n')}`);
 });

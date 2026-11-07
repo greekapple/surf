@@ -215,17 +215,29 @@ export function facePointInto(a: Atlas, x: number, frac: number, t: number | nul
 /** Signed distance (m) from a crest-frame point (x, height yh, z) to the front face of the profile at x (trough to crest, the surface the
  *  rider is on): positive on the beach/air side of the face, negative inside the water. A vertical gap is meaningless on a 70 deg face
  *  and a column sample lands on the lip or the back near the crest; this is what the board's contact is measured by. */
+/** the face's direction for faceDistanceAt's sign is read over this much profile each side of the nearest point (m) */
+const FACE_SIDE_SPAN_M = 0.25;
+
 export function faceDistanceAt(a: Atlas, x: number, yh: number, zc: number, t: number): number {
   const n = 192, y = SY, z = SZ, ya = -zc; profileInto(a, x, t, n, true, y, z);
   let ci = 0; for (let i = 1; i < n; i++) if (z[i] > z[ci]) ci = i;
   const toBeach = y[n - 1] > y[0] ? 1 : -1; let ti = ci; for (let i = ci; i >= 0 && i < n; i += toBeach) if (z[i] < z[ti]) ti = i;
-  let best = Infinity, sign = 1;
+  let best = Infinity, bi = ti, bdy = 0, bdz = 0;
   for (let i = ti; i !== ci; i -= toBeach) {
     const j = i - toBeach, ay = y[i], az = z[i], by = y[j], bz = z[j], ey = by - ay, ez = bz - az, l2 = ey * ey + ez * ez; if (l2 < 1e-10) continue;
     const k = Math.min(1, Math.max(0, ((ya - ay) * ey + (yh - az) * ez) / l2)), py = ay + ey * k, pz = az + ez * k, dy = ya - py, dz = yh - pz, d = Math.hypot(dy, dz);
-    if (d < best) { best = d; const nyv = ez * toBeach, nzv = -ey * toBeach; sign = dy * nyv + dz * nzv >= 0 ? 1 : -1; }   // the face normal toward the beach side
+    if (d < best) { best = d; bi = i; bdy = dy; bdz = dz; }
   }
-  return Number.isFinite(best) ? sign * best : yh;
+  if (!Number.isFinite(best)) return yh;
+  // the side (the face normal toward the beach) from the face's direction over FACE_SIDE_SPAN_M each side of the nearest point, not that
+  // one segment's: where the profile bunches up (13-15 samples within 5 cm on the 12 ft face) a segment's direction is noise, a point
+  // 0.1 m in the air read as in the water, the sim lifted the board for it and the rail read deeper still (the 12 ft snap's recovery: 0.67 m)
+  const py = ya - bdy, pz = yh - bdz, far = FACE_SIDE_SPAN_M * FACE_SIDE_SPAN_M;
+  let i1 = bi, i2 = bi - toBeach;
+  while (i1 !== ti && (y[i1] - py) ** 2 + (z[i1] - pz) ** 2 < far) i1 += toBeach;
+  while (i2 !== ci && (y[i2] - py) ** 2 + (z[i2] - pz) ** 2 < far) i2 -= toBeach;
+  let ey = y[i2] - y[i1], ez = z[i2] - z[i1]; if (ey * ey + ez * ez < 1e-10) { ey = y[ci] - y[ti]; ez = z[ci] - z[ti]; }
+  return (bdy * ez * toBeach - bdz * ey * toBeach >= 0 ? 1 : -1) * best;
 }
 
 /** The water surface height at crest-frame (x, z) (z = -y_across, the beach at -z) at time t: the lowest crossing of the profile, so under
