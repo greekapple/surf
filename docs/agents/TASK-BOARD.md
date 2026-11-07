@@ -584,3 +584,9 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
   2. an accuracy scorecard ("how right we've been");
   3. visible personal calibration;
   4. one "go, when, on what board" answer on Home.
+- 2026-11-06 (user: "be genuinely better than Surfline, not more features"):
+  - **Live:** the map-smooth merge (bicubic field, colour to the coast, rebuilt enclosed-water mask, Waves palette in Surfline's order, unverified; retune `WAVES.stops` from the user's screenshot) and spot-accuracy (buoy-checked corrections). Both deployed.
+  - **In progress (Opus agents):**
+    - `certainty`: certainty fades with lead time from the model spread; "too far out" past the useful horizon.
+    - `how-right`: a "How right we've been" line from real buoys (a cached daily job), and personal learning made visible ("tuned to your N reports"), with shrinkage.
+  - **Queued after:** cautious ratings checked against logged sessions; one size convention explained per spot; the coloured coast rating strip.
