@@ -1,6 +1,7 @@
 import type {Measurement,SourceInfo,OceanSwell,OceanRecord,SpotEvidence,FaceEstimate} from './types.ts';
 import {estimateBreaking} from './breakingEstimate.ts';
 import {breakingProfile} from './localCalibration.ts';
+import {buoyTransferAt,breakingFactor,buoyTransferText,buoyTransferTag} from './buoyTransfer.ts';
 export const marineFields=['wave_height','swell_wave_height','swell_wave_direction','swell_wave_period','secondary_swell_wave_height','secondary_swell_wave_direction','secondary_swell_wave_period','sea_surface_temperature'];
 /* T-091: URLs are called thousands of times per render (provider keys, source labels); build each spot's URL once. Keyed on the inputs so a changed spot object still gets the right URL. */
 const urlMemo=new Map<string,string>();const memoUrl=(k:string,f:()=>string)=>{let v=urlMemo.get(k);if(v===undefined){v=f();urlMemo.set(k,v)}return v};
@@ -20,7 +21,9 @@ export const absent=(unit:Measurement['unit'],source:SourceInfo,reason:string):M
 /** Unvalidated breaking-wave range from primary swell, or the refusal reason. Not fed into ratings. */
 export function faceEstimate(s:SpotEvidence,offshore:Measurement,primary:OceanSwell,secondary:OceanSwell|null):FaceEstimate{
  const c=breakingProfile(s.id),r=estimateBreaking({swellHsFt:primary.height.value,periodS:primary.period.value,directionDeg:primary.direction.value,combinedHsFt:offshore.value,secondaryHsFt:secondary?.height.value??null},c,s.orientation);
- return r.ok?{input:r.input,centralFt:r.nearshoreFt,breakingFt:r.centralFt}:{refusal:r.reason};
+ if(!r.ok)return {refusal:r.reason};
+ const t=buoyTransferAt(s.id,offshore.value); // T-131 phase 2: our buoy-evidenced correction of the v1 transfer, only at the listed spots and only in the offshore-Hs size bins where it held
+ return t?{input:r.input,centralFt:r.nearshoreFt*t.factor,breakingFt:r.centralFt*breakingFactor(t.factor),transfer:{factor:t.factor,uncorrectedFt:r.nearshoreFt,uncorrectedBreakingFt:r.centralFt,text:buoyTransferText(t),tag:buoyTransferTag(t)}}:{input:r.input,centralFt:r.nearshoreFt,breakingFt:r.centralFt};
 }
 interface OpenMeteoResponse{__retrievedAt?:string;__issuedAt?:string|null;__sourceURL?:string;__cache?:string;latitude?:number;longitude?:number;hourly?:Record<string,unknown[]>;hourly_units?:Record<string,string>}
 export function normalizeOpenMeteo(s:SpotEvidence,marine:OpenMeteoResponse|null,weather:OpenMeteoResponse|null,retrievedAt:string):OceanRecord[]{

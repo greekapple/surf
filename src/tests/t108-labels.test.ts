@@ -8,11 +8,11 @@ import {isDark} from '../services/daylight.ts';
 import {allSpots} from '../data/catalog.ts';
 import {defaultProfile} from '../data/demo.ts';
 
-// T-108: one best-window function, and the call names the person's own preferred range. Ocean Beach (spot-2) fixture, 1.6 m swell.
+// T-108: one best-window function, and the call names the person's own preferred range. Ocean Beach (spot-2) fixture, 1.1 m waves (was 1.6 m; lowered with T-131 phase 2, whose buoy-evidenced ×1.48 at Ocean Beach would otherwise put the fixture above the intermediate range this test does not exercise).
 const profile = {...defaultProfile, heightUnit: 'ft' as const, scale: 'Face height' as const};
 const t = 1792454400, now = t * 1000 + 600000, times = Array.from({length: 48}, (_, i) => t - 3600 + i * 3600);
 const marine = {latitude: 37.75, longitude: -122.6, hourly_units: {wave_height: 'm', swell_wave_height: 'm', swell_wave_direction: '°', swell_wave_period: 's', secondary_swell_wave_height: 'm', secondary_swell_wave_direction: '°', secondary_swell_wave_period: 's'},
-  hourly: {time: times, wave_height: times.map(() => 1.6), swell_wave_height: times.map(() => 1.5), swell_wave_direction: times.map(() => 270), swell_wave_period: times.map(() => 14), secondary_swell_wave_height: times.map(() => 0), secondary_swell_wave_direction: times.map(() => 270), secondary_swell_wave_period: times.map(() => 10)}};
+  hourly: {time: times, wave_height: times.map(() => 1.1), swell_wave_height: times.map(() => 1.0), swell_wave_direction: times.map(() => 270), swell_wave_period: times.map(() => 14), secondary_swell_wave_height: times.map(() => 0), secondary_swell_wave_direction: times.map(() => 270), secondary_swell_wave_period: times.map(() => 10)}};
 const weather = {hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°', wind_gusts_10m: 'mp/h'}, hourly: {time: times, wind_speed_10m: times.map(() => 4), wind_direction_10m: times.map(() => 90), wind_gusts_10m: times.map(() => 6)}};
 const records = normalizeOpenMeteo(evidenceSpot('spot-2'), marine as any, weather as any, new Date(now).toISOString()).map(toLegacy);
 const spot = allSpots.find((s) => s.id === 'spot-2')!, ctx = {records, nowMs: now};

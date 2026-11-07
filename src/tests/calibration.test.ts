@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {buoyTransferAt} from '../ocean/buoyTransfer.ts';
 import {median, quantile, fitFor, applyFit, NEEDED, MIN_SPREAD} from '../services/calibrationMath.ts';
 import {logObservation, observationsFor, latestObservation, deleteObservation, calibrationFor, resetObservationCache, subscribeObservations, pairFor, WORD_FACE_FT} from '../services/calibration.ts';
 import {headlineSurf} from '../services/headlineSurf.ts';
@@ -10,12 +11,12 @@ import {toLegacy} from '../ocean/bridge.ts';
 const t = 1792454400, now = t * 1000 + 600000;
 const times = Array.from({length: 30}, (_, i) => t - 3600 + i * 3600);
 const marine = {latitude: 37.75, longitude: -122.6, hourly_units: {wave_height: 'm', swell_wave_height: 'm', swell_wave_direction: '°', swell_wave_period: 's', secondary_swell_wave_height: 'm', secondary_swell_wave_direction: '°', secondary_swell_wave_period: 's', sea_surface_temperature: '°C'},
-  hourly: {time: times, wave_height: times.map(() => 1.6), swell_wave_height: times.map(() => 1.5), swell_wave_direction: times.map(() => 270), swell_wave_period: times.map(() => 14), secondary_swell_wave_height: times.map(() => 0), secondary_swell_wave_direction: times.map(() => 0), secondary_swell_wave_period: times.map(() => 0), sea_surface_temperature: times.map(() => 14)}};
+  hourly: {time: times, wave_height: times.map(() => 1.1), swell_wave_height: times.map(() => 1.0) /* T-131 phase 2: was 1.6/1.5 m; Ocean Beach's buoy-evidenced ×1.48 keeps the surf height near the old fixture size */, swell_wave_direction: times.map(() => 270), swell_wave_period: times.map(() => 14), secondary_swell_wave_height: times.map(() => 0), secondary_swell_wave_direction: times.map(() => 0), secondary_swell_wave_period: times.map(() => 0), sea_surface_temperature: times.map(() => 14)}};
 const weather = {hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°', wind_gusts_10m: 'mp/h'}, hourly: {time: times, wind_speed_10m: times.map(() => 5), wind_direction_10m: times.map(() => 90), wind_gusts_10m: times.map(() => 5)}};
 const records = normalizeOpenMeteo(evidenceSpot('spot-2'), marine, weather, new Date(now).toISOString()).map(toLegacy);
 const hourIso = new Date(t * 1000).toISOString();
 const env = {records, nowMs: now};
-const pair = (central: number, method: 'v1' | 'mop-v2' = 'v1') => ({centralFt: central, loFt: central * 0.7, hiFt: central * 1.4, method, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const});
+const pair = (central: number, method: 'v1' | 'mop-v2' = 'v1') => ({centralFt: central, loFt: central * 0.7, hiFt: central * 1.4, method, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const, ...(method === 'v1' ? {transfer: buoyTransferAt('spot-2', 5)?.factor ?? 1} : {})}); // T-131 phase 2: a pair made today records the factor already in its central
 const ob = (i: number, observed: number, central: number, spotId = 'spot-2', method: 'v1' | 'mop-v2' = 'v1') => ({id: 'o' + i, schema: 1 as const, spotId, observedAt: hourIso, loggedAt: hourIso, rangeFt: [observed, observed] as [number, number], faceFt: observed, pair: pair(central, method)});
 
 test('median and quartiles', () => {

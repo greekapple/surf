@@ -6,7 +6,7 @@ import {windOf} from '../../services/spotHour';
 import {dataPhase} from '../../services/dataPhase';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {Condition} from '../../ui/Condition';
-import {headlineSurf, headlineText} from '../../services/headlineSurf';
+import {headlineSurf, headlineText, transferTag} from '../../services/headlineSurf';
 import {useSwello} from '../../app/store';
 import {compass, ht, windVal} from '../forecast/helpers';
 import {SpotThumb} from '../../ui/SpotThumb';
@@ -64,8 +64,8 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? (dataPhase(view.ocean) === 'loading' ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>
-        <p className="xco-ht">{isFlat(hs) ? <b>Flat</b> : big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{isFlat(hs) ? `model estimate · ${flatWhy(hs)}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}` : hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : `model estimate${t!.confidenceText ? ` · ${t!.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
-        {hs?.kind === 'estimate' && hs.method === 'mop-v2' && assignmentFor(spot.id)?.caveat && <p className="xco-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
+        <p className="xco-ht">{isFlat(hs) ? <b>Flat</b> : big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{isFlat(hs) ? `model estimate · ${flatWhy(hs)}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}` : hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : `model estimate${transferTag(hs) ? ` · ${transferTag(hs)}` : ''}${t!.confidenceText ? ` · ${t!.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>
+        {hs?.kind === 'estimate' && (hs.method === 'mop-v2' || hs.transfer) && assignmentFor(spot.id)?.caveat && <p className="xco-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
       {f && hours && <NextHours hours={hours} p={p} />}

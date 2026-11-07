@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {buoyTransferAt} from '../ocean/buoyTransfer.ts';
 const mem = new Map<string, string>();
 (globalThis as any).localStorage = {getItem: (k: string) => mem.get(k) ?? null, setItem: (k: string, v: string) => { mem.set(k, v); }, removeItem: (k: string) => { mem.delete(k); }};
 const {archiveHours, loadArchive, predictedFor, resetArchiveThrottle, ARCHIVE_KEY, ARCHIVE_DAYS, ARCHIVE_MAX} = await import('../services/forecastArchive.ts');
@@ -54,7 +55,7 @@ test('felt right: stores direction paired with the prediction; the latest per sp
   resetFeltCache([]);
 });
 test('felt right is a weaker, separate signal: it never activates a calibration, only nudges an active one, capped', () => {
-  const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: hourIso, loggedAt: hourIso, rangeFt: [3, 3] as [number, number], faceFt: 3, pair: {centralFt: 6, loFt: 4, hiFt: 8, method: 'v1' as const, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const}});
+  const ob = (i: number) => ({id: 'o' + i, schema: 1 as const, spotId: 'spot-2', observedAt: hourIso, loggedAt: hourIso, rangeFt: [3, 3] as [number, number], faceFt: 3, pair: {centralFt: 6, loFt: 4, hiFt: 8, method: 'v1' as const, validAt: hourIso, offshoreHsFt: 5, primaryTpS: 14, basis: 'surf-height' as const, transfer: buoyTransferAt('spot-2', 5)?.factor ?? 1 /* T-131 phase 2: a pair made today records the factor already in its central */}});
   const few = Array.from({length: 7}, (_, i) => ob(i)), many = Array.from({length: 8}, (_, i) => ob(i)), lots = {low: 50, right: 0, high: 0};
   assert.equal(fitFor(few, 'spot-2', 'v1', lots).status, 'collecting');
   const base = fitFor(many, 'spot-2', 'v1'), up = fitFor(many, 'spot-2', 'v1', {low: 2, right: 5, high: 0}), down = fitFor(many, 'spot-2', 'v1', {low: 0, right: 0, high: 3}), cap = fitFor(many, 'spot-2', 'v1', lots);

@@ -1,4 +1,5 @@
 import type {SessionObservation} from './sessionLog.ts';
+import {buoyTransferAt, buoyTransferFor} from '../ocean/buoyTransfer.ts';
 /** Per-spot calibration of the breaking estimate from the surfer's own observations (T-059). Pure.
  *  ratio = observed face height / the model's central height (midpoint of the uncalibrated range) for the SAME spot-hour, fitted per spot and per method (v2 and v1 are different estimators).
  *  The fit is the MEDIAN of the ratios (robust to a bad day) and the spread is their interquartile range. Nothing changes below NEEDED paired observations.
@@ -20,7 +21,21 @@ export function quantile(a: number[], q: number): number { const s = [...a].sort
 export const observedFt = (o: SessionObservation): number => (typeof o.faceFt === 'number' ? o.faceFt : (o.rangeFt[0] + o.rangeFt[1]) / 2);
 /** The paired observations usable for one spot and method. */
 export function pairsFor(log: SessionObservation[], spotId: string, method: Method) {
-  return log.filter((o) => o.spotId === spotId && o.pair && o.pair.basis === 'surf-height' && o.pair.method === method && o.pair.centralFt >= MIN_MODEL_FT).map((o) => ({ratio: observedFt(o) / o.pair!.centralFt, obs: o}));
+  return log.filter((o) => o.spotId === spotId && o.pair && o.pair.basis === 'surf-height' && o.pair.method === method).flatMap((o) => {
+    const c = method === 'v1' ? v1CentralOnCurrentScale(spotId, o.pair!) : o.pair!.centralFt;
+    return c !== null && c >= MIN_MODEL_FT ? [{ratio: observedFt(o) / c, obs: o}] : [];
+  });
+}
+/** T-131 phase 2: the buoy-transfer factor (src/ocean/buoyTransfer.ts) changes the v1 number at a few spots. A v1 pair is put on TODAY's scale before it is fitted,
+ *  so the personal calibration never compounds with (or undoes) our correction: central ÷ the factor stored with the pair × the factor that applies now for that
+ *  hour's offshore height. A pair recorded before the factor existed has no `transfer` field (it was uncorrected: factor 1); if it also lacks the offshore height at a
+ *  spot with a factor, its scale cannot be known and it is left out (null). */
+export function v1CentralOnCurrentScale(spotId: string, pair: {centralFt: number; offshoreHsFt: number | null; transfer?: number}): number | null {
+  const spotHas = !!buoyTransferFor(spotId);
+  if (!spotHas && pair.transfer === undefined) return pair.centralFt;
+  if (pair.offshoreHsFt === null && pair.transfer === undefined) return null;
+  const stored = pair.transfer ?? 1, now = buoyTransferAt(spotId, pair.offshoreHsFt)?.factor ?? 1;
+  return stored > 0 ? (pair.centralFt / stored) * now : null;
 }
 export function fitFor(log: SessionObservation[], spotId: string, method: Method, felt: FeltCounts = {low: 0, right: 0, high: 0}): CalibrationFit {
   const r = pairsFor(log, spotId, method).map((x) => x.ratio), n = r.length, fc = feltFactor(felt);

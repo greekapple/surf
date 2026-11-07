@@ -1,5 +1,7 @@
 # T-131 profile reviews (one change applied, rest draft)
 
+**Phase 2 (2026-11-06): checked against real buoys** in `docs/forecast/ACCURACY-VS-BUOYS.md`. Short version: SF Bar agrees with MOP, not with v1; v1 now carries buoy-evidenced factors at Ocean Beach, Montara and Topanga (by size bin; Linda Mar's is held); Moss Landing, Carmel, Asilomar, Morro Rock and Jalama get observation caveats instead (no buoy confirms their points).
+
 Status: lead decisions 2026-11-04 applied on branch `t131-profile-review`; the data-honesty review runs before merge. Written 2026-11-04.
 
 **Correction to the first draft.** I proposed narrowing the workable window for Moss Landing, Carmel and Linda Mar. That was a misread: the guide-facts `swellWorkable` field I compared is not what the profile uses. The profile window comes from the guide's **exposure** sector (`basis: 'exposure'`, clamped to ±60° of the facing; `spotFactsRules.ts`). Checked with `spotProfile(id).swellWindow`: Moss Landing 225–292.5° (surfnerd SW–WNW), Carmel 202.5–292.5° (SSW–WNW), Linda Mar 270–337.5° (W–NNW). Each already equals the guide's exposure sector, so the narrowing is already in force and the v1-vs-MOP table for the three is **unchanged by construction** (before and after identical: Moss Landing +4.0 ft, Carmel +2.5 ft, Linda Mar +2.0 ft; I did not re-fetch). The window does not explain those gaps.
