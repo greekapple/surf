@@ -30,9 +30,10 @@ const fill = (rings: [number, number][][]) => { // even-odd scanline over the su
     for (const r of rings) for (let k = 1; k < r.length; k++) { const [x1, y1] = r[k - 1], [x2, y2] = r[k]; if ((y1 > lat) !== (y2 > lat)) xs.push(x1 + ((lat - y1) / (y2 - y1)) * (x2 - x1)); }
     xs.sort((a, b) => a - b); for (let k = 0; k + 1 < xs.length; k += 2) { const i0 = Math.max(0, Math.ceil((xs[k] - GRID.lon0) / (STEP / SUB) - 0.5)), i1 = Math.min(SW - 1, Math.floor((xs[k + 1] - GRID.lon0) / (STEP / SUB) - 0.5)); for (let i = i0; i <= i1; i++) mask[j * SW + i] = 1; } }
 };
-let done = 0, polys = 0;
+let done = 0, polys = 0; const covered = new Uint8Array(W * H); // map-smooth: the cells whose OSM water is known
 for (const t of tiles) {
   const [x, y] = t.split('/').map(Number); let buf: ArrayBuffer | null = null;
+  { const i0 = Math.max(0, Math.ceil((lonOf(x) - GRID.lon0) / STEP)), i1 = Math.min(W - 1, Math.floor((lonOf(x + 1) - GRID.lon0) / STEP) - 1), j0 = Math.max(0, Math.ceil((latOf(y + 1) - GRID.lat0) / STEP)), j1 = Math.min(H - 1, Math.floor((latOf(y) - GRID.lat0) / STEP) - 1); for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) covered[j * W + i] = 1; } // cells wholly inside a fetched tile
   for (let a = 0; a < 3 && !buf; a++) { try { const r = await fetch(tpl.replace('{z}', String(Z)).replace('{x}', String(x)).replace('{y}', String(y))); if (r.status === 404) { buf = new ArrayBuffer(0); } else if (r.ok) buf = await r.arrayBuffer(); } catch { /* retry */ } }
   if (buf && buf.byteLength) {
     const layer = new VectorTile(new PbfReader(buf)).layers.water; if (layer) for (let k = 0; k < layer.length; k++) { const f = layer.feature(k); if (f.type !== 3 || f.properties.class !== 'ocean') continue;
@@ -42,8 +43,9 @@ for (const t of tiles) {
   }
   if (++done % 25 === 0) console.log(`${done}/${tiles.size}`);
 }
-const osm = new Uint8Array(W * H); let wc = 0;
-for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { let n = 0; for (let b = 0; b < SUB; b++) for (let a = 0; a < SUB; a++) n += mask[(j * SUB + b) * SW + i * SUB + a]; if (n / (SUB * SUB) > 0.004) { osm[j * W + i] = 1; wc++; } }
-const {rows, cells} = build(osm);
+const osm = new Uint8Array(W * H), osmMost = new Uint8Array(W * H); let wc = 0;
+for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) { let n = 0; for (let b = 0; b < SUB; b++) for (let a = 0; a < SUB; a++) n += mask[(j * SUB + b) * SW + i * SUB + a]; if (n / (SUB * SUB) > 0.5) osmMost[j * W + i] = 1; if (n / (SUB * SUB) > 0.004) { osm[j * W + i] = 1; wc++; } }
+if (process.env.ENCLOSED_DUMP) fs.writeFileSync(process.env.ENCLOSED_DUMP, JSON.stringify({osm: Array.from(osm), osmMost: Array.from(osmMost), covered: Array.from(covered)})); // offline re-runs of build() while tuning the rule
+const {rows, cells} = build(osm, osmMost, covered); // map-smooth: mostly-OSM-water cells are water for the distance rule too (the true shoreline, not the 1:10m one)
 fs.writeFileSync(new URL('../../../src/map/enclosed-waters.json', import.meta.url), JSON.stringify({source: 'Natural Earth 10m land v5.1.2 (src/map/coast.json) plus OpenStreetMap ocean water near the enclosed cells (OpenFreeMap tiles, ODbL, (c) OpenStreetMap contributors); docs/forecast/data/enclosed-waters-osm.ts', rule: RULE, ...GRID, rows}));
 console.log(`OSM water cells ${wc}, polygons ${polys}; enclosed cells ${base.cells} -> ${cells} (about ${(cells * STEP * STEP * KX * KY).toFixed(0)} km2)`);

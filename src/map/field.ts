@@ -3,7 +3,7 @@ import type {SpatialFrame} from './spatial';
 import coast from './coast.json';
 import globeLand from './land-globe.json';
 
-/** Display ramps (T-115, user decision 2026-11-04: Windy's colours, see colors.ts mapColor). The field and its legend read the same function over the same range. */
+/** Display ramps (mapConfig.scales: Waves in Surfline's colour order since 2026-11-06, Swell in Windy's colours since 2026-11-04). The field and its legend read the same function over the same range. */
 export {legendModel, scaleKeyOf} from './ramps';
 import {colorLut, lutIndex, scaleKeyOf, type Theme} from './ramps';
 

@@ -16,3 +16,15 @@ test('T-100: a wrapped world copy of a longitude gives the same answer', async (
   for (const [lat, lon] of [[37.82, -122.423], [38.2, -122.95]]) { const a = isEnclosedWater(lat, lon); assert.equal(isEnclosedWater(lat, lon + 360), a); assert.equal(isEnclosedWater(lat, lon - 360), a); }
   assert.equal(isEnclosedWater(37.82, -122.423 + 360), true, 'Central Bay on the next world copy');
 });
+
+test('map-smooth: open beaches next to lagoons are open sea; Tomales Bay, Elkhorn Slough, Drakes Estero, Bolinas Lagoon and SF Bay stay enclosed', async () => {
+  const {enclosedness} = await import('../map/enclosed.ts');
+  // the 1:10m coast runs a kilometre or two off the true shore here; OSM ocean water corrects it, so the colour reaches these beaches (they were a stair of grey squares)
+  const open: [string, number, number][] = [['Point Reyes Beach, nearshore', 38.10, -122.985], ['Point Reyes Beach, north', 38.15, -122.975], ['Drakes Bay off Drakes Beach', 38.02, -122.96], ['ocean side of the Point Reyes headland', 37.995, -123.035]];
+  const enclosed: [string, number, number][] = [['Tomales Bay', 38.15, -122.89], ['Elkhorn Slough', 36.835, -121.745], ['Elkhorn Slough, upper', 36.845, -121.755], ['Drakes Estero', 38.06, -122.94], ['Bolinas Lagoon', 37.915, -122.685], ['SF Bay, Central Bay', 37.826, -122.423], ['SF Bay, South Bay', 37.55, -122.15]];
+  for (const [n, la, lo] of open) assert.equal(isEnclosedWater(la, lo), false, `${n} should be open`);
+  for (const [n, la, lo] of enclosed) assert.equal(isEnclosedWater(la, lo), true, `${n} should be enclosed`);
+  // the edge is a smooth contour: enclosedness changes continuously (bilinear between cell centres), never by a whole cell at once
+  let last = enclosedness(38.0, -122.96), maxStep = 0; for (let lat = 38.0; lat <= 38.08; lat += 0.0005) { const e = enclosedness(lat, -122.95); maxStep = Math.max(maxStep, Math.abs(e - last)); last = e; }
+  assert.ok(maxStep < 0.06, `largest change per 55 m: ${maxStep.toFixed(3)}`);
+});

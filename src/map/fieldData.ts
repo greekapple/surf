@@ -54,18 +54,33 @@ export function buildField(frame: SpatialFrame, wind: boolean): Field | null {
   return {lats, lons, val, u, v, unit: frame.unit, noPartition: frame.noPartition, filled, real, wrap: frame.global ?? frame.resolution >= 2, layer: layerOfFrame(frame), validAt: frame.validAt, source: frame.provider}; // coarse frames are global and wrap at the date line
 }
 
-/** Bilinear sample; NaN outside the grid. */
-export function sample(f: Field, arr: Float32Array, lat: number, lon: number) {
-  const {lats, lons} = f, W = lons.length, dLon = (lons[W - 1] - lons[0]) / (W - 1);
+/** Catmull-Rom weights for the four samples at offsets -1, 0, 1, 2 around a cell, at fraction t of the cell (map-smooth). Interpolating (the value at a grid node IS the model value) and C1 (no creases on the grid lines). */
+export const catmullRom = (t: number): [number, number, number, number] => { const t2 = t * t, t3 = t2 * t; return [0.5 * (-t3 + 2 * t2 - t), 0.5 * (3 * t3 - 5 * t2 + 2), 0.5 * (-3 * t3 + 4 * t2 + t), 0.5 * (t3 - t2)]; };
+/** The ONE field kernel (map-smooth, 2026-11-06), shared with the GL shader (glCommon.ts `samp`): bicubic Catmull-Rom over the 4x4 cells around the point.
+ *  - Coverage = the bilinear weight of the VALID corners of the cell the point is in (1 inside the field, falling smoothly to 0 over the last cell); no valid corner: NaN.
+ *  - A missing sample in the 4x4 stencil takes the cell's renormalised bilinear value, so an edge never pulls the colour towards zero.
+ *  - The result is clamped to the range of the valid stencil samples, so the cubic never overshoots (no negative height, no ring of invented values).
+ *  `valid` is optional: by default a sample is valid when it is not NaN. Inside the field (all corners valid) the GL colour and this value are the same function. */
+export function sampleSmooth(f: Pick<Field, 'lats' | 'lons' | 'wrap'>, arr: Float32Array, lat: number, lon: number, valid?: Uint8Array): {v: number; cov: number} {
+  const {lats, lons} = f, W = lons.length, H = lats.length, dLon = (lons[W - 1] - lons[0]) / (W - 1);
   if (f.wrap) lon = ((((lon - lons[0]) % 360) + 360) % 360) + lons[0];
-  if (lat < lats[0] || lat > lats[lats.length - 1] || lon < lons[0] || (!f.wrap && lon > lons[W - 1])) return NaN;
-  const gx = (lon - lons[0]) / dLon, gy = ((lat - lats[0]) / (lats[lats.length - 1] - lats[0])) * (lats.length - 1);
-  const x0 = f.wrap ? Math.floor(gx) % W : Math.min(W - 2, Math.floor(gx)), x1 = f.wrap ? (x0 + 1) % W : x0 + 1;
-  const y0 = Math.min(lats.length - 2, Math.floor(gy)), fx = gx - Math.floor(gx), fy = gy - y0;
-  const a = arr[y0 * W + x0], b = arr[y0 * W + x1], c = arr[(y0 + 1) * W + x0], d = arr[(y0 + 1) * W + x1];
-  return (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy;
+  if (!(lat >= lats[0] && lat <= lats[H - 1] && lon >= lons[0] && (f.wrap || lon <= lons[W - 1]))) return {v: NaN, cov: 0};
+  const gx = (lon - lons[0]) / dLon, gy = ((lat - lats[0]) / (lats[H - 1] - lats[0])) * (H - 1);
+  const ix = f.wrap ? Math.floor(gx) : Math.min(W - 2, Math.floor(gx)), iy = Math.min(H - 2, Math.floor(gy)), fx = gx - ix, fy = gy - iy;
+  const col = (x: number) => (f.wrap ? ((x % W) + W) % W : Math.max(0, Math.min(W - 1, x))), row = (y: number) => Math.max(0, Math.min(H - 1, y));
+  const ok = (k: number) => !Number.isNaN(arr[k]) && (!valid || valid[k] === 1);
+  const c0 = row(iy) * W, c1 = row(iy + 1) * W, x0 = col(ix), x1 = col(ix + 1), inner = [c0 + x0, c0 + x1, c1 + x0, c1 + x1], bw = [(1 - fx) * (1 - fy), fx * (1 - fy), (1 - fx) * fy, fx * fy];
+  let cov = 0, bs = 0; for (let i = 0; i < 4; i++) if (ok(inner[i])) { cov += bw[i]; bs += bw[i] * arr[inner[i]]; }
+  if (cov <= 0.02) return {v: NaN, cov: 0};
+  const B = bs / cov, wx = catmullRom(fx), wy = catmullRom(fy);
+  let s = 0, lo = Infinity, hi = -Infinity;
+  for (let j = 0; j < 4; j++) { const r = row(iy - 1 + j) * W; for (let i = 0; i < 4; i++) { const k = r + col(ix - 1 + i); let v = B; if (ok(k)) { v = arr[k]; if (v < lo) lo = v; if (v > hi) hi = v; } s += wx[i] * wy[j] * v; } }
+  return {v: Math.max(lo, Math.min(hi, s)), cov};
 }
-
+/** The strict sample the pin label reads: the shared kernel, but NaN unless all four corners of the cell are valid (no value is read off a coverage fade). NaN outside the grid. */
+export function sample(f: Pick<Field, 'lats' | 'lons' | 'wrap'>, arr: Float32Array, lat: number, lon: number) {
+  const s = sampleSmooth(f, arr, lat, lon); return s.cov >= 1 - 1e-6 ? s.v : NaN;
+}
 
 /** First field with a value wins (the regional 0.5° grid, then the global 2° grid underneath); NaN on enclosed water ("Not covered": the wave-model grid does not resolve bays, T-092) or outside every grid. This IS the value the map paints. */
 export function sampleAll(fields: Field[], k: 'val' | 'u' | 'v', lat: number, lon: number): number {
@@ -79,22 +94,9 @@ export function sampleAll(fields: Field[], k: 'val' | 'u' | 'v', lat: number, lo
   for (const f of fields) { const v = sample(f, f[k], lat, lon); if (!Number.isNaN(v)) return v; }
   return NaN;
 }
-const shownCache = new WeakMap<Field, Uint8Array>();
-/** The cells the painters show: a real model cell, or a filled cell next to one (the coastal display fill is ONE cell deep on screen). Same rule as the GL field. */
-export function shownMask(f: Field): Uint8Array {
-  let m = shownCache.get(f); if (m) return m; const W = f.lons.length, H = f.lats.length; m = new Uint8Array(W * H);
-  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { let near = false; for (let dy = -1; dy <= 1 && !near; dy++) for (let dx = -1; dx <= 1; dx++) { const yy = y + dy; if (yy < 0 || yy >= H) continue; let xx = x + dx; if (f.wrap) xx = (xx + W) % W; else if (xx < 0 || xx >= W) continue; if (f.real[yy * W + xx]) { near = true; break; } } if (near && !Number.isNaN(f.val[y * W + x])) m[y * W + x] = 1; }
-  shownCache.set(f, m); return m;
-}
-/** For PAINTING only (the pin label keeps the strict `sample`): bilinear over the SHOWN corners with their weights renormalised, plus the coverage (the weight of the shown corners): 1 inside the field, falling smoothly to 0 over the last cell, so a coverage edge is smooth instead of a stair of 0.5 degree squares. Inside the field it equals `sample`. */
-export function sampleSoft(f: Field, lat: number, lon: number): {v: number; cov: number} {
-  const {lats, lons} = f, W = lons.length, H = lats.length, dLon = (lons[W - 1] - lons[0]) / (W - 1); if (f.wrap) lon = ((((lon - lons[0]) % 360) + 360) % 360) + lons[0];
-  if (lat < lats[0] || lat > lats[H - 1] || lon < lons[0] || (!f.wrap && lon > lons[W - 1])) return {v: NaN, cov: 0};
-  const gx = (lon - lons[0]) / dLon, gy = ((lat - lats[0]) / (lats[H - 1] - lats[0])) * (H - 1), x0 = f.wrap ? Math.floor(gx) % W : Math.min(W - 2, Math.floor(gx)), x1 = f.wrap ? (x0 + 1) % W : x0 + 1;
-  const y0 = Math.min(H - 2, Math.floor(gy)), fx = gx - Math.floor(gx), fy = gy - y0, sh = shownMask(f), idx = [y0 * W + x0, y0 * W + x1, (y0 + 1) * W + x0, (y0 + 1) * W + x1], w = [(1 - fx) * (1 - fy), fx * (1 - fy), (1 - fx) * fy, fx * fy];
-  let sw = 0, sv = 0; for (let i = 0; i < 4; i++) if (sh[idx[i]]) { sw += w[i]; sv += w[i] * f.val[idx[i]]; }
-  return sw > 0.02 ? {v: sv / sw, cov: sw} : {v: NaN, cov: 0};
-}
+/** For PAINTING only (the pin label keeps the strict `sample`): the shared kernel with its soft coverage (1 inside the field, falling smoothly to 0 over the last cell, so a coverage edge is smooth instead of a stair of grid squares).
+ *  Every value cell is painted, the two-cell coastal fill included (map-smooth): the fill runs under the land, the land and coastline draw over it, so the colour reaches the shoreline. Inside the field it equals `sample`. */
+export function sampleSoft(f: Field, lat: number, lon: number): {v: number; cov: number} { return sampleSmooth(f, f.val, lat, lon); }
 /** `sampleAll` for painting: the regional nest feathered into the global grid, each with soft coverage. */
 export function sampleAllSoft(fields: Field[], lat: number, lon: number): {v: number; cov: number} {
   if (isEnclosedWater(lat, lon)) return {v: NaN, cov: 0};

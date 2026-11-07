@@ -10,6 +10,7 @@ const stops = (k: (typeof SCALE_KEYS)[number], th: Theme) => scaleOf(k).breakpoi
 /** Wave and swell height use Windy's colours (explicit stops, user decision 2026-11-04); Wind and Period keep Swello's own LCH ramps, which are the ones held to the ordered-lightness rules. */
 const OWN_KEYS = SCALE_KEYS.filter((k) => !('stops' in scaleOf(k)));
 const LAND = {light: hexToRgb('#7a7a7d'), dark: hexToRgb('#3b3b3f')};
+const SEA = {light: hexToRgb('#55606b'), dark: hexToRgb('#1d2733')}; // style.ts palette(theme, heat=true).sea: the sea where the model has no value
 
 test('lightness rises at every breakpoint (no reversals), in both themes, so the ramp reads in greyscale', () => {
   for (const k of OWN_KEYS) for (const th of THEMES) { const st = stops(k, th), L = st.map((c) => rgbToLab(c)[0]), g = st.map(greyOf); for (let i = 1; i < st.length; i++) { assert.ok(L[i] - L[i - 1] >= 4, `${k} ${th} L* step ${i}: ${(L[i] - L[i - 1]).toFixed(1)}`); assert.ok(g[i] - g[i - 1] >= 6, `${k} ${th} grey step ${i}: ${(g[i] - g[i - 1]).toFixed(1)}`); } }
@@ -38,9 +39,19 @@ test('ONE fixed scale per layer: a value maps to the same position and colour wh
 test('3 to 13 ft (the surfable sizes) occupy the middle half of the height ramp, with their own steps', () => {
   const p3 = valueToPos('WAVES', 3.3 * 0.3048), p13 = valueToPos('WAVES', 13 * 0.3048); assert.ok(p13 - p3 >= 0.49, `3.3-13 ft spans ${(p13 - p3).toFixed(2)} of the ramp`);
 });
-test('Windy wave-height colours: one stop per breakpoint, hue goes blue to indigo to magenta to red to pale salmon, each step visibly different (delta E >= 8), same for Waves and Swell', () => {
-  for (const k of ['WAVES', 'SWELL'] as const) { const sc = scaleOf(k) as unknown as {stops: string[]; breakpoints: number[]}; assert.equal(sc.stops.length, sc.breakpoints.length); const c = sc.stops.map(hexToRgb); for (let i = 1; i < c.length; i++) assert.ok(deltaE(c[i], c[i - 1]) >= 8, `${k} step ${i}: ${deltaE(c[i], c[i - 1]).toFixed(1)}`); assert.ok(c[0][2] > c[0][0] + 60, 'the calm end is blue'); assert.ok(c[5][0] > c[5][1] + 50 && c[5][2] > c[5][1], 'the middle is magenta'); assert.ok(c.at(-1)![0] > c.at(-1)![2] + 30, 'the top is warm'); }
-  assert.deepEqual((scaleOf('WAVES') as unknown as {stops: string[]}).stops, (scaleOf('SWELL') as unknown as {stops: string[]}).stops);
+test('Swell keeps Windy\'s wave-height colours: one stop per breakpoint, blue to indigo to magenta to red to pale salmon, each step visibly different (delta E >= 8)', () => {
+  const sc = scaleOf('SWELL') as unknown as {stops: string[]; breakpoints: number[]}; assert.equal(sc.stops.length, sc.breakpoints.length); const c = sc.stops.map(hexToRgb); for (let i = 1; i < c.length; i++) assert.ok(deltaE(c[i], c[i - 1]) >= 8, `SWELL step ${i}: ${deltaE(c[i], c[i - 1]).toFixed(1)}`); assert.ok(c[0][2] > c[0][0] + 60, 'the calm end is blue'); assert.ok(c[5][0] > c[5][1] + 50 && c[5][2] > c[5][1], 'the middle is magenta'); assert.ok(c.at(-1)![0] > c.at(-1)![2] + 30, 'the top is warm');
+  assert.deepEqual(sc.stops, ['#2646a0', '#327196', '#346496', '#4448a0', '#7a46ae', '#a03787', '#a83870', '#c1645c', '#cda096'], 'Swell is unchanged by the Waves palette (map-smooth, 2026-11-06)');
+  assert.deepEqual(rampColorAt('SWELL', 0, 'light'), rampColorAt('SWELL', 0, 'dark'), 'the same colours in both themes');
+});
+test('Waves: Swello\'s own colours in Surfline\'s order (navy, blue, cyan, green, yellow, orange, red), one stop per breakpoint, every step clearly different, readable on both basemaps', () => {
+  const sc = scaleOf('WAVES') as unknown as {stops: string[]; breakpoints: number[]}; assert.equal(sc.stops.length, sc.breakpoints.length); const c = sc.stops.map(hexToRgb);
+  for (let i = 1; i < c.length; i++) { assert.ok(deltaE(c[i], c[i - 1]) >= 15, `WAVES step ${i}: ${deltaE(c[i], c[i - 1]).toFixed(1)}`); for (const [kind, min] of [['deuteranopia', 5], ['protanopia', 5], ['tritanopia', 5]] as const) assert.ok(deltaE(simulateCvd(c[i - 1], kind), simulateCvd(c[i], kind)) >= min, `WAVES ${kind} step ${i}`); }
+  const hue = (x: RGB) => { const [, a, b] = rgbToLab(x); return ((Math.atan2(b, a) * 180) / Math.PI + 360) % 360; };
+  assert.ok(c[0][2] > c[0][0] + 60 && rgbToLab(c[0])[0] < 30, 'the calm end is a dark navy'); assert.ok(hue(c[3]) > 200 && hue(c[3]) < 260, '5 ft is cyan'); assert.ok(c[4][1] > c[4][0] + 80, '6.6 ft is green');
+  assert.ok(c[6][0] > 200 && c[6][1] > 180 && c[6][2] < 90, '13 ft is yellow'); assert.ok(c[7][0] > 200 && c[7][1] < 140, '20 ft is orange'); assert.ok(c[8][0] > c[8][1] + 100, '30+ ft is red');
+  for (const th of THEMES) for (const x of c) assert.ok(deltaE(x, LAND[th]) >= 12 && deltaE(x, SEA[th]) >= 12, `${rgbToHex(x)} vs the ${th} land and sea grey`);
+  assert.notDeepEqual(sc.stops, (scaleOf('SWELL') as unknown as {stops: string[]}).stops, 'Waves and Swell are told apart at a glance');
   assert.deepEqual(rampColorAt('WAVES', 0, 'light'), rampColorAt('WAVES', 0, 'dark'), 'the same colours in both themes');
 });
 test('the legend is the painted ramp: ticks at the breakpoints, the same colours, in the person\'s units; never rescaled', () => {

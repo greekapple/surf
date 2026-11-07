@@ -54,3 +54,25 @@ test('painting is soft at a coverage edge: coverage falls smoothly over the last
   assert.ok(steps > 8, `a fade over many samples, not a step (${steps})`); assert.ok(maxStep < 0.15, `largest change per 0.02 deg ${maxStep.toFixed(3)}`); assert.equal(coverageAlpha(1), 1); assert.equal(coverageAlpha(0), 0); assert.ok(coverageAlpha(0.6) > 0.3 && coverageAlpha(0.6) < 0.9);
   assert.equal(sampleAllSoft([f], 37.8, -122.4).cov, 0, 'outside the grid / enclosed: nothing painted');
 });
+
+test('map-smooth: the field kernel is bicubic Catmull-Rom: it passes through the model values, has no crease on the grid lines, never overshoots, and the pin reads what is painted', async () => {
+  const {sample, sampleSoft, sampleSmooth, sampleField} = await import('../map/fieldData.ts');
+  const smooth = buildField(frame(grid(10, 12, (y, x) => 1 + 0.08 * (x - 4) ** 2 + 0.05 * y * x)), false)!; // a curved surface
+  for (const [y, x] of [[3, 4], [5, 7], [6, 2]]) assert.ok(Math.abs(sample(smooth, smooth.val, 30 + y * 0.5, 200 + x * 0.5) - smooth.val[y * 12 + x]) < 1e-5, 'at a grid node the value IS the model value');
+  // slope on either side of the grid line x = 5 (lon 202.5): bilinear has a kink there (the "diamond" creases); the cubic does not
+  const lat = 32.2, h = 0.002, at = (lon: number) => sample(smooth, smooth.val, lat, lon), bil = (lon: number) => { const gx = (lon - 200) / 0.5, x0 = Math.floor(gx), fx = gx - x0, gy = (lat - 30) / 0.5, y0 = Math.floor(gy), fy = gy - y0, v = (yy: number, xx: number) => smooth.val[yy * 12 + xx]; return (v(y0, x0) * (1 - fx) + v(y0, x0 + 1) * fx) * (1 - fy) + (v(y0 + 1, x0) * (1 - fx) + v(y0 + 1, x0 + 1) * fx) * fy; };
+  const kink = (f: (l: number) => number) => Math.abs((f(202.5 + h) - f(202.5)) / h - (f(202.5) - f(202.5 - h)) / h);
+  assert.ok(kink(at) < 0.02, `cubic: slope continuous across the grid line (jump ${kink(at).toFixed(4)})`); assert.ok(kink(bil) > 0.05, `bilinear reference has the crease (jump ${kink(bil).toFixed(4)})`);
+  // a sharp front (0 to 10): Catmull-Rom alone would ring below 0 and above 10; the clamp keeps every value inside the data's range
+  const step = buildField(frame(grid(6, 12, (_, x) => (x < 6 ? 0 : 10))), false)!; let lo = Infinity, hi = -Infinity; for (let lon = 200.2; lon < 205.3; lon += 0.01) { const v = sample(step, step.val, 32, lon); lo = Math.min(lo, v); hi = Math.max(hi, v); }
+  assert.ok(lo >= 0 && hi <= 10, `no overshoot: ${lo.toFixed(3)}..${hi.toFixed(3)}`);
+  // the pin and the painter: same value everywhere inside the field
+  for (const [la, lo2] of [[31.3, 201.7], [32.9, 203.1], [33.4, 204.6]]) { const pv = sampleField([smooth], la, lo2)!; assert.equal(pv.value, sampleSoft(smooth, la, lo2).v); assert.equal(pv.value, sampleSmooth(smooth, smooth.val, la, lo2).v); }
+});
+test('map-smooth: the colour reaches the coast: the two-cell coastal fill is painted at full coverage, the fade happens beyond it (under the land)', async () => {
+  const {sampleSoft} = await import('../map/fieldData.ts');
+  const f = buildField(frame(grid(5, 12, (_, x) => (x < 4 ? 3 : NaN))), false)!; // sea in columns 0-3; columns 4 and 5 are the coastal fill
+  assert.equal(sampleSoft(f, 32, 201.5).cov, 1, 'between the last sea column and the first fill column: full colour (it used to fade here, short of the shore)');
+  assert.equal(sampleSoft(f, 32, 202.3).cov, 1, 'inside the fill: full colour');
+  assert.ok(sampleSoft(f, 32, 202.75).cov < 1 && sampleSoft(f, 32, 202.75).cov > 0, 'past the fill: the fade'); assert.ok(Number.isNaN(sampleSoft(f, 32, 203.2).v), 'beyond: nothing');
+});
