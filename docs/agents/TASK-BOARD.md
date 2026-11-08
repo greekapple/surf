@@ -599,3 +599,5 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
   - **Toolkit:** t034 counts absolute ::after hit areas (backup `.pre-hitarea`).
   - **Stale toolkit scripts:** home-shots.mjs (`.hello h1`) and t057-days.mjs (night-only).
   - **Morning report:** vault `80-Handoffs/2026-11-07-morning-report-night6.md`.
+- 2026-11-07: **Linda Mar on its own beach transect** (merged c739173): SM382 replaces SM375 (which starts on San Pedro Point and reads 17-20% low). Buoy re-check: v1 +0.7 ft there, not +1.8; no factor (x0.86 misses the 0.3 ft rule); held x0.67 withdrawn. How-right restarts collecting for Linda Mar. Data-honesty reviewed (2 P1 + 3 P2 fixed).
+- 2026-11-07: **Waves colours matched to the user's Surfline screenshots** (merged a53d8fc): yellow ~8 ft, orange 10, red 13, dark red 20, purple 30+. Gate: tsc, 615 tests, build, journeys 8/8, t043/t104/t062/t034, map-verify all pass. **Not yet ported/deployed** (deploy step needs the user's OK this session).
