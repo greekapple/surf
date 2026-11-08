@@ -96,6 +96,54 @@
      "depthM": 15,
      "shoreNormalDeg": 335.93,
      "distanceKm": 1.48
+    },
+    {
+     "id": "SM380",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 328.19,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM381",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 320.12,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM382",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 312.1,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM383",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 304.19,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM384",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 296.41,
+     "distanceKm": 1.48
+    },
+    {
+     "id": "SM385",
+     "lat": 37.60757,
+     "lon": -122.51381,
+     "depthM": 15,
+     "shoreNormalDeg": 288.85,
+     "distanceKm": 1.48
     }
    ]
   },

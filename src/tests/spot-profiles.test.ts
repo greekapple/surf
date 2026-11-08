@@ -22,7 +22,7 @@ test('only sourced facts are values, and every guide-derived value carries its p
     assert.ok(s.sources.length >= 1 && s.sources.every((x: any) => /^https:\/\//.test(x.url) && /^\d{4}-\d\d-\d\d$/.test(x.retrievedOn)), `${p.spotId}.${f}`);
     if (s.sources.some((x: any) => /surfnerd|surf-forecast/.test(x.url))) assert.equal(s.provenance, 'published guide', `${p.spotId}.${f}`);
   }
-  assert.equal(spotProfile('spot-3')!.mop.value!.id, 'SM375'); assert.equal(spotProfile('spot-0')!.mop.value!.id, 'MA137', 'Bolinas: MA140 is 39° off the guide facing (no facing-match), so T-130 assigns MA137 by hand, labelled as our choice');
+  assert.equal(spotProfile('spot-3')!.mop.value!.id, 'SM382'); assert.equal(spotProfile('spot-0')!.mop.value!.id, 'MA137', 'Bolinas: MA140 is 39° off the guide facing (no facing-match), so T-130 assigns MA137 by hand, labelled as our choice');
 });
 
 test('the Ocean Beach MOP value matches the reviewed assignment and the CDIP metadata', () => {
@@ -57,5 +57,5 @@ test('the committed review sheet is exactly what the registry generates, and inv
   const file = fs.readFileSync(new URL('../../docs/forecast/SPOT-FACTS-REVIEW.md', import.meta.url), 'utf8');
   assert.equal(file, renderSpotReview(), 'regenerate with docs/forecast/data/build-spot-review.ts');
   assert.ok(!/magicseaweed|surfline|7x7|theoutbound/i.test(file), 'only the published guides the user named, not other commercial sources'); assert.match(file, /provenance|published guide/i); assert.match(file, /surfnerd\.com/);
-  assert.match(file, /SM375/); assert.match(file, /Pillar Point Harbor/); assert.match(file, /☐ approve/);
+  assert.match(file, /SM382/); assert.match(file, /Pillar Point Harbor/); assert.match(file, /☐ approve/);
 });

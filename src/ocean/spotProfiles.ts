@@ -23,7 +23,7 @@ ob.bottom = unknown('USGS research describes mobile nearshore bars at Ocean Beac
 ob.hazards = {value: ['Hazardous currents', 'Cold water'], status: 'sourced', sources: [nps1, nps2], note: 'From the NPS pages; not a complete hazard list.'};
 
 const lm = emptyProfile('spot-3');
-lm.mop = unknown('Candidates SM375 and SM376 (15 m deep; shore normals 320° and 339° disagree). The owner must pick one or say neither fits.');
+lm.mop = unknown('Candidates SM380–SM385: the transects whose back-beach ends CDIP places on Pacifica State Beach (one shared output point, 15 m deep). SM375/SM376, offered before, start on San Pedro Point. The facing-match rule picks among them.');
 
 const bo = emptyProfile('spot-0');
 bo.mop = unknown('Candidate MA140 (2.8 km away, 15 m deep, south-facing normal ~174°); the transect for the break is unknown.');

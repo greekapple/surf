@@ -24,12 +24,13 @@ test('clampWindow: a wide published range is limited to ±60° of the facing; wr
   assert.deepEqual(clampWindow(270, 90, 270), [270, 330], 'W through E via N, facing W');
   assert.equal(clampWindow(270, 360, 202.5), null, 'nothing left within ±60° of a SSW-facing beach'); assert.deepEqual(clampWindow(0, 359, 90), [30, 150]);
 });
-test('MOP facing-match rule: Linda Mar (faces NW) takes SM375; Bolinas (faces SE) has no candidate within 25°; the tolerance is documented', () => {
+test('MOP facing-match rule: Linda Mar (faces NW) takes SM382 among its own beach transects; Bolinas (faces SE) has no candidate within 25°; the tolerance is documented', () => {
   const lm = guideFactsFor('spot-3')!, bo = guideFactsFor('spot-0')!;
   assert.equal(MOP_NORMAL_TOLERANCE_DEG, 25);
-  const pick = pickMop(lm, [{id: 'SM375', shoreNormalDeg: mopPoint('SM375')!.shoreNormalDeg}, {id: 'SM376', shoreNormalDeg: mopPoint('SM376')!.shoreNormalDeg}]); assert.equal(pick!.id, 'SM375'); assert.ok(pick!.offsetDeg < 6);
+  const pick = pickMop(lm, ['SM380', 'SM381', 'SM382', 'SM383', 'SM384', 'SM385'].map((id) => ({id, shoreNormalDeg: mopPoint(id)!.shoreNormalDeg}))); assert.equal(pick!.id, 'SM382'); assert.ok(pick!.offsetDeg < 4);
+  assert.equal(new Set(['SM380', 'SM381', 'SM382', 'SM383', 'SM384', 'SM385'].map((id) => `${mopPoint(id)!.lat},${mopPoint(id)!.lon}`)).size, 1, 'the beach transects share one CDIP output point');
   assert.equal(pickMop(bo, [{id: 'MA140', shoreNormalDeg: mopPoint('MA140')!.shoreNormalDeg}]), null);
-  assert.equal(assignmentFor('spot-3')!.mopId, 'SM375'); assert.equal(assignmentFor('spot-0')?.mopId, 'MA137'); assert.doesNotMatch(assignmentFor('spot-0')!.note, /facing-match rule/); assert.match(assignmentFor('spot-3')!.note, /facing-match rule/);
+  assert.equal(assignmentFor('spot-3')!.mopId, 'SM382'); assert.equal(assignmentFor('spot-0')?.mopId, 'MA137'); assert.doesNotMatch(assignmentFor('spot-0')!.note, /facing-match rule/); assert.match(assignmentFor('spot-3')!.note, /facing-match rule/);
   for (const a of mopAssignments) assert.ok(a.sourceUrl.startsWith('https://'));
 });
 test('the breaking profile from a guide: generic 8 s minimum, shelter 1, window inside ±60°, shared unvalidated face factors', () => {
@@ -45,7 +46,7 @@ test('provenance: every guide entry cites https pages with a retrieval date and 
   assert.deepEqual(guideFacts.map((f) => f.spotId).sort(), evidenceSpots.map((e) => e.id).sort());
   for (const f of guideFacts) { assert.ok(f.sources.length >= 1, f.spotId); for (const s of f.sources) assert.ok(/^https:\/\//.test(s.url) && /^\d{4}-\d\d-\d\d$/.test(s.retrievedOn) && s.title.length > 5, f.spotId); if (f.facing) assert.ok(f.facing.deg >= 0 && f.facing.deg < 360); if (f.swellWindow) assert.ok(f.swellWindow.fromDeg >= 0 && f.swellWindow.toDeg <= 360); }
   for (const p of spotProfiles) assert.deepEqual(profileProblems(p), [], p.spotId);
-  const lm = spotProfiles.find((p) => p.spotId === 'spot-3')!; assert.equal(lm.orientation.provenance, 'published guide'); assert.equal(lm.periodResponse.provenance, 'published guide (generic)'); assert.equal(lm.mop.value!.id, 'SM375');
+  const lm = spotProfiles.find((p) => p.spotId === 'spot-3')!; assert.equal(lm.orientation.provenance, 'published guide'); assert.equal(lm.periodResponse.provenance, 'published guide (generic)'); assert.equal(lm.mop.value!.id, 'SM382');
 });
 test('a sheltered spot with no published open sector gets facts but no estimate; a spot with no single facing and no "exposed" reef statement gets neither; coverage is 41 of 45', () => {
   assert.equal(breakingProfile('spot-7'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'spot-7')!.orientation.value!.beachNormalDeg, 112.5);
@@ -106,23 +107,23 @@ const rec = (id: string) => normalizeOpenMeteo(evidenceSpot(id), marine, weather
 const m = (v: number) => ({value: v, unit: 'ft', source: {retrievedAt: '2026-11-02T00:00:00Z'}});
 const nr = (iso: string, hs: number, mopId?: string) => ({timestamp: iso, height: m(hs), period: m(14), direction: m(300), qualityFlag: 1, product: 'nowcast' as const, ...(mopId ? {mopId} : {})});
 
-test('T-071b: a spot never shows another point\'s nowcast (Linda Mar SM375 vs the Ocean Beach SF023 nowcast)', () => {
+test('T-071b: a spot never shows another point\'s nowcast (Linda Mar SM382 vs the Ocean Beach SF023 nowcast)', () => {
   const iso = new Date(T * 1000).toISOString(), sf023 = [nr(iso, 6.5, 'SF023'), nr(iso, 6.5)];
-  assert.equal(nowcastFor('SM375', sf023), undefined); assert.equal(nowcastFor('SF023', sf023)!.length, 2); assert.deepEqual(nowcastFor('SF023', [nr(iso, 5, 'SM375')]), []);
-  // the selector with SM375 sees only its forecast, never the SF023 record, even for the current hour
-  const fc = [{...nr(iso, 3.1, 'SM375'), product: 'forecast' as const}], pick = pickMopRecord(Date.parse(iso), NOW, nowcastFor('SM375', sf023), fc);
+  assert.equal(nowcastFor('SM382', sf023), undefined); assert.equal(nowcastFor('SF023', sf023)!.length, 2); assert.deepEqual(nowcastFor('SF023', [nr(iso, 5, 'SM382')]), []);
+  // the selector with SM382 sees only its forecast, never the SF023 record, even for the current hour
+  const fc = [{...nr(iso, 3.1, 'SM382'), product: 'forecast' as const}], pick = pickMopRecord(Date.parse(iso), NOW, nowcastFor('SM382', sf023), fc);
   assert.ok(pick.state === 'ok' && pick.product === 'forecast' && pick.record.height.value === 3.1);
-  // headlineSurf for Linda Mar uses the SM375 forecast (v2) even though the bundle carries Ocean Beach's nowcast
-  const bundle = {nearshore: sf023, mop: {SM375: {mopId: 'SM375', records: fc, issue: null, retrievedAt: iso, url: 'x'}}} as any;
+  // headlineSurf for Linda Mar uses the SM382 forecast (v2) even though the bundle carries Ocean Beach's nowcast
+  const bundle = {nearshore: sf023, mop: {SM382: {mopId: 'SM382', records: fc, issue: null, retrievedAt: iso, url: 'x'}}} as any;
   const f = toLegacy(rec('spot-3')[1]), h = headlineSurf('spot-3', f, {bundle, nowMs: NOW, observations: []}) as any;
-  assert.equal(h.kind, 'estimate'); assert.equal(h.method, 'mop-v2'); assert.equal(h.mop.id, 'SM375'); assert.equal(h.mop.product, 'forecast');
+  assert.equal(h.kind, 'estimate'); assert.equal(h.method, 'mop-v2'); assert.equal(h.mop.id, 'SM382'); assert.equal(h.mop.product, 'forecast');
 });
 test('T-071b: a guide-derived estimate says once where its inputs came from; Ocean Beach (reviewed) does not', () => {
   assert.match(guideBasis('spot-3')!, /facing and swell window from published guides \(Surfnerd, Surf-Forecast\), not reviewed; 8 s generic minimum period/); assert.equal(guideBasis('spot-2'), null);
   const f = toLegacy(rec('spot-0')[1]), h = headlineSurf('spot-0', f, {nowMs: NOW, observations: []}) as any;
   if (h.kind === 'estimate') { assert.match(h.methodLabel, /published guides/); assert.equal((h.methodLabel.match(/published guides/g) ?? []).length, 1); }
-  const lm = headlineSurf('spot-3', toLegacy(rec('spot-3')[1]), {bundle: {nearshore: [], mop: {SM375: {mopId: 'SM375', records: [{...nr(new Date(T * 1000).toISOString(), 3, 'SM375'), product: 'forecast' as const}], issue: null, retrievedAt: '', url: 'x'}}} as any, nowMs: NOW, observations: []}) as any;
-  assert.match(lm.methodLabel, /SM375 assigned by the facing-match rule/); assert.match(lm.methodLabel, /published guides/);
+  const lm = headlineSurf('spot-3', toLegacy(rec('spot-3')[1]), {bundle: {nearshore: [], mop: {SM382: {mopId: 'SM382', records: [{...nr(new Date(T * 1000).toISOString(), 3, 'SM382'), product: 'forecast' as const}], issue: null, retrievedAt: '', url: 'x'}}} as any, nowMs: NOW, observations: []}) as any;
+  assert.match(lm.methodLabel, /SM382 assigned by the facing-match rule/); assert.match(lm.methodLabel, /published guides/);
 });
 test('T-071b: explainRating counts guide-filled facts as "from published guides, not reviewed" and the wind reason says the shore direction is from a guide', () => {
   const q = rateOcean(evidenceSpot('spot-3'), rec('spot-3')[1], NOW), e = explainRating(q, {spotId: 'spot-3', wind: {mph: 5, relation: 'Offshore'}});

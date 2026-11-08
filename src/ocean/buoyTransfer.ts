@@ -26,7 +26,6 @@ export const BUOY_TRANSFERS: BuoyTransfer[] = [
 ];
 /** Supported by the evidence but deliberately NOT applied (data-honesty review, 2026-11-06). Kept as candidates in the doc. */
 export const HELD_TRANSFERS: {spotId: string; factor: number; reason: string}[] = [
-  {spotId: 'spot-3', factor: 0.667, reason: 'Linda Mar’s own MOP note says it is unknown whether SM375 (or SM376) represents the beach break, so a height anchored at SM375 cannot correct the spot yet'},
 ];
 export const buoyTransferFor = (spotId: string) => BUOY_TRANSFERS.find((t) => t.spotId === spotId) ?? null;
 /** The transfer that applies to one hour: the spot has one AND the hour's offshore total Hs (ft) falls in a bin where it held. Otherwise null (v1 uncorrected). */

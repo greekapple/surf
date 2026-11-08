@@ -17,6 +17,13 @@ const handPoints: MopPoint[] = [
   {id: 'SF023', lat: 37.74811, lon: -122.51886, depthM: 10, shoreNormalDeg: 263.49, retrievedOn: ON},
   {id: 'SM375', lat: 37.59973, lon: -122.51654, depthM: 15, shoreNormalDeg: 319.97, retrievedOn: ON},
   {id: 'SM376', lat: 37.60069, lon: -122.51473, depthM: 15, shoreNormalDeg: 339.46, retrievedOn: ON},
+  // Linda Mar's own transects (2026-11-07): CDIP's MOP pages put their back-beach ends on Pacifica State Beach (OSM way 39970023); all six share one 15 m output point.
+  {id: 'SM380', lat: 37.60757, lon: -122.51381, depthM: 15, shoreNormalDeg: 328.19, retrievedOn: '2026-11-07'},
+  {id: 'SM381', lat: 37.60757, lon: -122.51381, depthM: 15, shoreNormalDeg: 320.12, retrievedOn: '2026-11-07'},
+  {id: 'SM382', lat: 37.60757, lon: -122.51381, depthM: 15, shoreNormalDeg: 312.1, retrievedOn: '2026-11-07'},
+  {id: 'SM383', lat: 37.60757, lon: -122.51381, depthM: 15, shoreNormalDeg: 304.19, retrievedOn: '2026-11-07'},
+  {id: 'SM384', lat: 37.60757, lon: -122.51381, depthM: 15, shoreNormalDeg: 296.41, retrievedOn: '2026-11-07'},
+  {id: 'SM385', lat: 37.60757, lon: -122.51381, depthM: 15, shoreNormalDeg: 288.85, retrievedOn: '2026-11-07'},
   {id: 'MA140', lat: 37.88387, lon: -122.67383, depthM: 15, shoreNormalDeg: 173.55, retrievedOn: ON},
   {id: 'MA137', lat: 37.88436, lon: -122.67226, depthM: 15, shoreNormalDeg: 184, retrievedOn: '2026-11-03'}, // T-130: Bolinas (docs/forecast/data/mop-candidates-all.json)
 ];
@@ -30,7 +37,7 @@ export const mopAssignments: MopAssignment[] = [
 
 /** Candidates for the owner's review. Not used by the app until moved to `mopAssignments`. */
 export const mopCandidates: MopCandidate[] = [
-  {spotId: 'spot-3', mopIds: ['SM375', 'SM376'], note: 'Linda Mar: nearest points are 15 m deep (not 10 m) with shore normals 320°–350° that differ strongly between neighbours; whether either represents the beach break is unknown.'},
+  {spotId: 'spot-3', mopIds: ['SM380', 'SM381', 'SM382', 'SM383', 'SM384', 'SM385'], note: 'Linda Mar: CDIP\'s MOP pages (retrieved 2026-11-07) put the back-beach ends of transects SM380–SM385 on Pacifica State Beach (OpenStreetMap way 39970023, 37.5960–37.6049 N); all six share one output point 15 m deep, about 1.3 km off the beach (1.48 km from the spot pin), so their heights are identical and only the shore normal differs (289°–328° around the crescent). SM375 and SM376, offered before, start about 800 m west on the rocky north side of San Pedro Point; SM375 reads about 17–20% lower than SM382 in both windows of docs/forecast/ACCURACY-VS-BUOYS.md.'},
   {spotId: 'spot-0', mopIds: ['MA140'], note: 'Bolinas: nearest points are 2.8 km away at 15 m with a south-facing normal (~170°); the break’s own transect is unknown.'},
   // T-073: every other spot's nearest points (Ocean Beach keeps its reviewed SF023; Linda Mar and Bolinas keep the lists above)
   ...scannedMopCandidates.filter((c) => !['spot-2', 'spot-3', 'spot-0'].includes(c.spotId)),

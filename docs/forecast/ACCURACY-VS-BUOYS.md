@@ -1,6 +1,6 @@
 # Accuracy against real buoys (T-131 phase 2)
 
-Generated 2026-11-07T03:52Z by `docs/forecast/data/accuracy-vs-buoys.ts`. Reproduce: `node --experimental-strip-types docs/forecast/data/accuracy-vs-buoys.ts --archive 2025-11-01T00:00:00Z/2026-05-01T00:00:00Z --recent 2026-10-07T00:00:00Z/2026-11-06T00:00:00Z`. Rules and thresholds: `src/services/accuracy.ts`. Findings and decisions: the notes at the end.
+Generated 2026-11-08T00:04Z by `docs/forecast/data/accuracy-vs-buoys.ts`. Reproduce: `node --experimental-strip-types docs/forecast/data/accuracy-vs-buoys.ts --archive 2025-11-01T00:00:00Z/2026-05-01T00:00:00Z --recent 2026-10-07T00:00:00Z/2026-11-06T00:00:00Z`. Rules and thresholds: `src/services/accuracy.ts`. Findings and decisions: the notes at the end.
 
 Windows: **archive** 2025-11-01 to 2026-05-01 (CDIP's quality-controlled `_historic` buoy files; 6 winter-spring months) and **recent** 2026-10-07 to 2026-11-06 (CDIP realtime files, NDBC realtime2 for Point Sur). A buoy needs at least 200 observed hours in a window to be used; each spot uses the nearest such buoy, preferring a nearshore one within 40 km.
 
@@ -63,7 +63,7 @@ Columns: (a) v1 vs observed; (b) MOP at the spot's point vs observed; MOP's own 
 | Bolinas | MA137 | 142 San Francisco Bar (16.46 m) | 14.1 | nearby | 43 | -1.0 | 1.0 | 4342 | -2.2 | 2.2 | 0.57 | 142 (14 km) | 43 | +0.1 | 0.3 | same | 43 | +0.4 | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
 | Stinson Beach | MA121 | 142 San Francisco Bar (16.46 m) | 12.5 | nearby | 0 | – | – | 4342 | -2.4 | 2.4 | 0.53 | – | 0 | – | – | – | 0 | – | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
 | Ocean Beach | SF023 | 142 San Francisco Bar (16.46 m) | 11.2 | nearby | 2175 | -0.8 | 0.9 | 4342 | +1.5 | 1.7 | 1.25 | 142 (11 km) | 2175 | -2.5 | 2.5 | -0.1 / 0.8 | 2175 | -3.2 | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
-| Linda Mar | SM375 | 142 San Francisco Bar (16.46 m) | 23.9 | nearby | 2065 | +0.0 | 0.5 | 4342 | -1.5 | 1.5 | 0.70 | 142 (24 km) | 2065 | +1.8 | 1.8 | same | 2065 | +1.5 | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
+| Linda Mar | SM382 | 142 San Francisco Bar (16.46 m) | 23.9 | nearby | 2065 | +0.0 | 0.5 | 4342 | -0.5 | 0.7 | 0.88 | 142 (24 km) | 2065 | +0.7 | 0.8 | same | 2065 | +0.3 | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
 | Montara | SM340 | 142 San Francisco Bar (16.46 m) | 28.9 | regional | 2345 | +0.5 | 0.7 | 4342 | -0.5 | 0.7 | 0.88 | 142 (29 km) | 2345 | +1.3 | 1.3 | +0.1 / 0.6 | 2346 | +0.9 | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
 | Mavericks | SM306 | 142 San Francisco Bar (16.46 m) | 34.6 | regional | 0 | – | – | 4342 | -0.5 | 0.6 | 0.89 | – | 0 | – | – | – | 0 | – | W mid 2054, W long 1585, W short 437, S short 118, S long 81, NW mid 25, NW short 25, S mid 17 |
 | Steamer Lane | SC149 | 158 Cabrillo Point Nearshore (Monterey Bay) (17 m) | 37.6 | regional | 46 | +1.2 | 1.2 | 4343 | -0.6 | 1.1 | 1.02 | 156 (22 km) | 46 | +0.8 | 0.8 | same | 46 | +0.7 | NW mid 3218, NW short 543, NW long 323, S long 226, S mid 33 |
@@ -112,7 +112,7 @@ Columns: (a) v1 vs observed; (b) MOP at the spot's point vs observed; MOP's own 
 | Bolinas | MA137 | 142 San Francisco Bar (16.46 m) | 14.1 | nearby | 53 | -1.1 | 1.1 | 717 | -2.2 | 2.2 | 0.56 | 142 (14 km) | 53 | +0.8 | 0.8 | same | 53 | +0.9 | W long 471, W mid 190, W short 31, S long 18 |
 | Stinson Beach | MA121 | 142 San Francisco Bar (16.46 m) | 12.5 | nearby | 0 | – | – | 717 | -2.2 | 2.2 | 0.55 | – | 0 | – | – | – | 0 | – | W long 471, W mid 190, W short 31, S long 18 |
 | Ocean Beach | SF023 | 142 San Francisco Bar (16.46 m) | 11.2 | nearby | 212 | -0.6 | 0.6 | 717 | +0.9 | 1.0 | 1.21 | 142 (11 km) | 212 | -1.9 | 1.9 | +0.4 / 0.7 | 215 | -2.3 | W long 471, W mid 190, W short 31, S long 18 |
-| Linda Mar | SM375 | 142 San Francisco Bar (16.46 m) | 23.9 | nearby | 224 | +0.2 | 0.5 | 717 | -1.2 | 1.2 | 0.76 | 142 (24 km) | 224 | +1.9 | 1.9 | same | 227 | +1.7 | W long 471, W mid 190, W short 31, S long 18 |
+| Linda Mar | SM382 | 142 San Francisco Bar (16.46 m) | 23.9 | nearby | 224 | +0.2 | 0.5 | 717 | -0.4 | 0.5 | 0.92 | 142 (24 km) | 224 | +0.8 | 0.9 | same | 227 | +0.6 | W long 471, W mid 190, W short 31, S long 18 |
 | Montara | SM340 | 142 San Francisco Bar (16.46 m) | 28.9 | regional | 277 | +0.5 | 0.6 | 717 | -0.4 | 0.5 | 0.92 | 142 (29 km) | 277 | +1.1 | 1.1 | -0.2 / 0.4 | 280 | +1.0 | W long 471, W mid 190, W short 31, S long 18 |
 | Mavericks | SM306 | 142 San Francisco Bar (16.46 m) | 34.6 | regional | 0 | – | – | 717 | -0.4 | 0.5 | 0.95 | – | 0 | – | – | – | 0 | – | W long 471, W mid 190, W short 31, S long 18 |
 | Steamer Lane | SC149 | 156 Monterey Canyon Outer (133 m) | 22.4 | regional | 0 | – | – | 718 | -2.2 | 2.2 | 0.47 | – | 0 | – | – | – | 0 | – | W mid 291, W long 147, NW mid 128, NW short 71, W short 57, S long 19 |
@@ -163,7 +163,7 @@ Fit on the first 2/3 of the archive hours (median observed ÷ model), reported o
 |---|---|---|---|---|---|---|---|---|---|
 | Bolinas | v1 vs (d), anchor 142 | 28 | 15 | – | -0.1 / 0.2 | – | 142, 53 h: +0.8 / 0.8 | – | not supported: too few hours (fit 28, held-out 15; need 200 and 100) |
 | Ocean Beach | v1 vs (d), anchor 142 | 1450 | 725 | 1.48 | -2.6 / 2.6 | -0.1 / 0.8 | 142, 212 h: -1.9 / 1.9 | +0.4 / 0.7 | **supported**: held-out MAE 2.57 → 0.81 ft |
-| Linda Mar | v1 vs (d), anchor 142 | 1376 | 689 | 0.67 | +1.8 / 1.8 | -0.1 / 0.4 | 142, 224 h: +1.9 / 1.9 | -0.0 / 0.4 | **supported**: held-out MAE 1.83 → 0.38 ft |
+| Linda Mar | v1 vs (d), anchor 142 | 1376 | 689 | 0.86 | +0.7 / 0.7 | -0.1 / 0.5 | 142, 224 h: +0.8 / 0.9 | +0.0 / 0.4 | not supported: held-out MAE 0.75 → 0.46 ft does not clear the rule (20% and 0.3 ft) |
 | Montara | v1 vs (d), anchor 142 | 1563 | 782 | 0.77 | +1.3 / 1.3 | -0.2 / 0.5 | 142, 277 h: +1.1 / 1.1 | -0.2 / 0.4 | **supported**: held-out MAE 1.29 → 0.53 ft |
 | Steamer Lane | v1 vs (d), anchor 156 | 30 | 16 | – | +0.3 / 0.4 | – | – | – | not supported: too few hours (fit 30, held-out 16; need 200 and 100) |
 | Pleasure Point | v1 vs (d), anchor 156 | 43 | 22 | – | +0.6 / 0.6 | – | – | – | not supported: too few hours (fit 43, held-out 22; need 200 and 100) |
@@ -199,10 +199,6 @@ Held-out archive hours and the later window, binned by the OFFSHORE total Hs at 
 | Ocean Beach | ×1.48 | 4–8 ft | 508 | -2.8 / 2.8 | -0.1 / 0.8 | 183 | -2.1 / 2.1 | +0.4 / 0.7 | **factor applies** |
 | Ocean Beach | ×1.48 | 8–12 ft | 57 | -3.6 / 3.6 | +0.4 / 1.3 | 2 | -1.5 / 1.5 | +2.0 / 2.0 | **factor applies** |
 | Ocean Beach | ×1.48 | 12 ft and up | 0 | – | – | 0 | – | – | no factor: only 0 held-out hours |
-| Linda Mar | ×0.67 | under 4 ft | 132 | +1.0 / 1.0 | -0.1 / 0.3 | 7 | +1.0 / 1.0 | -0.1 / 0.2 | **factor applies** |
-| Linda Mar | ×0.67 | 4–8 ft | 422 | +1.8 / 1.8 | -0.1 / 0.4 | 194 | +1.9 / 1.9 | -0.0 / 0.4 | **factor applies** |
-| Linda Mar | ×0.67 | 8–12 ft | 134 | +2.8 / 2.8 | -0.1 / 0.5 | 23 | +2.2 / 2.2 | -0.3 / 0.3 | **factor applies** |
-| Linda Mar | ×0.67 | 12 ft and up | 1 | +2.6 / 2.6 | -0.8 / 0.8 | 0 | – | – | no factor: only 1 held-out hours |
 | Montara | ×0.77 | under 4 ft | 70 | +0.3 / 0.4 | -0.4 / 0.4 | 9 | +0.5 / 0.5 | -0.3 / 0.3 | no factor: held-out MAE not smaller |
 | Montara | ×0.77 | 4–8 ft | 479 | +1.1 / 1.1 | -0.2 / 0.5 | 233 | +1.1 / 1.1 | -0.2 / 0.5 | **factor applies** |
 | Montara | ×0.77 | 8–12 ft | 215 | +1.8 / 1.9 | -0.2 / 0.7 | 35 | +1.7 / 1.7 | -0.1 / 0.3 | **factor applies** |
@@ -251,7 +247,6 @@ Median observed ÷ MOP at the buoy's own site, binned by the OBSERVED height at 
 | 094 Cape Mendocino | 346 m | 1.01 (256 h) | 1.05 (2037 h) | 1.08 (1507 h) | 1.18 (537 h) |
 | 157 Point Sur | 366 m | 1.09 (416 h) | 1.06 (2497 h) | 1.09 (1159 h) | 1.18 (269 h) |
 
-
 <!-- notes -->
 ## T-131 phase 2 notes (written 2026-11-06, revised after the data-honesty review; the tables above are regenerated by the script, these notes are not)
 
@@ -266,7 +261,7 @@ Median observed ÷ MOP at the buoy's own site, binned by the OBSERVED height at 
    - **Big swell: no evidence that SF023 reads high.** The first draft binned the bar buoy by MOP's own height and showed the measured waves falling 9–16% below the model in big swell. Binned by the **observed** height (section 4), the ratio is 0.97–1.00 at every size. The earlier drop was a selection effect of binning by the model. The big-swell caveat was therefore withdrawn. SF023 itself (10 m) is still not measured by any buoy.
 3. **Moss Landing, Carmel, Asilomar.** These spots have only archive evidence, anchored on the outer canyon buoy (156). It points the same way as the first look: v1 reads high, by 2.9 ft at Moss Landing, 2.9 ft at Carmel and 1.8 ft at Asilomar. The candidate factors are ×0.48, ×0.56 and ×0.77; section 3b gives them by size. **None is applied.** The later window cannot confirm them, because MOP fails the check at 156 there. MOP is also about 30% low at Cabrillo Point, the nearshore buoy in the bay. The MOP points carry a one-line caveat instead.
 4. **Jalama.** The only buoy in reach is Harvest (550 m deep, 26 km), and CDIP flags its model check point bad. Nothing can check Jalama, so it gets a caveat and no change.
-5. **Linda Mar.** The evidence clears the rule: v1 reads 1.8 ft high against the SF Bar-anchored height at SM375; ×0.67 brings the held-out MAE from 1.83 to 0.38 ft and the later window from 1.89 to 0.40 ft. **The factor is held** (`HELD_TRANSFERS`). Linda Mar's own MOP note says it is unknown whether SM375 represents the beach break, so a height anchored at SM375 cannot correct the spot. It stays a candidate.
+5. **Linda Mar.** Re-checked 2026-11-07 on the beach's own point. CDIP's MOP pages put the back-beach end of SM375 (and SM376) on the rocky north side of San Pedro Point, about 800 m west of the sand; the transects that land on Pacifica State Beach are SM380–SM385, which share one output point 15 m deep. Linda Mar now uses SM382 (facing-match rule; normal 312°). SM375 reads about 20% below SM382 in the archive window (3.87 vs 4.84 ft) and 17% below in the recent one (3.72 vs 4.49 ft), which accounts for the whole earlier gap. On SM382, v1 reads 0.7 ft high against the SF Bar-anchored height (archive MAE 0.79 ft; recent 0.85 ft), and MOP at SM382 against the bar buoy has an average error of 0.75 ft (was 1.48 ft at SM375). The candidate ×0.86 brings the held-out MAE from 0.75 to 0.46 ft: under the 0.3 ft part of the rule, so **no factor**. The ×0.67 held before was fitted to the wrong point and is withdrawn.
 6. **Southern California.** v1 is already within about 0.5 ft of the anchored height at most spots. Topanga reads 0.5–0.7 ft high and is corrected, under 4 ft offshore only. In the later window it is also checked against the Topanga buoy 2 km away: MAE 0.6 → 0.3 ft. Imperial Beach clears the rule on the archive, against the buoy 3 km away: 1.4 → 0.4 ft. The later window has only 44 anchored hours there, so it is **not applied** (archive only).
 
 ### What changed (all v1 only; no MOP number changed)
@@ -291,7 +286,7 @@ Median observed ÷ MOP at the buoy's own site, binned by the OBSERVED height at 
 
 ### What did not change, and why
 - **No MOP number was changed.** The evidence is at buoys, not at the points.
-- **Linda Mar:** held (point representativeness unknown).
+- **Linda Mar:** no factor. On its own beach point (SM382) the gain is 0.29 ft, under the rule; the earlier ×0.67 came from the San Pedro Point transect SM375.
 - **Moss Landing, Carmel, Asilomar, Davenport, Imperial Beach:** archive only.
 - **Salmon Creek and Dillon Beach:** anchor beyond 40 km.
 - **El Porto, Hermosa, Zuma, Malibu, Salt Creek:** gains under the rule.

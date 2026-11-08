@@ -9,7 +9,7 @@ export type MopPick =
 const NOWCAST_TOL = 30 * 60000, FORECAST_TOL = 90 * 60000; // hourly nowcast, 3-hourly forecast: nearest step at most half a step away
 const nearest = (rows: NearshoreRecord[], t: number) => rows.reduce<{r: NearshoreRecord; d: number} | null>((b, r) => { const d = Math.abs(Date.parse(r.timestamp) - t); return !b || d < b.d ? {r, d} : b; }, null);
 
-/** The only MOP nowcast the app fetches is SF023's (`bundle.nearshore`). A point's nowcast may be shown only for that point: for any other assigned MOP (e.g. Linda Mar's SM375) there is NO nowcast, so the forecast is used,
+/** The only MOP nowcast the app fetches is SF023's (`bundle.nearshore`). A point's nowcast may be shown only for that point: for any other assigned MOP (e.g. Linda Mar's SM382) there is NO nowcast, so the forecast is used,
  *  and Ocean Beach measurements are never shown under another point's label. Records that carry a `mopId` must also match. */
 export const NOWCAST_MOP_ID = 'SF023';
 export const nowcastFor = (mopId: string, nowcast: NearshoreRecord[] | undefined): NearshoreRecord[] | undefined => (mopId === NOWCAST_MOP_ID ? nowcast?.filter((r) => !r.mopId || r.mopId === mopId) : undefined);
