@@ -10,6 +10,20 @@ import type {SpotEvidence} from '../ocean/types.ts';
  */
 type Row = [id: string, name: string, region: string, type: SurfSpot['type'], lat: number, lon: number, seaward: number, timeZone?: string, country?: string];   // timeZone: IANA zone, absent = America/Los_Angeles (every row until the world catalogue)
 export const COAST_ROWS: Row[] = [
+  ['cs-neah-bay', 'Neah Bay (Hobuck)', 'Clallam', 'Beach', 48.336, -124.664, 248],
+  ['cs-la-push', 'La Push (First Beach)', 'Clallam', 'Beach', 47.902, -124.631, 225],
+  ['cs-westport', 'Westport (The Cove)', 'Grays Harbor', 'Beach', 46.906, -124.123, 315],
+  ['cs-long-beach-wa', 'Long Beach (Washington)', 'Pacific', 'Beach', 46.352, -124.067, 270],
+  ['cs-seaside-or', 'Seaside (The Point)', 'Clatsop', 'Point', 45.976, -123.947, 0],
+  ['cs-cannon-beach', 'Cannon Beach', 'Clatsop', 'Beach', 45.886, -123.971, 270],
+  ['cs-short-sands', 'Short Sands', 'Tillamook', 'Beach', 45.761, -123.967, 248],
+  ['cs-pacific-city', 'Pacific City (Cape Kiwanda)', 'Tillamook', 'Reef', 45.216, -123.977, 248],
+  ['cs-otter-rock', 'Otter Rock', 'Lincoln', 'Beach', 44.744, -124.062, 248],
+  ['cs-agate-beach', 'Agate Beach', 'Lincoln', 'Beach', 44.662, -124.06, 248],
+  ['cs-florence', 'Florence South Jetty', 'Lane', 'Beach', 44.016, -124.143, 270],
+  ['cs-bastendorff', 'Bastendorff Beach', 'Coos', 'Beach', 43.347, -124.347, 338],
+  ['cs-gold-beach', 'Gold Beach', 'Curry', 'Beach', 42.417, -124.432, 248],
+  ['cs-brookings', 'Brookings', 'Curry', 'Beach', 42.042, -124.268, 225],
   ['cs-crescent-city', 'Crescent City', 'Del Norte', 'Beach', 41.745, -124.188, 200],
   ['cs-moonstone', 'Moonstone Beach', 'Humboldt', 'Beach', 41.033, -124.113, 250],
   ['cs-north-jetty', 'Humboldt North Jetty', 'Humboldt', 'Beach', 40.768, -124.236, 285],

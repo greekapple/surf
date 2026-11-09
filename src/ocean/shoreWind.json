@@ -1,9 +1,9 @@
 {
- "builtAt": "2026-11-09T07:35:21.459Z",
+ "builtAt": "2026-11-09T07:51:06.982Z",
  "maxKm": 4,
  "windowDays": 7,
  "rule": "The nearest fixed NDBC/NOS met station or California airport ASOS within 4 km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last 7 days at build time. No latitude band. A spot with no such station shows no measured wind.",
- "spotsChecked": 88,
+ "spotsChecked": 102,
  "assignments": [
   {
    "spotId": "spot-4",
@@ -28,6 +28,18 @@
    "lon": -122.4996,
    "distanceKm": 2.1,
    "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
+  },
+  {
+   "spotId": "cs-gold-beach",
+   "spotName": "Gold Beach",
+   "stationId": "4S1",
+   "stationName": "Gold Beach",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 42.4153,
+   "lon": -124.4249,
+   "distanceKm": 0.6,
+   "url": "https://api.weather.gov/stations/K4S1/observations?limit=6"
   },
   {
    "spotId": "cs-point-arena",

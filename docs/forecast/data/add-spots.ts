@@ -14,8 +14,8 @@
 //   facts   build-guide-facts.ts    -> src/ocean/spotFactsSourced.ts
 //   mopids  mopServiceIds (services/forecast-service.mjs) = assignedMopIds() of the regenerated mop.ts
 //   slope   mop-slope-all.ts --write --only <new ids> -> src/ocean/nearshoreSlopeSourced.ts (existing rows kept verbatim)   [network: ETOPO, cached in etopo-cache.json]
-//   tides   nearest CO-OPS prediction station (mdapi) for each new spot, added to src/ocean/tideStations.ts + hiloTideStationIds + tideHiloServiceStationIds   [network]
-//   nws     api.weather.gov/points zone of each new spot -> src/services/nwsZones.ts (a marine-zone spot borrows the nearest zoned spot within 15 km)   [network]
+//   tides   nearest OPEN-COAST CO-OPS prediction station (mdapi; not up a river, slough or lagoon: tideStationExposure) for each new spot, added to src/ocean/tideStations.ts + hiloTideStationIds + tideHiloServiceStationIds   [network]
+//   nws     api.weather.gov/points land zone of each new spot (any state: CAZ, ORZ, WAZ...) -> src/services/nwsZones.ts; a point in a marine zone is looked up again 0.8 km inland, and only then borrows the nearest zoned spot within 15 km   [network]
 //   wind    build-shore-wind.ts -> src/ocean/shoreWind.json, then shoreWindServiceStations (services/forecast-service.mjs)   [network; only when a spot was added, or --force-wind]
 // A spot with no matching MOP point stays without an assignment (the existing mop.ts rule says so honestly); the summary lists it. Nothing is invented.
 import fs from 'node:fs';
@@ -43,7 +43,7 @@ const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, r.regi
   if (!/^[a-z0-9-]+$/.test(String(id))) throw new Error(`row ${i}: bad id ${id}`);
   if (!name || !region) throw new Error(`${id}: name and region are required`);
   if (!['Beach', 'Point', 'Reef'].includes(type)) throw new Error(`${id}: type must be Beach, Point or Reef (got ${type})`);
-  if (!(lat >= 32 && lat <= 42.1 && lon >= -125 && lon <= -114)) throw new Error(`${id}: ${lat}, ${lon} is outside California`);
+  if (!(lat >= 32 && lat <= 49.1 && lon >= -125 && lon <= -114)) throw new Error(`${id}: ${lat}, ${lon} is outside the US West Coast (32-49.1 N)`);
   if (!(seaward >= 0 && seaward <= 360)) throw new Error(`${id}: seaward ${seaward} is not a direction in degrees`);
   return [String(id), String(name), String(region), type, r3(+lat), r3(+lon), Math.round(+seaward)] as Row;
 });
@@ -104,33 +104,30 @@ if (want('mopids')) {
 if (want('slope')) { if (NO_NET) console.log('slope: skipped (--no-network)'); else { node('docs/forecast/data/mop-slope-all.ts', ['--write', '--only', newIds.join(',')]); console.log('slope: done'); } }
 
 // ---------- 4. tides
+// The nearest CO-OPS prediction station that is not up a river, slough or lagoon (src/ocean/tideStations.ts tideStationExposure: the open-coast rule), within 40 km; the rejected nearer ones are printed with the reason.
 const TIDES = 'src/ocean/tideStations.ts', spotsNow = () => evalIn(`import {evidenceSpots} from './src/ocean/spots.ts'; console.log(JSON.stringify(evidenceSpots.map((s) => ({id: s.id, name: s.name, lat: s.latitude, lon: s.longitude}))))`) as {id: string; name: string; lat: number; lon: number}[];
 if (want('tides')) {
   if (NO_NET) console.log('tides: skipped (--no-network)');
   else {
     let t = read(TIDES); const regIds = new Set([...t.matchAll(/\{id: '([^']+)', name:/g)].map((m) => m[1])), cur = spotsNow().filter((s) => newIds.includes(s.id));
-    const missing = cur.filter((s) => { const near = nearestRegistry(t, s.lat, s.lon); return !near || near.km > 40; });
-    if (missing.length) {
-      const res = await fetch('https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=tidepredictions', {signal: AbortSignal.timeout(60000)}); if (!res.ok) throw new Error('CO-OPS mdapi ' + res.status);
-      const list: any[] = (await res.json()).stations ?? [], addIds: string[] = [];
-      for (const s of missing) {
-        const best = list.filter((x) => Number.isFinite(x.lat) && Number.isFinite(x.lng)).map((x) => ({x, km: km(s.lat, s.lon, x.lat, x.lng)})).sort((a, b) => a.km - b.km)[0];
-        if (!best || best.km > 40) { console.log(`tides: ${s.name}: no CO-OPS prediction station within 40 km`); continue; }
-        if (!regIds.has(best.x.id) && !addIds.includes(best.x.id)) {
-          addIds.push(best.x.id); const line = `  {id: '${best.x.id}', name: ${JSON.stringify(best.x.name)}, lat: ${best.x.lat.toFixed(5)}, lon: ${best.x.lng.toFixed(5)}, retrievedOn: '${today}', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=${best.x.id}'},`;
-          t = t.replace(/\n\];\nexport const SF_STATION/, `\n${line}\n];\nexport const SF_STATION`);
-        }
+    const res = await fetch('https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=tidepredictions', {signal: AbortSignal.timeout(60000)}); if (!res.ok) throw new Error('CO-OPS mdapi ' + res.status);
+    const list: {id: string; name: string; lat: number; lon: number}[] = ((await res.json()).stations ?? []).filter((x: any) => Number.isFinite(x.lat) && Number.isFinite(x.lng)).map((x: any) => ({id: x.id, name: x.name, lat: x.lat, lon: x.lng})), addIds: string[] = [];
+    const {pickTideStation, tideStationExposure} = await import('../../../src/ocean/tideStations.ts');
+    for (const s of cur) {
+      const pick = pickTideStation(s.lat, s.lon, list);
+      const skipped = list.map((x) => ({x, km: km(s.lat, s.lon, x.lat, x.lon)})).filter((c) => c.km <= (pick?.distanceKm ?? 40) && tideStationExposure(c.x.name).exposure === 'closed').sort((a, b) => a.km - b.km).slice(0, 3);
+      if (skipped.length) console.log(`tides: ${s.name}: skipped ${skipped.map((c) => `${c.x.name} (${c.x.id}) ${c.km.toFixed(1)} km [${tideStationExposure(c.x.name).why}]`).join('; ')}`);
+      if (!pick) { console.log(`tides: ${s.name}: no open-coast CO-OPS prediction station within 40 km`); continue; }
+      if (!regIds.has(pick.station.id) && !addIds.includes(pick.station.id)) {
+        addIds.push(pick.station.id); const x = pick.station, line = `  {id: '${x.id}', name: ${JSON.stringify(x.name)}, lat: ${x.lat.toFixed(5)}, lon: ${x.lon.toFixed(5)}, retrievedOn: '${today}', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=${x.id}'},`;
+        t = t.replace(/\n\];\nexport const SF_STATION/, `\n${line}\n];\nexport const SF_STATION`);
       }
-      if (addIds.length) { t = t.replace(/(export const hiloTideStationIds = \[[^\]]*?)\];/, (_m, a) => `${a}${a.trim().endsWith(',') ? '' : ','}  ${addIds.map((i) => `'${i}'`).join(',  ')}];`); }
-      write(TIDES, t);
-      let s = read(SERVICE); if (addIds.length) { s = s.replace(/(export const tideHiloServiceStationIds=\[[^\]]*?)\];/, (_m, a) => `${a},  ${addIds.map((i) => `'${i}'`).join(',  ')}];`); write(SERVICE, s); }
-      console.log(`tides: ${addIds.length} station(s) added${addIds.length ? ': ' + addIds.join(', ') : ''}`);
-    } else console.log('tides: every new spot already has a station within 40 km');
+    }
+    if (addIds.length) { t = t.replace(/(export const hiloTideStationIds = \[[^\]]*?)\];/, (_m, a) => `${a}${a.trim().endsWith(',') ? '' : ','}  ${addIds.map((i) => `'${i}'`).join(',  ')}];`); }
+    write(TIDES, t);
+    if (addIds.length) { let sv = read(SERVICE); sv = sv.replace(/(export const tideHiloServiceStationIds=\[[^\]]*?)\];/, (_m, a) => `${a},  ${addIds.map((i) => `'${i}'`).join(',  ')}];`); write(SERVICE, sv); }
+    console.log(`tides: ${addIds.length} station(s) added${addIds.length ? ': ' + addIds.join(', ') : ''}`);
   }
-}
-function nearestRegistry(text: string, lat: number, lon: number) {
-  const st = [...text.matchAll(/\{id: '([^']+)', name: [^,]*(?:,[^{}]*?)?lat: (-?[\d.]+), lon: (-?[\d.]+),/g)].map((m) => ({id: m[1], km: km(lat, lon, +m[2], +m[3])}));
-  return st.sort((a, b) => a.km - b.km)[0] ?? null;
 }
 
 // ---------- 5. NWS zones
@@ -141,19 +138,30 @@ if (want('nws')) {
   if (NO_NET) console.log('nws: skipped (--no-network)');
   else {
     let t = read(NWS); const have = (id: string) => new RegExp(`^  '${id}':`, 'm').test(t.slice(0, t.indexOf('export const NWS_ZONE_APPROX'))), all = spotsNow(), fresh = all.filter((s) => newIds.includes(s.id) && !have(s.id)), lines: string[] = [];
-    for (const s of fresh) {
-      let zone: string | null = null, marine = '';
+    const {isLandZoneId} = await import('../../../src/services/nwsZones.ts');
+    const zoneAt = async (lat: number, lon: number, name: string): Promise<{zone: string | null; other: string}> => {
       try {
-        const r = await fetch(`https://api.weather.gov/points/${s.lat.toFixed(4)},${s.lon.toFixed(4)}`, {headers: {'User-Agent': 'SWELLO surf app', Accept: 'application/geo+json'}, signal: AbortSignal.timeout(30000)});
-        if (r.ok) { const z = String(((await r.json()) as any).properties?.forecastZone ?? '').split('/').pop() ?? ''; if (/^CAZ/.test(z)) zone = z; else marine = z; }
-        else console.log(`nws: ${s.name}: HTTP ${r.status}`);
-      } catch (e) { console.log(`nws: ${s.name}: ${String(e).slice(0, 60)}`); }
+        const r = await fetch(`https://api.weather.gov/points/${lat.toFixed(4)},${lon.toFixed(4)}`, {headers: {'User-Agent': 'SWELLO surf app', Accept: 'application/geo+json'}, signal: AbortSignal.timeout(30000)});
+        if (r.ok) { const z = String(((await r.json()) as any).properties?.forecastZone ?? '').split('/').pop() ?? ''; return isLandZoneId(z) ? {zone: z, other: ''} : {zone: null, other: z}; }
+        console.log(`nws: ${name}: HTTP ${r.status}`);
+      } catch (e) { console.log(`nws: ${name}: ${String(e).slice(0, 60)}`); }
+      await new Promise((r) => setTimeout(r, 300)); return {zone: null, other: ''};
+    };
+    for (const s of fresh) {
+      let {zone, other: marine} = await zoneAt(s.lat, s.lon, s.name), inland = false;
       await new Promise((r) => setTimeout(r, 300));
-      lines.push(zone ? `  '${s.id}': "${zone}",` : `  '${s.id}': null, // ${marine ? 'marine zone ' + marine : 'no zone resolved'}: no land beach-hazard zone resolved`);
+      if (!zone) {   // a beach point often falls in the marine zone: look again 0.8 km inland (opposite the beach's seaward direction) before borrowing from a neighbour
+        const sea = rows.find((r) => r[0] === s.id)?.[6]; if (sea !== undefined) {
+          const th = ((sea + 180) % 360) * Math.PI / 180, d = 0.8 / 111.2, la = s.lat + d * Math.cos(th), lo = s.lon + (d * Math.sin(th)) / Math.cos(s.lat * Math.PI / 180);
+          const z2 = await zoneAt(la, lo, s.name + ' (0.8 km inland)'); if (z2.zone) { zone = z2.zone; inland = true; }
+          await new Promise((r) => setTimeout(r, 300));
+        }
+      }
+      lines.push(zone ? `  '${s.id}': "${zone}",${inland ? ` // resolved 0.8 km inland: the beach point is in ${marine ? 'marine zone ' + marine : 'a marine zone'}` : ''}` : `  '${s.id}': null, // ${marine ? 'marine zone ' + marine : 'no zone resolved'}: no land beach-hazard zone resolved`);
     }
     if (lines.length) t = t.replace(/\n\};\n\n\/\*\* Spots whose own point/, `\n${lines.join('\n')}\n};\n\n/** Spots whose own point`);
     // pass 2: every new spot whose own zone is null borrows from the nearest spot with its own land zone (all spots, new or old)
-    const own: Record<string, string> = {}; for (const m of t.slice(0, t.indexOf('export const NWS_ZONE_APPROX')).matchAll(/^  '([^']+)': "(CAZ\d+)"/gm)) own[m[1]] = m[2];
+    const own: Record<string, string> = {}; for (const m of t.slice(0, t.indexOf('export const NWS_ZONE_APPROX')).matchAll(/^  '([^']+)': "([A-Z]{2}Z\d+)"/gm)) own[m[1]] = m[2];
     const isNull = (id: string) => new RegExp(`^  '${id}': null`, 'm').test(t.slice(0, t.indexOf('export const NWS_ZONE_APPROX')));
     const apx = t.indexOf('export const NWS_ZONE_APPROX'), apxEnd = t.indexOf('\n};', apx); let body = t.slice(t.indexOf('\n', apx) + 1, apxEnd).split('\n').filter((l) => l.trim());
     let borrowed = 0;

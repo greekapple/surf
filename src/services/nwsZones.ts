@@ -2,6 +2,9 @@
  *  Only land/coastal zones (CAZ...) are used: Beach Hazards Statements, High Surf and Rip Current alerts are issued for them. A spot whose point resolves to a marine zone (PZZ...) has no zone here and shows no alerts.
  *  Zones change rarely; re-run the script to refresh. Source: National Weather Service (public domain). */
 import {hasUsData} from '../ocean/coverage.ts';
+/** An NWS LAND forecast zone id (e.g. CAZ006, ORZ001, WAZ503), not a marine zone (PZZ535, ANZ, GMZ, LSZ...): beach hazard and high surf alerts are issued for the land zones. Any state, not only California. */
+const MARINE_PREFIX = /^(AM|AN|GM|LC|LE|LH|LM|LO|LS|PH|PK|PM|PS|PZ|SL)Z\d+$/;
+export const isLandZoneId = (z: string): boolean => /^[A-Z]{2}Z\d{3}$/.test(z) && !MARINE_PREFIX.test(z);
 export const NWS_ZONES_RESOLVED = '2026-11-02';
 export const NWS_ZONE: Record<string, string | null> = {
   'spot-2': "CAZ006",
@@ -92,6 +95,20 @@ export const NWS_ZONE: Record<string, string | null> = {
   'cs-scripps': null, // marine zone PZZ740: no land beach-hazard zone resolved
   'cs-pacific-beach': null, // marine zone PZZ740: no land beach-hazard zone resolved
   'cs-sunset-cliffs': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-neah-bay': "WAZ330", // resolved 0.8 km inland: the beach point is in marine zone PZZ150
+  'cs-la-push': "WAZ330", // resolved 0.8 km inland: the beach point is in marine zone PZZ153
+  'cs-westport': "WAZ331", // resolved 0.8 km inland: the beach point is in marine zone PZZ110
+  'cs-long-beach-wa': "WAZ201", // resolved 0.8 km inland: the beach point is in marine zone PZZ251
+  'cs-seaside-or': "ORZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ251
+  'cs-cannon-beach': "ORZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ251
+  'cs-short-sands': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'cs-pacific-city': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'cs-otter-rock': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'cs-agate-beach': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'cs-florence': null, // marine zone PZZ350: no land beach-hazard zone resolved
+  'cs-bastendorff': "ORZ021", // resolved 0.8 km inland: the beach point is in marine zone PZZ350
+  'cs-gold-beach': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'cs-brookings': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
 };
 
 /** Spots whose own point falls in a marine zone borrow the coastal zone of the nearest zoned spot, only when it is within 15 km (the same stretch of coast). Marked approximate in the UI text; farther spots have no zone. */

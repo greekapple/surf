@@ -12,7 +12,7 @@ const okFetch = (calls: string[]) => (async (url: any, init: any) => { calls.pus
 
 test('zone table: every spot is either zoned, approximated within 15 km, or has none; Ocean Beach is CAZ006', () => {
   assert.equal(zoneFor('spot-2')?.zone, 'CAZ006'); assert.equal(zoneFor('spot-2')?.approx, false);
-  for (const s of evidenceSpots) { const z = zoneFor(s.id); if (z) assert.match(z.zone, /^CAZ\d{3}$/); }
+  for (const s of evidenceSpots) { const z = zoneFor(s.id); if (z) assert.match(z.zone, /^(CA|OR|WA)Z\d{3}$/); }
   assert.ok(Object.values(NWS_ZONE_APPROX).every((a) => a.km <= 15)); assert.ok(Object.keys(NWS_ZONE).length === evidenceSpots.length);
   assert.equal(zoneFor('mavericks-unknown'), null);
 });
@@ -44,4 +44,9 @@ test('a spot with no zone has nothing to say: ok with no alerts, no request', as
   clearAlertsCache(); const calls: string[] = []; const none = evidenceSpots.find((s) => !zoneFor(s.id));
   if (none) { const r = await alertsFor(none.id, undefined, okFetch(calls), NOW); assert.deepEqual(r.status === 'ok' ? r.alerts : null, []); assert.equal(calls.length, 0); }
   const r2 = await alertsFor('not-a-spot', undefined, okFetch(calls), NOW); assert.equal(r2.status, 'ok'); assert.equal(calls.length, 0);
+});
+test('land zone ids: any state, never a marine zone', async () => {
+  const {isLandZoneId} = await import('../services/nwsZones.ts');
+  for (const z of ['CAZ006', 'CAZ552', 'ORZ001', 'WAZ503', 'WAZ501', 'AKZ011', 'HIZ001']) assert.equal(isLandZoneId(z), true, z);
+  for (const z of ['PZZ535', 'PZZ253', 'ANZ650', 'GMZ850', 'LSZ121', 'PHZ110', 'CAC001', 'CA006', '', 'caz006']) assert.equal(isLandZoneId(z), false, z);
 });

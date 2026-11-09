@@ -21,7 +21,7 @@ import {certaintyOf, wideText, HORIZON_HOURS} from '../../services/certainty';
 import {greetingLine} from './greeting';
 import {rankBets, type BetConfidence} from './betRank';
 import {evidenceSpots} from '../../ocean/spots';
-import {nearestTideStationsFor, SF_STATION} from '../../ocean/tideStations';
+import {tideStationFor, SF_STATION} from '../../ocean/tideStations';
 import {regionNote} from '../../ocean/coverage';
 
 const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide reference for the spot
@@ -93,7 +93,8 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const tz = timeZoneOf(spot), today = daylightFor(spot.id, dateInMs(tz, nowMs));
   const nowRec = records.filter((f) => f.spotId === spot.id).find((f) => Date.parse(f.timestamp) + 36e5 > nowMs);
   // T-075: the next tide turn at the chosen spot's nearest CO-OPS station within ${TIDE_RANGE_KM} km, named (a station prediction, not the beach).
-  const ev = evidenceSpots.find((e) => e.id === spot.id), near = ev ? nearestTideStationsFor(ev)[0] : undefined;
+  // US spots: the nearest open-coast station (tideStationForSpot); outside the US: none (coverage.ts, never borrowed across a border)
+  const ev = evidenceSpots.find((e) => e.id === spot.id), near = ev ? tideStationFor(ev) ?? undefined : undefined;
   const station = near && near.distanceKm <= TIDE_RANGE_KM ? near : null;
   const stationTurns = !station ? [] : (station.station.id === SF_STATION ? extrema ?? [] : stationTides?.[station.station.id]?.extrema ?? []);
   const nextTide = stationTurns.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > nowMs).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).map((e) => ({t: e.timestamp, type: e.type}))[0];

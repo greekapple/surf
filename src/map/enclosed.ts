@@ -14,6 +14,8 @@ export function enclosedness(lat: number, lon: number): number {
   const i = Math.floor(gx), j = Math.floor(gy), fx = gx - i, fy = gy - j, at = (ii: number, jj: number) => (ii >= 0 && jj >= 0 && ii < d.w && jj < d.h ? grid[jj * d.w + ii] : 0);
   return (at(i, j) * (1 - fx) + at(i + 1, j) * fx) * (1 - fy) + (at(i, j + 1) * (1 - fx) + at(i + 1, j + 1) * fx) * fy;
 }
+/** Whether the mask grid covers a point at all (it spans 31.8-43.6 N, 124.8-114.4 W): outside it `enclosedness` is 0, which means "not known", not "open sea". */
+export const enclosedCovers = (lat: number, lon: number): boolean => { const gx = (lon - d.lon0) / d.step, gy = (lat - d.lat0) / d.step; return gx >= 0 && gy >= 0 && gx < d.w && gy < d.h; };
 export function isEnclosedWater(lat: number, lon: number): boolean { return enclosedness(lat, lon) >= 0.5; }
 export const enclosedCellCount = () => grid.reduce((a, b) => a + b, 0);
 

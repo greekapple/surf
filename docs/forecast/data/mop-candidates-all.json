@@ -6382,6 +6382,1028 @@
     }
    ],
    "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-seaside-or",
+   "name": "Seaside (The Point)",
+   "lat": 45.976,
+   "lon": -123.947,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 443.46
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 443.52
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 443.53
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 443.63
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 443.69
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 444.13
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 444.63
+    },
+    {
+     "id": "DN364",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 258.48,
+     "distanceKm": 444.78
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-short-sands",
+   "name": "Short Sands",
+   "lat": 45.761,
+   "lon": -123.967,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 419.5
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 419.56
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 419.57
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 419.67
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 419.73
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 420.17
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 420.67
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 420.82
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-cannon-beach",
+   "name": "Cannon Beach",
+   "lat": 45.886,
+   "lon": -123.971,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 433.37
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 433.43
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 433.44
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 433.54
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 433.6
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 434.04
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 434.54
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 434.69
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-pacific-city",
+   "name": "Pacific City (Cape Kiwanda)",
+   "lat": 45.216,
+   "lon": -123.977,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 358.95
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 359.01
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 359.02
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 359.12
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 359.18
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 359.62
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 360.11
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 360.27
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-otter-rock",
+   "name": "Otter Rock",
+   "lat": 44.744,
+   "lon": -124.062,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 306.19
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 306.25
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 306.26
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 306.36
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 306.42
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 306.86
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 307.36
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 307.51
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-agate-beach",
+   "name": "Agate Beach",
+   "lat": 44.662,
+   "lon": -124.06,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 297.09
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 297.15
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 297.16
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 297.26
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 297.32
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 297.76
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 298.26
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 298.41
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-florence",
+   "name": "Florence South Jetty",
+   "lat": 44.016,
+   "lon": -124.143,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 225.05
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 225.12
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 225.13
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 225.22
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 225.28
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 225.73
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 226.23
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 226.38
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-bastendorff",
+   "name": "Bastendorff Beach",
+   "lat": 43.347,
+   "lon": -124.347,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 150.89
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 150.96
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 150.97
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 150.99
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 151.12
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 151.59
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 152.09
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 152.24
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-gold-beach",
+   "name": "Gold Beach",
+   "lat": 42.417,
+   "lon": -124.432,
+   "nearest": [
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 50.03
+    },
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 50.12
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 50.2
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 50.21
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 50.35
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 50.85
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 51.33
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 51.46
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-brookings",
+   "name": "Brookings",
+   "lat": 42.042,
+   "lon": -124.268,
+   "nearest": [
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 6.27
+    },
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 6.48
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 6.56
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 6.57
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 6.69
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 7.2
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 7.63
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 7.75
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-westport",
+   "name": "Westport (The Cove)",
+   "lat": 46.906,
+   "lon": -124.123,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 546.37
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 546.43
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 546.44
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 546.52
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 546.6
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 547.05
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 547.55
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 547.7
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-long-beach-wa",
+   "name": "Long Beach (Washington)",
+   "lat": 46.352,
+   "lon": -124.067,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 484.87
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 484.93
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 484.94
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 485.03
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 485.1
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 485.55
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 486.05
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 486.2
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-la-push",
+   "name": "La Push (First Beach)",
+   "lat": 47.902,
+   "lon": -124.631,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 657.83
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 657.89
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 657.91
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 657.94
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 658.06
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 658.52
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 659.02
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 659.17
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-neah-bay",
+   "name": "Neah Bay (Hobuck)",
+   "lat": 48.336,
+   "lon": -124.664,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 706.15
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 706.21
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 706.23
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 706.26
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 706.38
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 706.84
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 707.34
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 707.49
+    }
+   ],
+   "retrievedOn": "2026-11-09"
   }
  ]
 }

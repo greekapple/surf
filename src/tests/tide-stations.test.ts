@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {tideStations, tideStation, extraTideStationIds, hiloTideStationIds, tideAssignments, nearestTideStations, SF_STATION} from '../ocean/tideStations.ts';
+import {tideStations, tideStation, extraTideStationIds, hiloTideStationIds, tideAssignments, nearestTideStations, tideStationForSpot, SF_STATION} from '../ocean/tideStations.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {tideURL, tideExtremaURL, normalizeTides, normalizeTideExtrema, stationOf} from '../ocean/noaa.ts';
 import {serverProviderPath} from '../ocean/server.ts';
@@ -53,8 +53,8 @@ test('every covered spot has its nearest prediction station within 40 km, and th
   const ingested = new Set([SF_STATION, ...extraTideStationIds, ...hiloTideStationIds]);
   const none: string[] = [];
   for (const e of evidenceSpots) {
-    const near = nearestTideStations(e.latitude, e.longitude)[0];
-    if (!near || near.distanceKm > 40) { none.push(e.name); continue; }
+    const near = tideStationForSpot(e.latitude, e.longitude);
+    if (!near) { none.push(e.name); continue; }
     assert.ok(ingested.has(near.station.id), `${e.name}: nearest station ${near.station.id} (${near.distanceKm} km) is not ingested`);
   }
   assert.deepEqual(none, [], 'spots with no station within 40 km');
@@ -66,4 +66,18 @@ test('the high/low stations: registry and service agree, the server routes their
   assert.equal(serverProviderPath(tideExtremaURL(new Date(), '9413745')), '/api/provider?key=tide-extrema-9413745');
   const keys = ingestionTargets(Date.parse('2026-11-01T12:00:00Z')).map((t: any) => t.key);
   for (const id of hiloTideStationIds) { assert.ok(keys.includes('tide-extrema-' + id), id); assert.ok(!keys.includes('tides-' + id), id + ' has no hourly series'); }
+});
+test('open-coast rule: the stations the OR/WA and California reviews rejected are closed, entrances and jetties are open, a town name is allowed', async () => {
+  const {tideStationExposure, pickTideStation, tideStationForSpot} = await import('../ocean/tideStations.ts');
+  const x = (n: string) => tideStationExposure(n).exposure;
+  for (const n of ['Cathcart Landing, Youngs River', 'Tarlatt Slough', 'North Fork, Nehalem River', 'Warrenton, Skipanon River, Oreg.', 'Greenhead Slough', 'Quivira Basin, Mission Bay', 'Santa Ana River entrance (inside)', 'Bolinas Lagoon', 'Elkhorn Slough railroad bridge', 'Astoria (Port Docks), Oreg.', 'La Push, Quillayute River', 'Gold Beach, Rogue River', 'Astoria (Youngs Bay), Oreg.', 'Ilwaco, Baker Bay, Wash.', 'Depoe Bay']) assert.equal(x(n), 'closed', n);
+  for (const n of ['Cape Disappointment', 'Columbia River entrance (N. Jetty)', 'North Jetty, Tillamook Bay', 'Point Adams, Oreg.', 'James Island', 'Newport Bay Entrance, Corona del Mar', 'La Jolla (Scripps Institution Wharf)', 'Santa Monica, Municipal Pier', 'Mugu Lagoon (ocean pier)', 'Ocean Beach, outer coast', 'Siuslaw River Entrance', 'Nestucca Bay entrance', 'Westport, Point Chehalis', 'Humboldt Bay (North Spit)']) assert.equal(x(n), 'open', n);
+  for (const n of ['Nehalem', 'Brighton', 'San Francisco', 'Ventura', 'Port San Luis', 'Brookings, Chetco Cove', 'CHARLESTON', 'Makah Bay', 'Santa Cruz, Monterey Bay', 'El Segundo, Santa Monica Bay']) assert.equal(x(n), 'unknown', n);
+  // the pick: never a closed station, nearest otherwise; a spot with only closed stations in range gets none
+  const st = [{name: 'Cathcart Landing, Youngs River', lat: 46.15, lon: -123.88}, {name: 'Point Adams, Oreg.', lat: 46.2, lon: -123.98}, {name: 'Hammond, Oregon', lat: 46.2, lon: -123.95}];
+  assert.equal(pickTideStation(45.976, -123.947, st)!.station.name, 'Hammond, Oregon'); assert.equal(pickTideStation(45.976, -123.947, [st[0]]), null); assert.equal(pickTideStation(45.976, -123.947, st, 10), null, 'beyond 40 km / the given range');
+  // the Phase B review cases, on the real registry: Blackies, Pacific Beach, Sunset Cliffs and Bolinas leave their river/basin/lagoon stations
+  assert.equal(tideStationForSpot(33.598, -117.9)!.station.id, '9410580', 'Blackies: Newport Bay Entrance, not the Santa Ana River (inside)');
+  assert.equal(tideStationForSpot(32.794, -117.256)!.station.id, '9410230', 'Pacific Beach: La Jolla, not Quivira Basin'); assert.equal(tideStationForSpot(32.72, -117.26)!.station.id, '9410230', 'Sunset Cliffs/OB San Diego: La Jolla');
+  assert.equal(tideStationForSpot(37.908, -122.682)!.station.id, '9414275', 'Bolinas: the outer coast Ocean Beach station, not Bolinas Lagoon');
 });

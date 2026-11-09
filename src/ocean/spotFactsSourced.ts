@@ -4251,6 +4251,707 @@ export const guideFacts: GuideFacts[] = [
    "likely to be crowded if working (surf-forecast)"
   ],
   "notes": ""
+ },
+ {
+  "spotId": "cs-seaside-or",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/seaside-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Seaside (The Point)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Seaside-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Seaside (The Point)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW to NNW",
+   "fromDeg": 247.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to N, best W (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 360
+  },
+  "idealSwell": "W (surfnerd); SW (surf-forecast)",
+  "windOffshore": "S (surfnerd); E (surf-forecast); wind exposure SE to SW (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "boulders (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 18
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "sharks (surf-forecast)",
+   "rocks (surf-forecast)",
+   "locals (surf-forecast)",
+   "sometimes crowded (surf-forecast)"
+  ],
+  "notes": "A left point under Tillamook Head that faces north (surfnerd); the Seaside Cove beach is the access."
+ },
+ {
+  "spotId": "cs-short-sands",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/short-sands-oregon",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Short Sands",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Smugglers-Cove-1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Short Sands",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to WNW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "ENE (both); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips / undertow (surf-forecast)",
+   "sharks (surf-forecast)",
+   "a fairly popluar wave that can sometimes get crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-cannon-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cannon-beach-tolovana-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cannon Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cannon-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Cannon Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to N, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 360
+  },
+  "idealSwell": "W (surfnerd); SW (surf-forecast)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+  "tide": "Mid, High (surfnerd)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rarely crowded here (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-pacific-city",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cape-kiwanda-pacific-city",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pacific City (Cape Kiwanda)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pacific-City",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Pacific City (Cape Kiwanda)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SW, WSW to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to NW, best W (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd); some shelter from NNW winds (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "it's sometimes crowded here (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-otter-rock",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/otter-rock",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Otter Rock",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Otter-Rock",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Otter Rock",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd); some shelter from NW winds (surf-forecast)",
+  "tide": "Mid (best at Mid, better on rising) (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "when the surf is up, crowds are likely (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-agate-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/agate-beach-newport",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Agate Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Agate-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Agate Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd); some shelter from N winds (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "sometimes crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-florence",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/florence-south-jetty",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Florence South Jetty",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Florence_South-Jetty",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Florence South Jetty",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (both)",
+  "windOffshore": "E (surfnerd); NE (surf-forecast); wind exposure NE to SE (surfnerd); some shelter from N winds (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "rarely crowded here (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-bastendorff",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/coos-bay-bastendorff-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bastendorff Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Bastendorff-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Bastendorff Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NNE",
+   "fromDeg": 270,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to N, best NW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 360
+  },
+  "idealSwell": "NW (surfnerd); W (surf-forecast)",
+  "windOffshore": "SSE (surfnerd); SE (surf-forecast); wind exposure ESE to SSW (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Best around mid tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "pollution (surf-forecast)",
+   "it very rarely gets crowded here (surf-forecast)"
+  ],
+  "notes": "Inside the Coos Bay south jetty, facing NNW (surfnerd)."
+ },
+ {
+  "spotId": "cs-gold-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/gold-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Gold Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Gold-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Gold Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
+  "idealSwell": "SW (surfnerd); W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd); some shelter from N winds (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "rocks (surf-forecast)",
+   "it's often crowded here (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-brookings",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/brookings-south-jetty",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Brookings",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Brookings",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Brookings",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd); some shelter from NW winds (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "rocks (surf-forecast)",
+   "sometimes crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-westport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/westport-the-cove",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Westport (The Cove)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Westport_The-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Westport (The Cove)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to WNW",
+   "fromDeg": 270,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surfnerd); WSW (surf-forecast)",
+  "windOffshore": "SE (surfnerd); S (surf-forecast); wind exposure E to S (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "pollution (surf-forecast)",
+   "a fairly popluar wave that can sometimes get crowded (surf-forecast)"
+  ],
+  "notes": "Westport has several breaks (The Groins, Jetty Corner, The Cove); this row is The Cove."
+ },
+ {
+  "spotId": "cs-long-beach-wa",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/long-beach-peninsula-washington",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Long Beach (Washington)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Long-Beach-Peninsula",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Long Beach (Washington)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW to N (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 360
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "E (surfnerd); SE (surf-forecast); wind exposure NE to SE (surfnerd)",
+  "tide": "High (best at High, better on rising) (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "the location means that it never gets crowded (surf-forecast)"
+  ],
+  "notes": "Surf-forecast's page covers the whole Long Beach Peninsula (its pin is 25 km north, at Ocean Park); the facts are general for the peninsula."
+ },
+ {
+  "spotId": "cs-la-push",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/la-push",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: La Push (First Beach)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/La-Push",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: La Push (First Beach)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.nps.gov/places/000/first-beach-la-push.htm",
+    "site": "nps.gov",
+    "title": "nps.gov spot guide: La Push (First Beach)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); WSW (surf-forecast)",
+  "windOffshore": "NE (surfnerd); E (surf-forecast); wind exposure N to E (surfnerd)",
+  "tide": "Mid (best at Mid, better on rising) (surfnerd); Best around mid tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 7
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "locals (surf-forecast)",
+   "sharks (surf-forecast)",
+   "it's sometimes crowded here (surf-forecast)",
+   "Quileute Reservation: First Beach is managed by the Quileute Nation; visitors are asked to follow tribal rules and signage and respect residential areas (NPS page quoting the Quileute Nation)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-neah-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hobuck-north-coast",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Neah Bay (Hobuck)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hobuck",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Neah Bay (Hobuck)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.makah.com/recreation",
+    "site": "makah.com",
+    "title": "makah.com spot guide: Neah Bay (Hobuck)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to WNW",
+   "fromDeg": 202.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "NW (surfnerd); W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "sharks (surf-forecast)",
+   "rips (surf-forecast)",
+   "isolation (surf-forecast)",
+   "rarely crowded here (surf-forecast)",
+   "Makah Reservation: a Makah Recreation Permit is required for recreational activities including surfing ($20 per vehicle, valid for the calendar year, displayed in the vehicle); visitors are asked to keep to designated visitor facilities (Makah Tribe, makah.com/recreation)"
+  ],
+  "notes": "Hobuck Beach on the Makah Reservation; surfnerd lists it as Hobuck (North Coast), surf-forecast as Hobuck."
  }
 ];
 export const guideFactsFor = (spotId: string) => guideFacts.find((f) => f.spotId === spotId) ?? null;
