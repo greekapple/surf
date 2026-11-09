@@ -1,0 +1,895 @@
+{
+  "title": "World public ocean-data sources for SWELLO (stream D, 2026-11-09)",
+  "retrievedOn": "2026-11-09",
+  "method": "Every source was requested with curl (User-Agent 'SWELLO data-source research') on 2026-11-09 UTC where a keyless endpoint exists; `checked` lists the exact URL, HTTP status and a sample of the response. Claims that could not be verified by a request are listed under `reported` with the page they came from. No registration was performed and no terms were accepted. Licence quotes are copied from the licence page named.",
+  "statusLegend": {
+    "checked": "a sample request succeeded and the response was inspected",
+    "reported": "documented on a public page but no machine request was possible (key, registration, DNS, JS-only or blocked)",
+    "blocked": "the site refused automated access or was down at check time"
+  },
+  "sources": [
+    {
+      "id": "ndbc-partners",
+      "family": "NDBC (NOAA National Data Buoy Center) and international partner buoys",
+      "noteName": "Src-NDBC-Partners",
+      "type": "wave-buoy",
+      "owner": "NOAA NDBC; partner owners include Environment and Climate Change Canada, UK Met Office, Korea Meteorological Administration, Australian Bureau of Meteorology, PacIOOS, CarICoos, SCRIPPS (CDIP)",
+      "coverage": "Global. activestations.xml lists 1,357 stations; latest_obs.txt had 222 stations reporting WVHT, of which 33 ECCC (Canada), 8 KMA (Korea), 3 UK Met Office, 12 PacIOOS, 2 CarICoos, 42 SCRIPPS/CDIP (incl. Hawaii, Guam, Samoa, Puerto Rico).",
+      "variables": "WVHT, DPD, APD, MWD, WDIR, WSPD, GST, PRES, ATMP, WTMP (standard meteorological file)",
+      "updateRate": "Hourly (10-30 min for some partners); latest_obs.txt is one file with the newest record per station",
+      "endpoints": [
+        "https://www.ndbc.noaa.gov/activestations.xml",
+        "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt",
+        "https://www.ndbc.noaa.gov/data/realtime2/<id>.txt",
+        "https://www.ndbc.noaa.gov/metadata/stationmetadata.xml"
+      ],
+      "format": "XML (station lists), fixed-width text (observations)",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "No CORS headers; SWELLO already proxies NDBC through /api."},
+      "licence": {"text": "US federal public data; keep NOAA attribution, provider quality flags and timestamps (NOAA disclaimer https://www.noaa.gov/disclaimer). Partner-owned stations keep their owner attribution from activestations.xml.", "url": "https://www.noaa.gov/disclaimer", "status": "reported"},
+      "swelloUse": "Already wired for US buoys. The same code path serves Canada (ECCC: Tofino area 46206/46132/46204), Korea (KMA), UK Met Office K-buoys, Hawaii/Guam/Samoa/Puerto Rico (CDIP via SCRIPPS) and Caribbean (CarICoos). Use activestations.xml owner for attribution and latest_obs.txt for a one-request world snapshot.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://www.ndbc.noaa.gov/activestations.xml", "http": 200, "sample": "1,357 <station> elements; attributes id, lat, lon, elev, name, owner, pgm, type, met, currents, waterquality, dart (no waves attribute). Owners counted: NDBC 234, NOS 201, ECCC 45, UK Met Office 14, KMA 8, BoM 6, PacIOOS 25, CarICoos 8, NZ NEMA/GNS/NIWA 12 (DART)."},
+        {"url": "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt", "http": 200, "sample": "817 lines; header '#STN LAT LON YYYY MM DD hh mm WDIR WSPD GST WVHT DPD APD MWD PRES PTDY ATMP WTMP DEWP VIS TIDE'; 222 stations with a WVHT value."},
+        {"url": "https://www.ndbc.noaa.gov/data/realtime2/62029.txt", "http": 200, "sample": "UK Met Office K1 buoy: '2026 11 09 07 00 110 14.9 MM MM MM MM MM 998.2 15.5 14.9 14.2 MM MM MM' (no waves at that hour)."},
+        {"url": "https://www.ndbc.noaa.gov/data/realtime2/62001.txt", "http": 404, "sample": "Not every listed partner id has a realtime2 file (62001, 55012, 22101 returned 404)."}
+      ]
+    },
+    {
+      "id": "cdip-pacific",
+      "family": "CDIP (Coastal Data Information Program) Pacific islands and Caribbean buoys; PacIOOS SWAN/WW3 (ERDDAP)",
+      "noteName": "Src-CDIP-Pacific",
+      "type": "wave-buoy",
+      "owner": "Scripps Institution of Oceanography (CDIP, USACE-funded); PacIOOS (University of Hawaii) for SWAN/WW3 grids",
+      "coverage": "Hawaii (Mokapu 098, Hilo 188, Pearl Harbor 233, Barbers Point 238, Waimea, Pauwela, Hanalei), American Samoa (Aunuu 189, King-Poloa 273), Guam/CNMI, Micronesia (Utwe 276, Pohnpei 178), Marshall Islands (Majuro 163, Arno 282), Palau (219), Puerto Rico; PacIOOS SWAN grids for Oahu, Kauai, Maui, Big Island, Guam, Saipan, Rota, Tutuila, Manua, Palau; WW3 Hawaii and global",
+      "variables": "waveHs, waveTp, waveDp, SST, currents (buoys, 30-min); SWAN: significant height, period, direction, hourly to about 7 days",
+      "updateRate": "Buoys every 30 minutes; SWAN runs daily/twice daily (PacIOOS)",
+      "endpoints": [
+        "https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/realtime/<stn>p1_rt.nc?var=waveHs,waveTp,waveDp&time_start=...&time_end=...&accept=csv",
+        "https://cdip.ucsd.edu/m/stn_table/",
+        "https://pae-paha.pacioos.hawaii.edu/erddap/griddap/swan_oahu",
+        "https://pae-paha.pacioos.hawaii.edu/erddap/tabledap/cdip_wave_agg"
+      ],
+      "format": "NetCDF/CSV via THREDDS NCSS (same shape as SWELLO's 029p1 feed); ERDDAP griddap/tabledap",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "CDIP data and products are freely available for public use, provided that they are not altered in any way. When used for web displays and online resources, please provide a link to the CDIP homepage.", "url": "https://cdip.ucsd.edu/m/documents/data_access.html", "status": "checked"},
+      "swelloUse": "Zero new code for the buoys: `cdipBuoyURL('098p1')` already produces the right request. Hawaii is the first world batch (US data, own time zone); Samoa, Guam and Puerto Rico follow. PacIOOS SWAN is a nearshore model analogue to MOP for Hawaii (an engineering task, griddap point extraction).",
+      "status": "checked",
+      "checked": [
+        {"url": "https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/realtime/098p1_rt.nc?var=waveHs,waveTp,waveDp&time_start=2026-11-08T12:00:00Z&time_end=2026-11-09T12:00:00Z&accept=csv", "http": 200, "sample": "2026-11-08T12:00:00Z,MOKAPU POINT, HI BUOY - 098p1,21.414,-157.681,2.85,12.5,349.3125"},
+        {"url": "https://cdip.ucsd.edu/m/stn_table/", "http": 200, "sample": "Recent observations: KING-POLOA, AMERICAN SAMOA - 273 1.75 m 9.1 s 138; AUNUU - 189 2.56 m 8.3 s; HILO, HI - 188 2.57 m 9.1 s; MOKAPU POINT - 098 2.83 m 12 s; Majuro 163, Palau 219, Pohnpei 178, Utwe 276, Arno 282."},
+        {"url": "https://thredds.cdip.ucsd.edu/thredds/catalog/cdip/realtime/catalog.html", "http": 200, "sample": "80 distinct <stn>p1_rt.nc realtime files."},
+        {"url": "https://pae-paha.pacioos.hawaii.edu/erddap/tabledap/allDatasets.csv?datasetID,title,institution", "http": 200, "sample": "swan_oahu, swan_kauai, swan_maui, swan_bigi, swan_guam, swan_saipan, swan_rota, swan_tutuila, swan_manua, swan_palau, ww3_hawaii, ww3_global, cdip_wave_agg."}
+      ]
+    },
+    {
+      "id": "emodnet-physics",
+      "family": "EMODnet Physics ERDDAP (European Marine Observation and Data Network)",
+      "noteName": "Src-EMODnet-Physics",
+      "type": "aggregator",
+      "owner": "EMODnet Physics (EU DG MARE), operated by ETT/OGS consortium; data owners are the national networks",
+      "coverage": "Global aggregation of in-situ platforms. Platform metadata with waves reporting since 2026-11-01: 750 platforms (USA 182, UK 67, Australia 54, Netherlands 44, Spain 39, Canada 36, France 33, Korea 20, Germany 17, Belgium 16, Norway 15, Japan 13, Iceland 12, Ireland 7, India 7, Portugal 6, Italy 1, Greece 1). Spanish platforms are Puertos del Estado (6100198, 6200082...), French ones Cerema/CANDHIS (6200079 Anglet...), Portuguese ones Instituto Hidrografico (Sines-coast-buoy, Faro-coast-buoy), Irish ones Marine Institute and Met Eireann.",
+      "variables": "Platform metadata: PLATFORMCODE, platformtypecode (MO mooring, DB drifter, TG tide gauge), owner, country, lat/lon, lastdateobservation, p33_waves flag; time series carry VHM0, VTPK, VMDR, VTM02 (Copernicus in-situ conventions)",
+      "updateRate": "Near real time (lastdateobservation within hours for active moorings)",
+      "endpoints": [
+        "https://erddap.emodnet-physics.eu/erddap/tabledap/allDatasets.csv?datasetID,title",
+        "https://erddap.emodnet-physics.eu/erddap/tabledap/EP_PLATFORMS_METADATA_V2.csv?PLATFORMCODE,platformtypecode,dataownercountryname,dataownername,latitude,longitude,lastdateobservation&p33_waves=1&lastdateobservation>=2026-11-01"
+      ],
+      "format": "ERDDAP tabledap (CSV/JSON/NetCDF)",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "804 datasets listed. Per-platform wave time series were NOT found by dataset search on this ERDDAP (searchFor=6100198 returned 404); the metadata table is the verified part. Time series are likely served through the EMODnet Physics data portal or Copernicus INSTAC (registration)."},
+      "licence": {"text": "Not stated on the ERDDAP information page; EMODnet data policy page (emodnet.ec.europa.eu/en/data-policy) returned 404 at check time. Per-dataset licence attributes vary by owner.", "url": "https://erddap.emodnet-physics.eu/erddap/information.html", "status": "reported"},
+      "swelloUse": "The best single registry for 'nearest real buoy' discovery across Europe and beyond (one keyless query gives every wave platform, owner, position and last observation time). Use it to populate nearestSources with distances; fetch readings from the national source or Copernicus once wired.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://erddap.emodnet-physics.eu/erddap/tabledap/allDatasets.csv?datasetID,title", "http": 200, "sample": "804 lines (datasets incl. EP_PLATFORMS_METADATA_V2, INSITU_GLO_PHY_TS_OA_MY_013_052_*, Sustuntech_Xband_Biarritz)."},
+        {"url": "https://erddap.emodnet-physics.eu/erddap/tabledap/EP_PLATFORMS_METADATA_V2.csv?...&p33_waves=1&lastdateobservation>=2026-11-01", "http": 200, "sample": "750 rows; e.g. 6100198,MO,SPAIN,PUERTOS DEL ESTADO,36.57,-2.34; Sines-coast-buoy,MO,PORTUGAL,HYDROGRAPHIC INSTITUTE,37.9211,-8.9289; 6200079,MO,FRANCE,CENTRE FOR STUDIES ON RISKS...,43.403,-1.6766; 55030,MO,AUSTRALIA,DEPARTMENT OF ENVIRONMENT AND...,-26.57,153.18."},
+        {"url": "https://erddap.emodnet-physics.eu/erddap/search/index.csv?searchFor=6100198", "http": 404, "sample": "No per-platform dataset found by search."}
+      ]
+    },
+    {
+      "id": "copernicus-marine",
+      "family": "Copernicus Marine Service: in-situ TAC (INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030) and Global Ocean Waves Analysis and Forecast (GLOBAL_ANALYSISFORECAST_WAV_001_027, MFWAM)",
+      "noteName": "Src-Copernicus-Marine",
+      "type": "model",
+      "owner": "Mercator Ocean International for the EU Copernicus programme; wave model by Meteo-France (MFWAM)",
+      "coverage": "Global. Wave forecast 1/12 degree, 3-hourly, daily analyses and 10-day forecasts; in-situ TAC aggregates national buoys (the same platforms EMODnet lists).",
+      "variables": "Forecast: VHM0, VTPK, VMDR, VTM02, VHM0_WW, VHM0_SW1, VHM0_SW2 with directions and periods (wind wave, primary and secondary swell partitions), Stokes drift. In situ: VHM0, VTPK, VMDR, VTM02, TEMP, PSAL, SLEV.",
+      "updateRate": "Forecast daily (12:00 UTC); in situ NRT hourly files",
+      "endpoints": [
+        "https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_WAV_001_027/description",
+        "https://data.marine.copernicus.eu/product/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/description",
+        "copernicusmarine Python toolbox / S3 (login required)"
+      ],
+      "format": "NetCDF via copernicusmarine toolbox, S3 native files, OPeNDAP/WMTS",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Free account required; products are accessible from the Web Portal with a single password. Not registered during this research."},
+      "licence": {"text": "Copernicus Marine Services and products are free of charge for the User until this date [30 June 2028]. ... ANNEX LICENCE TO USE THE COPERNICUS MARINE SERVICE PRODUCTS ... This Licence Agreement is a legal agreement between the Licensee and MERCATOR OCEAN (Service Level Agreement, November 2023). Attribution to 'E.U. Copernicus Marine Service Information' and the product DOI (10.48670/moi-00017 for the wave forecast) is required.", "url": "https://marine.copernicus.eu/user-corner/service-commitments-and-licence", "status": "checked"},
+      "swelloUse": "The strongest global model alternative to Open-Meteo's combined Hs: 1/12 degree MFWAM with swell partitions, free for commercial use with attribution. Needs a server-side fetch with credentials stored as a secret (never in the client) and a data-honesty review of the licence text before launch.",
+      "status": "reported",
+      "checked": [
+        {"url": "https://marine.copernicus.eu/user-corner/service-commitments-and-licence", "http": 200, "sample": "SLA text: 'All the products are accessible directly from the Web Portal portal: a centralised access with a single password'; 'free of charge for the User until this date'; Annex 'LICENCE TO USE THE COPERNICUS MARINE SERVICE PRODUCTS'."},
+        {"url": "https://data.marine.copernicus.eu/product/GLOBAL_ANALYSISFORECAST_WAV_001_027/description", "http": 200, "sample": "'resolution of 1/12 degree is providing daily analyses and 10 days forecasts for the global ocean sea surface waves ... 3-hourly instantaneous fields ... wind wave, the primary and secondary swell waves ... MFWAM'. DOI 10.48670/moi-00017."}
+      ],
+      "reported": [
+        {"claim": "Downloads require registration", "source": "CMEMS product user manuals (CMEMS-INS-PUM-013-046) and the SLA 'single password' statement"}
+      ]
+    },
+    {
+      "id": "marine-institute-ie",
+      "family": "Marine Institute Ireland ERDDAP (weather buoys, wave buoys, tide gauges, tide predictions, SWAN)",
+      "noteName": "Src-Marine-Institute-Ireland",
+      "type": "wave-buoy",
+      "owner": "Marine Institute (Ireland), with Met Eireann and the Irish National Tide Gauge Network partners",
+      "coverage": "Ireland: weather buoys M2-M6 (hourly waves), Irish Wave Buoy Network (IWaveBNetwork, 30-min), Irish National Tide Gauge Network (5-min observed levels at about 30 ports: Castletownbere, Ballycotton, Aranmore...), tide predictions for about 40 sites (imiTidePrediction), Irish Shelf and Connemara SWAN wave models",
+      "variables": "WaveHeight, WavePeriod, MeanWaveDirection, Hmax, Tp, ThTp, SprTp, SeaTemperature, WindSpeed, WindDirection, Gust, QC_Flag; tide: Water_Level_LAT, Water_Level_OD_Malin; prediction: Water_Level",
+      "updateRate": "Hourly (IWBNetwork), 30-min (IWaveBNetwork30Min), 5-min (tide gauges)",
+      "endpoints": [
+        "https://erddap.marine.ie/erddap/tabledap/IWBNetwork.csv?station_id,longitude,latitude,time,WaveHeight,WavePeriod,MeanWaveDirection,Hmax,SeaTemperature&time>=now-2hours",
+        "https://erddap.marine.ie/erddap/tabledap/IrishNationalTideGaugeNetwork.csv?station_id,time,Water_Level_LAT,Water_Level_OD_Malin&time>=now-1hour",
+        "https://erddap.marine.ie/erddap/tabledap/imiTidePrediction.csv?stationID,time,Water_Level&time>=...&time<=...",
+        "https://erddap.marine.ie/erddap/tabledap/IWaveBNetwork30Min",
+        "https://erddap.marine.ie/erddap/griddap/IMI_IRISH_SHELF_SWAN_WAVE"
+      ],
+      "format": "ERDDAP tabledap/griddap: CSV, JSON, NetCDF",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "license: Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/) (dataset attribute of IWBNetwork, institution Marine Institute)", "url": "https://erddap.marine.ie/erddap/info/IWBNetwork/index.csv", "status": "checked"},
+      "swelloUse": "Ireland gets buoys, observed tide AND predicted tide from one keyless CC BY 4.0 server: the fullest non-US data set found. A small ERDDAP CSV adapter covers all three (and later the SWAN nearshore grid as a MOP analogue).",
+      "status": "checked",
+      "checked": [
+        {"url": "https://erddap.marine.ie/erddap/tabledap/IWBNetwork.csv?...&time>=now-2hours", "http": 200, "sample": "M3,-10.548261,51.215956,2026-11-09T06:00:00Z,3.047,5.859,129.0,5.781,13.224; M6,-15.88135,53.07482,2026-11-09T06:00:00Z,3.867,6.914,132.0,6.25,13.14"},
+        {"url": "https://erddap.marine.ie/erddap/tabledap/IrishNationalTideGaugeNetwork.csv?...&time>=now-1hour", "http": 200, "sample": "Castletownbere Port,2026-11-09T07:25:00Z,2.158,0.083; Ballycotton Harbour,2026-11-09T07:25:00Z,3.039,0.579"},
+        {"url": "https://erddap.marine.ie/erddap/tabledap/imiTidePrediction.csv?stationID,time,Water_Level&time>=2026-11-09T06:00:00Z&time<=2026-11-09T07:00:00Z", "http": 200, "sample": "Aranmore,2026-11-09T07:00:00Z,3.32; Arklow,2026-11-09T07:00:00Z,1.24"},
+        {"url": "https://erddap.marine.ie/erddap/tabledap/allDatasets.csv?datasetID,title&title=~\".*(Wave|wave|Tide|tide|Buoy).*\"", "http": 200, "sample": "IWaveBNetwork, IWaveBNetwork30Min, IWaveBNetwork_spectral, IWBNetwork, IrishNationalTideGaugeNetwork, imiTidePrediction, IMI_TidePrediction_HighLow, IMI_IRISH_SHELF_SWAN_WAVE, IMI_CONNEMARA_SWAN_WAVE"}
+      ]
+    },
+    {
+      "id": "met-eireann",
+      "family": "Met Eireann observations (prodapi.metweb.ie)",
+      "noteName": "Src-Met-Eireann",
+      "type": "wind",
+      "owner": "Met Eireann (Ireland)",
+      "coverage": "Irish synoptic stations (Valentia, Belmullet, Malin Head, Roches Point, Sherkin Island...)",
+      "variables": "windSpeed (km/h), windGust, windDirection (deg), cardinalWindDirection, temperature, humidity, rainfall, pressure, reportTime",
+      "updateRate": "Hourly",
+      "endpoints": ["https://prodapi.metweb.ie/observations/<station>/today"],
+      "format": "JSON",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "Undocumented endpoint used by met.ie; station list endpoint not found (404)."},
+      "licence": {"text": "data.gov.ie lists Met Eireann datasets under 'Creative Commons Attribution 4.0' (iREPS, reanalysis, climate averages) and 'Met Eireann Custom Open Data Licence' (forecast API, live text). Which applies to prodapi observations is not stated.", "url": "https://data.gov.ie/api/3/action/package_search?q=Met+%C3%89ireann+observations", "status": "reported"},
+      "swelloUse": "Coastal wind context for Irish spots; low priority because Open-Meteo wind is global and the licence of this endpoint is unclear.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://prodapi.metweb.ie/observations/valentia/today", "http": 200, "sample": "{\"name\":\"Valentia\",\"temperature\":\"12\",\"windSpeed\":\"15\",\"windGust\":\"-\",\"cardinalWindDirection\":\"E\",\"windDirection\":90,...,\"reportTime\":\"07:00\"}"}
+      ]
+    },
+    {
+      "id": "puertos-del-estado",
+      "family": "Puertos del Estado (Spain): Portus real-time buoys and REDMAR tide gauges; OPeNDAP/THREDDS",
+      "noteName": "Src-Puertos-del-Estado",
+      "type": "wave-buoy",
+      "owner": "Puertos del Estado (Spanish state ports authority)",
+      "coverage": "Spain incl. Canary Islands and Balearics: deep-water buoy network (REDEXT) and coastal network (REDCOS); REDMAR tide gauges at about 40 ports (Bilbao, Santander, Gijon, La Coruna, Vigo, Huelva, Tarifa, Las Palmas, Tenerife, Arrecife, Fuerteventura, La Palma, El Hierro, La Gomera...). EMODnet lists 39 PdE wave platforms reporting in November 2026 (WMO ids 61xxxxx/62xxxxx).",
+      "variables": "Hs, Tp, Tm, direction, wind, SST, currents (buoys); sea level (tide gauges); forecast fields (wave models) on THREDDS",
+      "updateRate": "Buoys hourly; tide gauges every minute; forecasts twice daily (per Puertos del Estado FAQ and iMar app page)",
+      "endpoints": [
+        "https://portus.puertos.es/ (Angular app; backend portussvr/api exists but request shape undocumented: GET 405, POST 400)",
+        "https://opendap.puertos.es/thredds/catalog.html (Medidas: Mareografos, Nivel del Mar per port; Radares; Modelos; wave_coast_s01 = Gijon hourly HW-*.nc)",
+        "https://bancodatos.puertos.es/BD/peticiones/User_Guide_Downloadportus.pdf"
+      ],
+      "format": "NetCDF via THREDDS/OPeNDAP (tide gauges, models); Portus web app and widgets for buoys",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "THREDDS is open; Portus historical download is free online but the buoy real-time JSON API is unpublished. No documented licence for redistribution."},
+      "licence": {"text": "Puertos del Estado only authorises the use of the data for the specific purpose of the download ... under no circumstances is the transfer of the data to third parties permitted ... the source, Puertos del Estado, must always be duly accredited.", "url": "https://www.puertos.es/en/services/oceanography/faqs", "status": "checked"},
+      "swelloUse": "Spain and the Canaries have the densest coastal buoy network in Europe, but the FAQ forbids transfer to third parties, so showing PdE readings in SWELLO needs written permission (or use the same buoys through Copernicus in-situ TAC under the Copernicus licence). Tide gauges: REDMAR levels are also redistributed by IOC Sea Level Monitoring (52 ESP stations) and by Copernicus. Record positions for nearestSources now; wire later.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://opendap.puertos.es/thredds/catalog.html", "http": 200, "sample": "Catalog: Medidas > Mareografos > Nivel del Mar > Algeciras, Alcudia, Almeria, Arrecife, Aviles2, Barcelona, Bilbao, Bonanza, ... Las Palmas, ... Santander, ... Tenerife, Valencia, Vigo, Villagarcia; Radares; Satelite; Modelos."},
+        {"url": "https://opendap.puertos.es/thredds/catalog/wave_coast_s01/HOURLY/catalog.html", "http": 200, "sample": "Gijon: HW-2026100900-B2026100900-HC.nc 164.1 Kbytes 2026-10-09T04:05:51Z ..."},
+        {"url": "https://portus.puertos.es/portussvr/api/RTData/station/2242?locale=en", "http": 405, "sample": "GET -> 405 Method Not Allowed; POST {} -> 400 Bad Request (API exists, shape undocumented)."},
+        {"url": "https://www.puertos.es/en/services/oceanography/faqs", "http": 200, "sample": "'This online service is available free of charge in the Historical Data section'; 'Deep-water and coastal buoys provide hourly data'; terms quoted in licence."}
+      ]
+    },
+    {
+      "id": "instituto-hidrografico-pt",
+      "family": "Instituto Hidrografico (Portugal): wave buoys and tide gauges via OGC API Features",
+      "noteName": "Src-Instituto-Hidrografico-PT",
+      "type": "wave-buoy",
+      "owner": "Instituto Hidrografico, Portuguese Navy",
+      "coverage": "Mainland Portugal (Leixoes, Nazare/MONICAN, Sines, Faro coastal buoys), Madeira, Azores; national tide gauge network",
+      "variables": "Hs, Hmax, Tp, Tz, direction, SST (Datawell Waverider and Fugro Wavescan buoys); tide gauge 10-s observations (tide_obs_data_nrt_l1_sec), station list (tide_obs_stations_nrt)",
+      "updateRate": "Buoys 30-min to hourly (reported); tide gauges near real time",
+      "endpoints": [
+        "https://api-features.hidrografico.pt/collections?f=json",
+        "https://api-features.hidrografico.pt/collections/buoys_Fugro_oceanor_wavescan/items?f=json",
+        "https://api-features.hidrografico.pt/collections/tide_obs_data_nrt_l1_sec",
+        "https://api-features.hidrografico.pt/collections/tide_obs_stations_nrt"
+      ],
+      "format": "OGC API Features (GeoJSON)",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "The hostname api-features.hidrografico.pt did not resolve from two networks at check time (curl: 'Could not resolve host'; WebFetch: ENOTFOUND). www.hidrografico.pt/boias returned 404. Treat as reported until reachable."},
+      "licence": {"text": "Not retrieved (host unreachable). SNIG metadata records exist for 'Boias Datawell Waverider' and 'Boias Multiparametricas' but licence text was not read.", "url": "https://snig.dgterritorio.gov.pt/rndg/srv/api/records/0205ed82-a085-4432-98f5-ff0326c4d4de", "status": "reported"},
+      "swelloUse": "Portugal's own buoys (Nazare, Sines, Faro) and tide gauges would be the accuracy source for Portuguese spots once the API resolves; meanwhile EMODnet lists IH's Sines-coast-buoy and Faro-coast-buoy as reporting, and IOC carries Cascais/Lagos/Ponta Delgada sea level.",
+      "status": "reported",
+      "checked": [
+        {"url": "https://api-features.hidrografico.pt/collections?f=json", "http": 0, "sample": "curl: Could not resolve host; WebFetch: getaddrinfo ENOTFOUND"},
+        {"url": "https://www.hidrografico.pt/boias", "http": 404, "sample": "Pagina nao encontrada"}
+      ],
+      "reported": [
+        {"claim": "OGC API Features service with buoy collections (buoys_Fugro_oceanor_wavescan) and tide collections (tide_obs_data_nrt_l1_sec, tide_obs_stations_nrt), JSON via f=json", "source": "search results listing api-features.hidrografico.pt collection pages, 2026-11-09"}
+      ]
+    },
+    {
+      "id": "ipma",
+      "family": "IPMA open-data API (Portugal): station observations and sea-state forecast",
+      "noteName": "Src-IPMA",
+      "type": "wind",
+      "owner": "Instituto Portugues do Mar e da Atmosfera",
+      "coverage": "Portugal mainland, Madeira, Azores: all IPMA automatic stations (hourly), daily sea forecast for coastal zones",
+      "variables": "intensidadeVento (m/s), intensidadeVentoKM, idDireccVento (sector), temperatura, humidade, pressao, precAcumulada; sea forecast: waveHighMin/Max, wavePeriodMin/Max, predWaveDir, totalSeaMin/Max, sstMin/Max per globalIdLocal",
+      "updateRate": "Observations hourly; sea forecast daily (day0..day2)",
+      "endpoints": [
+        "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json",
+        "https://api.ipma.pt/open-data/forecast/oceanography/daily/hp-daily-sea-forecast-day0.json"
+      ],
+      "format": "JSON",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "IPMA asks users to email webmaster@ipma.pt describing the use."},
+      "licence": {"text": "O Utilizador deve referir, sempre, a fonte de informacao. ... desde que dessa utilizacao nao decorram finalidades lucrativas ou ofensivas (free use only for non-profit purposes; source must always be cited; IPMA logo and link expected).", "url": "https://api.ipma.pt/", "status": "checked"},
+      "swelloUse": "Keyless hourly coastal wind for Portuguese spots (3 h ahead of Open-Meteo's model). Non-commercial clause: fine for the private phase, blocks a paid launch without an agreement.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://api.ipma.pt/open-data/observation/meteorology/stations/observations.json", "http": 200, "sample": "{\"2026-11-08T16:00\": {\"1210881\": {\"intensidadeVentoKM\": 6.1, \"temperatura\": 19.6, \"idDireccVento\": 3, \"intensidadeVento\": 1.7, \"humidade\": 93.0, \"pressao\": 1012.9}, ..."},
+        {"url": "https://api.ipma.pt/open-data/forecast/oceanography/daily/hp-daily-sea-forecast-day0.json", "http": 200, "sample": "{\"owner\": \"IPMA\", \"forecastDate\": \"2026-11-09\", \"data\": [{\"wavePeriodMin\": \"6.9\", \"globalIdLocal\": 2320126, \"totalSeaMax\": 2.0, \"waveHighMax\": \"2.1\", \"latitude\": \"33.2500\", \"predWaveDir\": \"W\", ...}"}
+      ]
+    },
+    {
+      "id": "candhis",
+      "family": "CANDHIS (Cerema, France): Centre d'Archivage National de Donnees de Houle In Situ",
+      "noteName": "Src-CANDHIS",
+      "type": "wave-buoy",
+      "owner": "Cerema (French public agency), with partners (ports, SHOM, Meteo-France)",
+      "coverage": "French metropolitan and overseas coasts, about 30 stations; campaign list includes Leucate, Port La Nouvelle, Le Planier, Royan, Les Pierres Noires, Ile de Batz, Bonifacio, Anglet (62000079 in EMODnet) [TR] = temps reel",
+      "variables": "Hs (H1/3, Hm0), Hmax, Tp, Tz, direction, spread, spectra",
+      "updateRate": "30 minutes (real-time stations)",
+      "endpoints": [
+        "https://candhis.cerema.fr/_public_/campagne.php (campaign list with [TR] flags)",
+        "https://candhis.cerema.fr/doc/04_Candhis_API_v1_Utilisateur.pdf (API v1 user guide, 24 pages, 2025-05-21)",
+        "https://candhis.cerema.fr/doc/01_Utilisation.fr.pdf (conditions of use)"
+      ],
+      "format": "Web pages; API v1 documented in PDF (not readable here: no PDF text tool); CSV archives",
+      "access": {"free": true, "keyless": null, "registration": null, "notes": "An 'API Candhis' menu entry and a 24-page API v1 user guide exist; whether a key is needed could not be read (PDF text extraction unavailable). Historical downloads reportedly need an account."},
+      "licence": {"text": "Homepage links the data terms to Etalab 'licence-ouverte-open-licence'; a 2021 Cerema conditions document states CANDHIS data are diffused under the Licence Ouverte Etalab.", "url": "https://candhis.cerema.fr/", "status": "reported"},
+      "swelloUse": "France's coastal buoys under an open licence: Anglet (Biarritz/Hossegor), Les Pierres Noires (Brittany), Royan. Next step: read the API PDF with a PDF tool and test one request; until then the stations are catalogued with positions from EMODnet.",
+      "status": "reported",
+      "checked": [
+        {"url": "https://candhis.cerema.fr/", "http": 200, "sample": "Menu: Accueil, Carte, Campagnes, Documentations, Conditions d'utilisation, Detail des parametres, Publications, API Candhis; link text 'licence-ouverte-open-licence ... Etalab'."},
+        {"url": "https://candhis.cerema.fr/_public_/campagne.php", "http": 200, "sample": "[TR] : temps reel ... 01101 - Leucate [TR] 01102 - Port La Nouvelle (SEMOP) [TR] 01305 - Le Planier [TR] 01705 - Royan [TR] 02911 - Les Pierres Noires [TR] 02922 - Ile de Batz [TR] 02A01 - Bonifacio [TR]"},
+        {"url": "https://candhis.cerema.fr/doc/04_Candhis_API_v1_Utilisateur.pdf", "http": 200, "sample": "PDF 1.7, 24 pages, OnlyOffice, modified 2025-05-21 (text not extracted)."}
+      ]
+    },
+    {
+      "id": "shom",
+      "family": "SHOM (France): tide predictions (maree.shom.fr, SUP Maree / SAPM APIs) and REFMAR sea-level observations",
+      "noteName": "Src-SHOM",
+      "type": "tide",
+      "owner": "Service hydrographique et oceanographique de la Marine (SHOM)",
+      "coverage": "France, overseas territories (incl. French Polynesia, Reunion) and about 1,000 ports worldwide (maree.shom.fr); REFMAR tide gauges",
+      "variables": "Tide heights and high/low times; observed water levels (REFMAR)",
+      "updateRate": "Predictions yearly; REFMAR observations 1-10 min",
+      "endpoints": [
+        "https://maree.shom.fr/ (free web tide tables, no API)",
+        "https://services.data.shom.fr/support/en/node/4 (SUP Maree and SAPM tide prediction APIs: paid subscription key)",
+        "https://data.shom.fr/donnees/refmar (REFMAR observations: Licence Ouverte 2.0, manual download or subscription feed)"
+      ],
+      "format": "Web; REST API with key; REFMAR CSV/NetCDF",
+      "access": {"free": false, "keyless": false, "registration": true, "notes": "Prediction APIs 'only available to authenticated users with a valid subscription key which can be purchased on the Shom store'. Free items are web thumbnails (vignettes). REFMAR observations are open (Licence Ouverte 2.0) but behind the data.shom.fr portal."},
+      "licence": {"text": "Tide prediction API: commercial subscription (SUP Maree / SAPM). REFMAR observations: Licence Ouverte 2.0 (per Theia/DataTerra CANDHIS-REFMAR workshop slides).", "url": "https://services.data.shom.fr/support/en/node/4", "status": "reported"},
+      "swelloUse": "No free machine-readable tide predictions for France. Options: show 'tide not available', use IOC observed levels for the 158 French IOC stations, or buy SUP Maree (a money decision for the user).",
+      "status": "reported",
+      "checked": [
+        {"url": "https://maree.shom.fr/", "http": 200, "sample": "'Horaires de marees gratuits du SHOM' (JS app, no API)."},
+        {"url": "https://services.data.shom.fr/support/fr", "http": 200, "sample": "Links: /support/fr/services/refmar, https://maree.shom.fr/, https://maree.shom.fr/vignette"}
+      ],
+      "reported": [
+        {"claim": "The prediction services are only available to authenticated users with a valid subscription key which can be purchased on the Shom store: SUP Maree and SAPM", "source": "https://services.data.shom.fr/support/en/node/4"}
+      ]
+    },
+    {
+      "id": "cefas-wavenet",
+      "family": "Cefas WaveNet (UK strategic wave monitoring network)",
+      "noteName": "Src-Cefas-WaveNet",
+      "type": "wave-buoy",
+      "owner": "Cefas (Centre for Environment, Fisheries and Aquaculture Science), Defra",
+      "coverage": "UK waters: Cefas Datawell Directional Waveriders plus third-party feeds (CCO, Met Office, oil and gas); EMODnet lists 67 UK wave platforms incl. Cefas 6200047",
+      "variables": "Hs, Tp, Tz, direction, spread, SST; spectra",
+      "updateRate": "30 minutes (telemetry); 48-hour NRT feed product (DOI 10.14466/CefasDataHub.142)",
+      "endpoints": [
+        "https://wavenet.cefas.co.uk/ (Angular map app; no JSON endpoint found at /Map/GetStations or /api/stations)",
+        "https://data.cefas.co.uk/#/View/21682 (48-hour NRT feed, Cefas Data Hub, login)",
+        "https://www.cefas.co.uk/data-and-publications/wavenet/data-download-procedure/"
+      ],
+      "format": "CSV/TXT downloads after login; zip extracts",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Download procedure: 'Make sure you are logged in' then 'Manage data downloads'. Some third-party data are visualisation-only."},
+      "licence": {"text": "Rights: Open Government Licence (WaveNet near real-time data feed - from the past 48 hours, DOI 10.14466/CefasDataHub.142, Hull et al 2023).", "url": "https://www.cefas.co.uk/data-and-publications/dois/wavenet-near-real-time-data-feed-from-the-past-48-hours", "status": "checked"},
+      "swelloUse": "OGL data but behind a login: a server-side fetch with a registered account could ingest the 48-hour feed. The CCO API (below) covers the south and east coast surf buoys with a documented API; WaveNet adds the Celtic Sea and North Sea.",
+      "status": "reported",
+      "checked": [
+        {"url": "https://www.cefas.co.uk/data-and-publications/dois/wavenet-near-real-time-data-feed-from-the-past-48-hours", "http": 200, "sample": "'telemetry ... from the Cefas operated Directional Wave Riders (DWR) within UK waters over the past 48 hours ... have not been fully quality checked' ; 'Rights List Open Government Licence' ; 'Data Links https://data.cefas.co.uk/#/View/21682'"},
+        {"url": "https://wavenet.cefas.co.uk/Map/GetStations", "http": 200, "sample": "Returned the Angular index.html (no JSON)."}
+      ]
+    },
+    {
+      "id": "cco",
+      "family": "Channel Coastal Observatory / National Network of Regional Coastal Monitoring Programmes (NNRCMP) real-time API",
+      "noteName": "Src-Channel-Coastal-Observatory",
+      "type": "wave-buoy",
+      "owner": "NNRCMP, hosted by the Channel Coastal Observatory (New Forest District Council / University of Southampton)",
+      "coverage": "England and Wales coast: about 50 nearshore Waverider buoys (Perranporth, Porthleven, Looe Bay, Start Bay, Chesil, Boscombe, Hayling, Penarth...), tide gauges and met stations",
+      "variables": "Waves: Hs, Hmax, Tp, Tz, direction, spread, SST (30-min; Penarth 10-min); tides and met every 10 min; tide predictions",
+      "updateRate": "30 min waves, 10 min tides and met",
+      "endpoints": [
+        "https://coastalmonitoring.org/observations/waves/latest?key=YOUR_API_KEY",
+        "https://www.coastalmonitoring.org/ccoresources/api/ (documentation, Swagger test harness)"
+      ],
+      "format": "JSON",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Free API key issued per domain; Referer header must match the key's domain. Without a key: 401 'Missing or unknown API key'. Request no more often than the recording interval; cache responses."},
+      "licence": {"text": "Data from the NNRCMP is made freely available under the terms of the Open Government Licence. Web pages and other outputs which use real-time NNRCMP data must include the following attribution: \"Real time data displayed on this page are from the National Network of Regional Coastal Monitoring Programmes, made freely available under the terms of the Open Government Licence. Please note that data are not quality-controlled in real-time.\"", "url": "https://www.coastalmonitoring.org/ccoresources/api/", "status": "checked"},
+      "swelloUse": "The best UK surf-buoy source: nearshore buoys off the actual surf beaches (Perranporth, Porthleven, Boscombe) with a documented JSON API, OGL, free key. Needs the key registered for swello's domain and the exact attribution string in the UI.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://www.coastalmonitoring.org/ccoresources/api/", "http": 200, "sample": "'CCO Real-Time Data API ... 1. Terms of use ... Open Government Licence ... 2. Authentication An API key must be provided with every API request, either as an HTTP GET variable, key=YOUR_API_KEY, or in the custom request header X-API-Key ... The Referer header must be a web address on the domain the key is issued for ... every 30 minutes for waves, except Penarth at 10 minutes, and every 10 minutes for tides and met.'"},
+        {"url": "https://coastalmonitoring.org/observations/waves/latest", "http": 401, "sample": "Missing or unknown API key"}
+      ]
+    },
+    {
+      "id": "uk-ea-tide-gauges",
+      "family": "UK Environment Agency flood-monitoring API: tide gauges",
+      "noteName": "Src-UK-EA-Tide-Gauges",
+      "type": "tide",
+      "owner": "Environment Agency (England)",
+      "coverage": "88 tide-gauge stations in England (type=TideGauge)",
+      "variables": "Observed tidal level (mAOD or mASD), 15-min readings",
+      "updateRate": "Readings every 15 minutes, published about hourly (more often during flood risk)",
+      "endpoints": [
+        "https://environment.data.gov.uk/flood-monitoring/id/stations?type=TideGauge",
+        "https://environment.data.gov.uk/flood-monitoring/id/stations/<id>/readings?_sorted&_limit=2"
+      ],
+      "format": "JSON, CSV, RDF",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "These APIs are provided as open data under the Open Government Licence with no requirement for registration. If you make use of this data please acknowledge this with the following attribution statement: this uses Environment Agency flood and river level data from the real-time data API (Beta)", "url": "https://environment.data.gov.uk/flood-monitoring/doc/reference", "status": "checked"},
+      "swelloUse": "Observed tide (not predictions) for England: a keyless OGL fallback for 'current tide state' where UKHO predictions need a subscription.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://environment.data.gov.uk/flood-monitoring/id/stations?type=TideGauge", "http": 200, "sample": "88 items; meta.licence http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"},
+        {"url": "https://environment.data.gov.uk/flood-monitoring/id/stations/E72124/readings?_sorted&_limit=2", "http": 200, "sample": "JSON readings with meta.publisher Environment Agency (11 s response)."}
+      ]
+    },
+    {
+      "id": "ukho-tidal-api",
+      "family": "ADMIRALTY UK Tidal API (UK Hydrographic Office)",
+      "noteName": "Src-UKHO-Tidal-API",
+      "type": "tide",
+      "owner": "UK Hydrographic Office",
+      "coverage": "607 UK tidal stations (Standard and Secondary ports); Irish waters added 2021",
+      "variables": "Tidal events (high/low water times and heights)",
+      "updateRate": "Predictions; Discovery tier returns current plus 6 days",
+      "endpoints": ["https://developer.admiralty.co.uk/product#product=uk-tidal-api", "https://api.gov.uk/ukho/uk-tidal-api-discovery/"],
+      "format": "REST JSON with subscription key",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Discovery: free 1-year subscription; Foundation: 20 calls/s, 20,000 calls/month, GBP 120/yr; portal returned 503 at check time."},
+      "licence": {"text": "Discovery provides a free 1-year subscription to access the current plus 6 days' worth of tidal events for 607 tidal stations around the United Kingdom. Usage licence: subscription required (terms accepted at subscription).", "url": "https://api.gov.uk/ukho/uk-tidal-api-discovery/", "status": "checked"},
+      "swelloUse": "Only authoritative UK tide predictions in machine form. Free Discovery tier suffices for a week-ahead tide curve per UK spot if calls are cached per station per day. Terms must be read when registering (not done).",
+      "status": "reported",
+      "checked": [
+        {"url": "https://api.gov.uk/ukho/uk-tidal-api-discovery/", "http": 200, "sample": "'Discovery provides a free 1-year subscription to access the current plus 6 days' worth of tidal events for 607 tidal stations around the United Kingdom. Usage licence subscription required'"},
+        {"url": "https://admiraltyapi.portal.azure-api.net/", "http": 503, "sample": "Service Unavailable"}
+      ]
+    },
+    {
+      "id": "met-office-datahub",
+      "family": "Met Office Weather DataHub (UK) site-specific and observations APIs",
+      "noteName": "Src-Met-Office-DataHub",
+      "type": "wind",
+      "owner": "UK Met Office",
+      "coverage": "Global site-specific forecasts; UK observations",
+      "variables": "Wind speed, direction, gust, temperature, pressure, weather codes (hourly, 3-hourly, daily)",
+      "updateRate": "Hourly",
+      "endpoints": ["https://datahub.metoffice.gov.uk/", "https://datahub.metoffice.gov.uk/pricing/site-specific"],
+      "format": "REST JSON with API key",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Free plan 'Up to 360 calls per day' (pricing page); paid tiers from GBP 8/month for 900 calls/day. Terms and Conditions accepted on subscription."},
+      "licence": {"text": "By ordering products from the Met Office Weather DataHub and clicking 'confirm', you are agreeing to be bound by the Met Office Weather DataHub Terms and Conditions (site text). Free plan: up to 360 calls per day (pricing page, reported).", "url": "https://datahub.metoffice.gov.uk/pricing/site-specific", "status": "reported"},
+      "swelloUse": "Low priority: Open-Meteo already serves UK wind; a Met Office key adds UKV-model wind for UK spots at 360 free calls/day (about 15 spots at hourly refresh).",
+      "status": "reported",
+      "checked": [{"url": "https://datahub.metoffice.gov.uk/", "http": 200, "sample": "Portal text mentions subscriptions, billing and Terms and Conditions; no data without key."}]
+    },
+    {
+      "id": "aodn-wave-buoys",
+      "family": "AODN/IMOS Australian wave buoys (Manly Hydraulics Lab NSW, Queensland DES, WA Department of Transport, BoM, IMOS, Deakin, UWA, SARDI, Gippsland Ports)",
+      "noteName": "Src-AODN-Wave-Buoys",
+      "type": "wave-buoy",
+      "owner": "Australian Ocean Data Network (IMOS); data owners per folder",
+      "coverage": "Australia-wide, about 70 buoys. NSW (MHL): Byron Bay, Coffs Harbour, Crowdy Head, Sydney, Port Kembla, Batemans Bay, Eden. Queensland: Tweed Heads, Gold Coast, Palm Beach, Brisbane, North Moreton Bay, Caloundra, Mooloolaba, Bundaberg, Wide Bay, Gladstone, Emu Park, Hay Point, Mackay, Townsville, Cairns... WA DoT: Esperance, Albany, Cape Naturaliste, Mandurah, Cottesloe, Rottnest Island, Jurien. BoM: Cape du Couedic (SA), Cape Sorell (TAS). IMOS and others: Apollo Bay, Cape Bridgewater, Torbay West, Hillarys, Bunbury, Augusta, Robe, Storm Bay, Wilsons Prom, Collaroy, Bengello, Tathra, Wooli...",
+      "variables": "WHTH (Hs), WMXH, WPPE (Tp), WPMH, WPDI (peak direction), WSSH, SST; NetCDF monthly realtime files",
+      "updateRate": "Hourly (MHL files hourly; BoM CSV hourly at :05; IMOS/DPE/UWA/Deakin at :40; Pilbara Ports at :30)",
+      "endpoints": [
+        "https://thredds.aodn.org.au/thredds/catalog/IMOS/COASTAL-WAVE-BUOYS/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/catalog.html",
+        "https://thredds.aodn.org.au/thredds/catalog/Department_of_Planning_and_Environment-New_South_Wales/Manly_Hydraulics_Laboratory/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/catalog.html",
+        "https://thredds.aodn.org.au/thredds/catalog/Department_of_Environment_and_Science-Queensland/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/catalog.html",
+        "https://thredds.aodn.org.au/thredds/catalog/Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/catalog.html",
+        "https://thredds.aodn.org.au/thredds/ncss/point/.../SYDNEY/2026/MHL_20261101_SYDNEY_RT_WAVE-PARAMETERS_monthly.nc?var=WHTH,WPPE,WPDI&accept=csv&time_start=...&time_end=...",
+        "s3://aodn-wave-buoy-realtime-nonqc (Parquet, AWS Open Data registry)"
+      ],
+      "format": "NetCDF via THREDDS (NCSS CSV works), Parquet on S3, WFS",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "License http://creativecommons.org/licenses/by/4.0/ (Registry of Open Data on AWS, 'Wave buoys observations - Real time', managed by AODN; contributors: Manly Hydraulics Laboratory, Bureau of Meteorology, WA Department of Transport (DOT), Queensland DES, IMOS, Gippsland Ports, NSW Nearshore Wave Data Program)", "url": "https://registry.opendata.aws/aodn_wave_buoy_realtime_nonqc/", "status": "checked"},
+      "swelloUse": "One THREDDS NCSS adapter (same pattern as CDIP) gives every Australian surf coast a real buoy under CC BY 4.0: Sydney/Northern Beaches, Gold Coast, Margaret River (Cape Naturaliste), Perth (Rottnest/Cottesloe), Bells Beach (Cape Bridgewater/Apollo Bay). Highest accuracy gain per engineering hour outside the US.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://thredds.aodn.org.au/thredds/ncss/point/Department_of_Planning_and_Environment-New_South_Wales/Manly_Hydraulics_Laboratory/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/SYDNEY/2026/MHL_20261101_SYDNEY_RT_WAVE-PARAMETERS_monthly.nc?var=WHTH,WPPE,WPDI&accept=csv&time_start=2026-11-08T00:00:00Z&time_end=2026-11-10T00:00:00Z", "http": 200, "sample": "2026-11-08T00:00:00Z,-33.750,151.400,2.98,10.3,172.0 ; 2026-11-08T01:00:00Z,-33.750,151.400,3.05,8.9,180.0"},
+        {"url": "https://thredds.aodn.org.au/thredds/catalog/IMOS/COASTAL-WAVE-BUOYS/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/catalog.html", "http": 200, "sample": "APOLLO-BAY, AUGUSTA-OFFSHORE, BENGELLO, BRIGHTON, BUNBURY, CAPE-BRIDGEWATER, CEDUNA, COLLAROY, CORAL-BAY, HILLARYS, KARUMBA, OCEAN-BEACH, ROBE, SHARK-BAY, STORM-BAY, TANTABIDDI, TATHRA, TORBAY-WEST, WILSONS-PROM, WOOLI ..."},
+        {"url": "https://thredds.aodn.org.au/thredds/catalog/Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/catalog.html", "http": 200, "sample": "ALBANY, CAPE-NATURALISTE, COTTESLOE, ESPERANCE, JURIEN, MANDURAH, ROTTNEST-ISLAND"},
+        {"url": "https://registry.opendata.aws/aodn_wave_buoy_realtime_nonqc/", "http": 200, "sample": "'License http://creativecommons.org/licenses/by/4.0/' ; update cadence per provider quoted above."}
+      ]
+    },
+    {
+      "id": "queensland-waves",
+      "family": "Queensland Coastal Data System near-real-time wave and storm-tide CSV (data.qld.gov.au)",
+      "noteName": "Src-Queensland-Waves",
+      "type": "wave-buoy",
+      "owner": "Queensland Department of Environment, Science and Innovation (DES)",
+      "coverage": "Queensland coast: Tweed Heads, Gold Coast, Palm Beach, Brisbane, Caloundra, Mooloolaba, Bundaberg, Gladstone, Emu Park, Hay Point, Mackay, Townsville, Cairns, Albatross Bay...; storm-tide gauges (Abell Point, ...)",
+      "variables": "Hs, Hmax, Tp, Tz, SST, Direction, Current Speed/Direction (30-min); tide: Water Level, Prediction, Residual (10-min)",
+      "updateRate": "Hourly refresh of a rolling 7-day file",
+      "endpoints": [
+        "https://apps.des.qld.gov.au/data-sets/waves/wave-7dayopdata.csv",
+        "https://apps.des.qld.gov.au/data-sets/storm-tides/tide-7dayopdata.csv",
+        "https://www.data.qld.gov.au/api/3/action/package_search?q=wave+monitoring+near+real+time"
+      ],
+      "format": "CSV (1.2 MB waves, 4.8 MB tides)",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/) (CKAN license_title for coastal-data-system-near-real-time-wave-data and -storm-tide-data)", "url": "https://www.data.qld.gov.au/dataset/coastal-data-system-near-real-time-wave-data", "status": "checked"},
+      "swelloUse": "Simplest wave-plus-tide source in the world: two CSVs, CC BY 4.0, keyless. Gold Coast/Snapper Rocks, Noosa (Caloundra/Mooloolaba) and Tweed get a buoy and an observed-plus-predicted tide with a trivial parser.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://apps.des.qld.gov.au/data-sets/waves/wave-7dayopdata.csv", "http": 200, "sample": "Wave Data provided @ 16:10hrs on 09-11-2026 / Site, SiteNumber, Seconds, DateTime, Latitude, Longitude, Hs, Hmax, Tp, Tz, SST, Direction, Current Speed, Current Direction / Caloundra,54,1793541600,2026-11-02T00:00:00,-26.84756,153.15467,0.773,1.260,6.250,4.211,22.80,92.80,-99.90,-99.90 (9,869 lines)"},
+        {"url": "https://apps.des.qld.gov.au/data-sets/storm-tides/tide-7dayopdata.csv", "http": 200, "sample": "Site, Seconds, DateTime, Water Level, Prediction, Residual, Latitude, Longitude / abellpoint,1793541600,2026-11-02T00:00,0.664,0.686,-0.022,-20.2608,148.7103"}
+      ]
+    },
+    {
+      "id": "bom-australia",
+      "family": "Australian Bureau of Meteorology (BoM): tide predictions, marine observations, wave buoys",
+      "noteName": "Src-BoM",
+      "type": "tide",
+      "owner": "Bureau of Meteorology (Australia)",
+      "coverage": "Australia: tide predictions for standard ports, coastal weather observations, two wave buoys (Cape du Couedic, Cape Sorell)",
+      "variables": "Tide times and heights; wind observations; waves",
+      "updateRate": "Tide tables yearly; observations 10-30 min",
+      "endpoints": ["http://www.bom.gov.au/australia/tides/", "http://www.bom.gov.au/catalogue/anon-ftp.shtml (anonymous FTP)", "ftp://ftp.bom.gov.au/anon/gen/fwo/"],
+      "format": "HTML pages (blocked for bots); FTP text/XML products",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "Website blocks automated requests (HTTP 403 with scraping notice). FTP and the Registered User service are the sanctioned routes. BoM wave buoys and observations are also redistributed via AODN THREDDS and NDBC."},
+      "licence": {"text": "Your access is blocked due to the detection of a potential automated access request. The Bureau of Meteorology website does not support web scraping ... An anonymous FTP channel ... free to access, but use is subject to the default terms of the Bureau's copyright notice: http://www.bom.gov.au/other/copyright.shtml ... A Registered User service for continued use of Bureau data if your activity does not comply with the default terms.", "url": "http://www.bom.gov.au/other/copyright.shtml", "status": "checked"},
+      "swelloUse": "Do not scrape bom.gov.au. Tide predictions for Australia have no keyless API; use Queensland's CSV where it exists, IOC observed levels (36 AUS stations), or BoM's Registered User service (user decision).",
+      "status": "blocked",
+      "checked": [
+        {"url": "http://www.bom.gov.au/marine/wave-buoys.shtml", "http": 403, "sample": "Blocked: 'The Bureau of Meteorology website does not support web scraping'"},
+        {"url": "http://www.bom.gov.au/catalogue/anon-ftp.shtml", "http": 403, "sample": "Same block page."}
+      ]
+    },
+    {
+      "id": "linz-tides",
+      "family": "LINZ (Toitu Te Whenua Land Information New Zealand) tide predictions",
+      "noteName": "Src-LINZ-Tides",
+      "type": "tide",
+      "owner": "Land Information New Zealand",
+      "coverage": "New Zealand: daily high/low predictions for standard ports (Akaroa, Auckland, Raglan, Gisborne, New Plymouth, Dunedin...) for 2025-2029 as CSV and PDF; secondary-port offsets CSV",
+      "variables": "Date, high/low times and heights (m), local time (NZDT adjusted)",
+      "updateRate": "Yearly files, published years ahead",
+      "endpoints": [
+        "https://static.charts.linz.govt.nz/tide-tables/maj-ports/csv/<Port> <Year>.csv",
+        "https://www.linz.govt.nz/products-services/tides-and-tidal-streams/tide-predictions/tide-predictions-list-view (435 CSV links)",
+        "https://www.linz.govt.nz/sites/default/files/2026-06/NZNA_Secondary-ports-2026-27.csv"
+      ],
+      "format": "CSV",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "Almost all data from the LINZ Data Service is provided under the Creative Commons Attribution 4.0 International licence. ... You can use, remix, distribute, and build on Toitu Te Whenua data, even commercially, as much as you like via our open Creative Commons license - as long as you credit us as the original source. Disclaimer on the tide page: 'The tide predictions on this website are not official tide tables as specified in Maritime Rules Part 25'.", "url": "https://www.linz.govt.nz/products-services/data/licensing-and-using-data", "status": "checked"},
+      "swelloUse": "Full tide predictions for every NZ spot from static CSVs (one download per port per year; cache in the repo). Secondary-port offsets extend coverage. CC BY 4.0, commercial OK.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://static.charts.linz.govt.nz/tide-tables/maj-ports/csv/Akaroa%202026.csv", "http": 200, "sample": "356,Akaroa,43 48'S,172 58'E / Based on constituent set with reference date:,15-Jan-2008 / Local Std or Daylight Time,Tidal heights in metres. / 1,Th,1,2026,02:17,2.6,08:34,0.6,14:44,2.5,20:52,0.6"},
+        {"url": "https://www.linz.govt.nz/products-services/tides-and-tidal-streams/tide-predictions/tide-predictions-list-view", "http": 200, "sample": "435 .csv hrefs (e.g. 'Akaroa 2025.csv' ... 'Akaroa 2029.csv')"}
+      ]
+    },
+    {
+      "id": "nz-wave-buoys",
+      "family": "New Zealand wave buoys (South Island Waves / University of Canterbury, Environment Canterbury, Bay of Plenty RC Bowentown, Greater Wellington WRIBO, Dunedin CC via Sofar, Buller/Westport)",
+      "noteName": "Src-NZ-Wave-Buoys",
+      "type": "wave-buoy",
+      "owner": "Regional councils and the University of Canterbury; MetOcean Solutions (private) for the Southern Ocean buoy",
+      "coverage": "South Island: 11 buoys in the UC open-access network (Dunedin to Kaikoura, Westport); Canterbury buoy 17 km east of Le Bons Bay (since 1999); North Island: Bowentown (BoP; Pukehina retired Nov 2025), Wellington Harbour (WRIBO)",
+      "variables": "Hs, Tp, direction, wind, SST (Sofar Spotter and Datawell buoys)",
+      "updateRate": "30-60 minutes (UC network)",
+      "endpoints": ["https://www.ecan.govt.nz/data/current-wave-data (blocked by Incapsula for bots)", "South Island Waves website (URL not confirmed)", "https://www.gw.govt.nz/wellington-harbour-buoy"],
+      "format": "Web dashboards; no public API confirmed",
+      "access": {"free": true, "keyless": null, "registration": null, "notes": "ECan page returned an Incapsula challenge (HTTP 200, 847 bytes, 'Request unsuccessful'). No machine-readable endpoint found for any NZ council buoy. NZ NEMA/GNS/NIWA DART buoys in NDBC are tsunami pressure sensors, not waves."},
+      "licence": {"text": "Not found. UC describes the network as 'open-access' (news release 2026-03-31); council pages carry standard council copyright.", "url": "https://www.canterbury.ac.nz/news-and-events/news/2026/south-island-s-first-wave-buoy-network-grows", "status": "reported"},
+      "swelloUse": "Record buoy positions as context only. Ask UC/South Island Waves for a data feed before wiring. Open-Meteo plus LINZ tides remain the NZ baseline.",
+      "status": "reported",
+      "checked": [
+        {"url": "https://www.ecan.govt.nz/data/current-wave-data", "http": 200, "sample": "Incapsula bot challenge page ('Request unsuccessful. Incapsula incident ID ...')."},
+        {"url": "https://www.boprc.govt.nz/environment/coast/wave-buoy", "http": 404, "sample": "Page Not Found"}
+      ],
+      "reported": [
+        {"claim": "11 collaborative buoys ... live and historic data updated every 30 to 60 minutes at the South Island Waves website", "source": "https://www.canterbury.ac.nz/news-and-events/news/2026/south-island-s-first-wave-buoy-network-grows"},
+        {"claim": "Pukehina wave buoy retiring after 21 years; Bowentown buoy remains", "source": "https://www.boprc.govt.nz/your-council/news/news-and-media-releases/media-releases-2025/november-2025/after-21-years-at-sea-the-pukehina-wave-buoy-is-retiring/"}
+      ]
+    },
+    {
+      "id": "nowphas",
+      "family": "NOWPHAS (Japan): Nationwide Ocean Wave information network for Ports and HArbourS",
+      "noteName": "Src-NOWPHAS",
+      "type": "wave-buoy",
+      "owner": "MLIT Ports and Harbours Bureau / Port and Airport Research Institute (PARI), Japan",
+      "coverage": "About 80 coastal wave stations around Japan (GPS buoys and seabed gauges)",
+      "variables": "Significant wave height and period, H1/10, Hmax, mean period, direction (20-min or hourly)",
+      "updateRate": "Hourly real time (when the site is up)",
+      "endpoints": ["https://nowphas.mlit.go.jp/ (HTTP 503 maintenance page at check)", "https://near-goos1.jodc.go.jp/rdmdb/format/PARI_WAVE.html (fixed-width archive format at JODC)"],
+      "format": "Web tables; fixed-width text archives (JODC)",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "Site under maintenance: 'System maintenance to ensure safety ... aiming to resume operation within November, Reiwa 8 (2026)'."},
+      "licence": {"text": "Not retrievable during maintenance. JODC-archived NOWPHAS data are listed with the operating organisation 'Ministry of Land, Infrastructure and Transport, Ports and Harbors Bureau'.", "url": "https://nowphas.mlit.go.jp/", "status": "blocked"},
+      "swelloUse": "Japan's only dense coastal wave network; recheck in December 2026. Meanwhile EMODnet lists 13 Japanese wave platforms (Kyoto University offshore) and JMA coastal wave observations exist on jma.go.jp/bosai/wave (JS app).",
+      "status": "blocked",
+      "checked": [
+        {"url": "https://nowphas.mlit.go.jp/", "http": 503, "sample": "メンテナンス中 ... 令和8年11月中の再開を目指しています (maintenance; aiming to resume within November 2026)"}
+      ]
+    },
+    {
+      "id": "jma",
+      "family": "Japan Meteorological Agency: tide tables (text) and AMeDAS 10-minute observations (JSON)",
+      "noteName": "Src-JMA",
+      "type": "tide",
+      "owner": "Japan Meteorological Agency",
+      "coverage": "Japan: astronomical tide tables for about 100 sites per year (e.g. KZ = Kozushima); AMeDAS about 1,300 stations incl. coastal (Cape Soya, Wakkanai...)",
+      "variables": "Tide: hourly heights, high/low times and heights (cm), per day; AMeDAS: wind (m/s), windDirection (16 sectors), temp, humidity, pressure, precipitation",
+      "updateRate": "Tide tables yearly; AMeDAS every 10 minutes (latest_time.txt)",
+      "endpoints": [
+        "https://www.data.jma.go.jp/kaiyou/data/db/tide/suisan/txt/<year>/<site>.txt",
+        "https://www.data.jma.go.jp/kaiyou/db/tide/suisan/readme.html (format)",
+        "https://www.jma.go.jp/bosai/amedas/data/latest_time.txt",
+        "https://www.jma.go.jp/bosai/amedas/data/map/<YYYYMMDDhhmm00>.json",
+        "https://www.jma.go.jp/bosai/amedas/const/amedastable.json"
+      ],
+      "format": "Fixed-width text (tides), JSON (AMeDAS)",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "Information made available on the Japan Meteorological Agency website ... may be used in accordance with the terms and conditions of use stipulated in Public Data License (Version 1.0), unless otherwise indicated by a specific rights notice. ... 1) Source citation The user must cite the source when using the Content.", "url": "https://www.jma.go.jp/jma/en/copyright.html", "status": "checked"},
+      "swelloUse": "Japan gets full tide predictions (yearly text files, cache in repo) and 10-minute coastal wind under an open government licence compatible with CC BY 4.0. Station names are Japanese; amedastable.json has enName.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://www.data.jma.go.jp/kaiyou/data/db/tide/suisan/txt/2026/KZ.txt", "http": 200, "sample": "' 91119142156161158149137128125131143157168172166149121 86 50 21  5  7 2526 1 1KZ 4 3161135917299999999999999 8471252124  399999999999999' (hourly heights then date, site code, high/low times and heights)"},
+        {"url": "https://www.jma.go.jp/bosai/amedas/data/latest_time.txt", "http": 200, "sample": "2026-11-09T16:20:00+09:00"},
+        {"url": "https://www.jma.go.jp/bosai/amedas/data/map/20261109162000.json", "http": 200, "sample": "{\"11001\":{\"temp\":[-2.6,0],\"humidity\":[74,0],...,\"windDirection\":[13,0],\"wind\":[13.3,0]}, ...}"},
+        {"url": "https://www.jma.go.jp/bosai/amedas/const/amedastable.json", "http": 200, "sample": "{\"11001\":{\"type\":\"C\",\"lat\":[45,31.2],\"lon\":[141,56.1],\"enName\":\"Cape Soya\"}, ...}"}
+      ]
+    },
+    {
+      "id": "pnboia",
+      "family": "PNBOIA (Brazil): Programa Nacional de Boias (Marinha do Brasil / GOOS-Brasil), plus Marinha tide tables and INMET stations",
+      "noteName": "Src-PNBOIA",
+      "type": "wave-buoy",
+      "owner": "Diretoria de Hidrografia e Navegacao (DHN), Marinha do Brasil; INMET for weather stations",
+      "coverage": "Brazilian shelf moored buoys (Rio Grande, Santa Catarina/Itajai, Santos, Cabo Frio, Vitoria, Porto Seguro, Recife, Fortaleza) when deployed; tide tables for Brazilian ports; INMET automatic stations (A652 Copacabana, A606 Arraial do Cabo, A806 Florianopolis, A304 Natal...)",
+      "variables": "Hs, Tp, direction, wind, SST (buoys); tide tables (PDF); INMET hourly wind/temp/pressure",
+      "updateRate": "Hourly (buoys, when active)",
+      "endpoints": [
+        "https://www.goosbrasil.org/pnboia/dados/ (connection refused/timeout at check)",
+        "https://www.marinha.mil.br/chm/dados-do-goos-brasil/pnboia (Cloudflare challenge)",
+        "https://www.marinha.mil.br/chm/tabuas-de-mare (Cloudflare challenge)",
+        "https://apitempo.inmet.gov.br/estacoes/T (station list OK); https://apitempo.inmet.gov.br/estacao/<start>/<end>/<code> (204 No Content for all tries)"
+      ],
+      "format": "Web; INMET JSON",
+      "access": {"free": true, "keyless": null, "registration": null, "notes": "GOOS-Brasil host refused connections (ECONNREFUSED 200.144.254.68:443, 45 s timeouts); Marinha pages behind Cloudflare 'Just a moment'; INMET data endpoint returned 204 for valid stations/dates (station list works). A Ministry of Defence report notes PNBOIA data could not be accessed via the reformulated GOOS-Brasil site."},
+      "licence": {"text": "Not retrievable. BNDO states PNBOIA data are available via IDEM-DHN download or by email request.", "url": "https://www.marinha.mil.br/chm/bndo/acesso", "status": "blocked"},
+      "swelloUse": "No live machine-readable Brazilian buoy or tide feed found. Brazil spots get Open-Meteo, METAR wind (IEM BR__ASOS) and IOC observed sea level (34 BRA stations). Recheck GOOS-Brasil later.",
+      "status": "blocked",
+      "checked": [
+        {"url": "https://www.goosbrasil.org/pnboia/dados/", "http": 0, "sample": "curl timeout 45 s; WebFetch ECONNREFUSED 200.144.254.68:443"},
+        {"url": "https://www.marinha.mil.br/chm/tabuas-de-mare", "http": 403, "sample": "Cloudflare 'Just a moment... Enable JavaScript and cookies to continue'"},
+        {"url": "https://apitempo.inmet.gov.br/estacoes/T", "http": 200, "sample": "[{\"CD_ESTACAO\":\"A472\",\"DC_NOME\":\"ACAJUTIBA\",\"CD_SITUACAO\":\"Operante\",...}] (A652 RIO DE JANEIRO - FORTE DE COPACABANA Operante)"},
+        {"url": "https://apitempo.inmet.gov.br/estacao/2026-11-07/2026-11-07/A652", "http": 204, "sample": "No Content (also for A602, A867, 2026-11-08)"}
+      ]
+    },
+    {
+      "id": "csir-wavenet",
+      "family": "CSIR WaveNet (South Africa): real-time waves and weather for Transnet ports",
+      "noteName": "Src-CSIR-WaveNet",
+      "type": "wave-buoy",
+      "owner": "CSIR (Council for Scientific and Industrial Research) for Transnet National Ports Authority",
+      "coverage": "Richards Bay, Durban, East London, Ngqura, Port Elizabeth, Table Bay (Cape Town), Saldanha Bay; Datawell Waveriders plus 'virtual buoy' model points",
+      "variables": "Hs, Tp, direction, wind (hourly graphs)",
+      "updateRate": "Hourly on the hour; only the last 2-3 days shown; no QC",
+      "endpoints": ["https://wavenet.csir.co.za/OnlineData/RealtimeData.htm", "https://wavenet.csir.co.za/OnlineData/TableBay/TableBaywaveD.htm"],
+      "format": "HTML pages with graph images; no data download",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "Pages only. Table Bay page (updated 2026-11-09 08:00) states: 'The buoy's anchor chain broke. The buoy will only be replaced once the CSIR-TNPA contract has been renewed.' The index page's last data update reads 2019-01-08."},
+      "licence": {"text": "No licence statement; pages carry CSIR and Transnet logos and say 'Data are displayed without any kind of Quality Control'.", "url": "https://wavenet.csir.co.za/OnlineData/RealtimeData.htm", "status": "checked"},
+      "swelloUse": "Context only (positions and whether a port buoy exists). Nothing machine-readable; South African spots rely on Open-Meteo, METAR (FACT Cape Town etc.) and IOC sea level.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://wavenet.csir.co.za/OnlineData/RealtimeData.htm", "http": 200, "sample": "'Last Page Update: 2018-12-31 23:05 Last Data Update: 2019-01-08 02:00 ... updated hourly ... Data are displayed without any kind of Quality Control ... Only the last 2 - 3 days'"},
+        {"url": "https://wavenet.csir.co.za/OnlineData/TableBay/TableBaywaveD.htm", "http": 200, "sample": "'Last Data Update: 2026-11-09 08:00 ... The buoy's anchor chain broke. The buoy will only be replaced once the CSIR-TNPA contract has been renewed.'"}
+      ]
+    },
+    {
+      "id": "chs-iwls",
+      "family": "Canadian Hydrographic Service IWLS API (tide predictions and observed water levels) and ECCC buoys",
+      "noteName": "Src-Canada-CHS-ECCC",
+      "type": "tide",
+      "owner": "Fisheries and Oceans Canada (CHS); Environment and Climate Change Canada (buoys via NDBC and MSC Datamart)",
+      "coverage": "All Canadian coasts: Pacific region stations incl. Tofino (08615), Ucluelet (08595), Bamfield (08545), Port Renfrew (08525); Atlantic (Halifax, Lunenburg...). ECCC moored buoys (33 with waves in NDBC latest_obs, e.g. 46206 La Perouse Bank off Tofino).",
+      "variables": "wlp (predicted water level, 1-min), wlp-hilo (high/low), wlo (observed), ap1 (atmospheric pressure); buoys via NDBC: WVHT, DPD, MWD",
+      "updateRate": "Predictions minute resolution; observations 1-3 min",
+      "endpoints": [
+        "https://api-iwls.dfo-mpo.gc.ca/api/v1/stations?chs-region-code=PAC",
+        "https://api-iwls.dfo-mpo.gc.ca/api/v1/stations/<id>/data?time-series-code=wlp&from=...&to=...",
+        "https://api-iwls.dfo-mpo.gc.ca/swagger-ui/index.html",
+        "https://dd.weather.gc.ca/<YYYYMMDD>/WXO-DD/observations/swob-ml/<YYYYMMDD>/marine/ (MSC Datamart)"
+      ],
+      "format": "JSON (IWLS), SWOB-ML XML (Datamart), NDBC text",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "Open Government Licence - Canada: '...worldwide, royalty-free, perpetual, non-exclusive licence to use the Information, including for commercial purposes ... You must ... Acknowledge the source of the Information by including any attribution statement specified by the Information Provider(s) and, where possible, provide a link to this licence.'", "url": "https://open.canada.ca/en/open-government-licence-canada", "status": "checked"},
+      "swelloUse": "Tofino/Ucluelet (Pacific) and Nova Scotia get authoritative tide predictions and observed levels with no key, plus ECCC wave buoys through the existing NDBC path. A thin IWLS JSON adapter mirrors the CO-OPS one.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://api-iwls.dfo-mpo.gc.ca/api/v1/stations?chs-region-code=PAC", "http": 200, "sample": "[{\"code\":\"08615\",\"id\":\"5cebf1e23d0f4a073c4bc07c\",\"officialName\":\"Tofino\",\"operating\":true,\"timeSeries\":[wlo,wlp,wlp-hilo,ap1]}, ...] (244 kB)"},
+        {"url": "https://api-iwls.dfo-mpo.gc.ca/api/v1/stations/5cebf1e23d0f4a073c4bc07c/data?time-series-code=wlp&from=2026-11-09T00:00:00Z&to=2026-11-09T06:00:00Z", "http": 200, "sample": "[{\"eventDate\":\"2026-11-09T00:00:00Z\",\"qcFlagCode\":\"2\",\"value\":1.211}, {\"eventDate\":\"2026-11-09T00:01:00Z\",\"value\":1.201}, ...]"},
+        {"url": "https://api-iwls.dfo-mpo.gc.ca/api/v1/stations/5cebf1e23d0f4a073c4bc07c/data?time-series-code=wlo&from=2026-11-09T04:00:00Z&to=2026-11-09T06:00:00Z", "http": 200, "sample": "[{\"eventDate\":\"2026-11-09T04:00:00Z\",\"qcFlagCode\":\"1\",\"value\":1.062}, ...]"},
+        {"url": "https://dd.weather.gc.ca/20261109/WXO-DD/observations/swob-ml/", "http": 200, "sample": "Index: 20261108/ 20261109/ latest/ marine/ partners/"}
+      ]
+    },
+    {
+      "id": "ioc-sea-level",
+      "family": "IOC Sea Level Station Monitoring Facility (UNESCO/IOC, VLIZ)",
+      "noteName": "Src-IOC-Sea-Level",
+      "type": "tide",
+      "owner": "UNESCO Intergovernmental Oceanographic Commission; hosted by Flanders Marine Institute (VLIZ); data from national operators",
+      "coverage": "Global: 2,341 stations listed, 1,972 with status 1. By country (active): Spain 52, New Zealand 45, Australia 36, Brazil 34, Japan 21, Indonesia 104, Sri Lanka 9, Maldives 14, Portugal 6 (Cascais, Lagos, Ponta Delgada), Senegal 6 (Dakar), South Africa 1 (Marion Island); also USA 339, Chile 174, France 158, UK 98, Mexico 59, Peru 52, Taiwan 46, Philippines 29, Canada 21, India 21.",
+      "variables": "Raw sea level per sensor (rad, prs, pwl, flt...) at 1-60 s intervals; station metadata (Code, Location, country, Lat, Lon, UTCOffset, status)",
+      "updateRate": "Near real time (minutes); raw, no QC",
+      "endpoints": [
+        "https://www.ioc-sealevelmonitoring.org/service.php?query=stationlist&showall=all&format=json",
+        "https://www.ioc-sealevelmonitoring.org/service.php?query=data&code=<code>&format=json&period=0.1",
+        "https://www.ioc-sealevelmonitoring.org/list.php"
+      ],
+      "format": "JSON, CSV, XML",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "How to cite: Flanders Marine Institute (VLIZ); Intergovernmental Oceanographic Commission (IOC) (2026): Sea level station monitoring facility. Accessed at https://www.ioc-sealevelmonitoring.org on 2026-11-09 at VLIZ. DOI: 10.14284/482. Disclaimer: The data presented under this service has not undergone any quality control and data is provided as received. The main objective is to provide a fast status assessment of station availability and performance. UNESCO/IOC, VLIZ and data suppliers accept no liability.", "url": "https://www.ioc-sealevelmonitoring.org/disclaimer.php", "status": "checked"},
+      "swelloUse": "The only global, keyless, machine-readable OBSERVED sea level. Use for 'nearest tide gauge' in every world region and for 'tide is rising/falling now' context; it is not a prediction and must be labelled raw/unverified. Harmonic analysis of a year of IOC data could yield predictions, but that is a data-honesty decision for the user.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://www.ioc-sealevelmonitoring.org/service.php?query=stationlist&showall=all&format=json", "http": 200, "sample": "2,341 entries e.g. {\"Code\":\"aarh\",\"Location\":\"Aarhus\",\"country\":\"DMK\",\"Lat\":56.15,\"Lon\":10.22,\"UTCOffset\":0,\"status\":1,...}"},
+        {"url": "https://www.ioc-sealevelmonitoring.org/service.php?query=data&code=casc&format=json&period=0.1", "http": 200, "sample": "Cascais: [{\"slevel\":1.678,\"stime\":\"2026-11-08 13:40:00\",\"sensor\":\"rad\"}, {\"slevel\":1.687,\"stime\":\"2026-11-08 13:40:10\",\"sensor\":\"rad\"}, ...] (885 kB for 0.1 day)"}
+      ]
+    },
+    {
+      "id": "uhslc-gesla",
+      "family": "UHSLC Fast Delivery tide-gauge data and GESLA (ERDDAP)",
+      "noteName": "Src-UHSLC-GESLA",
+      "type": "tide",
+      "owner": "University of Hawaii Sea Level Center (UHSLC); GESLA consortium (NOC, UHSLC, ...)",
+      "coverage": "Global research-quality and fast-delivery hourly/daily tide gauge archives (e.g. Saipan uhslc_id 28 latest 2026-10-29); GESLA hourly to 2026-07-15",
+      "variables": "sea_level (mm), station_name, station_country, uhslc_id, lat/lon, time",
+      "updateRate": "Fast Delivery: weeks lag (latest 2026-10-29 at check); GESLA: periodic releases",
+      "endpoints": [
+        "https://uhslc.soest.hawaii.edu/erddap/tabledap/global_hourly_fast.csv?...",
+        "https://uhslc.soest.hawaii.edu/erddap/tabledap/global_hourly_gesla",
+        "https://uhslc.soest.hawaii.edu/erddap/tabledap/allDatasets.csv?datasetID,title"
+      ],
+      "format": "ERDDAP tabledap CSV/NetCDF",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "The data may be used and redistributed for free but is not intended for legal use, since it may contain inaccuracies. Neither the data Contributor, ERD, NOAA, nor the United States Government, nor any of their employees or contractors, makes any warranty ... (dataset license attribute)", "url": "https://uhslc.soest.hawaii.edu/erddap/info/global_hourly_fast/index.csv", "status": "checked"},
+      "swelloUse": "Not real time: use for harmonic constants/calibration of tide predictions and for datum checks, not for live tide display.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://uhslc.soest.hawaii.edu/erddap/tabledap/allDatasets.csv?datasetID,title", "http": 200, "sample": "global_hourly_gesla, global_daily_rqds, global_hourly_rqds, global_daily_fast, global_hourly_fast"},
+        {"url": "https://uhslc.soest.hawaii.edu/erddap/tabledap/global_hourly_fast.csv?uhslc_id,station_name,station_country,latitude,longitude,time,sea_level&time>=2026-10-28T00:00:00Z&orderByMax(\"uhslc_id,time\")", "http": 200, "sample": "28,Saipan,Northern Mariana Islands,15.22634,145.7367,2026-10-29T03:00:00Z,1196"},
+        {"url": "https://uhslc.soest.hawaii.edu/erddap/info/global_hourly_gesla/index.csv", "http": 200, "sample": "time_coverage_end 2026-07-15T16:30:00Z"}
+      ]
+    },
+    {
+      "id": "metar-awc-iem",
+      "family": "METAR airport observations worldwide: NOAA Aviation Weather Center data API and Iowa Environmental Mesonet (IEM) ASOS/METAR archive",
+      "noteName": "Src-METAR-AWC-IEM",
+      "type": "wind",
+      "owner": "NOAA/NWS Aviation Weather Center; Iowa State University IEM (archive and networks)",
+      "coverage": "Every ICAO airport reporting METAR (worldwide). IEM lists 600 networks incl. PT__ASOS, ES__ASOS, FR__ASOS, GB__ASOS, AU__ASOS, NZ__ASOS, JP__ASOS, BR__ASOS, ZA__ASOS, ID__ASOS, LK__ASOS, MV__ASOS, FJ__ASOS, PF__ASOS, CA_BC_ASOS...",
+      "variables": "wdir, wspd (kt), wgst, temp, dewp, altim, visib, rawOb, lat/lon, obsTime",
+      "updateRate": "Hourly (half-hourly at many airports), SPECI when conditions change",
+      "endpoints": [
+        "https://aviationweather.gov/api/data/metar?ids=LPPT,LEBB,EGHH,YPPH,NZAA,RJTT,SBGL,FACT&format=json",
+        "https://mesonet.agron.iastate.edu/api/1/networks.json",
+        "https://mesonet.agron.iastate.edu/api/1/currents.json?network=PT__ASOS",
+        "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=LPPT&data=sknt,drct,gust&year1=...&format=onlycomma&tz=Etc/UTC"
+      ],
+      "format": "JSON (AWC, IEM currents), CSV (IEM archive)",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "AWC asks for reasonable request rates; IEM is a university service with a disclaimer page."},
+      "licence": {"text": "AWC: US federal public data (NOAA). IEM: data redistributed from NWS/WMO GTS; IEM disclaimer page at https://mesonet.agron.iastate.edu/disclaimer.php (no licence grant, provided as-is).", "url": "https://mesonet.agron.iastate.edu/disclaimer.php", "status": "reported"},
+      "swelloUse": "Observed coastal wind for every world spot with a nearby airport (Biarritz LFBZ, Faro LPFR, Perth YPPH, Cape Town FACT, Nadi NFFN, Tahiti NTAA). One AWC call can batch many ICAO ids. Needs a per-spot airport assignment with distance, same as the US shore-wind rule.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://aviationweather.gov/api/data/metar?ids=LPPT,LEBB,EGHH,YPPH,NZAA,RJTT,SBGL,FACT&format=json", "http": 200, "sample": "[{\"icaoId\":\"EGHH\",\"reportTime\":\"2026-11-09T07:20:00.000Z\",\"wdir\":50,\"wspd\":4,\"rawOb\":\"METAR EGHH 090720Z 05004KT 1600 BR OVC002 06/06 Q1016\",\"lat\":50.779,\"lon\":-1.836}, {\"icaoId\":\"FACT\",\"wdir\":\"VRB\",\"wspd\":2,...}]"},
+        {"url": "https://mesonet.agron.iastate.edu/api/1/networks.json", "http": 200, "sample": "600 networks incl. AE__ASOS, AU__ASOS, BR__ASOS, CA_BC_ASOS ..."},
+        {"url": "https://mesonet.agron.iastate.edu/api/1/currents.json?network=PT__ASOS", "http": 200, "sample": "schema fields station, name, network, utc_valid, tmpf, sknt, drct, gust ... (23 kB)"},
+        {"url": "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?station=LPPT&data=sknt,drct,gust&year1=2026&month1=11&day1=8&year2=2026&month2=11&day2=9&tz=Etc/UTC&format=onlycomma", "http": 200, "sample": "station,valid,sknt,drct,gust / LPPT,2026-11-08 00:00,5.00,80.00,M"}
+      ]
+    },
+    {
+      "id": "ecmwf-open-data",
+      "family": "ECMWF Open Data (IFS 0.25 degree, wave stream)",
+      "noteName": "Src-ECMWF-Open-Data",
+      "type": "model",
+      "owner": "European Centre for Medium-Range Weather Forecasts",
+      "coverage": "Global, 0.25 degree, 00/06/12/18z runs, to 10 days (15 with reduced steps)",
+      "variables": "wave stream: swh (significant height), mwd, mwp, pp1d (peak period), mp2, cdww, wmb, h1012/h1214/h1417/h1721/h2125/h2530 (height partitions by period band); oper stream: 10u/10v wind, msl",
+      "updateRate": "4 runs/day; files appear about 7-9 h after run time",
+      "endpoints": [
+        "https://data.ecmwf.int/forecasts/<YYYYMMDD>/00z/ifs/0p25/wave/<YYYYMMDD>000000-<step>h-wave-fc.grib2",
+        "https://data.ecmwf.int/forecasts/<YYYYMMDD>/00z/ifs/0p25/wave/<YYYYMMDD>000000-<step>h-wave-fc.index"
+      ],
+      "format": "GRIB2 with JSON index (byte-range access per parameter)",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "A subset of ECMWF real-time forecast data from the IFS and AIFS models is made available to the public free of charge. Their use is governed by the Creative Commons CC-BY-4.0 licence and the ECMWF Terms of Use. This means that the data may be redistributed and used commercially, subject to appropriate attribution.", "url": "https://www.ecmwf.int/en/forecasts/datasets/open-data", "status": "checked"},
+      "swelloUse": "Global second-opinion model for offshore Hs/Tp/direction with period-band partitions, commercial-OK. Needs GRIB decoding server-side (byte-range by index). Open-Meteo already exposes ECMWF WAM as a model option, so this is a redundancy/independence play, not a first step.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://data.ecmwf.int/forecasts/20261108/00z/ifs/0p25/wave/20261108000000-0h-wave-fc.index", "http": 200, "sample": "{\"date\": \"20261108\", \"time\": \"0000\", \"stream\": \"wave\", \"step\": \"0\", \"param\": \"swh\", ...}; params: cdww h1012 h1214 h1417 h1721 h2125 h2530 mp2 mwd mwp pp1d swh wmb"},
+        {"url": "https://www.ecmwf.int/en/forecasts/datasets/open-data", "http": 200, "sample": "Licence text quoted above."}
+      ]
+    },
+    {
+      "id": "dwd-open-data",
+      "family": "DWD Open Data: GWAM (global) and EWAM (European) wave models",
+      "noteName": "Src-DWD-Open-Data",
+      "type": "model",
+      "owner": "Deutscher Wetterdienst (Germany)",
+      "coverage": "GWAM global about 0.25 degree; EWAM Europe/North Atlantic about 0.05 degree; 00 and 12 UTC runs, 3-hourly steps",
+      "variables": "swh, mwd, mwp/ppts, shts/mdts/mpts (total swell height/direction/period), shww/mdww/mpww (wind sea), dd_10m",
+      "updateRate": "Twice daily (00, 12 UTC)",
+      "endpoints": [
+        "https://opendata.dwd.de/weather/maritime/wave_models/gwam/grib/00/swh/GWAM_SWH_<YYYYMMDDHH>_<step>.grib2.bz2",
+        "https://opendata.dwd.de/weather/maritime/wave_models/ewam/grib/00/",
+        "https://opendata.dwd.de/README.txt"
+      ],
+      "format": "GRIB2 (bzip2)",
+      "access": {"free": true, "keyless": true, "registration": false},
+      "licence": {"text": "DWD offers weather and climate data free of charge on its Open Data server at https://opendata.dwd.de. Access is granted without registration. The following terms of use apply: https://www.dwd.de/EN/service/legal_notice/legal_notice_node.html (README.txt). DWD data are under GeoNutzV (attribution 'Data basis: Deutscher Wetterdienst'); legal notice page not fetched.", "url": "https://opendata.dwd.de/README.txt", "status": "checked"},
+      "swelloUse": "Separate swell/wind-sea partitions at 0.05 degree for Europe (EWAM) under a permissive German open-data licence: a nearshore-ish model alternative for Portugal/Spain/France/UK/Ireland without Copernicus registration. GRIB decoding needed.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://opendata.dwd.de/weather/maritime/wave_models/gwam/grib/00/swh/", "http": 200, "sample": "GWAM_SWH_2026110800_000.grib2.bz2 08-Nov-2026 03:38:34 334501 ..."},
+        {"url": "https://opendata.dwd.de/weather/maritime/wave_models/ewam/grib/00/", "http": 200, "sample": "dd_10m/ mdts/ mdww/ mpts/ mpww/ mwd/ ppts/ ppww/ shts/ shww/ ... 09-Nov-2026"},
+        {"url": "https://opendata.dwd.de/README.txt", "http": 200, "sample": "'Access is granted without registration.'"}
+      ]
+    },
+    {
+      "id": "met-norway",
+      "family": "MET Norway Weather API: oceanforecast 2.0 and locationforecast 2.0",
+      "noteName": "Src-MET-Norway",
+      "type": "model",
+      "owner": "Norwegian Meteorological Institute",
+      "coverage": "Oceanforecast: Nordic seas/North Atlantic domain (Norway, Denmark, Iceland, parts of UK/North Sea); locationforecast: global",
+      "variables": "sea_surface_wave_height, sea_surface_wave_from_direction, sea_water_speed, sea_water_to_direction, sea_water_temperature (hourly); wind_speed, wind_from_direction, air_pressure (locationforecast)",
+      "updateRate": "Hourly updates (updated_at 2026-11-09T06:09Z)",
+      "endpoints": [
+        "https://api.met.no/weatherapi/oceanforecast/2.0/complete?lat=58.9&lon=5.5",
+        "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=43.48&lon=-1.56"
+      ],
+      "format": "GeoJSON",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "Must send an identifying User-Agent (403 otherwise); 'You must not cause unnecessary traffic'."},
+      "licence": {"text": "Unless specified otherwise, all data and products are licensed under the Norwegian Licence for Open Government Data (NLOD) 2.0 and Creative Commons 4.0 BY International licences. Credit should be given to The Norwegian Meteorological Institute, shortened MET Norway, as the source of data.", "url": "https://api.met.no/doc/License", "status": "checked"},
+      "swelloUse": "Scandinavia (Jaeren/Norway, Klitmoller/Denmark, Iceland): a keyless hourly wave forecast with no period field; locationforecast gives global wind as a second opinion to Open-Meteo under CC BY 4.0.",
+      "status": "checked",
+      "checked": [
+        {"url": "https://api.met.no/weatherapi/oceanforecast/2.0/complete?lat=58.9&lon=5.5", "http": 200, "sample": "{\"properties\":{\"meta\":{\"updated_at\":\"2026-11-09T06:09:01Z\"},\"timeseries\":[{\"time\":\"2026-11-09T07:00:00Z\",\"data\":{\"instant\":{\"details\":{\"sea_surface_wave_from_direction\":199.0,\"sea_surface_wave_height\":0.5,\"sea_water_temperature\":11.3}}}}]}}"},
+        {"url": "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=43.48&lon=-1.56", "http": 200, "sample": "Biarritz point: units wind_speed m/s, wind_from_direction degrees; updated_at 2026-11-09T05:22:35Z"},
+        {"url": "https://api.met.no/doc/License", "http": 200, "sample": "Licence text quoted."}
+      ]
+    },
+    {
+      "id": "meteo-france-api",
+      "family": "Meteo-France public API portal (observations, AROME/ARPEGE, MFWAM)",
+      "noteName": "Src-Meteo-France-API",
+      "type": "wind",
+      "owner": "Meteo-France",
+      "coverage": "France and overseas (incl. French Polynesia, Reunion); MFWAM global via Copernicus",
+      "variables": "Station observations (wind, gusts), model fields",
+      "updateRate": "Observations 6-min to hourly",
+      "endpoints": ["https://portail-api.meteofrance.fr/web/en/"],
+      "format": "REST with API key (OAuth application key)",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Portal page loaded (632 bytes, JS app); keys issued per application after registration. Not registered."},
+      "licence": {"text": "Not read (JS portal). Meteo-France public data are generally under Licence Ouverte Etalab 2.0; confirm per API when registering.", "url": "https://portail-api.meteofrance.fr/web/en/", "status": "reported"},
+      "swelloUse": "Low priority for wind (Open-Meteo covers AROME); MFWAM is better reached through Copernicus. Revisit if Tahiti/Reunion spots need local station wind.",
+      "status": "reported",
+      "checked": [{"url": "https://portail-api.meteofrance.fr/web/en/", "http": 200, "sample": "632-byte JS shell; no content without key."}]
+    },
+    {
+      "id": "aemet-opendata",
+      "family": "AEMET OpenData (Spain)",
+      "noteName": "Src-AEMET-OpenData",
+      "type": "wind",
+      "owner": "Agencia Estatal de Meteorologia (Spain)",
+      "coverage": "Spain incl. Canary and Balearic Islands: station observations, forecasts",
+      "variables": "Wind speed/direction/gust, temperature, pressure (station observations)",
+      "updateRate": "Hourly",
+      "endpoints": ["https://opendata.aemet.es/centrodedescargas/inicio", "https://opendata.aemet.es/opendata/api/observacion/convencional/todas?api_key=..."],
+      "format": "JSON with free API key",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "opendata.aemet.es timed out (45 s) at check time; a free api_key is issued by email on request."},
+      "licence": {"text": "Not read (site timeout). AEMET OpenData terms require attribution '(c) AEMET' and allow reuse; confirm on the Aviso Legal when registering.", "url": "https://opendata.aemet.es/centrodedescargas/inicio", "status": "reported"},
+      "swelloUse": "Observed wind for Spanish and Canary spots if METAR coverage is too sparse; needs a key stored server-side.",
+      "status": "reported",
+      "checked": [{"url": "https://opendata.aemet.es/centrodedescargas/inicio", "http": 0, "sample": "curl timeout after 45 s"}]
+    },
+    {
+      "id": "ispra-mareografico",
+      "family": "ISPRA (Italy): Rete Ondametrica Nazionale (RON) and Rete Mareografica Nazionale via mareografico.it",
+      "noteName": "Src-ISPRA-Mareografico",
+      "type": "wave-buoy",
+      "owner": "ISPRA (Istituto Superiore per la Protezione e la Ricerca Ambientale)",
+      "coverage": "Italy: RON directional wave buoys (7-15 stations; e.g. Alghero, Ancona, Cetraro, Crotone, La Spezia, Mazara, Monopoli, Ortona, Ponza, Venezia, Marina di Ragusa) and about 36 tide gauges (Ancona, Anzio, Cagliari, Genova, Livorno, Napoli, Palermo, Venezia...)",
+      "variables": "Hs, direction, Tp, wind, pressure (buoys); sea level (gauges)",
+      "updateRate": "Near real time (30 min)",
+      "endpoints": ["https://www.mareografico.it/ (station selector: RETE MAREOGRAFICA NAZIONALE, RETE ONDAMETRICA NAZIONALE, RETE ADSP, MAC REPOSITORY)", "https://dati.isprambiente.it/ (Linked Open Data; RON data to 2014)"],
+      "format": "Web portal with CSV export (reported); SPARQL/LOD for archives",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "Portal reachable; no documented REST endpoint found. ISPRA says data are 'estraibili ... sotto licenza aperta'."},
+      "licence": {"text": "Il sito ed i dati in esso pubblicati sono rilasciati con licenza Creative Commons Attribution 4.0 International License (dati.isprambiente.it footer).", "url": "https://dati.isprambiente.it/", "status": "checked"},
+      "swelloUse": "Mediterranean Italy (Sardinia, Tuscany, Liguria): buoys and tide gauges under CC BY 4.0, but the live export path needs a browser session to discover. Context positions now; wiring later.",
+      "status": "reported",
+      "checked": [
+        {"url": "https://www.mareografico.it/", "http": 200, "sample": "'ULTIMI RILEVAMENTI Seleziona la rete RETE MAREOGRAFICA NAZIONALE RETE ONDAMETRICA NAZIONALE ... ANCONA ANZIO ARBATAX BARI CAGLIARI ... VENEZIA VIESTE'"},
+        {"url": "https://dati.isprambiente.it/dataset/ron-rete-ondametrica-nazionale/", "http": 404, "sample": "Page not found; footer: 'rilasciati con licenza Creative Commons Attribution 4.0 International License'"}
+      ]
+    },
+    {
+      "id": "taiwan-cwa",
+      "family": "Taiwan CWA Open Data Platform: buoy and tide station sea-state datasets (O-B0075-001/002)",
+      "noteName": "Src-Taiwan-CWA",
+      "type": "wave-buoy",
+      "owner": "Central Weather Administration (Taiwan)",
+      "coverage": "Taiwan coastal buoys and tide stations (48-hour and 30-day series)",
+      "variables": "Wave height, period, direction, SST, wind, tide level",
+      "updateRate": "Hourly",
+      "endpoints": ["https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-B0075-001?Authorization=<key>", "https://opendata.cwa.gov.tw/dataset/observation/O-B0075-001"],
+      "format": "JSON/XML with free API key",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "Without a key: HTTP 401 'Authorization key is not correct.' Membership (free) required on the platform."},
+      "licence": {"text": "Not read (JS portal). Taiwan Open Government Data License (compatible with CC BY 4.0) is the platform default per data.gov.tw; confirm on registration.", "url": "https://opendata.cwa.gov.tw/dataset/observation/O-B0075-001", "status": "reported"},
+      "swelloUse": "Taiwan (Taitung, Kenting) buoys and tides in one keyed API; register when Taiwan spots are catalogued.",
+      "status": "reported",
+      "checked": [{"url": "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-B0075-001", "http": 401, "sample": "401 Forbidden: Authorization key is not correct."}]
+    },
+    {
+      "id": "incois",
+      "family": "INCOIS / NIOT (India): OMNI moored buoys and wave rider buoys",
+      "noteName": "Src-INCOIS",
+      "type": "wave-buoy",
+      "owner": "Indian National Centre for Ocean Information Services (INCOIS), National Institute of Ocean Technology (NIOT), Ministry of Earth Sciences",
+      "coverage": "Bay of Bengal and Arabian Sea OMNI buoys (about 12 at a time); coastal wave rider buoys (Goa, Kerala, Tamil Nadu...)",
+      "variables": "Waves (selected buoys), wind, SST, currents",
+      "updateRate": "Hourly to 3-hourly",
+      "endpoints": ["https://incois.gov.in/portal/datainfo/buoys.jsp (404 at check)", "https://incois.gov.in/ (95-byte redirect shell)"],
+      "format": "Portal (registration); some buoys relayed via EMODnet/Copernicus (7 Indian wave platforms reporting in EMODnet: NIOT 2300091, 2300453; INCOIS 7810903)",
+      "access": {"free": true, "keyless": false, "registration": true, "notes": "No open endpoint found; INCOIS data portal requires login."},
+      "licence": {"text": "Not read.", "url": "https://incois.gov.in/", "status": "reported"},
+      "swelloUse": "India/Sri Lanka/Maldives spots: use EMODnet platform list for nearest buoy positions, IOC sea level (Colombo, Gan, Male...) and METAR wind. INCOIS wiring is not feasible without an account.",
+      "status": "reported",
+      "checked": [{"url": "https://incois.gov.in/portal/datainfo/buoys.jsp", "http": 404, "sample": "Page Not Found"}]
+    },
+    {
+      "id": "regional-gaps",
+      "family": "Regions with no public machine-readable national wave source found (Indonesia BMKG, Morocco, West Africa, Chile/Peru, Mexico/Central America, Caribbean states, Fiji, French Polynesia)",
+      "noteName": "Src-Regional-Gaps",
+      "type": "aggregator",
+      "owner": "Various national services",
+      "coverage": "Indonesia (BMKG peta-maritim: Cloudflare challenge), Morocco (no buoys found), Senegal/Ghana (none), Chile (SHOA tide tables, PDF), Peru (DHN), Mexico (none public), Caribbean (CarICoos buoys via NDBC: 2 with waves), Fiji and French Polynesia (Meteo-France/Fiji Met: none keyless)",
+      "variables": "n/a",
+      "updateRate": "n/a",
+      "endpoints": ["https://peta-maritim.bmkg.go.id/ (403 Cloudflare)", "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt (CarICoos 42085 Ponce, 41115 Rincon; PacIOOS Pacific islands)"],
+      "format": "n/a",
+      "access": {"free": true, "keyless": true, "registration": false, "notes": "For these regions the honest data set is: Open-Meteo marine and weather, ECMWF/DWD/Copernicus models, METAR wind (IEM networks ID__ASOS, MA__ASOS, SN__ASOS, CL__ASOS, PE__ASOS, MX__ASOS, FJ__ASOS, PF__ASOS), IOC observed sea level (IDN 104, CHL 174, PER 52, MEX 59, FIL 29, SEN 6 active stations)."},
+      "licence": {"text": "n/a", "url": "", "status": "reported"},
+      "swelloUse": "Show tide 'not available', buoy 'none within range' and alerts 'not available in this region' per the data-honesty rule; list the nearest IOC gauge and METAR airport as context.",
+      "status": "reported",
+      "checked": [{"url": "https://peta-maritim.bmkg.go.id/", "http": 403, "sample": "Cloudflare 'Just a moment...'"}]
+    }
+  ]
+}
