@@ -1,0 +1,46 @@
+{
+ "generated": "2026-11-09T03:33:31.841Z",
+ "firstHour": "today 00:00 UTC",
+ "spots": [
+  {
+   "spot": "Ocean Beach",
+   "facing": 263.49,
+   "hours": 48,
+   "meanSpeedChangeMph": 3.1,
+   "maxSpeedChangeMph": 7.4,
+   "shoreRelationChangedHours": 8
+  },
+  {
+   "spot": "Linda Mar",
+   "facing": 315,
+   "hours": 48,
+   "meanSpeedChangeMph": 1.8,
+   "maxSpeedChangeMph": 3.6,
+   "shoreRelationChangedHours": 5
+  },
+  {
+   "spot": "Montara",
+   "facing": 270,
+   "hours": 48,
+   "meanSpeedChangeMph": 0.4,
+   "maxSpeedChangeMph": 3.3,
+   "shoreRelationChangedHours": 0
+  },
+  {
+   "spot": "Mavericks",
+   "facing": 202.5,
+   "hours": 48,
+   "meanSpeedChangeMph": 0,
+   "maxSpeedChangeMph": 2.7,
+   "shoreRelationChangedHours": 22
+  },
+  {
+   "spot": "Humboldt North Jetty",
+   "facing": 292.5,
+   "hours": 48,
+   "meanSpeedChangeMph": 1.3,
+   "maxSpeedChangeMph": 6.9,
+   "shoreRelationChangedHours": 1
+  }
+ ]
+}

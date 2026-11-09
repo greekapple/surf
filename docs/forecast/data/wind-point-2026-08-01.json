@@ -1,0 +1,1835 @@
+{
+ "generated": "2026-11-09T03:27:32.835Z",
+ "window": [
+  "2026-08-01",
+  "2026-11-06"
+ ],
+ "calmMph": 5,
+ "variants": [
+  {
+   "key": "land",
+   "label": "best match, cell land (today)"
+  },
+  {
+   "key": "sea",
+   "label": "best match, cell sea"
+  },
+  {
+   "key": "nearest",
+   "label": "best match, cell nearest"
+  },
+  {
+   "key": "ecmwf",
+   "label": "ECMWF IFS 0.25°, cell land"
+  }
+ ],
+ "stations": [
+  {
+   "id": "ANVC1",
+   "name": "9416841 - Arena Cove, CA",
+   "lat": 38.915,
+   "lon": -123.711,
+   "hours": 2245,
+   "obsMeanMph": 5.2,
+   "variants": {
+    "land": {
+     "cell": [
+      38.927406,
+      -123.73046
+     ],
+     "cellKm": 2.2,
+     "elevM": 0,
+     "n": 2245,
+     "bias": 5,
+     "mae": 5.6,
+     "nDir": 982,
+     "dirMed": 42,
+     "flip": 5
+    },
+    "sea": {
+     "cell": [
+      38.901524,
+      -123.720726
+     ],
+     "cellKm": 1.7,
+     "elevM": 0,
+     "n": 2245,
+     "bias": 5.7,
+     "mae": 6.2,
+     "nDir": 982,
+     "dirMed": 39,
+     "flip": 5
+    },
+    "nearest": {
+     "cell": [
+      38.901524,
+      -123.720726
+     ],
+     "cellKm": 1.7,
+     "elevM": 0,
+     "n": 2245,
+     "bias": 5.7,
+     "mae": 6.2,
+     "nDir": 982,
+     "dirMed": 39,
+     "flip": 5
+    },
+    "ecmwf": {
+     "cell": [
+      38.75,
+      -123.5
+     ],
+     "cellKm": 25.9,
+     "elevM": 0,
+     "n": 2245,
+     "bias": 2,
+     "mae": 3.3,
+     "nDir": 982,
+     "dirMed": 21,
+     "flip": 1
+    }
+   }
+  },
+  {
+   "id": "BDXC1",
+   "name": "Bodega, CA",
+   "skipped": "0 observed hours (< 300)"
+  },
+  {
+   "id": "CECC1",
+   "name": "9419750 - Crescent City, CA",
+   "lat": 41.746,
+   "lon": -124.184,
+   "hours": 2178,
+   "obsMeanMph": 6.4,
+   "variants": {
+    "land": {
+     "cell": [
+      41.746323,
+      -124.197075
+     ],
+     "cellKm": 1.1,
+     "elevM": 0,
+     "n": 2178,
+     "bias": -0.8,
+     "mae": 1.9,
+     "nDir": 1067,
+     "dirMed": 11,
+     "flip": 4
+    },
+    "sea": {
+     "cell": [
+      41.72051,
+      -124.18676
+     ],
+     "cellKm": 2.8,
+     "elevM": 0,
+     "n": 2178,
+     "bias": 0.1,
+     "mae": 2,
+     "nDir": 1067,
+     "dirMed": 12,
+     "flip": 3
+    },
+    "nearest": {
+     "cell": [
+      41.746323,
+      -124.197075
+     ],
+     "cellKm": 1.1,
+     "elevM": 0,
+     "n": 2178,
+     "bias": -0.8,
+     "mae": 1.9,
+     "nDir": 1067,
+     "dirMed": 11,
+     "flip": 4
+    },
+    "ecmwf": {
+     "cell": [
+      41.75,
+      -124.25
+     ],
+     "cellKm": 5.5,
+     "elevM": 0,
+     "n": 2178,
+     "bias": 1.8,
+     "mae": 4.1,
+     "nDir": 1067,
+     "dirMed": 23,
+     "flip": 20
+    }
+   }
+  },
+  {
+   "id": "CPXC1",
+   "name": "Cal Poly Pier, CA",
+   "lat": 35.17,
+   "lon": -120.741,
+   "hours": 1966,
+   "obsMeanMph": 6,
+   "variants": {
+    "land": {
+     "cell": [
+      35.19594,
+      -120.72517
+     ],
+     "cellKm": 3.2,
+     "elevM": 0,
+     "n": 1966,
+     "bias": -1.2,
+     "mae": 3,
+     "nDir": 908,
+     "dirMed": 37,
+     "flip": 15
+    },
+    "sea": {
+     "cell": [
+      35.163128,
+      -120.74884
+     ],
+     "cellKm": 1,
+     "elevM": 0,
+     "n": 1966,
+     "bias": 0.7,
+     "mae": 3,
+     "nDir": 908,
+     "dirMed": 26,
+     "flip": 22
+    },
+    "nearest": {
+     "cell": [
+      35.163128,
+      -120.74884
+     ],
+     "cellKm": 1,
+     "elevM": 0,
+     "n": 1966,
+     "bias": 0.7,
+     "mae": 3,
+     "nDir": 908,
+     "dirMed": 26,
+     "flip": 22
+    },
+    "ecmwf": {
+     "cell": [
+      35.25,
+      -120.75
+     ],
+     "cellKm": 8.9,
+     "elevM": 0,
+     "n": 1966,
+     "bias": -1.8,
+     "mae": 3.3,
+     "nDir": 908,
+     "dirMed": 31,
+     "flip": 21
+    }
+   }
+  },
+  {
+   "id": "MBXC1",
+   "name": "Morro Bay - BM1 T-Pier, CA",
+   "skipped": "0 observed hours (< 300)"
+  },
+  {
+   "id": "MLSC1",
+   "name": "Moss Landing, South Harbor, CA",
+   "skipped": "0 observed hours (< 300)"
+  },
+  {
+   "id": "NTBC1",
+   "name": "9411340 - Santa Barbara, CA ",
+   "lat": 34.405,
+   "lon": -119.692,
+   "hours": 2199,
+   "obsMeanMph": 6,
+   "variants": {
+    "land": {
+     "cell": [
+      34.40734,
+      -119.70551
+     ],
+     "cellKm": 1.3,
+     "elevM": 0,
+     "n": 2199,
+     "bias": -1.4,
+     "mae": 2.4,
+     "nDir": 1083,
+     "dirMed": 20,
+     "flip": 5
+    },
+    "sea": {
+     "cell": [
+      34.381207,
+      -119.69773
+     ],
+     "cellKm": 2.7,
+     "elevM": 0,
+     "n": 2199,
+     "bias": 0.1,
+     "mae": 2.5,
+     "nDir": 1083,
+     "dirMed": 21,
+     "flip": 5
+    },
+    "nearest": {
+     "cell": [
+      34.40734,
+      -119.70551
+     ],
+     "cellKm": 1.3,
+     "elevM": 0,
+     "n": 2199,
+     "bias": -1.4,
+     "mae": 2.4,
+     "nDir": 1083,
+     "dirMed": 20,
+     "flip": 5
+    },
+    "ecmwf": {
+     "cell": [
+      34.5,
+      -119.75
+     ],
+     "cellKm": 11.8,
+     "elevM": 0,
+     "n": 2199,
+     "bias": -3,
+     "mae": 3.6,
+     "nDir": 1083,
+     "dirMed": 22,
+     "flip": 9
+    }
+   }
+  },
+  {
+   "id": "PRYC1",
+   "name": "9415020 - Point Reyes, CA",
+   "skipped": "0 observed hours (< 300)"
+  },
+  {
+   "id": "PSLC1",
+   "name": "9412110 - Port San Luis, CA",
+   "skipped": "0 observed hours (< 300)"
+  },
+  {
+   "id": "PTGC1",
+   "name": "Point Arguello, CA",
+   "lat": 34.577,
+   "lon": -120.647,
+   "hours": 2314,
+   "obsMeanMph": 17.5,
+   "variants": {
+    "land": {
+     "cell": [
+      34.576057,
+      -120.63242
+     ],
+     "cellKm": 1.3,
+     "elevM": 23,
+     "n": 2314,
+     "bias": -3.3,
+     "mae": 3.8,
+     "nDir": 2169,
+     "dirMed": 7,
+     "flip": 0
+    },
+    "sea": {
+     "cell": [
+      34.56935,
+      -120.66407
+     ],
+     "cellKm": 1.8,
+     "elevM": 23,
+     "n": 2314,
+     "bias": -1.5,
+     "mae": 2.7,
+     "nDir": 2169,
+     "dirMed": 8,
+     "flip": 0
+    },
+    "nearest": {
+     "cell": [
+      34.576057,
+      -120.63242
+     ],
+     "cellKm": 1.3,
+     "elevM": 23,
+     "n": 2314,
+     "bias": -3.3,
+     "mae": 3.8,
+     "nDir": 2169,
+     "dirMed": 7,
+     "flip": 0
+    },
+    "ecmwf": {
+     "cell": [
+      34.75,
+      -120.5
+     ],
+     "cellKm": 23.5,
+     "elevM": 23,
+     "n": 2314,
+     "bias": -12.1,
+     "mae": 12.3,
+     "nDir": 2169,
+     "dirMed": 46,
+     "flip": 7
+    }
+   }
+  },
+  {
+   "id": "SFXC1",
+   "name": "Rush Ranch, San Francisco Bay Reserve, CA",
+   "skipped": "0 observed hours (< 300)"
+  },
+  {
+   "id": "TDPC1",
+   "name": "Trinidad Pier Trinidad, CA",
+   "skipped": "0 observed hours (< 300)"
+  }
+ ],
+ "spotCells": [
+  {
+   "id": "spot-2",
+   "name": "Ocean Beach",
+   "query": [
+    37.759,
+    -122.51
+   ],
+   "land": {
+    "cell": [
+     37.77484,
+     -122.487755
+    ],
+    "km": 2.6,
+    "elevM": 9
+   },
+   "sea": {
+    "cell": [
+     37.7676,
+     -122.52064
+    ],
+    "km": 1.3,
+    "elevM": 9
+   },
+   "nearest": {
+    "cell": [
+     37.7676,
+     -122.52064
+    ],
+    "km": 1.3,
+    "elevM": 9
+   }
+  },
+  {
+   "id": "spot-0",
+   "name": "Bolinas",
+   "query": [
+    37.90835046,
+    -122.682137
+   ],
+   "land": {
+    "cell": [
+     37.90169,
+     -122.674515
+    ],
+    "km": 1,
+    "elevM": 13
+   },
+   "sea": {
+    "cell": [
+     37.894398,
+     -122.70743
+    ],
+    "km": 2.7,
+    "elevM": 13
+   },
+   "nearest": {
+    "cell": [
+     37.90169,
+     -122.674515
+    ],
+    "km": 1,
+    "elevM": 13
+   }
+  },
+  {
+   "id": "spot-3",
+   "name": "Linda Mar",
+   "query": [
+    37.6,
+    -122.5
+   ],
+   "land": {
+    "cell": [
+     37.57846,
+     -122.489456
+    ],
+    "km": 2.6,
+    "elevM": 3
+   },
+   "sea": {
+    "cell": [
+     37.604443,
+     -122.49857
+    ],
+    "km": 0.5,
+    "elevM": 3
+   },
+   "nearest": {
+    "cell": [
+     37.604443,
+     -122.49857
+    ],
+    "km": 0.5,
+    "elevM": 3
+   }
+  },
+  {
+   "id": "spot-1",
+   "name": "Stinson Beach",
+   "query": [
+    37.9,
+    -122.644
+   ],
+   "land": {
+    "cell": [
+     37.90169,
+     -122.674515
+    ],
+    "km": 2.7,
+    "elevM": 30
+   },
+   "sea": {
+    "cell": [
+     37.882988,
+     -122.63238
+    ],
+    "km": 2.1,
+    "elevM": 30
+   },
+   "nearest": {
+    "cell": [
+     37.908974,
+     -122.641594
+    ],
+    "km": 1,
+    "elevM": 30
+   }
+  },
+  {
+   "id": "spot-4",
+   "name": "Montara",
+   "query": [
+    37.545,
+    -122.515
+   ],
+   "land": {
+    "cell": [
+     37.519253,
+     -122.50397
+    ],
+    "km": 3,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     37.54525,
+     -122.51311
+    ],
+    "km": 0.2,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     37.54525,
+     -122.51311
+    ],
+    "km": 0.2,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "spot-5",
+   "name": "Mavericks",
+   "query": [
+    37.495,
+    -122.5
+   ],
+   "land": {
+    "cell": [
+     37.519253,
+     -122.50397
+    ],
+    "km": 2.7,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     37.493275,
+     -122.49484
+    ],
+    "km": 0.5,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     37.493275,
+     -122.49484
+    ],
+    "km": 0.5,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "spot-6",
+   "name": "Steamer Lane",
+   "query": [
+    36.951,
+    -122.026
+   ],
+   "land": {
+    "cell": [
+     36.95258,
+     -122.02655
+    ],
+    "km": 0.2,
+    "elevM": 9
+   },
+   "sea": {
+    "cell": [
+     36.92656,
+     -122.01767
+    ],
+    "km": 2.8,
+    "elevM": 9
+   },
+   "nearest": {
+    "cell": [
+     36.95258,
+     -122.02655
+    ],
+    "km": 0.2,
+    "elevM": 9
+   }
+  },
+  {
+   "id": "spot-7",
+   "name": "Cowell’s",
+   "query": [
+    36.962,
+    -122.023
+   ],
+   "land": {
+    "cell": [
+     36.95258,
+     -122.02655
+    ],
+    "km": 1.1,
+    "elevM": 4
+   },
+   "sea": {
+    "cell": [
+     36.92656,
+     -122.01767
+    ],
+    "km": 4,
+    "elevM": 4
+   },
+   "nearest": {
+    "cell": [
+     36.95258,
+     -122.02655
+    ],
+    "km": 1.1,
+    "elevM": 4
+   }
+  },
+  {
+   "id": "spot-8",
+   "name": "Pleasure Point",
+   "query": [
+    36.955,
+    -121.971
+   ],
+   "land": {
+    "cell": [
+     36.966763,
+     -121.96142
+    ],
+    "km": 1.6,
+    "elevM": 6
+   },
+   "sea": {
+    "cell": [
+     36.94074,
+     -121.95257
+    ],
+    "km": 2.3,
+    "elevM": 6
+   },
+   "nearest": {
+    "cell": [
+     36.966763,
+     -121.96142
+    ],
+    "km": 1.6,
+    "elevM": 6
+   }
+  },
+  {
+   "id": "spot-9",
+   "name": "Davenport",
+   "query": [
+    37.011,
+    -122.196
+   ],
+   "land": {
+    "cell": [
+     37.002113,
+     -122.18354
+    ],
+    "km": 1.5,
+    "elevM": 26
+   },
+   "sea": {
+    "cell": [
+     36.994957,
+     -122.2161
+    ],
+    "km": 2.5,
+    "elevM": 26
+   },
+   "nearest": {
+    "cell": [
+     37.002113,
+     -122.18354
+    ],
+    "km": 1.5,
+    "elevM": 26
+   }
+  },
+  {
+   "id": "cs-crescent-city",
+   "name": "Crescent City",
+   "query": [
+    41.745,
+    -124.188
+   ],
+   "land": {
+    "cell": [
+     41.746323,
+     -124.197075
+    ],
+    "km": 0.8,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     41.72051,
+     -124.18676
+    ],
+    "km": 2.7,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     41.746323,
+     -124.197075
+    ],
+    "km": 0.8,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-moonstone",
+   "name": "Moonstone Beach",
+   "query": [
+    41.033,
+    -124.113
+   ],
+   "land": {
+    "cell": [
+     41.036488,
+     -124.10256
+    ],
+    "km": 1,
+    "elevM": 75
+   },
+   "sea": {
+    "cell": [
+     41.028797,
+     -124.13681
+    ],
+    "km": 2.1,
+    "elevM": 75
+   },
+   "nearest": {
+    "cell": [
+     41.036488,
+     -124.10256
+    ],
+    "km": 1,
+    "elevM": 75
+   }
+  },
+  {
+   "id": "cs-north-jetty",
+   "name": "Humboldt North Jetty",
+   "query": [
+    40.768,
+    -124.236
+   ],
+   "land": {
+    "cell": [
+     40.79134,
+     -124.192024
+    ],
+    "km": 4.5,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     40.783634,
+     -124.226135
+    ],
+    "km": 1.9,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     40.783634,
+     -124.226135
+    ],
+    "km": 1.9,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-shelter-cove",
+   "name": "Shelter Cove",
+   "query": [
+    40.024,
+    -124.07
+   ],
+   "land": {
+    "cell": [
+     40.011112,
+     -124.03499
+    ],
+    "km": 3.3,
+    "elevM": 16
+   },
+   "sea": {
+    "cell": [
+     40.029297,
+     -124.078766
+    ],
+    "km": 1,
+    "elevM": 16
+   },
+   "nearest": {
+    "cell": [
+     40.029297,
+     -124.078766
+    ],
+    "km": 1,
+    "elevM": 16
+   }
+  },
+  {
+   "id": "cs-point-arena",
+   "name": "Point Arena",
+   "query": [
+    38.914,
+    -123.712
+   ],
+   "land": {
+    "cell": [
+     38.927406,
+     -123.73046
+    ],
+    "km": 2.2,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     38.901524,
+     -123.720726
+    ],
+    "km": 1.6,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     38.901524,
+     -123.720726
+    ],
+    "km": 1.6,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-salmon-creek",
+   "name": "Salmon Creek",
+   "query": [
+    38.354,
+    -123.068
+   ],
+   "land": {
+    "cell": [
+     38.350887,
+     -123.04981
+    ],
+    "km": 1.6,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     38.343494,
+     -123.08289
+    ],
+    "km": 1.7,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     38.350887,
+     -123.04981
+    ],
+    "km": 1.6,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-dillon-beach",
+   "name": "Dillon Beach",
+   "query": [
+    38.25,
+    -122.969
+   ],
+   "land": {
+    "cell": [
+     38.26185,
+     -122.94606
+    ],
+    "km": 2.4,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     38.254482,
+     -122.97912
+    ],
+    "km": 1,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     38.254482,
+     -122.97912
+    ],
+    "km": 1,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-waddell",
+   "name": "Waddell Creek",
+   "query": [
+    37.096,
+    -122.278
+   ],
+   "land": {
+    "cell": [
+     37.11779,
+     -122.29359
+    ],
+    "km": 2.8,
+    "elevM": 3
+   },
+   "sea": {
+    "cell": [
+     37.09181,
+     -122.284584
+    ],
+    "km": 0.7,
+    "elevM": 3
+   },
+   "nearest": {
+    "cell": [
+     37.09181,
+     -122.284584
+    ],
+    "km": 0.7,
+    "elevM": 3
+   }
+  },
+  {
+   "id": "cs-manresa",
+   "name": "Manresa",
+   "query": [
+    36.93,
+    -121.864
+   ],
+   "land": {
+    "cell": [
+     36.95489,
+     -121.887436
+    ],
+    "km": 3.5,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     36.928856,
+     -121.87859
+    ],
+    "km": 1.3,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     36.928856,
+     -121.87859
+    ],
+    "km": 1.3,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-moss-landing",
+   "name": "Moss Landing",
+   "query": [
+    36.804,
+    -121.79
+   ],
+   "land": {
+    "cell": [
+     36.812782,
+     -121.769485
+    ],
+    "km": 2.1,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     36.805744,
+     -121.802
+    ],
+    "km": 1.1,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     36.805744,
+     -121.802
+    ],
+    "km": 1.1,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-asilomar",
+   "name": "Asilomar",
+   "query": [
+    36.619,
+    -121.94
+   ],
+   "land": {
+    "cell": [
+     36.607246,
+     -121.94396
+    ],
+    "km": 1.4,
+    "elevM": 9
+   },
+   "sea": {
+    "cell": [
+     36.63327,
+     -121.95279
+    ],
+    "km": 2,
+    "elevM": 9
+   },
+   "nearest": {
+    "cell": [
+     36.607246,
+     -121.94396
+    ],
+    "km": 1.4,
+    "elevM": 9
+   }
+  },
+  {
+   "id": "cs-carmel",
+   "name": "Carmel Beach",
+   "query": [
+    36.553,
+    -121.928
+   ],
+   "land": {
+    "cell": [
+     36.555202,
+     -121.92634
+    ],
+    "km": 0.3,
+    "elevM": 23
+   },
+   "sea": {
+    "cell": [
+     36.548126,
+     -121.958725
+    ],
+    "km": 2.8,
+    "elevM": 23
+   },
+   "nearest": {
+    "cell": [
+     36.555202,
+     -121.92634
+    ],
+    "km": 0.3,
+    "elevM": 23
+   }
+  },
+  {
+   "id": "cs-sand-dollar",
+   "name": "Sand Dollar",
+   "query": [
+    35.924,
+    -121.469
+   ],
+   "land": {
+    "cell": [
+     35.927452,
+     -121.47454
+    ],
+    "km": 0.6,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     35.9014,
+     -121.46597
+    ],
+    "km": 2.5,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     35.927452,
+     -121.47454
+    ],
+    "km": 0.6,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-morro-rock",
+   "name": "Morro Rock",
+   "query": [
+    35.372,
+    -120.866
+   ],
+   "land": {
+    "cell": [
+     35.364998,
+     -120.846886
+    ],
+    "km": 1.9,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     35.35824,
+     -120.878845
+    ],
+    "km": 1.9,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     35.364998,
+     -120.846886
+    ],
+    "km": 1.9,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-pismo",
+   "name": "Pismo Beach Pier",
+   "query": [
+    35.138,
+    -120.644
+   ],
+   "land": {
+    "cell": [
+     35.131107,
+     -120.63673
+    ],
+    "km": 1,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     35.1244,
+     -120.66862
+    ],
+    "km": 2.7,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     35.131107,
+     -120.63673
+    ],
+    "km": 1,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-jalama",
+   "name": "Jalama",
+   "query": [
+    34.511,
+    -120.502
+   ],
+   "land": {
+    "cell": [
+     34.498425,
+     -120.473404
+    ],
+    "km": 3,
+    "elevM": 2
+   },
+   "sea": {
+    "cell": [
+     34.517868,
+     -120.51312
+    ],
+    "km": 1.3,
+    "elevM": 2
+   },
+   "nearest": {
+    "cell": [
+     34.517868,
+     -120.51312
+    ],
+    "km": 1.3,
+    "elevM": 2
+   }
+  },
+  {
+   "id": "cs-rincon",
+   "name": "Rincon",
+   "query": [
+    34.373,
+    -119.478
+   ],
+   "land": {
+    "cell": [
+     34.39346,
+     -119.49992
+    ],
+    "km": 3,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     34.367313,
+     -119.49221
+    ],
+    "km": 1.4,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     34.367313,
+     -119.49221
+    ],
+    "km": 1.4,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-c-street",
+   "name": "C Street",
+   "query": [
+    34.274,
+    -119.3
+   ],
+   "land": {
+    "cell": [
+     34.268276,
+     -119.29552
+    ],
+    "km": 0.8,
+    "elevM": 4
+   },
+   "sea": {
+    "cell": [
+     34.26195,
+     -119.32716
+    ],
+    "km": 2.8,
+    "elevM": 4
+   },
+   "nearest": {
+    "cell": [
+     34.268276,
+     -119.29552
+    ],
+    "km": 0.8,
+    "elevM": 4
+   }
+  },
+  {
+   "id": "cs-county-line",
+   "name": "County Line",
+   "query": [
+    34.051,
+    -118.964
+   ],
+   "land": {
+    "cell": [
+     34.05676,
+     -118.96685
+    ],
+    "km": 0.7,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     34.030586,
+     -118.95936
+    ],
+    "km": 2.3,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     34.05676,
+     -118.96685
+    ],
+    "km": 0.7,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-zuma",
+   "name": "Zuma",
+   "query": [
+    34.015,
+    -118.822
+   ],
+   "land": {
+    "cell": [
+     34.02919,
+     -118.82555
+    ],
+    "km": 1.6,
+    "elevM": 4
+   },
+   "sea": {
+    "cell": [
+     34.003006,
+     -118.818085
+    ],
+    "km": 1.4,
+    "elevM": 4
+   },
+   "nearest": {
+    "cell": [
+     34.003006,
+     -118.818085
+    ],
+    "km": 1.4,
+    "elevM": 4
+   }
+  },
+  {
+   "id": "cs-malibu",
+   "name": "Malibu (Surfrider)",
+   "query": [
+    34.036,
+    -118.678
+   ],
+   "land": {
+    "cell": [
+     34.027634,
+     -118.69173
+    ],
+    "km": 1.6,
+    "elevM": 13
+   },
+   "sea": {
+    "cell": [
+     34.00145,
+     -118.684326
+    ],
+    "km": 3.9,
+    "elevM": 13
+   },
+   "nearest": {
+    "cell": [
+     34.027634,
+     -118.69173
+    ],
+    "km": 1.6,
+    "elevM": 13
+   }
+  },
+  {
+   "id": "cs-topanga",
+   "name": "Topanga",
+   "query": [
+    34.038,
+    -118.582
+   ],
+   "land": {
+    "cell": [
+     34.04601,
+     -118.59691
+    ],
+    "km": 1.6,
+    "elevM": 2
+   },
+   "sea": {
+    "cell": [
+     34.01982,
+     -118.58955
+    ],
+    "km": 2.1,
+    "elevM": 2
+   },
+   "nearest": {
+    "cell": [
+     34.04601,
+     -118.59691
+    ],
+    "km": 1.6,
+    "elevM": 2
+   }
+  },
+  {
+   "id": "cs-el-porto",
+   "name": "El Porto",
+   "query": [
+    33.901,
+    -118.421
+   ],
+   "land": {
+    "cell": [
+     33.913162,
+     -118.4265
+    ],
+    "km": 1.4,
+    "elevM": 2
+   },
+   "sea": {
+    "cell": [
+     33.88696,
+     -118.4192
+    ],
+    "km": 1.6,
+    "elevM": 2
+   },
+   "nearest": {
+    "cell": [
+     33.913162,
+     -118.4265
+    ],
+    "km": 1.4,
+    "elevM": 2
+   }
+  },
+  {
+   "id": "cs-hermosa",
+   "name": "Hermosa Pier",
+   "query": [
+    33.862,
+    -118.402
+   ],
+   "land": {
+    "cell": [
+     33.866825,
+     -118.38033
+    ],
+    "km": 2.1,
+    "elevM": 4
+   },
+   "sea": {
+    "cell": [
+     33.86076,
+     -118.411896
+    ],
+    "km": 0.9,
+    "elevM": 4
+   },
+   "nearest": {
+    "cell": [
+     33.86076,
+     -118.411896
+    ],
+    "km": 0.9,
+    "elevM": 4
+   }
+  },
+  {
+   "id": "cs-huntington",
+   "name": "Huntington Pier",
+   "query": [
+    33.655,
+    -118.003
+   ],
+   "land": {
+    "cell": [
+     33.664623,
+     -117.99295
+    ],
+    "km": 1.4,
+    "elevM": 5
+   },
+   "sea": {
+    "cell": [
+     33.658684,
+     -118.024445
+    ],
+    "km": 2,
+    "elevM": 5
+   },
+   "nearest": {
+    "cell": [
+     33.664623,
+     -117.99295
+    ],
+    "km": 1.4,
+    "elevM": 5
+   }
+  },
+  {
+   "id": "cs-wedge",
+   "name": "The Wedge",
+   "query": [
+    33.593,
+    -117.882
+   ],
+   "land": {
+    "cell": [
+     33.60371,
+     -117.87713
+    ],
+    "km": 1.3,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     33.577484,
+     -117.87005
+    ],
+    "km": 2,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     33.60371,
+     -117.87713
+    ],
+    "km": 1.3,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-salt-creek",
+   "name": "Salt Creek",
+   "query": [
+    33.479,
+    -117.729
+   ],
+   "land": {
+    "cell": [
+     33.46984,
+     -117.70895
+    ],
+    "km": 2.1,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     33.46398,
+     -117.740395
+    ],
+    "km": 2,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     33.46398,
+     -117.740395
+    ],
+    "km": 2,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-trestles",
+   "name": "Trestles",
+   "query": [
+    33.384,
+    -117.589
+   ],
+   "land": {
+    "cell": [
+     33.408657,
+     -117.59364
+    ],
+    "km": 2.8,
+    "elevM": 3
+   },
+   "sea": {
+    "cell": [
+     33.382416,
+     -117.58667
+    ],
+    "km": 0.3,
+    "elevM": 3
+   },
+   "nearest": {
+    "cell": [
+     33.382416,
+     -117.58667
+    ],
+    "km": 0.3,
+    "elevM": 3
+   }
+  },
+  {
+   "id": "cs-oceanside",
+   "name": "Oceanside Pier",
+   "query": [
+    33.193,
+    -117.387
+   ],
+   "land": {
+    "cell": [
+     33.201454,
+     -117.37434
+    ],
+    "km": 1.5,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     33.19569,
+     -117.405685
+    ],
+    "km": 1.8,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     33.201454,
+     -117.37434
+    ],
+    "km": 1.5,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-swamis",
+   "name": "Swami’s",
+   "query": [
+    33.035,
+    -117.293
+   ],
+   "land": {
+    "cell": [
+     33.02924,
+     -117.263695
+    ],
+    "km": 2.8,
+    "elevM": 27
+   },
+   "sea": {
+    "cell": [
+     33.023502,
+     -117.29499
+    ],
+    "km": 1.3,
+    "elevM": 27
+   },
+   "nearest": {
+    "cell": [
+     33.023502,
+     -117.29499
+    ],
+    "km": 1.3,
+    "elevM": 27
+   }
+  },
+  {
+   "id": "cs-cardiff",
+   "name": "Cardiff Reef",
+   "query": [
+    33.014,
+    -117.282
+   ],
+   "land": {
+    "cell": [
+     33.002987,
+     -117.25687
+    ],
+    "km": 2.6,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     33.023502,
+     -117.29499
+    ],
+    "km": 1.6,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     33.023502,
+     -117.29499
+    ],
+    "km": 1.6,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-blacks",
+   "name": "Black’s Beach",
+   "query": [
+    32.889,
+    -117.253
+   ],
+   "land": {
+    "cell": [
+     32.898033,
+     -117.22963
+    ],
+    "km": 2.4,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     32.89232,
+     -117.26087
+    ],
+    "km": 0.8,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     32.89232,
+     -117.26087
+    ],
+    "km": 0.8,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-windansea",
+   "name": "Windansea",
+   "query": [
+    32.83,
+    -117.281
+   ],
+   "land": {
+    "cell": [
+     32.81361,
+     -117.24045
+    ],
+    "km": 4.2,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     32.83413,
+     -117.27848
+    ],
+    "km": 0.5,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     32.83413,
+     -117.27848
+    ],
+    "km": 0.5,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-ob-sd",
+   "name": "Ocean Beach (San Diego)",
+   "query": [
+    32.749,
+    -117.253
+   ],
+   "land": {
+    "cell": [
+     32.76114,
+     -117.22686
+    ],
+    "km": 2.8,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     32.75543,
+     -117.258064
+    ],
+    "km": 0.9,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     32.75543,
+     -117.258064
+    ],
+    "km": 0.9,
+    "elevM": 0
+   }
+  },
+  {
+   "id": "cs-imperial",
+   "name": "Imperial Beach",
+   "query": [
+    32.579,
+    -117.134
+   ],
+   "land": {
+    "cell": [
+     32.562683,
+     -117.11046
+    ],
+    "km": 2.9,
+    "elevM": 0
+   },
+   "sea": {
+    "cell": [
+     32.583225,
+     -117.14832
+    ],
+    "km": 1.4,
+    "elevM": 0
+   },
+   "nearest": {
+    "cell": [
+     32.583225,
+     -117.14832
+    ],
+    "km": 1.4,
+    "elevM": 0
+   }
+  }
+ ]
+}
