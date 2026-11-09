@@ -1380,7 +1380,7 @@
    "lon": 97.391,
    "seaward": 157.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (2.03213,97.3915), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (2.03213,97.3915), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.47 km from OSM place=island 'Pulau Pinang' outline (https://www.openstreetmap.org/relation/8941129)",
     "url": "https://www.surfnerd.com/surf-forecast/lizards-nest.md"
    },
    "facingSource": {
@@ -1466,7 +1466,14 @@
      "lon": 98.995,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIMN&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.47 km from the outline of OSM place=island 'Pulau Pinang' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.04 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/8941129",
+    "url": "https://www.openstreetmap.org/relation/8941129",
+    "distanceKm": 0.47,
+    "naturalEarthKm": 6.04
+   }
   },
   {
    "id": "w-indonesia-lolok-point",
@@ -1871,7 +1878,7 @@
    "lon": 96.262,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (2.36289,96.26166), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 2.36,96.32 (6.5 km away)",
+    "text": "surfnerd guide map pin (2.36289,96.26166), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 2.36,96.32 (6.5 km away); coast check 2026-11-09: 0.11 km from OSM place=island 'Pulau Tapah' outline (https://www.openstreetmap.org/way/27211919)",
     "url": "https://www.surfnerd.com/surf-forecast/tea-bags.md"
    },
    "facingSource": {
@@ -1962,7 +1969,14 @@
      "lon": 98.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIMM&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.11 km from the outline of OSM place=island 'Pulau Tapah' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 5.22 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27211919",
+    "url": "https://www.openstreetmap.org/way/27211919",
+    "distanceKm": 0.11,
+    "naturalEarthKm": 5.22
+   }
   },
   {
    "id": "w-indonesia-thailand-simeulue",
@@ -2381,7 +2395,7 @@
    "lon": 115.15,
    "seaward": 315.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.74248,115.15046), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.75,115.16 (1.3 km away); wannasurf pin -8.7451,115.1503 (0.3 km away)",
+    "text": "surfnerd guide map pin (-8.74248,115.15046), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.75,115.16 (1.3 km away); wannasurf pin -8.7451,115.1503 (0.3 km away); coast check 2026-11-09: 1.44 km from OSM natural=beach 'Kelan beach' outline (https://www.openstreetmap.org/way/521074419)",
     "url": "https://www.surfnerd.com/surf-forecast/airport-reef.md"
    },
    "facingSource": {
@@ -2481,7 +2495,14 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.44 km from the outline of OSM natural=beach 'Kelan beach' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.36 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/521074419",
+    "url": "https://www.openstreetmap.org/way/521074419",
+    "distanceKm": 1.44,
+    "naturalEarthKm": 3.36
+   }
   },
   {
    "id": "w-indonesia-airport-rights",
@@ -2820,7 +2841,7 @@
    "country": "Indonesia",
    "region": "Bali, Batubelig",
    "timeZone": "Asia/Makassar",
-   "type": null,
+   "type": "Reef",
    "lat": -8.675,
    "lon": 115.145,
    "seaward": 225.0,
@@ -2843,6 +2864,11 @@
      },
      {
       "url": "https://www.wannasurf.com/spot/Asia/Indonesia/Bali/berawa/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Indonesia/Bali/berawa/",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
@@ -2872,7 +2898,8 @@
      "surfnerd": "Berawa Beach is a surf spot on Bali, Indonesia. Check the live forecast before you go, and treat the swell, wind, and tide readings as your guide to whether it is worth the paddle.",
      "surfForecast": null
     },
-    "notes": "town: Batubelig (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Exact) is 1.2 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Very consistent (150 day/year); type Reef-coral; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers"
+    "notes": "town: Batubelig (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Exact) is 1.2 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Very consistent (150 day/year); type Reef-coral; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 1.14 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2911,7 +2938,11 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 1.14 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Asia/Indonesia/Bali/berawa/"
+   }
   },
   {
    "id": "w-indonesia-bingin",
@@ -3251,7 +3282,7 @@
    "lon": 115.438,
    "seaward": 270.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.70557,115.43762), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.7,115.44 (0.7 km away); wannasurf pin -8.7035,115.4409 (0.4 km away)",
+    "text": "surfnerd guide map pin (-8.70557,115.43762), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.7,115.44 (0.7 km away); wannasurf pin -8.7035,115.4409 (0.4 km away); coast check 2026-11-09: 0.02 km from OSM place=island 'Nusa Ceningan' outline (https://www.openstreetmap.org/relation/9904711)",
     "url": "https://www.surfnerd.com/surf-forecast/ceningan.md"
    },
    "facingSource": {
@@ -3341,7 +3372,14 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.02 km from the outline of OSM place=island 'Nusa Ceningan' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 4.17 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/9904711",
+    "url": "https://www.openstreetmap.org/relation/9904711",
+    "distanceKm": 0.02,
+    "naturalEarthKm": 4.17
+   }
   },
   {
    "id": "w-indonesia-dreamland",
@@ -4312,7 +4350,7 @@
    "lon": 115.156,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.72988,115.15636), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.72,115.17 (1.9 km away); wannasurf pin -8.7305,115.1559 (0.1 km away)",
+    "text": "surfnerd guide map pin (-8.72988,115.15636), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.72,115.17 (1.9 km away); wannasurf pin -8.7305,115.1559 (0.1 km away); coast check 2026-11-09: 0.77 km from OSM place=islet outline (https://www.openstreetmap.org/way/261089633)",
     "url": "https://www.surfnerd.com/surf-forecast/kuta-reef.md"
    },
    "facingSource": {
@@ -4412,7 +4450,14 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.77 km from the outline of OSM place=islet (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.12 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/261089633",
+    "url": "https://www.openstreetmap.org/way/261089633",
+    "distanceKm": 0.77,
+    "naturalEarthKm": 3.12
+   }
   },
   {
    "id": "w-indonesia-lacerations",
@@ -4425,7 +4470,7 @@
    "lon": 115.441,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.67216,115.44125), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.68,115.44 (0.9 km away); wannasurf pin -8.6759,115.4407 (0.4 km away)",
+    "text": "surfnerd guide map pin (-8.67216,115.44125), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.68,115.44 (0.9 km away); wannasurf pin -8.6759,115.4407 (0.4 km away); coast check 2026-11-09: 0.69 km from OSM place=island 'Nusa Lembongan' outline (https://www.openstreetmap.org/relation/9830649)",
     "url": "https://www.surfnerd.com/surf-forecast/lacerations.md"
    },
    "facingSource": {
@@ -4515,7 +4560,14 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.69 km from the outline of OSM place=island 'Nusa Lembongan' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.18 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/9830649",
+    "url": "https://www.openstreetmap.org/relation/9830649",
+    "distanceKm": 0.69,
+    "naturalEarthKm": 6.18
+   }
   },
   {
    "id": "w-indonesia-lebih",
@@ -5344,7 +5396,7 @@
    "lon": 115.441,
    "seaward": 337.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.6776,115.44072), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.68,115.43 (1.2 km away); wannasurf pin -8.6783,115.4412 (0.1 km away)",
+    "text": "surfnerd guide map pin (-8.6776,115.44072), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.68,115.43 (1.2 km away); wannasurf pin -8.6783,115.4412 (0.1 km away); coast check 2026-11-09: 0.2 km from OSM place=island 'Nusa Lembongan' outline (https://www.openstreetmap.org/relation/9830649)",
     "url": "https://www.surfnerd.com/surf-forecast/playgrounds.md"
    },
    "facingSource": {
@@ -5431,7 +5483,14 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.2 km from the outline of OSM place=island 'Nusa Lembongan' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 5.77 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/9830649",
+    "url": "https://www.openstreetmap.org/relation/9830649",
+    "distanceKm": 0.2,
+    "naturalEarthKm": 5.77
+   }
   },
   {
    "id": "w-indonesia-purnama-beach",
@@ -5928,7 +5987,7 @@
    "lon": 115.442,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.66553,115.4425), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.67,115.44 (0.6 km away); wannasurf pin -8.6657,115.4432 (0.1 km away)",
+    "text": "surfnerd guide map pin (-8.66553,115.4425), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.67,115.44 (0.6 km away); wannasurf pin -8.6657,115.4432 (0.1 km away); coast check 2026-11-09: 0.66 km from OSM place=island 'Nusa Lembongan' outline (https://www.openstreetmap.org/relation/9830649)",
     "url": "https://www.surfnerd.com/surf-forecast/shipwrecks-lembongan.md"
    },
    "facingSource": {
@@ -6015,7 +6074,14 @@
      "lon": 115.167,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADD&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.66 km from the outline of OSM place=island 'Nusa Lembongan' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.51 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/9830649",
+    "url": "https://www.openstreetmap.org/relation/9830649",
+    "distanceKm": 0.66,
+    "naturalEarthKm": 6.51
+   }
   },
   {
    "id": "w-indonesia-sri-lanka",
@@ -7798,7 +7864,7 @@
    "lon": 122.752,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-10.82986,122.75194), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -10.82,122.75 (1.1 km away); wannasurf pin -10.8335,122.7530 (0.4 km away)",
+    "text": "surfnerd guide map pin (-10.82986,122.75194), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -10.82,122.75 (1.1 km away); wannasurf pin -10.8335,122.7530 (0.4 km away); coast check 2026-11-09: 0.38 km from OSM place=island 'Pulau Doo' outline (https://www.openstreetmap.org/way/25763576)",
     "url": "https://www.surfnerd.com/surf-forecast/doo.md"
    },
    "facingSource": {
@@ -7898,7 +7964,14 @@
      "lon": 123.671,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WATT&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.38 km from the outline of OSM place=island 'Pulau Doo' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.89 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/25763576",
+    "url": "https://www.openstreetmap.org/way/25763576",
+    "distanceKm": 0.38,
+    "naturalEarthKm": 6.89
+   }
   },
   {
    "id": "w-indonesia-five-o",
@@ -7911,7 +7984,7 @@
    "lon": 120.591,
    "seaward": 202.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-10.2594,120.591), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-10.2594,120.591), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.94 km from OSM place=island 'Sumba' outline (https://www.openstreetmap.org/relation/7219484)",
     "url": "https://www.surfnerd.com/surf-forecast/five-o.md"
    },
    "facingSource": {
@@ -7995,7 +8068,14 @@
      "lon": 123.671,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WATT&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.94 km from the outline of OSM place=island 'Sumba' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.09 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/7219484",
+    "url": "https://www.openstreetmap.org/relation/7219484",
+    "distanceKm": 0.94,
+    "naturalEarthKm": 3.09
+   }
   },
   {
    "id": "w-indonesia-mangkudu-lefts",
@@ -8008,7 +8088,7 @@
    "lon": 120.097,
    "seaward": 247.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-10.3305,120.097), rounded to 3 dp; not a surveyed takeoff; wannasurf pin -10.3144,120.1552 (6.6 km away)",
+    "text": "surfnerd guide map pin (-10.3305,120.097), rounded to 3 dp; not a surveyed takeoff; wannasurf pin -10.3144,120.1552 (6.6 km away); coast check 2026-11-09: 1.18 km from OSM place=island 'Pulau Mangudu' outline (https://www.openstreetmap.org/way/492874074)",
     "url": "https://www.surfnerd.com/surf-forecast/mangkudu-lefts.md"
    },
    "facingSource": {
@@ -8102,7 +8182,14 @@
      "lon": 123.671,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WATT&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.18 km from the outline of OSM place=island 'Pulau Mangudu' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 8.58 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/492874074",
+    "url": "https://www.openstreetmap.org/way/492874074",
+    "distanceKm": 1.18,
+    "naturalEarthKm": 8.58
+   }
   },
   {
    "id": "w-indonesia-millers-rights",
@@ -8975,7 +9062,7 @@
    "lon": 121.269,
    "seaward": 247.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-10.82753,121.26909), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -10.82,121.28 (1.5 km away)",
+    "text": "surfnerd guide map pin (-10.82753,121.26909), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -10.82,121.28 (1.5 km away); coast check 2026-11-09: 0.35 km from OSM place=island 'Pulau Dana' outline (https://www.openstreetmap.org/way/150520023)",
     "url": "https://www.surfnerd.com/surf-forecast/pulau-dana.md"
    },
    "facingSource": {
@@ -9066,7 +9153,14 @@
      "lon": 123.671,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WATT&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.35 km from the outline of OSM place=island 'Pulau Dana' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 35.58 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/150520023",
+    "url": "https://www.openstreetmap.org/way/150520023",
+    "distanceKm": 0.35,
+    "naturalEarthKm": 35.58
+   }
   },
   {
    "id": "w-indonesia-racetrack-sumba",
@@ -10022,7 +10116,7 @@
    "lon": 114.338,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.73464,114.33833), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.71,114.37 (4.4 km away); wannasurf pin -8.7343,114.3397 (0.2 km away)",
+    "text": "surfnerd guide map pin (-8.73464,114.33833), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.71,114.37 (4.4 km away); wannasurf pin -8.7343,114.3397 (0.2 km away); coast check 2026-11-09: 1.13 km from OSM natural=beach 'Pantai Plengkung' outline (https://www.openstreetmap.org/way/451060608)",
     "url": "https://www.surfnerd.com/surf-forecast/g-land.md"
    },
    "facingSource": {
@@ -10124,7 +10218,14 @@
      "lon": 114.34,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADY&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.13 km from the outline of OSM natural=beach 'Pantai Plengkung' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.26 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/451060608",
+    "url": "https://www.openstreetmap.org/way/451060608",
+    "distanceKm": 1.13,
+    "naturalEarthKm": 3.26
+   }
   },
   {
    "id": "w-indonesia-tanjung-kucur",
@@ -11293,7 +11394,7 @@
    "lon": 103.853,
    "seaward": 135.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-5.12457,103.85329), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -5.12,103.84 (1.6 km away)",
+    "text": "surfnerd guide map pin (-5.12457,103.85329), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -5.12,103.84 (1.6 km away); coast check 2026-11-09: 0.11 km from OSM place=island 'Pulau Pisang' outline (https://www.openstreetmap.org/way/608793318)",
     "url": "https://www.surfnerd.com/surf-forecast/pulau-pisang.md"
    },
    "facingSource": {
@@ -11386,7 +11487,14 @@
      "lon": 105.175,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WILL&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.11 km from the outline of OSM place=island 'Pulau Pisang' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 4.19 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/608793318",
+    "url": "https://www.openstreetmap.org/way/608793318",
+    "distanceKm": 0.11,
+    "naturalEarthKm": 4.19
+   }
   },
   {
    "id": "w-indonesia-the-peak-krui",
@@ -12710,7 +12818,7 @@
    "lon": 127.78,
    "seaward": 0.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (2.13843,127.78), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (2.13843,127.78), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.78 km from OSM place=islet 'Tamakumafatu' outline (https://www.openstreetmap.org/relation/18324892)",
     "url": "https://www.surfnerd.com/surf-forecast/sidewalk.md"
    },
    "facingSource": {
@@ -12798,7 +12906,14 @@
      "lon": 124.917,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WAMM&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.78 km from the outline of OSM place=islet 'Tamakumafatu' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 7.89 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/18324892",
+    "url": "https://www.openstreetmap.org/relation/18324892",
+    "distanceKm": 0.78,
+    "naturalEarthKm": 7.89
+   }
   },
   {
    "id": "w-indonesia-tacos",
@@ -13007,7 +13122,7 @@
    "lon": 128.069,
    "seaward": 180.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (1.7065,128.06931), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (1.7065,128.06931), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.7 km from OSM place=islet 'Pulau Tuputupu' outline (https://www.openstreetmap.org/way/204514880)",
     "url": "https://www.surfnerd.com/surf-forecast/tobelo-islands.md"
    },
    "facingSource": {
@@ -13094,7 +13209,14 @@
      "lon": 124.917,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WAMM&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.7 km from the outline of OSM place=islet 'Pulau Tuputupu' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.15 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/204514880",
+    "url": "https://www.openstreetmap.org/way/204514880",
+    "distanceKm": 0.7,
+    "naturalEarthKm": 6.15
+   }
   },
   {
    "id": "w-indonesia-village-reform",
@@ -13316,7 +13438,7 @@
    "lon": 97.264,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.91183,97.26354), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.92,97.25 (1.8 km away); wannasurf pin 0.8674,97.3336 (9.2 km away)",
+    "text": "surfnerd guide map pin (0.91183,97.26354), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.92,97.25 (1.8 km away); wannasurf pin 0.8674,97.3336 (9.2 km away); coast check 2026-11-09: 0.12 km from OSM place=island 'Pulau Asu' outline (https://www.openstreetmap.org/way/58671920)",
     "url": "https://www.surfnerd.com/surf-forecast/asu.md"
    },
    "facingSource": {
@@ -13420,7 +13542,14 @@
      "lon": 98.995,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIMN&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.12 km from the outline of OSM place=island 'Pulau Asu' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 10.61 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/58671920",
+    "url": "https://www.openstreetmap.org/way/58671920",
+    "distanceKm": 0.12,
+    "naturalEarthKm": 10.61
+   }
   },
   {
    "id": "w-indonesia-bawa",
@@ -16838,7 +16967,7 @@
    "lon": 116.088,
    "seaward": 135.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-8.36388,116.0882), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.37,116.09 (0.7 km away); wannasurf pin -8.3697,116.0760 (1.5 km away)",
+    "text": "surfnerd guide map pin (-8.36388,116.0882), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -8.37,116.09 (0.7 km away); wannasurf pin -8.3697,116.0760 (1.5 km away); coast check 2026-11-09: 0.03 km from OSM place=island 'Gili Air' outline (https://www.openstreetmap.org/way/230916287)",
     "url": "https://www.surfnerd.com/surf-forecast/gili-air.md"
    },
    "facingSource": {
@@ -16937,7 +17066,14 @@
      "lon": 116.277,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WADL&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.03 km from the outline of OSM place=island 'Gili Air' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.79 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/230916287",
+    "url": "https://www.openstreetmap.org/way/230916287",
+    "distanceKm": 0.03,
+    "naturalEarthKm": 3.79
+   }
   },
   {
    "id": "w-indonesia-gili-trawangan",
@@ -19877,7 +20013,7 @@
    "lon": 99.151,
    "seaward": 112.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.84012,99.15124), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.84,99.15 (0.1 km away); wannasurf pin -1.8400,99.1513 (0.0 km away)",
+    "text": "surfnerd guide map pin (-1.84012,99.15124), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.84,99.15 (0.1 km away); wannasurf pin -1.8400,99.1513 (0.0 km away); coast check 2026-11-09: 0.05 km from OSM place=island 'Pulau Dodiki' outline (https://www.openstreetmap.org/way/27430211)",
     "url": "https://www.surfnerd.com/surf-forecast/burgerworld.md"
    },
    "facingSource": {
@@ -19975,7 +20111,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.05 km from the outline of OSM place=island 'Pulau Dodiki' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 5.22 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430211",
+    "url": "https://www.openstreetmap.org/way/27430211",
+    "distanceKm": 0.05,
+    "naturalEarthKm": 5.22
+   }
   },
   {
    "id": "w-indonesia-chubbies",
@@ -19988,7 +20131,7 @@
    "lon": 99.315,
    "seaward": 45.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.89499,99.31515), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-1.89499,99.31515), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 1.28 km from OSM place=island 'Pulau Karangmajat' outline (https://www.openstreetmap.org/way/27430209)",
     "url": "https://www.surfnerd.com/surf-forecast/chubbies.md"
    },
    "facingSource": {
@@ -20072,7 +20215,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.28 km from the outline of OSM place=island 'Pulau Karangmajat' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 7.49 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430209",
+    "url": "https://www.openstreetmap.org/way/27430209",
+    "distanceKm": 1.28,
+    "naturalEarthKm": 7.49
+   }
   },
   {
    "id": "w-indonesia-e-bay",
@@ -20198,7 +20348,7 @@
    "lon": 99.311,
    "seaward": 45.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.9091,99.31083), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.91,99.31 (0.1 km away); wannasurf pin -1.9091,99.3106 (0.0 km away)",
+    "text": "surfnerd guide map pin (-1.9091,99.31083), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.91,99.31 (0.1 km away); wannasurf pin -1.9091,99.3106 (0.0 km away); coast check 2026-11-09: 0.46 km from OSM place=island 'Pulau Karangmajat' outline (https://www.openstreetmap.org/way/27430209)",
     "url": "https://www.surfnerd.com/surf-forecast/four-bobs.md"
    },
    "facingSource": {
@@ -20298,7 +20448,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.46 km from the outline of OSM place=island 'Pulau Karangmajat' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 8.79 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430209",
+    "url": "https://www.openstreetmap.org/way/27430209",
+    "distanceKm": 0.46,
+    "naturalEarthKm": 8.79
+   }
   },
   {
    "id": "w-indonesia-greenbush",
@@ -20650,7 +20807,7 @@
    "lon": 99.311,
    "seaward": 225.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.90543,99.31123), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-1.90543,99.31123), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.68 km from OSM place=island 'Pulau Karangmajat' outline (https://www.openstreetmap.org/way/27430209)",
     "url": "https://www.surfnerd.com/surf-forecast/karamba.md"
    },
    "facingSource": {
@@ -20734,7 +20891,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.68 km from the outline of OSM place=island 'Pulau Karangmajat' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 8.37 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430209",
+    "url": "https://www.openstreetmap.org/way/27430209",
+    "distanceKm": 0.68,
+    "naturalEarthKm": 8.37
+   }
   },
   {
    "id": "w-indonesia-lances-left",
@@ -20973,7 +21137,7 @@
    "lon": 100.572,
    "seaward": 0.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.25629,100.57187), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-3.25629,100.57187), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.39 km from OSM place=island 'Pulau Simungguk' outline (https://www.openstreetmap.org/way/27429991)",
     "url": "https://www.surfnerd.com/surf-forecast/lighthouse-pagai-selatan.md"
    },
    "facingSource": {
@@ -21059,7 +21223,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.39 km from the outline of OSM place=island 'Pulau Simungguk' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 9.38 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429991",
+    "url": "https://www.openstreetmap.org/way/27429991",
+    "distanceKm": 0.39,
+    "naturalEarthKm": 9.38
+   }
   },
   {
    "id": "w-indonesia-losmen-right",
@@ -21492,7 +21663,7 @@
    "lon": 99.292,
    "seaward": 315.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.89991,99.29153), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.9,99.29 (0.2 km away); wannasurf pin -1.8994,99.2927 (0.1 km away)",
+    "text": "surfnerd guide map pin (-1.89991,99.29153), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.9,99.29 (0.2 km away); wannasurf pin -1.8994,99.2927 (0.1 km away); coast check 2026-11-09: 0.33 km from OSM place=island 'Pulau Karangmajat' outline (https://www.openstreetmap.org/way/27430209)",
     "url": "https://www.surfnerd.com/surf-forecast/no-kandui.md"
    },
    "facingSource": {
@@ -21592,7 +21763,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.33 km from the outline of OSM place=island 'Pulau Karangmajat' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 7.41 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430209",
+    "url": "https://www.openstreetmap.org/way/27430209",
+    "distanceKm": 0.33,
+    "naturalEarthKm": 7.41
+   }
   },
   {
    "id": "w-indonesia-ombak-tidur",
@@ -22010,7 +22188,7 @@
    "lon": 99.095,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.86238,99.09529), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-1.86238,99.09529), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.07 km from OSM place=island 'Pulau Ngiau' outline (https://www.openstreetmap.org/way/27430213)",
     "url": "https://www.surfnerd.com/surf-forecast/promises.md"
    },
    "facingSource": {
@@ -22097,7 +22275,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.07 km from the outline of OSM place=island 'Pulau Ngiau' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.97 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430213",
+    "url": "https://www.openstreetmap.org/way/27430213",
+    "distanceKm": 0.07,
+    "naturalEarthKm": 6.97
+   }
   },
   {
    "id": "w-indonesia-rags-left",
@@ -22110,7 +22295,7 @@
    "lon": 100.147,
    "seaward": 337.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.00527,100.14698), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -3.01,100.14 (0.9 km away)",
+    "text": "surfnerd guide map pin (-3.00527,100.14698), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -3.01,100.14 (0.9 km away); coast check 2026-11-09: 0.26 km from OSM place=island 'Pulau Petojetsabu' outline (https://www.openstreetmap.org/way/27429888)",
     "url": "https://www.surfnerd.com/surf-forecast/rags-left.md"
    },
    "facingSource": {
@@ -22202,7 +22387,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.26 km from the outline of OSM place=island 'Pulau Petojetsabu' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.73 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429888",
+    "url": "https://www.openstreetmap.org/way/27429888",
+    "distanceKm": 0.26,
+    "naturalEarthKm": 6.73
+   }
   },
   {
    "id": "w-indonesia-rags-right",
@@ -22215,7 +22407,7 @@
    "lon": 100.15,
    "seaward": 202.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.02744,100.15011), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -3.06,100.17 (4.2 km away)",
+    "text": "surfnerd guide map pin (-3.02744,100.15011), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -3.06,100.17 (4.2 km away); coast check 2026-11-09: 0.13 km from OSM place=island 'Pulau Petojetsabu' outline (https://www.openstreetmap.org/way/27429888)",
     "url": "https://www.surfnerd.com/surf-forecast/rags-right.md"
    },
    "facingSource": {
@@ -22309,7 +22501,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.13 km from the outline of OSM place=island 'Pulau Petojetsabu' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 7.25 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429888",
+    "url": "https://www.openstreetmap.org/way/27429888",
+    "distanceKm": 0.13,
+    "naturalEarthKm": 7.25
+   }
   },
   {
    "id": "w-indonesia-rifles",
@@ -22322,7 +22521,7 @@
    "lon": 99.32,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.92024,99.32006), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.92,99.32 (0.0 km away); wannasurf pin -1.9207,99.3194 (0.1 km away)",
+    "text": "surfnerd guide map pin (-1.92024,99.32006), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -1.92,99.32 (0.0 km away); wannasurf pin -1.9207,99.3194 (0.1 km away); coast check 2026-11-09: 0.64 km from OSM place=island 'Pulau Karangmajat' outline (https://www.openstreetmap.org/way/27430209)",
     "url": "https://www.surfnerd.com/surf-forecast/rifles.md"
    },
    "facingSource": {
@@ -22420,7 +22619,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.64 km from the outline of OSM place=island 'Pulau Karangmajat' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 10.28 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27430209",
+    "url": "https://www.openstreetmap.org/way/27430209",
+    "distanceKm": 0.64,
+    "naturalEarthKm": 10.28
+   }
   },
   {
    "id": "w-indonesia-roxys",
@@ -22643,7 +22849,7 @@
    "lon": 100.195,
    "seaward": 112.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.075,100.19533), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-3.075,100.19533), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.2 km from OSM place=island 'Pulau Sibigau' outline (https://www.openstreetmap.org/way/27429893)",
     "url": "https://www.surfnerd.com/surf-forecast/sibigau-rights.md"
    },
    "facingSource": {
@@ -22727,7 +22933,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.2 km from the outline of OSM place=island 'Pulau Sibigau' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 5.94 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429893",
+    "url": "https://www.openstreetmap.org/way/27429893",
+    "distanceKm": 0.2,
+    "naturalEarthKm": 5.94
+   }
   },
   {
    "id": "w-indonesia-silabok-island",
@@ -22740,7 +22953,7 @@
    "lon": 99.558,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-1.99182,99.55818), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-1.99182,99.55818), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.78 km from OSM place=island 'Pulau Silabok' outline (https://www.openstreetmap.org/way/27428912)",
     "url": "https://www.surfnerd.com/surf-forecast/silabok-island.md"
    },
    "facingSource": {
@@ -22827,7 +23040,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.78 km from the outline of OSM place=island 'Pulau Silabok' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 34.78 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27428912",
+    "url": "https://www.openstreetmap.org/way/27428912",
+    "distanceKm": 0.78,
+    "naturalEarthKm": 34.78
+   }
   },
   {
    "id": "w-indonesia-silabu",
@@ -22937,7 +23157,7 @@
    "lon": 100.296,
    "seaward": 337.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.2062,100.29627), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-3.2062,100.29627), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.18 km from OSM place=island 'Pulau Salawi' outline (https://www.openstreetmap.org/way/27429913)",
     "url": "https://www.surfnerd.com/surf-forecast/solawi.md"
    },
    "facingSource": {
@@ -23021,7 +23241,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.18 km from the outline of OSM place=island 'Pulau Salawi' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.82 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429913",
+    "url": "https://www.openstreetmap.org/way/27429913",
+    "distanceKm": 0.18,
+    "naturalEarthKm": 3.82
+   }
   },
   {
    "id": "w-indonesia-suicides-central-mentawai",
@@ -23353,7 +23580,7 @@
    "lon": 100.519,
    "seaward": 225.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.24599,100.5189), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-3.24599,100.5189), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.01 km from OSM place=island 'Pulau Saumang' outline (https://www.openstreetmap.org/way/27429994)",
     "url": "https://www.surfnerd.com/surf-forecast/the-hole.md"
    },
    "facingSource": {
@@ -23441,7 +23668,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.01 km from the outline of OSM place=island 'Pulau Saumang' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 7.03 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429994",
+    "url": "https://www.openstreetmap.org/way/27429994",
+    "distanceKm": 0.01,
+    "naturalEarthKm": 7.03
+   }
   },
   {
    "id": "w-indonesia-thunders",
@@ -23454,7 +23688,7 @@
    "lon": 100.172,
    "seaward": 315.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-3.05417,100.1717), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -3.08,100.19 (3.5 km away); wannasurf pin -3.0546,100.1707 (0.1 km away)",
+    "text": "surfnerd guide map pin (-3.05417,100.1717), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -3.08,100.19 (3.5 km away); wannasurf pin -3.0546,100.1707 (0.1 km away); coast check 2026-11-09: 0.17 km from OSM place=island 'Pulau Sibigau' outline (https://www.openstreetmap.org/way/27429893)",
     "url": "https://www.surfnerd.com/surf-forecast/thunders.md"
    },
    "facingSource": {
@@ -23553,7 +23787,14 @@
      "lon": 100.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WIEE&network=ID__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.17 km from the outline of OSM place=island 'Pulau Sibigau' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.87 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/27429893",
+    "url": "https://www.openstreetmap.org/way/27429893",
+    "distanceKm": 0.17,
+    "naturalEarthKm": 6.87
+   }
   }
  ],
  "dropped": [

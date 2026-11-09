@@ -3441,7 +3441,7 @@
    "country": "El Salvador",
    "region": "El Salvador, La Libertad",
    "timeZone": "America/El_Salvador",
-   "type": null,
+   "type": "Point",
    "lat": 13.494,
    "lon": -89.422,
    "seaward": 180,
@@ -3461,6 +3461,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/el-palmarcito",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/El_Salvador/palmarcito/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "S (surfnerd: \"Faces S\")",
@@ -3478,7 +3483,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: El Palmarcito is a surf spot on the coast of El Salvador. Check the live forecast for swell, wind, and tide before you make the drive, and use the conditions on the day to decide whether it is worth paddling out."
+    "notes": "Surfnerd overview: El Palmarcito is a surf spot on the coast of El Salvador. Check the live forecast for swell, wind, and tide before you make the drive, and use the conditions on the day to decide whether it is worth paddling out.",
+    "breakTypeText": "Type: Point-break (wannasurf, GPS 0.09 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3511,7 +3517,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=SV__ASOS&station=MSLP",
      "distanceKm": 39.0
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Point-break (wannasurf, GPS 0.09 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/El_Salvador/palmarcito/"
+   }
   },
   {
    "id": "w-ca-el-paredon",
@@ -3611,7 +3621,7 @@
    "country": "El Salvador",
    "region": "El Salvador, La Paz",
    "timeZone": "America/El_Salvador",
-   "type": null,
+   "type": "Beach",
    "lat": 13.378,
    "lon": -89.084,
    "seaward": 202.5,
@@ -3631,6 +3641,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/el-pimental",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/El_Salvador/El_Pimental/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SSW (surfnerd: \"Faces SSW\")",
@@ -3648,7 +3663,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: El Pimental cleans up when the wind comes from the south-southwest , so that is the direction to watch when you are deciding whether to make the drive. Check the forecast for that offshore window and time your session around it."
+    "notes": "Surfnerd overview: El Pimental cleans up when the wind comes from the south-southwest , so that is the direction to watch when you are deciding whether to make the drive. Check the forecast for that offshore window and time your session around it.",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.89 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3681,7 +3697,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=SV__ASOS&station=MSLP",
      "distanceKm": 6.7
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 0.89 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/El_Salvador/El_Pimental/"
+   }
   },
   {
    "id": "w-ca-el-remanso",
@@ -5161,7 +5181,7 @@
    "lon": -82.231,
    "seaward": 112.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 7.468112, -82.230645)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 7.468112, -82.230645); coast check 2026-11-09: 0.16 km from OSM place=island 'Isla Montuosa' outline (https://www.openstreetmap.org/way/13783617)",
     "url": "https://www.surfnerd.com/surf-forecast/isla-montuosa"
    },
    "facingSource": {
@@ -5233,7 +5253,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PA__ASOS&station=MPDA",
      "distanceKm": 105.6
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.16 km from the outline of OSM place=island 'Isla Montuosa' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 38.77 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/13783617",
+    "url": "https://www.openstreetmap.org/way/13783617",
+    "distanceKm": 0.16,
+    "naturalEarthKm": 38.77
+   }
   },
   {
    "id": "w-ca-iztapa",
@@ -5266,6 +5293,11 @@
       "url": "https://www.surf-forecast.com/breaks/Iztapa",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Guatemala/iztapa/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "S (surfnerd: \"Faces S\")",
@@ -5292,7 +5324,8 @@
     ],
     "season": "Winter, most often November (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Iztapa is a sand-bottom right-hander that breaks alongside the jetties of a fishing port. The jetties pile sand up on the east side, which sets up longer, hollower waves when a chunkier southwest swell rolls in. Extra peaks form between the jetties, giving you a more sheltered option once the swell gets bigger. It all hinges on the sand, though: when the banks are in it can be very good, and when they are not it turns into close-out city. Skill (surfnerd): Intermediate. Surf-forecast Iztapa: \"Iztapa in Pacific Coast is an exposed river break that has reliable surf Offshore winds blow from the north. Most of the surf here comes from groundswells and the ideal swell angle is from the south southwest. The river break offers both left and right hand waves. Rarely crowded here. Take care of the strong rips here.\" Other guide pins from this position: surf-forecast Iztapa 1.9 km."
+    "notes": "Surfnerd overview: Iztapa is a sand-bottom right-hander that breaks alongside the jetties of a fishing port. The jetties pile sand up on the east side, which sets up longer, hollower waves when a chunkier southwest swell rolls in. Extra peaks form between the jetties, giving you a more sheltered option once the swell gets bigger. It all hinges on the sand, though: when the banks are in it can be very good, and when they are not it turns into close-out city. Skill (surfnerd): Intermediate. Surf-forecast Iztapa: \"Iztapa in Pacific Coast is an exposed river break that has reliable surf Offshore winds blow from the north. Most of the surf here comes from groundswells and the ideal swell angle is from the south southwest. The river break offers both left and right hand waves. Rarely crowded here. Take care of the strong rips here.\" Other guide pins from this position: surf-forecast Iztapa 1.9 km.",
+    "breakTypeText": "Iztapa in Pacific Coast is an exposed river break that has reliable surf Offshore winds blow from the north. Type: River (surf-forecast, pin 1.86 km from row pin); Type: Rivermouth (wannasurf, GPS 0.19 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5692,6 +5725,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/la-barra-likin",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/La-Barra_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Guatemala/la_barra/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SSE (surfnerd: \"Faces SSE\")",
@@ -5720,7 +5763,8 @@
     ],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: La Barra is a hollow rivermouth and jetty setup at Balneario Likin, 5km (3mi) past Puerto San Jose on the longest stretch of coastal road in Guatemala, where you can check several beaches without really leaving the highway. The surf here ranks among the best in the country. The righthander is often long and predictable, with hollow pockets broken up by slashable shoulders, and it stays rideable until slightly overhead. The left off the peak sucks hard and runs straight at the rocky tip of the jetty, so it often closes out. Shifting sandbars keep changing the shape and quality, so what you find one session may not be what you get the next. Check: surfnerd states facing SSE but best swell SW (67.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Access (surfnerd): There's a surf camp close by, plus camping, a surf school and a surf shop. Balneario Likin itself is one of the country's only high-end coastal resorts."
+    "notes": "Surfnerd overview: La Barra is a hollow rivermouth and jetty setup at Balneario Likin, 5km (3mi) past Puerto San Jose on the longest stretch of coastal road in Guatemala, where you can check several beaches without really leaving the highway. The surf here ranks among the best in the country. The righthander is often long and predictable, with hollow pockets broken up by slashable shoulders, and it stays rideable until slightly overhead. The left off the peak sucks hard and runs straight at the rocky tip of the jetty, so it often closes out. Shifting sandbars keep changing the shape and quality, so what you find one session may not be what you get the next. Check: surfnerd states facing SSE but best swell SW (67.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Access (surfnerd): There's a surf camp close by, plus camping, a surf school and a surf shop. Balneario Likin itself is one of the country's only high-end coastal resorts.",
+    "breakTypeText": "La Barra in Pacific Coast is an exposed river/Jetty break that has quite consistent surf Offshore winds are from the north northwest. Type: River/jetty (surf-forecast, pin 4.6 km from row pin); Type: Rivermouth (wannasurf, GPS 0.3 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5810,7 +5854,8 @@
     "hazards": [],
     "season": "Winter, most often December (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: La Barrita breaks over sand around a set of jetties, with longer lefts and rights peeling off either side. Just along the beach, the Marina del Sur banks throw up classic peaks when the swell angle lines up. Skill (surfnerd): Intermediate. Surf-forecast La-Barrita: \"La Barrita in Pacific Coast is an exposed river break that has pretty consitent surf Offshore winds are from the north. Groundswells more frequent than windswells and the ideal swell direction is from the south southwest. The river breaks offer lefts and rights. Best around high tide. Rarely crowded here. Take care of the strong rips here.\" Other guide pins from this position: surf-forecast La-Barrita 4.9 km."
+    "notes": "Surfnerd overview: La Barrita breaks over sand around a set of jetties, with longer lefts and rights peeling off either side. Just along the beach, the Marina del Sur banks throw up classic peaks when the swell angle lines up. Skill (surfnerd): Intermediate. Surf-forecast La-Barrita: \"La Barrita in Pacific Coast is an exposed river break that has pretty consitent surf Offshore winds are from the north. Groundswells more frequent than windswells and the ideal swell direction is from the south southwest. The river breaks offer lefts and rights. Best around high tide. Rarely crowded here. Take care of the strong rips here.\" Other guide pins from this position: surf-forecast La-Barrita 4.9 km.",
+    "breakTypeText": "La Barrita in Pacific Coast is an exposed river break that has pretty consitent surf Offshore winds are from the north. Type: River (surf-forecast, pin 4.92 km from row pin)"
    },
    "nearestSources": [
     {
@@ -8277,7 +8322,7 @@
    "lon": -81.815,
    "seaward": 202.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 8.08033, -81.814713)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 8.08033, -81.814713); coast check 2026-11-09: 0.21 km from OSM place=islet 'Isla Silva Afuera' outline (https://www.openstreetmap.org/relation/18546425)",
     "url": "https://www.surfnerd.com/surf-forecast/nestles"
    },
    "facingSource": {
@@ -8356,7 +8401,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PA__ASOS&station=MPDA",
      "distanceKm": 75.2
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.21 km from the outline of OSM place=islet 'Isla Silva Afuera' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.16 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/18546425",
+    "url": "https://www.openstreetmap.org/relation/18546425",
+    "distanceKm": 0.21,
+    "naturalEarthKm": 6.16
+   }
   },
   {
    "id": "w-ca-nosara",
@@ -8759,7 +8811,7 @@
    "lon": -81.818,
    "seaward": 225,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 8.081353, -81.81791)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 8.081353, -81.81791); coast check 2026-11-09: 0.13 km from OSM place=islet 'Isla Silva Afuera' outline (https://www.openstreetmap.org/relation/18546425)",
     "url": "https://www.surfnerd.com/surf-forecast/p-land"
    },
    "facingSource": {
@@ -8838,7 +8890,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PA__ASOS&station=MPDA",
      "distanceKm": 74.8
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.13 km from the outline of OSM place=islet 'Isla Silva Afuera' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 6.27 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/18546425",
+    "url": "https://www.openstreetmap.org/relation/18546425",
+    "distanceKm": 0.13,
+    "naturalEarthKm": 6.27
+   }
   },
   {
    "id": "w-ca-pan-dulce",
@@ -9804,6 +9863,11 @@
       "url": "https://www.surf-forecast.com/breaks/Brasilito",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Costa_Rica/Guanacaste/brasilito/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "WNW (surfnerd: \"Faces WNW\")",
@@ -9823,7 +9887,8 @@
     ],
     "season": "Summer, most often July (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surf-forecast Brasilito: \"Brasilito in Guanacaste is a fairly exposed beach and reef break that has fairly consistent surf Ideal winds are from the east southeast with some shelter here from south winds. Most of the surf here comes from groundswells and the best swell direction is from the west. The beach breaks consists of lefts and there are also left and right hand reef breaks on offer. Surfable at all stages of the tide. Crowds are never a problem here. Beware of - Sharks.\" Other guide pins from this position: surf-forecast Brasilito 0.8 km."
+    "notes": "Surf-forecast Brasilito: \"Brasilito in Guanacaste is a fairly exposed beach and reef break that has fairly consistent surf Ideal winds are from the east southeast with some shelter here from south winds. Most of the surf here comes from groundswells and the best swell direction is from the west. The beach breaks consists of lefts and there are also left and right hand reef breaks on offer. Surfable at all stages of the tide. Crowds are never a problem here. Beware of - Sharks.\" Other guide pins from this position: surf-forecast Brasilito 0.8 km.",
+    "breakTypeText": "Brasilito in Guanacaste is a fairly exposed beach and reef break that has fairly consistent surf Ideal winds are from the east southeast with some shelter here from south winds. Type: Beach and reef (surf-forecast, pin 0.78 km from row pin); Type: Beach-break (wannasurf, GPS 0.76 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17367,6 +17432,11 @@
       "url": "https://www.surf-forecast.com/breaks/Playa-Samara",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Costa_Rica/Guanacaste/playa_samara/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SSE (surfnerd: \"Faces SSE\")",
@@ -17384,7 +17454,8 @@
     "hazards": [],
     "season": "Winter, most often December (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Samara sits on the Costa Rican coast, and the cleanest days here come down to the wind. Look for a south-southwest offshore breeze to groom the surface and hold the faces open. Surf-forecast Playa-Samara: \"Playa Samara in Golfo de Nicoya is an exposed beach and reef break that has quite consistent surf and can work at any time of the year. Ideal winds are from the north. Clean groundswells prevail and the ideal swell angle is from the south southwest. The beach break offers both left and right hand waves and there are also left and right hand reef breaks on offer. It's sometimes crowded here. Take care of Rips, shallow outside reefs.\" Other guide pins from this position: surf-forecast Playa-Samara 1.7 km."
+    "notes": "Surfnerd overview: Samara sits on the Costa Rican coast, and the cleanest days here come down to the wind. Look for a south-southwest offshore breeze to groom the surface and hold the faces open. Surf-forecast Playa-Samara: \"Playa Samara in Golfo de Nicoya is an exposed beach and reef break that has quite consistent surf and can work at any time of the year. Ideal winds are from the north. Clean groundswells prevail and the ideal swell angle is from the south southwest. The beach break offers both left and right hand waves and there are also left and right hand reef breaks on offer. It's sometimes crowded here. Take care of Rips, shallow outside reefs.\" Other guide pins from this position: surf-forecast Playa-Samara 1.7 km.",
+    "breakTypeText": "Playa Samara in Golfo de Nicoya is an exposed beach and reef break that has quite consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 1.66 km from row pin); Type: Beach-break (wannasurf, GPS 1.72 km from row pin)"
    },
    "nearestSources": [
     {

@@ -3265,7 +3265,8 @@
      "surfnerd": "Brunswick Heads is a rivermouth beach break at the mouth of the Brunswick River, where breakwalls on each side hold sand into banks that break over sand. There's something for everyone here, with both rights and lefts on offer depending on how the banks, swell, and wind line up.",
      "surfForecast": "Brunswick Heads North in North Coast - New South Wales is an exposed breakwater break that has fairly consistent surf. Summer offers the best conditions for surfing. The best wind direction is from the south southwest. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the southeast. No breakwater break here Surfable at all stages of the tide. It very rarely gets crowded here."
     },
-    "notes": "town: Brunswick Heads (surfnerd); surf-forecast pin -28.54,153.56 is 0.2 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Brunswick Heads (surfnerd); surf-forecast pin -28.54,153.56 is 0.2 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Brunswick Heads North in North Coast - New South Wales is an exposed breakwater break that has fairly consistent surf. Type: Breakwater (surf-forecast, pin 0.3 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6707,7 +6708,8 @@
      "surfnerd": "Duranbah, better known as D-Bah, is one of the world's finest beachbreaks and a powerful, wedging right-hander that breaks over sand. Although it sits on the north side of the Tweed River, it is technically still in New South Wales, with the border running along Boundary St above the north end of the beach. The rivermouth jetties helped shape its hollow peaks, and refraction off the breakwall focuses swell energy onto the main peak, delivering plenty of tube time.",
      "surfForecast": "Duranbah on the Gold Coast is a fairly exposed river break that usually has waves. The best time of year for waves is autumn. Ideal winds are from the west southwest. Most of the surf here comes from groundswells and the best swell direction is from the south southeast. Waves at the river are both lefts and rights. Good surf at all stages of the tide. When the surf is up, crowds are likely Watch out for rips, locals and sharks."
     },
-    "notes": "town: Tweed Heads (surfnerd); surf-forecast pin -28.17,153.55 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Tweed Heads (surfnerd); surf-forecast pin -28.17,153.55 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Duranbah on the Gold Coast is a fairly exposed river break that usually has waves. Type: River (surf-forecast, pin 0.11 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12692,7 +12694,8 @@
      "surfnerd": "Newcastle Harbour is a serious right-hander that only wakes up for the biggest northeast swells of the year, when they push into the Hunter rivermouth and wrap around the southern harbour jetty. It is a thick, rumbling beast of a wave with a genuine barrel section, breaking over boulders. This one is strictly for experts.",
      "surfForecast": "Newcastle -The Harbour in Newcastle is a reasonably exposed beach break that only works once in a while. The best time of year for waves is autumn. The best wind direction is from the south southwest. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the northeast. A right hand reef. Even when there are waves, it's not likley to be crowded. Beware of rips, obstacles, pollution and sharks."
     },
-    "notes": "town: Newcastle East (surfnerd); surf-forecast pin -32.92,151.8 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Newcastle East (surfnerd); surf-forecast pin -32.92,151.8 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Newcastle -The Harbour in Newcastle is a reasonably exposed beach break that only works once in a while. Type: Beach (surf-forecast, pin 0.59 km from row pin); surfnerd describes a right-hander wrapping around the southern harbour jetty over boulders, so type is left null"
    },
    "nearestSources": [
     {
@@ -29892,7 +29895,8 @@
      "surfnerd": "City Beach Groyne sits along Perth's city beaches, where good lefts peel off the sand piled up against the groyne. It breaks over a mix of rock ledge and sand, and can serve up both lefts and rights.",
      "surfForecast": "City Beach groyne in Perth City Coast is a reasonably exposed beach/groyne break that has reasonably consistent surf, although summer tends to be mostly flat. Ideal winds are from the east. Groundswells more frequent than windswells and the best swell direction is from the west southwest. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Often Crowded. Hazards include rips and sharks."
     },
-    "notes": "town: City Beach (surfnerd); surf-forecast pin -31.95,115.75 is 1.3 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: City Beach (surfnerd); surf-forecast pin -31.95,115.75 is 1.3 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "City Beach groyne in Perth City Coast is a reasonably exposed beach/groyne break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Beach/groyne (surf-forecast, pin 0.98 km from row pin)"
    },
    "nearestSources": [
     {
@@ -31878,7 +31882,7 @@
    "lon": 114.35,
    "seaward": 45.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-21.6601,114.35), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-21.6601,114.35), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.0 km from OSM place=island 'South Muiron Island' outline (https://www.openstreetmap.org/relation/17373824)",
     "url": "https://www.surfnerd.com/surf-forecast/murion-left.md"
    },
    "facingSource": {
@@ -31976,7 +31980,14 @@
      "lon": 114.097,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=YPLM&network=AU__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.0 km from the outline of OSM place=island 'South Muiron Island' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 24.3 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "relation/17373824",
+    "url": "https://www.openstreetmap.org/relation/17373824",
+    "distanceKm": 0.0,
+    "naturalEarthKm": 24.3
+   }
   },
   {
    "id": "w-australia-north-point",
@@ -32593,7 +32604,7 @@
    "lon": 115.0,
    "seaward": 270.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-34.0436,114.99986), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-34.0436,114.99986), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.08 km from OSM natural=beach 'Redgate Beach' outline (https://www.openstreetmap.org/way/320346819)",
     "url": "https://www.surfnerd.com/surf-forecast/redgate-peaks.md"
    },
    "facingSource": {
@@ -32689,7 +32700,14 @@
      "lon": 115.4,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=YBLN&network=AU__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.08 km from the outline of OSM natural=beach 'Redgate Beach' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 5.82 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/320346819",
+    "url": "https://www.openstreetmap.org/way/320346819",
+    "distanceKm": 0.08,
+    "naturalEarthKm": 5.82
+   }
   },
   {
    "id": "w-australia-rocky-point-wa",
@@ -32939,7 +32957,7 @@
    "lon": 115.017,
    "seaward": 315.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-33.6564,115.01691), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-33.6564,115.01691), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.18 km from OSM natural=beach 'Smiths Beach' outline (https://www.openstreetmap.org/way/71185218)",
     "url": "https://www.surfnerd.com/surf-forecast/smiths.md"
    },
    "facingSource": {
@@ -33038,7 +33056,14 @@
      "lon": 115.4,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=YBLN&network=AU__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.18 km from the outline of OSM natural=beach 'Smiths Beach' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.29 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/71185218",
+    "url": "https://www.openstreetmap.org/way/71185218",
+    "distanceKm": 0.18,
+    "naturalEarthKm": 3.29
+   }
   },
   {
    "id": "w-australia-south-point",
@@ -33669,7 +33694,7 @@
    "lon": 115.018,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-33.65278,115.01814), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -33.65,115.02 (0.4 km away)",
+    "text": "surfnerd guide map pin (-33.65278,115.01814), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -33.65,115.02 (0.4 km away); coast check 2026-11-09: 0.39 km from OSM natural=beach 'Smiths Beach' outline (https://www.openstreetmap.org/way/71185218)",
     "url": "https://www.surfnerd.com/surf-forecast/supertubes.md"
    },
    "facingSource": {
@@ -33773,7 +33798,14 @@
      "lon": 115.4,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=YBLN&network=AU__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.39 km from the outline of OSM natural=beach 'Smiths Beach' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.07 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/71185218",
+    "url": "https://www.openstreetmap.org/way/71185218",
+    "distanceKm": 0.39,
+    "naturalEarthKm": 3.07
+   }
   },
   {
    "id": "w-australia-surf-point-wa",
@@ -36528,7 +36560,7 @@
    "lon": 138.708,
    "seaward": 157.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-35.51652,138.70796), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -35.52,138.72 (1.2 km away)",
+    "text": "surfnerd guide map pin (-35.51652,138.70796), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin -35.52,138.72 (1.2 km away); coast check 2026-11-09: 0.4 km from OSM natural=beach 'Surfers Beach' outline (https://www.openstreetmap.org/way/120134263)",
     "url": "https://www.surfnerd.com/surf-forecast/middleton-point.md"
    },
    "facingSource": {
@@ -36631,7 +36663,14 @@
      "lon": 138.52,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=YPAD&network=AU__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.4 km from the outline of OSM natural=beach 'Surfers Beach' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 3.27 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/120134263",
+    "url": "https://www.openstreetmap.org/way/120134263",
+    "distanceKm": 0.4,
+    "naturalEarthKm": 3.27
+   }
   },
   {
    "id": "w-australia-pennington-bay",
@@ -38795,7 +38834,8 @@
      "surfnerd": "Lagoons is a right-hand rivermouth break on the western edge of Bruny Island, a stretch of Tasmanian coast known for waves that hold their size better than most Tassie breaks. It sits tucked into the corner of the bay, breaking over sand, and can produce long, peeling rights when the setup lines up.",
      "surfForecast": "Lagoons on the West Coast is an exposed river break that has fairly consistent surf. The best time of year for waves is autumn. Offshore winds blow from the west northwest. Tends to receive distant groundswells and the best swell direction is from the south. Best around high tide. Relatively few surfers here, even on good days. Watch out for rips and sharks."
     },
-    "notes": "town: Cloudy Bay (surfnerd); surf-forecast pin -43.46,147.2 is 2.0 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Cloudy Bay (surfnerd); surf-forecast pin -43.46,147.2 is 2.0 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Lagoons on the West Coast is an exposed river break that has fairly consistent surf. Type: River (surf-forecast, pin 2.0 km from row pin)"
    },
    "nearestSources": [
     {

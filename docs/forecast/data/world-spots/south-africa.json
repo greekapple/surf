@@ -4780,6 +4780,11 @@
       "url": "https://www.surf-forecast.com/breaks/Humewood",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/South_Africa/South_East_Port_Elizabeth/humewood/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "North-northeast (surfnerd: \"Faces NNE\")",
@@ -4812,7 +4817,8 @@
      "surfnerd": "Humewood is a right-hand sandbank that sets up around the derelict pylons on Humewood Beach. It breaks over sand and, on its day, throws thick, throaty tubes for bodyboarders and stand-up surfers with the nerve to make the vertical drop.",
      "surfForecast": "Humewood in Eastern Cape (South) is a sheltered breakwater break that does not work very often The best wind direction is from the southwest. Tends to receive distant groundswells and the best swell direction is from the southeast. Waves at the breakwater are mainly lefts. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Beware of Man-made danger (buoys etc.)."
     },
-    "notes": "town: Gqeberha (surfnerd); surf-forecast pin -33.98,25.66 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Gqeberha (surfnerd); surf-forecast pin -33.98,25.66 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Humewood in Eastern Cape (South) is a sheltered breakwater break that does not work very often The best wind direction is from the southwest. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7686,6 +7692,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/new-pier",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/South_Africa/Durban/new_pier/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
@@ -7716,7 +7727,8 @@
      "surfnerd": "New Pier is Durban's most popular and most impressive wave, a fast right breaking over sand. It bends south swells into a speedy right-hander with tube and turn sections that can stand up to double overhead.",
      "surfForecast": null
     },
-    "notes": "town: Durban (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef; shares the identical surfnerd pin with The Wedge (Durban) (distinct break per the guide text), so the position is approximate"
+    "notes": "town: Durban (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef; shares the identical surfnerd pin with The Wedge (Durban) (distinct break per the guide text), so the position is approximate",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.75 km from row pin)"
    },
    "nearestSources": [
     {

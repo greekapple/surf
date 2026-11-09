@@ -2498,7 +2498,8 @@
      "surfnerd": "Doura is a fast, hollow right-hander breaking over sand near the Bou Regreg rivermouth in Rabat-Salé. It's one of eight spots split up by the angled groynes at the rivermouth, and it's the standout of the group, with nearby Brema, La Pointe and Salé's shorebreak far less impressive. Sometimes compared to a Moroccan Kirra, it changed after development works but still throws the occasional barrel, running fast, long and hollow once the swell has some size.",
      "surfForecast": "Doura in Rabat to Casblanca is a quite exposed river break that has pretty consitent surf. Winter is the best time of year for surfing here. Offshore winds are from the northeast. Tends to receive distant groundswells and the ideal swell angle is from the northwest. The river breaks offers right-handers. Good surf at all stages of the tide. Sometimes crowded. Hazards include Pollution,."
     },
-    "notes": "town: Rabat (surfnerd); surf-forecast pin 34.04,-6.84 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Rabat (surfnerd); surf-forecast pin 34.04,-6.84 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Doura in Rabat to Casblanca is a quite exposed river break that has pretty consitent surf. Type: River (surf-forecast, pin 1.07 km from row pin)"
    },
    "nearestSources": [
     {

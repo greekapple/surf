@@ -1393,7 +1393,8 @@
      "surfnerd": "Nyanyanu is a small rivermouth right that breaks over sand. It's an intermediate-friendly wave, and on bigger swells the sections can connect up and run further down the line.",
      "surfForecast": "Nyanyanu on the Gold Coast is an exposed river break that has pretty consitent surf. The surf tends to be favoured in the spring. The best wind direction is from the north northwest with some shelter here from west winds. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south. The river breaks consists of rights. Best around low tide. Rarely crowded here. Be wary of rips - they make surfing here dangerous."
     },
-    "notes": "town: Nyanyanu (surfnerd); surf-forecast pin 5.47,-0.41 is 0.6 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Nyanyanu (surfnerd); surf-forecast pin 5.47,-0.41 is 0.6 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Nyanyanu on the Gold Coast is an exposed river break that has pretty consitent surf. Type: River (surf-forecast, pin 1.18 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4357,6 +4358,11 @@
       "url": "https://www.surf-forecast.com/breaks/Cap-Skirring",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Senegal/Cap_Skiring/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southwest (surfnerd: \"Faces SSW\")",
@@ -4380,7 +4386,8 @@
      "surfnerd": "Cap Skirring is a surf spot in Senegal. There aren't detailed condition notes for it yet, so it's worth checking the live forecast for swell, wind, and tide before you head down.",
      "surfForecast": "Cap Skirring in Senegal is a reasonably exposed beach and reef break that does not work very often. Offshore winds blow from the east northeast and there is no shelter here from cross shore breezes. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the west. Waves at the beach break both left and right as well as left and right hand reef breaks. The location means that it never gets crowded."
     },
-    "notes": "town: Mossor (surfnerd); surf-forecast pin 12.35,-16.73 is 3.8 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Mossor (surfnerd); surf-forecast pin 12.35,-16.73 is 3.8 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Cap Skirring in Senegal is a reasonably exposed beach and reef break that does not work very often. Type: Beach and reef (surf-forecast, pin 3.34 km from row pin); Type: Beach-break (wannasurf, GPS 2.13 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5235,7 +5242,7 @@
    "country": "Senegal",
    "region": "Thies",
    "timeZone": "Africa/Dakar",
-   "type": null,
+   "type": "Beach",
    "lat": 14.58,
    "lon": -17.143,
    "seaward": 247.5,
@@ -5254,6 +5261,16 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/pierre-de-lisse",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Piere-de-Lisse",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Senegal/Piere_de_Lisse/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -5278,7 +5295,8 @@
      "surfnerd": "Pierre de Lisse is a surf spot in Senegal, along the country's Atlantic coast.",
      "surfForecast": null
     },
-    "notes": "town: Tiabla (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Tiabla (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup 2026-11-09)",
+    "breakTypeText": "Piere de Lisse in Senegal is a reasonably exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 2.9 km from row pin); Type: Beach-break (wannasurf, GPS 1.31 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5305,7 +5323,11 @@
      "lon": -17.067,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GOBD&network=SN__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Piere de Lisse in Senegal is a reasonably exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 2.9 km from row pin); Type: Beach-break (wannasurf, GPS 1.31 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Piere-de-Lisse"
+   }
   },
   {
    "id": "w-wafrica-popenguine",
@@ -5745,7 +5767,7 @@
    "country": "Senegal",
    "region": "Dakar",
    "timeZone": "Africa/Dakar",
-   "type": null,
+   "type": "Beach",
    "lat": 14.648,
    "lon": -17.187,
    "seaward": 225.0,
@@ -5764,6 +5786,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/yene",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Senegal/Yenne/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -5788,7 +5815,8 @@
      "surfnerd": "Yene is a surf spot on the Atlantic coast of Senegal.",
      "surfForecast": null
     },
-    "notes": "town: Yene Tode (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Yene Tode (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup 2026-11-09)",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.25 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5815,7 +5843,11 @@
      "lon": -17.067,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GOBD&network=SN__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 0.25 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Africa/Senegal/Yenne/"
+   }
   },
   {
    "id": "w-wafrica-yoff-beach",

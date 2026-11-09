@@ -591,7 +591,8 @@
     "hazards": [],
     "season": "Summer, most often September (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Asuncion Bay is a surf spot on the Mexican coast that comes into its own when the wind turns south , which blows offshore here and cleans up the face of the wave. Time your session around that wind direction and you will be looking at the best version of this bay. Surf-forecast Asuncion-Bay: \"Asuncion Bay in Baja Sur is an exposed beach and reef break that has quite consistent surf. Summer offers the favoured conditions for surfing. Works best in offshore winds from the north northeast. Tends to receive distant groundswells and the best swell direction is from the south southwest. The beach break offers both left and right hand waves and in addition there are both left and right reef breaks.. Even when there are waves, it's not likley to be crowded. Take care of rips, sharks and rocks.\" Other guide pins from this position: surf-forecast Asuncion-Bay 0.5 km."
+    "notes": "Surfnerd overview: Asuncion Bay is a surf spot on the Mexican coast that comes into its own when the wind turns south , which blows offshore here and cleans up the face of the wave. Time your session around that wind direction and you will be looking at the best version of this bay. Surf-forecast Asuncion-Bay: \"Asuncion Bay in Baja Sur is an exposed beach and reef break that has quite consistent surf. Summer offers the favoured conditions for surfing. Works best in offshore winds from the north northeast. Tends to receive distant groundswells and the best swell direction is from the south southwest. The beach break offers both left and right hand waves and in addition there are both left and right reef breaks.. Even when there are waves, it's not likley to be crowded. Take care of rips, sharks and rocks.\" Other guide pins from this position: surf-forecast Asuncion-Bay 0.5 km.",
+    "breakTypeText": "Asuncion Bay in Baja Sur is an exposed beach and reef break that has quite consistent surf. Type: Beach and reef (surf-forecast, pin 0.53 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1244,7 +1245,7 @@
    "country": "Mexico",
    "region": "Mexico, Jalisco",
    "timeZone": "America/Mexico_City",
-   "type": null,
+   "type": "Reef",
    "lat": 19.2,
    "lon": -104.686,
    "seaward": 292.5,
@@ -1264,6 +1265,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/barra-de-navidad",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Jalisco/Barra_de_Navidad/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "WNW (surfnerd: \"Faces WNW\")",
@@ -1281,7 +1287,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Barra de Navidad sits on the Pacific coast of Mexico, and the wind is the main thing to check before you paddle out. Look for a south offshore wind to clean the waves up."
+    "notes": "Surfnerd overview: Barra de Navidad sits on the Pacific coast of Mexico, and the wind is the main thing to check before you paddle out. Look for a south offshore wind to clean the waves up.",
+    "breakTypeText": "Type: Reef-rocky (wannasurf, GPS 0.87 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1324,7 +1331,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMZO",
      "distanceKm": 14.7
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-rocky (wannasurf, GPS 0.87 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Jalisco/Barra_de_Navidad/"
+   }
   },
   {
    "id": "w-mexico-barra-de-potosi",
@@ -1561,7 +1572,8 @@
     "hazards": [],
     "season": "Summer, most often August (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Barron is a surf spot on the Mexican coast, and the wind is the main thing to watch here. Look for southwest wind to hold the faces clean, so it pays to check the forecast for a southwest flow before you commit to the drive. Surf-forecast Barron-Rivermouth: \"Barron Rivermouth in Sinaloa is an exposed point/rivermouth break that has pretty consitent surf. Summer offers the favoured conditions for surfing. Ideal winds are from the east northeast. Clean groundswells prevail and the best swell direction is from the southwest. When it's working here, it can get crowded. Surfing here means negotiating dangerous rips.\" Other guide pins from this position: surf-forecast Barron-Rivermouth 0.9 km."
+    "notes": "Surfnerd overview: Barron is a surf spot on the Mexican coast, and the wind is the main thing to watch here. Look for southwest wind to hold the faces clean, so it pays to check the forecast for a southwest flow before you commit to the drive. Surf-forecast Barron-Rivermouth: \"Barron Rivermouth in Sinaloa is an exposed point/rivermouth break that has pretty consitent surf. Summer offers the favoured conditions for surfing. Ideal winds are from the east northeast. Clean groundswells prevail and the best swell direction is from the southwest. When it's working here, it can get crowded. Surfing here means negotiating dangerous rips.\" Other guide pins from this position: surf-forecast Barron-Rivermouth 0.9 km.",
+    "breakTypeText": "Barron Rivermouth in Sinaloa is an exposed point/rivermouth break that has pretty consitent surf. Type: Point/river (surf-forecast, pin 0.91 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1861,7 +1873,8 @@
     ],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Boca De Santo Tomas is a surf spot on the Mexican coast that comes into its own when the wind swings offshore. Look for a west wind to groom the faces and hold the surf clean. Surf-forecast Boca-De-Santo-Tomas: \"Boca De Santo Tomas in Baja Norte is an exposed beach,reef,rivermouth break that has consistent surf. Autumn and winter are the best times of year for waves. The best wind direction is from the east northeast. Tends to receive distant groundswells and the best swell direction is from the west.. Watch out for rocks and sharks.\" Other guide pins from this position: surf-forecast Boca-De-Santo-Tomas 1.0 km."
+    "notes": "Surfnerd overview: Boca De Santo Tomas is a surf spot on the Mexican coast that comes into its own when the wind swings offshore. Look for a west wind to groom the faces and hold the surf clean. Surf-forecast Boca-De-Santo-Tomas: \"Boca De Santo Tomas in Baja Norte is an exposed beach,reef,rivermouth break that has consistent surf. Autumn and winter are the best times of year for waves. The best wind direction is from the east northeast. Tends to receive distant groundswells and the best swell direction is from the west.. Watch out for rocks and sharks.\" Other guide pins from this position: surf-forecast Boca-De-Santo-Tomas 1.0 km.",
+    "breakTypeText": "Boca De Santo Tomas in Baja Norte is an exposed beach,reef,rivermouth break that has consistent surf. Type: Beach, reef and rivermouth (surf-forecast, pin 0.97 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1952,6 +1965,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/boca-del-solado",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Boca-Del-Salado",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "E (surfnerd: \"Faces E\")",
@@ -1969,7 +1987,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Boca Del Solado is a surf spot on the Mexican coast. Look for southeast offshore wind to clean up the faces here."
+    "notes": "Surfnerd overview: Boca Del Solado is a surf spot on the Mexican coast. Look for southeast offshore wind to clean up the faces here.",
+    "breakTypeText": "Boca Del Salado in Baja Sur is a fairly exposed beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 3.49 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2174,7 +2193,8 @@
     ],
     "season": "Summer, most often September (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Cabo Pulmo is a surf spot on the coast of Mexico. The wind to look for is southeast (SE) , which blows offshore here and grooms the face of the wave. Surf-forecast Cabo-Pulmo: \"Cabo Pulmo in Baja Sur is a quite exposed beach reef and point break that has pretty consitent surf. Summer offers the favoured conditions for surfing. Offshore winds are from the west northwest with some shelter here from north winds. Groundswells are more common than windswells and the ideal swell direction is from the south. The beach break offers both left and right hand waves. Relatively few surfers here, even on good days. Watch out for coral and sharks.\" Other guide pins from this position: surf-forecast Cabo-Pulmo 3.3 km."
+    "notes": "Surfnerd overview: Cabo Pulmo is a surf spot on the coast of Mexico. The wind to look for is southeast (SE) , which blows offshore here and grooms the face of the wave. Surf-forecast Cabo-Pulmo: \"Cabo Pulmo in Baja Sur is a quite exposed beach reef and point break that has pretty consitent surf. Summer offers the favoured conditions for surfing. Offshore winds are from the west northwest with some shelter here from north winds. Groundswells are more common than windswells and the ideal swell direction is from the south. The beach break offers both left and right hand waves. Relatively few surfers here, even on good days. Watch out for coral and sharks.\" Other guide pins from this position: surf-forecast Cabo-Pulmo 3.3 km.",
+    "breakTypeText": "Cabo Pulmo in Baja Sur is a quite exposed beach reef and point break that has pretty consitent surf. Type: Beach reef and point (surf-forecast, pin 3.34 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2506,7 +2526,8 @@
     ],
     "season": "Summer, most often June (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Campo Renes is a surf spot in Mexico that comes into its own when the wind turns south , which blows offshore here and cleans up the faces. Surf-forecast Campo-Renes: \"Campo Renes in Baja Sur is an exposed beach and reef break that has quite reliable surf. Summer offers the best conditions for surfing. Offshore winds blow from the north northwest. Tends to receive distant groundswells and the best swell direction is from the south.. Unlikely to be too crowded, even when the surf is up. Beware of rips and sharks.\" Other guide pins from this position: surf-forecast Campo-Renes 0.7 km."
+    "notes": "Surfnerd overview: Campo Renes is a surf spot in Mexico that comes into its own when the wind turns south , which blows offshore here and cleans up the faces. Surf-forecast Campo-Renes: \"Campo Renes in Baja Sur is an exposed beach and reef break that has quite reliable surf. Summer offers the best conditions for surfing. Offshore winds blow from the north northwest. Tends to receive distant groundswells and the best swell direction is from the south.. Unlikely to be too crowded, even when the surf is up. Beware of rips and sharks.\" Other guide pins from this position: surf-forecast Campo-Renes 0.7 km.",
+    "breakTypeText": "Campo Renes in Baja Sur is an exposed beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 0.68 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2572,6 +2593,11 @@
       "url": "https://www.surf-forecast.com/breaks/Cannery",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Baja_Norte/stack_s/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SW (surfnerd: \"Faces SW\")",
@@ -2589,7 +2615,8 @@
     "hazards": [],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Cannery Stacks is a spot where the wind does most of the talking. Look for offshore wind out of the southwest and you're picking the right window here. Surf-forecast Cannery: \"Cannery (Stacks) in Baja Norte is a quite exposed beach and reef break that has consistent surf. Autumn and winter are the best times of year for waves. The best wind direction is from the east northeast. Tends to receive distant groundswells and the ideal swell direction is from the west northwest. The reef provides both left and right breaks. Take care of rocks, pollution and sharks.\" Other guide pins from this position: surf-forecast Cannery 0.8 km."
+    "notes": "Surfnerd overview: Cannery Stacks is a spot where the wind does most of the talking. Look for offshore wind out of the southwest and you're picking the right window here. Surf-forecast Cannery: \"Cannery (Stacks) in Baja Norte is a quite exposed beach and reef break that has consistent surf. Autumn and winter are the best times of year for waves. The best wind direction is from the east northeast. Tends to receive distant groundswells and the ideal swell direction is from the west northwest. The reef provides both left and right breaks. Take care of rocks, pollution and sharks.\" Other guide pins from this position: surf-forecast Cannery 0.8 km.",
+    "breakTypeText": "Cannery (Stacks) in Baja Norte is a quite exposed beach and reef break that has consistent surf. Type: Beach and reef (surf-forecast, pin 0.81 km from row pin); Type: Reef-rocky (wannasurf, GPS 2.97 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4252,7 +4279,8 @@
     ],
     "season": "Winter, most often December (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: El Faro is the most commonly surfed of a dozen jetty breaks scattered along the coast of the industrial city of Lázaro Cárdenas, peeling both left and right over sand. Be aware that the water and air here are often heavily polluted, so it pays to know what you are paddling into. Check: surfnerd states facing SSE but best swell W (112.5 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast El-Faro_3: \"El Faro in Michoacan is an exposed river break that usually has waves and can work at any time of the year. Works best in offshore winds from the north. Clean groundswells prevail and the ideal swell direction is from the southwest. The river breaks offer lefts and rights. Sometimes crowded. Beware of rips, sharks and rocks.\" Access (surfnerd): There is a car park with free parking. Other guide pins from this position: surf-forecast El-Faro_3 5.5 km."
+    "notes": "Surfnerd overview: El Faro is the most commonly surfed of a dozen jetty breaks scattered along the coast of the industrial city of Lázaro Cárdenas, peeling both left and right over sand. Be aware that the water and air here are often heavily polluted, so it pays to know what you are paddling into. Check: surfnerd states facing SSE but best swell W (112.5 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast El-Faro_3: \"El Faro in Michoacan is an exposed river break that usually has waves and can work at any time of the year. Works best in offshore winds from the north. Clean groundswells prevail and the ideal swell direction is from the southwest. The river breaks offer lefts and rights. Sometimes crowded. Beware of rips, sharks and rocks.\" Access (surfnerd): There is a car park with free parking. Other guide pins from this position: surf-forecast El-Faro_3 5.5 km.",
+    "breakTypeText": "El Faro in Michoacan is an exposed river break that usually has waves and can work at any time of the year. Type: River (surf-forecast, pin 5.52 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5042,7 +5070,8 @@
     ],
     "season": "Summer, most often July (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Frailes South is a surf spot on the Mexican coast. The wind to look for here is southeast , which blows offshore and cleans up the face of the wave. When it swings onshore, expect the surface to get messy in a hurry. Surf-forecast Frailes-South: \"Frailes South in Baja Sur is a fairly exposed beach and reef break that has fairly consistent surf. Autumn and winter are the best times of year for waves. Works best in offshore winds from the west northwest with some shelter here from north winds. Tends to receive distant groundswells and the best swell direction is from the southeast. The beach break offers both left and right hand waves. Rarely crowded here. Watch out for sharks.\" Other guide pins from this position: surf-forecast Frailes-South 1.1 km."
+    "notes": "Surfnerd overview: Frailes South is a surf spot on the Mexican coast. The wind to look for here is southeast , which blows offshore and cleans up the face of the wave. When it swings onshore, expect the surface to get messy in a hurry. Surf-forecast Frailes-South: \"Frailes South in Baja Sur is a fairly exposed beach and reef break that has fairly consistent surf. Autumn and winter are the best times of year for waves. Works best in offshore winds from the west northwest with some shelter here from north winds. Tends to receive distant groundswells and the best swell direction is from the southeast. The beach break offers both left and right hand waves. Rarely crowded here. Watch out for sharks.\" Other guide pins from this position: surf-forecast Frailes-South 1.1 km.",
+    "breakTypeText": "Frailes South in Baja Sur is a fairly exposed beach and reef break that has fairly consistent surf. Type: Beach and reef (surf-forecast, pin 1.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6068,7 +6097,7 @@
    "lon": -116.812,
    "seaward": 292.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 31.8129, -116.812)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 31.8129, -116.812); coast check 2026-11-09: 0.33 km from OSM place=islet 'Isla Todos Santos Norte' outline (https://www.openstreetmap.org/way/17502692)",
     "url": "https://www.surfnerd.com/surf-forecast/killers-todos-santos"
    },
    "facingSource": {
@@ -6170,7 +6199,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMTJ",
      "distanceKm": 82.3
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.33 km from the outline of OSM place=islet 'Isla Todos Santos Norte' (Nominatim polygon, 2026-11-09); the Natural Earth 10 m coastline is 8.91 km away (Natural Earth is too coarse here or omits the feature). Pin kept as published; not moved.",
+    "osm": "way/17502692",
+    "url": "https://www.openstreetmap.org/way/17502692",
+    "distanceKm": 0.33,
+    "naturalEarthKm": 8.91
+   }
   },
   {
    "id": "w-mexico-la-barrita",
@@ -6178,7 +6214,7 @@
    "country": "Mexico",
    "region": "Mexico, Guerrero",
    "timeZone": "America/Mexico_City",
-   "type": null,
+   "type": "Beach",
    "lat": 17.411,
    "lon": -101.185,
    "seaward": 225,
@@ -6198,6 +6234,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/la-barrita-2-3",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Guerrero/la_barrita/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SW (surfnerd: \"Faces SW\")",
@@ -6215,7 +6256,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: La Barrita is a surf spot on the Mexican coast. The wind is the main thing to keep an eye on here: it cleans up when the breeze blows from the south-southwest (SSW) , so that is the direction to look for when you are picking a session."
+    "notes": "Surfnerd overview: La Barrita is a surf spot on the Mexican coast. The wind is the main thing to keep an eye on here: it cleans up when the breeze blows from the south-southwest (SSW) , so that is the direction to look for when you are picking a session.",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.47 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6248,7 +6290,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMZH",
      "distanceKm": 36.1
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 0.47 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Guerrero/la_barrita/"
+   }
   },
   {
    "id": "w-mexico-la-bocana",
@@ -6300,7 +6346,8 @@
     ],
     "season": "Autumn, most often August (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: La Bocana is a surf spot on the Mexican coast. Look for south-southwest (SSW) wind to groom the waves here, since that's the offshore direction that cleans up the face. Surf-forecast La-Bocana_1: \"La Bocana in Baja Sur is an exposed sandbar/point break that has fairly consistent surf. Summer offers the favoured conditions for surfing. The best wind direction is from the northeast. Tends to receive distant groundswells and the best swell direction is from the south southwest. The beach breaks peel to the right and also offers a left hand point break too. Rarely crowded here. Hazards include rips and sharks.\" Other guide pins from this position: surf-forecast La-Bocana_1 0.3 km."
+    "notes": "Surfnerd overview: La Bocana is a surf spot on the Mexican coast. Look for south-southwest (SSW) wind to groom the waves here, since that's the offshore direction that cleans up the face. Surf-forecast La-Bocana_1: \"La Bocana in Baja Sur is an exposed sandbar/point break that has fairly consistent surf. Summer offers the favoured conditions for surfing. The best wind direction is from the northeast. Tends to receive distant groundswells and the best swell direction is from the south southwest. The beach breaks peel to the right and also offers a left hand point break too. Rarely crowded here. Hazards include rips and sharks.\" Other guide pins from this position: surf-forecast La-Bocana_1 0.3 km.",
+    "breakTypeText": "La Bocana in Baja Sur is an exposed sandbar/point break that has fairly consistent surf. Type: Sandbar/point (surf-forecast, pin 0.33 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6749,7 +6796,8 @@
     "hazards": [],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: La Mision is a surf spot on the coast of Mexico. The wind to look for is west , which blows offshore here and gives the cleanest conditions. Surf-forecast La-Mision: \"La Mision in Baja Norte is an exposed beach and reef break that has fairly consistent surf. Winter is the favoured time of year for surfing here. Offshore winds are from the northeast. Tends to receive distant groundswells and the ideal swell direction is from the northwest. The beach breaks offer lefts and rights. Even when there are waves, it's not likley to be crowded. Take care to avoid the rocks.\" Other guide pins from this position: surf-forecast La-Mision 5.3 km."
+    "notes": "Surfnerd overview: La Mision is a surf spot on the coast of Mexico. The wind to look for is west , which blows offshore here and gives the cleanest conditions. Surf-forecast La-Mision: \"La Mision in Baja Norte is an exposed beach and reef break that has fairly consistent surf. Winter is the favoured time of year for surfing here. Offshore winds are from the northeast. Tends to receive distant groundswells and the ideal swell direction is from the northwest. The beach breaks offer lefts and rights. Even when there are waves, it's not likley to be crowded. Take care to avoid the rocks.\" Other guide pins from this position: surf-forecast La-Mision 5.3 km.",
+    "breakTypeText": "La Mision in Baja Norte is an exposed beach and reef break that has fairly consistent surf. Type: Beach and reef (surf-forecast, pin 5.26 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7974,7 +8022,8 @@
     "hazards": [],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Lighthouse, at Punta San Jose in Mexico, comes into its own when the wind blows offshore from the west-southwest (WSW) . That's the wind direction to watch when you're weighing up whether to make the trip. Surf-forecast Punta-San-Jose: \"Lighthouse (Punta San Jose) in Baja Norte is an exposed beach and reef break that has dependable surf. Autumn and winter are the favoured times of year for waves. Offshore winds blow from the east northeast. Tends to receive distant groundswells and the best swell direction is from the west. Take care of rocks and sharks.\" Other guide pins from this position: surf-forecast Punta-San-Jose 2.1 km."
+    "notes": "Surfnerd overview: Lighthouse, at Punta San Jose in Mexico, comes into its own when the wind blows offshore from the west-southwest (WSW) . That's the wind direction to watch when you're weighing up whether to make the trip. Surf-forecast Punta-San-Jose: \"Lighthouse (Punta San Jose) in Baja Norte is an exposed beach and reef break that has dependable surf. Autumn and winter are the favoured times of year for waves. Offshore winds blow from the east northeast. Tends to receive distant groundswells and the best swell direction is from the west. Take care of rocks and sharks.\" Other guide pins from this position: surf-forecast Punta-San-Jose 2.1 km.",
+    "breakTypeText": "Lighthouse (Punta San Jose) in Baja Norte is an exposed beach and reef break that has dependable surf. Type: Beach and reef (surf-forecast, pin 2.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9147,6 +9196,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/milagro",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Sinaloa-Nayarit/Milagro/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "WSW (surfnerd: \"Faces WSW\")",
@@ -9164,7 +9218,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Milagro is at its cleanest when the wind comes from the south-southwest , which is the offshore direction here. That is the main thing to watch in the forecast: get the wind blowing from that quarter and the surface should stay groomed."
+    "notes": "Surfnerd overview: Milagro is at its cleanest when the wind comes from the south-southwest , which is the offshore direction here. That is the main thing to watch in the forecast: get the wind blowing from that quarter and the surface should stay groomed.",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.21 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11808,6 +11863,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/puerto-madero",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Oaxaca-Chiapas/puerto_madero/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SW (surfnerd: \"Faces SW\")",
@@ -11825,7 +11885,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Puerto Madero is a surf spot on the coast of Mexico. The wind to watch for here is southwest , which blows offshore and gives the cleanest surface conditions, so it's worth checking the forecast for a southwesterly before you head down."
+    "notes": "Surfnerd overview: Puerto Madero is a surf spot on the coast of Mexico. The wind to watch for here is southwest , which blows offshore and gives the cleanest surface conditions, so it's worth checking the forecast for a southwesterly before you head down.",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.32 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12281,7 +12342,8 @@
     "hazards": [],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Punta Baja is a surf spot in Mexico, and the wind is the detail worth checking before you commit to the drive. Look for west-southwest (WSW) wind, which comes in offshore here and grooms the surface. When it swings around to anything else, expect the face of the wave to suffer for it. Surf-forecast Punta-Baja: \"Punta Baja in Baja Norte is an exposed beach and reef break that has unreliable waves. Winter is the optimum time of year for surfing here. Works best in offshore winds from the east. Tends to receive distant groundswells and the ideal swell angle is from the west. Both left and right reef breaks. Unlikely to be too crowded, even when the surf is up. Submerged rocks are a hazard.\" Other guide pins from this position: surf-forecast Punta-Baja 1.4 km."
+    "notes": "Surfnerd overview: Punta Baja is a surf spot in Mexico, and the wind is the detail worth checking before you commit to the drive. Look for west-southwest (WSW) wind, which comes in offshore here and grooms the surface. When it swings around to anything else, expect the face of the wave to suffer for it. Surf-forecast Punta-Baja: \"Punta Baja in Baja Norte is an exposed beach and reef break that has unreliable waves. Winter is the optimum time of year for surfing here. Works best in offshore winds from the east. Tends to receive distant groundswells and the ideal swell angle is from the west. Both left and right reef breaks. Unlikely to be too crowded, even when the surf is up. Submerged rocks are a hazard.\" Other guide pins from this position: surf-forecast Punta-Baja 1.4 km.",
+    "breakTypeText": "Punta Baja in Baja Norte is an exposed beach and reef break that has unreliable waves. Type: Beach and reef (surf-forecast, pin 1.44 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12572,6 +12634,11 @@
       "url": "https://www.surf-forecast.com/breaks/Punta-Cabras",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Baja_Norte/punta_cabras/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "WSW (surfnerd: \"Faces WSW\")",
@@ -12589,7 +12656,8 @@
     "hazards": [],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Punta Cabras is one to check when the wind is coming from the southwest (SW) , the offshore direction here. Get that wind and the spot cleans up, so it's worth watching the forecast before you make the trip. Surf-forecast Punta-Cabras: \"Punta Cabras in Baja Norte is an exposed beach and reef break that has consistent surf. Autumn and winter are the optimum times of year for waves. Offshore winds are from the east northeast. Clean groundswells prevail and the ideal swell direction is from the west. Both left and right reef breaks. Rarely crowded here. Take care of rocks and sharks.\" Other guide pins from this position: surf-forecast Punta-Cabras 4.2 km."
+    "notes": "Surfnerd overview: Punta Cabras is one to check when the wind is coming from the southwest (SW) , the offshore direction here. Get that wind and the spot cleans up, so it's worth watching the forecast before you make the trip. Surf-forecast Punta-Cabras: \"Punta Cabras in Baja Norte is an exposed beach and reef break that has consistent surf. Autumn and winter are the optimum times of year for waves. Offshore winds are from the east northeast. Clean groundswells prevail and the ideal swell direction is from the west. Both left and right reef breaks. Rarely crowded here. Take care of rocks and sharks.\" Other guide pins from this position: surf-forecast Punta-Cabras 4.2 km.",
+    "breakTypeText": "Punta Cabras in Baja Norte is an exposed beach and reef break that has consistent surf. Type: Beach and reef (surf-forecast, pin 4.16 km from row pin); Type: Sand-bar (wannasurf, GPS 2.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13083,7 +13151,7 @@
    "country": "Mexico",
    "region": "Mexico, Baja California Sur",
    "timeZone": "America/Mazatlan",
-   "type": null,
+   "type": "Reef",
    "lat": 23.579,
    "lon": -109.513,
    "seaward": 67.5,
@@ -13103,6 +13171,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/punta-colorados",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Punta-Colorado",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "ENE (surfnerd: \"Faces ENE\")",
@@ -13120,7 +13193,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Punta Colorados is a surf spot on the Mexican coast. Look for an east (E) offshore wind, which is the direction that grooms the waves here and gives the cleanest faces."
+    "notes": "Surfnerd overview: Punta Colorados is a surf spot on the Mexican coast. Look for an east (E) offshore wind, which is the direction that grooms the waves here and gives the cleanest faces.",
+    "breakTypeText": "Punta Colorado in Baja Sur is a reasonably exposed reef break that does not work very often Offshore winds blow from the southwest. Type: Reef (surf-forecast, pin 2.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13153,7 +13227,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMSD",
      "distanceKm": 52.0
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Punta Colorado in Baja Sur is a reasonably exposed reef break that does not work very often Offshore winds blow from the southwest. Type: Reef (surf-forecast, pin 2.01 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Colorado"
+   }
   },
   {
    "id": "w-mexico-punta-conejo",
@@ -13488,6 +13566,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/punta-custodio",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Sinaloa-Nayarit/punta_custadio/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "W (surfnerd: \"Faces W\")",
@@ -13505,7 +13588,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Punta Custodio is a surf spot on the Mexican coast. Cleanest conditions come with a west-southwest offshore wind, so that is the first thing to check before you paddle out."
+    "notes": "Surfnerd overview: Punta Custodio is a surf spot on the Mexican coast. Cleanest conditions come with a west-southwest offshore wind, so that is the first thing to check before you paddle out.",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14409,7 +14493,8 @@
     ],
     "season": "Summer, most often July (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Punta San Antonio is a surf spot on the Mexican coast that comes into its own when the wind turns southwest , which blows offshore here and cleans up the faces. If you are timing a session, that wind direction is the detail worth watching, so check the forecast for a southwest breeze before you make the drive. Surf-forecast Punta-San-Antonio: \"Punta San Antonio in Baja Norte is an exposed reef and point break that has quite reliable surf. Summer offers the best conditions for surfing. Works best in offshore winds from the east. Groundswells more frequent than windswells and the best swell direction is from the southwest. Both left and right reef breaks. It very rarely gets crowded here. Watch out for rocks.\" Other guide pins from this position: surf-forecast Punta-San-Antonio 1.7 km."
+    "notes": "Surfnerd overview: Punta San Antonio is a surf spot on the Mexican coast that comes into its own when the wind turns southwest , which blows offshore here and cleans up the faces. If you are timing a session, that wind direction is the detail worth watching, so check the forecast for a southwest breeze before you make the drive. Surf-forecast Punta-San-Antonio: \"Punta San Antonio in Baja Norte is an exposed reef and point break that has quite reliable surf. Summer offers the best conditions for surfing. Works best in offshore winds from the east. Groundswells more frequent than windswells and the best swell direction is from the southwest. Both left and right reef breaks. It very rarely gets crowded here. Watch out for rocks.\" Other guide pins from this position: surf-forecast Punta-San-Antonio 1.7 km.",
+    "breakTypeText": "Punta San Antonio in Baja Norte is an exposed reef and point break that has quite reliable surf. Type: Reef and point (surf-forecast, pin 1.72 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14815,7 +14900,8 @@
     ],
     "season": "Spring, most often October (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Punta Santo Domingo is a surf spot on the Mexican coast, and the one thing worth planning around is the wind. It cleans up when the wind blows from the south-southwest (SSW) , so that's the direction to look for before you make the drive. Check the swell and tide forecast for the day to work out the rest. Surf-forecast Punta-Santo-Domingo: \"Punta Santo Domingo in Baja Sur is an exposed beach and reef break that has unreliable waves. Summer offers the best conditions for surfing. Works best in offshore winds from the north northeast. Most of the surf here comes from groundswells and the best swell direction is from the south.. Even when there are waves, it's not likley to be crowded. Beware of rips, sharks and isolation.\" Other guide pins from this position: surf-forecast Punta-Santo-Domingo 1.1 km."
+    "notes": "Surfnerd overview: Punta Santo Domingo is a surf spot on the Mexican coast, and the one thing worth planning around is the wind. It cleans up when the wind blows from the south-southwest (SSW) , so that's the direction to look for before you make the drive. Check the swell and tide forecast for the day to work out the rest. Surf-forecast Punta-Santo-Domingo: \"Punta Santo Domingo in Baja Sur is an exposed beach and reef break that has unreliable waves. Summer offers the best conditions for surfing. Works best in offshore winds from the north northeast. Most of the surf here comes from groundswells and the best swell direction is from the south.. Even when there are waves, it's not likley to be crowded. Beware of rips, sharks and isolation.\" Other guide pins from this position: surf-forecast Punta-Santo-Domingo 1.1 km.",
+    "breakTypeText": "Punta Santo Domingo in Baja Sur is an exposed beach and reef break that has unreliable waves. Type: Beach and reef (surf-forecast, pin 1.11 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16125,6 +16211,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/rosarito",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rosarito",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "WSW (surfnerd: \"Faces WSW\")",
@@ -16149,7 +16240,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Rosarito is a sand-bottomed beachbreak with waves on offer year-round, backed up by nearby reefs and rivermouths. Pollution and the nearby nuclear power plant are worth keeping in mind in the water. Once a busy party town, it has quietened down as cartel activity ended the parties and safety fears thinned the tourist numbers. Check: surfnerd states facing WSW but best swell S (67.5 degrees apart); both are as published. Skill (surfnerd): Beginner. Access (surfnerd): You'll find a surf shop and camping close by. Parking is easy, with a free car park alongside paid and roadside options."
+    "notes": "Surfnerd overview: Rosarito is a sand-bottomed beachbreak with waves on offer year-round, backed up by nearby reefs and rivermouths. Pollution and the nearby nuclear power plant are worth keeping in mind in the water. Once a busy party town, it has quietened down as cartel activity ended the parties and safety fears thinned the tourist numbers. Check: surfnerd states facing WSW but best swell S (67.5 degrees apart); both are as published. Skill (surfnerd): Beginner. Access (surfnerd): You'll find a surf shop and camping close by. Parking is easy, with a free car park alongside paid and roadside options.",
+    "breakTypeText": "Rosarito in Baja Norte is an exposed beach,reef and rivermouth break that has dependable surf. Type: Beach, reef and rivermouth (surf-forecast, pin 3.71 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16269,7 +16361,8 @@
     "hazards": [],
     "season": "Spring, Summer, Autumn, Winter (surfnerd); Summer, most often July (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Rosarito Beach is a long ribbon of sand fronting the hotels of a town that spent generations as Northern Baja's party capital. The whistles and dance floors went quiet when the cartel wars arrived in 2007, and tourism is only slowly returning. The waves never stopped, but honestly, Rosarito was never much of a surfing hotspot given how many high-grade options Northern Baja has. The beach here is flat and faces directly west, so it's a town break worth a paddle if you're already around, not a destination. Head out of town for the pumping points and beachbreaks nearby. Sandbars do most of the work. A couple of rivers spill into the surf and throw up good, if fleeting, banks, and the pier in front of the Rosarito Beach Hotel builds decent sand of its own. Both rights and lefts turn up depending on the bank. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Rosarito: \"Rosarito in Baja Norte is an exposed beach,reef and rivermouth break that has dependable surf. Summer offers the optimum conditions for surfing. The best wind direction is from the east. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the southwest. The beach break provides left and right handers and there are also left and right hand reef breaks on offer.. Be aware that the sea here is polluted.\" Access (surfnerd): Numerous parking areas sit right on the sand. Lock your car and hide anything valuable, since petty theft is a common occurrence, and be aware that corrupt police officers are part of the picture too. Other guide pins from this position: surf-forecast Rosarito 1.7 km."
+    "notes": "Surfnerd overview: Rosarito Beach is a long ribbon of sand fronting the hotels of a town that spent generations as Northern Baja's party capital. The whistles and dance floors went quiet when the cartel wars arrived in 2007, and tourism is only slowly returning. The waves never stopped, but honestly, Rosarito was never much of a surfing hotspot given how many high-grade options Northern Baja has. The beach here is flat and faces directly west, so it's a town break worth a paddle if you're already around, not a destination. Head out of town for the pumping points and beachbreaks nearby. Sandbars do most of the work. A couple of rivers spill into the surf and throw up good, if fleeting, banks, and the pier in front of the Rosarito Beach Hotel builds decent sand of its own. Both rights and lefts turn up depending on the bank. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Rosarito: \"Rosarito in Baja Norte is an exposed beach,reef and rivermouth break that has dependable surf. Summer offers the optimum conditions for surfing. The best wind direction is from the east. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the southwest. The beach break provides left and right handers and there are also left and right hand reef breaks on offer.. Be aware that the sea here is polluted.\" Access (surfnerd): Numerous parking areas sit right on the sand. Lock your car and hide anything valuable, since petty theft is a common occurrence, and be aware that corrupt police officers are part of the picture too. Other guide pins from this position: surf-forecast Rosarito 1.7 km.",
+    "breakTypeText": "Rosarito in Baja Norte is an exposed beach,reef and rivermouth break that has dependable surf. Type: Beach, reef and rivermouth (surf-forecast, pin 1.75 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16564,6 +16657,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/salinas-cruz-jetty",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Oaxaca-Chiapas/Salina_Cruze_-Jetty/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "SSE (surfnerd: \"Faces SSE\")",
@@ -16588,7 +16686,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Salinas Cruz Jetty, also known as Bamba, is a short, sucky right-hander that breaks over boulders and sand off the rocky tip of the jetty. West of the big port, the separate Playa Abierta can throw up thumping A-frames on bigger swells and smaller tides if you want a nearby alternative. Check: surfnerd states facing SSE but best swell SW (67.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Access (surfnerd): Parking is straightforward, with free roadside parking near the break."
+    "notes": "Surfnerd overview: Salinas Cruz Jetty, also known as Bamba, is a short, sucky right-hander that breaks over boulders and sand off the rocky tip of the jetty. West of the big port, the separate Playa Abierta can throw up thumping A-frames on bigger swells and smaller tides if you want a nearby alternative. Check: surfnerd states facing SSE but best swell SW (67.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Access (surfnerd): Parking is straightforward, with free roadside parking near the break.",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16968,7 +17067,7 @@
    "country": "Mexico",
    "region": "Mexico, Baja California",
    "timeZone": "America/Tijuana",
-   "type": null,
+   "type": "Beach",
    "lat": 32.427,
    "lon": -117.099,
    "seaward": 270,
@@ -16988,6 +17087,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/san-antonio-del-mar-norte",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/San-Antonio-Del-Mar_Tijuana",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "W (surfnerd: \"Faces W\")",
@@ -17005,7 +17109,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: San Antonio Del Mar - Norte is a surf spot on the Mexican coast. Winds out of the west-southwest (WSW) blow offshore here, so that's the direction to look for when you're deciding whether it's worth a paddle."
+    "notes": "Surfnerd overview: San Antonio Del Mar - Norte is a surf spot on the Mexican coast. Winds out of the west-southwest (WSW) blow offshore here, so that's the direction to look for when you're deciding whether it's worth a paddle.",
+    "breakTypeText": "San Antonio Del Mar in Baja Norte is an exposed beach break that has reliable surf. Type: Beach (surf-forecast, pin 4.46 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17068,7 +17173,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMTJ",
      "distanceKm": 17.5
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "San Antonio Del Mar in Baja Norte is an exposed beach break that has reliable surf. Type: Beach (surf-forecast, pin 4.46 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/San-Antonio-Del-Mar_Tijuana"
+   }
   },
   {
    "id": "w-mexico-san-augustin",
@@ -17408,7 +17517,8 @@
     "hazards": [],
     "season": "Summer, most often September (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: San Hipolito is a surf spot on the Mexican coast that comes into its own when the wind blows from the south-southwest , the direction that grooms the faces clean here. Keep an eye on the forecast for that wind, and time your session around it. Surf-forecast San-Hipolito: \"San Hipolito in Baja Sur is an exposed beach and reef break that has pretty consitent surf. Summer offers the best conditions for surfing. Offshore winds are from the north northeast. Groundswells are more common than windswells and the ideal swell direction is from the south southwest. The beach breaks offer lefts and rights together with both left and right hand reef breaks offshore.. Relatively few surfers here, even on good days. Take care of rips, sharks and rocks.\" Other guide pins from this position: surf-forecast San-Hipolito 1.1 km."
+    "notes": "Surfnerd overview: San Hipolito is a surf spot on the Mexican coast that comes into its own when the wind blows from the south-southwest , the direction that grooms the faces clean here. Keep an eye on the forecast for that wind, and time your session around it. Surf-forecast San-Hipolito: \"San Hipolito in Baja Sur is an exposed beach and reef break that has pretty consitent surf. Summer offers the best conditions for surfing. Offshore winds are from the north northeast. Groundswells are more common than windswells and the ideal swell direction is from the south southwest. The beach breaks offer lefts and rights together with both left and right hand reef breaks offshore.. Relatively few surfers here, even on good days. Take care of rips, sharks and rocks.\" Other guide pins from this position: surf-forecast San-Hipolito 1.1 km.",
+    "breakTypeText": "San Hipolito in Baja Sur is an exposed beach and reef break that has pretty consitent surf. Type: Beach and reef (surf-forecast, pin 1.14 km from row pin)"
    },
    "nearestSources": [
     {
@@ -19122,7 +19232,7 @@
    "country": "Mexico",
    "region": "Mexico, Sinaloa",
    "timeZone": "America/Mazatlan",
-   "type": null,
+   "type": "Reef",
    "lat": 23.802,
    "lon": -106.885,
    "seaward": 270,
@@ -19142,6 +19252,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/tiburon",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Sinaloa-Nayarit/Tiburon/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "W (surfnerd: \"Faces W\")",
@@ -19159,7 +19274,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Tiburon is a surf spot in Mexico that comes into its own when the wind swings offshore. Look for southwest wind, which grooms the faces and cleans the surface up. On days when the wind lines up that way, it's worth a check."
+    "notes": "Surfnerd overview: Tiburon is a surf spot in Mexico that comes into its own when the wind swings offshore. Look for southwest wind, which grooms the faces and cleans the surface up. On days when the wind lines up that way, it's worth a check.",
+    "breakTypeText": "Type: Reef-rocky (wannasurf, GPS 0.13 km from row pin)"
    },
    "nearestSources": [
     {
@@ -19192,7 +19308,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMMZ",
      "distanceKm": 95.2
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-rocky (wannasurf, GPS 0.13 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Mexico/Sinaloa-Nayarit/Tiburon/"
+   }
   },
   {
    "id": "w-mexico-todos-santos-la-pastora",

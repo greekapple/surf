@@ -10186,7 +10186,8 @@
     ],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Halawa Bay is at its best when the wind blows offshore from the south-southwest . Surf-forecast Halawa: \"Halawa in Molokai is an exposed reef/rivermouth break that has quite reliable surf and can work at any time of the year. Offshore winds are from the south. Clean groundswells prevail and the ideal swell direction is from the north northwest. The right hand reef break is better than the left.. When it's working here, it can get crowded. Hazards include rocks, rips and sharks.\" Other guide pins from this position: surf-forecast Halawa 1.6 km."
+    "notes": "Surfnerd overview: Halawa Bay is at its best when the wind blows offshore from the south-southwest . Surf-forecast Halawa: \"Halawa in Molokai is an exposed reef/rivermouth break that has quite reliable surf and can work at any time of the year. Offshore winds are from the south. Clean groundswells prevail and the ideal swell direction is from the north northwest. The right hand reef break is better than the left.. When it's working here, it can get crowded. Hazards include rocks, rips and sharks.\" Other guide pins from this position: surf-forecast Halawa 1.6 km.",
+    "breakTypeText": "Halawa in Molokai is an exposed reef/rivermouth break that has quite reliable surf and can work at any time of the year. Type: Reef/river (surf-forecast, pin 1.55 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14039,7 +14040,8 @@
     ],
     "season": "Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Old Kona Airport is a surf spot in the United States. Surf-forecast Old-Kona-Airport-State: \"Old Kona Airport State Park in Big Island is a reasonably exposed beach and reef break that is usually a safe bet and works all around the year. The best wind direction is from the east. Tends to receive distant groundswells and the ideal swell direction is from the west northwest. Waves at the beach are both lefts and rights. Best around high tide. Sometimes crowded. Hazards include urchins, rips, rocks and locals.\" Other guide pins from this position: surf-forecast Old-Kona-Airport-State 2.3 km."
+    "notes": "Surfnerd overview: Old Kona Airport is a surf spot in the United States. Surf-forecast Old-Kona-Airport-State: \"Old Kona Airport State Park in Big Island is a reasonably exposed beach and reef break that is usually a safe bet and works all around the year. The best wind direction is from the east. Tends to receive distant groundswells and the ideal swell direction is from the west northwest. Waves at the beach are both lefts and rights. Best around high tide. Sometimes crowded. Hazards include urchins, rips, rocks and locals.\" Other guide pins from this position: surf-forecast Old-Kona-Airport-State 2.3 km.",
+    "breakTypeText": "Old Kona Airport State Park in Big Island is a reasonably exposed beach and reef break that is usually a safe bet and works all around the year. Type: Beach and reef (surf-forecast, pin 2.33 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17825,7 +17827,7 @@
    "country": "United States",
    "region": "Hawaii, Maui",
    "timeZone": "Pacific/Honolulu",
-   "type": null,
+   "type": "Reef",
    "lat": 20.842,
    "lon": -156.653,
    "seaward": 247.5,
@@ -17845,6 +17847,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/launiupoko",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/loniopokoh/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "WSW (surfnerd: \"Faces WSW\")",
@@ -17862,7 +17869,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Launiupoko is a surf spot in the United States. There aren't detailed condition notes for it yet, so lean on the live Surfnerd forecast for the latest swell, wind, and tide before you decide when to paddle out."
+    "notes": "Surfnerd overview: Launiupoko is a surf spot in the United States. There aren't detailed condition notes for it yet, so lean on the live Surfnerd forecast for the latest swell, wind, and tide before you decide when to paddle out.",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 0.12 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17935,7 +17943,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
      "distanceKm": 23.3
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 0.12 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/loniopokoh/"
+   }
   },
   {
    "id": "w-hawaii-little-beach",
