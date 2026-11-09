@@ -132,7 +132,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "SE to S, best SE (surfnerd)",
      "fromDeg": 135,
@@ -534,7 +534,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "S to SW, best SW (surfnerd)",
      "fromDeg": 180,
@@ -769,7 +769,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SE to SW, best SE (surfnerd)",
      "fromDeg": 135,
@@ -889,7 +889,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "S to SW, best SW (surfnerd)",
      "fromDeg": 180,
@@ -992,7 +992,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "S to NW, best SW (surfnerd)",
      "fromDeg": 180,
@@ -1496,7 +1496,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "NE to SE, best SE (surfnerd)",
      "fromDeg": 45,
@@ -1804,7 +1804,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SE to W, best SE (surfnerd)",
      "fromDeg": 135,
@@ -2198,7 +2198,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to W, best SW (surfnerd)",
      "fromDeg": 225,
@@ -2298,7 +2298,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -2403,7 +2403,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to W, best SW (surfnerd)",
      "fromDeg": 225,
@@ -2508,7 +2508,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -2618,7 +2618,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -2727,7 +2727,7 @@
      }
     ],
     "facing": "ENE (surfnerd)",
-    "facingDeg": 68,
+    "facingDeg": 67.5,
     "swellWorkable": {
      "text": "NE to SE, best SE (surfnerd)",
      "fromDeg": 45,
@@ -2807,7 +2807,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SE to SW, best S (surfnerd)",
      "fromDeg": 135,
@@ -3032,7 +3032,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SE to S, best S (surfnerd)",
      "fromDeg": 135,
@@ -3129,7 +3129,7 @@
      }
     ],
     "facing": "ENE (surfnerd)",
-    "facingDeg": 68,
+    "facingDeg": 67.5,
     "swellWorkable": {
      "text": "N to NE, best NE (surfnerd)",
      "fromDeg": 0,
@@ -3299,7 +3299,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SE to SW, best SE (surfnerd)",
      "fromDeg": 135,
@@ -3384,7 +3384,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -3469,7 +3469,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW (surfnerd)",
      "fromDeg": 225,
@@ -3652,7 +3652,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to W, best SW (surfnerd)",
      "fromDeg": 225,
@@ -3824,7 +3824,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SE to S, best SE (surfnerd)",
      "fromDeg": 135,
@@ -3909,7 +3909,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "E to SE, best SE (surfnerd)",
      "fromDeg": 90,
@@ -4084,7 +4084,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -4261,7 +4261,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SE to SW, best SE (surfnerd)",
      "fromDeg": 135,
@@ -4348,7 +4348,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SE to W, best SW (surfnerd)",
      "fromDeg": 135,
@@ -4616,7 +4616,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "NW to SE, best SE (surfnerd)",
      "fromDeg": 315,
@@ -4816,7 +4816,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "NE to SE, best SE (surfnerd)",
      "fromDeg": 45,
@@ -4901,7 +4901,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -5006,7 +5006,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "NW to SE, best NW (surfnerd)",
      "fromDeg": 315,
@@ -5301,7 +5301,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "S to NW, best NW (surfnerd)",
      "fromDeg": 180,
@@ -5386,7 +5386,7 @@
      }
     ],
     "facing": "ENE (surfnerd)",
-    "facingDeg": 68,
+    "facingDeg": 67.5,
     "swellWorkable": {
      "text": "SE to S, best SE (surfnerd)",
      "fromDeg": 135,
@@ -5476,7 +5476,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -5744,7 +5744,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "N to SE, best N (surfnerd)",
      "fromDeg": 0,
@@ -5890,7 +5890,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "W to NW, best NW (surfnerd)",
      "fromDeg": 270,
@@ -5970,7 +5970,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -6033,7 +6033,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -6096,7 +6096,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -6154,7 +6154,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "S to N, best SW (surfnerd)",
      "fromDeg": 180,
@@ -6331,7 +6331,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -6773,7 +6773,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -6951,7 +6951,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "NE to S, best SE (surfnerd)",
      "fromDeg": 45,
@@ -7301,7 +7301,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "NW to N, best NW (surfnerd)",
      "fromDeg": 315,
@@ -7476,7 +7476,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "NW to N, best NW (surfnerd)",
      "fromDeg": 315,
@@ -7566,7 +7566,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "NW to N, best NW (surfnerd)",
      "fromDeg": 315,
@@ -7823,7 +7823,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "E to SE, best SE (surfnerd)",
      "fromDeg": 90,
@@ -8253,7 +8253,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "E to SW, best SE (surfnerd)",
      "fromDeg": 90,
@@ -8416,7 +8416,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SE to S, best SE (surfnerd)",
      "fromDeg": 135,
@@ -8491,7 +8491,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,

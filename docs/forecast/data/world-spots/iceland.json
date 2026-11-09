@@ -37,7 +37,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -111,7 +111,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -193,7 +193,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -347,7 +347,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -429,7 +429,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -783,7 +783,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -978,7 +978,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -1168,7 +1168,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -1358,7 +1358,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "S to SW, best SW (surfnerd)",
      "fromDeg": 180,
@@ -1458,7 +1458,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SE to SW, best S (surfnerd)",
      "fromDeg": 135,
@@ -1651,7 +1651,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -1733,7 +1733,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,

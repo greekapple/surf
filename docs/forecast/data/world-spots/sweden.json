@@ -32,7 +32,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "NE to S, best NE (surfnerd)",
      "fromDeg": 45,
@@ -232,7 +232,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "N to NE, best N (surfnerd)",
      "fromDeg": 0,
@@ -442,7 +442,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "NW to NE, best NW (surfnerd)",
      "fromDeg": 315,
@@ -547,7 +547,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "SW to NE (surfnerd)",
      "fromDeg": 225,
@@ -762,7 +762,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "S to SW, best SW (surfnerd)",
      "fromDeg": 180,
@@ -1082,7 +1082,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "S to W (surfnerd)",
      "fromDeg": 180,
@@ -1194,7 +1194,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "S to NW, best NW (surfnerd)",
      "fromDeg": 180,
@@ -1506,7 +1506,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SE to SW, best SW (surfnerd)",
      "fromDeg": 135,
@@ -1603,7 +1603,7 @@
      }
     ],
     "facing": "ENE (surfnerd)",
-    "facingDeg": 68,
+    "facingDeg": 67.5,
     "swellWorkable": {
      "text": "NE to SE, best E (surfnerd)",
      "fromDeg": 45,
@@ -1723,7 +1723,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SW to NE, best SE (surfnerd)",
      "fromDeg": 225,
