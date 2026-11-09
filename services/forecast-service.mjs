@@ -11,6 +11,8 @@ export const mopServiceIds=['SF023','SM382','MA121','SM340','SC149','SC117','SC2
 export const tideServiceStationIds=['9414131','9415020'];
 /** T-082: the nearest CO-OPS prediction station of every covered spot, high/low only (kept in sync with src/ocean/tideStations.ts by a test). */
 export const tideHiloServiceStationIds=['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473'];
+/** Wind now (spec 2026-11-08): the shore stations whose live wind is ingested (kept in sync with src/ocean/shoreWind.json by a test). NDBC realtime2 text; ASOS = the NWS latest observations (generic User-Agent, no contact), key shore-<kind>-<id>. TTL 10 min. */
+export const shoreWindServiceStations=[{kind:'asos',id:'HAF'},{kind:'ndbc',id:'ANVC1'},{kind:'ndbc',id:'LJAC1'},{kind:'asos',id:'NRS'}];
 export const serviceSpots=[{id:'spot-2',lat:37.759,lon:-122.51,mlat:37.75,mlon:-122.6},{id:'spot-0',lat:37.90835046,lon:-122.682137,mlat:37.88,mlon:-122.73},{id:'spot-3',lat:37.6,lon:-122.5,mlat:37.6,mlon:-122.57},...coastServiceSpots];
 const waveFields=['wave_height','swell_wave_height','swell_wave_direction','swell_wave_period','secondary_swell_wave_height','secondary_swell_wave_direction','secondary_swell_wave_period','sea_surface_temperature'];
 const regionalFields=['Thgt','Tper','Tdir','shgt','sper','sdir','ugrd10m','vgrd10m'];
@@ -32,6 +34,7 @@ export function ingestionTargets(now=Date.now()){
  for(const s of serviceSpots){targets.push({key:'marine-'+s.id,ttl:1800000,url:'https://marine-api.open-meteo.com/v1/marine?'+new URLSearchParams({latitude:String(s.mlat),longitude:String(s.mlon),hourly:waveFields.join(','),timezone:'GMT',timeformat:'unixtime',forecast_days:'7'})},{key:'weather-'+s.id,ttl:1800000,url:'https://api.open-meteo.com/v1/forecast?'+new URLSearchParams({latitude:String(s.lat),longitude:String(s.lon),hourly:'wind_speed_10m,wind_direction_10m,wind_gusts_10m',wind_speed_unit:'mph',timezone:'GMT',timeformat:'unixtime',forecast_days:'7'})});}
  const noaa={station:'9414290',datum:'MLLW',time_zone:'gmt',units:'english',format:'json',application:'SURF'};
  targets.push({key:'tides',ttl:21600000,url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?'+new URLSearchParams({...noaa,product:'predictions',begin_date:from,range:'192',interval:'h'})},{key:'tide-extrema',ttl:21600000,url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?'+new URLSearchParams({...noaa,product:'predictions',begin_date:from,range:'192',interval:'hilo'})},{key:'level',ttl:600000,url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?'+new URLSearchParams({...noaa,product:'water_level',date:'latest'})},{key:'buoy',ttl:600000,text:true,url:'https://www.ndbc.noaa.gov/data/realtime2/46026.txt'});
+for(const st of shoreWindServiceStations)targets.push(st.kind==='ndbc'?{key:'shore-ndbc-'+st.id,ttl:600000,text:true,model:'NOAA NDBC '+st.id,url:'https://www.ndbc.noaa.gov/data/realtime2/'+st.id+'.txt'}:{key:'shore-asos-'+st.id,ttl:600000,model:'NWS observations K'+st.id,accept:'application/geo+json',headers:{'User-Agent':'SWELLO surf forecast prototype'},url:'https://api.weather.gov/stations/K'+st.id+'/observations?limit=6'});
 for(const id of ['46012','46214'])targets.push({key:'ndbc-'+id,ttl:900000,text:true,model:'NOAA NDBC '+id,url:'https://www.ndbc.noaa.gov/data/realtime2/'+id+'.txt'});
  targets.push({key:'cdip-029',ttl:900000,text:true,csv:true,model:'CDIP 029p1 realtime buoy',url:'https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/realtime/029p1_rt.nc?'+new URLSearchParams({var:'waveHs,waveTp,waveDp',time_start:new Date(now-86400000).toISOString(),time_end:new Date(now+3600000).toISOString(),accept:'csv'})});
 for(const st of tideHiloServiceStationIds){const q={...noaa,station:st,product:'predictions',begin_date:from,range:'192'};targets.push({key:'tide-extrema-'+st,ttl:21600000,url:'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?'+new URLSearchParams({...q,interval:'hilo'})});}
@@ -94,7 +97,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
     let payload,raw,response;
     for(;;){attempts++;
      try{
-      response=await dofetch(url,{signal:AbortSignal.timeout(timeoutMs),headers:{Accept:target.csv?'text/csv':target.text?'text/plain':'application/json',...(old?.etag?{'If-None-Match':old.etag}:{}),...(old?.lastModified?{'If-Modified-Since':old.lastModified}:{})}});
+      response=await dofetch(url,{signal:AbortSignal.timeout(timeoutMs),headers:{Accept:target.accept??(target.csv?'text/csv':target.text?'text/plain':'application/json'),...(target.headers??{}),...(old?.etag?{'If-None-Match':old.etag}:{}),...(old?.lastModified?{'If-Modified-Since':old.lastModified}:{})}});
       if(response.status===304&&old){const value={...old,validatedAt:new Date(now()).toISOString()};await save(env,target.key,value);return {...value,cache:'fresh'};}
       if(!response.ok){const e=new Error('Provider HTTP '+response.status);e.status=response.status;e.retryAfter=response.headers.get('retry-after');throw e;}
       if(Number(response.headers.get('content-length'))>3000000)throw Object.assign(new Error('Provider payload exceeds bounded size.'),{validation:true});
@@ -104,6 +107,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
     const invalid=message=>{throw Object.assign(new Error(message),{validation:true})};
     if(payload?.error)invalid('Provider reported unavailable data.');
     if((target.key.startsWith('marine-')||target.key.startsWith('weather-'))&&(!Array.isArray(payload?.hourly?.time)||!payload.hourly.time.length))invalid('Hourly data absent.');
+    if(target.key.startsWith('shore-asos-')&&!Array.isArray(payload?.features))invalid('Unexpected observation response.');
     if(target.field&&(!payload.table?.rows?.length||payload.table.rows.length>60000))invalid('Regional grid absent or oversized.');
     if(target.csv&&!raw.startsWith('time,station,'))invalid('Unexpected nearshore response.');if(target.das&&!raw.includes('NC_GLOBAL'))invalid('Unexpected file-attribute response.');
     if(target.text&&!target.csv&&!target.das&&!raw.startsWith('#YY'))invalid('Unexpected buoy response.');

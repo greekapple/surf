@@ -553,3 +553,13 @@
 .legend i.lg-sure { height: 8px; background: linear-gradient(90deg, var(--hs-hi), color-mix(in srgb, var(--hs-hi) 25%, transparent)); opacity: 0.6; }
 .legend i.lg-wide { height: 8px; border: 1px dashed var(--hs-hi); background: none; }
 .legend i.lg-far { height: 8px; border: 1px solid var(--line-2); background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--text) 30%, transparent) 0 1px, transparent 1px 4px); }
+
+/* wind-now: the shore station's latest reading under the forecast wind (WindNow.tsx); one muted line says what the station is. */
+.sp-wn { display: grid; gap: 1px; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); min-width: 0; }
+p.sp-wn { display: block; }
+.sp-wn-m { font-size: 13px; color: var(--text); overflow-wrap: anywhere; }
+.sp-wn-m b { font-weight: 650; }
+.sp-wn-fc { color: var(--muted); }
+.sp-wn a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 2px; }
+.sp-wn .sp-f { overflow-wrap: anywhere; }
+.sp-wn .sp-nb { white-space: nowrap; }

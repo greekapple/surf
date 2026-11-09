@@ -67,7 +67,7 @@ test('P1-3: successive runs with NEW service instances on the same bucket comple
   const BUCKET = {get: async (k: string) => { ops++; return store.has(k) ? {json: async () => JSON.parse(store.get(k)!)} : null; }, put: async (k: string, v: string) => { ops++; store.set(k, v); }};
   const fetcher = async (url: string) => { fetches++; const t = byUrl.get(String(url));
     if (!t || t.field) return new Response('{}', {status: 200});
-    const body = t.csv ? 'time,station,x\n' : t.das ? 'NC_GLOBAL {}' : t.text ? '#YY MM DD' : JSON.stringify({hourly: {time: ['2026-11-04T12:00']}, table: {rows: [[1]]}});
+    const body = t.csv ? 'time,station,x\n' : t.das ? 'NC_GLOBAL {}' : t.text ? '#YY MM DD' : JSON.stringify({hourly: {time: ['2026-11-04T12:00']}, table: {rows: [[1]]}, features: []});
     return new Response(body, {status: 200, headers: {'content-type': t.csv || t.das || t.text ? 'text/plain' : 'application/json'}}); };
   const wanted = targets.filter((t) => !t.field).map((t) => 'forecast/v8/latest/' + t.key + '.json'), perRun: number[] = [];
   let full = -1;

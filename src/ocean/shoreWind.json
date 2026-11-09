@@ -1,0 +1,69 @@
+{
+ "builtAt": "2026-11-09T05:47:32.926Z",
+ "maxKm": 4,
+ "windowDays": 7,
+ "rule": "The nearest fixed NDBC/NOS met station or California airport ASOS within 4 km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last 7 days at build time. No latitude band. A spot with no such station shows no measured wind.",
+ "spotsChecked": 45,
+ "assignments": [
+  {
+   "spotId": "spot-4",
+   "spotName": "Montara",
+   "stationId": "HAF",
+   "stationName": "Half Moon Bay",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 37.5136,
+   "lon": -122.4996,
+   "distanceKm": 3.7,
+   "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
+  },
+  {
+   "spotId": "spot-5",
+   "spotName": "Mavericks",
+   "stationId": "HAF",
+   "stationName": "Half Moon Bay",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 37.5136,
+   "lon": -122.4996,
+   "distanceKm": 2.1,
+   "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
+  },
+  {
+   "spotId": "cs-point-arena",
+   "spotName": "Point Arena",
+   "stationId": "ANVC1",
+   "stationName": "9416841 - Arena Cove, CA",
+   "kind": "ndbc",
+   "exposure": "cove",
+   "lat": 38.915,
+   "lon": -123.711,
+   "distanceKm": 0.1,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=ANVC1"
+  },
+  {
+   "spotId": "cs-blacks",
+   "spotName": "Black’s Beach",
+   "stationId": "LJAC1",
+   "stationName": "9410230 - La Jolla, CA",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 32.867,
+   "lon": -117.257,
+   "distanceKm": 2.5,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
+  },
+  {
+   "spotId": "cs-imperial",
+   "spotName": "Imperial Beach",
+   "stationId": "NRS",
+   "stationName": "IMPERIAL BEACH/REAM",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 32.5631,
+   "lon": -117.11,
+   "distanceKm": 2.9,
+   "url": "https://api.weather.gov/stations/KNRS/observations?limit=6"
+  }
+ ]
+}

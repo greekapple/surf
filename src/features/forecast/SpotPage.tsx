@@ -26,6 +26,7 @@ import {isFlat, FLAT_ESTIMATE_TEXT, flatWhy, nowcastNearby, NOWCAST_NEARBY_TEXT}
 import type {OceanBundle} from '../../ocean/types';
 import {HowRightLine} from './HowRight';
 import {TunedLine} from './Tuned';
+import {WindNow} from './WindNow';
 
 /* T-045 spot page v3: Surfline's anatomy, each fact once. Conditions grid → Board Match line → 7-day strip → graph/table → nearshore + buoy → sources. */
 
@@ -138,6 +139,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
           <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
           {fin(f.wind.direction) && <WindDial from={f.wind.direction} facing={facing} cls={relClass(rel)} />}
         </> : <p className="sp-s">Wind not in this record.</p>}
+        <WindNow spot={spot} hours={dayHours} now={now} p={p} />
       </Card>
       <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk ? <>
