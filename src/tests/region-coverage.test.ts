@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {hasUsData, countryOf, regionNote, NOT_AVAILABLE_IN_REGION} from '../ocean/coverage.ts';
+import {hasUsData, countryOf, regionNote, pointInUs, NOT_AVAILABLE_IN_REGION} from '../ocean/coverage.ts';
 import {nearestTideStationsFor, nearestTideStations} from '../ocean/tideStations.ts';
 import {assignmentFor, mopAssignments} from '../ocean/mop.ts';
 import {shoreAssignmentFor, shoreWindRegistry} from '../ocean/shoreWind.ts';
@@ -66,8 +66,7 @@ test('the rating and the forecast still run for a spot outside the US data: surf
 });
 
 // a spot with no country (or 'US') gets the US lookups, so it must really be in the US: lower-48 West Coast, Hawaii or Alaska
-const US_BOXES: [string, number, number, number, number][] = [['West Coast', 32.4, 49.1, -125.0, -117.0], ['Hawaii', 18.5, 22.5, -160.8, -154.5], ['Alaska', 51.0, 72.0, -180.0, -129.9], ['Aleutians (east of the date line)', 51.0, 55.5, 167.0, 180.0]];
-const inUs = (lat: number, lon: number) => US_BOXES.some(([, a, b, c, d]) => lat >= a && lat <= b && lon >= c && lon <= d);
+const inUs = pointInUs;
 test('guard: every spot whose country is US (or absent) lies inside a US bounding box, so a mislabelled world spot cannot get US lookups', () => {
   const bad = evidenceSpots.filter((s) => !s.id.startsWith('zz-') && hasUsData(s.id) && !inUs(s.latitude, s.longitude)).map((s) => `${s.name} (${s.latitude}, ${s.longitude})`);
   assert.deepEqual(bad, [], 'US-labelled spots outside the US boxes: ' + bad.join('; '));

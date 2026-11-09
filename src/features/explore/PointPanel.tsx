@@ -5,7 +5,8 @@ import {DirArrow, Icon, type IconName} from '../../ui/Icon';
 import {compass, ht, windColor, windVal} from '../forecast/helpers';
 import {timeLabelPT, weekdayPT} from '../forecast/format';
 import {evidenceSpots} from '../../ocean/spots';
-import {nearestTideStations, SF_STATION} from '../../ocean/tideStations';
+import {tideStationForSpot, SF_STATION} from '../../ocean/tideStations';
+import {pointInUs} from '../../ocean/coverage';
 import type {PointData, Pt} from './PointCard';
 
 /** T-117 (Windy): tapping the sea puts a small dark label at the point with the value under it, and expands into an hourly panel at the bottom.
@@ -38,7 +39,7 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
 }) {
   const near = evidenceSpots.map((e) => ({e, km: kmBetween(pt, e)})).sort((a, b) => a.km - b.km)[0];
   const spot = near && near.km <= SPOT_KM ? near : null;
-  const st = nearestTideStations(pt.lat, pt.lon)[0], station = st && st.distanceKm <= TIDE_KM ? st : null;
+  const st = pointInUs(pt.lat, pt.lon) ? tideStationForSpot(pt.lat, pt.lon) : null, station = st && st.distanceKm <= TIDE_KM ? st : null;   // the open-coast pick (never a river or slough station) and US stations for a point in the US only
   const turns = !station ? [] : (station.station.id === SF_STATION ? bundle?.extrema ?? [] : bundle?.stationTides?.[station.station.id]?.extrema ?? []);
   const t0 = time ? Date.parse(time) / 1000 : data?.time[0] ?? 0;
   const cols = data ? data.time.map((t, i) => ({t, i})).filter(({t}) => t >= t0 - 1800).filter((_, k) => k % 3 === 0).slice(0, 40) : [];

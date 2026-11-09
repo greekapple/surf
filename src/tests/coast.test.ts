@@ -25,3 +25,10 @@ test('the San Francisco tide station is only used near the Bay', () => {
   assert.ok(!nearSanFrancisco(36.951, -122.026)); // Steamer Lane
   assert.ok(!nearSanFrancisco(32.749, -117.253)); // Ocean Beach San Diego
 });
+test('every spot region belongs to a browsing zone (no spot sits under "Other"), and the zone names its state', async () => {
+  const {zoneOf, stateOfZone, ZONES} = await import('../data/zones.ts');
+  const lost = evidenceSpots.filter((e) => zoneOf(e.region) === 'Other').map((e) => `${e.name} (${e.region})`);
+  assert.deepEqual(lost, [], 'spots whose county is in no zone: ' + lost.join(', '));
+  assert.equal(stateOfZone(zoneOf('Clatsop')), 'Oregon'); assert.equal(stateOfZone(zoneOf('Grays Harbor')), 'Washington'); assert.equal(stateOfZone(zoneOf('Curry')), 'Oregon'); assert.equal(stateOfZone(zoneOf('San Diego')), 'California'); assert.equal(stateOfZone(zoneOf('Marin')), 'California');
+  assert.deepEqual(ZONES.map(([z]) => z).slice(0, 3), ['Washington Coast', 'Oregon North Coast', 'Oregon South Coast'], 'north to south');
+});

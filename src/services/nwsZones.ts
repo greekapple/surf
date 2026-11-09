@@ -105,10 +105,10 @@ export const NWS_ZONE: Record<string, string | null> = {
   'cs-pacific-city': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
   'cs-otter-rock': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
   'cs-agate-beach': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
-  'cs-florence': null, // marine zone PZZ350: no land beach-hazard zone resolved
   'cs-bastendorff': "ORZ021", // resolved 0.8 km inland: the beach point is in marine zone PZZ350
   'cs-gold-beach': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
   'cs-brookings': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'cs-florence': "ORZ103", // resolved 2 km inland: the beach point is in marine zone PZZ350
 };
 
 /** Spots whose own point falls in a marine zone borrow the coastal zone of the nearest zoned spot, only when it is within 15 km (the same stretch of coast). Marked approximate in the UI text; farther spots have no zone. */

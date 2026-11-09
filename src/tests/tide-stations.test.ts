@@ -81,3 +81,20 @@ test('open-coast rule: the stations the OR/WA and California reviews rejected ar
   assert.equal(tideStationForSpot(32.794, -117.256)!.station.id, '9410230', 'Pacific Beach: La Jolla, not Quivira Basin'); assert.equal(tideStationForSpot(32.72, -117.26)!.station.id, '9410230', 'Sunset Cliffs/OB San Diego: La Jolla');
   assert.equal(tideStationForSpot(37.908, -122.682)!.station.id, '9414275', 'Bolinas: the outer coast Ocean Beach station, not Bolinas Lagoon');
 });
+test('OR/WA review: reviewed overrides beat the words, one station per spot near San Francisco, and the map point uses the same open-coast pick', async () => {
+  const {TIDE_EXPOSURE_OVERRIDES, tideStationExposure, tideStationFor, tideStationForSpot, pickTideStation} = await import('../ocean/tideStations.ts');
+  const {evidenceSpots} = await import('../ocean/spots.ts'), {pointInUs} = await import('../ocean/coverage.ts');
+  for (const [id, o] of Object.entries(TIDE_EXPOSURE_OVERRIDES)) assert.match(o.reason, /^.+https:\/\/tidesandcurrents\.noaa\.gov\/stationhome\.html\?id=/, `${id}: a reason with the CO-OPS page`);
+  assert.equal(tideStationExposure('Nehalem', '9437908').exposure, 'closed'); assert.equal(tideStationExposure('Nehalem').exposure, 'unknown', 'without the reviewed id the word rule cannot tell');
+  assert.equal(tideStationExposure('YAQUINA USCG STA, NEWPORT', '9435385').exposure, 'closed'); assert.equal(tideStationExposure('Southbeach', '9435380').exposure, 'open');
+  const spot = (n: string) => evidenceSpots.find((s) => s.name === n)!, id = (n: string) => tideStationFor(spot(n))?.station.id;
+  assert.equal(id('Short Sands'), '9437585', 'Short Sands: North Jetty, Tillamook Bay, not Nehalem'); assert.equal(id('Cannon Beach'), 'TWC0881'); assert.notEqual(id('Cannon Beach'), '9437908');
+  assert.equal(id('Agate Beach'), '9435380', 'Newport: the active South Beach station, not the 1982 USCG one'); assert.equal(id('Otter Rock'), '9435380');
+  assert.equal(id('Bastendorff Beach'), '9432436', 'Charleston is dropped because an open-coast station (Coquille River entrance) is within 40 km');
+  // Charleston is kept when it is the only choice
+  const lone = [{id: '9432780', name: 'CHARLESTON', lat: 43.345, lon: -124.322}, {id: 'x', name: 'Empire', lat: 43.38, lon: -124.3}]; assert.equal(pickTideStation(43.347, -124.347, [lone[0]])!.station.id, '9432780', 'kept: no open alternative in range');
+  // one station per spot: Bolinas and Stinson use the SF regional reference (their hourly series), spots with a local station keep it, and SF is not used beyond 40 km
+  assert.equal(id('Bolinas'), '9414290'); assert.equal(id('Stinson Beach'), '9414290'); assert.equal(id('Ocean Beach'), '9414275'); assert.equal(id('Pescadero State Beach'), tideStationForSpot(spot('Pescadero State Beach').latitude, spot('Pescadero State Beach').longitude)?.station.id);
+  // the map point panel's pick: US points only, never a closed station
+  assert.equal(pointInUs(45.976, -123.947), true); assert.equal(pointInUs(38.7, -9.4), false); assert.equal(tideStationForSpot(45.976, -123.947)?.station.id, 'TWC0881');
+});

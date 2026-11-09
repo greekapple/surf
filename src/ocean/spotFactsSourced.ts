@@ -4858,7 +4858,7 @@ export const guideFacts: GuideFacts[] = [
    {
     "url": "https://www.nps.gov/places/000/first-beach-la-push.htm",
     "site": "nps.gov",
-    "title": "nps.gov spot guide: La Push (First Beach)",
+    "title": "NPS visitor page: First Beach, La Push",
     "retrievedOn": "2026-11-08"
    }
   ],
@@ -4914,7 +4914,7 @@ export const guideFacts: GuideFacts[] = [
    {
     "url": "https://www.makah.com/recreation",
     "site": "makah.com",
-    "title": "makah.com spot guide: Neah Bay (Hobuck)",
+    "title": "Makah Tribe visitor page: recreation and permits",
     "retrievedOn": "2026-11-08"
    }
   ],

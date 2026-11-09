@@ -1,6 +1,7 @@
 /** CO-OPS tide-prediction stations (T-041). A spot may use a station's tide only by a reviewed assignment; labels always say "station tide", never "beach tide".
  *  Positions read from the CO-OPS metadata API (mdapi) on 2026-11-02; predictions verified live for both new stations. */
 import {hasUsData} from './coverage.ts';
+import {nearSanFrancisco} from '../data/coast.ts';
 export interface TideStation {id: string; name: string; lat: number; lon: number; retrievedOn: string; url: string}
 export const tideStations: TideStation[] = [
   {id: '9414290', name: 'San Francisco', lat: 37.806305, lon: -122.46589, retrievedOn: '2026-11-02', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9414290'},
@@ -44,19 +45,19 @@ export const tideStations: TideStation[] = [
   {id: '9441102', name: "Westport, Point Chehalis", lat: 46.90431, lon: -124.10508, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9441102'},
   {id: '9440581', name: "Cape Disappointment", lat: 46.28103, lon: -124.04628, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9440581'},
   {id: 'TWC0881', name: "Point Adams, Oreg.", lat: 46.20000, lon: -123.95000, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TWC0881'},
-  {id: '9437908', name: "Nehalem", lat: 45.71000, lon: -123.89000, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9437908'},
   {id: 'TWC0857', name: "Nestucca Bay entrance", lat: 45.16667, lon: -123.96667, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TWC0857'},
-  {id: '9435385', name: "YAQUINA USCG STA, NEWPORT", lat: 44.62670, lon: -124.05500, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9435385'},
   {id: '9434132', name: "Siuslaw River Entrance", lat: 44.01670, lon: -124.13000, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9434132'},
-  {id: '9432780', name: "CHARLESTON", lat: 43.34500, lon: -124.32200, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9432780'},
   {id: '9431647', name: "Port Orford", lat: 42.73900, lon: -124.49830, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9431647'},
   {id: '9430104', name: "Brookings, Chetco Cove", lat: 42.04330, lon: -124.28500, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9430104'},
+  {id: '9437585', name: "North Jetty, Tillamook Bay", lat: 45.57000, lon: -123.96500, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9437585'},
+  {id: '9435380', name: "Southbeach", lat: 44.62544, lon: -124.04494, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9435380'},
+  {id: '9432436', name: "Rink Creek Entrance, Coquille River", lat: 43.15790, lon: -124.18180, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9432436'},
 ];
 export const SF_STATION = '9414290';
 /** Stations whose predictions the server ingests in addition to the existing San Francisco feed. Kept in sync with services/forecast-service.mjs by a test. */
 export const extraTideStationIds = ['9414131', '9415020'];
 /** T-082: stations ingested for high/low predictions only (the nearest station of every covered spot). Kept in sync with services/forecast-service.mjs by a test. */
-export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340',  '9442861',  '9442388',  '9441102',  '9440581',  'TWC0881',  '9437908',  'TWC0857',  '9435385',  '9434132',  '9432780',  '9431647',  '9430104'];
+export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340',  '9442861',  '9442388',  '9441102',  '9440581',  'TWC0881',  'TWC0857',  '9434132',  '9431647',  '9430104',  '9437585',  '9435380',  '9432436'];
 /** Open-coast rule for choosing a tide station for a spot (spot expansion): a CO-OPS station far up a river, slough or lagoon, in an estuary bay or inside a harbour basin, says little about the beach (Seaside's nearest station was Cathcart Landing on Youngs River, 19.8 km;
  *  Pacific Beach's was Quivira Basin in Mission Bay; Blackies' was "Santa Ana River entrance (inside)"; Long Beach WA's was Tarlatt Slough, then "Ilwaco, Baker Bay"). CO-OPS metadata (mdapi) has no open-coast flag, so the rule is explicit and reads the station NAME, in this order:
  *    1. "inside" in the name: closed.
@@ -70,7 +71,21 @@ const STRONG_OPEN = /\b(entrance|jetty|jetties|bar|spit|pier|wharf|ocean|outer c
 const WEAK_OPEN = /\b(cape|point|island|head|beach|rock|light|reef)\b/i;
 const CLOSED_WORDS = /\b(river|slough|creek|landing|bridge|lagoon|canal|channel|basin|marsh|docks)\b/i;
 const ESTUARY_BAY = /\bbay\b/i, OPEN_BAYS = /\b(monterey|santa monica|carmel|makah) bay\b/i;
-export function tideStationExposure(name: string): {exposure: TideExposure; why: string} {
+/** Reviewed per-station overrides, consulted BEFORE the words (the name rule cannot tell an estuary town from an open-coast one; the Oregon/Washington data-honesty review, 2026-11-09). Each entry says why, with the CO-OPS page.
+ *  'closed-if-alternative' = a sheltered station that is kept only when no open station is within range. */
+export type TideOverride = {exposure: 'open' | 'closed' | 'closed-if-alternative'; reason: string};
+const COOPS = (id: string) => `https://tidesandcurrents.noaa.gov/stationhome.html?id=${id}`;
+export const TIDE_EXPOSURE_OVERRIDES: Record<string, TideOverride> = {
+  '9437908': {exposure: 'closed', reason: `Nehalem is up the Nehalem Bay estuary: its predictions run about +77/+116 min behind Crescent City with damped lows (${COOPS('9437908')})`},
+  '9437815': {exposure: 'closed', reason: `Brighton is on Nehalem Bay, the same estuary as Nehalem, a subordinate station of Crescent City (${COOPS('9437815')})`},
+  '9435385': {exposure: 'closed', reason: `YAQUINA USCG STA, NEWPORT ran for six weeks in 1982 only: no longer a predicting station to rely on; South Beach 9435380 replaces it (${COOPS('9435385')})`},
+  '9435380': {exposure: 'open', reason: `Southbeach, the active reference station at the Yaquina Bay entrance (Newport), replaces the 1982 USCG station (${COOPS('9435380')})`},
+  '9432864': {exposure: 'closed', reason: `Empire is inside Coos Bay, the same boat basin and estuary as Charleston (${COOPS('9432864')})`},
+  '9432879': {exposure: 'closed', reason: `Sitka Dock is inside Coos Bay (${COOPS('9432879')})`},
+  '9432780': {exposure: 'closed-if-alternative', reason: `Charleston is in the Coos Bay boat basin (small lag to the open coast): used only when no open-coast station is within range (${COOPS('9432780')})`},
+};
+export function tideStationExposure(name: string, id?: string): {exposure: TideExposure | 'closed-if-alternative'; why: string} {
+  const o = id ? TIDE_EXPOSURE_OVERRIDES[id] : undefined; if (o) return {exposure: o.exposure, why: `reviewed: ${o.reason}`};
   if (/\binside\b/i.test(name)) return {exposure: 'closed', why: 'its name says "inside"'};
   const so = STRONG_OPEN.exec(name); if (so) return {exposure: 'open', why: `name says open coast or an entrance ("${so[1].toLowerCase()}")`};
   const c = CLOSED_WORDS.exec(name); if (c) return {exposure: 'closed', why: `name says "${c[1].toLowerCase()}" (up a river, slough, lagoon or basin)`};
@@ -78,10 +93,12 @@ export function tideStationExposure(name: string): {exposure: TideExposure; why:
   const wo = WEAK_OPEN.exec(name); if (wo) return {exposure: 'open', why: `name says "${wo[1].toLowerCase()}"`};
   return {exposure: 'unknown', why: 'nothing in its name says open coast or enclosed (a town or harbour name)'};
 }
-/** The station a spot uses: the nearest one within `maxKm` that is not closed. `stations` are {name, lat, lon, ...}. */
-export function pickTideStation<T extends {name: string; lat: number; lon: number}>(spotLat: number, spotLon: number, stations: T[], maxKm = 40): {station: T; distanceKm: number; exposure: TideExposure} | null {
-  const ranked = stations.map((s) => ({station: s, distanceKm: Math.round(km(spotLat, spotLon, s.lat, s.lon) * 10) / 10, exposure: tideStationExposure(s.name).exposure})).filter((x) => x.distanceKm <= maxKm && x.exposure !== 'closed').sort((a, b) => a.distanceKm - b.distanceKm);
-  return ranked[0] ?? null;
+/** The station a spot uses: the nearest one within `maxKm` that is not closed (a 'closed-if-alternative' one only when no open station is in range). `stations` are {id?, name, lat, lon, ...}. */
+export function pickTideStation<T extends {id?: string; name: string; lat: number; lon: number}>(spotLat: number, spotLon: number, stations: T[], maxKm = 40): {station: T; distanceKm: number; exposure: TideExposure} | null {
+  const all = stations.map((s) => ({station: s, distanceKm: Math.round(km(spotLat, spotLon, s.lat, s.lon) * 10) / 10, exposure: tideStationExposure(s.name, s.id).exposure})).filter((x) => x.distanceKm <= maxKm).sort((a, b) => a.distanceKm - b.distanceKm);
+  const anyOpen = all.some((x) => x.exposure === 'open');
+  const ok = all.filter((x) => x.exposure === 'open' || x.exposure === 'unknown' || (x.exposure === 'closed-if-alternative' && !anyOpen)).map((x) => ({...x, exposure: (x.exposure === 'closed-if-alternative' ? 'unknown' : x.exposure) as TideExposure}));
+  return ok[0] ?? null;
 }
 /** The registry station a SPOT uses for its "next tide": the nearest that is not closed (see tideStationExposure), within 40 km. Same shape as nearestTideStations()[0]. */
 export const tideStationForSpot = (lat: number, lon: number): {station: TideStation; distanceKm: number} | null => pickTideStation(lat, lon, tideStations);
@@ -94,7 +111,15 @@ export const tideAssignments: TideAssignment[] = [];
 const km = (aLat: number, aLon: number, bLat: number, bLon: number) => { const r = Math.PI / 180, dLat = (bLat - aLat) * r, dLon = (bLon - aLon) * r, h = Math.sin(dLat / 2) ** 2 + Math.cos(aLat * r) * Math.cos(bLat * r) * Math.sin(dLon / 2) ** 2; return 12742 * Math.asin(Math.sqrt(h)); };
 /** The nearest stations of a SPOT: none for a spot outside US coverage (CO-OPS is a US source; nothing is borrowed across a border). */
 /** The station a spot uses: the open-coast pick (tideStationForSpot) for a spot with US data, none elsewhere (coverage.ts). */
-export const tideStationFor = (spot: {id: string; country?: string; latitude: number; longitude: number}) => (hasUsData(spot) ? tideStationForSpot(spot.latitude, spot.longitude) : null);
+/** A spot with no genuinely local station (none within this many km) near San Francisco uses the SF regional reference for its "next tide" too, because its hourly tide series IS that station (pipeline.ts attaches it within the Bay radius):
+ *  one station per spot on every surface (Bolinas and Stinson, whose lagoon station was dropped by the open-coast rule). The SF station must itself be within 40 km and not much farther (10 km) than the pick it replaces (Pescadero, 61 km from SF, keeps Ano Nuevo). Spots with a local station keep it (Ocean Beach, Linda Mar, Montara...: their hourly series stays labelled the regional reference). */
+export const SF_LOCAL_KM = 15;
+export function tideStationFor(spot: {id: string; country?: string; latitude: number; longitude: number}): {station: TideStation; distanceKm: number} | null {
+  if (!hasUsData(spot)) return null;
+  const pick = tideStationForSpot(spot.latitude, spot.longitude);
+  if (nearSanFrancisco(spot.latitude, spot.longitude) && (!pick || pick.distanceKm > SF_LOCAL_KM)) { const sf = tideStations.find((s) => s.id === SF_STATION); if (sf) { const d = Math.round(km(spot.latitude, spot.longitude, sf.lat, sf.lon) * 10) / 10; if (d <= 40 && (!pick || d <= pick.distanceKm + 10)) return {station: sf, distanceKm: d}; } }
+  return pick;
+}
 export const nearestTideStationsFor = (spot: {id: string; country?: string; latitude: number; longitude: number}) => (hasUsData(spot) ? nearestTideStations(spot.latitude, spot.longitude) : []);
 /** Nearest stations by distance, for the owner's review list only (never an assignment). */
 export const nearestTideStations = (lat: number, lon: number) => tideStations.map((s) => ({station: s, distanceKm: Math.round(km(lat, lon, s.lat, s.lon) * 10) / 10})).sort((a, b) => a.distanceKm - b.distanceKm);

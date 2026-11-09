@@ -6,7 +6,7 @@ import {BAND_COLOR, band, bandOf as bandOfCat} from '../features/forecast/model'
 import {timeLabelPT} from '../features/forecast/format';
 import {ht} from '../features/forecast/helpers';
 import {resolveTheme, useThemePref} from '../ui/theme';
-import {ZONES, zoneOf} from '../data/zones';
+import {ZONES, zoneOf, stateOfZone} from '../data/zones';
 import {spotStrip} from '../services/spotStrip';
 
 type Go = (area: Area, section?: string) => void;
@@ -120,7 +120,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
       </div>
       <div className="mm-main">
         <nav className="mm-crumbs" aria-label="Location">
-          <button onClick={() => setCounty(null)}>California</button><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} />
+          <button onClick={() => setCounty(null)}>{stateOfZone(zone)}</button><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} />
           <button onClick={() => setCounty(null)}>{zone}</button>
           {county && <><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} /><span>{county}</span></>}
         </nav>

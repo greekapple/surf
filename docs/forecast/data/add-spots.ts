@@ -15,7 +15,7 @@
 //   mopids  mopServiceIds (services/forecast-service.mjs) = assignedMopIds() of the regenerated mop.ts
 //   slope   mop-slope-all.ts --write --only <new ids> -> src/ocean/nearshoreSlopeSourced.ts (existing rows kept verbatim)   [network: ETOPO, cached in etopo-cache.json]
 //   tides   nearest OPEN-COAST CO-OPS prediction station (mdapi; not up a river, slough or lagoon: tideStationExposure) for each new spot, added to src/ocean/tideStations.ts + hiloTideStationIds + tideHiloServiceStationIds   [network]
-//   nws     api.weather.gov/points land zone of each new spot (any state: CAZ, ORZ, WAZ...) -> src/services/nwsZones.ts; a point in a marine zone is looked up again 0.8 km inland, and only then borrows the nearest zoned spot within 15 km   [network]
+//   nws     api.weather.gov/points land zone of each new spot (any state: CAZ, ORZ, WAZ...) -> src/services/nwsZones.ts; a point in a marine zone is looked up again 0.8 km, then 2 km inland, and only then borrows the nearest zoned spot within 15 km   [network]
 //   wind    build-shore-wind.ts -> src/ocean/shoreWind.json, then shoreWindServiceStations (services/forecast-service.mjs)   [network; only when a spot was added, or --force-wind]
 // A spot with no matching MOP point stays without an assignment (the existing mop.ts rule says so honestly); the summary lists it. Nothing is invented.
 import fs from 'node:fs';
@@ -115,8 +115,8 @@ if (want('tides')) {
     const {pickTideStation, tideStationExposure} = await import('../../../src/ocean/tideStations.ts');
     for (const s of cur) {
       const pick = pickTideStation(s.lat, s.lon, list);
-      const skipped = list.map((x) => ({x, km: km(s.lat, s.lon, x.lat, x.lon)})).filter((c) => c.km <= (pick?.distanceKm ?? 40) && tideStationExposure(c.x.name).exposure === 'closed').sort((a, b) => a.km - b.km).slice(0, 3);
-      if (skipped.length) console.log(`tides: ${s.name}: skipped ${skipped.map((c) => `${c.x.name} (${c.x.id}) ${c.km.toFixed(1)} km [${tideStationExposure(c.x.name).why}]`).join('; ')}`);
+      const skipped = list.map((x) => ({x, km: km(s.lat, s.lon, x.lat, x.lon)})).filter((c) => c.km <= (pick?.distanceKm ?? 40) && tideStationExposure(c.x.name, c.x.id).exposure !== 'open' && tideStationExposure(c.x.name, c.x.id).exposure !== 'unknown').sort((a, b) => a.km - b.km).slice(0, 3);
+      if (skipped.length) console.log(`tides: ${s.name}: skipped ${skipped.map((c) => `${c.x.name} (${c.x.id}) ${c.km.toFixed(1)} km [${tideStationExposure(c.x.name, c.x.id).why}]`).join('; ')}`);
       if (!pick) { console.log(`tides: ${s.name}: no open-coast CO-OPS prediction station within 40 km`); continue; }
       if (!regIds.has(pick.station.id) && !addIds.includes(pick.station.id)) {
         addIds.push(pick.station.id); const x = pick.station, line = `  {id: '${x.id}', name: ${JSON.stringify(x.name)}, lat: ${x.lat.toFixed(5)}, lon: ${x.lon.toFixed(5)}, retrievedOn: '${today}', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=${x.id}'},`;
@@ -148,16 +148,17 @@ if (want('nws')) {
       await new Promise((r) => setTimeout(r, 300)); return {zone: null, other: ''};
     };
     for (const s of fresh) {
-      let {zone, other: marine} = await zoneAt(s.lat, s.lon, s.name), inland = false;
+      let {zone, other: marine} = await zoneAt(s.lat, s.lon, s.name), inland = false, inlandKm = 0.8;
       await new Promise((r) => setTimeout(r, 300));
       if (!zone) {   // a beach point often falls in the marine zone: look again 0.8 km inland (opposite the beach's seaward direction) before borrowing from a neighbour
         const sea = rows.find((r) => r[0] === s.id)?.[6]; if (sea !== undefined) {
-          const th = ((sea + 180) % 360) * Math.PI / 180, d = 0.8 / 111.2, la = s.lat + d * Math.cos(th), lo = s.lon + (d * Math.sin(th)) / Math.cos(s.lat * Math.PI / 180);
-          const z2 = await zoneAt(la, lo, s.name + ' (0.8 km inland)'); if (z2.zone) { zone = z2.zone; inland = true; }
-          await new Promise((r) => setTimeout(r, 300));
+          for (const km0 of [0.8, 2]) {   // 0.8 km inland first, then 2 km (Florence's 0.8 km point is still in the marine zone)
+            const th = ((sea + 180) % 360) * Math.PI / 180, d = km0 / 111.2, la = s.lat + d * Math.cos(th), lo = s.lon + (d * Math.sin(th)) / Math.cos(s.lat * Math.PI / 180);
+            const z2 = await zoneAt(la, lo, `${s.name} (${km0} km inland)`); await new Promise((r) => setTimeout(r, 300)); if (z2.zone) { zone = z2.zone; inland = true; inlandKm = km0; break; }
+          }
         }
       }
-      lines.push(zone ? `  '${s.id}': "${zone}",${inland ? ` // resolved 0.8 km inland: the beach point is in ${marine ? 'marine zone ' + marine : 'a marine zone'}` : ''}` : `  '${s.id}': null, // ${marine ? 'marine zone ' + marine : 'no zone resolved'}: no land beach-hazard zone resolved`);
+      lines.push(zone ? `  '${s.id}': "${zone}",${inland ? ` // resolved ${inlandKm} km inland: the beach point is in ${marine ? 'marine zone ' + marine : 'a marine zone'}` : ''}` : `  '${s.id}': null, // ${marine ? 'marine zone ' + marine : 'no zone resolved'}: no land beach-hazard zone resolved`);
     }
     if (lines.length) t = t.replace(/\n\};\n\n\/\*\* Spots whose own point/, `\n${lines.join('\n')}\n};\n\n/** Spots whose own point`);
     // pass 2: every new spot whose own zone is null borrows from the nearest spot with its own land zone (all spots, new or old)

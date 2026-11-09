@@ -4256,7 +4256,8 @@
    {
     "url": "https://www.nps.gov/places/000/first-beach-la-push.htm",
     "site": "nps.gov",
-    "retrievedOn": "2026-11-08"
+    "retrievedOn": "2026-11-08",
+    "title": "NPS visitor page: First Beach, La Push"
    }
   ],
   "facing": "SW (surfnerd)",
@@ -4305,7 +4306,8 @@
    {
     "url": "https://www.makah.com/recreation",
     "site": "makah.com",
-    "retrievedOn": "2026-11-08"
+    "retrievedOn": "2026-11-08",
+    "title": "Makah Tribe visitor page: recreation and permits"
    }
   ],
   "facing": "WSW (surfnerd)",
