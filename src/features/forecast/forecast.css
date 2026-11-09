@@ -404,7 +404,7 @@
 .felt-err { color: var(--bad-ink, var(--bad)); }
 @media (pointer: coarse) { .felt button { min-height: 44px; } }
 .tl-band { fill: var(--hs-hi); fill-opacity: 0.55; }
-.sd-q i.dark { opacity: 1; }
+.sd-q i.dark { opacity: .45; }
 .sp-src .sp-two { margin: 16px 0; }
 .sp-src .sp-two > section { min-width: 0; }
 @media (max-width: 860px) {

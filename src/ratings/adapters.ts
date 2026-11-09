@@ -13,10 +13,11 @@ export function rateOcean(s:SpotEvidence,r:OceanRecord,now=Date.now()){
  const required=[['Offshore wave height',r.offshore],['Primary swell height',r.primary.height],['Primary swell period',r.primary.period],['Primary swell direction',r.primary.direction],['Wind speed',r.windSpeed],['Wind direction',r.windDirection],['Regional tide',r.tide],['Breaking-wave estimate',r.face],['Local organization',r.organization]] as const;
  return rateQuality(evidenceQuality(s,r),{mode:r.mode==='simulation'?'simulation':'retrieved',validAt:r.timestamp,now,breakingHeightFt:r.face.value,calibration:calibrationForSpot(s),sources:required.map(([,m])=>m.source),missingInputs:required.filter(([,m])=>m.value===null).map(([label])=>label)});
 }
-/** Night-aware (T-064): a dark hour (before first light or after last light) is never rated. Score null, category UNRATED, `dark` true. Pass {night:false} to rate it anyway (backtests). */
+/** Night-aware: a dark hour (before first light or after last light) KEEPS its rating of the conditions (user, 2026-11-08, replacing T-064's "never rated") and is marked
+ *  `dark: true`; it is never a surf window (the Call says "After dark", windows and best bets are daylight only). Pass {night:false} to drop the mark (backtests). */
 export function rateForecast(s:SurfSpot,f:Forecast,now=Date.now(),opts:{night?:boolean}={}){
  const rating=rateForecastDay(s,f,now);
- if(opts.night!==false&&isDark(s.id,f.timestamp))return {...rating,score:null,baseScore:rating.baseScore,label:'UNRATED',category:'UNRATED' as const,dark:true,explanation:'Dark: no rating at night. The sun is below first light or last light.',ceilings:undefined};
+ if(opts.night!==false&&isDark(s.id,f.timestamp))return {...rating,dark:true as const,explanation:`After dark (before first light or after last light): the conditions are rated, but it is not a surf window. ${rating.explanation??''}`.trim()};
  return rating;
 }
 function rateForecastDay(s:SurfSpot,f:Forecast,now:number){

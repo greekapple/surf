@@ -124,7 +124,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
       <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
-        <p className={`v sp-v sp-rate${r.score === null ? ' unr' : ''}`} style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{(r as {dark?: boolean}).dark ? 'Not rated' : conditionWord(r.category)}</p>
+        <p className={`v sp-v sp-rate${r.score === null ? ' unr' : ''}`} style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}{(r as {dark?: boolean}).dark && <small className="sp-dark"> · after dark</small>}</p>
         <RatingBar score={r.score} category={r.category} />
         {scored.length ? <ul className="sp-why" aria-label="Why">{/* T-108: with no surf estimate there is no "swell size" to rate: the engine's wave-potential factor is OFFSHORE swell energy, so it is named that, and the list says plainly that size has no estimate here. */}
           {hs.kind !== 'estimate' && <li className="sp-why-none" title="No surf-size estimate for this spot, so surf size is not part of the call"><i aria-hidden="true" />Swell size: no estimate</li>}
@@ -244,7 +244,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
             <span className="sd-h" title={cv ? `${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
             <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{cv && !far ? `${kind} · ${shown.note ?? cv.word}` : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
-            <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark ? `${b.label}: dark, no rating` : undefined} style={{background: dark ? 'var(--ch-night-strong, #2b3a46)' : b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
+            <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark && b.h ? `${b.label}: ${conditionWord(b.h.rating.category).toLowerCase()} conditions, after dark` : undefined} style={{background: b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
           </button>
         );
       })}
@@ -267,7 +267,7 @@ export function HourTable({hours, spot, p, bundle, now, selected, onSelect}: {ho
             <tr key={x.timestamp} aria-current={x.timestamp === selected ? 'true' : undefined}>
               <th scope="row"><button onClick={() => onSelect(x.timestamp)}>{hourLabel(x.timestamp)}</button></th>
               <td className="st-surf"><b>{t.value}</b><small>{isFlat(hs) ? '(model estimate)' : hs.kind === 'estimate' ? 'est.' : hs.kind === 'offshore' ? 'offshore' : hs.kind === 'demonstration' ? 'demo' : ''}</small></td>
-              <td><span className="st-q" style={{background: BAND_COLOR[bandOf(x.rating.category)]}} />{conditionWord(x.rating.category)}</td>
+              <td><span className="st-q" style={{background: BAND_COLOR[bandOf(x.rating.category)]}} />{conditionWord(x.rating.category)}{x.rating.dark && <small> · after dark</small>}</td>
               <td>{f.primary && fin(f.primary.height) ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /></> : '—'}</td>
               <td>{f.secondary && fin(f.secondary.height) ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /></> : '—'}</td>
               <td className={`st-wind ${relClass(rel)}`}>{fin(f.wind.speed) ? <>{fin(f.wind.direction) && <DirArrow from={f.wind.direction} size={12} />} {windVal(f.wind.speed, p)} {p.windUnit}<small>{fin(f.wind.gusts) ? `gust ${windVal(f.wind.gusts, p)} · ` : ''}{relWord(rel)}</small><StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</td>

@@ -297,10 +297,10 @@ function OceanMap({section, go}: ViewProps) {
       // Stage 6 label priority: selected > favourites > popular spots > the rest by rating (sel is handled by the declutter sort).
       rank.current.set(e.id, (data.state.favorites.includes(e.id) ? 3000 : POPULAR_SPOTS.includes(e.id) ? 2000 : 0) + (rating?.baseScore ?? -1));
       const color = rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)';
-      // T-116: name · height · rating word. An unrated or dark hour says nothing per spot (one quiet mark in the bottom strip says it is dark).
+      // T-116: name · height · rating word. After dark the word stays (user, 2026-11-08); one quiet mark in the bottom strip says it is dark.
       const hs = f ? headlineSurf(e.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null;
       const hText = isFlat(hs) ? 'Flat' : hs?.kind === 'estimate' ? `${ht(hs.loFt, p, 0)}–${ht(hs.hiFt, p, 0)} ${p.heightUnit}` : hs?.kind === 'offshore' ? `${ht(hs.ft, p, 0)} ${p.heightUnit} offshore` : '';
-      const word = rating && rating.score !== null && !isDark(e.id, view.selectedTime ?? '') ? conditionWord(rating.category) : '';
+      const word = rating && rating.score !== null ? conditionWord(rating.category) : '';
       const sub = [hText, word].filter(Boolean).join(' · ');
       const label = `<span class="xlabel"><b>${e.name}</b>${sub ? `<small>${sub}</small>` : ''}</span>`;
       // Track 2 (Surfline's pins): a compact height chip where the full label has no room. Surf estimates only: an offshore-only number is
@@ -495,7 +495,7 @@ function OceanMap({section, go}: ViewProps) {
   // the same height text as the spot's pin: the surf estimate, or the offshore height said as offshore
   const pinHeight = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null;
     return isFlat(h) ? FLAT_ESTIMATE_TEXT : h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : null; };
-  const score = (id: string) => { const r = recAt(id), rt = r && !isDark(id, r.timestamp) ? rateForecast(surfSpot(id), r, now) : null; return rt && rt.score !== null ? rt.score : null; };
+  const score = (id: string) => { const r = recAt(id), rt = r ? rateForecast(surfSpot(id), r, now) : null; return rt && rt.score !== null ? rt.score : null; };
   const hiAt = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null; return h?.kind === 'estimate' ? h.hiFt : -1; };
   const list = byView
     ? evidenceSpots.filter((e) => inView?.has(e.id)).map((e) => ({e, s: score(e.id), h: hiAt(e.id)}))
@@ -509,7 +509,7 @@ function OceanMap({section, go}: ViewProps) {
     if (pts.length) m.fitPoints(pts, {padRatio: 0.15, animate: !reduced(), padding: {top: phone ? 120 : 80, left: phone ? 16 : 24, right: phone ? 64 : 200, bottom: phone ? 120 : 80}});
     else flyRef.current(spot.id);
   };
-  // T-116: after dark nothing is rated, so the map says it once, quietly, instead of on every spot.
+  // after dark the spots keep their rating; the map says once, quietly, that the hour is dark.
   const darkNow = !!view.selectedTime && isDark(spot.id, view.selectedTime);
   // T-128: a frame drawn from this device's cache says so, with its own valid time, until the fresh frame replaces it.
   const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso)} ${hourLabel(iso)}`);
@@ -544,7 +544,7 @@ function OceanMap({section, go}: ViewProps) {
     return Array.from({length: 12}, (_, i) => h0 + i * 36e5).filter((t) => t < t0 + 12 * 36e5).map((t) => {
       const r = byT.get(t);
       if (!r) return {t, lo: null, hi: null, c: 'var(--none)', rated: false};
-      const h = headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}), rt = !isDark(id, r.timestamp) ? rateForecast(s, r, now) : null, ok = !!rt && rt.score !== null;
+      const h = headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}), rt = rateForecast(s, r, now), ok = rt.score !== null;
       return {t, lo: h.kind === 'estimate' ? h.loFt : null, hi: h.kind === 'estimate' ? h.hiFt : null, flat: isFlat(h), c: ok ? BAND_COLOR[bandOf(rt!.category)] : 'var(--none)', rated: ok};
     });
   };
@@ -590,7 +590,7 @@ function OceanMap({section, go}: ViewProps) {
       <ul>{list.map((e, i) => {
         const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
         const head = !byView && (i === 0 || list[i - 1].region !== e.region) ? <p className="xregion">{e.region}</p> : null;
-        const rated = !!rt && rt.score !== null && !!r && !isDark(e.id, r.timestamp), sub = (byView ? pinHeight(e.id) : null) ?? rangeAt(e.id) ?? 'No record at this hour';
+        const rated = !!rt && rt.score !== null && !!r, sub = (byView ? pinHeight(e.id) : null) ?? rangeAt(e.id) ?? 'No record at this hour';
         return <li key={e.id}>{head}<SpotRow id={e.id} name={e.name} sub={byView ? `${e.region} · ${sub}${rated ? '' : ' · not rated'}` : sub} category={rated ? rt!.category : null}
           current={e.id === spot.id} highlighted={hover === e.id} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
       })}</ul>
@@ -691,7 +691,7 @@ function OceanMap({section, go}: ViewProps) {
 
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
-        {darkNow && <p className="xdark" role="status">Dark<span className="xdark-l"> at this hour</span> · not rated</p>}
+        {darkNow && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window</p>}
         {cache && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : ''} />

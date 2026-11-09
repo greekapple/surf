@@ -35,9 +35,8 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
       const segs = BLOCKS.map((h, i): Seg => {
         const f = mine.find((r) => pt(Date.parse(r.timestamp)) === key && hourOf(r.timestamp) === h);
         if (!f) return {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} no data`};
-        if (isDark(spot.id, f.timestamp)) return {state: 'dark', color: 'var(--wk-dark)', word: `${BLOCK_WORD[i]} dark`};
-        const r = rateForecast(spot, f, nowMs);
-        return r.score === null ? {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} not rated`} : {state: 'rated', color: BAND_COLOR[bandOf(r.category)], word: `${BLOCK_WORD[i]} ${conditionWord(r.category).toLowerCase()}`};
+        const r = rateForecast(spot, f, nowMs), dark = isDark(spot.id, f.timestamp); // after dark the conditions keep their colour, dimmed (user, 2026-11-08)
+        return r.score === null ? {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} not rated`} : {state: dark ? 'dark' : 'rated', color: BAND_COLOR[bandOf(r.category)], word: `${BLOCK_WORD[i]} ${conditionWord(r.category).toLowerCase()}${dark ? ', after dark' : ''}`};
       });
       const wc = weekCell(dr, unit);
       return {key, dr, wc, segs, cv: wc.kind === 'none' ? null : dayCertainty(spot.id, dr, nowMs)};

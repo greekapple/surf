@@ -13,7 +13,7 @@ import {breakerType, type BreakerEstimate} from './breaker.ts';
  *  Nothing here is a measured fact or a validated accuracy; `basis` says what it is computed from. */
 export type Verdict = 'Go' | 'Worth a look' | 'Skip' | 'Dark';
 export interface CallWindow {start: string; end: string; label: string}
-export interface Call {verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
+export interface Call {/** After dark: what the conditions alone would say in daylight, and the rating word (user, 2026-11-08: dark hours keep their rating). */ lit?: {verdict: Exclude<Verdict, 'Dark'>; conditions: string}; verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
 export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs: number}
 
 /** Face-height range each skill is comfortable in, in feet. OUR OWN CHOICES (product rules, not a safety standard).
@@ -26,7 +26,7 @@ export const GO_MIN_SCORE = 65, WORTH_MIN_SCORE = 50; // rating bands: SOLID sta
 
 const fmt = (lo: number, hi: number, p: UserProfile) => formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text;
 
-interface HourCall {verdict: Verdict; why: string[]; hour: SpotHour; breaker: BreakerEstimate}
+interface HourCall {verdict: Verdict; why: string[]; hour: SpotHour; breaker: BreakerEstimate; lit?: Call['lit']}
 /** Plain-language names and reasons for the rating factors (T-093). The engine's reason text stays available as a detail line. */
 const PLAIN_FACTOR: Record<string, string> = {'Offshore wave potential': 'Swell energy', 'Wind influence': 'Wind', 'Swell alignment': 'Swell direction', 'Tide compatibility': 'Tide'};
 const plainFactor = (name: string, _e: string) => PLAIN_FACTOR[name] ?? name;
@@ -39,10 +39,14 @@ export function plainReasonFor(i: {factor: string; effect: string; reason: strin
   return ENGINE_WORDS.test(i.reason) ? `${plainFactor(i.factor, i.effect)} is ${i.effect === '-' ? 'poor' : 'only fair'} for this hour.` : `${plainFactor(i.factor, i.effect)}: ${i.reason}`;
 }
 /** Verdict for ONE hour (no window). */
-export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx: CallContext): HourCall {
+export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx: CallContext, ignoreDark = false): HourCall {
   const hr = spotHourOf(spot, f, ctx.nowMs, profile, {bundle: ctx.bundle}), h = hr.surf.headline, why: string[] = [];
   const breaker = breakerType(spot, f);
-  if (isDark(spot.id, f.timestamp)) return {verdict: 'Dark', why: ['It is dark: before first light or after last light, so there is no rating.'], hour: hr, breaker};
+  if (!ignoreDark && isDark(spot.id, f.timestamp)) { // dark hours keep their rating: the conditions are judged as in daylight, but the hour is never a surf window
+    const inner = hourCall(spot, f, profile, ctx, true), cat = hr.rating.score !== null ? String(hr.rating.category).toLowerCase() : null;
+    const lit = inner.verdict !== 'Dark' && cat ? {verdict: inner.verdict, conditions: cat} : undefined;
+    return {verdict: 'Dark', lit, why: [lit ? `It is dark (before first light or after last light), so it is not a surf window. The conditions themselves rate ${cat}.` : 'It is dark: before first light or after last light, so it is not a surf window.'], hour: hr, breaker};
+  }
   const r = SKILL_RANGE_FT[profile.skill] ?? SKILL_RANGE_FT.Intermediate, w = hr.wind, score = hr.rating.score;
   let verdict: Verdict = 'Go', sizeNote = '';
   // T-108: the person's OWN preferred range (Personal › Preferred conditions) is what the call names; the skill table stays the safety ceiling and floor (Skip) it never overrides.
@@ -136,7 +140,8 @@ export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ct
   let nextWindow: CallWindow | null = null;
   if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, Math.max(from, ctx.nowMs)); if (w) nextWindow = {start: w.start, end: w.end, label: w.label}; }
   const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs) : '';
-  const why = hc.verdict === 'Dark' ? [nextWindow ? `It is dark. The next window is ${dayWord} ${nextWindow.label}.` : 'It is dark, and no good window is forecast in the next few days.'] : hc.why;
+  const litWords = hc.lit ? ` The conditions themselves rate ${hc.lit.conditions}.` : '';
+  const why = hc.verdict === 'Dark' ? [nextWindow ? `It is dark, so it is not a surf window.${litWords} The next window is ${dayWord} ${nextWindow.label}.` : `It is dark, so it is not a surf window.${litWords} No good window is forecast in the next few days.`] : hc.why;
   const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating (explainRating), wind, daylight (first light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
-  return {verdict: hc.verdict, window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
+  return {verdict: hc.verdict, ...(hc.lit ? {lit: hc.lit} : {}), window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
 }

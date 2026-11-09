@@ -102,7 +102,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
     const it = info.get(s.id);
     return (
       <button key={s.id} className="mm-spot" aria-current={s.id === spot.id} onClick={() => pick(s.id)}>
-        <span className="qdot" style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} />
+        <span className={`qdot${it?.dark ? ' is-dark' : ''}`} title={it?.dark ? 'After dark' : undefined} style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} />
         <span className="mm-n">{s.name}<small>{s.region}</small></span>
         <span className="mm-h">{it?.heightLabel ?? '—'}</span>
       </button>
@@ -280,7 +280,7 @@ function Search({go}: {go: Go}) {
                     const it = info.get(s.id), k = hits.indexOf(s);
                     return (
                       <div key={s.id} id={`sr-${s.id}`} role="option" aria-selected={k === at} className="search-hit" onPointerEnter={() => setAt(k)} onClick={() => pick(s.id)}>
-                        <i className="cdot" style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} aria-hidden="true" />
+                        <i className={`cdot${it?.dark ? ' is-dark' : ''}`} style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} aria-hidden="true" />
                         <span><b>{s.name}</b><small>{s.region}</small></span>
                         <small className="search-h">{it?.heightLabel}</small>
                       </div>

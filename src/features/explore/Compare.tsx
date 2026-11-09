@@ -27,7 +27,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
   const p = data.state.profile, t = view.selectedTime, times = view.timeline;
   const [zone, setZone] = useState<string>('All');
   const [sort, setSort] = useState<Sort>('rating');
-  // T-099: at night nothing is rated, so Compare opens on the next morning's first daylight hour (the same next-morning rule as Home); the stepper stays free.
+  // T-099: at night Compare opens on the next morning's first daylight hour (dark hours are rated but are never a surf window) (the same next-morning rule as Home); the stepper stays free.
   // The data may arrive after this mounts (a direct or refreshed /explore/compare): decide once, as soon as there is an hour to judge, and never again, so a later pick is never overridden (T-100).
   const decided = useRef(false);
   useEffect(() => {
@@ -69,7 +69,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
         <li key={s.id} className={k === 0 && sort !== 'north' ? 'top' : ''}><a className="cx-a" href={`/forecast?spot=${s.id}`} onClick={open(s.id)}>
           <span className="cx-rank">{k + 1}</span>
           <span className="cx-name"><b>{s.name}</b><small>{s.region}</small></span>
-          <span className="cx-rate">{rating ? <em style={{'--c': BAND_COLOR[bandOf(rating.category)]} as CSSProperties}>{conditionWord(rating.category)}</em> : <small>no record</small>}</span>
+          <span className="cx-rate">{rating ? <><em style={{'--c': BAND_COLOR[bandOf(rating.category)]} as CSSProperties}>{conditionWord(rating.category)}</em>{rating.dark && <small> after dark</small>}</> : <small>no record</small>}</span>
           <span className="cx-hs">{f && est ? <span title={`${est.tag} · ${est.detail}`}>{est.value}<small> {est.suffix}{est.tuned ? ` · ${est.tuned}` : ''}{est.confidenceText ? ` · ${est.confidenceText}` : ''}</small><span className="sr-only">: {est.tag}. {est.confidenceText}. {est.detail}</span></span> : f ? <>{ht(f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
           <span className="cx-sw">{f?.primary ? <><DirArrow from={f.primary.direction} size={13} /> {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</span>
           <span className="cx-wd">{f && Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit}<StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</span>

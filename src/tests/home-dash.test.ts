@@ -67,7 +67,7 @@ test('ribbon: 12 consecutive exact hours from the current hour, gaps stay null, 
   assert.equal(r.length, 12); assert.equal(r[0].iso, new Date(t * 1000).toISOString()); assert.equal(Date.parse(r[11].iso) - Date.parse(r[0].iso), 11 * 3600000);
   assert.ok(r.every((h) => h.score === null || (h.bars >= 1 && h.bars <= 5 && h.category)));
   const gap = recs('spot-2').filter((f) => Date.parse(f.timestamp) !== (t + 3 * 3600) * 1000);
-  const g = ribbon12(spot('spot-2'), gap, now); assert.equal(g[3].score, null); assert.equal(g[3].category, null); assert.ok(g[0].score !== null); /* hours 2 and later are after last light (T-064): dark hours carry no rating */ assert.ok(r.slice(2).every((h) => h.score === null));
+  const g = ribbon12(spot('spot-2'), gap, now); assert.equal(g[3].score, null); assert.equal(g[3].category, null); assert.ok(g[0].score !== null); /* hours 2 and later are after last light: they keep their rating (user, 2026-11-08) */ assert.ok(r.slice(2).every((h) => h.score !== null));
   assert.ok(ribbon12(spot('spot-2'), [], now).every((h) => h.score === null));
 });
 test('rankHour: now and +3 h need those exact hours; tomorrow AM is a 6–11 PT hour of the next Pacific day', () => {

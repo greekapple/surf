@@ -19,11 +19,13 @@ export function CallBar({call, compact = false}: {call: Call; compact?: boolean}
   const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${w.label}${sameDay(w.start) ? '' : ` ${dayWord(w.start)}`}` : w.label) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
   // T-069: the line under the verdict is the first reason that ADDS something; one that only restates the verdict and window is left to the tap-open list.
   const why = firstNewReason(call.why, `${call.verdict} ${wText ?? ''}`);
-  if (compact) return <p className={`call-c ${VCLASS[call.verdict]}`}><b>{call.verdict}</b>{wText && <span> · {wText}</span>}</p>;
+  // after dark the rating stays visible: "After dark · fair conditions · next window 7–10 AM" (user, 2026-11-08)
+  const label = call.verdict === 'Dark' ? 'After dark' : call.verdict, cond = call.verdict === 'Dark' && call.lit ? `${call.lit.conditions} conditions` : null;
+  if (compact) return <p className={`call-c ${VCLASS[call.verdict]}`}><b>{label}</b>{cond && <span> · {cond}</span>}{wText && <span> · {wText}</span>}</p>;
   return (
     <section className={`call ${VCLASS[call.verdict]}`} aria-label="The call">
       <button type="button" className="call-b" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
-        <span className="call-v"><i aria-hidden="true" />{call.verdict}{wText && <span className="call-w"> · {wText}</span>}</span>
+        <span className="call-v"><i aria-hidden="true" />{label}{cond && <span className="call-w"> · {cond}</span>}{wText && <span className="call-w"> · {wText}</span>}</span>
         {why && <span className="call-why">{why}</span>}
         <span className="call-more" aria-hidden="true">{open ? 'Less' : 'Why'}</span>
       </button>

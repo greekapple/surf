@@ -333,6 +333,7 @@
 .search-hit b { font-weight: 600; }
 .search-hit span small, .search-h { font-size: 12.5px; color: var(--dim); }
 .cdot { display: block; width: 10px; height: 10px; border-radius: 50%; }
+.cdot.is-dark, .qdot.is-dark { opacity: .45; } /* after dark: the rating, dimmed */
 
 /* ---------- Saved-spots strip (T-022): Surfline's favourites bar under the header ---------- */
 .favbar { display: flex; align-items: center; gap: 12px; height: var(--strip-h); padding: 0 clamp(16px, 3vw, 40px); background: var(--bg); border-bottom: 1px solid var(--line); }

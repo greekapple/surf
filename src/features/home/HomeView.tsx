@@ -37,8 +37,8 @@ const hourShort = (iso: string) => hourShortFmt.format(new Date(iso));
 function Ribbon({hours, name}: {hours: RibbonHour[]; name: string}) {
   const have = hours.filter((h) => h.score !== null);
   return (
-    <div className="dc-ribbon" role="img" aria-label={have.length ? `${name}: rating for the next 12 hours, ${hourShort(hours[0].iso)} to ${hourShort(hours[11].iso)}. ${have.map((h) => `${hourShort(h.iso)} ${conditionWord(h.category!)}`).join(', ')}` : `${name}: no rating hours available`}>
-      <span className="dc-rb-bars">{hours.map((h) => <i key={h.iso} title={h.score === null ? `${hourShort(h.iso)}: no data` : `${hourShort(h.iso)}: ${conditionWord(h.category!)} (${Math.round(h.score)})`} style={{'--b': h.score === null ? 'var(--line-2)' : BAND_COLOR[bandOf(h.category!)], height: h.score === null ? '4px' : `${6 + Math.round((h.score / 100) * 22)}px`} as React.CSSProperties} />)}</span>
+    <div className="dc-ribbon" role="img" aria-label={have.length ? `${name}: rating for the next 12 hours, ${hourShort(hours[0].iso)} to ${hourShort(hours[11].iso)}. ${have.map((h) => `${hourShort(h.iso)} ${conditionWord(h.category!)}${(h as {dark?: boolean}).dark ? ', after dark' : ''}`).join(', ')}` : `${name}: no rating hours available`}>
+      <span className="dc-rb-bars">{hours.map((h) => <i key={h.iso} title={h.score === null ? `${hourShort(h.iso)}: no data` : `${hourShort(h.iso)}: ${conditionWord(h.category!)} (${Math.round(h.score)})${(h as {dark?: boolean}).dark ? ', after dark' : ''}`} style={{'--b': h.score === null ? 'var(--line-2)' : BAND_COLOR[bandOf(h.category!)], height: h.score === null ? '4px' : `${6 + Math.round((h.score / 100) * 22)}px`} as React.CSSProperties} />)}</span>
       <span className="dc-rb-axis" aria-hidden="true"><span>Now</span><span>{hourShort(hours[4].iso)}</span><span>{hourShort(hours[8].iso)}</span><span>{hourShort(hours[11].iso)}</span></span>
     </div>
   );
@@ -55,7 +55,7 @@ export function HomeView({go}: ViewProps) {
   // Skeletons while the first retrieval is in flight; "No forecast data" only after it has actually failed (T-055).
   const phase = dataPhase(view.ocean), waiting = phase === 'loading';
   const refId = ids[0] ?? spot.id;
-  // T-082: after dark nothing is rated "now", so the nearby ranking opens on tomorrow morning; the toggle still switches.
+  // T-082: after dark the nearby ranking opens on tomorrow morning (the next time you could surf); "Now" still rates the dark hour.
   const [when, setWhen] = useState<RankWhen>(() => (isDark(refId, new Date(now).toISOString()) ? 'tomorrow-am' : 'now')), [openId, setOpenId] = useState<string | null>(null);
   const nearby = useMemo(() => bestNearbyAt(spotOptions, view.mapRecords, now, profile, refId, when, {exclude: ids, limit: 3, ctx}), [ids.join('|'), refId, when, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   // T-065: the call for a card's own hour, from the same records (the verdict + window; the reasons are on the spot page).
@@ -82,7 +82,7 @@ export function HomeView({go}: ViewProps) {
         const ref = evidenceSpots.find((e) => e.id === refId);
         const near = ref ? evidenceSpots.filter((e) => !ids.includes(e.id) && spotOptions.some((x) => x.id === e.id)).map((e) => ({id: e.id, d: Math.hypot(e.latitude - ref.latitude, (e.longitude - ref.longitude) * 0.8)})).sort((a, b) => a.d - b.d).map((x) => x.id) : [];
         const pool = [...ids, ...near.slice(0, Math.max(0, 12 - ids.length))].map((id) => spotOptions.find((x) => x.id === id)!).filter(Boolean); // greeting: every saved spot + nearest others
-        const rowSpots = pool.slice(0, 5); // the grid: 5 rows (T-082: Home within two screens), saved first, nearest by distance (not rating: nothing is rated after dark)
+        const rowSpots = pool.slice(0, 5); // the grid: 5 rows (T-082: Home within two screens), saved first, nearest by distance (not rating: the grid is a fixed list, not a ranking)
         const openAt = (id: string, iso: string | null) => { setSpot(id); if (iso) view.selectTime(iso); go('forecast'); };
         return (<>
           {/* T-074: the greeting and the day's answer, the best spot's photo, today at a glance and the quiver's pick. */}
@@ -106,7 +106,7 @@ export function HomeView({go}: ViewProps) {
             <li key={c.id} className={'dc' + (openId === c.id ? ' is-open' : '')} style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
               <a className="dc-a" href="/forecast" onClick={open(c.id)} aria-label={`${c.name}, ${c.region}. ${c.surf.label}. ${c.rating.score === null ? 'No rating' : conditionWord(c.rating.category)}. Open forecast`}>
                 <span className="dc-body">
-                  <span className="dc-top"><span className="dc-name"><b title={c.region}>{c.name}</b></span>{k?.verdict === 'Dark' ? null : <RatingBar c={c.rating} />}</span>
+                  <span className="dc-top"><span className="dc-name"><b title={c.region}>{c.name}</b></span><RatingBar c={c.rating} /></span>
                   <span className="dc-mid">
                     <SurfSpark points={sp} p={profile} />
                     <span className="dc-surf">{surfOf(c, true)}{c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && <span className="dc-sub">{c.surf.headline.label}</span>}</span>
@@ -134,9 +134,7 @@ export function HomeView({go}: ViewProps) {
         </header>
         {waiting ? <ul className="nb-list" aria-busy="true" aria-label="Loading nearby spots">{[0, 1, 2].map((i) => <li key={i} className="nbsk" aria-hidden="true"><i className="sk-l w70" /></li>)}</ul>
           : nearby.length === 0
-          ? <p className="hd-empty">{when === 'now' && isDark(refId, new Date(now).toISOString())
-              ? <>It's dark, so nothing is rated right now. <button type="button" className="hd-link" onClick={() => setWhen('tomorrow-am')}>See {rankLabel('tomorrow-am', now).tab === 'This morning' ? 'this morning' : 'tomorrow morning'}</button></>
-              : 'No other rated spots within 100 km for that time.'}</p>
+          ? <p className="hd-empty">No other rated spots within 100 km for that time.</p>
           : <ol className="nb-list">
               {nearby.map(({card: c, km, at: when_}, i) => (
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
@@ -144,7 +142,7 @@ export function HomeView({go}: ViewProps) {
                     <span className="nb-rank" aria-hidden="true">{i + 1}</span>
                     <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}</span>
                     <span className="nb-surf">{surfOf(c, true)}</span>
-                    {callOf(c.id, c.validTime)?.verdict === 'Dark' ? <span className="dc-rate" /> : <RatingBar c={c.rating} />}
+                    <RatingBar c={c.rating} />
                   </a>
                 </li>
               ))}

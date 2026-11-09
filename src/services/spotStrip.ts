@@ -12,6 +12,8 @@ export interface SpotStripItem {
   /** "Est. 3–7 ft" only when an estimate passes the presentation guard, otherwise "3.9 ft offshore". Never a bare height. */
   heightLabel: string;
   heightKind: 'estimate' | 'offshore' | 'none';
+  /** The rating is of a dark hour (after last light / before first light): shown dimmed, never a surf call. */
+  dark?: boolean;
   /** ISO time of the record used, or null when the spot has no record. */
   validTime: string | null;
   /** No ocean evidence behind the record (demonstration data). */
@@ -28,7 +30,8 @@ export function spotStrip(spots: SurfSpot[], records: Forecast[], savedIds: stri
     const f = currentRecord(records, id, now);
     const base = {id, name: spot.name, region: spot.region};
     if (!f) { out.push({...base, category: 'UNRATED', heightLabel: 'No forecast data', heightKind: 'none', validTime: null, demo: false}); continue; }
-    const category = String(rateForecast(spot, f, now).category);
+    const rt = rateForecast(spot, f, now), category = String(rt.category);
+    if (rt.dark) Object.assign(base, {dark: true});
     // One engine for every surface (T-055): the same headline the Surf card and Home show for this hour.
     const h = headlineSurf(id, f, {bundle: ctx.bundle, nowMs: now}), t = headlineText(h, profile);
     if (h.kind === 'estimate') out.push({...base, category, heightLabel: `Est. ${t.value}`, heightKind: 'estimate', validTime: f.timestamp, demo: !f.evidence});

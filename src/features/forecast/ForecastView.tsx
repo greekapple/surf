@@ -68,7 +68,7 @@ export function ForecastView({go}: ViewProps) {
     let best = -1, bs = -1;
     days.forEach((d, k) => {
       if (d.end - d.start < 11) return;
-      const sc = series.slice(d.start, d.end + 1).filter((h) => h.hour >= 6 && h.hour <= 19).map((h) => h.rating.score).filter((v): v is number => v !== null);
+      const sc = series.slice(d.start, d.end + 1).filter((h) => h.hour >= 6 && h.hour <= 19 && !h.rating.dark).map((h) => h.rating.score).filter((v): v is number => v !== null);
       if (!sc.length) return;
       const avg = sc.reduce((x, y) => x + y, 0) / sc.length;
       if (avg > bs) { bs = avg; best = k; }

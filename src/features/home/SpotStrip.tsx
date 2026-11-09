@@ -22,7 +22,7 @@ export function SpotStrip({go, onForecast}: {go: Go; onForecast: boolean}) {
         {items.map((it) => (
           <button key={it.id} className="chip-spot" aria-current={onForecast && it.id === spot.id ? 'true' : undefined} onClick={() => open(it.id)}
             title={STRIP_CONDITIONS && it.validTime ? `${it.name}, ${it.region} · ${it.heightLabel}` : `${it.name}, ${it.region}`}>
-            {STRIP_CONDITIONS && <i className="cdot" style={{background: BAND_COLOR[bandOf(it.category)]}} aria-hidden="true" />}
+            {STRIP_CONDITIONS && <i className={`cdot${it.dark ? ' is-dark' : ''}`} style={{background: BAND_COLOR[bandOf(it.category)]}} aria-hidden="true" />}
             <b>{it.name}</b>
             {STRIP_CONDITIONS && <small>{it.heightLabel}</small>}
           </button>

@@ -33,15 +33,16 @@ test('isDark: 6:46 PM in November and 4 AM are dark; noon is not; the hour conta
   assert.equal(isDark('spot-2', noonNov2), false); assert.equal(isDark('spot-2', '2026-11-02T14:00:00.000Z'), false); // 6 AM hour holds first light (~6:08)
   assert.equal(isDark('spot-2', 'nonsense'), false);
 });
-test('night-aware rating: a dark hour has no rating; the same hour in daylight does', () => {
+test('night-aware rating: a dark hour keeps its rating of the conditions, marked dark (user, 2026-11-08); daylight hours are not marked', () => {
   const r = recs(1.5), night = rateForecast(spot, at(r, dark646pm), Date.parse(dark646pm)), day = rateForecast(spot, at(r, noonNov2), Date.parse(noonNov2));
-  assert.equal(night.score, null); assert.equal(night.dark, true); assert.equal(night.category, 'UNRATED'); assert.match(night.explanation, /Dark/);
+  assert.ok(night.score !== null); assert.equal(night.dark, true); assert.notEqual(night.category, 'UNRATED'); assert.match(night.explanation, /After dark.*not a surf window/);
+  assert.equal(night.score, rateForecast(spot, at(r, dark646pm), Date.parse(dark646pm), {night: false}).score, 'the same score as without the dark mark');
   assert.ok(day.score !== null && !day.dark);
   assert.equal(rateForecast(spot, at(r, dark646pm), Date.parse(dark646pm), {night: false}).score !== null, true);
 });
 test('the call at 6:46 PM in November reads Dark with the next window the following day; no window now', () => {
   const r = recs(1.5), c = callFor(spot, at(r, dark646pm), prof('Expert'), ctxFor(r, '2026-11-03T02:46:00Z'));
-  assert.equal(c.verdict, 'Dark'); assert.equal(c.window, null); assert.ok(c.nextWindow); assert.match(c.nextWindow!.label, /AM|PM/); assert.match(c.why[0], /^It is dark\. The next window is tomorrow /);
+  assert.equal(c.verdict, 'Dark'); assert.equal(c.window, null); assert.ok(c.nextWindow); assert.match(c.nextWindow!.label, /AM|PM/); assert.match(c.why[0], /^It is dark, so it is not a surf window\. The conditions themselves rate [a-z ]+\. The next window is tomorrow /); assert.ok(c.lit && c.lit.verdict !== ('Dark' as string), 'the conditions still have a verdict');
   assert.ok(Date.parse(c.nextWindow!.start) > Date.parse('2026-11-03T02:46:00Z')); assert.match(c.basis, /Our own rules/);
 });
 test('skill-aware: the same big hour (surf height above 4 ft) is Skip for a beginner (reason says why) and not Skip for an expert', () => {
@@ -96,7 +97,7 @@ test('callFor carries the estimated breaker type; a plunging break at size is "e
 
 test('Dark before first light: today\'s upcoming window is the next window ("today"); with none tomorrow the day is named, not "tomorrow"', () => {
   const r = recs(1.2), pre = '2026-11-02T13:00:00.000Z', c = callFor(spot, at(r, pre), prof('Expert'), ctxFor(r, '2026-11-02T13:30:00Z')); // 5:30 AM PST, first light ~6:08
-  assert.equal(c.verdict, 'Dark'); assert.ok(c.nextWindow); assert.match(c.why[0], /^It is dark\. The next window is today /);
+  assert.equal(c.verdict, 'Dark'); assert.ok(c.nextWindow); assert.match(c.why[0], /^It is dark, so it is not a surf window\..* The next window is today /);
   const only = r.filter((f) => f.timestamp >= '2026-11-04T00:00:00.000Z'), late = callFor(spot, at(r, dark646pm), prof('Expert'), ctxFor([...only, at(r, dark646pm)], '2026-11-03T02:46:00Z'));
   if (late.nextWindow) assert.ok(!/tomorrow/.test(late.why[0]) || late.nextWindow.start.slice(0, 10) === '2026-11-03' || late.nextWindow.start.slice(0, 10) === '2026-11-04');
 });

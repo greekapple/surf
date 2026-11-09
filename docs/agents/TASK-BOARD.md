@@ -470,7 +470,7 @@ Lead audit (artifacts/audit-1102, 1440/390, 0 overflow, 0 page errors) found:
 
 ## Round 2026-11-02 (evening): forecast trust (spec docs/specs/2026-11-02-forecast-trust.md, APPROVED "yes to all")
 Branch `forecast-trust` (from rebuild/swello-v0.16 fddee20). Codex reviews each merge (tools/review/codex-review.sh).
-### T-064 (engineering): callFor (Go/Worth a look/Skip/Dark + window + skill-aware why), night-aware rating, surf-band graph series, forecast archive + felt-right signal, NWS alerts service.
+### T-064 (engineering): callFor (Go/Worth a look/Skip/Dark + window + skill-aware why), night-aware rating, surf-band graph series, forecast archive + felt-right signal, NWS alerts service. **Replaced 2026-11-08 (user): dark hours keep their rating, marked "after dark"; still never a surf window or best bet.**
 ### T-065 (product): spot page restructure (the Call, one big number, surf graph, Sources & data collapsed, daylight + night shading), Home calls + comparable numbers, felt-right UI, Board Match on size+period, photo pass, NWS banner.
 ### wave-v3 (lead): continues on branch wave-v3.
 

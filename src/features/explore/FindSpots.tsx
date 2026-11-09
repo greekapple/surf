@@ -57,7 +57,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
   }, [spotOptions, view.mapRecords, view.selectedTime, view.ocean.bundle, p, now, anchor?.lat, anchor?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const score = (r: (typeof rows)[number]) => r.rating?.score ?? -1;
-  const bets = rows.filter((r) => r.dist < 75 && r.rating && r.rating.category !== 'POOR').sort((a, b) => score(b) - score(a)).slice(0, 3);
+  const bets = rows.filter((r) => r.dist < 75 && r.rating && !r.rating.dark && r.rating.category !== 'POOR') // never a best bet after dark.sort((a, b) => score(b) - score(a)).slice(0, 3);
   const open = (id: string, where: 'forecast' | 'explore') => { setSpot(id); go(where); };
 
   const Card = ({r, big}: {r: (typeof rows)[number]; big?: boolean}) => (

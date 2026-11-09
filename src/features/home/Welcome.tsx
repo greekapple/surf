@@ -18,7 +18,7 @@ import {boardPickFor} from '../quiver/fit';
 import {heroEstimateText} from '../../services/headlineLabel';
 import {certaintyOf, wideText, HORIZON_HOURS} from '../../services/certainty';
 import {greetingLine} from './greeting';
-import {rankBets} from './betRank';
+import {rankBets, type BetConfidence} from './betRank';
 import {evidenceSpots} from '../../ocean/spots';
 import {nearestTideStations, SF_STATION} from '../../ocean/tideStations';
 
@@ -30,7 +30,7 @@ const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide refe
  * accessors (callFor, hourCall, spotHourOf, daylightFor, the tide extrema); nothing is invented, and the sentence says so when nothing is good. */
 
 type Bundle = Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined;
-interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean}
+interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean; confidence: BetConfidence}
 const pt = pacificDateMs; // cached formatter (T-091)
 const clock = (iso: string) => new Date(iso).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'});
 const hourOfDay = pacificHourMs;
@@ -49,7 +49,8 @@ export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserPro
     const rec = windowHour(mine, spot.id, w); if (!rec) continue; // the hour holding the start (a window may start at first light)
     if (Date.parse(w.start) - nowMs >= HORIZON_HOURS * 36e5) continue; // certainty: never a best bet past the horizon (too far out to call)
     const v = hourCall(spot, rec, profile, ctx).verdict; if (v !== 'Go' && v !== 'Worth a look') continue;
-    bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs), sized: spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline.kind === 'estimate'});
+    const hl = spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline;
+    bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs), sized: hl.kind === 'estimate', confidence: certaintyOf(spot.id, hl, rec.timestamp, nowMs)?.level ?? null});
   }
   const ranked = rankBets(bets), bet = ranked[0] ?? null;
   // the runner-up, offered only when the first answer is shaky: another spot, with its own surf estimate

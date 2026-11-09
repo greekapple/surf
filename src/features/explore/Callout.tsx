@@ -60,7 +60,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
       <SpotThumb spotId={spot.id} className="xco-photo" sizes="(max-width: 860px) 100vw, 264px" />
       <div className="xco-h">
         <div><h3>{spot.name}</h3><p>{region} · {when}</p></div>
-        {rating && rating.score !== null && <Condition category={rating.category} />}{/* T-116: an unrated (dark) hour shows no pill; the bottom strip says it is dark */}
+        {rating && rating.score !== null && <><Condition category={rating.category} />{rating.dark && <small className="xco-dark">after dark</small>}</>}{/* after dark the pill stays, marked (user, 2026-11-08) */}
         {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? (dataPhase(view.ocean) === 'loading' ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>

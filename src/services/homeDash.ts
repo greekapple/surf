@@ -88,7 +88,7 @@ export function ribbon12(spot: SurfSpot, records: Forecast[], now: number, hours
     const t = start + i * 3600000, f = byTime.get(t), iso = new Date(t).toISOString();
     if (!f) return {iso, score: null, category: null, bars: 0};
     const r = rateForecast(spot, f, now);
-    return {iso, score: finite(r.score) ? r.score : null, category: finite(r.score) ? String(r.category) : null, bars: ratingBars(r.score)};
+    return {iso, score: finite(r.score) ? r.score : null, category: finite(r.score) ? String(r.category) : null, bars: ratingBars(r.score), ...(r.dark ? {dark: true} : {})};
   });
 }
 
@@ -116,7 +116,7 @@ export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when:
   if (when === '3h') return mine.some((f) => Date.parse(f.timestamp) === top + 3 * 3600000) ? top + 3 * 3600000 : null;
   const key = nextMorningKey(now);
   let best: number | null = null, bs = -Infinity;
-  for (const f of mine) { if (pacificDate(f.timestamp) !== key) continue; const h = pacificHour(f.timestamp); if (h < 6 || h > 11) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
+  for (const f of mine) { if (pacificDate(f.timestamp) !== key) continue; const h = pacificHour(f.timestamp); if (h < 6 || h > 11 || isDark(spot.id, f.timestamp)) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
   return best;
 }
 /** Like bestNearby, judged at `when`. Each item also says which hour it was judged at. */

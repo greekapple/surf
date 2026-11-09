@@ -109,6 +109,7 @@
 /* ---------- T-067 this week: rows of spots, 8 days, range + AM/midday/PM bar over a soft size curve ---------- */
 .wk-s { display: grid; gap: 12px; margin-bottom: 40px; }
 .wk-s h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+.wk-bar i.dark { opacity: .45; }
 .wk { --wk-dark: #2b3a46; overflow-x: auto; scrollbar-width: thin; outline: none; }
 .wk:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .wk-t { width: 100%; min-width: 760px; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
