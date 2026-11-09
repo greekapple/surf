@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {callFor, bestWindowFrom} from '../services/call.ts';
+import {callFor, bestWindowFrom, windowHour} from '../services/call.ts';
 import {normalizeOpenMeteo} from '../ocean/openMeteo.ts';
 import {evidenceSpot} from '../ocean/spots.ts';
 import {toLegacy} from '../ocean/bridge.ts';
@@ -29,4 +29,9 @@ test('T-108: the call names the range the person prefers (Personal), not the ski
   assert.doesNotMatch(text, /up to 8 ft/, text);
   assert.match(text, /range you prefer \(/, text);
   const wide = {...profile, minWave: 1, maxWave: 30}; assert.doesNotMatch(callFor(spot, day, wide, ctx).why.join(' '), /above the range you prefer/);
+});
+test('a window that starts at first light (not on the hour) still finds its forecast hour, so Home never drops that spot from the best bet', () => {
+  const h = records.find((f) => Date.parse(f.timestamp) > now)!, w = {start: new Date(Date.parse(h.timestamp) + 20 * 60000).toISOString()}; // e.g. first light 6:20
+  assert.ok(!records.some((f) => f.timestamp === w.start), 'an exact-time match would miss it');
+  assert.equal(windowHour(records, 'spot-2', w)?.timestamp, h.timestamp); assert.equal(windowHour(records, 'spot-9', w), undefined, 'only the same spot');
 });

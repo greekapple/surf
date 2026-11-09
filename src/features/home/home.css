@@ -145,6 +145,8 @@
 .wel-in { display: grid; gap: 12px; max-width: 760px; }
 .wel h1 { font: 650 clamp(32px, 3.4vw, 44px)/1.1 var(--display); letter-spacing: -0.03em; }
 .wel-a { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.4; max-width: 60ch; }
+.wel-sub { margin-top: -6px; font-size: 15px; line-height: 1.4; max-width: 60ch; opacity: .92; }
+.wel-sub b { font-weight: 600; }
 .wel-go { justify-self: start; min-height: 44px; padding: 0 18px; border: 0; border-radius: 10px; background: #fff; color: #0e1a22; font: 600 15px/1 var(--sans); cursor: pointer; }
 .wel-go:hover { background: #eef3f2; }
 .wel-go:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }

@@ -2,7 +2,7 @@ import {useMemo, useState} from 'react';
 import {pacificDateMs, pacificHourMs} from '../../ocean/time';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
-import {callFor, hourCall, type CallWindow, type Verdict} from '../../services/call';
+import {callFor, hourCall, windowHour, type CallWindow, type Verdict} from '../../services/call';
 import {daylightFor} from '../../services/daylight';
 import {spotHourOf, windOf} from '../../services/spotHour';
 import {breakerType} from '../../services/breaker';
@@ -39,19 +39,22 @@ const dayWord = (iso: string, nowMs: number) => { const d = pt(Date.parse(iso));
 /** The best bet: across the candidate spots, the next daylight window (today's if still ahead, else the next one), Go or Worth a look at its first hour.
  *  T-075: only a spot with a SURF ESTIMATE at that hour can be "your best bet" (we can't recommend a size we don't have), so sized spots rank first,
  *  then verdict, then how soon. `bet.sized` is false only when no candidate has an estimate; the sentence then says so. */
-export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserProfile, bundle: Bundle, nowMs: number): {bet: Bet | null; withData: number; total: number} {
+export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserProfile, bundle: Bundle, nowMs: number): {bet: Bet | null; alt: Bet | null; withData: number; total: number} {
   const ctx = {records, bundle, nowMs}, bets: Bet[] = []; let withData = 0;
   for (const spot of spots) {
     const mine = records.filter((f) => f.spotId === spot.id).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
     const cur = mine.find((f) => Date.parse(f.timestamp) + 36e5 > nowMs); if (!cur) continue; // no current or future record: not evaluated
     withData++;
     const call = callFor(spot, cur, profile, ctx), w = call.window && Date.parse(call.window.end) > nowMs ? call.window : call.nextWindow; if (!w) continue;
-    const rec = mine.find((f) => f.timestamp === w.start); if (!rec) continue;
+    const rec = windowHour(mine, spot.id, w); if (!rec) continue; // the hour holding the start (a window may start at first light)
     if (Date.parse(w.start) - nowMs >= HORIZON_HOURS * 36e5) continue; // certainty: never a best bet past the horizon (too far out to call)
     const v = hourCall(spot, rec, profile, ctx).verdict; if (v !== 'Go' && v !== 'Worth a look') continue;
     bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs), sized: spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline.kind === 'estimate'});
   }
-  return {bet: rankBets(bets)[0] ?? null, withData, total: spots.length};
+  const ranked = rankBets(bets), bet = ranked[0] ?? null;
+  // the runner-up, offered only when the first answer is shaky: another spot, with its own surf estimate
+  const alt = bet?.sized ? ranked.find((b) => b !== bet && b.sized && b.spot.id !== bet.spot.id) ?? null : null;
+  return {bet, alt, withData, total: spots.length};
 }
 
 /** A SWELLO cam (none yet): plays muted inline; if it fails, the hero falls back to the drawing. */
@@ -59,6 +62,7 @@ function CamPlayer({cam, onFail}: {cam: OwnCam; onFail: () => void}) {
   return <video className="wel-cam" src={cam.src} muted autoPlay playsInline loop onError={onFail} aria-label={`${cam.label}, live view`} />;
 }
 
+const cap = (w: string) => w.replace(/^\w/, (c) => c.toUpperCase());
 const tintOf = (nowMs: number, spotId: string) => {
   const d = daylightFor(spotId, pt(nowMs)), t = nowMs, fl = Date.parse(d.firstLight), sr = Date.parse(d.sunrise), ss = Date.parse(d.sunset), ll = Date.parse(d.lastLight);
   return t < fl || t > ll ? 'night' : t < sr + 45 * 6e4 ? 'dawn' : t > ss - 60 * 6e4 ? 'dusk' : 'day';
@@ -69,7 +73,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   boards: Surfboard[]; nowMs: number; onOpen: (spotId: string, iso: string | null) => void; stationTides?: OceanBundle['stationTides'];
 }) {
   const hourKey = Math.floor(nowMs / 36e5);
-  const {bet, withData, total} = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const {bet, alt, withData, total} = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const spot = bet?.spot ?? refSpot, greeting = greetingLine(hourOfDay(nowMs), name?.trim() ? name.trim().split(/\s+/)[0] : null);
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
   const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile, nowMs) : null;
@@ -97,6 +101,11 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   // T-099: the one board pick (fit.ts boardPickFor) for the bet's spot-hour, the same function Board Match and Personal use.
   const choice = bet ? boardPickFor(boards, bet.spot, bet.rec, nowMs, profile, {bundle}) : null;
   const pick = choice?.pick ? choice.ranked.find((x) => x.board.id === choice.pick!.id) ?? null : null;
+  // "Go, when, on what": the board and how sure we are sit right under the answer (first screen on a phone); the second choice only when we are not sure.
+  const altAt = alt && cv?.level === 'low' ? spotHourOf(alt.spot, alt.rec, nowMs, profile, {bundle}) : null, altCv = alt && altAt ? certaintyOf(alt.spot.id, altAt.surf.headline, alt.rec.timestamp, nowMs) : null;
+  const altText = alt && altAt?.surf.headline.kind === 'estimate' ? `${alt.spot.name}, ${alt.when === bet?.when ? '' : `${alt.when} `}${alt.window.label}, ${altAt.surf.value}${altCv?.disagree ? ' (models differ)' : ''}${altCv && altCv.level !== 'too-far' ? `, ${altCv.word}` : ''}` : null;
+  // only a board the surf is inside (or at the edge of) its range; in size-only mode the wave shape is unknown and the line says so
+  const boardText = bet?.sized && pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? `${pick.board.name}` : null, boardNote = boardText && choice?.mode === 'size' ? ' (by size; wave shape unknown)' : '';
   // T-106: the hero draws the hour the sentence talks about (the bet's first hour), else the spot's current hour; same headline as the number.
   const [camFailed, setCamFailed] = useState(false), media = camFailed ? {kind: 'drawn' as const} : heroMediaFor(spot.id);
   const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
@@ -108,8 +117,12 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
       <div className={`wel-hero is-${media.kind}`}>
         <div className="wel-in">
           <h1 id="wel-h">{greeting}</h1>
-          <p className="wel-a">{answer}</p>
-          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.window.start)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start)}</button>}
+          <p className="wel-a" title={bet ? "Surf windows end at last light (civil twilight, our cut-off), not at sunset" : undefined}>{answer}</p>
+          {(boardText || (cv && cv.level !== 'too-far')) && <p className="wel-sub">
+            {[boardText && <>Take your <b>{boardText}</b>{boardNote}</>, cv && cv.level !== 'too-far' && <span title={`${cap(cv.word)}: ${cv.why}`}>{cap(cv.word)}</span>].filter(Boolean).map((x, k) => <span key={k}>{k ? ' · ' : ''}{x}</span>)}
+          </p>}
+          {altText && <p className="wel-sub">Second choice: {altText}</p>}
+          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start)}</button>}
         </div>
         {media.kind === 'cam'
           ? <figure className="wel-media"><CamPlayer cam={media.cam} onFail={() => setCamFailed(true)} /><figcaption>{media.cam.label} · {spot.name}</figcaption></figure>

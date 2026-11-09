@@ -4,6 +4,7 @@ import {evidenceSpots} from '../ocean/spots.ts';
 import {distanceKm} from '../ocean/mop.ts';
 import {pacificDate, pacificHour} from '../ocean/time.ts';
 import {solarTimes} from '../ocean/sun.ts';
+import {clampToLight, isDark} from './daylight.ts';
 import {rateForecast} from '../ratings/adapters.ts';
 import {headlineText, type HeadlineSurf} from './headlineSurf.ts';
 import {currentRecord} from './spotStrip.ts';
@@ -21,7 +22,7 @@ export interface DashCard {
 }
 export interface DashContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; extrema?: TidePrediction[]}
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
-const hourFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'});
+const clockFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}), hourFmt = {format: (d: Date) => clockFmt.format(d).replace(':00', '')};
 /** "7 AM" → "7"; the window label spells am/pm once at the end: "7–10 AM", "11 AM–2 PM". */
 export function windowLabel(startMs: number, endMs: number): string {
   const a = hourFmt.format(new Date(startMs)), b = hourFmt.format(new Date(endMs)), [an, ap] = a.split(' '), [bn, bp] = b.split(' ');
@@ -35,12 +36,12 @@ export function bestWindowToday(spot: SurfSpot, records: Forecast[], now: number
   const today = pacificDate(new Date(now).toISOString());
   // Daylight only (civil twilight, approximate): a window in the dark is not a surf window.
   const ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(today, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96);
-  const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && pacificDate(f.timestamp) === today && t + 3600000 > now && t >= civil.rise && t + 3600000 <= civil.set + 3600000; });
+  const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && pacificDate(f.timestamp) === today && t + 3600000 > now && t >= civil.rise && !isDark(spot.id, f.timestamp); }); // the same daylight rule as the Call (an hour is light when its midpoint is)
   const ranges = windowRanges(hours, (f) => ({timestamp: f.timestamp, score: rateForecast(spot, f, now).score}), WINDOW_MIN_SCORE, 10);
   const best = ranges.sort((a, b) => b.peakScore - a.peakScore || Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp))[0];
   if (!best) return null;
-  const s = Date.parse(best.start.timestamp), e = Date.parse(best.end.timestamp) + 3600000;
-  return {label: windowLabel(s, e), category: String(rateForecast(spot, best.peak, now).category), start: best.start.timestamp, end: new Date(e).toISOString()};
+  const [s, e] = clampToLight(spot.id, Date.parse(best.start.timestamp), Date.parse(best.end.timestamp) + 3600000); if (e <= s) return null;
+  return {label: windowLabel(s, e), category: String(rateForecast(spot, best.peak, now).category), start: new Date(s).toISOString(), end: new Date(e).toISOString()};
 }
 
 /** `now` picks the hour the card stands for; `clockMs` is the REAL clock the freshness rule, the rating and the lead time are judged at (T-107: a ranking for 3 h ahead or tomorrow morning passed the ranked hour as "now",

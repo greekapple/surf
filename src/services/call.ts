@@ -2,7 +2,7 @@ import type {Forecast, Skill, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {pacificDate} from '../ocean/time.ts';
 import {explainRating} from '../ratings/explain.ts';
-import {daylightFor, isDark} from './daylight.ts';
+import {daylightFor, isDark, clampToLight} from './daylight.ts';
 import {spotHourOf, type SpotHour} from './spotHour.ts';
 import {windowLabel} from './homeDash.ts';
 import {formatWaveHeight} from '../utils/waveHeight.ts';
@@ -102,7 +102,7 @@ export function windowOnDay(spot: SurfSpot, dateKey: string, profile: UserProfil
       if (ok && cur && t === cur.e) { cur.e = t + 3600000; cur.peak = Math.max(cur.peak, c.hour.rating.score ?? 0); }
       else { if (ok) { cur = {s: t, e: t + 3600000, peak: c.hour.rating.score ?? 0}; runs.push(cur); } else cur = null; }
     }
-    if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0]; return {start: new Date(b.s).toISOString(), end: new Date(b.e).toISOString(), label: windowLabel(b.s, b.e)}; }
+    if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e)}; }
   }
   return null;
 }
@@ -113,6 +113,11 @@ const dayName = (iso: string, nowMs: number) => {
   if (d === pacificDate(new Date(Date.parse(`${today}T12:00:00Z`) + 86400000).toISOString())) return 'tomorrow';
   return new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long'}).format(new Date(iso));
 };
+/** The forecast hour that holds a window's start. A window may start at first light (e.g. 6:20), so never match the start time exactly. */
+export function windowHour<T extends {spotId: string; timestamp: string}>(records: T[], spotId: string, w: {start: string}): T | undefined {
+  const h0 = Math.floor(Date.parse(w.start) / 3600000) * 3600000;
+  return records.find((f) => f.spotId === spotId && Date.parse(f.timestamp) === h0);
+}
 /** T-108: THE best-window function. The first window (same rule as the call's: longest run of daylight hours with the best verdict) that has not ended, looking `days` Pacific days ahead from `fromMs`.
  *  The spot page's call, Compare's "Best" column and Find spots use this one, so they cannot disagree. `when` is 'today' / 'tomorrow' / a weekday. */
 export function bestWindowFrom(spot: SurfSpot, profile: UserProfile, ctx: CallContext, fromMs: number, days = 4): (CallWindow & {when: string}) | null {

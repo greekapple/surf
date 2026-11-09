@@ -22,6 +22,7 @@ test('ratingBars: 0 unrated, 1–5 by fifths, clamped', () => {
 test('windowLabel spells am/pm once when both ends share it', () => {
   assert.equal(windowLabel(Date.parse('2026-11-02T15:00:00Z'), Date.parse('2026-11-02T18:00:00Z')), '7–10 AM');
   assert.equal(windowLabel(Date.parse('2026-11-02T18:00:00Z'), Date.parse('2026-11-02T22:00:00Z')), '10 AM–2 PM');
+  assert.equal(windowLabel(Date.parse('2026-11-08T00:00:00Z'), Date.parse('2026-11-08T01:30:00Z')), '4–5:30 PM', 'a window cut at last light shows its minutes');
 });
 test('a card with data: labelled estimate with words, rating, wind relation, tide, never a bare number', () => {
   const c = dashCard(spot('spot-2'), recs('spot-2'), now, profile);
@@ -82,4 +83,14 @@ test('bestNearbyAt judges each spot at the chosen hour and says which hour that 
   const a = bestNearbyAt(allSpots, all, now, profile, 'spot-2', '3h', {exclude: ['spot-2']});
   assert.ok(a.every((x) => x.at === new Date((t + 3 * 3600) * 1000).toISOString() && x.card.id !== 'spot-2'));
   assert.deepEqual(bestNearbyAt(allSpots, [], now, profile, 'spot-2', 'now'), []); assert.deepEqual(bestNearbyAt(allSpots, all, now, profile, 'nope', 'now'), []);
+});
+
+test('a surf window never runs into the dark: clamped to first and last light on 5-minute marks (user saw "4–6 PM" with sunset 5:06)', async () => {
+  const {clampToLight, daylightFor} = await import('../services/daylight.ts');
+  const d = daylightFor('spot-0', '2026-11-08'), ll = Date.parse(d.lastLight), fl = Date.parse(d.firstLight);
+  const [s, e] = clampToLight('spot-0', Date.parse('2026-11-09T00:00:00Z'), Date.parse('2026-11-09T02:00:00Z')); // 4–6 PM PST
+  assert.equal(s, Date.parse('2026-11-09T00:00:00Z')); assert.ok(e <= ll && ll - e < 300000 && e % 300000 === 0, `ends at last light ${d.lastLight}, got ${new Date(e).toISOString()}`);
+  const [s2] = clampToLight('spot-0', Date.parse('2026-11-08T14:00:00Z'), Date.parse('2026-11-08T17:00:00Z')); // 6–9 AM PST
+  assert.ok(s2 >= fl && s2 - fl < 300000, 'starts at first light');
+  const [s3, e3] = clampToLight('spot-0', Date.parse('2026-11-08T19:00:00Z'), Date.parse('2026-11-08T22:00:00Z')); assert.deepEqual([s3, e3], [Date.parse('2026-11-08T19:00:00Z'), Date.parse('2026-11-08T22:00:00Z')], 'midday windows unchanged');
 });
