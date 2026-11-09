@@ -1,0 +1,1800 @@
+{
+ "region": "Iceland",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-iceland-eyvik",
+   "name": "Eyvik",
+   "country": "Iceland",
+   "region": "Tjörneshreppur",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 66.094,
+   "lon": -17.318,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/eyvik"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/eyvik"
+   },
+   "facts": {
+    "spotId": "w-iceland-eyvik",
+    "name": "Eyvik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/eyvik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Eyvik",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "WNW to NW, NW to NNE (surfnerd)",
+    "idealSwell": "N (surf-forecast)",
+    "windOffshore": "SSE (surfnerd); south southeast and there is no shelter here from cross shore breezes (surf-forecast); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "not stated",
+    "waveType": "beach",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "a remote wave spot that never gets crowded (surf-forecast)"
+    ],
+    "season": "can work at any time of the year (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction)."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grimseyjarsund",
+     "name": "Grimseyjarsund",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 44.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIHU",
+     "name": "Husavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIHU&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-olafsfjordur",
+   "name": "Olafsfjordur",
+   "country": "Iceland",
+   "region": "Fjallabyggð",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 66.079,
+   "lon": -18.632,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/olafsfjordur"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/olafsfjordur"
+   },
+   "facts": {
+    "spotId": "w-iceland-olafsfjordur",
+    "name": "Olafsfjordur",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/olafsfjordur",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "NNE to NE (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grimseyjarsund",
+     "name": "Grimseyjarsund",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 30.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Drangsnes",
+     "name": "Drangsnes",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 118.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIAR",
+     "name": "Akureyri",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 50.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIAR&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-breidavik",
+   "name": "Breidavik",
+   "country": "Iceland",
+   "region": "Vesturbyggð",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 65.56,
+   "lon": -24.384,
+   "seaward": 292,
+   "positionSource": {
+    "text": "OSM relation 17558877 (natural:bay): Breiðavík, Ísland; 0.76 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/relation/17558877"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/breidavik"
+   },
+   "facts": {
+    "spotId": "w-iceland-breidavik",
+    "name": "Breidavik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/breidavik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "WSW to N (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Blakksnes",
+     "name": "Blakksnes",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 23.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Flateyjardufl",
+     "name": "Flateyjardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 68.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:59:58Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIBD",
+     "name": "Bildudalur",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 39.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIBD&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-husavik",
+   "name": "Husavik",
+   "country": "Iceland",
+   "region": "Múlaþing",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 65.406,
+   "lon": -13.665,
+   "seaward": 90,
+   "positionSource": {
+    "text": "OSM node 1822177129 (natural:bay): Húsavík, Ísland; 0.4 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/node/1822177129"
+   },
+   "facingSource": {
+    "text": "E (surfnerd \"Faces E\")",
+    "url": "https://www.surfnerd.com/surf-forecast/husavik"
+   },
+   "facts": {
+    "spotId": "w-iceland-husavik",
+    "name": "Husavik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/husavik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "E (surfnerd)",
+    "facingDeg": 90,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "NE to ESE (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "W (surfnerd); wind exposure SW to NW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Kogurdufl",
+     "name": "Kogurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 27.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIEG",
+     "name": "Egilsstadir",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 36.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIEG&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-fauskasandur",
+   "name": "Fauskasandur",
+   "country": "Iceland",
+   "region": "Múlaþing",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 64.484,
+   "lon": -14.483,
+   "seaward": 112,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/fauskasandur"
+   },
+   "facingSource": {
+    "text": "ESE (surfnerd \"Faces ESE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/fauskasandur"
+   },
+   "facts": {
+    "spotId": "w-iceland-fauskasandur",
+    "name": "Fauskasandur",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fauskasandur",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ESE (surfnerd)",
+    "facingDeg": 112,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "NE to S (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "WNW (surfnerd); wind exposure WSW to NNW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Hornafjardardufl",
+     "name": "Hornafjardardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 47.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Kogurdufl",
+     "name": "Kogurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 135.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIHN",
+     "name": "Hofn",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 41.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIHN&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-dalkur",
+   "name": "Dalkur",
+   "country": "Iceland",
+   "region": "Múlaþing",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 64.476,
+   "lon": -14.491,
+   "seaward": 112,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/dalkur"
+   },
+   "facingSource": {
+    "text": "ESE (surfnerd \"Faces ESE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/dalkur"
+   },
+   "facts": {
+    "spotId": "w-iceland-dalkur",
+    "name": "Dalkur",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dalkur",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ESE (surfnerd)",
+    "facingDeg": 112,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "NE to S (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "WNW (surfnerd); wind exposure WSW to NNW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Hornafjardardufl",
+     "name": "Hornafjardardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 46.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Kogurdufl",
+     "name": "Kogurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 136.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIHN",
+     "name": "Hofn",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 40.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIHN&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-stokksnes",
+   "name": "Stokksnes",
+   "country": "Iceland",
+   "region": "Sveitarfélagið Hornafjörður",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 64.244,
+   "lon": -14.967,
+   "seaward": 90,
+   "positionSource": {
+    "text": "OSM node 3241056478 (natural:cape): Stokksnes, Sveitarfélagið Hornafjörður, Suðurland, Ísland; 0.67 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/node/3241056478"
+   },
+   "facingSource": {
+    "text": "E (surfnerd \"Faces E\")",
+    "url": "https://www.surfnerd.com/surf-forecast/stokksnes"
+   },
+   "facts": {
+    "spotId": "w-iceland-stokksnes",
+    "name": "Stokksnes",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/stokksnes",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "E (surfnerd)",
+    "facingDeg": 90,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "NE to SE (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "W (surfnerd); wind exposure SW to NW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Hornafjardardufl",
+     "name": "Hornafjardardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 12.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIHN",
+     "name": "Hofn",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 13.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIHN&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-grotta",
+   "name": "Grotta",
+   "country": "Iceland",
+   "region": "Capital Region",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 64.165,
+   "lon": -22.021,
+   "seaward": 315,
+   "positionSource": {
+    "text": "OSM way 411196916 (leisure:nature_reserve): Grótta, Seltjarnarnesbær, Höfuðborgarsvæðið, Ísland; 0.16 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/411196916"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/grotta"
+   },
+   "facts": {
+    "spotId": "w-iceland-grotta",
+    "name": "Grotta",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/grotta",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Grotta",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "WSW to NNW (surfnerd)",
+    "idealSwell": "W (surf-forecast)",
+    "windOffshore": "SE (surfnerd); east and there is no shelter here from cross shore breezes (surf-forecast); wind exposure E to S (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": "reef",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: 'exposed reef break')",
+    "hazards": [
+     "surfing here means negotiating dangerous rips (surf-forecast)",
+     "a remote wave spot that never gets crowded (surf-forecast)"
+    ],
+    "season": "can work at any time of the year (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction)."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 43.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 44.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 4.6,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIRK",
+     "name": "Reykjavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIRK&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-gardur",
+   "name": "Gardur",
+   "country": "Iceland",
+   "region": "Southern Peninsula",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 64.084,
+   "lon": -22.693,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/gardur"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/gardur"
+   },
+   "facts": {
+    "spotId": "w-iceland-gardur",
+    "name": "Gardur",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gardur",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 5,
+     "max": 20
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 9.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 32.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 37.6,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 13.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-hafnarfjordur-beach-reef",
+   "name": "Hafnarfjordur Beach Reef",
+   "country": "Iceland",
+   "region": "Capital Region",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 64.061,
+   "lon": -21.997,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hafnarfjordur-beach-reef"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hafnarfjordur-beach-reef"
+   },
+   "facts": {
+    "spotId": "w-iceland-hafnarfjordur-beach-reef",
+    "name": "Hafnarfjordur Beach Reef",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hafnarfjordur-beach-reef",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hafnarfjordur",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "W to NNW (surfnerd)",
+    "idealSwell": "NW (surf-forecast)",
+    "windOffshore": "ESE (surfnerd); east southeast and there is no shelter here from cross shore breezes (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": "beach",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: 'exposed beach reef and point break')",
+    "hazards": [
+     "the location means that it never gets crowded (surf-forecast)"
+    ],
+    "season": "can work at any time of the year (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). Surf-forecast page 'Hafnarfjordur' paired by name, its pin 1.0 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 35.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Thorlakshafnardufl",
+     "name": "Thorlakshafnardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 42.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.4,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIRK",
+     "name": "Reykjavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 8.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIRK&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-hafnir",
+   "name": "Hafnir",
+   "country": "Iceland",
+   "region": "Southern Peninsula",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 63.935,
+   "lon": -22.694,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hafnir"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hafnir"
+   },
+   "facts": {
+    "spotId": "w-iceland-hafnir",
+    "name": "Hafnir",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hafnir",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hafnir",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "SSW to NW (surfnerd)",
+    "idealSwell": "SW (surf-forecast)",
+    "windOffshore": "SE (surfnerd); east and there is no shelter here from cross shore breezes (surf-forecast); wind exposure E to S (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": "reef",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed reef break')",
+    "hazards": [
+     "rips (surf-forecast)",
+     "rocks (surf-forecast)",
+     "the location means that it never gets crowded (surf-forecast)"
+    ],
+    "season": "can work at any time of the year (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction)."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 15.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 17.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 44.1,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 6.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-the-rock",
+   "name": "The Rock",
+   "country": "Iceland",
+   "region": "Grindavíkurbær",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 63.916,
+   "lon": -22.703,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/the-rock"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/the-rock"
+   },
+   "facts": {
+    "spotId": "w-iceland-the-rock",
+    "name": "The Rock",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/the-rock",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SW to NNW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "rock ledge (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 5,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 17.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 45.6,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 8.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-thorli-beach",
+   "name": "Thorli Beach",
+   "country": "Iceland",
+   "region": "Sveitarfélagið Ölfus",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 63.867,
+   "lon": -21.376,
+   "seaward": 135,
+   "positionSource": {
+    "text": "OSM node 7119519062 (natural:beach): Þorli, Þorlákshöfn, Sveitarfélagið Ölfus, Suðurland, 815, Ísland; 0.5 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/node/7119519062"
+   },
+   "facingSource": {
+    "text": "SE (surfnerd \"Faces SE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/thorli-beach"
+   },
+   "facts": {
+    "spotId": "w-iceland-thorli-beach",
+    "name": "Thorli Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/thorli-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SE (surfnerd)",
+    "facingDeg": 135,
+    "swellWorkable": {
+     "text": "SE to SW, best S (surfnerd)",
+     "fromDeg": 135,
+     "toDeg": 225
+    },
+    "swellExposure": "ESE to SSE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NW (surfnerd); wind exposure W to N (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 15
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Thorlakshafnardufl",
+     "name": "Thorlakshafnardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 5.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 53.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 41.6,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIRK",
+     "name": "Reykjavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 40.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIRK&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-sandvik",
+   "name": "Sandvik",
+   "country": "Iceland",
+   "region": "Grindavíkurbær",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 63.859,
+   "lon": -22.7,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/sandvik"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/sandvik"
+   },
+   "facts": {
+    "spotId": "w-iceland-sandvik",
+    "name": "Sandvik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sandvik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SW to NW, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to SW, SW to NW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 15
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Sandvik' (https://www.surf-forecast.com/breaks/Sandvik) matches by name but its pin is 5.9 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 12.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 23.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 49.4,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 14.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-thorli",
+   "name": "Thorli",
+   "country": "Iceland",
+   "region": "Sveitarfélagið Ölfus",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Point",
+   "lat": 63.85,
+   "lon": -21.358,
+   "seaward": 90,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/thorli"
+   },
+   "facingSource": {
+    "text": "E (surfnerd \"Faces E\")",
+    "url": "https://www.surfnerd.com/surf-forecast/thorli"
+   },
+   "facts": {
+    "spotId": "w-iceland-thorli",
+    "name": "Thorli",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/thorli",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "E (surfnerd)",
+    "facingDeg": 90,
+    "swellWorkable": {
+     "text": "SE to SW, best SE (surfnerd)",
+     "fromDeg": 135,
+     "toDeg": 225
+    },
+    "swellExposure": "ESE to SSW (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W (surfnerd); wind exposure SW to NW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 5,
+     "max": 18
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Thorlakshafnardufl",
+     "name": "Thorlakshafnardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 3.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 54.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 43.6,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIRK",
+     "name": "Reykjavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 42.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIRK&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-rolling-stones-grindavikurbaer",
+   "name": "Rolling Stones",
+   "country": "Iceland",
+   "region": "Grindavíkurbær",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 63.829,
+   "lon": -22.421,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/rolling-stones-grindavikurbaer"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/rolling-stones-grindavikurbaer"
+   },
+   "facts": {
+    "spotId": "w-iceland-rolling-stones-grindavikurbaer",
+    "name": "Rolling Stones",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rolling-stones-grindavikurbaer",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "SE to WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 20
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 2.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 33.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 42.9,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 18.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-grindavik",
+   "name": "Grindavík",
+   "country": "Iceland",
+   "region": "Grindavíkurbær",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 63.828,
+   "lon": -22.447,
+   "seaward": 158,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/grindavik"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd \"Faces SSE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/grindavik"
+   },
+   "facts": {
+    "spotId": "w-iceland-grindavik",
+    "name": "Grindavík",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/grindavik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Grindavik-Antenas",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSE (surfnerd)",
+    "facingDeg": 158,
+    "swellWorkable": {
+     "text": "SE to SW, best S (surfnerd)",
+     "fromDeg": 135,
+     "toDeg": 225
+    },
+    "swellExposure": "ESE to SW (surfnerd)",
+    "idealSwell": "S (surfnerd); W (surf-forecast)",
+    "windOffshore": "NNW (surfnerd); north northwest and there is no shelter here from cross shore breezes (surf-forecast); wind exposure WNW to NNE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Best around high tide (surf-forecast)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 25
+    },
+    "exposure": "exposed (surf-forecast: 'exposed point break')",
+    "hazards": [
+     "rocks (surf-forecast)",
+     "the location means that it never gets crowded (surf-forecast)"
+    ],
+    "season": "works all around the year (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Grindavik Antenas'. Surf-forecast's 'Grindavik Lighthouse ( Hopsnesta)' (https://www.surf-forecast.com/breaks/Grindavik-Lighthouse) matches by name but its pin is 2.2 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 1.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 32.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 43.7,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 17.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-ollie-s-shipwreck",
+   "name": "Ollie´s Shipwreck",
+   "country": "Iceland",
+   "region": "Grindavíkurbær",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Reef",
+   "lat": 63.821,
+   "lon": -22.405,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ollie-s-shipwreck"
+   },
+   "facingSource": {
+    "text": "S (surfnerd \"Faces S\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ollie-s-shipwreck"
+   },
+   "facts": {
+    "spotId": "w-iceland-ollie-s-shipwreck",
+    "name": "Ollie´s Shipwreck",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ollie-s-shipwreck",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "S (surfnerd)",
+    "facingDeg": 180,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "E to WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 4,
+     "max": 20
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Grindavikurdufl",
+     "name": "Grindavikurdufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 2.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Gardskagadufl",
+     "name": "Gardskagadufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 34.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC reyk",
+     "name": "Reykjavik",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 43.2,
+     "live": false,
+     "liveBasis": "last data 2020-03-20 12:28 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=reyk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIKF",
+     "name": "Keflavik",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 19.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIKF&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-brimuro",
+   "name": "Brimuro",
+   "country": "Iceland",
+   "region": "Iceland",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 63.448,
+   "lon": -20.298,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/brimuro"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/brimuro"
+   },
+   "facts": {
+    "spotId": "w-iceland-brimuro",
+    "name": "Brimuro",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/brimuro",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "W to NW (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Landeyjahafnardufl",
+     "name": "Landeyjahafnardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 11.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T00:09:59Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Surtseyjardufl",
+     "name": "Surtseyjardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 18.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "BIVM",
+     "name": "Vestmannaeyjar",
+     "owner": "via IEM (IS__ASOS)",
+     "distanceKm": 5.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BIVM&network=IS__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-iceland-vik-2",
+   "name": "Vik",
+   "country": "Iceland",
+   "region": "Mýrdalshreppur",
+   "timeZone": "Atlantic/Reykjavik",
+   "type": "Beach",
+   "lat": 63.413,
+   "lon": -19.009,
+   "seaward": 158,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/vik-2"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd \"Faces SSE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/vik-2"
+   },
+   "facts": {
+    "spotId": "w-iceland-vik-2",
+    "name": "Vik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vik-2",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSE (surfnerd)",
+    "facingDeg": 158,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "E to SW (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "NNW (surfnerd); wind exposure WNW to NNE (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Landeyjahafnardufl",
+     "name": "Landeyjahafnardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 56.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T00:09:59Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Surtseyjardufl",
+     "name": "Surtseyjardufl",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 68.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T23:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Landeyjahofn",
+     "name": "Landeyjahofn",
+     "owner": "Icelandic Road and Coastal Administration (Copernicus Marine in situ)",
+     "distanceKm": 55.5,
+     "live": false,
+     "liveBasis": "last observation 2018-08-30T00:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Garur",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Garur); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Þorlákshöfn or Porlackshofn",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Porlackshofn); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

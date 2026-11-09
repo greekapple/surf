@@ -1,0 +1,1103 @@
+{
+ "region": "Malta",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-malta-salt-pans",
+   "name": "Salt Pans",
+   "country": "Malta",
+   "region": "Malta",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 36.08,
+   "lon": 14.252,
+   "seaward": 22,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/salt-pans"
+   },
+   "facingSource": {
+    "text": "NNE (surfnerd \"Faces NNE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/salt-pans"
+   },
+   "facts": {
+    "spotId": "w-malta-salt-pans",
+    "name": "Salt Pans",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/salt-pans",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd)",
+    "facingDeg": 22,
+    "swellWorkable": {
+     "text": "N to E, best NE (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 90
+    },
+    "swellExposure": "NW to ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SSW (surfnerd); wind exposure SSE to WSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 12.7,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 12.7,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-marsalforn",
+   "name": "Marsalforn",
+   "country": "Malta",
+   "region": "Malta",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 36.074,
+   "lon": 14.261,
+   "seaward": 22,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/marsalforn"
+   },
+   "facingSource": {
+    "text": "NNE (surfnerd \"Faces NNE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/marsalforn"
+   },
+   "facts": {
+    "spotId": "w-malta-marsalforn",
+    "name": "Marsalforn",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/marsalforn",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd)",
+    "facingDeg": 22,
+    "swellWorkable": {
+     "text": "NW to NE, best NE (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 45
+    },
+    "swellExposure": "NW to E (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SSW (surfnerd); wind exposure SSE to WSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 11.7,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 11.7,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-ramla",
+   "name": "Ramla",
+   "country": "Malta",
+   "region": "Malta",
+   "timeZone": "Europe/Malta",
+   "type": "Beach",
+   "lat": 36.062,
+   "lon": 14.284,
+   "seaward": 0,
+   "positionSource": {
+    "text": "OSM way 248796612 (natural:beach): Ir-Ramla l-Ħamra, Ix-Xagħra, Reġjun Għawdex, Malta; 0.1 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/248796612"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ramla"
+   },
+   "facts": {
+    "spotId": "w-malta-ramla",
+    "name": "Ramla",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ramla",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Gozo-Ramla-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "NW to SE, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 135
+    },
+    "swellExposure": "NW to NE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "S (surfnerd); SSE (surf-forecast); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "rips / undertow (surf-forecast)",
+     "rocks (surf-forecast)",
+     "the location means that it never gets crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Ramla Bay'."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 9.5,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 9.5,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-san-blas",
+   "name": "San Blas",
+   "country": "Malta",
+   "region": "Malta",
+   "timeZone": "Europe/Malta",
+   "type": "Beach",
+   "lat": 36.057,
+   "lon": 14.3,
+   "seaward": 22,
+   "positionSource": {
+    "text": "OSM way 23863699 (natural:beach): San Blas, In-Nadur, Reġjun Għawdex, Malta; 0.04 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/23863699"
+   },
+   "facingSource": {
+    "text": "NNE (surfnerd \"Faces NNE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/san-blas"
+   },
+   "facts": {
+    "spotId": "w-malta-san-blas",
+    "name": "San Blas",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/san-blas",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd)",
+    "facingDeg": 22,
+    "swellWorkable": {
+     "text": "NW to NE, best NE (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 45
+    },
+    "swellExposure": "NW to ENE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SSW (surfnerd); wind exposure SSE to WSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 8.4,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 8.4,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-inland-sea",
+   "name": "Inland Sea",
+   "country": "Malta",
+   "region": "Gozo Region",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 36.054,
+   "lon": 14.191,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/inland-sea"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/inland-sea"
+   },
+   "facts": {
+    "spotId": "w-malta-inland-sea",
+    "name": "Inland Sea",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/inland-sea",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "NW to N, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 14.8,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 14.8,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-armier",
+   "name": "Armier",
+   "country": "Malta",
+   "region": "Northern Region",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 35.99,
+   "lon": 14.358,
+   "seaward": 338,
+   "positionSource": {
+    "text": "OSM way 1376759830 (natural:bay): Il-Bajja tal-Armier, Malta; 0.11 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/1376759830"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/armier"
+   },
+   "facts": {
+    "spotId": "w-malta-armier",
+    "name": "Armier",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/armier",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "N to NE, best NW (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 45
+    },
+    "swellExposure": "NNW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 2.4,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 2.4,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-mellieha",
+   "name": "Mellieha",
+   "country": "Malta",
+   "region": "Malta",
+   "timeZone": "Europe/Malta",
+   "type": "Beach",
+   "lat": 35.969,
+   "lon": 14.352,
+   "seaward": 68,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/mellieha"
+   },
+   "facingSource": {
+    "text": "ENE (surfnerd \"Faces ENE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/mellieha"
+   },
+   "facts": {
+    "spotId": "w-malta-mellieha",
+    "name": "Mellieha",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mellieha",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mellieha-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ENE (surfnerd)",
+    "facingDeg": 68,
+    "swellWorkable": {
+     "text": "N to NE, best NE (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 45
+    },
+    "swellExposure": "NE to E (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "WSW (surfnerd); west and there is no shelter here from cross shore breezes (surf-forecast); wind exposure SSW to WNW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed sandbar break')",
+    "hazards": [
+     "jellyfishs (surf-forecast)",
+     "rarely crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Mellieha-Bay'."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 2.6,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 2.6,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-ghallis-rock",
+   "name": "Ghallis Rock",
+   "country": "Malta",
+   "region": "Western Region",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 35.953,
+   "lon": 14.447,
+   "seaward": 45,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ghallis-rock"
+   },
+   "facingSource": {
+    "text": "NE (surfnerd \"Faces NE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ghallis-rock"
+   },
+   "facts": {
+    "spotId": "w-malta-ghallis-rock",
+    "name": "Ghallis Rock",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ghallis-rock",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NE (surfnerd)",
+    "facingDeg": 45,
+    "swellWorkable": {
+     "text": "NE to E, best NE (surfnerd)",
+     "fromDeg": 45,
+     "toDeg": 90
+    },
+    "swellExposure": "NW to ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW (surfnerd); wind exposure S to W (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptma",
+     "name": "Portomaso",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 5.5,
+     "live": false,
+     "liveBasis": "last data 2020-02-11 22:43 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptma"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 11.0,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-the-pole",
+   "name": "The Pole",
+   "country": "Malta",
+   "region": "Western Region",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 35.952,
+   "lon": 14.444,
+   "seaward": 45,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/the-pole"
+   },
+   "facingSource": {
+    "text": "NE (surfnerd \"Faces NE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/the-pole"
+   },
+   "facts": {
+    "spotId": "w-malta-the-pole",
+    "name": "The Pole",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/the-pole",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NE (surfnerd)",
+    "facingDeg": 45,
+    "swellWorkable": {
+     "text": "N to NE, best NE (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 45
+    },
+    "swellExposure": "NW to ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW (surfnerd); wind exposure S to W (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 4,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptma",
+     "name": "Portomaso",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 5.7,
+     "live": false,
+     "liveBasis": "last data 2020-02-11 22:43 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptma"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 10.8,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-marleys",
+   "name": "Marley's",
+   "country": "Malta",
+   "region": "Northern Region",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 35.941,
+   "lon": 14.456,
+   "seaward": 45,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/marleys"
+   },
+   "facingSource": {
+    "text": "NE (surfnerd \"Faces NE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/marleys"
+   },
+   "facts": {
+    "spotId": "w-malta-marleys",
+    "name": "Marley's",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/marleys",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NE (surfnerd)",
+    "facingDeg": 45,
+    "swellWorkable": {
+     "text": "N to E, best NE (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 90
+    },
+    "swellExposure": "N to ENE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW (surfnerd); wind exposure S to W (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "rock ledge (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptma",
+     "name": "Portomaso",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 4.1,
+     "live": false,
+     "liveBasis": "last data 2020-02-11 22:43 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptma"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 12.2,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-golden-bay",
+   "name": "Golden Bay",
+   "country": "Malta",
+   "region": "Malta",
+   "timeZone": "Europe/Malta",
+   "type": "Beach",
+   "lat": 35.933,
+   "lon": 14.344,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM way 515002284 (natural:bay): Ir-Ramla tal-Mixquqa, Il-Manikata, Malta; 0.08 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/515002284"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/golden-bay"
+   },
+   "facts": {
+    "spotId": "w-malta-golden-bay",
+    "name": "Golden Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/golden-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Golden_Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); east and there is no shelter here from cross shore breezes (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "reasonably exposed (surf-forecast: 'reasonably exposed sandbar break')",
+    "hazards": [
+     "when it's working here, it can get crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 6.0,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.0,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-riviera-malta",
+   "name": "Riviera - Malta",
+   "country": "Malta",
+   "region": "Northern Region",
+   "timeZone": "Europe/Malta",
+   "type": "Beach",
+   "lat": 35.929,
+   "lon": 14.345,
+   "seaward": 270,
+   "positionSource": {
+    "text": "OSM way 23613913 (natural:beach): Ir-Ramla t' Għajn Tuffieħa, L-Imġarr, Reġjun tat-Tramuntana, Malta; 0.08 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/23613913"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/riviera-malta"
+   },
+   "facts": {
+    "spotId": "w-malta-riviera-malta",
+    "name": "Riviera - Malta",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/riviera-malta",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "W to NW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 6.4,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.4,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-gnejna",
+   "name": "Gnejna",
+   "country": "Malta",
+   "region": "Western Region",
+   "timeZone": "Europe/Malta",
+   "type": "Beach",
+   "lat": 35.92,
+   "lon": 14.343,
+   "seaward": 315,
+   "positionSource": {
+    "text": "OSM way 23613890 (natural:beach): Ir-Ramla tal-Ġnejna, L-Imġarr, Reġjun tat-Tramuntana, Malta; 0.09 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/23613890"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/gnejna"
+   },
+   "facts": {
+    "spotId": "w-malta-gnejna",
+    "name": "Gnejna",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gnejna",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "W to NW, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "not stated",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 7.4,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malt",
+     "name": "Malta",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 7.4,
+     "live": false,
+     "liveBasis": "last data 2021-11-29 20:53 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malt"
+    }
+   ]
+  },
+  {
+   "id": "w-malta-st-thomas-bay",
+   "name": "St Thomas Bay",
+   "country": "Malta",
+   "region": "Southern Region",
+   "timeZone": "Europe/Malta",
+   "type": "Reef",
+   "lat": 35.853,
+   "lon": 14.569,
+   "seaward": 112,
+   "positionSource": {
+    "text": "OSM node 3671273322 (natural:bay): Il-Bajja ta' San Tumas, MSK 3644, Malta; 0.2 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/node/3671273322"
+   },
+   "facingSource": {
+    "text": "ESE (surfnerd \"Faces ESE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/st-thomas-bay"
+   },
+   "facts": {
+    "spotId": "w-malta-st-thomas-bay",
+    "name": "St Thomas Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/st-thomas-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ESE (surfnerd)",
+    "facingDeg": 112,
+    "swellWorkable": {
+     "text": "E to SE, best SE (surfnerd)",
+     "fromDeg": 90,
+     "toDeg": 135
+    },
+    "swellExposure": "NE to SE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "WNW (surfnerd); wind exposure WSW to NNW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptma",
+     "name": "Portomaso",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.1,
+     "live": false,
+     "liveBasis": "last data 2020-02-11 22:43 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptma"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IDSL-Malta",
+     "name": "IDSL-Malta",
+     "owner": "Balearic Islands Coastal Observing and Forecasting System (Copernicus Marine in situ)",
+     "distanceKm": 26.0,
+     "live": false,
+     "liveBasis": "last observation 2020-05-31T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Apostle's Right",
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/apostles-right) gives no \"Faces\" direction, and no other guide states one."
+  },
+  {
+   "name": "Baħar Iċ-Ċagħaq",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Bahar-ic-Caghaq); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ghajn Tuffieha",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ghajn-Tuffieha); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Imġiebaħ Bay (Selmun Bay)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Imgieba); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Marleys",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Marleys); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

@@ -1,0 +1,2061 @@
+{
+ "region": "Germany",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-germany-fkk-strand-list",
+   "name": "FKK Strand List",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 55.019,
+   "lon": 8.442,
+   "seaward": 112,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/fkk-strand-list"
+   },
+   "facingSource": {
+    "text": "ESE (surfnerd \"Faces ESE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/fkk-strand-list"
+   },
+   "facts": {
+    "spotId": "w-germany-fkk-strand-list",
+    "name": "FKK Strand List",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fkk-strand-list",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ESE (surfnerd)",
+    "facingDeg": 112,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "S (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "WNW (surfnerd); wind exposure WSW to NNW (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 25.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fanoebugt",
+     "name": "Fanoebugt",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 38.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Hoejer-3002",
+     "name": "Hoejer-3002",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 14.4,
+     "live": false,
+     "liveBasis": "last observation 1984-06-21T18:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 0.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HavnebyTG",
+     "name": "HavnebyTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 10.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 13.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-sturmhaube-kampen",
+   "name": "Sturmhaube Kampen",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.963,
+   "lon": 8.328,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/sturmhaube-kampen"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/sturmhaube-kampen"
+   },
+   "facts": {
+    "spotId": "w-germany-sturmhaube-kampen",
+    "name": "Sturmhaube Kampen",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sturmhaube-kampen",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Sturmhaube Kampen (Sylt)' (https://www.surf-forecast.com/breaks/Sturmhaube-Kampen) matches by name but its pin is 3.8 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 16.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 35.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 8.5,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 9.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HavnebyTG",
+     "name": "HavnebyTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 20.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-buhne-16-kampen",
+   "name": "Buhne 16 Kampen",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.958,
+   "lon": 8.362,
+   "seaward": 90,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/buhne-16-kampen"
+   },
+   "facingSource": {
+    "text": "E (surfnerd \"Faces E\")",
+    "url": "https://www.surfnerd.com/surf-forecast/buhne-16-kampen"
+   },
+   "facts": {
+    "spotId": "w-germany-buhne-16-kampen",
+    "name": "Buhne 16 Kampen",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/buhne-16-kampen",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "E (surfnerd)",
+    "facingDeg": 90,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "S (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "W (surfnerd); wind exposure SW to NW (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Buhne Kampen (Sylt)' (https://www.surf-forecast.com/breaks/Buhne-Kampen) matches by name but its pin is 6.1 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 18.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 37.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 10.1,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 8.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS VidaaTG",
+     "name": "VidaaTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 19.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 5.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-kartoffelkiste-wenningstedt",
+   "name": "Kartoffelkiste Wenningstedt",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.945,
+   "lon": 8.316,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kartoffelkiste-wenningstedt"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kartoffelkiste-wenningstedt"
+   },
+   "facts": {
+    "spotId": "w-germany-kartoffelkiste-wenningstedt",
+    "name": "Kartoffelkiste Wenningstedt",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kartoffelkiste-wenningstedt",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 14.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 34.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 6.8,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 20.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 3.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-seestrasse-wenningstedt",
+   "name": "Seestraße Wenningstedt",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.931,
+   "lon": 8.308,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/seestrasse-wenningstedt"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/seestrasse-wenningstedt"
+   },
+   "facts": {
+    "spotId": "w-germany-seestrasse-wenningstedt",
+    "name": "Seestraße Wenningstedt",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/seestrasse-wenningstedt",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "S to NW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid (best at Mid, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 14.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 34.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 5.7,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 12.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 19.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 2.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-brandenburger-strand-westerland",
+   "name": "Brandenburger Strand Westerland",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.921,
+   "lon": 8.3,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/brandenburger-strand-westerland"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/brandenburger-strand-westerland"
+   },
+   "facts": {
+    "spotId": "w-germany-brandenburger-strand-westerland",
+    "name": "Brandenburger Strand Westerland",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/brandenburger-strand-westerland",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "S to NW, best NW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 13.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 34.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 5.0,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 13.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 18.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-badezeit-westerland",
+   "name": "Badezeit Westerland",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.903,
+   "lon": 8.293,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/badezeit-westerland"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/badezeit-westerland"
+   },
+   "facts": {
+    "spotId": "w-germany-badezeit-westerland",
+    "name": "Badezeit Westerland",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/badezeit-westerland",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Brandenburg-Westerland",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "S to NW, best W (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ESE (both); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid, High (surfnerd); Best around mid tide (surf-forecast)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "dangerous rips (surf-forecast)",
+     "when the surf is up, it can get quite busy in the water (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Brandenburg Westerland (Sylt)' paired by name, its pin 1.7 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 34.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 4.8,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ListTG",
+     "name": "ListTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 15.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 16.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-campingplatz-osteria-westerland",
+   "name": "Campingplatz/Osteria Westerland",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.894,
+   "lon": 8.29,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/campingplatz-osteria-westerland"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/campingplatz-osteria-westerland"
+   },
+   "facts": {
+    "spotId": "w-germany-campingplatz-osteria-westerland",
+    "name": "Campingplatz/Osteria Westerland",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/campingplatz-osteria-westerland",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Oasezur-Sonne-Westerland",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "S to NW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "S to NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); E (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "rips / crowds (surf-forecast)",
+     "sometimes crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Oase zur Sonne Westerland (Sylt)' paired by name, its pin 1.1 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 35.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 5.1,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 15.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC horn",
+     "name": "Hörnum",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 15.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:39 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=horn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 3.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-oase-zu-sonne-westerland-up-till-campingplatz-rantum",
+   "name": "Oase zu Sonne/Westerland UP TILL Campingplatz/Rantum",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.86,
+   "lon": 8.284,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/oase-zu-sonne-westerland-up-till-campingplatz-rantum"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/oase-zu-sonne-westerland-up-till-campingplatz-rantum"
+   },
+   "facts": {
+    "spotId": "w-germany-oase-zu-sonne-westerland-up-till-campingplatz-rantum",
+    "name": "Oase zu Sonne/Westerland UP TILL Campingplatz/Rantum",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/oase-zu-sonne-westerland-up-till-campingplatz-rantum",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "S to N (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 14.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 36.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Sylt-3081",
+     "name": "Sylt-3081",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 7.5,
+     "live": false,
+     "liveBasis": "last observation 1998-03-31T19:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 11.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC horn",
+     "name": "Hörnum",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 11.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:39 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=horn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-samoa-rantum",
+   "name": "Samoa Rantum",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.845,
+   "lon": 8.284,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/samoa-rantum"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/samoa-rantum"
+   },
+   "facts": {
+    "spotId": "w-germany-samoa-rantum",
+    "name": "Samoa Rantum",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/samoa-rantum",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sansibar-Rantum",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "S to NW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "S to N (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+    "tide": "Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "rarely crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Sansibar Rantum (Sylt)' paired by name, its pin 2.0 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 14.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 37.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202115",
+     "name": "6202115",
+     "owner": "Helmholtz-Zentrum Hereon GmbH (Copernicus Marine in situ)",
+     "distanceKm": 5.9,
+     "live": false,
+     "liveBasis": "last observation 2020-06-16T11:01:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 9.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC horn",
+     "name": "Hörnum",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 9.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:39 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=horn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 8.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-k-4-hornum",
+   "name": "K4/Hörnum",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.756,
+   "lon": 8.278,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/k-4-hornum"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/k-4-hornum"
+   },
+   "facts": {
+    "spotId": "w-germany-k-4-hornum",
+    "name": "K4/Hörnum",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/k-4-hornum",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kilometerstein-Vier-Hornum",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "S to NW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "S to N (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+    "tide": "Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "rips / crowds (surf-forecast)",
+     "even when there are waves, it's not likley to be crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Kilometerstein Vier Hornum (Sylt)'."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 21.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201067",
+     "name": "6201067",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 42.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202115",
+     "name": "6202115",
+     "owner": "Helmholtz-Zentrum Hereon GmbH (Copernicus Marine in situ)",
+     "distanceKm": 4.0,
+     "live": false,
+     "liveBasis": "last observation 2020-06-16T11:01:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoernumTG",
+     "name": "HoernumTG",
+     "owner": "Waterways and Shipping Office Toenning (Copernicus Marine in situ)",
+     "distanceKm": 1.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC horn",
+     "name": "Hörnum",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 1.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:39 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=horn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDXW",
+     "name": "Westerland",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 17.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-damp-2000",
+   "name": "Damp 2000",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.582,
+   "lon": 10.032,
+   "seaward": 90,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/damp-2000"
+   },
+   "facingSource": {
+    "text": "E (surfnerd \"Faces E\")",
+    "url": "https://www.surfnerd.com/surf-forecast/damp-2000"
+   },
+   "facts": {
+    "spotId": "w-germany-damp-2000",
+    "name": "Damp 2000",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/damp-2000",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "E (surfnerd)",
+    "facingDeg": 90,
+    "swellWorkable": {
+     "text": "N to E, best E (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 90
+    },
+    "swellExposure": "ENE to ESE (surfnerd)",
+    "idealSwell": "E (surfnerd)",
+    "windOffshore": "W (surfnerd); wind exposure SW to NW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Damp' (https://www.surf-forecast.com/breaks/Damp) matches by name but its pin is 5.5 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202602",
+     "name": "6202602",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (Copernicus Marine in situ)",
+     "distanceKm": 130.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6202110",
+     "name": "6202110",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 132.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:32:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS StohlBuoy",
+     "name": "StohlBuoy",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (LKN.SH Husum) (Copernicus Marine in situ)",
+     "distanceKm": 15.2,
+     "live": false,
+     "liveBasis": "last observation 2024-02-20T10:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SchleimuendeTG",
+     "name": "SchleimuendeTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 10.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KappelnTG",
+     "name": "KappelnTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 11.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDHK",
+     "name": "Kiel",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 23.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHK&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-hohwachter-bucht",
+   "name": "Hohwachter Bucht",
+   "country": "Germany",
+   "region": "Kreis Plön, Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.32,
+   "lon": 10.681,
+   "seaward": 68,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hohwachter-bucht"
+   },
+   "facingSource": {
+    "text": "ENE (surfnerd \"Faces ENE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hohwachter-bucht"
+   },
+   "facts": {
+    "spotId": "w-germany-hohwachter-bucht",
+    "name": "Hohwachter Bucht",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hohwachter-bucht",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hohwachter-Bucht",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ENE (surfnerd)",
+    "facingDeg": 68,
+    "swellWorkable": {
+     "text": "NW to N, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 360
+    },
+    "swellExposure": "N to NE, NW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "WSW (surfnerd); S (surf-forecast); wind exposure SSW to WNW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Hohwachter Bucht' paired by name, its pin 1.0 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS HeiligenhafenBuoy",
+     "name": "HeiligenhafenBuoy",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (LKN.SH Husum) (Copernicus Marine in situ)",
+     "distanceKm": 18.2,
+     "live": false,
+     "liveBasis": "last observation 2024-02-20T10:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HeiligenhafenTG",
+     "name": "HeiligenhafenTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 21.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS NeustadtTG",
+     "name": "NeustadtTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 26.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDHK",
+     "name": "Kiel",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 35.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHK&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-weissenhauser-strand",
+   "name": "Weißenhäuser Strand",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.307,
+   "lon": 10.76,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/weissenhauser-strand"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/weissenhauser-strand"
+   },
+   "facts": {
+    "spotId": "w-germany-weissenhauser-strand",
+    "name": "Weißenhäuser Strand",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/weissenhauser-strand",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "N to E, best NE (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 90
+    },
+    "swellExposure": "WNW to N, N to NE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS HeiligenhafenBuoy",
+     "name": "HeiligenhafenBuoy",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (LKN.SH Husum) (Copernicus Marine in situ)",
+     "distanceKm": 14.9,
+     "live": false,
+     "liveBasis": "last observation 2024-02-20T10:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HeiligenhafenTG",
+     "name": "HeiligenhafenTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 17.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS NeustadtTG",
+     "name": "NeustadtTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 23.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDHK",
+     "name": "Kiel",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 40.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHK&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-pelzerharken",
+   "name": "Pelzerharken",
+   "country": "Germany",
+   "region": "Schleswig-Holstein",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.085,
+   "lon": 10.875,
+   "seaward": 158,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/pelzerharken"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd \"Faces SSE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/pelzerharken"
+   },
+   "facts": {
+    "spotId": "w-germany-pelzerharken",
+    "name": "Pelzerharken",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pelzerharken",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSE (surfnerd)",
+    "facingDeg": 158,
+    "swellWorkable": {
+     "text": "NE to E, best NE (surfnerd)",
+     "fromDeg": 45,
+     "toDeg": 90
+    },
+    "swellExposure": "NE to E (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NNW (surfnerd); wind exposure WNW to NNE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS HeiligenhafenBuoy",
+     "name": "HeiligenhafenBuoy",
+     "owner": "State Agency for Coastal Protection- National Park and Marine Protection Schleswig-Holstein LKN.SH (LKN.SH Husum) (Copernicus Marine in situ)",
+     "distanceKm": 34.8,
+     "live": false,
+     "liveBasis": "last observation 2024-02-20T10:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS NeustadtTG",
+     "name": "NeustadtTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 4.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS TravemuendeTG",
+     "name": "TravemuendeTG",
+     "owner": "Waterways and Shipping Authority Luebeck (Copernicus Marine in situ)",
+     "distanceKm": 14.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDHL",
+     "name": "Luebeck",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 32.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHL&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-weisse-dune",
+   "name": "Weisse Düne",
+   "country": "Germany",
+   "region": "Lower Saxony",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 53.724,
+   "lon": 7.206,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/weisse-dune"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/weisse-dune"
+   },
+   "facts": {
+    "spotId": "w-germany-weisse-dune",
+    "name": "Weisse Düne",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/weisse-dune",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "SW to N, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "W to E (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS NorderneyBuoy",
+     "name": "NorderneyBuoy",
+     "owner": "Lower Saxony Water Management- Coastal Defense and Nature Conservation Agency (Copernicus Marine in situ)",
+     "distanceKm": 6.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T03:35:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201068",
+     "name": "6201068",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 37.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS NorderneyTG",
+     "name": "NorderneyTG",
+     "owner": "Waterways and Shipping Board Emden (Copernicus Marine in situ)",
+     "distanceKm": 4.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC bork",
+     "name": "Borkum Fischerbalje",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 35.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:39 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=bork"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ETNT",
+     "name": "Wittmundhafen",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 36.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ETNT&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-norderney",
+   "name": "Norderney",
+   "country": "Germany",
+   "region": "Lower Saxony",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 53.713,
+   "lon": 7.149,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/norderney"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/norderney"
+   },
+   "facts": {
+    "spotId": "w-germany-norderney",
+    "name": "Norderney",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/norderney",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to ENE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Norderney' (https://www.surf-forecast.com/breaks/Norderney) matches by name but its pin is 3.5 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS NorderneyBuoy",
+     "name": "NorderneyBuoy",
+     "owner": "Lower Saxony Water Management- Coastal Defense and Nature Conservation Agency (Copernicus Marine in situ)",
+     "distanceKm": 4.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-08T03:35:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6201068",
+     "name": "6201068",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 36.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS NorderneyTG",
+     "name": "NorderneyTG",
+     "owner": "Waterways and Shipping Board Emden (Copernicus Marine in situ)",
+     "distanceKm": 1.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC bork",
+     "name": "Borkum Fischerbalje",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 31.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:39 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=bork"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDWE",
+     "name": "Emden",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 36.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDWE&network=DE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-germany-borkum",
+   "name": "Borkum",
+   "country": "Germany",
+   "region": "Lower Saxony",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 53.604,
+   "lon": 6.67,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/borkum"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/borkum"
+   },
+   "facts": {
+    "spotId": "w-germany-borkum",
+    "name": "Borkum",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/borkum",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Borkum-Nordstrand",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to ENE (surfnerd)",
+    "idealSwell": "NW (surfnerd); NNW (surf-forecast)",
+    "windOffshore": "SSE (surfnerd); southeast and there is no shelter here from cross shore breezes (surf-forecast); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 4
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "surfing here means negotiating dangerous rips (surf-forecast)",
+     "an uncrowded break, even when it is working (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Borkum Nordstrand' paired by name, its pin 2.1 km from surfnerd's. Surf-forecast's 'Borkum Weststrand' (https://www.surf-forecast.com/breaks/Borkum-Weststrand) matches by name but its pin is 2.2 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MeetboeiRZGN1",
+     "name": "MeetboeiRZGN1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Uithuizerwad2",
+     "name": "Uithuizerwad2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 16.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS BorkumSuedstrandTG",
+     "name": "BorkumSuedstrandTG",
+     "owner": "Waterways and Shipping Board Emden (Copernicus Marine in situ)",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS BorkumTG",
+     "name": "BorkumTG",
+     "owner": "Waterways and Shipping Board Emden (Copernicus Marine in situ)",
+     "distanceKm": 7.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EDWE",
+     "name": "Emden",
+     "owner": "via IEM (DE__ASOS)",
+     "distanceKm": 44.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDWE&network=DE__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Dazendorf",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dazendorf); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "FKK Stand",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/F-K-K-Stand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Fehmarn",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Fehmarn); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Jugendbad",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Jugendbad); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Nordseeklinik Westerland (Sylt)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nordseeklinik-Westerland); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Pelzerhaken",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Pelzerhaken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "St Peter Ording",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/St-Peter-Ording); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

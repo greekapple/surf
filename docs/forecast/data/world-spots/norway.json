@@ -1,0 +1,2240 @@
+{
+ "region": "Norway",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-norway-kvalnes",
+   "name": "Kvalnes",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 68.345,
+   "lon": 13.93,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kvalnes"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kvalnes"
+   },
+   "facts": {
+    "spotId": "w-norway-kvalnes",
+    "name": "Kvalnes",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kvalnes",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kvalnes",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "W to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); SW (surf-forecast); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 8
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "dangerous rips (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Kvalnes (Lofoten)' paired by name, its pin 1.6 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 27.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 27.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 25.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-eggum",
+   "name": "Eggum",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 68.311,
+   "lon": 13.655,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/eggum"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/eggum"
+   },
+   "facts": {
+    "spotId": "w-norway-eggum",
+    "name": "Eggum",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/eggum",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 35.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 35.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 17.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-unstad-beach",
+   "name": "Unstad Beach",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 68.27,
+   "lon": 13.581,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/unstad-beach"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/unstad-beach"
+   },
+   "facts": {
+    "spotId": "w-norway-unstad-beach",
+    "name": "Unstad Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/unstad-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Unstad",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WSW to NNW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ESE (surfnerd); E (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "exposed (surf-forecast: 'exposed point break')",
+    "hazards": [
+     "rocks (surf-forecast)",
+     "rips (surf-forecast)",
+     "unlikely to be too crowded, even when the surf is up (surf-forecast)"
+    ],
+    "season": "can work at any time of the year (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Unstad (Lofoten)'. Surfnerd also has https://www.surfnerd.com/surf-forecast/unstad-right for this break."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 37.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 37.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-unstad-left",
+   "name": "Unstad Left",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Point",
+   "lat": 68.269,
+   "lon": 13.57,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/unstad-left"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/unstad-left"
+   },
+   "facts": {
+    "spotId": "w-norway-unstad-left",
+    "name": "Unstad Left",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/unstad-left",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to W, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 270
+    },
+    "swellExposure": "WSW to NNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 4,
+     "max": 15
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 38.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 38.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-utakleiv",
+   "name": "Utakleiv",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 68.211,
+   "lon": 13.5,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/utakleiv"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/utakleiv"
+   },
+   "facts": {
+    "spotId": "w-norway-utakleiv",
+    "name": "Utakleiv",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/utakleiv",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to WNW, NW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 40.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 40.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 7.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-flakstad",
+   "name": "Flakstad",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 68.105,
+   "lon": 13.287,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/flakstad"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/flakstad"
+   },
+   "facts": {
+    "spotId": "w-norway-flakstad",
+    "name": "Flakstad",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/flakstad",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WNW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 50.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 50.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 14.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-kvalvika",
+   "name": "Kvalvika",
+   "country": "Norway",
+   "region": "Nordland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 68.077,
+   "lon": 13.092,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kvalvika"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kvalvika"
+   },
+   "facts": {
+    "spotId": "w-norway-kvalvika",
+    "name": "Kvalvika",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kvalvika",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "W to NNW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KabelvaagTG",
+     "name": "KabelvaagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 59.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kabe",
+     "name": "Kabelvåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 59.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kabe"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENLK",
+     "name": "Leknes",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 23.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENLK&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-hustadvika",
+   "name": "Hustadvika",
+   "country": "Norway",
+   "region": "Møre og Romsdal",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 62.984,
+   "lon": 7.153,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hustadvika"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hustadvika"
+   },
+   "facts": {
+    "spotId": "w-norway-hustadvika",
+    "name": "Hustadvika",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hustadvika",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WNW to NW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "rock ledge (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 12
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS KristiansundTG",
+     "name": "KristiansundTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 32.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kris",
+     "name": "Kristiansund",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 32.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kris"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENML",
+     "name": "Molde",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 27.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENML&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-godoy",
+   "name": "Godøy",
+   "country": "Norway",
+   "region": "Møre og Romsdal",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 62.486,
+   "lon": 5.964,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/godoy"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/godoy"
+   },
+   "facts": {
+    "spotId": "w-norway-godoy",
+    "name": "Godøy",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/godoy",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to NW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 4,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS AalesundTG",
+     "name": "AalesundTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 9.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ales",
+     "name": "Ålesund",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 9.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ales"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENAL",
+     "name": "Alesund",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 11.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENAL&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-ervik",
+   "name": "Ervik",
+   "country": "Norway",
+   "region": "Vestland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 62.167,
+   "lon": 5.108,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ervik"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ervik"
+   },
+   "facts": {
+    "spotId": "w-norway-ervik",
+    "name": "Ervik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ervik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WNW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS MaloyTG",
+     "name": "MaloyTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 25.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malo",
+     "name": "Måløy",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 26.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENOV",
+     "name": "Orsta-Volda",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 50.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENOV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-hoddevika",
+   "name": "Hoddevika",
+   "country": "Norway",
+   "region": "Vestland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 62.124,
+   "lon": 5.154,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hoddevika"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hoddevika"
+   },
+   "facts": {
+    "spotId": "w-norway-hoddevika",
+    "name": "Hoddevika",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hoddevika",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to NW, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WNW to NW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS MaloyTG",
+     "name": "MaloyTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 21.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malo",
+     "name": "Måløy",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 21.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENOV",
+     "name": "Orsta-Volda",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 48.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENOV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-saltstein",
+   "name": "Saltstein",
+   "country": "Norway",
+   "region": "Vestfold",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 58.969,
+   "lon": 9.838,
+   "seaward": 202,
+   "positionSource": {
+    "text": "OSM node 6837174281 (natural:hill): Saltstein, Værvågen, Nevlunghavn, Larvik, Vestfold, 3296, Norge; 0.95 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/node/6837174281"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd \"Faces SSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/saltstein"
+   },
+   "facts": {
+    "spotId": "w-norway-saltstein",
+    "name": "Saltstein",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/saltstein",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Saltstein",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSW (surfnerd)",
+    "facingDeg": 202,
+    "swellWorkable": {
+     "text": "E to SW, best SW (surfnerd)",
+     "fromDeg": 90,
+     "toDeg": 225
+    },
+    "swellExposure": "SSW to SW (surfnerd)",
+    "idealSwell": "SW (surfnerd); SSW (surf-forecast)",
+    "windOffshore": "NNE (surfnerd); NE (surf-forecast); wind exposure NNW to ENE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "exposed (surf-forecast: 'exposed reef break')",
+    "hazards": [
+     "even when there are waves, it's not likley to be crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Saltstein or Saltstone' paired by name, its pin 1.3 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS VaderoarnaWR",
+     "name": "VaderoarnaWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 82.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS BrofjordenWR",
+     "name": "BrofjordenWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 113.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Vaderoarna2",
+     "name": "Vaderoarna2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 81.9,
+     "live": false,
+     "liveBasis": "last observation 1986-12-18T23:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HelgeroaTG",
+     "name": "HelgeroaTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC helgz",
+     "name": "Helgeroa",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=helgz"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENSN",
+     "name": "Skien",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 28.6,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENSN&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-hellsto",
+   "name": "Hellstø",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 58.843,
+   "lon": 5.557,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hellsto"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hellsto"
+   },
+   "facts": {
+    "spotId": "w-norway-hellsto",
+    "name": "Hellstø",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hellsto",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "W to NW, best W (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WSW, WSW to WNW, NW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 11.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 11.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 6.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-byberg",
+   "name": "Byberg",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Point",
+   "lat": 58.834,
+   "lon": 5.551,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/byberg"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/byberg"
+   },
+   "facts": {
+    "spotId": "w-norway-byberg",
+    "name": "Byberg",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/byberg",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WSW, WSW to NW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 4,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 11.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 11.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-suppa",
+   "name": "Suppå",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 58.822,
+   "lon": 5.537,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/suppa"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/suppa"
+   },
+   "facts": {
+    "spotId": "w-norway-suppa",
+    "name": "Suppå",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/suppa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to W, WNW to NW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 4,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 8.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-sele",
+   "name": "Sele",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Point",
+   "lat": 58.813,
+   "lon": 5.543,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/sele"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/sele"
+   },
+   "facts": {
+    "spotId": "w-norway-sele",
+    "name": "Sele",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sele",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sele",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SW to NW, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WNW, NW (surfnerd)",
+    "idealSwell": "SW (surfnerd); W (surf-forecast)",
+    "windOffshore": "ENE (surfnerd); east and there is no shelter here from cross shore breezes (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "exposed (surf-forecast: 'exposed point break')",
+    "hazards": [
+     "it very rarely gets crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 13.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 13.2,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 8.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-bore",
+   "name": "Bore",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 58.799,
+   "lon": 5.546,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/bore"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/bore"
+   },
+   "facts": {
+    "spotId": "w-norway-bore",
+    "name": "Bore",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bore",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Bore",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NW (surfnerd)",
+    "idealSwell": "NW (surfnerd); W (surf-forecast)",
+    "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed beach break')",
+    "hazards": [
+     "the strong rips here (surf-forecast)",
+     "sometimes crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 13.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 13.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 10.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-steinen",
+   "name": "Steinen",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 58.785,
+   "lon": 5.534,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/steinen"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/steinen"
+   },
+   "facts": {
+    "spotId": "w-norway-steinen",
+    "name": "Steinen",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/steinen",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 4,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 15.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 15.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 11.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-reve-havn",
+   "name": "Reve Havn",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 58.772,
+   "lon": 5.516,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/reve-havn"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/reve-havn"
+   },
+   "facts": {
+    "spotId": "w-norway-reve-havn",
+    "name": "Reve Havn",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/reve-havn",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "W to NW, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "W to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 4,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Reve Havn' (https://www.surf-forecast.com/breaks/Reve-Havn) matches by name but its pin is 5.7 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 17.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 17.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 13.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-pigsty-piggy",
+   "name": "Pigsty/Piggy",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 58.763,
+   "lon": 5.499,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/pigsty-piggy"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/pigsty-piggy"
+   },
+   "facts": {
+    "spotId": "w-norway-pigsty-piggy",
+    "name": "Pigsty/Piggy",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pigsty-piggy",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "W to NW, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 18.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 18.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 15.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-point-perfect",
+   "name": "Point Perfect",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Point",
+   "lat": 58.697,
+   "lon": 5.538,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/point-perfect"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/point-perfect"
+   },
+   "facts": {
+    "spotId": "w-norway-point-perfect",
+    "name": "Point Perfect",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/point-perfect",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to NW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "S to NW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 22.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 22.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 20.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-refsnes",
+   "name": "Refsnes",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 58.692,
+   "lon": 5.549,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/refsnes"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/refsnes"
+   },
+   "facts": {
+    "spotId": "w-norway-refsnes",
+    "name": "Refsnes",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/refsnes",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SW to NW, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to NW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SandnesTG",
+     "name": "SandnesTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 22.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Sandn",
+     "name": "Sandnes",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 22.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Sandn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 21.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-kvassheim",
+   "name": "Kvassheim",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Point",
+   "lat": 58.549,
+   "lon": 5.669,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kvassheim"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kvassheim"
+   },
+   "facts": {
+    "spotId": "w-norway-kvassheim",
+    "name": "Kvassheim",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kvassheim",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "SE to NW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SirevagTG",
+     "name": "SirevagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 8.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sire",
+     "name": "Sirevåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 8.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sire"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 36.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-brusand",
+   "name": "Brusand",
+   "country": "Norway",
+   "region": "Rogaland",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 58.529,
+   "lon": 5.769,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/brusand"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/brusand"
+   },
+   "facts": {
+    "spotId": "w-norway-brusand",
+    "name": "Brusand",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/brusand",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "NW to SE, best S (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 135
+    },
+    "swellExposure": "SSE to W (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SirevagTG",
+     "name": "SirevagTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 3.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sire",
+     "name": "Sirevåg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 3.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sire"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ENZV",
+     "name": "Stavanger",
+     "owner": "via IEM (NO__ASOS)",
+     "distanceKm": 39.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENZV&network=NO__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-norway-lista",
+   "name": "Lista",
+   "country": "Norway",
+   "region": "Agder",
+   "timeZone": "Europe/Oslo",
+   "type": "Reef",
+   "lat": 58.051,
+   "lon": 6.648,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/lista"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/lista"
+   },
+   "facts": {
+    "spotId": "w-norway-lista",
+    "name": "Lista",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lista",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "NW to E, best SW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 90
+    },
+    "swellExposure": "ESE to WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Lista (Bausje)' (https://www.surf-forecast.com/breaks/Lista-Bausje) matches by name but its pin is 4.2 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS TregdeTG",
+     "name": "TregdeTG",
+     "owner": "Norwegian Hydrographic Service (Copernicus Marine in situ)",
+     "distanceKm": 53.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC treg",
+     "name": "Tregde",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 53.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=treg"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Unstad Right",
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/unstad-right) for the same break as w-norway-unstad-beach (pins 372 m apart); the fuller page is kept."
+  },
+  {
+   "name": "Alnes Lighthouse",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alnes-Lighthouse); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ervika",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ervika); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Farstadstranda",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Farstadstranda); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Flo",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Flo); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Havik",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Havik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hellesto",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/hellesto); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hoddevik",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hoddevik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Njerve Pipeline",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Njerve-Pipeline); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Seines",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Seines); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ulla",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ulla); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Monumentet",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Uredd-Monument); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

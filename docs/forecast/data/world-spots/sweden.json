@@ -1,0 +1,1835 @@
+{
+ "region": "Sweden",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-sweden-lillsnack-point",
+   "name": "Lillsnäck Point",
+   "country": "Sweden",
+   "region": "Västerbotten County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Reef",
+   "lat": 64.79,
+   "lon": 21.127,
+   "seaward": 112,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/lillsnack-point"
+   },
+   "facingSource": {
+    "text": "ESE (surfnerd \"Faces ESE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/lillsnack-point"
+   },
+   "facts": {
+    "spotId": "w-sweden-lillsnack-point",
+    "name": "Lillsnäck Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lillsnack-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ESE (surfnerd)",
+    "facingDeg": 112,
+    "swellWorkable": {
+     "text": "NE to S, best NE (surfnerd)",
+     "fromDeg": 45,
+     "toDeg": 180
+    },
+    "swellExposure": "NE to ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "WNW (surfnerd); wind exposure WSW to NNW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS BothnianBay",
+     "name": "BothnianBay",
+     "owner": "FMI (Copernicus Marine in situ)",
+     "distanceKm": 100.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T02:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Furuogrund",
+     "name": "Furuogrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 14.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC furu",
+     "name": "Furuogrund",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 14.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:48 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=furu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESNS",
+     "name": "Skelleftea",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 18.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESNS&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-sikhjalma",
+   "name": "Sikhjalma",
+   "country": "Sweden",
+   "region": "Uppsala County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Point",
+   "lat": 60.58,
+   "lon": 17.801,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/sikhjalma"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/sikhjalma"
+   },
+   "facts": {
+    "spotId": "w-sweden-sikhjalma",
+    "name": "Sikhjalma",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sikhjalma",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "N to NE, best NE (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 45
+    },
+    "swellExposure": "NW to NE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Sikhjalma' (https://www.surf-forecast.com/breaks/Sikhjalma) matches by name but its pin is 5.4 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS FinngrundetWR",
+     "name": "FinngrundetWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 56.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Orskar",
+     "name": "Orskar",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 39.6,
+     "live": false,
+     "liveBasis": "last observation 1989-12-17T10:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Forsmark",
+     "name": "Forsmark",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 29.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC fors",
+     "name": "Forsmark",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 29.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:48 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fors"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESSK",
+     "name": "Gavle",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 46.4,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESSK&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-vaddo",
+   "name": "Vaddo",
+   "country": "Sweden",
+   "region": "Stockholm County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Point",
+   "lat": 59.991,
+   "lon": 18.913,
+   "seaward": 22,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/vaddo"
+   },
+   "facingSource": {
+    "text": "NNE (surfnerd \"Faces NNE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/vaddo"
+   },
+   "facts": {
+    "spotId": "w-sweden-vaddo",
+    "name": "Vaddo",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vaddo",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd)",
+    "facingDeg": 22,
+    "swellWorkable": {
+     "text": "N to NE, best N (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 45
+    },
+    "swellExposure": "N to NNE, NNE to NE, ENE to SE (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "SSW (surfnerd); wind exposure SSE to WSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS FinngrundetWR",
+     "name": "FinngrundetWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 102.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Uto",
+     "name": "Uto",
+     "owner": "FMI (Copernicus Marine in situ)",
+     "distanceKm": 138.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:10:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Almagrundet",
+     "name": "Almagrundet",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 94.3,
+     "live": false,
+     "liveBasis": "last observation 2003-12-31T23:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Forsmark",
+     "name": "Forsmark",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 60.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC fors",
+     "name": "Forsmark",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 60.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:48 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fors"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-toro-stenstrand",
+   "name": "Torö Stenstrand",
+   "country": "Sweden",
+   "region": "Stockholm County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Reef",
+   "lat": 58.796,
+   "lon": 17.807,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/toro-stenstrand"
+   },
+   "facingSource": {
+    "text": "S (surfnerd \"Faces S\")",
+    "url": "https://www.surfnerd.com/surf-forecast/toro-stenstrand"
+   },
+   "facts": {
+    "spotId": "w-sweden-toro-stenstrand",
+    "name": "Torö Stenstrand",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/toro-stenstrand",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "S (surfnerd)",
+    "facingDeg": 180,
+    "swellWorkable": {
+     "text": "SE to SW, best SE (surfnerd)",
+     "fromDeg": 135,
+     "toDeg": 225
+    },
+    "swellExposure": "SSE to SW (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 10
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Toro' (https://www.surf-forecast.com/breaks/Toro) matches by name but its pin is 7.2 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Knollsgrund",
+     "name": "Knollsgrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 142.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS GustavDahlen",
+     "name": "GustavDahlen",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 29.4,
+     "live": false,
+     "liveBasis": "last observation 1997-11-29T00:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC land",
+     "name": "Landsort Norra",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 4.2,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=land"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS LandsortNorra",
+     "name": "LandsortNorra",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 4.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESKN",
+     "name": "Stockholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 51.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESKN&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-kappelhamnsviken",
+   "name": "Kappelhamnsviken",
+   "country": "Sweden",
+   "region": "Gotland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Point",
+   "lat": 57.93,
+   "lon": 18.739,
+   "seaward": 22,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kappelhamnsviken"
+   },
+   "facingSource": {
+    "text": "NNE (surfnerd \"Faces NNE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kappelhamnsviken"
+   },
+   "facts": {
+    "spotId": "w-sweden-kappelhamnsviken",
+    "name": "Kappelhamnsviken",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kappelhamnsviken",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd)",
+    "facingDeg": 22,
+    "swellWorkable": {
+     "text": "NW to NE, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 45
+    },
+    "swellExposure": "W to ENE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSW (surfnerd); wind exposure SSE to WSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Knollsgrund",
+     "name": "Knollsgrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 80.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS LasoOst",
+     "name": "LasoOst",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 49.3,
+     "live": false,
+     "liveBasis": "last observation 2009-11-11T01:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Slite",
+     "name": "Slite",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 25.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Visby",
+     "name": "Visby",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 42.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESSV",
+     "name": "Visby",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 37.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESSV&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-hogklint",
+   "name": "Hogklint",
+   "country": "Sweden",
+   "region": "Gotland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 57.601,
+   "lon": 18.21,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hogklint"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hogklint"
+   },
+   "facts": {
+    "spotId": "w-sweden-hogklint",
+    "name": "Hogklint",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hogklint",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to NE (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 45
+    },
+    "swellExposure": "W to NNE (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Knollsgrund",
+     "name": "Knollsgrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 36.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Visby1",
+     "name": "Visby1",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 3.2,
+     "live": false,
+     "liveBasis": "last observation 1987-07-15T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Visby",
+     "name": "Visby",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 6.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC visb",
+     "name": "Visby",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=visb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESSV",
+     "name": "Visby",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 10.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESSV&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-tofta",
+   "name": "Tofta",
+   "country": "Sweden",
+   "region": "Gotland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 57.489,
+   "lon": 18.123,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/tofta"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/tofta"
+   },
+   "facts": {
+    "spotId": "w-sweden-tofta",
+    "name": "Tofta",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/tofta",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "S to N, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to NNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Tofta' (https://www.surf-forecast.com/breaks/Tofta) matches by name but its pin is 3.7 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Knollsgrund",
+     "name": "Knollsgrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 30.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Visby1",
+     "name": "Visby1",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 10.8,
+     "live": false,
+     "liveBasis": "last observation 1987-07-15T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Visby",
+     "name": "Visby",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 19.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC visb",
+     "name": "Visby",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 19.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=visb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESSV",
+     "name": "Visby",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 23.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESSV&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-asa",
+   "name": "Asa",
+   "country": "Sweden",
+   "region": "Halland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Reef",
+   "lat": 57.339,
+   "lon": 12.092,
+   "seaward": 158,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/asa"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd \"Faces SSE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/asa"
+   },
+   "facts": {
+    "spotId": "w-sweden-asa",
+    "name": "Asa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/asa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Asa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSE (surfnerd)",
+    "facingDeg": 158,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "S to SW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NNW (surfnerd); SE (surf-forecast); wind exposure WNW to NNE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "rock (surfnerd)",
+    "waveType": "ledge",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "sheltered (surf-forecast: 'sheltered beach and reef break')",
+    "hazards": [
+     "rocks (surf-forecast)",
+     "rarely crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Asa' paired by name, its pin 1.6 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS BrofjordenWR",
+     "name": "BrofjordenWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 113.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS VaderoarnaWR",
+     "name": "VaderoarnaWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 145.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fladen2",
+     "name": "Fladen2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 20.7,
+     "live": false,
+     "liveBasis": "last observation 1999-08-31T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Ringhals",
+     "name": "Ringhals",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 10.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ring",
+     "name": "Ringhals",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ring"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESGG",
+     "name": "Gothenborg",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 39.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESGG&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-angjarnsudden",
+   "name": "Angjarnsudden",
+   "country": "Sweden",
+   "region": "Kalmar County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 57.273,
+   "lon": 17.062,
+   "seaward": 90,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/angjarnsudden"
+   },
+   "facingSource": {
+    "text": "E (surfnerd \"Faces E\")",
+    "url": "https://www.surfnerd.com/surf-forecast/angjarnsudden"
+   },
+   "facts": {
+    "spotId": "w-sweden-angjarnsudden",
+    "name": "Angjarnsudden",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/angjarnsudden",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Angjarnsudden",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "E (surfnerd)",
+    "facingDeg": 90,
+    "swellWorkable": {
+     "text": "NE to S, best SE (surfnerd)",
+     "fromDeg": 45,
+     "toDeg": 180
+    },
+    "swellExposure": "NE to SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W (surfnerd); WNW (surf-forecast); wind exposure SW to NW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "even when there are waves, it's not likley to be crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Angjarnsudden' paired by name, its pin 1.4 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Knollsgrund",
+     "name": "Knollsgrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 42.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS OlandsNorraUdde",
+     "name": "OlandsNorraUdde",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 10.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC olan",
+     "name": "Olands norra udde",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=olan"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-apelviken",
+   "name": "Apelviken",
+   "country": "Sweden",
+   "region": "Halland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 57.082,
+   "lon": 12.254,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/apelviken"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/apelviken"
+   },
+   "facts": {
+    "spotId": "w-sweden-apelviken",
+    "name": "Apelviken",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/apelviken",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "SW to NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to W (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS BrofjordenWR",
+     "name": "BrofjordenWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 143.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fladen2",
+     "name": "Fladen2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 29.5,
+     "live": false,
+     "liveBasis": "last observation 1999-08-31T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Varberg2",
+     "name": "Varberg2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC varb",
+     "name": "Varberg2",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 3.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=varb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMT",
+     "name": "Halmstad",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 55.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMT&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-traslovslage",
+   "name": "Traslovslage",
+   "country": "Sweden",
+   "region": "Halland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Point",
+   "lat": 57.05,
+   "lon": 12.264,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/traslovslage"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/traslovslage"
+   },
+   "facts": {
+    "spotId": "w-sweden-traslovslage",
+    "name": "Traslovslage",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/traslovslage",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Traslovslage",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "S to W (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "SSE to NW (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "ENE (both); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "quite exposed (surf-forecast: 'quite exposed point break')",
+    "hazards": [
+     "even when there are waves, it's not likley to be crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Traslovslage' paired by name, its pin 1.4 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS BrofjordenWR",
+     "name": "BrofjordenWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 147.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fladen2",
+     "name": "Fladen2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 31.9,
+     "live": false,
+     "liveBasis": "last observation 1999-08-31T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Varberg2",
+     "name": "Varberg2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 6.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC varb",
+     "name": "Varberg2",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 7.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=varb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMT",
+     "name": "Halmstad",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 52.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMT&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-glommen",
+   "name": "Glommen",
+   "country": "Sweden",
+   "region": "Halland County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Point",
+   "lat": 56.924,
+   "lon": 12.351,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/glommen"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/glommen"
+   },
+   "facts": {
+    "spotId": "w-sweden-glommen",
+    "name": "Glommen",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/glommen",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Glommen",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "S to NW, best NW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "SSE to WSW, WSW to NW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); NE (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 4
+    },
+    "exposure": "exposed (surf-forecast: 'exposed point break')",
+    "hazards": [
+     "it's sometimes crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Glommen' paired by name, its pin 0.9 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fladen2",
+     "name": "Fladen2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 45.2,
+     "live": false,
+     "liveBasis": "last observation 1999-08-31T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Falkenberg",
+     "name": "Falkenberg",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 9.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC falk",
+     "name": "Falkenberg",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 9.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:48 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=falk"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMT",
+     "name": "Halmstad",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 38.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMT&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-haga-park",
+   "name": "Haga Park",
+   "country": "Sweden",
+   "region": "Kalmar County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Reef",
+   "lat": 56.534,
+   "lon": 16.381,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/haga-park"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/haga-park"
+   },
+   "facts": {
+    "spotId": "w-sweden-haga-park",
+    "name": "Haga Park",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/haga-park",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "S (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "rock ledge (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Haga Park' (https://www.surf-forecast.com/breaks/Haga-Park) matches by name but its pin is 3.5 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Knollsgrund",
+     "name": "Knollsgrund",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 132.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Kristianopel",
+     "name": "Kristianopel",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 44.0,
+     "live": false,
+     "liveBasis": "last observation 1991-03-13T08:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kalm",
+     "name": "Kalmar",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 13.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:48 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kalm"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Kalmar",
+     "name": "Kalmar",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 15.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMQ",
+     "name": "Kalkmar",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 22.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMQ&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-molle",
+   "name": "Mölle",
+   "country": "Sweden",
+   "region": "Skåne County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Point",
+   "lat": 56.284,
+   "lon": 12.491,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/molle"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/molle"
+   },
+   "facts": {
+    "spotId": "w-sweden-molle",
+    "name": "Mölle",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/molle",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to WSW, W to WNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 147.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 33.1,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Viken",
+     "name": "Viken",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 16.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC vikew",
+     "name": "Viken",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 16.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vikew"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 22.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-gronhogen",
+   "name": "Gronhogen",
+   "country": "Sweden",
+   "region": "Kalmar County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 56.263,
+   "lon": 16.4,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/gronhogen"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/gronhogen"
+   },
+   "facts": {
+    "spotId": "w-sweden-gronhogen",
+    "name": "Gronhogen",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gronhogen",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Gronhogen",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SE to SW, best SW (surfnerd)",
+     "fromDeg": 135,
+     "toDeg": 225
+    },
+    "swellExposure": "S to SW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "it very rarely gets crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Gronhogen' paired by name, its pin 1.4 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Kristianopel",
+     "name": "Kristianopel",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 20.5,
+     "live": false,
+     "liveBasis": "last observation 1991-03-13T08:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC kalm",
+     "name": "Kalmar",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 44.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:48 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kalm"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Kalmar",
+     "name": "Kalmar",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 45.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMQ",
+     "name": "Kalkmar",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 52.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMQ&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-vik",
+   "name": "Vik",
+   "country": "Sweden",
+   "region": "Skåne County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 55.621,
+   "lon": 14.284,
+   "seaward": 68,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/vik"
+   },
+   "facingSource": {
+    "text": "ENE (surfnerd \"Faces ENE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/vik"
+   },
+   "facts": {
+    "spotId": "w-sweden-vik",
+    "name": "Vik",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vik",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ENE (surfnerd)",
+    "facingDeg": 68,
+    "swellWorkable": {
+     "text": "NE to SE, best E (surfnerd)",
+     "fromDeg": 45,
+     "toDeg": 135
+    },
+    "swellExposure": "NNE to SE (surfnerd)",
+    "idealSwell": "E (surfnerd)",
+    "windOffshore": "WSW (surfnerd); wind exposure SSW to WNW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Vik' (https://www.surf-forecast.com/breaks/Vik) matches by name but its pin is 4.4 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600366",
+     "name": "6600366",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 86.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T02:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 98.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Karlskrona",
+     "name": "Karlskrona",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 73.3,
+     "live": false,
+     "liveBasis": "last observation 1986-01-15T10:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Simrishamn",
+     "name": "Simrishamn",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 8.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC simr",
+     "name": "Simrishamn",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 8.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=simr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMK",
+     "name": "Kristianstad",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 35.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMK&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sweden-kaseberga",
+   "name": "Kåseberga",
+   "country": "Sweden",
+   "region": "Skåne County",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 55.384,
+   "lon": 14.067,
+   "seaward": 158,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kaseberga"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd \"Faces SSE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kaseberga"
+   },
+   "facts": {
+    "spotId": "w-sweden-kaseberga",
+    "name": "Kåseberga",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kaseberga",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kaseberga",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSE (surfnerd)",
+    "facingDeg": 158,
+    "swellWorkable": {
+     "text": "SW to NE, best SE (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 45
+    },
+    "swellExposure": "SE to SW (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NNW (surfnerd); north and there is no shelter here from cross shore breezes (surf-forecast); wind exposure WNW to NNE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "reasonably exposed (surf-forecast: 'reasonably exposed point break')",
+    "hazards": [
+     "even when the surf is up, crowds are unknown (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600366",
+     "name": "6600366",
+     "owner": "Federal Maritime and Hydrographic Agency- Dept. Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 57.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T02:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 71.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Ystad2",
+     "name": "Ystad2",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 15.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:00:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ysta",
+     "name": "Ystad2",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 15.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 06:58 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ysta"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESMS",
+     "name": "Malmoe",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 46.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMS&network=SE__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Faro Island",
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/faro-island) gives no \"Faces\" direction, and no other guide states one."
+  },
+  {
+   "name": "Melbystrand",
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/melbystrand) gives no \"Faces\" direction, and no other guide states one."
+  },
+  {
+   "name": "Appelviken",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Appelviken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Faro",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Faro); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ireviken",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ireviken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Mellbystrand",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Mellbystrand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Valnäs - Nord Koster",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Valnas-Nord-Koster); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

@@ -1,0 +1,775 @@
+{
+ "region": "Israel",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-israel-hazuk-beach",
+   "name": "Hazuk Beach",
+   "country": "Israel",
+   "region": "Tel Aviv Subdistrict, Tel-Aviv District",
+   "timeZone": "Asia/Jerusalem",
+   "type": "Beach",
+   "lat": 32.14,
+   "lon": 34.79,
+   "seaward": 292,
+   "positionSource": {
+    "text": "OSM way 37834604 (natural:beach): חוף הצוק, גלילות, תל־אביב–יפו, נפת תל אביב, מחוז תל אביב, ישראל; 0.47 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/37834604"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hazuk-beach"
+   },
+   "facts": {
+    "spotId": "w-israel-hazuk-beach",
+    "name": "Hazuk Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hazuk-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd",
+     "name": "Ashdod Port",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 37.2,
+     "live": false,
+     "liveBasis": "last data 2016-11-23 09:51 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hade",
+     "name": "Hadera",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 37.4,
+     "live": false,
+     "liveBasis": "last data 2018-07-15 08:42 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hade"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LLSD",
+     "name": "Tel-aviv",
+     "owner": "via IEM (IL__ASOS)",
+     "distanceKm": 2.9,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LLSD&network=IL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-israel-topsy",
+   "name": "Topsy",
+   "country": "Israel",
+   "region": "Tel Aviv Subdistrict, Tel-Aviv District",
+   "timeZone": "Asia/Jerusalem",
+   "type": "Beach",
+   "lat": 32.092,
+   "lon": 34.769,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/topsy"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/topsy"
+   },
+   "facts": {
+    "spotId": "w-israel-topsy",
+    "name": "Topsy",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/topsy",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "W to N, best SW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd",
+     "name": "Ashdod Port",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 31.5,
+     "live": false,
+     "liveBasis": "last data 2016-11-23 09:51 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd1",
+     "name": "Ashdod Marina",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 35.5,
+     "live": false,
+     "liveBasis": "last data 2020-12-17 11:00 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LLSD",
+     "name": "Tel-aviv",
+     "owner": "via IEM (IL__ASOS)",
+     "distanceKm": 2.8,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LLSD&network=IL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-israel-hilton-tel-aviv-district",
+   "name": "Hilton",
+   "country": "Israel",
+   "region": "Tel Aviv Subdistrict, Tel-Aviv District",
+   "timeZone": "Asia/Jerusalem",
+   "type": "Reef",
+   "lat": 32.089,
+   "lon": 34.768,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hilton-tel-aviv-district"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hilton-tel-aviv-district"
+   },
+   "facts": {
+    "spotId": "w-israel-hilton-tel-aviv-district",
+    "name": "Hilton",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hilton-tel-aviv-district",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hilton",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to NNW (surfnerd)",
+    "idealSwell": "SW (surfnerd); WSW (surf-forecast)",
+    "windOffshore": "ESE (surfnerd); E (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed reef break')",
+    "hazards": [
+     "rocks (surf-forecast)",
+     "it's sometimes crowded here (surf-forecast)"
+    ],
+    "season": "Winter is the best time of year for surfing here (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd",
+     "name": "Ashdod Port",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 31.1,
+     "live": false,
+     "liveBasis": "last data 2016-11-23 09:51 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd1",
+     "name": "Ashdod Marina",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 35.2,
+     "live": false,
+     "liveBasis": "last data 2020-12-17 11:00 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LLSD",
+     "name": "Tel-aviv",
+     "owner": "via IEM (IL__ASOS)",
+     "distanceKm": 3.2,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LLSD&network=IL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-israel-dolphinarium",
+   "name": "Dolphinarium",
+   "country": "Israel",
+   "region": "Tel Aviv Subdistrict, Tel-Aviv District",
+   "timeZone": "Asia/Jerusalem",
+   "type": "Beach",
+   "lat": 32.07,
+   "lon": 34.763,
+   "seaward": 292,
+   "positionSource": {
+    "text": "OSM way 183536456 (natural:beach): חוף אביב, כרם התימנים, העיר הלבנה בתל אביב, תל־אביב–יפו, נפת תל אביב, מחוז תל אביב, ישראל; 0.35 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/183536456"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/dolphinarium"
+   },
+   "facts": {
+    "spotId": "w-israel-dolphinarium",
+    "name": "Dolphinarium",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dolphinarium",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd",
+     "name": "Ashdod Port",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 29.0,
+     "live": false,
+     "liveBasis": "last data 2016-11-23 09:51 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd1",
+     "name": "Ashdod Marina",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 33.1,
+     "live": false,
+     "liveBasis": "last data 2020-12-17 11:00 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LLSD",
+     "name": "Tel-aviv",
+     "owner": "via IEM (IL__ASOS)",
+     "distanceKm": 5.3,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LLSD&network=IL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-israel-hof-maravi",
+   "name": "Hof Maravi",
+   "country": "Israel",
+   "region": "Tel Aviv Subdistrict, Tel-Aviv District",
+   "timeZone": "Asia/Jerusalem",
+   "type": "Beach",
+   "lat": 32.058,
+   "lon": 34.755,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hof-maravi"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hof-maravi"
+   },
+   "facts": {
+    "spotId": "w-israel-hof-maravi",
+    "name": "Hof Maravi",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hof-maravi",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Maravi",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to NW, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WSW to NNE (surfnerd)",
+    "idealSwell": "SW (both)",
+    "windOffshore": "SE (both); wind exposure E to S (surfnerd); some shelter from S winds (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed beach break')",
+    "hazards": [
+     "buoys (surf-forecast)",
+     "when it's working here, it can get crowded (surf-forecast)"
+    ],
+    "season": "Winter is the best time of year for surfing here (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Maravi'."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd",
+     "name": "Ashdod Port",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 27.5,
+     "live": false,
+     "liveBasis": "last data 2016-11-23 09:51 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd1",
+     "name": "Ashdod Marina",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 31.5,
+     "live": false,
+     "liveBasis": "last data 2020-12-17 11:00 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LLSD",
+     "name": "Tel-aviv",
+     "owner": "via IEM (IL__ASOS)",
+     "distanceKm": 6.8,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LLSD&network=IL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-israel-bat-yam",
+   "name": "Bat Yam",
+   "country": "Israel",
+   "region": "Tel Aviv Subdistrict, Tel-Aviv District",
+   "timeZone": "Asia/Jerusalem",
+   "type": "Beach",
+   "lat": 32.018,
+   "lon": 34.736,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/bat-yam"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/bat-yam"
+   },
+   "facts": {
+    "spotId": "w-israel-bat-yam",
+    "name": "Bat Yam",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bat-yam",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd",
+     "name": "Ashdod Port",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 22.7,
+     "live": false,
+     "liveBasis": "last data 2016-11-23 09:51 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ashd1",
+     "name": "Ashdod Marina",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 26.7,
+     "live": false,
+     "liveBasis": "last data 2020-12-17 11:00 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ashd1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LLSD",
+     "name": "Tel-aviv",
+     "owner": "via IEM (IL__ASOS)",
+     "distanceKm": 11.6,
+     "live": false,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LLSD&network=IL__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Acre (Mifalim) or Ako",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Acre-Mifalim); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Al Gal",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Al-Gal); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ambatia Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ambatia-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Antenot",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Antenot); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Apolonia",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Apolonia); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Argaman's Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Argamans-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ashdod -Hshover (Port)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ashdod-hshover); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ashkelon Shimshon",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ashkelon); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "BackDoor (Haifa)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Back-Door-Haifa); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Bagira Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Bagira); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Bat Galim",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Bat-Galim); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Bat-yam (al gal) or Tubego Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Bat-Yam); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Betset",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Betset); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Dabush",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dabush); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Danger",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Danger); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Dolphinarium",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dolphinarium); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Dosim Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dosim-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Dromi (Ashdod)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dromi-Ashdod); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Eilat (Green Beach)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Eilat-Green-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Frishman",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Frishman); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Gaza Harbourmouth",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Gaza-Harbourmouth); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Gordon Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Gordon-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Green Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Green-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ha-Arubot (Bet Yanay)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ha-Arubot); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ha Golshim",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ha-Golshim); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ha`Radar or Ha`Basiz",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ha-Radar); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Haambatia (Herzliya)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Haambatia-Herzliya); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hadromy - Marina Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hadromy); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hakshtot (Ashdod)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hakshtot-Ashdod); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hasharon Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hasharon-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hazuk",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hazuk); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hilton",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hilton_2); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hof Maravi",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hof-Maravi); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hof gil (Ashdod) or Hof Hadromi",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hofgil); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Igolim Ashdod",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Igolim-Ashdod); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kadarim or Dado beach (Haifa)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kadarim-Haifa); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kontiki (Herzelia)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kontiki-Herzelia); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Marina",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Marina_2); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Nahum Sokolow (Nahariya)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nahum-Sokolow-Nahariya); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Netanya (Poleg)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Netanya); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Neurim beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Neurim-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Neurim Youth Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Neurim-Youth-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Nirvana Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nirvana-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Palmachim - Htzinorot",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Palmachim-Htzinorot); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Papaya (Nahriya)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Papaya-Nahriya); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Pik or Meridian",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Pik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Shavei Tzion",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Shavei-Tzion); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Sheraton-Metzizim",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sheraton-Metzizim); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Shonit Beach Caesarea",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Shonit-Beach-Caesarea); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Sironit Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sironit-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "South Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/South-Beach_1); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Stalbeach (Haifa)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stal-Beach-Haifa); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Tayelet Ashkelon",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tayelet); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Te Peak (Hifa)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Te-Peak-Hifa); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Tel Baruch North Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tel-Baruch-North-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Tel Baruch South Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tel-Baruch-South-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "The Reef (Haifa)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/The-Reef_2); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Topsy or Hilton Bet",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Topsy); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ziqim ( Zikim) Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ziqim-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Zvulun Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Zvulun-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

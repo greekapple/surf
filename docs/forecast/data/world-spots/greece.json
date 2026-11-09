@@ -1,0 +1,1492 @@
+{
+ "region": "Greece",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-greece-kastro-greece",
+   "name": "Kastro - Greece",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Point",
+   "lat": 39.284,
+   "lon": 20.396,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kastro-greece"
+   },
+   "facingSource": {
+    "text": "S (surfnerd \"Faces S\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kastro-greece"
+   },
+   "facts": {
+    "spotId": "w-greece-kastro-greece",
+    "name": "Kastro - Greece",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kastro-greece",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kastro-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "S (surfnerd)",
+    "facingDeg": 180,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "S to SW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "boulders (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed point break')",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Kastro Point (Parga)'."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 148.8,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC lekm",
+     "name": "Lefkimmi, Kerkyra, Ionian Islands",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 29.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lekm"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 47.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 51.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-krioneri-panagis-island",
+   "name": "Krioneri/Panagis Island",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Reef",
+   "lat": 39.283,
+   "lon": 20.404,
+   "seaward": 202,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/krioneri-panagis-island"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd \"Faces SSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/krioneri-panagis-island"
+   },
+   "facts": {
+    "spotId": "w-greece-krioneri-panagis-island",
+    "name": "Krioneri/Panagis Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/krioneri-panagis-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Krioneri-Parga",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSW (surfnerd)",
+    "facingDeg": 202,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "SE to SW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NNE (surfnerd); wind exposure NNW to ENE (surfnerd); some shelter from SW winds (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach and reef break')",
+    "hazards": [
+     "sometimes crowded (surf-forecast)"
+    ],
+    "season": "Winter and spring are the best times of year to visit (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Krioneri (Parga)'."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 148.6,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC lekm",
+     "name": "Lefkimmi, Kerkyra, Ionian Islands",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 30.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lekm"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 46.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 50.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-amoudia-right",
+   "name": "Amoudia Right",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Reef",
+   "lat": 39.24,
+   "lon": 20.477,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/amoudia-right"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/amoudia-right"
+   },
+   "facts": {
+    "spotId": "w-greece-amoudia-right",
+    "name": "Amoudia Right",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/amoudia-right",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Amoudia-Right",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "SSW to WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); WNW (surf-forecast); wind exposure NNE to ESE (surfnerd); some shelter from N winds (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "it very rarely gets crowded here (surf-forecast)"
+    ],
+    "season": "Winter is the favoured time of year for surfing here (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd also has https://www.surfnerd.com/surf-forecast/amoudia-left for this break."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 143.2,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC lekm",
+     "name": "Lefkimmi, Kerkyra, Ionian Islands",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 37.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lekm"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 38.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 42.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-kerentza",
+   "name": "Kerentza",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Beach",
+   "lat": 39.217,
+   "lon": 20.486,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kerentza"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kerentza"
+   },
+   "facts": {
+    "spotId": "w-greece-kerentza",
+    "name": "Kerentza",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kerentza",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kerentza",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to NW, best NW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WSW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "NE (surfnerd); E (surf-forecast); wind exposure N to E (surfnerd); some shelter from S winds (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed reef break')",
+    "hazards": [
+     "urchins (surf-forecast)",
+     "rocks (surf-forecast)",
+     "rarely crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Kerentza' paired by name, its pin 1.0 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 140.6,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 36.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 36.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 40.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-loutsa",
+   "name": "Loutsa",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Beach",
+   "lat": 39.18,
+   "lon": 20.541,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/loutsa"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/loutsa"
+   },
+   "facts": {
+    "spotId": "w-greece-loutsa",
+    "name": "Loutsa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/loutsa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Loutsa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to NW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "S to W, W to WNW (surfnerd)",
+    "idealSwell": "SW (both)",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "the strong rips here (surf-forecast)",
+     "even when there are waves, it's not likley to be crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 136.2,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 30.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 30.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 34.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-teris-point",
+   "name": "Teris Point",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Beach",
+   "lat": 39.155,
+   "lon": 20.564,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/teris-point"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/teris-point"
+   },
+   "facts": {
+    "spotId": "w-greece-teris-point",
+    "name": "Teris Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/teris-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Teris-Point-Lygias",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "S to W, WNW (surfnerd)",
+    "idealSwell": "SW (both)",
+    "windOffshore": "ENE (surfnerd); northeast and there is no shelter here from cross shore breezes (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "the location means that it never gets crowded (surf-forecast)"
+    ],
+    "season": "Winter and spring are the best times of year to visit (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Teris Point (Lygias)' paired by name, its pin 1.3 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 133.4,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 26.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 26.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 30.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-lygia",
+   "name": "Lygia",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Beach",
+   "lat": 39.147,
+   "lon": 20.572,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/lygia"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/lygia"
+   },
+   "facts": {
+    "spotId": "w-greece-lygia",
+    "name": "Lygia",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lygia",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lygia-Preveza",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "S to W, WNW (surfnerd)",
+    "idealSwell": "SW (both)",
+    "windOffshore": "NE (both); wind exposure N to E (surfnerd); some shelter from SE winds (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "unlikely to be too crowded, even when the surf is up (surf-forecast)"
+    ],
+    "season": "Winter and spring are the best times of year to visit (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Lygia (Preveza)' paired by name, its pin 0.9 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 132.5,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 25.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 25.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 29.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-the-reef-greece",
+   "name": "The Reef - Greece",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Reef",
+   "lat": 39.12,
+   "lon": 20.595,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/the-reef-greece"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/the-reef-greece"
+   },
+   "facts": {
+    "spotId": "w-greece-the-reef-greece",
+    "name": "The Reef - Greece",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/the-reef-greece",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lygia-reef",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "SW to W, best W (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 270
+    },
+    "swellExposure": "S to W, WNW (surfnerd)",
+    "idealSwell": "W (surfnerd); SW (surf-forecast)",
+    "windOffshore": "NE (surfnerd); northeast and there is no shelter here from cross shore breezes (surf-forecast); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed reef break')",
+    "hazards": [
+     "urchins (surf-forecast)",
+     "rips (surf-forecast)",
+     "when it's working here, it can get crowded (surf-forecast)"
+    ],
+    "season": "Winter and spring are the best times of year to visit (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Lygia reef' paired by name, its pin 1.1 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 129.4,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 22.2,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 22.2,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 26.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-kattouristra",
+   "name": "Kattouristra",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Beach",
+   "lat": 39.094,
+   "lon": 20.647,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kattouristra"
+   },
+   "facingSource": {
+    "text": "S (surfnerd \"Faces S\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kattouristra"
+   },
+   "facts": {
+    "spotId": "w-greece-kattouristra",
+    "name": "Kattouristra",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kattouristra",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "S (surfnerd)",
+    "facingDeg": 180,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "SSW to WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "rivermouth",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 126.6,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 17.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 17.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 21.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-kastrosika",
+   "name": "Kastrosika",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Beach",
+   "lat": 39.088,
+   "lon": 20.661,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kastrosika"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd \"Faces SW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kastrosika"
+   },
+   "facts": {
+    "spotId": "w-greece-kastrosika",
+    "name": "Kastrosika",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kastrosika",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd)",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to W, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "SSW to W (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 126.0,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 20.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-mytikas",
+   "name": "Mytikas",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Reef",
+   "lat": 38.999,
+   "lon": 20.7,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/mytikas"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/mytikas"
+   },
+   "facts": {
+    "spotId": "w-greece-mytikas",
+    "name": "Mytikas",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mytikas",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "W to NW, best W (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WNW, WNW to NW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 116.3,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 9.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-greece-sharks-reef-greece",
+   "name": "Sharks Reef - Greece",
+   "country": "Greece",
+   "region": "Preveza Regional Unit, Epirus",
+   "timeZone": "Europe/Athens",
+   "type": "Reef",
+   "lat": 38.961,
+   "lon": 20.719,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/sharks-reef-greece"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/sharks-reef-greece"
+   },
+   "facts": {
+    "spotId": "w-greece-sharks-reef-greece",
+    "name": "Sharks Reef - Greece",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sharks-reef-greece",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "W to NW, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to WNW, WNW to NW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "rock ledge (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS ZAKYN",
+     "name": "ZAKYN",
+     "owner": "Hellenic Centre for Marine Research - Institute of Oceanography (Copernicus Marine in situ)",
+     "distanceKm": 112.2,
+     "live": false,
+     "liveBasis": "last observation 2012-01-23T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 1.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC prev1",
+     "name": "Preveza, Epirus",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 1.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:40 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=prev1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "LGPZ",
+     "name": "LGPZ",
+     "owner": "via IEM (GR__ASOS)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LGPZ&network=GR__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Amoudia Left",
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/amoudia-left) for the same break as w-greece-amoudia-right (pins 375 m apart); the fuller page is kept."
+  },
+  {
+   "name": "Abrami Beach (Naxos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Abrami-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Acropolis (Lindos Rhodos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Acropolis-Rhodos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Agamemnon Island",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Agamemnon-Island); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Agia Marina or Platanias",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Agia-Marina-Platanias); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Agios Dimitros",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Agios-Dimitros); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Agios Ioannis",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Agios-Ioannis); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Agrili",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Agrili); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Almiros Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Almiros-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Alykes - Zakynthos",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alykes); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ammes Beach Kefalonia",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ammes-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Andros Ateni Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Andros-Ateni-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Andros (Chora)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Andros-Chora); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Apollonas (Naxos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Appollonas-Naxos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Arila Right",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Arila-Right); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Bouka (Costa Navarino)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Bouka-Costa-Navarino); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Sfikounta Beach (Chios)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Chios-Sfikounta-beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Chorefto",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Chorefto); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Falasarna",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Falasarna); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Foinikounta",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Foinikounta); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Glyfada (Corfu)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Glifada-Corfu); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Golden Beach (Thassos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Golden-Beach-Thassos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hiliadou or Paradia Chiladou (Evia)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hiliadou-Evia); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Armenistis (Ikaria)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ikaria-Armenistis); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ikaria Mesakti Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ikaria-Mesakti-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ilias Madraki (Skiathos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ilias-Madraki); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Megalo Plakoto (Ios)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ios-Plakoto); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kalamitsi",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kalamitsi); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kalo Nero",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kalo-Nero); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kastrosikia",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kastrosikia-spot); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kolympithra East (Tinos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kolympithra-East-Tinos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kolympithra West (Tinos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kolympithra-West-Tinos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Koroni Right",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Koroni-right); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Agios Theologos (Kos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kos-Theologos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Lakouvardos or Lagkouvardos",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Lakouvardos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Lassi or Makris Gialos",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Lassi); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Leivada (Tinos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Leivada-Tinos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Little Bay",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Little-Bay); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Lourdata or Lourdas Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Lourdas-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Lousta",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Lousta); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Marmari (Mani)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Marmari-Mani); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Metohi or Paralia Metochiou (Evia)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Metohi-Evia); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Milatos Left",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Milatos-left); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Milatos Right",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Milatos-right); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Mircos Point (Theologos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Mircos-Point); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Mitikas Reef",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Mitikas-Reef); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Palouki",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Palouki); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Paradise Beach (Thassos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Paradise-Beach-Thassos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Poseidi",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Poseidi); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Prasonisi East Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Prasonisi-East-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Prasonisi West Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Prasonisi-West-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Preveli",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Preveli); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "San Stefano (Corfu)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/San-Stefano); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Sarti Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sarti-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Shark reef",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Shark-reef); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Skiathos - Vasilias",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Skiathos-Vasilias); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Small King (Skiathos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Small-King); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Stalida Beach or Stalis",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stalida-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Stomio (Crete)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stomio); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Stomio (Larissa)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stomio-Larissa); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Stonebread",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stonebread); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Sykia Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sykia-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Tholos",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tholos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Kolimbithres West (Tinos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tinos-Kolimbithres); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Tis Poutanas to Kangelo (Nikos)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tis-Poutanas_to_Kangelo); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Tspai Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Tsapi-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Ulumitsu or Agios Dimitrios (Athens)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ulumitsu-Athens); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Vari",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Vari); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Voidokoilia",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Voidokoilia); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Vouliagmeni",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Vouliagmeni); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Zaga (Koroni)",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Zaga); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

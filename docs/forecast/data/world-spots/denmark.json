@@ -1,0 +1,1528 @@
+{
+ "region": "Denmark",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-denmark-lokken",
+   "name": "Løkken",
+   "country": "Denmark",
+   "region": "Hjørring Municipality, North Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 57.373,
+   "lon": 9.706,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/lokken"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/lokken"
+   },
+   "facts": {
+    "spotId": "w-denmark-lokken",
+    "name": "Løkken",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lokken",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to NW, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WSW to NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS BrofjordenWR",
+     "name": "BrofjordenWR",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 132.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 141.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Loenstrup-1002",
+     "name": "Loenstrup-1002",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 12.5,
+     "live": false,
+     "liveBasis": "last observation 1982-05-03T15:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hirt",
+     "name": "Hirtshals",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 29.5,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hirt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HirtshalsTG",
+     "name": "HirtshalsTG",
+     "owner": "Danish Meteorological Institute- Oceanographic Section (Copernicus Marine in situ)",
+     "distanceKm": 29.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EKYT",
+     "name": "Aalborg",
+     "owner": "via IEM (DK__ASOS)",
+     "distanceKm": 32.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKYT&network=DK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-hanstholm",
+   "name": "Hanstholm",
+   "country": "Denmark",
+   "region": "Thisted Municipality, North Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 57.126,
+   "lon": 8.611,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hanstholm"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hanstholm"
+   },
+   "facts": {
+    "spotId": "w-denmark-hanstholm",
+    "name": "Hanstholm",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hanstholm",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "SW to NE, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 45
+    },
+    "swellExposure": "WNW to ENE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid, High (best at High, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 80.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HanstholmWR",
+     "name": "HanstholmWR",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 1.9,
+     "live": false,
+     "liveBasis": "last observation 2021-03-16T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hanst",
+     "name": "Hanstholm",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 0.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hanst"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HanstholmTG",
+     "name": "HanstholmTG",
+     "owner": "Danish Meteorological Institute- Oceanographic Section (Copernicus Marine in situ)",
+     "distanceKm": 1.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-klitmoller",
+   "name": "Klitmøller",
+   "country": "Denmark",
+   "region": "Thisted Municipality, North Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 57.045,
+   "lon": 8.487,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/klitmoller"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/klitmoller"
+   },
+   "facts": {
+    "spotId": "w-denmark-klitmoller",
+    "name": "Klitmøller",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/klitmoller",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WNW to NE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 68.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Nymindegab",
+     "name": "Nymindegab",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 141.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HanstholmWR",
+     "name": "HanstholmWR",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 11.5,
+     "live": false,
+     "liveBasis": "last observation 2021-03-16T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HanstholmTG",
+     "name": "HanstholmTG",
+     "owner": "Danish Meteorological Institute- Oceanographic Section (Copernicus Marine in situ)",
+     "distanceKm": 10.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hanst",
+     "name": "Hanstholm",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hanst"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-bunkers",
+   "name": "Bunkers",
+   "country": "Denmark",
+   "region": "Thisted Municipality, North Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Reef",
+   "lat": 57.015,
+   "lon": 8.441,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/bunkers"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/bunkers"
+   },
+   "facts": {
+    "spotId": "w-denmark-bunkers",
+    "name": "Bunkers",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bunkers",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NW, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Bunkers' (https://www.surf-forecast.com/breaks/Bunkers) matches by name but its pin is 8.3 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 64.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Nymindegab",
+     "name": "Nymindegab",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 137.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HanstholmWR",
+     "name": "HanstholmWR",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 15.8,
+     "live": false,
+     "liveBasis": "last observation 2021-03-16T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HanstholmTG",
+     "name": "HanstholmTG",
+     "owner": "Danish Meteorological Institute- Oceanographic Section (Copernicus Marine in situ)",
+     "distanceKm": 14.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hanst",
+     "name": "Hanstholm",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 15.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hanst"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-norre-vorupor",
+   "name": "Nørre Vorupør",
+   "country": "Denmark",
+   "region": "Thisted Municipality, North Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.963,
+   "lon": 8.368,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/norre-vorupor"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/norre-vorupor"
+   },
+   "facts": {
+    "spotId": "w-denmark-norre-vorupor",
+    "name": "Nørre Vorupør",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/norre-vorupor",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to NW, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "WNW to NE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 57.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Nymindegab",
+     "name": "Nymindegab",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 130.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HanstholmWR",
+     "name": "HanstholmWR",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 23.0,
+     "live": false,
+     "liveBasis": "last observation 2021-03-16T23:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HanstholmTG",
+     "name": "HanstholmTG",
+     "owner": "Danish Meteorological Institute- Oceanographic Section (Copernicus Marine in situ)",
+     "distanceKm": 22.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hanst",
+     "name": "Hanstholm",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 22.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hanst"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-agger",
+   "name": "Agger",
+   "country": "Denmark",
+   "region": "Thisted Municipality, North Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.784,
+   "lon": 8.229,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/agger"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/agger"
+   },
+   "facts": {
+    "spotId": "w-denmark-agger",
+    "name": "Agger",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/agger",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to NW, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 315
+    },
+    "swellExposure": "SSW to NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 36.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Nymindegab",
+     "name": "Nymindegab",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 109.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS ThyborOen-2002",
+     "name": "ThyborOen-2002",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 8.4,
+     "live": false,
+     "liveBasis": "last observation 1980-01-30T18:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ThyboronKystTG",
+     "name": "ThyboronKystTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 8.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS FerringTG",
+     "name": "FerringTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 29.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-torsminde",
+   "name": "Torsminde",
+   "country": "Denmark",
+   "region": "Lemvig Municipality, Central Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.391,
+   "lon": 8.11,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/torsminde"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/torsminde"
+   },
+   "facts": {
+    "spotId": "w-denmark-torsminde",
+    "name": "Torsminde",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/torsminde",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to N, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "S to N (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 10.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Nymindegab",
+     "name": "Nymindegab",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 65.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring-2012",
+     "name": "Fjaltring-2012",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 9.9,
+     "live": false,
+     "liveBasis": "last observation 1980-09-25T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS TorsmindeKystTG",
+     "name": "TorsmindeKystTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 2.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS FerringTG",
+     "name": "FerringTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 14.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EKVJ",
+     "name": "Stauning",
+     "owner": "via IEM (DK__ASOS)",
+     "distanceKm": 47.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKVJ&network=DK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-gilleleje",
+   "name": "Gilleleje",
+   "country": "Denmark",
+   "region": "Gribskov Municipality, Capital Region of Denmark",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.129,
+   "lon": 12.3,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/gilleleje"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/gilleleje"
+   },
+   "facts": {
+    "spotId": "w-denmark-gilleleje",
+    "name": "Gilleleje",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gilleleje",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Gilleleje",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WNW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "S (surfnerd); W (surf-forecast); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid (surfnerd); The quality of the surf isn't affected by the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed beach/pier break')",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Gilleleje' paired by name, its pin 2.0 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 135.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 53.9,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Hornbaek",
+     "name": "Hornbaek",
+     "owner": "DMI (Copernicus Marine in situ)",
+     "distanceKm": 10.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 38.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-smidstrop",
+   "name": "Smidstrop",
+   "country": "Denmark",
+   "region": "Gribskov Municipality, Capital Region of Denmark",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.12,
+   "lon": 12.226,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/smidstrop"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/smidstrop"
+   },
+   "facts": {
+    "spotId": "w-denmark-smidstrop",
+    "name": "Smidstrop",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/smidstrop",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Smidstrop",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "W to N, best W (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to WNW, WNW to NNE (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "SSE (surfnerd); SW (surf-forecast); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach and point break')",
+    "hazards": [
+     "rocks in the line up (surf-forecast)",
+     "a fairly popluar wave that can sometimes get crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Smidstrop' paired by name, its pin 1.3 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 136.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 57.1,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 14.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Hornbaek",
+     "name": "Hornbaek",
+     "owner": "DMI (Copernicus Marine in situ)",
+     "distanceKm": 15.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 43.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-hornbaek-pier",
+   "name": "Hornbaek Pier",
+   "country": "Denmark",
+   "region": "Helsingør Municipality, Capital Region of Denmark",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.095,
+   "lon": 12.461,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hornbaek-pier"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hornbaek-pier"
+   },
+   "facts": {
+    "spotId": "w-denmark-hornbaek-pier",
+    "name": "Hornbaek Pier",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hornbaek-pier",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "NW to N, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 360
+    },
+    "swellExposure": "NNW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 128.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 53.3,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 0.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Hornbaek",
+     "name": "Hornbaek",
+     "owner": "DMI (Copernicus Marine in situ)",
+     "distanceKm": 0.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 32.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-hornbaek-plantage",
+   "name": "Hornbaek Plantage",
+   "country": "Denmark",
+   "region": "Helsingør Municipality, Capital Region of Denmark",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.094,
+   "lon": 12.469,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hornbaek-plantage"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hornbaek-plantage"
+   },
+   "facts": {
+    "spotId": "w-denmark-hornbaek-plantage",
+    "name": "Hornbaek Plantage",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hornbaek-plantage",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "W to NW, best W (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 315
+    },
+    "swellExposure": "WNW to N (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "uneven reef, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 128.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 53.3,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Hornbaek",
+     "name": "Hornbaek",
+     "owner": "DMI (Copernicus Marine in situ)",
+     "distanceKm": 0.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 0.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 32.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-autovaernet",
+   "name": "Autovaernet",
+   "country": "Denmark",
+   "region": "Helsingør Municipality, Capital Region of Denmark",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.084,
+   "lon": 12.526,
+   "seaward": 22,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/autovaernet"
+   },
+   "facingSource": {
+    "text": "NNE (surfnerd \"Faces NNE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/autovaernet"
+   },
+   "facts": {
+    "spotId": "w-denmark-autovaernet",
+    "name": "Autovaernet",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/autovaernet",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd)",
+    "facingDeg": 22,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WNW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SSW (surfnerd); wind exposure SSE to WSW (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "boulders, sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 126.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 53.4,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Hornbaek",
+     "name": "Hornbaek",
+     "owner": "DMI (Copernicus Marine in situ)",
+     "distanceKm": 4.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 4.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 30.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-aalsgaarde",
+   "name": "Aalsgaarde",
+   "country": "Denmark",
+   "region": "Helsingør Municipality, Capital Region of Denmark",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.076,
+   "lon": 12.548,
+   "seaward": 45,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/aalsgaarde"
+   },
+   "facingSource": {
+    "text": "NE (surfnerd \"Faces NE\")",
+    "url": "https://www.surfnerd.com/surf-forecast/aalsgaarde"
+   },
+   "facts": {
+    "spotId": "w-denmark-aalsgaarde",
+    "name": "Aalsgaarde",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/aalsgaarde",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NE (surfnerd)",
+    "facingDeg": 45,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "NW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SW (surfnerd); wind exposure S to W (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS 6600379",
+     "name": "6600379",
+     "owner": "DNV GL (Copernicus Marine in situ)",
+     "distanceKm": 124.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T01:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Laholmsbukten",
+     "name": "Laholmsbukten",
+     "owner": "SMHI (Copernicus Marine in situ)",
+     "distanceKm": 53.9,
+     "live": false,
+     "liveBasis": "last observation 1985-10-05T13:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Hornbaek",
+     "name": "Hornbaek",
+     "owner": "DMI (Copernicus Marine in situ)",
+     "distanceKm": 5.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 5.7,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:30 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "ESTA",
+     "name": "Ängelholm",
+     "owner": "via IEM (SE__ASOS)",
+     "distanceKm": 30.7,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESTA&network=SE__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-denmark-hvide-sande",
+   "name": "Hvide Sande",
+   "country": "Denmark",
+   "region": "Ringkøbing-Skjern Municipality, Central Denmark Region",
+   "timeZone": "Europe/Copenhagen",
+   "type": "Beach",
+   "lat": 56.0,
+   "lon": 8.1,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hvide-sande"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hvide-sande"
+   },
+   "facts": {
+    "spotId": "w-denmark-hvide-sande",
+    "name": "Hvide Sande",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hvide-sande",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "S to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Hvide Sande' (https://www.surf-forecast.com/breaks/Huide-Sande) matches by name but its pin is 5.9 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Nymindegab",
+     "name": "Nymindegab",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 23.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Fjaltring",
+     "name": "Fjaltring",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 52.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HvideSande-2062",
+     "name": "HvideSande-2062",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 3.1,
+     "live": false,
+     "liveBasis": "last observation 1980-01-31T00:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HvideSandeKystTG",
+     "name": "HvideSandeKystTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 0.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS TorsmindeKystTG",
+     "name": "TorsmindeKystTG",
+     "owner": "Danish Coastal Authority- Ministry of Transport and Energy (Copernicus Marine in situ)",
+     "distanceKm": 41.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T05:10:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EKVJ",
+     "name": "Stauning",
+     "owner": "via IEM (DK__ASOS)",
+     "distanceKm": 15.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKVJ&network=DK__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Alogarde",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alogarde); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hornhole",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hornhole); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Klitmoller",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Klitmoller); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Nr Voruper",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nr-Voruper); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

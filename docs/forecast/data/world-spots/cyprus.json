@@ -1,0 +1,40 @@
+{
+ "region": "Cyprus",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [],
+ "dropped": [
+  {
+   "name": "Cripplers",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Cripplers); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Fort Point",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Fort-Point); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Helios Bay",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Helios-Bay); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Potima Point",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Potima-Point); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Queen Victoria Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sandy-Beach-Paphos); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Shipwrecks",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Shipwrecks-Cyprus); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Stegeo Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stegeo-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Venus Beach",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Venus-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}

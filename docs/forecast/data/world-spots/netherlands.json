@@ -1,0 +1,3875 @@
+{
+ "region": "Netherlands",
+ "retrievedOn": "2026-11-09",
+ "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
+ "spots": [
+  {
+   "id": "w-netherlands-schiermonnikoog",
+   "name": "Schiermonnikoog",
+   "country": "Netherlands",
+   "region": "Schiermonnikoog, Frisia",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.502,
+   "lon": 6.191,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/schiermonnikoog"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/schiermonnikoog"
+   },
+   "facts": {
+    "spotId": "w-netherlands-schiermonnikoog",
+    "name": "Schiermonnikoog",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/schiermonnikoog",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "SW to N, best N (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "W to ENE (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS SchiermonnikoogWaggen",
+     "name": "SchiermonnikoogWaggen",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS SchiermonnikoogNoord",
+     "name": "SchiermonnikoogNoord",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS SchiermonnikoogWestgat",
+     "name": "SchiermonnikoogWestgat",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.4,
+     "live": false,
+     "liveBasis": "last observation 2026-10-26T09:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS SchiermonnikoogWaddenTG",
+     "name": "SchiermonnikoogWaddenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS LauwersoogTG",
+     "name": "LauwersoogTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHMA",
+     "name": "AWG-1",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHMA&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-ameland",
+   "name": "Ameland",
+   "country": "Netherlands",
+   "region": "Ameland, Frisia",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.461,
+   "lon": 5.779,
+   "seaward": 0,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ameland"
+   },
+   "facingSource": {
+    "text": "N (surfnerd \"Faces N\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ameland"
+   },
+   "facts": {
+    "spotId": "w-netherlands-ameland",
+    "name": "Ameland",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ameland",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd)",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "W to N, best N (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "W to ENE (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "S (surfnerd); wind exposure SE to SW (surfnerd)",
+    "tide": "High, Mid (best at High, Rising and falling) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS AWG",
+     "name": "AWG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 12.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS SchiermonnikoogWaggen",
+     "name": "SchiermonnikoogWaggen",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 28.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Amelander51",
+     "name": "Amelander51",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 9.2,
+     "live": false,
+     "liveBasis": "last observation 2019-05-01T18:00:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS NesTG",
+     "name": "NesTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS AWGTG",
+     "name": "AWGTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:30:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHMA",
+     "name": "AWG-1",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 11.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHMA&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-terschelling",
+   "name": "Terschelling",
+   "country": "Netherlands",
+   "region": "Terschelling, Frisia",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.409,
+   "lon": 5.282,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/terschelling"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/terschelling"
+   },
+   "facts": {
+    "spotId": "w-netherlands-terschelling",
+    "name": "Terschelling",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/terschelling",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "WSW to ENE (surfnerd)",
+    "idealSwell": "not stated",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "not stated",
+    "bottom": "not stated",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkOost",
+     "name": "StortemelkOost",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 15.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkBoei",
+     "name": "StortemelkBoei",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 21.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ters",
+     "name": "Terschelling Noordzee",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 4.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ters"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS TerschellingNoordzeeTG",
+     "name": "TerschellingNoordzeeTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHVL",
+     "name": "VLIELAND ISLAND",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 30.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHVL&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-vlieland",
+   "name": "Vlieland",
+   "country": "Netherlands",
+   "region": "Vlieland, Frisia",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.306,
+   "lon": 5.048,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/vlieland"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/vlieland"
+   },
+   "facts": {
+    "spotId": "w-netherlands-vlieland",
+    "name": "Vlieland",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vlieland",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "W to NNW, best NNW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 337.5
+    },
+    "swellExposure": "WSW to NE (surfnerd)",
+    "idealSwell": "NNW (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "Mid, Low (best at Mid, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkOost",
+     "name": "StortemelkOost",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkBoei",
+     "name": "StortemelkBoei",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS VlielandHavenTG",
+     "name": "VlielandHavenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ters",
+     "name": "Terschelling Noordzee",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 23.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ters"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHVL",
+     "name": "VLIELAND ISLAND",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHVL&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-texel-de-koog",
+   "name": "Texel de Koog",
+   "country": "Netherlands",
+   "region": "Texel, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.102,
+   "lon": 4.755,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/texel-de-koog"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/texel-de-koog"
+   },
+   "facts": {
+    "spotId": "w-netherlands-texel-de-koog",
+    "name": "Texel de Koog",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/texel-de-koog",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kogerstrand",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SSW to N, best SW (surfnerd)",
+     "fromDeg": 202.5,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd); NNW (surf-forecast)",
+    "windOffshore": "ESE (both); wind exposure ENE to SSE (surfnerd)",
+    "tide": "High, Mid (best at High, Rising and falling) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach/bank break')",
+    "hazards": [
+     "the strong rips here (surf-forecast)",
+     "it very rarely gets crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Kogerstrand (De Koog)'."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS WaddenEierlandseGat",
+     "name": "WaddenEierlandseGat",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 20.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkBoei",
+     "name": "StortemelkBoei",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 29.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Malzwin1",
+     "name": "Malzwin1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 17.9,
+     "live": false,
+     "liveBasis": "last observation 2012-02-08T07:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS OudeSchildTG",
+     "name": "OudeSchildTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 9.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS DenHelderTG",
+     "name": "DenHelderTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 14.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHVL",
+     "name": "VLIELAND ISLAND",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 18.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHVL&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-texel-paal-15",
+   "name": "Texel Paal 15",
+   "country": "Netherlands",
+   "region": "Texel, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.065,
+   "lon": 4.723,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/texel-paal-15"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/texel-paal-15"
+   },
+   "facts": {
+    "spotId": "w-netherlands-texel-paal-15",
+    "name": "Texel Paal 15",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/texel-paal-15",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best WNW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to NNE (surfnerd)",
+    "idealSwell": "WNW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "High, Mid, Low (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS WaddenEierlandseGat",
+     "name": "WaddenEierlandseGat",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 23.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkBoei",
+     "name": "StortemelkBoei",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 33.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Malzwin1",
+     "name": "Malzwin1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 17.4,
+     "live": false,
+     "liveBasis": "last observation 2012-02-08T07:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS OudeSchildTG",
+     "name": "OudeSchildTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 8.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS DenHelderTG",
+     "name": "DenHelderTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHKD",
+     "name": "De Kooy",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 15.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHKD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-texel-paal-9",
+   "name": "Texel Paal 9",
+   "country": "Netherlands",
+   "region": "Texel, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 53.021,
+   "lon": 4.71,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/texel-paal-9"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/texel-paal-9"
+   },
+   "facts": {
+    "spotId": "w-netherlands-texel-paal-9",
+    "name": "Texel Paal 9",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/texel-paal-9",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Texel_Waddeneilanden",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SSW to N, best W (surfnerd)",
+     "fromDeg": 202.5,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "W (surfnerd); NNW (surf-forecast)",
+    "windOffshore": "E (surfnerd); ESE (surf-forecast); wind exposure NE to SE (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "rarely crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Texel (Waddeneilanden)'."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS WaddenEierlandseGat",
+     "name": "WaddenEierlandseGat",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 28.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS StortemelkBoei",
+     "name": "StortemelkBoei",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 38.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Malzwin1",
+     "name": "Malzwin1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 16.7,
+     "live": false,
+     "liveBasis": "last observation 2012-02-08T07:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS DenHelderTG",
+     "name": "DenHelderTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 6.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC denh",
+     "name": "Den Helder",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=denh"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHKD",
+     "name": "De Kooy",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 11.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHKD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-petten",
+   "name": "Petten",
+   "country": "Netherlands",
+   "region": "Schagen, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.78,
+   "lon": 4.662,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/petten"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/petten"
+   },
+   "facts": {
+    "spotId": "w-netherlands-petten",
+    "name": "Petten",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/petten",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Petten",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "SW (surfnerd); NW (surf-forecast)",
+    "windOffshore": "ESE (surfnerd); E (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid, High (surfnerd); Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach/Jetty break')",
+    "hazards": [
+     "rips (surf-forecast)",
+     "obstacles (surf-forecast)",
+     "rarely crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": ""
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 48.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 48.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Malzwin1",
+     "name": "Malzwin1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 31.1,
+     "live": false,
+     "liveBasis": "last observation 2012-02-08T07:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC denh",
+     "name": "Den Helder",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 21.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=denh"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS DenHelderTG",
+     "name": "DenHelderTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 21.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHQN",
+     "name": "Hollandse Kust Noord",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 3.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHQN&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-camperduin",
+   "name": "Camperduin",
+   "country": "Netherlands",
+   "region": "Bergen, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.728,
+   "lon": 4.637,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/camperduin"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/camperduin"
+   },
+   "facts": {
+    "spotId": "w-netherlands-camperduin",
+    "name": "Camperduin",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/camperduin",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Camperduin' (https://www.surf-forecast.com/breaks/Camperduin) matches by name but its pin is 8.8 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 43.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 43.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 30.2,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC denh",
+     "name": "Den Helder",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 27.2,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=denh"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS DenHelderTG",
+     "name": "DenHelderTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 28.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHQS",
+     "name": "Hollandse Kust Noord West",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 2.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHQS&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-bergen-aan-zee",
+   "name": "Bergen Aan Zee",
+   "country": "Netherlands",
+   "region": "Bergen, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.661,
+   "lon": 4.625,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/bergen-aan-zee"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/bergen-aan-zee"
+   },
+   "facts": {
+    "spotId": "w-netherlands-bergen-aan-zee",
+    "name": "Bergen Aan Zee",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bergen-aan-zee",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Bergenaan-Zee",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (both)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd); Best around high tide when the tide is falling (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Bergen aan Zee' paired by name, its pin 1.1 km from surfnerd's. Surf-forecast's 'Egmond aan Zee' (https://www.surf-forecast.com/breaks/Egmondaan-Zee) matches by name but its pin is 5.6 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 40.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 40.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 22.8,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 22.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 23.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHQS",
+     "name": "Hollandse Kust Noord West",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 9.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHQS&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-castricum",
+   "name": "Castricum",
+   "country": "Netherlands",
+   "region": "Castricum, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.556,
+   "lon": 4.606,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/castricum"
+   },
+   "facingSource": {
+    "text": "W (surfnerd \"Faces W\")",
+    "url": "https://www.surfnerd.com/surf-forecast/castricum"
+   },
+   "facts": {
+    "spotId": "w-netherlands-castricum",
+    "name": "Castricum",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/castricum",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd)",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "E (surfnerd); wind exposure NE to SE (surfnerd)",
+    "tide": "High, Mid (best at Mid, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 37.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 37.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 11.6,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 11.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHQS",
+     "name": "Hollandse Kust Noord West",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 21.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHQS&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-wijk-aan-zee-noordpier",
+   "name": "Wijk Aan Zee/Noordpier",
+   "country": "Netherlands",
+   "region": "Beverwijk, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.497,
+   "lon": 4.583,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee-noordpier"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee-noordpier"
+   },
+   "facts": {
+    "spotId": "w-netherlands-wijk-aan-zee-noordpier",
+    "name": "Wijk Aan Zee/Noordpier",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee-noordpier",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Wijkaan-Zee-Noordpier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to N (surfnerd)",
+    "idealSwell": "NW (both)",
+    "windOffshore": "ESE (surfnerd); E (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach/Harbour Wall break')",
+    "hazards": [
+     "rips (surf-forecast)",
+     "crowds (surf-forecast)",
+     "pollution (surf-forecast)",
+     "beware of rips,crowds,pollution (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Wijk aan Zee Noordpier' paired by name, its pin 1.5 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.5,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 24.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-wijk-aan-zee",
+   "name": "Wijk aan zee",
+   "country": "Netherlands",
+   "region": "Velsen, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.47,
+   "lon": 4.564,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee"
+   },
+   "facts": {
+    "spotId": "w-netherlands-wijk-aan-zee",
+    "name": "Wijk aan zee",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to NNE, best N (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 22.5
+    },
+    "swellExposure": "W to N (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": {
+     "min": 1,
+     "max": 1
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 35.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 35.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.1,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 1.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 23.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-ijmuiden",
+   "name": "Ijmuiden",
+   "country": "Netherlands",
+   "region": "Velsen, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.455,
+   "lon": 4.554,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ijmuiden"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ijmuiden"
+   },
+   "facts": {
+    "spotId": "w-netherlands-ijmuiden",
+    "name": "Ijmuiden",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ijmuiden",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "SW to NNE, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 22.5
+    },
+    "swellExposure": "SSW to WNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "High, Mid (best at High, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 7,
+     "max": 26
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 35.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 35.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 2.7,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 0.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 22.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-parnassia",
+   "name": "Parnassia",
+   "country": "Netherlands",
+   "region": "Bloemendaal, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.419,
+   "lon": 4.549,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/parnassia"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/parnassia"
+   },
+   "facts": {
+    "spotId": "w-netherlands-parnassia",
+    "name": "Parnassia",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/parnassia",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NNE, best NNW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 22.5
+    },
+    "swellExposure": "SSW to NNW (surfnerd)",
+    "idealSwell": "NNW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": {
+     "min": 3,
+     "max": 16
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.6,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 20.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-bloemendaal",
+   "name": "Bloemendaal",
+   "country": "Netherlands",
+   "region": "Bloemendaal, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.403,
+   "lon": 4.543,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/bloemendaal"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/bloemendaal"
+   },
+   "facts": {
+    "spotId": "w-netherlands-bloemendaal",
+    "name": "Bloemendaal",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bloemendaal",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NNE, best NNW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 22.5
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NNW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": {
+     "min": 3,
+     "max": 16
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 7.2,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 6.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 7.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 19.4,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-zandvoort",
+   "name": "Zandvoort",
+   "country": "Netherlands",
+   "region": "Zandvoort, North Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.376,
+   "lon": 4.52,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/zandvoort"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/zandvoort"
+   },
+   "facts": {
+    "spotId": "w-netherlands-zandvoort",
+    "name": "Zandvoort",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/zandvoort",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Zandvoort",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "not stated",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "SSW to N (surfnerd)",
+    "idealSwell": "NNW (surf-forecast)",
+    "windOffshore": "ESE (surfnerd); E (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Good surf at all stages of the tide (surf-forecast)",
+    "bottom": "not stated",
+    "waveType": "beach",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: 'exposed beach break')",
+    "hazards": [
+     "surfing here means negotiating dangerous rips (surf-forecast)",
+     "when the surf is up, it can get quite busy in the water (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd's page is an older layout: only its facing, swell exposure and wind exposure are used (its 'workable wind' line is not, as on some such pages it names the onshore direction). Surf-forecast page 'Zandvoort' paired by name, its pin 1.1 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 36.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.0,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 9.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 19.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-zandvoort-to-katwijk",
+   "name": "Zandvoort to Katwijk",
+   "country": "Netherlands",
+   "region": "Noordwijk, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.281,
+   "lon": 4.456,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/zandvoort-to-katwijk"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/zandvoort-to-katwijk"
+   },
+   "facts": {
+    "spotId": "w-netherlands-zandvoort-to-katwijk",
+    "name": "Zandvoort to Katwijk",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/zandvoort-to-katwijk",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort",
+     "name": "IJmuidenMunitiestort",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 40.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJmuidenMunitiestort2",
+     "name": "IJmuidenMunitiestort2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 40.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 21.0,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IJmondstroompaalTG",
+     "name": "IJmondstroompaalTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 20.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS IjmuidenTG",
+     "name": "IjmuidenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 21.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 23.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-noordwijk",
+   "name": "Noordwijk",
+   "country": "Netherlands",
+   "region": "Noordwijk, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.251,
+   "lon": 4.431,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/noordwijk"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/noordwijk"
+   },
+   "facts": {
+    "spotId": "w-netherlands-noordwijk",
+    "name": "Noordwijk",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/noordwijk",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "SW to NNE, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 22.5
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3,
+     "max": 16
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 37.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 37.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS IJgeulstroompaal1",
+     "name": "IJgeulstroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 24.6,
+     "live": false,
+     "liveBasis": "last observation 2018-12-13T11:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ScheveningenTG",
+     "name": "ScheveningenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 20.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 20.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHAM",
+     "name": "Amsterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 25.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-scheveningen-pier",
+   "name": "Scheveningen Pier",
+   "country": "Netherlands",
+   "region": "The Hague, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.116,
+   "lon": 4.282,
+   "seaward": 315,
+   "positionSource": {
+    "text": "OSM way 447675272 (man_made:pier): Scheveningse pier, Pierplein, Scheveningen, Den Haag, Zuid-Holland, Nederland, 2586 JL, Ne; 0.26 km from the surfnerd pin",
+    "url": "https://www.openstreetmap.org/way/447675272"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/scheveningen-pier"
+   },
+   "facts": {
+    "spotId": "w-netherlands-scheveningen-pier",
+    "name": "Scheveningen Pier",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/scheveningen-pier",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to W, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 270
+    },
+    "swellExposure": "SW to NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 19.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 19.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ScheveningenTG",
+     "name": "ScheveningenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 2.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 2.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 21.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-scheveningen-nord",
+   "name": "Scheveningen Noord",
+   "country": "Netherlands",
+   "region": "The Hague, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.104,
+   "lon": 4.26,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/scheveningen-nord"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/scheveningen-nord"
+   },
+   "facts": {
+    "spotId": "w-netherlands-scheveningen-nord",
+    "name": "Scheveningen Noord",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/scheveningen-nord",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Scheveningen-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best N (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WNW to NNE (surfnerd)",
+    "idealSwell": "N (surfnerd); NW (surf-forecast)",
+    "windOffshore": "SE (surfnerd); E (surf-forecast); wind exposure E to S (surfnerd)",
+    "tide": "High, Mid, Low (best at High, Rising and falling) (surfnerd); Best around high tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach/Pier break')",
+    "hazards": [
+     "rips (surf-forecast)",
+     "obstacles (surf-forecast)",
+     "often Crowded (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast lists it as 'Scheveningen Pier'."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 17.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 17.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ScheveningenTG",
+     "name": "ScheveningenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 0.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 0.6,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 20.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-scheveningen-zuid",
+   "name": "Scheveningen Zuid",
+   "country": "Netherlands",
+   "region": "The Hague, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.093,
+   "lon": 4.247,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/scheveningen-zuid"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/scheveningen-zuid"
+   },
+   "facts": {
+    "spotId": "w-netherlands-scheveningen-zuid",
+    "name": "Scheveningen Zuid",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/scheveningen-zuid",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 8
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 15.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 16.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 1.3,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ScheveningenTG",
+     "name": "ScheveningenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 1.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 20.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-kijkduin",
+   "name": "Kijkduin",
+   "country": "Netherlands",
+   "region": "The Hague, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.067,
+   "lon": 4.212,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/kijkduin"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/kijkduin"
+   },
+   "facts": {
+    "spotId": "w-netherlands-kijkduin",
+    "name": "Kijkduin",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kijkduin",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best SW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Kijkduin' (https://www.surf-forecast.com/breaks/Kijkduin) matches by name but its pin is 3.0 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 12.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 12.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 5.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS ScheveningenTG",
+     "name": "ScheveningenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 20.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-ter-heijde",
+   "name": "Ter Heijde",
+   "country": "Netherlands",
+   "region": "Westland, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.033,
+   "lon": 4.162,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ter-heijde"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ter-heijde"
+   },
+   "facts": {
+    "spotId": "w-netherlands-ter-heijde",
+    "name": "Ter Heijde",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ter-heijde",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ter-Heijde",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to NNE (surfnerd)",
+    "idealSwell": "NW (both)",
+    "windOffshore": "SE (surfnerd); E (surf-forecast); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid (best at Mid, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: 'exposed beach/Jetty break')",
+    "hazards": [
+     "the strong rips here (surf-forecast)",
+     "when the surf is up, it can get quite busy in the water (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Ter Heijde' paired by name, its pin 1.2 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 8.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 8.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoekVanHollandTG",
+     "name": "HoekVanHollandTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 6.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 6.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 21.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-vlughtenburg",
+   "name": "Vlughtenburg",
+   "country": "Netherlands",
+   "region": "Westland, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.004,
+   "lon": 4.126,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/vlughtenburg"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/vlughtenburg"
+   },
+   "facts": {
+    "spotId": "w-netherlands-vlughtenburg",
+    "name": "Vlughtenburg",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vlughtenburg",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SSW to NNE, best N (surfnerd)",
+     "fromDeg": 202.5,
+     "toDeg": 22.5
+    },
+    "swellExposure": "W to NNE (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoekVanHollandTG",
+     "name": "HoekVanHollandTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 3.0,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 22.5,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-hv-h-rechtestraat",
+   "name": "HvH Rechtestraat",
+   "country": "Netherlands",
+   "region": "Rotterdam, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.994,
+   "lon": 4.112,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hv-h-rechtestraat"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hv-h-rechtestraat"
+   },
+   "facts": {
+    "spotId": "w-netherlands-hv-h-rechtestraat",
+    "name": "HvH Rechtestraat",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hv-h-rechtestraat",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SSW to N, best NNW (surfnerd)",
+     "fromDeg": 202.5,
+     "toDeg": 360
+    },
+    "swellExposure": "W to NE (surfnerd)",
+    "idealSwell": "NNW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "High, Mid, Low (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoekVanHollandTG",
+     "name": "HoekVanHollandTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 1.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 1.9,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 23.2,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-hvh-boulevard",
+   "name": "Hoek van Holland Boulevard",
+   "country": "Netherlands",
+   "region": "Rotterdam, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.99,
+   "lon": 4.102,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/hvh-boulevard"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/hvh-boulevard"
+   },
+   "facts": {
+    "spotId": "w-netherlands-hvh-boulevard",
+    "name": "Hoek van Holland Boulevard",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hvh-boulevard",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "WSW to N, best NW (surfnerd)",
+     "fromDeg": 247.5,
+     "toDeg": 360
+    },
+    "swellExposure": "W to NE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "Low, Mid, High (best at High, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": null,
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoekVanHollandTG",
+     "name": "HoekVanHollandTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 1.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 1.8,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHRD",
+     "name": "Rotterdam",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 23.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-maasvlakte-p6",
+   "name": "Maasvlakte P6",
+   "country": "Netherlands",
+   "region": "Rotterdam, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.973,
+   "lon": 3.968,
+   "seaward": 292,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p6"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd \"Faces WNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p6"
+   },
+   "facts": {
+    "spotId": "w-netherlands-maasvlakte-p6",
+    "name": "Maasvlakte P6",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p6",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd)",
+    "facingDeg": 292,
+    "swellWorkable": {
+     "text": "WNW to NE, best N (surfnerd)",
+     "fromDeg": 292.5,
+     "toDeg": 45
+    },
+    "swellExposure": "SW to NE (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "ESE (surfnerd); wind exposure ENE to SSE (surfnerd)",
+    "tide": "High, Mid, Low (best at Mid, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name. Surf-forecast's 'Maasvlakte' (https://www.surf-forecast.com/breaks/Maasvlakte) matches by name but its pin is 8.9 km away, so its facts are not used."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 12.9,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 13.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HoekVanHollandStroompaal1",
+     "name": "HoekVanHollandStroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.5,
+     "live": false,
+     "liveBasis": "last observation 2014-04-14T07:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoekVanHollandTG",
+     "name": "HoekVanHollandTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 10.4,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHSC",
+     "name": "LE GOEREE",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 21.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-maasvlakte-p5",
+   "name": "Maasvlakte P5",
+   "country": "Netherlands",
+   "region": "Rotterdam, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.951,
+   "lon": 3.964,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p5"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p5"
+   },
+   "facts": {
+    "spotId": "w-netherlands-maasvlakte-p5",
+    "name": "Maasvlakte P5",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p5",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "W to NE, best N (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 45
+    },
+    "swellExposure": "SW to NNW (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "High, Mid, Low (best at Mid, Rising and falling) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 7
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 13.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HoekVanHollandStroompaal1",
+     "name": "HoekVanHollandStroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.5,
+     "live": false,
+     "liveBasis": "last observation 2014-04-14T07:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 11.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS HoekVanHollandTG",
+     "name": "HoekVanHollandTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHSC",
+     "name": "LE GOEREE",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 20.3,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-maasvlakte-containers",
+   "name": "Maasvlakte Containers",
+   "country": "Netherlands",
+   "region": "Rotterdam, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.931,
+   "lon": 3.975,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-containers"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd \"Faces WSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-containers"
+   },
+   "facts": {
+    "spotId": "w-netherlands-maasvlakte-containers",
+    "name": "Maasvlakte Containers",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-containers",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd)",
+    "facingDeg": 248,
+    "swellWorkable": {
+     "text": "W to N, best NW (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+    "tide": "High, Mid, Low (best at High, Rising and falling) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeZuidMeetpaal",
+     "name": "MaeslantkeringZeezijdeZuidMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 12.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS MaeslantkeringZeezijdeNoordMeetpaal",
+     "name": "MaeslantkeringZeezijdeNoordMeetpaal",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 13.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS HoekVanHollandStroompaal1",
+     "name": "HoekVanHollandStroompaal1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 7.2,
+     "live": false,
+     "liveBasis": "last observation 2014-04-14T07:30:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Haringvliet10TG",
+     "name": "Haringvliet10TG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.8,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHSC",
+     "name": "LE GOEREE",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 20.9,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-ouddorp",
+   "name": "Ouddorp",
+   "country": "Netherlands",
+   "region": "Goeree-Overflakkee, South Holland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.828,
+   "lon": 3.897,
+   "seaward": 338,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/ouddorp"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd \"Faces NNW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/ouddorp"
+   },
+   "facts": {
+    "spotId": "w-netherlands-ouddorp",
+    "name": "Ouddorp",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ouddorp",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNW (surfnerd)",
+    "facingDeg": 338,
+    "swellWorkable": {
+     "text": "SW to NNE, best N (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 22.5
+    },
+    "swellExposure": "WSW to NNE (surfnerd)",
+    "idealSwell": "N (surfnerd)",
+    "windOffshore": "SSE (surfnerd); wind exposure ESE to SSW (surfnerd)",
+    "tide": "High, Low, Mid (best at Low, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS LichteilandGoeree1",
+     "name": "LichteilandGoeree1",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 19.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS LichteilandGoeree2",
+     "name": "LichteilandGoeree2",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 19.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Haringvliet10TG",
+     "name": "Haringvliet10TG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 4.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Brouwershavensegat8TG",
+     "name": "Brouwershavensegat8TG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 10.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHSC",
+     "name": "LE GOEREE",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 19.0,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-schouwen-duiveland",
+   "name": "Schouwen Duiveland",
+   "country": "Netherlands",
+   "region": "Schouwen-Duiveland, Zeeland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.73,
+   "lon": 3.692,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/schouwen-duiveland"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/schouwen-duiveland"
+   },
+   "facts": {
+    "spotId": "w-netherlands-schouwen-duiveland",
+    "name": "Schouwen Duiveland",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/schouwen-duiveland",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "SW to NE (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE (surfnerd); wind exposure E to S (surfnerd)",
+    "tide": "High (best at High, better on rising) (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS Brouwershavensegat",
+     "name": "Brouwershavensegat",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 6.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Oosterschelde4",
+     "name": "Oosterschelde4",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 8.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS BrouwershavensegatTG",
+     "name": "BrouwershavensegatTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 6.4,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS Brouwershavensegat8TG",
+     "name": "Brouwershavensegat8TG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 8.6,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHSC",
+     "name": "LE GOEREE",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 21.8,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-domburg",
+   "name": "Domburg",
+   "country": "Netherlands",
+   "region": "Vlissingen, Zeeland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.561,
+   "lon": 3.478,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/domburg"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd \"Faces NW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/domburg"
+   },
+   "facts": {
+    "spotId": "w-netherlands-domburg",
+    "name": "Domburg",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/domburg",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Domburg",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NW (surfnerd)",
+    "facingDeg": 315,
+    "swellWorkable": {
+     "text": "SW to N, best NW (surfnerd)",
+     "fromDeg": 225,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to NE (surfnerd)",
+    "idealSwell": "NW (surfnerd); N (surf-forecast)",
+    "windOffshore": "SE (surfnerd); N (surf-forecast); wind exposure E to S (surfnerd)",
+    "tide": "High, Mid, Low (surfnerd); Best around low tide (surf-forecast)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 6
+    },
+    "exposure": "fairly exposed (surf-forecast: 'fairly exposed beach break')",
+    "hazards": [
+     "rips (surf-forecast)",
+     "obstacles (surf-forecast)",
+     "it very rarely gets crowded here (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "Surf-forecast page 'Domburg' paired by name, its pin 1.0 km from surfnerd's."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS DomburgerRassen",
+     "name": "DomburgerRassen",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 8.5,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T03:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS Oosterschelde11",
+     "name": "Oosterschelde11",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 9.2,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS WestkapelleTG",
+     "name": "WestkapelleTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 5.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS VlissingenTG",
+     "name": "VlissingenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 15.0,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHFS",
+     "name": "Vlissingen",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 15.6,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHFS&network=NL__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-netherlands-vlissingen",
+   "name": "Vlissingen",
+   "country": "Netherlands",
+   "region": "Vlissingen, Zeeland",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.449,
+   "lon": 3.553,
+   "seaward": 202,
+   "positionSource": {
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "url": "https://www.surfnerd.com/surf-forecast/vlissingen"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd \"Faces SSW\")",
+    "url": "https://www.surfnerd.com/surf-forecast/vlissingen"
+   },
+   "facts": {
+    "spotId": "w-netherlands-vlissingen",
+    "name": "Vlissingen",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vlissingen",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSW (surfnerd)",
+    "facingDeg": 202,
+    "swellWorkable": {
+     "text": "NW to N, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 360
+    },
+    "swellExposure": "WSW to WNW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "NNE (surfnerd); wind exposure NNW to ENE (surfnerd)",
+    "tide": "Mid, High (surfnerd)",
+    "bottom": "sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 1,
+     "max": 4
+    },
+    "exposure": "not stated (no exposure class in the guides)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "notes": "One public guide only (surfnerd); no surf-forecast page within 2.5 km with a matching name."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave station",
+     "id": "CMEMS HonteSloehaven",
+     "name": "HonteSloehaven",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 9.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "wave station",
+     "id": "CMEMS WielingenNoord",
+     "name": "WielingenNoord",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 9.7,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index (live = within 48 h of the index's 2026-11-09T04:29Z update)",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC vlis",
+     "name": "Vlissingen",
+     "owner": "IOC Sea Level Monitoring Facility",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveBasis": "last data 2026-11-09 07:20 UTC",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vlis"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CMEMS VlissingenTG",
+     "name": "VlissingenTG",
+     "owner": "Rijkswaterstaat Water- Traffic and Environment (Copernicus Marine in situ)",
+     "distanceKm": 3.3,
+     "live": true,
+     "liveBasis": "last observation 2026-11-09T04:50:00Z in the Copernicus in-situ platform index",
+     "url": "https://s3.waw3-1.cloudferro.com/mdl-native-01/native/INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030/cmems_obs-ins_glo_phybgcwav_mynrt_na_irr_202311/index_platform.txt"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "EHFS",
+     "name": "Vlissingen",
+     "owner": "via IEM (NL__ASOS)",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveBasis": "IEM network online flag",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHFS&network=NL__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Texel Paal 17",
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/waddeneilanden) gives no \"Faces\" direction, and no other guide states one."
+  },
+  {
+   "name": "Blokken",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Blokken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Hargen",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hargen); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Katwijk aan Zee",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Katwijkaan-Zee); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Maasexpress",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Maasexpress); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Noorderstrand",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Noorderstrand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Slufter",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Slufter); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  },
+  {
+   "name": "Zud",
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Zud); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+  }
+ ]
+}
