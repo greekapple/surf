@@ -1,3 +1,4 @@
+import {spotTier} from '../../data/spotTiers';
 import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {ENCLOSED_NOTE} from '../../map/enclosed';
 import {createPortal} from 'react-dom';
@@ -65,6 +66,9 @@ const themeNow = () => (document.documentElement.dataset.theme === 'dark' ? 'dar
 // T-116: labels only for the selected spot and the top-rated few (Windy-quiet); the rest are rating-coloured dots that name themselves on hover or focus.
 /** The popular spots (as Home's "Popular spots"): after favourites, they get labels and survive low-zoom thinning. */
 const POPULAR_SPOTS = ['spot-2', 'spot-0', 'spot-3'];
+/** spots-map: the minimum screen distance (px) between two drawn spot dots; a closer, lower-priority pin waits for a closer zoom. Phones need more:
+ *  each pin's touch target is 44 px tall (explore.css .xpin::before), so a neighbour within ~29 px would take the tap meant for the dot. */
+const pinGap = (phone: boolean) => (phone ? 30 : 20);
 const labelBudget = (zoom: number, phone: boolean) => (zoom < 9 ? (phone ? 1 : 2) : zoom < 11 ? (phone ? 2 : 3) : (phone ? 3 : 5));
 
 /** An engine-neutral popup shell: an outer box (positioned by useAnchored, marked data-map-overlay so the engine's map click ignores it) with the
@@ -294,8 +298,9 @@ function OceanMap({section, go}: ViewProps) {
     rank.current.clear();
     for (const e of evidenceSpots) {
       const f = recAt(e.id), rating = f ? rateForecast(surfSpot(e.id), f, now) : null;
-      // Stage 6 label priority: selected > favourites > popular spots > the rest by rating (sel is handled by the declutter sort).
-      rank.current.set(e.id, (data.state.favorites.includes(e.id) ? 3000 : POPULAR_SPOTS.includes(e.id) ? 2000 : 0) + (rating?.baseScore ?? -1));
+      // Stage 6 label priority: selected > favourites > popular spots > the original spots > spots added in the expansion > rating (sel is handled by the declutter sort).
+      // spots-map: the same order decides which pin stays when dots crowd (declutter).
+      rank.current.set(e.id, (data.state.favorites.includes(e.id) ? 3000 : POPULAR_SPOTS.includes(e.id) ? 2000 : spotTier(e.id) ? 1000 : 0) + (rating?.baseScore ?? -1));
       const color = rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)';
       // T-116: name · height · rating word. After dark the word stays (user, 2026-11-08); one quiet mark in the bottom strip says it is dark.
       const hs = f ? headlineSurf(e.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null;
@@ -341,6 +346,15 @@ function OceanMap({section, go}: ViewProps) {
     // Stage 6: thin at low zoom: below z6 only the selected spot, favourites, popular spots and the 5 best-rated keep a pin (the rest return on zoom-in).
     if (m.getView().zoom < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
     const at = new Map(evidenceSpots.map((e) => [e.id, e] as const));
+    // spots-map: a pin whose dot centre falls within pinGap px of a higher-priority pin is not drawn at this zoom (it returns on zoom-in);
+    // search, the list, Find Spots and Compare still reach it. Same order as the labels: selected, favourites, popular, original, added, rating.
+    const kept: [number, number][] = [], gap = pinGap(isPhone());
+    for (const {el, id} of els) {
+      if (el.classList.contains('xthin')) continue;
+      const e = at.get(id)!, q = m.project(e.latitude, e.longitude);
+      if (!el.classList.contains('sel') && kept.some(([kx, ky]) => Math.hypot(kx - q.x, ky - q.y) < gap)) el.classList.add('xthin');
+      else kept.push([q.x, q.y]);
+    }
     const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el, id}) => {
       const e = at.get(id)!, q = m.project(e.latitude, e.longitude), cx = edge.left + q.x, cy = edge.top + q.y, g = geom.current.get(id);
       const dot = g ? new DOMRect(cx + g.d[0], cy + g.d[1], g.d[2], g.d[3]) : new DOMRect(cx - 11, cy - 11, 22, 22);
