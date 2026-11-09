@@ -109,6 +109,50 @@ export const NWS_ZONE: Record<string, string | null> = {
   'cs-gold-beach': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
   'cs-brookings': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
   'cs-florence': "ORZ103", // resolved 2 km inland: the beach point is in marine zone PZZ350
+  'w-hawaii-turtle-bay-west': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-velzyland': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-backyards': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-sunset': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-rocky-point': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-chambers': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-ehukai': "HIZ007",
+  'w-hawaii-pipeline-backdoor': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-off-the-wall': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-rockpile': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-log-cabins': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-waimea-bay': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-marijuanas': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-chuns': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-jockos': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-hultins': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-himalayas': "HIZ007", // resolved 2 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-laniakea': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-puaena-point': "HIZ007",
+  'w-hawaii-avalanche': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-haleiwa': "HIZ007",
+  'w-hawaii-mokuleia': "HIZ007", // resolved 0.8 km inland: the beach point is in marine zone PHZ114
+  'w-hawaii-ewa-beach-park': "HIZ034", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-coves': "HIZ034", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-ewa-beach': "HIZ034", // resolved 2 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-white-plains-beach': "HIZ034", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-sand-island': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-barbers-point': "HIZ034", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-kewalos': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-south-shore-ala-moana-park': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-tennis-courts': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-ala-moana-bowls': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-kaisers': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-waikiki-beach': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-threes-and-fours': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-queens': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-secrets-toes': "HIZ032", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-queens-canoes': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-populars': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-publics': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-tonggs': "HIZ033", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-black-point': "HIZ032", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-cliffs': "HIZ032", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
+  'w-hawaii-diamond-head': "HIZ032", // resolved 0.8 km inland: the beach point is in marine zone PHZ115
 };
 
 /** Spots whose own point falls in a marine zone borrow the coastal zone of the nearest zoned spot, only when it is within 15 km (the same stretch of coast). Marked approximate in the UI text; farther spots have no zone. */

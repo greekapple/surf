@@ -1,4 +1,5 @@
 import {MAP_TIME_ZONE} from '../ocean/spotZone';
+import {fmtIn} from '../ocean/time';
 import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode} from 'react';
 import {AREAS, pathFor, type Area} from './routes';
 import {useSwello} from './store';
@@ -190,7 +191,8 @@ export function DataBadge() {
   if (o.loading && !o.bundle) return <span className="badge demo"><i /><span className="lbl">Loading forecast…</span></span>;
   if (!o.bundle) return <span className="badge err"><i /><span className="lbl">Forecast unavailable</span></span>;
   const limited = o.statuses.some((s) => s.state !== 'connected');
-  return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.map((s) => `${s.provider}: ${s.state}`).join('\n')}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt, MAP_TIME_ZONE)}{limited ? ' · some sources limited' : ''}</span></span>;
+  const zoneTag = () => ` ${fmtIn(MAP_TIME_ZONE, {timeZoneName: 'short'}).formatToParts(new Date(o.bundle!.loadedAt)).find((x) => x.type === 'timeZoneName')?.value ?? ''}`;   // the badge is in the map zone, and says so (PST/PDT): a Hawaii spot's own clocks are HST right below it
+  return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.map((s) => `${s.provider}: ${s.state}`).join('\n')}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt, MAP_TIME_ZONE)}{zoneTag()}{limited ? ' · some sources limited' : ''}</span></span>;
 }
 
 /** Top bar (Surfline / Apple): wordmark = Home · Forecast · Map · Quiver · search · status · theme · avatar (Personal). Always solid. */

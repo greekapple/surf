@@ -10,8 +10,8 @@ const cdip = [hdr, '2026-11-02T04:30:00Z,POINT REYES, CA BUOY - 029p1,37.941,-12
 const AT = '2026-11-02T06:00:00Z';
 const ndbc = (cols: string) => ['#YY  MM DD hh mm WDIR WSPD GST  WVHT   DPD   APD MWD   PRES  ATMP  WTMP  DEWP  VIS PTDY  TIDE', '#yr  mo dy hr mn degT m/s  m/s     m   sec   sec degT   hPa  degC  degC  degC  nmi  hPa    ft', cols].join('\n');
 
-test('registry: three context buoys; 46214 and CDIP 029 are flagged as the same instrument', () => {
-  assert.deepEqual(contextBuoys.map((b) => b.label), ['NDBC 46012', 'NDBC 46214', 'CDIP 029']);
+test('registry: five context buoys (three Bay Area, two Oahu); 46214 and CDIP 029 are flagged as the same instrument', () => {
+  assert.deepEqual(contextBuoys.map((b) => b.label), ['NDBC 46012', 'NDBC 46214', 'CDIP 029', 'CDIP 098', 'CDIP 106']);
   assert.match(contextBuoys[1].note!, /Same buoy as CDIP 029/); assert.match(contextBuoys[2].note!, /second feed, not an independent/);
 });
 test('CDIP buoy CSV: comma in the station name is handled, each value keeps its own time, a blank Hs is not filled', () => {
@@ -44,4 +44,12 @@ test('server routes exactly these buoys by fixed keys and the service ingests th
   assert.deepEqual(contextBuoyKeys, contextBuoys.map((b) => b.fetchKey));
   const keys = ingestionTargets(Date.parse('2026-11-02T12:00:00Z')).map((t: any) => t.key);
   for (const k of contextBuoyKeys) assert.ok(keys.includes(k), k);
+});
+
+test('buoysNear: the Hawaii spots get the two Oahu buoys and never the Point Reyes buoy; a Bay Area spot gets the Bay Area ones', async () => {
+  const {buoysNear} = await import('../ocean/buoys.ts');
+  assert.deepEqual(buoysNear(21.665, -158.053).map((b) => b.id).sort(), ['098p1', '106p1']); assert.equal(buoysNear(21.665, -158.053)[0].id, '106p1', 'Pipeline: Waimea Bay buoy is nearest');
+  assert.deepEqual(buoysNear(21.28, -157.84).map((b) => b.id)[0], '098p1', 'Waikiki: Mokapu Point is nearest');
+  assert.ok(buoysNear(37.759, -122.51).every((b) => ['46012', '46214', '029p1'].includes(b.id)) && buoysNear(37.759, -122.51).length === 3);
+  assert.equal(buoysNear(45.976, -123.947).length, 3, 'Seaside (860 km) and San Diego (1,000 km) keep the Bay Area context buoys, as before'); assert.equal(buoysNear(32.7, -117.2).length, 3); assert.deepEqual(buoysNear(-33.9, 151.2), [], 'Sydney: none registered'); const {nearSfBuoy} = await import('../ocean/buoys.ts'); assert.equal(nearSfBuoy(37.76, -122.51), true); assert.equal(nearSfBuoy(21.28, -157.84), false, 'Hawaii does not read the San Francisco buoy');
 });

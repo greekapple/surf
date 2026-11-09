@@ -369,7 +369,7 @@ export function PolarSwell({hours, selected, facing, onSelect}: {hours: HourSamp
 
 export function TideDay({hours, selected, extrema, spot, p, onSelect}: {hours: HourSample[]; selected: string | null; extrema: TidePrediction[]; spot: SurfSpot; p: UserProfile; onSelect: (t: string) => void}) {
   if (!hours.length) return null;
-  if (!hours.some((h) => Number.isFinite(h.forecast.tide.height))) return <p className="fine">{regionNote(spot, 'tide') ?? 'No tide station near this spot yet. The San Francisco station is only used for spots near the Bay.'}</p>;
+  if (!hours.some((h) => Number.isFinite(h.forecast.tide.height))) return <p className="fine">{regionNote(spot, 'tide') ?? 'No hourly tide curve for this spot: it is drawn from the San Francisco station, only used for spots near the Bay. The Tide card lists this spot\'s next highs and lows from its own nearest station when it has one.'}</p>;
   const vals = hours.map((h) => h.forecast.tide.height), lo = Math.min(...vals) - 0.6, hi = Math.max(...vals) + 0.6;
   const t0 = Date.parse(hours[0].timestamp), span = Date.parse(hours[hours.length - 1].timestamp) - t0 || 1;
   const X = (ms: number) => 8 + ((ms - t0) / span) * 344, Yv = (v: number) => 150 - ((v - lo) / (hi - lo)) * 126;

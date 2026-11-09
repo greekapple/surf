@@ -52,12 +52,16 @@ export const tideStations: TideStation[] = [
   {id: '9437585', name: "North Jetty, Tillamook Bay", lat: 45.57000, lon: -123.96500, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9437585'},
   {id: '9435380', name: "Southbeach", lat: 44.62544, lon: -124.04494, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9435380'},
   {id: '9432436', name: "Rink Creek Entrance, Coquille River", lat: 43.15790, lon: -124.18180, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9432436'},
+  {id: '1612366', name: "Pearl Harbor Entrance, Bishop Point", lat: 21.33000, lon: -157.96700, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1612366'},
+  {id: '1612340', name: "HONOLULU", lat: 21.30333, lon: -157.86453, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1612340'},
+  {id: '1612376', name: "Waimanalo", lat: 21.33500, lon: -157.69300, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1612376'},
+  {id: '1612668', name: "Haleiwa, Waialua Bay", lat: 21.59830, lon: -158.10800, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1612668'},
 ];
 export const SF_STATION = '9414290';
 /** Stations whose predictions the server ingests in addition to the existing San Francisco feed. Kept in sync with services/forecast-service.mjs by a test. */
 export const extraTideStationIds = ['9414131', '9415020'];
 /** T-082: stations ingested for high/low predictions only (the nearest station of every covered spot). Kept in sync with services/forecast-service.mjs by a test. */
-export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340',  '9442861',  '9442388',  '9441102',  '9440581',  'TWC0881',  'TWC0857',  '9434132',  '9431647',  '9430104',  '9437585',  '9435380',  '9432436'];
+export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340',  '9442861',  '9442388',  '9441102',  '9440581',  'TWC0881',  'TWC0857',  '9434132',  '9431647',  '9430104',  '9437585',  '9435380',  '9432436',  '1612366',  '1612340',  '1612376',  '1612668'];
 /** Open-coast rule for choosing a tide station for a spot (spot expansion): a CO-OPS station far up a river, slough or lagoon, in an estuary bay or inside a harbour basin, says little about the beach (Seaside's nearest station was Cathcart Landing on Youngs River, 19.8 km;
  *  Pacific Beach's was Quivira Basin in Mission Bay; Blackies' was "Santa Ana River entrance (inside)"; Long Beach WA's was Tarlatt Slough, then "Ilwaco, Baker Bay"). CO-OPS metadata (mdapi) has no open-coast flag, so the rule is explicit and reads the station NAME, in this order:
  *    1. "inside" in the name: closed.
@@ -80,6 +84,7 @@ export const TIDE_EXPOSURE_OVERRIDES: Record<string, TideOverride> = {
   '9437815': {exposure: 'closed', reason: `Brighton is on Nehalem Bay, the same estuary as Nehalem, a subordinate station of Crescent City (${COOPS('9437815')})`},
   '9435385': {exposure: 'closed', reason: `YAQUINA USCG STA, NEWPORT ran for six weeks in 1982 only: no longer a predicting station to rely on; South Beach 9435380 replaces it (${COOPS('9435385')})`},
   '9435380': {exposure: 'open', reason: `Southbeach, the active reference station at the Yaquina Bay entrance (Newport), replaces the 1982 USCG station (${COOPS('9435380')})`},
+  '1612668': {exposure: 'open', reason: `Haleiwa (Waialua Bay) is on the open North Shore of Oahu, exposed to the Pacific, not an estuary: "Bay" in Hawaii does not mean sheltered. There is no other open North Shore station to compare it with (${COOPS('1612668')})`},
   '9432864': {exposure: 'closed', reason: `Empire is inside Coos Bay, the same boat basin and estuary as Charleston (${COOPS('9432864')})`},
   '9432879': {exposure: 'closed', reason: `Sitka Dock is inside Coos Bay (${COOPS('9432879')})`},
   '9432780': {exposure: 'closed-if-alternative', reason: `Charleston is in the Coos Bay boat basin (small lag to the open coast): used only when no open-coast station is within range (${COOPS('9432780')})`},

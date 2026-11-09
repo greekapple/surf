@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {stampLabel, mapDayKey, mapWhen, mapHour, mapWeekShort} from '../features/explore/mapTime.ts';
+import {stampLabel, mapDayKey, mapWhen, mapHour, mapWeekShort, mapZoneAbbr} from '../features/explore/mapTime.ts';
 import {MAP_TIME_ZONE, setActiveZone, activeZone, timeZoneOf} from '../ocean/spotZone.ts';
 import {evidenceSpots, evidenceSpot} from '../ocean/spots.ts';
 
@@ -12,7 +12,7 @@ test('the global map surfaces use ONE explicit zone: a Honolulu selection does n
     setActiveZone(timeZoneOf('zz-hnl')); assert.equal(activeZone(), 'Pacific/Honolulu');
     const iso = '2026-11-10T07:30:00Z';   // 11:30 PM Nov 9 in Los Angeles, 9:30 PM Nov 9 in Honolulu
     assert.equal(MAP_TIME_ZONE, 'America/Los_Angeles'); assert.equal(stampLabel(iso), 'Mon, Nov 9 · 11:30 PM', 'date and hour come from the same (map) zone');
-    assert.equal(mapHour(iso), '11 PM'); assert.equal(mapWhen(iso), 'Mon 11 PM');
+    assert.equal(mapHour(iso), '11 PM'); assert.equal(mapZoneAbbr(iso), 'PST'); assert.equal(mapZoneAbbr('2026-07-10T07:30:00Z'), 'PDT'); assert.equal(mapWhen(iso), 'Mon 11 PM');
     assert.equal(mapDayKey('2026-11-10T07:59:00Z'), '2026-11-09'); assert.equal(mapDayKey('2026-11-10T08:00:00Z'), '2026-11-10', 'the strip cuts days at the map zone midnight (08:00 UTC), not at Honolulu midnight (10:00 UTC)');
     assert.equal(mapWeekShort('2026-11-10T08:00:00Z'), 'Tue 10');
     // a per-spot label is in the spot's own zone: the two coexist

@@ -1,11 +1,12 @@
 // Builds src/ocean/shoreWind.json: for every spot in evidenceSpots, the nearest SHORE wind station within MAX_KM, if one reported wind in the
 // last 7 days. Two kinds, picked by the same rule (spec docs/specs/2026-11-08-wind-now.md):
-//   ndbc = a fixed NDBC/NOS met station (activestations.xml, met="y", type="fixed");  asos = a West Coast airport ASOS (IEM CA_ASOS, OR_ASOS and WA_ASOS networks).
+//   ndbc = a fixed NDBC/NOS met station (activestations.xml, met="y", type="fixed");  asos = a West Coast airport ASOS (IEM CA_ASOS, OR_ASOS, WA_ASOS and HI_ASOS networks).
 // Both kinds go through the enclosed-water mask (src/map/enclosed.ts: an airfield or pier on a bay shore reads bay wind). No latitude band.
 // A candidate counts only if its live feed answered at build time with a wind reading from the last 7 days (NDBC realtime2 file; ASOS the NWS
 // observations the app will call). A station in a harbour basin or estuary, or an NDBC/NOS station whose siting is not checked in NDBC_EXPOSURE, is skipped. The display rule (4 km) is stricter than the audit rule (7 km, wind-point.ts).
 // Usage: node docs/forecast/data/build-shore-wind.ts   (network; writes src/ocean/shoreWind.json)
 import fs from 'node:fs';
+import {pointInUs} from '../../../src/ocean/coverage.ts';
 import {isEnclosedWater} from '../../../src/map/enclosed.ts';
 import {evidenceSpots} from '../../../src/ocean/spots.ts';
 import {distanceKm} from '../../../src/ocean/mop.ts';
@@ -23,8 +24,8 @@ const now = Date.now(), week = SHORE_WIND_WINDOW_DAYS * 86400000;
 const xml = await get('https://www.ndbc.noaa.gov/activestations.xml'); if (!xml) throw new Error('activestations.xml unavailable');
 const ndbc: ShoreStation[] = [...xml.matchAll(/<station ([^>]*)\/?>/g)].map((m) => Object.fromEntries([...m[1].matchAll(/(\w+)="([^"]*)"/g)].map((a) => [a[1], a[2]])) as any)
   .filter((s: any) => s.met === 'y' && s.type === 'fixed').map((s: any) => ({id: String(s.id).toUpperCase(), name: String(s.name), kind: 'ndbc' as const, lat: +s.lat, lon: +s.lon}))
-  .filter((s) => s.lon > -125 && s.lon < -114 && s.lat > 32 && s.lat < 49.1 && !isEnclosedWater(s.lat, s.lon));
-const asosLists = await Promise.all(['CA', 'OR', 'WA'].map((st) => get(ASOS_NETWORK_URL.replace('CA_ASOS', st + '_ASOS')))); if (asosLists.some((x) => !x)) throw new Error('IEM CA/OR/WA ASOS network unavailable');
+  .filter((s) => pointInUs(s.lat, s.lon) && !isEnclosedWater(s.lat, s.lon));   // the West Coast, Hawaii and Alaska boxes (coverage.ts)
+const asosLists = await Promise.all(['CA', 'OR', 'WA', 'HI'].map((st) => get(ASOS_NETWORK_URL.replace('CA_ASOS', st + '_ASOS')))); if (asosLists.some((x) => !x)) throw new Error('IEM CA/OR/WA/HI ASOS network unavailable');
 const asos: ShoreStation[] = asosLists.flatMap((x) => parseAsosNetwork(x!)).filter((x) => !isEnclosedWater(x.lat, x.lon)).map((x) => ({...x, kind: 'asos' as const}));
 const all = [...ndbc, ...asos];
 

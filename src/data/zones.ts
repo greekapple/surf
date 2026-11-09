@@ -8,7 +8,12 @@ export const ZONES: [string, string[]][] = [
   ['Santa Cruz & Monterey', ['Santa Cruz', 'Monterey', 'Big Sur']],
   ['Central Coast', ['San Luis Obispo', 'Santa Barbara', 'Ventura']],
   ['Southern California', ['Los Angeles', 'Orange County', 'San Diego']],
+  ['Hawaii · Oahu', ['Oahu North Shore', 'Oahu South Shore', 'Oahu East Side', 'Oahu West Side']],
+  ['Hawaii · Maui', ['Maui']],
+  ['Hawaii · Big Island', ['Big Island']],
+  ['Hawaii · Kauai', ['Kauai']],
+  ['Hawaii · Molokai, Lanai, Niihau', ['Molokai', 'Lanai', 'Niihau']],
 ];
 /** The state of a zone, for the breadcrumb (Zone › County › Spot sits under a state, not always California). */
-export const stateOfZone = (zone: string) => (zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : 'California');
+export const stateOfZone = (zone: string) => (zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : zone.startsWith('Hawaii') ? 'Hawaii' : 'California');
 export const zoneOf = (region: string) => ZONES.find(([, rs]) => rs.includes(region))?.[0] ?? 'Other';

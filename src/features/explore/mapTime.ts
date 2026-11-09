@@ -13,3 +13,5 @@ export const mapHour = (iso: string) => fmtIn(Z, {hour: 'numeric'}).format(new D
 export const mapWeekLong = (iso: string) => `${mapWeekdayLong(iso)} ${mapDayNum(iso)}`;    // "Tuesday 3" (Windy), not Intl's "3 Tuesday"
 export const mapWeekShort = (iso: string) => `${mapWeekdayShort(iso)} ${mapDayNum(iso)}`;
 export const mapWhen = (iso: string) => `${mapWeekdayShort(iso)} ${mapHour(iso)}`;
+/** "PST" / "PDT": the map zone's abbreviation at an instant, shown on the time strip so a 2 h difference to a Hawaii spot's own clock is explained. */
+export const mapZoneAbbr = (iso: string | number) => fmtIn(Z, {timeZoneName: 'short'}).formatToParts(new Date(iso)).find((x) => x.type === 'timeZoneName')?.value ?? '';

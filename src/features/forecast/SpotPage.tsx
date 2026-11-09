@@ -1,3 +1,5 @@
+import {zoneOf, stateOfZone} from '../../data/zones';
+import {tideStationFor, SF_STATION} from '../../ocean/tideStations';
 import {regionNote} from '../../ocean/coverage';
 import {useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
@@ -16,7 +18,7 @@ import {timeZoneOf} from '../../ocean/spotZone';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
-import {compass, ht, monotonePath, windVal, type Day} from './helpers';
+import {compass, ht, monotonePath, windVal, spotLatLon, type Day} from './helpers';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {hourFreshness} from '../../services/freshness';
@@ -111,13 +113,15 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
   const facing = facingOf(spot.id);
   const swells = [f.primary, f.secondary, f.tertiary].filter((s): s is NonNullable<typeof s> => !!s && fin(s.height) && s.height > 0.05);
   const tideOk = f.availability.tide !== false && fin(f.tide.height);
+  // Hawaii spots: the numbers are face heights (trough to crest); a local reader may expect the Hawaiian scale (about half). Say which one this is unless the profile chose Hawaiian.
+  const scaleNote = stateOfZone(zoneOf(spot.region)) === 'Hawaii' && p.scale !== 'Hawaiian' ? 'surf height, not Hawaiian scale' : null;
   const water = fin(f.waterTempF) ? f.waterTempF : null;
   return (
     <div className="sp-grid">
       <Card k="surf" title="Surf" aside={observeEntry}>
         {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
-        <p className="v sp-v" aria-label={t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
-        <p className="sp-s">{isFlat(hs) ? <span title={hs.kind === 'estimate' ? hs.methodLabel : undefined}>{flatWhy(hs)}</span> : hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>surf height</span></> : t.detail}</p>
+        <p className="v sp-v" aria-label={scaleNote && hs.kind === 'estimate' ? `${t.label}, ${scaleNote}` : t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
+        <p className="sp-s">{isFlat(hs) ? <span title={hs.kind === 'estimate' ? hs.methodLabel : undefined}>{flatWhy(hs)}</span> : hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>{scaleNote ?? 'surf height'}</span></> : t.detail}</p>
         {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
         {hs.kind === 'estimate' && hs.calibration && !hs.saved ? <TunedLine hs={hs as Parameters<typeof TunedLine>[0]['hs']} p={p} spotName={spot.name} /> : hs.kind === 'estimate' ? <p className="sp-f" title={`${hs.methodLabel}${t.confidenceDetail ? `; ${t.confidenceDetail}` : ''}`}>{hs.saved ? `${hs.saved.reason === 'saved' ? 'saved copy' : 'stale data'} · retrieved ${hs.saved.retrievedAt && Number.isFinite(Date.parse(hs.saved.retrievedAt)) ? timeLabelPT(hs.saved.retrievedAt) : 'at an unknown time'} · not current` : `model estimate${transferTag(hs) ? ` · ${transferTag(hs)}` : ''}${t.confidenceText ? ` · ${t.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}{t.confidenceDetail ? `. ${t.confidenceDetail}` : ''}</span></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
         {/* T-130: what the model point cannot say about THIS spot, beside the number (the full provenance stays in Sources & data) */}
@@ -148,7 +152,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
           <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
           <TideMini hours={dayHours} at={h.timestamp} extrema={f.tide.extrema?.length ? f.tide.extrema.map((e) => ({timestamp: e.timestamp, v: e.height, type: e.type})) : extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
           <p className="sp-f">NOAA station prediction, not at the beach</p>
-        </> : <p className="sp-s">{regionNote(spot, 'tide') ?? 'No tide station near this spot.'}</p>}
+        </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} />}
       </Card>
       <Card k="swell" title="Swell" open={open === 'swell'} onToggle={() => onToggle('swell')}>
         {swells.length ? <ul className="sp-swells">{swells.map((s, i) => (
@@ -169,6 +173,19 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
 }
 
 /** Today's tide as a small curve: the selected hour marked, highs and lows labelled with time. */
+/** The Tide card for a spot with no hourly tide series: the next highs and lows of ITS nearest open-coast CO-OPS station (the same one Home names), in the spot's own zone, labelled a station prediction. Outside the US, or with no station in range: the honest message. */
+function StationTideNext({spot, bundle, p, now}: {spot: SurfSpot; bundle: OceanBundle | null | undefined; p: UserProfile; now: number}) {
+  const [lat, lon] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: lat, longitude: lon});
+  const turns = !st ? [] : (st.station.id === SF_STATION ? bundle?.extrema ?? [] : bundle?.stationTides?.[st.station.id]?.extrema ?? []);
+  const next = turns.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > now).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).slice(0, 4);
+  if (!st || st.distanceKm > 40) return <p className="sp-s">{regionNote(spot, 'tide') ?? 'No tide station near this spot.'}</p>;
+  if (!next.length) return <p className="sp-s">No prediction loaded for {st.station.name}, {st.distanceKm} km away.</p>;
+  const tz = timeZoneOf(spot);
+  return <>
+    <ul className="sp-tn" aria-label={`Next tides at ${st.station.name}`}>{next.map((e) => <li key={e.timestamp}><b>{e.type}</b> {weekdayPT(e.timestamp, tz)} {timeLabelPT(e.timestamp, tz)} · {e.height.value! < 0 ? '−' : ''}{ht(Math.abs(e.height.value!), p)} {p.heightUnit}</li>)}</ul>
+    <p className="sp-f">NOAA CO-OPS prediction at {st.station.name}, {st.distanceKm} km away, not at the beach</p>
+  </>;
+}
 function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; extrema: {timestamp: string; v: number; type: string}[]; p: UserProfile}) {
   const pts = hours.filter((h) => fin(h.forecast.tide.height));
   if (pts.length < 4) return null;

@@ -1,4 +1,4 @@
-import {stampLabel, mapDayKey, mapClock, mapWeekLong, mapWeekShort, mapWeekdayShort} from './mapTime';
+import {stampLabel, mapDayKey, mapClock, mapZoneAbbr, mapWeekLong, mapWeekShort, mapWeekdayShort} from './mapTime';
 import {useEffect, useRef, useState, type CSSProperties, type ReactNode} from 'react';
 import {Icon, type IconName} from '../../ui/Icon';
 import {Condition} from '../../ui/Condition';
@@ -106,7 +106,7 @@ export function DayStrip({times, index, playing, onPlay, onScrub, valueText}: {t
   const n = times.length, pct = n > 1 ? (index / (n - 1)) * 100 : 0;
   const days: {k: string; t: string; from: number; to: number}[] = [];
   times.forEach((t, i) => { const k = mapDayKey(t), d = days[days.length - 1]; if (d && d.k === k) d.to = i; else days.push({k, t, from: i, to: i}); });
-  const hour = times[index] ? mapClock(times[index]).replace(':00', '') : '—';
+  const hour = times[index] ? `${mapClock(times[index]).replace(':00', '')} ${mapZoneAbbr(times[index])}` : '—';
   return (
     <div className="xstrip" data-valuetext={valueText}>
       <button className="xplay xround" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={onPlay}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>

@@ -13,7 +13,8 @@ export interface SpotProfile {
   orientation: Sourced<{beachNormalDeg: number}>;
   swellWindow: Sourced<{reference: 'mop10m' | 'offshore'; fromDeg: number; toDeg: number; idealDeg?: number}>;
   periodResponse: Sourced<{minUsefulS: number; idealLowS?: number; idealHighS?: number; maxUsefulS?: number}>;
-  sizeBand: Sourced<{kind: 'breaking-face'; minFt: number; idealLowFt: number; idealHighFt: number; maxFt: number}>;
+  /** What a guide's size range IS: the swell size the break works with (surfnerd "works with swell around..."), not a breaking face height. Reference only: no rating, call, board match or estimate reads it. */
+  sizeBand: Sourced<{kind: 'guide-swell-size'; minFt: number; idealLowFt: number; idealHighFt: number; maxFt: number}>;
   tideWindow: Sourced<{stationId: string; datum: 'MLLW'; lowFt?: number; highFt?: number; stage?: ('rising' | 'falling' | 'any')[]}>;
   windTolerance: Sourced<{normalDeg: number; offshoreGoodMph: number; offshorePoorMph: number; crossPoorMph: number; onshorePoorMph: number}>;
   bottom: Sourced<{type: 'sand-bar' | 'reef' | 'point' | 'rock' | 'jetty-influenced' | 'mixed'; stability: 'mobile' | 'fixed'}>;
@@ -22,7 +23,7 @@ export interface SpotProfile {
 }
 export type ProfileField = Exclude<keyof SpotProfile, 'spotId' | 'schemaVersion' | 'calibration'>;
 export const PROFILE_FIELDS: ProfileField[] = ['mop', 'orientation', 'swellWindow', 'periodResponse', 'sizeBand', 'tideWindow', 'windTolerance', 'bottom', 'hazards'];
-export const FIELD_LABEL: Record<ProfileField, string> = {mop: 'Nearshore model point (MOP)', orientation: 'Beach orientation', swellWindow: 'Swell window', periodResponse: 'Useful swell period', sizeBand: 'Breaking size band', tideWindow: 'Tide window', windTolerance: 'Wind tolerance', bottom: 'Bottom and bar type', hazards: 'Hazards'};
+export const FIELD_LABEL: Record<ProfileField, string> = {mop: 'Nearshore model point (MOP)', orientation: 'Beach orientation', swellWindow: 'Swell window', periodResponse: 'Useful swell period', sizeBand: 'Guide swell size range (reference)', tideWindow: 'Tide window', windTolerance: 'Wind tolerance', bottom: 'Bottom and bar type', hazards: 'Hazards'};
 
 export const unknown = <T>(note?: string, proposal?: Proposal<T>): Sourced<T> => ({value: null, status: 'unknown', sources: [], ...(note ? {note} : {}), ...(proposal ? {proposal} : {})});
 export const emptyProfile = (spotId: string): SpotProfile => ({spotId, schemaVersion: 1, mop: unknown(), orientation: unknown(), swellWindow: unknown(), periodResponse: unknown(), sizeBand: unknown(), tideWindow: unknown(), windTolerance: unknown(), bottom: unknown(), hazards: unknown(), calibration: {status: 'uncalibrated', coefficients: null, sampleCount: 0, validationRef: null}});

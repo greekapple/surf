@@ -1,3 +1,4 @@
+import {nearSfBuoy} from '../../ocean/buoys';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
 import {Fragment, useEffect, useMemo, useState} from 'react';
@@ -6,7 +7,7 @@ import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
 import {Icon} from '../../ui/Icon';
 import {PolarSwell, TideDay, Timeline, windInk, type ChartTab} from './charts';
-import {bestDaylight, groupDays} from './helpers';
+import {bestDaylight, groupDays, spotLatLon} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {Skeleton} from '../../ui/Skeleton';
 import {NearshoreCard} from './Nearshore';
@@ -178,7 +179,7 @@ export function ForecastView({go}: ViewProps) {
       <details className="card sp-src"><summary><h2>Sources &amp; data</h2><span>nearshore model, buoys, offshore heights and sources · {selected.rating.reliability.category.toLowerCase()} reliability</span></summary>
         <div className="sp-two">
           <section aria-label="Nearshore model"><NearshoreCard spot={spot} p={p} selectedTime={selected.timestamp} now={now} series={series} /></section>
-          <section aria-label="Buoy now vs forecast"><div className="card-h"><h2>Buoy now vs forecast</h2></div><BuoyNow buoy={bundle?.buoy} series={series} p={p} now={now} /><BuoyContext buoys={bundle?.buoys} series={series} p={p} now={now} /></section>
+          <section aria-label="Buoy now vs forecast"><div className="card-h"><h2>Buoy now vs forecast</h2></div>{nearSfBuoy(spotLatLon(spot)[0], spotLatLon(spot)[1]) && <BuoyNow buoy={bundle?.buoy} series={series} p={p} now={now} />}<BuoyContext buoys={bundle?.buoys} series={series} p={p} now={now} lat={spotLatLon(spot)[0]} lon={spotLatLon(spot)[1]} tz={timeZoneOf(spot)} /></section>
         </div>
         <Sources />
       </details>

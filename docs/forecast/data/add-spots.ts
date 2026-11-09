@@ -22,9 +22,9 @@ import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 
 const ROOT = new URL('../../../', import.meta.url).pathname, rel = (p: string) => ROOT + p;
-const args = process.argv.slice(2), rowsFile = args.find((a) => !a.startsWith('--')), NO_NET = args.includes('--no-network'), FORCE_WIND = args.includes('--force-wind');
+const args = process.argv.slice(2), rowsFile = args.find((a) => !a.startsWith('--')), regionFilter = args.find((a) => a.startsWith('--region='))?.slice(9).split(',') ?? null, NO_NET = args.includes('--no-network'), FORCE_WIND = args.includes('--force-wind');
 const only = args.find((a) => a.startsWith('--step='))?.slice(7).split(',') ?? null, want = (s: string) => !only || only.includes(s);
-if (!rowsFile) { console.error('usage: node --experimental-strip-types docs/forecast/data/add-spots.ts <rows.json> [--no-network] [--force-wind] [--step=a,b]'); process.exit(2); }
+if (!rowsFile) { console.error('usage: node --experimental-strip-types docs/forecast/data/add-spots.ts <rows.json> [--region=Oahu North Shore,Oahu South Shore] [--no-network] [--force-wind] [--step=a,b]'); process.exit(2); }
 const read = (p: string) => fs.readFileSync(rel(p), 'utf8'), write = (p: string, t: string) => { if (read(p) !== t) { fs.writeFileSync(rel(p), t); return true; } return false; };
 const today = new Date().toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
 const node = (script: string, a: string[], opts: {out?: string} = {}) => {   // run a generator exactly as its header says; stdout goes to a file only if the run succeeds
@@ -35,17 +35,27 @@ const evalIn = (code: string): any => JSON.parse(execFileSync('node', ['--experi
 const km = (aLat: number, aLon: number, bLat: number, bLon: number) => { const r = Math.PI / 180, dLat = (bLat - aLat) * r, dLon = (bLon - aLon) * r, h = Math.sin(dLat / 2) ** 2 + Math.cos(aLat * r) * Math.cos(bLat * r) * Math.sin(dLon / 2) ** 2; return 12742 * Math.asin(Math.sqrt(h)); };
 
 // ---------- 0. rows
-type Row = [string, string, string, 'Beach' | 'Point' | 'Reef', number, number, number];
-const raw = JSON.parse(fs.readFileSync(rowsFile, 'utf8')), list: any[] = Array.isArray(raw) ? raw : raw.rows ?? raw.spots ?? [];
+type Row = [string, string, string, 'Beach' | 'Point' | 'Reef', number, number, number, string?, string?];   // ... seaward, timeZone, country
+const raw = JSON.parse(fs.readFileSync(rowsFile, 'utf8'));
+// WORLD MODE (spec 2026-11-09 C4): docs/forecast/data/world-spots/<region>.json = {region, spots: [{id, name, country, region, timeZone, type, lat, lon, seaward, facts, nearestSources...}]}.
+// Each spot becomes a row WITH its time zone and country, and its `facts` (guide-facts schema) are merged into guide-facts.json (replacing an entry with the same spotId). --region= keeps only the spots whose region ends with one of the names.
+const world = !Array.isArray(raw) && Array.isArray(raw.spots) && raw.spots.length > 0 && raw.spots[0].facts !== undefined;
+const COUNTRY: Record<string, string> = {'United States': 'US', 'USA': 'US', 'US': 'US'};
+let list: any[] = Array.isArray(raw) ? raw : raw.rows ?? raw.spots ?? [];
+const worldFacts: any[] = world ? list.filter((r) => !regionFilter || regionFilter.some((n) => String(r.region).endsWith(n))).map((r) => r.facts) : [];
+if (world && regionFilter) list = list.filter((r) => regionFilter.some((n) => String(r.region).endsWith(n)));
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
-const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, r.region, r.type, r.lat ?? r.latitude, r.lon ?? r.longitude, r.seaward ?? r.facing]).map((r: any[], i: number) => {
-  const [id, name, region, type, lat, lon, seaward] = r;
+const {pointInUs} = await import('../../../src/ocean/coverage.ts');
+const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, world ? String(r.region).replace(/^[^,]+,\s*/, '') : r.region, r.type, r.lat ?? r.latitude, r.lon ?? r.longitude, r.seaward ?? r.facing, r.timeZone, r.country ? (COUNTRY[r.country] ?? r.country) : undefined]).map((r: any[], i: number) => {
+  const [id, name, region, type, lat, lon, seaward, timeZone, country] = r;
   if (!/^[a-z0-9-]+$/.test(String(id))) throw new Error(`row ${i}: bad id ${id}`);
   if (!name || !region) throw new Error(`${id}: name and region are required`);
   if (!['Beach', 'Point', 'Reef'].includes(type)) throw new Error(`${id}: type must be Beach, Point or Reef (got ${type})`);
-  if (!(lat >= 32 && lat <= 49.1 && lon >= -125 && lon <= -114)) throw new Error(`${id}: ${lat}, ${lon} is outside the US West Coast (32-49.1 N)`);
+  if (country !== undefined && country !== 'US') { if (!(Math.abs(lat) <= 90 && Math.abs(lon) <= 180)) throw new Error(`${id}: bad coordinates`); }
+  else if (!pointInUs(lat, lon)) throw new Error(`${id}: ${lat}, ${lon} is outside the US boxes (West Coast to 49.1 N, Hawaii, Alaska)`);
   if (!(seaward >= 0 && seaward <= 360)) throw new Error(`${id}: seaward ${seaward} is not a direction in degrees`);
-  return [String(id), String(name), String(region), type, r3(+lat), r3(+lon), Math.round(+seaward)] as Row;
+  if (timeZone) { try { new Intl.DateTimeFormat('en-US', {timeZone}); } catch { throw new Error(`${id}: ${timeZone} is not an IANA time zone`); } }
+  return [String(id), String(name), String(region), type, r3(+lat), r3(+lon), Math.round(+seaward), ...(timeZone ? [String(timeZone)] : []), ...(timeZone && country ? [String(country)] : [])] as Row;
 });
 { const ids = rows.map((r) => r[0]); if (new Set(ids).size !== ids.length) throw new Error('duplicate ids in the rows file'); }
 const COAST = 'src/data/coast.ts', SERVICE = 'services/forecast-service.mjs';
@@ -53,7 +63,7 @@ const arrayOf = (text: string, name: string): {start: number; end: number; rows:
   const a = text.indexOf(name); if (a < 0) throw new Error('not found: ' + name); const start = text.indexOf('[', text.indexOf('=', a)), end = text.indexOf('\n];', start);
   return {start, end, rows: new Function('return ' + text.slice(start, end + 2))()};
 };
-const tupleText = (r: Row) => `  [${JSON.stringify(r[0]).replace(/"/g, "'")}, ${quote(r[1])}, ${quote(r[2])}, '${r[3]}', ${r[4]}, ${r[5]}, ${r[6]}],`;
+const tupleText = (r: Row) => `  [${JSON.stringify(r[0]).replace(/"/g, "'")}, ${quote(r[1])}, ${quote(r[2])}, '${r[3]}', ${r[4]}, ${r[5]}, ${r[6]}${r[7] ? `, ${quote(r[7])}` : ''}${r[8] ? `, ${quote(r[8])}` : ''}],`;
 const quote = (s: string) => `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 let added: Row[] = [], changed = false;
 if (want('rows')) {
@@ -74,12 +84,18 @@ if (want('rows')) {
   write(SERVICE, s);
   console.log(`rows: ${added.length} added, ${rows.length - added.length} already present${changed && !added.length ? ' (some updated)' : ''}`);
 }
+// world mode: merge each spot's facts into guide-facts.json (replace by spotId, else append), before the generators read it
+if (world && want('facts')) {
+  const GF = 'docs/forecast/data/guide-facts.json', all: any[] = JSON.parse(read(GF)); let n = 0;
+  for (const f of worldFacts) { const i = all.findIndex((x) => x.spotId === f.spotId); if (i >= 0) { if (JSON.stringify(all[i]) !== JSON.stringify(f)) { all[i] = f; n++; } } else { all.push(f); n++; } }
+  write(GF, JSON.stringify(all, null, 1) + '\n'); console.log(`wfacts: ${n} guide-facts entries added or replaced`);
+}
 const newIds = rows.map((r) => r[0]);   // every row of the file is (re)processed by the per-id steps; each is a no-op for an id already done
 
 // ---------- 1. scan (MOP candidates for ids not yet scanned)
 const SCAN = 'docs/forecast/data/mop-candidates-all.json';
 if (want('scan')) {
-  const scan = JSON.parse(read(SCAN)), done = new Set(scan.spots.map((s: any) => s.id)), todo = rows.filter((r) => !done.has(r[0]));
+  const scan = JSON.parse(read(SCAN)), done = new Set(scan.spots.map((s: any) => s.id)), todo = rows.filter((r) => !done.has(r[0]) && r[4] >= 32 && r[4] <= 42.1 && r[5] <= -114);   // CDIP MOP covers California only: a spot elsewhere has no scan and says so
   if (todo.length && NO_NET) console.log(`scan: skipped (--no-network), ${todo.length} spots have no MOP candidates yet`);
   else if (todo.length) {
     const tmp = `/tmp/add-spots-${process.pid}`; fs.mkdirSync(tmp, {recursive: true});

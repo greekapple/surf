@@ -12,7 +12,7 @@ const okFetch = (calls: string[]) => (async (url: any, init: any) => { calls.pus
 
 test('zone table: every spot is either zoned, approximated within 15 km, or has none; Ocean Beach is CAZ006', () => {
   assert.equal(zoneFor('spot-2')?.zone, 'CAZ006'); assert.equal(zoneFor('spot-2')?.approx, false);
-  for (const s of evidenceSpots) { const z = zoneFor(s.id); if (z) assert.match(z.zone, /^(CA|OR|WA)Z\d{3}$/); }
+  for (const s of evidenceSpots) { const z = zoneFor(s.id); if (z) assert.match(z.zone, /^(CA|OR|WA|HI)Z\d{3}$/); }
   assert.ok(Object.values(NWS_ZONE_APPROX).every((a) => a.km <= 15)); assert.ok(Object.keys(NWS_ZONE).length === evidenceSpots.length);
   assert.equal(zoneFor('mavericks-unknown'), null);
 });
