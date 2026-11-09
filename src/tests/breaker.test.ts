@@ -42,7 +42,7 @@ import {sourcedSlopes} from '../ocean/nearshoreSlopeSourced.ts';
 import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
 import {mopAssignments} from '../ocean/mop.ts';
 test('T-087 sourced slopes: beach breaks only, plausible, labelled approximate, tied to the assigned MOP point; reefs/points/jetties stay unknown', () => {
-  assert.ok(sourcedSlopes.length >= 10 && sourcedSlopes.length <= 15); for (const x of ['cs-wedge', 'cs-blacks', 'cs-carmel', 'cs-asilomar', 'cs-hermosa', 'cs-el-porto', 'cs-zuma', 'cs-moss-landing', 'cs-sand-dollar', 'spot-3']) assert.equal(slopeFor(x), null, `${x} stays unknown (excluded by caution or by the checks)`);
+  const beachAssigned = mopAssignments.filter((a) => guideFactsFor(a.spotId)?.waveType === 'beach').length; assert.ok(sourcedSlopes.length >= 10 && sourcedSlopes.length <= beachAssigned, `${sourcedSlopes.length} slopes for ${beachAssigned} assigned beach breaks`);   // never more slopes than beach breaks with an assigned point (was a fixed 10-15) for (const x of ['cs-wedge', 'cs-blacks', 'cs-carmel', 'cs-asilomar', 'cs-hermosa', 'cs-el-porto', 'cs-zuma', 'cs-moss-landing', 'cs-sand-dollar', 'spot-3']) assert.equal(slopeFor(x), null, `${x} stays unknown (excluded by caution or by the checks)`);
   assert.ok(sourcedSlopes.every((s) => s.confidence === 'mean-slope' && typeof s.etopoDepthM === 'number' && !/Cross-checked/.test(s.basis)));
   for (const s of sourcedSlopes) {
     assert.equal(guideFactsFor(s.spotId)?.waveType, 'beach', s.spotId); assert.ok(s.tanBeta >= 0.004 && s.tanBeta <= 0.06, `${s.spotId} ${s.tanBeta}`);

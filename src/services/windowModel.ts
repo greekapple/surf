@@ -1,4 +1,5 @@
 import {pacificDate} from '../ocean/time.ts';
+import {staleness} from './freshness.ts';
 import type {Forecast} from '../models/index.ts';
 import type {SurfRating} from '../ratings/types.ts';
 import {rateForecast} from '../ratings/adapters.ts';
@@ -21,6 +22,6 @@ export function groupWindows(samples:{forecast:Forecast;rating:SurfRating}[],max
  return output.sort((a,b)=>b.minimumScore-a.minimumScore||a.start.localeCompare(b.start));
 }
 export function forecastWindows(records:Forecast[],now:number,ids:string[],limit=3){
- const samples=records.filter(f=>ids.includes(f.spotId)&&Date.parse(f.timestamp)>=now&&Date.parse(f.timestamp)<=now+48*3600000).map(f=>({forecast:f,rating:rateForecast(spots.find(s=>s.id===f.spotId)!,f,now)})).filter(x=>!x.rating.dark).map(x=>{const stale=x.rating.mode==='retrieved'&&x.rating.sources.some(s=>s.delivery==='saved'||!Number.isFinite(Date.parse(s.retrievedAt))||now-Date.parse(s.retrievedAt)>7200000||Date.parse(s.retrievedAt)>now+300000);return stale?{...x,rating:{...x.rating,score:null}}:x});
+ const samples=records.filter(f=>ids.includes(f.spotId)&&Date.parse(f.timestamp)>=now&&Date.parse(f.timestamp)<=now+48*3600000).map(f=>({forecast:f,rating:rateForecast(spots.find(s=>s.id===f.spotId)!,f,now)})).filter(x=>!x.rating.dark).map(x=>{const stale=x.rating.mode==='retrieved'&&x.rating.sources.some(s=>staleness(s,now)!==null);return stale?{...x,rating:{...x.rating,score:null}}:x});
  return groupWindows(samples).slice(0,limit).sort((a,b)=>a.start.localeCompare(b.start));
 }

@@ -1,0 +1,266 @@
+{
+ "retrievedOn": "2026-11-08",
+ "note": "Phase A spot research (spec docs/specs/2026-11-08-spot-expansion.md). Positions are public map points rounded to 3 dp, not surveyed takeoffs. seaward = the guide facing (surfnerd \"Faces X\" to degrees); facts are in guide-facts.json.",
+ "rows": [
+  {
+   "id": "cs-kellys-cove",
+   "name": "Kelly's Cove",
+   "region": "San Francisco",
+   "type": "Beach",
+   "lat": 37.777,
+   "lon": -122.515,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd and surf-forecast map pins (37.776642,-122.515024; 37.7765,-122.5142); OSM has no Kelly's Cove feature",
+    "url": "https://www.surfnerd.com/surf-forecast/kellys-cove"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/kellys-cove"
+   }
+  },
+  {
+   "id": "cs-sloat",
+   "name": "Sloat (Ocean Beach south)",
+   "region": "San Francisco",
+   "type": "Beach",
+   "lat": 37.735,
+   "lon": -122.507,
+   "seaward": 270,
+   "positionSource": {
+    "text": "OSM node: Great Highway & Sloat Boulevard",
+    "url": "https://www.openstreetmap.org/node/6384556374"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/south-ocean-beach"
+   }
+  },
+  {
+   "id": "cs-sharp-park",
+   "name": "Sharp Park",
+   "region": "San Mateo",
+   "type": "Beach",
+   "lat": 37.628,
+   "lon": -122.495,
+   "seaward": 270,
+   "positionSource": {
+    "text": "OSM beach relation: Sharp Park Beach",
+    "url": "https://www.openstreetmap.org/relation/1567666"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/sharp-park"
+   }
+  },
+  {
+   "id": "cs-rockaway",
+   "name": "Rockaway Beach",
+   "region": "San Mateo",
+   "type": "Beach",
+   "lat": 37.61,
+   "lon": -122.497,
+   "seaward": 293,
+   "positionSource": {
+    "text": "OSM beach way: Rockaway Beach",
+    "url": "https://www.openstreetmap.org/way/303682837"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/rockaway-beach"
+   }
+  },
+  {
+   "id": "cs-princeton-jetty",
+   "name": "Princeton Jetty",
+   "region": "San Mateo",
+   "type": "Beach",
+   "lat": 37.499,
+   "lon": -122.471,
+   "seaward": 203,
+   "positionSource": {
+    "text": "surfnerd map pin (OSM has no jetty-break feature)",
+    "url": "https://www.surfnerd.com/surf-forecast/princeton-jetty"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/princeton-jetty"
+   }
+  },
+  {
+   "id": "cs-half-moon-bay",
+   "name": "Half Moon Bay (Dunes Beach)",
+   "region": "San Mateo",
+   "type": "Beach",
+   "lat": 37.484,
+   "lon": -122.453,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach node: Dunes Beach",
+    "url": "https://www.openstreetmap.org/node/358765013"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/half-moon-bay"
+   }
+  },
+  {
+   "id": "cs-pescadero",
+   "name": "Pescadero State Beach",
+   "region": "San Mateo",
+   "type": "Beach",
+   "lat": 37.259,
+   "lon": -122.416,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM park node is inland)",
+    "url": "https://www.surfnerd.com/surf-forecast/pescadero-state-beach"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/pescadero-state-beach"
+   }
+  },
+  {
+   "id": "cs-pigeon-point",
+   "name": "Pigeon Point",
+   "region": "San Mateo",
+   "type": "Reef",
+   "lat": 37.182,
+   "lon": -122.394,
+   "seaward": 203,
+   "positionSource": {
+    "text": "OSM lighthouse node: Pigeon Point Light",
+    "url": "https://www.openstreetmap.org/node/316739839"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/pigeon-point"
+   }
+  },
+  {
+   "id": "cs-scott-creek",
+   "name": "Scott Creek",
+   "region": "Santa Cruz",
+   "type": "Reef",
+   "lat": 37.037,
+   "lon": -122.228,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM beach relation: Scott Creek Beach",
+    "url": "https://www.openstreetmap.org/relation/20309476"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/scott-creek"
+   }
+  },
+  {
+   "id": "cs-rodeo-beach",
+   "name": "Rodeo Beach",
+   "region": "Marin",
+   "type": "Beach",
+   "lat": 37.831,
+   "lon": -122.536,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM beach way: Rodeo Beach",
+    "url": "https://www.openstreetmap.org/way/24656288"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/fort-cronkhite-rodeo-beach"
+   }
+  },
+  {
+   "id": "cs-natural-bridges",
+   "name": "Natural Bridges",
+   "region": "Santa Cruz",
+   "type": "Point",
+   "lat": 36.95,
+   "lon": -122.057,
+   "seaward": 180,
+   "positionSource": {
+    "text": "OSM beach relation: Natural Bridges State Beach",
+    "url": "https://www.openstreetmap.org/relation/637634"
+   },
+   "facingSource": {
+    "text": "S (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/natural-bridges-state-beach"
+   }
+  },
+  {
+   "id": "cs-capitola",
+   "name": "Capitola",
+   "region": "Santa Cruz",
+   "type": "Beach",
+   "lat": 36.971,
+   "lon": -121.952,
+   "seaward": 158,
+   "positionSource": {
+    "text": "OSM beach way: Capitola Beach",
+    "url": "https://www.openstreetmap.org/way/35343873"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/capitola-rivermouth"
+   }
+  },
+  {
+   "id": "cs-marina",
+   "name": "Marina State Beach",
+   "region": "Monterey",
+   "type": "Beach",
+   "lat": 36.699,
+   "lon": -121.809,
+   "seaward": 270,
+   "positionSource": {
+    "text": "OSM beach node: Marina State Beach",
+    "url": "https://www.openstreetmap.org/node/4505489419"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/marina-state-beach"
+   }
+  },
+  {
+   "id": "cs-andrew-molera",
+   "name": "Andrew Molera",
+   "region": "Monterey",
+   "type": "Point",
+   "lat": 36.28,
+   "lon": -121.859,
+   "seaward": 203,
+   "positionSource": {
+    "text": "surfnerd map pin at the Big Sur River mouth (the OSM park point is inland)",
+    "url": "https://www.surfnerd.com/surf-forecast/andrew-molera-state-park"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/andrew-molera-state-park"
+   }
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Fort Funston",
+   "reason": "No public surf guide: surfnerd and surf-forecast have no page, so no facts. The OSM position exists (nature reserve way 404851503)."
+  },
+  {
+   "name": "Pacifica Pier",
+   "reason": "Same break as Sharp Park: surf-forecast describes Sharp Park as a beach/Pier break, and the pier (OSM way 27524930) is 0.5 km from the Sharp Park point. Covered by cs-sharp-park."
+  },
+  {
+   "name": "Muir Beach",
+   "reason": "No public surf guide: surfnerd and surf-forecast have no page."
+  },
+  {
+   "name": "The Hook",
+   "reason": "No facing source: surfnerd has no page, and surf-forecast's '41st Ave (The Hook - Shark Cove)' gives no facing. The coastline fallback (OSM Overpass) was unreachable on 2026-11-08. Position and one guide exist (OSM node 1599035227; surf-forecast Santa-Cruz-41st-Privates), so it can be re-added through the CDIP-MOP facingFromCoastline path."
+  },
+  {
+   "name": "38th Avenue",
+   "reason": "No public surf guide page (surfnerd and surf-forecast searched), and OSM has only the street, not the break."
+  }
+ ]
+}

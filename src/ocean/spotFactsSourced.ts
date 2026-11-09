@@ -2257,6 +2257,636 @@ export const guideFacts: GuideFacts[] = [
    "tough paddle-out at size (surfnerd)"
   ],
   "notes": "Surf-forecast also has a separate Imperial Pier (North and South) listing, not fetched. Crowd statements differ across pages."
+ },
+ {
+  "spotId": "cs-kellys-cove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kellys-cove",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kelly's Cove",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kellys-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kelly's Cove",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WSW, W to WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (both)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd); some shelter from NW winds (surf-forecast)",
+  "tide": "Low, mid and high (surfnerd); quality not affected by the tide (surf-forecast)",
+  "bottom": "sand (surfnerd); beach and reef (surf-forecast)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "North end of Ocean Beach, about 2 km north of the Ocean Beach spot point. Surf-forecast also lists left and right reef breaks. Disagreement kept as published: surfnerd's text calls it a \"southwest-facing nook\" sheltered from northwest wind, while its widget says \"Faces W\"; facingDeg stays 270 (the widget value) and the swell window is not narrowed to the nook."
+ },
+ {
+  "spotId": "cs-sloat",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-ocean-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sloat (Ocean Beach south)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W, W to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to NW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "not stated (surfnerd)",
+  "windOffshore": "E; workable NE to SE; wind exposure NE to SE (surfnerd)",
+  "tide": "Low, mid (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3,
+   "max": 15
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only: surfnerd 'South Ocean Beach'; surf-forecast has no separate page (Sloat, South-Ocean-Beach and Ocean-Beach-South return 404). About 2.7 km south of the Ocean Beach spot point."
+ },
+ {
+  "spotId": "cs-sharp-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sharp-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sharp Park",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sharp-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sharp Park",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to W, W to NW",
+   "fromDeg": 202.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd); some shelter from NW winds (surf-forecast)",
+  "tide": "Low, mid (surfnerd); best around low tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "localism (surf-forecast)",
+   "sharks (surf-forecast)",
+   "often crowded (surf-forecast)"
+  ],
+  "notes": "Includes the Pacifica Municipal Pier: surf-forecast calls Sharp Park a beach/Pier break, and the pier (OSM way 27524930) is 0.5 km north of the beach point, so Pacifica Pier is not a separate spot."
+ },
+ {
+  "spotId": "cs-rockaway",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rockaway-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Rockaway Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Rockaway",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Rockaway Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NNW",
+   "fromDeg": 225,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
+  "idealSwell": "NW (both)",
+  "windOffshore": "SE (both); wind exposure ENE to SSE, offshore from ESE (surfnerd)",
+  "tide": "Low, better on rising (surfnerd); best around low tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd); beach and reef (surf-forecast)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 4
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "busy when the surf is up (surf-forecast)"
+  ],
+  "notes": "Surf-forecast says the beach break favours rights, with mainly right reef breaks. About 1.1 km north of Linda Mar."
+ },
+ {
+  "spotId": "cs-princeton-jetty",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/princeton-jetty",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Princeton Jetty",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Princeton-Breakwater",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Princeton Jetty",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WSW",
+   "fromDeg": 180,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure NNW to ENE (surfnerd); some shelter from NW winds (surf-forecast)",
+  "tide": "Mid, high (surfnerd); best between tides, high tide can move the break too close to shore (surf-forecast)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "sharks (surf-forecast)",
+   "often crowded (surf-forecast)"
+  ],
+  "notes": "Inside Pillar Point, about 2.6 km east of Mavericks. Surfnerd also has a 'Princeton Breakwater' page at the same pin that says low tide, better on rising: the two surfnerd pages disagree on tide. Surf-forecast says lefts and rights; surfnerd says right."
+ },
+ {
+  "spotId": "cs-half-moon-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/half-moon-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Half Moon Bay (Dunes Beach)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Francis-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Half Moon Bay (Dunes Beach)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, mid, high (surfnerd); best around high tide (surf-forecast, Francis Beach)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd's pin is Dunes Beach (matches OSM). The surf-forecast guide is Francis Beach, 1.7 km south on the same strand."
+ },
+ {
+  "spotId": "cs-pescadero",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pescadero-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pescadero State Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pescadero-State-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Pescadero State Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to NNW",
+   "fromDeg": 202.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
+  "idealSwell": "W (surfnerd); SW (surf-forecast)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+  "tide": "Low, mid, high (surfnerd); surfable at all stages of the tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd); beach and reef (surf-forecast)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "Surf-forecast: very rarely crowded. Position is the surfnerd pin; the OSM 'Pescadero State Beach' node is a park point about 1.2 km inland, and the surf-forecast pin is 1.2 km north."
+ },
+ {
+  "spotId": "cs-pigeon-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pigeon-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pigeon Point",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.parks.ca.gov/?page_id=533",
+    "site": "parks.ca.gov",
+    "title": "parks.ca.gov spot guide: Pigeon Point",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to W",
+   "fromDeg": 157.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "not stated (surfnerd)",
+  "windOffshore": "NNE; workable N to NE; wind exposure NNW to ENE (surfnerd)",
+  "tide": "Low, mid (surfnerd)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One surf guide only (surf-forecast's Pigeon-Point pages are other places). California State Parks lists Windsurfing/Surfing among the park's activities. Position: the OSM lighthouse node, which matches the surfnerd pin within 100 m. Access note (not a surf hazard): Pigeon Point Lighthouse is closed until the structure is restored (restoration started February 2024); the grounds stay open (California State Parks)."
+ },
+ {
+  "spotId": "cs-scott-creek",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/scott-creek",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Scott Creek",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to NW",
+   "fromDeg": 157.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "NW (surfnerd)",
+  "windOffshore": "E; wind exposure N to E, offshore from NE (surfnerd)",
+  "tide": "Low, mid, high (surfnerd)",
+  "bottom": "uneven reef, sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 18
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surf-forecast has no Scott Creek page). The surfnerd pin is 0.5 km NW of the OSM beach."
+ },
+ {
+  "spotId": "cs-rodeo-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/fort-cronkhite-rodeo-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Rodeo Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Fort-Cronkite-Rodeo-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Rodeo Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WSW, WSW to WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "S (surfnerd); SW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
+  "tide": "Low, mid, high (surfnerd); not stated (surf-forecast)",
+  "bottom": "sand (surfnerd); sandbar (surf-forecast)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 6
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "rips / undertow (surf-forecast)",
+   "rocks (surf-forecast)",
+   "sharks (surf-forecast)"
+  ],
+  "notes": "Both guides call it Fort Cronkhite/Rodeo Beach."
+ },
+ {
+  "spotId": "cs-natural-bridges",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/natural-bridges-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Natural Bridges",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WSW",
+   "fromDeg": 180,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to N, best NW (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 360
+  },
+  "idealSwell": "NW (surfnerd)",
+  "windOffshore": "NE; wind exposure NW to NE, offshore from N (surfnerd)",
+  "tide": "Low, mid (surfnerd)",
+  "bottom": "rock ledge (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surf-forecast has no Natural Bridges page). Surfnerd gives a W to N workable swell for a south-facing break (NW swell wrapping around the point), which doesn't fit its own S to WSW exposure; the exposure is used as the window."
+ },
+ {
+  "spotId": "cs-capitola",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/capitola-rivermouth",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Capitola",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Capitola-Rivermouth",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Capitola",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SW",
+   "fromDeg": 180,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "S (surfnerd); SW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure WNW to NNE (surfnerd)",
+  "tide": "Low, better on rising (surfnerd); best around low tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "dangerous rips (surf-forecast)",
+   "busy when the surf is up (surf-forecast)"
+  ],
+  "notes": "Both guides list it as Capitola Rivermouth. Surf-forecast also has a separate Capitola Jetty page (sheltered reef), which was not used."
+ },
+ {
+  "spotId": "cs-marina",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/marina-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Marina State Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Marina-State-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Marina State Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW to NW",
+   "fromDeg": 247.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 360
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "E (surfnerd); ESE (surf-forecast); wind exposure NE to SE (surfnerd)",
+  "tide": "Low, mid, high (surfnerd); best around mid tide when rising (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)"
+  ],
+  "notes": "Surf-forecast's pin (36.747, -121.809) is 5 km north of the OSM beach and the surfnerd pin; the OSM position is used."
+ },
+ {
+  "spotId": "cs-andrew-molera",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/andrew-molera-state-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Andrew Molera",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to SW",
+   "fromDeg": 157.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd)",
+  "windOffshore": "NE; wind exposure NNW to ENE, offshore from NNE (surfnerd)",
+  "tide": "Low, mid (surfnerd)",
+  "bottom": "boulders (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surf-forecast has no Andrew Molera page). Surfnerd calls it a rivermouth right over boulders (the Big Sur River mouth). Position is the surfnerd pin; the OSM park relation's point is about 2.5 km inland."
  }
 ];
 export const guideFactsFor = (spotId: string) => guideFacts.find((f) => f.spotId === spotId) ?? null;

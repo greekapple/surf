@@ -48,12 +48,12 @@ test('provenance: every guide entry cites https pages with a retrieval date and 
   for (const p of spotProfiles) assert.deepEqual(profileProblems(p), [], p.spotId);
   const lm = spotProfiles.find((p) => p.spotId === 'spot-3')!; assert.equal(lm.orientation.provenance, 'published guide'); assert.equal(lm.periodResponse.provenance, 'published guide (generic)'); assert.equal(lm.mop.value!.id, 'SM382');
 });
-test('a sheltered spot with no published open sector gets facts but no estimate; a spot with no single facing and no "exposed" reef statement gets neither; coverage is 41 of 45', () => {
+test('a sheltered spot with no published open sector gets facts but no estimate; a spot with no single facing and no "exposed" reef statement gets neither; coverage is 51 of 59 (spot expansion phase A)', () => {
   assert.equal(breakingProfile('spot-7'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'spot-7')!.orientation.value!.beachNormalDeg, 112.5);
   assert.match(enablement(guideFactsFor('spot-7')!).reasons.join(), /no source lists the swell directions it is open to/);
   assert.equal(breakingProfile('cs-shelter-cove'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'cs-shelter-cove')!.orientation.value, null);
   assert.deepEqual(enablement(guideFactsFor('cs-shelter-cove')!).reasons, ['no source states which way the beach faces', 'a reef break needs a source that says it is exposed']);
-  assert.equal(breakingProfiles.length, 41); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === (['spot-1', 'cs-huntington', 'cs-crescent-city'].includes(p.spotId) ? 0 : 1)), 'shelter 0 only at the sheltered open-sector spots');
+  assert.equal(breakingProfiles.length, 51); assert.equal(spotProfiles.length, 59); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === (['spot-1', 'cs-huntington', 'cs-crescent-city', 'cs-rodeo-beach', 'cs-capitola'].includes(p.spotId) ? 0 : 1)), 'shelter 0 only at the sheltered open-sector spots');
   assert.ok(profileFromGuide({...base, facing: null, swellWindow: null}).orientation.value === null);
 });
 test('T-073 sheltered with a published open sector: shelter 0 so the offshore-swell v1 refuses, CDIP v2 estimates inside that sector only; a generic workable range is not enough', () => {
@@ -67,7 +67,7 @@ test('T-073 sheltered with a published open sector: shelter 0 so the offshore-sw
   assert.equal(enablement({...base, exposure: 'sheltered', swellWindow: null}).estimate, false);
   // the real spots: Stinson (Surfnerd sheltered crescent, open SSE–SW and WSW–W), Huntington and Crescent City estimate through their CDIP points; Cowell's (land in every direction) does not
   assert.deepEqual(breakingProfile('spot-1')!.window, [165, 270]); assert.deepEqual(breakingProfile('cs-huntington')!.window, [165, 285]); assert.deepEqual(breakingProfile('cs-crescent-city')!.window, [180, 225]);
-  for (const id of ['spot-1', 'cs-huntington', 'cs-crescent-city']) { const f = guideFactsFor(id)!; assert.equal(f.exposure, 'sheltered', id); assert.equal(f.swellWindow!.basis, 'exposure', id); }
+  for (const id of ['spot-1', 'cs-huntington', 'cs-crescent-city', 'cs-rodeo-beach', 'cs-capitola']) { const f = guideFactsFor(id)!; assert.equal(f.exposure, 'sheltered', id); assert.equal(f.swellWindow!.basis, 'exposure', id); }
 });
 test('T-073 facing derived from coastline geometry: its own provenance and CDIP sources, never "published guide"; other facts keep the guide sources', () => {
   const cdip = {url: 'https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/SL092_forecast.nc.ascii?metaShoreNormal', title: 'CDIP MOP shore normals (agency data) of SL092 244.5°', site: 'facing derived from CDIP coastline geometry', retrievedOn: '2026-11-02'};
@@ -138,4 +138,9 @@ test('T-071b: exposure parsing separates wind shelter from swell shelter; sizes 
   assert.equal(guideFactsFor('cs-asilomar')!.exposure, 'exposed'); assert.equal(guideFactsFor('spot-3')!.exposure, 'somewhat protected'); assert.equal(guideFactsFor('spot-3')!.sizeFt!.max, 12);
   assert.ok(guideFacts.every((f) => !f.sizeFt || (f.sizeFt.min * 2) % 1 === 0 && (f.sizeFt.max * 2) % 1 === 0));
   assert.match(breakingProfile('cs-swamis')!.note, /rests on one guide's "exposed" statement/);
+});
+
+test('a rivermouth (Andrew Molera) is a point-type break: it needs a source that says it is exposed, so it gets facts but no estimate and no MOP assignment', () => {
+  assert.equal(guideFactsFor('cs-andrew-molera')?.waveType, 'point'); assert.equal(breakingProfile('cs-andrew-molera'), null);
+  assert.match(enablement(guideFactsFor('cs-andrew-molera')!).reasons.join(), /a point break needs a source that says it is exposed/);
 });

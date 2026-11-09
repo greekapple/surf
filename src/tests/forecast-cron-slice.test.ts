@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createForecastService, ingestionTargets} from '../../services/forecast-service.mjs';
+import {createForecastService, ingestionTargets, mopServiceIds} from '../../services/forecast-service.mjs';
 
 // T-129: the cron path refreshes one rotating slice per run (Workers free plan: 50 subrequests per invocation).
 function service() { const calls: string[] = []; const fetcher = async (url: string) => { calls.push(String(url)); return new Response('x', {status: 503}); }; const svc = createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => Date.UTC(2026, 10, 4, 12)}); return {svc, calls}; }
@@ -19,7 +19,7 @@ test('the tick wraps around (slice = tick mod count) and a full refresh with no 
 });
 
 test('refresh-ahead: a stored value that would expire within `ahead` is fetched again, a younger one is not', async () => {
-  const t = ingestionTargets(Date.UTC(2026, 10, 4, 12)).find((x: {field?: unknown; ttl: number}) => !x.field)!;
+  const t = ingestionTargets(Date.UTC(2026, 10, 4, 12)).find((x: {field?: unknown; ttl: number; maxAheadMs?: number}) => !x.field && x.maxAheadMs === undefined && x.ttl >= 100 * 60000)!;   // a target that takes the refresh-ahead (marine and spread cap it at 0)
   const store = new Map<string, string>(), BUCKET = {get: async (k: string) => (store.has(k) ? {json: async () => JSON.parse(store.get(k)!)} : null), put: async (k: string, v: string) => { store.set(k, v); }};
   const retrieved = new Date(Date.UTC(2026, 10, 4, 12) - (t.ttl - 20 * 60000)).toISOString(); // 20 minutes of life left
   store.set('forecast/v8/latest/' + t.key + '.json', JSON.stringify({retrievedAt: retrieved, payload: {}}));
@@ -47,7 +47,7 @@ test('P1-1: the per-day upstream calls stay inside the free tiers (Open-Meteo, a
   const targets = ingestionTargets(Date.UTC(2026, 10, 4, 12)) as {ttl: number; url: string}[], perDay: Record<string, number> = {};
   for (const t of targets) { const interval = Math.ceil(dueAfter(t, CRON_OPTS) / (5 * MIN)) * 5 * MIN, host = new URL(t.url).hostname; perDay[host] = (perDay[host] ?? 0) + 86400000 / interval; }
   const om = (perDay['marine-api.open-meteo.com'] ?? 0) + (perDay['api.open-meteo.com'] ?? 0);
-  assert.ok(om < 4000, `Open-Meteo ${Math.round(om)} calls/day (free tier 10,000)`); assert.ok((perDay['thredds.cdip.ucsd.edu'] ?? 0) < 2500);
+  assert.ok(om < 4000, `Open-Meteo ${Math.round(om)} calls/day (free tier 10,000)`); assert.ok((perDay['thredds.cdip.ucsd.edu'] ?? 0) <= 2 * 24 * mopServiceIds.length + 100, 'CDIP: at most one fetch an hour per target (forecast + issue file per MOP point), the politeness floor');   // was a fixed 2,500 for 44 points
 });
 
 test('P1-2: a budgeted cold fill never exceeds the subrequest budget (fetches plus R2 operations) in one run', async () => {

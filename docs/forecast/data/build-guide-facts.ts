@@ -42,14 +42,14 @@ const deriveFacing = (spotId: string) => {
   if (dev > DERIVE.maxSpreadDeg) return null;
   const deg = Math.round(mean), word = Object.entries(WORD).sort((a, b) => { const da = Math.min(cw(a[1], deg), cw(deg, a[1])), db = Math.min(cw(b[1], deg), cw(deg, b[1])); return da - db; })[0][0];
   return {text: word, deg, basis: 'coastline geometry', sources: [{url: `https://thredds.cdip.ucsd.edu/thredds/dodsC/cdip/model/MOP_alongshore/${pts[0].id}_forecast.nc.ascii?metaLatitude,metaLongitude,metaWaterDepth,metaShoreNormal`, site: 'facing derived from CDIP coastline geometry',
-    title: `CDIP MOP shore normals (agency data) of ${pts.map((p) => `${p.id} ${p.shoreNormalDeg}°`).join(', ')}, within ${DERIVE.radiusKm} km; circular mean ${deg}°, spread ±${Math.round(dev)}°`, retrievedOn: scan.retrievedOn}]};
+    title: `CDIP MOP shore normals (agency data) of ${pts.map((p) => `${p.id} ${p.shoreNormalDeg}°`).join(', ')}, within ${DERIVE.radiusKm} km; circular mean ${deg}°, spread ±${Math.round(dev)}°`, retrievedOn: (s.retrievedOn ?? scan.retrievedOn)}]};
 };
 const SITE: Record<string, string> = {surfnerd: 'Surfnerd', 'surf-forecast': 'Surf-Forecast.com'};
 const out: any[] = [];
 for (const r of input) {
   const e = range(r.swellExposure), w = r.swellWorkable && Number.isFinite(r.swellWorkable.fromDeg) ? [r.swellWorkable.fromDeg, r.swellWorkable.toDeg] as [number, number] : null;
   const win = e && span(e) >= 22.5 ? {text: String(r.swellExposure).replace(/\s*\([^)]*\)/g, ''), fromDeg: e[0], toDeg: e[1], basis: 'exposure'} : w && span(w) >= 45 ? {text: r.swellWorkable.text, fromDeg: w[0], toDeg: w[1], basis: 'workable'} : null;
-  const wt = String(r.waveType ?? '').toLowerCase(), type = /point/.test(wt) ? 'point' : /reef/.test(wt) ? 'reef' : /jetty/.test(wt) ? 'jetty' : /beach/.test(wt) ? 'beach' : null;
+  const wt = String(r.waveType ?? '').toLowerCase(), type = /point|river|mouth/.test(wt) ? 'point' : /reef/.test(wt) ? 'reef' : /jetty/.test(wt) ? 'jetty' : /beach/.test(wt) ? 'beach' : null;
   const stated = facingOf(r.facing), derived = !(stated && 'deg' in stated) && r.facingFromCoastline ? deriveFacing(r.spotId) : null;
   const facing = stated && 'deg' in stated ? {...stated, basis: 'guide'} : derived;
   const sources = [...(r.sources ?? []).map((s: any) => ({url: s.url, site: s.site, title: s.title ?? `${SITE[s.site] ?? s.site} spot guide: ${r.name}`, retrievedOn: s.retrievedOn})), ...(derived ? derived.sources : [])];

@@ -23,3 +23,10 @@ test('new public ratings do not mutate the preserved SQI, profiles, forecasts or
 test('zero breaking-wave input cannot receive favorable quality without rideability evidence',()=>{const r=rateQuality(base(),{...context,breakingHeightFt:0});assert.equal(r.category,'UNRATED');assert.equal(r.score,null);assert.notEqual(r.category,'FLAT');assert.equal(rateQuality(base(undefined,200),context).category,'UNRATED')});
 test('verified flat evidence resolves the zero-height rideability requirement',()=>{const r=rateQuality(base(),{...context,breakingHeightFt:0,breakingEvidence:{rideable:false,basis:'observation',validAt:context.validAt,reliable:true,source:'TEST observer'}});assert.equal(r.category,'FLAT');assert.ok(!r.missing.some(m=>m.includes('zero breaking-wave')))});
 test('calibrated tier requires a documented nearshore method and positive validation evidence',()=>{assert.equal(rateQuality(base(),context).tier,'Calibrated');assert.equal(rateQuality(base(),{...context,calibration:{...context.calibration,validation:null}}).tier,'Provisional');assert.equal(rateQuality(base(),{...context,calibration:{...context.calibration,nearshoreMethod:null}}).tier,'Provisional');assert.equal(rateQuality(base(),{...context,mode:'simulation'}).tier,'Provisional')});
+test('rating reliability uses the per-source age limit: an Open-Meteo marine source 3 h 50 min old is current, any other source that old is stale',()=>{
+ const age=(provider:string,ms:number)=>({...context,sources:[{...context.sources[0],provider,retrievedAt:new Date(now-ms).toISOString()}]});
+ const reasons=(c:RatingContext)=>rateQuality(base([5,5,5,5,5]),c).reliability.reasons.join(' | '),h=3600000;
+ assert.doesNotMatch(reasons(age('Open-Meteo Marine',3*h+50*60000)),/saved, stale or has an invalid/);
+ assert.match(reasons(age('Open-Meteo Weather',2*h+60000)),/saved, stale or has an invalid/);
+ assert.match(reasons(age('Test fixture only',3*h+50*60000)),/saved, stale or has an invalid/);
+});

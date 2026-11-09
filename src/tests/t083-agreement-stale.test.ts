@@ -81,11 +81,17 @@ test('freshness rule: saved, older than 2 h, future and undated are stale; recen
 });
 const withSrc = (patch: (e: any) => void) => { const f: any = rec(); f.evidence = {...f.evidence}; patch(f.evidence); return f; };
 test('the headline labels an estimate older than 2 h as stale (v1 and v2), never as current', () => {
-  const o = (m: any) => ({...m, source: {...m.source, retrievedAt: old}});
+  const o = (m: any) => ({...m, source: {...m.source, retrievedAt: new Date(NOW - 5 * 3600000).toISOString()}});   // Open-Meteo marine is refreshed every 3 h: stale only past 4 h (freshness.ts MARINE_MAX_AGE_MS)
   const v1 = headlineSurf('spot-2', withSrc((e) => { e.offshore = o(e.offshore); }), {nowMs: NOW, observations: [], spread: null}) as any;
   assert.equal(v1.saved.reason, 'old'); assert.match(v1.methodLabel, /STALE: retrieved/); assert.equal(headlineText(v1, defaultProfile).tag, 'stale estimate');
   const v2 = headlineSurf('spot-2', rec(), {bundle: bundle([{...mopRec(9), height: {...mopRec(9).height, source: {retrievedAt: old}}}]), nowMs: NOW, observations: [], spread: null}) as any;
   assert.equal(v2.method, 'mop-v2'); assert.equal(v2.saved.reason, 'old'); assert.match(v2.methodLabel, /STALE/);
+});
+test('a 3-hour-old Open-Meteo marine value is current (3 h refresh), a 5-hour-old one is stale; the MOP and wind keep the 2 h rule', () => {
+  const at = (h: number) => (m: any) => ({...m, source: {...m.source, retrievedAt: new Date(NOW - h * 3600000).toISOString()}});
+  const v = (h: number) => headlineSurf('spot-2', withSrc((e) => { e.offshore = at(h)(e.offshore); }), {nowMs: NOW, observations: [], spread: null}) as any;
+  assert.equal(v(3).saved, undefined, 'a 3 h old wave-model retrieval is within the 3 h refresh'); assert.equal(v(5).saved?.reason, 'old');
+  assert.equal(staleness({retrievedAt: new Date(NOW - 3 * 3600000).toISOString()}, NOW)?.reason, 'old', 'the generic rule (wind, spread, MOP) is still 2 h');
 });
 test('MOP forecast file or DAS issue file served saved: the headline says so', () => {
   const b = bundle([mopRec(9)]); b.mop.SF023.retrievedAt = fresh; setMopIssue('SF023', {state: 'ok', issue: null, delivery: 'saved', retrievedAt: fresh});

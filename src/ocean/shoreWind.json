@@ -1,9 +1,9 @@
 {
- "builtAt": "2026-11-09T05:47:32.926Z",
+ "builtAt": "2026-11-09T06:24:49.754Z",
  "maxKm": 4,
  "windowDays": 7,
  "rule": "The nearest fixed NDBC/NOS met station or California airport ASOS within 4 km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last 7 days at build time. No latitude band. A spot with no such station shows no measured wind.",
- "spotsChecked": 45,
+ "spotsChecked": 59,
  "assignments": [
   {
    "spotId": "spot-4",
@@ -40,6 +40,18 @@
    "lon": -123.711,
    "distanceKm": 0.1,
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=ANVC1"
+  },
+  {
+   "spotId": "cs-princeton-jetty",
+   "spotName": "Princeton Jetty",
+   "stationId": "HAF",
+   "stationName": "Half Moon Bay",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 37.5136,
+   "lon": -122.4996,
+   "distanceKm": 3,
+   "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
   },
   {
    "spotId": "cs-blacks",

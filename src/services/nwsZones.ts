@@ -48,6 +48,20 @@ export const NWS_ZONE: Record<string, string | null> = {
   'cs-windansea': null, // marine zone PZZ740: no land beach-hazard zone resolved
   'cs-ob-sd': "CAZ043",
   'cs-imperial': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-rodeo-beach': "CAZ505",
+  'cs-kellys-cove': null, // marine zone PZZ545: no land beach-hazard zone resolved
+  'cs-sloat': "CAZ006",
+  'cs-sharp-park': "CAZ509",
+  'cs-rockaway': "CAZ509",
+  'cs-princeton-jetty': null, // marine zone PZZ545: no land beach-hazard zone resolved
+  'cs-half-moon-bay': "CAZ509",
+  'cs-pescadero': null, // marine zone PZZ545: no land beach-hazard zone resolved
+  'cs-pigeon-point': "CAZ509",
+  'cs-scott-creek': "CAZ509",
+  'cs-capitola': null, // marine zone PZZ535: no land beach-hazard zone resolved
+  'cs-natural-bridges': "CAZ529",
+  'cs-marina': "CAZ530",
+  'cs-andrew-molera': null, // marine zone PZZ565: no land beach-hazard zone resolved
 };
 
 /** Spots whose own point falls in a marine zone borrow the coastal zone of the nearest zoned spot, only when it is within 15 km (the same stretch of coast). Marked approximate in the UI text; farther spots have no zone. */
@@ -61,6 +75,10 @@ export const NWS_ZONE_APPROX: Record<string, {zone: string; viaSpot: string; km:
   'cs-topanga': {zone: 'CAZ362', viaSpot: 'cs-malibu', km: 9}, // Topanga -> Malibu (Surfrider)
   'cs-cardiff': {zone: 'CAZ043', viaSpot: 'cs-swamis', km: 3}, // Cardiff Reef -> Swami’s
   'cs-windansea': {zone: 'CAZ043', viaSpot: 'cs-blacks', km: 7}, // Windansea -> Black’s Beach
+  'cs-kellys-cove': {zone: 'CAZ006', viaSpot: 'spot-2', km: 2}, // Kelly's Cove -> Ocean Beach
+  'cs-princeton-jetty': {zone: 'CAZ509', viaSpot: 'cs-half-moon-bay', km: 2.3}, // Princeton Jetty -> Half Moon Bay (Dunes Beach)
+  'cs-pescadero': {zone: 'CAZ509', viaSpot: 'cs-pigeon-point', km: 8.8}, // Pescadero State Beach -> Pigeon Point
+  'cs-capitola': {zone: 'CAZ529', viaSpot: 'spot-7', km: 6.4}, // Capitola -> Cowell’s
 };
 export interface ZoneInfo {zone: string; approx: boolean; viaSpot?: string}
 export function zoneFor(spotId: string): ZoneInfo | null {

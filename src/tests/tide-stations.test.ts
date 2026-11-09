@@ -58,7 +58,7 @@ test('every covered spot has its nearest prediction station within 40 km, and th
     assert.ok(ingested.has(near.station.id), `${e.name}: nearest station ${near.station.id} (${near.distanceKm} km) is not ingested`);
   }
   assert.deepEqual(none, [], 'spots with no station within 40 km');
-  assert.equal(evidenceSpots.length, 45);
+  assert.ok(evidenceSpots.length >= 45, 'the check above covers every spot, however many there are');
 });
 test('the high/low stations: registry and service agree, the server routes their high/low only, and they have hilo targets', () => {
   assert.deepEqual(tideHiloServiceStationIds, hiloTideStationIds);

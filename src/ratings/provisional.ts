@@ -1,4 +1,5 @@
 import type {OceanRecord,SpotEvidence} from '../ocean/types.ts';
+import {staleness} from '../services/freshness.ts';
 import type {QualityFactor} from '../models/index.ts';
 import type {SurfRating} from './types.ts';
 import {categoryForScore} from './engine.ts';
@@ -18,7 +19,7 @@ export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):S
  if(hs<0||h<0||t<=0||ws<0||dir<0||dir>360||wd<0||wd>360)missing.push('Physically valid offshore inputs');
  const sources=required.map(([,m])=>m.source),sim=r.mode==='simulation';
  const limited=['Offshore surf potential only; no breaking-wave height, sandbar, sheltering or local rideability prediction.',...(s.orientation===null?['Coastline orientation is unverified; shore-relative wind and swell alignment are not scored.']:[]),'Local tide compatibility is unknown; the regional station level is shown without a favorable-tide assumption.','No observed spot-specific performance record; this rating is not calibrated.'];
- const fresh=sources.every(a=>a.delivery!=='saved'&&Number.isFinite(Date.parse(a.retrievedAt))&&now-Date.parse(a.retrievedAt)<=7200000&&Date.parse(a.retrievedAt)<=now+300000);
+ const fresh=sources.every(a=>staleness(a,now)===null); // services/freshness.ts: one rule, the limit chosen per source (Open-Meteo marine 4 h, wind 2 h)
  const reliability={category:missing.length?'INSUFFICIENT' as const:'LIMITED' as const,reasons:missing.length?['Essential contemporaneous offshore inputs are missing.']:[sim?'Hypothetical inputs: not actual forecast reliability.':fresh?'Required model measurements were recently retrieved; model issue time and local validation remain unavailable.':'Some required sources are saved or their retrieval is stale; inspect measurement timestamps.',...limited],horizonHours:null,assessedAt:new Date(now).toISOString()};
  const factors:QualityFactor[]=[];
  const common={tier:'Provisional' as const,validAt:r.timestamp,mode:sim?'simulation' as const:'retrieved' as const,sources,experimental:true as const,reliability,missing,factors,positive:[] as string[],negative:[] as string[]};

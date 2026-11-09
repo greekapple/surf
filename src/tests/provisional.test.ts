@@ -11,3 +11,17 @@ test('essential missing and mismatched timestamps return Unrated, optional missi
 test('zero offshore energy is Poor potential and never observational Flat',()=>{const r=record();r.offshore.value=0;r.primary.height.value=0;assert.equal(rateOcean(evidenceSpots[0],r,now).category,'POOR');assert.notEqual(rateOcean(evidenceSpots[0],r,now).category,'FLAT')});
 test('severe wind lowers provisional score and simulation remains isolated',()=>{const r=record(),before=structuredClone(r),a=rateOcean(evidenceSpots[0],r,now),simulation=experimentRecord(r,{windSpeed:60}),b=rateOcean(evidenceSpots[0],simulation,now);assert.ok(b.score!<a.score!);assert.ok(b.score!<=39);assert.equal(b.mode,'simulation');assert.deepEqual(r,before);assert.deepEqual(rateOcean(evidenceSpots[0],r,now),a);assert.equal(b.reliability.category,'LIMITED')});
 test('provisional explanations reflect weighted factors and stale evidence stays limited',()=>{const r=record(),q=rateOcean(evidenceSpots[0],r,now+86400000);assert.equal(q.baseScore,Math.round(q.factors.reduce((n,f)=>n+(f.score??0)*f.weight,0)));assert.equal(q.reliability.category,'LIMITED');assert.match(q.reliability.reasons.join(' '),/stale/);assert.deepEqual(q.positive,q.factors.filter(f=>f.weight>0&&f.score!==null&&f.score>=65).map(f=>f.name));assert.ok(!q.constraints.join(' ').includes('calibrated-model'))});
+// One age rule per source (services/freshness.ts maxAgeFor): Open-Meteo marine inputs are refreshed every 3 h and stay current to 4 h; the wind inputs (hourly) go stale at 2 h.
+test('freshness is chosen per source: wind goes stale at 2 h 1 min while marine stays fresh at 3 h 50 min', () => {
+  const FRESH = /recently retrieved/, STALE = /saved or their retrieval is stale/, ago = (ms: number) => new Date(now - ms).toISOString(), MIN = 60000;
+  const rate = (windAge: number, marineAge: number, order: 'normal' | 'wind-first' = 'normal') => {
+    const r = record(); for (const k of ['offshore'] as const) r[k] = {...r[k], source: {...r[k].source, retrievedAt: ago(marineAge)}};
+    r.primary = {height: {...r.primary.height, source: {...r.primary.height.source, retrievedAt: ago(marineAge)}}, period: {...r.primary.period, source: {...r.primary.period.source, retrievedAt: ago(marineAge)}}, direction: {...r.primary.direction, source: {...r.primary.direction.source, retrievedAt: ago(marineAge)}}} as any;
+    for (const k of ['windSpeed', 'windDirection'] as const) r[k] = {...r[k], source: {...r[k].source, retrievedAt: ago(windAge)}};
+    void order; return rateOcean(evidenceSpots[0], r, now).reliability.reasons.join(' | ');
+  };
+  assert.match(rate(0, 3 * 60 * MIN + 50 * MIN), FRESH, 'marine 3 h 50 min old, wind current: fresh');
+  assert.match(rate(2 * 60 * MIN + MIN, 0), STALE, 'wind 2 h 1 min old, marine current: stale');
+  assert.match(rate(2 * 60 * MIN - MIN, 0), FRESH, 'wind 1 h 59 min: fresh');
+  assert.match(rate(0, 4 * 60 * MIN + MIN), STALE, 'marine 4 h 1 min: stale');
+});

@@ -1,4 +1,5 @@
 import type {SurfQuality} from '../models/index.ts';
+import {staleness} from '../services/freshness.ts';
 import type {Calibration,RatingContext,RatingCategory,Reliability,SurfRating} from './types.ts';
 export const ratingBands=[{min:95,label:'EPIC'},{min:85,label:'FIRING'},{min:75,label:'GOOD'},{min:65,label:'SOLID'},{min:55,label:'NOT BAD'},{min:40,label:'SURFABLE'},{min:25,label:'WEAK'},{min:0,label:'POOR'}] as const;
 export function categoryForScore(score:number|null):RatingCategory {return score===null||!Number.isFinite(score)||score<0||score>100?'UNRATED':ratingBands.find(b=>score>=b.min)!.label;}
@@ -10,7 +11,7 @@ export function assessReliability(context:RatingContext,missing:string[]):Reliab
  const base={horizonHours:horizon,assessedAt:new Date(now).toISOString()};
  if(mode!=='retrieved')return {...base,category:'LIMITED',reasons:[mode==='simulation'?'Hypothetical inputs; this is not actual forecast reliability.':'Demonstration inputs; this is not an assessment of real conditions.']};
  if(missing.length||!calibration.localInputsVerified)return {...base,category:'INSUFFICIENT',reasons:[...(missing.length?['Required local or forecast inputs are missing.']:[]),...(!calibration.localInputsVerified?['Spot-specific input coverage is not verified.']:[])]};
- const stale=sources.length===0||sources.some(s=>s.delivery==='saved'||!Number.isFinite(Date.parse(s.retrievedAt))||now-Date.parse(s.retrievedAt)>7200000||Date.parse(s.retrievedAt)>now+300000);
+ const stale=sources.length===0||sources.some(s=>staleness(s,now)!==null); // services/freshness.ts: saved, unreadable, in the future, or older than the source's limit (Open-Meteo marine 4 h, others 2 h)
  if(stale)reasons.push('At least one required source is saved, stale or has an invalid retrieval time.');
  if(horizon===null)reasons.push('Model issue time is unavailable; forecast lead time cannot be established.');
  if(horizon!==null&&horizon>72)reasons.push('Forecast lead time exceeds the provisional 72-hour reliability window.');

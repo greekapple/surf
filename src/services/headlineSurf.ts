@@ -5,7 +5,7 @@ import {assignmentFor, mopPoint} from '../ocean/mop.ts';
 import {BREAKING_V2_VERSION} from '../ocean/breakingEstimate.ts';
 import {mopBreaking} from './breakingV2.ts';
 import {pickMop, nowcastFor} from './nearshoreSelect.ts';
-import {firstStale, staleText} from './freshness.ts';
+import {firstStale, staleText, type Stale} from './freshness.ts';
 import {intervalFor} from './uncertainty.ts';
 import {spreadAt, spreadStale} from './modelSpread.ts';
 import {isGuideProfile} from '../ocean/localCalibration.ts';
@@ -85,7 +85,8 @@ export function headlineSurf(spotId: string, hour: Forecast, ctx: HeadlineContex
   const srcs: any[] = h.method === 'mop-v2'
     ? [picked?.height?.source, ...(product === 'forecast' ? [mop?.delivery ? {delivery: mop.delivery, retrievedAt: mop.retrievedAt} : null, (() => { const iss = getMopIssue(mopId); return iss?.delivery ? {delivery: iss.delivery, retrievedAt: iss.retrievedAt ?? mop?.retrievedAt} : null; })()] : [])]
     : [hour?.evidence?.offshore?.source, hour?.evidence?.primary?.height?.source];
-  const st = firstStale(srcs, nowMs), sp = spreadStale(spotId, nowMs);
+  // the age limit is chosen per source (freshness.ts maxAgeFor): Open-Meteo marine 4 h, the MOP files and everything else 2 h
+  const st: Stale | null = firstStale(srcs, nowMs), sp = spreadStale(spotId, nowMs);
   if (!st && !sp) return h;
   const label = `${h.methodLabel}${st ? `; ${staleText(st)}` : ''}${sp ? `; model-spread term not used (${staleText(sp)})` : ''}`;
   return {...h, ...(st ? {saved: {retrievedAt: st.retrievedAt, reason: st.reason}} : {}), methodLabel: label};
