@@ -6,7 +6,8 @@ User, before bed:
 - "use the agent worktrees and other terminals as well as the git trees";
 - "use references per usual, make the Obsidian more extensive";
 - "overnight I should see more reference for data of spots in Obsidian and spot growth in exponential numbers";
-- "gather as much data as possible; obviously don't make random estimates, but anywhere you can get an accurate reading, get it".
+- "gather as much data as possible; obviously don't make random estimates, but anywhere you can get an accurate reading, get it";
+- then: "make it global, don't restrict yourself to just the US, find everything possible".
 
 Permissions were granted in-session, and the deploy command was approved. Live deploys only for app-ready spots that pass the full gate.
 
@@ -73,12 +74,56 @@ A fact enters the catalogue only from a named public source, with its URL and re
 
 **Pace:** at most 4 agents at once (8 GB machine). Polite fetches, about 1 request a second per site.
 
+### D. Global data sources (find every public reading, not just US ones)
+**What exists outside the US.** A research agent maps, per country, the PUBLIC, machine-readable sources:
+- **Wave buoys:** e.g.
+  - Spain: Puertos del Estado;
+  - Portugal: Instituto Hidrográfico;
+  - France: CANDHIS;
+  - UK: Cefas WaveNet and the Channel Coastal Observatory;
+  - Ireland: Marine Institute (ERDDAP);
+  - Australia: Manly Hydraulics Lab (NSW), Queensland waves, the BoM;
+  - New Zealand: council buoys;
+  - South Africa: CSIR;
+  - Japan: NOWPHAS;
+  - Brazil: PNBOIA;
+  - Europe-wide: Copernicus Marine in situ and EMODnet Physics;
+  - global: NDBC's partner buoys.
+- **Tide predictions or gauges:** national hydrographic offices, the UHSLC/GESLA gauge networks, IOC sea-level monitoring.
+- **Wind:** coastal stations (national met services, METARs via NOAA/IEM for airports worldwide).
+- **Model alternatives:** e.g. Copernicus wave forecasts.
+
+**Per source, record:**
+- licence;
+- format and endpoint;
+- update rate;
+- coverage;
+- whether it is free and keyless.
+
+Output: one vault note per source family (`Data-Sources/Src-<name>.md`) and `docs/forecast/data/world-sources.json`.
+
+**Wiring:** each catalogued spot's `nearestSources` uses these, so a spot in Portugal names its nearest real buoy and tide gauge with a distance. The app adopts a source only after engineering wires it, with a data-honesty review. Until then the catalogue records what exists.
+
+**No restriction to the US.** Every surfing coastline is in scope. The region list in B runs in order, then continues through every coast with published guides:
+- the Caribbean;
+- Brazil and Argentina;
+- the Canary Islands and Madeira;
+- Italy and the Mediterranean;
+- Scandinavia;
+- West Africa (Senegal, Ghana);
+- Sri Lanka, the Maldives and India;
+- the Philippines and Taiwan;
+- Fiji, Tahiti and Samoa;
+- Canada (Tofino and Nova Scotia);
+- the US East and Gulf coasts.
+
 ### C. Engineering (eng-term): unblock the globe
-- **C1. Per-spot time zone:** every SpotEvidence gets an IANA `timeZone`, and every pacificDate, clock or daylight call takes the spot's zone. The default stays America/Los_Angeles, so nothing changes for the existing spots.
+- **C1 (top priority: it is what lets world spots into the app). Per-spot time zone:** every SpotEvidence gets an IANA `timeZone`, and every pacificDate, clock or daylight call takes the spot's zone. The default stays America/Los_Angeles, so nothing changes for the existing spots.
   - Tests: a Honolulu spot and a Lisbon spot get the right "today", clock labels and dark hours.
   - On a branch; merged only after the full gate.
 - **C2.** "No US data" honesty for non-US spots: tide, alerts, MOP and shore wind say "not available in this region", and the rating still works.
 - **C3.** A fetch budget above about 150 spots (see above).
+- **C4.** Once C1 and C2 have landed and passed the gate, an add-spots path for world spots (rows from `world-spots/*.json`, nearest non-US sources shown as context only until wired). Hawaii goes first, being US data with its own time zone. Then the best-sourced world regions, in batches, each gated and reviewed.
 
 ## Obsidian
 - New indexes (lead):
