@@ -1,5 +1,6 @@
 // Presentation helpers for the Forecast area. They only reshape existing data.
-import {pacificDate} from '../../ocean/time';
+import {dateIn} from '../../ocean/time';
+import {activeZone} from '../../ocean/spotZone';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
 import {solarTimes} from '../../ocean/sun';
@@ -13,13 +14,13 @@ export function spotLatLon(spot: SurfSpot): [number, number] {
   return e ? [e.latitude, e.longitude] : [37.76, -122.51];
 }
 
-/** Approximate sunrise/sunset (NOAA simplified solar position) for the Pacific date of `iso`. */
-export function sunTimes(iso: string, lat: number, lon: number) {
-  const key = pacificDate(iso);
+/** Approximate sunrise/sunset (NOAA simplified solar position) for the local date of `iso` (the spot's zone). */
+export function sunTimes(iso: string, lat: number, lon: number, tz: string = activeZone()) {
+  const key = dateIn(tz, iso);
   return solarTimes(key, lat, lon);
 }
-export const isDaylight = (iso: string, lat: number, lon: number) => {
-  const {rise, set} = sunTimes(iso, lat, lon), t = Date.parse(iso);
+export const isDaylight = (iso: string, lat: number, lon: number, tz: string = activeZone()) => {
+  const {rise, set} = sunTimes(iso, lat, lon, tz), t = Date.parse(iso);
   return t >= rise && t <= set;
 };
 

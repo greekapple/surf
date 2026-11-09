@@ -1,3 +1,6 @@
+import {regionNote} from '../../ocean/coverage';
+import {fmtIn, dateIn, dateInMs, addDaysKey} from '../../ocean/time';
+import {activeZone} from '../../ocean/spotZone';
 import {Icon} from '../../ui/Icon';
 import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
@@ -8,8 +11,8 @@ import {alertsFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAl
 
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
 
-const clock = (iso: string) => new Date(iso).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'});
-const when = (iso: string) => new Date(iso).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit'});
+const clock = (iso: string) => fmtIn(activeZone(), {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // the zone of the spot on screen
+const when = (iso: string) => fmtIn(activeZone(), {weekday: 'short', hour: 'numeric', minute: '2-digit'}).format(new Date(iso));
 const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look', Skip: 'skip', Dark: 'dark'};
 
 /** The Call: one answer you can act on (verdict, best window, the first reason); tap for every reason and what it is computed from. */
@@ -38,8 +41,8 @@ export function CallBar({call, compact = false}: {call: Call; compact?: boolean}
     </section>
   );
 }
-const sameDay = (iso: string) => new Date(iso).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'}) === new Date().toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
-const dayWord = (iso: string) => { const t = new Date(Date.now() + 864e5).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'}); return new Date(iso).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'}) === t ? 'tomorrow' : new Date(iso).toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short'}); };
+const sameDay = (iso: string) => dateIn(activeZone(), iso) === dateInMs(activeZone(), Date.now());
+const dayWord = (iso: string) => dateIn(activeZone(), iso) === addDaysKey(dateInMs(activeZone(), Date.now()), 1) ? 'tomorrow' : fmtIn(activeZone(), {weekday: 'short'}).format(new Date(iso));
 
 /** First light, sunrise, sunset and last light for the selected day. */
 export function DaylightRow({d}: {d: Daylight}) {
@@ -65,7 +68,8 @@ export function NwsBanner({spotId}: {spotId: string}) {
     return () => ac.abort();
   }, [spotId, tick]);
   useEffect(() => { setAlerts([]); }, [spotId]);
-  const shown = activeAlerts(alerts, Date.now());
+  const shown = activeAlerts(alerts, Date.now()), outside = regionNote(spotId, 'alerts');
+  if (outside) return <p className="nws-none fine" role="note">{outside}</p>;
   if (!shown.length) return null;
   return (
     <section className="nws" aria-label="National Weather Service alert" role="note">

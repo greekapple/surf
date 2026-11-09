@@ -1,3 +1,4 @@
+import {regionNote} from '../../ocean/coverage';
 import {useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
@@ -10,7 +11,8 @@ import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {dayRange} from '../../services/spotHour';
 import {dayCertainty, certainLabel} from '../../services/certainty';
 import {dayText} from '../../services/weekCell';
-import {pacificDate} from '../../ocean/time';
+import {dateIn} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
@@ -146,7 +148,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
           <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
           <TideMini hours={dayHours} at={h.timestamp} extrema={f.tide.extrema?.length ? f.tide.extrema.map((e) => ({timestamp: e.timestamp, v: e.height, type: e.type})) : extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
           <p className="sp-f">NOAA station prediction, not at the beach</p>
-        </> : <p className="sp-s">No tide station near this spot.</p>}
+        </> : <p className="sp-s">{regionNote(spot, 'tide') ?? 'No tide station near this spot.'}</p>}
       </Card>
       <Card k="swell" title="Swell" open={open === 'swell'} onToggle={() => onToggle('swell')}>
         {swells.length ? <ul className="sp-swells">{swells.map((s, i) => (
@@ -224,7 +226,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const hrs = series.slice(d.start, d.end + 1), day = hrs.filter((x) => x.hour >= 6 && x.hour <= 19);
         // One engine for every surface (T-055): the day's range comes from dayRange over its daylight hours, the same headline estimate as the
         // SURF card. The demonstration week (no estimate, no offshore) keeps its typical face height, labelled demo.
-        const dr = dayRange(spot, hrs.map((x) => x.forecast), pacificDate(d.t), now, p, {bundle});
+        const dr = dayRange(spot, hrs.map((x) => x.forecast), dateIn(timeZoneOf(spot), d.t), now, p, {bundle});
         const demo = dr.kind === 'none' ? day.map((x) => surfOf(spot, x.forecast, p, bundle, now).h).filter((x): x is Extract<HeadlineSurf, {kind: 'demonstration'}> => x.kind === 'demonstration') : [];
         // T-057: the card's main number is the estimate at ONE hour (best daylight hour, else the median one), via spotHour; the full envelope is "range over daylight" below.
         const ty = dr.typical, env = dr.kind !== 'none' && dr.loFt !== null && dr.hiFt !== null ? [dr.loFt, dr.hiFt] : null;

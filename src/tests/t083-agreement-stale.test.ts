@@ -112,12 +112,12 @@ test('wind and tide: stale or saved sources are labelled where they show', () =>
   assert.equal(tideOf(fOld, defaultProfile, NOW)!.stale, undefined, 'a tide prediction retrieved 5 h ago (6 h refresh) is current, not stale');
   const fVeryOld: any = withTide(tm(new Date(NOW - 9 * 3600000).toISOString())); assert.equal(tideOf(fVeryOld, defaultProfile, NOW)!.stale!.reason, 'old');
 });
-test('model spread: a saved or over-2-h-old spread is not used and the headline says the term is missing', async () => {
+test('model spread: a saved or over-4-h-old spread is not used and the headline says the term is missing', async () => {
   clearSpread(); const ob = evidenceSpot('spot-2'), j = {hourly: {time: times, wave_height_meteofrance_wave: times.map(() => 1.6), swell_wave_height_meteofrance_wave: times.map(() => 1.5), swell_wave_period_meteofrance_wave: times.map(() => 14), swell_wave_direction_meteofrance_wave: times.map(() => 263), wave_height_ecmwf_wam025: times.map(() => 1.6), swell_wave_height_ecmwf_wam025: times.map(() => 2.3), swell_wave_period_ecmwf_wam025: times.map(() => 14), swell_wave_direction_ecmwf_wam025: times.map(() => 263)}};
   await loadModelSpread(ob, async () => j, NOW, () => true);
   assert.ok(spreadStale('spot-2', NOW)); assert.equal(spreadAt('spot-2', new Date(T * 1000 + 3600000).toISOString(), NOW), null, 'a saved spread is not used');
   const h = headlineSurf('spot-2', rec(), {bundle: bundle([mopRec(9)]), nowMs: NOW, observations: []}) as any; assert.match(h.methodLabel, /model-spread term not used \(SAVED copy/);
-  clearSpread(); await loadModelSpread(ob, async () => j, NOW - 3 * 3600000); assert.equal(spreadStale('spot-2', NOW)!.reason, 'old'); clearSpread();
+  clearSpread(); await loadModelSpread(ob, async () => j, NOW - 3 * 3600000); assert.equal(spreadStale('spot-2', NOW), null, 'a 3 h old spread is current (3 h refresh)'); clearSpread(); await loadModelSpread(ob, async () => j, NOW - 5 * 3600000); assert.equal(spreadStale('spot-2', NOW)!.reason, 'old'); clearSpread();
 });
 
 import {effectiveRetrieval} from '../ocean/server.ts';

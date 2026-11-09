@@ -1,6 +1,8 @@
+import {regionNote} from '../../ocean/coverage';
 import type {UserProfile} from '../../models/index';
 import type {SourceInfo} from '../../ocean/types';
-import {pacificDateMs} from '../../ocean/time';
+import {dateInMs} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import {compass, windVal} from './helpers';
 import {windOf} from '../../services/spotHour';
 import type {SurfSpot} from '../../models/index';
@@ -46,9 +48,11 @@ export function WindNow({spot, hours, now, p}: {spot: SurfSpot; hours: HourSampl
 }
 
 export function WindNowLine({spot, reading, hours, now, p}: {spot: SurfSpot; reading: ShoreWindNow | null; hours: HourSample[]; now: number; p: UserProfile}) {
+  const outside = regionNote(spot, 'shoreWind');
+  if (outside) return <p className="sp-wn sp-f" data-wind-now="none">{outside}</p>;
   const r = reading ?? devFixture(now);
   const note = r ? EXPOSURE_NOTE[r.exposure] : undefined;
-  if (!r || !note || !hours.some((x) => x.date === pacificDateMs(now))) return null;
+  if (!r || !note || !hours.some((x) => x.date === dateInMs(timeZoneOf(spot), now))) return null;
   const t = Date.parse(r.observedAt), where = `${stationLabel({id: r.stationId, kind: r.kind, name: r.stationName})}, ${r.distanceKm.toFixed(1)} km from the spot`;
   const stale = !Number.isFinite(t) || now - t > STALE_MS || t - now > 5 * 60_000;
   const src = r.source?.url ? <a href={r.source.url} target="_blank" rel="noreferrer">{where}</a> : where;

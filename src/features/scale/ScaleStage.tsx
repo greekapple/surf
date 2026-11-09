@@ -2,7 +2,8 @@ import {lazy, Suspense, useEffect, useMemo, useRef, useState} from 'react';
 import type {Surfboard} from '../../models/index';
 import {useSwello} from '../../app/store';
 import {dataPhase} from '../../services/dataPhase';
-import {pacificDate} from '../../ocean/time';
+import {dateIn} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {bodyWords, BODY_WORDS_NOTE} from '../../services/bodyWords';
 import {formatHeight, userHeight} from '../../services/heightMath';
@@ -28,7 +29,7 @@ import {useHasSpin} from './useHasSpin';
 const BOARD_KEY = 'swello-scale-board';
 const W = 600, BASE = 330, H = 292, X0 = 24, X1 = 104, WAVE_X = 70, WAVE_K = 2.6;
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-const dayKey = (iso: string) => pacificDate(iso);
+const dayKey = (iso: string, tz: string) => dateIn(tz, iso);
 
 /** Animates a number toward its target (200–450 ms), or jumps there under reduced motion (or when `jump` is set). */
 function useTween(target: number, ms = 420, jump = false): number {
@@ -57,8 +58,8 @@ export function ScaleStage() {
   const {data, now, spot, view, spreadV} = useSwello();
   const p = data.state.profile, me = userHeight(p), boards = data.state.boards, bundle = view.ocean.bundle;
   const hours = useMemo(() => {
-    const sel = view.selectedTime ?? view.forecast?.timestamp, key = sel ? dayKey(sel) : null;
-    return view.mapRecords.filter((f) => f.spotId === spot.id && key !== null && dayKey(f.timestamp) === key).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
+    const sel = view.selectedTime ?? view.forecast?.timestamp, key = sel ? dayKey(sel, timeZoneOf(spot)) : null;
+    return view.mapRecords.filter((f) => f.spotId === spot.id && key !== null && dayKey(f.timestamp, timeZoneOf(spot)) === key).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
   }, [view.mapRecords, view.selectedTime, view.forecast, spot.id]);
   const idx = Math.max(0, hours.findIndex((f) => f.timestamp === (view.selectedTime ?? view.forecast?.timestamp)));
   const hour = hours[idx] ?? view.forecast;

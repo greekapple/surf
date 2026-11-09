@@ -2,7 +2,8 @@ import type {Forecast, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle, TidePrediction} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {distanceKm} from '../ocean/mop.ts';
-import {pacificDate, pacificHour} from '../ocean/time.ts';
+import {dateIn, hourIn, fmtIn, DEFAULT_TIME_ZONE} from '../ocean/time.ts';
+import {timeZoneOf} from '../ocean/spotZone.ts';
 import {solarTimes} from '../ocean/sun.ts';
 import {clampToLight, isDark} from './daylight.ts';
 import {rateForecast} from '../ratings/adapters.ts';
@@ -22,10 +23,10 @@ export interface DashCard {
 }
 export interface DashContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; extrema?: TidePrediction[]}
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
-const clockFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}), hourFmt = {format: (d: Date) => clockFmt.format(d).replace(':00', '')};
+const hourFmt = (tz: string) => ({format: (d: Date) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(d).replace(':00', '')});
 /** "7 AM" → "7"; the window label spells am/pm once at the end: "7–10 AM", "11 AM–2 PM". */
-export function windowLabel(startMs: number, endMs: number): string {
-  const a = hourFmt.format(new Date(startMs)), b = hourFmt.format(new Date(endMs)), [an, ap] = a.split(' '), [bn, bp] = b.split(' ');
+export function windowLabel(startMs: number, endMs: number, tz: string = DEFAULT_TIME_ZONE): string {
+  const a = hourFmt(tz).format(new Date(startMs)), b = hourFmt(tz).format(new Date(endMs)), [an, ap] = a.split(' '), [bn, bp] = b.split(' ');
   return ap === bp ? `${an}–${bn} ${bp}` : `${a}–${b}`;
 }
 /** Filled segments of a 5-segment bar for a 0–100 score; unrated is empty. */
@@ -33,15 +34,15 @@ export const ratingBars = (score: number | null | undefined) => (finite(score) &
 
 /** The best remaining window today (Pacific) for one spot: hours rated at or above the window threshold, the highest-scoring run. Null when none qualifies. */
 export function bestWindowToday(spot: SurfSpot, records: Forecast[], now: number): DashCard['window'] {
-  const today = pacificDate(new Date(now).toISOString());
+  const tz = timeZoneOf(spot), today = dateIn(tz, new Date(now).toISOString());
   // Daylight only (civil twilight, approximate): a window in the dark is not a surf window.
   const ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(today, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96);
-  const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && pacificDate(f.timestamp) === today && t + 3600000 > now && t >= civil.rise && !isDark(spot.id, f.timestamp); }); // the same daylight rule as the Call (an hour is light when its midpoint is)
+  const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && dateIn(tz, f.timestamp) === today && t + 3600000 > now && t >= civil.rise && !isDark(spot.id, f.timestamp); }); // the same daylight rule as the Call (an hour is light when its midpoint is)
   const ranges = windowRanges(hours, (f) => ({timestamp: f.timestamp, score: rateForecast(spot, f, now).score}), WINDOW_MIN_SCORE, 10);
   const best = ranges.sort((a, b) => b.peakScore - a.peakScore || Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp))[0];
   if (!best) return null;
   const [s, e] = clampToLight(spot.id, Date.parse(best.start.timestamp), Date.parse(best.end.timestamp) + 3600000); if (e <= s) return null;
-  return {label: windowLabel(s, e), category: String(rateForecast(spot, best.peak, now).category), start: new Date(s).toISOString(), end: new Date(e).toISOString()};
+  return {label: windowLabel(s, e, tz), category: String(rateForecast(spot, best.peak, now).category), start: new Date(s).toISOString(), end: new Date(e).toISOString()};
 }
 
 /** `now` picks the hour the card stands for; `clockMs` is the REAL clock the freshness rule, the rating and the lead time are judged at (T-107: a ranking for 3 h ahead or tomorrow morning passed the ranked hour as "now",
@@ -96,17 +97,17 @@ export type RankWhen = 'now' | '3h' | 'tomorrow-am';
 export const RANK_LABEL: Record<RankWhen, {tab: string; title: string}> = {now: {tab: 'Right now', title: 'Best right now nearby'}, '3h': {tab: 'In 3 h', title: 'Best in 3 hours nearby'}, 'tomorrow-am': {tab: 'Tomorrow AM', title: 'Best tomorrow morning nearby'}};
 /** T-099: the Pacific date of the next morning: today before 6 AM (after midnight the next daylight is this morning, not tomorrow's), else tomorrow.
  *  Home's "morning" ranking and Compare spots' night-time opening hour both use it. */
-export function nextMorningKey(now: number): string {
-  return pacificHour(new Date(now).toISOString()) < 6 ? pacificDate(new Date(now).toISOString()) : pacificDate(new Date(now + 86400000).toISOString());
+export function nextMorningKey(now: number, tz: string = DEFAULT_TIME_ZONE): string {
+  return hourIn(tz, new Date(now).toISOString()) < 6 ? dateIn(tz, new Date(now).toISOString()) : dateIn(tz, new Date(now + 86400000).toISOString());
 }
 /** The morning tab's words: "This morning" before 6 AM (the morning meant is today's), otherwise "Tomorrow AM". */
-export const rankLabel = (w: RankWhen, now: number): {tab: string; title: string} =>
-  w === 'tomorrow-am' && pacificHour(new Date(now).toISOString()) < 6 ? {tab: 'This morning', title: 'Best this morning nearby'} : RANK_LABEL[w];
+export const rankLabel = (w: RankWhen, now: number, tz: string = DEFAULT_TIME_ZONE): {tab: string; title: string} =>
+  w === 'tomorrow-am' && hourIn(tz, new Date(now).toISOString()) < 6 ? {tab: 'This morning', title: 'Best this morning nearby'} : RANK_LABEL[w];
 /** Compare spots at night (T-099, T-100): the NEXT daylight hour (not dark at the reference spot), today's included, as long as it falls before noon Pacific; otherwise null.
  *  No fixed 6 AM cutoff: when first light is after 6 the hour is still found today instead of a day later. */
-export function nextMorningHour(times: string[], now: number, dark: (iso: string) => boolean): string | null {
+export function nextMorningHour(times: string[], now: number, dark: (iso: string) => boolean, tz: string = DEFAULT_TIME_ZONE): string | null {
   const first = times.find((iso) => Date.parse(iso) > now && !dark(iso));
-  return first && pacificHour(first) <= 11 ? first : null;
+  return first && hourIn(tz, first) <= 11 ? first : null;
 }
 /** The hour a spot is judged at for a ranking: now, three hours on (both exact hours), or the best-rated hour between 6 and 11 AM Pacific on the next morning (nextMorningKey). Null when that spot has no such hour. */
 export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when: RankWhen): number | null {
@@ -114,9 +115,9 @@ export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when:
   const mine = records.filter((f) => f.spotId === spot.id);
   if (when === 'now') return mine.some((f) => Date.parse(f.timestamp) === top) ? top : null;
   if (when === '3h') return mine.some((f) => Date.parse(f.timestamp) === top + 3 * 3600000) ? top + 3 * 3600000 : null;
-  const key = nextMorningKey(now);
+  const tz = timeZoneOf(spot), key = nextMorningKey(now, tz);
   let best: number | null = null, bs = -Infinity;
-  for (const f of mine) { if (pacificDate(f.timestamp) !== key) continue; const h = pacificHour(f.timestamp); if (h < 6 || h > 11 || isDark(spot.id, f.timestamp)) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
+  for (const f of mine) { if (dateIn(tz, f.timestamp) !== key) continue; const h = hourIn(tz, f.timestamp); if (h < 6 || h > 11 || isDark(spot.id, f.timestamp)) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
   return best;
 }
 /** Like bestNearby, judged at `when`. Each item also says which hour it was judged at. */

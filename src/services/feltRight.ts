@@ -1,4 +1,5 @@
-import {pacificDate} from '../ocean/time.ts';
+import {dateIn} from '../ocean/time.ts';
+import {timeZoneOf} from '../ocean/spotZone.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {getFelt, setFelt, type FeltEntry, type FeltSignal} from './observationStore.ts';
 import {predictedFor} from './forecastArchive.ts';
@@ -28,6 +29,6 @@ export function logFeltRight(i: {spotId: string; at: string; felt: Felt}, env: L
 }
 /** Today's (Pacific) latest signal for a spot, to show "You said: too low". */
 export function feltRightFor(spotId: string, nowMs: number): {felt: Felt; at: string} | null {
-  const day = pacificDate(new Date(nowMs).toISOString()), list = getFelt().filter((e) => e.spotId === spotId && pacificDate(e.hour) === day).sort((a, b) => b.loggedAt.localeCompare(a.loggedAt));
+  const tz = timeZoneOf(spotId), day = dateIn(tz, new Date(nowMs).toISOString()), list = getFelt().filter((e) => e.spotId === spotId && dateIn(tz, e.hour) === day).sort((a, b) => b.loggedAt.localeCompare(a.loggedAt));
   return list[0] ? {felt: list[0].felt, at: list[0].hour} : null;
 }

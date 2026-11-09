@@ -1,3 +1,4 @@
+import {regionNote} from '../../ocean/coverage';
 import {useSwello} from '../../app/store';
 import {useMopIssue} from '../../hooks/useMopIssue';
 import type {SurfSpot, UserProfile} from '../../models/index';
@@ -20,6 +21,8 @@ export function NearshoreCard({spot, p, selectedTime, now}: {spot: SurfSpot; p: 
   const {view, live} = useSwello();
   const a = assignmentFor(spot.id), pt = a ? mopPoint(a.mopId) : null, issueInfo = useMopIssue(live ? a?.mopId : null, view.ocean.bundle?.loadedAt); // the issue time is fetched when this card mounts (T-097)
   const head = (sub: string) => <div className="card-h"><h2>Nearshore model</h2><span>{sub}</span></div>;
+  const outside = regionNote(spot, 'nearshore');
+  if (outside) return <>{head('Not available')}<p>{outside}. CDIP's nearshore model covers US coasts only; the surf estimate here comes from the global wave model.</p></>;
   if (!a || !pt) {
     const cand = mopCandidates.find((c) => c.spotId === spot.id);
     return <>{head('Not assigned')}<p>No CDIP MOP point has been reviewed for this spot, so no nearshore model is shown.</p>{cand && <p className="fine">Candidate points ({cand.mopIds.join(', ')}) are waiting for review. {cand.note}</p>}</>;

@@ -1,5 +1,6 @@
 import {useMemo, useState} from 'react';
-import {pacificDateMs, pacificHourMs} from '../../ocean/time';
+import {dateInMs, hourInMs, fmtIn, addDaysKey} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
 import {callFor, hourCall, windowHour, type CallWindow, type Verdict} from '../../services/call';
@@ -20,7 +21,8 @@ import {certaintyOf, wideText, HORIZON_HOURS} from '../../services/certainty';
 import {greetingLine} from './greeting';
 import {rankBets, type BetConfidence} from './betRank';
 import {evidenceSpots} from '../../ocean/spots';
-import {nearestTideStations, SF_STATION} from '../../ocean/tideStations';
+import {nearestTideStationsFor, SF_STATION} from '../../ocean/tideStations';
+import {regionNote} from '../../ocean/coverage';
 
 const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide reference for the spot
 
@@ -31,10 +33,8 @@ const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide refe
 
 type Bundle = Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined;
 interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean; confidence: BetConfidence}
-const pt = pacificDateMs; // cached formatter (T-091)
-const clock = (iso: string) => new Date(iso).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'});
-const hourOfDay = pacificHourMs;
-const dayWord = (iso: string, nowMs: number) => { const d = pt(Date.parse(iso)); if (d === pt(nowMs)) return 'today'; if (d === pt(nowMs + 864e5)) return 'tomorrow'; return new Date(iso).toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long'}); };
+const clock = (iso: string, tz: string) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // in the zone of the spot shown
+const dayWord = (iso: string, nowMs: number, tz: string) => { const d = dateInMs(tz, Date.parse(iso)), today = dateInMs(tz, nowMs); if (d === today) return 'today'; if (d === addDaysKey(today, 1)) return 'tomorrow'; return fmtIn(tz, {weekday: 'long'}).format(new Date(iso)); };
 
 /** The best bet: across the candidate spots, the next daylight window (today's if still ahead, else the next one), Go or Worth a look at its first hour.
  *  T-075: only a spot with a SURF ESTIMATE at that hour can be "your best bet" (we can't recommend a size we don't have), so sized spots rank first,
@@ -50,7 +50,7 @@ export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserPro
     if (Date.parse(w.start) - nowMs >= HORIZON_HOURS * 36e5) continue; // certainty: never a best bet past the horizon (too far out to call)
     const v = hourCall(spot, rec, profile, ctx).verdict; if (v !== 'Go' && v !== 'Worth a look') continue;
     const hl = spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline;
-    bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs), sized: hl.kind === 'estimate', confidence: certaintyOf(spot.id, hl, rec.timestamp, nowMs)?.level ?? null});
+    bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs, timeZoneOf(spot)), sized: hl.kind === 'estimate', confidence: certaintyOf(spot.id, hl, rec.timestamp, nowMs)?.level ?? null});
   }
   const ranked = rankBets(bets), bet = ranked[0] ?? null;
   // the runner-up, offered only when the first answer is shaky: another spot, with its own surf estimate
@@ -65,7 +65,7 @@ function CamPlayer({cam, onFail}: {cam: OwnCam; onFail: () => void}) {
 
 const cap = (w: string) => w.replace(/^\w/, (c) => c.toUpperCase());
 const tintOf = (nowMs: number, spotId: string) => {
-  const d = daylightFor(spotId, pt(nowMs)), t = nowMs, fl = Date.parse(d.firstLight), sr = Date.parse(d.sunrise), ss = Date.parse(d.sunset), ll = Date.parse(d.lastLight);
+  const d = daylightFor(spotId, dateInMs(timeZoneOf(spotId), nowMs)), t = nowMs, fl = Date.parse(d.firstLight), sr = Date.parse(d.sunrise), ss = Date.parse(d.sunset), ll = Date.parse(d.lastLight);
   return t < fl || t > ll ? 'night' : t < sr + 45 * 6e4 ? 'dawn' : t > ss - 60 * 6e4 ? 'dusk' : 'day';
 };
 
@@ -75,7 +75,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
 }) {
   const hourKey = Math.floor(nowMs / 36e5);
   const {bet, alt, withData, total} = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
-  const spot = bet?.spot ?? refSpot, greeting = greetingLine(hourOfDay(nowMs), name?.trim() ? name.trim().split(/\s+/)[0] : null);
+  const spot = bet?.spot ?? refSpot, greeting = greetingLine(hourInMs(timeZoneOf(spot), nowMs), name?.trim() ? name.trim().split(/\s+/)[0] : null);
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
   const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile, nowMs) : null;
   const surf0 = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
@@ -90,10 +90,10 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
     : withData < total ? `Nothing worth it in the next few days at the ${withData} of ${total} spots with a forecast; the others have none right now.`
     : `Nothing at your spots looks worth it in the next few days. The forecast below shows why.`;
   // Today at a glance, for the best spot (or your first spot when there is no bet).
-  const today = daylightFor(spot.id, pt(nowMs));
+  const tz = timeZoneOf(spot), today = daylightFor(spot.id, dateInMs(tz, nowMs));
   const nowRec = records.filter((f) => f.spotId === spot.id).find((f) => Date.parse(f.timestamp) + 36e5 > nowMs);
   // T-075: the next tide turn at the chosen spot's nearest CO-OPS station within ${TIDE_RANGE_KM} km, named (a station prediction, not the beach).
-  const ev = evidenceSpots.find((e) => e.id === spot.id), near = ev ? nearestTideStations(ev.latitude, ev.longitude)[0] : undefined;
+  const ev = evidenceSpots.find((e) => e.id === spot.id), near = ev ? nearestTideStationsFor(ev)[0] : undefined;
   const station = near && near.distanceKm <= TIDE_RANGE_KM ? near : null;
   const stationTurns = !station ? [] : (station.station.id === SF_STATION ? extrema ?? [] : stationTides?.[station.station.id]?.extrema ?? []);
   const nextTide = stationTurns.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > nowMs).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).map((e) => ({t: e.timestamp, type: e.type}))[0];
@@ -112,7 +112,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
   const glyph = heroRec && heroHour ? glyphFor(heroHour.surf.headline, me.feet, heroRec.primary?.period, breakerType(spot, heroRec).type) : null;
   const heroBand = heroRec ? BAND_COLOR[bandOf(rateForecast(spot, heroRec, nowMs).category)] : undefined;
-  const heroWhen = heroRec ? `${dayWord(heroRec.timestamp, nowMs) === 'today' ? '' : dayWord(heroRec.timestamp, nowMs).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroRec.timestamp)}` : '';
+  const heroWhen = heroRec ? `${dayWord(heroRec.timestamp, nowMs, tz) === 'today' ? '' : dayWord(heroRec.timestamp, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroRec.timestamp, tz)}` : '';
   return (
     <section className={`wel wel-${tintOf(nowMs, spot.id)}`} aria-labelledby="wel-h">
       <div className={`wel-hero is-${media.kind}`}>
@@ -123,7 +123,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
             {[boardText && <>Take your <b>{boardText}</b>{boardNote}</>, cv && cv.level !== 'too-far' && <span title={`${cap(cv.word)}: ${cv.why}`}>{cap(cv.word)}</span>].filter(Boolean).map((x, k) => <span key={k}>{k ? ' · ' : ''}{x}</span>)}
           </p>}
           {altText && <p className="wel-sub">Second choice: {altText}</p>}
-          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start)}</button>}
+          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start, timeZoneOf(bet.spot))}</button>}
         </div>
         {media.kind === 'cam'
           ? <figure className="wel-media"><CamPlayer cam={media.cam} onFail={() => setCamFailed(true)} /><figcaption>{media.cam.label} · {spot.name}</figcaption></figure>
@@ -134,9 +134,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
       </div>
       <NwsBanner spotId={spot.id} />
       <dl className="wel-glance" aria-label={`Today at ${spot.name}`}>
-        <div><dt>Sunrise</dt><dd>{clock(today.sunrise)}</dd></div>
-        <div><dt>Sunset</dt><dd>{clock(today.sunset)}</dd></div>
-        <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach` : station ? 'No prediction loaded for the nearest station' : 'No tide station within range'}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t)} <small>{station.station.name} station</small></> : '—'}</dd></div>
+        <div><dt>Sunrise</dt><dd>{clock(today.sunrise, tz)}</dd></div>
+        <div><dt>Sunset</dt><dd>{clock(today.sunset, tz)}</dd></div>
+        <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach` : station ? 'No prediction loaded for the nearest station' : 'No tide station within range'}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t, tz)} <small>{station.station.name} station</small></> : (regionNote(spot, 'tide') ?? '—')}</dd></div>
         <div><dt>Water</dt><dd>{water !== null ? `${water}°F` : '—'}</dd></div>
         <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && pick.size.state !== 'none' ? <>{pick.board.name} <small>suits {pick.size.board[0]}–{pick.size.board[1]} ft{choice?.mode === 'size' ? ', wave shape unknown' : ''}</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
       </dl>

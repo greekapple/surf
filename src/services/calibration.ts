@@ -2,7 +2,8 @@ import type {Forecast, UserProfile} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {assignmentFor} from '../ocean/mop.ts';
-import {pacificDate} from '../ocean/time.ts';
+import {dateIn} from '../ocean/time.ts';
+import {timeZoneOf} from '../ocean/spotZone.ts';
 import {headlineSurf} from './headlineSurf.ts';
 import {recordAt} from './spotHour.ts';
 import {predictedFor} from './forecastArchive.ts';
@@ -59,7 +60,7 @@ export function logObservation(i: LogInput, env: LogEnv = {}): {ok: true; obs: O
 export const observationsFor = (spotId?: string): Observation[] => getObservations().filter((o) => !spotId || o.spotId === spotId).map(view);
 /** The newest observation made on the same Pacific day as `nowMs`, else null (what the Surf card shows: "You saw ~head high"). */
 export function latestObservation(spotId: string, nowMs: number): Observation | null {
-  const day = pacificDate(new Date(nowMs).toISOString()), o = getObservations().find((x) => x.spotId === spotId && pacificDate(x.observedAt) === day);
+  const tz = timeZoneOf(spotId), day = dateIn(tz, new Date(nowMs).toISOString()), o = getObservations().find((x) => x.spotId === spotId && dateIn(tz, x.observedAt) === day);
   return o ? view(o) : null;
 }
 export function deleteObservation(id: string): boolean {

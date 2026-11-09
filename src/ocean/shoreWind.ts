@@ -2,6 +2,7 @@
  *  Pure: the registry (src/ocean/shoreWind.json, built by docs/forecast/data/build-shore-wind.ts), the two feed URLs and the two normalisers.
  *  The fetch is src/services/shoreWindNow.ts. The offshore buoys the app reads for waves (46026, 46012) are not used here: they are 18-24 NM out. */
 import registry from './shoreWind.json' with {type: 'json'};
+import {hasUsData} from './coverage.ts';
 import type {SourceInfo} from './types.ts';
 
 /** A station counts for a spot only inside this radius (the audits read 7 km; an airfield 6 km inland is not the wind at the beach). */
@@ -46,7 +47,7 @@ export interface ShoreWindNow {stationId: string; stationName: string; kind: 'nd
 export function stationsWithin<T extends {lat: number; lon: number}>(lat: number, lon: number, stations: T[], km: (aLat: number, aLon: number, bLat: number, bLon: number) => number, maxKm = SHORE_WIND_MAX_KM): {s: T; km: number}[] {
   return stations.map((s) => ({s, km: km(lat, lon, s.lat, s.lon)})).filter((x) => x.km <= maxKm).sort((a, b) => a.km - b.km);
 }
-export const shoreAssignmentFor = (spotId: string): ShoreAssignment | null => shoreWindRegistry.assignments.find((a) => a.spotId === spotId) ?? null;
+export const shoreAssignmentFor = (spotId: string): ShoreAssignment | null => (hasUsData(spotId) ? shoreWindRegistry.assignments.find((a) => a.spotId === spotId) ?? null : null);   // NDBC/ASOS stations: US sources, none for a spot elsewhere
 /** One entry per distinct station (several spots can share one). */
 export const shoreStations = (): ShoreStation[] => { const m = new Map<string, ShoreStation>(); for (const a of shoreWindRegistry.assignments) m.set(a.kind + a.stationId, {id: a.stationId, name: a.stationName, kind: a.kind, lat: a.lat, lon: a.lon, distanceKm: a.distanceKm}); return [...m.values()]; };
 /** Server key of a station's feed (forecast-service.mjs ingests exactly these; a test keeps the lists equal). */

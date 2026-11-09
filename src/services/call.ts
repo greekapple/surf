@@ -1,6 +1,7 @@
 import type {Forecast, Skill, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
-import {pacificDate} from '../ocean/time.ts';
+import {dateIn, addDaysKey, fmtIn} from '../ocean/time.ts';
+import {timeZoneOf} from '../ocean/spotZone.ts';
 import {explainRating} from '../ratings/explain.ts';
 import {daylightFor, isDark, clampToLight} from './daylight.ts';
 import {spotHourOf, type SpotHour} from './spotHour.ts';
@@ -97,7 +98,7 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
 
 /** Best window on one Pacific day: the longest run of daylight hours with the same best verdict (Go, else Worth a look), highest peak first. */
 export function windowOnDay(spot: SurfSpot, dateKey: string, profile: UserProfile, ctx: CallContext, fromMs = 0): CallWindow | null {
-  const hours = ctx.records.filter((f) => f.spotId === spot.id && pacificDate(f.timestamp) === dateKey && Date.parse(f.timestamp) + 3600000 > fromMs).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
+  const hours = ctx.records.filter((f) => f.spotId === spot.id && dateIn(timeZoneOf(spot), f.timestamp) === dateKey && Date.parse(f.timestamp) + 3600000 > fromMs).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
   const calls = hours.map((f) => ({f, c: hourCall(spot, f, profile, ctx)}));
   for (const want of ['Go', 'Worth a look'] as const) {
     const runs: {s: number; e: number; peak: number}[] = []; let cur: {s: number; e: number; peak: number} | null = null;
@@ -106,16 +107,16 @@ export function windowOnDay(spot: SurfSpot, dateKey: string, profile: UserProfil
       if (ok && cur && t === cur.e) { cur.e = t + 3600000; cur.peak = Math.max(cur.peak, c.hour.rating.score ?? 0); }
       else { if (ok) { cur = {s: t, e: t + 3600000, peak: c.hour.rating.score ?? 0}; runs.push(cur); } else cur = null; }
     }
-    if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e)}; }
+    if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e, timeZoneOf(spot))}; }
   }
   return null;
 }
 
-const dayName = (iso: string, nowMs: number) => {
-  const d = pacificDate(iso), today = pacificDate(new Date(nowMs).toISOString());
+const dayName = (iso: string, nowMs: number, tz: string) => {
+  const d = dateIn(tz, iso), today = dateIn(tz, new Date(nowMs).toISOString());
   if (d === today) return 'today';
-  if (d === pacificDate(new Date(Date.parse(`${today}T12:00:00Z`) + 86400000).toISOString())) return 'tomorrow';
-  return new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'long'}).format(new Date(iso));
+  if (d === addDaysKey(today, 1)) return 'tomorrow';
+  return fmtIn(tz, {weekday: 'long'}).format(new Date(iso));
 };
 /** The forecast hour that holds a window's start. A window may start at first light (e.g. 6:20), so never match the start time exactly. */
 export function windowHour<T extends {spotId: string; timestamp: string}>(records: T[], spotId: string, w: {start: string}): T | undefined {
@@ -125,23 +126,23 @@ export function windowHour<T extends {spotId: string; timestamp: string}>(record
 /** T-108: THE best-window function. The first window (same rule as the call's: longest run of daylight hours with the best verdict) that has not ended, looking `days` Pacific days ahead from `fromMs`.
  *  The spot page's call, Compare's "Best" column and Find spots use this one, so they cannot disagree. `when` is 'today' / 'tomorrow' / a weekday. */
 export function bestWindowFrom(spot: SurfSpot, profile: UserProfile, ctx: CallContext, fromMs: number, days = 4): (CallWindow & {when: string}) | null {
-  const day0 = pacificDate(new Date(fromMs).toISOString());
+  const tz = timeZoneOf(spot), day0 = dateIn(tz, new Date(fromMs).toISOString());
   for (let i = 0; i < days; i++) {
-    const d = pacificDate(new Date(Date.parse(`${day0}T12:00:00Z`) + i * 86400000).toISOString()), w = windowOnDay(spot, d, profile, ctx, fromMs);
-    if (w && Date.parse(w.end) > ctx.nowMs) return {...w, when: dayName(w.start, ctx.nowMs)}; // today's window still ahead (before first light) counts
+    const d = addDaysKey(day0, i), w = windowOnDay(spot, d, profile, ctx, fromMs);
+    if (w && Date.parse(w.end) > ctx.nowMs) return {...w, when: dayName(w.start, ctx.nowMs, tz)}; // today's window still ahead (before first light) counts
   }
   return null;
 }
 /** The call for a spot-hour: its verdict, the best window on that Pacific day (if daylight remains), the next window when it is dark or today's has passed, and why. */
 export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ctx: CallContext): Call {
-  const hc = hourCall(spot, hour, profile, ctx), day = pacificDate(hour.timestamp), from = Math.max(ctx.nowMs, Date.parse(hour.timestamp));
+  const hc = hourCall(spot, hour, profile, ctx), tz = timeZoneOf(spot), day = dateIn(tz, hour.timestamp), from = Math.max(ctx.nowMs, Date.parse(hour.timestamp));
   const window = windowOnDay(spot, day, profile, ctx, Math.min(ctx.nowMs, Date.parse(hour.timestamp)));
   const passed = !window || Date.parse(window.end) <= ctx.nowMs;
   let nextWindow: CallWindow | null = null;
   if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, Math.max(from, ctx.nowMs)); if (w) nextWindow = {start: w.start, end: w.end, label: w.label}; }
-  const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs) : '';
+  const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs, tz) : '';
   const litWords = hc.lit ? ` The conditions themselves rate ${hc.lit.conditions}.` : '';
   const why = hc.verdict === 'Dark' ? [nextWindow ? `It is dark, so it is not a surf window.${litWords} The next window is ${dayWord} ${nextWindow.label}.` : `It is dark, so it is not a surf window.${litWords} No good window is forecast in the next few days.`] : hc.why;
-  const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating (explainRating), wind, daylight (first light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
+  const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating (explainRating), wind, daylight (first light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
   return {verdict: hc.verdict, ...(hc.lit ? {lit: hc.lit} : {}), window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
 }

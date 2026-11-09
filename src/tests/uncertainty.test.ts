@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {intervalFor, SKILL_FLOOR_W, LEAD_SKILL, skillW, V1_STEP_W, DISAGREE_HALF} from '../services/uncertainty.ts';
-import {normalizeSpread, loadModelSpread, spreadAt, clearSpread, modelSpreadURL, SPREAD_MODELS, MODEL_SKILL, PRUNED_MODELS, PRUNE_HALF_WIDTH, SKILL_AS_OF} from '../services/modelSpread.ts';
+import {normalizeSpread, loadModelSpread, spreadAt, clearSpread, modelSpreadURL, SPREAD_MODELS, SPREAD_REQUEST_MODELS, MODEL_SKILL, PRUNED_MODELS, PRUNE_HALF_WIDTH, SKILL_AS_OF} from '../services/modelSpread.ts';
 import {headlineSurf} from '../services/headlineSurf.ts';
 import {normalizeOpenMeteo} from '../ocean/openMeteo.ts';
 import {evidenceSpot, evidenceSpots} from '../ocean/spots.ts';
@@ -48,7 +48,7 @@ test('model spread fetch: one request per spot, cached for 10 minutes, failure i
   const a = await loadModelSpread(ob, fetchJson, 1e12), b = await loadModelSpread(ob, fetchJson, 1e12 + 60000); assert.equal(calls, 1); assert.ok(a && a === b);
   assert.ok(spreadAt('spot-2', new Date(T * 1000).toISOString(), 1e12 + 60000)!.ratio > 1); await loadModelSpread(ob, fetchJson, 1e12 + 11 * 60000); assert.equal(calls, 2);
   clearSpread(); assert.equal(await loadModelSpread(ob, async () => { throw new Error('offline'); }, 1e12), null); assert.equal(spreadAt('spot-2', new Date(T * 1000).toISOString(), 1e12), null);
-  const u = new URL(modelSpreadURL(ob)); assert.equal(u.searchParams.get('models'), SPREAD_MODELS.join(',')); assert.equal(u.hostname, 'marine-api.open-meteo.com');
+  const u = new URL(modelSpreadURL(ob)); assert.equal(u.searchParams.get('models'), SPREAD_REQUEST_MODELS.join(',')); assert.equal(u.hostname, 'marine-api.open-meteo.com');
 });
 
 const marine = (hs: number) => ({latitude: 37.75, longitude: -122.6, hourly_units: {wave_height: 'm', swell_wave_height: 'm', swell_wave_direction: '°', swell_wave_period: 's', secondary_swell_wave_height: 'm', secondary_swell_wave_direction: '°', secondary_swell_wave_period: 's', sea_surface_temperature: '°C'},

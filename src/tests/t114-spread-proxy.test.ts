@@ -23,7 +23,7 @@ test('Open-Meteo 429 on the spread feed: the proxy serves its saved copy, labell
   let now = instant, fail = false;
   const h = createForecastService({now: () => now, fetcher: async () => (fail ? new Response('rate limited', {status: 429, headers: {'retry-after': '60'}}) : spread())});
   const first = await (await h(req('spread-spot-2'))).json();
-  now += 5400001; fail = true; // past the spread TTL (90 min)
+  now += 10800001; fail = true; // past the spread TTL (3 h)
   const stale = await (await h(req('spread-spot-2'))).json();
   assert.equal(stale.cache, 'stale'); assert.equal(stale.retrievedAt, first.retrievedAt); assert.deepEqual(stale.payload, first.payload); assert.match(stale.warning, /429/);
 });

@@ -1,6 +1,7 @@
 /** NWS public forecast zone per spot (T-064), resolved on 2026-11-02 from https://api.weather.gov/points/{lat},{lon} (`properties.forecastZone`) with docs/forecast/data/nws-zones.ts.
  *  Only land/coastal zones (CAZ...) are used: Beach Hazards Statements, High Surf and Rip Current alerts are issued for them. A spot whose point resolves to a marine zone (PZZ...) has no zone here and shows no alerts.
  *  Zones change rarely; re-run the script to refresh. Source: National Weather Service (public domain). */
+import {hasUsData} from '../ocean/coverage.ts';
 export const NWS_ZONES_RESOLVED = '2026-11-02';
 export const NWS_ZONE: Record<string, string | null> = {
   'spot-2': "CAZ006",
@@ -127,6 +128,7 @@ export const NWS_ZONE_APPROX: Record<string, {zone: string; viaSpot: string; km:
 };
 export interface ZoneInfo {zone: string; approx: boolean; viaSpot?: string}
 export function zoneFor(spotId: string): ZoneInfo | null {
+  if (!hasUsData(spotId)) return null;   // NWS covers the US only: a spot elsewhere has no alerts zone, never a neighbour country's
   const z = NWS_ZONE[spotId]; if (z) return {zone: z, approx: false};
   const a = NWS_ZONE_APPROX[spotId]; return a ? {zone: a.zone, approx: true, viaSpot: a.viaSpot} : null;
 }

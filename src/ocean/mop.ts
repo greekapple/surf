@@ -1,4 +1,5 @@
 import {guideFactsFor} from './spotFactsSourced.ts';
+import {hasUsData} from './coverage.ts';
 import {pickMop} from './spotFactsRules.ts';
 import {scannedMopPoints, scannedMopCandidates} from './mopCandidatesSourced.ts';
 /** CDIP MOP registry (T-041). Which MOP transect a spot may use is a REVIEWED fact, never "nearest wins".
@@ -43,7 +44,7 @@ export const mopCandidates: MopCandidate[] = [
   ...scannedMopCandidates.filter((c) => !['spot-2', 'spot-3', 'spot-0'].includes(c.spotId)),
 ];
 
-export const assignmentFor = (spotId: string) => mopAssignments.find((a) => a.spotId === spotId) ?? null;
+export const assignmentFor = (spotId: string) => (hasUsData(spotId) ? mopAssignments.find((a) => a.spotId === spotId) ?? null : null);   // CDIP MOP is a US source: none for a spot elsewhere
 export const mopPoint = (id: string) => mopPoints.find((p) => p.id === id) ?? null;
 /** Ids the server ingests: assigned points only. */
 export const assignedMopIds = () => [...new Set(mopAssignments.map((a) => a.mopId))];

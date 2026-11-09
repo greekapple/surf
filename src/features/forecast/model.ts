@@ -4,7 +4,8 @@ import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {SurfRating} from '../../ratings/types';
 import {rateForecast} from '../../ratings/adapters';
 import {formatWaveHeight} from '../../utils/waveHeight';
-import {pacificDate, pacificHour} from '../../ocean/time';
+import {dateIn, hourIn, fmtIn, addDaysKey} from '../../ocean/time';
+import {timeZoneOf, activeZone} from '../../ocean/spotZone';
 
 export type DataMode = 'Retrieved' | 'Demonstration';
 
@@ -47,13 +48,14 @@ export function hourlySeries(spot: SurfSpot, records: Forecast[], now: number): 
     .filter(f => f.spotId === spot.id && Number.isFinite(Date.parse(f.timestamp)))
     .sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))
     .map(f => {
+      const tz = timeZoneOf(spot);
       const face = f.availability.face && Number.isFinite(f.face) ? f.face : null;
       const offshore = Number.isFinite(f.offshore) ? f.offshore : null;
       return {
         forecast: f,
         timestamp: f.timestamp,
-        date: pacificDate(f.timestamp),
-        hour: pacificHour(f.timestamp),
+        date: dateIn(tz, f.timestamp),
+        hour: hourIn(tz, f.timestamp),
         heightFt: face ?? offshore,
         rating: rateForecast(spot, f, now),
       };
@@ -73,29 +75,19 @@ export function bestUpcoming(series: HourSample[], now: number): HourSample | nu
   return best;
 }
 
-export function hourLabel(iso: string) {
-  return new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'}).format(new Date(iso));
+export function hourLabel(iso: string, tz: string = activeZone()) {
+  return fmtIn(tz, {hour: 'numeric'}).format(new Date(iso));
 }
 
-export function dayLabel(iso: string, now: number) {
-  const date = pacificDate(iso);
-  if (date === pacificDate(new Date(now).toISOString())) return 'Today';
-  if (date === pacificDate(new Date(now + 86400000).toISOString())) return 'Tomorrow';
-  return new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', day: 'numeric'}).format(
-    new Date(iso),
-  );
+export function dayLabel(iso: string, now: number, tz: string = activeZone()) {
+  const date = dateIn(tz, iso), today = dateIn(tz, new Date(now).toISOString());
+  if (date === today) return 'Today';
+  if (date === addDaysKey(today, 1)) return 'Tomorrow';
+  return fmtIn(tz, {weekday: 'short', day: 'numeric'}).format(new Date(iso));
 }
 
-export function fullTimeLabel(iso: string) {
-  return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Los_Angeles',
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short',
-  }).format(new Date(iso));
+export function fullTimeLabel(iso: string, tz: string = activeZone()) {
+  return fmtIn(tz, {weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short'}).format(new Date(iso));
 }
 
 export type Band = 'good' | 'fair' | 'poor' | 'none';

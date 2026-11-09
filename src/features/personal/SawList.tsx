@@ -1,7 +1,9 @@
+import {fmtIn} from '../../ocean/time';
+import {activeZone} from '../../ocean/spotZone';
 import {deleteObservation, observationsFor, type Observation} from '../forecast/observeApi';
 import {sawWords, useObservations} from '../forecast/Observe';
 
-const when = (iso: string) => new Date(iso).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'});
+const when = (iso: string) => fmtIn(activeZone(), {weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'}).format(new Date(iso));
 
 /** T-060: Personal › Surf journal › What you saw. Your observations from the spot page, newest first, each removable. */
 export function SawList({spotName}: {spotName: (id: string) => string}) {

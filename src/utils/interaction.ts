@@ -1,5 +1,6 @@
 import type {OceanRecord} from '../ocean/types';
-import {pacificDate,pacificHour} from '../ocean/time.ts';
+import {dateIn,hourIn} from '../ocean/time.ts';
+import {timeZoneOf} from '../ocean/spotZone.ts';
 
 /** An explicit selection is exact: never substitute another spot or hour. */
 /** Default hour = the shared hour rule (T-055): the first record at or after the TOP of the current hour, same as Home, the strip and the map. */
@@ -8,8 +9,8 @@ export function selectedRecord(records:OceanRecord[],spotId:string,instant:strin
  return instant?matching.find(r=>r.timestamp===instant)??null:matching.find(r=>Date.parse(r.timestamp)>=Math.floor(now/3600000)*3600000)??matching[0]??null;
 }
 export function recordOnDay(records:OceanRecord[],date:string,hour:number){
- const day=records.filter(r=>pacificDate(r.timestamp)===date);
- return day.find(r=>pacificHour(r.timestamp)===hour)??day[0]??null;
+ const tz=timeZoneOf(records[0]?.spotId),day=records.filter(r=>dateIn(tz,r.timestamp)===date);
+ return day.find(r=>hourIn(tz,r.timestamp)===hour)??day[0]??null;
 }
 export function toggleComparison(ids:string[],id:string,limit:number){return ids.includes(id)?ids.filter(x=>x!==id):ids.length<limit?[...ids,id]:ids;}
 export function forecastState(loading:boolean,hasRecord:boolean){return hasRecord?'available':loading?'loading':'unavailable';}

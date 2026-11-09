@@ -1,11 +1,8 @@
-// Pacific-time formatting helpers shared across SWELLO views.
-const TZ = 'America/Los_Angeles';
-const f = (o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat('en-US', {timeZone: TZ, ...o});
-const tShort = f({hour: 'numeric', minute: '2-digit'});
-const weekday = f({weekday: 'short'});
-const dayNum = f({day: 'numeric'});
-const h23 = new Intl.DateTimeFormat('en-US', {timeZone: TZ, hour: 'numeric', hourCycle: 'h23'});
-export const timeLabelPT = (iso: string | number) => tShort.format(new Date(iso));
-export const weekdayPT = (iso: string) => weekday.format(new Date(iso));
-export const dayNumPT = (iso: string) => dayNum.format(new Date(iso));
-export const localHour = (iso: string) => Number(h23.format(new Date(iso)));
+// Time formatting helpers shared across SWELLO views. They format in the zone passed, else the zone of the spot on screen (ocean/spotZone.ts activeZone, America/Los_Angeles until a world spot is open).
+import {fmtIn} from '../../ocean/time.ts';
+import {activeZone} from '../../ocean/spotZone.ts';
+const z = (tz?: string) => tz ?? activeZone();
+export const timeLabelPT = (iso: string | number, tz?: string) => fmtIn(z(tz), {hour: 'numeric', minute: '2-digit'}).format(new Date(iso));
+export const weekdayPT = (iso: string, tz?: string) => fmtIn(z(tz), {weekday: 'short'}).format(new Date(iso));
+export const dayNumPT = (iso: string, tz?: string) => fmtIn(z(tz), {day: 'numeric'}).format(new Date(iso));
+export const localHour = (iso: string, tz?: string) => Number(fmtIn(z(tz), {hour: 'numeric', hourCycle: 'h23'}).format(new Date(iso)));

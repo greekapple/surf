@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createProviderBatcher, BATCH_MAX, isBatchable} from '../ocean/providerBatch.ts';
-import {createForecastService, ingestionTargets, BATCH_MAX as SERVER_MAX} from '../../services/forecast-service.mjs';
+import {createProviderBatcher, BATCH_MAX, BATCH_PARALLEL, isBatchable} from '../ocean/providerBatch.ts';
+import {createForecastService, ingestionTargets, BATCH_MAX as SERVER_MAX, BATCH_UPSTREAM_PARALLEL as BATCH_UPSTREAM} from '../../services/forecast-service.mjs';
 
 const T0 = Date.UTC(2026, 10, 9, 12), wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const body = (key: string) => ({payload: {key, hourly: {time: [T0 / 1000]}}, retrievedAt: new Date(T0).toISOString(), sourceURL: 'https://x.test/' + key, cache: 'fresh'});
@@ -57,4 +57,11 @@ test('browser to Worker: 6 spots x 3 provider values = 18 single requests before
   let requests = 0; const b = createProviderBatcher((async (u: string) => { requests++; return svc(new Request('https://surf.test' + u), {}); }) as unknown as typeof fetch, 2);
   const rs = await Promise.all(ids.map((k) => b('/api/provider?key=' + k))); await wait(5);
   assert.ok(rs.every((r) => r.ok)); assert.equal(ids.length, 18); assert.equal(requests, Math.ceil(18 / BATCH_MAX));
+});
+test('a cold batch is bounded: at most 3 keys of a batch are fetched upstream at once, and at most 2 batch requests are in flight', async () => {
+  let live = 0, peak = 0; const up = (async () => { live++; peak = Math.max(peak, live); await wait(8); live--; return Response.json({hourly: {time: [T0 / 1000], wave_height: [1], wind_speed_10m: [4]}}); }) as unknown as typeof fetch;
+  const svc = createForecastService({fetcher: up, now: () => T0, sleep: async () => {}}), keys = (ingestionTargets(T0) as {key: string}[]).map((t) => t.key).filter((k) => /^marine-/.test(k)).slice(0, BATCH_MAX);
+  const r = await svc(new Request('https://surf.test/api/providers?keys=' + keys.join(',')), {}); assert.equal(r.status, 200); assert.ok(peak <= BATCH_UPSTREAM, `upstream concurrency ${peak}`); assert.ok(peak >= 2, 'but it is still parallel');
+  let inflight = 0, peakB = 0; const b = createProviderBatcher((async (u: string) => { inflight++; peakB = Math.max(peakB, inflight); await wait(6); inflight--; return Response.json({results: Object.fromEntries(keysOf(u).map((k) => [k, {status: 200, body: body(k)}]))}); }) as unknown as typeof fetch, 2);
+  await Promise.all(Array.from({length: BATCH_MAX * 5}, (_, i) => b('/api/provider?key=marine-p' + i))); assert.ok(peakB <= BATCH_PARALLEL && peakB >= 2, `batch requests in flight ${peakB}`);
 });

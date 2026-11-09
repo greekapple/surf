@@ -1,3 +1,5 @@
+import {fmtIn} from '../../ocean/time';
+import {activeZone} from '../../ocean/spotZone';
 import type {ReactNode} from 'react';
 import {GENERIC_PHOTOS, PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
 import type {JournalExtra} from './journal';
@@ -44,7 +46,7 @@ export const creditText = (id: string) => {
   return ph ? `${ph.generic ? 'Generic photo, ' : ''}${ph.photographer}, ${ph.license}` : 'Wikimedia Commons';
 };
 
-const dFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', month: 'short', day: 'numeric'});
+const dFmt = {format: (d: Date) => fmtIn(activeZone(), {weekday: 'short', month: 'short', day: 'numeric'}).format(d)}; // the zone of the spot on screen
 export const entryDate = (iso: string) => dFmt.format(new Date(iso));
-export const hourText = (iso: string) => new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'}).format(new Date(iso));
-export const weekdayShort = (iso: string) => new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short'}).format(new Date(iso));
+export const hourText = (iso: string) => fmtIn(activeZone(), {hour: 'numeric'}).format(new Date(iso));
+export const weekdayShort = (iso: string) => fmtIn(activeZone(), {weekday: 'short'}).format(new Date(iso));

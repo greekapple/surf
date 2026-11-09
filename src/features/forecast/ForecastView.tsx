@@ -1,3 +1,5 @@
+import {dateIn} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import {Fragment, useEffect, useMemo, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
@@ -95,7 +97,7 @@ export function ForecastView({go}: ViewProps) {
   // T-065: one answer (the call), daylight for the selected day, and the graph's surf band, all from the T-064 logic.
   const records = series.map((h) => h.forecast);
   const call = callFor(spot, selected.forecast, p, {records, bundle, nowMs: now});
-  const daylight = daylightFor(spot.id, new Date(selected.timestamp).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'}));
+  const daylight = daylightFor(spot.id, dateIn(timeZoneOf(spot), selected.timestamp));
   const band = surfBandSeries(spot, records, {bundle, nowMs: now});
   const env = {records: view.mapRecords, bundle, profile: p, nowMs: now};
   // T-108: the subtitle follows what the spot actually has: surf estimates, or only offshore heights.

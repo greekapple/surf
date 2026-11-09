@@ -1,3 +1,5 @@
+import {fmtIn} from '../../ocean/time';
+import {activeZone, timeZoneOf} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import {assignmentFor} from '../../ocean/mop';
 import {isFlat, flatWhy, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
@@ -25,25 +27,25 @@ export function windLine(spot: SurfSpot, f: Forecast, p: UserProfile, nowMs?: nu
 /** One bar of the card's next-hours strip: the hour's surf estimate (lo–hi ft) or a gap (offshore-only or missing: never drawn as surf), coloured
  *  by that hour's rating (neutral when unrated or dark). */
 export interface HourBar {t: number; lo: number | null; hi: number | null; /** T-130: the nearshore model is under the flat threshold: a flat mark, not an empty bar */ flat?: boolean; c: string; rated: boolean}
-const hourLabel = (t: number) => new Date(t).toLocaleTimeString('en-US', {hour: 'numeric', timeZone: 'America/Los_Angeles'}).replace(':00', '').replace(' ', '').toLowerCase();
+const hourLabel = (t: number, tz: string) => fmtIn(tz, {hour: 'numeric'}).format(new Date(t)).replace(':00', '').replace(' ', '').toLowerCase();
 
 /** Track 2 (Surfline's next-hours bars): the surf estimate hour by hour from the shown hour, the same headline selector as the number above. */
-export function NextHours({hours, p}: {hours: HourBar[]; p: UserProfile}) {
+export function NextHours({hours, p, tz = activeZone()}: {hours: HourBar[]; p: UserProfile; /** the spot's zone (the card's clock labels) */ tz?: string}) {
   const vals = hours.flatMap((h) => (h.hi !== null ? [h.hi] : []));
   if (vals.length < 2) return null;
   const top = Math.max(2, ...vals), est = hours.filter((h) => h.lo !== null && h.hi !== null);
   const lo = Math.min(...est.map((h) => h.lo!)), hi = Math.max(...est.map((h) => h.hi!));
-  const nFlat = est.filter((h) => h.flat).length, span = `${hours.length > 1 ? Math.round((hours[hours.length - 1].t - hours[0].t) / 36e5) + 1 : 1} hours, from ${hourLabel(hours[0].t)}`;
+  const nFlat = est.filter((h) => h.flat).length, span = `${hours.length > 1 ? Math.round((hours[hours.length - 1].t - hours[0].t) / 36e5) + 1 : 1} hours, from ${hourLabel(hours[0].t, tz)}`;
   const label = (nFlat === est.length ? `Surf estimate for the next ${span}: Flat (model estimate)` : `Surf estimate for the next ${span}: between ${ht(lo, p, 0)} and ${ht(hi, p, 0)} ${p.heightUnit}${nFlat ? `; ${nFlat} hours Flat` : ''}`)
     + (est.length < hours.length ? `; ${hours.length - est.length} hours have no surf estimate` : '');
   return (
     <div className="xco-hrs" role="img" aria-label={label}>
       <div className="xco-bars" aria-hidden="true">
-        {hours.map((h) => <span key={h.t} className={h.hi === null ? 'gap' : [h.rated ? '' : 'nr', h.flat ? 'flat' : ''].filter(Boolean).join(' ') || undefined} style={{'--c': h.c} as React.CSSProperties} title={h.hi === null ? `${hourLabel(h.t)}: no surf estimate` : h.flat ? `${hourLabel(h.t)}: Flat (model estimate)` : `${hourLabel(h.t)}: ${ht(h.lo!, p, 0)}–${ht(h.hi, p, 0)} ${p.heightUnit}`}>
+        {hours.map((h) => <span key={h.t} className={h.hi === null ? 'gap' : [h.rated ? '' : 'nr', h.flat ? 'flat' : ''].filter(Boolean).join(' ') || undefined} style={{'--c': h.c} as React.CSSProperties} title={h.hi === null ? `${hourLabel(h.t, tz)}: no surf estimate` : h.flat ? `${hourLabel(h.t, tz)}: Flat (model estimate)` : `${hourLabel(h.t, tz)}: ${ht(h.lo!, p, 0)}–${ht(h.hi, p, 0)} ${p.heightUnit}`}>
           {h.hi !== null && !h.flat && h.hi > 0 && <i style={{height: `${(h.hi / top) * 100}%`}}><b style={{height: `${(h.lo! / h.hi) * 100}%`}} /></i>}
         </span>)}
       </div>
-      <div className="xco-hx" aria-hidden="true"><span>{hourLabel(hours[0].t)}</span><span>{nFlat === est.length ? 'Flat' : `${ht(top, p, 0)} ${p.heightUnit} max`}</span><span>{hourLabel(hours[hours.length - 1].t)}</span></div>
+      <div className="xco-hx" aria-hidden="true"><span>{hourLabel(hours[0].t, tz)}</span><span>{nFlat === est.length ? 'Flat' : `${ht(top, p, 0)} ${p.heightUnit} max`}</span><span>{hourLabel(hours[hours.length - 1].t, tz)}</span></div>
     </div>
   );
 }
@@ -68,7 +70,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
         {hs?.kind === 'estimate' && (hs.method === 'mop-v2' || hs.transfer) && assignmentFor(spot.id)?.caveat && <p className="xco-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
         <p className="xco-wind"><Icon name="wind" size={16} />{w ? <span>{w.from !== null && <DirArrow from={w.from} size={12} />} {w.speed}{w.dir ? ` from ${w.dir}` : ''} · <b>{w.rel}</b></span> : <span>Wind not in this record</span>}</p>
       </>}
-      {f && hours && <NextHours hours={hours} p={p} />}
+      {f && hours && <NextHours hours={hours} p={p} tz={timeZoneOf(spot)} />}
       {camsFor(spot.id).map((c) => <a key={c.url} className="xco-cam" href={c.url} target="_blank" rel="noopener noreferrer" title={`Shows ${c.view}`}
         aria-label={`Live cam by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}><Icon name="camera" size={15} /><span>Live cam · {c.owner}</span><small>↗</small></a>)}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>

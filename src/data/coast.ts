@@ -8,7 +8,7 @@ import type {SpotEvidence} from '../ocean/types.ts';
  * Profiles (type, skill, ideal swell) are generic coastal defaults for the provisional rating and are labelled as such.
  * Keep ids and coordinates in sync with `coastServiceSpots` in services/forecast-service.mjs (tested in coast.test.ts).
  */
-type Row = [id: string, name: string, region: string, type: SurfSpot['type'], lat: number, lon: number, seaward: number];
+type Row = [id: string, name: string, region: string, type: SurfSpot['type'], lat: number, lon: number, seaward: number, timeZone?: string, country?: string];   // timeZone: IANA zone, absent = America/Los_Angeles (every row until the world catalogue)
 export const COAST_ROWS: Row[] = [
   ['cs-crescent-city', 'Crescent City', 'Del Norte', 'Beach', 41.745, -124.188, 200],
   ['cs-moonstone', 'Moonstone Beach', 'Humboldt', 'Beach', 41.033, -124.113, 250],
@@ -108,17 +108,17 @@ export function marinePoint(lat: number, lon: number, seaward: number) {
   return {lat: r3(lat + d * Math.cos(th)), lon: r3(lon + (d * Math.sin(th)) / Math.cos((lat * Math.PI) / 180))};
 }
 
-export const coastSurfSpots: SurfSpot[] = COAST_ROWS.map(([id, name, region, type, , , seaward]) => ({
-  id, name, region, type, skill: 'Intermediate', idealDirection: seaward, exposure: 1, period: [9, 18], tides: ['Low', 'Rising'],
+export const coastSurfSpots: SurfSpot[] = COAST_ROWS.map(([id, name, region, type, , , seaward, timeZone, country]) => ({
+  ...(timeZone ? {timeZone} : {}), ...(country ? {country} : {}), id, name, region, type, skill: 'Intermediate', idealDirection: seaward, exposure: 1, period: [9, 18], tides: ['Low', 'Rising'],
   seaward, character: 'Generic profile', hazards: null, illustrative: true, waveRange: [2, 8], windTolerance: 1, organizationPreference: 70,
 }));
 
 const common = {difficulty: null, orientation: null, idealSwell: null, periodRange: null, tidePreferences: null, faceRange: null, hazards: null, hazardsComplete: false, sources: [], checkedOn: '2026-10-29'} as const;
 const note = 'Approximate public map position for the beach; the marine point is ~9 km seaward. Spot profile is a generic coastal default, not a surveyed break.';
 
-export const coastEvidence: SpotEvidence[] = [...UPGRADED_ROWS, ...COAST_ROWS].map(([id, name, region, type, lat, lon, seaward]) => {
+export const coastEvidence: SpotEvidence[] = [...UPGRADED_ROWS, ...COAST_ROWS].map(([id, name, region, type, lat, lon, seaward, timeZone, country]) => {
   const m = marinePoint(lat, lon, seaward);
-  return {...common, sources: [], hazards: null, id, name, region, location: `${name} (approximate)`, latitude: lat, longitude: lon,
+  return {...common, ...(timeZone ? {timeZone} : {}), ...(country ? {country} : {}), sources: [], hazards: null, id, name, region, location: `${name} (approximate)`, latitude: lat, longitude: lon,
     marineLatitude: m.lat, marineLongitude: m.lon, queryNote: note, breakType: type};
 });
 

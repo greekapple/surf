@@ -1,4 +1,5 @@
-import {pacificDate} from '../ocean/time.ts';
+import {dateIn} from '../ocean/time.ts';
+import {timeZoneOf} from '../ocean/spotZone.ts';
 import {staleness} from './freshness.ts';
 import type {Forecast} from '../models/index.ts';
 import type {SurfRating} from '../ratings/types.ts';
@@ -16,7 +17,7 @@ export function groupWindows(samples:{forecast:Forecast;rating:SurfRating}[],max
   for(const item of [...values].sort((a,b)=>a.forecast.timestamp.localeCompare(b.forecast.timestamp))){const time=Date.parse(item.forecast.timestamp),last=current.at(-1),gap=last?time-Date.parse(last.forecast.timestamp):null;
    if(gap===0)continue;
    const usable=Number.isFinite(time)&&item.rating.score!==null&&item.rating.score>=55&&item.rating.reliability.category!=='INSUFFICIENT';
-   if(!usable){flush();continue;}if(gap!==null&&(gap<=0||gap>maxGapMs||pacificDate(item.forecast.timestamp)!==pacificDate(last!.forecast.timestamp)))flush();current.push(item);
+   if(!usable){flush();continue;}if(gap!==null&&(gap<=0||gap>maxGapMs||dateIn(timeZoneOf(item.forecast.spotId),item.forecast.timestamp)!==dateIn(timeZoneOf(last!.forecast.spotId),last!.forecast.timestamp)))flush();current.push(item);
   }flush();
  }
  return output.sort((a,b)=>b.minimumScore-a.minimumScore||a.start.localeCompare(b.start));

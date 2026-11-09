@@ -1,5 +1,6 @@
 import {useMemo} from 'react';
-import {pacificDateMs, pacificHour} from '../../ocean/time';
+import {dateInMs, hourIn, fmtIn} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {OceanBundle} from '../../ocean/types';
 import {dayRange, type DayRange} from '../../services/spotHour';
@@ -17,9 +18,8 @@ import {dayCertainty, certainLabel, type CertaintyView} from '../../services/cer
  * (T-119, the user's "lines that undulate", replacing T-106's tiny drawings) a smooth line across each row through the days' midday sizes. Offshore-only days are muted ("7 off"), never styled as surf. A cell opens that spot at that day's representative hour. */
 
 const DAYS = 8, BLOCKS = [7, 12, 17] as const, BLOCK_WORD = ['AM', 'midday', 'PM'];
-const pt = pacificDateMs; // cached formatter (T-091)
-const dayHead = (key: string, k: number) => { if (k === 0) return 'Today'; const d = new Date(`${key}T12:00:00-08:00`); return `${d.toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short'})} ${d.toLocaleDateString('en-US', {timeZone: 'America/Los_Angeles', day: 'numeric'})}`; };
-const hourOf = (iso: string) => pacificHour(iso) % 24;
+const dayHead = (key: string, k: number) => { if (k === 0) return 'Today'; const d = new Date(`${key}T12:00:00Z`); return `${fmtIn('UTC', {weekday: 'short'}).format(d)} ${fmtIn('UTC', {day: 'numeric'}).format(d)}`; }; // a date KEY's weekday and day number: zone-free (noon UTC of that date)
+const hourOf = (tz: string, iso: string) => hourIn(tz, iso) % 24;
 
 type Seg = {state: 'dark' | 'none' | 'rated'; color: string; word: string};
 interface Cell {key: string; dr: DayRange; wc: WeekCell; segs: Seg[]; /** certainty (2026-11-06): the midday hour's level, null when none is honest to show */ cv: CertaintyView | null}
@@ -27,13 +27,13 @@ interface Row {spot: SurfSpot; cells: Cell[]}
 
 export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}: {spots: SurfSpot[]; records: Forecast[]; nowMs: number; profile: UserProfile; bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined; unit: string; onOpen: (spotId: string, iso: string | null) => void}) {
   // T-088b: no column for a trailing day beyond the forecast horizon (after midnight the 8th day has no records at all).
-  const keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
+  const keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS, timeZoneOf(spots[0])), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
   const rows: Row[] = useMemo(() => spots.map((spot) => {
-    const mine = records.filter((f) => f.spotId === spot.id);
+    const mine = records.filter((f) => f.spotId === spot.id), tz = timeZoneOf(spot);
     return {spot, cells: keys.map((key) => {
       const dr = dayRange(spot, mine, key, nowMs, profile, {bundle});
       const segs = BLOCKS.map((h, i): Seg => {
-        const f = mine.find((r) => pt(Date.parse(r.timestamp)) === key && hourOf(r.timestamp) === h);
+        const f = mine.find((r) => dateInMs(tz, Date.parse(r.timestamp)) === key && hourOf(tz, r.timestamp) === h);
         if (!f) return {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} no data`};
         const r = rateForecast(spot, f, nowMs), dark = isDark(spot.id, f.timestamp); // after dark the conditions keep their colour, dimmed (user, 2026-11-08)
         return r.score === null ? {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} not rated`} : {state: dark ? 'dark' : 'rated', color: BAND_COLOR[bandOf(r.category)], word: `${BLOCK_WORD[i]} ${conditionWord(r.category).toLowerCase()}${dark ? ', after dark' : ''}`};

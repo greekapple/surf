@@ -1,3 +1,5 @@
+import {fmtIn} from '../../ocean/time';
+import {activeZone} from '../../ocean/spotZone';
 import {useEffect, useRef, useState, useSyncExternalStore} from 'react';
 import type {UserProfile} from '../../models/index';
 import {BODY_WORD_LIST, NEEDED, WORD_FACE_FT, calibrationFor, getObservationsSnapshot, latestObservation, logObservation, subscribeObservations, type BodyWord, type Observation, type ObserveEnv, type Quality} from './observeApi';
@@ -13,8 +15,8 @@ const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
 export const sawWords = (w: BodyWord) => (w === 'overhead' || w === 'double overhead' ? w : `${w} high`);
 const one = (ft: number, p: UserProfile) => (p.heightUnit === 'm' ? `${+(ft * 0.3048).toFixed(1)}` : `${ft}`);
 const sizeText = (s: {w: BodyWord; lo: number; hi: number | null}, p: UserProfile) => `${one(s.lo, p)}${s.hi !== null ? `–${one(s.hi, p)}` : s.w === 'double overhead' ? '+' : ''} ${p.heightUnit === 'm' ? 'm' : 'ft'}`;
-const clock = (ms: number) => new Date(ms).toLocaleTimeString('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit'});
-const dayClock = (ms: number) => new Date(ms).toLocaleString('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit'});
+const clock = (ms: number) => fmtIn(activeZone(), {hour: 'numeric', minute: '2-digit'}).format(new Date(ms)); // the zone of the spot on screen (ocean/spotZone.ts)
+const dayClock = (ms: number) => fmtIn(activeZone(), {weekday: 'short', hour: 'numeric', minute: '2-digit'}).format(new Date(ms));
 const localInput = (ms: number) => { const d = new Date(ms - new Date(ms).getTimezoneOffset() * 6e4); return d.toISOString().slice(0, 16); };
 const QWORDS = ['Poor', 'Poor to fair', 'Fair', 'Good', 'Epic'];
 

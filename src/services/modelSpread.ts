@@ -17,9 +17,9 @@ export const MODEL_SKILL: Record<string, {bias: number; halfWidth: number}> = {
   meteofrance_wave: {bias: 1.015, halfWidth: 0.127}, ecmwf_wam025: {bias: 1.045, halfWidth: 0.134}, ncep_gfswave016: {bias: 0.835, halfWidth: 0.142}, gwam: {bias: 0.88, halfWidth: 0.187},
 };
 export const PRUNE_HALF_WIDTH = 0.2;
-export const PRUNED_MODELS = ['gwam']; // half-width 0.223 at NDBC 46026 (> PRUNE_HALF_WIDTH)
-import {SPREAD_MODELS, modelSpreadURL} from '../ocean/openMeteo.ts';
-export {SPREAD_MODELS, modelSpreadURL}; // defined in ocean/openMeteo.ts (T-114), re-exported here
+export const PRUNED_MODELS: string[] = [...SPREAD_PRUNED]; // half-width 0.223 at NDBC 46026 (> PRUNE_HALF_WIDTH)
+import {SPREAD_MODELS, SPREAD_REQUEST_MODELS, SPREAD_PRUNED, modelSpreadURL} from '../ocean/openMeteo.ts';
+export {SPREAD_MODELS, SPREAD_REQUEST_MODELS, modelSpreadURL}; // defined in ocean/openMeteo.ts (T-114), re-exported here
 export const SPREAD_TTL_MS = 10 * 60000;
 
 
@@ -52,8 +52,8 @@ const subs = new Set<() => void>();
 export const getSpreadSeries = (spotId: string) => store.get(spotId) ?? null;
 /** The spread for one spot-hour, or null (no data, a spot without a profile, or fewer than two models). */
 export const spreadAt = (spotId: string, iso: string, nowMs: number = Date.now()): HourSpread | null => { const s = store.get(spotId); return s && !spreadStale(spotId, nowMs) ? s.byHour.get(new Date(Date.parse(iso)).toISOString()) ?? null : null; };
-/** T-084: a spread that is a saved copy or older than 2 h is NOT used (the range then has no disagreement term) and the headline says so. */
-export const spreadStale = (spotId: string, nowMs: number = Date.now()): Stale | null => { const s = store.get(spotId); return s ? staleness({delivery: s.saved ? 'saved' : undefined, retrievedAt: s.fetchedAt}, nowMs) : null; };
+/** T-084: a spread that is a saved copy or older than 4 h (MARINE_MAX_AGE_MS: it is an Open-Meteo marine request refreshed every 3 h) is NOT used (the range then has no disagreement term) and the headline says so. */
+export const spreadStale = (spotId: string, nowMs: number = Date.now()): Stale | null => { const s = store.get(spotId); return s ? staleness({delivery: s.saved ? 'saved' : undefined, retrievedAt: s.fetchedAt, provider: 'Open-Meteo Marine'}, nowMs) : null; };
 export function setSpreadSeries(s: SpreadSeries) { store.set(s.spotId, s); subs.forEach((f) => { try { f(); } catch { /* one subscriber must not break the others */ } }); }
 export const subscribeSpread = (cb: () => void) => { subs.add(cb); return () => { subs.delete(cb); }; };
 export const clearSpread = () => { store.clear(); subs.forEach((f) => f()); };

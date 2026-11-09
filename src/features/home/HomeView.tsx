@@ -1,3 +1,5 @@
+import {fmtIn} from '../../ocean/time';
+import {timeZoneOf} from '../../ocean/spotZone';
 import {useMemo} from 'react';
 import {isFlat, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
 import type {ViewProps} from '../../app/routes';
@@ -31,10 +33,10 @@ function RatingBar({c}: {c: DashCard['rating']}) {
   );
 }
 
-const hourShortFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', hour: 'numeric'}), atFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric'});
-const hourShort = (iso: string) => hourShortFmt.format(new Date(iso));
+const hourShortIn = (iso: string, tz: string) => fmtIn(tz, {hour: 'numeric'}).format(new Date(iso)); // in the zone of the spot the card shows
 /** The next 12 hours of the existing rating as a mini bar ribbon; an hour without a record is a gap, never a guess. */
-function Ribbon({hours, name}: {hours: RibbonHour[]; name: string}) {
+function Ribbon({hours, name, tz}: {hours: RibbonHour[]; name: string; tz: string}) {
+  const hourShort = (iso: string) => hourShortIn(iso, tz);
   const have = hours.filter((h) => h.score !== null);
   return (
     <div className="dc-ribbon" role="img" aria-label={have.length ? `${name}: rating for the next 12 hours, ${hourShort(hours[0].iso)} to ${hourShort(hours[11].iso)}. ${have.map((h) => `${hourShort(h.iso)} ${conditionWord(h.category!)}${(h as {dark?: boolean}).dark ? ', after dark' : ''}`).join(', ')}` : `${name}: no rating hours available`}>
@@ -71,7 +73,7 @@ export function HomeView({go}: ViewProps) {
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
   const onWhenKey = (e: React.KeyboardEvent) => { const i = WHENS.indexOf(when), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); const n = WHENS[(i + d + WHENS.length) % WHENS.length]; setWhen(n); (e.currentTarget.children[WHENS.indexOf(n)] as HTMLElement | undefined)?.focus(); };
-  const at = (iso: string) => `${atFmt.format(new Date(iso))}`;
+  const at = (iso: string, id: string) => fmtIn(timeZoneOf(id), {weekday: 'short', hour: 'numeric'}).format(new Date(iso));
   // T-106: the card's drawing, from the SAME headline as its number (period and est. breaker type from that hour's record).
   // T-119: each card's small undulating 7-day surf-height line (the user's "lines that undulate"), in place of T-106's wave-beside-a-person drawing.
   const sparkOf = (c: DashCard) => sparkPoints(c.id, view.mapRecords, now, bundle);
@@ -117,7 +119,7 @@ export function HomeView({go}: ViewProps) {
               </a>
               <div className="dc-more">
                 <button type="button" className="dc-rb-t" aria-expanded={openId === c.id} aria-controls={`rb-${c.id}`} onClick={() => setOpenId(openId === c.id ? null : c.id)}>Next 12 hours<span aria-hidden="true">{openId === c.id ? '–' : '+'}</span></button>
-                <div id={`rb-${c.id}`} className="dc-rb"><Ribbon hours={ribbons[c.id]} name={c.name} /></div>
+                <div id={`rb-${c.id}`} className="dc-rb"><Ribbon hours={ribbons[c.id]} name={c.name} tz={timeZoneOf(c.id)} /></div>
               </div>
             </li>
           ); })}
@@ -138,9 +140,9 @@ export function HomeView({go}: ViewProps) {
           : <ol className="nb-list">
               {nearby.map(({card: c, km, at: when_}, i) => (
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
-                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_)}` : ''}. Open forecast`}>
+                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_, c.id)}` : ''}. Open forecast`}>
                     <span className="nb-rank" aria-hidden="true">{i + 1}</span>
-                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}</span>
+                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_, c.id)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}</span>
                     <span className="nb-surf">{surfOf(c, true)}</span>
                     <RatingBar c={c.rating} />
                   </a>
