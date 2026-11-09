@@ -50,8 +50,8 @@ export function NextHours({hours, p, tz = activeZone()}: {hours: HourBar[]; p: U
   );
 }
 
-export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, hours}: {
-  spot: SurfSpot; region: string; f: Forecast | undefined; rating: SurfRating | null; when: string; p: UserProfile; onOpen: () => void; onClose?: () => void; hours?: HourBar[];
+export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, closeLabel, hours}: {
+  spot: SurfSpot; region: string; f: Forecast | undefined; rating: SurfRating | null; when: string; p: UserProfile; onOpen: () => void; onClose?: () => void; closeLabel?: string; hours?: HourBar[];
 }) {
   const {view, now} = useSwello();
   // The same headline selector as the spot page and Home (T-046), so the map, Home and the spot page agree on the range.
@@ -63,7 +63,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
       <div className="xco-h">
         <div><h3>{spot.name}</h3><p>{region} · {when}</p></div>
         {rating && rating.score !== null && <><Condition category={rating.category} />{rating.dark && <small className="xco-dark">after dark</small>}</>}{/* after dark the pill stays, marked (user, 2026-11-08) */}
-        {onClose && <button className="xco-x" aria-label={`Close ${spot.name}`} onClick={onClose}><Icon name="close" size={16} /></button>}
+        {onClose && <button className="xco-x" aria-label={closeLabel ?? `Close ${spot.name}`} title={closeLabel} onClick={onClose}><Icon name="close" size={16} /></button>}
       </div>
       {!f ? (dataPhase(view.ocean) === 'loading' || !view.ocean.isSpotLoaded(spot.id) ? <div className="xco-sk" aria-busy="true" aria-label="Loading forecast"><i /><i /><i /></div> : <p className="xco-none">No forecast record at this hour.</p>) : <>
         <p className="xco-ht">{isFlat(hs) ? <b>Flat</b> : big !== null ? <><b>{big}</b> <span>{p.heightUnit}</span></> : <b>—</b>}<small>{isFlat(hs) ? `model estimate · ${flatWhy(hs)}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}` : hs?.kind === 'estimate' ? <>{t!.words && <span className="xco-words">{`${t!.words[0].toUpperCase()}${t!.words.slice(1)} · `}</span>}{`surf height · ${hs.saved ? (hs.saved.reason === 'saved' ? 'saved copy, not live' : 'stale data, not current') : `model estimate${transferTag(hs) ? ` · ${transferTag(hs)}` : ''}${t!.confidenceText ? ` · ${t!.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}`}</> : hs?.kind === 'offshore' ? hs.label : t?.detail}</small></p>

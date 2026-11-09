@@ -1,4 +1,4 @@
-import {MAP_TIME_ZONE} from '../../ocean/spotZone';
+import {mapZone} from '../../ocean/spotZone';
 import {mapZoneAbbr} from './mapTime';
 import {spotTier} from '../../data/spotTiers';
 import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
@@ -136,7 +136,10 @@ export function ExploreView({section, go}: ViewProps) {
 }
 
 function OceanMap({section, go}: ViewProps) {
-  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots} = useSwello();
+  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots, mapFocused, setMapFocused} = useSwello();
+  // 1B: the map's focus (the app's selected spot stays when it is cleared). `focused` = the spot the map highlights, or null.
+  const focused = mapFocused ? spot.id : null;
+  useEffect(() => { writeMapUrl({focus: mapFocused ? null : 'none'}); }, [mapFocused]);
   const reportVisibleRef = useRef(reportVisible); reportVisibleRef.current = reportVisible;
   const p = data.state.profile;
   // Map-seamless Stage 1: the view in the URL (?layer, lat, lon, z, t) is read once on load, so a reload or a shared link restores it.
@@ -255,7 +258,8 @@ function OceanMap({section, go}: ViewProps) {
       x.on('moveend', () => seenRef.current()); seenRef.current(); // Stage 1 (product): the URL follows every settled move
       for (const e of ['zoomend', 'moveend', 'resize'] as const) x.on(e, () => declutterRef.current()); // panels stay put while the map pans
       // T-117: a clean tap on the sea opens the point there (the engine never reports clicks on markers, overlays, or after a drag); it also closes the spot callout.
-      x.on('click', (c) => { setCallout(null); if (c && Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: c.lat, lon: c.lon}); } });
+      // 1B: on wide screens a click on empty map (never a pin: the engine does not report those) also clears the map's spot focus.
+      x.on('click', (c) => { setCallout(null); if (!isPhone()) setMapFocused(false); if (c && Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: c.lat, lon: c.lon}); } });
       setEng(x);
     });
     return () => { alive = false; made?.dispose(); map.current = null; fieldCtl.current = null; };
@@ -315,7 +319,7 @@ function OceanMap({section, go}: ViewProps) {
       // never shown without its "offshore" word, so those spots fall back to the dot (their full label still says "offshore").
       const chip = hs?.kind === 'estimate' ? `<span class="xhchip" aria-hidden="true">${hText}</span>` : '';
       const el = document.createElement('div');
-      el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
+      el.className = `xpin${e.id === focused ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
       const cam = camsFor(e.id).length > 0;
       el.style.setProperty('--c', color); el.innerHTML = `<i></i>${cam ? `<em class="xcam" aria-hidden="true"><svg viewBox="0 0 24 24" width="9" height="9"><path d="${CAMERA_D}"/></svg></em>` : ''}${label}${chip}`;
       const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: (cam ? `${e.name} · has a public live cam` : e.name) + (view.ocean.isSpotLoaded(e.id) ? '' : ' · forecast loading (grey pin: not loaded yet, not flat)'), keyboard: true, riseOnHover: true,
@@ -333,7 +337,7 @@ function OceanMap({section, go}: ViewProps) {
       geom.current.set(e.id, {d: [d.left - cx, d.top - cy, d.width, d.height], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] : null, c});
     }
     declutterRef.current();
-  }, [eng, view.mapRecords, view.selectedTime, spot.id, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [eng, view.mapRecords, view.selectedTime, focused, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Sparse labels that never collide: the selected spot first, then the best-rated; a zoom-dependent budget; the rest are dots.
    *  Each label tries right of its pin, then left, else stays a dot until zoomed in. Labels keep clear of the floating controls. */
@@ -396,7 +400,7 @@ function OceanMap({section, go}: ViewProps) {
   };
   // T-058: on phones the map opens with the selected spot in the clear area above the time bar (never under it or the attribution).
   useEffect(() => {
-    if (!phone) return;
+    if (!phone || !focused) return;
     const t = window.setTimeout(() => {
       const m = map.current, e = evidenceSpots.find((x) => x.id === spot.id), root = rootRef.current; if (!m || !e || !root) return;
       const box = m.container.getBoundingClientRect(), floor = root.querySelector('.leaflet-control-attribution, .xcredit')?.getBoundingClientRect().top ?? box.bottom;
@@ -443,11 +447,16 @@ function OceanMap({section, go}: ViewProps) {
     pickEl.addEventListener('keydown', key); return () => { clearTimeout(t); pickEl.removeEventListener('keydown', key); };
   }, [pickEl]);
   useEffect(() => () => { pickMk.current?.remove(); pickMk.current = null; }, [eng]);
+  // 1B: Esc clears the map's spot focus (and closes its callout); typing in a field keeps its own Esc.
+  const clearFocus = () => { setCallout(null); setMapFocused(false); };
   useEffect(() => {
-    if (!callout) return;
-    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') { setCallout(null); markers.current.get(spot.id)?.element.focus(); } };
+    if (!focused && !callout) return;
+    const key = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || e.defaultPrevented || (e.target as HTMLElement | null)?.closest?.('input, textarea, select')) return;
+      const pin = markers.current.get(spot.id)?.element; setCallout(null); setMapFocused(false); if (pin && document.activeElement === pin) pin.blur();
+    };
     addEventListener('keydown', key); return () => removeEventListener('keydown', key);
-  }, [callout, spot.id]);
+  }, [callout, focused, spot.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stepBy = useCallback((dir: -1 | 1, wrap = false) => {
     if (!times.length) return;
@@ -530,23 +539,23 @@ function OceanMap({section, go}: ViewProps) {
     setZone(z); const m = map.current; if (!m || z === 'In view') return; // "In view" follows the map; it never moves it
     const pts = evidenceSpots.filter((e) => z !== 'All' && zoneOf(e.region) === z).map((e) => ({lat: e.latitude, lon: e.longitude}));
     if (pts.length) m.fitPoints(pts, {padRatio: 0.15, animate: !reduced(), padding: {top: phone ? 120 : 80, left: phone ? 16 : 24, right: phone ? 64 : 200, bottom: phone ? 120 : 80}});
-    else flyRef.current(spot.id);
+    else if (focused) flyRef.current(spot.id);
   };
   // after dark the spots keep their rating; the map says once, quietly, that the hour is dark.
   const darkNow = !!view.selectedTime && isDark(spot.id, view.selectedTime);
   // T-128: a frame drawn from this device's cache says so, with its own valid time, until the fresh frame replaces it.
-  const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, MAP_TIME_ZONE)} ${hourLabel(iso, MAP_TIME_ZONE)} ${mapZoneAbbr(iso)}`);
+  const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, mapZone())} ${hourLabel(iso, mapZone())} ${mapZoneAbbr(iso)}`);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : cache && opts.heat ? cache.line
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
-    : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, MAP_TIME_ZONE)} ${hourLabel(paintedFrame.validAt, MAP_TIME_ZONE)} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
-    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, MAP_TIME_ZONE)} ${hourLabel((frame ?? gframe)!.validAt, MAP_TIME_ZONE)} ${mapZoneAbbr((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
+    : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
+    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, mapZone())} ${hourLabel((frame ?? gframe)!.validAt, mapZone())} ${mapZoneAbbr((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
   const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
   const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
   const ends = frame || gframe || (opts.heat && painted) ? ([legend.lo, legend.hi] as const) : null;
   const unitLabel = legend.unitLabel;
-  const when = view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)} ${mapZoneAbbr(view.selectedTime)}` : 'this hour';
+  const when = view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : 'this hour';
 
   /** Offshore height range at a spot across the shared hour +/- 3 h (from the model records, not invented). */
   const rangeAt = (id: string) => {
@@ -575,10 +584,11 @@ function OceanMap({section, go}: ViewProps) {
   const callEv = evidenceSpots.find((e) => e.id === callout);
   const callout$ = callSpot && callEv ? (
     <SpotCallout spot={callSpot} region={callEv.region} f={callRec} rating={callRec ? rateForecast(callSpot, callRec, now) : null} when={when} p={p} hours={hoursFor(callSpot.id)}
-      onOpen={() => go('forecast')} onClose={phone ? undefined : () => setCallout(null)} />
+      onOpen={() => go('forecast')} onClose={phone ? undefined : clearFocus} closeLabel="Clear selection" />
   ) : null;
-  const peek$ = phone ? (
-    <SpotCallout spot={spot} region={here.region} f={f} rating={rating} when={when} p={p} hours={hoursFor(spot.id)} onOpen={() => go('forecast')} />
+  const peek$ = phone ? (focused
+    ? <SpotCallout spot={spot} region={here.region} f={f} rating={rating} when={when} p={p} hours={hoursFor(spot.id)} onOpen={() => go('forecast')} />
+    : <p className="xpickh" data-focus="none">No spot selected · tap a pin or <button type="button" onClick={() => setDetent('half')}>pick from the list</button></p>
   ) : null;
 
   // Phone sheet: drag the handle between detents, or press it to step through them.
@@ -615,7 +625,7 @@ function OceanMap({section, go}: ViewProps) {
         const head = !byView && (i === 0 || list[i - 1].region !== e.region) ? <p className="xregion">{e.region}</p> : null;
         const rated = !!rt && rt.score !== null && !!r, sub = (byView ? pinHeight(e.id) : null) ?? rangeAt(e.id) ?? 'No record at this hour';
         return <li key={e.id}>{head}<SpotRow id={e.id} name={e.name} sub={byView ? `${e.region} · ${sub}${rated ? '' : ' · not rated'}` : sub} category={rated ? rt!.category : null}
-          current={e.id === spot.id} highlighted={hover === e.id} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
+          current={e.id === focused} highlighted={hover === e.id} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
       })}</ul>
       <p className="xmore">
         <a href="/explore/discover" onClick={(ev) => { ev.preventDefault(); go('explore', 'discover'); }}>Find spots near you</a>
@@ -628,8 +638,10 @@ function OceanMap({section, go}: ViewProps) {
   // screens, the sheet on phones).
   const showResults = () => { if (phone) { setSheetOn(true); setDetent('half'); } else setOpen(true); };
   const locate = () => {
-    if (!navigator.geolocation) { flyToSpot(spot.id); return; }
-    navigator.geolocation.getCurrentPosition((pos) => { const m = map.current; if (m) m.flyTo({lat: pos.coords.latitude, lon: pos.coords.longitude, zoom: Math.max(9, m.getView().zoom)}, {reducedMotion: reduced()}); }, () => flyToSpot(spot.id), {timeout: 8000, maximumAge: 600000});
+    // 1B: with no spot focused this is "my location" only (no fallback to a spot the map is not showing)
+    const fallback = () => { if (focused) flyToSpot(spot.id); };
+    if (!navigator.geolocation) { fallback(); return; }
+    navigator.geolocation.getCurrentPosition((pos) => { const m = map.current; if (m) m.flyTo({lat: pos.coords.latitude, lon: pos.coords.longitude, zoom: Math.max(9, m.getView().zoom)}, {reducedMotion: reduced()}); }, fallback, {timeout: 8000, maximumAge: 600000});
   };
   const topBar = (
     <div className="xtopbar">
@@ -637,8 +649,12 @@ function OceanMap({section, go}: ViewProps) {
         <input type="search" value={q} placeholder="Search spots" autoComplete="off" aria-controls="xsheet" aria-expanded={showList}
           onFocus={showResults} onChange={(e) => { setQ(e.target.value); showResults(); }}
           onKeyDown={(e) => { if (e.key === 'Enter' && list[0]) { e.preventDefault(); pickSpot(list[0].id, true); (e.target as HTMLInputElement).blur(); } if (e.key === 'Escape') { setQ(''); setOpen(false); } }} />
-        <button type="button" className="xtb-loc" aria-label="Go to my location (or the selected spot)" onClick={locate}><Icon name="locate" size={17} /></button>
+        <button type="button" className="xtb-loc" aria-label={focused ? 'Go to my location (or the selected spot)' : 'Go to my location'} onClick={locate}><Icon name="locate" size={17} /></button>
       </label>
+      {/* 1B: the focused spot as a chip with its clear control (when its callout or the phone sheet is not already showing it) */}
+      {focused && !(phone ? sheetOn : callout === spot.id) && <span className="xfocus" data-focus={spot.id}>
+        <span className="xfocus-n">{spot.name}</span>
+        <button type="button" className="xfocus-x" aria-label="Clear selection" title="Clear selection" onClick={clearFocus}><Icon name="close" size={13} /></button></span>}
       {!phone && !open && inView && inView.size > 0 && <button type="button" className="xinview" aria-controls="xsheet" aria-expanded={false}
         onClick={() => { setQ(''); setZone('In view'); setOpen(true); }}>{inView.size} spot{inView.size === 1 ? '' : 's'} in view<Icon name="chevron" size={14} /></button>}
     </div>
@@ -676,10 +692,11 @@ function OceanMap({section, go}: ViewProps) {
       {phone && sheetOn ? (
         <section ref={sheetRef} className="xsheet phone" id="xsheet" data-d={detent} aria-label="Spots"
           style={drag !== null ? ({height: `${drag}px`, transition: 'none'} as CSSProperties) : undefined}>
-          <button className="xgrab" aria-label={`Spot sheet: ${detent === 'peek' ? 'selected spot' : detent === 'half' ? 'half height' : 'full list'}. Press to resize`}
+          <button className="xgrab" aria-label={`Spot sheet: ${detent === 'peek' ? (focused ? 'selected spot' : 'no spot selected') : detent === 'half' ? 'half height' : 'full list'}. Press to resize`}
             onPointerDown={onHandleDown} onPointerMove={onHandleMove} onPointerUp={onHandleUp} onPointerCancel={() => { dragFrom.current = null; setDrag(null); }} onKeyDown={handleKey}
             onClick={() => { if (dragged.current) { dragged.current = false; return; } setDetent(DETENTS[(DETENTS.indexOf(detent) + 1) % 3]); }}><i /></button>
-          <button className="xsheet-x" aria-label="Close the spot sheet" onClick={() => { setSheetOn(false); setDetent('peek'); setCallout(null); }}><Icon name="close" size={16} /></button>
+          {/* 1B: on the peek, × clears the focused spot (the sheet then offers the list); otherwise it closes the sheet */}
+          <button className="xsheet-x" aria-label={focused && !showList ? 'Clear selection' : 'Close the spot sheet'} onClick={() => { if (focused && !showList) { clearFocus(); return; } setSheetOn(false); setDetent('peek'); setCallout(null); }}><Icon name="close" size={16} /></button>
           {showList ? listBody : peek$}
         </section>
       ) : null}
@@ -697,7 +714,7 @@ function OceanMap({section, go}: ViewProps) {
         const failed = !!view.selectedTime && !spatial.loading && !spatial.frame && !/^Loading/.test(spatial.status), held = (frame ?? gframe)?.validAt;
         // Say what is actually on screen: the held frame may be the previous layer (honest while the new one loads or fails).
         const heldName = shownFor.current !== fieldId ? (FIELDS.find((x) => x.id === shownFor.current)?.short ?? '').toLowerCase() : '';
-        const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held, MAP_TIME_ZONE)} ${hourLabel(held, MAP_TIME_ZONE)} ${mapZoneAbbr(held)}` : '';
+        const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held, mapZone())} ${hourLabel(held, mapZone())} ${mapZoneAbbr(held)}` : '';
         const retry = () => { setSlow(false); spatial.retry(); };
         if (failed) return <p className="xload err" role="alert">Couldn't load {def.short.toLowerCase()} for {when}{showing} <button type="button" onClick={retry}>Retry</button></p>;
         if (slow && anyLoading) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
@@ -709,7 +726,8 @@ function OceanMap({section, go}: ViewProps) {
           flow={opts.flow} setFlow={(v) => setOpts({...opts, flow: v})} arrows={opts.arrows} setArrows={(v) => setOpts({...opts, arrows: v})} note={status}
           onPoint={() => { const c = map.current?.getView(); if (!c) return; setPanel(true); setPt({lat: c.lat, lon: c.lon}); }} />
         <div className="xzoom"><button aria-label="Zoom in" onClick={() => map.current?.zoomBy(1)}><Icon name="plus" size={18} /></button><button aria-label="Zoom out" onClick={() => map.current?.zoomBy(-1)}><Icon name="minus" size={18} /></button></div>
-        <button className="xround xcenter" aria-label="Center on the selected spot" onClick={() => flyToSpot(spot.id)}><Icon name="star" size={18} /></button>
+        {focused ? <button className="xround xcenter" aria-label="Center on the selected spot" onClick={() => flyToSpot(spot.id)}><Icon name="star" size={18} /></button>
+          : <button className="xround xcenter" aria-label="Go to my location" onClick={locate}><Icon name="locate" size={18} /></button>}
       </div>
 
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
@@ -717,7 +735,7 @@ function OceanMap({section, go}: ViewProps) {
         {darkNow && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window</p>}
         {cache && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
-          valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)} ${mapZoneAbbr(view.selectedTime)}` : ''} />
+          valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} sub={cache?.chip} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={paintedDef.label} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />

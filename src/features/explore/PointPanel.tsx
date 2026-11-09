@@ -1,4 +1,4 @@
-import {MAP_TIME_ZONE} from '../../ocean/spotZone';
+import {mapZone} from '../../ocean/spotZone';
 import type {OceanBundle} from '../../ocean/types';
 import type {UserProfile} from '../../models/index';
 import type {PointValue} from '../../map/field';
@@ -61,8 +61,8 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
         <div className="xpanel-scroll" tabIndex={0} role="region" aria-label="Hourly table; scroll sideways for later hours">
           <table className="xpanel-t">
             <thead>
-              <tr className="xp-day"><th scope="row">Day</th>{cols.map(({t}, k) => <th key={t} scope="col">{k === 0 || weekdayPT(hourCol(t), MAP_TIME_ZONE) !== weekdayPT(hourCol(cols[k - 1].t), MAP_TIME_ZONE) ? weekdayPT(hourCol(t), MAP_TIME_ZONE) : ''}</th>)}</tr>
-              <tr><th scope="row">Time</th>{cols.map(({t}) => <th key={t} scope="col">{timeLabelPT(hourCol(t), MAP_TIME_ZONE).replace(':00', '').replace(' ', '').toLowerCase()}</th>)}</tr>
+              <tr className="xp-day"><th scope="row">Day</th>{cols.map(({t}, k) => <th key={t} scope="col">{k === 0 || weekdayPT(hourCol(t), mapZone()) !== weekdayPT(hourCol(cols[k - 1].t), mapZone()) ? weekdayPT(hourCol(t), mapZone()) : ''}</th>)}</tr>
+              <tr><th scope="row">Time</th>{cols.map(({t}) => <th key={t} scope="col">{timeLabelPT(hourCol(t), mapZone()).replace(':00', '').replace(' ', '').toLowerCase()}</th>)}</tr>
             </thead>
             <tbody>
               <tr><th scope="row">Wind <small>{p.windUnit}</small></th>{cols.map(({t, i}) => { const w = wind(v(data.windSpeed, i)), d = v(data.windDirection, i);
@@ -73,7 +73,7 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
               <tr><th scope="row">Swell 2 <small>{p.heightUnit}</small></th>{cols.map(({t, i}) => { const d = v(data.swell2Direction, i); return <td key={t}>{d !== null && <DirArrow from={d} size={11} />}{h(v(data.swell2Height, i))}</td>; })}</tr>
               <tr><th scope="row">Period <small>s</small></th>{cols.map(({t, i}) => { const x = v(data.wavePeriod, i) ?? v(data.swellPeriod, i); return <td key={t}>{x === null ? '—' : Math.round(x)}</td>; })}</tr>
               <tr><th scope="row">Tide <small>{station ? `${station.station.name} (NOAA)` : 'no station ≤ 40 km'}</small></th>{cols.map(({t}) => { const e = tideAt(t);
-                return <td key={t} className="xp-tide">{e ? <><b>{e.type === 'High' ? 'H' : 'L'}</b> {timeLabelPT(e.timestamp, MAP_TIME_ZONE).replace(':00', '').replace(' ', '').toLowerCase()}</> : ''}</td>; })}</tr>
+                return <td key={t} className="xp-tide">{e ? <><b>{e.type === 'High' ? 'H' : 'L'}</b> {timeLabelPT(e.timestamp, mapZone()).replace(':00', '').replace(' ', '').toLowerCase()}</> : ''}</td>; })}</tr>
             </tbody>
           </table>
         </div>

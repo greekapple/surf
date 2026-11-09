@@ -16,6 +16,23 @@ let active = DEFAULT_TIME_ZONE;
 export const activeZone = (): string => active;
 export const setActiveZone = (tz: string | null | undefined): string => (active = validZone(tz));
 
-/** The ONE zone of the global surfaces: the map's time strip and stamps, the "model data" badge, the point panel and the cross-spot lists (Find spots, Compare headers). They show a single instant for many places, so they use one explicit zone,
- *  never the zone of whichever spot was opened last. America/Los_Angeles today (the map covers the US West Coast); flip this one constant (or read the viewer's zone) when the map goes global. A spot's OWN row or card labels its own zone (timeZoneOf). */
-export const MAP_TIME_ZONE = DEFAULT_TIME_ZONE;
+/** The viewer's own zone (the device clock), for surfaces that show several spots at once (Home, Compare, Find spots) and the map with no spot focused. */
+export const viewerZone = (): string => validZone(typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : null);
+
+/** The label zone of the global surfaces (spec 2026-11-09 1A): the map's time strip and stamps, the "model data" badge, the point panel.
+ *  They show one instant for many places in ONE explicit zone: the zone of the spot in view (its Forecast page, or the spot focused on the map),
+ *  else the viewer's own zone (Home, the map with nothing focused). The store sets it from the route and the map focus before the screens render
+ *  (`labelZoneFor`); time steps stay shared UTC instants, only their labels and day boundaries follow it. A spot's OWN row or card labels its own zone (timeZoneOf). */
+let mapZoneNow: string | null = null;
+export const mapZone = (): string => mapZoneNow ?? viewerZone();
+export const setMapZone = (tz: string | null | undefined): string => { mapZoneNow = tz ? validZone(tz) : null; return mapZone(); };
+/** Which zone the clocks of a view use: Forecast → the spot's; the map (its own sections) → the focused spot's, or the viewer's when nothing is focused; everything else (Home, Compare, Find spots, Quiver, Personal) → the viewer's. */
+export function labelZoneFor(area: string, section: string, spotZone: string, mapFocused: boolean, viewer = viewerZone()): string {
+  if (area === 'forecast') return spotZone;
+  if (area === 'explore' && section !== 'compare' && section !== 'discover') return mapFocused ? spotZone : viewer;
+  return viewer;
+}
+/** "PST", "HST", "GMT": the short name of a zone at an instant. */
+export const zoneAbbr = (tz: string, at: string | number | Date): string => new Intl.DateTimeFormat('en-US', {timeZone: tz, timeZoneName: 'short'}).formatToParts(new Date(at)).find((x) => x.type === 'timeZoneName')?.value ?? '';
+/** True when a clock in `tz` reads differently from the viewer's own at that instant (then a label names its zone). */
+export const differsFromViewer = (tz: string, at: string | number | Date, viewer = viewerZone()): boolean => tz !== viewer && zoneAbbr(tz, at) !== zoneAbbr(viewer, at);

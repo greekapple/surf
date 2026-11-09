@@ -1,6 +1,6 @@
 import {nearSfBuoy} from '../../ocean/buoys';
-import {dateIn, fmtIn} from '../../ocean/time';
-import {timeZoneOf, MAP_TIME_ZONE} from '../../ocean/spotZone';
+import {dateIn} from '../../ocean/time';
+import {timeZoneOf, differsFromViewer, zoneAbbr} from '../../ocean/spotZone';
 import {Fragment, useEffect, useMemo, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
@@ -76,8 +76,8 @@ export function ForecastView({go}: ViewProps) {
     const best = bestDaylight(series, spot, Date.parse(series[d.start].timestamp), Date.parse(series[d.end].timestamp) + 1);
     view.selectTime((best ?? series[d.start]).timestamp);
   };
-  // a spot outside the Pacific zone says which clock its times are on ("4:00 AM EST"); Pacific spots stay as they were
-  const spotZoneTag = (ts: string) => { const z = timeZoneOf(spot); return z === MAP_TIME_ZONE ? '' : ` ${fmtIn(z, {timeZoneName: 'short'}).formatToParts(new Date(ts)).find((x) => x.type === 'timeZoneName')?.value ?? ''}`; };
+  // 1A: a spot whose clock differs from the viewer's says which clock its times are on ("4:00 AM EST"); in the viewer's own zone there is no tag
+  const spotZoneTag = (ts: string) => { const z = timeZoneOf(spot); return differsFromViewer(z, ts) ? ` ${zoneAbbr(z, ts)}` : ''; };
   const nowIdx = series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
   const toNow = () => { if (nowIdx >= 0) view.selectTime(series[nowIdx].timestamp); };
 

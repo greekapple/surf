@@ -773,3 +773,14 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xco-bars .nr.flat { background-image: linear-gradient(color-mix(in srgb, var(--muted) 70%, transparent), color-mix(in srgb, var(--muted) 70%, transparent)); }
 /* T-130: what the model point cannot say about this spot, under the card's number (same line as the spot page's Surf card) */
 .xco-cav { margin: 2px 0 0; font-size: 11px; line-height: 1.35; color: var(--muted); }
+
+/* Spec 2026-11-09 1B: the focused spot as a chip under the search, with its "Clear selection" ×; and the phone peek with nothing focused. */
+.xfocus { display: inline-flex; align-items: center; margin: 12px 6px 0 0; padding: 0 2px 0 4px; border: 1px solid var(--xc-line); border-radius: 999px;
+  background: var(--xc); color: var(--text); box-shadow: var(--xc-sh); vertical-align: top; max-width: 100%; }
+.xfocus-n { padding: 0 2px 0 8px; font: 600 13px/1.2 var(--sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.xfocus-x { display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: none; color: var(--muted); cursor: pointer; }
+.xfocus-x:hover { color: var(--text); background: var(--s1); }
+@media (max-width: 860px) { .xfocus-x { width: 44px; height: 44px; } }
+.xpickh { margin: 0; padding: 14px 52px 14px 16px; font-size: 14px; color: var(--muted); }
+.xpickh button { padding: 0; border: 0; background: none; color: var(--accent, var(--text)); font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; }
+.xfocus ~ .xinview { margin-top: 12px; vertical-align: top; }   /* level with the focus chip beside it */

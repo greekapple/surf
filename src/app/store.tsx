@@ -10,6 +10,7 @@ import {useModelSpread} from '../hooks/useModelSpread';
 import type {SurfSpot} from '../models/index';
 import {hourlySeries, type HourSample} from '../features/forecast/model';
 import {slugFor, spotIdForSlug} from './routes';
+import {labelZoneFor, setMapZone, timeZoneOf} from '../ocean/spotZone';
 
 /** Device-only UI preferences that are not part of the backed-up AppState. */
 interface LocalPrefs {selectedBoardId: string | null; scaleFt: number; scaleMode: 'ride' | 'paddle'}
@@ -41,6 +42,12 @@ export interface Swello {
   reportVisible: (ids: string[]) => void;
   /** A screen that lists spots (Compare, Find spots, the spot picker) asks for the ones it shows: they load on demand. */
   requestSpots: (ids: string[]) => void;
+  /** Spec 2026-11-09 1B: whether the map has a spot focused. False = "no spot focused": the map highlights nothing and its clocks use the viewer's
+   *  zone, while the app's selected spot (`spot`) stays, so Forecast still opens it. Picking a spot anywhere focuses it again. ?focus=none in the URL. */
+  mapFocused: boolean;
+  setMapFocused: (on: boolean) => void;
+  /** Spec 2026-11-09 1A: the zone of the global clock labels for the current view (ocean/spotZone.ts labelZoneFor). */
+  labelZone: string;
 }
 const Ctx = createContext<Swello | null>(null);
 export const useSwello = () => {
@@ -49,7 +56,7 @@ export const useSwello = () => {
   return v;
 };
 
-export function SwelloProvider({children}: {children: ReactNode}) {
+export function SwelloProvider({children, area = 'home', section = ''}: {children: ReactNode; area?: string; section?: string}) {
   const data = useAppData();
   // subset loading (ocean/spotScope.ts): the selected spot, favourites, the spots near them, the pins on the map and whatever a screen asks for load; the rest on demand
   const [visibleSpots, setVisibleSpots] = useState<string[]>([]), [requestedSpots, setRequestedSpots] = useState<string[]>([]);
@@ -72,7 +79,9 @@ export function SwelloProvider({children}: {children: ReactNode}) {
     if (id && spotOptions.some((s) => s.id === id) && id !== view.selected) view.selectSpot(id);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const [mapFocused, setMapFocused] = useState(() => typeof location === 'undefined' || new URLSearchParams(location.search).get('focus') !== 'none');
   const setSpot = (id: string) => {
+    setMapFocused(true);   // choosing a spot (pin, list, search, Home, the strip) focuses it on the map again
     if (id === view.selected) return;
     view.selectSpot(id);
     const q = new URLSearchParams(location.search);
@@ -85,6 +94,9 @@ export function SwelloProvider({children}: {children: ReactNode}) {
   const series = useMemo(() => hourlySeries(view.spot, view.mapRecords, now), [view.spot, view.mapRecords, now]);
   const selected = series.find((h) => h.timestamp === view.selectedTime) ?? null;
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, requestSpots};
+  // 1A: set before the children render (the map's time helpers read it), like setActiveZone in useForecast
+  const labelZone = setMapZone(labelZoneFor(area, section, timeZoneOf(view.spot), mapFocused));
+
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, requestSpots, mapFocused, setMapFocused, labelZone};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

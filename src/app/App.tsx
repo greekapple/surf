@@ -46,7 +46,7 @@ export default function App() {
   const strip = area === 'forecast' && section === '';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Map', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
-    <SwelloProvider>
+    <SwelloProvider area={area} section={section}>
       <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}`}>
         <a className="skip" href="#main">Skip to content</a>
         <div className="hdr">

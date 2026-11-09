@@ -1,5 +1,4 @@
-import {MAP_TIME_ZONE} from '../ocean/spotZone';
-import {fmtIn} from '../ocean/time';
+import {zoneAbbr} from '../ocean/spotZone';
 import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode} from 'react';
 import {AREAS, pathFor, type Area} from './routes';
 import {useSwello} from './store';
@@ -187,14 +186,15 @@ export function SpotPicker() {
 }
 
 export function DataBadge() {
-  const {view, live} = useSwello();
+  const {view, live, labelZone} = useSwello();
   const o = view.ocean;
   if (!live) return <span className="badge demo"><i /><span className="lbl">Demonstration · not live</span></span>;
   if (o.loading && !o.bundle) return <span className="badge demo"><i /><span className="lbl">Loading forecast…</span></span>;
   if (!o.bundle) return <span className="badge err"><i /><span className="lbl">Forecast unavailable</span></span>;
   const limited = o.statuses.some((s) => s.state !== 'connected');
-  const zoneTag = () => ` ${fmtIn(MAP_TIME_ZONE, {timeZoneName: 'short'}).formatToParts(new Date(o.bundle!.loadedAt)).find((x) => x.type === 'timeZoneName')?.value ?? ''}`;   // the badge is in the map zone, and says so (PST/PDT): a Hawaii spot's own clocks are HST right below it
-  return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.map((s) => `${s.provider}: ${s.state}`).join('\n')}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt, MAP_TIME_ZONE)}{zoneTag()}{limited ? ' · some sources limited' : ''}</span></span>;
+  // 1A: the badge is in the zone of the spot in view (the viewer's on Home or an unfocused map), and always says which (PST, HST, EST, GMT)
+  const zoneTag = () => ` ${zoneAbbr(labelZone, o.bundle!.loadedAt)}`;
+  return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.map((s) => `${s.provider}: ${s.state}`).join('\n')}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt, labelZone)}{zoneTag()}{limited ? ' · some sources limited' : ''}</span></span>;
 }
 
 /** Top bar (Surfline / Apple): wordmark = Home · Forecast · Map · Quiver · search · status · theme · avatar (Personal). Always solid. */
