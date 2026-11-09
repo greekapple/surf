@@ -628,7 +628,7 @@
    "type": "Beach",
    "lat": 49.918,
    "lon": 1.03,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.2 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/pourville"
@@ -653,7 +653,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to NE, best NE (surfnerd)",
      "fromDeg": 270,
@@ -990,7 +990,7 @@
    "type": "Beach",
    "lat": 49.738,
    "lon": 0.29,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.56 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/vaucottes"
@@ -1010,7 +1010,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to NE, best W (surfnerd)",
      "fromDeg": 270,
@@ -1482,7 +1482,7 @@
    "type": "Beach",
    "lat": 49.657,
    "lon": -1.522,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 215997430 (natural:beach): Plage de Bretteville, Le Grand Heu, Bretteville, Cherbourg, Manche, Normandie, France métr; 0.83 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/215997430"
@@ -1507,7 +1507,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -1726,7 +1726,7 @@
    "type": "Beach",
    "lat": 49.572,
    "lon": -1.845,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/siouville"
@@ -1751,7 +1751,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -1849,7 +1849,7 @@
    "type": "Reef",
    "lat": 49.56,
    "lon": -1.862,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 1.12 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/dielette"
@@ -1874,7 +1874,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -1974,7 +1974,7 @@
    "type": "Beach",
    "lat": 49.503,
    "lon": -1.855,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.79 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/sciotot"
@@ -1999,7 +1999,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -2096,7 +2096,7 @@
    "type": "Beach",
    "lat": 49.496,
    "lon": 0.09,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sainte-adresse"
@@ -2116,7 +2116,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "W to NE, best W (surfnerd)",
      "fromDeg": 270,
@@ -2328,7 +2328,7 @@
    "type": "Beach",
    "lat": 49.457,
    "lon": -1.833,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/surtainville"
@@ -2348,7 +2348,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -2911,7 +2911,7 @@
    "type": "Beach",
    "lat": 49.368,
    "lon": -0.872,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/omaha-beach"
@@ -2931,7 +2931,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -3143,7 +3143,7 @@
    "type": "Beach",
    "lat": 49.319,
    "lon": -0.35,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/luc-sur-mer"
@@ -3168,7 +3168,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -3266,7 +3266,7 @@
    "type": "Beach",
    "lat": 49.299,
    "lon": -1.699,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/plage-de-denneville"
@@ -3286,7 +3286,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -3381,7 +3381,7 @@
    "type": "Beach",
    "lat": 48.822,
    "lon": -3.355,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM relation 5479047 (natural:beach): Plage de Trestel, Prat Even, Saint-Guénolé, Trévou-Tréguignec, Lannion, Côtes-d'Armor, Bre; 0.25 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/relation/5479047"
@@ -3401,7 +3401,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -3876,7 +3876,7 @@
    "type": "Beach",
    "lat": 48.694,
    "lon": -4.135,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 231891489 (natural:beach): Les Amiets, Kerfissien, Cléder, Morlaix, Finistère, Bretagne, France métropolitaine, 29233; 0.46 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/231891489"
@@ -3896,7 +3896,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -4096,7 +4096,7 @@
    "type": "Beach",
    "lat": 48.659,
    "lon": -4.402,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.79 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/boutrouilles"
@@ -4116,7 +4116,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -4330,7 +4330,7 @@
    "type": "Beach",
    "lat": 48.657,
    "lon": -2.361,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/cap-frehel"
@@ -4350,7 +4350,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to NW, best W (surfnerd)",
      "fromDeg": 270,
@@ -4449,7 +4449,7 @@
    "type": "Beach",
    "lat": 48.639,
    "lon": -2.121,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-longchamps"
@@ -4474,7 +4474,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to NW, best NW (surfnerd)",
      "fromDeg": 270,
@@ -4942,7 +4942,7 @@
    "type": "Beach",
    "lat": 48.457,
    "lon": -4.773,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.35 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/le-gouerou"
@@ -4967,7 +4967,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to N, best NW (surfnerd)",
      "fromDeg": 225,
@@ -5066,7 +5066,7 @@
    "type": "Beach",
    "lat": 48.37,
    "lon": -4.766,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/blancs-sablons"
@@ -5091,7 +5091,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to N, best NW (surfnerd)",
      "fromDeg": 225,
@@ -5824,7 +5824,7 @@
    "type": "Point",
    "lat": 48.232,
    "lon": -4.57,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "OSM node 7296229044 (natural:cape): Pointe de Dinan, Kerguillé, Crozon, Châteaulin, Finistère, Bretagne, France métropolitaine; 0.22 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/7296229044"
@@ -5849,7 +5849,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -6075,7 +6075,7 @@
    "type": "Beach",
    "lat": 48.171,
    "lon": -4.297,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/pors-ar-vag"
@@ -6100,7 +6100,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -6201,7 +6201,7 @@
    "type": "Point",
    "lat": 48.169,
    "lon": -4.553,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM node 741577018 (natural:cape): Cap de la Chèvre, Rostudel, Crozon, Châteaulin, Finistère, Bretagne, France métropolitaine; 0.42 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/741577018"
@@ -6226,7 +6226,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -6329,7 +6329,7 @@
    "type": "Point",
    "lat": 48.109,
    "lon": -4.362,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "OSM node 6311558435 (natural:cape): Pointe de Leydé, Lopérec, Douarnenez, Quimper, Finistère, Bretagne, France métropolitaine,; 0.05 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/6311558435"
@@ -6354,7 +6354,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -6453,7 +6453,7 @@
    "type": "Beach",
    "lat": 48.061,
    "lon": -4.673,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM relation 4763090 (natural:beach): Plage de Porz Théolen, Poulharadec, Cléden-Cap-Sizun, Quimper, Finistère, Bretagne, France; 0.11 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/relation/4763090"
@@ -6478,7 +6478,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -6580,7 +6580,7 @@
    "type": "Beach",
    "lat": 48.047,
    "lon": -4.711,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM relation 8726720 (natural:bay): Baie des Trépassés, Kerludu, France métropolitaine, 29770, France; 0.1 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/relation/8726720"
@@ -6605,7 +6605,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -6832,7 +6832,7 @@
    "type": "Reef",
    "lat": 48.008,
    "lon": -4.548,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-gamelle"
@@ -6852,7 +6852,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -6951,7 +6951,7 @@
    "type": "Beach",
    "lat": 48.001,
    "lon": -4.503,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/east-of-kersiny"
@@ -6971,7 +6971,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "WNW (surfnerd)",
      "fromDeg": 292.5,
@@ -7435,7 +7435,7 @@
    "type": "Beach",
    "lat": 47.841,
    "lon": -4.351,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.63 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/la-torche"
@@ -7460,7 +7460,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NNW, best W (surfnerd)",
      "fromDeg": 225,
@@ -7562,7 +7562,7 @@
    "type": "Beach",
    "lat": 47.832,
    "lon": -4.351,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 1.19 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/pors-carn"
@@ -7587,7 +7587,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -7814,7 +7814,7 @@
    "type": "Beach",
    "lat": 47.767,
    "lon": -3.562,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.5 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/le-kerou"
@@ -7839,7 +7839,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to W (surfnerd)",
      "fromDeg": 225,
@@ -8432,7 +8432,7 @@
    "type": "Beach",
    "lat": 47.64,
    "lon": -3.211,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/etel"
@@ -8457,7 +8457,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to W, best SW (surfnerd)",
      "fromDeg": 225,
@@ -8556,7 +8556,7 @@
    "type": "Beach",
    "lat": 47.584,
    "lon": -3.147,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/penthievre"
@@ -8581,7 +8581,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to W (surfnerd)",
      "fromDeg": 225,
@@ -8682,7 +8682,7 @@
    "type": "Beach",
    "lat": 47.516,
    "lon": -3.154,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-cote-sauvage-brittany"
@@ -8702,7 +8702,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to W, best W (surfnerd)",
      "fromDeg": 225,
@@ -8801,7 +8801,7 @@
    "type": "Beach",
    "lat": 47.478,
    "lon": -3.116,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM way 273773507 (natural:beach): La Grande Plage, Kervozès, Quiberon, Lorient, Morbihan, Bretagne, France métropolitaine, 5; 0.12 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/273773507"
@@ -8821,7 +8821,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to W (surfnerd)",
      "fromDeg": 225,
@@ -8909,7 +8909,7 @@
    "type": "Beach",
    "lat": 47.326,
    "lon": -3.241,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-donnants"
@@ -8934,7 +8934,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -9259,7 +9259,7 @@
    "type": "Beach",
    "lat": 47.239,
    "lon": -2.271,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-courance"
@@ -9284,7 +9284,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -9385,7 +9385,7 @@
    "type": "Beach",
    "lat": 47.205,
    "lon": -2.164,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/l-ermitage"
@@ -9405,7 +9405,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -9623,7 +9623,7 @@
    "type": "Reef",
    "lat": 47.128,
    "lon": -2.228,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/prefailles"
@@ -9648,7 +9648,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW (surfnerd)",
      "fromDeg": 225,
@@ -10520,7 +10520,7 @@
    "type": "Beach",
    "lat": 46.607,
    "lon": -1.856,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.76 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/les-dunes"
@@ -10540,7 +10540,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -10628,7 +10628,7 @@
    "type": "Reef",
    "lat": 46.549,
    "lon": -1.834,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sauveterre"
@@ -10653,7 +10653,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -11001,7 +11001,7 @@
    "type": "Point",
    "lat": 46.436,
    "lon": -1.696,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/saint-nicolas"
@@ -11021,7 +11021,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -11120,7 +11120,7 @@
    "type": "Beach",
    "lat": 46.386,
    "lon": -1.495,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-conches-bud-bud"
@@ -11145,7 +11145,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -11246,7 +11246,7 @@
    "type": "Point",
    "lat": 46.344,
    "lon": -1.471,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM way 107576526 (natural:beach): Le Phare, La Terrière, La Tranche-sur-Mer, Les Sables-d'Olonne, Vendée, Pays de la Loire, ; 0.41 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/107576526"
@@ -11271,7 +11271,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,
@@ -11374,7 +11374,7 @@
    "type": "Beach",
    "lat": 46.343,
    "lon": -1.428,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/l-embarcadere"
@@ -11394,7 +11394,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "W to NW, best W (surfnerd)",
      "fromDeg": 270,
@@ -11736,7 +11736,7 @@
    "type": "Beach",
    "lat": 46.192,
    "lon": -1.441,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-couarde"
@@ -11761,7 +11761,7 @@
      }
     ],
     "facing": "SSW (surfnerd)",
-    "facingDeg": 202,
+    "facingDeg": 202.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -12102,7 +12102,7 @@
    "type": "Reef",
    "lat": 46.048,
    "lon": -1.419,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 1.38 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/chassiron"
@@ -12127,7 +12127,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -12480,7 +12480,7 @@
    "type": "Beach",
    "lat": 46.012,
    "lon": -1.401,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.76 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/les-huttes"
@@ -12505,7 +12505,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -12723,7 +12723,7 @@
    "type": "Beach",
    "lat": 45.871,
    "lon": -1.266,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-allassins"
@@ -12748,7 +12748,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -13061,7 +13061,7 @@
    "type": "Beach",
    "lat": 45.694,
    "lon": -1.238,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.46 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/phare-de-la-coubre"
@@ -13081,7 +13081,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -13491,7 +13491,7 @@
    "type": "Beach",
    "lat": 45.548,
    "lon": -1.051,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/le-verdon"
@@ -13511,7 +13511,7 @@
      }
     ],
     "facing": "NNE (surfnerd)",
-    "facingDeg": 22,
+    "facingDeg": 22.5,
     "swellWorkable": {
      "text": "W to NW, best NW (surfnerd)",
      "fromDeg": 270,
@@ -13705,7 +13705,7 @@
    "type": "Beach",
    "lat": 45.485,
    "lon": -1.154,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.4 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/l-amelie"
@@ -13725,7 +13725,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -13803,7 +13803,7 @@
    "type": "Beach",
    "lat": 45.434,
    "lon": -1.154,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 1318771679 (natural:beach): Le Gurp, Amérique du Nord, Grayan-et-l'Hôpital, Lesparre-Médoc, Gironde, Nouvelle-Aquitain; 0.17 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/1318771679"
@@ -13828,7 +13828,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -15358,7 +15358,7 @@
    "type": "Beach",
    "lat": 44.515,
    "lon": -1.258,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-salie"
@@ -15383,7 +15383,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best W (surfnerd)",
      "fromDeg": 225,
@@ -16047,7 +16047,7 @@
    "type": "Beach",
    "lat": 43.951,
    "lon": -1.365,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 222347863 (natural:beach): Saint-Girons Plage, Saint-Girons-Plage, Vielle-Saint-Girons, Dax, Landes, Nouvelle-Aquitai; 0.32 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/222347863"
@@ -16067,7 +16067,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -16166,7 +16166,7 @@
    "type": "Beach",
    "lat": 43.853,
    "lon": -1.393,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 234222592 (natural:beach): Plage de la Balise, Moliets-et-Maâ, Dax, Landes, Nouvelle-Aquitaine, France métropolitaine; 0.57 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/234222592"
@@ -16186,7 +16186,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to NW (surfnerd)",
      "fromDeg": 270,
@@ -16404,7 +16404,7 @@
    "type": "Beach",
    "lat": 43.792,
    "lon": -1.415,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/vieux-boucau"
@@ -16429,7 +16429,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -16657,7 +16657,7 @@
    "type": "Beach",
    "lat": 43.722,
    "lon": 7.358,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/eze"
@@ -16677,7 +16677,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "E to S (surfnerd)",
      "fromDeg": 90,
@@ -17533,7 +17533,7 @@
    "type": "Beach",
    "lat": 43.665,
    "lon": -1.446,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-nord"
@@ -17558,7 +17558,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -17657,7 +17657,7 @@
    "type": "Beach",
    "lat": 43.66,
    "lon": -1.447,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-sud"
@@ -17682,7 +17682,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -18280,7 +18280,7 @@
    "type": "Beach",
    "lat": 43.645,
    "lon": -1.447,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-piste-vvf"
@@ -18305,7 +18305,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -18406,7 +18406,7 @@
    "type": "Beach",
    "lat": 43.643,
    "lon": -1.448,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/capbreton"
@@ -18426,7 +18426,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to NW (surfnerd)",
      "fromDeg": 270,
@@ -18525,7 +18525,7 @@
    "type": "Beach",
    "lat": 43.626,
    "lon": -1.457,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 1.08 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/capbreton-pointe"
@@ -18545,7 +18545,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -18644,7 +18644,7 @@
    "type": "Beach",
    "lat": 43.6,
    "lon": -1.475,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (nearest named OSM match 0.35 km away, not used)",
     "url": "https://www.surfnerd.com/surf-forecast/labenne-ocean"
@@ -18669,7 +18669,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -18770,7 +18770,7 @@
    "type": "Beach",
    "lat": 43.577,
    "lon": -1.489,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 552158217 (natural:beach): Plage Ondres-Océan, Ondres, Dax, Landes, Nouvelle-Aquitaine, France métropolitaine, 40440,; 0.15 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/552158217"
@@ -18795,7 +18795,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "not stated",
      "fromDeg": null,
@@ -18894,7 +18894,7 @@
    "type": "Beach",
    "lat": 43.559,
    "lon": -1.501,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM node 5396554794 (natural:beach): Plage du Métro, Tarnos, Dax, Landes, Nouvelle-Aquitaine, France métropolitaine, 40220, Fra; 0.14 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/5396554794"
@@ -18914,7 +18914,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best W (surfnerd)",
      "fromDeg": 270,
@@ -19132,7 +19132,7 @@
    "type": "Beach",
    "lat": 43.54,
    "lon": 3.972,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/carnon"
@@ -19152,7 +19152,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SE to SW, best S (surfnerd)",
      "fromDeg": 135,
@@ -19240,7 +19240,7 @@
    "type": "Beach",
    "lat": 43.533,
    "lon": -1.524,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/boucau"
@@ -19265,7 +19265,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best W (surfnerd)",
      "fromDeg": 270,
@@ -19366,7 +19366,7 @@
    "type": "Beach",
    "lat": 43.527,
    "lon": -1.526,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-barre"
@@ -19391,7 +19391,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best W (surfnerd)",
      "fromDeg": 270,
@@ -19492,7 +19492,7 @@
    "type": "Beach",
    "lat": 43.523,
    "lon": -1.527,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-cavaliers"
@@ -19517,7 +19517,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N (surfnerd)",
      "fromDeg": 270,
@@ -19618,7 +19618,7 @@
    "type": "Beach",
    "lat": 43.52,
    "lon": 3.926,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/palavas-les-flots"
@@ -19643,7 +19643,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "E to S, best SE (surfnerd)",
      "fromDeg": 90,
@@ -19742,7 +19742,7 @@
    "type": "Beach",
    "lat": 43.514,
    "lon": -1.532,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 183134274 (natural:beach): Plage de l'Océan, Chiberta, Anglet, Bayonne, Pyrénées-Atlantiques, Nouvelle-Aquitaine, Fra; 0.15 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/183134274"
@@ -19767,7 +19767,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N (surfnerd)",
      "fromDeg": 270,
@@ -19868,7 +19868,7 @@
    "type": "Beach",
    "lat": 43.514,
    "lon": -1.534,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/anglet"
@@ -19888,7 +19888,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "WNW to NW (surfnerd)",
      "fromDeg": 292.5,
@@ -19987,7 +19987,7 @@
    "type": "Beach",
    "lat": 43.512,
    "lon": -1.537,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-madrague"
@@ -20012,7 +20012,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -20113,7 +20113,7 @@
    "type": "Beach",
    "lat": 43.507,
    "lon": -1.54,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-corsaires"
@@ -20138,7 +20138,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -20239,7 +20239,7 @@
    "type": "Beach",
    "lat": 43.506,
    "lon": -1.541,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/marinella"
@@ -20264,7 +20264,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -20365,7 +20365,7 @@
    "type": "Beach",
    "lat": 43.502,
    "lon": -1.543,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sables-d-or"
@@ -20390,7 +20390,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -20495,7 +20495,7 @@
    "type": "Beach",
    "lat": 43.499,
    "lon": -1.545,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/le-club"
@@ -20520,7 +20520,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -20973,7 +20973,7 @@
    "type": "Beach",
    "lat": 43.475,
    "lon": -1.569,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 517323084 (natural:sand): Plage de la Côte des Basques, Biarritz, Bayonne, Pyrénées-Atlantiques, Nouvelle-Aquitaine,; 0.59 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/517323084"
@@ -20998,7 +20998,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best W (surfnerd)",
      "fromDeg": 270,
@@ -21089,7 +21089,7 @@
    "type": "Beach",
    "lat": 43.468,
    "lon": -1.573,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 249245278 (natural:beach): Plage de la Marbellla, Lapurdi, Biarritz, Bayonne, Pyrénées-Atlantiques, Nouvelle-Aquitain; 0.22 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/249245278"
@@ -21114,7 +21114,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N (surfnerd)",
      "fromDeg": 270,
@@ -21204,7 +21204,7 @@
    "type": "Beach",
    "lat": 43.464,
    "lon": -1.576,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 121832050 (natural:beach): Plage de la Milady, Lapurdi, Biarritz, Bayonne, Pyrénées-Atlantiques, Nouvelle-Aquitaine, ; 0.1 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/121832050"
@@ -21224,7 +21224,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N (surfnerd)",
      "fromDeg": 270,
@@ -21312,7 +21312,7 @@
    "type": "Beach",
    "lat": 43.459,
    "lon": -1.58,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 517323073 (natural:beach): Ilbarritz, Lapurdi, Ilbarritz, Bidart, Bayonne, Pyrénées-Atlantiques, Nouvelle-Aquitaine, ; 0.18 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/517323073"
@@ -21332,7 +21332,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -21420,7 +21420,7 @@
    "type": "Beach",
    "lat": 43.456,
    "lon": -1.584,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/pavillion-royal"
@@ -21440,7 +21440,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -21654,7 +21654,7 @@
    "type": "Beach",
    "lat": 43.447,
    "lon": -1.59,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 59512335 (natural:beach): Erretegia, Lapurdi, Bidart, Bayonne, Pyrénées-Atlantiques, Nouvelle-Aquitaine, France métr; 0.09 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/59512335"
@@ -21674,7 +21674,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -21762,7 +21762,7 @@
    "type": "Beach",
    "lat": 43.437,
    "lon": -1.598,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/bidart"
@@ -21787,7 +21787,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -21996,7 +21996,7 @@
    "type": "Reef",
    "lat": 43.427,
    "lon": -1.612,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/avalanche-nouvelle-aquitaine"
@@ -22021,7 +22021,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -22114,7 +22114,7 @@
    "type": "Reef",
    "lat": 43.427,
    "lon": -1.611,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-alcyons"
@@ -22134,7 +22134,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "NW to N, best N (surfnerd)",
      "fromDeg": 315,
@@ -23146,7 +23146,7 @@
    "type": "Beach",
    "lat": 43.379,
    "lon": -1.757,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 513400420 (natural:beach): Plage des Deux Jumeaux, Lapurdi, Lizardi, Hendaye, Bayonne, Pyrénées-Atlantiques, Nouvelle; 0.65 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/513400420"
@@ -23171,7 +23171,7 @@
      }
     ],
     "facing": "NNW (surfnerd)",
-    "facingDeg": 338,
+    "facingDeg": 337.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -23500,7 +23500,7 @@
    "type": "Reef",
    "lat": 43.327,
    "lon": 5.057,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-couronne"
@@ -23525,7 +23525,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SE to SW, best SE (surfnerd)",
      "fromDeg": 135,
@@ -23982,7 +23982,7 @@
    "type": "Reef",
    "lat": 43.187,
    "lon": 5.632,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-ciotat"
@@ -24007,7 +24007,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "E to S, best SE (surfnerd)",
      "fromDeg": 90,
@@ -24354,7 +24354,7 @@
    "type": "Beach",
    "lat": 43.097,
    "lon": 3.116,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/gruissan"
@@ -24379,7 +24379,7 @@
      }
     ],
     "facing": "ESE (surfnerd)",
-    "facingDeg": 112,
+    "facingDeg": 112.5,
     "swellWorkable": {
      "text": "E to S, best SE (surfnerd)",
      "fromDeg": 90,
@@ -24469,7 +24469,7 @@
    "type": "Point",
    "lat": 43.094,
    "lon": 5.805,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-coudouliere"
@@ -24489,7 +24489,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "S to W, best SW (surfnerd)",
      "fromDeg": 180,
@@ -24577,7 +24577,7 @@
    "type": "Beach",
    "lat": 43.077,
    "lon": 5.893,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/les-sablettes"
@@ -24602,7 +24602,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "E to S, best SE (surfnerd)",
      "fromDeg": 90,
@@ -24802,7 +24802,7 @@
    "type": "Beach",
    "lat": 42.736,
    "lon": 9.344,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/farinole"
@@ -24822,7 +24822,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best W (surfnerd)",
      "fromDeg": 270,
@@ -25263,7 +25263,7 @@
    "type": "Beach",
    "lat": 42.57,
    "lon": 8.804,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/lumio"
@@ -25288,7 +25288,7 @@
      }
     ],
     "facing": "WNW (surfnerd)",
-    "facingDeg": 292,
+    "facingDeg": 292.5,
     "swellWorkable": {
      "text": "W to N, best NW (surfnerd)",
      "fromDeg": 270,
@@ -25378,7 +25378,7 @@
    "type": "Point",
    "lat": 42.114,
    "lon": 8.69,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sagone"
@@ -25403,7 +25403,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "SW to NW, best NW (surfnerd)",
      "fromDeg": 225,
@@ -25493,7 +25493,7 @@
    "type": "Beach",
    "lat": 41.935,
    "lon": 8.622,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/capo-di-feno"
@@ -25513,7 +25513,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "S to NW, best NW (surfnerd)",
      "fromDeg": 180,
@@ -25709,7 +25709,7 @@
    "type": "Beach",
    "lat": 41.832,
    "lon": 8.783,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/le-ruppione"
@@ -25729,7 +25729,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "S to NW, best W (surfnerd)",
      "fromDeg": 180,
@@ -25817,7 +25817,7 @@
    "type": "Reef",
    "lat": 41.689,
    "lon": 9.392,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/pinarellu"
@@ -25842,7 +25842,7 @@
      }
     ],
     "facing": "SSE (surfnerd)",
-    "facingDeg": 158,
+    "facingDeg": 157.5,
     "swellWorkable": {
      "text": "NE to SE, best E (surfnerd)",
      "fromDeg": 45,
@@ -25935,7 +25935,7 @@
    "type": "Beach",
    "lat": 41.449,
    "lon": 9.069,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/figari"
@@ -25960,7 +25960,7 @@
      }
     ],
     "facing": "WSW (surfnerd)",
-    "facingDeg": 248,
+    "facingDeg": 247.5,
     "swellWorkable": {
      "text": "SW to NW, best SW (surfnerd)",
      "fromDeg": 225,

@@ -267,9 +267,7 @@
      "max": 10
     },
     "exposure": "exposed (surf-forecast: \"exposed beach and reef break\")",
-    "hazards": [
-     " (surf-forecast)"
-    ],
+    "hazards": [],
     "season": "Summer, most often May (surf-forecast)",
     "minimumPeriodS": null,
     "notes": "Surfnerd overview: Acapulquito, better known as Old Man's, is one of the three Costa Azul waves and the main surf focus in the area. This right-hander breaks over an uneven reef in front of the Cabo Surf Hotel, even though the shoreline is sandy. The shoulder tends to stay soft and mushy, which is exactly why longboarders love it for longer, cruisey rides. Skill (surfnerd): Beginner. Surf-forecast Acapulquito_Costa-Azul: \"Acapulquito-Costa Azul in Baja Sur is an exposed beach and reef break that has inconsistent surf. Summer offers the best conditions for surfing. Works best in offshore winds from the north northwest. Tends to receive distant groundswells and the ideal swell angle is from the south. There is a right hand reef break. The quality of the surf isn't affected by the tide. Likely to be crowded if working. Hazards include .\" Access (surfnerd): There's a surf shop nearby, and parking is restricted. Other guide pins from this position: surf-forecast Acapulquito_Costa-Azul 11.7 km."
@@ -10818,9 +10816,7 @@
     "waveDirection": null,
     "sizeFt": null,
     "exposure": "exposed (surf-forecast: \"exposed beach break\")",
-    "hazards": [
-     " (surf-forecast)"
-    ],
+    "hazards": [],
     "season": "Summer, most often August (surf-forecast)",
     "minimumPeriodS": null,
     "notes": "Surfnerd overview: Playa Bruja is a surf spot in Mexico that comes into its own when the wind lines up. Look for southwest offshore wind to clean up the faces and hold the wave open. Surf-forecast Playa-Bruja: \"Playa Bruja in Sinaloa is an exposed beach break that has quite consistent surf and can work at any time of the year. Offshore winds are from the east northeast. Groundswells more frequent than windswells and the optimum swell angle is from the southwest. Waves at the beach break both left and right. Good surf at all stages of the tide. Sometimes crowded. Beware of .\" Other guide pins from this position: surf-forecast Playa-Bruja 14.5 km."
@@ -13306,9 +13302,7 @@
     "waveDirection": null,
     "sizeFt": null,
     "exposure": "exposed (surf-forecast: \"exposed point break\")",
-    "hazards": [
-     " (surf-forecast)"
-    ],
+    "hazards": [],
     "season": "Winter, most often December (surf-forecast)",
     "minimumPeriodS": null,
     "notes": "Surfnerd overview: Punta Conejo is a surf spot on the coast of Mexico. There is not much detail on file for this one yet, so treat the forecast as your main guide: check the swell, wind, and tide readings before you commit to the drive, and be ready to adjust once you can see the water. Surf-forecast Punta-Conejo: \"Punta Conejo in Baja Sur is an exposed point break that has dependable surf and can work at any time of the year. The best wind direction is from the northeast. Tends to receive distant groundswells and the best swell direction is from the southwest.There is a left hand point break here. Even when there are waves, it's not likley to be crowded. Hazards include .\" Other guide pins from this position: surf-forecast Punta-Conejo 0.3 km."
@@ -13905,9 +13899,7 @@
     "waveDirection": null,
     "sizeFt": null,
     "exposure": "exposed (surf-forecast: \"exposed reef break\")",
-    "hazards": [
-     " (surf-forecast)"
-    ],
+    "hazards": [],
     "season": "Winter, most often December (surf-forecast)",
     "minimumPeriodS": null,
     "notes": "Surfnerd overview: Punta Marquez is a surf spot on the Mexican coast. The cleanest conditions come with southwest offshore wind, so keep an eye out for days when the breeze is blowing from that direction and check the forecast before you make the drive. Surf-forecast Punta-Marquez: \"Punta Marquez in Baja Sur is an exposed reef break that has consistent surf and can work at any time of the year. Works best in offshore winds from the northeast. Groundswells more frequent than windswells and the best swell direction is from the southwest. Both left and right reef breaks. Rarely crowded here. Beware of .\" Other guide pins from this position: surf-forecast Punta-Marquez 1.3 km."
@@ -14207,9 +14199,7 @@
      "max": 10
     },
     "exposure": "exposed (surf-forecast: \"exposed reef and point break\")",
-    "hazards": [
-     " (surf-forecast)"
-    ],
+    "hazards": [],
     "season": "Summer, most often May (surf-forecast)",
     "minimumPeriodS": null,
     "notes": "Surfnerd overview: Punta Palmilla is a right-hand reef break set in a bay crowded with resorts and condos. It breaks over a patchy mix of uneven reef and sand. Check: surfnerd states facing E but best swell S (90 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast Punta-Palmilla: \"Punta Palmilla in Baja Sur is an exposed reef and point break that has very consistent surf. Summer offers the optimum conditions for surfing. Offshore winds are from the northwest. Tends to receive distant groundswells and the best swell direction is from the south. A right hand reef Sometimes crowded. Beware of .\" Access (surfnerd): Access is tricky, with resorts and condos filling the bay. Other guide pins from this position: surf-forecast Punta-Palmilla 12.8 km."
@@ -18248,101 +18238,6 @@
    ]
   },
   {
-   "id": "w-mexico-shipwreck",
-   "name": "Shipwreck",
-   "country": "Mexico",
-   "region": "Mexico, Baja California Sur",
-   "timeZone": "America/Mazatlan",
-   "type": "Reef",
-   "lat": 23.12,
-   "lon": -109.527,
-   "seaward": 135,
-   "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 23.12, -109.527)",
-    "url": "https://www.surfnerd.com/surf-forecast/shipwreck-baja-california-sur"
-   },
-   "facingSource": {
-    "text": "Surfnerd guide, swell exposure \"NE - SSW (Faces SE)\"",
-    "url": "https://www.surfnerd.com/surf-forecast/shipwreck-baja-california-sur"
-   },
-   "facts": {
-    "spotId": "w-mexico-shipwreck",
-    "name": "Shipwreck",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/shipwreck-baja-california-sur",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "SE (surfnerd: \"Faces SE\")",
-    "facingDeg": 135,
-    "swellWorkable": {
-     "text": "NE to SSW (surfnerd)",
-     "fromDeg": 45,
-     "toDeg": 202.5
-    },
-    "swellExposure": "NE to SSW (surfnerd)",
-    "idealSwell": null,
-    "windOffshore": "NW (surfnerd wind exposure W - N, \"Offshore from NW\")",
-    "tide": "Mid (Best at Mid, Better on rising) (surfnerd)",
-    "bottom": "Sand, Rock (surfnerd)",
-    "waveType": "reef, point",
-    "waveDirection": "right",
-    "sizeFt": {
-     "min": 1,
-     "max": 6
-    },
-    "exposure": "not stated",
-    "hazards": [],
-    "season": "Spring, Summer, Autumn (surfnerd)",
-    "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Shipwreck is a right-hand point and reef setup at the west end of a bay in Baja California Sur, and the star wave is a zippy right that can connect all the way through to the beach in a series of sections. There's also a small reef in the middle of the bay that throws up short-but-sweet lefts. Both waves are steeper and faster than Nine Palms, and the bottom is a mix of sand, rock, and reef. The water is clean, and the overall verdict is a fun wave. Skill (surfnerd): Intermediate, Expert. Access (surfnerd): Park at the top of the cliff."
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge (IOC sea level)",
-     "id": "IOC lpaz2",
-     "name": "La Paz2",
-     "owner": "IOC Sea Level Station Monitoring Facility (national operator, Mexico)",
-     "live": true,
-     "liveNote": "1380 observations on 2026-11-08 (IOC station list)",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lpaz2",
-     "distanceKm": 151.7
-    },
-    {
-     "kind": "tide gauge (IOC sea level)",
-     "id": "IOC puer2",
-     "name": "Puerto Vallarta2",
-     "owner": "IOC Sea Level Station Monitoring Facility (national operator, Mexico)",
-     "live": true,
-     "liveNote": "1440 observations on 2026-11-08 (IOC station list)",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=puer2",
-     "distanceKm": 519.9
-    },
-    {
-     "kind": "tide gauge (IOC sea level)",
-     "id": "IOC cabo",
-     "name": "Cabo_San_Lucas_MX",
-     "owner": "IOC Sea Level Station Monitoring Facility (national operator, Mexico)",
-     "live": false,
-     "liveNote": "no observations in the IOC station list for 2026-11-08 (status 5)",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=cabo",
-     "distanceKm": 47.5
-    },
-    {
-     "kind": "airport METAR",
-     "id": "MMSD",
-     "name": "San Jose Del Cabo",
-     "owner": "national met service via Iowa Environmental Mesonet (MX__ASOS)",
-     "live": true,
-     "liveNote": "IEM MX__ASOS online=True",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MX__ASOS&station=MMSD",
-     "distanceKm": 20.1
-    }
-   ]
-  },
-  {
    "id": "w-mexico-shipwrecks",
    "name": "Shipwrecks",
    "country": "Mexico",
@@ -19789,30 +19684,6 @@
  ],
  "dropped": [
   {
-   "name": "Cielito Lindo (Baja California)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/cielito-lindo) gives a swell exposure (S - WNW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Cielito-Lindo (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "El Anclote (Nayarit)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/el-anclote) gives a swell exposure ((Faces SSE)) but states no facing; also listed by https://www.surf-forecast.com/breaks/El-Anclote (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Islas Marietas (Nayarit)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/islas-marietas) gives a swell exposure (SSW - N) but states no facing; also listed by https://www.surf-forecast.com/breaks/Islas-Marietas (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Mag Bay (Baja California Sur)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/mag-bay) gives a swell exposure (SSE - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Playa Santa Maria (Baja California)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/playa-santa-maria) gives a swell exposure (S - WNW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Playa-Santa-Maria (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Todos Santos / Killers (Baja California)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/todos-santos-killers) gives a swell exposure (SSE - WNW) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
    "name": "Agua Verde (Sinaloa)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Agua-Verde; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Barron, 37.6 km from this guide pin (may overlap)."
   },
@@ -19873,12 +19744,24 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Chamela; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Tenacatita, 49.3 km from this guide pin (may overlap)."
   },
   {
+   "name": "Cielito Lindo (Baja California)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/cielito-lindo) gives a swell exposure (S - WNW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Cielito-Lindo (no facing there either); no public guide fetched states a facing, so no sourced facing."
+  },
+  {
    "name": "Costa Sol (Guerrero)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Costa-Sol; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Michigan, 0.6 km from this guide pin (may overlap)."
   },
   {
    "name": "Dorado Dos (Guerrero)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Dorado-Dos; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Barra Vieja, 29.9 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "El 29 A Dimas (Sinaloa)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/El29-A-Dimas; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Las Labradas, 7.5 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "El Anclote (Nayarit)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/el-anclote) gives a swell exposure ((Faces SSE)) but states no facing; also listed by https://www.surf-forecast.com/breaks/El-Anclote (no facing there either); no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "El Bajo (Sinaloa)",
@@ -19897,16 +19780,16 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/El-Tizate; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Quimixto, 19.2 km from this guide pin (may overlap)."
   },
   {
-   "name": "El 29 A Dimas (Sinaloa)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/El29-A-Dimas; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Las Labradas, 7.5 km from this guide pin (may overlap)."
-  },
-  {
    "name": "Hotel Tecuan (Jalisco)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Hotel-Tecuan; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Tenacatita, 34.6 km from this guide pin (may overlap)."
   },
   {
    "name": "Huahua (Michoacan)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Huahua; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Huahua, 24.9 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Islas Marietas (Nayarit)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/islas-marietas) gives a swell exposure (SSW - N) but states no facing; also listed by https://www.surf-forecast.com/breaks/Islas-Marietas (no facing there either); no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "Ixtapa Island (Guerrero)",
@@ -19939,6 +19822,14 @@
   {
    "name": "Los Gatos (Guerrero)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Los-Gatos; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Las Gatas, 3.5 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Los Veneros (Nayarit)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Veneros; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Costa Banderas, 0.4 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Mag Bay (Baja California Sur)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/mag-bay) gives a swell exposure (SSE - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "Marquella (Guerrero)",
@@ -19997,12 +19888,16 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Playa-Princess; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Revolcadero, 3.6 km from this guide pin (may overlap)."
   },
   {
-   "name": "Playa de Fortuna (Jalisco)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Playade-Fortuna; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Tenacatita, 60.4 km from this guide pin (may overlap)."
+   "name": "Playa Santa Maria (Baja California)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/playa-santa-maria) gives a swell exposure (S - WNW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Playa-Santa-Maria (no facing there either); no public guide fetched states a facing, so no sourced facing."
   },
   {
-   "name": "Swimming Pools (Nayarit)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Pools; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Costa Banderas, 0.9 km from this guide pin (may overlap)."
+   "name": "Playa Tortugas (Nayarit)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Punta-Custodio; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Punta Custodio, 0.2 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Playa de Fortuna (Jalisco)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Playade-Fortuna; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Tenacatita, 60.4 km from this guide pin (may overlap)."
   },
   {
    "name": "Puerto Arista (Oaxaca)",
@@ -20027,10 +19922,6 @@
   {
    "name": "Punta Colorada (Guerrero)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Punta-Colorada; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Chacahua, 103.2 km from this guide pin (may overlap)."
-  },
-  {
-   "name": "Playa Tortugas (Nayarit)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Punta-Custodio; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Punta Custodio, 0.2 km from this guide pin (may overlap)."
   },
   {
    "name": "Punta Descanso (Guerrero)",
@@ -20069,6 +19960,15 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Riviera-Shorebreak; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Bruja, 5.8 km from this guide pin (may overlap)."
   },
   {
+   "name": "Shipwreck",
+   "reason": "Duplicate listing of Shipwrecks (name variant 'Shipwreck', pins 151 m apart, same facing 135°); kept https://www.surfnerd.com/surf-forecast/shipwrecks (found by the 2026-11-09 audit)",
+   "url": "https://www.surfnerd.com/surf-forecast/shipwreck-baja-california-sur"
+  },
+  {
+   "name": "Swimming Pools (Nayarit)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Pools; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Costa Banderas, 0.9 km from this guide pin (may overlap)."
+  },
+  {
    "name": "Teacapan (Sinaloa)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Teacapan; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Novillero, 21.3 km from this guide pin (may overlap)."
   },
@@ -20093,16 +19993,16 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Ticla; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: La Ticla, 27.9 km from this guide pin (may overlap)."
   },
   {
+   "name": "Todos Santos / Killers (Baja California)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/todos-santos-killers) gives a swell exposure (SSE - WNW) but states no facing; no public guide fetched states a facing, so no sourced facing."
+  },
+  {
    "name": "Topleca (Oaxaca)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Topleca; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Zipolite, 13.6 km from this guide pin (may overlap)."
   },
   {
    "name": "Trocones (Guerrero)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Trocones; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Troncones, 2.3 km from this guide pin (may overlap)."
-  },
-  {
-   "name": "Los Veneros (Nayarit)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Veneros; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Costa Banderas, 0.4 km from this guide pin (may overlap)."
   },
   {
    "name": "Villa Bonita (Guerrero)",

@@ -8415,9 +8415,7 @@
      "max": 7
     },
     "exposure": "exposed (surf-forecast: \"exposed beach break\")",
-    "hazards": [
-     " (surf-forecast)"
-    ],
+    "hazards": [],
     "season": "Spring, Summer (surfnerd); Winter, most often January (surf-forecast)",
     "minimumPeriodS": null,
     "notes": "Surfnerd overview: Nosara is a sand-bottomed beachbreak on the Guanacaste Coast of Costa Rica's Nicoya Peninsula, throwing both rights and lefts along a long stretch of open beach. The town carries the name, but the surf itself happens at Playa Guiones, where a couple of miles of coast give you several peaks to pick from. Some sections break over rock and take on a canyon-like shape, and the whole setup rates as reliably fun with days that turn out quite good. Surfnerd lists this break 2 times (nosara, playa-nosara); merged. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/playa-nosara: workable swell S - NW (Best from SW), 2ft - 6ft, Sand, Beach, Left, Right, Low, Mid, High, Beginner. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Nosara-Beach: \"Nosara Beach in Guanacaste is an exposed beach break that has reliable surf and can work at any time of the year. Ideal winds are from the north northeast. Groundswells more frequent than windswells and the best swell direction is from the west northwest. The beach break offers both left and right hand waves. The quality of the surf isn't affected by the tide. Even when there are waves, it's not likley to be crowded. Beware of .\" Access (surfnerd): At the end of the road you'll find an informal lot, and plenty of people just pull over on the roadside instead. The first 50 meters back from the sand have been left undeveloped to protect the coastline, so the walk in stays short and the beach stays open. Other guide pins from this position: surf-forecast Nosara-Beach 2.6 km, surfnerd playa-nosara 1.4 km."
@@ -9024,101 +9022,6 @@
      "liveNote": "IEM PA__ASOS online=True",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PA__ASOS&station=MPMG",
      "distanceKm": 4.2
-    }
-   ]
-  },
-  {
-   "id": "w-ca-panga-drop",
-   "name": "Panga Drop",
-   "country": "Nicaragua",
-   "region": "Nicaragua, Rivas",
-   "timeZone": "America/Managua",
-   "type": "Reef",
-   "lat": 11.408,
-   "lon": -86.058,
-   "seaward": 202.5,
-   "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 11.407786, -86.05823)",
-    "url": "https://www.surfnerd.com/surf-forecast/panga-drop"
-   },
-   "facingSource": {
-    "text": "Surfnerd guide, swell exposure \"SE - W (Faces SSW)\"",
-    "url": "https://www.surfnerd.com/surf-forecast/panga-drop"
-   },
-   "facts": {
-    "spotId": "w-ca-panga-drop",
-    "name": "Panga Drop",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/panga-drop",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "SSW (surfnerd: \"Faces SSW\")",
-    "facingDeg": 202.5,
-    "swellWorkable": {
-     "text": "S to W, best SW (surfnerd)",
-     "fromDeg": 180,
-     "toDeg": 270
-    },
-    "swellExposure": "SE to W (surfnerd)",
-    "idealSwell": "SW (surfnerd)",
-    "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\")",
-    "tide": "Low, Mid, High (surfnerd)",
-    "bottom": "Uneven Reef (surfnerd)",
-    "waveType": "reef",
-    "waveDirection": "both",
-    "sizeFt": {
-     "min": 3,
-     "max": 18
-    },
-    "exposure": "not stated",
-    "hazards": [],
-    "season": null,
-    "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Panga Drop is a bombora-style, horseshoe-shaped reef that sits well offshore and picks up just about everything coming its way. It throws whizzing walls, inside barrels, and fading shoulders that shift around a large playing field, breaking both left and right over uneven reef. It's genuinely fun for regular surfers and works just as well on shortboards as it does on longboards. Skill (surfnerd): Intermediate. Access (surfnerd): Walk in from Gigante or take a boat to skip the long paddle. Parking nearby is restricted."
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge (IOC sea level)",
-     "id": "IOC cuaj",
-     "name": "Cuajiniquil",
-     "owner": "IOC Sea Level Station Monitoring Facility (national operator, Costa Rica)",
-     "live": true,
-     "liveNote": "960 observations on 2026-11-08 (IOC station list)",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=cuaj",
-     "distanceKm": 63.3
-    },
-    {
-     "kind": "tide gauge (IOC sea level)",
-     "id": "IOC flam",
-     "name": "Flamingo Marina",
-     "owner": "IOC Sea Level Station Monitoring Facility (national operator, Costa Rica)",
-     "live": true,
-     "liveNote": "1425 observations on 2026-11-08 (IOC station list)",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=flam",
-     "distanceKm": 111.5
-    },
-    {
-     "kind": "tide gauge (IOC sea level)",
-     "id": "IOC psjs",
-     "name": "Puerto San Juan del Sur",
-     "owner": "IOC Sea Level Station Monitoring Facility (national operator, Nicaragua)",
-     "live": false,
-     "liveNote": "no observations in the IOC station list for 2026-11-08 (status 1)",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=psjs",
-     "distanceKm": 26.5
-    },
-    {
-     "kind": "airport METAR",
-     "id": "MNRS",
-     "name": "RIVAS",
-     "owner": "national met service via Iowa Environmental Mesonet (NI__ASOS)",
-     "live": true,
-     "liveNote": "IEM NI__ASOS online=True",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=NI__ASOS&station=MNRS",
-     "distanceKm": 24.0
     }
    ]
   },
@@ -11417,7 +11320,6 @@
     },
     "exposure": "exposed (surf-forecast: \"exposed beach break\")",
     "hazards": [
-     " (surf-forecast)",
      "Watch for strong currents and a shallow sandbar, and note that the river crossing has a history of crocodile encounters and the wider area a reputation for sharks, so treat local safety advice seriously. (surfnerd)"
     ],
     "season": "Spring, Summer, Autumn (surfnerd); Winter, most often January (surf-forecast)",
@@ -18399,7 +18301,6 @@
     },
     "exposure": "exposed (surf-forecast: \"exposed beach break\")",
     "hazards": [
-     " (surf-forecast)",
      "Local Tips Expect a very busy lineup across the bay, and heavy crowds are the main hazard here. (surfnerd)"
     ],
     "season": "Spring, Summer (surfnerd); Winter, most often January (surf-forecast)",
@@ -19567,30 +19468,6 @@
  ],
  "dropped": [
   {
-   "name": "Bocas del Toro (Panama)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/bocas-del-toro) gives a swell exposure (NW - ESE) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Herradura (Costa Rica)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/herradura) gives a swell exposure ((Faces WNW)) but states no facing; also listed by https://www.surf-forecast.com/breaks/Playa-Herradura (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Isla Uvita (Costa Rica)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/isla-uvita) gives a swell exposure (NW - SE) but states no facing; also listed by https://www.surf-forecast.com/breaks/Isla-Uvita (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Las Lajas (Panama)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/las-lajas) gives a swell exposure (SE - SSE, SSE - SSW, SW - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Mazzeti Break (Panama)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/mazzeti-break) gives a swell exposure (S - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Puerto Caldera (Costa Rica)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/puerto-caldera) gives a swell exposure ((Faces W)) but states no facing; also listed by https://www.surf-forecast.com/breaks/Puerto-Caldera (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
    "name": "Acajutla (El Salvador Costa del Balsamo)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Acajutla; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Negrei, 5.6 km from this guide pin (may overlap)."
   },
@@ -19601,6 +19478,10 @@
   {
    "name": "Asuchillo Beach Break (Leon Province)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Asuchillo-Beach; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Ausuchillas, 0.2 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Avellanas Rivermouth (Guanacaste)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Rivermouth-at-Avellanas; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Avellana, 0.2 km from this guide pin (may overlap)."
   },
   {
    "name": "Bajamar (Golfo de Nicoya)",
@@ -19617,6 +19498,10 @@
   {
    "name": "Boca Del Salado (Baja Sur)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Boca-Del-Salado; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 2056.0 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Bocas del Toro (Panama)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/bocas-del-toro) gives a swell exposure (NW - ESE) but states no facing; no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "Cabo Blanco (Golfo Dulce)",
@@ -19687,8 +19572,16 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/El-Estero; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Grande - Guanacaste, 0.3 km from this guide pin (may overlap)."
   },
   {
+   "name": "El Laberinto (Guanacaste)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Labyrinth; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Witches Rock, 6.0 km from this guide pin (may overlap)."
+  },
+  {
    "name": "El Morro Point (K371/2) (Baja Norte)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/El-Morro-Point; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 3194.4 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "El Muelle - The Pier (El Salvador Costa del Balsamo)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/The-Pier_1; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Punta Roca, 0.5 km from this guide pin (may overlap)."
   },
   {
    "name": "El Palmer (Gulf of Panama)",
@@ -19713,6 +19606,14 @@
   {
    "name": "Henrys (Guanacaste)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Henrys; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Grande - Guanacaste, 0.9 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Herradura (Costa Rica)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/herradura) gives a swell exposure ((Faces WNW)) but states no facing; also listed by https://www.surf-forecast.com/breaks/Playa-Herradura (no facing there either); no public guide fetched states a facing, so no sourced facing."
+  },
+  {
+   "name": "Isla Uvita (Costa Rica)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/isla-uvita) gives a swell exposure (NW - SE) but states no facing; also listed by https://www.surf-forecast.com/breaks/Isla-Uvita (no facing there either); no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "Islas de Todos Santos (Baja Norte)",
@@ -19743,10 +19644,6 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/La-Barra_1; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Iztapa, 1.3 km from this guide pin (may overlap)."
   },
   {
-   "name": "La-China (Golfo de Nicoya)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/La-China; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Boca Barranca, 1.0 km from this guide pin (may overlap)."
-  },
-  {
    "name": "La Esquina del Mar (Golfo Dulce)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/La-Esquinadel-Mar; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Pavones, 3.5 km from this guide pin (may overlap)."
   },
@@ -19767,8 +19664,8 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/La-Zurda; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Boca La Caja, 1.3 km from this guide pin (may overlap)."
   },
   {
-   "name": "El Laberinto (Guanacaste)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Labyrinth; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Witches Rock, 6.0 km from this guide pin (may overlap)."
+   "name": "La-China (Golfo de Nicoya)",
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/La-China; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Boca Barranca, 1.0 km from this guide pin (may overlap)."
   },
   {
    "name": "Lagart Point (Gulf of Panama)",
@@ -19781,6 +19678,10 @@
   {
    "name": "Las Gaviotas (Baja Norte)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Las-Gaviotas_2; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 3186.0 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Las Lajas (Panama)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/las-lajas) gives a swell exposure (SE - SSE, SSE - SSW, SW - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "Little Fiji (Golfo de Nicoya)",
@@ -19805,6 +19706,10 @@
   {
    "name": "Mariatos (Veraguas)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Mariatos; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Morrillo, 9.1 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Mazzeti Break (Panama)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/mazzeti-break) gives a swell exposure (S - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "Milagro del Mar Point (Leon Province)",
@@ -19837,6 +19742,11 @@
   {
    "name": "Palm Beach (Todos Santos) (Baja Sur)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Palm-Beach_Todos-Santos; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 2139.3 km from this guide pin (may overlap)."
+  },
+  {
+   "name": "Panga Drop",
+   "reason": "Duplicate listing of Panga Drops (name variant 'Panga Drop', pins 0 m apart, same facing 202.5°); kept https://www.surfnerd.com/surf-forecast/panga-drops (found by the 2026-11-09 audit)",
+   "url": "https://www.surfnerd.com/surf-forecast/panga-drop"
   },
   {
    "name": "Paso Caballo (Leon Province)",
@@ -19919,6 +19829,10 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Primo-Tapia; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 3185.0 km from this guide pin (may overlap)."
   },
   {
+   "name": "Puerto Caldera (Costa Rica)",
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/puerto-caldera) gives a swell exposure ((Faces W)) but states no facing; also listed by https://www.surf-forecast.com/breaks/Puerto-Caldera (no facing there either); no public guide fetched states a facing, so no sourced facing."
+  },
+  {
    "name": "Punta Colorado (Baja Sur)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Punta-Colorado; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 2079.9 km from this guide pin (may overlap)."
   },
@@ -19971,10 +19885,6 @@
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Rio-Tulin; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Boca Tusubres, 1.0 km from this guide pin (may overlap)."
   },
   {
-   "name": "Avellanas Rivermouth (Guanacaste)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Rivermouth-at-Avellanas; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Avellana, 0.2 km from this guide pin (may overlap)."
-  },
-  {
    "name": "San Antonio Del Mar (Baja Norte)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/San-Antonio-Del-Mar_Tijuana; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Ocós, 3217.1 km from this guide pin (may overlap)."
   },
@@ -19997,10 +19907,6 @@
   {
    "name": "Stanleys (Gulf of Panama)",
    "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Stanleys; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Playa Serena, 0.2 km from this guide pin (may overlap)."
-  },
-  {
-   "name": "El Muelle - The Pier (El Salvador Costa del Balsamo)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/The-Pier_1; it gives swell and wind directions but no facing, and no Surfnerd page with a facing matched it, so no sourced facing. Nearest catalogued spot: Punta Roca, 0.5 km from this guide pin (may overlap)."
   },
   {
    "name": "The Tree (Golfo de Nicoya)",

@@ -2849,11 +2849,7 @@
     ],
     "facing": "Southwest (surfnerd: \"Faces SW\")",
     "facingDeg": 225.0,
-    "swellWorkable": {
-     "text": " (surfnerd)",
-     "fromDeg": null,
-     "toDeg": null
-    },
+    "swellWorkable": null,
     "swellExposure": "SSW - NW. Faces SW (surfnerd)",
     "idealSwell": "not stated (surfnerd); West (wannasurf)",
     "windOffshore": "not stated (surfnerd); wind exposure N - E. Offshore from NE (surfnerd); good wind East (wannasurf)",

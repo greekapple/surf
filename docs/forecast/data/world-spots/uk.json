@@ -5033,148 +5033,6 @@
    "nation": "England"
   },
   {
-   "id": "w-uk-scarborough-north-bay-2",
-   "name": "Scarborough North Bay",
-   "country": "United Kingdom",
-   "region": "England, North Yorkshire",
-   "county": "North Yorkshire",
-   "timeZone": "Europe/London",
-   "type": "Beach",
-   "lat": 54.29,
-   "lon": -0.4,
-   "seaward": 22.5,
-   "positionSource": {
-    "text": "Surfnerd spot map pin (54.29000, -0.40000, from the page's front matter), rounded to 3 dp",
-    "url": "https://www.surfnerd.com/surf-forecast/scarborough-north-bay-2"
-   },
-   "osmCrossCheck": {
-    "text": "Nearest OSM feature named 'North Bay' (natural=bay) is 0.53 km from the guide pin (Nominatim search bounded to about 6 km around it)",
-    "osm": "node/12398951568",
-    "lat": 54.2947,
-    "lon": -0.4,
-    "distanceKm": 0.53,
-    "url": "https://www.openstreetmap.org/node/12398951568"
-   },
-   "facingSource": {
-    "text": "Surfnerd characteristics: 'Swell exposure: NNW - E. Faces NNE'",
-    "url": "https://www.surfnerd.com/surf-forecast/scarborough-north-bay-2"
-   },
-   "facts": {
-    "spotId": "w-uk-scarborough-north-bay-2",
-    "name": "Scarborough North Bay",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/scarborough-north-bay-2",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "NNE (surfnerd: \"Faces NNE\")",
-    "facingDeg": 22.5,
-    "swellWorkable": {
-     "text": "N - NNE (surfnerd)",
-     "fromDeg": 0,
-     "toDeg": 22.5
-    },
-    "swellExposure": "NNW - E (surfnerd)",
-    "idealSwell": null,
-    "windOffshore": "SW (surfnerd; wind exposure SSE - WSW, offshore from SSW)",
-    "tide": "Works at Low, Mid, High. The break can work through low, mid, and high tide, but it's best at lower stages: at high tide the waves rebound off the huge, concave seawall and rocky sea defences. A rising tide is generally the better call. (surfnerd)",
-    "bottom": "Sand, Rock (surfnerd)",
-    "waveType": "beach",
-    "waveTypeText": "Beach (surfnerd)",
-    "waveDirection": "both",
-    "waveDirectionText": "Right, Left (surfnerd)",
-    "sizeFt": {
-     "min": 2.0,
-     "max": 5.9
-    },
-    "exposure": "not stated",
-    "hazards": [],
-    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
-    "power": null,
-    "waveQuality": null,
-    "frequency": null,
-    "season": "Autumn, Winter (surfnerd)",
-    "minimumPeriodS": null,
-    "skill": "Beginner, Intermediate (surfnerd)",
-    "consistency": null,
-    "crowd": null,
-    "access": "There's plenty of roadside parking on Marine Drive, looking out over the sea. Getting out of the water can be tricky at high tide and in bigger swells. (surfnerd)",
-    "accessRestrictions": [],
-    "overview": "Scarborough North Bay sits beneath Scarborough Castle, which looms over one of the region's most consistent and popular breaks. The beach faces northeast, and its mix of sand and flat rock throws up fun, long walls alongside wedgy peaks. It's a decent wave with real character when the swell lines up. (surfnerd)",
-    "notes": "No Surf-Forecast.com page matched. No Wannasurf page matched. Workable wind on Surfnerd: SW - WSW. Surfnerd says offshore is SW (workable wind) but SSW (wind exposure); both kept."
-   },
-   "nearestSources": [
-    {
-     "kind": "wave buoy",
-     "id": "CCO chart 108",
-     "name": "Scarborough",
-     "owner": "National Network of Regional Coastal Monitoring Programmes (CCO), DWR",
-     "distanceKm": 5.2,
-     "live": true,
-     "registry": "Channel Coastal Observatory public real-time page (coastalmonitoring.org/realtimedata; API needs a key, not used)",
-     "lastObservation": "2026-11-09T06:30 GMT",
-     "url": "https://coastalmonitoring.org/realtimedata/?chart=108&tab=waves"
-    },
-    {
-     "kind": "wave buoy",
-     "id": "CCO chart 109",
-     "name": "Whitby",
-     "owner": "National Network of Regional Coastal Monitoring Programmes (CCO), DWR",
-     "distanceKm": 27.3,
-     "live": true,
-     "registry": "Channel Coastal Observatory public real-time page (coastalmonitoring.org/realtimedata; API needs a key, not used)",
-     "lastObservation": "2026-11-09T06:30 GMT",
-     "url": "https://coastalmonitoring.org/realtimedata/?chart=109&tab=waves"
-    },
-    {
-     "kind": "wave buoy",
-     "id": "CCO chart 72",
-     "name": "Hornsea",
-     "owner": "National Network of Regional Coastal Monitoring Programmes (CCO), DWR",
-     "distanceKm": 46.8,
-     "live": true,
-     "registry": "Channel Coastal Observatory public real-time page (coastalmonitoring.org/realtimedata; API needs a key, not used)",
-     "lastObservation": "2026-11-09T06:30 GMT",
-     "url": "https://coastalmonitoring.org/realtimedata/?chart=72&tab=waves"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "IOC whit",
-     "name": "Whitby",
-     "owner": "IOC SLSMF listing (UK)",
-     "distanceKm": 26.1,
-     "live": true,
-     "registry": "IOC Sea Level Station Monitoring Facility",
-     "lastObservation": "2026-11-09 07:30:00.",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=whit"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "EA E71124",
-     "name": "Immingham",
-     "owner": "Environment Agency flood-monitoring API (publisher; England and UK National Tide Gauge Network sites)",
-     "distanceKm": 74.7,
-     "live": true,
-     "registry": "Environment Agency flood-monitoring API, type=TideGauge",
-     "lastObservation": "2026-11-09T07:15:00Z",
-     "url": "https://environment.data.gov.uk/flood-monitoring/id/stations/E71124"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "EGXV",
-     "name": "LECONFIELD (AUT)",
-     "owner": "IEM network GB__ASOS (METAR)",
-     "distanceKm": 46.1,
-     "live": true,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EGXV&network=GB__ASOS"
-    }
-   ],
-   "nation": "England"
-  },
-  {
    "id": "w-uk-scarborough-north-bay",
    "name": "Scarborough - North Bay",
    "country": "United Kingdom",
@@ -23813,147 +23671,6 @@
      "name": "Penzance",
      "owner": "National Network of Regional Coastal Monitoring Programmes (CCO), DWR",
      "distanceKm": 13.7,
-     "live": true,
-     "registry": "Channel Coastal Observatory public real-time page (coastalmonitoring.org/realtimedata; API needs a key, not used)",
-     "lastObservation": "2026-11-09T07:00 GMT",
-     "url": "https://coastalmonitoring.org/realtimedata/?chart=75&tab=waves"
-    },
-    {
-     "kind": "wave buoy",
-     "id": "CCO chart 107",
-     "name": "Porthleven",
-     "owner": "National Network of Regional Coastal Monitoring Programmes (CCO), DWR",
-     "distanceKm": 27.5,
-     "live": true,
-     "registry": "Channel Coastal Observatory public real-time page (coastalmonitoring.org/realtimedata; API needs a key, not used)",
-     "lastObservation": "2026-11-09T07:00 GMT",
-     "url": "https://coastalmonitoring.org/realtimedata/?chart=107&tab=waves"
-    },
-    {
-     "kind": "wave buoy",
-     "id": "NDBC 62107",
-     "name": "Sevenstones Lightship",
-     "owner": "UK Met Office (NDBC international partner)",
-     "distanceKm": 29.2,
-     "live": true,
-     "registry": "NDBC activestations.xml",
-     "liveNote": "wave height in NDBC latest_obs.txt",
-     "lastObservation": "2026-11-09T07:00Z",
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62107"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "EA E72239",
-     "name": "Newlyn",
-     "owner": "Environment Agency flood-monitoring API (publisher; England and UK National Tide Gauge Network sites)",
-     "distanceKm": 10.7,
-     "live": true,
-     "registry": "Environment Agency flood-monitoring API, type=TideGauge",
-     "lastObservation": "2026-11-09T07:30:00Z",
-     "url": "https://environment.data.gov.uk/flood-monitoring/id/stations/E72239"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "EA E72324",
-     "name": "St Marys",
-     "owner": "Environment Agency flood-monitoring API (publisher; England and UK National Tide Gauge Network sites)",
-     "distanceKm": 48.7,
-     "live": true,
-     "registry": "Environment Agency flood-monitoring API, type=TideGauge",
-     "lastObservation": "2026-11-09T07:30:00Z",
-     "url": "https://environment.data.gov.uk/flood-monitoring/id/stations/E72324"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "EGHC",
-     "name": "Land's End",
-     "owner": "IEM network GB__ASOS (METAR)",
-     "distanceKm": 2.0,
-     "live": true,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EGHC&network=GB__ASOS"
-    }
-   ],
-   "nation": "England"
-  },
-  {
-   "id": "w-uk-gwenver",
-   "name": "Gwenver",
-   "country": "United Kingdom",
-   "region": "England, Cornwall",
-   "county": "Cornwall",
-   "timeZone": "Europe/London",
-   "type": "Beach",
-   "lat": 50.09,
-   "lon": -5.691,
-   "seaward": 270,
-   "positionSource": {
-    "text": "Surfnerd spot map pin (50.09000, -5.69100, from the page's front matter), rounded to 3 dp",
-    "url": "https://www.surfnerd.com/surf-forecast/gwenver"
-   },
-   "osmCrossCheck": {
-    "text": "No OSM feature with this name within about 6 km of the guide pin (Nominatim)",
-    "url": null
-   },
-   "facingSource": {
-    "text": "Surfnerd characteristics: 'Swell exposure: SW - WSW, WSW - NW. Faces W'",
-    "url": "https://www.surfnerd.com/surf-forecast/gwenver"
-   },
-   "facts": {
-    "spotId": "w-uk-gwenver",
-    "name": "Gwenver",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/gwenver",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "W (surfnerd: \"Faces W\")",
-    "facingDeg": 270,
-    "swellWorkable": {
-     "text": "WSW - W (surfnerd)",
-     "fromDeg": 247.5,
-     "toDeg": 270
-    },
-    "swellExposure": "SW - WSW, WSW - NW (surfnerd)",
-    "idealSwell": null,
-    "windOffshore": "E (surfnerd; wind exposure NE - SE)",
-    "tide": "Works at Low, Mid. It breaks on low to mid tide, and a rising tide is generally the better call. (surfnerd)",
-    "bottom": "Sand (surfnerd)",
-    "waveType": "beach",
-    "waveTypeText": "Beach (surfnerd)",
-    "waveDirection": "both",
-    "waveDirectionText": "Right, Left (surfnerd)",
-    "sizeFt": {
-     "min": 3.0,
-     "max": 9.8
-    },
-    "exposure": "not stated",
-    "hazards": [],
-    "sizeText": "0.9 m (3 ft) to 3 m (9.8 ft) (surfnerd)",
-    "power": null,
-    "waveQuality": null,
-    "frequency": null,
-    "season": null,
-    "minimumPeriodS": null,
-    "skill": "Beginner, Intermediate (surfnerd)",
-    "consistency": null,
-    "crowd": null,
-    "access": "Gwenver is a privately owned beach with a small car park. If there's no space, park at Sennen Cove and walk over. There's no van or overnight parking, and authorities are taking action against cars left in passing places, with locals reporting blocked access roads. (surfnerd)",
-    "accessRestrictions": [
-     "Gwenver is a privately owned beach with a small car park. (surfnerd)"
-    ],
-    "overview": "Gwenver is a sand-bottomed beach break with peaks that swing both left and right. It's a decent wave that can be genuinely fun when the setup lines up. (surfnerd)",
-    "notes": "No Surf-Forecast.com page matched. No Wannasurf page matched. Workable wind on Surfnerd: ENE - ESE."
-   },
-   "nearestSources": [
-    {
-     "kind": "wave buoy",
-     "id": "CCO chart 75",
-     "name": "Penzance",
-     "owner": "National Network of Regional Coastal Monitoring Programmes (CCO), DWR",
-     "distanceKm": 13.8,
      "live": true,
      "registry": "Channel Coastal Observatory public real-time page (coastalmonitoring.org/realtimedata; API needs a key, not used)",
      "lastObservation": "2026-11-09T07:00 GMT",
@@ -55749,6 +55466,11 @@
    "url": "https://www.surfnerd.com/surf-forecast/gulberwick"
   },
   {
+   "name": "Gwenver",
+   "reason": "Duplicate listing of Gwenvor (name variant 'Gwenver', pins 111 m apart, same facing 270°); kept https://www.surfnerd.com/surf-forecast/gwenvor (found by the 2026-11-09 audit)",
+   "url": "https://www.surfnerd.com/surf-forecast/gwenver"
+  },
+  {
    "name": "Gyllyngvase Beach",
    "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Falmouth' 0.4 km away, different name)",
    "url": "https://www.surf-forecast.com/breaks/Gyllyngvase-Beach"
@@ -56422,6 +56144,11 @@
    "name": "Saviskaill Bay",
    "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing",
    "url": "https://www.surf-forecast.com/breaks/Saviskaill-Bay"
+  },
+  {
+   "name": "Scarborough North Bay",
+   "reason": "Duplicate Surfnerd listing of Scarborough - North Bay (54.29, -0.4 vs 54.29, -0.398: about 130 m apart, same facing NNE); kept https://www.surfnerd.com/surf-forecast/scarborough-north-bay (found by the 2026-11-09 audit)",
+   "url": "https://www.surfnerd.com/surf-forecast/scarborough-north-bay-2"
   },
   {
    "name": "Scee",
