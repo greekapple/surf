@@ -13,8 +13,10 @@ export const countryOf = (spot: string | {id: string; country?: string} | null |
   return (evidenceSpots.find((s) => s.id === id)?.country ?? DEFAULT_COUNTRY).toUpperCase();
 };
 /** The four US sources cover a spot only in the US (Hawaii included). */
-/** Bounding boxes of the US for a map POINT (no spot to look a country up): the West Coast to 49.1 N, Hawaii, Alaska and the Aleutians. Used for points on the map and by the guard test on spot countries. */
-export const US_BOXES: [string, number, number, number, number][] = [['West Coast', 32.4, 49.1, -125.0, -117.0], ['Hawaii', 18.5, 22.5, -160.8, -154.5], ['Alaska', 51.0, 72.0, -180.0, -129.9], ['Aleutians (east of the date line)', 51.0, 55.5, 167.0, 180.0]];
+/** Bounding boxes of the US for a map POINT (no spot to look a country up): the West Coast to 49.1 N, Hawaii, Alaska and the Aleutians, and the Atlantic coast from Maine to Florida. Used for points on the map and by the guard test on spot countries. */
+export const US_BOXES: [string, number, number, number, number][] = [['West Coast', 32.4, 49.1, -125.0, -117.0], ['Hawaii', 18.5, 22.5, -160.8, -154.5], ['Alaska', 51.0, 72.0, -180.0, -129.9], ['Aleutians (east of the date line)', 51.0, 55.5, 167.0, 180.0],
+  // Atlantic coast (US East round, 2026-11-09): open-ocean and inland US only; the boxes stop at the Canadian border and east of Florida at -79.95 (the Bahamas start at -79.3).
+  ['Maine and New Hampshire coast', 42.7, 44.9, -71.0, -66.9], ['Massachusetts to New Jersey', 38.9, 42.8, -75.6, -69.8], ['Delaware to Georgia and north Florida', 30.7, 38.9, -82.0, -74.7], ['Florida Atlantic coast', 24.4, 30.7, -82.0, -79.95]];
 export const pointInUs = (lat: number, lon: number): boolean => US_BOXES.some(([, a, b, c, d]) => lat >= a && lat <= b && lon >= c && lon <= d);
 /** US territories use the same national services (NWS, CO-OPS, NDBC): Puerto Rico, Guam, the US Virgin Islands, American Samoa, the Northern Marianas and the minor outlying islands. */
 export const US_COUNTRY_CODES = ['US', 'PR', 'GU', 'VI', 'AS', 'MP', 'UM'] as const;

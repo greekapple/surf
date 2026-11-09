@@ -1,7 +1,7 @@
 import {nearshoreURL,normalizeNearshore} from './nearshore.ts';
 import {assignedMopIds,assignmentFor,mopURL} from './mop.ts';
 import {extraTideStationIds, hiloTideStationIds, tideStationFor} from './tideStations.ts';
-import {contextBuoys,ndbcBuoyURL,cdipBuoyURL,normalizeCdipBuoy} from './buoys.ts';
+import {contextBuoys,buoysNear,ndbcBuoyURL,cdipBuoyURL,normalizeCdipBuoy} from './buoys.ts';
 import {sourceMetadata,staleSource} from './server.ts';
 import {evidenceSpots} from './spots.ts';
 import {nearSanFrancisco} from '../data/coast.ts';
@@ -29,7 +29,7 @@ export async function loadOcean(onStatus?:(s:ConnectionStatus)=>void,scope?:Read
  Promise.all(ids.map(async spot=>{const [marine,weather]=await Promise.all([get('marine-'+spot.id,'Open-Meteo Marine · '+spot.name,marineURL(spot)),get('weather-'+spot.id,'Open-Meteo Weather · '+spot.name,weatherURL(spot))]);return normalizeOpenMeteo(spot,marine,weather,new Date().toISOString())})),
  get('tides','NOAA CO-OPS tide predictions',tideRequest),get('level','NOAA CO-OPS water-level observation',levelRequest),get('buoy','NOAA NDBC buoy observations',proxyURL||buoyURL,!proxyURL),get('tide-extrema','NOAA CO-OPS high/low predictions',extremaRequest),get('nearshore-SF023','CDIP Ocean Beach nearshore nowcast',nearshoreRequest,true),
  Promise.all(extraStations.map(async s=>{const [h,x]=await Promise.all([get('tides-'+s.id,'NOAA CO-OPS tide predictions '+s.id,s.tideReq),get('tide-extrema-'+s.id,'NOAA CO-OPS high/low predictions '+s.id,s.hiloReq)]);return {s,h,x}})),
- Promise.all(contextBuoys.map(async b=>{const url=b.provider==='NDBC'?ndbcBuoyURL(b.id):cdipBuoyURL(b.id);return {b,url,raw:await get(b.fetchKey,`${b.provider} ${b.label} buoy`,url,true)}})),
+ Promise.all((scope?contextBuoys.filter(b=>ids.some(s=>buoysNear(s.latitude,s.longitude).includes(b))):contextBuoys).map(async b=>{const url=b.provider==='NDBC'?ndbcBuoyURL(b.id):cdipBuoyURL(b.id);return {b,url,raw:await get(b.fetchKey,`${b.provider} ${b.label} buoy`,url,true)}})),
  Promise.all((scope?[...new Set(ids.flatMap(s=>{const a=assignmentFor(s.id);return a?[a.mopId]:[]}))]:assignedMopIds()).map(async id=>{const fu=mopURL(id,'forecast');const fc=await get('nearshore-'+id+'-forecast','CDIP MOP '+id+' forecast',fu,true);return {id,fu,fc}})), /* T-097: the 40 DAS (issue time) files are fetched on demand by ocean/mopIssue.ts, not on every first load */
  Promise.all(hiloTideStationIds.filter(id=>!stationIds||stationIds.has(id)).map(async id=>{const u=tideExtremaURL(start,id);return {id,u,x:await get('tide-extrema-'+id,'NOAA CO-OPS high/low predictions '+id,u)}}))]); // T-082: nearest station of every covered spot, high/low only
  const loadedAt=new Date().toISOString();

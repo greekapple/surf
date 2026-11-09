@@ -125,7 +125,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
       <div className="mm-main">
         <nav className="mm-crumbs" aria-label="Location">
           <button onClick={() => setCounty(null)}>{stateOfZone(zone)}</button><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} />
-          <button onClick={() => setCounty(null)}>{zone}</button>
+          {stateOfZone(zone) !== zone && <><button onClick={() => setCounty(null)}>{zone}</button></>}
           {county && <><Icon name="chevron" size={12} style={{transform: 'rotate(-90deg)'}} /><span>{county}</span></>}
         </nav>
         <div className="mm-cols">

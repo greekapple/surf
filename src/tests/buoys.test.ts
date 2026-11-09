@@ -10,8 +10,9 @@ const cdip = [hdr, '2026-11-02T04:30:00Z,POINT REYES, CA BUOY - 029p1,37.941,-12
 const AT = '2026-11-02T06:00:00Z';
 const ndbc = (cols: string) => ['#YY  MM DD hh mm WDIR WSPD GST  WVHT   DPD   APD MWD   PRES  ATMP  WTMP  DEWP  VIS PTDY  TIDE', '#yr  mo dy hr mn degT m/s  m/s     m   sec   sec degT   hPa  degC  degC  degC  nmi  hPa    ft', cols].join('\n');
 
-test('registry: five context buoys (three Bay Area, two Oahu); 46214 and CDIP 029 are flagged as the same instrument', () => {
-  assert.deepEqual(contextBuoys.map((b) => b.label), ['NDBC 46012', 'NDBC 46214', 'CDIP 029', 'CDIP 098', 'CDIP 106']);
+test('registry: five Pacific context buoys (three Bay Area, two Oahu) plus 24 Atlantic NDBC buoys; 46214 and CDIP 029 are flagged as the same instrument', () => {
+  assert.deepEqual(contextBuoys.slice(0, 5).map((b) => b.label), ['NDBC 46012', 'NDBC 46214', 'CDIP 029', 'CDIP 098', 'CDIP 106']);
+  const east = contextBuoys.slice(5); assert.equal(east.length, 24); assert.ok(east.every((b) => b.provider === 'NDBC' && b.lon > -83 && b.lon < -65 && b.lat > 24 && b.lat < 46), 'every extra buoy floats in the Atlantic');
   assert.match(contextBuoys[1].note!, /Same buoy as CDIP 029/); assert.match(contextBuoys[2].note!, /second feed, not an independent/);
 });
 test('CDIP buoy CSV: comma in the station name is handled, each value keeps its own time, a blank Hs is not filled', () => {

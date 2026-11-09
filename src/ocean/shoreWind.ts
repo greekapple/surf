@@ -11,7 +11,7 @@ export const SHORE_WIND_MAX_KM = 4;
 export const SHORE_WIND_WINDOW_DAYS = 7;
 /** A reading older than this is shown as missing, never as now. */
 export const SHORE_WIND_STALE_MS = 2 * 3600000;
-export const SHORE_WIND_RULE = `The nearest fixed NDBC/NOS met station or California airport ASOS within ${SHORE_WIND_MAX_KM} km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last ${SHORE_WIND_WINDOW_DAYS} days at build time. No latitude band. A spot with no such station shows no measured wind.`;
+export const SHORE_WIND_RULE = `The nearest fixed NDBC/NOS met station or West Coast / Hawaii airport ASOS (the CA, OR, WA and HI networks; no East Coast airports, because the enclosed-water mask is West-only) within ${SHORE_WIND_MAX_KM} km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last ${SHORE_WIND_WINDOW_DAYS} days at build time. No latitude band. A spot with no such station shows no measured wind.`;
 const MS_TO_MPH = 2.2369362921, KMH_TO_MPH = 0.6213711922;
 
 /** Where a station's anemometer stands. An airport ASOS is always 'airfield'. An NDBC/NOS station is shown only once its siting is checked
@@ -25,6 +25,13 @@ export const NDBC_EXPOSURE: Record<string, {exposure: Exposure; label: string; w
   CECC1: {exposure: 'harbour', label: 'Crescent City harbour', why: 'CO-OPS 9419750 Crescent City: NDBC position 41.746, -124.184, inside the harbour breakwater.'},
   MLSC1: {exposure: 'harbour', label: 'Moss Landing harbour', why: 'Moss Landing Marine Labs, South Harbor (the station name): inside the harbour.'},
   TIXC1: {exposure: 'estuary', label: 'Tijuana River estuary', why: 'Tidal Linkage, Tijuana River Reserve (the station name): in the estuary.'},
+  // US East (checked 2026-11-09; each verdict rests on the station's own NDBC / CO-OPS NAME, nothing else; a station whose name does not say where it floats is left out and shows nothing):
+  DUKN7: {exposure: 'pier', label: 'Duck Pier, NC', why: 'NDBC lists "8651370 - Duck Pier, NC" (CO-OPS 8651370 Duck, 36.184, -75.746): a pier on the open Atlantic coast.'},
+  TRDF1: {exposure: 'pier', label: 'Trident Pier, Port Canaveral', why: 'NDBC lists "8721604 - Trident Pier, FL" (CO-OPS 8721604 "Trident Pier, Port Canaveral"): a pier on the Atlantic side of the port entrance. Spots right at the port jetties may feel the port channel.'},
+  SIPF1: {exposure: 'pier', label: 'Sebastian Inlet north jetty', why: 'NDBC lists "Sebastian Inlet State Park North Jetty, FL" (Florida Institute of Technology): on the jetty at the inlet mouth, open to the Atlantic. Shown as a pier-type exposure: wind over water, not over land.'},
+  FRDF1: {exposure: 'estuary', label: 'Fernandina Beach, Amelia River', why: 'CO-OPS 8720030 is named "Fernandina Beach, Amelia River": on the river, not the beach.'},
+  MYPF1: {exposure: 'harbour', label: 'Mayport Bar Pilots Dock', why: 'CO-OPS 8720218 "Mayport (Bar Pilots Dock)" (the station name): inside the St. Johns River entrance.'},
+  PEGF1: {exposure: 'harbour', label: 'Port Everglades', why: 'CO-OPS 8722956 "Port Everglades" (the station name): inside the port.'},
 };
 /** The station as a surfer would name it ("Half Moon Bay airport", "Scripps Pier, La Jolla"), not the provider's id string. Airports: IEM's name, title-cased, plus "airport". */
 const ASOS_LABEL: Record<string, string> = {NRS: 'Imperial Beach airfield (Ream Field)'};

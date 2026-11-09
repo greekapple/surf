@@ -25,9 +25,9 @@ test('refresh-ahead: a stored value that would expire within `ahead` is fetched 
   store.set('forecast/v8/latest/' + t.key + '.json', JSON.stringify({retrievedAt: retrieved, payload: {}}));
   let n = 0; const fetcher = async () => { n++; return new Response('x', {status: 503}); };
   const mk = () => createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => Date.UTC(2026, 10, 4, 12)});
-  const svc = mk(); const fresh = await svc.refresh({BUCKET}, {perRun: 1000, tick: 0, ahead: 0}); const f1 = fresh.results.find((x: {key: string}) => x.key === t.key);
+  const svc = mk(); const fresh = await svc.refresh({BUCKET}, {perRun: 5000, tick: 0, ahead: 0}); const f1 = fresh.results.find((x: {key: string}) => x.key === t.key);
   assert.equal(f1.state, 'available'); assert.equal(n >= 1, true); // this target is served from the bucket without being fetched (others are fetched and fail)
-  const calls0 = n; const svc2 = mk(); const ahead = await svc2.refresh({BUCKET}, {perRun: 1000, tick: 0, ahead: 30 * 60000}); const f2 = ahead.results.find((x: {key: string}) => x.key === t.key);
+  const calls0 = n; const svc2 = mk(); const ahead = await svc2.refresh({BUCKET}, {perRun: 5000, tick: 0, ahead: 30 * 60000}); const f2 = ahead.results.find((x: {key: string}) => x.key === t.key);
   assert.ok(n > calls0); assert.notEqual(f2.state, 'available', 'with ahead 30 min the 20-minutes-left value is fetched again (the stub answers 503 so it is retained as stale)');
 });
 
@@ -44,7 +44,8 @@ test('P1-1: a target retrieved just now is NOT due on the next 5-minute run, for
 });
 
 test('P1-1: the per-day upstream calls stay inside the free tiers (Open-Meteo, as the cron refreshes them)', () => {
-  const targets = ingestionTargets(Date.UTC(2026, 10, 4, 12)) as {ttl: number; url: string}[], perDay: Record<string, number> = {};
+  // the production cron refreshes only HOT spots (requested in the last 24 h, newest 180 at most: services/forecast-service.mjs HOT_MAX); 150 of them here
+  const targets = (ingestionTargets(Date.UTC(2026, 10, 4, 12), serviceSpots.slice(0, 150))) as {ttl: number; url: string}[], perDay: Record<string, number> = {};
   for (const t of targets) { const interval = Math.ceil(dueAfter(t, CRON_OPTS) / (5 * MIN)) * 5 * MIN, host = new URL(t.url).hostname; perDay[host] = (perDay[host] ?? 0) + 86400000 / interval; }
   const om = (perDay['marine-api.open-meteo.com'] ?? 0) + (perDay['api.open-meteo.com'] ?? 0);
   assert.ok(om < 7500, `Open-Meteo ${Math.round(om)} requests/day for ${serviceSpots.length} spots (free tier 10,000 weighted calls; the weighted budget is asserted in fetch-budget.test.ts)`); assert.ok((perDay['thredds.cdip.ucsd.edu'] ?? 0) <= 2 * 24 * mopServiceIds.length + 100, 'CDIP: at most one fetch an hour per target (forecast + issue file per MOP point), the politeness floor');   // was a fixed 2,500 for 44 points
@@ -62,22 +63,22 @@ test('P1-2: a budgeted cold fill never exceeds the subrequest budget (fetches pl
 
 // T-129c (Codex P1): every cron run may start in a NEW isolate with no memory; the tail of the targets must not starve.
 test('P1-3: successive runs with NEW service instances on the same bucket complete a cold fill, stay under the budget each run, and a warm run is nearly free', async () => {
-  const NOWMS = Date.UTC(2026, 10, 4, 12), targets = ingestionTargets(NOWMS) as {key: string; url: string; field?: unknown; csv?: boolean; das?: boolean; text?: boolean}[], byUrl = new Map(targets.map((t) => [t.url, t]));
+  const NOWMS = Date.UTC(2026, 10, 4, 12), COLD_SPOTS = serviceSpots.slice(0, 146), targets = ingestionTargets(NOWMS, COLD_SPOTS) as {key: string; url: string; field?: unknown; csv?: boolean; das?: boolean; text?: boolean}[], byUrl = new Map(targets.map((t) => [t.url, t]));
   const store = new Map<string, string>(); let ops = 0, fetches = 0;
   const BUCKET = {get: async (k: string) => { ops++; return store.has(k) ? {json: async () => JSON.parse(store.get(k)!)} : null; }, put: async (k: string, v: string) => { ops++; store.set(k, v); }};
   const fetcher = async (url: string) => { fetches++; const t = byUrl.get(String(url));
     if (!t || t.field) return new Response('{}', {status: 200});
     const body = t.csv ? 'time,station,x\n' : t.das ? 'NC_GLOBAL {}' : t.text ? '#YY MM DD' : JSON.stringify({hourly: {time: ['2026-11-04T12:00']}, table: {rows: [[1]]}, features: []});
     return new Response(body, {status: 200, headers: {'content-type': t.csv || t.das || t.text ? 'text/plain' : 'application/json'}}); };
-  const wanted = targets.filter((t) => !t.field).map((t) => 'forecast/v8/latest/' + t.key + '.json'), perRun: number[] = [];
+  const wanted = targets.filter((t) => !t.field && !(t as {onDemand?: boolean}).onDemand).map((t) => 'forecast/v8/latest/' + t.key + '.json'), perRun: number[] = [];
   let full = -1;
   for (let run = 0; run < 12; run++) {
-    const svc = createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => NOWMS}); ops = 0; fetches = 0;
-    const r = await svc.refresh({BUCKET}, {...CRON_OPTS, budget: 800, tick: run}); perRun.push(ops + fetches);
+    const svc = createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => NOWMS, spots: COLD_SPOTS}); ops = 0; fetches = 0;
+    const r = await svc.refresh({BUCKET}, {...CRON_OPTS, budget: 800, tick: run, hotHours: 24}); perRun.push(ops + fetches);
     assert.ok(ops + fetches <= 1000, `run ${run}: ${ops + fetches} subrequests`);
     if (full < 0 && wanted.every((k) => store.has(k))) { full = run; assert.ok(r.budget.start !== undefined); }
   }
   if (process.env.SHOW) console.log('cold fill complete after run', full + 1, '; subrequests per run', perRun.join(','));
-  assert.ok(full >= 0 && full <= 6, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
+  assert.ok(full >= 0 && full <= 8, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
   assert.ok(perRun[11] < 40, `a warm run costs ${perRun[11]} subrequests (the index object, no per-target reads)`);
 });

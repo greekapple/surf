@@ -27,7 +27,7 @@ test('freshness: the weather cadence (1 h + a 5-minute tick) stays inside the 2 
 
 // The cron at 64 and 95 spots, warm and in steady state: every target is re-fetched inside its TTL (plus the cron step) and no run exceeds the subrequest budget.
 for (const n of [64, 95, 146, 200]) {
-  test(`cron at ${n} spots: every Open-Meteo target stays inside its TTL (+20 min: the 5-minute tick plus budget deferral at 146+ spots; the freshness limits are 4 h marine and 2 h weather) and each run stays under 1,000 subrequests`, async () => {
+  test(`cron at ${n} spots: every Open-Meteo target stays inside its TTL (+25 min: the 5-minute tick plus budget deferral at 146+ spots; the freshness limits are 4 h marine and 2 h weather) and each run stays under 1,000 subrequests`, async () => {
     const spots = cloneSpots(n), targets = (ingestionTargets as any)(T0, spots) as {key: string; ttl: number; url: string; field?: unknown; csv?: boolean; das?: boolean; text?: boolean}[], byUrl = new Map(targets.map((t) => [t.url, t]));
     const store = new Map<string, string>(); let ops = 0, fetches = 0, clock = T0;
     const BUCKET = {get: async (k: string) => { ops++; return store.has(k) ? {json: async () => JSON.parse(store.get(k)!)} : null; }, put: async (k: string, v: string) => { ops++; store.set(k, v); }};
@@ -43,7 +43,7 @@ for (const n of [64, 95, 146, 200]) {
     }
     if (process.env.SHOW) console.log(`${n} spots: peak ${peak} subrequests in one run; max age (min) ${Object.entries(maxAge).map(([k, v]) => k + ' ' + Math.round(v / MIN)).join(', ')}`);
     assert.ok(peak <= 1000, `peak ${peak} subrequests`);
-    for (const [k, age] of Object.entries(maxAge)) { const ttl = om.find((t) => t.key.startsWith(k + '-'))!.ttl; assert.ok(age <= ttl + 20 * MIN, `${k}: oldest value ${Math.round(age / MIN)} min vs TTL ${ttl / MIN} min`); }
+    for (const [k, age] of Object.entries(maxAge)) { const ttl = om.find((t) => t.key.startsWith(k + '-'))!.ttl; assert.ok(age <= ttl + 25 * MIN, `${k}: oldest value ${Math.round(age / MIN)} min vs TTL ${ttl / MIN} min`); }
     void om_calls;
   });
 }

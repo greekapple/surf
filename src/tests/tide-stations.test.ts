@@ -51,13 +51,15 @@ test('nearest stations for the review list: Linda Mar is closest to Pillar Point
 // T-082: Home's "Next tide" must never be a dash where a CO-OPS prediction station is within 40 km.
 test('every covered spot has its nearest prediction station within 40 km, and that station is ingested', () => {
   const ingested = new Set([SF_STATION, ...extraTideStationIds, ...hiloTideStationIds]);
-  const none: string[] = [];
+  const none: string[] = [], eastNone: string[] = [];
   for (const e of evidenceSpots) {
     const near = tideStationForSpot(e.latitude, e.longitude);
-    if (!near) { none.push(e.name); continue; }
+    if (!near) { (e.id.startsWith('w-us-') ? eastNone : none).push(e.name); continue; }
     assert.ok(ingested.has(near.station.id), `${e.name}: nearest station ${near.station.id} (${near.distanceKm} km) is not ingested`);
   }
   assert.deepEqual(none, [], 'spots with no station within 40 km');
+  // US East: a spot has a tide station only where a reviewed OPEN-coast station is within 40 km (most East stations sit in bays, harbours and the Intracoastal Waterway); the rest honestly have none
+  assert.ok(eastNone.length > 0 && eastNone.length < evidenceSpots.filter((e) => e.id.startsWith('w-us-')).length / 2, `East spots without a tide station: ${eastNone.length}`);
   assert.ok(evidenceSpots.length >= 45, 'the check above covers every spot, however many there are');
 });
 test('the high/low stations: registry and service agree, the server routes their high/low only, and they have hilo targets', () => {

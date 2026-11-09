@@ -37,8 +37,8 @@ test('the zone of a spot: its own IANA zone, else the registry by id, else Ameri
   assert.equal(DEFAULT_TIME_ZONE, LA); assert.equal(timeZoneOf(null), LA); assert.equal(timeZoneOf('no-such-spot'), LA);
   assert.equal(timeZoneOf('zz-honolulu'), HNL); assert.equal(timeZoneOf({id: 'x', timeZone: LIS}), LIS); assert.equal(timeZoneOf({id: 'zz-lisbon'}), LIS);
   assert.equal(timeZoneOf({id: 'x', timeZone: 'Not/AZone'}), LA); assert.equal(validZone('Not/AZone'), LA); assert.equal(validZone(null), LA);
-  assert.ok(evidenceSpots.filter((s) => !s.id.startsWith('zz-') && !s.id.startsWith('w-hawaii-')).every((s) => timeZoneOf(s.id) === LA), 'every California, Oregon and Washington spot stays on Pacific time'); assert.ok(evidenceSpots.filter((s) => s.id.startsWith('w-hawaii-')).every((s) => timeZoneOf(s.id) === HNL), 'the Hawaii spots are on Hawaii time');
-  assert.ok(allSpots.filter((s) => !s.id.startsWith('zz-') && !s.id.startsWith('w-hawaii-')).every((s) => timeZoneOf(s) === LA));
+  assert.ok(evidenceSpots.filter((s) => !s.id.startsWith('zz-') && !s.id.startsWith('w-hawaii-') && !s.id.startsWith('w-us-')).every((s) => timeZoneOf(s.id) === LA), 'every California, Oregon and Washington spot stays on Pacific time'); assert.ok(evidenceSpots.filter((s) => s.id.startsWith('w-us-')).every((s) => timeZoneOf(s.id) === 'America/New_York'), 'every US East spot is on Eastern time'); assert.ok(evidenceSpots.filter((s) => s.id.startsWith('w-hawaii-')).every((s) => timeZoneOf(s.id) === HNL), 'the Hawaii spots are on Hawaii time');
+  assert.ok(allSpots.filter((s) => !s.id.startsWith('zz-') && !s.id.startsWith('w-hawaii-') && !s.id.startsWith('w-us-')).every((s) => timeZoneOf(s) === LA));
 });
 test('local date and hour of one instant differ by zone, and the pacific* names are the default-zone wrappers', () => {
   const iso = '2026-11-09T09:30:00.000Z';

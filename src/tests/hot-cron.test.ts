@@ -14,7 +14,7 @@ function fakeBucket(store: Map<string, string>, up: Map<string, number>, clock: 
 function rig(n: number, hot: number, hours = 6) {
   const spots = cloneSpots(n), targets = (ingestionTargets as any)(T0, spots) as {key: string; ttl: number; url: string; field?: unknown; csv?: boolean; das?: boolean; text?: boolean}[], byUrl = new Map(targets.map((t) => [t.url, t]));
   const store = new Map<string, string>(), up = new Map<string, number>(); let ops = 0, fetches = 0, clock = T0;
-  store.set(HOT_STARTED, '1'); for (const s of spots.slice(0, hot) as any[]) { store.set(HOT_PREFIX + s.id, '1'); up.set(HOT_PREFIX + s.id, T0); }
+  store.set(HOT_STARTED, '1'); (spots.slice(0, hot) as any[]).forEach((s, i) => { store.set(HOT_PREFIX + s.id, '1'); up.set(HOT_PREFIX + s.id, T0 - i * 1000); });   // earlier index = requested more recently
   const BUCKET = fakeBucket(store, up, () => clock, () => { ops++; });
   const fetcher = async (url: string) => { fetches++; const t = byUrl.get(String(url)); if (!t || t.field) return new Response('{}', {status: 200});
     const body = t.csv ? 'time,station,x\n' : t.das ? 'NC_GLOBAL {}' : t.text ? '#YY MM DD' : JSON.stringify({hourly: {time: [new Date(clock).toISOString().slice(0, 13) + ':00']}, table: {rows: [[1]]}, features: []});
@@ -31,12 +31,13 @@ test('spotOfKey names the spot of a per-spot Open-Meteo key and nothing else', (
   assert.equal(spotOfKey('marine-spot-2'), 'spot-2'); assert.equal(spotOfKey('weather-x-7'), 'x-7'); assert.equal(spotOfKey('spread-a'), 'a');
   assert.equal(spotOfKey('tides'), null); assert.equal(spotOfKey('ndbc-46012'), null); assert.equal(spotOfKey('nearshore-MOP123'), null);
 });
-for (const [n, h] of [[254, 100], [500, 150], [1000, 150]] as const) {
+// 429 = every app spot (146 + 283 US East): all of them hot is the worst case; the cron counts the newest 180 only, so it costs the same as 180 hot
+for (const [n, h] of [[254, 100], [500, 150], [1000, 150], [429, 429]] as const) {
   test(`hot-only cron at ${n} spots, ${h} hot: only hot spots' Open-Meteo targets are fetched, every hot target stays inside its TTL (+20 min), each run under 1,000 subrequests`, async () => {
     const t = rig(n, h), {peak, last, clock} = await t.run();
     if (process.env.SHOW) console.log(`${n} spots, ${h} hot: peak ${peak} subrequests/run; ${JSON.stringify(last.hot)}; ${JSON.stringify(hotBudget(n, h))}`);
-    assert.ok(peak <= 1000, `peak ${peak}`); assert.equal(last.hot.spots, h); assert.equal(last.hot.skippedCold, 3 * (n - h));
-    const hotIds = new Set(t.spots.slice(0, h).map((s: any) => s.id)), om = t.targets.filter((x) => /open-meteo\.com/.test(x.url));
+    assert.ok(peak <= 1000, `peak ${peak}`); const hh = Math.min(h, HOT_MAX); assert.equal(last.hot.spots, hh); assert.equal(last.hot.skippedCold, 3 * (n - hh));
+    const hotIds = new Set(t.spots.slice(0, Math.min(h, HOT_MAX)).map((s: any) => s.id)), om = t.targets.filter((x) => /open-meteo\.com/.test(x.url));
     for (const x of om) { const id = spotOfKey(x.key)!, v = JSON.parse(t.store.get('forecast/v8/latest/' + x.key + '.json') ?? 'null');
       if (!hotIds.has(id)) { assert.equal(v, null, 'a cold spot is not refreshed by the cron: ' + x.key); continue; }
       assert.ok(v && clock - Date.parse(v.retrievedAt) <= x.ttl + 20 * MIN + 5 * MIN, `${x.key} age ${v ? Math.round((clock - Date.parse(v.retrievedAt)) / MIN) : 'none'} min`); }

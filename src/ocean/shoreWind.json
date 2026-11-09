@@ -1,9 +1,9 @@
 {
- "builtAt": "2026-11-09T08:16:56.699Z",
+ "builtAt": "2026-11-09T10:01:15.747Z",
  "maxKm": 4,
  "windowDays": 7,
  "rule": "The nearest fixed NDBC/NOS met station or California airport ASOS within 4 km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last 7 days at build time. No latitude band. A spot with no such station shows no measured wind.",
- "spotsChecked": 146,
+ "spotsChecked": 384,
  "assignments": [
   {
    "spotId": "spot-4",
@@ -66,6 +66,30 @@
    "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
   },
   {
+   "spotId": "w-us-duck-pier",
+   "spotName": "Duck Pier",
+   "stationId": "DUKN7",
+   "stationName": " 8651370 - Duck Pier, NC ",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 36.184,
+   "lon": -75.746,
+   "distanceKm": 0.4,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=DUKN7"
+  },
+  {
+   "spotId": "w-us-southern-duck",
+   "spotName": "Southern Duck",
+   "stationId": "DUKN7",
+   "stationName": " 8651370 - Duck Pier, NC ",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 36.184,
+   "lon": -75.746,
+   "distanceKm": 2.9,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=DUKN7"
+  },
+  {
    "spotId": "cs-campus-point",
    "spotName": "Campus Point",
    "stationId": "SBA",
@@ -112,6 +136,66 @@
    "lon": -117.11,
    "distanceKm": 2.9,
    "url": "https://api.weather.gov/stations/KNRS/observations?limit=6"
+  },
+  {
+   "spotId": "w-us-jetty-park",
+   "spotName": "Jetty Park",
+   "stationId": "TRDF1",
+   "stationName": "8721604 - Trident Pier, FL",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 28.416,
+   "lon": -80.593,
+   "distanceKm": 1.1,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=TRDF1"
+  },
+  {
+   "spotId": "w-us-spanish-house",
+   "spotName": "Spanish House",
+   "stationId": "SIPF1",
+   "stationName": "Sebastian Inlet State Park North Jetty, FL",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 27.862,
+   "lon": -80.445,
+   "distanceKm": 1.9,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
+  },
+  {
+   "spotId": "w-us-chernobyl",
+   "spotName": "Chernobyl",
+   "stationId": "SIPF1",
+   "stationName": "Sebastian Inlet State Park North Jetty, FL",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 27.862,
+   "lon": -80.445,
+   "distanceKm": 1.1,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
+  },
+  {
+   "spotId": "w-us-sebastian-inlet",
+   "spotName": "Sebastian Inlet",
+   "stationId": "SIPF1",
+   "stationName": "Sebastian Inlet State Park North Jetty, FL",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 27.862,
+   "lon": -80.445,
+   "distanceKm": 0.1,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
+  },
+  {
+   "spotId": "w-us-monster-hole",
+   "spotName": "Monster Hole",
+   "stationId": "SIPF1",
+   "stationName": "Sebastian Inlet State Park North Jetty, FL",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 27.862,
+   "lon": -80.445,
+   "distanceKm": 0.5,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
   }
  ]
 }

@@ -61,7 +61,7 @@ function withInterval(spotId: string, hour: Forecast, ctx: HeadlineContext, meth
 function bandOf(spotId: string, hour: Forecast, central: number | undefined, w: {lo: number; hi: number; interval: {halfWidth: number; disagree: boolean}}): {lo: number; hi: number; confidence: Confidence; band?: SurfBand} {
   if (!finite(central) || central <= 0) return {lo: w.lo, hi: w.hi, confidence: 'low'};
   const spot = allSpots.find((x) => x.id === spotId), breaker = hour?.primary ? breakerType({id: spotId}, hour) : null;
-  const band = surfBandFor({centralFt: central, setsFactor: setsFactor(spot?.type, breaker), halfWidth: w.interval.halfWidth, disagree: w.interval.disagree, interval: {loFt: w.lo, hiFt: w.hi}});
+  const band = surfBandFor({centralFt: central, setsFactor: setsFactor(spot?.type ?? undefined, breaker), halfWidth: w.interval.halfWidth, disagree: w.interval.disagree, interval: {loFt: w.lo, hiFt: w.hi}});
   return {lo: band.loFt, hi: band.hiFt, confidence: band.confidence, band};
 }
 const methodLabelFor = (spotId: string, m: 'mop-v2' | 'v1', mopId?: string, interval?: {disagree: boolean; components: unknown[]}, breakingFt?: number) => {

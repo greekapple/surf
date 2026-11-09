@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {coastEvidence, COAST_ROWS, nearSanFrancisco} from '../data/coast.ts';
+import {coastEvidence, COAST_ROWS, UPGRADED_ROWS, nearSanFrancisco} from '../data/coast.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {allSpots} from '../data/catalog.ts';
 import {coastServiceSpots, serviceSpots} from '../../services/forecast-service.mjs';
@@ -17,7 +17,12 @@ test('every live spot has a profile and unique id; coast covers Del Norte to San
   assert.ok(Math.max(...lats) > 41.5 && Math.min(...lats) < 32.7);
 });
 test('marine query points lie seaward of the beach point', () => {
-  for (const e of coastEvidence) assert.ok(e.marineLongitude < e.longitude + 0.05, `${e.id} marine point not inland`);
+  // seaward = the direction the beach faces: the marine point must lie on that side of the beach point (west for the Pacific coast, east for the Atlantic, south for Oahu's south shore)
+  const seaward = new Map<string, number>([...COAST_ROWS, ...UPGRADED_ROWS].map((r) => [r[0], r[6]]));
+  for (const e of coastEvidence) {
+    const d = seaward.get(e.id)! * Math.PI / 180, dx = (e.marineLongitude - e.longitude) * Math.cos(e.latitude * Math.PI / 180), dy = e.marineLatitude - e.latitude;
+    assert.ok(dx * Math.sin(d) + dy * Math.cos(d) > -1e-9, `${e.id} marine point not on the seaward side`);
+  }
 });
 test('the San Francisco tide station is only used near the Bay', () => {
   assert.ok(nearSanFrancisco(37.759, -122.51)); // Ocean Beach

@@ -1,4 +1,5 @@
 import {MAP_TIME_ZONE} from '../../ocean/spotZone';
+import {mapZoneAbbr} from './mapTime';
 import {spotTier} from '../../data/spotTiers';
 import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {ENCLOSED_NOTE} from '../../map/enclosed';
@@ -534,18 +535,18 @@ function OceanMap({section, go}: ViewProps) {
   // after dark the spots keep their rating; the map says once, quietly, that the hour is dark.
   const darkNow = !!view.selectedTime && isDark(spot.id, view.selectedTime);
   // T-128: a frame drawn from this device's cache says so, with its own valid time, until the fresh frame replaces it.
-  const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, MAP_TIME_ZONE)} ${hourLabel(iso, MAP_TIME_ZONE)}`);
+  const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, MAP_TIME_ZONE)} ${hourLabel(iso, MAP_TIME_ZONE)} ${mapZoneAbbr(iso)}`);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : cache && opts.heat ? cache.line
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
-    : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, MAP_TIME_ZONE)} ${hourLabel(paintedFrame.validAt, MAP_TIME_ZONE)}` : 'Loading model…')
-    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, MAP_TIME_ZONE)} ${hourLabel((frame ?? gframe)!.validAt, MAP_TIME_ZONE)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
+    : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, MAP_TIME_ZONE)} ${hourLabel(paintedFrame.validAt, MAP_TIME_ZONE)} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
+    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, MAP_TIME_ZONE)} ${hourLabel((frame ?? gframe)!.validAt, MAP_TIME_ZONE)} ${mapZoneAbbr((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
   const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
   const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
   const ends = frame || gframe || (opts.heat && painted) ? ([legend.lo, legend.hi] as const) : null;
   const unitLabel = legend.unitLabel;
-  const when = view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)}` : 'this hour';
+  const when = view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)} ${mapZoneAbbr(view.selectedTime)}` : 'this hour';
 
   /** Offshore height range at a spot across the shared hour +/- 3 h (from the model records, not invented). */
   const rangeAt = (id: string) => {
@@ -696,7 +697,7 @@ function OceanMap({section, go}: ViewProps) {
         const failed = !!view.selectedTime && !spatial.loading && !spatial.frame && !/^Loading/.test(spatial.status), held = (frame ?? gframe)?.validAt;
         // Say what is actually on screen: the held frame may be the previous layer (honest while the new one loads or fails).
         const heldName = shownFor.current !== fieldId ? (FIELDS.find((x) => x.id === shownFor.current)?.short ?? '').toLowerCase() : '';
-        const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held, MAP_TIME_ZONE)} ${hourLabel(held, MAP_TIME_ZONE)}` : '';
+        const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held, MAP_TIME_ZONE)} ${hourLabel(held, MAP_TIME_ZONE)} ${mapZoneAbbr(held)}` : '';
         const retry = () => { setSlow(false); spatial.retry(); };
         if (failed) return <p className="xload err" role="alert">Couldn't load {def.short.toLowerCase()} for {when}{showing} <button type="button" onClick={retry}>Retry</button></p>;
         if (slow && anyLoading) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
@@ -716,7 +717,7 @@ function OceanMap({section, go}: ViewProps) {
         {darkNow && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window</p>}
         {cache && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
-          valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)}` : ''} />
+          valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} sub={cache?.chip} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={paintedDef.label} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />

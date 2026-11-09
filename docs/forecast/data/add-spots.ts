@@ -23,6 +23,7 @@ import {execFileSync} from 'node:child_process';
 
 const ROOT = new URL('../../../', import.meta.url).pathname, rel = (p: string) => ROOT + p;
 const args = process.argv.slice(2), rowsFile = args.find((a) => !a.startsWith('--')), regionFilter = args.find((a) => a.startsWith('--region='))?.slice(9).split(',') ?? null, NO_NET = args.includes('--no-network'), FORCE_WIND = args.includes('--force-wind');
+const idsArg = args.find((a) => a.startsWith('--ids='))?.slice(6), idFilter: Set<string> | null = idsArg ? new Set(JSON.parse(fs.readFileSync(idsArg, 'utf8'))) : null;   // --ids=<file.json>: an array of spot ids to import (a batch list)
 const only = args.find((a) => a.startsWith('--step='))?.slice(7).split(',') ?? null, want = (s: string) => !only || only.includes(s);
 if (!rowsFile) { console.error('usage: node --experimental-strip-types docs/forecast/data/add-spots.ts <rows.json> [--region=Oahu North Shore,Oahu South Shore] [--no-network] [--force-wind] [--step=a,b]'); process.exit(2); }
 const read = (p: string) => fs.readFileSync(rel(p), 'utf8'), write = (p: string, t: string) => { if (read(p) !== t) { fs.writeFileSync(rel(p), t); return true; } return false; };
@@ -35,22 +36,39 @@ const evalIn = (code: string): any => JSON.parse(execFileSync('node', ['--experi
 const km = (aLat: number, aLon: number, bLat: number, bLon: number) => { const r = Math.PI / 180, dLat = (bLat - aLat) * r, dLon = (bLon - aLon) * r, h = Math.sin(dLat / 2) ** 2 + Math.cos(aLat * r) * Math.cos(bLat * r) * Math.sin(dLon / 2) ** 2; return 12742 * Math.asin(Math.sqrt(h)); };
 
 // ---------- 0. rows
-type Row = [string, string, string, 'Beach' | 'Point' | 'Reef', number, number, number, string?, string?];   // ... seaward, timeZone, country
+type Row = [string, string, string, 'Beach' | 'Point' | 'Reef' | null, number, number, number, string?, string?];   // ... seaward, timeZone, country
 const raw = JSON.parse(fs.readFileSync(rowsFile, 'utf8'));
 // WORLD MODE (spec 2026-11-09 C4): docs/forecast/data/world-spots/<region>.json = {region, spots: [{id, name, country, region, timeZone, type, lat, lon, seaward, facts, nearestSources...}]}.
 // Each spot becomes a row WITH its time zone and country, and its `facts` (guide-facts schema) are merged into guide-facts.json (replacing an entry with the same spotId). --region= keeps only the spots whose region ends with one of the names.
 const world = !Array.isArray(raw) && Array.isArray(raw.spots) && raw.spots.length > 0 && raw.spots[0].facts !== undefined;
-const COUNTRY: Record<string, string> = {'United States': 'US', 'USA': 'US', 'US': 'US'};
+// The world files name countries in words; the app stores ISO 3166-1 alpha-2 (countryOf / hasUsData read it). US territories keep their own code (PR, VI, GU, AS, MP) so they get the US lookups.
+const COUNTRY: Record<string, string> = {'United States': 'US', 'USA': 'US', 'US': 'US', 'Puerto Rico': 'PR', 'U.S. Virgin Islands': 'VI', 'US Virgin Islands': 'VI', 'Guam': 'GU', 'American Samoa': 'AS', 'Northern Mariana Islands': 'MP',
+  'Canada': 'CA', 'Mexico': 'MX', 'United Kingdom': 'GB', 'Ireland': 'IE', 'France': 'FR', 'Spain': 'ES', 'Portugal': 'PT', 'Italy': 'IT', 'Germany': 'DE', 'Netherlands': 'NL', 'Denmark': 'DK', 'Norway': 'NO', 'Sweden': 'SE', 'Iceland': 'IS', 'Greece': 'GR', 'Malta': 'MT', 'Cyprus': 'CY', 'Croatia': 'HR', 'Israel': 'IL', 'Morocco': 'MA',
+  'Senegal': 'SN', 'Ghana': 'GH', 'Namibia': 'NA', 'South Africa': 'ZA', 'Brazil': 'BR', 'Argentina': 'AR', 'Uruguay': 'UY', 'Chile': 'CL', 'Peru': 'PE', 'Ecuador': 'EC', 'Colombia': 'CO', 'Costa Rica': 'CR', 'Panama': 'PA', 'Nicaragua': 'NI', 'El Salvador': 'SV', 'Guatemala': 'GT', 'Honduras': 'HN', 'Belize': 'BZ',
+  'Haiti': 'HT', 'Dominican Republic': 'DO', 'Cuba': 'CU', 'Jamaica': 'JM', 'Barbados': 'BB', 'The Bahamas': 'BS', 'Bahamas': 'BS', 'Trinidad and Tobago': 'TT', 'Australia': 'AU', 'New Zealand': 'NZ', 'Fiji': 'FJ', 'Samoa': 'WS', 'Vanuatu': 'VU', 'Solomon Islands': 'SB', 'Papua New Guinea': 'PG', 'French Polynesia': 'PF', 'New Caledonia': 'NC',
+  'Indonesia': 'ID', 'Philippines': 'PH', 'Japan': 'JP', 'South Korea': 'KR', 'Taiwan': 'TW', 'China': 'CN', 'India': 'IN', 'Sri Lanka': 'LK', 'Maldives': 'MV', 'Thailand': 'TH', 'Vietnam': 'VN', 'Malaysia': 'MY'};
+const countryCode = (name: string) => { const c = COUNTRY[name]; if (!c && !/^[A-Z]{2}$/.test(name)) throw new Error(`no ISO code for country "${name}": add it to COUNTRY in add-spots.ts`); return c ?? name; };
 let list: any[] = Array.isArray(raw) ? raw : raw.rows ?? raw.spots ?? [];
+if (idFilter) { list = list.filter((r) => idFilter.has(r.id)); const miss = [...idFilter].filter((id) => !list.some((r) => r.id === id)); if (miss.length) throw new Error(`--ids not in the file: ${miss.slice(0, 5).join(', ')}`); }
 const worldFacts: any[] = world ? list.filter((r) => !regionFilter || regionFilter.some((n) => String(r.region).endsWith(n))).map((r) => r.facts) : [];
 if (world && regionFilter) list = list.filter((r) => regionFilter.some((n) => String(r.region).endsWith(n)));
+/** A world row without a break type: derived from the guide's own wave-type words (never guessed beyond them): a point or a reef only when the guide says so and does not also call it a beach, a beach when it says beach, pier or jetty, and NULL (shown nowhere) when the guide states no wave type. */
+const worldType = (r: any): 'Beach' | 'Point' | 'Reef' | null => { const w = String(r.facts?.waveType ?? '').toLowerCase(); if (!w || /not stated/.test(w)) return null; return /point/.test(w) ? 'Point' : /reef/.test(w) && !/beach/.test(w) ? 'Reef' : 'Beach'; };
+/** US East: the file's region is the state; the long coasts are split into the areas a surfer names, by latitude (navigation groups only; the spot facts are unchanged). */
+const eastRegion = (r: any, region: string): string => {
+  if (r.country !== 'United States' || r.timeZone !== 'America/New_York') return region;
+  if (region === 'Florida') return r.lat >= 29.4 ? 'Northeast Florida' : r.lat >= 27.45 ? 'Space Coast' : r.lat >= 26.9 ? 'Treasure Coast' : 'Southeast Florida';
+  if (region === 'North Carolina') return r.lat >= 35.0 ? 'Outer Banks' : 'Southern North Carolina';
+  if (region === 'New Jersey') return r.lat >= 39.6 ? 'Northern New Jersey' : 'Southern New Jersey';
+  return region;
+};
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
 const {pointInUs} = await import('../../../src/ocean/coverage.ts');
-const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, world ? String(r.region).replace(/^[^,]+,\s*/, '') : r.region, r.type, r.lat ?? r.latitude, r.lon ?? r.longitude, r.seaward ?? r.facing, r.timeZone, r.country ? (COUNTRY[r.country] ?? r.country) : undefined]).map((r: any[], i: number) => {
+const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, world ? eastRegion(r, String(r.region).replace(/^[^,]+,\s*/, '')) : r.region, r.type ?? worldType(r), r.lat ?? r.latitude, r.lon ?? r.longitude, r.seaward ?? r.facing, r.timeZone, r.country ? countryCode(r.country) : undefined]).map((r: any[], i: number) => {
   const [id, name, region, type, lat, lon, seaward, timeZone, country] = r;
   if (!/^[a-z0-9-]+$/.test(String(id))) throw new Error(`row ${i}: bad id ${id}`);
   if (!name || !region) throw new Error(`${id}: name and region are required`);
-  if (!['Beach', 'Point', 'Reef'].includes(type)) throw new Error(`${id}: type must be Beach, Point or Reef (got ${type})`);
+  if (type !== null && !['Beach', 'Point', 'Reef'].includes(type)) throw new Error(`${id}: type must be Beach, Point, Reef or null (got ${type})`);
   if (country !== undefined && country !== 'US') { if (!(Math.abs(lat) <= 90 && Math.abs(lon) <= 180)) throw new Error(`${id}: bad coordinates`); }
   else if (!pointInUs(lat, lon)) throw new Error(`${id}: ${lat}, ${lon} is outside the US boxes (West Coast to 49.1 N, Hawaii, Alaska)`);
   if (!(seaward >= 0 && seaward <= 360)) throw new Error(`${id}: seaward ${seaward} is not a direction in degrees`);
@@ -63,7 +81,7 @@ const arrayOf = (text: string, name: string): {start: number; end: number; rows:
   const a = text.indexOf(name); if (a < 0) throw new Error('not found: ' + name); const start = text.indexOf('[', text.indexOf('=', a)), end = text.indexOf('\n];', start);
   return {start, end, rows: new Function('return ' + text.slice(start, end + 2))()};
 };
-const tupleText = (r: Row) => `  [${JSON.stringify(r[0]).replace(/"/g, "'")}, ${quote(r[1])}, ${quote(r[2])}, '${r[3]}', ${r[4]}, ${r[5]}, ${r[6]}${r[7] ? `, ${quote(r[7])}` : ''}${r[8] ? `, ${quote(r[8])}` : ''}],`;
+const tupleText = (r: Row) => `  [${JSON.stringify(r[0]).replace(/"/g, "'")}, ${quote(r[1])}, ${quote(r[2])}, ${r[3] === null ? 'null' : `'${r[3]}'`}, ${r[4]}, ${r[5]}, ${r[6]}${r[7] ? `, ${quote(r[7])}` : ''}${r[8] ? `, ${quote(r[8])}` : ''}],`;
 const quote = (s: string) => `'${s.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 let added: Row[] = [], changed = false;
 if (want('rows')) {

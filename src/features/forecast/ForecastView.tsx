@@ -1,6 +1,6 @@
 import {nearSfBuoy} from '../../ocean/buoys';
-import {dateIn} from '../../ocean/time';
-import {timeZoneOf} from '../../ocean/spotZone';
+import {dateIn, fmtIn} from '../../ocean/time';
+import {timeZoneOf, MAP_TIME_ZONE} from '../../ocean/spotZone';
 import {Fragment, useEffect, useMemo, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
@@ -76,6 +76,8 @@ export function ForecastView({go}: ViewProps) {
     const best = bestDaylight(series, spot, Date.parse(series[d.start].timestamp), Date.parse(series[d.end].timestamp) + 1);
     view.selectTime((best ?? series[d.start]).timestamp);
   };
+  // a spot outside the Pacific zone says which clock its times are on ("4:00 AM EST"); Pacific spots stay as they were
+  const spotZoneTag = (ts: string) => { const z = timeZoneOf(spot); return z === MAP_TIME_ZONE ? '' : ` ${fmtIn(z, {timeZoneName: 'short'}).formatToParts(new Date(ts)).find((x) => x.type === 'timeZoneName')?.value ?? ''}`; };
   const nowIdx = series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
   const toNow = () => { if (nowIdx >= 0) view.selectTime(series[nowIdx].timestamp); };
 
@@ -103,7 +105,7 @@ export function ForecastView({go}: ViewProps) {
   const env = {records: view.mapRecords, bundle, profile: p, nowMs: now};
   // T-108: the subtitle follows what the spot actually has: surf estimates, or only offshore heights.
   const hasEstimates = band.some((b) => b.kind === 'estimate');
-  const meta = [spot.region, `${spot.type.toLowerCase()} break`, !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
+  const meta = [spot.region, ...(spot.type ? [`${spot.type.toLowerCase()} break`] : []), !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
       <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit}>
@@ -114,7 +116,7 @@ export function ForecastView({go}: ViewProps) {
             <p>{meta.join(' · ')}</p>
           </div>
           <div className="sp-when">
-            <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{isNow ? ' · now' : ''}</span>
+            <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{spotZoneTag(selected.timestamp)}{isNow ? ' · now' : ''}</span>
             {!isNow && <button className="btn" onClick={toNow}>Now</button>}
             <button className="btn sp-map" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
           </div>
