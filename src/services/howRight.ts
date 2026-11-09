@@ -10,6 +10,7 @@
  *    CDIP's nowcast instead would only restate CDIP's own error at a buoy picked because CDIP matched it);
  *  - only hours AFTER the buoy check's cut are scored, so the hours that picked the buoy never score it.
  *  Pure apart from `runHowRight`, which only calls the `get` it is handed. The Worker runs it once a day (services/forecast-service.mjs `howRightDaily`). */
+// ZONE: "how right we've been" is the California buoy/MOP scoring, scored in Pacific days by definition (the Worker's daily capture is on the Pacific evening); it deliberately stays America/Los_Angeles and does not follow a spot's time zone (spec 2026-11-09 C1; lead review).
 import {OBSERVING_BUOYS, distanceKm, relationOf, parseCdipSeries, parseNdbcSeries, pairSeries, score, splitByTime, type BuoyRelation, type HourSeries, type ObservingBuoy, type Pair} from './accuracy.ts';
 import {pacificDateMs} from '../ocean/time.ts';
 

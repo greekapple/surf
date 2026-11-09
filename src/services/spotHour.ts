@@ -80,7 +80,7 @@ const hourShort = (tz: string, iso: string) => hrFmt(tz).format(new Date(iso)).r
 /** The day card's size: the envelope of the hourly headline over that Pacific date's DAYLIGHT hours (civil twilight), from the same engine as every other surface.
  *  Estimates win; otherwise labelled offshore heights; otherwise none. The label names the basis so nobody reads it as a single-hour value. */
 export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, nowMs: number, p: UserProfile, ctx: HourContext = {}): DayRange {
-  const tz = timeZoneOf(spot), ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(dateKey, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96);
+  const tz = timeZoneOf(spot), ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(dateKey, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96, tz);
   const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && dateIn(tz, f.timestamp) === dateKey && t >= civil.rise && t <= civil.set; });
   const heads = hours.map((f) => headlineSurf(spot.id, f, {bundle: ctx.bundle, nowMs}));
   const pickTypical = (kind: 'estimate' | 'offshore'): DayTypical | null => {

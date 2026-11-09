@@ -1,3 +1,4 @@
+import {MAP_TIME_ZONE} from '../../ocean/spotZone';
 import {conditionWord} from '../../ui/Condition';
 import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {isDark} from '../forecast/trustApi';
@@ -56,7 +57,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
         <div><h1>Compare spots</h1><p>{sorted.length} spots · provisional ratings · surf estimate where one exists, otherwise labelled offshore height (not surf size)</p></div>
         <div className="cmpx-time" role="group" aria-label="Shared hour">
           <button className="iconbtn" aria-label="3 hours earlier" onClick={() => step(-3)}><Icon name="chevron" size={18} style={{transform: 'rotate(90deg)'}} /></button>
-          <b>{t ? `${weekdayPT(t)} ${dayNumPT(t)} · ${hourLabel(t)}` : '—'}</b>
+          <b>{t ? `${weekdayPT(t, MAP_TIME_ZONE)} ${dayNumPT(t, MAP_TIME_ZONE)} · ${hourLabel(t, MAP_TIME_ZONE)}` : '—'}</b>
           <button className="iconbtn" aria-label="3 hours later" onClick={() => step(3)}><Icon name="chevron" size={18} style={{transform: 'rotate(-90deg)'}} /></button>
         </div>
       </header>

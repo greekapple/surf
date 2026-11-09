@@ -97,7 +97,7 @@ export function spotReport(spot: SurfSpot, records: Forecast[], now: number, pro
       primarySwell: near && ps ? {...ps, at: near.timestamp} : null});
   }
 
-  const sun = solarTimes(todayKey, lat, lon, 90.833), civil = solarTimes(todayKey, lat, lon, 96);
+  const sun = solarTimes(todayKey, lat, lon, 90.833, tz), civil = solarTimes(todayKey, lat, lon, 96, tz);
   const water = cur && finite(cur.waterTempF) ? `${(cur.waterTempF as number).toFixed(0)}°F sea surface (model)` : null;
   return {
     spotId: spot.id, name: spot.name,

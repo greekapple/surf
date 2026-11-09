@@ -2,7 +2,7 @@ import type {Forecast, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle, TidePrediction} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {distanceKm} from '../ocean/mop.ts';
-import {dateIn, hourIn, fmtIn, DEFAULT_TIME_ZONE} from '../ocean/time.ts';
+import {dateIn, hourIn, fmtIn, addDaysKey, DEFAULT_TIME_ZONE} from '../ocean/time.ts';
 import {timeZoneOf} from '../ocean/spotZone.ts';
 import {solarTimes} from '../ocean/sun.ts';
 import {clampToLight, isDark} from './daylight.ts';
@@ -36,7 +36,7 @@ export const ratingBars = (score: number | null | undefined) => (finite(score) &
 export function bestWindowToday(spot: SurfSpot, records: Forecast[], now: number): DashCard['window'] {
   const tz = timeZoneOf(spot), today = dateIn(tz, new Date(now).toISOString());
   // Daylight only (civil twilight, approximate): a window in the dark is not a surf window.
-  const ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(today, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96);
+  const ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(today, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96, tz);
   const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && dateIn(tz, f.timestamp) === today && t + 3600000 > now && t >= civil.rise && !isDark(spot.id, f.timestamp); }); // the same daylight rule as the Call (an hour is light when its midpoint is)
   const ranges = windowRanges(hours, (f) => ({timestamp: f.timestamp, score: rateForecast(spot, f, now).score}), WINDOW_MIN_SCORE, 10);
   const best = ranges.sort((a, b) => b.peakScore - a.peakScore || Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp))[0];
@@ -98,7 +98,7 @@ export const RANK_LABEL: Record<RankWhen, {tab: string; title: string}> = {now: 
 /** T-099: the Pacific date of the next morning: today before 6 AM (after midnight the next daylight is this morning, not tomorrow's), else tomorrow.
  *  Home's "morning" ranking and Compare spots' night-time opening hour both use it. */
 export function nextMorningKey(now: number, tz: string = DEFAULT_TIME_ZONE): string {
-  return hourIn(tz, new Date(now).toISOString()) < 6 ? dateIn(tz, new Date(now).toISOString()) : dateIn(tz, new Date(now + 86400000).toISOString());
+  return hourIn(tz, new Date(now).toISOString()) < 6 ? dateIn(tz, new Date(now).toISOString()) : addDaysKey(dateIn(tz, new Date(now).toISOString()), 1);   // calendar arithmetic: now + 24 h skips the 23-hour spring-forward day
 }
 /** The morning tab's words: "This morning" before 6 AM (the morning meant is today's), otherwise "Tomorrow AM". */
 export const rankLabel = (w: RankWhen, now: number, tz: string = DEFAULT_TIME_ZONE): {tab: string; title: string} =>

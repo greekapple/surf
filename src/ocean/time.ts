@@ -17,6 +17,10 @@ export const localTimeIn=(tz:string,iso:string)=>fmts(tz).local.format(new Date(
 export const validZone=(tz:string|null|undefined):string=>{if(!tz)return DEFAULT_TIME_ZONE;try{new Intl.DateTimeFormat('en-US',{timeZone:tz});return tz}catch{return DEFAULT_TIME_ZONE}};
 /** A date key (YYYY-MM-DD) n calendar days on: pure date arithmetic, so it holds in every zone (the old noon-UTC trick lands on the wrong date east of UTC+11). */
 export const addDaysKey=(key:string,n:number)=>new Date(Date.parse(key+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
+/** UTC offset (ms, local minus UTC) of a zone at an instant. */
+export const tzOffsetMs=(tz:string,ms:number):number=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'}).formatToParts(new Date(ms)).map(x=>[x.type,x.value]));return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second)-Math.floor(ms/1000)*1000};
+/** The instant of 12:00 local time on a local date key in `tz` (a DST day's noon is still noon). */
+export const localMiddayMs=(tz:string,key:string):number=>{const guess=Date.parse(key+'T12:00:00Z');if(!Number.isFinite(guess))return NaN;let t=guess-tzOffsetMs(tz,guess);t=guess-tzOffsetMs(tz,t);return t};
 const intlCache=new Map<string,Intl.DateTimeFormat>();
 /** A cached Intl.DateTimeFormat for (zone, options): constructing one is slow (T-091), the clock labels of every screen go through here. */
 export const fmtIn=(tz:string,opts:Intl.DateTimeFormatOptions,locale='en-US'):Intl.DateTimeFormat=>{const k=locale+'|'+tz+'|'+JSON.stringify(opts);let f=intlCache.get(k);if(!f){f=new Intl.DateTimeFormat(locale,{...opts,timeZone:tz});intlCache.set(k,f)}return f};

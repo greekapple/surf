@@ -1,3 +1,4 @@
+// ZONE: the scorecard's dates are Pacific days (services/howRight.ts); they stay America/Los_Angeles for every spot.
 import {useEffect, useId, useState} from 'react';
 import type {UserProfile} from '../../models/index';
 import {diffText, howRightLine, leanText, type HowRightCard, type HowRightSpot, type HowRightWindow} from '../../services/howRight';

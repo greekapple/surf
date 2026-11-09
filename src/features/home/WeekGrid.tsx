@@ -19,18 +19,20 @@ import {dayCertainty, certainLabel, type CertaintyView} from '../../services/cer
 
 const DAYS = 8, BLOCKS = [7, 12, 17] as const, BLOCK_WORD = ['AM', 'midday', 'PM'];
 const dayHead = (key: string, k: number) => { if (k === 0) return 'Today'; const d = new Date(`${key}T12:00:00Z`); return `${fmtIn('UTC', {weekday: 'short'}).format(d)} ${fmtIn('UTC', {day: 'numeric'}).format(d)}`; }; // a date KEY's weekday and day number: zone-free (noon UTC of that date)
+const zoneAbbr = (tz: string, ms: number) => fmtIn(tz, {timeZoneName: 'short'}).formatToParts(new Date(ms)).find((p) => p.type === 'timeZoneName')?.value ?? tz;
 const hourOf = (tz: string, iso: string) => hourIn(tz, iso) % 24;
 
 type Seg = {state: 'dark' | 'none' | 'rated'; color: string; word: string};
 interface Cell {key: string; dr: DayRange; wc: WeekCell; segs: Seg[]; /** certainty (2026-11-06): the midday hour's level, null when none is honest to show */ cv: CertaintyView | null}
-interface Row {spot: SurfSpot; cells: Cell[]}
+interface Row {spot: SurfSpot; tz: string; cells: Cell[]}
 
 export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}: {spots: SurfSpot[]; records: Forecast[]; nowMs: number; profile: UserProfile; bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined; unit: string; onOpen: (spotId: string, iso: string | null) => void}) {
   // T-088b: no column for a trailing day beyond the forecast horizon (after midnight the 8th day has no records at all).
-  const keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS, timeZoneOf(spots[0])), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
+  const colTz = timeZoneOf(spots[0]), keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS, colTz), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
   const rows: Row[] = useMemo(() => spots.map((spot) => {
-    const mine = records.filter((f) => f.spotId === spot.id), tz = timeZoneOf(spot);
-    return {spot, cells: keys.map((key) => {
+    const mine = records.filter((f) => f.spotId === spot.id), tz = timeZoneOf(spot), rowKeys = tz === colTz ? keys : weekDays(nowMs, records, [spot.id], keys.length, tz);   // the column heads are in colTz; a row in another zone is bucketed in ITS zone, column by column (k-th local day), and its name says which zone
+    return {spot, tz, cells: keys.map((_, ki) => {
+      const key = rowKeys[ki] ?? keys[ki];
       const dr = dayRange(spot, mine, key, nowMs, profile, {bundle});
       const segs = BLOCKS.map((h, i): Seg => {
         const f = mine.find((r) => dateInMs(tz, Date.parse(r.timestamp)) === key && hourOf(tz, r.timestamp) === h);
@@ -47,7 +49,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
     <div className="wk" role="region" aria-label="Your spots this week" tabIndex={0}>
       <table className="wk-t">
         <thead><tr><th scope="col" className="wk-spot">Spot</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
-        <tbody>{rows.map(({spot, cells}) => {
+        <tbody>{rows.map(({spot, cells, tz}) => {
           // T-119 (Surfline-style, the user's "lines that undulate"): a smooth monotone curve through the days' midday sizes (wc.centralFt, the cell's own
           // number) on the row's own scale (its lowest to highest day, padded), so the week's shape reads; the numbers above carry the values.
           // Estimate days only: a day without an estimate breaks the line.
@@ -59,7 +61,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
           cells.forEach((c, i) => { if (sized(c) && c.wc.centralFt !== null) cur.push([(i + 0.5) * 100, 36 - ((c.wc.centralFt - base) / span) * 32]); else if (cur.length) { runs.push(cur); cur = []; } }); if (cur.length) runs.push(cur);
           return (
             <tr key={spot.id}>
-              <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}{(() => { const off = cells.filter((c) => c.dr.kind === 'offshore').length, est = cells.filter((c) => c.dr.kind === 'estimate').length;
+              <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}{tz !== colTz ? ` · ${zoneAbbr(tz, nowMs)} time` : ''}{(() => { const off = cells.filter((c) => c.dr.kind === 'offshore').length, est = cells.filter((c) => c.dr.kind === 'estimate').length;
                 return off ? <span className="wk-kind"> · {est ? 'offshore where grey' : 'offshore only'}</span> : null; })()}</small></th>
               {cells.map((c, i) => {
                 const line = i === 0 && runs.length ? <svg className="wk-line" style={{width: `${keys.length * 100}%`}} viewBox={`0 0 ${keys.length * 100} 40`} preserveAspectRatio="none" aria-hidden="true">{runs.map((r) => r.length > 1 ? <path key={r[0][0]} d={monotonePath(r)} /> : <circle key={r[0][0]} cx={r[0][0]} cy={r[0][1]} r={2.5} />)}</svg> : null;
@@ -68,7 +70,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
                 const st = wc.stale ? `, ${wc.stale === 'saved' ? 'saved' : 'stale'} source` : '';
                 const fullText = dayText(c.dr.typical)?.full ?? `${label} ${unit}`; // T-112: unit and Hawaiian qualifier, as the spot page says it
                 const word = cv && !far ? `, ${cv.word}` : wc.confidence ? `, ${wc.confidence} confidence` : '', differ = shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''; // the confidence word once (data-honesty cycle 1)
-                const aria = `${spot.name}, ${dayHead(c.key, i)}: ${far ? `too far out to call (${cv!.why}); ${shown.detail} at ${wc.midday}${st}` : est ? `surf estimate ${fullText}${word}${differ} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
+                const aria = `${spot.name}, ${dayHead(keys[i], i)}: ${far ? `too far out to call (${cv!.why}); ${shown.detail} at ${wc.midday}${st}` : est ? `surf estimate ${fullText}${word}${differ} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
                 const tip = [cv ? `${cv.word}: ${cv.why}` : null, shown.detail, wc.spread ? `${wc.midday}${st}; ${wc.spread}` : null].filter(Boolean).join('. ') || undefined;
                 return (
                   <td key={c.key} className={`wk-c${i === 0 ? ' wk-first' : ''}${cv ? ` is-${cv.level}` : ''}`}>

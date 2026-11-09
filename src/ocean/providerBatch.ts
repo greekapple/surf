@@ -2,10 +2,10 @@
  *  plus a few shared ones, so 59 spots meant ~215 requests on every screen; now it is a handful. Same values, sources and freshness marks: each key's entry is exactly the body `/api/provider` returns,
  *  made into a Response so request.ts handles it unchanged. A batch that fails (an older Worker without the endpoint, a network error) falls back to the single-key request per key, as before. */
 /** BATCH_MAX = 12 (equal to the server's): a cold key costs up to 3 subrequests (R2 get + upstream fetch + R2 put), 12 x 3 = 36 < the 50 a Free-plan invocation allows. */
-export const BATCH_MAX = 12, BATCH_WINDOW_MS = 6, BATCH_PARALLEL = 2;
+export const BATCH_MAX = 12, BATCH_WINDOW_MS = 6, BATCH_PARALLEL = 2, BATCH_TIMEOUT_MS = 20000;
 const SINGLE = /^\/api\/provider\?key=([A-Za-z0-9_.-]+)$/;
 export const isBatchable = (route: string) => SINGLE.test(route);
-export function createProviderBatcher(fetcher: typeof fetch, windowMs = BATCH_WINDOW_MS) {
+export function createProviderBatcher(fetcher: typeof fetch, windowMs = BATCH_WINDOW_MS, timeoutMs = BATCH_TIMEOUT_MS) {
   type Waiter = {resolve: (r: Response) => void; reject: (e: unknown) => void; route: string};
   let queue = new Map<string, Waiter[]>(), timer: ReturnType<typeof setTimeout> | null = null;
   const single = (route: string) => fetcher(route);
@@ -17,7 +17,12 @@ export function createProviderBatcher(fetcher: typeof fetch, windowMs = BATCH_WI
     let nextChunk = 0;
     const worker = async () => { while (nextChunk < chunks.length) { const chunk = chunks[nextChunk++]; await (async () => {
         let results: Record<string, {status: number; body?: unknown; error?: string}> | null = null;
-        try { const r = await fetcher('/api/providers?keys=' + chunk.join(',')); if (r.ok) results = (await r.json())?.results ?? null; } catch { results = null; }
+        // a hung /api/providers must not stall the chunks behind it: abort after timeoutMs and fall back per key, as on any other batch failure
+        const ac = new AbortController(); let timer: ReturnType<typeof setTimeout> | undefined;
+        try {
+          const timeout = new Promise<never>((_, rej) => { timer = setTimeout(() => { ac.abort(); rej(new Error('batch timeout')); }, timeoutMs); });
+          const r = await Promise.race([fetcher('/api/providers?keys=' + chunk.join(','), {signal: ac.signal}), timeout]); if (r.ok) results = (await Promise.race([r.json(), timeout]))?.results ?? null;
+        } catch { results = null; } finally { if (timer) clearTimeout(timer); }
         for (const key of chunk) {
           const waiters = batch.get(key)!, entry = results?.[key];
           if (entry && entry.status === 200 && entry.body !== undefined) for (const w of waiters) w.resolve(new Response(JSON.stringify(entry.body), {status: 200}));

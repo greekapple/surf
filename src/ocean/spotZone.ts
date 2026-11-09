@@ -15,3 +15,7 @@ export function timeZoneOf(spot: string | {id: string; timeZone?: string} | null
 let active = DEFAULT_TIME_ZONE;
 export const activeZone = (): string => active;
 export const setActiveZone = (tz: string | null | undefined): string => (active = validZone(tz));
+
+/** The ONE zone of the global surfaces: the map's time strip and stamps, the "model data" badge, the point panel and the cross-spot lists (Find spots, Compare headers). They show a single instant for many places, so they use one explicit zone,
+ *  never the zone of whichever spot was opened last. America/Los_Angeles today (the map covers the US West Coast); flip this one constant (or read the viewer's zone) when the map goes global. A spot's OWN row or card labels its own zone (timeZoneOf). */
+export const MAP_TIME_ZONE = DEFAULT_TIME_ZONE;

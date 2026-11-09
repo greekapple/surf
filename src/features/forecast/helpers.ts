@@ -17,7 +17,7 @@ export function spotLatLon(spot: SurfSpot): [number, number] {
 /** Approximate sunrise/sunset (NOAA simplified solar position) for the local date of `iso` (the spot's zone). */
 export function sunTimes(iso: string, lat: number, lon: number, tz: string = activeZone()) {
   const key = dateIn(tz, iso);
-  return solarTimes(key, lat, lon);
+  return solarTimes(key, lat, lon, undefined, tz);
 }
 export const isDaylight = (iso: string, lat: number, lon: number, tz: string = activeZone()) => {
   const {rise, set} = sunTimes(iso, lat, lon, tz), t = Date.parse(iso);

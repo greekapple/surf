@@ -1,3 +1,4 @@
+import {stampLabel, mapDayKey, mapClock, mapWeekLong, mapWeekShort, mapWeekdayShort} from './mapTime';
 import {useEffect, useRef, useState, type CSSProperties, type ReactNode} from 'react';
 import {Icon, type IconName} from '../../ui/Icon';
 import {Condition} from '../../ui/Condition';
@@ -98,27 +99,21 @@ export function ModelChip({name, sub, note}: {name: string; sub?: string; note: 
   );
 }
 
-const fmtDay = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: 'short', month: 'short', day: 'numeric'});
-export const stampLabel = (iso: string) => `${fmtDay.format(new Date(iso))} · ${timeLabelPT(iso).replace(':00', '')}`;
-
-const fmtWd = (style: 'long' | 'short') => new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', weekday: style}), fmtDn = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', day: 'numeric'});
-const wdLong = fmtWd('long'), wdShort = fmtWd('short');
-const fmtWeekLong = {format: (d: Date) => `${wdLong.format(d)} ${fmtDn.format(d)}`}, fmtWeekShort = {format: (d: Date) => `${wdShort.format(d)} ${fmtDn.format(d)}`}; // "Tuesday 3" (Windy), not Intl's "3 Tuesday"
-const dayKey = (iso: string) => new Date(iso).toLocaleDateString('en-CA', {timeZone: 'America/Los_Angeles'});
+export {stampLabel};   // the global map's labels: mapTime.ts, one explicit zone
 /** T-117 (Windy): the bottom timeline is one full-width day strip: play on the left, each day a segment, the hour in a bubble over the playhead.
  *  Drag or click anywhere on the strip, or use the arrow keys (a native range input underneath carries the value for screen readers). */
 export function DayStrip({times, index, playing, onPlay, onScrub, valueText}: {times: string[]; index: number; playing: boolean; onPlay: () => void; onScrub: (i: number) => void; valueText: string}) {
   const n = times.length, pct = n > 1 ? (index / (n - 1)) * 100 : 0;
   const days: {k: string; t: string; from: number; to: number}[] = [];
-  times.forEach((t, i) => { const k = dayKey(t), d = days[days.length - 1]; if (d && d.k === k) d.to = i; else days.push({k, t, from: i, to: i}); });
-  const hour = times[index] ? timeLabelPT(times[index]).replace(':00', '') : '—';
+  times.forEach((t, i) => { const k = mapDayKey(t), d = days[days.length - 1]; if (d && d.k === k) d.to = i; else days.push({k, t, from: i, to: i}); });
+  const hour = times[index] ? mapClock(times[index]).replace(':00', '') : '—';
   return (
     <div className="xstrip" data-valuetext={valueText}>
       <button className="xplay xround" aria-label={playing ? 'Pause' : 'Play forecast'} aria-pressed={playing} onClick={onPlay}><Icon name={playing ? 'pause' : 'play'} size={16} /></button>
       <div className="xs-track">
         <div className="xs-days" aria-hidden="true">
           {days.map((d) => <span key={d.k} style={{width: `${((d.to - d.from + 1) / Math.max(1, n)) * 100}%`}} data-on={index >= d.from && index <= d.to || undefined}>
-            <b className="xs-long">{fmtWeekLong.format(new Date(d.t))}</b><b className="xs-short">{fmtWeekShort.format(new Date(d.t))}</b><b className="xs-tiny">{wdShort.format(new Date(d.t))}</b></span>)}
+            <b className="xs-long">{mapWeekLong(d.t)}</b><b className="xs-short">{mapWeekShort(d.t)}</b><b className="xs-tiny">{mapWeekdayShort(d.t)}</b></span>)}
         </div>
         <i className="xs-fill" style={{width: `${pct}%`}} aria-hidden="true" />
         <span className="xs-bubble" style={{left: `${pct}%`}} aria-hidden="true">{hour}</span>

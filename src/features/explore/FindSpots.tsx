@@ -1,3 +1,4 @@
+import {MAP_TIME_ZONE} from '../../ocean/spotZone';
 import {conditionWord} from '../../ui/Condition';
 import {useMemo, useState, type CSSProperties} from 'react';
 import {hourFreshness} from '../../services/freshness';
@@ -80,7 +81,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       <header className="fs-h">
         <div>
           <h1>Find spots</h1>
-          <p>{anchor ? <>Around <b>{anchor.label}</b>, sorted by how far and how good it is at {view.selectedTime ? `${weekdayPT(view.selectedTime)} ${hourLabel(view.selectedTime)}` : 'the selected hour'}.</> : 'Choose where you are to see spots by distance.'}</p>
+          <p>{anchor ? <>Around <b>{anchor.label}</b>, sorted by how far and how good it is at {view.selectedTime ? `${weekdayPT(view.selectedTime, MAP_TIME_ZONE)} ${hourLabel(view.selectedTime, MAP_TIME_ZONE)}` : 'the selected hour'}.</> : 'Choose where you are to see spots by distance.'}</p>
         </div>
         <div className="fs-loc">
           <button className="btn" onClick={locate} disabled={geoState === 'asking'}><Icon name="locate" size={16} />{geoState === 'asking' ? 'Locating…' : geo ? 'Update my location' : 'Use my location'}</button>
