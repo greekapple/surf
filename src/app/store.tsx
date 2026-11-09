@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useMemo, useState, type ReactNode} from 'react';
+import {createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode} from 'react';
 import {useAppData, type DataStore} from '../hooks/useAppData';
 import {useForecast, type ForecastState} from '../hooks/useForecast';
 import {useNow} from '../hooks/useNow';
@@ -37,6 +37,10 @@ export interface Swello {
   setSpot: (id: string) => void;
   prefs: LocalPrefs;
   setPrefs: (patch: Partial<LocalPrefs>) => void;
+  /** The Explore map reports the spots whose pins are on screen (debounced there); they load with the next scope. */
+  reportVisible: (ids: string[]) => void;
+  /** A screen that lists spots (Compare, Find spots, the spot picker) asks for the ones it shows: they load on demand. */
+  requestSpots: (ids: string[]) => void;
 }
 const Ctx = createContext<Swello | null>(null);
 export const useSwello = () => {
@@ -47,7 +51,11 @@ export const useSwello = () => {
 
 export function SwelloProvider({children}: {children: ReactNode}) {
   const data = useAppData();
-  const view = useForecast();
+  // subset loading (ocean/spotScope.ts): the selected spot, favourites, the spots near them, the pins on the map and whatever a screen asks for load; the rest on demand
+  const [visibleSpots, setVisibleSpots] = useState<string[]>([]), [requestedSpots, setRequestedSpots] = useState<string[]>([]);
+  const view = useForecast({favorites: data.state.favorites, visible: visibleSpots, requested: requestedSpots});
+  const reportVisible = useCallback((ids: string[]) => setVisibleSpots((old) => (old.length === ids.length && old.every((x, i) => x === ids[i]) ? old : ids.slice(0, 60))), []);
+  const requestSpots = useCallback((ids: string[]) => setRequestedSpots((old) => { const add = ids.filter((id) => !old.includes(id)); return add.length ? [...old, ...add].slice(-250) : old; }), []);
   const now = useNow();
   const [prefs, setPrefsState] = useState(loadPrefs);
   const setPrefs = (patch: Partial<LocalPrefs>) => setPrefsState((p) => ({...p, ...patch}));
@@ -77,6 +85,6 @@ export function SwelloProvider({children}: {children: ReactNode}) {
   const series = useMemo(() => hourlySeries(view.spot, view.mapRecords, now), [view.spot, view.mapRecords, now]);
   const selected = series.find((h) => h.timestamp === view.selectedTime) ?? null;
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, requestSpots};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

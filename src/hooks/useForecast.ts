@@ -1,3 +1,4 @@
+import {computeScope} from '../ocean/spotScope';
 import {useEffect,useMemo,useRef,useState,type SetStateAction} from 'react';
 import type {MapCamera,MapLayer,MapVariable} from '../map/types';
 import {mapVariables} from '../map/model';
@@ -13,7 +14,9 @@ import {dateIn,hourIn} from '../ocean/time';
 import {timeZoneOf,setActiveZone} from '../ocean/spotZone';
 import {toLegacy} from '../ocean/bridge';
 import {experimentRecord} from '../ocean/experiment';
-export function useForecast(){
+export interface ScopeInput{favorites:string[];visible:string[];requested:string[]}
+const NO_SCOPE:ScopeInput={favorites:[],visible:[],requested:[]};
+export function useForecast(scopeInput:ScopeInput=NO_SCOPE){
  const [dataMode,setMode]=useState<'Retrieved'|'Demonstration'>('Retrieved');
  const [selected,setSelected]=useState('spot-2'),[day,setDay]=useState(0),[hour,setHour]=useState(9),[simulation,setSimulation]=useState(false),[patch,setPatch]=useState<SimulationPatch>({}),[instant,setInstant]=useState<string|null>(null);
  const [comparisonSets,setComparisonSets]=useState<Record<string,string[]>>({Retrieved:[],Demonstration:[]});
@@ -23,7 +26,8 @@ export function useForecast(){
  const mapLayer=mapPreferences.layer,mapVariable=mapPreferences.variable,mapComponent=mapPreferences.component;
  const setMapDisplay=(patch:Partial<MapPreferences>)=>setMapPreferences(old=>({...old,...patch}));
  const mapCamera=useRef<MapCamera>({lat:37.7,lng:-124,zoom:7});
- const ocean=useOceanData(dataMode==='Retrieved');
+ const scope=useMemo(()=>computeScope(selected,scopeInput.favorites,scopeInput.visible,scopeInput.requested),[selected,scopeInput.favorites.join(','),scopeInput.visible.join(','),scopeInput.requested.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
+ const ocean=useOceanData(dataMode==='Retrieved',scope);
  const records=ocean.bundle?.records??[];const spotRecords=records.filter(r=>r.spotId===selected);
  const realOriginal=selectedRecord(records,selected,instant);
  const realRecord=realOriginal&&simulation?experimentRecord(realOriginal,patch):realOriginal;

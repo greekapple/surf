@@ -79,7 +79,7 @@ export function ForecastView({go}: ViewProps) {
   const nowIdx = series.findIndex((h) => Date.parse(h.timestamp) >= Math.floor(now / 3600000) * 3600000);
   const toNow = () => { if (nowIdx >= 0) view.selectTime(series[nowIdx].timestamp); };
 
-  if (live && view.ocean.loading && !view.ocean.bundle) return <Skeleton label="Loading forecast…" />;
+  if (live && !view.ocean.error && (view.ocean.loading && !view.ocean.bundle || !view.ocean.isSpotLoaded(view.selected))) return <Skeleton label="Loading forecast…" />;   // subset loading: a spot not asked for yet shows a loading state, never a number
   if (live && !view.ocean.bundle) return <StateMessage title="Forecast data unavailable" action={<button className="btn" onClick={view.ocean.reload}>Try again</button>}>{view.ocean.error ?? 'The providers could not be reached.'} Nothing is filled in from other spots or older data.</StateMessage>;
   if (!selected) return <StateMessage title={`No record for ${spot.name} at this hour`} action={<button className="btn" onClick={toNow}>Go to now</button>}>Values are never borrowed from other hours or spots.</StateMessage>;
 

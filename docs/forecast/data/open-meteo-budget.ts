@@ -28,11 +28,14 @@ export function budget(n: number, now = Date.UTC(2026, 10, 9, 12)): Budget {
   }
   return {spots: n, targets: ts.length, perKind, cronPerDay: cron, visitorPerDay: visitor, perSpotCron: cron / n};
 }
+/** Hot/cold (subset loading, implemented): the cron refreshes only the `hot` spots (requested in the last 24 h); a cold spot is fetched when someone opens it, at most once per TTL. `cron` = hot x per-spot cron calls (steady state, every hot spot at its cron cadence); `worstOnDemand` = every cold spot ALSO opened every TTL (the visitor ceiling, i.e. when all N are requested the cron has nothing left to save: that spot is then hot). */
+export function hotBudget(n: number, hot: number) { const b = budget(n), perSpotVisitor = b.visitorPerDay / n; return {spots: n, hot, cron: Math.round(hot * b.perSpotCron), worstOnDemand: Math.round((n - hot) * perSpotVisitor), flat: Math.round(b.cronPerDay)}; }
 if (process.argv[1]?.endsWith('open-meteo-budget.ts')) {
   const ns = process.argv.slice(2).map(Number).filter(Boolean); if (!ns.length) ns.push(45, 64, 95);
   console.log('WEIGHTED Open-Meteo calls per day (10,000 free)\nspots  targets  calls/day (cron)  calls/day (TTL only)  per spot (cron)   marine + weather + spread (cron)');
   for (const n of ns) { const b = budget(n); console.log(`${String(n).padEnd(6)} ${String(b.targets).padEnd(8)} ${String(Math.round(b.cronPerDay)).padEnd(16)} ${String(Math.round(b.visitorPerDay)).padEnd(21)} ${b.perSpotCron.toFixed(1).padEnd(17)} ${['marine', 'weather', 'spread'].map((k) => Math.round(b.perKind[k]?.perDay ?? 0)).join(' + ')}`); }
   // Policies beyond what one flat cadence allows (arithmetic on the per-spot costs above; not implemented): hot spots keep the flat cadence, cold spots refresh marine every 6 h and weather every 3 h with no spread (12 calls a day), unopened spots 0.
+  console.log('\nhot/cold as implemented (cron = hot spots only):'); for (const [N, H] of [[254, 100], [254, 150], [500, 100], [500, 150], [1000, 100], [1000, 150]]) { const h = hotBudget(N, H); console.log(`  N=${N} hot=${H}: cron ${h.cron}/day (flat would be ${h.flat}); cold spots add 0 unless opened (every cold spot opened every TTL: +${h.worstOnDemand})`); }
   const per = budget(45).perSpotCron, cold = (4 * 1) + (8 * 1);
   console.log(`\npolicy sketch: flat ${per.toFixed(1)} calls/spot/day; hot/cold = H x ${per.toFixed(1)} + (N - H) x ${cold}:`);
   for (const [N, H] of [[150, 150], [250, 100], [500, 100], [500, 150], [1000, 150]]) console.log(`  N=${N} H=${H}: ${Math.round(H * per + (N - H) * cold)}/day${N === H ? ' (all hot)' : ''}`);

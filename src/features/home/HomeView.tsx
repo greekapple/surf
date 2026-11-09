@@ -1,6 +1,7 @@
 import {fmtIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
-import {useMemo} from 'react';
+import {useEffect, useMemo} from 'react';
+import {nearIds, SCOPE_NEAR_KM, SCOPE_NEAR_N} from '../../ocean/spotScope';
 import {isFlat, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
@@ -48,14 +49,18 @@ function Ribbon({hours, name, tz}: {hours: RibbonHour[]; name: string; tz: strin
 
 /** Home (T-047, T-051; T-106 six items: name, rating, number, line, wind · tide, the call's window; T-119: the line is the 7-day surf estimate), a 12-hour rating ribbon on hover or tap, and a ranking you can move in time. */
 export function HomeView({go}: ViewProps) {
-  const {data, now, spotOptions, view, setSpot, spot, spreadV} = useSwello();
+  const {data, now, spotOptions, view, setSpot, spot, spreadV, requestSpots} = useSwello();
   const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
   const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema, spreadV}), [bundle, spreadV]); // spreadV: a wave-model spread arrived, so the ranges are recomputed
   const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
   const cards = useMemo(() => ids.map((id) => dashCard(spotOptions.find((s) => s.id === id)!, view.mapRecords, now, profile, ctx)), [ids.join('|'), spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   const ribbons = useMemo(() => Object.fromEntries(ids.map((id) => [id, ribbon12(spotOptions.find((s) => s.id === id)!, view.mapRecords, now)])), [ids.join('|'), spotOptions, view.mapRecords, now]); // eslint-disable-line react-hooks/exhaustive-deps
+  // subset loading: Home needs its cards (favourites, or the popular three), the reference spot and the spots near it for the "nearby" ranking, wherever the selection is
+  const refIdEarly = ids[0] ?? spot.id, nearSet = useMemo(() => nearIds(refIdEarly, undefined, SCOPE_NEAR_KM, SCOPE_NEAR_N), [refIdEarly]), nearAll = useMemo(() => nearIds(refIdEarly, undefined, SCOPE_NEAR_KM, 9999).length, [refIdEarly]);
+  useEffect(() => { requestSpots([...ids, refIdEarly, ...nearSet]); }, [ids.join('|'), refIdEarly]); // eslint-disable-line react-hooks/exhaustive-deps
+  const nearPending = nearSet.some((id) => !view.ocean.isSpotLoaded(id)) || ids.some((id) => !view.ocean.isSpotLoaded(id));
   // Skeletons while the first retrieval is in flight; "No forecast data" only after it has actually failed (T-055).
-  const phase = dataPhase(view.ocean), waiting = phase === 'loading';
+  const phase = dataPhase(view.ocean), waiting = phase === 'loading' || nearPending;
   const refId = ids[0] ?? spot.id;
   // T-082: after dark the nearby ranking opens on tomorrow morning (the next time you could surf); "Now" still rates the dark hour.
   const [when, setWhen] = useState<RankWhen>(() => (isDark(refId, new Date(now).toISOString()) ? 'tomorrow-am' : 'now')), [openId, setOpenId] = useState<string | null>(null);
@@ -132,11 +137,11 @@ export function HomeView({go}: ViewProps) {
           <div className="nb-when" role="radiogroup" aria-label="Rank spots for" onKeyDown={onWhenKey}>
             {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{rankLabel(w, now).tab}</button>)}
           </div>
-          {refName && <p className="hd-note">Within 100 km of {refName}, ranked by the rating at that time</p>}
+          {refName && <p className="hd-note">{nearAll > SCOPE_NEAR_N ? `The ${SCOPE_NEAR_N} nearest spots within 100 km of ${refName}` : `Within 100 km of ${refName}`}, ranked by the rating at that time</p>}
         </header>
         {waiting ? <ul className="nb-list" aria-busy="true" aria-label="Loading nearby spots">{[0, 1, 2].map((i) => <li key={i} className="nbsk" aria-hidden="true"><i className="sk-l w70" /></li>)}</ul>
           : nearby.length === 0
-          ? <p className="hd-empty">No other rated spots within 100 km for that time.</p>
+          ? <p className="hd-empty">No other rated spots {nearAll > SCOPE_NEAR_N ? `among the ${SCOPE_NEAR_N} nearest` : 'within 100 km'} for that time.</p>
           : <ol className="nb-list">
               {nearby.map(({card: c, km, at: when_}, i) => (
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>

@@ -6,7 +6,8 @@ const handle = createForecastService({});
 // T-129b (Codex P1s): (1) refresh-ahead is RELATIVE to each target's TTL (min(40 min, 0.3 x TTL)), so a value retrieved just now is not due on the next run, and Open-Meteo and CDIP THREDDS values are not refetched more than once an hour (their quota and politeness);
 // (2) every run has a SUBREQUEST BUDGET: fetches plus R2 operations are counted and the run stops before 800 (the Paid plan allows 1,000 internal subrequests per invocation), so a cold fill of an empty bucket completes over several runs; fresh targets cost one R2 read each, so each run gets further.
 // The /api/refresh token path is unchanged (all targets, no budget).
-export const CRON = {perRun: 0, everyMs: 300000, aheadMs: 2400000, budget: 800, minAgeMs: (t) => (/open-meteo\.com|thredds\.cdip\.ucsd\.edu/.test(t.url) ? 3600000 : 0)};
+/** hotHours: the cron refreshes the per-spot Open-Meteo targets only for spots a browser requested in the last 24 h (services/forecast-service.mjs touch()); cold spots refresh on demand. */
+export const CRON = {perRun: 0, everyMs: 300000, aheadMs: 2400000, budget: 800, hotHours: 24, minAgeMs: (t) => (/open-meteo\.com|thredds\.cdip\.ucsd\.edu/.test(t.url) ? 3600000 : 0)};
 // "How right we've been" (services/how-right.mjs, docs/forecast/HOW-RIGHT.md): once a day, on the 5-minute tick at 00:30 UTC (the evening before, Pacific), this run captures
 // what we are showing and scores the last 30 days against the buoys INSTEAD of refreshing (about 140 subrequests of its own budget, no Open-Meteo call); the refresh resumes 5 minutes later.
 export const HOW_RIGHT_TICK = 6; // tick of the UTC day (288 five-minute ticks a day): 6 = 00:30 UTC
@@ -15,6 +16,6 @@ export default {
   fetch: (request, env, ctx) => handle(request, env, ctx),
   scheduled: (event, env, ctx) => {
     if (isHowRightTick(event.scheduledTime)) { ctx.waitUntil(handle.howRight(env)); return; }
-    ctx.waitUntil(handle.refresh(env, {perRun: CRON.perRun, tick: Math.floor(event.scheduledTime / CRON.everyMs), ahead: CRON.aheadMs, budget: CRON.budget, minAgeMs: CRON.minAgeMs}));
+    ctx.waitUntil(handle.refresh(env, {perRun: CRON.perRun, tick: Math.floor(event.scheduledTime / CRON.everyMs), ahead: CRON.aheadMs, budget: CRON.budget, minAgeMs: CRON.minAgeMs, hotHours: CRON.hotHours}));
   },
 };

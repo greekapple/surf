@@ -135,7 +135,8 @@ export function ExploreView({section, go}: ViewProps) {
 }
 
 function OceanMap({section, go}: ViewProps) {
-  const {view, data, spot, setSpot, now, live} = useSwello();
+  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots} = useSwello();
+  const reportVisibleRef = useRef(reportVisible); reportVisibleRef.current = reportVisible;
   const p = data.state.profile;
   // Map-seamless Stage 1: the view in the URL (?layer, lat, lon, z, t) is read once on load, so a reload or a shared link restores it.
   const urlInit = useMemo(() => parseMapUrl(typeof location === 'undefined' ? '' : location.search), []);
@@ -316,7 +317,7 @@ function OceanMap({section, go}: ViewProps) {
       el.className = `xpin${e.id === spot.id ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
       const cam = camsFor(e.id).length > 0;
       el.style.setProperty('--c', color); el.innerHTML = `<i></i>${cam ? `<em class="xcam" aria-hidden="true"><svg viewBox="0 0 24 24" width="9" height="9"><path d="${CAMERA_D}"/></svg></em>` : ''}${label}${chip}`;
-      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: cam ? `${e.name} · has a public live cam` : e.name, keyboard: true, riseOnHover: true,
+      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: (cam ? `${e.name} · has a public live cam` : e.name) + (view.ocean.isSpotLoaded(e.id) ? '' : ' · forecast loading (grey pin: not loaded yet, not flat)'), keyboard: true, riseOnHover: true,
         onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
       markers.current.set(e.id, mk);
     }
@@ -335,6 +336,7 @@ function OceanMap({section, go}: ViewProps) {
 
   /** Sparse labels that never collide: the selected spot first, then the best-rated; a zoom-dependent budget; the rest are dots.
    *  Each label tries right of its pin, then left, else stays a dot until zoomed in. Labels keep clear of the floating controls. */
+  const reportTimer = useRef<number | null>(null);
   const declutter = () => {
     const m = map.current;
     if (!m) return;
@@ -359,7 +361,7 @@ function OceanMap({section, go}: ViewProps) {
     const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el, id}) => {
       const e = at.get(id)!, q = m.project(e.latitude, e.longitude), cx = edge.left + q.x, cy = edge.top + q.y, g = geom.current.get(id);
       const dot = g ? new DOMRect(cx + g.d[0], cy + g.d[1], g.d[2], g.d[3]) : new DOMRect(cx - 11, cy - 11, 22, 22);
-      return {el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined, chip: g?.c ? new DOMRect(cx + g.c[0], cy + g.c[1], g.c[2], g.c[3]) : undefined};
+      return {id, el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined, chip: g?.c ? new DOMRect(cx + g.c[0], cy + g.c[1], g.c[2], g.c[3]) : undefined};
     });
     const taken: DOMRect[] = [...boxes.filter((x) => x.dot.width).map((x) => x.dot), ...ctl];
     const inView = (r: DOMRect) => !edge || (r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom);
@@ -385,6 +387,11 @@ function OceanMap({section, go}: ViewProps) {
       if (free(right, dot)) { taken.push(right); el.classList.add('xchipon'); }
       else if (free(left, dot)) { taken.push(left); el.classList.add('xchipon', 'clft'); }
     }
+    // subset loading: the drawn pins in view are the spots whose forecast the map needs; reported debounced, they load with the next scope
+    // Only from zoom 7 (a regional view): a world-zoom pan must not mark 150 spots as requested (that would make them hot on the Worker and spend Open-Meteo quota nobody is looking at).
+    const vis = m.getView().zoom >= 7 ? boxes.filter((b) => inView(b.dot)).slice(0, 60).map((b) => b.id) : [];
+    if (reportTimer.current) window.clearTimeout(reportTimer.current);
+    reportTimer.current = window.setTimeout(() => reportVisibleRef.current(vis), 500);
   };
   // T-058: on phones the map opens with the selected spot in the clear area above the time bar (never under it or the attribution).
   useEffect(() => {

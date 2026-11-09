@@ -85,7 +85,7 @@ function useRecentSpots(id: string) {
 /** Forecast menu: a place browser, not a list of tabs. Left rail: forecast pages, recent and favourite spots.
  * Main pane: Region › County › Spot with each spot's live offshore height and provisional rating. */
 function SpotMegaMenu({section, current, go, close}: {section: string; current: boolean; go: Go; close: () => void}) {
-  const {spot, spotOptions, setSpot, data, view, now} = useSwello();
+  const {spot, spotOptions, setSpot, data, view, now, requestSpots} = useSwello();
   const recent = useRecentSpots(spot.id);
   // Same colour and labelled height as the saved-spots strip and search (T-024 selector), never a bare number.
   const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile, {bundle: view.ocean.bundle}).map((x) => [x.id, x])),
@@ -96,6 +96,8 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
   const zones = ZONES.filter(([, rs]) => spotOptions.some((s) => rs.includes(s.region)));
   const counties = (ZONES.find(([z]) => z === zone)?.[1] ?? []).filter((c) => spotOptions.some((s) => s.region === c));
   const list = spotOptions.filter((s) => zoneOf(s.region) === zone && (!county || s.region === county));
+  // subset loading: the picker's heights come from the spots it lists (at most 60 of the zone/county shown)
+  useEffect(() => { requestSpots(list.slice(0, 60).map((s) => s.id)); }, [zone, county]); // eslint-disable-line react-hooks/exhaustive-deps
   const pick = (id: string) => { setSpot(id); go('forecast'); close(); };
   const def = AREAS.find((a) => a.id === 'forecast')!;
   const row = (id: string) => {
@@ -106,7 +108,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
       <button key={s.id} className="mm-spot" aria-current={s.id === spot.id} onClick={() => pick(s.id)}>
         <span className={`qdot${it?.dark ? ' is-dark' : ''}`} title={it?.dark ? 'After dark' : undefined} style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} />
         <span className="mm-n">{s.name}<small>{s.region}</small></span>
-        <span className="mm-h">{it?.heightLabel ?? '—'}</span>
+        <span className="mm-h">{!view.ocean.isSpotLoaded(s.id) ? 'loading…' : it?.heightLabel ?? '—'}</span>
       </button>
     );
   };
@@ -285,7 +287,7 @@ function Search({go}: {go: Go}) {
                       <div key={s.id} id={`sr-${s.id}`} role="option" aria-selected={k === at} className="search-hit" onPointerEnter={() => setAt(k)} onClick={() => pick(s.id)}>
                         <i className={`cdot${it?.dark ? ' is-dark' : ''}`} style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} aria-hidden="true" />
                         <span><b>{s.name}</b><small>{s.region}</small></span>
-                        <small className="search-h">{it?.heightLabel}</small>
+                        <small className="search-h">{!view.ocean.isSpotLoaded(s.id) ? 'loading…' : it?.heightLabel}</small>
                       </div>
                     );
                   })}

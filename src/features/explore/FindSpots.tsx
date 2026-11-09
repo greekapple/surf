@@ -1,6 +1,7 @@
 import {MAP_TIME_ZONE} from '../../ocean/spotZone';
 import {conditionWord} from '../../ui/Condition';
-import {useMemo, useState, type CSSProperties} from 'react';
+import {useEffect, useMemo, useState, type CSSProperties} from 'react';
+import {nearPoint} from '../../ocean/spotScope';
 import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
 import type {ViewProps} from '../../app/routes';
@@ -26,7 +27,7 @@ type Anchor = {lat: number; lon: number; label: string; kind: 'location' | 'regi
 
 /** Find spots around you: where you are (or your home region), then what is worth the trip right now. */
 export function FindSpots({go}: {go: ViewProps['go']}) {
-  const {view, data, spot, spotOptions, setSpot, now} = useSwello();
+  const {view, data, spot, spotOptions, setSpot, now, requestSpots} = useSwello();
   const p = data.state.profile, fav = data.state.favorites;
   const [geo, setGeo] = useState<{lat: number; lon: number} | null>(null);
   const [geoState, setGeoState] = useState<'idle' | 'asking' | 'denied' | 'unavailable'>('idle');
@@ -51,14 +52,18 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       const f = recs.find((r) => r.timestamp === view.selectedTime) ?? null;
       const rating = f ? rateForecast(s, f, now) : null;
       const best = bestWindowFrom(s, p, {records: recs, bundle: view.ocean.bundle, nowMs: now}, now); // T-108: the call's best window, same as the spot page
-      const dist = anchor ? miles([anchor.lat, anchor.lon], [e.latitude, e.longitude]) : Infinity;
+      const pending = !view.ocean.isSpotLoaded(s.id), dist = anchor ? miles([anchor.lat, anchor.lon], [e.latitude, e.longitude]) : Infinity;
       const est = f ? estimateLabel(headlineSurf(s.id, f, {bundle: view.ocean.bundle, nowMs: now}), p) : null; // T-112: the surf estimate where one exists, like the spot page and Compare
-      return [{s, e, f, rating, best, dist, est}];
+      return [{s, e, f, rating, best, dist, est, pending}];
     });
   }, [spotOptions, view.mapRecords, view.selectedTime, view.ocean.bundle, p, now, anchor?.lat, anchor?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // subset loading: ask for the spots around the anchor (the selection, the home region or the user's location can be far from what is already loaded); unloaded ones are never ranked
+  const aroundKey = anchor ? `${anchor.lat.toFixed(2)},${anchor.lon.toFixed(2)}` : '';
+  useEffect(() => { if (anchor) requestSpots(nearPoint(anchor.lat, anchor.lon)); }, [aroundKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const loadingN = anchor ? rows.filter((r) => r.pending && r.dist < 75).length : 0;
   const score = (r: (typeof rows)[number]) => r.rating?.score ?? -1;
-  const bets = rows.filter((r) => r.dist < 75 && r.rating && !r.rating.dark && r.rating.category !== 'POOR') // never a best bet after dark.sort((a, b) => score(b) - score(a)).slice(0, 3);
+  const bets = rows.filter((r) => r.dist < 75 && !r.pending && r.rating && !r.rating.dark && r.rating.category !== 'POOR').sort((a, b) => score(b) - score(a)).slice(0, 3);   // never a best bet after dark; unloaded spots are never ranked
   const open = (id: string, where: 'forecast' | 'explore') => { setSpot(id); go(where); };
 
   const Card = ({r, big}: {r: (typeof rows)[number]; big?: boolean}) => (
@@ -91,6 +96,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
         </div>
       </header>
 
+      {loadingN > 0 && <p className="fine" role="status">{loadingN} nearby spot{loadingN === 1 ? ' is' : 's are'} still loading: best bets rank only the spots that have loaded.</p>}
       {bets.length > 0 && (
         <section aria-labelledby="fs-bets">
           <h2 id="fs-bets" className="fs-sh">Best bets nearby <span>within 75 mi · provisional ratings</span></h2>
