@@ -1,12 +1,12 @@
 # Rating audit: does the rating oversell? (2026-11-06)
 
-Generated 2026-11-07T07:32Z by `docs/forecast/data/rating-audit.ts`. Reproduce: `ACC_CACHE=<dir> node --experimental-strip-types docs/forecast/data/rating-audit.ts --archive 2025-11-01T00:00:00Z/2026-05-01T00:00:00Z --recent 2026-10-07T00:00:00Z/2026-11-06T00:00:00Z` (the cache is optional; the same public downloads as `ACCURACY-VS-BUOYS.md`). Findings and decisions: the notes at the end.
+Generated 2026-11-09T05:32Z by `docs/forecast/data/rating-audit.ts`. Reproduce: `ACC_CACHE=<dir> node --experimental-strip-types docs/forecast/data/rating-audit.ts --archive 2025-11-01T00:00:00Z/2026-05-01T00:00:00Z --recent 2026-10-07T00:00:00Z/2026-11-06T00:00:00Z` (the cache is optional; the same public downloads as `ACCURACY-VS-BUOYS.md`). Findings and decisions: the notes at the end.
 
 **The question.** Surfline's most common complaint is driving to a "fair" or "good" rating and finding it flat or blown out. How often does OUR rating say fair or better when the observed conditions were poor? Asked two ways, to separate "the rating rules oversell" from "the forecast inputs were wrong".
 
 **What each number is.**
 - **Observed surf** = **buoy carried to the point (model-assisted)**: a wave buoy's measured Hs × MOP's own hourly ratio (spot point ÷ buoy site), only from a buoy within 40 km where MOP is right at the buoy (the T-131 rule, judged on each window's first 2/3). Not a measurement at the spot. "Under 1 ft" is in the app's surf-height convention (about the nearshore Hs).
-- **Observed wind** = **measured at a coastal station**, not at the break: nearest NDBC/NOS met station within 40 km, not in enclosed water (src/map/enclosed.ts), with wind on 200+ hours of the window. The reading on the hour (NDBC stdmet via NOAA ERDDAP `cwwcNDBCMet`); ids, names and positions from NDBC's `activestations.xml`. No anemometer-height correction (stations stand 4–20 m up; the forecast is 10 m).
+- **Observed wind** = **measured at a coastal station**, not at the break: nearest shore station within 7 km (a fixed NDBC/NOS met station or an airport ASOS via the Iowa Environmental Mesonet, either kind not in enclosed water by src/map/enclosed.ts), with wind on 200+ hours of the window; no offshore buoys. NOAA stations: the reading on the hour (NDBC stdmet via NOAA ERDDAP `cwwcNDBCMet`), ids, names and positions from NDBC's `activestations.xml`. Airports: the routine hourly METAR within 10 minutes of the hour (IEM ASOS archive, `docs/forecast/data/shore-wind.ts`); an airfield reads land wind, often lighter than on the water. No anemometer-height correction (stations stand 4–20 m up; the forecast is 10 m).
 - **Forecast-fed rating** = the app's engine (`rateForecast`, the provisional rating) on the **Open-Meteo Marine and Open-Meteo Weather hours for the window**: the archived short-range model runs Open-Meteo serves for past dates (historical-forecast API for the archive window, `past_days` for the recent one). That is close to a nowcast, NOT the days-ahead forecast a surfer plans with, so these are the best the inputs get. The lead-dependent ceiling is judged 24 h ahead. The rating never reads MOP (it judges the offshore swell; CONTRACTS T-130).
 - **Observed-fed rating** = the same engine on the measured inputs: the anchor buoy's Hs, peak period and peak direction as the swell (bulk values: no swell partition, no secondary swell) and the station's wind and gust. Only hours with both.
 - **The Call** (`hourCall`) uses the surf estimate, which in the app is MOP's forward forecast. That has no public archive, so the audit gives the Call **MOP's nowcast at the spot's point as a stand-in** (an upper bound on what the Call had) and the Open-Meteo hours above. Skill ranges only (no personal preferred range).
@@ -20,105 +20,89 @@ Spots with an anchor buoy or a wind station in the window. Orientation = the spo
 ### Archive window
 | spot | facing | anchor buoy (observed surf) | wind station | daylight hours |
 |---|---|---|---|---|
-| Bolinas | 135° | 142 San Francisco Bar, 14.1 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 22.3 km | 2127 |
-| Stinson Beach | 225° | 142 San Francisco Bar, 12.5 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 23.8 km | 2126 |
-| Ocean Beach | 263.49° | 142 San Francisco Bar, 11.2 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 28.9 km | 2128 |
-| Linda Mar | 315° | 142 San Francisco Bar, 23.9 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 34.1 km | 2128 |
-| Montara | 270° | 142 San Francisco Bar, 28.9 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 36.4 km | 2129 |
-| Mavericks | 202.5° | 142 San Francisco Bar, 34.6 km | 46012 (HALF MOON BAY - 24NM SSW of San Francisco, CA; usv, NDBC), 37 km | 2129 |
-| Steamer Lane | 135° | 156 Monterey Canyon Outer, 22.4 km | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 38.6 km | 2126 |
-| Cowell’s | 112.5° | 156 Monterey Canyon Outer, 23.5 km | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 39.4 km | 2126 |
+| Bolinas | 135° | 142 San Francisco Bar, 14.1 km | – | 2124 |
+| Stinson Beach | 225° | 142 San Francisco Bar, 12.5 km | – | 2123 |
+| Ocean Beach | 263.49° | 142 San Francisco Bar, 11.2 km | – | 2125 |
+| Linda Mar | 315° | 142 San Francisco Bar, 23.9 km | – | 2125 |
+| Montara | 270° | 142 San Francisco Bar, 28.9 km | HAF (Half Moon Bay; asos, airport ASOS via Iowa Environmental Mesonet), 3.7 km | 2129 |
+| Mavericks | 202.5° | 142 San Francisco Bar, 34.6 km | HAF (Half Moon Bay; asos, airport ASOS via Iowa Environmental Mesonet), 2.1 km | 2129 |
+| Steamer Lane | 135° | 156 Monterey Canyon Outer, 22.4 km | – | 2126 |
+| Cowell’s | 112.5° | 156 Monterey Canyon Outer, 23.5 km | – | 2126 |
 | Pleasure Point | 157.5° | 156 Monterey Canyon Outer, 21.9 km | – | 2126 |
-| Davenport | 225° | 156 Monterey Canyon Outer, 35.5 km | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 31.2 km | 2127 |
+| Davenport | 225° | 156 Monterey Canyon Outer, 35.5 km | – | 2127 |
 | Crescent City | 202.5° | – | CECC1 (9419750 - Crescent City, CA; fixed, NOS), 0.3 km | 2074 |
-| Humboldt North Jetty | 292.5° | – | 46022 (EEL RIVER - 17NM WSW of Eureka, CA; buoy, NDBC), 26.3 km | 2111 |
+| Moonstone Beach | 270° | – | ACV (ARCATA/EUREKA ARPT; asos, airport ASOS via Iowa Environmental Mesonet), 6.1 km | 2107 |
 | Point Arena | 225° | – | ANVC1 (9416841 - Arena Cove, CA; fixed, NOS), 0.1 km | 1675 |
-| Salmon Creek | 270° | – | 46013 (BODEGA BAY - 48NM NW of San Francisco, CA; buoy, NDBC), 25.4 km | 1900 |
-| Dillon Beach | 270° | – | 46013 (BODEGA BAY - 48NM NW of San Francisco, CA; buoy, NDBC), 30.4 km | 1901 |
-| Waddell Creek | 225° | – | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 36.2 km | 226 |
-| Manresa | 247.5° | 156 Monterey Canyon Outer, 20.5 km | – | 2127 |
+| Manresa | 247.5° | 156 Monterey Canyon Outer, 20.5 km | WVI (Watsonville; asos, airport ASOS via Iowa Environmental Mesonet), 6.7 km | 2131 |
 | Moss Landing | 270° | 156 Monterey Canyon Outer, 15.1 km | – | 2127 |
 | Asilomar | 292.5° | 156 Monterey Canyon Outer, 15.6 km | – | 2129 |
 | Carmel Beach | 247.5° | 156 Monterey Canyon Outer, 23 km | – | 2129 |
-| Morro Rock | 270° | – | PSLC1 (9412110 - Port San Luis, CA; fixed, NOS), 24.8 km | 1798 |
-| Pismo Beach Pier | 245° | – | CPXC1 (Cal Poly Pier, CA; fixed, California Polytechnic State University), 9.5 km | 1753 |
-| Jalama | 247.5° | – | PTGC1 (Point Arguello, CA; fixed, NDBC), 15.2 km | 757 |
-| Rincon | 202.5° | – | NTBC1 (9411340 - Santa Barbara, CA ; fixed, NOS), 20 km | 2056 |
-| C Street | 180° | – | NTBC1 (9411340 - Santa Barbara, CA ; fixed, NOS), 38.8 km | 2057 |
-| County Line | 202.5° | 028 Santa Monica Bay, 36.6 km | 46025 (Santa Monica Basin - 33NM WSW of Santa Monica, CA; buoy, NDBC), 33.5 km | 2148 |
-| Zuma | 225° | 028 Santa Monica Bay, 24 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 29.7 km | 2149 |
-| Malibu (Surfrider) | 157.5° | 028 Santa Monica Bay, 19.9 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 16.7 km | 2150 |
-| Topanga | 180° | 028 Santa Monica Bay, 20.5 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 8.3 km | 2150 |
-| El Porto | 247.5° | 028 Santa Monica Bay, 20.8 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 14 km | 2153 |
-| Hermosa Pier | 247.5° | 028 Santa Monica Bay, 22.1 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 18.6 km | 2154 |
-| Huntington Pier | 225° | 215 Long Beach Channel, 19 km | AGXC1 (9410647 - Angels Gate, CA; fixed, NOAA NOS PORTS), 23.5 km | 2164 |
-| The Wedge | 202.5° | 215 Long Beach Channel, 31.8 km | AGXC1 (9410647 - Angels Gate, CA; fixed, NOAA NOS PORTS), 36.4 km | 2167 |
+| County Line | 202.5° | 028 Santa Monica Bay, 36.6 km | – | 2148 |
+| Zuma | 225° | 028 Santa Monica Bay, 24 km | – | 2149 |
+| Malibu (Surfrider) | 157.5° | 028 Santa Monica Bay, 19.9 km | – | 2150 |
+| Topanga | 180° | 028 Santa Monica Bay, 20.5 km | – | 2150 |
+| El Porto | 247.5° | 028 Santa Monica Bay, 20.8 km | LAX (LOS ANGELES INTL; asos, airport ASOS via Iowa Environmental Mesonet), 5.2 km | 2153 |
+| Hermosa Pier | 247.5° | 028 Santa Monica Bay, 22.1 km | – | 2154 |
+| Huntington Pier | 225° | 215 Long Beach Channel, 19 km | – | 2163 |
+| The Wedge | 202.5° | 215 Long Beach Channel, 31.8 km | – | 2166 |
 | Salt Creek | 247.5° | 264 Red Beach Nearshore, 29.7 km | – | 2176 |
 | Trestles | 202.5° | 264 Red Beach Nearshore, 13.2 km | – | 2174 |
-| Oceanside Pier | 225° | 264 Red Beach Nearshore, 15.2 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 38.2 km | 2178 |
-| Swami’s | 247.5° | 201 Scripps Nearshore, 18.7 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 19 km | 2177 |
-| Cardiff Reef | 247.5° | 201 Scripps Nearshore, 16.3 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 16.5 km | 2177 |
+| Oceanside Pier | 225° | 264 Red Beach Nearshore, 15.2 km | OKB (OCEANSIDE MUNICIPAL (WAS L32); asos, airport ASOS via Iowa Environmental Mesonet), 4.6 km | 2178 |
+| Swami’s | 247.5° | 201 Scripps Nearshore, 18.7 km | – | 2177 |
+| Cardiff Reef | 247.5° | 201 Scripps Nearshore, 16.3 km | – | 2177 |
 | Black’s Beach | 270° | 201 Scripps Nearshore, 2.7 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 2.5 km | 2177 |
 | Windansea | 270° | 201 Scripps Nearshore, 4.4 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 4.7 km | 2177 |
-| Ocean Beach (San Diego) | 292.5° | 201 Scripps Nearshore, 13.3 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 13.1 km | 2177 |
-| Imperial Beach | 270° | 155 Imperial Beach Nearshore, 3.4 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 34 km | 2176 |
+| Ocean Beach (San Diego) | 292.5° | 201 Scripps Nearshore, 13.3 km | – | 2177 |
+| Imperial Beach | 270° | 155 Imperial Beach Nearshore, 3.4 km | NRS (IMPERIAL BEACH/REAM; asos, airport ASOS via Iowa Environmental Mesonet), 2.9 km | 2176 |
 
 ### Recent window
 | spot | facing | anchor buoy (observed surf) | wind station | daylight hours |
 |---|---|---|---|---|
-| Bolinas | 135° | 142 San Francisco Bar, 14.1 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 22.3 km | 361 |
-| Stinson Beach | 225° | 142 San Francisco Bar, 12.5 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 23.8 km | 361 |
-| Ocean Beach | 263.49° | 142 San Francisco Bar, 11.2 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 28.9 km | 361 |
-| Linda Mar | 315° | 142 San Francisco Bar, 23.9 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 34.1 km | 361 |
-| Montara | 270° | 142 San Francisco Bar, 28.9 km | 46026 (SAN FRANCISCO - 18NM West of San Francisco, CA; buoy, NDBC), 36.4 km | 361 |
-| Mavericks | 202.5° | 142 San Francisco Bar, 34.6 km | 46012 (HALF MOON BAY - 24NM SSW of San Francisco, CA; usv, NDBC), 37 km | 361 |
-| Steamer Lane | 135° | – | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 38.6 km | 332 |
-| Cowell’s | 112.5° | – | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 39.4 km | 332 |
-| Davenport | 225° | – | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 31.2 km | 332 |
+| Bolinas | 135° | 142 San Francisco Bar, 14.1 km | – | 357 |
+| Stinson Beach | 225° | 142 San Francisco Bar, 12.5 km | – | 357 |
+| Ocean Beach | 263.49° | 142 San Francisco Bar, 11.2 km | – | 357 |
+| Linda Mar | 315° | 142 San Francisco Bar, 23.9 km | – | 357 |
+| Montara | 270° | 142 San Francisco Bar, 28.9 km | HAF (Half Moon Bay; asos, airport ASOS via Iowa Environmental Mesonet), 3.7 km | 361 |
+| Mavericks | 202.5° | 142 San Francisco Bar, 34.6 km | HAF (Half Moon Bay; asos, airport ASOS via Iowa Environmental Mesonet), 2.1 km | 361 |
 | Crescent City | 202.5° | – | CECC1 (9419750 - Crescent City, CA; fixed, NOS), 0.3 km | 318 |
-| Humboldt North Jetty | 292.5° | – | 46022 (EEL RIVER - 17NM WSW of Eureka, CA; buoy, NDBC), 26.3 km | 324 |
+| Moonstone Beach | 270° | – | ACV (ARCATA/EUREKA ARPT; asos, airport ASOS via Iowa Environmental Mesonet), 6.1 km | 360 |
 | Point Arena | 225° | – | ANVC1 (9416841 - Arena Cove, CA; fixed, NOS), 0.1 km | 330 |
-| Salmon Creek | 270° | – | 46013 (BODEGA BAY - 48NM NW of San Francisco, CA; buoy, NDBC), 25.4 km | 325 |
-| Dillon Beach | 270° | – | 46013 (BODEGA BAY - 48NM NW of San Francisco, CA; buoy, NDBC), 30.4 km | 325 |
-| Waddell Creek | 225° | – | 46042 (MONTEREY - 27NM WNW of Monterey, CA; buoy, NDBC), 36.2 km | 332 |
-| Morro Rock | 270° | 285 Avila Beach Nearshore, 25.9 km | CPXC1 (Cal Poly Pier, CA; fixed, California Polytechnic State University), 25.2 km | 361 |
-| Pismo Beach Pier | 245° | 285 Avila Beach Nearshore, 9 km | CPXC1 (Cal Poly Pier, CA; fixed, California Polytechnic State University), 9.5 km | 361 |
-| Jalama | 247.5° | – | PTGC1 (Point Arguello, CA; fixed, NDBC), 15.2 km | 328 |
-| Rincon | 202.5° | – | NTBC1 (9411340 - Santa Barbara, CA ; fixed, NOS), 20 km | 311 |
-| C Street | 180° | – | NTBC1 (9411340 - Santa Barbara, CA ; fixed, NOS), 38.8 km | 310 |
-| County Line | 202.5° | 103 Topanga Nearshore, 35.7 km | 46025 (Santa Monica Basin - 33NM WSW of Santa Monica, CA; buoy, NDBC), 33.5 km | 357 |
-| Zuma | 225° | 103 Topanga Nearshore, 22.5 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 29.7 km | 357 |
-| Malibu (Surfrider) | 157.5° | 103 Topanga Nearshore, 9.3 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 16.7 km | 357 |
-| Topanga | 180° | 103 Topanga Nearshore, 1.8 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 8.3 km | 356 |
-| El Porto | 247.5° | 103 Topanga Nearshore, 19.8 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 14 km | 357 |
-| Hermosa Pier | 247.5° | 028 Santa Monica Bay, 22.1 km | ICAC1 (9410840 - Santa Monica Pier; fixed, NOS), 18.6 km | 358 |
-| Huntington Pier | 225° | 284 Capistrano Beach Nearshore, 37.9 km | AGXC1 (9410647 - Angels Gate, CA; fixed, NOAA NOS PORTS), 23.5 km | 359 |
-| The Wedge | 202.5° | 284 Capistrano Beach Nearshore, 24.9 km | AGXC1 (9410647 - Angels Gate, CA; fixed, NOAA NOS PORTS), 36.4 km | 359 |
+| Manresa | 247.5° | – | WVI (Watsonville; asos, airport ASOS via Iowa Environmental Mesonet), 6.7 km | 355 |
+| Morro Rock | 270° | 285 Avila Beach Nearshore, 25.9 km | – | 361 |
+| Pismo Beach Pier | 245° | 285 Avila Beach Nearshore, 9 km | – | 361 |
+| County Line | 202.5° | 103 Topanga Nearshore, 35.7 km | – | 347 |
+| Zuma | 225° | 103 Topanga Nearshore, 22.5 km | – | 347 |
+| Malibu (Surfrider) | 157.5° | 103 Topanga Nearshore, 9.3 km | – | 347 |
+| Topanga | 180° | 103 Topanga Nearshore, 1.8 km | – | 346 |
+| El Porto | 247.5° | 103 Topanga Nearshore, 19.8 km | LAX (LOS ANGELES INTL; asos, airport ASOS via Iowa Environmental Mesonet), 5.2 km | 357 |
+| Hermosa Pier | 247.5° | 028 Santa Monica Bay, 22.1 km | – | 358 |
+| Huntington Pier | 225° | 284 Capistrano Beach Nearshore, 37.9 km | – | 357 |
+| The Wedge | 202.5° | 284 Capistrano Beach Nearshore, 24.9 km | – | 357 |
 | Salt Creek | 247.5° | 284 Capistrano Beach Nearshore, 5.9 km | – | 357 |
 | Trestles | 202.5° | 284 Capistrano Beach Nearshore, 10.9 km | – | 358 |
-| Oceanside Pier | 225° | 262 Leucadia Nearshore, 16.1 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 38.2 km | 356 |
-| Swami’s | 247.5° | 262 Leucadia Nearshore, 3.6 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 19 km | 357 |
-| Cardiff Reef | 247.5° | 262 Leucadia Nearshore, 6.1 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 16.5 km | 357 |
+| Oceanside Pier | 225° | 262 Leucadia Nearshore, 16.1 km | OKB (OCEANSIDE MUNICIPAL (WAS L32); asos, airport ASOS via Iowa Environmental Mesonet), 4.6 km | 360 |
+| Swami’s | 247.5° | 262 Leucadia Nearshore, 3.6 km | – | 334 |
+| Cardiff Reef | 247.5° | 262 Leucadia Nearshore, 6.1 km | – | 334 |
 | Black’s Beach | 270° | 201 Scripps Nearshore, 2.7 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 2.5 km | 342 |
 | Windansea | 270° | 201 Scripps Nearshore, 4.4 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 4.7 km | 342 |
-| Ocean Beach (San Diego) | 292.5° | 201 Scripps Nearshore, 13.3 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 13.1 km | 342 |
-| Imperial Beach | 270° | 201 Scripps Nearshore, 34.4 km | LJAC1 (9410230 - La Jolla, CA; fixed, NOS), 34 km | 343 |
+| Ocean Beach (San Diego) | 292.5° | 201 Scripps Nearshore, 13.3 km | – | 177 |
+| Imperial Beach | 270° | 201 Scripps Nearshore, 34.4 km | NRS (IMPERIAL BEACH/REAM; asos, airport ASOS via Iowa Environmental Mesonet), 2.9 km | 348 |
 
 ## 2. How often a poor hour was rated fair or better
 
 ### Archive window (2025-11-01 to 2026-05-01)
 | observed poor condition | daylight hours | forecast-fed rating fair or better | … NOT BAD or better | … good (SOLID+) | hours with observed inputs too | observed-fed rating fair or better | both fair+ ("the rules oversell") | forecast-fed only ("the inputs were wrong") | the Call (Intermediate) says Go or Worth a look |
 |---|---|---|---|---|---|---|---|---|---|
-| surf under 1 ft (observed, buoy carried to the point) | 1202 | 45.2% (543) | 9.0% | 1.1% | 584 | 87.8% (513) | 24.1% (141) | 3.3% (19) | 13.2% (159) |
-| onshore wind over 12 mph (observed, station) | 3912 | 37.6% (1469) | 14.7% | 4.6% | 2560 | 68.4% (1750) | 27.3% (698) | 8.6% (221) | 17.7% (694) |
-| either | 5110 | 39.4% (2012) | 13.4% | 3.8% | 3140 | 72.0% (2260) | 26.7% (839) | 7.6% (240) | 16.7% (853) |
+| surf under 1 ft (observed, buoy carried to the point) | 1202 | 45.2% (543) | 9.0% | 1.1% | 106 | 80.2% (85) | 17.0% (18) | 4.7% (5) | 13.2% (159) |
+| onshore wind over 12 mph (observed, station) | 1152 | 28.3% (326) | 6.2% | 1.0% | 940 | 71.1% (668) | 23.2% (218) | 2.0% (19) | 7.9% (91) |
+| either | 2353 | 36.9% (869) | 7.6% | 1.0% | 1045 | 72.0% (752) | 22.6% (236) | 2.3% (24) | 10.6% (250) |
 
 ### Recent window (2026-10-07 to 2026-11-06)
 | observed poor condition | daylight hours | forecast-fed rating fair or better | … NOT BAD or better | … good (SOLID+) | hours with observed inputs too | observed-fed rating fair or better | both fair+ ("the rules oversell") | forecast-fed only ("the inputs were wrong") | the Call (Intermediate) says Go or Worth a look |
 |---|---|---|---|---|---|---|---|---|---|
 | surf under 1 ft (observed, buoy carried to the point) | 0 | – (0) | – | – | 0 | – (0) | – (0) | – (0) | – (0) |
-| onshore wind over 12 mph (observed, station) | 757 | 51.0% (386) | 14.8% | 2.1% | 541 | 73.2% (396) | 40.9% (221) | 10.4% (56) | 20.7% (157) |
-| either | 757 | 51.0% (386) | 14.8% | 2.1% | 541 | 73.2% (396) | 40.9% (221) | 10.4% (56) | 20.7% (157) |
+| onshore wind over 12 mph (observed, station) | 202 | 50.0% (101) | 4.0% | 0.0% | 164 | 78.7% (129) | 42.1% (69) | 4.3% (7) | 7.4% (15) |
+| either | 202 | 50.0% (101) | 4.0% | 0.0% | 164 | 78.7% (129) | 42.1% (69) | 4.3% (7) | 7.4% (15) |
 
 ## 3. The complaint: of the hours rated fair or better, how many were observed poor
 
@@ -127,20 +111,20 @@ Hours where both the observed surf and the observed wind exist.
 ### Archive window (2025-11-01 to 2026-05-01)
 | engine fed | hours with both observations | rated fair or better | of those, observed poor | rated NOT BAD or better | of those, observed poor |
 |---|---|---|---|---|---|
-| (base rate: every hour, whatever the rating) | 43858 | 43858 | 7.2% (3140) | – | – |
-| forecast inputs | 43858 | 23242 | 4.6% (1079: 160 under 1 ft, 919 onshore over 12 mph) | 8895 | 3.8% (339) |
-| observed inputs | 43858 | 40605 | 5.6% (2260: 513 under 1 ft, 1750 onshore over 12 mph) | 32448 | 3.9% (1275) |
-| (base rate: Northern and Central California, every hour, whatever the rating) | 12528 | 12528 | 10.8% (1353) | – | – |
-| forecast inputs, Northern and Central California only | 12528 | 8650 | 8.0% (693: 54 under 1 ft, 639 onshore over 12 mph) | 4662 | 6.0% (280) |
+| (base rate: every hour, whatever the rating) | 16386 | 16386 | 6.4% (1045) | – | – |
+| forecast inputs | 16386 | 9693 | 2.7% (260: 23 under 1 ft, 237 onshore over 12 mph) | 4495 | 0.8% (37) |
+| observed inputs | 16386 | 15237 | 4.9% (752: 85 under 1 ft, 668 onshore over 12 mph) | 11961 | 2.7% (327) |
+| (base rate: Northern and Central California, every hour, whatever the rating) | 5912 | 5912 | 4.8% (281) | – | – |
+| forecast inputs, Northern and Central California only | 5912 | 4544 | 1.7% (78: 7 under 1 ft, 71 onshore over 12 mph) | 2876 | 0.4% (12) |
 
 ### Recent window (2026-10-07 to 2026-11-06)
 | engine fed | hours with both observations | rated fair or better | of those, observed poor | rated NOT BAD or better | of those, observed poor |
 |---|---|---|---|---|---|
-| (base rate: every hour, whatever the rating) | 6586 | 6586 | 8.2% (541) | – | – |
-| forecast inputs | 6586 | 4748 | 5.8% (277: 0 under 1 ft, 277 onshore over 12 mph) | 1914 | 3.8% (72) |
-| observed inputs | 6586 | 6220 | 6.4% (396: 0 under 1 ft, 396 onshore over 12 mph) | 5477 | 4.4% (241) |
-| (base rate: Northern and Central California, every hour, whatever the rating) | 2491 | 2491 | 10.8% (270) | – | – |
-| forecast inputs, Northern and Central California only | 2491 | 1833 | 9.2% (169: 0 under 1 ft, 169 onshore over 12 mph) | 761 | 9.1% (69) |
+| (base rate: every hour, whatever the rating) | 1813 | 1813 | 9.0% (164) | – | – |
+| forecast inputs | 1813 | 1326 | 5.7% (76: 0 under 1 ft, 76 onshore over 12 mph) | 611 | 1.1% (7) |
+| observed inputs | 1813 | 1660 | 7.8% (129: 0 under 1 ft, 129 onshore over 12 mph) | 1346 | 5.1% (68) |
+| (base rate: Northern and Central California, every hour, whatever the rating) | 664 | 664 | 1.8% (12) | – | – |
+| forecast inputs, Northern and Central California only | 664 | 543 | 1.8% (10: 0 under 1 ft, 10 onshore over 12 mph) | 279 | 1.4% (4) |
 
 ## 4. Too big for the skill
 
@@ -149,103 +133,87 @@ The rating has no skill input, so this is the Call's job (Skip when the estimate
 ### Archive window (2025-11-01 to 2026-05-01)
 | skill | daylight hours the observed surf was above the skill's range | rating fair or better (the rating has no skill input) | the Call says Go or Worth a look | the Call says Go |
 |---|---|---|---|---|
-| Beginner (up to 4 ft) | 12997 | 79.5% (10339) | 22.7% (2949) | 0.2% (31) |
-| Intermediate (up to 8 ft) | 1311 | 76.4% (1001) | 23.1% (303) | 2.3% (30) |
+| Beginner (up to 4 ft) | 13422 | 79.7% (10699) | 21.6% (2902) | 0.2% (31) |
+| Intermediate (up to 8 ft) | 1419 | 76.6% (1087) | 22.9% (325) | 2.1% (30) |
 
 ### Recent window (2026-10-07 to 2026-11-06)
 | skill | daylight hours the observed surf was above the skill's range | rating fair or better (the rating has no skill input) | the Call says Go or Worth a look | the Call says Go |
 |---|---|---|---|---|
-| Beginner (up to 4 ft) | 1998 | 79.9% (1596) | 34.3% (686) | 0.2% (4) |
-| Intermediate (up to 8 ft) | 43 | 93.0% (40) | 23.3% (10) | 0.0% (0) |
+| Beginner (up to 4 ft) | 2090 | 80.0% (1671) | 31.8% (664) | 0.2% (4) |
+| Intermediate (up to 8 ft) | 48 | 93.8% (45) | 31.3% (15) | 0.0% (0) |
 
 ## 5. Per spot (forecast-fed)
 
 ### Archive window (2025-11-01 to 2026-05-01)
 | spot | daylight hours | observed under 1 ft | … rated fair+ | observed onshore > 12 mph | … rated fair+ | of hours rated fair+, observed poor |
 |---|---|---|---|---|---|---|
-| Bolinas | 2127 | 0 | – | 237 | 36.3% | 5.7% of 1513 |
-| Stinson Beach | 2126 | 4 | 0.0% | 77 | 48.1% | 2.7% of 1391 |
-| Ocean Beach | 2128 | 0 | – | 134 | 35.8% | 3.7% of 1310 |
-| Linda Mar | 2128 | 0 | – | 516 | 58.5% | 19.9% of 1515 |
-| Montara | 2129 | 0 | – | 217 | 53.0% | 7.4% of 1564 |
-| Mavericks | 2129 | 0 | – | 57 | 59.6% | 3.8% of 890 |
-| Steamer Lane | 2126 | 189 | 68.8% | 12 | 41.7% | 19.5% of 154 |
-| Cowell’s | 2126 | 189 | 70.4% | 10 | 30.0% | 19.6% of 163 |
+| Bolinas | 2124 | 0 | – | 0 | – | – |
+| Stinson Beach | 2123 | 4 | 0.0% | 0 | – | – |
+| Ocean Beach | 2125 | 0 | – | 0 | – | – |
+| Linda Mar | 2125 | 0 | – | 0 | – | – |
+| Montara | 2129 | 0 | – | 36 | 47.2% | 1.1% of 1507 |
+| Mavericks | 2129 | 0 | – | 163 | 24.5% | 2.5% of 1580 |
+| Steamer Lane | 2126 | 189 | 68.8% | 0 | – | – |
+| Cowell’s | 2126 | 189 | 70.4% | 0 | – | – |
 | Pleasure Point | 2126 | 91 | 68.1% | 0 | – | – |
-| Davenport | 2127 | 4 | 75.0% | 9 | 100.0% | 6.0% of 150 |
+| Davenport | 2127 | 4 | 75.0% | 0 | – | – |
 | Crescent City | 2074 | 0 | – | 172 | 39.0% | – |
-| Humboldt North Jetty | 2111 | 0 | – | 71 | 76.1% | – |
+| Moonstone Beach | 2107 | 0 | – | 27 | 77.8% | – |
 | Point Arena | 1675 | 0 | – | 13 | 7.7% | – |
-| Salmon Creek | 1900 | 0 | – | 325 | 36.3% | – |
-| Dillon Beach | 1901 | 0 | – | 325 | 37.5% | – |
-| Waddell Creek | 226 | 0 | – | 9 | 88.9% | – |
-| Manresa | 2127 | 57 | 43.9% | 0 | – | – |
+| Manresa | 2131 | 57 | 43.9% | 50 | 28.0% | 1.4% of 1457 |
 | Moss Landing | 2127 | 95 | 53.7% | 0 | – | – |
 | Asilomar | 2129 | 0 | – | 0 | – | – |
 | Carmel Beach | 2129 | 22 | 86.4% | 0 | – | – |
-| Morro Rock | 1798 | 0 | – | 111 | 58.6% | – |
-| Pismo Beach Pier | 1753 | 0 | – | 151 | 38.4% | – |
-| Jalama | 757 | 0 | – | 0 | – | – |
-| Rincon | 2056 | 0 | – | 106 | 28.3% | – |
-| C Street | 2057 | 0 | – | 69 | 39.1% | – |
-| County Line | 2148 | 0 | – | 28 | 21.4% | 0.7% of 891 |
-| Zuma | 2149 | 0 | – | 49 | 10.2% | 0.6% of 880 |
-| Malibu (Surfrider) | 2150 | 206 | 19.9% | 24 | 33.3% | 4.8% of 1013 |
-| Topanga | 2150 | 84 | 20.2% | 25 | 32.0% | 2.6% of 972 |
-| El Porto | 2153 | 9 | 0.0% | 159 | 8.8% | 1.5% of 943 |
-| Hermosa Pier | 2154 | 37 | 2.7% | 159 | 10.7% | 2.0% of 882 |
-| Huntington Pier | 2164 | 12 | 8.3% | 319 | 22.9% | 7.9% of 937 |
-| The Wedge | 2167 | 37 | 35.1% | 206 | 30.1% | 8.0% of 926 |
+| County Line | 2148 | 0 | – | 0 | – | – |
+| Zuma | 2149 | 0 | – | 0 | – | – |
+| Malibu (Surfrider) | 2150 | 206 | 19.9% | 0 | – | – |
+| Topanga | 2150 | 84 | 20.2% | 0 | – | – |
+| El Porto | 2153 | 9 | 0.0% | 331 | 16.3% | 5.7% of 946 |
+| Hermosa Pier | 2154 | 37 | 2.7% | 0 | – | – |
+| Huntington Pier | 2163 | 12 | 8.3% | 0 | – | – |
+| The Wedge | 2166 | 37 | 35.1% | 0 | – | – |
 | Salt Creek | 2176 | 27 | 25.9% | 0 | – | – |
 | Trestles | 2174 | 21 | 28.6% | 0 | – | – |
-| Oceanside Pier | 2178 | 23 | 43.5% | 50 | 16.0% | 1.8% of 1004 |
-| Swami’s | 2177 | 22 | 40.9% | 42 | 16.7% | 1.8% of 886 |
-| Cardiff Reef | 2177 | 22 | 40.9% | 42 | 14.3% | 1.7% of 864 |
+| Oceanside Pier | 2178 | 23 | 43.5% | 80 | 28.8% | 3.2% of 1016 |
+| Swami’s | 2177 | 22 | 40.9% | 0 | – | – |
+| Cardiff Reef | 2177 | 22 | 40.9% | 0 | – | – |
 | Black’s Beach | 2177 | 19 | 31.6% | 50 | 18.0% | 1.7% of 867 |
 | Windansea | 2177 | 10 | 0.0% | 50 | 40.0% | 1.8% of 1090 |
-| Ocean Beach (San Diego) | 2177 | 9 | 0.0% | 38 | 44.7% | 1.4% of 1217 |
-| Imperial Beach | 2176 | 13 | 0.0% | 50 | 40.0% | 1.6% of 1220 |
+| Ocean Beach (San Diego) | 2177 | 9 | 0.0% | 0 | – | – |
+| Imperial Beach | 2176 | 13 | 0.0% | 180 | 33.3% | 4.9% of 1230 |
 
 ### Recent window (2026-10-07 to 2026-11-06)
 | spot | daylight hours | observed under 1 ft | … rated fair+ | observed onshore > 12 mph | … rated fair+ | of hours rated fair+, observed poor |
 |---|---|---|---|---|---|---|
-| Bolinas | 361 | 0 | – | 2 | 100.0% | 0.7% of 275 |
-| Stinson Beach | 361 | 0 | – | 1 | 100.0% | 0.5% of 218 |
-| Ocean Beach | 361 | 0 | – | 8 | 87.5% | 3.3% of 210 |
-| Linda Mar | 361 | 0 | – | 123 | 67.5% | 34.6% of 237 |
-| Montara | 361 | 0 | – | 31 | 90.3% | 10.9% of 256 |
-| Mavericks | 361 | 0 | – | 10 | 100.0% | 3.4% of 297 |
-| Steamer Lane | 332 | 0 | – | 1 | 100.0% | – |
-| Cowell’s | 332 | 0 | – | 0 | – | – |
-| Davenport | 332 | 0 | – | 3 | 100.0% | – |
+| Bolinas | 357 | 0 | – | 0 | – | – |
+| Stinson Beach | 357 | 0 | – | 0 | – | – |
+| Ocean Beach | 357 | 0 | – | 0 | – | – |
+| Linda Mar | 357 | 0 | – | 0 | – | – |
+| Montara | 361 | 0 | – | 4 | 100.0% | 1.5% of 267 |
+| Mavericks | 361 | 0 | – | 8 | 75.0% | 2.2% of 276 |
 | Crescent City | 318 | 0 | – | 1 | 100.0% | – |
-| Humboldt North Jetty | 324 | 0 | – | 6 | 83.3% | – |
+| Moonstone Beach | 360 | 0 | – | 2 | 50.0% | – |
 | Point Arena | 330 | 0 | – | 0 | – | – |
-| Salmon Creek | 325 | 0 | – | 73 | 47.9% | – |
-| Dillon Beach | 325 | 0 | – | 73 | 47.9% | – |
-| Waddell Creek | 332 | 0 | – | 3 | 100.0% | – |
-| Morro Rock | 361 | 0 | – | 54 | 44.4% | 14.0% of 172 |
-| Pismo Beach Pier | 361 | 0 | – | 42 | 35.7% | 8.9% of 168 |
-| Jalama | 328 | 0 | – | 1 | 100.0% | – |
-| Rincon | 311 | 0 | – | 23 | 34.8% | – |
-| C Street | 310 | 0 | – | 16 | 31.3% | – |
-| County Line | 357 | 0 | – | 11 | 54.5% | 2.6% of 231 |
-| Zuma | 357 | 0 | – | 12 | 41.7% | 2.3% of 221 |
-| Malibu (Surfrider) | 357 | 0 | – | 0 | – | 0.0% of 251 |
-| Topanga | 356 | 0 | – | 1 | 0.0% | 0.0% of 240 |
-| El Porto | 357 | 0 | – | 58 | 34.5% | 10.2% of 197 |
-| Hermosa Pier | 358 | 0 | – | 58 | 24.1% | 7.6% of 185 |
-| Huntington Pier | 359 | 0 | – | 52 | 23.1% | 5.5% of 220 |
-| The Wedge | 359 | 0 | – | 18 | 72.2% | 4.7% of 277 |
+| Manresa | 355 | 0 | – | 8 | 87.5% | – |
+| Morro Rock | 361 | 0 | – | 0 | – | – |
+| Pismo Beach Pier | 361 | 0 | – | 0 | – | – |
+| County Line | 347 | 0 | – | 0 | – | – |
+| Zuma | 347 | 0 | – | 0 | – | – |
+| Malibu (Surfrider) | 347 | 0 | – | 0 | – | – |
+| Topanga | 346 | 0 | – | 0 | – | – |
+| El Porto | 357 | 0 | – | 87 | 33.3% | 13.7% of 212 |
+| Hermosa Pier | 358 | 0 | – | 0 | – | – |
+| Huntington Pier | 357 | 0 | – | 0 | – | – |
+| The Wedge | 357 | 0 | – | 0 | – | – |
 | Salt Creek | 357 | 0 | – | 0 | – | – |
 | Trestles | 358 | 0 | – | 0 | – | – |
-| Oceanside Pier | 356 | 0 | – | 11 | 90.9% | 4.0% of 249 |
-| Swami’s | 357 | 0 | – | 14 | 64.3% | 3.9% of 231 |
-| Cardiff Reef | 357 | 0 | – | 14 | 78.6% | 4.6% of 239 |
+| Oceanside Pier | 360 | 0 | – | 31 | 77.4% | 8.7% of 277 |
+| Swami’s | 334 | 0 | – | 0 | – | – |
+| Cardiff Reef | 334 | 0 | – | 0 | – | – |
 | Black’s Beach | 342 | 0 | – | 10 | 60.0% | 3.0% of 101 |
 | Windansea | 342 | 0 | – | 10 | 60.0% | 2.0% of 102 |
-| Ocean Beach (San Diego) | 342 | 0 | – | 7 | 14.3% | 1.1% of 94 |
-| Imperial Beach | 343 | 0 | – | 10 | 60.0% | 2.6% of 77 |
+| Ocean Beach (San Diego) | 177 | 0 | – | 0 | – | – |
+| Imperial Beach | 348 | 0 | – | 41 | 41.5% | 8.8% of 91 |
 
 ## 6. Candidate fixes, chosen on the first 2/3 and reported on the last 1/3
 
@@ -253,28 +221,49 @@ Each candidate caps the forecast-fed score using only what the app has at that h
 
 | candidate | fit: removed / lost | fit: share before → after | archive held-out: removed / lost | share | recent held-out: removed / lost | share | passes on both held-out sets |
 |---|---|---|---|---|---|---|---|
-| forecast onshore wind over 8 mph caps at 39 | 288 / 662 | 4.2% → 2.8% | 158 / 346 | 7.0% → 5.2% | 33 / 115 | 3.2% → 1.2% | no |
-| forecast onshore wind over 10 mph caps at 39 | 193 / 231 | 4.2% → 3.2% | 92 / 81 | 7.0% → 5.9% | 21 / 32 | 3.2% → 1.9% | no |
-| forecast onshore wind over 12 mph caps at 39 | 87 / 65 | 4.2% → 3.7% | 28 / 16 | 7.0% → 6.7% | 12 / 9 | 3.2% → 2.5% | no |
-| forecast onshore wind over 15 mph caps at 39 | 20 / 8 | 4.2% → 4.1% | 3 / 3 | 7.0% → 7.0% | 4 / 1 | 3.2% → 3.0% | no |
-| v1 surf height under 1 ft caps at 39 | 0 / 2 | 4.2% → 4.2% | 0 / 0 | 7.0% → 7.0% | 0 / 0 | 3.2% → 3.2% | no |
-| v1 surf height under 1.5 ft caps at 39 | 24 / 226 | 4.2% → 4.1% | 5 / 74 | 7.0% → 7.0% | 0 / 0 | 3.2% → 3.2% | no |
-| v1 surf height under 2 ft caps at 39 | 26 / 995 | 4.2% → 4.3% | 6 / 467 | 7.0% → 7.4% | 0 / 10 | 3.2% → 3.2% | no |
-| offshore Hs under 1.5 ft caps at 39 | 38 / 97 | 4.2% → 4.0% | 2 / 2 | 7.0% → 7.0% | 0 / 0 | 3.2% → 3.2% | no |
-| offshore Hs under 2 ft caps at 39 | 82 / 1159 | 4.2% → 4.0% | 10 / 372 | 7.0% → 7.3% | 0 / 0 | 3.2% → 3.2% | no |
-| offshore Hs under 3 ft caps at 39 | 133 / 5449 | 4.2% → 4.9% | 65 / 2544 | 7.0% → 9.6% | 4 / 207 | 3.2% → 3.4% | no |
+| forecast onshore wind over 8 mph caps at 39 | 131 / 225 | 2.8% → 1.1% | 62 / 148 | 3.3% → 1.1% | 28 / 38 | 5.9% → 0.8% | no |
+| forecast onshore wind over 10 mph caps at 39 | 94 / 73 | 2.8% → 1.6% | 29 / 40 | 3.3% → 2.3% | 21 / 8 | 5.9% → 2.2% | no |
+| forecast onshore wind over 12 mph caps at 39 | 52 / 16 | 2.8% → 2.1% | 10 / 7 | 3.3% → 2.9% | 10 / 1 | 5.9% → 4.2% | no |
+| forecast onshore wind over 15 mph caps at 39 | 12 / 3 | 2.8% → 2.6% | 1 / 1 | 3.3% → 3.2% | 4 / 0 | 5.9% → 5.2% | no |
+| v1 surf height under 1 ft caps at 39 | 0 / 0 | 2.8% → 2.8% | 0 / 0 | 3.3% → 3.3% | 0 / 0 | 5.9% → 5.9% | no |
+| v1 surf height under 1.5 ft caps at 39 | 5 / 63 | 2.8% → 2.7% | 0 / 2 | 3.3% → 3.3% | 0 / 0 | 5.9% → 5.9% | no |
+| v1 surf height under 2 ft caps at 39 | 5 / 324 | 2.8% → 2.8% | 2 / 55 | 3.3% → 3.3% | 0 / 0 | 5.9% → 5.9% | no |
+| offshore Hs under 1.5 ft caps at 39 | 11 / 17 | 2.8% → 2.6% | 0 / 0 | 3.3% → 3.3% | 0 / 0 | 5.9% → 5.9% | no |
+| offshore Hs under 2 ft caps at 39 | 16 / 281 | 2.8% → 2.7% | 2 / 59 | 3.3% → 3.3% | 0 / 0 | 5.9% → 5.9% | no |
+| offshore Hs under 3 ft caps at 39 | 39 / 1665 | 2.8% → 2.9% | 28 / 737 | 3.3% → 3.1% | 6 / 25 | 5.9% → 5.1% | no |
 
 **The Call for a beginner** (too big for the skill): Skip when the typical estimate is above 4 ft. removed / lost = hours the change turns to Skip that were observed above / within the range; share = of the hours observed above 4 ft, the share the Call let through (Go or Worth a look).
 
 | candidate | fit: removed / lost | fit: share before → after | archive held-out: removed / lost | share | recent held-out: removed / lost | share | passes on both held-out sets |
 |---|---|---|---|---|---|---|---|
-| beginner Call: Skip when the typical estimate is above 4 ft | 2164 / 1000 | 24.8% → 6.3% | 426 / 359 | 21.1% → 5.4% | 125 / 63 | 26.8% → 6.8% | no |
+| beginner Call: Skip when the typical estimate is above 4 ft | 2111 / 924 | 23.6% → 6.0% | 441 / 357 | 20.4% → 4.9% | 119 / 58 | 24.0% → 5.8% | no |
 
 Chosen on the fit hours: wind: none passes on the fit hours; size: none passes on the fit hours.
 
 
 <!-- notes -->
 ## Notes (written 2026-11-06; the tables above are regenerated by the script, these notes are not)
+
+### Rerun 2026-11-08: shore wind stations
+Observed wind now comes from the nearest **shore** station within 7 km of each spot:
+- a fixed NOAA station; or
+- an airport ASOS (either kind outside enclosed water; an airport's variable direction is kept below 5 mph).
+
+Before, it came from the nearest station within 40 km, which for most spots was an offshore buoy 22–40 km out. The rule and helper are in `docs/forecast/WIND-POINT.md` and `data/shore-wind.ts`.
+
+**Every figure in the notes below this addendum ("What the audit says", "What changed") is from the 2026-11-06 run** (offshore-buoy wind; that version is in git history). The tables above are the new run.
+
+**What moved:**
+- The audit covers fewer hours. Spots with no shore station within 7 km have no observed wind. Archive hours with both observations: 43,858 → 16,386; in Northern and Central California, 12,528 → 5,912.
+- Hours rated fair or better that were observed poor (section 3, forecast inputs):
+  - archive: 4.6% → 2.7%;
+  - recent: 5.8% → 5.7%;
+  - Northern and Central California, archive: 8.0% → 1.7%.
+- **Do not read this as the rating getting better.** It is a different, smaller set of spots, and airfields read land wind, often lighter than on the water. Fewer hours count as "onshore over 12 mph".
+- "Forecast only" overcalls (the inputs were wrong), archive, onshore wind: 8.6% (221) → 2.0% (19) of the observed-poor hours. This is a different set of spots, so it says nothing about cause.
+- **Decision unchanged:** no candidate fix passes on both held-out sets (section 6), so nothing in the app changes.
+- **Closest call:** the 12 mph onshore cap now removes more overcalls than it costs on both held-out sets: 10 removed against 7 lost (archive) and 10 against 1 (recent). Before, it was 28 against 16 and 12 against 9. It still fails the fixed rule (at least 10 removed, more than twice as many removed as lost, and a share at least 2 points lower). On archive, 10 is not more than 2 × 7. On recent, the share falls 5.9% → 4.2%, which is 1.7 points. It is the candidate to retest when more shore-station hours exist.
+
 
 ### What the audit says
 1. **How often a poor hour reads fair or better (forecast-fed, section 2).** Observed onshore wind over 12 mph: 37.6% of 3,912 daylight hours (archive) and 51.0% of 757 (recent) were rated fair or better; 14.7–14.8% NOT BAD or better; 2.1–4.6% good. Observed surf under 1 ft: 45.2% of 1,202 hours (archive; almost all of it in Monterey Bay and Malibu/Topanga, where the anchor carries a small buoy reading into a sheltered point); the recent window had no such hour. Almost none reached good (1.1%).
@@ -291,7 +280,7 @@ No candidate cleared the acceptance rule fixed before the held-out third was rea
 
 ### Limits
 - Observed surf is a buoy reading carried to the spot's MOP point by MOP (model-assisted), only at spots with a buoy MOP gets right within 40 km; no spot is measured at the break.
-- Observed wind is from coastal stations up to 40 km away, uncorrected for anemometer height (stations stand 4–20 m up; the forecast is 10 m). Several spots use an offshore buoy.
+- Observed wind (since 2026-11-08) is from shore stations within 7 km: piers, headlands and airfields, not the break, uncorrected for anemometer height (stations stand 4–20 m up; the forecast is 10 m). Before that, it was from stations up to 40 km away, often offshore buoys.
 - The forecast-fed rating uses Open-Meteo's archived short-range runs (close to a nowcast), not the days-ahead forecast; the Call uses MOP's nowcast in place of its forecast. Both are best cases.
 - "Poor" covers only small surf and strong onshore wind. Cross-shore wind, closeouts and tide are not judged.
 - The archive is winter–spring; the recent window is one autumn month.

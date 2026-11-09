@@ -28,6 +28,7 @@ import {setOnshoreCapEnabled} from '../../../src/ratings/windRules.ts';
 import {hourCall, ONSHORE_BAD_MPH, SKILL_RANGE_FT} from '../../../src/services/call.ts';
 import {isDark} from '../../../src/services/daylight.ts';
 import {isEnclosedWater} from '../../../src/map/enclosed.ts';
+import {ASOS_NETWORK_URL, parseAsosNetwork, asosURL, parseAsos} from './shore-wind.ts';
 import {angle} from '../../../src/utils/units.ts';
 import {OBSERVING_BUOYS, buoyFeedURL, parseCdipSeries, parseNdbcSeries, pairSeries, score, splitByTime, distanceKm, type HourSeries} from '../../../src/services/accuracy.ts';
 import type {OceanRecord, Measurement} from '../../../src/ocean/types.ts';
@@ -55,10 +56,14 @@ const MOP_OK = {bias: 0.5, mae: 1.0, n: 200}, MIN_OBS_HOURS = 200, ANCHOR_KM = 4
 const TINY_FT = 1;
 /** Fair or better: the rating's fair band starts at SURFABLE (40); NOT BAD starts at 55; the good band at SOLID (65). */
 const FAIR = 40, NOT_BAD = 55, GOOD = 65;
-/** Wind station rule: the nearest NDBC/NOS meteorological station within WIND_KM of the spot that is not in enclosed water by the repo's own mask
- *  (src/map/enclosed.ts: bays, harbours, estuaries) and reports wind on at least 200 hours of the window. Coastal anemometers stand 4–20 m up and are
- *  not at the break; no height or exposure correction is made. */
-const WIND_KM = 40, WIND_RULE = `nearest NDBC/NOS met station within ${WIND_KM} km, not in enclosed water (src/map/enclosed.ts), with wind on 200+ hours of the window`;
+/** Wind station rule (2026-11-08, was: nearest NDBC/NOS station within 40 km, which for most spots was an offshore buoy 22–40 km out at sea):
+ *  the nearest SHORE station within WIND_KM of the spot: a fixed NDBC/NOS met station not in enclosed water by the repo's own mask
+ *  (src/map/enclosed.ts: bays, harbours, estuaries), or an airport ASOS (IEM archive, docs/forecast/data/shore-wind.ts), that reports wind on at
+ *  least 200 hours of the window. No offshore buoys. A spot with no such station has no observed wind. Anemometers stand 4–20 m up, on a pier,
+ *  headland or airfield, not at the break; no height or exposure correction is made. */
+/** Below this an airport's variable (VRB) direction is kept (as 0°, not scored for direction), so light-wind hours are not dropped. */
+const ASOS_CALM_MPH = 5;
+const WIND_KM = 7, WIND_RULE = `nearest shore station within ${WIND_KM} km (a fixed NDBC/NOS met station or an airport ASOS via the Iowa Environmental Mesonet, either kind not in enclosed water by src/map/enclosed.ts), with wind on 200+ hours of the window; no offshore buoys`;
 const MPS_TO_MPH = 2.236936;
 /** The app judges a forecast the day before (How right uses the same lead): the lead-dependent parts of the rating read nowMs = hour - LEAD_H. */
 const LEAD_H = 24;
@@ -101,9 +106,11 @@ const BEGIN: UserProfile = {...defaultProfile, skill: 'Beginner', minWave: 0, ma
 const relOf = (orient: number | null, dir: number) => orient === null ? 'unknown' : angle(dir, orient + 180) < 45 ? 'offshore' : angle(dir, orient) < 45 ? 'onshore' : 'cross-shore';
 const meas = (value: number | null, unit: Measurement['unit'], base: Measurement, provider: string): Measurement => ({value, unit, source: {...base.source, provider, kind: 'observation' as any, notes: 'Audit: observed input.'}});
 
-const statList: Station[] = await stations();
+const asosNet = await get(ASOS_NETWORK_URL);
+const statList: Station[] = [...(await stations()).filter((s) => s.type === 'fixed'),
+  ...(asosNet ? parseAsosNetwork(asosNet).map((a) => ({id: a.id, name: a.name, type: 'asos', owner: 'airport ASOS via Iowa Environmental Mesonet', lat: a.lat, lon: a.lon})) : [])];
 const windCache = new Map<string, Map<number, WindObs>>();
-async function windFor(id: string, w: [number, number]) { const k = `${id}|${w[0]}`; if (!windCache.has(k)) { const t = await get(windURL(id, w)); windCache.set(k, t ? parseWind(t) : new Map()); } return windCache.get(k)!; }
+async function windFor(st: Station, w: [number, number]) { const k = `${st.id}|${w[0]}`; if (!windCache.has(k)) { const asos = st.type === 'asos', t = await get(asos ? asosURL(st.id, iso(w[0]), iso(w[1])) : windURL(st.id, w)); windCache.set(k, t ? (asos ? parseAsos(t, ASOS_CALM_MPH) : parseWind(t)) : new Map()); } return windCache.get(k)!; }
 
 async function runWindow(win: 'archive' | 'recent') {
   const w = WIN[win], cut = w[0] + (w[1] - w[0]) * 2 / 3, obs = new Map<string, HourSeries>(), bp = new Map<string, HourSeries>();
@@ -121,7 +128,7 @@ async function runWindow(win: 'archive' | 'recent') {
     // wind station by rule
     let wind: {st: Station; km: number; data: Map<number, WindObs>} | null = null;
     for (const c of statList.map((st) => ({st, km: distanceKm(ev.latitude, ev.longitude, st.lat, st.lon)})).filter((c) => c.km <= WIND_KM && !isEnclosedWater(c.st.lat, c.st.lon)).sort((p, q) => p.km - q.km)) {
-      const d = clip(await windFor(c.st.id, w) as any, w) as unknown as Map<number, WindObs>; if (d.size >= MIN_OBS_HOURS) { wind = {...c, data: d}; break; }
+      const d = clip(await windFor(c.st, w) as any, w) as unknown as Map<number, WindObs>; if (d.size >= MIN_OBS_HOURS) { wind = {...c, data: d}; break; }
     }
     if (!anchor && !wind) { meta.push({spot: spot.id, name: spot.name, anchor: null, wind: null, n: 0}); continue; }
     // the spot's MOP nowcast (for the anchored height and as the Call's stand-in MOP forecast)
@@ -268,7 +275,7 @@ Generated ${new Date().toISOString().slice(0, 16)}Z by \`docs/forecast/data/rati
 
 **What each number is.**
 - **Observed surf** = **buoy carried to the point (model-assisted)**: a wave buoy's measured Hs × MOP's own hourly ratio (spot point ÷ buoy site), only from a buoy within ${ANCHOR_KM} km where MOP is right at the buoy (the T-131 rule, judged on each window's first 2/3). Not a measurement at the spot. "Under 1 ft" is in the app's surf-height convention (about the nearshore Hs).
-- **Observed wind** = **measured at a coastal station**, not at the break: ${WIND_RULE}. The reading on the hour (NDBC stdmet via NOAA ERDDAP \`cwwcNDBCMet\`); ids, names and positions from NDBC's \`activestations.xml\`. No anemometer-height correction (stations stand 4–20 m up; the forecast is 10 m).
+- **Observed wind** = **measured at a coastal station**, not at the break: ${WIND_RULE}. NOAA stations: the reading on the hour (NDBC stdmet via NOAA ERDDAP \`cwwcNDBCMet\`), ids, names and positions from NDBC's \`activestations.xml\`. Airports: the routine hourly METAR within 10 minutes of the hour (IEM ASOS archive, \`docs/forecast/data/shore-wind.ts\`); an airfield reads land wind, often lighter than on the water. No anemometer-height correction (stations stand 4–20 m up; the forecast is 10 m).
 - **Forecast-fed rating** = the app's engine (\`rateForecast\`, the provisional rating) on the **Open-Meteo Marine and Open-Meteo Weather hours for the window**: the archived short-range model runs Open-Meteo serves for past dates (historical-forecast API for the archive window, \`past_days\` for the recent one). That is close to a nowcast, NOT the days-ahead forecast a surfer plans with, so these are the best the inputs get. The lead-dependent ceiling is judged ${LEAD_H} h ahead. The rating never reads MOP (it judges the offshore swell; CONTRACTS T-130).
 - **Observed-fed rating** = the same engine on the measured inputs: the anchor buoy's Hs, peak period and peak direction as the swell (bulk values: no swell partition, no secondary swell) and the station's wind and gust. Only hours with both.
 - **The Call** (\`hourCall\`) uses the surf estimate, which in the app is MOP's forward forecast. That has no public archive, so the audit gives the Call **MOP's nowcast at the spot's point as a stand-in** (an upper bound on what the Call had) and the Open-Meteo hours above. Skill ranges only (no personal preferred range).

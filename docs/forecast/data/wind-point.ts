@@ -22,6 +22,7 @@ import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {isEnclosedWater} from '../../../src/map/enclosed.ts';
 import {evidenceSpots} from '../../../src/ocean/spots.ts';
+import {ASOS_NETWORK_URL, parseAsosNetwork, asosURL, parseAsos} from './shore-wind.ts';
 
 const HOUR = 3600000, MPS_TO_MPH = 2.236936, CALM_MPH = 5, MIN_HOURS = 300;
 const [START, END] = [process.argv[2] ?? '2026-08-01', process.argv[3] ?? '2026-11-06'];
@@ -35,9 +36,11 @@ async function get(u: string, tries = 3): Promise<string | null> {
 
 interface Station {id: string; name: string; type: string; lat: number; lon: number}
 const xml = await get('https://www.ndbc.noaa.gov/activestations.xml'); if (!xml) throw new Error('activestations.xml unavailable');
-const stations: Station[] = [...xml.matchAll(/<station ([^>]*)\/?>/g)].map((m) => Object.fromEntries([...m[1].matchAll(/(\w+)="([^"]*)"/g)].map((a) => [a[1], a[2]])) as any)
+const allFixed: Station[] = [...xml.matchAll(/<station ([^>]*)\/?>/g)].map((m) => Object.fromEntries([...m[1].matchAll(/(\w+)="([^"]*)"/g)].map((a) => [a[1], a[2]])) as any)
   .filter((s: any) => s.met === 'y' && s.type === 'fixed').map((s: any) => ({id: String(s.id).toUpperCase(), name: s.name, type: s.type, lat: +s.lat, lon: +s.lon}))
-  .filter((s) => s.lat > 34.4 && s.lat < 42.1 && s.lon > -125 && s.lon < -119.5 && !isEnclosedWater(s.lat, s.lon));
+  .filter((s) => s.lon > -125 && s.lon < -114 && s.lat > 32 && s.lat < 42.1 && !isEnclosedWater(s.lat, s.lon));
+/** Part 1 covers Northern and Central California only (34.4°–42.1° N); Part 2 takes fixed stations along the whole California coast. */
+const stations = allFixed.filter((s) => s.lat > 34.4 && s.lat < 42.1 && s.lon < -119.5);
 
 interface Obs {mph: number; dir: number}
 async function observed(id: string): Promise<Map<number, Obs>> {
@@ -93,6 +96,35 @@ for (const s of stations) {
   rows.push(out);
 }
 
+// ---------- Part 2: at the spots. Model at the SPOT's own query point (the app's request), land vs nearest, against the nearest shore
+// station within SPOT_STATION_KM of the spot: NDBC/NOS fixed stations from Part 1, or an airport ASOS (hourly routine METAR via the
+// Iowa Environmental Mesonet archive; station list from IEM's CA_ASOS network). The station's distance to each rule's cell is reported:
+// a station that sits inside one rule's cell is expected to favour that rule, so those rows are not evidence about the beach.
+const SPOT_STATION_KM = 7;
+interface ShoreStation {id: string; name: string; lat: number; lon: number; kind: 'ndbc' | 'asos'}
+const asosList = await get(ASOS_NETWORK_URL);
+// The same enclosed-water mask for both kinds (as rating-audit.ts): an airfield on a bay shore reads bay wind.
+const asos: ShoreStation[] = asosList ? parseAsosNetwork(asosList).filter((x) => !isEnclosedWater(x.lat, x.lon)).map((x) => ({...x, kind: 'asos' as const})) : [];
+const shore: ShoreStation[] = [...allFixed.map((s) => ({id: s.id, name: s.name, lat: s.lat, lon: s.lon, kind: 'ndbc' as const})), ...asos];
+async function observedAsos(id: string): Promise<Map<number, Obs>> { const t = await get(asosURL(id, START, END)); return t ? parseAsos(t, CALM_MPH) : new Map(); }
+const atSpots: any[] = [];
+for (const sp of evidenceSpots) {
+  // The nearest shore station within SPOT_STATION_KM that has data for the window (a silent station falls through to the next).
+  let st: (ShoreStation & {k: number}) | null = null, obs = new Map<number, Obs>();
+  for (const c of shore.map((s) => ({...s, k: km(sp.latitude, sp.longitude, s.lat, s.lon)})).filter((s) => s.k <= SPOT_STATION_KM).sort((a, b) => a.k - b.k)) {
+    const o = c.kind === 'asos' ? await observedAsos(c.id) : await observed(c.id); if (o.size >= MIN_HOURS) { st = c; obs = o; break; }
+  }
+  if (!st) continue;
+  const base = {spot: sp.name, station: st.id, stationName: st.name, kind: st.kind, stationKm: r1(st.k)};
+  const ms: Record<string, Model | null> = {};
+  for (const v of VARIANTS.filter((x) => x.key === 'land' || x.key === 'nearest')) { ms[v.key] = await model(sp.latitude, sp.longitude, v); await sleep(300); }
+  if (!ms.land || !ms.nearest) { atSpots.push({...base, skipped: 'model hours unavailable'}); continue; }
+  const keys = [...obs.keys()].filter((t) => ms.land!.hours.has(t) && ms.nearest!.hours.has(t));
+  const row: any = {...base, hours: keys.length, obsMeanMph: r1(keys.reduce((x, t) => x + obs.get(t)!.mph, 0) / keys.length), sameCell: ms.land.cellLat === ms.nearest.cellLat && ms.land.cellLon === ms.nearest.cellLon, variants: {}};
+  for (const k of ['land', 'nearest']) { const m = ms[k]!; row.variants[k] = {cell: [m.cellLat, m.cellLon], spotToCellKm: r1(km(sp.latitude, sp.longitude, m.cellLat, m.cellLon)), stationToCellKm: r1(km(st.lat, st.lon, m.cellLat, m.cellLon)), ...score(obs, m.hours, keys)}; }
+  atSpots.push(row);
+}
+
 // The spots themselves: which cell each rule picks for the app's wind query point (no observations; geometry only).
 const spotCells: any[] = [];
 for (const sp of evidenceSpots) {
@@ -101,11 +133,13 @@ for (const sp of evidenceSpots) {
   spotCells.push(c);
 }
 
-const res = {generated: new Date().toISOString(), window: [START, END], calmMph: CALM_MPH, variants: VARIANTS.map(({key, label}) => ({key, label})), stations: rows, spotCells};
+const res = {generated: new Date().toISOString(), window: [START, END], calmMph: CALM_MPH, variants: VARIANTS.map(({key, label}) => ({key, label})), stations: rows, spotStationKm: SPOT_STATION_KM, atSpots, spotCells};
 fs.writeFileSync(new URL(`./wind-point-${START}.json`, import.meta.url), JSON.stringify(res, null, 1));
 for (const r of rows) {
   if (r.skipped) { console.log(`${r.id} ${r.name}: skipped, ${r.skipped}`); continue; }
   console.log(`\n${r.id} ${r.name} (${r.hours} h, observed mean ${r.obsMeanMph} mph)`);
   for (const v of VARIANTS) { const x = r.variants[v.key]; console.log(`  ${v.key.padEnd(8)} cell ${x.cellKm} km elev ${x.elevM} m | bias ${x.bias} MAE ${x.mae} mph | dir median ${x.dirMed}° | >90° off ${x.flip}% of ${x.nDir}`); }
 }
+console.log('\nAt the spots (model at the spot point vs the nearest shore station):');
+for (const r of atSpots) { if (r.skipped) { console.log(`${r.spot} / ${r.station} ${r.stationKm} km: skipped, ${r.skipped}`); continue; } console.log(`${r.spot} / ${r.station} ${r.stationName} ${r.stationKm} km (${r.hours} h, obs mean ${r.obsMeanMph})${r.sameCell ? ' SAME CELL' : ''}`); for (const k of ['land', 'nearest']) { const x = r.variants[k]; console.log(`  ${k.padEnd(8)} cell ${x.spotToCellKm} km from spot, ${x.stationToCellKm} km from station | bias ${x.bias} MAE ${x.mae} | dir ${x.dirMed}° | >90° ${x.flip}% of ${x.nDir}`); } }
 console.log('\nSpot cells:'); for (const c of spotCells) console.log(c.name, JSON.stringify({land: c.land, sea: c.sea, nearest: c.nearest}));

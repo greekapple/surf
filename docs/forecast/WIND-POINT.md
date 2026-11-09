@@ -23,7 +23,7 @@ Open-Meteo's default `cell_selection=land` returns the nearest land cell of simi
 
 The cell for every spot is in the JSON (`spotCells`). Inland cells carry land wind, which is lighter and turned by terrain. Surfers feel the wind coming off the water.
 
-## The test
+## Part 1: the cell rule at the stations' own positions
 - **Stations:** every NDBC/NOS meteorological station of type "fixed" between 34.4° and 42.1° N that is outside enclosed water (by the repo's mask) and has at least 300 observed hours. This is a rule, not a hand pick. Six stations qualified.
 - **Model hours:** archived first hours of each run from the Open-Meteo historical-forecast API. These are close to a nowcast, not a days-ahead forecast.
 - **Windows:** two, Aug–Nov 2026 and Dec 2025–Mar 2026.
@@ -50,7 +50,7 @@ Shown when the two rules pick different cells. Where both rules pick the same ce
 
 ECMWF IFS 0.25° was far worse at the windy headland (Point Arguello, bias −12 mph). It was better only at Arena Cove.
 
-### Reading it
+### Reading Part 1
 - **Where the default puts the cell 3 km or more inland:**
   - Cal Poly Pier and Port San Luis: the nearest cell cut the median direction error by 3–11°.
   - At Port San Luis, and at Cal Poly Pier in winter, it also cut the speed error by 0.5–0.9 mph.
@@ -64,34 +64,71 @@ ECMWF IFS 0.25° was far worse at the windy headland (Point Arguello, bias −12
   - No station stands at a surf spot that the rule changes (Ocean Beach, Linda Mar, Mavericks, Montara).
   - Stations stand 4–20 m up, with no height correction.
 
-## Decision
-The app now asks for `cell_selection=nearest`, the grid cell that contains the beach:
-- in the browser: `src/ocean/openMeteo.ts` `weatherURL`;
-- in the forecast service: `services/forecast-service.mjs`, the `weather-` targets and the Explore point forecast (`/api/point`), so a tapped point and the spot page use the same rule.
+## Part 2: at the spots, against the nearest shore station (added 2026-11-08)
+- **Set-up:** the model at each spot's own query point (the app's request), land against nearest. Each is compared with the nearest shore station within 7 km of the spot that has data:
+  - a fixed NOAA station, anywhere on the California coast (Part 1 used only 34.4°–42.1° N); or
+  - an airport ASOS: the routine hourly METAR from the Iowa Environmental Mesonet archive, read by `data/shore-wind.ts`.
+- **Both kinds** pass the same enclosed-water mask as the audit. That rule drops San Diego's airport (SAN), which sits on the bay.
+- **Shown:** the spots where the two rules pick different cells.
+- **Numbers:** speed MAE (mph) and median direction error. Each cell's distance to the station is given because a station inside one rule's cell is expected to favour that rule.
 
-Test: `src/tests/wind-cell.test.ts`.
+| Spot / station | Station distance | Land cell: from spot / from station | Nearest cell: from spot / from station | Aug–Nov 2026, land → nearest | Dec 2025–Mar 2026, land → nearest |
+|---|---|---|---|---|---|
+| Montara / Half Moon Bay airport (HAF) | 3.7 km | 3.0 / 0.7 km | 0.2 / 3.7 km | 2.3 → 3.0, 14° → 17° | 2.9 → 5.3, 13° → 17° |
+| Mavericks / HAF | 2.1 km | 2.7 / 0.7 km | 0.5 / 2.3 km | 2.3 → 2.3, 14° → 15° | 2.9 → 3.0, 13° → 15° |
+| Imperial Beach / NRS | 2.9 km | 2.9 / 0.1 km | 1.4 / 4.2 km | 2.2 → 2.3, 13° → 14° | 2.1 → 2.5, 16° → 16° |
+| Point Arena / Arena Cove (ANVC1) | 0.1 km | 2.2 / 2.2 km | 1.6 / 1.7 km | 5.6 → 6.2, 42° → 39° | 5.7 → 6.2, 45° → 42° |
+| Manresa / Watsonville (WVI) | 6.7 km | 3.5 / 8.8 km | 1.3 / 8.0 km | 2.4 → 3.0, 19° → 21° | 2.9 → 3.6, 26° → 26° |
+| Black's Beach / Scripps Pier (LJAC1) | 2.5 km | 2.4 / 4.3 km | 0.8 / 2.8 km | 2.1 → 2.1, 18° → 16° | 2.5 → 2.6, 20° → 17° |
+| Windansea / Scripps Pier (LJAC1) | 4.7 km | 4.2 / 6.1 km | 0.5 / 4.2 km | 2.0 → 2.2, 13° → 15° | 2.4 → 2.7, 17° → 16° |
 
-**Why:**
-- it is the cell the beach is in;
-- where the cell moved, it was better at the two improved stations (one shared cell), except for one cost and one exception:
-  - Cal Poly Pier in summer: more hours were off by over 90° (15% → 22%).
-  - Arena Cove, a sheltered-cove anemometer, got worse.
+At Crescent City, Moonstone Beach, El Porto and Oceanside Pier both rules pick the same cell.
 
-**Labels:** the source label already shows the returned grid coordinates (`Returned grid lat, lon`), so it moves with the cell. No copy changes.
+### Reading Part 2
+- **On speed, the land cell matched the station better or tied at every spot.**
+- **On direction it was mixed.** The nearest cell was better at Point Arena (by 3°) and at Black's Beach (by 2–3°).
+- **That is partly the set-up:**
+  - The HAF and NRS airports sit in or next to the land cell (0.1–0.7 km), so they are expected to favour it.
+  - Airfields read land wind.
+- **Not every case is the set-up:**
+  - Watsonville is about equally far from both cells (8.8 vs 8.0 km), and land still won.
+  - At Montara in winter, the beach cell read 4 mph windier than the airport, against the land cell's +0.5 mph.
+- **Neither part measures wind at a beach whose cell the rule moves.**
+  - **Tally** (speed MAE, a difference of 0.2 mph or more counts; stations that sit within 1 km of one rule's cell, or in a sheltered cove, are left out):
+    - Left out: HAF ×4, NRS ×2, Arena Cove ×4.
+    - Nearest better: 2 (Cal Poly Pier and Port San Luis in winter, which share one cell).
+    - Land better: 4 (Watsonville ×2, Windansea ×2).
+    - About even: 3 (Cal Poly Pier in summer, Black's Beach ×2).
+  - **The fairest station is Scripps Pier (LJAC1):** a pier on the open coast, closer to the nearest cell than to the land cell. It shows no speed gain for the nearest cell, and a mixed direction result.
 
-### Effect on the app
-A one-time snapshot of the live forecast, the 48 hours from 2026-11-09 00:00 UTC (the evening of 2026-11-08 in California), nearest against land. It was taken with `data/wind-cell-effect.ts` and saved in `data/wind-cell-effect-2026-11-09.json`. A rerun on another day gives different numbers.
-- **Ocean Beach:** +3.1 mph on average (at most +7.4); the onshore/cross/offshore call changes on 8 of 48 hours.
-- **Linda Mar:** +1.8 mph; 5 of 48 hours change.
-- **Mavericks:** speed unchanged on average; 22 of 48 hours change, because the land cell is inland by the airport.
-- **Montara:** no change in the call.
-- **Humboldt North Jetty:** +1.3 mph (at most +6.9); 1 of 48 hours changes.
+## Decision (revised 2026-11-08, before it went live)
+The app **keeps Open-Meteo's default cell selection ("land")**.
 
-Ratings move with the wind.
+`cell_selection=nearest` was merged on the evidence of Part 1, then reverted on Part 2 before it was ever deployed. Leaving the biased stations out, the measurements show no gain for it (land better 4, nearest better 2, even 3).
+
+The physical argument for the beach cell still stands: surfers feel the wind over the water. But "it should be better" is not evidence, and the app does not change a forecast input on it.
+
+Browser, forecast service and the Explore point (`/api/point`) all use the same rule. `src/tests/wind-cell.test.ts` checks that.
+
+The 48-hour snapshot (`data/wind-cell-effect.ts`, `data/wind-cell-effect-2026-11-09.json`) records how much the rule would have changed the wind:
+- Ocean Beach: +3.1 mph on average; the shore relation changes on 8 of 48 hours.
+- Mavericks: the shore relation changes on 22 of 48 hours.
+
+That shows the choice matters, which is why it waits for a beach-level check.
+
+## Shore stations for the audits
+The rating audit (`data/rating-audit.ts`, `RATING-AUDIT.md`) used to take observed wind from the nearest NDBC/NOS station within 40 km. For most spots that was an offshore buoy 22–40 km out at sea (46026, 46012, 46042).
+
+It now takes the nearest **shore** station within 7 km:
+- a fixed NOAA station outside enclosed water; or
+- an airport ASOS.
+
+There are no offshore buoys. A spot without such a station has no observed wind. The helper is shared with this study (`data/shore-wind.ts`).
 
 ## Next
-A station at a beach that the rule changes would settle it. Two candidates:
-- the Half Moon Bay airport METAR (KHAF), about 1 km inland, near Mavericks;
-- any beach anemometer around San Francisco.
+A wind reading at one of the beaches whose cell differs would settle the cell rule. Candidates:
+- Ocean Beach, Linda Mar or Montara;
+- a beach anemometer (none is public on NDBC or IEM);
+- a short logging deployment.
 
-The How-right log does not record which cell rule fed a forecast (`src/services/forecastArchive.ts`). A before/after comparison can only split by date: the rule changed when this merge went live.
+The How-right log does not record which cell fed a forecast (`src/services/forecastArchive.ts`).

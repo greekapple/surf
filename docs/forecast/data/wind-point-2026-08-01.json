@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09T03:27:32.835Z",
+ "generated": "2026-11-09T05:30:09.659Z",
  "window": [
   "2026-08-01",
   "2026-11-06"
@@ -388,6 +388,449 @@
    "id": "TDPC1",
    "name": "Trinidad Pier Trinidad, CA",
    "skipped": "0 observed hours (< 300)"
+  }
+ ],
+ "spotStationKm": 7,
+ "atSpots": [
+  {
+   "spot": "Montara",
+   "station": "HAF",
+   "stationName": "Half Moon Bay",
+   "kind": "asos",
+   "stationKm": 3.7,
+   "hours": 2243,
+   "obsMeanMph": 5.9,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      37.519253,
+      -122.50397
+     ],
+     "spotToCellKm": 3,
+     "stationToCellKm": 0.7,
+     "n": 2243,
+     "bias": 0.5,
+     "mae": 2.3,
+     "nDir": 1258,
+     "dirMed": 14,
+     "flip": 1
+    },
+    "nearest": {
+     "cell": [
+      37.54525,
+      -122.51311
+     ],
+     "spotToCellKm": 0.2,
+     "stationToCellKm": 3.7,
+     "n": 2243,
+     "bias": 1.3,
+     "mae": 3,
+     "nDir": 1258,
+     "dirMed": 17,
+     "flip": 2
+    }
+   }
+  },
+  {
+   "spot": "Mavericks",
+   "station": "HAF",
+   "stationName": "Half Moon Bay",
+   "kind": "asos",
+   "stationKm": 2.1,
+   "hours": 2243,
+   "obsMeanMph": 5.9,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      37.519253,
+      -122.50397
+     ],
+     "spotToCellKm": 2.7,
+     "stationToCellKm": 0.7,
+     "n": 2243,
+     "bias": 0.5,
+     "mae": 2.3,
+     "nDir": 1258,
+     "dirMed": 14,
+     "flip": 1
+    },
+    "nearest": {
+     "cell": [
+      37.493275,
+      -122.49484
+     ],
+     "spotToCellKm": 0.5,
+     "stationToCellKm": 2.3,
+     "n": 2243,
+     "bias": 0.7,
+     "mae": 2.3,
+     "nDir": 1258,
+     "dirMed": 15,
+     "flip": 1
+    }
+   }
+  },
+  {
+   "spot": "Crescent City",
+   "station": "CECC1",
+   "stationName": "9419750 - Crescent City, CA",
+   "kind": "ndbc",
+   "stationKm": 0.3,
+   "hours": 2178,
+   "obsMeanMph": 6.4,
+   "sameCell": true,
+   "variants": {
+    "land": {
+     "cell": [
+      41.746323,
+      -124.197075
+     ],
+     "spotToCellKm": 0.8,
+     "stationToCellKm": 1.1,
+     "n": 2178,
+     "bias": -0.8,
+     "mae": 1.9,
+     "nDir": 1067,
+     "dirMed": 11,
+     "flip": 4
+    },
+    "nearest": {
+     "cell": [
+      41.746323,
+      -124.197075
+     ],
+     "spotToCellKm": 0.8,
+     "stationToCellKm": 1.1,
+     "n": 2178,
+     "bias": -0.8,
+     "mae": 1.9,
+     "nDir": 1067,
+     "dirMed": 11,
+     "flip": 4
+    }
+   }
+  },
+  {
+   "spot": "Moonstone Beach",
+   "station": "ACV",
+   "stationName": "ARCATA/EUREKA ARPT",
+   "kind": "asos",
+   "stationKm": 6.1,
+   "hours": 2301,
+   "obsMeanMph": 4.6,
+   "sameCell": true,
+   "variants": {
+    "land": {
+     "cell": [
+      41.036488,
+      -124.10256
+     ],
+     "spotToCellKm": 1,
+     "stationToCellKm": 6.5,
+     "n": 2301,
+     "bias": -0.7,
+     "mae": 2.4,
+     "nDir": 830,
+     "dirMed": 21,
+     "flip": 2
+    },
+    "nearest": {
+     "cell": [
+      41.036488,
+      -124.10256
+     ],
+     "spotToCellKm": 1,
+     "stationToCellKm": 6.5,
+     "n": 2301,
+     "bias": -0.7,
+     "mae": 2.4,
+     "nDir": 830,
+     "dirMed": 21,
+     "flip": 2
+    }
+   }
+  },
+  {
+   "spot": "Point Arena",
+   "station": "ANVC1",
+   "stationName": "9416841 - Arena Cove, CA",
+   "kind": "ndbc",
+   "stationKm": 0.1,
+   "hours": 2245,
+   "obsMeanMph": 5.2,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      38.927406,
+      -123.73046
+     ],
+     "spotToCellKm": 2.2,
+     "stationToCellKm": 2.2,
+     "n": 2245,
+     "bias": 5,
+     "mae": 5.6,
+     "nDir": 982,
+     "dirMed": 42,
+     "flip": 5
+    },
+    "nearest": {
+     "cell": [
+      38.901524,
+      -123.720726
+     ],
+     "spotToCellKm": 1.6,
+     "stationToCellKm": 1.7,
+     "n": 2245,
+     "bias": 5.7,
+     "mae": 6.2,
+     "nDir": 982,
+     "dirMed": 39,
+     "flip": 5
+    }
+   }
+  },
+  {
+   "spot": "Manresa",
+   "station": "WVI",
+   "stationName": "Watsonville",
+   "kind": "asos",
+   "stationKm": 6.7,
+   "hours": 2306,
+   "obsMeanMph": 4.1,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      36.95489,
+      -121.887436
+     ],
+     "spotToCellKm": 3.5,
+     "stationToCellKm": 8.8,
+     "n": 2306,
+     "bias": 0.7,
+     "mae": 2.4,
+     "nDir": 789,
+     "dirMed": 19,
+     "flip": 4
+    },
+    "nearest": {
+     "cell": [
+      36.928856,
+      -121.87859
+     ],
+     "spotToCellKm": 1.3,
+     "stationToCellKm": 8,
+     "n": 2306,
+     "bias": 1.7,
+     "mae": 3,
+     "nDir": 789,
+     "dirMed": 21,
+     "flip": 6
+    }
+   }
+  },
+  {
+   "spot": "El Porto",
+   "station": "LAX",
+   "stationName": "LOS ANGELES INTL",
+   "kind": "asos",
+   "stationKm": 5.2,
+   "hours": 2288,
+   "obsMeanMph": 7.5,
+   "sameCell": true,
+   "variants": {
+    "land": {
+     "cell": [
+      33.913162,
+      -118.4265
+     ],
+     "spotToCellKm": 1.4,
+     "stationToCellKm": 4.6,
+     "n": 2288,
+     "bias": -1.8,
+     "mae": 2.7,
+     "nDir": 1415,
+     "dirMed": 10,
+     "flip": 1
+    },
+    "nearest": {
+     "cell": [
+      33.913162,
+      -118.4265
+     ],
+     "spotToCellKm": 1.4,
+     "stationToCellKm": 4.6,
+     "n": 2288,
+     "bias": -1.8,
+     "mae": 2.7,
+     "nDir": 1415,
+     "dirMed": 10,
+     "flip": 1
+    }
+   }
+  },
+  {
+   "spot": "Oceanside Pier",
+   "station": "OKB",
+   "stationName": "OCEANSIDE MUNICIPAL (WAS L32)",
+   "kind": "asos",
+   "stationKm": 4.6,
+   "hours": 2309,
+   "obsMeanMph": 4.8,
+   "sameCell": true,
+   "variants": {
+    "land": {
+     "cell": [
+      33.201454,
+      -117.37434
+     ],
+     "spotToCellKm": 1.5,
+     "stationToCellKm": 3.1,
+     "n": 2309,
+     "bias": 0.3,
+     "mae": 2.6,
+     "nDir": 913,
+     "dirMed": 14,
+     "flip": 1
+    },
+    "nearest": {
+     "cell": [
+      33.201454,
+      -117.37434
+     ],
+     "spotToCellKm": 1.5,
+     "stationToCellKm": 3.1,
+     "n": 2309,
+     "bias": 0.3,
+     "mae": 2.6,
+     "nDir": 913,
+     "dirMed": 14,
+     "flip": 1
+    }
+   }
+  },
+  {
+   "spot": "Black’s Beach",
+   "station": "LJAC1",
+   "stationName": "9410230 - La Jolla, CA",
+   "kind": "ndbc",
+   "stationKm": 2.5,
+   "hours": 2172,
+   "obsMeanMph": 5.1,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      32.898033,
+      -117.22963
+     ],
+     "spotToCellKm": 2.4,
+     "stationToCellKm": 4.3,
+     "n": 2172,
+     "bias": -0.1,
+     "mae": 2.1,
+     "nDir": 970,
+     "dirMed": 18,
+     "flip": 3
+    },
+    "nearest": {
+     "cell": [
+      32.89232,
+      -117.26087
+     ],
+     "spotToCellKm": 0.8,
+     "stationToCellKm": 2.8,
+     "n": 2172,
+     "bias": 0.7,
+     "mae": 2.1,
+     "nDir": 970,
+     "dirMed": 16,
+     "flip": 3
+    }
+   }
+  },
+  {
+   "spot": "Windansea",
+   "station": "LJAC1",
+   "stationName": "9410230 - La Jolla, CA",
+   "kind": "ndbc",
+   "stationKm": 4.7,
+   "hours": 2172,
+   "obsMeanMph": 5.1,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      32.81361,
+      -117.24045
+     ],
+     "spotToCellKm": 4.2,
+     "stationToCellKm": 6.1,
+     "n": 2172,
+     "bias": -0.1,
+     "mae": 2,
+     "nDir": 970,
+     "dirMed": 13,
+     "flip": 2
+    },
+    "nearest": {
+     "cell": [
+      32.83413,
+      -117.27848
+     ],
+     "spotToCellKm": 0.5,
+     "stationToCellKm": 4.2,
+     "n": 2172,
+     "bias": 1,
+     "mae": 2.2,
+     "nDir": 970,
+     "dirMed": 15,
+     "flip": 3
+    }
+   }
+  },
+  {
+   "spot": "Imperial Beach",
+   "station": "NRS",
+   "stationName": "IMPERIAL BEACH/REAM",
+   "kind": "asos",
+   "stationKm": 2.9,
+   "hours": 2010,
+   "obsMeanMph": 6.8,
+   "sameCell": false,
+   "variants": {
+    "land": {
+     "cell": [
+      32.562683,
+      -117.11046
+     ],
+     "spotToCellKm": 2.9,
+     "stationToCellKm": 0.1,
+     "n": 2010,
+     "bias": -1.2,
+     "mae": 2.2,
+     "nDir": 1218,
+     "dirMed": 13,
+     "flip": 1
+    },
+    "nearest": {
+     "cell": [
+      32.583225,
+      -117.14832
+     ],
+     "spotToCellKm": 1.4,
+     "stationToCellKm": 4.2,
+     "n": 2010,
+     "bias": 0.3,
+     "mae": 2.3,
+     "nDir": 1218,
+     "dirMed": 14,
+     "flip": 2
+    }
+   }
   }
  ],
  "spotCells": [
