@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState, type KeyboardEvent as ReactKeyboardEvent} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
@@ -46,17 +46,8 @@ export function ForecastView({go}: ViewProps) {
   const extrema = view.ocean.bundle?.extrema ?? [];
   const selIdx = selected ? series.indexOf(selected) : -1;
   const curDay = selIdx >= 0 ? days.findIndex((d) => selIdx >= d.start && selIdx <= d.end) : -1;
-  const [tab, setTab] = useState<ChartTab>(() => { const c = new URLSearchParams(location.search).get('chart'); return CHART_TABS.some(([id]) => id === c) ? (c as ChartTab) : 'surf'; });
   const setParam = (k: string, v: string | null) => { const u = new URL(location.href); if (v === null) u.searchParams.delete(k); else u.searchParams.set(k, v); history.replaceState(history.state, '', u); };
-  const pickTab = (t: ChartTab) => { setTab(t); setParam('chart', t === 'surf' ? null : t); };
   const pickMode = (m: 'graph' | 'table') => { setMode(m); setParam('view', m === 'graph' ? null : m); };
-  const onTabKey = (e: ReactKeyboardEvent) => {
-    const k = CHART_TABS.findIndex(([id]) => id === tab), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-    if (!d) return;
-    e.preventDefault();
-    const next = CHART_TABS[(k + d + CHART_TABS.length) % CHART_TABS.length][0];
-    pickTab(next); requestAnimationFrame(() => document.getElementById(`ctab-${next}`)?.focus());
-  };
   const fav = data.state.favorites.includes(spot.id);
   const [openCard, setOpenCard] = useState<CardKey | null>(null);
   const [observing, setObserving] = useState(false), [saved, setSaved] = useState('');
@@ -152,9 +143,6 @@ export function ForecastView({go}: ViewProps) {
             <button role="radio" aria-checked={mode === 'table'} onClick={() => pickMode('table')}>Table</button>
           </div>
           {mode === 'graph' ? <>
-            <div className="ctabs" role="tablist" aria-label="Chart series" onKeyDown={onTabKey}>
-              {CHART_TABS.map(([id, label]) => <button key={id} id={`ctab-${id}`} role="tab" aria-selected={tab === id} aria-controls="ctab-panel" tabIndex={tab === id ? 0 : -1} onClick={() => pickTab(id)}>{label}</button>)}
-            </div>
             <div className="seg" role="radiogroup" aria-label="Range">
               <button role="radio" aria-checked={range === 'week'} onClick={() => setRange('week')}>7 days</button>
               <button role="radio" aria-checked={range === 'day'} onClick={() => setRange('day')}>{weekdayPT(selected.timestamp)}</button>
@@ -162,16 +150,20 @@ export function ForecastView({go}: ViewProps) {
           </> : <span className="fine">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)} · every 3 hours · wind coloured by shore relation</span>}
         </div>
         {mode === 'graph' ? <>
-          <div id="ctab-panel" role="tabpanel" aria-labelledby={`ctab-${tab}`}>
-            <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={matchMedia('(max-width: 860px)').matches ? 240 : 280} />
-          </div>
-          <ul className="legend" aria-hidden="true">
+          {/* user, 2026-11-08: the four series stacked (scroll to see all), not a toggle; one shared time axis and selection */}
+          {CHART_TABS.map(([tab, label]) => (
+            <section key={tab} className="sp-series" aria-labelledby={`chart-${tab}`}>
+              <h3 id={`chart-${tab}`} className="sp-series-h">{label}</h3>
+              <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={narrow ? 190 : 220} />
+              <ul className="legend" aria-hidden="true">
             {tab === 'surf' && <>{hasEstimates && <><li><i style={{background: 'var(--hs-hi)', opacity: 0.45, height: 8}} />Surf estimate (range)</li><li><i style={{background: 'var(--hs-hi)', height: 0, borderTop: '2px solid var(--hs-hi)'}} />Middle of the range</li><li><i className="lg-sure" />Fainter: less certain</li>{band.some((b) => b.wide) && <li><i className="lg-wide" />Could be (models differ)</li>}{band.some((b) => b.certainty === 'too-far') && <li><i className="lg-far" />Too far out to call</li>}</>}<li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />{hasEstimates ? 'Offshore Hs' : 'Offshore Hs · not surf size'}</li></>}
             {tab === 'swell' && <><li><i style={{background: 'var(--sw1)'}} />Primary swell · period in s</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li>{series.some((h) => h.forecast.tertiary) && <li><i style={{background: 'var(--sw3)'}} />Third swell</li>}<li>▲ arrows show where each swell travels</li></>}
             {tab === 'wind' && <><li><i style={{background: 'var(--accent)'}} />Wind speed</li><li><i style={{background: 'var(--muted)'}} />Gusts</li><li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to 24+ mph</li></>}
             {tab === 'tide' && <li><i style={{background: 'var(--tide)'}} />Predicted tide, MLLW</li>}
-            <li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li>
+            {tab === 'surf' && <><li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li></>}
           </ul>
+            </section>
+          ))}
         </> : <HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />}
       </section>
 
