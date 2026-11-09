@@ -61,3 +61,22 @@ test('cron: a fresh deploy (no hot record yet) refreshes everything; hot = reque
   for (const s of spots.slice(0, 5) as any[]) { store.set(HOT_PREFIX + s.id, '1'); up.set(HOT_PREFIX + s.id, clock - 2 * 3600000); } store.set(HOT_PREFIX + (spots[6] as any).id, '1'); up.set(HOT_PREFIX + (spots[6] as any).id, clock - 30 * 3600000);
   assert.equal((await run()).hot.spots, 5, 'five hot, the one older than 24 h is cold'); assert.equal(HOT_MAX, 180);
 });
+
+test('shared targets (tide stations, nearshore points, shore stations, context buoys) follow the spots: refreshed by the cron only while a visitor asked for them; the fixed core stays on', async () => {
+  const spots = cloneSpots(20), store = new Map<string, string>(), up = new Map<string, number>(); let clock = T0;
+  const BUCKET = fakeBucket(store, up, () => clock), fetcher = (async () => Response.json({hourly: {time: [new Date(T0).toISOString().slice(0, 13) + ':00']}, table: {rows: [[1]]}, features: []})) as unknown as typeof fetch;
+  const all = (ingestionTargets as any)(T0, spots) as {key: string}[], shared = all.map((t) => t.key).filter((k) => /^(tide-extrema|tides|shore-ndbc|shore-asos|ndbc|cdip)-|^nearshore-/.test(k)), core = ['tides', 'tide-extrema', 'buoy', 'level'].filter((k) => all.some((t) => t.key === k));
+  assert.ok(shared.length > 10 && core.length >= 2, `shared ${shared.length}, core ${core.join()}`);
+  store.set(HOT_STARTED, '1'); const warm = shared.find((k) => k.startsWith('tides-')) ?? shared[0], group = warm.replace(/^nearshore-(.+)-(forecast|das)$/, 'nearshore-$1'); store.set(HOT_PREFIX + '~' + group, '1'); up.set(HOT_PREFIX + '~' + group, T0 - 3600000);
+  const r = await createForecastService({fetcher, sleep: async () => {}, now: () => clock, spots}).refresh({BUCKET}, {perRun: 0, tick: 1, ahead: CRON.aheadMs, budget: 4000, minAgeMs: CRON.minAgeMs, hotHours: 24});
+  const keys = r.results.map((x: {key: string}) => x.key);
+  for (const k of core) assert.ok(keys.includes(k), 'core stays on: ' + k);
+  assert.ok(keys.includes(warm), 'the requested shared target is refreshed: ' + warm); assert.ok(shared.filter((k) => !keys.includes(k)).length >= shared.length - 3, `cold shared targets are skipped: ${shared.filter((k) => keys.includes(k)).length} of ${shared.length} ran`);
+});
+test('a request for a shared key records its group once; an unknown shared key writes nothing', async () => {
+  const spots = cloneSpots(10), store = new Map<string, string>(), up = new Map<string, number>(), B = fakeBucket(store, up, () => T0), puts: string[] = [], BUCKET = {...B, put: async (k: string, v: string) => { puts.push(k); return B.put(k, v); }}, pending: Promise<unknown>[] = [];
+  const svc = createForecastService({fetcher: (async () => Response.json({hourly: {time: ['2026-12-09T12:00']}})) as unknown as typeof fetch, sleep: async () => {}, now: () => T0, spots}), ctx = {waitUntil: (p: Promise<unknown>) => { pending.push(p); }};
+  const key = ((ingestionTargets as any)(T0, spots) as {key: string}[]).map((t) => t.key).find((k) => k.startsWith('tides-'))!;
+  await svc(new Request('https://x/api/provider?key=' + key), {BUCKET}, ctx); await svc(new Request('https://x/api/provider?key=tides-9999999'), {BUCKET}, ctx); await Promise.all(pending);
+  assert.deepEqual(puts.filter((k) => k.startsWith(HOT_PREFIX)), [HOT_PREFIX + '~' + key]);
+});
