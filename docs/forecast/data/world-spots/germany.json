@@ -12,7 +12,7 @@
    "type": "Beach",
    "lat": 55.019,
    "lon": 8.442,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/fkk-strand-list"
@@ -127,7 +127,7 @@
    "type": "Beach",
    "lat": 54.963,
    "lon": 8.328,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sturmhaube-kampen"
@@ -357,7 +357,7 @@
    "type": "Beach",
    "lat": 54.945,
    "lon": 8.316,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/kartoffelkiste-wenningstedt"
@@ -472,7 +472,7 @@
    "type": "Beach",
    "lat": 54.931,
    "lon": 8.308,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/seestrasse-wenningstedt"
@@ -587,7 +587,7 @@
    "type": "Beach",
    "lat": 54.921,
    "lon": 8.3,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/brandenburger-strand-westerland"
@@ -702,7 +702,7 @@
    "type": "Beach",
    "lat": 54.903,
    "lon": 8.293,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/badezeit-westerland"
@@ -825,7 +825,7 @@
    "type": "Beach",
    "lat": 54.894,
    "lon": 8.29,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/campingplatz-osteria-westerland"
@@ -1423,7 +1423,7 @@
    "type": "Beach",
    "lat": 54.32,
    "lon": 10.681,
-   "seaward": 68,
+   "seaward": 67.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/hohwachter-bucht"
@@ -1618,7 +1618,7 @@
    "type": "Beach",
    "lat": 54.085,
    "lon": 10.875,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/pelzerharken"
@@ -1818,7 +1818,7 @@
    "type": "Beach",
    "lat": 53.713,
    "lon": 7.149,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/norderney"
@@ -1923,7 +1923,7 @@
    "type": "Beach",
    "lat": 53.604,
    "lon": 6.67,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/borkum"

@@ -12,7 +12,7 @@
    "type": "Reef",
    "lat": 36.08,
    "lon": 14.252,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/salt-pans"
@@ -87,7 +87,7 @@
    "type": "Reef",
    "lat": 36.074,
    "lon": 14.261,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/marsalforn"
@@ -246,7 +246,7 @@
    "type": "Beach",
    "lat": 36.057,
    "lon": 14.3,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "OSM way 23863699 (natural:beach): San Blas, In-Nadur, Reġjun Għawdex, Malta; 0.04 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/23863699"
@@ -396,7 +396,7 @@
    "type": "Reef",
    "lat": 35.99,
    "lon": 14.358,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 1376759830 (natural:bay): Il-Bajja tal-Armier, Malta; 0.11 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/1376759830"
@@ -471,7 +471,7 @@
    "type": "Beach",
    "lat": 35.969,
    "lon": 14.352,
-   "seaward": 68,
+   "seaward": 67.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/mellieha"
@@ -779,7 +779,7 @@
    "type": "Beach",
    "lat": 35.933,
    "lon": 14.344,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "OSM way 515002284 (natural:bay): Ir-Ramla tal-Mixquqa, Il-Manikata, Malta; 0.08 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/515002284"
@@ -1011,7 +1011,7 @@
    "type": "Reef",
    "lat": 35.853,
    "lon": 14.569,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "OSM node 3671273322 (natural:bay): Il-Bajja ta' San Tumas, MSK 3644, Malta; 0.2 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/3671273322"

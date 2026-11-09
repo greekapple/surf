@@ -112,7 +112,7 @@
    "type": "Reef",
    "lat": 39.283,
    "lon": 20.404,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/krioneri-panagis-island"
@@ -214,7 +214,7 @@
    "type": "Reef",
    "lat": 39.24,
    "lon": 20.477,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/amoudia-right"
@@ -523,7 +523,7 @@
    "type": "Beach",
    "lat": 39.155,
    "lon": 20.564,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/teris-point"
@@ -1021,7 +1021,7 @@
    "type": "Reef",
    "lat": 38.999,
    "lon": 20.7,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/mytikas"
@@ -1116,7 +1116,7 @@
    "type": "Reef",
    "lat": 38.961,
    "lon": 20.719,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sharks-reef-greece"

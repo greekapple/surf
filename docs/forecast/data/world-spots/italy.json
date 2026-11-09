@@ -107,7 +107,7 @@
    "type": "Beach",
    "lat": 45.424,
    "lon": 12.436,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/punta-sabbioni"
@@ -509,7 +509,7 @@
    "type": "Reef",
    "lat": 44.391,
    "lon": 8.956,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/capo-marina"
@@ -749,7 +749,7 @@
    "type": "Reef",
    "lat": 44.357,
    "lon": 8.577,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/varazze"
@@ -864,7 +864,7 @@
    "type": "Beach",
    "lat": 44.309,
    "lon": 9.33,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/entella"
@@ -967,7 +967,7 @@
    "type": "Beach",
    "lat": 44.169,
    "lon": 9.607,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/levanto"
@@ -1476,7 +1476,7 @@
    "type": "Point",
    "lat": 43.938,
    "lon": 12.865,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/fiorenzuola"
@@ -1779,7 +1779,7 @@
    "type": "Beach",
    "lat": 43.822,
    "lon": 7.812,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM way 385740154 (natural:beach): Tre Ponti, Poggio di Sanremo, Sanremo, Provincia di Imperia, Liguria, Italia; 0.31 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/385740154"
@@ -2173,7 +2173,7 @@
    "type": "Reef",
    "lat": 43.519,
    "lon": 10.314,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "OSM way 62266997 (leisure:beach_resort): Bagni Fiume, Viale Italia, Consiglio di Zona 5, Livorno, Toscana, 57128, Italia; 0.26 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/62266997"
@@ -2278,7 +2278,7 @@
    "type": "Reef",
    "lat": 43.498,
    "lon": 10.32,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/livorno-il-sale"
@@ -2383,7 +2383,7 @@
    "type": "Reef",
    "lat": 43.398,
    "lon": 10.425,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/garagolo"
@@ -2488,7 +2488,7 @@
    "type": "Reef",
    "lat": 43.382,
    "lon": 10.431,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "OSM node 877041130 (natural:cape): Punta del Lillatro, Rosignano Solvay, Rosignano Marittimo, Livorno, Toscana, 57016, Italia; 0.14 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/877041130"
@@ -2593,7 +2593,7 @@
    "type": "Reef",
    "lat": 42.994,
    "lon": 10.5,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/baratti-il-dado"
@@ -2707,7 +2707,7 @@
    "type": "Beach",
    "lat": 42.96,
    "lon": 13.885,
-   "seaward": 68,
+   "seaward": 67.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/il-pescatore"
@@ -2782,7 +2782,7 @@
    "type": "Reef",
    "lat": 42.759,
    "lon": 10.301,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/elba-island-laconella"
@@ -3007,7 +3007,7 @@
    "type": "Point",
    "lat": 42.415,
    "lon": 11.278,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/ansedonia-la-sinistra"
@@ -3109,7 +3109,7 @@
    "type": "Reef",
    "lat": 42.331,
    "lon": 14.425,
-   "seaward": 68,
+   "seaward": 67.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/acquabella"
@@ -3279,7 +3279,7 @@
    "type": "Reef",
    "lat": 42.077,
    "lon": 11.807,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/l-ideale"
@@ -3364,7 +3364,7 @@
    "type": "Reef",
    "lat": 42.039,
    "lon": 11.913,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/il-bunker"
@@ -3449,7 +3449,7 @@
    "type": "Beach",
    "lat": 42.038,
    "lon": 11.916,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/ristorante"
@@ -3627,7 +3627,7 @@
    "type": "Reef",
    "lat": 42.029,
    "lon": 11.835,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/il-porto"
@@ -3804,7 +3804,7 @@
    "type": "Beach",
    "lat": 42.017,
    "lon": 11.956,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/il-castello"
@@ -3889,7 +3889,7 @@
    "type": "Reef",
    "lat": 42.007,
    "lon": 14.998,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/trabucco"
@@ -4059,7 +4059,7 @@
    "type": "Beach",
    "lat": 41.459,
    "lon": 12.613,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "OSM node 14040953341 (leisure:beach_resort): Lido Garda, Via Ardeatina, Anzio, Anzio Colonia, Anzio, Roma Capitale, Lazio, 00042, Itali; 0.73 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/14040953341"
@@ -4236,7 +4236,7 @@
    "type": "Beach",
    "lat": 41.444,
    "lon": 12.629,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/marinaretti"
@@ -4328,7 +4328,7 @@
    "type": "Beach",
    "lat": 41.304,
    "lon": 13.005,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/artiglieria"
@@ -4591,7 +4591,7 @@
    "type": "Beach",
    "lat": 41.209,
    "lon": 13.568,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM way 67398253 (natural:beach): Serapo, Gaeta, Latina, Lazio, Italia; 0.26 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/67398253"
@@ -4796,7 +4796,7 @@
    "type": "Reef",
    "lat": 41.112,
    "lon": 16.92,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/tombino"
@@ -4881,7 +4881,7 @@
    "type": "Beach",
    "lat": 41.016,
    "lon": 8.888,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 117078635 (natural:beach): La Marinedda, Canneddi, Isola Rossa, La Trinitai e Vignola/Trinità d'Agultu e Vignola, Gal; 0.28 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/117078635"
@@ -4986,7 +4986,7 @@
    "type": "Reef",
    "lat": 40.81,
    "lon": 14.043,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/capolinea"
@@ -5281,7 +5281,7 @@
    "type": "Beach",
    "lat": 40.672,
    "lon": 14.774,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/irno"
@@ -5366,7 +5366,7 @@
    "type": "Beach",
    "lat": 40.64,
    "lon": 18.019,
-   "seaward": 68,
+   "seaward": 67.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/capo-torre-cavallo"
@@ -5451,7 +5451,7 @@
    "type": "Point",
    "lat": 40.496,
    "lon": 8.368,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/la-speranza"
@@ -5724,7 +5724,7 @@
    "type": "Reef",
    "lat": 40.212,
    "lon": 18.46,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/alimini-la-nave"
@@ -5870,7 +5870,7 @@
    "type": "Beach",
    "lat": 40.061,
    "lon": 15.279,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/le-dune"
@@ -5945,7 +5945,7 @@
    "type": "Reef",
    "lat": 40.046,
    "lon": 8.399,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 178637431 (natural:beach): Sa Mesa Longa, Su Pallosu, Santeru/San Vero Milis, Aristanis/Oristano, Sardigna/Sardegna, ; 0.25 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/178637431"
@@ -6008,7 +6008,7 @@
    "type": "Reef",
    "lat": 40.035,
    "lon": 8.382,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM node 5375888619 (natural:cape): Capo Mannu, Santeru/San Vero Milis, Aristanis/Oristano, Sardigna/Sardegna, 09070, Italia; 0.59 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/5375888619"
@@ -6071,7 +6071,7 @@
    "type": "Reef",
    "lat": 40.029,
    "lon": 8.392,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/mini-capo"
@@ -6134,7 +6134,7 @@
    "type": "Beach",
    "lat": 39.542,
    "lon": 8.449,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM way 167227241 (natural:beach): Piscinas, Arbus, Medio Campidano, Sardigna/Sardegna, 09031, Italia; 0.63 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/167227241"
@@ -6311,7 +6311,7 @@
    "type": "Beach",
    "lat": 39.392,
    "lon": 16.018,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/ponte-di-ferro"
@@ -6748,7 +6748,7 @@
    "type": "Point",
    "lat": 39.111,
    "lon": 8.365,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/maresciallo"
@@ -6926,7 +6926,7 @@
    "type": "Beach",
    "lat": 38.894,
    "lon": 8.88,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/chia-il-pontile"
@@ -7281,7 +7281,7 @@
    "type": "Beach",
    "lat": 38.192,
    "lon": 13.241,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/isola-delle-femmine"
@@ -7451,7 +7451,7 @@
    "type": "Beach",
    "lat": 38.161,
    "lon": 13.084,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/magaggiari"
@@ -7541,7 +7541,7 @@
    "type": "Beach",
    "lat": 38.076,
    "lon": 13.058,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "OSM way 262433292 (natural:beach): Spiaggia Ciammarita, Trappeto, Palermo, Sicilia, 90090, Italia; 0.45 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/way/262433292"
@@ -7803,7 +7803,7 @@
    "type": "Point",
    "lat": 37.964,
    "lon": 16.105,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/spartivento"
@@ -8228,7 +8228,7 @@
    "type": "Reef",
    "lat": 37.497,
    "lon": 13.045,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/san-marco-ciminiera"
@@ -8396,7 +8396,7 @@
    "type": "Beach",
    "lat": 37.264,
    "lon": 13.576,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/il-reef"
@@ -8471,7 +8471,7 @@
    "type": "Beach",
    "lat": 36.711,
    "lon": 14.776,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/marina-di-modica"

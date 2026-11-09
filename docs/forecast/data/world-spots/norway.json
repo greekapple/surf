@@ -12,7 +12,7 @@
    "type": "Beach",
    "lat": 68.345,
    "lon": 13.93,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/kvalnes"
@@ -104,7 +104,7 @@
    "type": "Beach",
    "lat": 68.311,
    "lon": 13.655,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/eggum"
@@ -189,7 +189,7 @@
    "type": "Beach",
    "lat": 68.27,
    "lon": 13.581,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/unstad-beach"
@@ -453,7 +453,7 @@
    "type": "Beach",
    "lat": 68.105,
    "lon": 13.287,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/flakstad"
@@ -538,7 +538,7 @@
    "type": "Beach",
    "lat": 68.077,
    "lon": 13.092,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/kvalvika"
@@ -708,7 +708,7 @@
    "type": "Reef",
    "lat": 62.486,
    "lon": 5.964,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/godoy"
@@ -963,7 +963,7 @@
    "type": "Reef",
    "lat": 58.969,
    "lon": 9.838,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "OSM node 6837174281 (natural:hill): Saltstein, Værvågen, Nevlunghavn, Larvik, Vestfold, 3296, Norge; 0.95 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/node/6837174281"
@@ -1170,7 +1170,7 @@
    "type": "Point",
    "lat": 58.834,
    "lon": 5.551,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/byberg"
@@ -1255,7 +1255,7 @@
    "type": "Reef",
    "lat": 58.822,
    "lon": 5.537,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/suppa"
@@ -1340,7 +1340,7 @@
    "type": "Point",
    "lat": 58.813,
    "lon": 5.543,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sele"
@@ -1525,7 +1525,7 @@
    "type": "Reef",
    "lat": 58.785,
    "lon": 5.534,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/steinen"
@@ -1695,7 +1695,7 @@
    "type": "Reef",
    "lat": 58.763,
    "lon": 5.499,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/pigsty-piggy"
@@ -1865,7 +1865,7 @@
    "type": "Beach",
    "lat": 58.692,
    "lon": 5.549,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/refsnes"
@@ -2120,7 +2120,7 @@
    "type": "Reef",
    "lat": 58.051,
    "lon": 6.648,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/lista"

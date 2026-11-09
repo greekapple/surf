@@ -12,7 +12,7 @@
    "type": "Reef",
    "lat": 64.79,
    "lon": 21.127,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/lillsnack-point"
@@ -212,7 +212,7 @@
    "type": "Point",
    "lat": 59.991,
    "lon": 18.913,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/vaddo"
@@ -422,7 +422,7 @@
    "type": "Point",
    "lat": 57.93,
    "lon": 18.739,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/kappelhamnsviken"
@@ -527,7 +527,7 @@
    "type": "Beach",
    "lat": 57.601,
    "lon": 18.21,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/hogklint"
@@ -737,7 +737,7 @@
    "type": "Reef",
    "lat": 57.339,
    "lon": 12.092,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/asa"
@@ -1057,7 +1057,7 @@
    "type": "Point",
    "lat": 57.05,
    "lon": 12.264,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/traslovslage"
@@ -1169,7 +1169,7 @@
    "type": "Point",
    "lat": 56.924,
    "lon": 12.351,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/glommen"
@@ -1481,7 +1481,7 @@
    "type": "Beach",
    "lat": 56.263,
    "lon": 16.4,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/gronhogen"
@@ -1583,7 +1583,7 @@
    "type": "Beach",
    "lat": 55.621,
    "lon": 14.284,
-   "seaward": 68,
+   "seaward": 67.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/vik"
@@ -1698,7 +1698,7 @@
    "type": "Beach",
    "lat": 55.384,
    "lon": 14.067,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/kaseberga"

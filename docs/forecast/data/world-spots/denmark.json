@@ -327,7 +327,7 @@
    "type": "Reef",
    "lat": 57.015,
    "lon": 8.441,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/bunkers"
@@ -432,7 +432,7 @@
    "type": "Beach",
    "lat": 56.963,
    "lon": 8.368,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/norre-vorupor"
@@ -867,7 +867,7 @@
    "type": "Beach",
    "lat": 56.12,
    "lon": 12.226,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/smidstrop"
@@ -1190,7 +1190,7 @@
    "type": "Beach",
    "lat": 56.084,
    "lon": 12.526,
-   "seaward": 22,
+   "seaward": 22.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/autovaernet"
@@ -1400,7 +1400,7 @@
    "type": "Beach",
    "lat": 56.0,
    "lon": 8.1,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/hvide-sande"

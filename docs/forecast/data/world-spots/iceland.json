@@ -12,7 +12,7 @@
    "type": "Beach",
    "lat": 66.094,
    "lon": -17.318,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/eyvik"
@@ -91,7 +91,7 @@
    "type": "Beach",
    "lat": 66.079,
    "lon": -18.632,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/olafsfjordur"
@@ -173,7 +173,7 @@
    "type": "Beach",
    "lat": 65.56,
    "lon": -24.384,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "OSM relation 17558877 (natural:bay): Breiðavík, Ísland; 0.76 km from the surfnerd pin",
     "url": "https://www.openstreetmap.org/relation/17558877"
@@ -327,7 +327,7 @@
    "type": "Beach",
    "lat": 64.484,
    "lon": -14.483,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/fauskasandur"
@@ -409,7 +409,7 @@
    "type": "Beach",
    "lat": 64.476,
    "lon": -14.491,
-   "seaward": 112,
+   "seaward": 112.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/dalkur"
@@ -758,7 +758,7 @@
    "type": "Beach",
    "lat": 64.061,
    "lon": -21.997,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/hafnarfjordur-beach-reef"
@@ -958,7 +958,7 @@
    "type": "Reef",
    "lat": 63.916,
    "lon": -22.703,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/the-rock"
@@ -1148,7 +1148,7 @@
    "type": "Beach",
    "lat": 63.859,
    "lon": -22.7,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/sandvik"
@@ -1338,7 +1338,7 @@
    "type": "Reef",
    "lat": 63.829,
    "lon": -22.421,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/rolling-stones-grindavikurbaer"
@@ -1433,7 +1433,7 @@
    "type": "Reef",
    "lat": 63.828,
    "lon": -22.447,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/grindavik"
@@ -1631,7 +1631,7 @@
    "type": "Beach",
    "lat": 63.448,
    "lon": -20.298,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/brimuro"
@@ -1713,7 +1713,7 @@
    "type": "Beach",
    "lat": 63.413,
    "lon": -19.009,
-   "seaward": 158,
+   "seaward": 157.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/vik-2"

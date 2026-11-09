@@ -239,7 +239,7 @@
    "type": "Beach",
    "lat": 53.409,
    "lon": 5.282,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/terschelling"
@@ -341,7 +341,7 @@
    "type": "Beach",
    "lat": 53.306,
    "lon": 5.048,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/vlieland"
@@ -446,7 +446,7 @@
    "type": "Beach",
    "lat": 53.102,
    "lon": 4.755,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/texel-de-koog"
@@ -569,7 +569,7 @@
    "type": "Beach",
    "lat": 53.065,
    "lon": 4.723,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/texel-paal-15"
@@ -806,7 +806,7 @@
    "type": "Beach",
    "lat": 52.78,
    "lon": 4.662,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/petten"
@@ -1280,7 +1280,7 @@
    "type": "Beach",
    "lat": 52.497,
    "lon": 4.583,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/wijk-aan-zee-noordpier"
@@ -1520,7 +1520,7 @@
    "type": "Beach",
    "lat": 52.455,
    "lon": 4.554,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/ijmuiden"
@@ -1635,7 +1635,7 @@
    "type": "Beach",
    "lat": 52.419,
    "lon": 4.549,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/parnassia"
@@ -1750,7 +1750,7 @@
    "type": "Beach",
    "lat": 52.403,
    "lon": 4.543,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/bloemendaal"
@@ -1865,7 +1865,7 @@
    "type": "Beach",
    "lat": 52.376,
    "lon": 4.52,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/zandvoort"
@@ -1985,7 +1985,7 @@
    "type": "Beach",
    "lat": 52.281,
    "lon": 4.456,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/zandvoort-to-katwijk"
@@ -2100,7 +2100,7 @@
    "type": "Beach",
    "lat": 52.251,
    "lon": 4.431,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/noordwijk"
@@ -3072,7 +3072,7 @@
    "type": "Beach",
    "lat": 51.973,
    "lon": 3.968,
-   "seaward": 292,
+   "seaward": 292.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p6"
@@ -3187,7 +3187,7 @@
    "type": "Beach",
    "lat": 51.951,
    "lon": 3.964,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p5"
@@ -3302,7 +3302,7 @@
    "type": "Beach",
    "lat": 51.931,
    "lon": 3.975,
-   "seaward": 248,
+   "seaward": 247.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-containers"
@@ -3417,7 +3417,7 @@
    "type": "Beach",
    "lat": 51.828,
    "lon": 3.897,
-   "seaward": 338,
+   "seaward": 337.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/ouddorp"
@@ -3741,7 +3741,7 @@
    "type": "Beach",
    "lat": 51.449,
    "lon": 3.553,
-   "seaward": 202,
+   "seaward": 202.5,
    "positionSource": {
     "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
     "url": "https://www.surfnerd.com/surf-forecast/vlissingen"
