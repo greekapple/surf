@@ -1,0 +1,831 @@
+{
+ "region": "Vietnam",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd Vietnam page (8) plus every Surf-Forecast.com and Wannasurf Vietnam break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Asia/Ho_Chi_Minh (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-vietnam-my-khe",
+   "name": "My Khe",
+   "country": "Vietnam",
+   "region": "Da Nang, Phuong My Thanh",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Beach",
+   "lat": 16.058,
+   "lon": 108.249,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (16.05761,108.24872), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 16.07,108.25 (1.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/my-khe.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NE - ESE. ESE - SE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/my-khe.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-my-khe",
+    "name": "My Khe",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/my-khe",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/My-Khe",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NE - ESE. ESE - SE. Faces E (surfnerd)",
+    "idealSwell": "NE (surfnerd); Northeast (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the West (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank works across low, mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"My Khe in Da Nang is an exposed beach break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Surfing here means negotiating dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing My Khe / Da Nang with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "My Khe is a sand-bottomed beachbreak on a long stretch of coast it shares with Non Nuoc, China Beach and Cua Dai. This 30km beach is backed by the verdant Marble Mountains, five isolated limestone outcrops riddled with caves, grottoes, pagodas and shrines. The waves here are on the mellow, below-average side: they break outside at low tide, fill up in the central trough, then reform on the shorebreak sandbars.",
+     "surfForecast": "My Khe in Da Nang is an exposed beach break that has reasonably consistent surf. Winter is the optimum time of year for surfing here. Offshore winds blow from the west with some shelter here from northeast winds. Usually gets local windswells, but groundswells do happen and the optimum wave angle is from the northeast. Waves at the beach break both left and right. It's sometimes crowded here. Surfing here means negotiating dangerous rips."
+    },
+    "notes": "town: Phuong My Thanh (surfnerd); surf-forecast pin 16.07,108.25 is 1.4 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 275.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 5.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-my-khe-da-nẵng",
+   "name": "My Khe - Đà Nẵng",
+   "country": "Vietnam",
+   "region": "Da Nang, My Thi",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": null,
+   "lat": 16.049,
+   "lon": 108.251,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (16.04928,108.2513), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/my-khe-da-nẵng.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NE - ESE. ESE - SE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/my-khe-da-nẵng.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-my-khe-da-nẵng",
+    "name": "My Khe - Đà Nẵng",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/my-khe-da-nẵng",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": " (surfnerd)",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "NE - ESE. ESE - SE. Faces ENE (surfnerd)",
+    "idealSwell": "not stated (surfnerd)",
+    "windOffshore": "not stated (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at not stated (surfnerd characteristics)",
+    "bottom": "not stated (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "not stated",
+    "sizeFt": {
+     "min": 6.0,
+     "max": 8.1
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "My Khe sits on the coast at Đà Nẵng and needs a decent pulse of swell before it comes to life. It works from 1.8 m / 6 ft to 2.5 m / 8 ft, so keep an eye on the forecast and time your session for when the swell fills into that window.",
+     "surfForecast": null
+    },
+    "notes": "town: My Thi (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 274.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-nam-o-point",
+   "name": "Nam O Point",
+   "country": "Vietnam",
+   "region": "Da Nang, Xuan Tien",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Point",
+   "lat": 16.117,
+   "lon": 108.134,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (16.11688,108.13446), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 16.12,108.14 (0.7 km away); wannasurf pin 16.1171,108.1337 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/nam-o-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NE - ENE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/nam-o-point.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-nam-o-point",
+    "name": "Nam O Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/nam-o-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Nam-O-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Vietnam/Nam_O/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NE - ENE. Faces ENE (surfnerd)",
+    "idealSwell": "NE (surfnerd); Northeast (surf-forecast); East, NorthEast (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd); offshore from the West-southwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Nam O Point in Da Nang is an exposed beach/Jetty break that has reliable surf.\")",
+    "hazards": [
+     "\"When it does come to life, it runs fast, steep and shallow, with the left offering more wall than barrel.\" (surfnerd)",
+     "\"The fast, steep and shallow nature of the wave makes this one best suited to intermediate surfers.\" (surfnerd)",
+     "\"Surfing here means negotiating dangerous rips.\" (surf-forecast)",
+     "Rocks, Pollution (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Nam O Point with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"From Da Nang take the bay road North towards Hue.\"; distance: Take a car (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Nam O Point is a left-hand point breaking over boulders and sand, and it's probably the highest quality wave around. The catch is that it won't switch on until the beaches nearby are maxing out. When it does come to life, it runs fast, steep and shallow, with the left offering more wall than barrel.",
+     "surfForecast": "Nam O Point in Da Nang is an exposed beach/Jetty break that has reliable surf. Winter is the best time of year for surfing here. Ideal winds are from the west southwest with some shelter here from northeast winds. Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the northeast. The beach breaks favour lefts. It's sometimes crowded here. Surfing here means negotiating dangerous rips."
+    },
+    "notes": "town: Xuan Tien (surfnerd); surf-forecast pin 16.12,108.14 is 0.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Sometimes break; type Point-break; direction Left; swell size Starts working at  and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 286.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 10.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-non-nuoc",
+   "name": "Non Nuoc",
+   "country": "Vietnam",
+   "region": "Da Nang, Xom Son Thuy",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Beach",
+   "lat": 16.007,
+   "lon": 108.27,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (16.00726,108.26951), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 16.03,108.26 (2.7 km away); wannasurf pin 16.0018,108.2709 (0.6 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/non-nuoc.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE - E. ESE - SE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/non-nuoc.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-non-nuoc",
+    "name": "Non Nuoc",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/non-nuoc",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Non-Nuoc",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Vietnam/Non_Nuoc/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "N - E. Best from E (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNE - E. ESE - SE. Faces ENE (surfnerd)",
+    "idealSwell": "E (surfnerd); Northeast (surf-forecast); East, NorthEast (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd); offshore from the West-southwest (surf-forecast); good wind NorthWest, West, SouthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "exposed (surf-forecast: \"Non Nuoc in Da Nang is an exposed beach break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"Surfing here means negotiating dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Non Nuoc with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"From Da Nang going South on the coast road just past the Marble Mountain area take a left next to a concrete wall.  Hoa's Place will be on the right before getting to the beach.  Non Nuoc is cleaner than breaks in the Da Nang area and generally has a better wave.  Mornings before the onshore wind are best.\"; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Non Nuoc is a sand-bottomed beach break peeling both left and right. It sits close enough to My Khe to be essentially the same deal, though it picks up a touch more northeast swell.",
+     "surfForecast": "Non Nuoc in Da Nang is an exposed beach break that has fairly consistent surf. Winter is the favoured time of year for surfing here. Offshore winds are from the west southwest. Windswells are much more typical than groudswells and the ideal wave direction is from the northeast. The beach breaks offer lefts and rights. When the surf is up, it can get quite busy in the water. Surfing here means negotiating dangerous rips."
+    },
+    "notes": "town: Xom Son Thuy (surfnerd); surf-forecast pin 16.03,108.26 is 2.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.6 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Sometimes break; type Sand-bar; direction Right and left; swell size Starts working at  and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 269.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 8.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-binh-an",
+   "name": "Binh An",
+   "country": "Vietnam",
+   "region": "Thura Thien-Hue, Vinh An",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Beach",
+   "lat": 16.424,
+   "lon": 107.837,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (16.42409,107.83667), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/binh-an.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NW - ESE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/binh-an.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-binh-an",
+    "name": "Binh An",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/binh-an",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NW - ESE. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure S - W. Offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Binh An can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Binh An is a sandy beach break just north of Da Nang, on Vietnam's central coast. It breaks over sand and offers both lefts and rights, though the waves here tend to be on the smaller side and often lack much shape. For beginners staying in the beachfront resorts, it can serve up mellow crumblers to practise on.",
+     "surfForecast": null
+    },
+    "notes": "town: Vinh An (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 331.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVPB",
+     "name": "Hue",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 27.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.433,
+     "lon": 107.583,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVPB&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-lang-co",
+   "name": "Lang Co",
+   "country": "Vietnam",
+   "region": "Thura Thien-Hue, Lang Co",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Beach",
+   "lat": 16.244,
+   "lon": 108.082,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (16.24407,108.08229), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 16.25,108.08 (0.7 km away); wannasurf pin 16.2296,108.0895 (1.8 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/lang-co.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNW - E. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/lang-co.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-lang-co",
+    "name": "Lang Co",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lang-co",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lang-Co",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Vietnam/lang_co_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNW - E. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd); Northeast (surf-forecast); NorthEast (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure S - W. Offshore from SW (surfnerd); offshore from the West-southwest (surf-forecast); good wind West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, Falling tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "exposed (surf-forecast: \"Lang Co in Da Nang is an exposed beach break that has quite consistent surf.\")",
+    "hazards": [
+     "\"Watch out for dangerous rips.\" (surf-forecast)",
+     "Rips / undertow, Pollution, Sharks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Lang Co with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"Bus from Hue or Bus from Hoi An. When you go through the long tunnel just after Da Nang There is normally a pit stop for 30 min at Lang Co Beach resort. Before this there is the mouth to the estuary-i would recomend taking a walk to check out the sand bar here- if the swell is big this will be working.\"; distance: Take a car; public access: Public access; special access: Paddle > 20mn or Boat (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Lang Co is a scenic beach break with waves peeling both left and right over sand. The better sandbars set up both inside and outside, so there's usually a peak to choose from. When it drops small, it's mellow enough for stand-up paddling.",
+     "surfForecast": "Lang Co in Da Nang is an exposed beach break that has quite consistent surf. Winter is the best time of year for surfing here. The best wind direction is from the west southwest. Windswells are much more typical than groudswells and the ideal wave angle is from the northeast. Waves at the beach break both left and right. When the surf is up, it can get quite busy in the water. Watch out for dangerous rips."
+    },
+    "notes": "town: Lang Co (surfnerd); surf-forecast pin 16.25,108.08 is 0.7 km from the surfnerd pin; wannasurf pin (Approximate) is 1.8 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; frequency Sometimes break; type Sand-bar; direction Right and left; swell size Starts working at  and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 302.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 25.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-china-beach",
+   "name": "China Beach",
+   "country": "Vietnam",
+   "region": "Quang Nam, Ha Bang",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Beach",
+   "lat": 15.939,
+   "lon": 108.315,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (15.93862,108.31543), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 15.98,108.29 (5.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/china-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: N - ENE. E - ESE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/china-beach.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-china-beach",
+    "name": "China Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/china-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/China-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "N - ENE. E - ESE. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd); Northeast (surf-forecast)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure S - W. Offshore from SW (surfnerd); offshore from the West-southwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"China Beach in Da Nang is an exposed beach break that has quite reliable surf.\")",
+    "hazards": [
+     "\"Surfing here means negotiating dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing China Beach with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "China Beach is the surf hub of Da Nang, the same stretch where US soldiers once surfed on R&R. It's a sand-bottom beach break that peels both left and right, and it makes for an easy, welcoming place to paddle out.",
+     "surfForecast": "China Beach in Da Nang is an exposed beach break that has quite reliable surf. Winter is the optimum time of year for surfing here. Offshore winds blow from the west southwest. Most of the surf comes fis in the form of windswells and the optimum wave angle is from the northeast. The beach break provides left and right handers. Unlikely to be too crowded, even when the surf is up. Surfing here means negotiating dangerous rips."
+    },
+    "notes": "town: Ha Bang (surfnerd); surf-forecast pin 15.98,108.29 is 5.3 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 260.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 17.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-vietnam-cua-dai-beach",
+   "name": "Cua Dai Beach",
+   "country": "Vietnam",
+   "region": "Quang Nam, Hieu Nhon",
+   "timeZone": "Asia/Ho_Chi_Minh",
+   "type": "Beach",
+   "lat": 15.888,
+   "lon": 108.385,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (15.88832,108.38466), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 15.89,108.38 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/cua-dai-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NE. E - ESE. N - NNE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/cua-dai-beach.md"
+   },
+   "facts": {
+    "spotId": "w-vietnam-cua-dai-beach",
+    "name": "Cua Dai Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cua-dai-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Cue-Dai-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "N - NE. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE. E - ESE. N - NNE. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd); Northeast (surf-forecast)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure S - W. Offshore from SW (surfnerd); offshore from the Southwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Cue Dai Beach in Da Nang is an exposed beach break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Dangerous rips are a hazard of surfing here.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Cue Dai Beach with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Cua Dai Beach is a sand-bottomed beach break near Hoi An that serves up both lefts and rights. A large rivermouth constantly grooms and reshapes the sandbars, so the peaks shift around over time, and the beach has a noticeably steeper slope than nearby China Beach. That same rivermouth pushes fairly polluted water onto this less-developed stretch of coast, which is worth keeping in mind before you paddle out.",
+     "surfForecast": "Cue Dai Beach in Da Nang is an exposed beach break that has reasonably consistent surf. Winter is the best time of year for surfing here. The best wind direction is from the southwest. Waves more likely to be from local windswells than distant groundswells and the optimum wave angle is from the northeast. The beach break provides left and right handers. Unlikely to be too crowded, even when the surf is up. Dangerous rips are a hazard of surfing here."
+    },
+    "notes": "town: Hieu Nhon (surfnerd); surf-forecast pin 15.89,108.38 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces NE\" lies outside its own swell-exposure range(s) (NE. E - ESE. N - NNE. Faces NE); kept as published, verify before use"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quin",
+     "name": "Qui_Nhon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vietnamese gauge)",
+     "distanceKm": 252.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m) ra2(m) rad(m) ras(m) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.775,
+     "lon": 109.254,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VVDN",
+     "name": "Danang",
+     "owner": "IEM VN__ASOS network (airport METAR)",
+     "distanceKm": 26.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16.044,
+     "lon": 108.199,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Bai Dai Nha Trang",
+   "reason": "surf-forecast page only (pin 12.12,109.2); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Bai-Dai-Nha-Trang"
+  },
+  {
+   "name": "Binh An",
+   "reason": "surf-forecast page only (pin 16.3,108.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Binh-An"
+  },
+  {
+   "name": "Dark Reef",
+   "reason": "surf-forecast page only (pin 12.16,109.21); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Dark-Reef"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Hon Chong Beach Break",
+   "reason": "surf-forecast page only (pin 12.27,109.2); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Hon-Chong-Beach"
+  },
+  {
+   "name": "Mui Ne",
+   "reason": "surf-forecast page only (pin 10.93,108.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Mui-Ne"
+  },
+  {
+   "name": "Vung Tau (Back Beach)",
+   "reason": "surf-forecast page only (pin 10.34,107.09); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Vung-Tau-Back-Beach"
+  },
+  {
+   "name": "Bai dai Beach  Nha Trang",
+   "reason": "wannasurf page only (pin 12.1160,109.1962, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/Bai_dai_Beach__Nha_Trang/index.html"
+  },
+  {
+   "name": "Dark Reef",
+   "reason": "wannasurf page only (pin 12.1618,109.2051, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/Dark_Reef/index.html"
+  },
+  {
+   "name": "MuiNe",
+   "reason": "wannasurf page only (pin 10.9231,108.2951, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/MuiNe/index.html"
+  },
+  {
+   "name": "Vung tau beach clab",
+   "reason": "wannasurf page only (pin 10.3422,107.0962, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/Vung_tau_beach_clab/index.html"
+  },
+  {
+   "name": "Vung tau mautin right",
+   "reason": "wannasurf page only (pin 10.3217,107.0843, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/Vung_tau_mautin_right/index.html"
+  },
+  {
+   "name": "China beach",
+   "reason": "wannasurf page only (pin 16.0572,108.2477, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/china_beach/index.html"
+  },
+  {
+   "name": "Da nang",
+   "reason": "wannasurf page only (pin 16.0706,108.2466, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/da_nang/index.html"
+  },
+  {
+   "name": "Vung tau - back beach",
+   "reason": "wannasurf page only (pin 10.3229,107.0830, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Vietnam/vung_tau_-_back_beach/index.html"
+  }
+ ]
+}

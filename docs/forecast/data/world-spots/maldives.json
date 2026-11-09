@@ -1,0 +1,3464 @@
+{
+ "region": "Maldives",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd Maldives page (48) plus every Surf-Forecast.com and Wannasurf Maldives break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Indian/Maldives (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-maldives-air-equator-lefts",
+   "name": "Air Equator Lefts",
+   "country": "Maldives",
+   "region": "Seenu, Meedhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.588,
+   "lon": 73.239,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.58803,73.2392), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/air-equator-lefts.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE. NE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/air-equator-lefts.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-air-equator-lefts",
+    "name": "Air Equator Lefts",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/air-equator-lefts",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NNE. NE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Air Equator Lefts is a left-hand reef that breaks over dead coral. It was spotted from the air by Air Equator pilot Andy Burr, who picked out the unridden Meedhoo lefts on a flyover. From above it looks like a fast, full-on barrel.",
+     "surfForecast": null
+    },
+    "notes": "town: Meedhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 14.7,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 15.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-approach-lights",
+   "name": "Approach Lights",
+   "country": "Maldives",
+   "region": "Seenu, Gan",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.703,
+   "lon": 73.172,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.70315,73.1718), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/approach-lights.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ENE - WSW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/approach-lights.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-approach-lights",
+    "name": "Approach Lights",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/approach-lights",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - WSW. Faces SE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call, and the end section by the airport lights becomes more rideable and safer as the water fills in.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"This is strictly an expert wave, breaking over live coral with heavy outside sets, so it rewards surfers who are confident on serious reef.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"You can walk from Equator Village and paddle across the wide lagoon, but it's safer to take a dhoni and jump straight into the lineup.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Approach Lights is the most obvious wave on Gan, a left that reels down a live coral reef right in front of the new runway.",
+     "surfForecast": null
+    },
+    "notes": "town: Gan (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 2.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-kanda-muli",
+   "name": "Kanda Muli",
+   "country": "Maldives",
+   "region": "Seenu, Hulumido",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.666,
+   "lon": 73.216,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.666,73.216), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kanda-muli.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: NE - SW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/kanda-muli.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-kanda-muli",
+    "name": "Kanda Muli",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kanda-muli",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NE - SW. Faces S (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"It comes to life on mid and high tide, with a rising tide the better call, and low tide is best avoided.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kanda Muli is a reef break on the eastern pass of Viligili, throwing both lefts and rights over dead coral. It sits among a run of peaks on the Milikédé side and is a genuine swell magnet, pulling in whatever energy is around. The reef runs quite straight, so it rewards clean, moderate conditions over raw size.",
+     "surfForecast": null
+    },
+    "notes": "town: Hulumido (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 7.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 7.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-kottey",
+   "name": "Kottey",
+   "country": "Maldives",
+   "region": "Seenu, Hithadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.578,
+   "lon": 73.086,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.57756,73.0857), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kottey.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NE - E. WSW - NE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/kottey.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-kottey",
+    "name": "Kottey",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kottey",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "S - NW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "NE - E. WSW - NE. Faces NNE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "S. Offshore from S (surfnerd); wind exposure SSE - WSW. Offshore from SSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"It can get big, with swell wedging up over mainly dead coral into heavy, rippy conditions.\" (surfnerd)",
+     "\"This is a heavy wave when it's on, and there's no safe channel to paddle out, so pick your moment carefully.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kottey is the furthest-west spot here, a set of reefbreaks that comes alive during the southwest monsoon. It fronts a garbage dump beside a muddy lagoon, so the setting is far from pretty, but the reef itself throws up an interesting run of waves. It can get big, with swell wedging up over mainly dead coral into heavy, rippy conditions.",
+     "surfForecast": null
+    },
+    "notes": "town: Hithadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 14.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 14.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-shangri-la",
+   "name": "Shangri-la",
+   "country": "Maldives",
+   "region": "Seenu, Gan",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.679,
+   "lon": 73.198,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.6789,73.1981), rounded to 3 dp; not a surveyed takeoff; wannasurf pin -0.6750,73.1989 (0.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/shangri-la.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/shangri-la.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-shangri-la",
+    "name": "Shangri-la",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/shangri-la",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Shangri-La/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "E - SW. Best from SW (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 4.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"Viligili is home to the new Shangri-la resort, which may bar non-guests from some of the best waves in Addu.\" (surfnerd)",
+     "distance: Walk; public access: Private access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Shangri-la is a right-hand reefbreak that wraps along the east coast of Viligili in Addu, breaking over dead coral.",
+     "surfForecast": null
+    },
+    "notes": "town: Gan (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.4 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Reef-coral; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 5.2,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-hocus-pocus",
+   "name": "Hocus Pocus",
+   "country": "Maldives",
+   "region": "Dhaalu, Kudahuvadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.696,
+   "lon": 72.969,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.69583,72.96857), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/hocus-pocus.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: N - NNE. ENE. ENE - ESE. SE - S. S - SW. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/hocus-pocus.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-hocus-pocus",
+    "name": "Hocus Pocus",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hocus-pocus",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "E - SE. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "N - NNE. ENE. ENE - ESE. SE - S. S - SW. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The wave breaks straight off deep water onto the reef, so higher tides give more margin for error. It can work through low, mid, and high tide, with a rising tide the better call.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"It throws quick, shallow sections and sits among a stretch of reef passes, though it lights up less often than its neighbours.\" (surfnerd)",
+     "\"This is one for experts who are quick to their feet, as the shallow reef and fast sections leave little room for hesitation.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Hocus Pocus is a fast, hollow right-hander that peels over live coral reef. It throws quick, shallow sections and sits among a stretch of reef passes, though it lights up less often than its neighbours.",
+     "surfForecast": null
+    },
+    "notes": "town: Kudahuvadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 177.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 177.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-kasabu",
+   "name": "Kasabu",
+   "country": "Maldives",
+   "region": "Dhaalu, Kudahuvadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.665,
+   "lon": 72.903,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.66526,72.90343), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kasabu.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE - NE. ENE - ESE. ESE - SSE. SSE - S. S - WSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/kasabu.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-kasabu",
+    "name": "Kasabu",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kasabu",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "NNE - NE. ENE - ESE. ESE - SSE. SSE - S. S - WSW. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call. Keep an eye out for rips on dropping tides.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep an eye out for rips on dropping tides.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kasabu is a right-hand reef break that peels over live coral along a long, well-shaped reef. It has something for just about everyone: on a solid southwest swell it opens with an easy roll-in before wrapping into a hollower, faster section through the middle.",
+     "surfForecast": null
+    },
+    "notes": "town: Kudahuvadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 182.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 183.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-vodi",
+   "name": "Vodi",
+   "country": "Maldives",
+   "region": "Dhaalu, Kudahuvadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.674,
+   "lon": 72.926,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.67358,72.92614), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/vodi.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ENE - ESE. ESE - S. S - WSW. WNW - NW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/vodi.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-vodi",
+    "name": "Vodi",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vodi",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "S - W. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "ENE - ESE. ESE - S. S - WSW. WNW - NW. Faces SSW (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, and a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"It starts with a vertical take-off and runs into fast, hollow sections that offer good barrels, holding shape all the way through to the shallow inside.\" (surfnerd)",
+     "\"Vodi asks a lot of intermediates once there is size in it, with the vertical drop and the shallow inside section demanding commitment, and it is the kind of wave advanced surfers will get the most out of.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Vodi is a left-hand reef break that peels over live coral, sitting across a wide channel from Kasabu. It starts with a vertical take-off and runs into fast, hollow sections that offer good barrels, holding shape all the way through to the shallow inside.",
+     "surfForecast": null
+    },
+    "notes": "town: Kudahuvadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 181.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 181.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-kh",
+   "name": "KH",
+   "country": "Maldives",
+   "region": "Gaafu Alifu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.345,
+   "lon": 73.536,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.34478,73.53646), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.35,73.49 (5.2 km away); wannasurf pin 0.3447,73.5363 (0.0 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/kh.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: E - SW. WNW. NW - NNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/kh.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-kh",
+    "name": "KH",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kh",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/K-H",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/KH_s/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SE - SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "E - SW. WNW. NW - NNW. Faces SSW (surfnerd)",
+    "idealSwell": "not stated (surfnerd); Southeast (surf-forecast); South, SouthEast, East (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northwest (surf-forecast); good wind North, NorthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"KH in Huvadhoo Atoll is an exposed reef break that has reasonably consistent surf The best wind direction is from the north northwest.\")",
+    "hazards": [
+     "\"Take care of coral, sharks and rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing KH with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "KH is a left-hand reef break on an almost east-facing stretch of coast. It has two distinct take-off spots that link up into one longer ride once the swell and tide get bigger. The wave breaks over dead coral, so it rewards a bit of care and suits surfers who are already comfortable on a reef.",
+     "surfForecast": "KH in Huvadhoo Atoll is an exposed reef break that has reasonably consistent surf The best wind direction is from the north northwest. Tends to receive distant groundswells and the ideal swell angle is from the southeast. A left hand reef break. Rarely crowded here. Take care of coral, sharks and rips."
+    },
+    "notes": "surf-forecast pin 0.35,73.49 is 5.2 km from the surfnerd pin; wannasurf pin (Approximate) is 0.0 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Reef-coral; direction Left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 122.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 123.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-koodhoo",
+   "name": "Koodhoo",
+   "country": "Maldives",
+   "region": "Gaafu Alifu, Kooddoo Atoll",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.727,
+   "lon": 73.439,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.72668,73.43902), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/koodhoo.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: N - SSE. SSW - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/koodhoo.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-koodhoo",
+    "name": "Koodhoo",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/koodhoo",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SE - SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "N - SSE. SSW - SW. Faces ESE (surfnerd)",
+    "idealSwell": "not stated (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Koodhoo can break through most of the tide, low, mid, or high, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [
+     "\"The wave is usually surfed from boats running to and from Malé.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Koodhoo is a left-hand reef break in Gaafu Alifu, part of the North Huvadhoo Atoll in the Maldives. It's one of a scattering of quality waves in this stretch of the atolls, peeling left over dead coral.",
+     "surfForecast": null
+    },
+    "notes": "town: Kooddoo Atoll (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 160.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 161.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-viligili",
+   "name": "Viligili",
+   "country": "Maldives",
+   "region": "Gaafu Alifu, Kooddoo Atoll",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.742,
+   "lon": 73.438,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.74166,73.43815), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.75,73.39 (5.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/viligili.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNE - SSE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/viligili.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-viligili",
+    "name": "Viligili",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/viligili",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Viligili",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "SE - S (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NNE - SSE. Faces NE (surfnerd)",
+    "idealSwell": "not stated (surfnerd); Southeast (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure S - W. Offshore from SW (surfnerd); offshore from the West-northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Viligili in Huvadhoo Atoll is an exposed reef break that only works once in a while Works best in offshore winds from the west northwest.\")",
+    "hazards": [
+     "\"Beware of coral, and rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Viligili with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of September.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"Viligili gets surfed mostly from boats running to and from Male.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Viligili is a right-hand reef break in Gaafu Alifu, part of North Huvadhoo Atoll in the Maldives. It's one of a scattered handful of quality waves in the area, alongside nearby Koodoo, and the wave peels over dead coral.",
+     "surfForecast": "Viligili in Huvadhoo Atoll is an exposed reef break that only works once in a while Works best in offshore winds from the west northwest. Clean groundswells prevail and the best swell direction is from the southeast. A right hand reef. Unlikely to be too crowded, even when the surf is up. Beware of coral, and rips."
+    },
+    "notes": "town: Kooddoo Atoll (surfnerd); surf-forecast pin 0.75,73.39 is 5.4 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 162.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 162.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-airports",
+   "name": "Airports",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu, Thinadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.463,
+   "lon": 72.995,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.46272,72.99459), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/airports.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WNW\" (surfnerd swell exposure: N - NNE. S - NNW. Faces WNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/airports.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-airports",
+    "name": "Airports",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/airports",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "N - NNE. S - NNW. Faces WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure ENE - SSE. Offshore from ESE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"Charter boats in the area tend to head straight for Beacons, roughly two hours away, at the first southern reef pass, so Airports often gets passed over.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Airports is a left-hand reef break in the Maldives, peeling over dead coral.",
+     "surfForecast": null
+    },
+    "notes": "town: Thinadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 129.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 129.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-beacons",
+   "name": "Beacons",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.211,
+   "lon": 73.142,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.21082,73.14206), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.22,73.09 (5.9 km away); wannasurf pin 0.2117,73.1414 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/beacons.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - NW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/beacons.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-beacons",
+    "name": "Beacons",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/beacons",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Beacons_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Beacons/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - NW. Faces SSE (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); offshore from the North-northeast (surf-forecast); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Beacons in Huvadhoo Atoll is an exposed reef break that has reasonably consistent surf The best wind direction is from the north northeast.\")",
+    "hazards": [
+     "\"Beacons is often called the Maldives' gutsiest wave, a powerful right-hander that tubes over a shallow, unforgiving reef.\" (surfnerd)",
+     "\"A SE swell tends to throw up peaks that slam straight onto closeout sections of coral, so it is far less forgiving.\" (surfnerd)",
+     "\"Beacons suits intermediate surfers, though the power and shallow coral reward those who are comfortable taking off on a fast, hollow right.\" (surfnerd)",
+     "\"Take care of coral, sharks and rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Beacons with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Beacons is often called the Maldives' gutsiest wave, a powerful right-hander that tubes over a shallow, unforgiving reef. The bottom is dead coral, so this is a punchy, serious wave rather than a soft one.",
+     "surfForecast": "Beacons in Huvadhoo Atoll is an exposed reef break that has reasonably consistent surf The best wind direction is from the north northeast. Clean groundswells prevail and the best swell direction is from the southwest. A right hand reef break. Sometimes crowded. Take care of coral, sharks and rips."
+    },
+    "notes": "surf-forecast pin 0.22,73.09 is 5.9 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality World Class; experience Experienced surfers; frequency Regular; type Reef-coral; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 99.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 100.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-blue-bowls",
+   "name": "Blue Bowls",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.232,
+   "lon": 73.287,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.23207,73.28708), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 0.2331,73.2868 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/blue-bowls.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: ENE - S. N. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/blue-bowls.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-blue-bowls",
+    "name": "Blue Bowls",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/blue-bowls",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Blue_bowls/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - S. N. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd); West, SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd); good wind North, NorthWest, West, SouthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, from low to high, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Blue Bowls is a right-hand reef break that peels over dead coral, tucked inside the pass. It has a point-style feel, with a good length of ride and bowly sections that open up room for performance moves. It's the most flexible right here, holding its shape across a wide range of conditions.",
+     "surfForecast": null
+    },
+    "notes": "no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Very consistent (150 day/year); type Reef-rocky; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 103.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 104.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-castaways",
+   "name": "Castaways",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.192,
+   "lon": 73.234,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.19243,73.23419), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.2,73.15 (9.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/castaways.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: ESE - WSW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/castaways.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-castaways",
+    "name": "Castaways",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/castaways",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Castaways",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - WSW. Faces SW (surfnerd)",
+    "idealSwell": "SE (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure N - E. Offshore from NE (surfnerd); offshore from the North (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call, and low tide the one to watch given how shallow the end section gets.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Castaways in Huvadhoo Atoll is an exposed reef break that has pretty consitent surf Offshore winds are from the north.\")",
+    "hazards": [
+     "\"It is one of the less intense waves around, and it breaks predictably, though the end section runs shallow over the coral and gets shallower again at low tide.\" (surfnerd)",
+     "\"The reef can work through most of the tide, with a rising tide generally the better call, and low tide the one to watch given how shallow the end section gets.\" (surfnerd)",
+     "\"The wave suits intermediate surfers, thanks to its predictable shape and forgiving nature, but the shallow coral on the end section still deserves respect.\" (surfnerd)",
+     "\"Take care of coral, sharks and rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Castaways with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Castaways is a right-hand reef break that peels over dead coral on an exposed outside reef, with a deserted island sitting in the background. It is one of the less intense waves around, and it breaks predictably, though the end section runs shallow over the coral and gets shallower again at low tide. Across the channel sits one of the \"No Names\" lefts that flanks this stretch of reef.",
+     "surfForecast": "Castaways in Huvadhoo Atoll is an exposed reef break that has pretty consitent surf Offshore winds are from the north. Groundswells more frequent than windswells and the best swell direction is from the southwest. A reef breaks right. When it's working here, it can get crowded. Take care of coral, sharks and rips."
+    },
+    "notes": "surf-forecast pin 0.2,73.15 is 9.4 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 98.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 98.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-love-charms",
+   "name": "Love Charms",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.261,
+   "lon": 73.37,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.26141,73.36977), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 0.2608,73.3694 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/love-charms.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SE - WSW. NW - NNW. NNW - N. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/love-charms.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-love-charms",
+    "name": "Love Charms",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/love-charms",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Love_charms/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "SE - SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - WSW. NW - NNW. NNW - N. Faces WSW (surfnerd)",
+    "idealSwell": "not stated (surfnerd); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks through low, mid, and high tide, with a rising tide generally the better call. When the surf is small, low tide is the pick.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Love Charms is a reliable left-hand reef break sitting directly next door to Two Ways. It breaks over dead coral and stays rideable across a wide range of sizes.",
+     "surfForecast": null
+    },
+    "notes": "no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Reef-rocky; direction Left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 108.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 108.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-tiger-stripes",
+   "name": "Tiger Stripes",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.283,
+   "lon": 73.452,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.28305,73.45207), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.29,73.4 (5.8 km away); wannasurf pin 0.2831,73.4525 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/tiger-stripes.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ENE - SW. NW. NW - NNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/tiger-stripes.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-tiger-stripes",
+    "name": "Tiger Stripes",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/tiger-stripes",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tiger-Stripes",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Tigerstripes/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SE - SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - SW. NW. NW - NNW. Faces SSW (surfnerd)",
+    "idealSwell": "not stated (surfnerd); Southeast (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northwest (surf-forecast); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef breaks through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Surfable at all stages of the tide.\" (surf-forecast); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Tiger Stripes in Huvadhoo Atoll is an exposed reef break that has dependable surf Offshore winds are from the north northwest.\")",
+    "hazards": [
+     "\"Beware of coral, sharks and rips.\" (surf-forecast)",
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Tiger Stripes with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Tiger Stripes is a reef left in the Maldives, named after the narrow gouges in the reef that give it a striped look. It breaks over dead coral and, in a strong swell, throws out some real growling lefts. Take-offs are tricky, dropping into a long speed wall before the wave commits to an inside tube section that wraps and eventually peters out in the channel.",
+     "surfForecast": "Tiger Stripes in Huvadhoo Atoll is an exposed reef break that has dependable surf Offshore winds are from the north northwest. Clean groundswells prevail and the ideal swell direction is from the southeast. There is a left hand reef break. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of coral, sharks and rips."
+    },
+    "notes": "surf-forecast pin 0.29,73.4 is 5.8 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Reef-rocky; direction Left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 113.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 113.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-two-ways",
+   "name": "Two Ways",
+   "country": "Maldives",
+   "region": "Gaafu Dhaalu",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 0.269,
+   "lon": 73.359,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.26921,73.35938), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 0.2606,73.3628 (1.0 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/two-ways.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/two-ways.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-two-ways",
+    "name": "Two Ways",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/two-ways",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Two_ways/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SE - SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "not stated (surfnerd); SouthWest (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); good wind North, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Two Ways is a reef break that lives up to its name, breaking both left and right over dead coral. The right is generally the better of the two, with fun, peeling walls that carry a bit of depth to the water.",
+     "surfForecast": null
+    },
+    "notes": "no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 1.0 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Sometimes break; type Reef-coral; direction Right and left; swell size Starts working at 1.5m-2m /5ft-6ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 108.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 109.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-thundi-beach",
+   "name": "Thundi Beach",
+   "country": "Maldives",
+   "region": "Gnaviyani, Fuvahmulah",
+   "timeZone": "Indian/Maldives",
+   "type": "Beach",
+   "lat": -0.276,
+   "lon": 73.418,
+   "seaward": 0.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.27634,73.4175), rounded to 3 dp; not a surveyed takeoff; wannasurf pin -0.2794,73.4208 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/thundi-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces N\" (surfnerd swell exposure: SW - SE. Faces N)",
+    "url": "https://www.surfnerd.com/surf-forecast/thundi-beach.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-thundi-beach",
+    "name": "Thundi Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/thundi-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Thoondu_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North (surfnerd: \"Faces N\")",
+    "facingDeg": 0.0,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "SW - SE. Faces N (surfnerd)",
+    "idealSwell": "SE (surfnerd); SouthEast, East (wannasurf)",
+    "windOffshore": "S. Offshore from S (surfnerd); wind exposure SE - SW. Offshore from S (surfnerd); good wind NorthWest, West, SouthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Thundi Beach sits on remote Fuamullah and is arguably the only beachbreak in the Maldives, with a bit of reef mixed in too. The action is on the east side of the beach, which breaks over sand and serves up both lefts and rights.",
+     "surfForecast": null
+    },
+    "notes": "town: Fuvahmulah (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.5 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Regular; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 54.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 55.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-zubairs",
+   "name": "Zubair’s",
+   "country": "Maldives",
+   "region": "Gnaviyani, Fuvahmulah",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.304,
+   "lon": 73.439,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (-0.3042,73.4395), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/zubairs.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NW - SE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/zubairs.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-zubairs",
+    "name": "Zubair’s",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/zubairs",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NW - SE. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 4.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"There's no option to stay overnight, and a speedboat return trip runs about $800, so getting out here takes real commitment.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Zubair's is a right-hand reef break near the harbour, named after the local surfer who rides it. It's a fake pass, a cut in the reef that throws up occasional rights, and the wave breaks over dead coral.",
+     "surfForecast": null
+    },
+    "notes": "town: Fuvahmulah (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 53.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) ra3(m) ras(m); last sample 2026-11-09 08:10:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": -0.688,
+     "lon": 73.152,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 53.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-cokes",
+   "name": "Coke's",
+   "country": "Maldives",
+   "region": "Kaafu, Thulusdhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 4.371,
+   "lon": 73.657,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (4.37085,73.65665), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 4.39,73.65 (2.3 km away); wannasurf pin 4.3704,73.6551 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/cokes.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: N - NE. ENE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/cokes.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-cokes",
+    "name": "Coke's",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cokes",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Colas",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/cokes/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "N - NE. ENE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd); Southeast (surf-forecast)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 12.1
+    },
+    "exposure": "exposed (surf-forecast: \"Colas in North Male Atoll is an exposed reef break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"It has a reputation as the hardest-breaking wave in the area, with a vertical take-off, a high barrel factor, and clean shape as it wraps over a shallow dead coral reef.\" (surfnerd)",
+     "\"Strong currents kick in as the tide drops, so it suits fit, experienced surfers who can handle a fast, hollow take-off over shallow reef.\" (surfnerd)",
+     "\"Rocks are a hazard.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Colas (Cokes) with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"Expect a busy lineup when it's on, with two guest-houses and a local crew adding to the crowd.\" (surfnerd)",
+     "access \"boat\"; distance: Surf trip; public access: Private access; special access: By boat only (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Coke's, also known as Cola's, is a right-hand reef break in North Male and one of the heaviest waves around. It has a reputation as the hardest-breaking wave in the area, with a vertical take-off, a high barrel factor, and clean shape as it wraps over a shallow dead coral reef. It sits at the last pass on the northern run and is a safari-boat favourite, partly because it picks up more south swell than its neighbours.",
+     "surfForecast": "Colas in North Male Atoll is an exposed reef break that has fairly consistent surf. The surf tends to be best in the spring. Offshore winds blow from the northwest. Groundswells more frequent than windswells and the ideal swell angle is from the southeast. A reef breaks right. It very rarely gets crowded here. Rocks are a hazard."
+    },
+    "notes": "town: Thulusdhoo (surfnerd); surf-forecast pin 4.39,73.65 is 2.3 km from the surfnerd pin; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Totally Epic; experience Experienced surfers; frequency Regular; type Reef-coral; direction Right; swell size Starts working at 1.5m-2m /5ft-6ft and holds up to 4m+ / 12ft; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC male",
+     "name": "Male",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 24.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2025-01-03 15:00 UTC (enc); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 4.19,
+     "lon": 73.527,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=male"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 25.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 24.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-jailbreaks",
+   "name": "Jailbreaks",
+   "country": "Maldives",
+   "region": "Kaafu, Himmafushi",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 4.308,
+   "lon": 73.578,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (4.30773,73.57812), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 4.32,73.58 (1.4 km away); wannasurf pin 4.3076,73.5768 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/jailbreaks.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: ENE - S. NNW - N. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/jailbreaks.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-jailbreaks",
+    "name": "Jailbreaks",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jailbreaks",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jails",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/jails/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ENE - S. NNW - N. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast); West, SouthWest, South (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the South-southwest (surf-forecast); good wind SouthWest, South (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 9.8
+    },
+    "exposure": "exposed (surf-forecast: \"Jailbreaks in North Male Atoll is an exposed reef break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Watch out for rocks,dead coral.\" (surf-forecast)",
+     "Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Jailbreaks with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"The Jail that gave the wave its name is gone now, but if you're staying at the Himmafushi guest-house, keep in mind that the area facing the wave is off-limits because of the Drug Rehabilitation Centre.\" (surfnerd)",
+     "access \"you will have to get there by boat\"; distance: Surf trip; special access: By boat only (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jailbreaks is a right-hand reef break that plenty of surfers end up calling their favourite in the area, thanks to its length and soft-breaking sections. It peels over dead coral and offers a long, forgiving wall.",
+     "surfForecast": "Jailbreaks in North Male Atoll is an exposed reef break that has reasonably consistent surf. The surf tends to be best in the spring. Offshore winds blow from the south southwest. Groundswells more frequent than windswells and the best swell direction is from the south. There is a right hand reef break. Good surf at all stages of the tide. Sometimes crowded. Watch out for rocks,dead coral."
+    },
+    "notes": "town: Himmafushi (surfnerd); surf-forecast pin 4.32,73.58 is 1.4 km from the surfnerd pin; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality World Class; experience Experienced surfers; type Reef-coral; direction Right; swell size Starts working at  and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC male",
+     "name": "Male",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 14.3,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2025-01-03 15:00 UTC (enc); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 4.19,
+     "lon": 73.527,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=male"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 14.6,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 14.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-isdhoo-bank",
+   "name": "Isdhoo Bank",
+   "country": "Maldives",
+   "region": "Laamu, Isdhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.134,
+   "lon": 73.585,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.13388,73.5854), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/isdhoo-bank.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: WSW - W. NW - SSE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/isdhoo-bank.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-isdhoo-bank",
+    "name": "Isdhoo Bank",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/isdhoo-bank",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "WSW - W. NW - SSE. Faces NNE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSE - WSW. Offshore from SSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Isdhoo Bank is a right-hand reef break in the Maldives, peeling over dead coral.",
+     "surfForecast": null
+    },
+    "notes": "town: Isdhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 228.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 228.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-machine",
+   "name": "Machine",
+   "country": "Maldives",
+   "region": "Laamu, Fonadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.038,
+   "lon": 73.536,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.03752,73.536), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/machine.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNE - SSE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/machine.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-machine",
+    "name": "Machine",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/machine",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NNE - SSE. Faces NE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure S - W. Offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The wave can work through low, mid, and high tide, with a rising tide generally the better call. Keep in mind that the incoming tide also brings strong rips, so pick your entry and exit with that in mind.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep in mind that the incoming tide also brings strong rips, so pick your entry and exit with that in mind.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Machine is a right-hand reef break in the Maldives that peels over dead coral. Nearby Tsunami's is often the better option, a winding, tubular right that stays rideable even in small swells and comes into its own on an incoming tide.",
+     "surfForecast": null
+    },
+    "notes": "town: Fonadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 239.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 239.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-madas",
+   "name": "Mada's",
+   "country": "Maldives",
+   "region": "Laamu, Fonadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 1.814,
+   "lon": 73.392,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (1.81395,73.3924), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 1.8134,73.3932 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/madas.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: E - SSE. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/madas.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-madas",
+    "name": "Mada's",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/madas",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Mada_s/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "E - SSE. Faces SE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South, SouthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd); good wind North, NorthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Mada's can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Mada's is a short, shallow left-hand reef break in the Maldives, breaking over dead coral.\" (surfnerd)",
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Mada's is a short, shallow left-hand reef break in the Maldives, breaking over dead coral. It sits inside the pass and comes into its own when the swell is up.",
+     "surfForecast": null
+    },
+    "notes": "town: Fonadhoo (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; frequency Sometimes break; type Reef-coral; direction Left; swell size Starts working at 2m-2.5m / 6ft-8ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 264.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 264.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-refugees-rights",
+   "name": "Refugee's Rights",
+   "country": "Maldives",
+   "region": "Laamu, Fonadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.026,
+   "lon": 73.537,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.02607,73.5375), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/refugees-rights.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/refugees-rights.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-refugees-rights",
+    "name": "Refugee's Rights",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/refugees-rights",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NNE - S. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Refugee's Rights is a right-hand reef break that peels across the pass from Refugee's Lefts. It breaks over dead coral and rewards speed demons who can race the fast close-out sections.",
+     "surfForecast": null
+    },
+    "notes": "town: Fonadhoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 240.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 240.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-yin-yang",
+   "name": "Yin Yang",
+   "country": "Maldives",
+   "region": "Laamu, Fonadhoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 1.8,
+   "lon": 73.407,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (1.8002,73.4066), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 1.8,73.41 (0.4 km away); wannasurf pin 1.7982,73.4078 (0.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/yin-yang.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: ENE - SW. NW - NNW. N - NNE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/yin-yang.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-yin-yang",
+    "name": "Yin Yang",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/yin-yang",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Yin-Yang",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/yin_yang/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - SW. NW - NNW. N - NNE. Faces E (surfnerd)",
+    "idealSwell": "SW (surfnerd); South (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the West-northwest (surf-forecast); good wind NorthWest, West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 12.1
+    },
+    "exposure": "exposed (surf-forecast: \"Yin Yang in North Male Atoll is an exposed reef break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Beware of - Rips / undertow - Rocks.\" (surf-forecast)",
+     "Rips / undertow, Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Yin Yang with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "access \"First surfed by Callahan 1996 boat trip with Pat O'Connell and Satoshi Sekino, Yin Yang got epic during Oxbow seaplane trip in June 2004.  Yin Yang is a long and typical outside typical reef corner right in a pass. Outside is a mellow wall, often cross shore, with safe rides in deep water. Then, the wave bends in the corner, mush out for a while, then wraps into one of the most critical sections in the Maldives. Inside section can be long and tubular, I've seen guys getting barreled 3 times but it can be fairly heavy too on pretty uneven reef, producing potential intimidating barrels on the first bend.\"; distance: Surf trip; public access: Public access; special access: By boat only (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Yin Yang is a right-hand reef break on Laamu atoll, the smaller, more exposed atoll just south of Thaa. It breaks over dead coral and has two distinct halves: an outside section sitting in deep water, and an inside section that can hit hard when the swell has size behind it. Thick barrels are the payoff when it lines up.",
+     "surfForecast": "Yin Yang in North Male Atoll is an exposed reef break that has reasonably consistent surf. Offshore winds blow from the west northwest and there is no shelter here from cross shore breezes. Groundswells more frequent than windswells and the best swell direction is from the south. No reef break here. Good surf at all stages of the tide. A remote wave spot that never gets crowded. Beware of - Rips / undertow - Rocks."
+    },
+    "notes": "town: Fonadhoo (surfnerd); surf-forecast pin 1.8,73.41 is 0.4 km from the surfnerd pin; wannasurf pin (Approximate) is 0.3 km from the surfnerd pin; wannasurf: wave quality World Class; experience Experienced surfers; frequency Very consistent (150 day/year); type Reef-coral; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 4m+ / 12ft; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 265.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 266.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-adonis",
+   "name": "Adonis",
+   "country": "Maldives",
+   "region": "Thaa, Veymandoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.184,
+   "lon": 73.1,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.1838,73.1), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 2.18,73.1 (0.4 km away); wannasurf pin 2.1840,73.1004 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/adonis.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: N - NNE. ENE - SE. SE. SSE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/adonis.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-adonis",
+    "name": "Adonis",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/adonis",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Veymandhoo-Right",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Veymandhoo/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "N - NNE. ENE - SE. SE. SSE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd); South (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); offshore from the North (surf-forecast); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"It breaks on mid and high tide, and a rising tide is generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Veymandhoo Right (Adonis) in North Male Atoll is an exposed reef break that has pretty consitent surf.\")",
+    "hazards": [
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Veymandhoo Right (Adonis) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Adonis is a sectiony right-hand reef that peels off the eastern tip of Veymandhoo pass. The wave breaks over dead coral and runs as a series of sections rather than one long, even wall.",
+     "surfForecast": "Veymandhoo Right (Adonis) in North Male Atoll is an exposed reef break that has pretty consitent surf. The best wind direction is from the north and there is no shelter here from cross shore breezes. Most of the surf here comes from groundswells and the best swell direction is from the south. No reef break here. Good surf at all stages of the tide. Rarely crowded here."
+    },
+    "notes": "town: Veymandoo (surfnerd); surf-forecast pin 2.18,73.1 is 0.4 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Reef-coral; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 227.7,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 228.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-bowling-alley",
+   "name": "Bowling Alley",
+   "country": "Maldives",
+   "region": "Thaa, Veymandoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.282,
+   "lon": 72.947,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.28151,72.9469), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/bowling-alley.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: NE. SSE - SSW. SW - WNW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/bowling-alley.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-bowling-alley",
+    "name": "Bowling Alley",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bowling-alley",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NE. SSE - SSW. SW - WNW. Faces SSE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Bowling Alley is a scenic deep-water peak on the west coast of Thaa atoll. Sitting inside the atoll, the wave breaks both left and right over dead coral before closing out onto the reef.",
+     "surfForecast": null
+    },
+    "notes": "town: Veymandoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 221.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 222.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-finnimas",
+   "name": "Finnimas",
+   "country": "Maldives",
+   "region": "Thaa, Veymandoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.194,
+   "lon": 73.129,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.19384,73.1287), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/finnimas.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ENE - E. ESE - SE. SE - SSE. SSE - WSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/finnimas.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-finnimas",
+    "name": "Finnimas",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/finnimas",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - E. ESE - SE. SE - SSE. SSE - WSW. Faces S (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Finnimas is an exposed left-hand reef break that peels over dead coral. Across the pass a right sometimes breaks too, but the left is the main draw here.",
+     "surfForecast": null
+    },
+    "notes": "town: Veymandoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 226.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 226.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-inside-mikado",
+   "name": "Inside Mikado",
+   "country": "Maldives",
+   "region": "Thaa, Veymandoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.194,
+   "lon": 73.119,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.19445,73.1186), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/inside-mikado.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: N - NNE. E. ESE. SE - SSE. NW - NNW. NNW - N. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/inside-mikado.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-inside-mikado",
+    "name": "Inside Mikado",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/inside-mikado",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "N - NNE. E. ESE. SE - SSE. NW - NNW. NNW - N. Faces E (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can be inconsistent at low tide, but from mid tide through high it comes to life, and a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Inside Mikado is a wraparound right-hander that reels over dead coral reef, tucked in behind Kanimeedhoo Island for shelter.",
+     "surfForecast": null
+    },
+    "notes": "town: Veymandoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces E\" lies outside its own swell-exposure range(s) (N - NNE. E. ESE. SE - SSE. NW - NNW. NNW - N. Faces E); kept as published, verify before use"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 226.2,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 226.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-maliks",
+   "name": "Malik's",
+   "country": "Maldives",
+   "region": "Thaa, Veymandoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.274,
+   "lon": 72.927,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.27364,72.9274), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/maliks.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WNW\" (surfnerd swell exposure: S - NNW. Faces WNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/maliks.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-maliks",
+    "name": "Malik's",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/maliks",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "S - NNW. Faces WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure ENE - SSE. Offshore from ESE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Malik's is a long left-hand reef break at Hirilandhoo, in the Maldives. It runs fast and can throw high-quality barrels over a dead coral reef when everything lines up.",
+     "surfForecast": null
+    },
+    "notes": "town: Veymandoo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 222.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 223.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-outside-mikado",
+   "name": "Outside Mikado",
+   "country": "Maldives",
+   "region": "Thaa, Veymandoo",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.191,
+   "lon": 73.12,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (2.19108,73.1201), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 2.19,73.12 (0.1 km away); wannasurf pin 2.1913,73.1205 (0.0 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/outside-mikado.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE. ENE - E. SE - SSE. SSE - SW. NNW - N. N. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/outside-mikado.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-outside-mikado",
+    "name": "Outside Mikado",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/outside-mikado",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mikados-Outside",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Mikados__outside_/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NNE. ENE - E. SE - SSE. SSE - SW. NNW - N. N. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd); South-southeast (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); offshore from the North (surf-forecast); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"The right favours high tide and also comes to life on mid tide, with a rising tide generally the better call.\" (surfnerd guide); Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Live Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Mikados (Outside) in North Male Atoll is an exposed reef break that has quite reliable surf.\")",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Mikados (Outside) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: Day trip; special access: By boat only (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Outside Mikado is a fast right-hand reef that breaks over live coral, with a dodgy end section running across uneven reef. Southeast to southwest swell reaches Outside Mikado first, then refracts onto the inside reef. That inside wave rewards a performance approach, though inconsistent reforms mean it won't hold many surfers at once.",
+     "surfForecast": "Mikados (Outside) in North Male Atoll is an exposed reef break that has quite reliable surf. The best wind direction is from the north and there is no shelter here from cross shore breezes. Groundswells more frequent than windswells and the ideal swell angle is from the south southeast. There is no reef break. Even when there are waves, it's not likley to be crowded."
+    },
+    "notes": "town: Veymandoo (surfnerd); surf-forecast pin 2.19,73.12 is 0.1 km from the surfnerd pin; wannasurf pin (Approximate) is 0.0 km from the surfnerd pin; facing check: surfnerd's \"Faces ESE\" lies outside its own swell-exposure range(s) (NNE. ENE - E. SE - SSE. SSE - SW. NNW - N. N. Faces ESE); kept as published, verify before use; wannasurf: wave quality World Class; experience All surfers; frequency Regular; type Reef-coral; direction Right; swell size Starts working at 1.5m-2m /5ft-6ft and holds up to 4m+ / 12ft; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 226.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 227.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-furana",
+   "name": "Furana",
+   "country": "Maldives",
+   "region": "Maale, Malé",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 4.253,
+   "lon": 73.548,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (4.25299,73.54822), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 4.26,73.54 (1.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/furana.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NE - SSE. NNW - N. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/furana.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-furana",
+    "name": "Furana",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/furana",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Furana",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NE - SSE. NNW - N. Faces NNE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure SSE - WSW. Offshore from SSW (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It works on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Furana in North Male Atoll is an exposed reef break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Take care of dead coral and sharks.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Furana with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"On nearby Furana, the Sheraton Full Moon resort runs surfing programs for its guests.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Furana is a right-hand reef break that peels over dead coral in the Maldives.",
+     "surfForecast": "Furana in North Male Atoll is an exposed reef break that has reasonably consistent surf. The surf tends to be optimum in the spring. Ideal winds are from the northwest. Tends to receive distant groundswells and the ideal swell direction is from the south. There is a right hand reef break. Sometimes crowded. Take care of dead coral and sharks."
+    },
+    "notes": "town: Malé (surfnerd); surf-forecast pin 4.26,73.54 is 1.2 km from the surfnerd pin; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces NNE\" lies outside its own swell-exposure range(s) (NE - SSE. NNW - N. Faces NNE); kept as published, verify before use"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC male",
+     "name": "Male",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 7.4,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2025-01-03 15:00 UTC (enc); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 4.19,
+     "lon": 73.527,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=male"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 7.7,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 7.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-maldives-male",
+   "name": "Malé",
+   "country": "Maldives",
+   "region": "Maale, Malé",
+   "timeZone": "Indian/Maldives",
+   "type": "Beach",
+   "lat": 4.171,
+   "lon": 73.519,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (4.17095,73.51856), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 4.18,73.51 (1.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/male.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ENE - S. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/male.md"
+   },
+   "facts": {
+    "spotId": "w-maldives-male",
+    "name": "Malé",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/male",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Male",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ENE - S. Faces SE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure W - N. Offshore from NW (surfnerd); offshore from the North-northwest (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It works best on low and mid tide, with a rising tide the better call.\" (surfnerd guide); \"Best around low tide.\" (surf-forecast)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Male in North Male Atoll is an exposed reef break that has consistent surf.\")",
+    "hazards": [
+     "\"When it maxes out on big southeast swells, surfers spread to nearby options: the treacherous lefts of Rats on the backside corner of the island, shallow rights over on Vilingili in the biggest swells, and a seldom-surfed left beside the runway on Hulhumalé, where a deadly tail section and difficult access keep most people away.\" (surfnerd)",
+     "\"Watch out for dead coral and sharks.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Male with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"Expect a very busy lineup made up of a large, almost entirely local crew that has grown increasingly territorial, partly because neighbouring resort islands shut them out of those line-ups.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Malé is the main surf option in the Maldivian capital, and Raalhugandu is the break in town, one of the most consistent and powerful waves in the Maldives. It peels both left and right over uneven reef, tucked right against one of the most built-up coastlines you'll ever surf.",
+     "surfForecast": "Male in North Male Atoll is an exposed reef break that has consistent surf. The surf tends to be best in the spring. Offshore winds blow from the north northwest. Tends to receive distant groundswells and the ideal swell angle is from the south. A choice of left and right reefs. Best around low tide. A popular wave that can get growded. Watch out for dead coral and sharks."
+    },
+    "notes": "town: Malé (surfnerd); surf-forecast pin 4.18,73.51 is 1.4 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldivian gauge)",
+     "distanceKm": 2.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) ra2(m) rad(m); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 4.187,
+     "lon": 73.525,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 2.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Gaukendi Bridge",
+   "reason": "surfnerd page gives no facing (swell exposure: 'SSE - NNW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/gaukendi-bridge"
+  },
+  {
+   "name": "Madihera",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NE - WSW. NW - NNW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/madihera"
+  },
+  {
+   "name": "Antiques",
+   "reason": "surfnerd page gives no facing (swell exposure: 'E - SW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/antiques"
+  },
+  {
+   "name": "Five Islands",
+   "reason": "surfnerd page gives no facing (swell exposure: 'E - S'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/five-islands"
+  },
+  {
+   "name": "Chickens",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NE - SSW. WNW - NW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/chickens"
+  },
+  {
+   "name": "Honky's",
+   "reason": "surfnerd page gives no facing (swell exposure: 'ENE - S. WNW. NNW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/honkys"
+  },
+  {
+   "name": "Lohi's",
+   "reason": "surfnerd page gives no facing (swell exposure: 'ENE - SSW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/lohis"
+  },
+  {
+   "name": "Ninja's",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NNE. ENE - SSW. N'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/ninjas"
+  },
+  {
+   "name": "Pasta Point",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NE - S. NW - NNW'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/pasta-point"
+  },
+  {
+   "name": "Sultan's",
+   "reason": "surfnerd page gives no facing (swell exposure: 'N - NNE. ENE - S'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/sultans"
+  },
+  {
+   "name": "Bedhuge",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NNE - S'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/bedhuge"
+  },
+  {
+   "name": "Refugee's Lefts",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NNE - S. WSW - W'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/refugees-lefts"
+  },
+  {
+   "name": "Kadu",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NE - SE. NNW. NNW - N'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/kadu"
+  },
+  {
+   "name": "Airports",
+   "reason": "surf-forecast page only (pin 0.47,72.94); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Airports"
+  },
+  {
+   "name": "Antiques",
+   "reason": "surf-forecast page only (pin 0.29,73.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Antiques"
+  },
+  {
+   "name": "Blue Bowls",
+   "reason": "surf-forecast page only (pin 0.24,73.23); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Blue-Bowls"
+  },
+  {
+   "name": "Five Islands",
+   "reason": "surf-forecast page only (pin 0.26,73.28); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Five-Islands"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Gurus (Gulhi)",
+   "reason": "surf-forecast page only (pin 3.99,73.52); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Gurus"
+  },
+  {
+   "name": "Honkeys",
+   "reason": "surf-forecast page only (pin 4.33,73.58); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Honkeys"
+  },
+  {
+   "name": "Koodhoo",
+   "reason": "surf-forecast page only (pin 0.73,73.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Koodhoo"
+  },
+  {
+   "name": "Kudahuvadhoo",
+   "reason": "surf-forecast page only (pin 2.66,72.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kudahuvadhoo"
+  },
+  {
+   "name": "Love Charms",
+   "reason": "surf-forecast page only (pin 0.26,73.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Love-Charms"
+  },
+  {
+   "name": "Maabaidhoo left",
+   "reason": "surf-forecast page only (pin 2.02,73.54); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Maabaidhoo-left"
+  },
+  {
+   "name": "Maabaidhoo Right",
+   "reason": "surf-forecast page only (pin 2.04,73.53); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Maabaidhoo-right"
+  },
+  {
+   "name": "Six Senses Laamu",
+   "reason": "surf-forecast page only (pin 1.81,73.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Six-senses-Laamu"
+  },
+  {
+   "name": "Two Ways",
+   "reason": "surf-forecast page only (pin 0.26,73.28); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Two-Ways"
+  },
+  {
+   "name": "Airport right",
+   "reason": "wannasurf page only (pin -0.7029,73.1716, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Airport_right_/index.html"
+  },
+  {
+   "name": "Kandooma Right",
+   "reason": "wannasurf page only (pin 3.9043,73.4756, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Kandooma_Right/index.html"
+  },
+  {
+   "name": "Kudas",
+   "reason": "wannasurf page only (pin 2.6667,72.9033, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Kudas/index.html"
+  },
+  {
+   "name": "Madis",
+   "reason": "wannasurf page only (pin -0.6950,73.1837, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Madis/index.html"
+  },
+  {
+   "name": "Muli s right",
+   "reason": "wannasurf page only (pin 2.9275,73.5871, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Muli_s_right/index.html"
+  },
+  {
+   "name": "Six senses",
+   "reason": "wannasurf page only (pin 1.8121,73.4143, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Six_senses/index.html"
+  },
+  {
+   "name": "Thaa s secret",
+   "reason": "wannasurf page only (pin 2.1942,73.1279, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Thaa_s_secret/index.html"
+  },
+  {
+   "name": "Bodu kanmathi",
+   "reason": "wannasurf page only (pin 5.3308,73.4649, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/bodu_kanmathi/index.html"
+  },
+  {
+   "name": "Gurus",
+   "reason": "wannasurf page only (pin 3.9895,73.5198, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/gurus/index.html"
+  },
+  {
+   "name": "Honkeys",
+   "reason": "wannasurf page only (pin 4.3128,73.5838, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/honkeys/index.html"
+  },
+  {
+   "name": "Lonuziyaarai",
+   "reason": "wannasurf page only (pin 4.1712,73.5197, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/lonuziyaarai/index.html"
+  },
+  {
+   "name": "Maabaidhoo",
+   "reason": "wannasurf page only (pin 2.0375,73.5358, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/maabaidhoo/index.html"
+  },
+  {
+   "name": "Meeru reef",
+   "reason": "wannasurf page only (pin 4.4537,73.7172, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/meeru_reef/index.html"
+  },
+  {
+   "name": "Riptides",
+   "reason": "wannasurf page only (pin 3.8940,73.4659, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/riptides/index.html"
+  },
+  {
+   "name": "Tombstones",
+   "reason": "wannasurf page only (pin 4.2521,73.5481, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/tombstones/index.html"
+  },
+  {
+   "name": "Villingili",
+   "reason": "wannasurf page only (pin 4.1704,73.4885, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/villingili/index.html"
+  }
+ ]
+}

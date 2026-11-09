@@ -1,0 +1,4151 @@
+{
+ "region": "India",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd India page (44) plus every Surf-Forecast.com and Wannasurf India break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Asia/Kolkata (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-india-bhimuni",
+   "name": "Bhimuni",
+   "country": "India",
+   "region": "Andhra Pradesh, Bheemunipatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.888,
+   "lon": 83.457,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.8878,83.4567), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/bhimuni.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/bhimuni.md"
+   },
+   "facts": {
+    "spotId": "w-india-bhimuni",
+    "name": "Bhimuni",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bhimuni",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from S (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"It works on mid and high tide, with a rising tide the better call and the long walls firing best at high tide.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Bhimuni is a scenic right-hand point that breaks over a rock ledge and sand. Expect a sucky take-off that leads into long, sectiony walls.",
+     "surfForecast": null
+    },
+    "notes": "town: Bheemunipatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 29.7,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 11.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-chintapalli",
+   "name": "Chintapalli",
+   "country": "India",
+   "region": "Andhra Pradesh, Barripeta",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 18.042,
+   "lon": 83.614,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.0423,83.6138), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/chintapalli.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ENE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/chintapalli.md"
+   },
+   "facts": {
+    "spotId": "w-india-chintapalli",
+    "name": "Chintapalli",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/chintapalli",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from E (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "ENE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "E (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Chintapalli is an exposed beachbreak that peels both left and right over sand. With no shelter from the wind, the waves here are often on the messy side, so it suits surfers happy to take whatever the day serves up. It's a friendly spot for beginners finding their feet.",
+     "surfForecast": null
+    },
+    "notes": "town: Barripeta (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 53.6,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 13.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-chippada",
+   "name": "Chippada",
+   "country": "India",
+   "region": "Andhra Pradesh, Kotha Gollalapalem",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.936,
+   "lon": 83.513,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.9365,83.5134), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/chippada.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: NE - SW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/chippada.md"
+   },
+   "facts": {
+    "spotId": "w-india-chippada",
+    "name": "Chippada",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/chippada",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SW - NE. Best from S (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SW. Faces SE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Chippada is a right-hand point that peels over sand off an exposed headland, with shallow banks and a setup that suits smaller swell.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"It takes a half hour drive down a dirt road, followed by a half hour walk along a dry river bed.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Chippada is a right-hand point that peels over sand off an exposed headland, with shallow banks and a setup that suits smaller swell. When waves are hard to come by along this stretch, it tends to be the more consistent option compared to the righthand points nearby.",
+     "surfForecast": null
+    },
+    "notes": "town: Kotha Gollalapalem (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 37.7,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 4.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-harbour-jetties-visakhapatnam",
+   "name": "Harbour Jetties - Visakhapatnam",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 17.681,
+   "lon": 83.296,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.6815,83.2962), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/harbour-jetties-visakhapatnam.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/harbour-jetties-visakhapatnam.md"
+   },
+   "facts": {
+    "spotId": "w-india-harbour-jetties-visakhapatnam",
+    "name": "Harbour Jetties - Visakhapatnam",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/harbour-jetties-visakhapatnam",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SW - NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - S. Faces E (surfnerd)",
+    "idealSwell": "not stated (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The pick of the bunch is the south side of Dolphin Nose, though the serious pollution here is enough to put many surfers off.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Harbour Jetties in Visakhapatnam is a reef setup with a wide choice of peaks breaking over uneven reef, throwing up both lefts and rights. The pick of the bunch is the south side of Dolphin Nose, though the serious pollution here is enough to put many surfers off.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1.7,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 9.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-jodugullapullam",
+   "name": "Jodugullapullam",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 17.754,
+   "lon": 83.354,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.7542,83.3537), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/jodugullapullam.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/jodugullapullam.md"
+   },
+   "facts": {
+    "spotId": "w-india-jodugullapullam",
+    "name": "Jodugullapullam",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jodugullapullam",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from SE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"Parking is restricted, and combined with the awkward dirt-track approach, it's worth sorting out where you're leaving the car before you commit to the drive.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jodugullapullam is an exposed beachbreak that breaks over sand, with a jetty at the northern end throwing a potential left for goofy footers. Getting there is the hard part: a dirt track runs off Beach Rd, but the river snakes through and turns the approach into a long detour.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 11.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 14.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-lawsons-bay",
+   "name": "Lawsons Bay",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.727,
+   "lon": 83.349,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.7273,83.3487), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/lawsons-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NE - SW. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/lawsons-bay.md"
+   },
+   "facts": {
+    "spotId": "w-india-lawsons-bay",
+    "name": "Lawsons Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lawsons-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SW - NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SW. Faces E (surfnerd)",
+    "idealSwell": "not stated (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"It breaks over a rock ledge and sand, and the ride packs a lot in: a run of cutbacks before the wave reforms, with some fun action close to shore off the backwash.\" (surfnerd)",
+     "\"One thing to keep in mind is water quality, as the spot picks up residential and stormwater pollution carried down by the river.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Lawsons Bay is Visag's best right, a long point in the town of Kailashgiri that peels for more than 500 metres from take-off all the way to the beach. It breaks over a rock ledge and sand, and the ride packs a lot in: a run of cutbacks before the wave reforms, with some fun action close to shore off the backwash.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 9.0,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 13.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-mangamari",
+   "name": "Mangamari",
+   "country": "India",
+   "region": "Andhra Pradesh, Chepalappada",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.834,
+   "lon": 83.418,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.8336,83.4175), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/mangamari.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NE - S. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/mangamari.md"
+   },
+   "facts": {
+    "spotId": "w-india-mangamari",
+    "name": "Mangamari",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mangamari",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from S (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - S. Faces ENE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point works across low, mid and high tide, with a rising tide generally the better call. At high tide the waves can unzip fast into a real tubular wall despite some backwash, while at lower tides the rocks split the wave in two.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Mangamari is one of the best right-hand points around, a rocky shoreline straddling a golden sand beach.\" (surfnerd)",
+     "\"Heavy refraction inside the bay keeps it offshore all day through the southwest monsoon.\" (surfnerd)",
+     "\"At high tide the waves can unzip fast into a real tubular wall despite some backwash, while at lower tides the rocks split the wave in two.\" (surfnerd)",
+     "\"Keep in mind that river flow can push pollution into the lineup.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"It is a long walk back along the beach.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Mangamari is one of the best right-hand points around, a rocky shoreline straddling a golden sand beach. On big, glassy days the waves peel for up to 800 metres. As the lines start bending by Mangamari Peta point, around 90% of the swell size is still breaking on the first rock clusters, so there is plenty of wave to work with.",
+     "surfForecast": null
+    },
+    "notes": "town: Chepalappada (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 22.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 18.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-mukkam",
+   "name": "Mukkam",
+   "country": "India",
+   "region": "Andhra Pradesh, Chepalakancheru",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.966,
+   "lon": 83.548,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.9663,83.5484), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/mukkam.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/mukkam.md"
+   },
+   "facts": {
+    "spotId": "w-india-mukkam",
+    "name": "Mukkam",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mukkam",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "ENE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It comes in on low to mid tide, with a rising tide generally the better call. At the lower tides the wave breaks over rocks close to shore, so time your sessions with the push of water in mind.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"At the lower tides the wave breaks over rocks close to shore, so time your sessions with the push of water in mind.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Mukkam is a promising right-hand point in the town of Mukkampeta. The wave peels over a mix of rock ledge and sand, and the setup sits sheltered from the southwest monsoon, which helps it hold up when other spots get blown out.",
+     "surfForecast": null
+    },
+    "notes": "town: Chepalakancheru (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 42.7,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 4.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-park-hotel",
+   "name": "Park Hotel",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 17.719,
+   "lon": 83.337,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.7189,83.3373), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/park-hotel.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: NE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/park-hotel.md"
+   },
+   "facts": {
+    "spotId": "w-india-park-hotel",
+    "name": "Park Hotel",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/park-hotel",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SW - NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "not stated (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide usually the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Rocks sit through the line-up, so it carries a bit of an edge.\" (surfnerd)",
+     "\"A bit of size helps you clear the many rocks scattered across the line-up.\" (surfnerd)",
+     "\"This is an intermediate-level wave, best for surfers comfortable picking a way across a rocky reef.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Park Hotel, also known as E Point, is a spread of peaks breaking over an uneven reef directly opposite the hotel it takes its name from. It offers both lefts and rights, with the lefts coming out the better of the two. Rocks sit through the line-up, so it carries a bit of an edge.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 7.5,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 12.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-rama-krishna-beach",
+   "name": "Rama Krishna Beach",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 17.71,
+   "lon": 83.321,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.7105,83.3207), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/rama-krishna-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ENE - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/rama-krishna-beach.md"
+   },
+   "facts": {
+    "spotId": "w-india-rama-krishna-beach",
+    "name": "Rama Krishna Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rama-krishna-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "ENE - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Rama Krishna Beach is the most popular spot along the Visag beach road, a rocky stretch that breaks over a mix of rock ledge and sand.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Rama Krishna Beach is the most popular spot along the Visag beach road, a rocky stretch that breaks over a mix of rock ledge and sand. It's a beach break that peels both left and right. When it isn't cooperating, Submarine Beach nearby is worth a look.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 5.5,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 10.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-rushikonda",
+   "name": "Rushikonda",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.779,
+   "lon": 83.388,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.7794,83.3884), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/rushikonda.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/rushikonda.md"
+   },
+   "facts": {
+    "spotId": "w-india-rushikonda",
+    "name": "Rushikonda",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rushikonda",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Rushikonda is a right-hand point that breaks over sand along the area's number one tourist beach. The beach itself is clean and well kept, but the surf set-up works against it, pushing incoming swell too wide onto ever-shifting outside sandbanks. Those banks move around, so the wave rarely lines up the same way twice.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 15.9,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 18.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-rutukonda",
+   "name": "Rutukonda",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 17.622,
+   "lon": 83.236,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.6215,83.2358), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/rutukonda.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: ENE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/rutukonda.md"
+   },
+   "facts": {
+    "spotId": "w-india-rutukonda",
+    "name": "Rutukonda",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rutukonda",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from SE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "ENE. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works at all stages of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"A rivermouth feeds pollution into the lineup, which rarely looks inviting.\" (surfnerd)",
+     "\"Cross-town traffic getting here can be heavy and is worth avoiding.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Rutukonda is a sand-bottomed beach break near the town of Appikonda, throwing up both lefts and rights. A rivermouth feeds pollution into the lineup, which rarely looks inviting.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 8.0,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 11.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-sandy-point-visag-india",
+   "name": "Sandy Point - Visag, India",
+   "country": "India",
+   "region": "Andhra Pradesh, Bandaruvanipeta",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 18.317,
+   "lon": 84.131,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.3168,84.1314), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-point-visag-india.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-point-visag-india.md"
+   },
+   "facts": {
+    "spotId": "w-india-sandy-point-visag-india",
+    "name": "Sandy Point - Visag, India",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sandy-point-visag-india",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from S (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"There can be some current, but on the whole it stays an easy, approachable spot.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Sandy Point is a long right-hand point break near Visakhapatnam that peels over a mix of rock ledge and sand. The rights are mellow and crumbly, and they run for such a distance that jelly legs are more or less guaranteed by the time you kick out. There can be some current, but on the whole it stays an easy, approachable spot.",
+     "surfForecast": null
+    },
+    "notes": "town: Bandaruvanipeta (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 114.5,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 76.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-tenneti-park",
+   "name": "Tenneti Park",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.747,
+   "lon": 83.352,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.7475,83.3519), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 17.75,83.35 (0.3 km away); wannasurf pin 17.7481,83.3509 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/tenneti-park.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/tenneti-park.md"
+   },
+   "facts": {
+    "spotId": "w-india-tenneti-park",
+    "name": "Tenneti Park",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/tenneti-park",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hanuman-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/North-East/Hanuman_point/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from SE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast); NorthWest (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); offshore from the Northwest (surf-forecast); good wind SouthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); High tide only, Rising tide (wannasurf)",
+    "bottom": "Rock Ledge (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Hanuman Point (Tenneti Park) in Andhra Pradesh is an exposed reef break that has consistent surf.\")",
+    "hazards": [
+     "\"This one is best suited to intermediates, mainly because of the rocks and the sucky take-off.\" (surfnerd)",
+     "\"The submerged reef holds quite a few big rocks, though most sit well inside the impact zone.\" (surfnerd)"
+    ],
+    "season": "\"The best time of year for surfing Hanuman Point (Tenneti Park) with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: In the city (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Tenneti Park is a right-hand point that peels over a rock ledge, overlooked by a calm communal space where people gather to meditate and stretch in the early morning. It reliably holds the biggest waves wrapping in off Waltair Point, so when a clean, lined-up swell arrives this is the spot that keeps working.",
+     "surfForecast": "Hanuman Point (Tenneti Park) in Andhra Pradesh is an exposed reef break that has consistent surf. Offshore winds are from the northwest. Windswells and groundswells in equal measure and the optimum swell angle is from the south. There is no reef break. Crowds are never a problem here."
+    },
+    "notes": "town: Visakhapatnam (surfnerd); surf-forecast pin 17.75,83.35 is 0.3 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience Experienced surfers; frequency Very consistent (150 day/year); type Reef-rocky; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 4m+ / 12ft; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 10.7,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 14.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-yarada",
+   "name": "Yarada",
+   "country": "India",
+   "region": "Andhra Pradesh, Visakhapatnam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 17.664,
+   "lon": 83.285,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (17.6642,83.2849), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/yarada.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: NE - SSW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/yarada.md"
+   },
+   "facts": {
+    "spotId": "w-india-yarada",
+    "name": "Yarada",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/yarada",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SW - NE. Best from SE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - SSW. Faces SE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"It breaks on mid and high tide with a rising tide the better call, and because the beach closes out easily, high tide is the more reliable choice.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep an eye out for scattered rocks further out on the point.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Yarada is a long beach break below the Dolphin Nose lookout, working over sand with both lefts and rights on offer. The wave is punchy but tends to close out, so it pays to wait for the right stage of tide. Keep an eye out for scattered rocks further out on the point.",
+     "surfForecast": null
+    },
+    "notes": "town: Visakhapatnam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVZ",
+     "name": "Vizagapatam",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 9.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.722,
+     "lon": 83.223,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVZ&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-baga-and-calungute",
+   "name": "Baga and Calungute",
+   "country": "India",
+   "region": "Goa, Arpora",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 15.541,
+   "lon": 73.755,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (15.54126,73.75464), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/baga-and-calungute.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: S - SSW. SSW - NW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/baga-and-calungute.md"
+   },
+   "facts": {
+    "spotId": "w-india-baga-and-calungute",
+    "name": "Baga and Calungute",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/baga-and-calungute",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "S - SSW. SSW - NW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through low, mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Baga and Calungute is a warm, mellow beach break in Goa, breaking over sand and serving up both lefts and rights. Goa is best known as party central around Christmas, but it's mid-year that the surf comes alive, with regular head-high days and a pick of peaks shared across Baga, Calungute and Candolim. Nothing exotic here, just fun, empty and warm surf.",
+     "surfForecast": null
+    },
+    "notes": "town: Arpora (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 15.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGO",
+     "name": "Goa/dabolim",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 19.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.381,
+     "lon": 73.827,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGO&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-dwarka",
+   "name": "Dwarka",
+   "country": "India",
+   "region": "Gujarat, Dwarka",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 22.241,
+   "lon": 68.954,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.24059,68.95374), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 22.24,68.96 (0.6 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/dwarka.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SSE - NNW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/dwarka.md"
+   },
+   "facts": {
+    "spotId": "w-india-dwarka",
+    "name": "Dwarka",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dwarka",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dwarka-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - NNW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); South (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore from the Northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide across low, mid, and high, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Dwarka Beach in Gujarat is a fairly exposed beach break that has inconsistent surf.\")",
+    "hazards": [],
+    "season": "\"The best time of year for surfing Dwarka Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of June.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Dwarka is a left-hand point way up north among the long sandy beaches of Gujarat State, and it stands out as the wave to check along this stretch of coast. The point peels left over a mix of uneven reef and sand.",
+     "surfForecast": "Dwarka Beach in Gujarat is a fairly exposed beach break that has inconsistent surf. Autumn and winter are the optimum times of year for waves. Offshore winds blow from the northeast. Waves just as likely from local windswells as from distant groundswells and the ideal swell angle is from the south. The beach break provides left and right handers. Good surf at all stages of the tide. An uncrowded break, even when it is working."
+    },
+    "notes": "town: Dwarka (surfnerd); surf-forecast pin 22.24,68.96 is 0.6 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC verav",
+     "name": "Veeraval",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 208.2,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2025-04-23 20:46 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 20.9,
+     "lon": 70.36,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=verav"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 914.7,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VAPR",
+     "name": "Porbandar",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 98.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 21.649,
+     "lon": 69.657,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VAPR&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-corbyns-bay",
+   "name": "Corbyn's Bay",
+   "country": "India",
+   "region": "Andaman and Nicobar Islands, Port Blair",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 11.643,
+   "lon": 92.749,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (11.64264,92.74882), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 11.63,92.76 (1.9 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/corbyns-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SSE. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/corbyns-bay.md"
+   },
+   "facts": {
+    "spotId": "w-india-corbyns-bay",
+    "name": "Corbyn's Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/corbyns-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Corbyns-Cove",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "E - SW. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - SSE. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); offshore from the West (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beachbreak can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Corbyns Cove in South Andaman is a fairly exposed beach and reef break that has quite consistent surf.\")",
+    "hazards": [
+     "\"It sits along the main tourist beach in the area, and more often than not it lies flat or throws a tiny closeout unless there is some swell filtering through.\" (surfnerd)",
+     "\"Take care of sharks,sea crocs.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Corbyns Cove (South Andaman) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Corbyn's Bay is a palm-fringed beachbreak just east of Port Blair's airport, breaking over sand with both lefts and rights. It sits along the main tourist beach in the area, and more often than not it lies flat or throws a tiny closeout unless there is some swell filtering through.",
+     "surfForecast": "Corbyns Cove in South Andaman is a fairly exposed beach and reef break that has quite consistent surf. The surf tends to be best in the spring. The best wind direction is from the west. Windswells and groundswells in equal measure and the ideal swell angle is from the south. The beach breaks offer lefts and rights together with both left and right hand reef breaks offshore.. Relatively few surfers here, even on good days. Take care of sharks,sea crocs."
+    },
+    "notes": "town: Port Blair (surfnerd); surf-forecast pin 11.63,92.76 is 1.9 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 4.3,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:12:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 11.68,
+     "lon": 92.76,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 2.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-jackson-creek-andamans",
+   "name": "Jackson Creek - Andamans",
+   "country": "India",
+   "region": "Andaman and Nicobar Islands, Little Andaman",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.793,
+   "lon": 92.383,
+   "seaward": 0.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (10.79315,92.38311), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/jackson-creek-andamans.md"
+   },
+   "facingSource": {
+    "text": "\"Faces N\" (surfnerd swell exposure: SW - NW. NW - NE. Faces N)",
+    "url": "https://www.surfnerd.com/surf-forecast/jackson-creek-andamans.md"
+   },
+   "facts": {
+    "spotId": "w-india-jackson-creek-andamans",
+    "name": "Jackson Creek - Andamans",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jackson-creek-andamans",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North (surfnerd: \"Faces N\")",
+    "facingDeg": 0.0,
+    "swellWorkable": {
+     "text": "S - NW. Best from W (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "SW - NW. NW - NE. Faces N (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "SE. Offshore from SE (surfnerd); wind exposure SE - SW. Offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through low, mid, and high tide, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Jackson Creek is an excellent left-hand reef that breaks over live coral, tucked inside a large shielding headland. The headland offers safe anchorage, while the reef along its fringe sits fully open to wind and swell.",
+     "surfForecast": null
+    },
+    "notes": "town: Little Andaman (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 106.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:12:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 11.68,
+     "lon": 92.76,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 101.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-jarawa-point-andamans",
+   "name": "Jarawa Point - Andamans",
+   "country": "India",
+   "region": "Andaman and Nicobar Islands, Chetamale",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.675,
+   "lon": 92.592,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (10.67521,92.59215), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/jarawa-point-andamans.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: E - SSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/jarawa-point-andamans.md"
+   },
+   "facts": {
+    "spotId": "w-india-jarawa-point-andamans",
+    "name": "Jarawa Point - Andamans",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jarawa-point-andamans",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "E - SSW. Faces S (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Its position on the headland leaves west swells out of the picture, but anything with south in it wraps onto the rocky limestone shelf that curves into the bay.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Jarawa Point sits up the east coast of the Andamans, on the northern headland at Butler's Bay, and takes its name from one of the region's indigenous tribes. It's a left-hand reef where fun park walls amble down the reef in sections, serving up hits and shoulders and the odd cover-up when the swell fills in. Like most Andaman waves it stays fairly easy and well shaped, peeling over a colourful reef below.",
+     "surfForecast": null
+    },
+    "notes": "town: Chetamale (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 113.2,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:12:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 11.68,
+     "lon": 92.76,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 108.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-kumari-point-andamans",
+   "name": "Kumari Point, Andamans",
+   "country": "India",
+   "region": "Andaman and Nicobar Islands, Toibalawe",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.538,
+   "lon": 92.415,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (10.53821,92.41485), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 10.54,92.42 (0.6 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/kumari-point-andamans.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ESE - SW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/kumari-point-andamans.md"
+   },
+   "facts": {
+    "spotId": "w-india-kumari-point-andamans",
+    "name": "Kumari Point, Andamans",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kumari-point-andamans",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kumari-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - SW. Faces SE (surfnerd)",
+    "idealSwell": "S (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure W - N. Offshore from NW (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 12.1
+    },
+    "exposure": "quite exposed (surf-forecast: \"Kumari Point in Little Andaman is a quite exposed point break that has dependable surf.\")",
+    "hazards": [
+     "\"Beware of coral, sharks,sea crocs.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Kumari Point (Little Andaman) with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kumari Point is a right-hand reef break near Sandy Point, and it was once the fastest and longest right pointbreak in the country. Recent earthquakes in the region lifted the reef, and it now breaks at about a quarter of its former glory. Rather than the old pinwheeling right point, the lineup has broken up into a peakier, more sectiony wave, though it still shows above-average form when swell and wind line up.",
+     "surfForecast": "Kumari Point in Little Andaman is a quite exposed point break that has dependable surf. The surf tends to be best in the spring. The best wind direction is from the northwest. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the southwest. Even when there are waves, it's not likley to be crowded. Beware of coral, sharks,sea crocs."
+    },
+    "notes": "town: Toibalawe (surfnerd); surf-forecast pin 10.54,92.42 is 0.6 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 132.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:12:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 11.68,
+     "lon": 92.76,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 127.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-muddys",
+   "name": "Muddy's",
+   "country": "India",
+   "region": "Andaman and Nicobar Islands, Toibalawe",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.532,
+   "lon": 92.381,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (10.53248,92.38094), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/muddys.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SE - NNW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/muddys.md"
+   },
+   "facts": {
+    "spotId": "w-india-muddys",
+    "name": "Muddy's",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/muddys",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SE - NNW. Faces SW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 12.1
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Muddy's is a solid, wedgy left-hander breaking over live coral out on the southwest tip of the island, where the most swell tends to show. When it lines up, it barrels hard through the sections.",
+     "surfForecast": null
+    },
+    "notes": "town: Toibalawe (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 134.1,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:12:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 11.68,
+     "lon": 92.76,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 129.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-totem-reef",
+   "name": "Totem Reef",
+   "country": "India",
+   "region": "Andaman and Nicobar Islands, Toibalawe",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.574,
+   "lon": 92.399,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (10.5738,92.39937), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/totem-reef.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: SSW - NNW. NNW - N. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/totem-reef.md"
+   },
+   "facts": {
+    "spotId": "w-india-totem-reef",
+    "name": "Totem Reef",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/totem-reef",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSW - NNW. NNW - N. Faces NW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "SE. Offshore from SE (surfnerd); wind exposure E - S. Offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Totem Reef is a left-hand reef break that peels over live coral on the west coast, sitting just past two stretches of beachbreak. It rewards intermediate surfers who are comfortable riding waves over a coral bottom.",
+     "surfForecast": null
+    },
+    "notes": "town: Toibalawe (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 129.1,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:12:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 11.68,
+     "lon": 92.76,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 124.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-bhatkal",
+   "name": "Bhatkal",
+   "country": "India",
+   "region": "Karnataka, Nastarkeri",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 13.964,
+   "lon": 74.539,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (13.96389,74.53881), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/bhatkal.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SSE - W. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/bhatkal.md"
+   },
+   "facts": {
+    "spotId": "w-india-bhatkal",
+    "name": "Bhatkal",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bhatkal",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - W. Faces SW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The sand can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Bhatkal is a sandy beachbreak on the Indian coast, throwing up both lefts and rights over sand. Further south, a series of cliff-lined coves opens up more options once a southwest swell fills in, so it is worth looking beyond the main stretch when the swell is running.",
+     "surfForecast": null
+    },
+    "notes": "town: Nastarkeri (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 179.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOML",
+     "name": "Mangalore",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 117.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.962,
+     "lon": 74.89,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOML&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-gokarna",
+   "name": "Gokarna",
+   "country": "India",
+   "region": "Karnataka, Gokarn",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 14.544,
+   "lon": 74.312,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (14.54387,74.3125), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 14.55,74.31 (0.7 km away); wannasurf pin 14.5454,74.3184 (0.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/gokarna.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: SSW - NW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/gokarna.md"
+   },
+   "facts": {
+    "spotId": "w-india-gokarna",
+    "name": "Gokarna",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gokarna",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Gokarna-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Gokarna/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSW - NW. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd); offshore from the East-northeast (surf-forecast); good wind East, Don't know (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works across low, mid, and high tide, with a rising tide generally the better call. Be ready for a powerful shoredump at high tide.\" (surfnerd guide); High tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Gokarna Beach in Karnataka is an exposed beach break that only works once in a while.\")",
+    "hazards": [],
+    "season": "\"The best time of year for surfing Gokarna Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"Gokarna Main beach, 5 min walking from Gokarna town, 145 km south of Goa (airport), tourist infrastructure, guesthouses etc. available\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Gokarna is a sand-bottomed beach break that peels both left and right. It sits on a stretch of coast that pulls in a steady flow of travelers, giving it an easygoing, hang-out feel.",
+     "surfForecast": "Gokarna Beach in Karnataka is an exposed beach break that only works once in a while. The best wind direction is from the east northeast. The optimum well angle is from the southwest. The beach break provides left and right handers. Even when the surf is up, crowds are unknown."
+    },
+    "notes": "town: Gokarn (surfnerd); surf-forecast pin 14.55,74.31 is 0.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.7 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Beach-break; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 110.9,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGO",
+     "name": "Goa/dabolim",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 106.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.381,
+     "lon": 73.827,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGO&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-kapu-beach-lighthouse",
+   "name": "Kapu Beach Lighthouse",
+   "country": "India",
+   "region": "Karnataka, Kambla",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 13.223,
+   "lon": 74.737,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (13.22278,74.7369), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 13.22,74.74 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/kapu-beach-lighthouse.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SSE - NNW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/kapu-beach-lighthouse.md"
+   },
+   "facts": {
+    "spotId": "w-india-kapu-beach-lighthouse",
+    "name": "Kapu Beach Lighthouse",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kapu-beach-lighthouse",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kaup-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "SW - NW. Best from W (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "SSE - NNW. Faces WSW (surfnerd)",
+    "idealSwell": "W (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore from the East-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The wave works on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "exposed (surf-forecast: \"Kaup Beach in Karnataka is an exposed beach break that has inconsistent surf.\")",
+    "hazards": [
+     "\"Kapu Beach Lighthouse is a short, shallow right that peels off the lighthouse, with miles of average beachbreak stretching away in either direction.\" (surfnerd)"
+    ],
+    "season": "\"The best time of year for surfing Kaup Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kapu Beach Lighthouse is a short, shallow right that peels off the lighthouse, with miles of average beachbreak stretching away in either direction. The wave breaks right over a mix of boulders and sand. If you're chasing more, crossing south into Kerala tends to bring better consistency and size.",
+     "surfForecast": "Kaup Beach in Karnataka is an exposed beach break that has inconsistent surf. The best wind direction is from the east northeast. The ideal swell direction from the southwest. The beach break provides left and right handers. An uncrowded break, even when it is working."
+    },
+    "notes": "town: Kambla (surfnerd); surf-forecast pin 13.22,74.74 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 263.3,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOML",
+     "name": "Mangalore",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 33.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.962,
+     "lon": 74.89,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOML&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-maravanthe",
+   "name": "Maravanthe",
+   "country": "India",
+   "region": "Karnataka, Hadavu",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 13.706,
+   "lon": 74.642,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (13.70582,74.64175), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 13.71,74.64 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/maravanthe.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: S - NNW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/maravanthe.md"
+   },
+   "facts": {
+    "spotId": "w-india-maravanthe",
+    "name": "Maravanthe",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/maravanthe",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Maravanthe-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - NW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "S - NNW. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd); offshore from the East-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Maravanthe Beach in Karnataka is an exposed beach break that has inconsistent surf.\")",
+    "hazards": [],
+    "season": "\"The best time of year for surfing Maravanthe Beach with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Maravanthe is a 6 km beach break nicknamed 10,000 Peaks, a name earned by the endless run of corners and close-outs it throws up along the sand. Waves peel both left and right over a sandy bottom, giving you a long stretch of coast to hunt for a peak.",
+     "surfForecast": "Maravanthe Beach in Karnataka is an exposed beach break that has inconsistent surf. Works best in offshore winds from the east northeast. The optimum well angle is from the southwest. The beach break offers both left and right hand waves. Crowds are never a problem here."
+    },
+    "notes": "town: Hadavu (surfnerd); surf-forecast pin 13.71,74.64 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 210.0,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOML",
+     "name": "Mangalore",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 87.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.962,
+     "lon": 74.89,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOML&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-mulki",
+   "name": "Mulki",
+   "country": "India",
+   "region": "Karnataka, Mudu Thota",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 13.077,
+   "lon": 74.775,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (13.07747,74.77472), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/mulki.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SSW - NNW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/mulki.md"
+   },
+   "facts": {
+    "spotId": "w-india-mulki",
+    "name": "Mulki",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mulki",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - NW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "SSW - NNW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Mulki is a sand-bottomed beach break north of Mangalore that peels both left and right.",
+     "surfForecast": null
+    },
+    "notes": "town: Mudu Thota (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 279.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOML",
+     "name": "Mangalore",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 17.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.962,
+     "lon": 74.89,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOML&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-murdeshwara",
+   "name": "Murdeshwara",
+   "country": "India",
+   "region": "Karnataka, Murudeshwara",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 14.097,
+   "lon": 74.485,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (14.0967,74.48523), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 14.1,74.49 (0.6 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/murdeshwara.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: WSW - NNW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/murdeshwara.md"
+   },
+   "facts": {
+    "spotId": "w-india-murdeshwara",
+    "name": "Murdeshwara",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/murdeshwara",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Murudeshwara-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - NW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "WSW - NNW. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd); offshore from the East-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The banks work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 9.8
+    },
+    "exposure": "exposed (surf-forecast: \"Murudeshwara Beach in Karnataka is an exposed beach break that only works once in a while.\")",
+    "hazards": [],
+    "season": "\"The best time of year for surfing Murudeshwara Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Murdeshwara sits near the centre of Karnataka on India's west coast, where sandy beachbreaks run along either side of the peninsula beneath the towering meditating statue of Shiva. The peaks peel both left and right, and either side of the point can turn out clean waves when the wind cooperates.",
+     "surfForecast": "Murudeshwara Beach in Karnataka is an exposed beach break that only works once in a while. The best wind direction is from the east northeast. Waves can be ok even in light onshore winds The ideal swell angle is from the southwest. The beach break offers both left and right hand waves. An uncrowded break, even when it is working."
+    },
+    "notes": "town: Murudeshwara (surfnerd); surf-forecast pin 14.1,74.49 is 0.6 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 163.6,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:11:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 15.41,
+     "lon": 73.8,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOML",
+     "name": "Mangalore",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 133.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.962,
+     "lon": 74.89,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOML&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-cheray-beach",
+   "name": "Cheray Beach",
+   "country": "India",
+   "region": "Kerala, Elamkunnapuzha",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 10.139,
+   "lon": 76.179,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (10.1387,76.1788), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/cheray-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SSE - NNW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/cheray-beach.md"
+   },
+   "facts": {
+    "spotId": "w-india-cheray-beach",
+    "name": "Cheray Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cheray-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - NNW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Cheray Beach stretches for about 10 km of clean, golden sand near Cochin in southern Kerala. The waves are mellow crumblers breaking over sand and peeling both left and right, and dolphins are occasionally seen out in the water.",
+     "surfForecast": null
+    },
+    "notes": "town: Elamkunnapuzha (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 21.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOCI",
+     "name": "Kochi",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 24.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 10.15,
+     "lon": 76.4,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOCI&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-hawas-beach",
+   "name": "Hawa's Beach",
+   "country": "India",
+   "region": "Kerala, Kovalam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 8.388,
+   "lon": 76.975,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.38793,76.975), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/hawas-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: S - NW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/hawas-beach.md"
+   },
+   "facts": {
+    "spotId": "w-india-hawas-beach",
+    "name": "Hawa's Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hawas-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - NW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "S - NW. Faces SW (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Expect messy lefts peeling off the scattered rocks at the southern end, with rights on offer too.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Hawa's Beach is a sandy beach break at the southern end of Kovalam, and the spot to head for when you actually want waves. While the town's northern beach sits swell-protected and mostly flat, Hawa faces straight into the southwest swell and wind, so it picks up surf when the rest of the bay stays calm. Expect messy lefts peeling off the scattered rocks at the southern end, with rights on offer too.",
+     "surfForecast": null
+    },
+    "notes": "town: Kovalam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 191.6,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTV",
+     "name": "Trivandrum",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 9.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.467,
+     "lon": 76.95,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-lighthouse-beach-kerala",
+   "name": "Lighthouse Beach - Kerala",
+   "country": "India",
+   "region": "Kerala, Kovalam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 8.385,
+   "lon": 76.978,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.38499,76.9776), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/lighthouse-beach-kerala.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SSE - WNW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/lighthouse-beach-kerala.md"
+   },
+   "facts": {
+    "spotId": "w-india-lighthouse-beach-kerala",
+    "name": "Lighthouse Beach - Kerala",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lighthouse-beach-kerala",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - NW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "SSE - WNW. Faces SW (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Lighthouse Beach is India's premier surfing destination, a sand-bottomed beach break in Kerala that peels both left and right. Its reputation grew after Kerala Tourism commissioned ASR to build a multi-purpose artificial surf reef, the Kovalam reef, completed in early 2010. Early footage of the new reef showed an organised, peeling lip line with a top-to-bottom power this coastline rarely produces.",
+     "surfForecast": null
+    },
+    "notes": "town: Kovalam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 192.0,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTV",
+     "name": "Trivandrum",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 9.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.467,
+     "lon": 76.95,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-poovar",
+   "name": "Poovar",
+   "country": "India",
+   "region": "Kerala, Poovar",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 8.307,
+   "lon": 77.077,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.30686,77.0769), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/poovar.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SE - WNW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/poovar.md"
+   },
+   "facts": {
+    "spotId": "w-india-poovar",
+    "name": "Poovar",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/poovar",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - NW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "SE - WNW. Faces SW (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "rivermouth",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep an eye out for strong currents.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Poovar is a river mouth break where fast, tubular lefts and rights peel into the estuary behind the beach. It sits 40km to the south, with the Chowara beach peaks stretching away to the north.",
+     "surfForecast": null
+    },
+    "notes": "town: Poovar (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 204.5,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTV",
+     "name": "Trivandrum",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 22.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.467,
+     "lon": 76.95,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-thotapalli",
+   "name": "Thotapalli",
+   "country": "India",
+   "region": "Kerala, Alappuzha",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 9.49,
+   "lon": 76.318,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (9.49039,76.3178), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/thotapalli.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SSE - NNW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/thotapalli.md"
+   },
+   "facts": {
+    "spotId": "w-india-thotapalli",
+    "name": "Thotapalli",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/thotapalli",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - NNW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Thotapalli is a modest beach break near Alappuzha, peeling both left and right over sand. Don't expect much shape here, as the waves tend to be fat and crumbly, and you'll find better, more consistent surf further south along the coast.",
+     "surfForecast": null
+    },
+    "notes": "town: Alappuzha (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 52.6,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOCC",
+     "name": "Kochi Naval",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 50.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 9.941,
+     "lon": 76.275,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOCC&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-varkala",
+   "name": "Varkala",
+   "country": "India",
+   "region": "Kerala, Varkala",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 8.737,
+   "lon": 76.699,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.73747,76.6993), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 8.73,76.71 (1.4 km away); wannasurf pin 8.7318,76.7058 (1.0 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/varkala.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SE - NW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/varkala.md"
+   },
+   "facts": {
+    "spotId": "w-india-varkala",
+    "name": "Varkala",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/varkala",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Varkala",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Varkala/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SE - NW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast); West, SouthWest, South (wannasurf)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore from the East-northeast (surf-forecast); good wind East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide); \"Surfable at all stages of the tide.\" (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Varkala in Kerala is an exposed beach break that has unreliable waves.\")",
+    "hazards": [
+     "\"Varkala is best suited to intermediate surfers, not least because the rips are often strong.\" (surfnerd)",
+     "\"Hazards include - Rips / undertow - Pollution.\" (surf-forecast)",
+     "Rips / undertow, Pollution (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Varkala with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"at the north end of the cliff side main drag\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Varkala is a sand-bottomed beachbreak set beneath towering reddish cliffs and thick palm groves that overlook the beach. When the swell is clean and the rare offshores line up, it can throw out a hollow, spitting beachbreak with both lefts and rights. On the bigger days there's a rumoured left up north of the cliffs.",
+     "surfForecast": "Varkala in Kerala is an exposed beach break that has unreliable waves. The best wind direction is from the east northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the southwest. The beach breaks offer lefts and rights. Surfable at all stages of the tide. Crowds are never a problem here. Hazards include - Rips / undertow - Pollution."
+    },
+    "notes": "town: Varkala (surfnerd); surf-forecast pin 8.73,76.71 is 1.4 km from the surfnerd pin; wannasurf pin (Approximate) is 1.0 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience Beginners wave; frequency Sometimes break; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 144.2,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTV",
+     "name": "Trivandrum",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 40.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.467,
+     "lon": 76.95,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-puri",
+   "name": "Puri",
+   "country": "India",
+   "region": "Odisha, Puri",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 19.794,
+   "lon": 85.825,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (19.7941,85.82548), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 19.79,85.82 (0.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/puri.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ENE - WSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/puri.md"
+   },
+   "facts": {
+    "spotId": "w-india-puri",
+    "name": "Puri",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/puri",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Puri-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ENE - WSW. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); offshore from the North-northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Puri Beach in Odisha is an exposed beach break that only works once in a while.\")",
+    "hazards": [
+     "\"Take care of the strong rips here.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Puri Beach with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Puri is a sand-bottomed beachbreak on the coast of Orissa in north India, as well known as a pilgrimage site for Jagannatha, the tallest temple in India, as it is for surf. Up here the headlands further south give way to endless straight beaches, and the peaks run both left and right. When it's small you're mostly dealing with shorebreak; as the size builds it turns into consistent lines of whitewash, and the paddle out to the outside peaks becomes a real chore, made harder by the longshore drift.",
+     "surfForecast": "Puri Beach in Odisha is an exposed beach break that only works once in a while. Autumn and winter are the optimum times of year for waves. The best wind direction is from the north northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the south. The beach breaks offer lefts and rights. Good surf at all stages of the tide. The location means that it never gets crowded. Take care of the strong rips here."
+    },
+    "notes": "town: Puri (surfnerd); surf-forecast pin 19.79,85.82 is 0.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 356.5,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 04:56:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 17.68,
+     "lon": 83.28,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VEBS",
+     "name": "Bhubaneswar",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 50.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 20.244,
+     "lon": 85.818,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VEBS&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-mahe",
+   "name": "Mahe",
+   "country": "India",
+   "region": "Puducherry, Mahe",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 11.697,
+   "lon": 75.533,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (11.69736,75.53347), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/mahe.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: S - NW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/mahe.md"
+   },
+   "facts": {
+    "spotId": "w-india-mahe",
+    "name": "Mahe",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mahe",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - NW. Best from W (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "S - NW. Faces WSW (surfnerd)",
+    "idealSwell": "W (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Mahe can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Mahe is a sandy beachbreak that offers up both lefts and rights. Along this stretch of coast heading into Kerala, more piers and jetties start to appear, and the ones around Mahe, from Thalassery down to the rivermouth at Talakkolattur, can lend some shelter when the surf turns stormy.",
+     "surfForecast": null
+    },
+    "notes": "town: Mahe (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 208.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOKN",
+     "name": "Kannur",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 24.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.92,
+     "lon": 75.55,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOKN&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-auroville",
+   "name": "Auroville",
+   "country": "India",
+   "region": "Tamil Nadu, Auroville",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 11.984,
+   "lon": 79.849,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (11.98413,79.84935), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 11.96,79.84 (2.9 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/auroville.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/auroville.md"
+   },
+   "facts": {
+    "spotId": "w-india-auroville",
+    "name": "Auroville",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/auroville",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Pondichery",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NNE - S. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South-southeast (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); offshore from the West-northwest (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It works on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Auroville (Pondichery) in Tamil Nadu is an exposed beach break that has fairly consistent surf.\")",
+    "hazards": [],
+    "season": "\"The best time of year for surfing Auroville (Pondichery) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Auroville sits way up the east coast of Tamil Nadu, near Pondicherry and just clear of the Sri Lankan swell shadow. The coastline here is a run of steep beaches with a few jetty breaks, and the waves break over sand with both lefts and rights on offer.",
+     "surfForecast": "Auroville (Pondichery) in Tamil Nadu is an exposed beach break that has fairly consistent surf. Autumn and winter are the favoured times of year for waves. Offshore winds are from the west northwest. The best swell direction is from the south southeast. The beach breaks are all lefts. Even when the surf is up, crowds are unknown."
+    },
+    "notes": "town: Auroville (surfnerd); surf-forecast pin 11.96,79.84 is 2.9 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 133.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:07:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.1,
+     "lon": 80.3,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPC",
+     "name": "Pendicherry",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 4.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.969,
+     "lon": 79.81,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPC&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-big-rock-fishermans-cove",
+   "name": "Big Rock - Fisherman's Cove",
+   "country": "India",
+   "region": "Tamil Nadu, Kovalam",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 12.79,
+   "lon": 80.255,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (12.79005,80.25499), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/big-rock-fishermans-cove.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: N - S. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/big-rock-fishermans-cove.md"
+   },
+   "facts": {
+    "spotId": "w-india-big-rock-fishermans-cove",
+    "name": "Big Rock - Fisherman's Cove",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/big-rock-fishermans-cove",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "N - S. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Big Rock is a left-hand reef break tucked in right next to the reliable right-hand point at Fisherman's Cove, so the two sit side by side on the same stretch of coast. It's a proper left barrel that peels over a rock shelf, with the wave breaking across a mix of rock ledge and sand.",
+     "surfForecast": null
+    },
+    "notes": "town: Kovalam (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 34.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:07:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.1,
+     "lon": 80.3,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOMM",
+     "name": "Madras",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 24.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.994,
+     "lon": 80.18,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOMM&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-mahabalipuram-shore-temple",
+   "name": "Mahabalipuram Shore Temple",
+   "country": "India",
+   "region": "Tamil Nadu, Mamallapuram",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 12.617,
+   "lon": 80.2,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (12.6171,80.20009), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 12.62,80.2 (0.3 km away); wannasurf pin 12.6181,80.1987 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/mahabalipuram-shore-temple.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/mahabalipuram-shore-temple.md"
+   },
+   "facts": {
+    "spotId": "w-india-mahabalipuram-shore-temple",
+    "name": "Mahabalipuram Shore Temple",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mahabalipuram-shore-temple",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mahabalipuram",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/mahaballipuram/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NNE - S. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd); East-southeast (surf-forecast); SouthEast, East (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the West-northwest (surf-forecast); good wind West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide); Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Mahabalipuram (Shore Temple) in Tamil Nadu is an exposed beach break that has reasonably consistent surf.\")",
+    "hazards": [],
+    "season": "\"The best time of year for surfing Mahabalipuram (Shore Temple) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"From Chennai(Madras)it's a cheap 2h bus ride.\"; distance: In the city (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Mahabalipuram Shore Temple is a right-hand point that breaks over sand beside the ancient temple it takes its name from. Coastal armoring built to protect the temple traps sand and funnels some hollow righthanders down the point.",
+     "surfForecast": "Mahabalipuram (Shore Temple) in Tamil Nadu is an exposed beach break that has reasonably consistent surf. The best wind direction is from the west northwest. The ideal swell direction from the east southeast. The beach breaks offer lefts and rights. Crowds are never a problem here."
+    },
+    "notes": "town: Mamallapuram (surfnerd); surf-forecast pin 12.62,80.2 is 0.3 km from the surfnerd pin; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience All surfers; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 54.8,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 08:07:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 13.1,
+     "lon": 80.3,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOMM",
+     "name": "Madras",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 42.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.994,
+     "lon": 80.18,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOMM&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-manapad-point",
+   "name": "Manapad Point",
+   "country": "India",
+   "region": "Tamil Nadu, Manapad",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 8.374,
+   "lon": 78.068,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.37369,78.0683), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 8.37,78.07 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/manapad-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - SW. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/manapad-point.md"
+   },
+   "facts": {
+    "spotId": "w-india-manapad-point",
+    "name": "Manapad Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/manapad-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Manapad-Point-Alwars",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NNE - SW. Faces E (surfnerd)",
+    "idealSwell": "S (surfnerd); South (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Manapad Point (Alwars) in Tamil Nadu is an exposed point break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"Watch out for dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Manapad Point (Alwars) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"Manapad sits well off the beaten track and is not easily accessible, so it takes some effort to reach.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Manapad Point, also known as Alwars, is a right-hand point break on India's far south coast and rates as one of the best waves in the country. The point itself is a beautifully formed ancient lava flow that reaches out into the water, and when the rights are firing you can score a ride of up to 400 yards before the long walk back to the top.",
+     "surfForecast": "Manapad Point (Alwars) in Tamil Nadu is an exposed point break that has fairly consistent surf. Autumn and winter are the optimum times of year for waves. The best wind direction is from the northwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell angle is from the south. Good surf at all stages of the tide. The location means that it never gets crowded. Watch out for dangerous rips."
+    },
+    "notes": "town: Manapad (surfnerd); surf-forecast pin 8.37,78.07 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colb",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 252.2,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2021-04-20 09:54 UTC (enc); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.95,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 252.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTK",
+     "name": "Tuticorin",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 39.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.722,
+     "lon": 78.026,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTK&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-rameswaram",
+   "name": "Rameswaram",
+   "country": "India",
+   "region": "Tamil Nadu, Kodandaramaswami",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 9.232,
+   "lon": 79.326,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (9.23234,79.32621), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.22,79.35 (2.9 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/rameswaram.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: SE - W. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/rameswaram.md"
+   },
+   "facts": {
+    "spotId": "w-india-rameswaram",
+    "name": "Rameswaram",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rameswaram",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rameswaram",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SE - W. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); South-southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the Northeast (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It surfs through low and mid tide, with a rising tide generally the better call.\" (surfnerd guide); \"The quality of the surf isn't affected by the tide.\" (surf-forecast)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "quite exposed (surf-forecast: \"Rameswaram in Tamil Nadu is a quite exposed beach break that only works once in a while.\")",
+    "hazards": [
+     "\"Watch out for dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Rameswaram with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Rameswaram sits along the chain of islands that form Adam's Bridge, the string of sandbanks reaching toward Sri Lanka. It's a wild, empty beachbreak that breaks over sand and offers both lefts and rights, usually with an onshore edge and a bit of push behind it.",
+     "surfForecast": "Rameswaram in Tamil Nadu is a quite exposed beach break that only works once in a while. Autumn and winter are the best times of year for waves. The best wind direction is from the northeast. Windswells are much more typical than groudswells and the ideal wave direction is from the south southwest. The beach break provides left and right handers. The quality of the surf isn't affected by the tide. Even when the surf is up, crowds are unknown. Watch out for dangerous rips."
+    },
+    "notes": "town: Kodandaramaswami (surfnerd); surf-forecast pin 9.22,79.35 is 2.9 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 218.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VORM",
+     "name": "INS Parundu",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 40.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 9.324,
+     "lon": 78.973,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VORM&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-tiruchendur",
+   "name": "Tiruchendur",
+   "country": "India",
+   "region": "Tamil Nadu, Tiruchendur",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 8.487,
+   "lon": 78.124,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.48724,78.1245), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 8.49,78.13 (0.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/tiruchendur.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: NE - SSW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/tiruchendur.md"
+   },
+   "facts": {
+    "spotId": "w-india-tiruchendur",
+    "name": "Tiruchendur",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/tiruchendur",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tiruchendur",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NE - SSW. Faces SE (surfnerd)",
+    "idealSwell": "SW (surfnerd); South (surf-forecast)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, though a rising tide is generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Tiruchendur in Tamil Nadu is an exposed beach and reef break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"Watch out for dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Tiruchendur with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of November.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Tiruchendur is a temple town with a small reef setup that throws up some fun little waves. The break sits on a rock shelf about 200 yards south of the temple, and the swell runs over a mix of boulders and sand. Both lefts and rights come off it, and the place stays quiet.",
+     "surfForecast": "Tiruchendur in Tamil Nadu is an exposed beach and reef break that has fairly consistent surf. Autumn and winter are the best times of year for waves. The best wind direction is from the northwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell angle is from the south. The beach breaks offer lefts and rights and in addition there are both left and right reef breaks. Good surf at all stages of the tide. An uncrowded break, even when it is working. Watch out for dangerous rips."
+    },
+    "notes": "town: Tiruchendur (surfnerd); surf-forecast pin 8.49,78.13 is 0.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colb",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 255.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2021-04-20 09:54 UTC (enc); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.95,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 256.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTK",
+     "name": "Tuticorin",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 28.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.722,
+     "lon": 78.026,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTK&network=IN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-india-vattikottai",
+   "name": "Vattikottai",
+   "country": "India",
+   "region": "Tamil Nadu, Kanyakumari",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 8.092,
+   "lon": 77.566,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (8.09201,77.5655), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/vattikottai.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/vattikottai.md"
+   },
+   "facts": {
+    "spotId": "w-india-vattikottai",
+    "name": "Vattikottai",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/vattikottai",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Vattikottai breaks through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Vattikottai is a right-hand reef breaking over sand near Kanyakumari, at the southern tip of India. You'll find it just northeast of the small island off Cape Comorin, the one crowned by the massive statue of the Tamil saint and poet Tiruvalluvar. It's a handy call when the very tip isn't cooperating: Kanyakumari picks up swell on both sides of Cape Comorin but is usually blown out, so Vattikottai is the spot to check when there's little wind.",
+     "surfForecast": null
+    },
+    "notes": "town: Kanyakumari (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 252.4,
+     "live": true,
+     "liveNote": "sea level columns prs(m); last sample 2026-11-09 07:43:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 9.96,
+     "lon": 76.26,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTV",
+     "name": "Trivandrum",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 79.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.467,
+     "lon": 76.95,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Agonda",
+   "reason": "surf-forecast page only (pin 15.04,73.99); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Agonda"
+  },
+  {
+   "name": "Akkarai Beach",
+   "reason": "surf-forecast page only (pin 12.9,80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Akkarai-Beach"
+  },
+  {
+   "name": "Arambol",
+   "reason": "surf-forecast page only (pin 15.69,73.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Arambol"
+  },
+  {
+   "name": "Benaulim Beach",
+   "reason": "surf-forecast page only (pin 15.26,73.92); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Benaulim-Beach"
+  },
+  {
+   "name": "Betalbatim Beach Taj",
+   "reason": "surf-forecast page only (pin 15.29,73.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Betalbatim-Beach-Taj"
+  },
+  {
+   "name": "Boar Rice",
+   "reason": "surf-forecast page only (pin 8.72,76.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Boar-Rice"
+  },
+  {
+   "name": "Butlers Bay (South Andaman)",
+   "reason": "surf-forecast page only (pin 11.7,92.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Butlers-Bay"
+  },
+  {
+   "name": "Covelong Point",
+   "reason": "surf-forecast page only (pin 12.79,80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Covelong-Point"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Godavari River Bar",
+   "reason": "surf-forecast page only (pin 16.63,82.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Godavari-River-Bar"
+  },
+  {
+   "name": "Jackson creek (Little Andaman)",
+   "reason": "surf-forecast page only (pin 10.8,92.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jackson-Creek"
+  },
+  {
+   "name": "Jarawa Point (Totems Reef)",
+   "reason": "surf-forecast page only (pin 11.33,92.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jarawa-Point"
+  },
+  {
+   "name": "Konada Bar",
+   "reason": "surf-forecast page only (pin 18.01,83.57); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Konada-Bar"
+  },
+  {
+   "name": "Kovalam",
+   "reason": "surf-forecast page only (pin 8.39,76.98); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kovalam"
+  },
+  {
+   "name": "Krishna River",
+   "reason": "surf-forecast page only (pin 15.7,80.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Krishna-River"
+  },
+  {
+   "name": "Kudle -Beach (Gokarna)",
+   "reason": "surf-forecast page only (pin 14.53,74.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kudle-Beach"
+  },
+  {
+   "name": "Miracle Point",
+   "reason": "surf-forecast page only (pin 17.99,83.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Miracle-Point"
+  },
+  {
+   "name": "Morjim Beach",
+   "reason": "surf-forecast page only (pin 15.63,73.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Morjim-Beach"
+  },
+  {
+   "name": "Om Beach (Gokarna)",
+   "reason": "surf-forecast page only (pin 14.52,74.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Om-Beach"
+  },
+  {
+   "name": "Repos Beach (Pondicherry)",
+   "reason": "surf-forecast page only (pin 11.97,79.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Repos-Beach"
+  },
+  {
+   "name": "Sentinel (South Andaman)",
+   "reason": "surf-forecast page only (pin 11.59,92.22); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Sentinel"
+  },
+  {
+   "name": "Thotlakonda Point",
+   "reason": "surf-forecast page only (pin 17.83,83.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Thotlakonda-Point"
+  },
+  {
+   "name": "Tochangeou (Little Andaman)",
+   "reason": "surf-forecast page only (pin 10.73,92.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Tochangeou"
+  },
+  {
+   "name": "Twin Islands (South Andaman)",
+   "reason": "surf-forecast page only (pin 11.39,92.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Twin-Islands"
+  },
+  {
+   "name": "Vizag (Visakapatanam) - East Point",
+   "reason": "surf-forecast page only (pin 17.73,83.35); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Vizag-East-Point"
+  },
+  {
+   "name": "West Twin",
+   "reason": "wannasurf page only (pin 11.3438,92.6241, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Andaman_Islands/West_Twin/index.html"
+  },
+  {
+   "name": "Boar rice",
+   "reason": "wannasurf page only (pin 8.7168,76.7065, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Boar_rice/index.html"
+  },
+  {
+   "name": "Kalpeni left",
+   "reason": "wannasurf page only (pin 10.0579,73.6388, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kalpeni_left/index.html"
+  },
+  {
+   "name": "Kannur",
+   "reason": "wannasurf page only (pin 11.8760,75.3474, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kannur/index.html"
+  },
+  {
+   "name": "Minicoy pier",
+   "reason": "wannasurf page only (pin 8.2886,73.0679, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Minicoy_pier/index.html"
+  },
+  {
+   "name": "Shipwreck",
+   "reason": "wannasurf page only (pin 10.5415,72.6193, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Shipwreck/index.html"
+  },
+  {
+   "name": "Kovalam",
+   "reason": "wannasurf page only (pin 8.3853,76.9784, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/kovalam/index.html"
+  },
+  {
+   "name": "The Baan",
+   "reason": "wannasurf page only (pin 22.5862,88.3472, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-East/The_Baan/index.html"
+  },
+  {
+   "name": "Anjarle",
+   "reason": "wannasurf page only (pin 17.8440,73.0875, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Anjarle/index.html"
+  },
+  {
+   "name": "Arambol",
+   "reason": "wannasurf page only (pin 15.6872,73.7028, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Arambol/index.html"
+  },
+  {
+   "name": "Benaulim Beach",
+   "reason": "wannasurf page only (pin 15.2569,73.9188, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Benaulim_Beach/index.html"
+  },
+  {
+   "name": "Betalbatim Beach - Taj",
+   "reason": "wannasurf page only (pin 15.2930,73.9023, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Betalbatim_Beach_-_Taj/index.html"
+  },
+  {
+   "name": "Pirawadi",
+   "reason": "wannasurf page only (pin 16.1994,73.4345, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Pirawadi/index.html"
+  },
+  {
+   "name": "Pondichery",
+   "reason": "wannasurf page only (pin 11.9587,79.8397, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/Pondichery/index.html"
+  },
+  {
+   "name": "Near repos beach",
+   "reason": "wannasurf page only (pin 11.9725,79.8453, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/near_repos_beach/index.html"
+  }
+ ]
+}

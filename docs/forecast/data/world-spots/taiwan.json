@@ -1,0 +1,1638 @@
+{
+ "region": "Taiwan",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd Taiwan page (16) plus every Surf-Forecast.com and Wannasurf Taiwan break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Asia/Taipei (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-taiwan-baishawan",
+   "name": "Baishawan",
+   "country": "Taiwan",
+   "region": "New Taipei City, Xinsheng",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 25.285,
+   "lon": 121.518,
+   "seaward": 0.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (25.28473,121.51806), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 25.29,121.51 (1.0 km away); wannasurf pin 25.2847,121.5169 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/baishawan.md"
+   },
+   "facingSource": {
+    "text": "\"Faces N\" (surfnerd swell exposure: NW - NE. Faces N)",
+    "url": "https://www.surfnerd.com/surf-forecast/baishawan.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-baishawan",
+    "name": "Baishawan",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/baishawan",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Paishawan-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Paisawan/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North (surfnerd: \"Faces N\")",
+    "facingDeg": 0.0,
+    "swellWorkable": {
+     "text": "N - NE. Best from N (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NW - NE. Faces N (surfnerd)",
+    "idealSwell": "N (surfnerd); Northeast (surf-forecast); NorthEast (wannasurf)",
+    "windOffshore": "S. Offshore from S (surfnerd); wind exposure SE - SW. Offshore from S (surfnerd); offshore from the South-southwest (surf-forecast); good wind NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Baishawan can work across low, mid and high tide, with a rising tide generally the better call.\" (surfnerd guide); position not stated, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Paishawan Beach in - is a reasonably exposed beach break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Watch out for rocks.\" (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Paishawan Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Baishawan is a north-facing, white sand beach break with easy access from Taipei on the train and bus. It is often flat through summer, and in winter it turns cold and windy with little power or shape, which is why it tends to draw kiteboarders, windsurfers and hang gliders as much as surfers. If you want a better wave nearby, the high-tide reefbreak called Wedding Plaza sits a little further east, and closer to town at Danshuei, Shalun Beach can throw up a messy, rolling wave for beginners.",
+     "surfForecast": "Paishawan Beach in - is a reasonably exposed beach break that has reasonably consistent surf. Winter is the favoured time of year for surfing here. The best wind direction is from the east southeast. Windswells are much more common than groundswells and the ideal wave angle is from the northeast. The beach breaks offer lefts and rights. Rarely crowded here. Watch out for rocks."
+    },
+    "notes": "town: Xinsheng (surfnerd); surf-forecast pin 25.29,121.51 is 1.0 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Sometimes break; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tlin",
+     "name": "Linshanbi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 0.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 25.284,
+     "lon": 121.51,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tlin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 24.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-fulong-beach",
+   "name": "Fulong Beach",
+   "country": "Taiwan",
+   "region": "New Taipei City, Fulong",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 25.022,
+   "lon": 121.947,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (25.0217,121.947), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 25.04,121.93 (2.7 km away); wannasurf pin 25.0219,121.9463 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/fulong-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: N - ENE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/fulong-beach.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-fulong-beach",
+    "name": "Fulong Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fulong-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fulung-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/fulong_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "N - ENE. Faces NNE (surfnerd)",
+    "idealSwell": "NE (surfnerd); Southeast (surf-forecast); East, NorthEast (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSE - WSW. Offshore from SSW (surfnerd); offshore from the Southwest (surf-forecast); good wind West, SouthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The sand works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Fulung Beach in - is a fairly exposed beach break that has dependable surf The best wind direction is from the southwest.\")",
+    "hazards": [
+     "\"Hazards include pollution, rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Fulung Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of June.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"The access bridge crosses the Shuangshi rivermouth and the end of it floods regularly, so plan your walk in accordingly.\" (surfnerd)",
+     "access \"Head to the centre of town(only one road in)200 from the only set of traffic lights cross a small bridge turn left. the beach is about 300metres away.the wave is just outside left of the harbour wall.\"; distance: Week-end trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Fulong Beach is a stretch of eroding golden sand split in two by the large Shuangshi rivermouth, which often floods the end of the access bridge. You may also see it called Chau Sue. The beachbreak throws up lefts and rights over sand, and it can be moderately consistent through the year.",
+     "surfForecast": "Fulung Beach in - is a fairly exposed beach break that has dependable surf The best wind direction is from the southwest. Windswells are much more typical than groudswells and the optimum wave angle is from the southeast. The beach breaks peel to the right. Rarely crowded here. Hazards include pollution, rips."
+    },
+    "notes": "town: Fulong (surfnerd); surf-forecast pin 25.04,121.93 is 2.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Sand-bar; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tful",
+     "name": "Fulong",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 0.3,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 25.022,
+     "lon": 121.95,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tful"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 40.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-jin-shan",
+   "name": "Jin Shan",
+   "country": "Taiwan",
+   "region": "New Taipei City, Zhongjiao",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 25.242,
+   "lon": 121.635,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (25.24157,121.63508), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 25.2403,121.6345 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/jin-shan.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: N - ESE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/jin-shan.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-jin-shan",
+    "name": "Jin Shan",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jin-shan",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/jin_san__golden_mountain_/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "N - SE. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "N - ESE. Faces E (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); position not stated, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Worth knowing before you go: the big rivermouth jetty pulls a smaller crowd but brings bad pollution, and the next bay over has the nuclear plant's cooling water outflow.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"it located in Northern East of Taiwan\"; distance: Day trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jin Shan, also known as Green Bay or Golden Mountain, is a sandy beach break that throws both lefts and rights. The peaks spread out between the boulders at the north end and the jetty in the middle, so there is room to find your own section. It is usually fairly average and easygoing, but it can turn good on the backside of a typhoon.",
+     "surfForecast": null
+    },
+    "notes": "town: Zhongjiao (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience Beginners wave; frequency Sometimes break; type Beach-break; direction Right and left; swell size Starts working at  and holds up to 1m+ / 3ft+; week crowd Crowded"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tlin",
+     "name": "Linshanbi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 13.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 25.284,
+     "lon": 121.51,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tlin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 20.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-sanshuei",
+   "name": "Sanshuei",
+   "country": "Taiwan",
+   "region": "Penghu, Shanshui",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 23.512,
+   "lon": 119.592,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.5123,119.592), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sanshuei.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - SSE. S - SSW. SW. SW - WSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/sanshuei.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-sanshuei",
+    "name": "Sanshuei",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sanshuei",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - SSE. S - SSW. SW. SW - WSW. Faces S (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It works on low and mid tide, with a rising tide the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Sanshuei is one of the picture-perfect beaches out on the Penghu Islands, a scattering of 64 tiny islands that's an easy flight to reach. It's very much a summer spot.",
+     "surfForecast": null
+    },
+    "notes": "town: Shanshui (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tpen",
+     "name": "Penghu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 5.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2026-11-09 03:00 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 23.562,
+     "lon": 119.578,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tpen"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC tjib",
+     "name": "Jibei",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 25.3,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.739,
+     "lon": 119.613,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tjib"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCQC",
+     "name": "Penghu",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 7.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.57,
+     "lon": 119.63,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCQC&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-bashien-dong",
+   "name": "Bashien Dong",
+   "country": "Taiwan",
+   "region": "Taitung, Baxiandong",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 23.397,
+   "lon": 121.482,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.3969,121.482), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 23.3968,121.4812 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/bashien-dong.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/bashien-dong.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-bashien-dong",
+    "name": "Bashien Dong",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bashien-dong",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/bashiendong/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNE - S. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd); East, NorthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); good wind North, NorthWest, West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Boulders (surfnerd); Boulders (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"On its day it lines up great walling lefts, with soft shoulders out the back giving way to the odd short peeler on the rocky inside before a heavy shorepound.\" (surfnerd)",
+     "\"Keep an eye on the rivermouth, which can throw up intense rips and pushes some rights off to the north.\" (surfnerd)",
+     "Rips / undertow, Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Bashiendong, or Eight Fairies Cave, is located on the East Coast about 35 KM's north of Sanshientai.   Bashiendong is about an hour and a half south from Hualien on the coastal road (Highway 11, Mile Marker 276)  There is a visitor center and parking lot on the west side of the road.\"; distance: Week-end trip (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Bashien Dong is a long, left-hand boulder pointbreak tucked below Eight Fairy Cave, and it shows off just how much power Taiwanese surf can carry. On its day it lines up great walling lefts, with soft shoulders out the back giving way to the odd short peeler on the rocky inside before a heavy shorepound. Keep an eye on the rivermouth, which can throw up intense rips and pushes some rights off to the north.",
+     "surfForecast": null
+    },
+    "notes": "town: Baxiandong (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; frequency Regular; type Point-break; direction Left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to Don't know; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tshi",
+     "name": "Shihti",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.495,
+     "lon": 121.506,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tshi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 81.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-cheng-gong",
+   "name": "Cheng Gong",
+   "country": "Taiwan",
+   "region": "Taitung, Sanxian",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 23.115,
+   "lon": 121.399,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.1154,121.399), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 23.0960,121.3687 (3.8 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/cheng-gong.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - SSE. S - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/cheng-gong.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-cheng-gong",
+    "name": "Cheng Gong",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cheng-gong",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/cheng-gong/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from SE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE - SSE. S - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd); NorthEast (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); good wind NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The wave peels over a dead coral shelf, and between the sharp rocks, rips, and a fast, speedy lip line, this one is strictly for experts.\" (surfnerd)",
+     "\"The speedy lip, rips, and unforgiving coral shelf demand real experience.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "access \"Head to the town of Cheng Gong - about 1 and half hours north of Taitung, or about 2 hours South of Hualien.  The turn off to the point is just before the tunnel to the right (if coming from Taitung) or after if coming from Hualien\"; distance: Week-end trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Cheng Gong is an epic left-hand reef point on Taiwan's coast, breaking close to shore just south of Three Fairy Platform. The wave peels over a dead coral shelf, and between the sharp rocks, rips, and a fast, speedy lip line, this one is strictly for experts.",
+     "surfForecast": null
+    },
+    "notes": "town: Sanxian (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 3.8 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Sometimes break; type Reef-coral; direction Left; swell size Starts working at 2m-2.5m / 6ft-8ft and holds up to 3m+ / 10ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tche",
+     "name": "Chenggong",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 2.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.097,
+     "lon": 121.38,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 50.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-chu-nan",
+   "name": "Chu Nan",
+   "country": "Taiwan",
+   "region": "Miaoli, Zhuweizi",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.698,
+   "lon": 120.855,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (24.6983,120.855), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 24.6954,120.8530 (0.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/chu-nan.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: WSW - NNE. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/chu-nan.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-chu-nan",
+    "name": "Chu Nan",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/chu-nan",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/chunan/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "swellWorkable": {
+     "text": "SW - N. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WSW - NNE. Faces NW (surfnerd)",
+    "idealSwell": "SW (surfnerd); NorthEast (wannasurf)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure E - S. Offshore from SE (surfnerd); good wind NorthEast (wannasurf)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"Tide is the thing to watch: it favours mid to high water, with a rising tide generally the better call, and you will want to avoid the lower tides.\" (surfnerd guide); Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"Take #3(national highway), and get exit on Chunan. About 2km, you will see Long-Fong Habor. The spot is located on the south habor.\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Chu Nan is a slow, mushy beachbreak on the heavily populated northwest coast of Taiwan, a stretch that is usually flat. It breaks over sand and peels both left and right, and the harbour wall gives it valuable shelter, making it a friendly spot to learn on.",
+     "surfForecast": null
+    },
+    "notes": "town: Zhuweizi (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Exact) is 0.4 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Regular; type Sand-bar; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 1m+ / 3ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC twai",
+     "name": "Waipu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 9.9,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 24.651,
+     "lon": 120.771,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=twai"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCMQ",
+     "name": "Taichung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 53.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 24.265,
+     "lon": 120.621,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCMQ&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-dashi",
+   "name": "Dashi",
+   "country": "Taiwan",
+   "region": "Yilan, Jilin",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.934,
+   "lon": 121.887,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (24.93383,121.88731), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 24.9324,121.8864 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/dashi.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SE. SSE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/dashi.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-dashi",
+    "name": "Dashi",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dashi",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/dashi/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "N - SE. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ENE - SE. SSE - S. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd); SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); good wind NorthWest, West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Dashi can break across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); position not stated, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "distance: Week-end trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Dashi, also known as Honeymoon Bay, is a beach break with clean water and a knack for turning on when little else in the area does. The sandbanks can be good but they are unreliable, so what you get depends on how the sand is sitting. It favours rights toward the southern end and is often the best option around.",
+     "surfForecast": null
+    },
+    "notes": "town: Jilin (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Regular; type Sand-bar; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC twus",
+     "name": "Wushih",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 8.7,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 24.869,
+     "lon": 121.84,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=twus"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 37.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-donghe-rivermouth",
+   "name": "Donghe Rivermouth",
+   "country": "Taiwan",
+   "region": "Taitung, Beidonghe",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 22.975,
+   "lon": 121.315,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.97546,121.31455), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 22.9757,121.3137 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/donghe-rivermouth.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SSE. SSE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/donghe-rivermouth.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-donghe-rivermouth",
+    "name": "Donghe Rivermouth",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/donghe-rivermouth",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Donghe_River_Mouth/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - S. Best from SE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "NE - SSE. SSE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break works through all stages of the tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Sand (surfnerd); Flat rocks with sand (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 12.1
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep an eye out for rips.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "distance: Walk; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Donghe Rivermouth is a sand-bottom beach break that many rate as the best wave on the island. It sets up on shifting, river-sculpted sandbars, with two main peaks either side of the rivermouth serving up long walls and plenty of open face to work, plus the occasional short barrel section.",
+     "surfForecast": null
+    },
+    "notes": "town: Beidonghe (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; type Rivermouth; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tche",
+     "name": "Chenggong",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 15.1,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.097,
+     "lon": 121.38,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 32.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-fongbin",
+   "name": "Fongbin",
+   "country": "Taiwan",
+   "region": "Hualien, Yongfeng",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 23.597,
+   "lon": 121.53,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.5968,121.53), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/fongbin.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/fongbin.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-fongbin",
+    "name": "Fongbin",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fongbin",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "N - SE. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "NNE - S. Faces E (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The coast road overlooks a stretch of rocky reefs running down to Fongbin.\" (surfnerd)",
+     "\"Because it sits at a large rivermouth, expect pollution after heavy rain.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Fongbin is a rivermouth beach break where a large river funnels swell onto ever-shifting black sandbars. The powerful peaks that stack up here break both left and right, and the beach holds real form when the sand lines up.",
+     "surfForecast": null
+    },
+    "notes": "town: Yongfeng (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tshi",
+     "name": "Shihti",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 11.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.495,
+     "lon": 121.506,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tshi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 103.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-gongs",
+   "name": "Gongs",
+   "country": "Taiwan",
+   "region": "Hualien, Ganzishujiao",
+   "timeZone": "Asia/Taipei",
+   "type": "Reef",
+   "lat": 23.826,
+   "lon": 121.586,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.82553,121.58634), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 23.8257,121.5855 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/gongs.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/gongs.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-gongs",
+    "name": "Gongs",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gongs",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/gongs/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "NNE - S. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It breaks on low and mid tide, and a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Gongs is an outside reef peak that breaks over uneven reef and sand, sitting 17 km south of Hualien at the end of a long run of sandy shoredump and rocky coast.\" (surfnerd)",
+     "Rocks, Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Drive about 10 miles south of HuaLian on the coastal highway. YanLiaoGang (YanLiao Harbor) is about 2 miles south of YanLiao town. Also, buses leave from Hualien train station every couple hours (check first, if possible) and stop at YanLiaoGang. Bringing boards on bus not a problem (acording to one busdriver at least).\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Gongs is an outside reef peak that breaks over uneven reef and sand, sitting 17 km south of Hualien at the end of a long run of sandy shoredump and rocky coast. The peak throws both lefts and rights and can handle a bit of size when a swell shows up.",
+     "surfForecast": null
+    },
+    "notes": "town: Ganzishujiao (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Sometimes break; type Reef-rocky; direction Right and left; swell size Starts working at  and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC thua",
+     "name": "Hualien",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 17.7,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.981,
+     "lon": 121.624,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=thua"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCMQ",
+     "name": "Taichung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 109.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 24.265,
+     "lon": 120.621,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCMQ&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-jialeshui",
+   "name": "Jialeshui",
+   "country": "Taiwan",
+   "region": "Pingtung, Jialeshui",
+   "timeZone": "Asia/Taipei",
+   "type": null,
+   "lat": 21.986,
+   "lon": 120.847,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (21.98588,120.84718), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 21.9873,120.8458 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/jialeshui.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ENE - SSE. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/jialeshui.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-jialeshui",
+    "name": "Jialeshui",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jialeshui",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/jia_le_shui/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "NE - SE. Best from SE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ENE - SSE. Faces SE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South, SouthEast, East (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure W - N. Offshore from NW (surfnerd); good wind NorthWest, West, SouthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Boulders, Sand (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "rivermouth",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Lefthanders skirt a rocky reef in the shadow of the long headland, peeling lazily for a fair distance, while a rivermouth peak in the middle of the beach works a shifting sandbar.\" (surfnerd)",
+     "\"Watch for strong rips at the rivermouth, and keep an eye out for the jellyfish and sea lice that are often around.\" (surfnerd)",
+     "Rips / undertow, Man-made danger (buoys etc..), Pollution (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Go to Kenting ( a famous place for tourism in Taiwan ). Rent a scooter and head up to the east coast, it is the only beach with sand. The spot is far away from Kenting city, you can find it in any tourist guide ( Chia le shui or Jia le shui)\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jialeshui, also written Jia le Shui, is one of the main spots in south Taiwan and one of the most dependable. Its bankability means there's usually something to ride in most swells. Lefthanders skirt a rocky reef in the shadow of the long headland, peeling lazily for a fair distance, while a rivermouth peak in the middle of the beach works a shifting sandbar.",
+     "surfForecast": null
+    },
+    "notes": "town: Jialeshui (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Very consistent (150 day/year); type Rivermouth; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC thou",
+     "name": "Houbihu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 11.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 21.946,
+     "lon": 120.745,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=thou"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCKH",
+     "name": "Kaohsiung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 83.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.577,
+     "lon": 120.35,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCKH&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-jici-beach",
+   "name": "Jici Beach",
+   "country": "Taiwan",
+   "region": "Hualien, Jiqi",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 23.703,
+   "lon": 121.551,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.70275,121.55084), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 23.6997,121.5510 (0.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/jici-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE - SE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/jici-beach.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-jici-beach",
+    "name": "Jici Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jici-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/jici_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "N - SE. Best from SE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "NNE - SE. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd); North, East, NorthEast (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd); good wind West, SouthWest (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Jici Beach is the sandiest stretch in rocky Hualien, a sand-bottom beach break that peels both left and right.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"There's a car park with paid parking, and note that beach access is paid in summer.\" (surfnerd)",
+     "access \"Coming down the coastal highway (11) from Hua-Lien, Jici Beach is a sandy coastal recreational area with bathrooms and a parking lot. It's about 45 minutes south of Hua-Lien depending on road conditions.\"; distance: Day trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jici Beach is the sandiest stretch in rocky Hualien, a sand-bottom beach break that peels both left and right. The better peaks gather in the southern corner, though they tend to be average and often sloppy.",
+     "surfForecast": null
+    },
+    "notes": "town: Jiqi (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.3 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience Beginners wave; frequency Regular; type Sand-bar; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to Don't know; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tshi",
+     "name": "Shihti",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 23.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 23.495,
+     "lon": 121.506,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tshi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCMQ",
+     "name": "Taichung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 113.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 24.265,
+     "lon": 120.621,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCMQ&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-nanwan",
+   "name": "Nanwan",
+   "country": "Taiwan",
+   "region": "Pingtung, Shizitou",
+   "timeZone": "Asia/Taipei",
+   "type": "Reef",
+   "lat": 21.958,
+   "lon": 120.761,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (21.95804,120.76054), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 21.96,120.76 (0.2 km away); wannasurf pin 21.9583,120.7603 (0.0 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/nanwan.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: SE - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/nanwan.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-nanwan",
+    "name": "Nanwan",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/nanwan",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Nanwan-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/nan_wan/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd); Southeast (surf-forecast); West, SouthWest, South (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); offshore from the North-northwest (surf-forecast); good wind North, East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The reef comes to life on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide); Low and mid tide, Rising tide (wannasurf)",
+    "bottom": "Uneven Reef, Sand (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Nanwan Beach (South Bay) in South Taiwan is a reasonably exposed beach and reef break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"The bay holds other options too, including shallow rights and lefts at Houbihu Harbour and longer, hollow rights further out at Houbihu Point.\" (surfnerd)",
+     "\"Take care of the strong rips here.\" (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Nan Wan is the first beach when you arrive in  the \"Kenting National park\". Just down the nuclear plant....\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Nanwan is a shapely right-hand reefbreak and the main beach for Hengchun, facing southeast. It peels over a mix of uneven reef and sand, with clean curves and a sculpted face. When the sand mix comes together and the swell gets bigger, the wave speeds up and barrels become a given.",
+     "surfForecast": "Nanwan Beach (South Bay) in South Taiwan is a reasonably exposed beach and reef break that has fairly consistent surf. The optimum conditions for surfing are during the cyclone season. Ideal winds are from the north northwest. Windswells are much more typical than groudswells and the ideal wave direction is from the southeast. The beach breaks favour lefts and there is right hand reef break too. Often Crowded. Take care of the strong rips here."
+    },
+    "notes": "town: Shizitou (surfnerd); surf-forecast pin 21.96,120.76 is 0.2 km from the surfnerd pin; wannasurf pin (Approximate) is 0.0 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Reef-rocky; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 3m+ / 10ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC thou",
+     "name": "Houbihu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 2.1,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 21.946,
+     "lon": 120.745,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=thou"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCKH",
+     "name": "Kaohsiung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 80.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.577,
+     "lon": 120.35,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCKH&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-sunyatsen-beach",
+   "name": "Sunyatsen Beach",
+   "country": "Taiwan",
+   "region": "Kaohsiung City, Taoziyuan",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 22.677,
+   "lon": 120.264,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.677,120.264), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sunyatsen-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WNW\" (surfnerd swell exposure: SW - NNW. Faces WNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sunyatsen-beach.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-sunyatsen-beach",
+    "name": "Sunyatsen Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sunyatsen-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "SW - NW. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "SW - NNW. Faces WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure ENE - SSE. Offshore from ESE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Sunyatsen Beach is a short, bodyboard-style shorebreak in Kaohsiung, sitting right in front of the university. The waves break over sand and peel both left and right, making it an easygoing beach break rather than a long, drawn-out wave.",
+     "surfForecast": null
+    },
+    "notes": "town: Taoziyuan (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tkao",
+     "name": "Kaohsiung",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 7.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.614,
+     "lon": 120.288,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tkao"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCKH",
+     "name": "Kaohsiung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 14.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.577,
+     "lon": 120.35,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCKH&network=TW__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-taiwan-wushi",
+   "name": "Wushi",
+   "country": "Taiwan",
+   "region": "Yilan, Toucheng",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.872,
+   "lon": 121.843,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (24.87217,121.84285), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 24.8724,121.8423 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/wushi.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - ESE. ESE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/wushi.md"
+   },
+   "facts": {
+    "spotId": "w-taiwan-wushi",
+    "name": "Wushi",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/wushi",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/wu-shi_harbor/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "N - SE. Best from SE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "NE - ESE. ESE - S. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd); NorthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); good wind NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "distance: Take a car; public access: Public access; special access: 4x4 (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Wushi is a black-sand beach break just north of Toucheng, with jetties at its southern end. It pulls in the best waves along this heavily armoured stretch of coast, which makes it the standout spot in the area.",
+     "surfForecast": null
+    },
+    "notes": "town: Toucheng (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Sometimes break; type Sand-bar; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Crowded"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC twus",
+     "name": "Wushih",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwanese gauge; CWA)",
+     "distanceKm": 0.5,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 03:00:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 24.869,
+     "lon": 121.84,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=twus"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 36.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Barrels",
+   "reason": "surf-forecast page only (pin 24.81,121.82); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Barrels"
+  },
+  {
+   "name": "Chengkung",
+   "reason": "surf-forecast page only (pin 23.16,121.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Chengkung"
+  },
+  {
+   "name": "Chialoshui",
+   "reason": "surf-forecast page only (pin 22.03,120.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Chialoshui"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Green Bay",
+   "reason": "surf-forecast page only (pin 25.23,121.64); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Green-Bay"
+  },
+  {
+   "name": "Green island",
+   "reason": "surf-forecast page only (pin 22.03,121.53); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Green-Island"
+  },
+  {
+   "name": "Kenting",
+   "reason": "surf-forecast page only (pin 21.95,120.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kenting"
+  },
+  {
+   "name": "Lightning Bolt",
+   "reason": "surf-forecast page only (pin 24.92,121.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Lightning-Bolt"
+  },
+  {
+   "name": "Sunrise",
+   "reason": "surf-forecast page only (pin 24.62,121.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Sunrise_1"
+  },
+  {
+   "name": "Tawu",
+   "reason": "surf-forecast page only (pin 22.32,120.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Tawu"
+  },
+  {
+   "name": "The Core",
+   "reason": "surf-forecast page only (pin 24.76,121.81); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/The-Core"
+  },
+  {
+   "name": "Chingshuei",
+   "reason": "wannasurf page only (pin 24.6846,121.8379, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Chingshuei/index.html"
+  },
+  {
+   "name": "Da an",
+   "reason": "wannasurf page only (pin 24.3879,120.5841, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Da_an/index.html"
+  },
+  {
+   "name": "Jinzun Harbour",
+   "reason": "wannasurf page only (pin 22.9544,121.2961, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Jinzun_Harbour/index.html"
+  },
+  {
+   "name": "Mimi s Reef",
+   "reason": "wannasurf page only (pin 23.5419,121.5100, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Mimi_s_Reef/index.html"
+  },
+  {
+   "name": "ShaLun",
+   "reason": "wannasurf page only (pin 25.1911,121.4140, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/ShaLun/index.html"
+  },
+  {
+   "name": "The Barracks",
+   "reason": "wannasurf page only (pin 24.6102,121.8653, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/The_Barracks/index.html"
+  },
+  {
+   "name": "Wu Shih Pi Canyon",
+   "reason": "wannasurf page only (pin 23.2365,121.4163, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Wu_Shih_Pi_Canyon/index.html"
+  },
+  {
+   "name": "An pin",
+   "reason": "wannasurf page only (pin 22.9918,120.1431, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/an_pin/index.html"
+  },
+  {
+   "name": "Donghe rivermouth",
+   "reason": "wannasurf page only (pin 22.8986,121.2590, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/donghe_rivermouth/index.html"
+  },
+  {
+   "name": "Houbihu",
+   "reason": "wannasurf page only (pin 21.9432,120.7457, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/houbihu/index.html"
+  },
+  {
+   "name": "Sun yat sen",
+   "reason": "wannasurf page only (pin 22.6260,120.2628, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/sun_yat_sen/index.html"
+  },
+  {
+   "name": "Wai-ao",
+   "reason": "wannasurf page only (pin 24.7169,121.8439, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/wai-ao/index.html"
+  }
+ ]
+}

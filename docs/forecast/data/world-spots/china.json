@@ -1,0 +1,3417 @@
+{
+ "region": "China",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd China page (37) plus every Surf-Forecast.com and Wannasurf China break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Asia/Shanghai (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-china-airport-lefts-fuzhou",
+   "name": "Airport Lefts, Fuzhou",
+   "country": "China",
+   "region": "Fujian, Dahe Linchang",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 25.957,
+   "lon": 119.697,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (25.95685,119.69653), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/airport-lefts-fuzhou.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: E - SSE. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/airport-lefts-fuzhou.md"
+   },
+   "facts": {
+    "spotId": "w-china-airport-lefts-fuzhou",
+    "name": "Airport Lefts, Fuzhou",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/airport-lefts-fuzhou",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "E - SSE. Faces SE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The standout is the run of lefthanders that break off the rocky point in front of the small harbour, though the beach hands you both lefts and rights.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Airport Lefts sits right beside the airport 50 km east of Fuzhou, where A-frames peel over a mix of uneven reef and sand along a sandy beach. The standout is the run of lefthanders that break off the rocky point in front of the small harbour, though the beach hands you both lefts and rights. Expect brown water pushing down from the rivermouth to the north.",
+     "surfForecast": null
+    },
+    "notes": "town: Dahe Linchang (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 689.6,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSFZ",
+     "name": "Fuzhou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 43.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 26.083,
+     "lon": 119.283,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSFZ&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-jinluan-bay-dongshan-island",
+   "name": "Jinluan Bay, Dongshan Island",
+   "country": "China",
+   "region": "Fujian, Huwei",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 23.7,
+   "lon": 117.475,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.69989,117.47543), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/jinluan-bay-dongshan-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: E - SSE. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/jinluan-bay-dongshan-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-jinluan-bay-dongshan-island",
+    "name": "Jinluan Bay, Dongshan Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jinluan-bay-dongshan-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - S. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "E - SSE. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep in mind that the water quality can be compromised by the big rivermouth just up the coast.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Jinluan Bay is a 5 km crescent of sand on Dongshan Island, sitting about 6 km east of Dongshan Town. Several peaks break along the beach, and rivermouths at the centre and the northern corner comb the sandbars into some quality shape. You will find both lefts and rights over the sand.",
+     "surfForecast": null
+    },
+    "notes": "town: Huwei (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 368.8,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 87.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-junshan-village-pingtan-island",
+   "name": "Junshan village, Pingtan Island",
+   "country": "China",
+   "region": "Fujian, Junshan",
+   "timeZone": "Asia/Shanghai",
+   "type": "Reef",
+   "lat": 25.608,
+   "lon": 119.822,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (25.60846,119.82197), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/junshan-village-pingtan-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNE - ENE. ENE - E. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/junshan-village-pingtan-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-junshan-village-pingtan-island",
+    "name": "Junshan village, Pingtan Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/junshan-village-pingtan-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNE - ENE. ENE - E. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure S - W. Offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reefs can work through most of the tide, with a rising tide generally the better call. Keep in mind that the tide range here is severe and can reach up to 7m around a full moon, which drives strong rips across the whole stretch.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Junshan village sits on a 4km stretch of rocky coastline about 15km north of Pingtan Town, holding several rock-bottom reefbreaks that peel both left and right.\" (surfnerd)",
+     "\"Keep in mind that the tide range here is severe and can reach up to 7m around a full moon, which drives strong rips across the whole stretch.\" (surfnerd)",
+     "\"Submerged rocks are genuinely dangerous and the rips that come with that huge tide range are no joke.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Junshan village sits on a 4km stretch of rocky coastline about 15km north of Pingtan Town, holding several rock-bottom reefbreaks that peel both left and right. The waves break over uneven reef and sand, and something usually breaks at both high and low tide, including a long righthander when there's enough size behind it.",
+     "surfForecast": null
+    },
+    "notes": "town: Junshan (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 678.8,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSFZ",
+     "name": "Fuzhou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 75.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 26.083,
+     "lon": 119.283,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSFZ&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-maluan-bay-dongshan-island",
+   "name": "Maluan Bay, Dongshan Island",
+   "country": "China",
+   "region": "Fujian, Houcuo",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 23.722,
+   "lon": 117.489,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.7224,117.48905), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/maluan-bay-dongshan-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ESE - SE. SSE. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/maluan-bay-dongshan-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-maluan-bay-dongshan-island",
+    "name": "Maluan Bay, Dongshan Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/maluan-bay-dongshan-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ESE - SE. SSE. Faces SE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bay can work through low, mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Several peaks form across the bay, but the best waves shape up off the rocky outcrop in the middle.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Maluan Bay is a small, secluded bay on Dongshan Island, with a beach break that peels over sand. Several peaks form across the bay, but the best waves shape up off the rocky outcrop in the middle. It's a modest spot, smaller than the beaches to the south.",
+     "surfForecast": null
+    },
+    "notes": "town: Houcuo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 371.1,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 89.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-south-bay-pingtan-island",
+   "name": "South Bay, Pingtan Island",
+   "country": "China",
+   "region": "Fujian, Longfengtou",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 25.495,
+   "lon": 119.806,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (25.49515,119.80582), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 25.5,119.81 (0.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/south-bay-pingtan-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: ENE - E. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/south-bay-pingtan-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-south-bay-pingtan-island",
+    "name": "South Bay, Pingtan Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/south-bay-pingtan-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Haitan-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "ENE - E. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd); North-northeast (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure S - W. Offshore from SW (surfnerd); offshore from the East (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bay can work through low, mid and high tide, with a rising tide generally the better call, and high tide tends to be the better end of that.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Haitan Bay (Haitan Dao) in Fujian is a reasonably exposed beach break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"A nice lefthander runs right beside the rocks, and righthanders show up in the middle of the bay once the huge 7 m tide drops out.\" (surfnerd)",
+     "\"Watch for rocks close to the shore and strong rips.\" (surfnerd)",
+     "\"Dangerous rips are a hazard of surfing here.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Haitan Bay (Haitan Dao) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"A bridge to Xiaoshandong opened the island up in 2010.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "South Bay is a beach break on Pingtan, also known as Haitan, the biggest island in Fujian and the fifth largest in China. Waves break over a mix of uneven reef and sand, and there are several surfable waves north and south of the big rock. A nice lefthander runs right beside the rocks, and righthanders show up in the middle of the bay once the huge 7 m tide drops out.",
+     "surfForecast": "Haitan Bay (Haitan Dao) in Fujian is a reasonably exposed beach break that has fairly consistent surf. The best wind direction is from the east with some shelter here from southwest winds. Groundswells are more common than windswells and the best swell direction is from the north northeast. Waves at the beach are both lefts and rights. It very rarely gets crowded here. Dangerous rips are a hazard of surfing here."
+    },
+    "notes": "town: Longfengtou (surfnerd); surf-forecast pin 25.5,119.81 is 0.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces NE\" lies outside its own swell-exposure range(s) (ENE - E. Faces NE); kept as published, verify before use"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 670.8,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSFZ",
+     "name": "Fuzhou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 83.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 26.083,
+     "lon": 119.283,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSFZ&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-wujiao-bay-dongshan-island",
+   "name": "Wujiao Bay, Dongshan Island",
+   "country": "China",
+   "region": "Fujian, Baicheng",
+   "timeZone": "Asia/Shanghai",
+   "type": null,
+   "lat": 23.656,
+   "lon": 117.426,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (23.65606,117.42623), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/wujiao-bay-dongshan-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: E - ESE. ESE - SE. SSE. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/wujiao-bay-dongshan-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-wujiao-bay-dongshan-island",
+    "name": "Wujiao Bay, Dongshan Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/wujiao-bay-dongshan-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "NE - S. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "E - ESE. ESE - SE. SSE. Faces SE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Watch out on the inside for dangerous wood and iron poles sticking out of the water.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Wujiao Bay sits 4 km south of Dongshan town, just south of the main harbour, where several good-quality peaks break either side of a short jetty. The waves form over sand and peel both left and right.",
+     "surfForecast": null
+    },
+    "notes": "town: Baicheng (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 362.2,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 80.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-88",
+   "name": "88",
+   "country": "China",
+   "region": "Guangdong, Changgou",
+   "timeZone": "Asia/Shanghai",
+   "type": null,
+   "lat": 22.709,
+   "lon": 115.565,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.7089,115.565), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 22.71,115.56 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/88.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: E - SSE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/88.md"
+   },
+   "facts": {
+    "spotId": "w-china-88",
+    "name": "88",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/88",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hong_Hai_Bay_surf_break_88",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SW - NE. Best from NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "E - SSE. Faces E (surfnerd)",
+    "idealSwell": "NE (surfnerd); South (surf-forecast)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works through low, mid, and high tide, with a rising tide generally the better bet.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Hong Hai Bay (88) in Guangdong is an exposed beach break that has quite reliable surf and can work at any time of the year.\")",
+    "hazards": [
+     "\"One thing to know before you go is that the spot sits right next to a power plant and a new industrial zone, so pollution is a real problem.\" (surfnerd)",
+     "\"Be wary of rips - they make surfing here dangerous.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Hong Hai Bay (88) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "88 is a powerful left that peels over sand near a series of jetties in the Zhelang and Hong Hoi Wan area, generally the best bet around here. The jetties have shaped some excellent sand banks, with a left breaking off the northern jetty and clean A-frames setting up on the inside. There's history here too: the 2003 720 contest crowned Japan's Shinichi Yoshida as China's first surfing champion.",
+     "surfForecast": "Hong Hai Bay (88) in Guangdong is an exposed beach break that has quite reliable surf and can work at any time of the year. Offshore winds blow from the northwest and there is no shelter here from cross shore breezes. Usually gets local windswells, but groundswells do happen and the best wave direction is from the south. Waves at the beach break both left and right. An uncrowded break, even when it is working. Be wary of rips - they make surfing here dangerous."
+    },
+    "notes": "town: Changgou (surfnerd); surf-forecast pin 22.71,115.56 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 146.4,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 137.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-cherry-point",
+   "name": "Cherry Point",
+   "country": "China",
+   "region": "Guangdong, Shigongliao",
+   "timeZone": "Asia/Shanghai",
+   "type": "Point",
+   "lat": 22.732,
+   "lon": 115.589,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.7318,115.589), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/cherry-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: E - SE. SE - S. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/cherry-point.md"
+   },
+   "facts": {
+    "spotId": "w-china-cherry-point",
+    "name": "Cherry Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cherry-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "E - SE. SE - S. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The setting is more functional than scenic, with an industrial backdrop and water quality that leaves something to be desired.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Cherry Point is a left-hand point break that peels over a mix of boulders and sand. The setting is more functional than scenic, with an industrial backdrop and water quality that leaves something to be desired.",
+     "surfForecast": null
+    },
+    "notes": "town: Shigongliao (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 149.6,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 134.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-pinghai-point",
+   "name": "Pinghai Point",
+   "country": "China",
+   "region": "Guangdong, Shagang",
+   "timeZone": "Asia/Shanghai",
+   "type": "Reef",
+   "lat": 22.49,
+   "lon": 114.581,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.48975,114.58067), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/pinghai-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: E - ESE. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/pinghai-point.md"
+   },
+   "facts": {
+    "spotId": "w-china-pinghai-point",
+    "name": "Pinghai Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pinghai-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SW - NE. Best from NE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "E - ESE. Faces SE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Pinghai Point is a right-hander that breaks over sand near the Dongchong Hotel, one of the more accessible setups in an area that holds more potential to explore.",
+     "surfForecast": null
+    },
+    "notes": "town: Shagang (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces SE\" lies outside its own swell-exposure range(s) (E - ESE. Faces SE); kept as published, verify before use"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 43.8,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VHHH",
+     "name": "Hong Kong",
+     "owner": "IEM HK__ASOS network (airport METAR)",
+     "distanceKm": 70.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.309,
+     "lon": 113.922,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VHHH&network=HK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-xi-chong-dongshong",
+   "name": "Xi-Chong - Dongshong",
+   "country": "China",
+   "region": "Guangdong, Xichongcun",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 22.476,
+   "lon": 114.533,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (22.47646,114.5327), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 22.48,114.54 (0.8 km away); wannasurf pin 22.4773,114.5331 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/xi-chong-dongshong.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ESE - SSE. S - SSW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/xi-chong-dongshong.md"
+   },
+   "facts": {
+    "spotId": "w-china-xi-chong-dongshong",
+    "name": "Xi-Chong - Dongshong",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/xi-chong-dongshong",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Xiyong",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/xi_chong/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "ESE - SSE. S - SSW. Faces SE (surfnerd)",
+    "idealSwell": "NE (surfnerd); Southeast (surf-forecast); East, NorthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd); offshore from the Northwest (surf-forecast); good wind West, SouthWest, South (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Mid tide, movement not stated (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Xiyong (Xi-Chong) in Guangdong is a fairly exposed beach break that has inconsistent surf with no particular seasonal pattern.\")",
+    "hazards": [
+     "\"Xi-Chong - Dongshong is a sand-bottomed beach break on the mainland coast of Guangdong province, where surf spots are few and far between along a deeply indented shoreline of flat rocks and granite islets.\" (surfnerd)",
+     "\"Longboard waves peel lazily down rivermouth-sculpted sandbars here, and there's plenty of rocky coast nearby to explore.\" (surfnerd)",
+     "\"Try not to swallow any water - there are pollution concerns here.\" (surf-forecast)",
+     "Pollution, Sharks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Xiyong (Xi-Chong) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"Open to the public but costs 10rmb to enter the beach. Taxi from downtown costs about 200 each way and takes about 1 hour in good traffic. Public bus takes about 2 hours.\"; distance: Week-end trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Xi-Chong - Dongshong is a sand-bottomed beach break on the mainland coast of Guangdong province, where surf spots are few and far between along a deeply indented shoreline of flat rocks and granite islets. Longboard waves peel lazily down rivermouth-sculpted sandbars here, and there's plenty of rocky coast nearby to explore.",
+     "surfForecast": "Xiyong (Xi-Chong) in Guangdong is a fairly exposed beach break that has inconsistent surf with no particular seasonal pattern. Ideal winds are from the northwest. Windswells are much more typical than groudswells and the best wave direction is from the southeast. The beach breaks offer lefts and rights. An uncrowded break, even when it is working. Try not to swallow any water - there are pollution concerns here."
+    },
+    "notes": "town: Xichongcun (surfnerd); surf-forecast pin 22.48,114.54 is 0.8 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience Beginners wave; frequency Sometimes break; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 38.8,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VHHH",
+     "name": "Hong Kong",
+     "owner": "IEM HK__ASOS network (airport METAR)",
+     "distanceKm": 65.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.309,
+     "lon": 113.922,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VHHH&network=HK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-abalone-farm",
+   "name": "Abalone Farm",
+   "country": "China",
+   "region": "Hainan, Powei",
+   "timeZone": "Asia/Shanghai",
+   "type": "Point",
+   "lat": 18.551,
+   "lon": 110.128,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.55055,110.12782), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/abalone-farm.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - SSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/abalone-farm.md"
+   },
+   "facts": {
+    "spotId": "w-china-abalone-farm",
+    "name": "Abalone Farm",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/abalone-farm",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE - SSW. Faces S (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Abalone Farm is a left-hand point tucked into a south-facing cove, breaking over boulders and sand. A massive hotel development fills the bay, so you won't feel lonely out here.",
+     "surfForecast": null
+    },
+    "notes": "town: Powei (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 134.7,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 80.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-buddha-beach",
+   "name": "Buddha Beach",
+   "country": "China",
+   "region": "Hainan, Honghai",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 19.655,
+   "lon": 111.029,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (19.65513,111.02858), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/buddha-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE. NE - SE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/buddha-beach.md"
+   },
+   "facts": {
+    "spotId": "w-china-buddha-beach",
+    "name": "Buddha Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/buddha-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNE. NE - SE. Faces ENE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works across low, mid, and high tide, with a rising tide generally the better bet.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Buddha Beach is a narrow, rocky beach break with a character all its own, watched over by a 16-metre statue that gives the place a unique feel.\" (surfnerd)",
+     "\"Waves break over boulders and sand and peel both left and right, though it's a messy set-up that often has to deal with bad backwash.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Buddha Beach is a narrow, rocky beach break with a character all its own, watched over by a 16-metre statue that gives the place a unique feel. Waves break over boulders and sand and peel both left and right, though it's a messy set-up that often has to deal with bad backwash.",
+     "surfForecast": null
+    },
+    "notes": "town: Honghai (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 23.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJHK",
+     "name": "Haikou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 67.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 19.935,
+     "lon": 110.459,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJHK&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-da-hua-jiao",
+   "name": "Da Hua Jiao",
+   "country": "China",
+   "region": "Hainan, Lianfeng",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.797,
+   "lon": 110.533,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.7966,110.533), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/da-hua-jiao.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE - ENE. ENE - ESE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/da-hua-jiao.md"
+   },
+   "facts": {
+    "spotId": "w-china-da-hua-jiao",
+    "name": "Da Hua Jiao",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/da-hua-jiao",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNE - ENE. ENE - ESE. Faces ENE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank works across low, mid, and high tide, so you're rarely locked out, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Da Hua Jiao is a sand-bottomed beach break that peels both left and right. Sitting fully exposed to swell and wind, it picks up plenty of surf and stays fairly consistent through the year. If you head further south, a separate break near a military camp fires under similar small northeast conditions, so keep the two apart when you're deciding where to paddle out.",
+     "surfForecast": null
+    },
+    "notes": "town: Lianfeng (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 91.1,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJHK",
+     "name": "Haikou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 126.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 19.935,
+     "lon": 110.459,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJHK&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-daao-bay",
+   "name": "Da'ao Bay",
+   "country": "China",
+   "region": "Hainan, Haibian",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 19.646,
+   "lon": 111.033,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (19.64551,111.03257), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/daao-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NE - E. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/daao-bay.md"
+   },
+   "facts": {
+    "spotId": "w-china-daao-bay",
+    "name": "Da'ao Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/daao-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NE - E. Faces ENE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank works through low, mid, and high tide, with a rising tide generally the better call. Keep an eye out for backwash at the higher tides, which can chop up the wave.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep an eye out for backwash at the higher tides, which can chop up the wave.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Da'ao Bay is a beginner-friendly beach break that peels both left and right over a mix of boulders and sand. It breaks consistently, so there's usually something to work with when a swell shows up.",
+     "surfForecast": null
+    },
+    "notes": "town: Haibian (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 23.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJHK",
+     "name": "Haikou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 68.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 19.935,
+     "lon": 110.459,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJHK&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-dadong-hai",
+   "name": "Dadong Hai",
+   "country": "China",
+   "region": "Hainan, Sanya",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.221,
+   "lon": 109.517,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.22116,109.51651), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 18.22,109.52 (0.4 km away); wannasurf pin 18.2209,109.5177 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/dadong-hai.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: SSE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/dadong-hai.md"
+   },
+   "facts": {
+    "spotId": "w-china-dadong-hai",
+    "name": "Dadong Hai",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dadong-hai",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dadonghai",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Dadonghai/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "SSE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast); South (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); offshore from the North (surf-forecast); good wind North, NorthWest, East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break works across low, mid, and high tide, favoring the lower end, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast); All tides, Rising tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "quite exposed (surf-forecast: \"Dadonghai in Hainan is a quite exposed beach break.\")",
+    "hazards": [
+     "\"Watch out for - Man-made danger (buoys etc.).\" (surf-forecast)",
+     "Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Dadonghai with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"Right in Sanya city, Hainan. Lots of buses and taxis go to this public beach in a major resort area.\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Dadong Hai is the main city break in Sanya, sitting right in the busiest tourist district. It is a wide, sandy bay often likened to a run-down Waikiki, with a mellow beach break that peels both left and right. Most of the time it is more of a scene than a wave, but when size arrives it becomes Sanya's most accessible surf.",
+     "surfForecast": "Dadonghai in Hainan is a quite exposed beach break. Ideal winds are from the north. The ideal swell direction from the south. Good surf at all stages of the tide. The location means that it never gets crowded. Watch out for - Man-made danger (buoys etc.)."
+    },
+    "notes": "town: Sanya (surfnerd); surf-forecast pin 18.22,109.52 is 0.4 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Choss; experience Beginners wave; frequency Rarely break (5day/year); type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 203.2,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 14.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-golf-course",
+   "name": "Golf Course",
+   "country": "China",
+   "region": "Hainan, Lingwei",
+   "timeZone": "Asia/Shanghai",
+   "type": "Point",
+   "lat": 18.665,
+   "lon": 110.297,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.66479,110.29689), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/golf-course.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: SSE - SSW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/golf-course.md"
+   },
+   "facts": {
+    "spotId": "w-china-golf-course",
+    "name": "Golf Course",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/golf-course",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "SSE - SSW. Faces SSW (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Golf Course is a long left that reels down a sharp, rocky point beside the Ocean Bay Golf Club in Shimei Wan.\" (surfnerd)",
+     "\"Reaching that fast inside section is a big paddle against sweeping currents, and the strong southward sweep can make jumping off the slippery headland rocks the tempting way in.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"Ask the golf course for permission before you paddle out.\" (surfnerd)",
+     "\"There's free roadside parking nearby, though it can be restricted.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Golf Course is a long left that reels down a sharp, rocky point beside the Ocean Bay Golf Club in Shimei Wan. The wave breaks over a mix of boulders and sand as it runs the length of the point.",
+     "surfForecast": null
+    },
+    "notes": "town: Lingwei (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 114.7,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 101.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-houhai",
+   "name": "Houhai",
+   "country": "China",
+   "region": "Hainan, Shiguitianwei",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.271,
+   "lon": 109.723,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.27116,109.72338), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 18.2675,109.7217 (0.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/houhai.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: E - SE. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/houhai.md"
+   },
+   "facts": {
+    "spotId": "w-china-houhai",
+    "name": "Houhai",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/houhai",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Houhai/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - SE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "E - SE. Faces ESE (surfnerd)",
+    "idealSwell": "not stated (surfnerd); East, NorthEast (wannasurf)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); good wind East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beachbreak runs across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"Kitesurfing is popular here too, and just offshore Wuzhizou Island picks up some rights along its north coast on bigger swells.\" (surfnerd)",
+     "access \"Gps:  18°16'18.94\"N 109°43'22.39\"E\"; distance: Walk (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Houhai is a powerful beachbreak in a small village about 45 km northeast of Sanya, tucked into a deep, scalloped bay that gives it solid swell and wind protection. It has grown into the winter hub for Sanya's booming surf scene. The waves break over sand and peel both left and right.",
+     "surfForecast": null
+    },
+    "notes": "town: Shiguitianwei (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.4 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Very consistent (150 day/year); type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 184.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 33.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-kame-rock",
+   "name": "Kame Rock",
+   "country": "China",
+   "region": "Hainan, Wushi",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.66,
+   "lon": 110.261,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.66018,110.26129), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kame-rock.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/kame-rock.md"
+   },
+   "facts": {
+    "spotId": "w-china-kame-rock",
+    "name": "Kame Rock",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kame-rock",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kame Rock is a hollow beachbreak named for the large rock it breaks beside, with a standout right peeling right next to it. When the sandbars line up it throws good barrels, though you'll trade off a few close-outs along the way. It sits on a long stretch of average beachbreak that runs for miles in either direction.",
+     "surfForecast": null
+    },
+    "notes": "town: Wushi (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 117.0,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 98.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-kani-rock",
+   "name": "Kani Rock",
+   "country": "China",
+   "region": "Hainan, Wushi",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.663,
+   "lon": 110.268,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.66261,110.26803), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kani-rock.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE. SE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/kani-rock.md"
+   },
+   "facts": {
+    "spotId": "w-china-kani-rock",
+    "name": "Kani Rock",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kani-rock",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE. SE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break can work through low, mid, and high water, but a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kani Rock is a punchy beach break where powerful rights and lefts throw out close to shore over a mix of boulders and sand. It's a compact, high-energy setup that packs its power right where the wave meets the beach.",
+     "surfForecast": null
+    },
+    "notes": "town: Wushi (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 116.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 98.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-moon-bay",
+   "name": "Moon Bay",
+   "country": "China",
+   "region": "Hainan, Changmengou",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 19.688,
+   "lon": 111.011,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (19.68829,111.01144), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/moon-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NE - ESE. N - NE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/moon-bay.md"
+   },
+   "facts": {
+    "spotId": "w-china-moon-bay",
+    "name": "Moon Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/moon-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "N - E. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NE - ESE. N - NE. Faces NE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure S - W. Offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bank can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Heavy industry nearby means the river water isn't clean.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Moon Bay is a sand-bottomed beach break tucked into a rivermouth on the Hainan coast between Haikou and Sanya. A small islet sits in the mouth, overlooked by the Tongguling National Nature Reserve, and it's this corner that sometimes holds a rideable wall when the rest of the bay closes out or turns to onshore mush. Heavy industry nearby means the river water isn't clean.",
+     "surfForecast": null
+    },
+    "notes": "town: Changmengou (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 24.0,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJHK",
+     "name": "Haikou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 64.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 19.935,
+     "lon": 110.459,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJHK&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-niuling",
+   "name": "Niuling",
+   "country": "China",
+   "region": "Hainan, Niuling",
+   "timeZone": "Asia/Shanghai",
+   "type": null,
+   "lat": 18.586,
+   "lon": 110.175,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.58589,110.17499), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/niuling.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ENE - E. ESE - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/niuling.md"
+   },
+   "facts": {
+    "spotId": "w-china-niuling",
+    "name": "Niuling",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/niuling",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ENE - E. ESE - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call. Keep in mind that a small swell at high tide tends to close out as ugly shoredump.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Niuling is a sand-bottomed bay with a handful of options. Various peaks break opposite the beach restaurants, and there's a punchy left off the harbour jetty, though that wave has lost some quality since the jetty was extended. From Niuling Bay you can also grab the ferry to Fenjiezhou Island, where the backside of the island can offer protected waves in storm conditions.",
+     "surfForecast": null
+    },
+    "notes": "town: Niuling (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 128.7,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 86.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-rivermouth-bridge",
+   "name": "Rivermouth Bridge",
+   "country": "China",
+   "region": "Hainan, Qiaohai",
+   "timeZone": "Asia/Shanghai",
+   "type": null,
+   "lat": 18.667,
+   "lon": 110.329,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.66716,110.32874), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/rivermouth-bridge.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - SE. SE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/rivermouth-bridge.md"
+   },
+   "facts": {
+    "spotId": "w-china-rivermouth-bridge",
+    "name": "Rivermouth Bridge",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rivermouth-bridge",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE - SE. SE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It works on low and mid tide, with a rising tide the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Rivermouth Bridge is a sand-bottom right-hander on the Chinese coast, shaped by a large curving jetty that has trapped sand and built up the bank. It sits in a promising stretch of coast, with the next three bays, Shimei Wan, Riyue Bay and Xiangshui Bay, holding major surf potential.",
+     "surfForecast": null
+    },
+    "notes": "town: Qiaohai (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 112.9,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 104.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-riyue-wan-back-beach",
+   "name": "Riyue Wan - Back Beach",
+   "country": "China",
+   "region": "Hainan, Qianweidui",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.631,
+   "lon": 110.228,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.63113,110.22846), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-back-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: E - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-back-beach.md"
+   },
+   "facts": {
+    "spotId": "w-china-riyue-wan-back-beach",
+    "name": "Riyue Wan - Back Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-back-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "E - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It breaks on low and mid tide, with a rising tide generally the better call, and the best barrels tend to show on the lower water.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Riyue Wan - Back Beach is a beach break on a northeast-facing stretch of sand just north of the headland at Riyue Wan. It's a solid option when the point is small, and it tends to run bigger than anywhere else in the area, throwing up powerful A-frames with real barrel potential when everything lines up.",
+     "surfForecast": null
+    },
+    "notes": "town: Qianweidui (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 121.5,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 93.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-riyue-wan-camel-left",
+   "name": "Riyue Wan - Camel Left",
+   "country": "China",
+   "region": "Hainan, Nanlin Sanqu",
+   "timeZone": "Asia/Shanghai",
+   "type": "Reef",
+   "lat": 18.627,
+   "lon": 110.214,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.62718,110.21443), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-camel-left.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: E - SSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-camel-left.md"
+   },
+   "facts": {
+    "spotId": "w-china-riyue-wan-camel-left",
+    "name": "Riyue Wan - Camel Left",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-camel-left",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "E - SSW. Faces SSE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It comes to life on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Riyue Wan - Camel Left is a left-hand reef that peels over a mix of boulders and sand, set below a cluster of mussel-encrusted rocks in front of the tourist attraction known as the Taiwanese Village.\" (surfnerd)",
+     "\"The rocks are a bit nasty, so it suits intermediate to advanced surfers.\" (surfnerd)",
+     "\"This is an expert's wave given the rocky setup, so it rewards confident surfers.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Riyue Wan - Camel Left is a left-hand reef that peels over a mix of boulders and sand, set below a cluster of mussel-encrusted rocks in front of the tourist attraction known as the Taiwanese Village. When the sand banks up, it forms Camel Left, a fast racing wall that can throw up barrel sections when big northeast swells wrap into the bay. The rocks are a bit nasty, so it suits intermediate to advanced surfers.",
+     "surfForecast": null
+    },
+    "notes": "town: Nanlin Sanqu (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 122.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 92.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-riyue-wan-main-left",
+   "name": "Riyue Wan - Main Left",
+   "country": "China",
+   "region": "Hainan, Qianweidui",
+   "timeZone": "Asia/Shanghai",
+   "type": "Point",
+   "lat": 18.63,
+   "lon": 110.222,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.63027,110.22208), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 18.63,110.22 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-main-left.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - SSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-main-left.md"
+   },
+   "facts": {
+    "spotId": "w-china-riyue-wan-main-left",
+    "name": "Riyue Wan - Main Left",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/riyue-wan-main-left",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Riyue-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE - SSW. Faces S (surfnerd)",
+    "idealSwell": "NE (surfnerd); Northeast (surf-forecast)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It breaks on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 9.8
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Riyue Bay (Riyuewan) in Hainan is a fairly exposed point break that has pretty consitent surf.\")",
+    "hazards": [
+     "\"It works from 0.3 m / 1 ft to 3 m / 10 ft and holds size during typhoon swells, when currents can pick up, though an easy paddling channel keeps it manageable.\" (surfnerd)",
+     "\"A fairly popluar wave that can sometimes get crowded Watch out for dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Riyue Bay (Riyuewan) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Riyue Wan - Main Left is a left-hand point that peels off the headland of Riyue Bay. On a low-to-mid tide it can offer a 200m-plus ride that starts about halfway out the point, with easy roll-ins leading onto a tapered wall and shoulder. It breaks over a mix of boulders and sand.",
+     "surfForecast": "Riyue Bay (Riyuewan) in Hainan is a fairly exposed point break that has pretty consitent surf. Winter is the favoured time of year for surfing here. The best wind direction is from the northwest with some shelter here from northeast winds. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the northeast. Good surf at all stages of the tide. A fairly popluar wave that can sometimes get crowded Watch out for dangerous rips."
+    },
+    "notes": "town: Qianweidui (surfnerd); surf-forecast pin 18.63,110.22 is 0.2 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 121.9,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 92.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-sandalwood",
+   "name": "Sandalwood",
+   "country": "China",
+   "region": "Hainan, Yinian",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.518,
+   "lon": 110.099,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.5183,110.099), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sandalwood.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/sandalwood.md"
+   },
+   "facts": {
+    "spotId": "w-china-sandalwood",
+    "name": "Sandalwood",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sandalwood",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ENE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Sandalwood can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"There may be some rivermouth pollution near the jetties, though the beach itself feels clean.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Sandalwood is a good-quality open beachbreak in Lingshui, with a large beachfront hotel sitting right behind the sand and rivermouth jetties at the north end. Peaks break both left and right over sand, so there's usually a workable peak to pick out somewhere along the beach.",
+     "surfForecast": null
+    },
+    "notes": "town: Yinian (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 139.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 76.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-west-beach",
+   "name": "West Beach",
+   "country": "China",
+   "region": "Hainan, Dabing",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.177,
+   "lon": 109.582,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.177,109.582), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/west-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: ESE - S. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/west-beach.md"
+   },
+   "facts": {
+    "spotId": "w-china-west-beach",
+    "name": "West Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/west-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "NE - SE. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ESE - S. Faces SE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "West Beach is an undeveloped, sand-bottomed beach break tucked further south near Sanya and Yalong Bay. There are no hotels along this stretch, so the outlook stays wild, with virgin forest running right down toward the sand. When the bank lines up it peels both left and right.",
+     "surfForecast": null
+    },
+    "notes": "town: Dabing (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 202.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 22.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-xiaodong-hai",
+   "name": "Xiaodong Hai",
+   "country": "China",
+   "region": "Hainan, Sanya",
+   "timeZone": "Asia/Shanghai",
+   "type": "Reef",
+   "lat": 18.206,
+   "lon": 109.499,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.20556,109.49888), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/xiaodong-hai.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: SE - SSW. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/xiaodong-hai.md"
+   },
+   "facts": {
+    "spotId": "w-china-xiaodong-hai",
+    "name": "Xiaodong Hai",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/xiaodong-hai",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from S (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - SSW. Faces SE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"It comes in on mid and high tide, with a rising tide generally the better call, and high tide is when the barrels stand up best.\" (surfnerd guide)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Breaking over sharp live coral, this is an expert-level wave that rewards confident, experienced surfers who know how to handle a shallow reef pass.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Xiaodong Hai is a long right-hand reef pass tucked into the next bay west, and it ranks among the best righthanders on the island. It peels over sharp live coral and can throw high-quality barrels when the swell lines up.",
+     "surfForecast": null
+    },
+    "notes": "town: Sanya (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 205.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 14.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-xing-tan-wan",
+   "name": "Xing Tan Wan",
+   "country": "China",
+   "region": "Hainan, Lantian",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.721,
+   "lon": 110.436,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (18.7213,110.436), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/xing-tan-wan.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SE. SSE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/xing-tan-wan.md"
+   },
+   "facts": {
+    "spotId": "w-china-xing-tan-wan",
+    "name": "Xing Tan Wan",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/xing-tan-wan",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "ENE - SE. SSE - S. Faces ESE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Xing Tan Wan is an exposed beach break near Wanning that peels both left and right over sand. The sandbars here run fairly straight, but small streams can cut a channel through them and give the banks a little more shape.",
+     "surfForecast": null
+    },
+    "notes": "town: Lantian (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 102.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 19.57,
+     "lon": 110.82,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 117.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-golden-sand-beach-huangdao",
+   "name": "Golden Sand Beach - Huangdao",
+   "country": "China",
+   "region": "Shandong, Liujiadao",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 35.956,
+   "lon": 120.241,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (35.95568,120.24093), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 35.9613,120.2474 (0.9 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/golden-sand-beach-huangdao.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ESE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/golden-sand-beach-huangdao.md"
+   },
+   "facts": {
+    "spotId": "w-china-golden-sand-beach-huangdao",
+    "name": "Golden Sand Beach - Huangdao",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/golden-sand-beach-huangdao",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Gloden_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NE - S. Best from SE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ESE - S. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"All three tides can produce, but a rising tide is the call here, since the extra water pushes a bit more power into the waves.\" (surfnerd guide); Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"Getting here from Qingdao means a ferry across the harbour mouth.\" (surfnerd)",
+     "distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Golden Sand Beach is a sand-bottomed beachbreak sitting right on the main coast road of Huangdao, serving up both lefts and rights. It isn't a standout wave, but it catches more swell than Shilaoren thanks to an open window to northeast swell.",
+     "surfForecast": null
+    },
+    "notes": "town: Liujiadao (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.9 km from the surfnerd pin; wannasurf: wave quality Sloppy; experience All surfers; frequency Sometimes break; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC shen",
+     "name": "Shenzhen",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1620.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.47,
+     "lon": 113.88,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=shen"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSQD",
+     "name": "Qingdao",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 14.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.067,
+     "lon": 120.333,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSQD&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-shilaoren-beach-qingdao-shandong-province",
+   "name": "Shilaoren Beach, Qingdao Shandong Province",
+   "country": "China",
+   "region": "Shandong, Qingdao",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 36.091,
+   "lon": 120.47,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.09141,120.46993), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/shilaoren-beach-qingdao-shandong-province.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE. ESE - SE. SE - S. S - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/shilaoren-beach-qingdao-shandong-province.md"
+   },
+   "facts": {
+    "spotId": "w-china-shilaoren-beach-qingdao-shandong-province",
+    "name": "Shilaoren Beach, Qingdao Shandong Province",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/shilaoren-beach-qingdao-shandong-province",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ESE. ESE - SE. SE - S. S - SW. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"The beach works on mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Shilaoren Beach is Qingdao's most popular tourist beach, named after the prominent rock outcropping just off the ShiLaoRen Peninsula, said to resemble an old fisherman waiting for his daughter to return from beneath the waves. Waves break as several peaks over a sand bottom, and the quality here is generally average.",
+     "surfForecast": null
+    },
+    "notes": "town: Qingdao (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC shen",
+     "name": "Shenzhen",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1642.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.47,
+     "lon": 113.88,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=shen"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSQD",
+     "name": "Qingdao",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 12.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.067,
+     "lon": 120.333,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSQD&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-huichen-shengsi-island",
+   "name": "Huichen, Shengsi Island",
+   "country": "China",
+   "region": "Zhejiang, Beichaoyang",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 30.716,
+   "lon": 122.511,
+   "seaward": 0.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (30.71621,122.51136), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/huichen-shengsi-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces N\" (surfnerd swell exposure: NNW - NE. Faces N)",
+    "url": "https://www.surfnerd.com/surf-forecast/huichen-shengsi-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-huichen-shengsi-island",
+    "name": "Huichen, Shengsi Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/huichen-shengsi-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North (surfnerd: \"Faces N\")",
+    "facingDeg": 0.0,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNW - NE. Faces N (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "S. Offshore from S (surfnerd); wind exposure SE - SW. Offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Huichen can work through most of the tide, but a rising tide is the better call and worth timing your session around.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The trade-off is the water quality, which is dirty here just as it is up the coast.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Huichen is a punchy beachbreak sitting at the easternmost inhabited village on Shengsi Island, roughly 10km east of Caiyuan. Peaks throw up over a sand bottom and break both left and right, with noticeably more power behind them than Jinsha. The trade-off is the water quality, which is dirty here just as it is up the coast.",
+     "surfForecast": null
+    },
+    "notes": "town: Beichaoyang (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1247.8,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSPD",
+     "name": "Shanghai",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 83.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.117,
+     "lon": 121.767,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSPD&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-jinsha-beach-shengsi-island",
+   "name": "Jinsha Beach, Shengsi Island",
+   "country": "China",
+   "region": "Zhejiang, Gaochangwancun",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 30.713,
+   "lon": 122.478,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (30.71348,122.47796), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/jinsha-beach-shengsi-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: N - NE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/jinsha-beach-shengsi-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-jinsha-beach-shengsi-island",
+    "name": "Jinsha Beach, Shengsi Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jinsha-beach-shengsi-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "N - NE. Faces NNE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "S. Offshore from S (surfnerd); wind exposure SSE - WSW. Offshore from SSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can break through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"On its day it throws up several slow peaks over a shallow sand bottom, plus a few left-handers running beside the cliff.\" (surfnerd)",
+     "\"Be realistic about quality here, though: the waves tend to be short-period and poor, and the water can be dirty with runoff pushed in from Hangzhou Bay.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"From Shanghai, drive roughly 2 hours to the port of Luchao, just west of the Donghai Bridge, then catch the ferry to Shengsi, a crossing of about 3.5 hours.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jinsha Beach sits about 3 km south of Caiyuan, the main town on Shengsi Island, tucked just below a cliffside pagoda. On its day it throws up several slow peaks over a shallow sand bottom, plus a few left-handers running beside the cliff. Be realistic about quality here, though: the waves tend to be short-period and poor, and the water can be dirty with runoff pushed in from Hangzhou Bay.",
+     "surfForecast": null
+    },
+    "notes": "town: Gaochangwancun (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1245.4,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSPD",
+     "name": "Shanghai",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 81.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.117,
+     "lon": 121.767,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSPD&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-lisha-beach-zhujia-island",
+   "name": "Lisha Beach, Zhujia Island",
+   "country": "China",
+   "region": "Zhejiang, Shaojiwan",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 29.859,
+   "lon": 122.391,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (29.85941,122.39136), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/lisha-beach-zhujia-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: E - ESE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/lisha-beach-zhujia-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-lisha-beach-zhujia-island",
+    "name": "Lisha Beach, Zhujia Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lisha-beach-zhujia-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "E - ESE. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid and high tide, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Lisha Beach is a sandy beachbreak on Zhujia Island, throwing up several fun peaks with both lefts and rights. The water runs cleaner here than at Shengsi to the north, and you'll find it just south of Nansha beach along the coast route, tucked inside the Lisha botanic reserve.",
+     "surfForecast": null
+    },
+    "notes": "town: Shaojiwan (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1172.0,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSZS",
+     "name": "Zhoushan",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 8.8,
+     "live": false,
+     "liveNote": "IEM lists offline, archive ends 2014-08-25",
+     "lat": 29.934,
+     "lon": 122.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSZS&network=CN__ASOS"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSNB",
+     "name": "Ninbo",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 89.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.827,
+     "lon": 121.462,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSNB&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-nanchangtu-bay-shengsi-island",
+   "name": "Nanchangtu Bay, Shengsi Island",
+   "country": "China",
+   "region": "Zhejiang, Gaochangwancun",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 30.704,
+   "lon": 122.474,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (30.70389,122.47398), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/nanchangtu-bay-shengsi-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: SE - SSE. SSE - S. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/nanchangtu-bay-shengsi-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-nanchangtu-bay-shengsi-island",
+    "name": "Nanchangtu Bay, Shengsi Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/nanchangtu-bay-shengsi-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "SE - SSE. SSE - S. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Water quality here is poor, so it is worth rinsing off after a session.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Nanchangtu Bay is a fun beachbreak on Shengsi Island, throwing up punchy peaks over a sand bottom with the occasional barrel and waves peeling both left and right. It runs along a long sandy beach in front of Nanchang village, just across to the south of the island from Jinsha beach about 1.5 km away. Water quality here is poor, so it is worth rinsing off after a session.",
+     "surfForecast": null
+    },
+    "notes": "town: Gaochangwancun (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1244.4,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSPD",
+     "name": "Shanghai",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 81.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.117,
+     "lon": 121.767,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSPD&network=CN__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-china-nansha-beach-zhujia-island",
+   "name": "Nansha Beach, Zhujia Island",
+   "country": "China",
+   "region": "Zhejiang, Gaoxu",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 29.878,
+   "lon": 122.406,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (29.87769,122.40624), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/nansha-beach-zhujia-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - SE. SE - S. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/nansha-beach-zhujia-island.md"
+   },
+   "facts": {
+    "spotId": "w-china-nansha-beach-zhujia-island",
+    "name": "Nansha Beach, Zhujia Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/nansha-beach-zhujia-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "E - S. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "ESE - SE. SE - S. Faces SSE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"The beach is private, so ask the hotels for access.\" (surfnerd)",
+     "\"Zhujia Island is reachable through Zhoushan Putuoshan Airport, which handles national flights only, or by ferry from Beilun near Ningbo.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Nansha Beach is a sand-bottom beach break on Zhujia Island that throws up several fun peaks, and it is well known locally for its sand castle competition. The water is clean, and the setup suits surfers looking for an easygoing beach session.",
+     "surfForecast": null
+    },
+    "notes": "town: Gaoxu (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 1174.4,
+     "live": true,
+     "liveNote": "sea level columns flt(m); last sample 2026-11-09 08:13:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 22.291,
+     "lon": 114.213,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSZS",
+     "name": "Zhoushan",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 7.6,
+     "live": false,
+     "liveNote": "IEM lists offline, archive ends 2014-08-25",
+     "lat": 29.934,
+     "lon": 122.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSZS&network=CN__ASOS"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSNB",
+     "name": "Ninbo",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 91.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.827,
+     "lon": 121.462,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSNB&network=CN__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Silver Dragon, Qiantang",
+   "reason": "surfnerd page gives no facing (swell exposure: 'NE - ENE'); no sourced facing",
+   "url": "https://www.surfnerd.com/surf-forecast/silver-dragon-qiantang"
+  },
+  {
+   "name": "Big Wave Bay",
+   "reason": "surf-forecast page only (pin 22.25,114.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Big-Wave-Bay"
+  },
+  {
+   "name": "Clubhouse Point",
+   "reason": "surf-forecast page only (pin 22.26,114.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Clubhouse-Point"
+  },
+  {
+   "name": "Da Mei Sha Beach",
+   "reason": "surf-forecast page only (pin 22.6,114.31); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Da-Mei-Sha-Beach"
+  },
+  {
+   "name": "Dongchong",
+   "reason": "surf-forecast page only (pin 22.49,114.58); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Dongchong"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Fung Bay",
+   "reason": "surf-forecast page only (pin 22.42,114.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fung-Bay"
+  },
+  {
+   "name": "Funingwan",
+   "reason": "surf-forecast page only (pin 26.75,120.09); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Funingwan"
+  },
+  {
+   "name": "Macau Hacs Sa Beach",
+   "reason": "surf-forecast page only (pin 22.12,113.57); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Hac-sa-Beach"
+  },
+  {
+   "name": "Jieshi Bay",
+   "reason": "surf-forecast page only (pin 22.87,115.66); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jieshi-Bay"
+  },
+  {
+   "name": "Jinzonglu",
+   "reason": "surf-forecast page only (pin 18.23,109.65); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jinzonglu"
+  },
+  {
+   "name": "Lantau Island",
+   "reason": "surf-forecast page only (pin 22.24,113.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Lantau-Island"
+  },
+  {
+   "name": "Mazu-Eikon",
+   "reason": "surf-forecast page only (pin 23.23,116.68); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Mazu-Eikon"
+  },
+  {
+   "name": "Ocean Bay Golf Club",
+   "reason": "surf-forecast page only (pin 18.41,109.96); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Ocean-Bay-Golf-Club"
+  },
+  {
+   "name": "Qingshan Bay",
+   "reason": "surf-forecast page only (pin 24.89,118.87); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Qingshan-Bay"
+  },
+  {
+   "name": "Repulse Bay",
+   "reason": "surf-forecast page only (pin 22.24,114.19); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Repulse-Bay"
+  },
+  {
+   "name": "Sai Wan Beach",
+   "reason": "surf-forecast page only (pin 22.41,114.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Sai-Wan-Beach"
+  },
+  {
+   "name": "Shek O",
+   "reason": "surf-forecast page only (pin 22.22,114.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Shek-O_1"
+  },
+  {
+   "name": "Shelter Island",
+   "reason": "surf-forecast page only (pin 22.32,114.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Shelter-Island_1"
+  },
+  {
+   "name": "Tat Mun Island",
+   "reason": "surf-forecast page only (pin 22.47,114.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Tat-Mun-Island"
+  },
+  {
+   "name": "Wujiao Bay (Dongshan Dao)",
+   "reason": "surf-forecast page only (pin 23.62,117.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao"
+  },
+  {
+   "name": "Funingwan",
+   "reason": "wannasurf page only (pin 26.7535,120.0948, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Funingwan/index.html"
+  },
+  {
+   "name": "Mazu Eikon",
+   "reason": "wannasurf page only (pin 23.2261,116.6849, precision GPS History (); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Mazu_Eikon/index.html"
+  },
+  {
+   "name": "Qingshan Wan  Fujian",
+   "reason": "wannasurf page only (pin 24.8917,118.8736, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Qingshan_Wan__Fujian/index.html"
+  },
+  {
+   "name": "The silver dragon",
+   "reason": "wannasurf page only (pin 30.2885,120.2794, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/The_silver_dragon/index.html"
+  },
+  {
+   "name": "Macau HacSa Beach",
+   "reason": "wannasurf page only (pin 22.1229,113.5713, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Macau_HacSa_Beach/index.html"
+  },
+  {
+   "name": "Dongshan dao",
+   "reason": "wannasurf page only (pin 23.6690,117.4562, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/dongshan_dao/index.html"
+  },
+  {
+   "name": "Jinzonglu",
+   "reason": "wannasurf page only (pin 18.2333,109.6464, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/jinzonglu/index.html"
+  },
+  {
+   "name": "Ocean bay golf club",
+   "reason": "wannasurf page only (pin 18.4070,109.9592, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/ocean_bay_golf_club/index.html"
+  },
+  {
+   "name": "Dong Sha",
+   "reason": "wannasurf page only (pin 29.8820,122.4145, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Dong_Sha/index.html"
+  },
+  {
+   "name": "Gwen s Mouth",
+   "reason": "wannasurf page only (pin 36.2709,120.6876, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Gwen_s_Mouth/index.html"
+  },
+  {
+   "name": "Seal tub beach",
+   "reason": "wannasurf page only (pin 37.5417,122.1005, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/seal_tub_beach/index.html"
+  },
+  {
+   "name": "Breaker Reef",
+   "reason": "wannasurf page only (pin 22.4612,114.4204, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Breaker_Reef/index.html"
+  },
+  {
+   "name": "Tai Long Wan Sai Kung",
+   "reason": "wannasurf page only (pin 22.4163,114.3821, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Tai_Long_Wan_Sai_Kung/index.html"
+  },
+  {
+   "name": "Cheung sha beach lantau",
+   "reason": "wannasurf page only (pin 22.2329,113.9572, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/cheung_sha_beach_lantau/index.html"
+  },
+  {
+   "name": "Ham tin",
+   "reason": "wannasurf page only (pin 22.4076,114.3767, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/ham_tin/index.html"
+  },
+  {
+   "name": "Nw reef - shelter island sai kung",
+   "reason": "wannasurf page only (pin 22.3324,114.2939, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/nw_reef_-_shelter_island_sai_kung/index.html"
+  },
+  {
+   "name": "Tai long wan",
+   "reason": "wannasurf page only (pin 22.4120,114.3794, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan/index.html"
+  },
+  {
+   "name": "Tai long wan  lantau",
+   "reason": "wannasurf page only (pin 22.2204,113.8851, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan__lantau/index.html"
+  },
+  {
+   "name": "Tai long wan hk",
+   "reason": "wannasurf page only (pin 22.2460,114.2477, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan_hk/index.html"
+  }
+ ]
+}

@@ -1,0 +1,1381 @@
+{
+ "region": "South Korea",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd South Korea page (13) plus every Surf-Forecast.com and Wannasurf South Korea break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Asia/Seoul (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge, wave buoy from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks, NDBC activestations KMA buoys) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-south-korea-gymnyeong",
+   "name": "Gymnyeong",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Tonggimnyong",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 33.558,
+   "lon": 126.759,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.55845,126.75863), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/gymnyeong.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WNW - NNW. NNW - NNE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/gymnyeong.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-gymnyeong",
+    "name": "Gymnyeong",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gymnyeong",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "swellWorkable": {
+     "text": "N - NE. Best from NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WNW - NNW. NNW - NNE. Faces NNW (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SE. Offshore from SE (surfnerd); wind exposure ESE - SSW. Offshore from SSE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Gymnyeong can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Gymnyeong is a sandy beach break on Jeju, better known for having the clearest water on the island than for its surf. Waves peel both left and right over sand, but don't expect much swell action here. If the sea goes flat, the nearby labyrinth and lava tunnels make the drive worthwhile.",
+     "surfForecast": null
+    },
+    "notes": "town: Tonggimnyong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22103",
+     "name": "KMA buoy 22103",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 84.3,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 34.0,
+     "lon": 127.5,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22103"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 270.0,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPC",
+     "name": "Cheju",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 25.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.511,
+     "lon": 126.493,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-hyatt-regency",
+   "name": "Hyatt Regency",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Songch'onp'o",
+   "timeZone": "Asia/Seoul",
+   "type": "Reef",
+   "lat": 33.244,
+   "lon": 126.407,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.2436,126.407), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/hyatt-regency.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ESE - SW. SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/hyatt-regency.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-hyatt-regency",
+    "name": "Hyatt Regency",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/hyatt-regency",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - SW. SW. Faces SSE (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It breaks on low and mid tide, and a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"This one is best left to expert surfers, especially since a rip can set up beside the rocks.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Hyatt Regency is a right-hand reef that breaks over boulders and sand in front of the hotel. The boulder reef holds the sand in place and shapes the rights here, though it usually isn't as good as the nearby beachbreak.",
+     "surfForecast": null
+    },
+    "notes": "town: Songch'onp'o (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 39.5,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 317.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 23.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-iho-tewoo",
+   "name": "Iho Tewoo",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Jeju",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 33.499,
+   "lon": 126.453,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.49872,126.45307), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/iho-tewoo.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: W - NNW. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/iho-tewoo.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-iho-tewoo",
+    "name": "Iho Tewoo",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/iho-tewoo",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "swellWorkable": {
+     "text": "W - NW. Best from NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "W - NNW. Faces NW (surfnerd)",
+    "idealSwell": "NW (surfnerd)",
+    "windOffshore": "SE. Offshore from SE (surfnerd); wind exposure E - S. Offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Iho Tewoo is a sandy beach break sitting near the airport on South Korea's Yellow Sea coast, throwing up both lefts and rights over a sand bottom.",
+     "surfForecast": null
+    },
+    "notes": "town: Jeju (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 60.9,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 296.3,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPC",
+     "name": "Cheju",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 4.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.511,
+     "lon": 126.493,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-jungmun-beach",
+   "name": "Jungmun Beach",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Songch'onp'o",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 33.244,
+   "lon": 126.41,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.24367,126.41044), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 33.24,126.41 (0.4 km away); wannasurf pin 33.2446,126.4129 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/jungmun-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: SE - SW. SW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/jungmun-beach.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-jungmun-beach",
+    "name": "Jungmun Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/jungmun-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jungmun-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/jeju_island_-_jungmun_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "E - SW. Best from SE (surfnerd)",
+     "fromDeg": 90.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - SW. SW. Faces S (surfnerd)",
+    "idealSwell": "SE (surfnerd); South-southwest (surf-forecast); SouthWest, South (wannasurf)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd); offshore from the North (surf-forecast); good wind West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks through low, mid, and high tide, and a rising tide is generally the better call.\" (surfnerd guide); Low tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Jungmun Beach (Jeju Island) in South Korea is an exposed beach and reef break.\")",
+    "hazards": [
+     "\"Expect a busy lineup when it is working, with some hassling and mild localism on occasion, and weekends get very crowded, especially between June and September.\" (surfnerd)",
+     "\"Watch out for very strong currents.\" (surfnerd)",
+     "\"Watch out for - Rips / undertow - Rocks.\" (surf-forecast)",
+     "Rips / undertow, Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Jungmun Beach (Jeju Island) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of June.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"Jeju Island (South Korea) is one-hour flight from Seoul. Jeju is a volcanic island that has kept traditional Korean cultural identity in houses and lifestyle. Most beaches are made of black lava stones; some are sand covered. Jeju is renown for Stones, Winds and Women. Lava stones are pilled on the ocean-side roads as wishing-good-luck monuments. Winds are often strong and can change directions many times during the day. Women are diving to catch seafood / shellfish and selling them on the roadsides. You can see them getting out of a small creek with in wetsuit and goggles!\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Jungmun Beach is the most popular surf spot on Jeju and holds the island's best concentration of breaks, set against a dramatic backdrop of towering black basalt cliffs. It has been named among Asia's Top 10 Beaches and shows up often as a filming location. The beach has two main peaks.",
+     "surfForecast": "Jungmun Beach (Jeju Island) in South Korea is an exposed beach and reef break. Summer offers the favoured conditions for surfing. Works best in offshore winds from the north. The ideal swell direction from the south southwest. The beach breaks offer lefts and rights and in addition there are both left and right reef breaks. Unlikely to be too crowded, even when the surf is up. Watch out for - Rips / undertow - Rocks."
+    },
+    "notes": "town: Songch'onp'o (surfnerd); surf-forecast pin 33.24,126.41 is 0.4 km from the surfnerd pin; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; type Reef-rocky; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 39.8,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 317.3,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 23.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-namwon",
+   "name": "Namwon",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Seosodong",
+   "timeZone": "Asia/Seoul",
+   "type": "Reef",
+   "lat": 33.278,
+   "lon": 126.731,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.2784,126.731), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/namwon.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: E - SW. SW - WSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/namwon.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-namwon",
+    "name": "Namwon",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/namwon",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "SE - S. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 180.0
+    },
+    "swellExposure": "E - SW. SW - WSW. Faces S (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The reef breaks on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Namwon is a left-hand reef that breaks over a rock ledge. It sits on a quiet stretch of coast that rarely sees surf, so tracking down a wave here takes some patience.",
+     "surfForecast": null
+    },
+    "notes": "town: Seosodong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 68.9,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 292.8,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPC",
+     "name": "Cheju",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 34.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.511,
+     "lon": 126.493,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-old-ladies",
+   "name": "Old Ladies",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Pophwan-dong",
+   "timeZone": "Asia/Seoul",
+   "type": "Reef",
+   "lat": 33.232,
+   "lon": 126.497,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.2323,126.497), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/old-ladies.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - SE. SE - S. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/old-ladies.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-old-ladies",
+    "name": "Old Ladies",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/old-ladies",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - SE. SE - S. Faces S (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Old Ladies is a quality right-hand reefbreak tucked deep in a bay behind an island. It sits close to Seogwipo Soccer Stadium, a World Cup venue, and Chungbang waterfall, though the wave itself is hard to find.",
+     "surfForecast": null
+    },
+    "notes": "town: Pophwan-dong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 46.7,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 312.1,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPC",
+     "name": "Cheju",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 31.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.511,
+     "lon": 126.493,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-sage-ri",
+   "name": "Sage-ri",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Seogwipo",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 33.223,
+   "lon": 126.3,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.22332,126.29991), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sage-ri.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: E - SE. SE - S. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/sage-ri.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-sage-ri",
+    "name": "Sage-ri",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sage-ri",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from S (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "E - SE. SE - S. Faces SE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Sage-ri is a mellow beach break that peels over sand and suits surfers who are still finding their feet. It serves up both lefts and rights, though it can get overpowered easily once the swell picks up. Keep an eye out for tongues of rock and scraps of reef scattered around the sand.",
+     "surfForecast": null
+    },
+    "notes": "town: Seogwipo (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 29.8,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 326.6,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 15.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-seogwipo",
+   "name": "Seogwipo",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Wolp'yong-dong",
+   "timeZone": "Asia/Seoul",
+   "type": "Reef",
+   "lat": 33.231,
+   "lon": 126.461,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.2314,126.461), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/seogwipo.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SE - SW. WSW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/seogwipo.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-seogwipo",
+    "name": "Seogwipo",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/seogwipo",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - SW. WSW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Seogwipo is a stretch of rugged, rocky reef that experienced surfers can explore when bigger swells fill in.\" (surfnerd)",
+     "\"This is expert-level terrain, best suited to surfers who are comfortable reading rocky reef.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Seogwipo is a stretch of rugged, rocky reef that experienced surfers can explore when bigger swells fill in. The waves break over uneven reef and peel both left and right, rewarding anyone willing to hunt around the area for the setup that suits the day.",
+     "surfForecast": null
+    },
+    "notes": "town: Wolp'yong-dong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces WSW\" lies outside its own swell-exposure range(s) (SE - SW. WSW. Faces WSW); kept as published, verify before use"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 43.5,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 314.7,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 28.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-shilla-point",
+   "name": "Shilla Point",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Songch'onp'o",
+   "timeZone": "Asia/Seoul",
+   "type": "Reef",
+   "lat": 33.243,
+   "lon": 126.415,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.2426,126.415), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/shilla-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: SE - SW. SW - WSW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/shilla-point.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-shilla-point",
+    "name": "Shilla Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/shilla-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - SW. SW - WSW. Faces SSW (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call. Keep in mind the mid-reef rock only becomes visible at low tide.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Shilla Point is a fast, hollow reefbreak peak out on the eastern headland. The lefts tend to run smaller but peel nicely and can feed into the hollow sandbars on the beach. The right is the standout, though a big rock sits in the middle of it that often gets in the way and only shows itself at low tide, so keep track of it as the water drops.",
+     "surfForecast": null
+    },
+    "notes": "town: Songch'onp'o (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 40.1,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 317.1,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 24.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-soesokak",
+   "name": "Soesokak",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Yeompodong",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 33.251,
+   "lon": 126.623,
+   "seaward": 135.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.25113,126.62343), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/soesokak.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SE\" (surfnerd swell exposure: E - SE. SE - S. Faces SE)",
+    "url": "https://www.surfnerd.com/surf-forecast/soesokak.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-soesokak",
+    "name": "Soesokak",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/soesokak",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southeast (surfnerd: \"Faces SE\")",
+    "facingDeg": 135.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from S (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "E - SE. SE - S. Faces SE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure W - N. Offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It breaks on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Soesokak is a rivermouth beach break, where the outflow sculpts the sandbars that give the waves their shape. It sits beside a river better known for canoe trips out to the rock formations upstream, so the setting is a draw in its own right. This is a wave for experienced surfers.",
+     "surfForecast": null
+    },
+    "notes": "town: Yeompodong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 58.4,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 302.1,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPC",
+     "name": "Cheju",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 31.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.511,
+     "lon": 126.493,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-songak-mountain-point",
+   "name": "Songak Mountain Point",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Sanisudong",
+   "timeZone": "Asia/Seoul",
+   "type": "Point",
+   "lat": 33.203,
+   "lon": 126.293,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.2033,126.29269), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/songak-mountain-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: E - SSE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/songak-mountain-point.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-songak-mountain-point",
+    "name": "Songak Mountain Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/songak-mountain-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "E - SSE. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"It breaks over an uneven reef, and this is heavy water for experts only.\" (surfnerd)",
+     "\"Other rocky peaks can be surfed closer to the pier where the ferry to Mara Island docks, and a long left peels down the other side of the mountain, though access there is difficult enough that it is hardly ever surfed.\" (surfnerd)",
+     "\"The combination of heavy water and an uneven reef leaves little room for error, so come with the experience to match.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Songak Mountain Point is a righthand point that hugs the cliffs beneath the impressive Mt. Songaksan. It breaks over an uneven reef, and this is heavy water for experts only.",
+     "surfForecast": null
+    },
+    "notes": "town: Sanisudong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 28.0,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 328.5,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 15.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-squid-point",
+   "name": "Squid Point",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Jagunae",
+   "timeZone": "Asia/Seoul",
+   "type": "Reef",
+   "lat": 33.309,
+   "lon": 126.163,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.30865,126.16334), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/squid-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: S - W. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/squid-point.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-squid-point",
+    "name": "Squid Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/squid-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "S - W. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Squid Point is a left that wraps onto the reef in front of the tetrapods at Chagwi-do harbour, over on the west side. It's the spot to head for when the south coast is maxed out, with walls that crumble along a scruffy, uneven reef line without ever getting too vertical.",
+     "surfForecast": null
+    },
+    "notes": "town: Jagunae (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "KMA buoy 22107",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 28.3,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 33.08,
+     "lon": 126.03,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 330.5,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPM",
+     "name": "Mosulpo Ab",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 1.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.294,
+     "lon": 126.163,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPM&network=KR__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-south-korea-woljeung",
+   "name": "Woljeung",
+   "country": "South Korea",
+   "region": "Jaeju-Do, Wolchong",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 33.556,
+   "lon": 126.798,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (33.5559,126.798), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/woljeung.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NNE - ENE. NNW - NNE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/woljeung.md"
+   },
+   "facts": {
+    "spotId": "w-south-korea-woljeung",
+    "name": "Woljeung",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/woljeung",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NNE - ENE. NNW - NNE. Faces NNE (surfnerd)",
+    "idealSwell": "NE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSE - WSW. Offshore from SSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Woljeung can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Woljeung is a sand-bottomed beachbreak that catches more swell than just about anywhere on the north coast. It breaks both left and right, and the shorefront is lined with cafes and an easygoing tourist buzz.",
+     "surfForecast": null
+    },
+    "notes": "town: Wolchong (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22103",
+     "name": "KMA buoy 22103",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 81.5,
+     "live": true,
+     "liveNote": "NDBC station page conditions as of 0700 GMT on 11/09/2026: WVHT 3.3 ft, DPD 0 sec (period shown as 0-1 s, so not usable; heights in 0.5 m steps)",
+     "lat": 34.0,
+     "lon": 127.5,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22103"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility",
+     "distanceKm": 267.4,
+     "live": true,
+     "liveNote": "sea level columns rad(m); last sample 2026-11-09 08:14:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 35.093,
+     "lon": 129.037,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPC",
+     "name": "Cheju",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 28.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.511,
+     "lon": 126.493,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Busan (Haeundae Beach)",
+   "reason": "surf-forecast page only (pin 35.16,129.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Busan-Haeundae"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Gyongpo Beach",
+   "reason": "surf-forecast page only (pin 37.81,128.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Gyongpo-Beach"
+  },
+  {
+   "name": "Ingu Beach",
+   "reason": "surf-forecast page only (pin 37.99,128.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Ingu-Beach"
+  },
+  {
+   "name": "Jumunjin",
+   "reason": "surf-forecast page only (pin 37.88,128.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jumunjin"
+  },
+  {
+   "name": "Kangjeong (Jejudo Island)",
+   "reason": "surf-forecast page only (pin 33.23,126.46); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kangjeong"
+  },
+  {
+   "name": "Songdojin ni",
+   "reason": "surf-forecast page only (pin 38.6,128.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Songdojin-ni"
+  },
+  {
+   "name": "38 Line",
+   "reason": "surf-forecast page only (pin 38.0,128.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Thirty-eight-line"
+  },
+  {
+   "name": "38th Parallel",
+   "reason": "wannasurf page only (pin 38.0061,128.7327, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/38th_Parallel/index.html"
+  },
+  {
+   "name": "Gyongpo Beach",
+   "reason": "wannasurf page only (pin 37.8050,128.9098, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/Gyongpo_Beach/index.html"
+  },
+  {
+   "name": "Jukdo",
+   "reason": "wannasurf page only (pin 37.9770,128.7599, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/Jukdo/index.html"
+  },
+  {
+   "name": "NamYeol",
+   "reason": "wannasurf page only (pin 34.5797,127.4888, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/NamYeol/index.html"
+  },
+  {
+   "name": "SurfyyBeach front",
+   "reason": "wannasurf page only (pin 38.0287,128.7187, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/SurfyyBeach_front/index.html"
+  },
+  {
+   "name": "Busan",
+   "reason": "wannasurf page only (pin 35.1581,129.1607, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/busan/index.html"
+  },
+  {
+   "name": "Hae un dae",
+   "reason": "wannasurf page only (pin 35.1568,129.1605, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/hae_un_dae/index.html"
+  },
+  {
+   "name": "Song jung beach",
+   "reason": "wannasurf page only (pin 35.1778,129.1999, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/song_jung_beach/index.html"
+  },
+  {
+   "name": "Squids",
+   "reason": "wannasurf page only (pin 38.5993,128.3698, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/squids/index.html"
+  }
+ ]
+}

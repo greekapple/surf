@@ -1,0 +1,3948 @@
+{
+ "region": "Sri Lanka",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list = every Surfnerd Sri Lanka page (36) plus every Surf-Forecast.com and Wannasurf Sri Lanka break page. Positions are Surfnerd guide map pins rounded to 3 dp; seaward = Surfnerd \"Faces X\" in degrees. Facts quote Surfnerd, Surf-Forecast.com and Wannasurf with attribution; pages matched by name within 6 km (same-name pages farther apart paired by hand, distance in notes). Where Surfnerd's facing lies outside its own swell-exposure range the notes say so; it is kept as published. Time zone Asia/Colombo (checked against each Surfnerd page). nearestSources: great-circle km to airport METAR, tide gauge from official registries (IOC sea-level list with liveness from each station's public data table, IEM ASOS networks) on 2026-11-09.",
+ "spots": [
+  {
+   "id": "w-sri-lanka-arugam-bay",
+   "name": "Arugam Bay",
+   "country": "Sri Lanka",
+   "region": "Ampara, Pottuvil",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.838,
+   "lon": 81.841,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.83821,81.8407), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.84,81.84 (0.2 km away); wannasurf pin 6.8401,81.8395 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/arugam-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE - S. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/arugam-bay.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-arugam-bay",
+    "name": "Arugam Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/arugam-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Aragum-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/aragum_bay/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SE (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "NNE - S. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd); Southeast (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd); offshore from the North-northwest (surf-forecast); good wind East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works across low, mid, and high tide, with a rising tide generally the pick. Take care at low tide, when the old coral reef turns dangerously shallow and sectiony.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Boulders, Sand (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Aragum Bay in SE is an exposed point break that has reasonably consistent surf The best wind direction is from the north northwest.\")",
+    "hazards": [
+     "\"Take care at low tide, when the old coral reef turns dangerously shallow and sectiony.\" (surfnerd)"
+    ],
+    "season": "\"The best time of year for surfing Arugam Bay with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Easy access from the center of town.  Is not visible from town, but an easy walk south around the point.\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Arugam Bay, known to regulars as A-Bay, is a long right-hand point that peels around the southern corner of the bay over a mix of boulders and sand. The rights run for hundreds of meters, bending to follow the beach and slowly losing size as they go. They open with a hollow section before walling up into shoulders that stay more playful than powerful, so it's an easy wave to link into long, cruisy rides.",
+     "surfForecast": "Aragum Bay in SE is an exposed point break that has reasonably consistent surf The best wind direction is from the north northwest. Most of the surf here comes from groundswells and the best swell direction is from the south. Sometimes crowded. Take care of coral."
+    },
+    "notes": "town: Pottuvil (surfnerd); surf-forecast pin 6.84,81.84 is 0.2 km from the surfnerd pin; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Point-break; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 91.6,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 204.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 100.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-crocodile-rock",
+   "name": "Crocodile Rock",
+   "country": "Sri Lanka",
+   "region": "Ampara, Ampitiya Dewale",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.81,
+   "lon": 81.825,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.8104,81.825), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.81,81.82 (0.6 km away); wannasurf pin 6.8109,81.8240 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/crocodile-rock.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/crocodile-rock.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-crocodile-rock",
+    "name": "Crocodile Rock",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/crocodile-rock",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Elephant-Rock",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/elephant_rock/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - S. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd); East-southeast (surf-forecast); SouthEast, East (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); offshore from the Northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast); All tides, movement not stated (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Elephant Rock in East Sri Lanka is a reasonably exposed point break that has quite reliable surf Offshore winds blow from the northwest and there is no shelter here from cross shore breezes.\")",
+    "hazards": [
+     "\"Crocodile Rock is a mellow right-hand point that breaks over sand, sitting just south of the landmark it takes its name from.\" (surfnerd)"
+    ],
+    "season": "\"The best time of year for surfing Elephant Rock with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"Getting here takes a 20-minute walk from the new houses at the end of the road, including crossing two rivermouths where you stand a good chance of running into wildlife.\" (surfnerd)",
+     "\"That walk keeps the crowds low.\" (surfnerd)",
+     "access \"Take a tuk-tuk from Arugam bay(10min.)to Crocodile rock(wich is the big rock in the lagoon).Then you'll have to walk 15min.down the beach to Elephant rock(wich is the big rock that sticks out in the sea).\"; distance: Day trip (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Crocodile Rock is a mellow right-hand point that breaks over sand, sitting just south of the landmark it takes its name from. The rights tend to be soft and mushy, so it's a spot built for relaxed, easygoing sessions rather than powerful surf.",
+     "surfForecast": "Elephant Rock in East Sri Lanka is a reasonably exposed point break that has quite reliable surf Offshore winds blow from the northwest and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the east southeast. There is no point break. Good surf at all stages of the tide. An uncrowded break, even when it is working."
+    },
+    "notes": "town: Ampitiya Dewale (surfnerd); surf-forecast pin 6.81,81.82 is 0.6 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Regular; type Point-break; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 88.2,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 206.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 97.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-komari",
+   "name": "Komari",
+   "country": "Sri Lanka",
+   "region": "Ampara, Pottuvil",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.976,
+   "lon": 81.869,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.97632,81.8692), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/komari.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/komari.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-komari",
+    "name": "Komari",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/komari",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - S. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 4.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Reaching it means a 20-minute walk from the end of the road out to a small lighthouse on a rocky headland.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"Reaching it means a 20-minute walk from the end of the road out to a small lighthouse on a rocky headland.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Komari, also known as Green Point, is a right-hand point break that peels over sand. It's a nice-looking set-up that rarely delivers enough power or shape to match its looks.",
+     "surfForecast": null
+    },
+    "notes": "town: Pottuvil (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 105.8,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 191.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 112.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-main-beach-arugam-bay",
+   "name": "Main Beach - Arugam Bay",
+   "country": "Sri Lanka",
+   "region": "Ampara, Pottuvil",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.849,
+   "lon": 81.832,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.84931,81.8325), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/main-beach-arugam-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - SE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/main-beach-arugam-bay.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-main-beach-arugam-bay",
+    "name": "Main Beach - Arugam Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/main-beach-arugam-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - SE. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"There the wave can wedge up into an A-frame over the offshore rocks, offering both lefts and rights.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Main Beach at Arugam Bay is a sand-bottomed beachbreak that is usually a close-out, but it is worth a look, especially near the bridge. There the wave can wedge up into an A-frame over the offshore rocks, offering both lefts and rights. Take-offs can be vertical, so it suits intermediate surfers and up.",
+     "surfForecast": null
+    },
+    "notes": "town: Pottuvil (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 92.0,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 203.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 100.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-mambos-reform",
+   "name": "Mambo's / Reform",
+   "country": "Sri Lanka",
+   "region": "Ampara, Pottuvil",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.841,
+   "lon": 81.837,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.8407,81.8372), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/mambos-reform.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNE - ESE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/mambos-reform.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-mambos-reform",
+    "name": "Mambo's / Reform",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mambos-reform",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - ESE. Faces NE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure S - W. Offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 4.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Mambo's / Reform is a gentle right-hander that reforms over sand in front of Mambo's guesthouse. It grooms tiny, clean walls close to shore, and because you can simply walk back up the beach between waves, it makes an easy, repeatable session for anyone finding their feet.",
+     "surfForecast": null
+    },
+    "notes": "town: Pottuvil (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 91.6,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 204.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 100.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-okanda",
+   "name": "Okanda",
+   "country": "Sri Lanka",
+   "region": "Ampara, Okanda",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.648,
+   "lon": 81.779,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.64819,81.7788), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 6.6469,81.7776 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/okanda.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - SSW. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/okanda.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-okanda",
+    "name": "Okanda",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/okanda",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/okanda/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - SSW. Faces E (surfnerd)",
+    "idealSwell": "SE (surfnerd); SouthEast (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd); good wind West (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd); Flat rocks (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Vehicle heading south from Arugam Bay\"; distance: Take a car; public access: Public access; special access: 4x4 (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Okanda is a sand-bottom right-hand point about an hour by tuk-tuk from Arugam Bay. It picks up plenty of swell onto a sucky outside sandbar below a whale-shaped rock, while the super-fun walls inside the cove stay offshore. There's decent power on tap.",
+     "surfForecast": null
+    },
+    "notes": "town: Okanda (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Sometimes break; type Point-break; direction Right; swell size Starts working at 2m-2.5m / 6ft-8ft and holds up to 3m+ / 10ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 71.4,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 215.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 82.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-panama-rights",
+   "name": "Panama Rights",
+   "country": "Sri Lanka",
+   "region": "Ampara, Ampitiya Dewale",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.767,
+   "lon": 81.827,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.76717,81.8267), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/panama-rights.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - S. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/panama-rights.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-panama-rights",
+    "name": "Panama Rights",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/panama-rights",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellWorkable": {
+     "text": "S - N. Best from E (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - S. Faces E (surfnerd)",
+    "idealSwell": "E (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Keep an eye on the mouth before you commit, though: when the river is open you can expect some pollution.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Panama Rights is a right-hand point that breaks over sand, tucked just north of the river. It only comes to life when the rivermouth is closed, serving up rights along with a small reform over by the boats. Keep an eye on the mouth before you commit, though: when the river is open you can expect some pollution.",
+     "surfForecast": null
+    },
+    "notes": "town: Ampitiya Dewale (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 84.6,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 211.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 94.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-peanut-farm",
+   "name": "Peanut Farm",
+   "country": "Sri Lanka",
+   "region": "Ampara, Ampitiya Dewale",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.782,
+   "lon": 81.823,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.78206,81.8233), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 6.7858,81.8214 (0.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/peanut-farm.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE - SSE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/peanut-farm.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-peanut-farm",
+    "name": "Peanut Farm",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/peanut-farm",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/peanuts_farm/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "S - N. Best from E (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - SSE. Faces ENE (surfnerd)",
+    "idealSwell": "E (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The wave can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"The sucky rights peel close to the rocks, while the mellower beachbreak alongside is well suited to beginners.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"Reaching the spot takes a long, slow walk from Panama, roughly 20 minutes, or a 4WD if you would rather drive in.\" (surfnerd)",
+     "access \"There is another great break South of Aragum Bay named the Peanut Farm. I don't know why, as there ain't no peanuts within an elephant's roar of the\"; distance: Day trip (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Peanut Farm is a semi-secret right-hand point that breaks over sand, and it is the best-quality wave within easy travel of Arugam. The sucky rights peel close to the rocks, while the mellower beachbreak alongside is well suited to beginners.",
+     "surfForecast": null
+    },
+    "notes": "town: Ampitiya Dewale (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.5 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Point-break; direction Right; swell size Starts working at  and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 85.6,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 209.7,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 95.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-pottuvil-beach",
+   "name": "Pottuvil Beach",
+   "country": "Sri Lanka",
+   "region": "Ampara, Pottuvil",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.871,
+   "lon": 81.847,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.87101,81.8473), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/pottuvil-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NNE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/pottuvil-beach.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-pottuvil-beach",
+    "name": "Pottuvil Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pottuvil-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "S - N. Best from E (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - S. Faces ESE (surfnerd)",
+    "idealSwell": "E (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The cove can work across low, mid, and high tide, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Beyond that company, there are no real hazards to worry about.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Pottuvil Beach is a scalloped cove wrapping around point-style rights that push wide and deep, which makes it a relaxed place to learn. It sits about a 20-minute tuk-tuk ride from Arugam Bay.",
+     "surfForecast": null
+    },
+    "notes": "town: Pottuvil (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 95.0,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 201.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 103.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-pottuvil-point",
+   "name": "Pottuvil Point",
+   "country": "Sri Lanka",
+   "region": "Ampara, Pottuvil",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.898,
+   "lon": 81.849,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.89828,81.8485), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.9,81.85 (0.3 km away); wannasurf pin 6.8762,81.8466 (2.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/pottuvil-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: NNE - S. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/pottuvil-point.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-pottuvil-point",
+    "name": "Pottuvil Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pottuvil-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Pottuvil-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/pottuvil_point/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNE - S. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd); South-southeast (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd); offshore from the West-southwest (surf-forecast); good wind East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Low and mid tide, movement not stated (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Pottuvil Point in East Sri Lanka is a fairly exposed point break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"On its day it peels for up to 800m from the tip all the way to the beach, with a barrel section in the middle that runs in front of the huge granite rocks.\" (surfnerd)"
+    ],
+    "season": "\"The best time of year for surfing Pottuvil Point with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"For a quieter session, walk 700m north to a similar but shorter point that sits away from the crowds.\" (surfnerd)",
+     "access \"It's not easy, but any of the surf bungalows in Arugam Bay can assist you.  You will need to take a TukTuk from Arugam Bay or Pottuvil and go with someone who knows where they're going.  Then you'll have to walk (in the heat) for about 10 minutes to the point.\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Pottuvil Point is a right-hand point break over sand and the pick of the northern spots in the area. On its day it peels for up to 800m from the tip all the way to the beach, with a barrel section in the middle that runs in front of the huge granite rocks. The wave hugs the shoreline and stays fun even when it is on the smaller side.",
+     "surfForecast": "Pottuvil Point in East Sri Lanka is a fairly exposed point break that has fairly consistent surf. Offshore winds blow from the west southwest and there is no shelter here from cross shore breezes. Groundswells and windswells are equally likely and the best swell direction is from the south southeast. There is no point break. When the surf is up, it can get quite busy in the water."
+    },
+    "notes": "town: Pottuvil (surfnerd); surf-forecast pin 6.9,81.85 is 0.3 km from the surfnerd pin; wannasurf pin (Approximate) is 2.5 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Point-break; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 97.4,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 198.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 105.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-sangamankada",
+   "name": "Sangamankada",
+   "country": "Sri Lanka",
+   "region": "Ampara, New Tirrukkovil",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 7.038,
+   "lon": 81.876,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (7.0381,81.8756), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sangamankada.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: N - SSE. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/sangamankada.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-sangamankada",
+    "name": "Sangamankada",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sangamankada",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "N - SSE. Faces ENE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "rivermouth",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"This stretch is rarely surfed, partly because the access is awkward and the wave is not always worth the trip.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Sangamankada is a right-hand river-mouth wave that breaks over sand. Because it forms where the river meets the sea, the shape shifts with sand build-up from point to point and is heavily influenced by river flows, so what you find can change a lot from one visit to the next.",
+     "surfForecast": null
+    },
+    "notes": "town: New Tirrukkovil (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 111.9,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC trin",
+     "name": "Trincomalee",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 185.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) enc(m) prs(m); last sample 2026-11-09 07:54:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 8.564,
+     "lon": 81.2,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trin"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 117.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-animals",
+   "name": "Animals",
+   "country": "Sri Lanka",
+   "region": "Galle, Ahangama",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 5.972,
+   "lon": 80.362,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.97208,80.36162), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.97,80.36 (0.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/animals.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - WNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/animals.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-animals",
+    "name": "Animals",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/animals",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Animals",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SSW (surfnerd)",
+     "fromDeg": null,
+     "toDeg": null
+    },
+    "swellExposure": "ESE - WNW. Faces SSW (surfnerd)",
+    "idealSwell": "not stated (surfnerd); South-southwest (surf-forecast)",
+    "windOffshore": "not stated (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the Northeast (surf-forecast)",
+    "tide": "Works at High (Best at High, Better on rising) (surfnerd characteristics)",
+    "bottom": "not stated (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "not stated",
+    "sizeFt": {
+     "min": 1.1,
+     "max": 4.3
+    },
+    "exposure": "exposed (surf-forecast: \"Animals in West Sri Lanka is an exposed reef break that has pretty consitent surf.\")",
+    "hazards": [
+     "\"Take care of rocks in the line up.\" (surf-forecast)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Animals is a south-southwest (SSW) swell spot that works from 0.3 m / 1 ft to 1.3 m / 4 ft. Time your session around the tide: high tide is the pick here, and a rising tide is generally the better call as the water fills in.",
+     "surfForecast": "Animals in West Sri Lanka is an exposed reef break that has pretty consitent surf. Summer offers the best conditions for surfing. Ideal winds are from the northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the south southwest. There is no reef break. Unlikely to be too crowded, even when the surf is up. Take care of rocks in the line up."
+    },
+    "notes": "town: Ahangama (surfnerd); surf-forecast pin 5.97,80.36 is 0.3 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 86.4,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 121.6,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 91.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-beachbreak-hikkaduwa",
+   "name": "Beachbreak - Hikkaduwa",
+   "country": "Sri Lanka",
+   "region": "Galle, Gorakagasbokke",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.117,
+   "lon": 80.116,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.11695,80.11596), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.15,80.09 (4.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/beachbreak-hikkaduwa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SSE - NW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/beachbreak-hikkaduwa.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-beachbreak-hikkaduwa",
+    "name": "Beachbreak - Hikkaduwa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/beachbreak-hikkaduwa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Beach-Break_Hikkaduwa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - NW. Faces SW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd); offshore from the East-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Beach Break (Hikkaduwa) in SW is an exposed beach break that only works once in a while.\")",
+    "hazards": [
+     "\"Rips are common along the beach, so pay attention to where the water is moving before you paddle out.\" (surfnerd)",
+     "\"There is also a bit of localism here, so give the people around you some room.\" (surfnerd)",
+     "\"Dangerous rips are a hazard of surfing here.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Beach Break (Hikkaduwa) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Beachbreak - Hikkaduwa is a long stretch of sand-bottom beachbreak with lefts and rights spread along it. The wave changes character depending on the day: most of the time it is a fat, forgiving roller that suits the many beginners drawn here by warm water and cheap rentals, but it can also turn into a fun wedgy shorebreak that bodyboarders will enjoy.",
+     "surfForecast": "Beach Break (Hikkaduwa) in SW is an exposed beach break that only works once in a while. Summer in particular tends to be flat. Offshore winds blow from the east northeast. Groundswells more frequent than windswells and the ideal swell direction is from the southwest. The beach breaks offer lefts and rights. When it's working here, it can get crowded. Dangerous rips are a hazard of surfing here."
+    },
+    "notes": "town: Gorakagasbokke (surfnerd); surf-forecast pin 6.15,80.09 is 4.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 96.2,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 82.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-bennys",
+   "name": "Benny's",
+   "country": "Sri Lanka",
+   "region": "Galle, Hikkaduwa",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.138,
+   "lon": 80.097,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.13814,80.09747), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 6.1387,80.0982 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/bennys.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: S - NW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/bennys.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-bennys",
+    "name": "Benny's",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bennys",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/bennys/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "S - NW. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd); West, SouthWest (wannasurf)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Mid, High (surfnerd characteristics); \"It surfs best from mid to high tide, with a rising tide generally the better call. It gets shallow at low, so keep an eye on the water as the tide drops.\" (surfnerd guide); Mid and high tide, movement not stated (wannasurf)",
+    "bottom": "Live Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 9.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"It gets shallow at low, so keep an eye on the water as the tide drops.\" (surfnerd)",
+     "Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"In front of the center of Hikkaduwa.  You'll have to paddle a bit offshore.\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Benny's is a left-hand reef break that peels over live coral. The best of it sits on the outside reef, about a five-minute paddle out, where you'll find a fairly long and pretty radical left that can hold big swells.",
+     "surfForecast": null
+    },
+    "notes": "town: Hikkaduwa (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; type Reef-coral; direction Left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 93.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 79.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-bentota",
+   "name": "Bentota",
+   "country": "Sri Lanka",
+   "region": "Galle, Godagala",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.417,
+   "lon": 79.995,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.41706,79.99529), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/bentota.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: WSW - NNW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/bentota.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-bentota",
+    "name": "Bentota",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bentota",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "WSW - NNW. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The bank breaks on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Bentota is a sand-bottomed beach break, best known for the A-frame peaks that break near the package holiday resort it shares a name with. It sits along the run of beaches north of Hikkaduwa and draws more tourists than surfers. The banks throw up both lefts and rights.",
+     "surfForecast": null
+    },
+    "notes": "town: Godagala (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 60.4,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 46.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-devil-island",
+   "name": "Devil Island",
+   "country": "Sri Lanka",
+   "region": "Galle, Aranwala",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.964,
+   "lon": 80.378,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.96381,80.37835), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/devil-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - WNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/devil-island.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-devil-island",
+    "name": "Devil Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/devil-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SE - N. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "ESE - WNW. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+    "tide": "Works at Low, Mid, High (Best at Low, Rising and falling) (surfnerd characteristics); \"The reef can work across most of the tide, on both the push and the drop, with low tide the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"Watch for shallow coral heads, especially closer in on the rights.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Devil Island is a coral reef break that peels both ways, with approachable rights and lefts over dead coral. The peak here, known as Sion, sits beside Devils Rock and suits intermediate surfers looking for a friendly wall.",
+     "surfForecast": null
+    },
+    "notes": "town: Aranwala (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 84.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 123.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 89.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-galle",
+   "name": "Gallé",
+   "country": "Sri Lanka",
+   "region": "Galle, Bataduwa",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.036,
+   "lon": 80.227,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.03565,80.22664), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.02,80.21 (2.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/galle.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: SSE - SSW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/galle.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-galle",
+    "name": "Gallé",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/galle",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Galle",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SSE - SSW. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Galle in SW is an exposed reef/Jetty break that has inconsistent surf.\")",
+    "hazards": [
+     "\"In town, the shallow reefs in front of the old city walls always look like they are on the verge of working and never quite do, so most surfers head west or east for waves and stop in Gallé for the town itself.\" (surfnerd)",
+     "\"Take care to avoid the rocks.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Galle with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Gallé is a colonial town southeast of Hikkaduwa, and the most interesting one in the area, though it is better known for sightseeing than for reliable surf. A left breaks near the jetty just outside town, but it rarely comes to life. In town, the shallow reefs in front of the old city walls always look like they are on the verge of working and never quite do, so most surfers head west or east for waves and stop in Gallé for the town itself.",
+     "surfForecast": "Galle in SW is an exposed reef/Jetty break that has inconsistent surf. Summer offers the best conditions for surfing. The best wind direction is from the north northeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the southwest. A reef breaks left. Sometimes crowded. Take care to avoid the rocks."
+    },
+    "notes": "town: Bataduwa (surfnerd); surf-forecast pin 6.02,80.21 is 2.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 100.1,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 108.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 95.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-inside-reef-hikkaduwa",
+   "name": "Inside Reef - Hikkaduwa",
+   "country": "Sri Lanka",
+   "region": "Galle, Wewala",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.124,
+   "lon": 80.107,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.124,80.10711), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.15,80.09 (3.5 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/inside-reef-hikkaduwa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SE - NW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/inside-reef-hikkaduwa.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-inside-reef-hikkaduwa",
+    "name": "Inside Reef - Hikkaduwa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/inside-reef-hikkaduwa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Inside-Reef_Hikkaduwa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SE - NW. Faces SW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd); offshore from the East-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Inside Reef (Hikkaduwa) in SW is an exposed reef break that has reasonably consistent surf, although summer tends to be mostly flat.\")",
+    "hazards": [
+     "\"Take care of rocks and coral.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Inside Reef (Hikkaduwa) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Inside Reef is a left-hand reef break at Hikkaduwa, tucked just south of the better-known Main Reef. It's a peak that deals out some power and usually sees fewer surfers than the main break.",
+     "surfForecast": "Inside Reef (Hikkaduwa) in SW is an exposed reef break that has reasonably consistent surf, although summer tends to be mostly flat. Offshore winds blow from the east northeast. Tends to receive distant groundswells and the ideal swell direction is from the southwest. The left hand reef break is better than the right.. It's sometimes crowded here. Take care of rocks and coral."
+    },
+    "notes": "town: Wewala (surfnerd); surf-forecast pin 6.15,80.09 is 3.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 95.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 81.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-kabalana",
+   "name": "Kabalana",
+   "country": "Sri Lanka",
+   "region": "Galle, Atadahewatugoda",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 5.977,
+   "lon": 80.346,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.97741,80.34629), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kabalana.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - WNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/kabalana.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-kabalana",
+    "name": "Kabalana",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kabalana",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SSE - SSW (surfnerd)",
+     "fromDeg": 157.5,
+     "toDeg": 202.5
+    },
+    "swellExposure": "ESE - WNW. Faces SSW (surfnerd)",
+    "idealSwell": "not stated (surfnerd)",
+    "windOffshore": "not stated (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+    "tide": "Works at Low (Best at Low, Rising and falling) (surfnerd characteristics)",
+    "bottom": "not stated (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "not stated",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.8
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kabalana draws swell from south-southwest through south-southeast, and it works from 0.3 m / 1 ft to 1.2 m / 4 ft, so it doesn't take much size to get going. Time your session around low tide, which is the best of the bunch here. Both rising and falling tides can work, so there's a reasonable window either side of the low.",
+     "surfForecast": null
+    },
+    "notes": "town: Atadahewatugoda (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 87.9,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 120.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 92.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-kogalla",
+   "name": "Kogalla",
+   "country": "Sri Lanka",
+   "region": "Galle, Koggala Colony",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.986,
+   "lon": 80.324,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.98597,80.32375), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.99,80.31 (1.6 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/kogalla.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - WNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/kogalla.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-kogalla",
+    "name": "Kogalla",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kogalla",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kogalla",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - WNW. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"Kogalla in SW is an exposed reef and point break that only works once in a while.\")",
+    "hazards": [
+     "\"Watch for strong rips and an urchin-covered reef underfoot.\" (surfnerd)",
+     "\"Submerged rocks are a hazard.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Koggala Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kogalla is a left-hand reef break a bit further east along the coast, sitting in front of two upmarket hotels. The wave peels over dead coral, and while the reefs here don't pull in as much swell as neighbouring spots, the left has real push when it's on.",
+     "surfForecast": "Kogalla in SW is an exposed reef and point break that only works once in a while. Summer offers the best conditions for surfing. Ideal winds are from the north northeast. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the southwest. Both left and right reef breaks. Sometimes crowded. Submerged rocks are a hazard."
+    },
+    "notes": "town: Koggala Colony (surfnerd); surf-forecast pin 5.99,80.31 is 1.6 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 90.2,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 118.3,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 94.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-main-reef-hikkaduwa",
+   "name": "Main Reef - Hikkaduwa",
+   "country": "Sri Lanka",
+   "region": "Galle, Wewala",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.126,
+   "lon": 80.104,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.12622,80.10393), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.12,80.11 (1.0 km away); wannasurf pin 6.1251,80.1048 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/main-reef-hikkaduwa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SE - NW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/main-reef-hikkaduwa.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-main-reef-hikkaduwa",
+    "name": "Main Reef - Hikkaduwa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/main-reef-hikkaduwa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hikkaduwa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/hikkaduwa/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SE - NW. Faces SW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast); West, SouthWest (wannasurf)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure N - E. Offshore from NE (surfnerd); offshore from the East-northeast (surf-forecast); good wind East, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It favours low to mid tide, with a rising tide generally the better call.\" (surfnerd guide); \"Surfable at all stages of the tide.\" (surf-forecast); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 9.8
+    },
+    "exposure": "exposed (surf-forecast: \"Hikkaduwa (A-Frame) in West Sri Lanka is an exposed reef break that has quite reliable surf.\")",
+    "hazards": [
+     "\"Localism has flared up here over the years, so go easy and give others room.\" (surfnerd)",
+     "\"Mind the urchins, rips, and rocks around the shallow coral.\" (surfnerd)",
+     "Localism (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Hikkaduwa (A-Frame) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Catch bus/train/car to Hikkaduwa. Best break is 3 km south of bus/train station in area called Wewala.\"; distance: Day trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Main Reef is Hikkaduwa's most consistent break, a flat coral reef facing the A-Frame Guest House that serves up fun, if generally slow, lefts and rights.",
+     "surfForecast": "Hikkaduwa (A-Frame) in West Sri Lanka is an exposed reef break that has quite reliable surf. Works best in offshore winds from the east northeast and there is no shelter here from cross shore breezes. Groundswells more frequent than windswells and the best swell direction is from the southwest. No reef break here. Surfable at all stages of the tide. It's often crowded here. The crowds in the water make a gath helmet a good idea."
+    },
+    "notes": "town: Wewala (surfnerd); surf-forecast pin 6.12,80.11 is 1.0 km from the surfnerd pin; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; type Reef-coral; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Crowded"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 94.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 81.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-north-jetty-hikkaduwa",
+   "name": "North Jetty - Hikkaduwa",
+   "country": "Sri Lanka",
+   "region": "Galle, Hikkaduwa",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.144,
+   "lon": 80.097,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.14361,80.09691), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/north-jetty-hikkaduwa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: SW - NW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/north-jetty-hikkaduwa.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-north-jetty-hikkaduwa",
+    "name": "North Jetty - Hikkaduwa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/north-jetty-hikkaduwa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SW - NW. Faces W (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [
+     "\"There's a touch of localism here too, so read the pecking order and pick your waves with a bit of patience.\" (surfnerd)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "North Jetty is a left-hand reef break sitting right in front of the harbour wall at Hikkaduwa. It peels over dead coral, and when a big swell rolls through it throws out some long lefts along the rugged reef.",
+     "surfForecast": null
+    },
+    "notes": "town: Hikkaduwa (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 92.7,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 78.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-rivermouth-hikkaduwa",
+   "name": "Rivermouth - Hikkaduwa",
+   "country": "Sri Lanka",
+   "region": "Galle, Kumarakanda",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.11,
+   "lon": 80.124,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.1097,80.12369), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.12,80.11 (1.9 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/rivermouth-hikkaduwa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: S - NW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/rivermouth-hikkaduwa.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-rivermouth-hikkaduwa",
+    "name": "Rivermouth - Hikkaduwa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rivermouth-hikkaduwa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rivermouth_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "SW - W. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "S - NW. Faces WSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore from the Northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Rivermouth in SW is an exposed river break that has reasonably consistent surf, although summer tends to be mostly flat.\")",
+    "hazards": [
+     "\"Keep an eye out for rips, and factor in the dirty water at this fishing beach before heading out.\" (surfnerd)"
+    ],
+    "season": "\"The best time of year for surfing Rivermouth (Hikkaduwa) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Rivermouth in Hikkaduwa is a sand-bottom beach break serving up both lefts and rights at a working fishing beach. It tends to close out, but when a genuinely big swell arrives a rideable wave shows up along the rivermouth. Be aware that the water here can get very dirty, so it pays to know what you are paddling into.",
+     "surfForecast": "Rivermouth in SW is an exposed river break that has reasonably consistent surf, although summer tends to be mostly flat. Offshore winds are from the northeast. Clean groundswells prevail and the ideal swell direction is from the southwest. The river breaks offer lefts and rights. Even when there are waves, it's not likley to be crowded. The water quality here is rather suspect."
+    },
+    "notes": "town: Kumarakanda (surfnerd); surf-forecast pin 6.12,80.11 is 1.9 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 97.2,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 83.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-the-rock-kabalana",
+   "name": "The Rock - Kabalana",
+   "country": "Sri Lanka",
+   "region": "Galle, Dommanegegoda",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.967,
+   "lon": 80.369,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.96704,80.36898), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.97,80.37 (0.3 km away); wannasurf pin 5.9672,80.3699 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/the-rock-kabalana.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - WNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/the-rock-kabalana.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-the-rock-kabalana",
+    "name": "The Rock - Kabalana",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/the-rock-kabalana",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/The-Rock-Kabalana",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/the_rock/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SSE - WSW. Best from SW (surfnerd)",
+     "fromDeg": 157.5,
+     "toDeg": 247.5
+    },
+    "swellExposure": "ESE - WNW. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); South-southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (Best at Low, Better on rising) (surfnerd characteristics); \"The reef breaks through low, mid, and high tide, with low tide the standout and a rising tide generally the better call.\" (surfnerd guide); \"Surfable at all stages of the tide.\" (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed (surf-forecast: \"The Rock in West Sri Lanka is an exposed reef break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"The reef sits shallow and can dish out a real thumping, so give it the respect it deserves.\" (surfnerd)",
+     "\"Watch out for urchins,.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing The Rock with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Paddle out just left of Kabalana hotel in Ahangama\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "The Rock - Kabalana is a wedgy left-hand reef that breaks in front of a huge offshore rock at Kabalana beach, just beyond Kogalla. The wave peels over dead coral and is about as reliable as they come, so if it happens to be flat here it's worth writing the day off and doing something else.",
+     "surfForecast": "The Rock in West Sri Lanka is an exposed reef break that has fairly consistent surf. Nov-April (Wet Season) provides favoured time of year for waves. The best wind direction is from the north northeast and there is no shelter here from cross shore breezes. Windswells and groundswells in equal measure and the optimum swell angle is from the south southwest. There is no reef break. Surfable at all stages of the tide. It's sometimes crowded here. Watch out for urchins,."
+    },
+    "notes": "town: Dommanegegoda (surfnerd); surf-forecast pin 5.97,80.37 is 0.3 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Reef-coral; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 85.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 122.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 90.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-unawatuna",
+   "name": "Unawatuna",
+   "country": "Sri Lanka",
+   "region": "Galle, Welledewalaya",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.006,
+   "lon": 80.245,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.00636,80.24463), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 6.01,80.24 (0.7 km away); wannasurf pin 6.0064,80.2443 (0.0 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/unawatuna.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - SW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/unawatuna.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-unawatuna",
+    "name": "Unawatuna",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/unawatuna",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Unawatuna",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/unawatuna/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "ESE - SW. Faces S (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd); offshore from the Northwest (surf-forecast); good wind North (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through most of the tide, from low to high, with a rising tide generally the better call.\" (surfnerd guide); Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "fairly exposed (surf-forecast: \"Unawatuna in West Sri Lanka is a fairly exposed point break that has reasonably consistent surf.\")",
+    "hazards": [
+     "\"Hazards include urchins and rocks.\" (surf-forecast)",
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Unawatuna with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Midway between Hikkaduwa and Midigama\"; distance: Day trip; public access: Public access; special access: Paddle > 20mn or Boat (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Unawatuna is a playful right-hand point that peels off the western end of the bay, just beyond Gallé. The magnificent curl of beach here is largely sheltered by fringing reefs, but the point still serves up a fun little right over dead coral. It breaks close to the cliffs, so it favours surfers comfortable in a tighter, shallower lineup.",
+     "surfForecast": "Unawatuna in West Sri Lanka is a fairly exposed point break that has reasonably consistent surf. Nov-April (Wet Season) provides best time of year for waves. Works best in offshore winds from the northwest and there is no shelter here from cross shore breezes. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the southwest. There is no point break. When it's working here, it can get crowded. Hazards include urchins and rocks."
+    },
+    "notes": "town: Welledewalaya (surfnerd); surf-forecast pin 6.01,80.24 is 0.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.0 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; frequency Regular; type Reef-coral; swell size Starts working at Less than 1m / 3ft and holds up to 1m+ / 3ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 98.5,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 112.6,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 99.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-kirinda",
+   "name": "Kirinda",
+   "country": "Sri Lanka",
+   "region": "Hambantota, Karijjawala",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 6.214,
+   "lon": 81.337,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.21439,81.3368), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kirinda.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/kirinda.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-kirinda",
+    "name": "Kirinda",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kirinda",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from SE (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "ENE - S. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The spot works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "not stated",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Kirinda is a mellow sand-bottom setup near the Great Basses reef, where the offshore shipwrecks are part of the local lore and the jetties help shape some easy, small, clean peeling waves.",
+     "surfForecast": null
+    },
+    "notes": "town: Karijjawala (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 2.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 183.0,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 24.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-palatupana",
+   "name": "Palatupana",
+   "country": "Sri Lanka",
+   "region": "Hambantota, Palatupana",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.272,
+   "lon": 81.42,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.27244,81.4196), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/palatupana.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/palatupana.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-palatupana",
+    "name": "Palatupana",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/palatupana",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "SW - NE. Best from S (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "ENE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "S (surfnerd)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"There's a guest-house in the village if you want to stay close to the point.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "The wave is a point break peeling right over boulders and sand. It's a small, honest setup rather than a marquee wave, and the surroundings do a lot of the work.",
+     "surfForecast": null
+    },
+    "notes": "town: Palatupana (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 13.9,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 188.6,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 32.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-yala-rights",
+   "name": "Yala Rights",
+   "country": "Sri Lanka",
+   "region": "Hambantota, Yala",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.374,
+   "lon": 81.567,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (6.37376,81.5669), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/yala-rights.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - SSW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/yala-rights.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-yala-rights",
+    "name": "Yala Rights",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/yala-rights",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "S - N. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NE - SSW. Faces ESE (surfnerd)",
+    "idealSwell": "SE (surfnerd)",
+    "windOffshore": "W. Offshore from W (surfnerd); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"The break is reached by boat from Kumana.\" (surfnerd)",
+     "\"Ask the Rangers about surfing Yala Rights, and be ready to pay an entry fee and hire a jeep to make it happen.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Yala Rights is a right-hand point that peels over sand inside Yala National Park, part of a huge and largely unexplored stretch of coast. This is solo surfing for those willing to go the extra mile to reach it.",
+     "surfForecast": null
+    },
+    "notes": "town: Yala (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 33.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2012-05-25 11:36 UTC (rad); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.197,
+     "lon": 81.32,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 199.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 49.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-dondra",
+   "name": "Dondra",
+   "country": "Sri Lanka",
+   "region": "Matara, Gandara East",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.925,
+   "lon": 80.603,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.92547,80.60253), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.92,80.6 (0.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/dondra.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: ENE - SW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/dondra.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-dondra",
+    "name": "Dondra",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dondra",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dondra",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - SW. Faces SSE (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure WNW - NNE. Offshore from NNW (surfnerd); offshore from the North-northwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"Tide is far less fussy: the reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: \"Dondra in SW is an exposed reef break that only works once in a while.\")",
+    "hazards": [
+     "\"A fairly popluar wave that can sometimes get crowded Take care of the strong rips here.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Dondra with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Dondra is a fickle right-hander that breaks over uneven reef on Sri Lanka's south coast. It doesn't come together often, but it rewards patience when the setup lines up.",
+     "surfForecast": "Dondra in SW is an exposed reef break that only works once in a while. Summer in particular tends to be flat. The best wind direction is from the north northwest. Most of the surf here comes from groundswells and the ideal swell direction is from the southwest. A reef breaks right. A fairly popluar wave that can sometimes get crowded Take care of the strong rips here."
+    },
+    "notes": "town: Gandara East (surfnerd); surf-forecast pin 5.92,80.6 is 0.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 62.1,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 140.2,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 70.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-lazy-lefts-midigama",
+   "name": "Lazy Lefts - Midigama",
+   "country": "Sri Lanka",
+   "region": "Matara, Kadabedda",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.962,
+   "lon": 80.391,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.9624,80.39081), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.96,80.39 (0.3 km away); wannasurf pin 5.9629,80.3906 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/lazy-lefts-midigama.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - W. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/lazy-lefts-midigama.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-lazy-lefts-midigama",
+    "name": "Lazy Lefts - Midigama",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lazy-lefts-midigama",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lazy-Left",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/midigama_left/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SE - SW. Best from SW (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - W. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); South-southwest (surf-forecast)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the Northeast (surf-forecast); good wind North (wannasurf)",
+    "tide": "Works at Low, Mid (Best at Low, Rising and falling) (surfnerd characteristics); \"It's best on low tide, but mid tide also works, and both rising and falling tides can be fine.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Lazy Left in West Sri Lanka is an exposed reef break that has quite consistent surf.\")",
+    "hazards": [
+     "\"It's a reef break over dead coral, so the wave has a mellow, forgiving shape, though it can pick up a bit of backwash.\" (surfnerd)",
+     "\"Take care of rocks in the line up.\" (surf-forecast)",
+     "Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"When you come from Galle, at Midigama, on the left you've got the market place , on the right...\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Lazy Lefts is a slow, fat left that trundles along an old coral shelf just east of Midigama, running for about 100m. It's a reef break over dead coral, so the wave has a mellow, forgiving shape, though it can pick up a bit of backwash. The whole place is relaxed, with nice, basic accommodation close by.",
+     "surfForecast": "Lazy Left in West Sri Lanka is an exposed reef break that has quite consistent surf. Summer offers the best conditions for surfing. The best wind direction is from the northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south southwest. There is no reef break. Relatively few surfers here, even on good days. Take care of rocks in the line up."
+    },
+    "notes": "town: Kadabedda (surfnerd); surf-forecast pin 5.96,80.39 is 0.3 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Point-break; direction Left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 83.4,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 124.1,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 88.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-matara-beach",
+   "name": "Matara Beach",
+   "country": "Sri Lanka",
+   "region": "Matara, Waharajjawatta",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 5.938,
+   "lon": 80.569,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.9379,80.56925), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.94,80.57 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/matara-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: SE - W. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/matara-beach.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-matara-beach",
+    "name": "Matara Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/matara-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Matara",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SE - W. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northwest (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"It runs on low and mid tide, with a rising tide generally the better call, and the eastern peaks stay on offer at all but high tide.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 4.9
+    },
+    "exposure": "exposed (surf-forecast: \"Matara in SW is an exposed reef break that has unreliable waves.\")",
+    "hazards": [
+     "\"Beware of rocks and pollution.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Matara with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [],
+    "guideSummary": {
+     "surfnerd": "Matara Beach is a wide, open beachbreak that gathers plenty of swell, with a Buddhist temple sitting on an islet just offshore. The peaks break over sand and throw up both lefts and rights. The eastern bays toward Meddawatta hold the best of it, with a range of decent peaks to pick from.",
+     "surfForecast": "Matara in SW is an exposed reef break that has unreliable waves. Summer in particular tends to be flat. Offshore winds blow from the north northwest. Groundswells are more common than windswells and the ideal swell angle is from the southwest. A left hand reef break. When it's working here, it can get crowded. Beware of rocks and pollution."
+    },
+    "notes": "town: Waharajjawatta (surfnerd); surf-forecast pin 5.94,80.57 is 0.2 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 65.1,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 136.9,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 72.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-matara-reef",
+   "name": "Matara Reef",
+   "country": "Sri Lanka",
+   "region": "Matara, Madihe East",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.934,
+   "lon": 80.524,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.93371,80.52438), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 5.9361,80.5261 (0.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/matara-reef.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - W. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/matara-reef.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-matara-reef",
+    "name": "Matara Reef",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/matara-reef",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Matara_/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - W. Faces S (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd)",
+    "tide": "Works at Mid (Best at Mid, Better on rising) (surfnerd characteristics); \"The reef is best on mid tide, with a rising tide generally the better call.\" (surfnerd guide); All tides, movement not stated (wannasurf)",
+    "bottom": "Uneven Reef (surfnerd); Sandy (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 3.9
+    },
+    "exposure": "not stated (no surf-forecast page matched)",
+    "hazards": [],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"2km from Matara main bus station. Easy access\"; distance: In the city; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Matara Reef is a left-hand reef break that peels over uneven reef on Sri Lanka's south coast. Matara Beach itself gathers plenty of swell along a wide, open strand marked by a Buddhist temple on a small islet. The eastern bays towards Meddawatta hold the best peaks and work at all but high tides, while a couple of quieter reefs sit west of town, including a fairly hollow left.",
+     "surfForecast": null
+    },
+    "notes": "town: Madihe East (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.3 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Regular; type Sand-bar; direction Right; swell size Starts working at 1.5m-2m /5ft-6ft and holds up to 4m+ / 12ft; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 70.0,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 134.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 76.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-mirissa",
+   "name": "Mirissa",
+   "country": "Sri Lanka",
+   "region": "Matara, Denipitiya",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.943,
+   "lon": 80.455,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.94298,80.45506), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.94,80.46 (0.6 km away); wannasurf pin 5.9427,80.4556 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/mirissa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - SSW. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/mirissa.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-mirissa",
+    "name": "Mirissa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mirissa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mirissa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/mirissa/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - SSW. Faces S (surfnerd)",
+    "idealSwell": "S (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "NW. Offshore from NW (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd); offshore from the North (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The reef breaks on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 4.9
+    },
+    "exposure": "exposed (surf-forecast: \"Mirissa in West Sri Lanka is an exposed reef break that has quite reliable surf, although summer tends to be mostly flat.\")",
+    "hazards": [
+     "\"The wave breaks over reef and dead coral close to the basalt rocks, and there are a couple of lefts in the vicinity if you feel like exploring.\" (surfnerd)",
+     "\"It really needs a heaving due south swell to swing into the southeast-facing bay and get the rights spinning near the rocks.\" (surfnerd)",
+     "\"This one suits intermediate surfers, with the rights breaking close to the basalt rocks.\" (surfnerd)",
+     "\"Beware of - Urchins - Rocks.\" (surf-forecast)",
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Mirissa with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Between Galle (1hr) and Matara. 10 min from Weligama by tuk-tuk. Righthander on the western end of the beach. There is a lefthander near the harbour\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Mirissa is a fickle right-hand point at the western end of a bay fronted by one of the most beautiful beaches in the country. The wave breaks over reef and dead coral close to the basalt rocks, and there are a couple of lefts in the vicinity if you feel like exploring.",
+     "surfForecast": "Mirissa in West Sri Lanka is an exposed reef break that has quite reliable surf, although summer tends to be mostly flat. Offshore winds blow from the north. Most of the surf here comes from groundswells and the optimum swell angle is from the southwest. Often Crowded. Beware of - Urchins - Rocks."
+    },
+    "notes": "town: Denipitiya (surfnerd); surf-forecast pin 5.94,80.46 is 0.6 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Normal; experience All surfers; frequency Regular; type Reef-coral; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to; week crowd Crowded"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 77.0,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 129.5,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 83.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-plantations",
+   "name": "Plantations",
+   "country": "Sri Lanka",
+   "region": "Matara, Kumbalgama",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 5.96,
+   "lon": 80.399,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.95991,80.39945), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.96,80.4 (0.1 km away); wannasurf pin 5.9615,80.3965 (0.4 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/plantations.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: ESE - WNW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/plantations.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-plantations",
+    "name": "Plantations",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/plantations",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Plantations",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Plantations/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "ENE - N (surfnerd)",
+     "fromDeg": 67.5,
+     "toDeg": 0.0
+    },
+    "swellExposure": "ESE - WNW. Faces SSW (surfnerd)",
+    "idealSwell": "not stated (surfnerd); South-southwest (surf-forecast)",
+    "windOffshore": "not stated (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North-northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (Best at Mid, Rising and falling) (surfnerd characteristics)",
+    "bottom": "not stated (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "not stated",
+    "waveDirection": "not stated",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Plantations in West Sri Lanka is an exposed reef break that has quite reliable surf.\")",
+    "hazards": [
+     "\"Hazards include - Rocks.\" (surf-forecast)",
+     "Rocks (wannasurf)"
+    ],
+    "season": "\"The best time of year for surfing Plantations with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "not stated (surfnerd)",
+    "accessNotes": [
+     "access \"Walk over the beach and enter the brake through gap in rocks. Paddle out 50 - 100 m on the left side. Many rocks on right.\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Plantations picks up swell from east-northeast through north, so it needs the wind and weather to be lining up from that side of the compass to switch on. It works from 0.3 m / 1 ft to 1.8 m / 6 ft, which gives it a decent working window from small and mellow all the way up to solid. Tide is forgiving here.",
+     "surfForecast": "Plantations in West Sri Lanka is an exposed reef break that has quite reliable surf. Summer offers the favoured conditions for surfing. The best wind direction is from the north northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the south southwest. There is no reef break. Rarely crowded here. Hazards include - Rocks."
+    },
+    "notes": "town: Kumbalgama (surfnerd); surf-forecast pin 5.96,80.4 is 0.1 km from the surfnerd pin; wannasurf pin (Approximate) is 0.4 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Reef-rocky; direction Right and left; swell size Starts working at Don't know and holds up to Don't know; week crowd Empty"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 82.5,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 124.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 87.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-rams-right-midigama",
+   "name": "Rams Right - Midigama",
+   "country": "Sri Lanka",
+   "region": "Matara, Kadabedda",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.963,
+   "lon": 80.386,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.96274,80.38604), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.96,80.39 (0.5 km away); wannasurf pin 5.9636,80.3838 (0.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/rams-right-midigama.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ESE - W. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/rams-right-midigama.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-rams-right-midigama",
+    "name": "Rams Right - Midigama",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rams-right-midigama",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rams-Right",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/midigama_right/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ESE - W. Faces S (surfnerd)",
+    "idealSwell": "SW (surfnerd); South-southwest (surf-forecast); SouthWest, South (wannasurf)",
+    "windOffshore": "NE. Offshore from NE (surfnerd); wind exposure NW - NE. Offshore from N (surfnerd); offshore from the Northeast (surf-forecast); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Dead Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "exposure": "exposed (surf-forecast: \"Rams Right in West Sri Lanka is an exposed reef break that has quite reliable surf.\")",
+    "hazards": [
+     "\"Rams Right is a short, powerful right in the village of Midigama that breaks over a shallow dead-coral reef and throws frequent tubes.\" (surfnerd)",
+     "\"This is an intermediate-friendly right, though the shallow coral rewards confident, committed surfing.\" (surfnerd)",
+     "\"Watch out for rocks.\" (surf-forecast)",
+     "Rocks (wannasurf)"
+    ],
+    "season": "not stated",
+    "minimumPeriodS": null,
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "access \"Directly in front of Rams Guest House\"; distance: Surf trip; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Rams Right is a short, powerful right in the village of Midigama that breaks over a shallow dead-coral reef and throws frequent tubes. The setting is fairly primitive, which gives it a rawer, stripped-back feel compared with nearby Hikkaduwa.",
+     "surfForecast": "Rams Right in West Sri Lanka is an exposed reef break that has quite reliable surf. Summer offers the best conditions for surfing. Works best in offshore winds from the northeast and there is no shelter here from cross shore breezes. Windswells and groundswells in equal measure and the optimum swell angle is from the south southwest. No reef break here. Rarely crowded here. Watch out for rocks."
+    },
+    "notes": "town: Kadabedda (surfnerd); surf-forecast pin 5.96,80.39 is 0.5 km from the surfnerd pin; wannasurf pin (Approximate) is 0.3 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; type Reef-rocky; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 83.9,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 123.8,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 89.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  },
+  {
+   "id": "w-sri-lanka-weligama",
+   "name": "Weligama",
+   "country": "Sri Lanka",
+   "region": "Matara, Denipitiya",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 5.97,
+   "lon": 80.442,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (5.96958,80.44173), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 5.95,80.42 (3.2 km away); wannasurf pin 5.9731,80.4305 (1.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/weligama.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: S - WSW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/weligama.md"
+   },
+   "facts": {
+    "spotId": "w-sri-lanka-weligama",
+    "name": "Weligama",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/weligama",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Weligama",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/weligama/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "ENE - NW. Best from SW (surfnerd)",
+     "fromDeg": 67.5,
+     "toDeg": 315.0
+    },
+    "swellExposure": "S - WSW. Faces SSW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest (surf-forecast)",
+    "windOffshore": "N. Offshore from N (surfnerd); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore from the North (surf-forecast)",
+    "tide": "Works at Low, Mid, High (Best at Low, Better on rising) (surfnerd characteristics); \"Weligama works through low, mid, and high tide, with low tide the pick and a rising tide generally the better call.\" (surfnerd guide); \"Surfable at all stages of the tide.\" (surf-forecast); All tides, movement not stated (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "left, right",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 4.5
+    },
+    "exposure": "exposed (surf-forecast: \"Weligama in SW is an exposed beach and reef break that has fairly consistent surf.\")",
+    "hazards": [
+     "\"One thing to be aware of: the water can suffer from a bit of residential pollution.\" (surfnerd)",
+     "\"Pollution may be a hazard at this break.\" (surf-forecast)"
+    ],
+    "season": "\"The best time of year for surfing Weligama with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January.\" (surf-forecast)",
+    "minimumPeriodS": null,
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "access \"about one hour from Galle, very long beach, about 15 minutes past the rock break.\"; distance: Take a car; public access: Public access (wannasurf)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Weligama is a sandy beachbreak on Sri Lanka's south coast, and one of the friendliest places to learn to surf in the area. The waves are rideable even when there's barely anything showing, and peaks break both left and right along the sand. It's also the spot to check when the rest of the south coast is blown out.",
+     "surfForecast": "Weligama in SW is an exposed beach and reef break that has fairly consistent surf. Summer offers the favoured conditions for surfing. The best wind direction is from the north. Windswells and groundswells in equal measure and the best swell direction is from the southwest. The beach break offers mainly left hand waves as well as a right hand reef break.. Surfable at all stages of the tide. It's sometimes crowded here. Pollution may be a hazard at this break."
+    },
+    "notes": "town: Denipitiya (surfnerd); surf-forecast pin 5.95,80.42 is 3.2 km from the surfnerd pin; wannasurf pin (Approximate) is 1.3 km from the surfnerd pin; wannasurf: wave quality Normal; experience Beginners wave; frequency Regular; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to; week crowd Few surfers"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 77.7,
+     "live": false,
+     "liveNote": "IOC list last timestamp 2011-12-02 07:40 UTC (prs); the station's public data table (bgraph.php output=tab, last 1 day) returns NO DATA on 2026-11-09",
+     "lat": 6.124,
+     "lon": 81.127,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lankan gauge)",
+     "distanceKm": 126.2,
+     "live": true,
+     "liveNote": "sea level columns bat(V) prs(m) ra2(m) rad(m) sw1(min) sw2(min); last sample 2026-11-09 08:15:00 UTC (bgraph.php output=tab, checked 2026-11-09)",
+     "lat": 6.941,
+     "lon": 79.85,
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 83.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ]
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Balapitiya",
+   "reason": "surf-forecast page only (pin 6.44,79.98); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Balapitiya"
+  },
+  {
+   "name": "Bennys (Hikkaduwa)",
+   "reason": "surf-forecast page only (pin 6.23,80.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Bennys_Hikkaduwa"
+  },
+  {
+   "name": "Beruwela",
+   "reason": "surf-forecast page only (pin 6.53,79.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Beruwela"
+  },
+  {
+   "name": "Coconuts",
+   "reason": "surf-forecast page only (pin 5.96,80.4); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Coconuts-Sri-Lanka"
+  },
+  {
+   "name": "Dewata",
+   "reason": "surf-forecast page only (pin 6.03,80.24); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Dewata"
+  },
+  {
+   "name": "Fishermans",
+   "reason": "surf-forecast page only (pin 5.96,80.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fishermans-Sri-Lanka"
+  },
+  {
+   "name": "Fort Point",
+   "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+  },
+  {
+   "name": "Green Room",
+   "reason": "surf-forecast page only (pin 6.61,81.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Green-Room"
+  },
+  {
+   "name": "Hiriketya Beach",
+   "reason": "surf-forecast page only (pin 5.96,80.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Hiriketya-Beach"
+  },
+  {
+   "name": "Hiriketya Left",
+   "reason": "surf-forecast page only (pin 5.96,80.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Hiriketya-Left"
+  },
+  {
+   "name": "Induruwa",
+   "reason": "surf-forecast page only (pin 6.48,79.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Induruwa"
+  },
+  {
+   "name": "Jungle Beach Left",
+   "reason": "surf-forecast page only (pin 5.96,80.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jungle-Beach-Left"
+  },
+  {
+   "name": "Jungle Beach Right",
+   "reason": "surf-forecast page only (pin 5.96,80.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Jungle-Beach-Right"
+  },
+  {
+   "name": "Kaffi Left",
+   "reason": "surf-forecast page only (pin 5.97,80.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kaffi-Left"
+  },
+  {
+   "name": "Kaffi Right",
+   "reason": "surf-forecast page only (pin 5.97,80.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kaffi-Right"
+  },
+  {
+   "name": "Kalutara South",
+   "reason": "surf-forecast page only (pin 6.57,79.96); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Kalutara-South"
+  },
+  {
+   "name": "Koggala Lefts",
+   "reason": "surf-forecast page only (pin 5.99,80.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Koggala-Lefts"
+  },
+  {
+   "name": "Madiha Left",
+   "reason": "surf-forecast page only (pin 5.94,80.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Madiha-Left"
+  },
+  {
+   "name": "Madiha Right",
+   "reason": "surf-forecast page only (pin 5.94,80.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Madiha-Right"
+  },
+  {
+   "name": "Main Point (Weligama)",
+   "reason": "surf-forecast page only (pin 5.97,80.44); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Main-Point-Weligama"
+  },
+  {
+   "name": "Main Reef (Hikkaduwa)",
+   "reason": "surf-forecast page only (pin 6.19,80.06); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Main-Reef_Hikkaduwa"
+  },
+  {
+   "name": "Metigama Right",
+   "reason": "surf-forecast page only (pin 5.94,80.45); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Metigama-Right"
+  },
+  {
+   "name": "Midigama Left",
+   "reason": "surf-forecast page only (pin 5.96,80.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Midigama-Left"
+  },
+  {
+   "name": "Midigama Right",
+   "reason": "surf-forecast page only (pin 5.96,80.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Midigama-Right"
+  },
+  {
+   "name": "Moogurama",
+   "reason": "surf-forecast page only (pin 6.71,79.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Moogurama"
+  },
+  {
+   "name": "North Jetty (Hikkaduwa)",
+   "reason": "surf-forecast page only (pin 6.25,80.04); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/North-Jetty_Hikkaduwa"
+  },
+  {
+   "name": "Okanda",
+   "reason": "surf-forecast page only (pin 6.41,81.62); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Okanda"
+  },
+  {
+   "name": "Peanut Farm Point",
+   "reason": "surf-forecast page only (pin 6.88,81.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Peanut-Farm-Point"
+  },
+  {
+   "name": "Rams Left",
+   "reason": "surf-forecast page only (pin 5.96,80.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Rams-Left"
+  },
+  {
+   "name": "Sunils Left",
+   "reason": "surf-forecast page only (pin 5.97,80.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Sunils-Left"
+  },
+  {
+   "name": "The Cave",
+   "reason": "surf-forecast page only (pin 6.51,81.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/The-Cave"
+  },
+  {
+   "name": "Trincomalee",
+   "reason": "surf-forecast page only (pin 8.54,81.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Trincomalee"
+  },
+  {
+   "name": "Whiskey Point",
+   "reason": "surf-forecast page only (pin 6.91,81.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Whiskey-Point"
+  },
+  {
+   "name": "Wijiya Beach (Dalawella)",
+   "reason": "surf-forecast page only (pin 6.0,80.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Wijiya-Beach-Dalawella"
+  },
+  {
+   "name": "Yala",
+   "reason": "surf-forecast page only (pin 6.3,81.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.surf-forecast.com/breaks/Yala"
+  },
+  {
+   "name": "Devils rock",
+   "reason": "wannasurf page only (pin 5.9554,80.4171, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Devils_rock/index.html"
+  },
+  {
+   "name": "LAMANA POINT",
+   "reason": "wannasurf page only (pin 5.9710,80.3658, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/LAMANA_POINT/index.html"
+  },
+  {
+   "name": "Madiha",
+   "reason": "wannasurf page only (pin 5.9365,80.5108, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Madiha_/index.html"
+  },
+  {
+   "name": "Rockside Induruwa",
+   "reason": "wannasurf page only (pin 6.3962,80.0045, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Rockside_Induruwa/index.html"
+  },
+  {
+   "name": "Turtle eco beach",
+   "reason": "wannasurf page only (pin 5.9371,80.5086, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Turtle_eco_beach/index.html"
+  },
+  {
+   "name": "Deveta",
+   "reason": "wannasurf page only (pin 6.0315,80.2375, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/deveta/index.html"
+  },
+  {
+   "name": "Hiriketiya",
+   "reason": "wannasurf page only (pin 5.9625,80.7087, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/hiriketiya/index.html"
+  },
+  {
+   "name": "Kingfisher",
+   "reason": "wannasurf page only (pin 6.0343,80.8020, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/kingfisher/index.html"
+  },
+  {
+   "name": "Koggala lefts",
+   "reason": "wannasurf page only (pin 5.9878,80.3238, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/koggala_lefts/index.html"
+  },
+  {
+   "name": "Main point",
+   "reason": "wannasurf page only (pin 6.1195,80.1107, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/main_point/index.html"
+  },
+  {
+   "name": "Owerkanda",
+   "reason": "wannasurf page only (pin 6.0907,80.1344, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/owerkanda/index.html"
+  },
+  {
+   "name": "South beach",
+   "reason": "wannasurf page only (pin 5.9818,80.3367, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/south_beach/index.html"
+  },
+  {
+   "name": "Visky point",
+   "reason": "wannasurf page only (pin 6.9054,81.8450, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/visky_point/index.html"
+  },
+  {
+   "name": "Wijiya beach",
+   "reason": "wannasurf page only (pin 5.9996,80.2621, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/wijiya_beach/index.html"
+  }
+ ]
+}
