@@ -17010,108 +17010,3161 @@
      "distanceKm": 33.2
     }
    ]
+  },
+  {
+   "id": "w-hawaii-sandy-beach",
+   "name": "Sandy Beach",
+   "country": "United States",
+   "region": "Hawaii, Oahu East Side",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Beach",
+   "lat": 21.285,
+   "lon": -157.673,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.2849, -157.673)",
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"ENE - E, ESE - SW (Faces SSE)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach"
+   },
+   "facts": {
+    "spotId": "w-hawaii-sandy-beach",
+    "name": "Sandy Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sandy-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-hawaii",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sandys-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sandy-Beach-3",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/sandy_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSE (surfnerd sandy-beach: \"Faces SSE\"); SE (surfnerd sandy-beach-hawaii: \"Faces SE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "E to SW, best S (surfnerd)",
+     "fromDeg": 90,
+     "toDeg": 225
+    },
+    "swellExposure": "ENE to E, ESE to SW (surfnerd)",
+    "idealSwell": "S (surfnerd); East-southeast (surf-forecast)",
+    "windOffshore": "NNW (surfnerd wind exposure WNW - NNE, \"Offshore from NNW\"); NW (surfnerd guide text: \"northwest (NW) offshore wind\"); Northwest (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Sand (surfnerd); Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 6
+    },
+    "exposure": "exposed (surf-forecast: \"exposed beach and reef break\")",
+    "hazards": [
+     "rips, rocks and locals (surf-forecast)"
+    ],
+    "season": "Spring, most often March (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Sandy Beach is a punishing beach break that throws its waves over sand. This is a neck-breaking shorebreak, one for talented, committed bodyboarders and bodysurfers who can handle a heavy pounding on any east-to-south swell. If you're on a board, your best option is to paddle outside to the shallow left reef, though it's usually blown to pieces by the trades. Surfnerd has 2 entries for this break with different stated facings (sandy-beach=SSE, sandy-beach-hawaii=SE); seaward uses the primary entry (sandy-beach), both kept. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/sandy-beach-hawaii: workable swell ENE - SSW , offshore None, 2ft - 6ft, Lava, Rock, Coral, Sand, Beach, Reef, Left, Right, Low, Mid, High, Intermediate, Expert, Autumn, Winter, Spring, Summer, Shortboard, Bodyboard, Skimming, Bodysurfing. Skill (surfnerd): Expert. Surf-forecast Sandys-Beach: \"Sandy's Beach in Oahu is an exposed beach and reef break that has quite consistent surf and can work at any time of the year. Works best in offshore winds from the northwest. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the east southeast. The beach break provides left and right handers. Often Crowded. Hazards include rips, rocks and locals.\" Surf-forecast Sandy-Beach-3: \"Sandy Beach in Oahu is an exposed beach break that has very consistent surf and works all around the year. The best wind direction is from the northwest. Windswells and groundswells in equal measure and the ideal swell direction is from the east southeast. The beach breaks offer lefts and rights. When it's working here, it can get crowded.\" Wannasurf sandy_beach: quality Regional Classic; experience Experienced surfers; wave Beach-break, Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 3m+ / 10ft+; crowd weekday Few surfers, weekend Crowded. Access (surfnerd): You'll find restrooms, showers, and a lifeguard on hand. Parking is easy with a car park offering free parking alongside roadside spots. Other guide pins from this position: surf-forecast Sandys-Beach 0.2 km, surf-forecast Sandy-Beach-3 0.5 km, wannasurf sandy_beach 0.5 km, surfnerd sandy-beach-hawaii 0.1 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 14.4
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 29.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51207",
+     "name": "Kaneohe Bay, HI (198)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 198)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51207",
+     "distanceKm": 22.9
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1612301",
+     "name": "Hanauma Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1612301",
+     "distanceKm": 2.7
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1612376",
+     "name": "Waimanalo",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612480; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1612376",
+     "distanceKm": 5.9
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1612340",
+     "name": "Honolulu",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:18 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1612340",
+     "distanceKm": 19.9
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHNG",
+     "name": "KANEOHE_MCAS/OAHU",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHNG",
+     "distanceKm": 20.7
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-popoia-island-kailua",
+   "name": "Popoia Island Kailua",
+   "country": "United States",
+   "region": "Hawaii, Oahu East Side",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 21.401,
+   "lon": -157.718,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.401, -157.718)",
+    "url": "https://www.surfnerd.com/surf-forecast/popoia-island-kailua"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"N - E, ESE - SE (Faces NNE)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/popoia-island-kailua"
+   },
+   "facts": {
+    "spotId": "w-hawaii-popoia-island-kailua",
+    "name": "Popoia Island Kailua",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/popoia-island-kailua",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/Popoia_Island/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "NNE (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "N to E (surfnerd)",
+     "fromDeg": 0,
+     "toDeg": 90
+    },
+    "swellExposure": "N to E, ESE to SE (surfnerd)",
+    "idealSwell": "North, East, NorthEast (wannasurf)",
+    "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\"); West, South (wannasurf)",
+    "tide": "Mid, High (surfnerd); Low and mid tide, Rising tide (wannasurf)",
+    "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 5
+    },
+    "exposure": "not stated",
+    "hazards": [
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "Autumn, Winter, Spring, Summer (surfnerd)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Popoia Island, also known as Flat Island, is a small four-acre isle sitting about a quarter-mile off Kailua Beach Park. The main wave is a left point that breaks over reef and wraps around the island on the best days, with a shorter right peeling off the other side. Both waves stay mellow, which makes Popoia a friendly place for beginners and longboarders. Skill (surfnerd): Beginner, Intermediate. Wannasurf Popoia_Island: quality Sloppy; experience All surfers; wave Reef-coral, Left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; crowd weekday Empty, weekend Few surfers. Access (surfnerd): Getting here is easy enough, but there is a long paddle out to the island from Kailua Beach Park. Long rides also mean long paddles back, so pace yourself. Other guide pins from this position: wannasurf Popoia_Island 0.3 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 4.1
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 27.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51207",
+     "name": "Kaneohe Bay, HI (198)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 198)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51207",
+     "distanceKm": 9.2
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1612376",
+     "name": "Waimanalo",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612480; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1612376",
+     "distanceKm": 7.8
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1612480",
+     "name": "MOKU O LOE",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1612480",
+     "distanceKm": 8.3
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1612480",
+     "name": "Mokuoloe",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1612480",
+     "distanceKm": 8.3
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHNG",
+     "name": "KANEOHE_MCAS/OAHU",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHNG",
+     "distanceKm": 7.2
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-dumps",
+   "name": "Dumps",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.613,
+   "lon": -156.438,
+   "seaward": 270,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.613, -156.438)",
+    "url": "https://www.surfnerd.com/surf-forecast/dumps"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"W - WNW, NW (Faces W)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/dumps"
+   },
+   "facts": {
+    "spotId": "w-hawaii-dumps",
+    "name": "Dumps",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/dumps",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dumps-1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Dumps/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd: \"Faces W\")",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "S to WNW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 292.5
+    },
+    "swellExposure": "W to WNW, NW (surfnerd)",
+    "idealSwell": "South-southwest (surf-forecast); South (wannasurf)",
+    "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); East-northeast (surf-forecast); NorthEast (wannasurf)",
+    "tide": "Low, Mid (surfnerd); Low and mid tide, Don't know (wannasurf)",
+    "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef, point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 5,
+     "max": 12
+    },
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "Spring, Summer, Autumn (surfnerd); Summer, most often June (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Dumps is a left-hand reef point on the remote Makena Coast, at the southern corner of Maui. It sits in pristine, desolate countryside and can turn really good when a sizable swell arrives. The wave breaks fast over a bottom of lava, rock, and coral, throwing up barrel sections on moderate to large swells. On smaller days it slows down and fattens out noticeably. Skill (surfnerd): Intermediate, Expert. Surf-forecast Dumps-1: \"Dumps in Maui is a fairly exposed reef break that does not work very often. Summer offers the best conditions for surfing. Offshore winds blow from the east northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south southwest. Even when the surf is up, crowds are unknown. Take care of - Urchins - Rocks.\" Wannasurf Dumps: quality Normal; experience Experienced surfers; wave Reef-coral, Left; swell size Starts working at Less than 1m / 3ft and holds up to 5m / 16 ft and over; crowd weekday Few surfers, weekend Few surfers. Access (surfnerd): You'll find Dumps just off Makena Road, with a big parking lot. Other guide pins from this position: surf-forecast Dumps-1 0.3 km, wannasurf Dumps 0.3 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 156.8
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 175.3
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 45.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615202",
+     "name": "Makena",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615202",
+     "distanceKm": 4.9
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1616696",
+     "name": "Kuheia Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1616696",
+     "distanceKm": 17.7
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 31.5
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 30.7
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-kaanapali-point",
+   "name": "Ka'anapali Point",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.918,
+   "lon": -156.697,
+   "seaward": 270,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.917672, -156.69711)",
+    "url": "https://www.surfnerd.com/surf-forecast/kaanapali-point"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"S - SW, W - WNW (Faces W)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/kaanapali-point"
+   },
+   "facts": {
+    "spotId": "w-hawaii-kaanapali-point",
+    "name": "Ka'anapali Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kaanapali-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kaanapali-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd: \"Faces W\")",
+    "facingDeg": 270,
+    "swellWorkable": null,
+    "swellExposure": "S to SW, W to WNW (surfnerd)",
+    "idealSwell": "Northwest (surf-forecast)",
+    "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); East-southeast (surf-forecast)",
+    "tide": null,
+    "bottom": null,
+    "waveType": "reef",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "rocks and locals (surf-forecast)",
+     "Ka'anapali Point is a surf spot with no confirmed details for break type, swell, wind, tide, access, hazards, or facilities. (surfnerd)"
+    ],
+    "season": "Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Ka'anapali Point is a surf spot with no confirmed details for break type, swell, wind, tide, access, hazards, or facilities. Surf-forecast Kaanapali-Point: \"Ka'anapali Point in Maui is a fairly exposed reef break that has consistent surf. Winter is the best time of year for surfing here. Offshore winds are from the east southeast. Groundswells more frequent than windswells and the ideal swell angle is from the northwest. There are left and right breaking reefs. Often Crowded. Hazards include rocks and locals.\" Other guide pins from this position: surf-forecast Kaanapali-Point 4.1 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 116.0
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 137.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 30.7
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 4.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613155",
+     "name": "Pukoo Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613155",
+     "distanceKm": 20.2
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 23.8
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 27.5
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-lahaina-breakwall",
+   "name": "Lahaina Breakwall",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.869,
+   "lon": -156.679,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.869467, -156.678702)",
+    "url": "https://www.surfnerd.com/surf-forecast/lahaina-breakwall"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SE - SSE, S - SW, WNW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/lahaina-breakwall"
+   },
+   "facts": {
+    "spotId": "w-hawaii-lahaina-breakwall",
+    "name": "Lahaina Breakwall",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lahaina-breakwall",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lahaina-Harbor-Break-Wall",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lahaina-Breakwall-Harbour",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "SE to SSE, S to SW, WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd); Southwest, West-southwest (surf-forecast)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); E (surfnerd guide text: \"east (E) offshore wind\"); Northeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 15
+    },
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "Urchins - Rocks (surf-forecast)",
+     "rocks,urchins,boats (surf-forecast)",
+     "The paddle isn't too bad, though currents can pick up on solid swells. (surfnerd)",
+     "Watch for the reef, along with urchins and sharp coral, and keep in mind that the harbor water is often suspect. (surfnerd)"
+    ],
+    "season": "Spring, Summer, Autumn (surfnerd); Summer, most often June (surf-forecast); Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Lahaina Breakwall is a reef break at Lahaina Harbor on the west coast of Maui. This side of the island sits in the swell shadow of Moloka'i, Lana'i and Kaho'olawe, so finding surf here often takes patience, yet the harbor breakwater manages to pull in waves all year long. Depending on the swell, it can serve up either a quality left or a quality right, both capable of barreling and holding open. Skill (surfnerd): Intermediate. Surf-forecast Lahaina-Harbor-Break-Wall: \"Lahaina Harbor Break Wall in Maui is a fairly exposed reef break that has very reliable surf and works all around the year. Offshore winds blow from the northeast. Clean groundswells prevail and the ideal swell direction is from the southwest. It's often crowded here. Beware of - Urchins - Rocks.\" Surf-forecast Lahaina-Breakwall-Harbour: \"Lahaina Breakwall/Harbour in Maui is a quite exposed reef break that usually has waves and can work at any time of the year. Works best in offshore winds from the northeast. Tends to receive distant groundswells and the ideal swell angle is from the west southwest. A choice of left and right reefs. Sometimes crowded. Watch out for rocks,urchins,boats.\" Access (surfnerd): Getting out is easy, straight off the breakwall at the harbor. The paddle isn't too bad, though currents can pick up on solid swells. Watch for the reef, along with urchins and sharp coral, and keep in mind that the harbor water is often suspect. Other guide pins from this position: surf-forecast Lahaina-Harbor-Break-Wall 0.1 km, surf-forecast Lahaina-Breakwall-Harbour 2.1 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 120.3
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 141.1
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 31.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 1.7
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615680",
+     "name": "KAHULUI",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615680",
+     "distanceKm": 22.0
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 22.0
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 25.5
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-lahaina-harbour",
+   "name": "Lahaina Harbour",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.872,
+   "lon": -156.681,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.872211, -156.680678)",
+    "url": "https://www.surfnerd.com/surf-forecast/lahaina-harbour"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"S - SW, WNW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/lahaina-harbour"
+   },
+   "facts": {
+    "spotId": "w-hawaii-lahaina-harbour",
+    "name": "Lahaina Harbour",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lahaina-harbour",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "S to SW, WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\")",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Live Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 12
+    },
+    "exposure": "not stated",
+    "hazards": [
+     "The left prefers the tide on the high side of mid, which covers the coral and urchin-carpeted lava, while the right is much better at low. (surfnerd)"
+    ],
+    "season": null,
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Lahaina Harbour is a coral reef that peels right beside a busy boat channel running into the harbour. It works over live coral and throws up both a left and a right, each with its own personality. Skill (surfnerd): Intermediate. Access (surfnerd): Parking is tight anywhere near the waves. There's a car park with free parking, along with paid, metered, roadside, and restricted parking nearby."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 119.9
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 140.8
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 31.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 1.3
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615680",
+     "name": "KAHULUI",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615680",
+     "distanceKm": 22.2
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 22.2
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 25.7
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-launiupoko",
+   "name": "Launiupoko",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": null,
+   "lat": 20.842,
+   "lon": -156.653,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.84204, -156.65284)",
+    "url": "https://www.surfnerd.com/surf-forecast/launiupoko"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SE - SSE, S - WSW, WNW - NW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/launiupoko"
+   },
+   "facts": {
+    "spotId": "w-hawaii-launiupoko",
+    "name": "Launiupoko",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/launiupoko",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": null,
+    "swellExposure": "SE to SSE, S to WSW, WNW to NW (surfnerd)",
+    "idealSwell": null,
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\")",
+    "tide": null,
+    "bottom": null,
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated",
+    "hazards": [],
+    "season": null,
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Launiupoko is a surf spot in the United States. There aren't detailed condition notes for it yet, so lean on the live Surfnerd forecast for the latest swell, wind, and tide before you decide when to paddle out."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 124.2
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 144.6
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 31.0
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 5.6
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615680",
+     "name": "KAHULUI",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615680",
+     "distanceKm": 20.0
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 20.0
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 23.3
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-little-beach",
+   "name": "Little Beach",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Beach",
+   "lat": 20.635,
+   "lon": -156.452,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.63474, -156.45211)",
+    "url": "https://www.surfnerd.com/surf-forecast/little-beach"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"S - SW, W - WNW, WNW - NW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/little-beach"
+   },
+   "facts": {
+    "spotId": "w-hawaii-little-beach",
+    "name": "Little Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/little-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Little-Beach-1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/little_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "SSE to WNW (surfnerd)",
+     "fromDeg": 157.5,
+     "toDeg": 292.5
+    },
+    "swellExposure": "S to SW, W to WNW, WNW to NW (surfnerd)",
+    "idealSwell": "South-southwest (surf-forecast); South (wannasurf)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); East-northeast (surf-forecast); NorthEast (wannasurf)",
+    "tide": "Low, Mid, High (surfnerd); Low tide only, Rising tide (wannasurf)",
+    "bottom": "Sand, Rock (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "beach, reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 7
+    },
+    "exposure": "exposed (surf-forecast: \"quite exposed reef break\")",
+    "hazards": [
+     "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)",
+     "Watch the shorepound, which is dangerous, and mind the rocks on either side of the cove. (surfnerd)"
+    ],
+    "season": "Spring, Summer, Autumn (surfnerd); Summer, most often June (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Little Beach, also known as Pu'u Ola'i Beach, sits on the southern end of Maui right next to Big Beach, a scenic cove that mostly serves up shorepound. Most days it is skimboarding, bodysurfing, and bodyboarding territory, with beach break that can turn sizeable and strong and throw closeout barrels. On bigger, longer-period swells a surfboard option can open up off the rocks on the sides of the cove. It is also the only generally accepted clothing-optional beach on Maui. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Little-Beach-1: \"Little Beach in Maui is a quite exposed reef break that only works once in a while. Summer offers the best conditions for surfing. Ideal winds are from the east northeast. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the south southwest. Often Crowded. Take care of - Urchins - Rips / undertow - Rocks - Localism - Sharks.\" Wannasurf little_beach: quality Normal; experience Experienced surfers; wave Reef-coral, Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over; crowd weekday Crowded, weekend Ultra crowded. Access (surfnerd): Getting in is easy, off Makena Road at Makena State Park. Other guide pins from this position: surf-forecast Little-Beach-1 0.1 km, wannasurf little_beach 0.1 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 154.2
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 172.9
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 42.7
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615202",
+     "name": "Makena",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615202",
+     "distanceKm": 2.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2797",
+     "name": "Kihei, Maalaea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2797",
+     "distanceKm": 16.6
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 29.0
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 28.3
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-little-makaha",
+   "name": "Little Makaha",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Point",
+   "lat": 21.0,
+   "lon": -156.67,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.999729, -156.669727)",
+    "url": "https://www.surfnerd.com/surf-forecast/little-makaha"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSW, WSW - WNW, NNW - NNE (Faces WNW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/little-makaha"
+   },
+   "facts": {
+    "spotId": "w-hawaii-little-makaha",
+    "name": "Little Makaha",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/little-makaha",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Little-Makaha_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/little_makaha/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "W to N, best N (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 0
+    },
+    "swellExposure": "SSW, WSW to WNW, NNW to NNE (surfnerd)",
+    "idealSwell": "N (surfnerd); Northwest (surf-forecast); NorthWest, West (wannasurf)",
+    "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); East-southeast (surf-forecast); SouthEast, East (wannasurf)",
+    "tide": "Mid, High (surfnerd); Mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Uneven Reef, Sand (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "point",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 3,
+     "max": 15
+    },
+    "exposure": "not stated",
+    "hazards": [
+     "rocks and locals (surf-forecast)",
+     "Rips / undertow, Rocks, Localism, Sharks (wannasurf)",
+     "Waves reel off a point-style reef that runs for some distance, starting with a sharp drop into bowly sections and offering tubes along the way. (surfnerd)"
+    ],
+    "season": "Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Little Makaha is a right-hand point sitting at the north end of Napili Bay, and it does a fair impression of its Oahu namesake. Waves reel off a point-style reef that runs for some distance, starting with a sharp drop into bowly sections and offering tubes along the way. Check: surfnerd states facing WNW but best swell N (67.5 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast Little-Makaha_1: \"Little Makaha_1 in Maui is a reasonably exposed reef break that usually has waves. Winter is the favoured time of year for surfing here. Works best in offshore winds from the east southeast. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. A reef breaks right. Often Crowded. Beware of rocks and locals.\" Wannasurf little_makaha: quality Normal; experience Experienced surfers; wave Reef-coral, Right and left; swell size Starts working at 2.5m-3m / 8ft-10ft and holds up to 5m / 16 ft and over; crowd weekday Few surfers, weekend Crowded; page has no GPS position. Other guide pins from this position: surf-forecast Little-Makaha_1 0.2 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 114.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 137.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 25.9
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 13.0
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613155",
+     "name": "Pukoo Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613155",
+     "distanceKm": 15.7
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 23.9
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 27.4
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-mala-wharf",
+   "name": "Mala Wharf",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.887,
+   "lon": -156.688,
+   "seaward": 270,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.886687, -156.687748)",
+    "url": "https://www.surfnerd.com/surf-forecast/mala-wharf"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"S - SW, W - WNW (Faces W)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/mala-wharf"
+   },
+   "facts": {
+    "spotId": "w-hawaii-mala-wharf",
+    "name": "Mala Wharf",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mala-wharf",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Malawharf",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/mala_wharf/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd: \"Faces W\")",
+    "facingDeg": 270,
+    "swellWorkable": {
+     "text": "S to SW, best S (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "S to SW, W to WNW (surfnerd)",
+    "idealSwell": "S (surfnerd); West-southwest (surf-forecast); SouthWest, South (wannasurf)",
+    "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); Northeast (surf-forecast); South, SouthEast, East (wannasurf)",
+    "tide": "Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "urchins, rips, rocks, locals and sharks (surf-forecast)",
+     "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)"
+    ],
+    "season": "Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Mala Wharf is a popular left-hander that peels around an uneven reef opposite the disused concrete pier before shouldering off into deeper water. It's a favorite with longboarders and intermediate surfers. Check: surfnerd states facing W but best swell S (90 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast Malawharf: \"Mala wharf in Maui is a fairly exposed reef break that usually has waves and can work at any time of the year. The best wind direction is from the northeast. Groundswells more frequent than windswells and the ideal swell angle is from the west southwest. A left hand reef. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Beware of urchins, rips, rocks, locals and sharks.\" Wannasurf mala_wharf: quality Regional Classic; experience Experienced surfers; wave Reef-coral, Left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; crowd weekday Few surfers, weekend Ultra crowded. Other guide pins from this position: surf-forecast Malawharf 1.7 km, wannasurf mala_wharf 0.4 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 118.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 139.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 31.3
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 0.6
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615680",
+     "name": "KAHULUI",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615680",
+     "distanceKm": 22.8
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 22.8
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 26.3
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-olowalu",
+   "name": "Olowalu",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.808,
+   "lon": -156.624,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.808, -156.624)",
+    "url": "https://www.surfnerd.com/surf-forecast/olowalu"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSE, SSW - WSW, WNW - NW (Faces SSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/olowalu"
+   },
+   "facts": {
+    "spotId": "w-hawaii-olowalu",
+    "name": "Olowalu",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/olowalu",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/olowalu/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSW (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "SSW to WSW (surfnerd)",
+     "fromDeg": 202.5,
+     "toDeg": 247.5
+    },
+    "swellExposure": "SSE, SSW to WSW, WNW to NW (surfnerd)",
+    "idealSwell": "South, SouthEast (wannasurf)",
+    "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); North, NorthEast (wannasurf)",
+    "tide": "Low, Mid, High (surfnerd); Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 4,
+     "max": 7
+    },
+    "exposure": "not stated",
+    "hazards": [
+     "Rocks, Localism, Sharks (wannasurf)",
+     "Paddling isn't too bad, but currents can turn nasty during solid swells, and the reef is the main hazard to keep in mind. (surfnerd)"
+    ],
+    "season": "Spring, Summer, Autumn (surfnerd)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Olowalu is a reef break about six miles south of Lahaina Harbor, tucked around a jetty spit. The bottom is a mix of lava, rock, and coral, and the surroundings stay pristine. It's a decent setup with a genuinely fun left, plus a scatter of right and left peaks nearby to spread the pack out. Skill (surfnerd): Beginner, Intermediate, Expert. Wannasurf olowalu: quality Normal; experience All surfers; wave None, None; swell size Starts working at  and holds up to; crowd weekday Few surfers, weekend Ultra crowded. Access (surfnerd): Getting in is easy, right off the road. Other guide pins from this position: wannasurf olowalu 0.9 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 128.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 148.8
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 31.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 10.4
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2797",
+     "name": "Kihei, Maalaea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2797",
+     "distanceKm": 16.6
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 18.8
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 21.7
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-rainbows",
+   "name": "Rainbows",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.95,
+   "lon": -156.693,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.949907, -156.692587)",
+    "url": "https://www.surfnerd.com/surf-forecast/rainbows"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSW - SW, W - WNW, N - NNE (Faces WNW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/rainbows"
+   },
+   "facts": {
+    "spotId": "w-hawaii-rainbows",
+    "name": "Rainbows",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rainbows",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Osterizers-Rainbows",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "NW to NE, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 45
+    },
+    "swellExposure": "SSW to SW, W to WNW, N to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd); Northwest (surf-forecast)",
+    "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East-southeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 7
+    },
+    "exposure": "not stated",
+    "hazards": [
+     "urchins, rips, rocks, locals and sharks (surf-forecast)",
+     "It gets shallow and powerful with plenty of current on bigger days, which is when it asks for more experience. (surfnerd)"
+    ],
+    "season": "Autumn, Winter, Spring, Summer (surfnerd); Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Rainbows is a collection of reef peaks on the far western edge of Maui, tucked into the Kaanapali resort area below the Kaanapali Beach Club. It breaks both left and right over uneven reef and is usually a mellow, easygoing wave, though the right can turn into a good barrel on solid north swells. Just south, Osterizers is another crisp A-frame peak that tends to have takers of its own. Skill (surfnerd): Intermediate. Surf-forecast Osterizers-Rainbows: \"Osterizers/Rainbows in Maui is a reasonably exposed reef break that has consistent surf. Winter is the favoured time of year for surfing here. Offshore winds blow from the east southeast. Tends to receive distant groundswells and the ideal swell angle is from the northwest. A choice of left and right reefs. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Beware of urchins, rips, rocks, locals and sharks.\" Access (surfnerd): Getting in is easy, with Honoapiilani Park right there. Watch the reef underfoot. Other guide pins from this position: surf-forecast Osterizers-Rainbows 1.7 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 114.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 136.9
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 29.2
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 7.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613155",
+     "name": "Pukoo Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613155",
+     "distanceKm": 17.5
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 24.1
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 27.7
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-s-turns",
+   "name": "S-Turns",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.972,
+   "lon": -156.682,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.972191, -156.681947)",
+    "url": "https://www.surfnerd.com/surf-forecast/s-turns"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSW - SW, W - WNW, N - NNE (Faces WNW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/s-turns"
+   },
+   "facts": {
+    "spotId": "w-hawaii-s-turns",
+    "name": "S-Turns",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/s-turns",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/S-Turns_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WNW (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "NW to NE, best NW (surfnerd)",
+     "fromDeg": 315,
+     "toDeg": 45
+    },
+    "swellExposure": "SSW to SW, W to WNW, N to NNE (surfnerd)",
+    "idealSwell": "NW (surfnerd); Northwest (surf-forecast)",
+    "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East-southeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "urchins, rips, rocks, locals and sharks (surf-forecast)"
+    ],
+    "season": "Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: S-Turns is a cluster of lava and coral reefs tucked between Honokowai and Kahana. It throws up some nice peaks even in less than perfect conditions, and it sits away from the heavy crowds of the better-known spots nearby. The uneven reef serves up both lefts and rights. Skill (surfnerd): Intermediate. Surf-forecast S-Turns_1: \"S-Turns_1 in Maui is a fairly exposed reef break that has dependable surf. Winter is the best time of year for surfing here. Offshore winds blow from the east southeast. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. A left hand reef break. Sometimes crowded. Watch out for urchins, rips, rocks, locals and sharks.\" Other guide pins from this position: surf-forecast S-Turns_1 1.7 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 114.6
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 137.3
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 27.6
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 9.9
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613155",
+     "name": "Pukoo Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613155",
+     "distanceKm": 16.5
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 23.7
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 27.3
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-shark-pit",
+   "name": "Shark Pit",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.865,
+   "lon": -156.676,
+   "seaward": 225,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.864765, -156.676392)",
+    "url": "https://www.surfnerd.com/surf-forecast/shark-pit"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SE - SSE, S - SW, WNW (Faces SW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/shark-pit"
+   },
+   "facts": {
+    "spotId": "w-hawaii-shark-pit",
+    "name": "Shark Pit",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/shark-pit",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Shark-Pit",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/sharkpit/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SW (surfnerd: \"Faces SW\")",
+    "facingDeg": 225,
+    "swellWorkable": {
+     "text": "S to SW, best SW (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 225
+    },
+    "swellExposure": "SE to SSE, S to SW, WNW (surfnerd)",
+    "idealSwell": "SW (surfnerd); West-southwest (surf-forecast); South (wannasurf)",
+    "windOffshore": "NE (surfnerd wind exposure N - E, \"Offshore from NE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Best around mid tide. (surf-forecast); Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 3,
+     "max": 12
+    },
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "Urchins, Rocks, Localism, Sharks (wannasurf)",
+     "Shark Pit is a shallow reef break near Lahaina that peels both left and right over uneven reef. (surfnerd)",
+     "Shark Pit can work through low, mid, and high tide, with a rising tide generally the better call. (surfnerd)"
+    ],
+    "season": "Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Shark Pit is a shallow reef break near Lahaina that peels both left and right over uneven reef. The name is a warning worth heeding, so stay vigilant in the water. This one is strictly for expert surfers. Skill (surfnerd): Expert. Surf-forecast Shark-Pit: \"Shark Pit in Maui is a fairly exposed reef break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the northeast. Most of the surf here comes from groundswells and the best swell direction is from the west southwest. Both left and right reef breaks. Best around mid tide. When the surf is up, it can get quite busy in the water. Take care of rocks,urchins and sharks.\" Wannasurf sharkpit: quality Totally Epic; experience Experienced surfers; wave Reef-coral, Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft; crowd weekday Few surfers, weekend Crowded; page has no GPS position. Access (surfnerd): You'll find free roadside parking nearby. Other guide pins from this position: surf-forecast Shark-Pit 0.9 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 120.8
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 141.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 31.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 2.2
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615680",
+     "name": "KAHULUI",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615680",
+     "distanceKm": 21.8
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 21.8
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 25.2
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-the-cove",
+   "name": "The Cove",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Beach",
+   "lat": 20.728,
+   "lon": -156.453,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.728, -156.453)",
+    "url": "https://www.surfnerd.com/surf-forecast/the-cove-hawaii"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"S - SSW, SW - W (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/the-cove-hawaii"
+   },
+   "facts": {
+    "spotId": "w-hawaii-the-cove",
+    "name": "The Cove",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/the-cove-hawaii",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kihei-Cove",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/kihei_cove/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S to W (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 270
+    },
+    "swellExposure": "S to SSW, SW to W (surfnerd)",
+    "idealSwell": "West-southwest (surf-forecast); West, SouthWest (wannasurf)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); Northeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "beach, jetty",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 2,
+     "max": 5
+    },
+    "exposure": "exposed (surf-forecast: \"fairly exposed reef break\")",
+    "hazards": [
+     "urchins and rocks (surf-forecast)",
+     "Urchins, Rocks (wannasurf)"
+    ],
+    "season": "Spring, Summer, Autumn (surfnerd); Summer, most often June (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: The Cove is a mellow, slow-rolling left at the southern end of Kalama Park, fronting Cove Park, and one of the best places to learn to surf on Maui. The wave peels over a reef of lava, rock and coral, and it stays user-friendly even though the overall rating sits on the modest side. It's usually small and packed with surf schools, but it can genuinely turn on when a bigger swell arrives. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Kihei-Cove: \"Kihei Cove in Maui is a fairly exposed reef break that is often working. Summer offers the best conditions for surfing. The best wind direction is from the northeast. Clean groundswells prevail and the ideal swell angle is from the west southwest. Good surf at all stages of the tide. When the surf is up, crowds are likely Hazards include urchins and rocks.\" Wannasurf kihei_cove: quality Normal; experience Beginners wave; wave Reef-rocky, Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; crowd weekday Crowded, weekend Ultra crowded. Access (surfnerd): Getting in is easy: paddle out from anywhere along Kalama Beach Park or Cove Beach Park. The main thing to watch for is the reef underneath. Other guide pins from this position: surf-forecast Kihei-Cove 0.3 km, wannasurf kihei_cove 0.3 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 148.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 168.6
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 32.4
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2797",
+     "name": "Kihei, Maalaea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2797",
+     "distanceKm": 6.3
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1615202",
+     "name": "Makena",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1615202",
+     "distanceKm": 8.0
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 18.6
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 18.0
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-ukumehame",
+   "name": "Ukumehame",
+   "country": "United States",
+   "region": "Hawaii, Maui",
+   "timeZone": "Pacific/Honolulu",
+   "type": null,
+   "lat": 20.796,
+   "lon": -156.582,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.795589300073612, -156.58179)",
+    "url": "https://www.surfnerd.com/surf-forecast/ukumehame"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSE - S, SSW - WSW (Faces SSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/ukumehame"
+   },
+   "facts": {
+    "spotId": "w-hawaii-ukumehame",
+    "name": "Ukumehame",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ukumehame",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "SSW (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": null,
+    "swellExposure": "SSE to S, SSW to WSW (surfnerd)",
+    "idealSwell": null,
+    "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\")",
+    "tide": null,
+    "bottom": null,
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated",
+    "hazards": [],
+    "season": null,
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Ukumehame is a surf spot with limited published details for now. Check the live Surfnerd forecast for the latest swell, wind, and tide before you paddle out."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 133.1
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 153.4
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51205",
+     "name": "Pauwela, Maui, HI (187)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 187)",
+     "live": false,
+     "liveNote": "listed in activestations.xml but last realtime2 obs 2026-10-13 18:56 UTC; station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51205",
+     "distanceKm": 29.8
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2797",
+     "name": "Kihei, Maalaea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2797",
+     "distanceKm": 12.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 14.3
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 16.1
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHOG",
+     "name": "Kahului",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHOG",
+     "distanceKm": 18.5
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-halena-beach",
+   "name": "Halena Beach",
+   "country": "United States",
+   "region": "Hawaii, Molokai",
+   "timeZone": "Pacific/Honolulu",
+   "type": null,
+   "lat": 21.085,
+   "lon": -157.245,
+   "seaward": 180,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.085, -157.245)",
+    "url": "https://www.surfnerd.com/surf-forecast/halena-beach"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"E - ESE, SE - WSW (Faces S)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/halena-beach"
+   },
+   "facts": {
+    "spotId": "w-hawaii-halena-beach",
+    "name": "Halena Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/halena-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "S (surfnerd: \"Faces S\")",
+    "facingDeg": 180,
+    "swellWorkable": null,
+    "swellExposure": "E to ESE, SE to WSW (surfnerd)",
+    "idealSwell": null,
+    "windOffshore": "N (surfnerd wind exposure NW - NE, \"Offshore from N\")",
+    "tide": null,
+    "bottom": null,
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated",
+    "hazards": [],
+    "season": null,
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Halena Beach is at its cleanest when the wind blows offshore from the south (S) , so a southerly breeze is the main thing to look for before you paddle out here."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 58.1
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 77.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51213",
+     "name": "Kaumalapau Southwest, Lanai, HI (239)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 239)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51213",
+     "distanceKm": 45.0
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613226",
+     "name": "Kolo",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613226",
+     "distanceKm": 5.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613198",
+     "name": "Kaunakakai",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613198",
+     "distanceKm": 22.1
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1612480",
+     "name": "Mokuoloe",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1612480",
+     "distanceKm": 68.5
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHMK",
+     "name": "MOLOKAI_(ASOS)",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHMK",
+     "distanceKm": 17.2
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-kepuhi-bay",
+   "name": "Kepuhi Bay",
+   "country": "United States",
+   "region": "Hawaii, Molokai",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 21.189,
+   "lon": -157.249,
+   "seaward": 270,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.189, -157.249)",
+    "url": "https://www.surfnerd.com/surf-forecast/kepuhi-bay"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SW - W, WNW - NNW (Faces W)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/kepuhi-bay"
+   },
+   "facts": {
+    "spotId": "w-hawaii-kepuhi-bay",
+    "name": "Kepuhi Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kepuhi-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kepuhi-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Kepuhi_Beach_-_Molokai/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "W (surfnerd: \"Faces W\")",
+    "facingDeg": 270,
+    "swellWorkable": null,
+    "swellExposure": "SW to W, WNW to NNW (surfnerd)",
+    "idealSwell": "West-northwest (surf-forecast)",
+    "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); East-southeast (surf-forecast)",
+    "tide": "High tide only, Rising tide (wannasurf)",
+    "bottom": null,
+    "waveType": "beach and reef",
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "exposed (surf-forecast: \"exposed beach and reef break\")",
+    "hazards": [
+     "rocks, rips and sharks (surf-forecast)",
+     "Rocks (wannasurf)"
+    ],
+    "season": "Winter, most often January (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Kepuhi Bay works best when the wind turns offshore from the northwest (NW) . Keep an eye on that direction before you paddle out here. Surf-forecast Kepuhi-Beach: \"Kepuhi Beach/Sheraton's in Molokai is an exposed beach and reef break that has quite reliable surf and can work at any time of the year. Offshore winds are from the east southeast. Clean groundswells prevail and the ideal swell direction is from the west northwest. The reef provides both left and right breaks. When the surf is up, crowds are likely Beware of rocks, rips and sharks.\" Wannasurf Kepuhi_Beach_-_Molokai: quality Regional Classic; experience All surfers; wave Reef-rocky, Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over; crowd weekday Few surfers, weekend Few surfers. Other guide pins from this position: surf-forecast Kepuhi-Beach 3.7 km, wannasurf Kepuhi_Beach_-_Molokai 0.2 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 51.3
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 74.6
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51213",
+     "name": "Kaumalapau Southwest, Lanai, HI (239)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 239)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51213",
+     "distanceKm": 55.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613226",
+     "name": "Kolo",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613226",
+     "distanceKm": 11.9
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613198",
+     "name": "Kaunakakai",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613198",
+     "distanceKm": 25.3
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1612480",
+     "name": "Mokuoloe",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1612480",
+     "distanceKm": 62.3
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHMK",
+     "name": "MOLOKAI_(ASOS)",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHMK",
+     "distanceKm": 16.3
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-lopa-beach",
+   "name": "Lopa Beach",
+   "country": "United States",
+   "region": "Hawaii, Lanai",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.804,
+   "lon": -156.807,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.804, -156.807)",
+    "url": "https://www.surfnerd.com/surf-forecast/lopa-beach"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"ESE - SE, SSE - SSW (Faces ESE)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/lopa-beach"
+   },
+   "facts": {
+    "spotId": "w-hawaii-lopa-beach",
+    "name": "Lopa Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/lopa-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "ESE (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "NNE to SSW (surfnerd)",
+     "fromDeg": 22.5,
+     "toDeg": 202.5
+    },
+    "swellExposure": "ESE to SE, SSE to SSW (surfnerd)",
+    "idealSwell": null,
+    "windOffshore": "WNW (surfnerd wind exposure WSW - NNW, \"Offshore from WNW\")",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Lava, Rock, Coral (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 4,
+     "max": 7
+    },
+    "exposure": "not stated",
+    "hazards": [],
+    "season": "Spring, Summer, Autumn, Winter (surfnerd)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Lopa Beach is a long, white-sand beach on the east coast of Lanai, with a stretch of reef just offshore that serves up a variety of peaks and sections. The reef breaks both right and left over lava, rock, and coral, and there's enough on offer for surfers of every ability. It's a pristine setting, though this rates as a below-average spot overall: it can get genuinely fun when swell and wind line up, but that combination doesn't come together all that often. Skill (surfnerd): Beginner, Intermediate, Expert. Access (surfnerd): Getting here takes some effort: Lopa Beach is only reachable via 4X4-only dirt roads that branch off Keomuku Road, so a regular vehicle won't cut it. Mind the reef beneath you."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 113.2
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 131.5
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51213",
+     "name": "Kaumalapau Southwest, Lanai, HI (239)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 239)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51213",
+     "distanceKm": 21.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS TPT2799",
+     "name": "Lahaina",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1615680; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=TPT2799",
+     "distanceKm": 15.6
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1614465",
+     "name": "Kaumalapau, Lanai Island",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1614465",
+     "distanceKm": 19.6
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 36.5
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHNY",
+     "name": "LANAI_CITY_AIRPORT",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHNY",
+     "distanceKm": 15.1
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-pohakuloa",
+   "name": "Pohakuloa",
+   "country": "United States",
+   "region": "Hawaii, Lanai",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 20.931,
+   "lon": -156.997,
+   "seaward": 0,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 20.931, -156.997)",
+    "url": "https://www.surfnerd.com/surf-forecast/pohakuloa"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"NE - ENE, W - WNW (Faces N)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/pohakuloa"
+   },
+   "facts": {
+    "spotId": "w-hawaii-pohakuloa",
+    "name": "Pohakuloa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pohakuloa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "N (surfnerd: \"Faces N\")",
+    "facingDeg": 0,
+    "swellWorkable": {
+     "text": "W to ENE (surfnerd)",
+     "fromDeg": 270,
+     "toDeg": 67.5
+    },
+    "swellExposure": "NE to ENE, W to WNW (surfnerd)",
+    "idealSwell": null,
+    "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\")",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Lava, Rock, Coral (surfnerd)",
+    "waveType": "reef, point, offshore",
+    "waveDirection": "both",
+    "sizeFt": {
+     "min": 4,
+     "max": 8
+    },
+    "exposure": "not stated",
+    "hazards": [
+     "Stay aware of the reef, sharks, current, and the real chance of getting lost out here. (surfnerd)"
+    ],
+    "season": "Autumn, Winter, Spring (surfnerd)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Pohakuloa sits on the northern edge of Lanai, just outside Lanai City, along a raw, sandy beach-fringed coastline. A series of reef points here throws out both lefts and rights, breaking over lava, rock, and coral. It's a decent setup with plenty of individual peaks to pick from. Skill (surfnerd): Intermediate, Expert. Access (surfnerd): Getting in means dirt roads only, so a 4x4 is a must. The surrounding environment is pristine."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51202",
+     "name": "Mokapu Point, HI (098)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 098)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51202",
+     "distanceKm": 89.0
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51211",
+     "name": "Pearl Harbor Entrance, HI (233)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 233)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:30 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51211",
+     "distanceKm": 107.8
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51213",
+     "name": "Kaumalapau Southwest, Lanai, HI (239)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 239)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51213",
+     "distanceKm": 20.1
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1614465",
+     "name": "Kaumalapau, Lanai Island",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1614465",
+     "distanceKm": 15.7
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1613198",
+     "name": "Kaunakakai",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1613198",
+     "distanceKm": 17.5
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1615680",
+     "name": "Kahului, Kahului Harbor",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680",
+     "distanceKm": 55.0
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHNY",
+     "name": "LANAI_CITY_AIRPORT",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHNY",
+     "distanceKm": 16.8
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-infinities",
+   "name": "Infinities",
+   "country": "United States",
+   "region": "Hawaii, Kauai",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Point",
+   "lat": 21.933,
+   "lon": -159.651,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.932824, -159.651243)",
+    "url": "https://www.surfnerd.com/surf-forecast/infinities"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SE - W, WNW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/infinities"
+   },
+   "facts": {
+    "spotId": "w-hawaii-infinities",
+    "name": "Infinities",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/infinities",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Infinities_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S to NW, best SE (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 315
+    },
+    "swellExposure": "SE to W, WNW (surfnerd)",
+    "idealSwell": "SE (surfnerd); South (surf-forecast)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 3,
+     "max": 10
+    },
+    "exposure": "exposed (surf-forecast: \"exposed reef and point break\")",
+    "hazards": [
+     "Sharks, locals, and a sharp reef all help keep the crowd in check, so take a moment to read the lineup before paddling out. (surfnerd)"
+    ],
+    "season": "Summer, most often August (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Infinities serves up long, near-perfect lefts tucked into the southwest corner at Pakala. It's a point break peeling over an uneven reef, and it comes into its own on the bigger summer south swells. Check: surfnerd states facing WSW but best swell SE (112.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast Infinities_1: \"Infinities in Kauai is an exposed reef and point break that has pretty consitent surf and can work at any time of the year. The best wind direction is from the northeast. Clean groundswells prevail and the best swell direction is from the south.There is a left breaking point here. When the surf is up, it can get quite busy in the water. Take care of the strong rips here.\" Access (surfnerd): There's a car park at the spot. Other guide pins from this position: surf-forecast Infinities_1 0.3 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51201",
+     "name": "Waimea Bay, HI (106)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 106)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51201",
+     "distanceKm": 160.9
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51212",
+     "name": "Barbers Point, Kalaeloa, HI (238)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 238)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 07:00 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51212",
+     "distanceKm": 169.4
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51208",
+     "name": "Hanalei, Kauai, HI (202)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 202)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51208",
+     "distanceKm": 39.9
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611401",
+     "name": "Waimea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1611400; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611401",
+     "distanceKm": 3.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611347",
+     "name": "Port Allen, Hanapepe Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611347",
+     "distanceKm": 6.9
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1611400",
+     "name": "Nawiliwili",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1611400",
+     "distanceKm": 30.5
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHBK",
+     "name": "KEKAHA",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHBK",
+     "distanceKm": 17.1
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-pakala",
+   "name": "Pakala",
+   "country": "United States",
+   "region": "Hawaii, Kauai",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 21.936,
+   "lon": -159.652,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.936, -159.652)",
+    "url": "https://www.surfnerd.com/surf-forecast/pakala"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSE - W, WNW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/pakala"
+   },
+   "facts": {
+    "spotId": "w-hawaii-pakala",
+    "name": "Pakala",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pakala",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Pakalas",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/pakala/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "SE to WNW (surfnerd)",
+     "fromDeg": 135,
+     "toDeg": 292.5
+    },
+    "swellExposure": "SSE to W, WNW (surfnerd)",
+    "idealSwell": "South (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); North-northeast (surf-forecast); North, NorthWest, East, NorthEast (wannasurf)",
+    "tide": "Low, Mid (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+    "bottom": "Rock, Coral, Lava (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef, point",
+    "waveDirection": "left",
+    "sizeFt": {
+     "min": 5,
+     "max": 10
+    },
+    "exposure": "exposed (surf-forecast: \"exposed reef and point break\")",
+    "hazards": [
+     "urchins, rips and rocks (surf-forecast)",
+     "Urchins, Rocks, Man-made danger (buoys etc..), Private beach, Localism, Pollution, Sharks (wannasurf)",
+     "Expect a fair bit of paddling, since long rides mean long paddles back, and the current can get strong when the swell is solid. (surfnerd)"
+    ],
+    "season": "Spring, Summer, Autumn (surfnerd); Summer, most often August (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Pakala, also known as Pakalas, is a long, powerful left that wraps and barrels around the point on the south side of the bay. It is fast and at its best on an overhead swell, when the wave stands up and runs down the point. The lower the tide, the hollower it gets, though the bottom is coral reef, so it pays to be careful. On weaker swells it turns mellower and far less hollow, making for a more relaxed surf. Skill (surfnerd): Intermediate, Expert. Surf-forecast Pakalas: \"Pakalas in Kauai is an exposed reef and point break that has pretty consitent surf. Summer offers the best conditions for surfing. Ideal winds are from the north northeast. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the south.Surfers ride left hand point. Surfable at all stages of the tide. It's sometimes crowded here. Beware of urchins, rips and rocks.\" Wannasurf pakala: quality World Class; experience All surfers; wave Reef-coral, Left; swell size Starts working at Less than 1m / 3ft and holds up to 1m+ / 3ft+; crowd weekday Ultra crowded, weekend Ultra crowded. Access (surfnerd): Pakala is tricky to spot, as you can't easily see it from the road. The easiest way to find it is to follow the cars parked along the side of the road. Other guide pins from this position: surf-forecast Pakalas 1.1 km, wannasurf pakala 0.3 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51201",
+     "name": "Waimea Bay, HI (106)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 106)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51201",
+     "distanceKm": 161.1
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51212",
+     "name": "Barbers Point, Kalaeloa, HI (238)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 238)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 07:00 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51212",
+     "distanceKm": 169.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51208",
+     "name": "Hanalei, Kauai, HI (202)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 202)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51208",
+     "distanceKm": 39.6
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611401",
+     "name": "Waimea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1611400; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611401",
+     "distanceKm": 3.2
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611347",
+     "name": "Port Allen, Hanapepe Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611347",
+     "distanceKm": 7.2
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1611400",
+     "name": "Nawiliwili",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1611400",
+     "distanceKm": 30.6
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHBK",
+     "name": "KEKAHA",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHBK",
+     "distanceKm": 16.8
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-majors-bay",
+   "name": "Majors Bay",
+   "country": "United States",
+   "region": "Hawaii, Kauai",
+   "timeZone": "Pacific/Honolulu",
+   "type": "Reef",
+   "lat": 22.012,
+   "lon": -159.786,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 22.012395, -159.785554)",
+    "url": "https://www.surfnerd.com/surf-forecast/majors-bay"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSE - WSW, W - NNW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/majors-bay"
+   },
+   "facts": {
+    "spotId": "w-hawaii-majors-bay",
+    "name": "Majors Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/majors-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Majors-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S to N, best N (surfnerd)",
+     "fromDeg": 180,
+     "toDeg": 0
+    },
+    "swellExposure": "SSE to WSW, W to NNW (surfnerd)",
+    "idealSwell": "N (surfnerd); South (surf-forecast)",
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); E (surfnerd guide text: \"east (E) offshore wind\"); Northeast (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "reef",
+    "waveDirection": "right",
+    "sizeFt": {
+     "min": 2,
+     "max": 10
+    },
+    "exposure": "exposed (surf-forecast: \"exposed beach and point break\")",
+    "hazards": [
+     "The surf here is all about rights, and the whole stretch is known for serious power and terrifying rips, where a single long ride can turn into a long walk back down the beach. (surfnerd)",
+     "Strong currents and the chance of sharks come with the territory. (surfnerd)",
+     "Local Tips This is an expert-level wave that rewards surfers comfortable with power and current. (surfnerd)"
+    ],
+    "season": "Autumn, Winter, Spring, Summer (surfnerd); Summer, most often August (surf-forecast)",
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Majors Bay is a powerful, exposed break on the long, empty west coast of Kauai. It faces open ocean and pulls in energy from both the North and South Pacific, so there's swell potential across autumn, winter, spring, and summer. The surf here is all about rights, and the whole stretch is known for serious power and terrifying rips, where a single long ride can turn into a long walk back down the beach. Strong currents and the chance of sharks come with the territory. Check: surfnerd states facing WSW but best swell N (112.5 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast Majors-Bay: \"Majors Bay in Kauai is an exposed beach and point break that has quite consistent surf and can work at any time of the year. Works best in offshore winds from the northeast. Tends to receive distant groundswells and the best swell direction is from the south. The beach breaks offers right-handers When it's working here, it can get crowded. Dangerous rips are a hazard of surfing here.\" Access (surfnerd): Getting to the water is easy: pull off the road, walk onto the beach almost anywhere, find a good peak, and paddle out. The standout north-swell right runs down the reef at the end of the runway, though, and that one sits on the military missile range and needs an access pass. Paddles can be short and quick when it's small, and long and tiring when it's big and consistent. The water is pristine most of the time, turning murky only after heavy rains push farmland runoff into the lineup. Other guide pins from this position: surf-forecast Majors-Bay 2.1 km."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51201",
+     "name": "Waimea Bay, HI (106)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 106)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51201",
+     "distanceKm": 176.3
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51212",
+     "name": "Barbers Point, Kalaeloa, HI (238)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 238)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 07:00 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51212",
+     "distanceKm": 185.7
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51208",
+     "name": "Hanalei, Kauai, HI (202)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 202)",
+     "live": false,
+     "liveNote": "listed in activestations.xml; no realtime2 file, station page says No Recent data",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51208",
+     "distanceKm": 37.4
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611401",
+     "name": "Waimea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1611400; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611401",
+     "distanceKm": 13.2
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611347",
+     "name": "Port Allen, Hanapepe Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "harmonic (reference) station; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611347",
+     "distanceKm": 23.4
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1611400",
+     "name": "Nawiliwili",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1611400",
+     "distanceKm": 44.8
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHBK",
+     "name": "KEKAHA",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHBK",
+     "distanceKm": 1.2
+    }
+   ]
+  },
+  {
+   "id": "w-hawaii-kamalino-niihau",
+   "name": "Kamalino, Niihau",
+   "country": "United States",
+   "region": "Hawaii, Niihau",
+   "timeZone": "Pacific/Honolulu",
+   "type": null,
+   "lat": 21.812,
+   "lon": -160.246,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 21.812, -160.246)",
+    "url": "https://www.surfnerd.com/surf-forecast/kamalino-niihau"
+   },
+   "facingSource": {
+    "text": "Surfnerd guide, swell exposure \"SSE - WSW, WSW - NNW (Faces WSW)\"",
+    "url": "https://www.surfnerd.com/surf-forecast/kamalino-niihau"
+   },
+   "facts": {
+    "spotId": "w-hawaii-kamalino-niihau",
+    "name": "Kamalino, Niihau",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kamalino-niihau",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "WSW (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": null,
+    "swellExposure": "SSE to WSW, WSW to NNW (surfnerd)",
+    "idealSwell": null,
+    "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\")",
+    "tide": null,
+    "bottom": null,
+    "waveType": null,
+    "waveDirection": null,
+    "sizeFt": null,
+    "exposure": "not stated",
+    "hazards": [],
+    "season": null,
+    "minimumPeriodS": null,
+    "notes": "Surfnerd overview: Kamalino is a surf break on Niihau. Offshore wind here comes from the west-southwest (WSW) , so a WSW breeze is what you want for cleaner faces."
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51201",
+     "name": "Waimea Bay, HI (106)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 106)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 06:56 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51201",
+     "distanceKm": 220.3
+    },
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 51212",
+     "name": "Barbers Point, Kalaeloa, HI (238)",
+     "owner": "Pacific Islands Ocean Observing System (CDIP station 238)",
+     "live": true,
+     "liveNote": "realtime2 obs 2026-11-09 07:00 UTC",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=51212",
+     "distanceKm": 223.6
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1610367",
+     "name": "Nonopapa, Niihau Island",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1612340; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1610367",
+     "distanceKm": 6.5
+    },
+    {
+     "kind": "tide predictions",
+     "id": "CO-OPS 1611401",
+     "name": "Waimea Bay",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "subordinate station, offsets from 1611400; predictions, not observations",
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=1611401",
+     "distanceKm": 61.3
+    },
+    {
+     "kind": "water level gauge",
+     "id": "CO-OPS 1611400",
+     "name": "Nawiliwili",
+     "owner": "NOAA CO-OPS",
+     "live": true,
+     "liveNote": "latest observation 2026-11-09 07:24 UTC (datagetter date=latest)",
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=1611400",
+     "distanceKm": 93.2
+    },
+    {
+     "kind": "airport METAR",
+     "id": "PHBK",
+     "name": "KEKAHA",
+     "owner": "FAA/NWS ASOS via Iowa Environmental Mesonet",
+     "live": true,
+     "liveNote": "IEM HI_ASOS network online=True",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=HI_ASOS&station=PHBK",
+     "distanceKm": 53.0
+    }
+   ]
   }
  ],
  "dropped": [
   {
-   "name": "Sandy Beach",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/sandy-beach, https://www.surfnerd.com/surf-forecast/sandy-beach-hawaii) gives a swell exposure (ENE - E) but states no facing; also listed by https://www.surf-forecast.com/breaks/Sandys-Beach, https://www.surf-forecast.com/breaks/Sandy-Beach-3, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/sandy_beach/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Popoia Island Kailua",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/popoia-island-kailua) gives a swell exposure (N - E) but states no facing; also listed by https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/Popoia_Island/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Dumps",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/dumps) gives a swell exposure (W - WNW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Dumps-1, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Dumps/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Ka'anapali Point",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/kaanapali-point) gives a swell exposure (S - SW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Kaanapali-Point (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Lahaina Breakwall",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/lahaina-breakwall) gives a swell exposure (SE - SSE) but states no facing; also listed by https://www.surf-forecast.com/breaks/Lahaina-Harbor-Break-Wall, https://www.surf-forecast.com/breaks/Lahaina-Breakwall-Harbour (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Lahaina Harbour",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/lahaina-harbour) gives a swell exposure (S - SW) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Launiupoko",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/launiupoko) gives a swell exposure (SE - SSE) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Little Beach",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/little-beach) gives a swell exposure (S - SW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Little-Beach-1, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/little_beach/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Little Makaha",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/little-makaha) gives a swell exposure (SSW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Little-Makaha_1, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/little_makaha/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Mala Wharf",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/mala-wharf) gives a swell exposure (S - SW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Malawharf, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/mala_wharf/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Olowalu",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/olowalu) gives a swell exposure (SSE) but states no facing; also listed by https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/olowalu/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Rainbows",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/rainbows) gives a swell exposure (SSW - SW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Osterizers-Rainbows (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "S-Turns",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/s-turns) gives a swell exposure (SSW - SW) but states no facing; also listed by https://www.surf-forecast.com/breaks/S-Turns_1 (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Shark Pit",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/shark-pit) gives a swell exposure (SE - SSE) but states no facing; also listed by https://www.surf-forecast.com/breaks/Shark-Pit, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/sharkpit/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "The Cove",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/the-cove-hawaii) gives a swell exposure (S - SSW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Kihei-Cove, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/kihei_cove/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Ukumehame",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/ukumehame) gives a swell exposure (SSE - S) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Halena Beach",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/halena-beach) gives a swell exposure (E - ESE) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
    "name": "Kaunakakai (The Wharf)",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/kaunakakai-the-wharf) gives a swell exposure (SE) but states no facing; also listed by https://www.surf-forecast.com/breaks/The-Wharf-Lefts, https://www.surf-forecast.com/breaks/The-Wharf-Rights (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Kepuhi Bay",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/kepuhi-bay) gives a swell exposure (SW - W) but states no facing; also listed by https://www.surf-forecast.com/breaks/Kepuhi-Beach, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Kepuhi_Beach_-_Molokai/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Lopa Beach",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/lopa-beach) gives a swell exposure (ESE - SE) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Pohakuloa",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/pohakuloa) gives a swell exposure (NE - ENE) but states no facing; no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Infinities",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/infinities) gives a swell exposure (SE - W) but states no facing; also listed by https://www.surf-forecast.com/breaks/Infinities_1 (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Pakala",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/pakala) gives a swell exposure (SSE - W) but states no facing; also listed by https://www.surf-forecast.com/breaks/Pakalas, https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/pakala/index.html (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Majors Bay",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/majors-bay) gives a swell exposure (SSE - WSW) but states no facing; also listed by https://www.surf-forecast.com/breaks/Majors-Bay (no facing there either); no public guide fetched states a facing, so no sourced facing."
-  },
-  {
-   "name": "Kamalino, Niihau",
-   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/kamalino-niihau) gives a swell exposure (SSE - WSW) but states no facing; no public guide fetched states a facing, so no sourced facing."
+   "reason": "Surfnerd (https://www.surfnerd.com/surf-forecast/kaunakakai-the-wharf) gives a swell exposure (SE, S - W) but states no facing; also listed by https://www.surf-forecast.com/breaks/The-Wharf-Lefts, https://www.surf-forecast.com/breaks/The-Wharf-Rights (no facing there either); no public guide fetched states a facing, so no sourced facing."
   },
   {
    "name": "The LineUp at Wai Kai",
@@ -17171,11 +20224,11 @@
   },
   {
    "name": "Bellows (Oahu)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Bellows, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/bellows/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kailua, 6.6 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Bellows, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/bellows/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Popoia Island Kailua, 4.8 km from this guide pin (may overlap)."
   },
   {
    "name": "Big Beach (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Big-Beach, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Big_Beach/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: La Perouse Bay, 5.7 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Big-Beach, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Big_Beach/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Little Beach, 0.5 km from this guide pin (may overlap)."
   },
   {
    "name": "Big Eds (Maui)",
@@ -17207,11 +20260,11 @@
   },
   {
    "name": "Boneyard (Maui)",
-   "reason": "Listed only by wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Boneyard/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 17.0 km from this guide pin (may overlap)."
+   "reason": "Listed only by wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Boneyard/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Lahaina Breakwall, 0.2 km from this guide pin (may overlap)."
   },
   {
    "name": "break wall (Maui)",
-   "reason": "Listed only by wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/break_wall/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 16.8 km from this guide pin (may overlap)."
+   "reason": "Listed only by wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/break_wall/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Lahaina Breakwall, 0.1 km from this guide pin (may overlap)."
   },
   {
    "name": "Browns (Big Island)",
@@ -17307,7 +20360,7 @@
   },
   {
    "name": "Flemming Beach Park (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Flemming-Beach-Park; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 2.4 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Flemming-Beach-Park; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Little Makaha, 1.2 km from this guide pin (may overlap)."
   },
   {
    "name": "flies incinerators (Oahu)",
@@ -17339,7 +20392,7 @@
   },
   {
    "name": "Grandma's (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Grandma-s, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Grandma_s/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Ma'alaea Bay, 4.8 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Grandma-s, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Grandma_s/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Ukumehame, 2.7 km from this guide pin (may overlap)."
   },
   {
    "name": "Graters (Oahu)",
@@ -17363,15 +20416,15 @@
   },
   {
    "name": "Hale O Lono (Molokai)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Hale-O-Lono; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kawa, 12.2 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Hale-O-Lono; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Halena Beach, 8.2 km from this guide pin (may overlap)."
   },
   {
    "name": "Halfpoint/Fullpoint (Oahu)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Halfpoint-Fullpoint; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Makapu’u, 2.6 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Halfpoint-Fullpoint; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Sandy Beach, 0.9 km from this guide pin (may overlap)."
   },
   {
    "name": "Harbors (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Harbors, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Harbors/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 16.5 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Harbors, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Harbors/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Lahaina Harbour, 0.1 km from this guide pin (may overlap)."
   },
   {
    "name": "Haubush (Oahu)",
@@ -17407,7 +20460,7 @@
   },
   {
    "name": "Irmas/Leftpoint (Oahu)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Irmas-Leftpoint; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Makapu’u, 2.7 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Irmas-Leftpoint; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Sandy Beach, 2.2 km from this guide pin (may overlap)."
   },
   {
    "name": "irmas (Oahu)",
@@ -17415,7 +20468,7 @@
   },
   {
    "name": "Ironwood Beach (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Ironwood-Beach, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Ironwood_Beach/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 2.3 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Ironwood-Beach, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Ironwood_Beach/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Little Makaha, 1.2 km from this guide pin (may overlap)."
   },
   {
    "name": "James Kealoha Beach Park (Big Island)",
@@ -17443,7 +20496,7 @@
   },
   {
    "name": "Kamaka'ipo/Egusa's (Molokai)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Kamakaipo; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kawa, 18.0 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Kamakaipo; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Halena Beach, 7.5 km from this guide pin (may overlap)."
   },
   {
    "name": "Kammieland (Oahu)",
@@ -17463,7 +20516,7 @@
   },
   {
    "name": "Kapukahehu/Dixies (Molokai)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Kapukahehu; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kawa, 16.9 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Kapukahehu; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kepuhi Bay, 7.8 km from this guide pin (may overlap)."
   },
   {
    "name": "Kawela (Molokai)",
@@ -17539,7 +20592,7 @@
   },
   {
    "name": "loniopokoh (Maui)",
-   "reason": "Listed only by wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/loniopokoh/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Ma'alaea Bay, 15.9 km from this guide pin (may overlap)."
+   "reason": "Listed only by wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/loniopokoh/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Launiupoko, 0.1 km from this guide pin (may overlap)."
   },
   {
    "name": "Lots (Oahu)",
@@ -17579,7 +20632,7 @@
   },
   {
    "name": "Middles/Generals (Oahu)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Middles-Generals; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Makapu’u, 3.1 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Middles-Generals; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Sandy Beach, 0.4 km from this guide pin (may overlap)."
   },
   {
    "name": "4 Miles (Big Island)",
@@ -17595,7 +20648,7 @@
   },
   {
    "name": "Mushrooms 2 (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Mushrooms-2, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Mushrooms/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 7.3 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Mushrooms-2, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Mushrooms/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: S-Turns, 1.4 km from this guide pin (may overlap)."
   },
   {
    "name": "Nanakuli Blackrocks (Oahu)",
@@ -17691,7 +20744,7 @@
   },
   {
    "name": "Pipelittle (Oahu)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Pipelittle; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Makapu’u, 2.4 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Pipelittle; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Sandy Beach, 0.8 km from this guide pin (may overlap)."
   },
   {
    "name": "Point North (Maui)",
@@ -17727,7 +20780,7 @@
   },
   {
    "name": "Puamana (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Puamana, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/puamana/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Honolua Bay, 17.7 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Puamana, wannasurf https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/puamana/index.html; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Shark Pit, 0.9 km from this guide pin (may overlap)."
   },
   {
    "name": "Punaluu (Big Island)",
@@ -17891,7 +20944,7 @@
   },
   {
    "name": "The Cove (Maui)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/The-Cove_3; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Ma'alaea Bay, 8.8 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/The-Cove_3; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: The Cove, 0.9 km from this guide pin (may overlap)."
   },
   {
    "name": "The Cove (Oahu)",
@@ -17911,7 +20964,7 @@
   },
   {
    "name": "Tunnels (Molokai)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Tunnels_1; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kawa, 15.3 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Tunnels_1; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kepuhi Bay, 5.9 km from this guide pin (may overlap)."
   },
   {
    "name": "turtle bay (Maui)",
@@ -17955,7 +21008,7 @@
   },
   {
    "name": "Waimea Rivermouth (Kauai)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Waimea-Rivermouth; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Davidson Point, 3.5 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Waimea-Rivermouth; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Pakala, 2.5 km from this guide pin (may overlap)."
   },
   {
    "name": "Waipio Bay (Big Island)",
@@ -17971,7 +21024,7 @@
   },
   {
    "name": "Wraps (Oahu)",
-   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Wraps; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Kailua, 4.5 km from this guide pin (may overlap)."
+   "reason": "Listed only by surf-forecast https://www.surf-forecast.com/breaks/Wraps; these guides give swell and wind directions but no facing, and Surfnerd has no page for it, so no sourced facing. Nearest catalogued spot: Popoia Island Kailua, 2.0 km from this guide pin (may overlap)."
   },
   {
    "name": "zombies (Oahu)",
