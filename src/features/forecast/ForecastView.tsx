@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react';
+import {Fragment, useEffect, useMemo, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
@@ -36,6 +36,8 @@ function Sources() {
 }
 
 const CHART_TABS: [ChartTab, string][] = [['surf', 'Surf'], ['swell', 'Swell'], ['wind', 'Wind'], ['tide', 'Tide']];
+/** Stacked chart heights by need (px, including the shared axes the chart carries): Surf has the day labels and rating strip, Tide the hour labels. */
+const STACK_H: Record<ChartTab, number> = {surf: 250, swell: 170, wind: 140, tide: 130}, STACK_H_PHONE: Record<ChartTab, number> = {surf: 210, swell: 140, wind: 120, tide: 115};
 
 export function ForecastView({go}: ViewProps) {
   const {view, data, now, spot, series, selected, live} = useSwello();
@@ -150,20 +152,24 @@ export function ForecastView({go}: ViewProps) {
           </> : <span className="fine">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)} · every 3 hours · wind coloured by shore relation</span>}
         </div>
         {mode === 'graph' ? <>
-          {/* user, 2026-11-08: the four series stacked (scroll to see all), not a toggle; one shared time axis and selection */}
+          {/* user, 2026-11-08: the four series stacked, tidied (docs/specs/2026-11-08-stacked-charts-tidy.md): day labels once on top, hours once at the bottom,
+              one rating strip under Surf, heights by need, flush so the selected-hour line runs through all four */}
+          <div className="sp-stack">
           {CHART_TABS.map(([tab, label]) => (
-            <section key={tab} className="sp-series" aria-labelledby={`chart-${tab}`}>
-              <h3 id={`chart-${tab}`} className="sp-series-h">{label}</h3>
-              <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={narrow ? 190 : 220} />
-              <ul className="legend" aria-hidden="true">
+            <section key={tab} className="sp-series" aria-label={`${label} chart`}>
+              <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={(narrow ? STACK_H_PHONE : STACK_H)[tab]} title={label} showDays={tab === 'surf'} showRibbon={tab === 'surf'} showHours={tab === 'tide'} stacked />
+            </section>
+          ))}
+          </div>
+          <ul className="legend" aria-hidden="true">
+          {CHART_TABS.map(([tab]) => <Fragment key={tab}>
             {tab === 'surf' && <>{hasEstimates && <><li><i style={{background: 'var(--hs-hi)', opacity: 0.45, height: 8}} />Surf estimate (range)</li><li><i style={{background: 'var(--hs-hi)', height: 0, borderTop: '2px solid var(--hs-hi)'}} />Middle of the range</li><li><i className="lg-sure" />Fainter: less certain</li>{band.some((b) => b.wide) && <li><i className="lg-wide" />Could be (models differ)</li>}{band.some((b) => b.certainty === 'too-far') && <li><i className="lg-far" />Too far out to call</li>}</>}<li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />{hasEstimates ? 'Offshore Hs' : 'Offshore Hs · not surf size'}</li></>}
             {tab === 'swell' && <><li><i style={{background: 'var(--sw1)'}} />Primary swell · period in s</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li>{series.some((h) => h.forecast.tertiary) && <li><i style={{background: 'var(--sw3)'}} />Third swell</li>}<li>▲ arrows show where each swell travels</li></>}
             {tab === 'wind' && <><li><i style={{background: 'var(--accent)'}} />Wind speed</li><li><i style={{background: 'var(--muted)'}} />Gusts</li><li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to 24+ mph</li></>}
             {tab === 'tide' && <li><i style={{background: 'var(--tide)'}} />Predicted tide, MLLW</li>}
             {tab === 'surf' && <><li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li></>}
+          </Fragment>)}
           </ul>
-            </section>
-          ))}
         </> : <HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />}
       </section>
 

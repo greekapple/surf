@@ -51,6 +51,8 @@ export interface TimelineProps {
   hourWindow?: boolean;
   /** T-065: the surf estimate per hour (same engine as the SURF card); the surf tab plots it, offshore Hs is a thin secondary line. */
   band?: SurfBandPoint[];
+  /** Stacked forecast (2026-11-08): this chart's name drawn inside it, which shared axes it carries, and a selection line / night shading that run edge to edge so stacked charts read as one. */
+  title?: string; showDays?: boolean; showHours?: boolean; showRibbon?: boolean; stacked?: boolean;
 }
 const niceStep = (range: number) => [0.5, 1, 2, 5, 10, 20].find((s) => range / s <= 5) ?? 20;
 const signed = (v: number, p: UserProfile) => `${v < 0 ? '-' : '+'}${ht(Math.abs(v), p)}`;
@@ -59,7 +61,7 @@ const TIP_W = 236;
 /** T-119: the swell components drawn on the Swell tab, each its own colour. */
 const SWELLS = [{k: 'primary', cls: 'sw1'}, {k: 'secondary', cls: 'sw2'}, {k: 'tertiary', cls: 'sw3'}] as const;
 
-export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300, tab = 'surf', hourWindow = false, band}: TimelineProps) {
+export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now, dayIndex, extrema, height = 300, tab = 'surf', hourWindow = false, band, title, showDays = true, showHours = true, showRibbon = true, stacked = false}: TimelineProps) {
   const body = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(900);
   const [hover, setHover] = useState<{i: number; x: number; y: number} | null>(null);
@@ -76,7 +78,8 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const [a, b] = useAnimatedRange(target);
   const G = 44, PAD = 14, inner = W - G - PAD, pxh = inner / (b - a);
   const X = (i: number) => G + (i - a) * pxh;
-  const PT = 30, PB = height - 62, RB = height - 36;
+  const PT = (showDays ? 30 : 12) + (title ? 12 : 0), RB = showRibbon ? (showHours ? height - 36 : height - 12) : (showHours ? height - 24 : height - 2), PB = RB - (showRibbon || tab === 'wind' ? 26 : 8);
+  const top = stacked ? 0 : PT - 8, bottom = stacked ? (showHours ? height - 20 : height) : RB; // night shading / day lines / selection span the whole chart when stacked
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
@@ -175,11 +178,11 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
             const {rise, set} = sunTimes(d.t, lat, lon);
             const prev = sunTimes(new Date(Date.parse(d.t) - 86400000).toISOString(), lat, lon).set;
             return <g key={d.key}>
-              <rect x={XT(prev)} y={PT - 8} width={Math.max(0, XT(rise) - XT(prev))} height={RB - PT + 8} fill="var(--ch-night)" />
-              {k === days.length - 1 && <rect x={XT(set)} y={PT - 8} width={inner} height={RB - PT + 8} fill="var(--ch-night)" />}
-              <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={RB + 8} />
+              <rect x={XT(prev)} y={top} width={Math.max(0, XT(rise) - XT(prev))} height={bottom - top} fill="var(--ch-night)" />
+              {k === days.length - 1 && <rect x={XT(set)} y={top} width={inner} height={bottom - top} fill="var(--ch-night)" />}
+              <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={stacked ? bottom : RB + 8} />
               {(() => { const room = X(d.end + 0.5) - Math.max(X(d.start - 0.5), G); // T-109: phones get the short day name instead of none
-                return room > 70 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>
+                return !showDays ? null : room > 70 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>
                   : room > 30 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 4} y={14}>{weekdayPT(d.t)}</text> : null; })()}
             </g>;
           })}
@@ -254,15 +257,16 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               })}
             </> : <text className="tl-ax" x={G + inner / 2} y={(PT + PB) / 2} textAnchor="middle">No tide station near this spot yet</text>)}
           </g>
-          {vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={Math.max(0, pxh + 0.5)} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
-          {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={PT - 8} y2={RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
-          {vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
+          {showRibbon && vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={Math.max(0, pxh + 0.5)} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
+          {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
+          {showHours && vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
           {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={PT - 8} y2={RB + 2} stroke="var(--ch-hover)" />
             <circle cx={X(hover.i)} cy={Y(val(series[hover.i]))} r={3.5} fill="var(--bg)" stroke="var(--ch-ink)" strokeWidth={1.75} /></g>}
         </g>
-        <text className="tl-row" x={0} y={RB + 5}>Rating</text>
+        {showRibbon && <text className="tl-row" x={0} y={RB + 5}>Rating</text>}
+        {title && <text className="tl-title" x={G + 6} y={(showDays ? 30 : 12) + 1}>{title}</text>}
         <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
-          <line y1={PT - 8} y2={RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
+          <line y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
           <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : surfBand ? 'var(--hs-hi)' : 'var(--muted)'} strokeWidth={2.5} />
         </g>
       </svg>
