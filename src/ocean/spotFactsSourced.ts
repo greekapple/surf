@@ -2887,6 +2887,1370 @@ export const guideFacts: GuideFacts[] = [
   "exposure": "not stated",
   "hazards": [],
   "notes": "One public guide only (surf-forecast has no Andrew Molera page). Surfnerd calls it a rivermouth right over boulders (the Big Sur River mouth). Position is the surfnerd pin; the OSM park relation's point is about 2.5 km inland."
+ },
+ {
+  "spotId": "cs-cayucos",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cayucos-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cayucos",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cayucos-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Cayucos",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (both)",
+  "windOffshore": "NNE (surfnerd); NE (surf-forecast); wind exposure NNW to ENE (surfnerd)",
+  "tide": "Mid, High (surfnerd); Best around high tide when the tide is rising (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "sharks (surf-forecast)",
+   "unlikely to be too crowded, even when the surf is up (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-shell-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shell-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shell Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "not stated",
+  "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+  "tide": "Low, Mid (surfnerd)",
+  "bottom": "rock (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 6
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surfnerd); no surf-forecast page found."
+ },
+ {
+  "spotId": "cs-campus-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/campus-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Campus Point",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Campus-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Campus Point",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "NNW (surfnerd); wind exposure WNW to NNE (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around low tide (surf-forecast)",
+  "bottom": "rock ledge (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "rocks (surf-forecast)",
+   "when the surf is up, crowds are likely (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-sands",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sands-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sands (Isla Vista)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Devereux",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sands (Isla Vista)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "NNE (surfnerd); NE (surf-forecast); wind exposure NNW to ENE (surfnerd)",
+  "tide": "Mid, High (surfnerd); Best around mid tide (surf-forecast)",
+  "bottom": "uneven reef, sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "when the surf is up, crowds are likely (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-leadbetter",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/leadbetter-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Leadbetter",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Leadbetter",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Leadbetter",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "NNW (surfnerd); N (surf-forecast); wind exposure WNW to NNE (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around low tide (surf-forecast)",
+  "bottom": "rock ledge, sand (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 1,
+   "max": 10
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "rips (surf-forecast)",
+   "rocks (surf-forecast)",
+   "often Crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-hammonds",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hammonds",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hammond's",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hammonds-Reef",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Hammond's",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+  "tide": "Mid, High (surfnerd); Best around mid tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "private (surf-forecast)",
+   "locals (surf-forecast)",
+   "when the surf is up, crowds are likely (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-emma-wood",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/emma-wood",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Emma Wood",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Emma-Wood-State-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Emma Wood",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to S, SSW to SW, WSW to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSE to WNW (surfnerd)",
+   "fromDeg": 157.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around mid tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 4,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks in the line up (surf-forecast)",
+   "when the surf is up, crowds are likely (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-mondos",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/mondos",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Mondos",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Mondos",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Mondos",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to S, S to SSW, SW to WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW to WNW (surfnerd)",
+   "fromDeg": 247.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "N (surfnerd); NNW (surf-forecast); wind exposure NW to NE (surfnerd)",
+  "tide": "Low, Mid (surfnerd)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2,
+   "max": 5
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "when the surf is up, it can get quite busy in the water (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-silver-strand",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/silver-strand",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Silver Strand (Oxnard)",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Silver-Strand",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Silver Strand (Oxnard)",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to SW, WSW to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); WNW (surf-forecast)",
+  "windOffshore": "NE (surfnerd); E (surf-forecast); wind exposure N to E (surfnerd)",
+  "tide": "Low, Mid (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins (surf-forecast)",
+   "rips (surf-forecast)",
+   "pollution (surf-forecast)",
+   "when it's working here, it can get crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-leo-carrillo",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/leo-carrillo-state-beach-secos-arroyo-sequit",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Leo Carrillo",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE to WSW",
+   "fromDeg": 112.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (surfnerd)",
+  "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+  "tide": "Mid (best at Mid, better on rising) (surfnerd)",
+  "bottom": "boulders (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surfnerd); no surf-forecast page found."
+ },
+ {
+  "spotId": "cs-sunset-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sunset-boulevard",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sunset Point",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sunset-Boulevard",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sunset Point",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to W",
+   "fromDeg": 157.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (surfnerd); W (surf-forecast)",
+  "windOffshore": "N (both); wind exposure NW to NE (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around low tide (surf-forecast)",
+  "bottom": "boulders (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 1,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "locals (surf-forecast)",
+   "rips (surf-forecast)",
+   "it very rarely gets crowded here (surf-forecast)"
+  ],
+  "notes": "Both guides list it as Sunset Boulevard (Pacific Palisades)."
+ },
+ {
+  "spotId": "cs-venice-breakwater",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/venice-breakwater-and-venice-jetty",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Venice Breakwater",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Venice-Breakwater",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Venice Breakwater",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "WNW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
+  "tide": "Low (best at Low, better on rising) (surfnerd); Best around low tide when the tide is falling (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "locals (surf-forecast)",
+   "rips (surf-forecast)",
+   "sometimes crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-manhattan-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/manhattan-beach-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Manhattan Beach",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Manhattan-Beach-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Manhattan Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to WNW",
+   "fromDeg": 202.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW to W (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "often Crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-redondo-breakwater",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/redondo-beach-breakwater",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Redondo Breakwater",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Redondo-The-Breakwater",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Redondo Breakwater",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to WNW",
+   "fromDeg": 225,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); WNW (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around low tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "man-made danger (buoys etc (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-bolsa-chica",
+  "sources": [
+   {
+    "url": "https://www.surf-forecast.com/breaks/Bolsa-Chica",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Bolsa Chica",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/bolsa-chica-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bolsa Chica",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "NE (surf-forecast)",
+  "tide": "not stated",
+  "bottom": null,
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "sheltered",
+  "hazards": [
+   "rips (surf-forecast)",
+   "locals (surf-forecast)",
+   "pollution (surf-forecast)",
+   "sometimes crowded (surf-forecast)"
+  ],
+  "notes": "Surfnerd's Bolsa Chica page is an older layout with no size, tide or season block: from it only the facing (Faces SW) and the swell exposure SE to SSW, WSW to W are taken. Surfnerd's page lists workable wind 'SW (offshore from SW)', which contradicts its own wind exposure (offshore from NE) for a SW-facing beach; the SW offshore claim is not used."
+ },
+ {
+  "spotId": "cs-blackies",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/blackies",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Blackies",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Blackies",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Blackies",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to SW, WSW to WNW",
+   "fromDeg": 135,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (both)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
+  "tide": "Low (best at Low, better on rising) (surfnerd); Best around low tide when the tide is rising (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "the strong rips here (surf-forecast)",
+   "it's often crowded here (surf-forecast)"
+  ],
+  "notes": "Blackies is the break on the north side of Newport Pier."
+ },
+ {
+  "spotId": "cs-doheny",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/doheny-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Doheny",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to SW",
+   "fromDeg": 135,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to SW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "S (surfnerd)",
+  "windOffshore": "N (surfnerd); wind exposure NW to NE (surfnerd)",
+  "tide": "Low, Mid (surfnerd)",
+  "bottom": "uneven reef, sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 5
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surfnerd); no surf-forecast page found."
+ },
+ {
+  "spotId": "cs-san-clemente-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/san-clemente-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: San Clemente Pier",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/San-Clemente-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: San Clemente Pier",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (both)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
+  "tide": "Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "locals (surf-forecast)",
+   "it's often crowded here (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-t-street",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/t-street",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: T-Street",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/T-Street",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: T-Street",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to WNW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "NE (both); wind exposure N to E (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "it's sometimes crowded here (surf-forecast)"
+  ],
+  "notes": "0.5 km south of San Clemente Pier; the map pin rule hides one of them at wide zooms."
+ },
+ {
+  "spotId": "cs-san-onofre",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/san-onofre-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: San Onofre",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/San-Onofre",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: San Onofre",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (surf-forecast)",
+  "windOffshore": "NE (surfnerd); wind exposure N to E (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Best around low tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks in the line up (surf-forecast)",
+   "when it's working here, it can get crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-oceanside-harbor",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/oceanside-harbor",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Oceanside Harbor",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Oceanside-Harbor",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Oceanside Harbor",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to WNW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); NE (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Best around high tide (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "obstacles (surf-forecast)",
+   "private (surf-forecast)",
+   "locals (surf-forecast)",
+   "pollution (surf-forecast)",
+   "sharks (surf-forecast)",
+   "often Crowded (surf-forecast)"
+  ],
+  "notes": "Surf-forecast's pin (33.256, -117.437) is 6 km north of the harbour; the guide text is used, not its position. About 1.3 km north of the Oceanside pier spot."
+ },
+ {
+  "spotId": "cs-tamarack",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tamarack-avenue",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Tamarack",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Tamarack-st",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Tamarack",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surfnerd); W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); NE (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Best around low tide when the tide is rising (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "very strong rips / undertow (surf-forecast)",
+   "rocks (surf-forecast)",
+   "often Crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-ponto",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ponto",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ponto",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Ponto",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Ponto",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); SW (surf-forecast)",
+  "windOffshore": "NE (surfnerd); ENE (surf-forecast); wind exposure N to E (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "pollution (surf-forecast)",
+   "likely to be crowded if working (surf-forecast)"
+  ],
+  "notes": "Surf-forecast's Ponto pin (33.145, -117.345) is 6 km north of the surfnerd pin; the guide text is used, not its position."
+ },
+ {
+  "spotId": "cs-beacons",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/beacons-leucadia",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Beacons",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Beacons",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Beacons",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "ENE (surfnerd); E (surf-forecast); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide (surf-forecast)",
+  "bottom": "boulders, sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "it's often crowded here (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-seaside-reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/seaside-reef",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Seaside Reef",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Seaside-Reef",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Seaside Reef",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to WNW (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 292.5
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around mid tide when the tide is falling (surf-forecast)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "often Crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-torrey-pines",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/torrey-pines-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Torrey Pines",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Torrey-Pines-State-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Torrey Pines",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to NNW",
+   "fromDeg": 202.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); WNW (surf-forecast)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd); Best around high tide (surf-forecast)",
+  "bottom": "rock ledge, sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "when it's working here, it can get crowded (surf-forecast)"
+  ],
+  "notes": ""
+ },
+ {
+  "spotId": "cs-scripps",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/scripps-pier-la-jolla-shores",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Scripps",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Scripps-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Scripps",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NNW",
+   "fromDeg": 225,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "NW (surfnerd); WNW (surf-forecast)",
+  "windOffshore": "ESE (surfnerd); SE (surf-forecast); wind exposure ENE to SSE (surfnerd)",
+  "tide": "Mid (best at Mid, better on rising) (surfnerd); Best around mid tide when the tide is rising (surf-forecast)",
+  "bottom": "sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips (surf-forecast)",
+   "obstacles (surf-forecast)",
+   "sometimes crowded (surf-forecast)"
+  ],
+  "notes": "Both guides list it as Scripps Pier / La Jolla Shores. North of La Jolla Shores, south of Black's Beach."
+ },
+ {
+  "spotId": "cs-pacific-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pacific-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pacific Beach",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW to WNW (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": "not stated",
+  "windOffshore": "ENE (surfnerd); wind exposure NNE to ESE (surfnerd)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "sand, rock (surfnerd)",
+  "waveType": null,
+  "sizeFt": {
+   "min": 3,
+   "max": 6
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "One public guide only (surfnerd); no surf-forecast page found."
+ },
+ {
+  "spotId": "cs-sunset-cliffs",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sunset-cliffs",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sunset Cliffs",
+    "retrievedOn": "2026-11-08"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sunset-Cliffs",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sunset Cliffs",
+    "retrievedOn": "2026-11-08"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to NNW",
+   "fromDeg": 202.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW to WNW (surfnerd)",
+   "fromDeg": 247.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": "W (surf-forecast)",
+  "windOffshore": "E (both); wind exposure NE to SE (surfnerd)",
+  "tide": "Low, Mid (surfnerd); Best around low tide (surf-forecast)",
+  "bottom": "rock (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins (surf-forecast)",
+   "rips (surf-forecast)",
+   "rocks (surf-forecast)",
+   "obstacles (surf-forecast)",
+   "locals (surf-forecast)",
+   "pollution (surf-forecast)",
+   "likely to be crowded if working (surf-forecast)"
+  ],
+  "notes": ""
  }
 ];
 export const guideFactsFor = (spotId: string) => guideFacts.find((f) => f.spotId === spotId) ?? null;

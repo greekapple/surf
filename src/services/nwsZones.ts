@@ -37,7 +37,7 @@ export const NWS_ZONE: Record<string, string | null> = {
   'cs-topanga': null, // marine zone PZZ655: no land beach-hazard zone resolved
   'cs-el-porto': "CAZ366",
   'cs-hermosa': "CAZ366",
-  'cs-huntington': null, // marine zone PZZ655: no land beach-hazard zone resolved
+  'cs-huntington': "CAZ552", // the beach point resolves to marine zone PZZ655; CAZ552 (Orange County Coastal) is api.weather.gov/points about 0.8 km inland, checked 2026-11-09
   'cs-wedge': null, // marine zone PZZ655: no land beach-hazard zone resolved
   'cs-salt-creek': null, // marine zone PZZ655: no land beach-hazard zone resolved
   'cs-trestles': "CAZ043",
@@ -62,6 +62,35 @@ export const NWS_ZONE: Record<string, string | null> = {
   'cs-natural-bridges': "CAZ529",
   'cs-marina': "CAZ530",
   'cs-andrew-molera': null, // marine zone PZZ565: no land beach-hazard zone resolved
+  'cs-cayucos': null, // marine zone PZZ645: no land beach-hazard zone resolved
+  'cs-shell-beach': null, // marine zone PZZ645: no land beach-hazard zone resolved
+  'cs-hammonds': null, // marine zone PZZ650: no land beach-hazard zone resolved
+  'cs-sands': null, // marine zone PZZ650: no land beach-hazard zone resolved
+  'cs-campus-point': "CAZ350",
+  'cs-leadbetter': "CAZ350",
+  'cs-mondos': null, // marine zone PZZ650: no land beach-hazard zone resolved
+  'cs-emma-wood': "CAZ354",
+  'cs-silver-strand': null, // marine zone PZZ650: no land beach-hazard zone resolved
+  'cs-leo-carrillo': "CAZ362",
+  'cs-sunset-point': null, // marine zone PZZ655: no land beach-hazard zone resolved
+  'cs-venice-breakwater': null, // marine zone PZZ655: no land beach-hazard zone resolved
+  'cs-manhattan-beach': null, // marine zone PZZ655: no land beach-hazard zone resolved
+  'cs-redondo-breakwater': null, // marine zone PZZ655: no land beach-hazard zone resolved
+  'cs-bolsa-chica': "CAZ552",
+  'cs-blackies': null, // marine zone PZZ655: no land beach-hazard zone resolved
+  'cs-doheny': "CAZ552", // the beach point resolves to marine zone PZZ655; CAZ552 (Orange County Coastal) is api.weather.gov/points about 0.8 km inland, checked 2026-11-09
+  'cs-san-clemente-pier': "CAZ552", // the beach point resolves to marine zone PZZ655; CAZ552 (Orange County Coastal) is api.weather.gov/points about 0.8 km inland, checked 2026-11-09
+  'cs-t-street': "CAZ552", // the beach point resolves to marine zone PZZ655; CAZ552 (Orange County Coastal) is api.weather.gov/points about 0.8 km inland, checked 2026-11-09
+  'cs-san-onofre': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-oceanside-harbor': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-tamarack': "CAZ043",
+  'cs-ponto': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-beacons': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-seaside-reef': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-torrey-pines': "CAZ043",
+  'cs-scripps': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-pacific-beach': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'cs-sunset-cliffs': null, // marine zone PZZ740: no land beach-hazard zone resolved
 };
 
 /** Spots whose own point falls in a marine zone borrow the coastal zone of the nearest zoned spot, only when it is within 15 km (the same stretch of coast). Marked approximate in the UI text; farther spots have no zone. */
@@ -79,6 +108,22 @@ export const NWS_ZONE_APPROX: Record<string, {zone: string; viaSpot: string; km:
   'cs-princeton-jetty': {zone: 'CAZ509', viaSpot: 'cs-half-moon-bay', km: 2.3}, // Princeton Jetty -> Half Moon Bay (Dunes Beach)
   'cs-pescadero': {zone: 'CAZ509', viaSpot: 'cs-pigeon-point', km: 8.8}, // Pescadero State Beach -> Pigeon Point
   'cs-capitola': {zone: 'CAZ529', viaSpot: 'spot-7', km: 6.4}, // Capitola -> Cowell’s
+  'cs-shell-beach': {zone: 'CAZ340', viaSpot: 'cs-pismo', km: 5}, // Shell Beach -> Pismo Beach Pier
+  'cs-hammonds': {zone: 'CAZ350', viaSpot: 'cs-leadbetter', km: 6.1}, // Hammond's -> Leadbetter
+  'cs-sands': {zone: 'CAZ350', viaSpot: 'cs-campus-point', km: 3.5}, // Sands (Isla Vista) -> Campus Point
+  'cs-mondos': {zone: 'CAZ354', viaSpot: 'cs-emma-wood', km: 6.4}, // Mondos -> Emma Wood
+  'cs-sunset-point': {zone: 'CAZ362', viaSpot: 'cs-malibu', km: 11.5}, // Sunset Point -> Malibu (Surfrider)
+  'cs-venice-breakwater': {zone: 'CAZ366', viaSpot: 'cs-el-porto', km: 10.7}, // Venice Breakwater -> El Porto
+  'cs-manhattan-beach': {zone: 'CAZ366', viaSpot: 'cs-el-porto', km: 2}, // Manhattan Beach -> El Porto
+  'cs-redondo-breakwater': {zone: 'CAZ366', viaSpot: 'cs-hermosa', km: 1.2}, // Redondo Breakwater -> Hermosa Pier
+  'cs-san-onofre': {zone: 'CAZ043', viaSpot: 'cs-trestles', km: 2.4}, // San Onofre -> Trestles
+  'cs-oceanside-harbor': {zone: 'CAZ043', viaSpot: 'cs-tamarack', km: 7.3}, // Oceanside Harbor -> Tamarack
+  'cs-ponto': {zone: 'CAZ043', viaSpot: 'cs-swamis', km: 6.3}, // Ponto -> Swami’s
+  'cs-beacons': {zone: 'CAZ043', viaSpot: 'cs-swamis', km: 3.4}, // Beacons -> Swami’s
+  'cs-seaside-reef': {zone: 'CAZ043', viaSpot: 'cs-swamis', km: 3.8}, // Seaside Reef -> Swami’s
+  'cs-scripps': {zone: 'CAZ043', viaSpot: 'cs-blacks', km: 2.5}, // Scripps -> Black’s Beach
+  'cs-pacific-beach': {zone: 'CAZ043', viaSpot: 'cs-ob-sd', km: 5.4}, // Pacific Beach -> Ocean Beach (San Diego)
+  'cs-sunset-cliffs': {zone: 'CAZ043', viaSpot: 'cs-ob-sd', km: 2.8}, // Sunset Cliffs -> Ocean Beach (San Diego)
 };
 export interface ZoneInfo {zone: string; approx: boolean; viaSpot?: string}
 export function zoneFor(spotId: string): ZoneInfo | null {

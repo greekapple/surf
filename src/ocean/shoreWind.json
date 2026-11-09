@@ -1,9 +1,9 @@
 {
- "builtAt": "2026-11-09T06:24:49.754Z",
+ "builtAt": "2026-11-09T07:35:21.459Z",
  "maxKm": 4,
  "windowDays": 7,
  "rule": "The nearest fixed NDBC/NOS met station or California airport ASOS within 4 km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last 7 days at build time. No latitude band. A spot with no such station shows no measured wind.",
- "spotsChecked": 59,
+ "spotsChecked": 88,
  "assignments": [
   {
    "spotId": "spot-4",
@@ -54,6 +54,18 @@
    "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
   },
   {
+   "spotId": "cs-campus-point",
+   "spotName": "Campus Point",
+   "stationId": "SBA",
+   "stationName": "SANTA BARBARA MUNI",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 34.4261,
+   "lon": -119.8436,
+   "distanceKm": 2.3,
+   "url": "https://api.weather.gov/stations/KSBA/observations?limit=6"
+  },
+  {
    "spotId": "cs-blacks",
    "spotName": "Black’s Beach",
    "stationId": "LJAC1",
@@ -63,6 +75,18 @@
    "lat": 32.867,
    "lon": -117.257,
    "distanceKm": 2.5,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
+  },
+  {
+   "spotId": "cs-scripps",
+   "spotName": "Scripps",
+   "stationId": "LJAC1",
+   "stationName": "9410230 - La Jolla, CA",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 32.867,
+   "lon": -117.257,
+   "distanceKm": 0.1,
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
   },
   {

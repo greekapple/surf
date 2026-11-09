@@ -4265,6 +4265,2123 @@
     }
    ],
    "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-cayucos",
+   "name": "Cayucos",
+   "lat": 35.448,
+   "lon": -120.907,
+   "nearest": [
+    {
+     "id": "SL397",
+     "lat": 35.43385,
+     "lon": -120.91185,
+     "depthM": 15,
+     "shoreNormalDeg": 216.92,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL401",
+     "lat": 35.43385,
+     "lon": -120.91185,
+     "depthM": 15,
+     "shoreNormalDeg": 190.21,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL398",
+     "lat": 35.43385,
+     "lon": -120.91185,
+     "depthM": 15,
+     "shoreNormalDeg": 209.85,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL399",
+     "lat": 35.43385,
+     "lon": -120.91185,
+     "depthM": 15,
+     "shoreNormalDeg": 203.52,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL402",
+     "lat": 35.43417,
+     "lon": -120.91286,
+     "depthM": 15,
+     "shoreNormalDeg": 188.52,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL400",
+     "lat": 35.43385,
+     "lon": -120.91185,
+     "depthM": 15,
+     "shoreNormalDeg": 196.65,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL406",
+     "lat": 35.43527,
+     "lon": -120.91588,
+     "depthM": 15,
+     "shoreNormalDeg": 171.49,
+     "distanceKm": 1.63
+    },
+    {
+     "id": "SL407",
+     "lat": 35.43691,
+     "lon": -120.91936,
+     "depthM": 15.01,
+     "shoreNormalDeg": 175.51,
+     "distanceKm": 1.67
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-shell-beach",
+   "name": "Shell Beach",
+   "lat": 35.162,
+   "lon": -120.69,
+   "nearest": [
+    {
+     "id": "SL120",
+     "lat": 35.15008,
+     "lon": -120.69682,
+     "depthM": 15,
+     "shoreNormalDeg": 221.51,
+     "distanceKm": 1.46
+    },
+    {
+     "id": "SL121",
+     "lat": 35.15203,
+     "lon": -120.70238,
+     "depthM": 15,
+     "shoreNormalDeg": 232.99,
+     "distanceKm": 1.58
+    },
+    {
+     "id": "SL122",
+     "lat": 35.15245,
+     "lon": -120.70344,
+     "depthM": 15,
+     "shoreNormalDeg": 229.51,
+     "distanceKm": 1.62
+    },
+    {
+     "id": "SL123",
+     "lat": 35.15274,
+     "lon": -120.7038,
+     "depthM": 15,
+     "shoreNormalDeg": 224.6,
+     "distanceKm": 1.62
+    },
+    {
+     "id": "SL124",
+     "lat": 35.15448,
+     "lon": -120.70584,
+     "depthM": 15.02,
+     "shoreNormalDeg": 227.02,
+     "distanceKm": 1.67
+    },
+    {
+     "id": "SL126",
+     "lat": 35.15692,
+     "lon": -120.70753,
+     "depthM": 15,
+     "shoreNormalDeg": 223.5,
+     "distanceKm": 1.69
+    },
+    {
+     "id": "SL119",
+     "lat": 35.14699,
+     "lon": -120.69351,
+     "depthM": 15,
+     "shoreNormalDeg": 211.88,
+     "distanceKm": 1.7
+    },
+    {
+     "id": "SL125",
+     "lat": 35.15622,
+     "lon": -120.70728,
+     "depthM": 15,
+     "shoreNormalDeg": 228.03,
+     "distanceKm": 1.7
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-campus-point",
+   "name": "Campus Point",
+   "lat": 34.405,
+   "lon": -119.844,
+   "nearest": [
+    {
+     "id": "B0382",
+     "lat": 34.40266,
+     "lon": -119.84179,
+     "depthM": 10,
+     "shoreNormalDeg": 137.95,
+     "distanceKm": 0.33
+    },
+    {
+     "id": "B0381",
+     "lat": 34.40406,
+     "lon": -119.83949,
+     "depthM": 10.01,
+     "shoreNormalDeg": 113.54,
+     "distanceKm": 0.43
+    },
+    {
+     "id": "B0383",
+     "lat": 34.40099,
+     "lon": -119.84525,
+     "depthM": 9.99,
+     "shoreNormalDeg": 186.89,
+     "distanceKm": 0.46
+    },
+    {
+     "id": "B0380",
+     "lat": 34.40464,
+     "lon": -119.83801,
+     "depthM": 10.01,
+     "shoreNormalDeg": 112,
+     "distanceKm": 0.55
+    },
+    {
+     "id": "B0384",
+     "lat": 34.401,
+     "lon": -119.84813,
+     "depthM": 9.99,
+     "shoreNormalDeg": 206.98,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "B0379",
+     "lat": 34.40527,
+     "lon": -119.83669,
+     "depthM": 9.99,
+     "shoreNormalDeg": 110.98,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "B0385",
+     "lat": 34.40094,
+     "lon": -119.84933,
+     "depthM": 10,
+     "shoreNormalDeg": 206.53,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "B0386",
+     "lat": 34.40096,
+     "lon": -119.85054,
+     "depthM": 10,
+     "shoreNormalDeg": 206.53,
+     "distanceKm": 0.75
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-sands",
+   "name": "Sands (Isla Vista)",
+   "lat": 34.408,
+   "lon": -119.882,
+   "nearest": [
+    {
+     "id": "B0419",
+     "lat": 34.40646,
+     "lon": -119.88541,
+     "depthM": 10,
+     "shoreNormalDeg": 232.53,
+     "distanceKm": 0.36
+    },
+    {
+     "id": "B0418",
+     "lat": 34.40533,
+     "lon": -119.88435,
+     "depthM": 10.03,
+     "shoreNormalDeg": 226.02,
+     "distanceKm": 0.37
+    },
+    {
+     "id": "B0420",
+     "lat": 34.40755,
+     "lon": -119.88634,
+     "depthM": 10.01,
+     "shoreNormalDeg": 238.04,
+     "distanceKm": 0.4
+    },
+    {
+     "id": "B0417",
+     "lat": 34.40449,
+     "lon": -119.88361,
+     "depthM": 10.01,
+     "shoreNormalDeg": 224.44,
+     "distanceKm": 0.42
+    },
+    {
+     "id": "B0421",
+     "lat": 34.40833,
+     "lon": -119.88687,
+     "depthM": 10.02,
+     "shoreNormalDeg": 237.98,
+     "distanceKm": 0.45
+    },
+    {
+     "id": "B0416",
+     "lat": 34.40334,
+     "lon": -119.88145,
+     "depthM": 9.99,
+     "shoreNormalDeg": 209.45,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "B0422",
+     "lat": 34.40907,
+     "lon": -119.88749,
+     "depthM": 10.02,
+     "shoreNormalDeg": 237.98,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "B0423",
+     "lat": 34.40984,
+     "lon": -119.88808,
+     "depthM": 10.01,
+     "shoreNormalDeg": 238.04,
+     "distanceKm": 0.59
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-leadbetter",
+   "name": "Leadbetter",
+   "lat": 34.401,
+   "lon": -119.701,
+   "nearest": [
+    {
+     "id": "B0231",
+     "lat": 34.39788,
+     "lon": -119.69543,
+     "depthM": 10,
+     "shoreNormalDeg": 160.61,
+     "distanceKm": 0.62
+    },
+    {
+     "id": "B0230",
+     "lat": 34.39855,
+     "lon": -119.69476,
+     "depthM": 10,
+     "shoreNormalDeg": 163.02,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "B0233",
+     "lat": 34.3969,
+     "lon": -119.6962,
+     "depthM": 10,
+     "shoreNormalDeg": 150.69,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "B0237",
+     "lat": 34.3969,
+     "lon": -119.6962,
+     "depthM": 10,
+     "shoreNormalDeg": 112.83,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "B0236",
+     "lat": 34.3969,
+     "lon": -119.6962,
+     "depthM": 10,
+     "shoreNormalDeg": 122.22,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "B0234",
+     "lat": 34.3969,
+     "lon": -119.6962,
+     "depthM": 10,
+     "shoreNormalDeg": 140.96,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "B0232",
+     "lat": 34.39714,
+     "lon": -119.69598,
+     "depthM": 10.01,
+     "shoreNormalDeg": 157.99,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "B0235",
+     "lat": 34.3969,
+     "lon": -119.6962,
+     "depthM": 10,
+     "shoreNormalDeg": 131.28,
+     "distanceKm": 0.63
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-hammonds",
+   "name": "Hammond's",
+   "lat": 34.415,
+   "lon": -119.637,
+   "nearest": [
+    {
+     "id": "B0170",
+     "lat": 34.41116,
+     "lon": -119.63706,
+     "depthM": 10.01,
+     "shoreNormalDeg": 173.55,
+     "distanceKm": 0.43
+    },
+    {
+     "id": "B0169",
+     "lat": 34.41096,
+     "lon": -119.63459,
+     "depthM": 10.01,
+     "shoreNormalDeg": 161.57,
+     "distanceKm": 0.5
+    },
+    {
+     "id": "B0168",
+     "lat": 34.41123,
+     "lon": -119.63342,
+     "depthM": 10.01,
+     "shoreNormalDeg": 160.49,
+     "distanceKm": 0.53
+    },
+    {
+     "id": "B0171",
+     "lat": 34.41046,
+     "lon": -119.63959,
+     "depthM": 10,
+     "shoreNormalDeg": 187.06,
+     "distanceKm": 0.56
+    },
+    {
+     "id": "B0172",
+     "lat": 34.41059,
+     "lon": -119.64084,
+     "depthM": 10.1,
+     "shoreNormalDeg": 188.51,
+     "distanceKm": 0.6
+    },
+    {
+     "id": "B0167",
+     "lat": 34.41137,
+     "lon": -119.63194,
+     "depthM": 10,
+     "shoreNormalDeg": 157.47,
+     "distanceKm": 0.62
+    },
+    {
+     "id": "B0173",
+     "lat": 34.41084,
+     "lon": -119.64195,
+     "depthM": 10.01,
+     "shoreNormalDeg": 189.03,
+     "distanceKm": 0.65
+    },
+    {
+     "id": "B0174",
+     "lat": 34.41112,
+     "lon": -119.64294,
+     "depthM": 10,
+     "shoreNormalDeg": 188.48,
+     "distanceKm": 0.7
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-emma-wood",
+   "name": "Emma Wood",
+   "lat": 34.284,
+   "lon": -119.322,
+   "nearest": [
+    {
+     "id": "VE484",
+     "lat": 34.2783,
+     "lon": -119.32435,
+     "depthM": 10,
+     "shoreNormalDeg": 233.06,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "VE485",
+     "lat": 34.2784,
+     "lon": -119.32478,
+     "depthM": 10,
+     "shoreNormalDeg": 227.06,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "VE486",
+     "lat": 34.2784,
+     "lon": -119.32478,
+     "depthM": 10,
+     "shoreNormalDeg": 218.38,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "VE489",
+     "lat": 34.27945,
+     "lon": -119.32697,
+     "depthM": 10,
+     "shoreNormalDeg": 212.46,
+     "distanceKm": 0.68
+    },
+    {
+     "id": "VE488",
+     "lat": 34.27889,
+     "lon": -119.32605,
+     "depthM": 10,
+     "shoreNormalDeg": 212.04,
+     "distanceKm": 0.68
+    },
+    {
+     "id": "VE487",
+     "lat": 34.27844,
+     "lon": -119.32526,
+     "depthM": 10.01,
+     "shoreNormalDeg": 213.02,
+     "distanceKm": 0.69
+    },
+    {
+     "id": "VE490",
+     "lat": 34.27981,
+     "lon": -119.32763,
+     "depthM": 10,
+     "shoreNormalDeg": 209.98,
+     "distanceKm": 0.7
+    },
+    {
+     "id": "VE483",
+     "lat": 34.27776,
+     "lon": -119.32339,
+     "depthM": 10,
+     "shoreNormalDeg": 232.93,
+     "distanceKm": 0.71
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-mondos",
+   "name": "Mondos",
+   "lat": 34.32,
+   "lon": -119.377,
+   "nearest": [
+    {
+     "id": "VE564",
+     "lat": 34.3102,
+     "lon": -119.38323,
+     "depthM": 10,
+     "shoreNormalDeg": 163.51,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "VE565",
+     "lat": 34.3116,
+     "lon": -119.38578,
+     "depthM": 10,
+     "shoreNormalDeg": 169.99,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "VE563",
+     "lat": 34.30902,
+     "lon": -119.38078,
+     "depthM": 10,
+     "shoreNormalDeg": 159.47,
+     "distanceKm": 1.27
+    },
+    {
+     "id": "VE566",
+     "lat": 34.31271,
+     "lon": -119.38815,
+     "depthM": 10,
+     "shoreNormalDeg": 179.54,
+     "distanceKm": 1.31
+    },
+    {
+     "id": "VE561",
+     "lat": 34.30782,
+     "lon": -119.37816,
+     "depthM": 10,
+     "shoreNormalDeg": 160.32,
+     "distanceKm": 1.36
+    },
+    {
+     "id": "VE559",
+     "lat": 34.30782,
+     "lon": -119.37816,
+     "depthM": 10,
+     "shoreNormalDeg": 168.73,
+     "distanceKm": 1.36
+    },
+    {
+     "id": "VE560",
+     "lat": 34.30782,
+     "lon": -119.37816,
+     "depthM": 10,
+     "shoreNormalDeg": 164.48,
+     "distanceKm": 1.36
+    },
+    {
+     "id": "VE562",
+     "lat": 34.30782,
+     "lon": -119.37816,
+     "depthM": 10,
+     "shoreNormalDeg": 156.09,
+     "distanceKm": 1.36
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-silver-strand",
+   "name": "Silver Strand (Oxnard)",
+   "lat": 34.151,
+   "lon": -119.221,
+   "nearest": [
+    {
+     "id": "VE297",
+     "lat": 34.14843,
+     "lon": -119.22652,
+     "depthM": 10,
+     "shoreNormalDeg": 241.86,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "VE298",
+     "lat": 34.14843,
+     "lon": -119.22652,
+     "depthM": 10,
+     "shoreNormalDeg": 233.79,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "VE296",
+     "lat": 34.14808,
+     "lon": -119.22632,
+     "depthM": 10,
+     "shoreNormalDeg": 246.53,
+     "distanceKm": 0.59
+    },
+    {
+     "id": "VE295",
+     "lat": 34.14738,
+     "lon": -119.22567,
+     "depthM": 10,
+     "shoreNormalDeg": 246.98,
+     "distanceKm": 0.59
+    },
+    {
+     "id": "VE299",
+     "lat": 34.14869,
+     "lon": -119.22684,
+     "depthM": 10,
+     "shoreNormalDeg": 229.01,
+     "distanceKm": 0.6
+    },
+    {
+     "id": "VE300",
+     "lat": 34.14931,
+     "lon": -119.22733,
+     "depthM": 10,
+     "shoreNormalDeg": 227.47,
+     "distanceKm": 0.61
+    },
+    {
+     "id": "VE294",
+     "lat": 34.14643,
+     "lon": -119.22481,
+     "depthM": 10.01,
+     "shoreNormalDeg": 244.49,
+     "distanceKm": 0.62
+    },
+    {
+     "id": "VE301",
+     "lat": 34.15005,
+     "lon": -119.22797,
+     "depthM": 10,
+     "shoreNormalDeg": 227.5,
+     "distanceKm": 0.65
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-leo-carrillo",
+   "name": "Leo Carrillo",
+   "lat": 34.044,
+   "lon": -118.939,
+   "nearest": [
+    {
+     "id": "L1180",
+     "lat": 34.04063,
+     "lon": -118.94089,
+     "depthM": 9.99,
+     "shoreNormalDeg": 206.07,
+     "distanceKm": 0.41
+    },
+    {
+     "id": "L1179",
+     "lat": 34.04037,
+     "lon": -118.93964,
+     "depthM": 10.02,
+     "shoreNormalDeg": 203.51,
+     "distanceKm": 0.41
+    },
+    {
+     "id": "L1181",
+     "lat": 34.04078,
+     "lon": -118.94183,
+     "depthM": 10.03,
+     "shoreNormalDeg": 204.04,
+     "distanceKm": 0.44
+    },
+    {
+     "id": "L1178",
+     "lat": 34.04034,
+     "lon": -118.93726,
+     "depthM": 9.99,
+     "shoreNormalDeg": 183.14,
+     "distanceKm": 0.44
+    },
+    {
+     "id": "L1182",
+     "lat": 34.04084,
+     "lon": -118.94248,
+     "depthM": 10.01,
+     "shoreNormalDeg": 198.48,
+     "distanceKm": 0.48
+    },
+    {
+     "id": "L1177",
+     "lat": 34.0406,
+     "lon": -118.93507,
+     "depthM": 10.01,
+     "shoreNormalDeg": 163.47,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "L1183",
+     "lat": 34.04095,
+     "lon": -118.94341,
+     "depthM": 10,
+     "shoreNormalDeg": 196.59,
+     "distanceKm": 0.53
+    },
+    {
+     "id": "L1184",
+     "lat": 34.04116,
+     "lon": -118.9445,
+     "depthM": 10,
+     "shoreNormalDeg": 196.95,
+     "distanceKm": 0.6
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-sunset-point",
+   "name": "Sunset Point",
+   "lat": 34.038,
+   "lon": -118.553,
+   "nearest": [
+    {
+     "id": "L0780",
+     "lat": 34.03083,
+     "lon": -118.55269,
+     "depthM": 10.06,
+     "shoreNormalDeg": 169,
+     "distanceKm": 0.8
+    },
+    {
+     "id": "L0781",
+     "lat": 34.03086,
+     "lon": -118.55449,
+     "depthM": 10,
+     "shoreNormalDeg": 173.53,
+     "distanceKm": 0.81
+    },
+    {
+     "id": "L0779",
+     "lat": 34.03049,
+     "lon": -118.55065,
+     "depthM": 10,
+     "shoreNormalDeg": 163.99,
+     "distanceKm": 0.86
+    },
+    {
+     "id": "L0782",
+     "lat": 34.03097,
+     "lon": -118.55806,
+     "depthM": 10,
+     "shoreNormalDeg": 190.55,
+     "distanceKm": 0.91
+    },
+    {
+     "id": "L0778",
+     "lat": 34.03014,
+     "lon": -118.54978,
+     "depthM": 10,
+     "shoreNormalDeg": 166,
+     "distanceKm": 0.92
+    },
+    {
+     "id": "L0777",
+     "lat": 34.03006,
+     "lon": -118.54962,
+     "depthM": 10,
+     "shoreNormalDeg": 171.13,
+     "distanceKm": 0.94
+    },
+    {
+     "id": "L0776",
+     "lat": 34.02977,
+     "lon": -118.54951,
+     "depthM": 10,
+     "shoreNormalDeg": 176.51,
+     "distanceKm": 0.97
+    },
+    {
+     "id": "L0775",
+     "lat": 34.02933,
+     "lon": -118.54888,
+     "depthM": 10,
+     "shoreNormalDeg": 178.99,
+     "distanceKm": 1.04
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-venice-breakwater",
+   "name": "Venice Breakwater",
+   "lat": 33.985,
+   "lon": -118.477,
+   "nearest": [
+    {
+     "id": "L0683",
+     "lat": 33.98251,
+     "lon": -118.48277,
+     "depthM": 10.02,
+     "shoreNormalDeg": 236.51,
+     "distanceKm": 0.6
+    },
+    {
+     "id": "L0682",
+     "lat": 33.97966,
+     "lon": -118.48036,
+     "depthM": 10,
+     "shoreNormalDeg": 213.98,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "L0681",
+     "lat": 33.97918,
+     "lon": -118.48,
+     "depthM": 10.02,
+     "shoreNormalDeg": 216.99,
+     "distanceKm": 0.7
+    },
+    {
+     "id": "L0685",
+     "lat": 33.98508,
+     "lon": -118.48503,
+     "depthM": 10,
+     "shoreNormalDeg": 248.93,
+     "distanceKm": 0.74
+    },
+    {
+     "id": "L0684",
+     "lat": 33.98508,
+     "lon": -118.48503,
+     "depthM": 10,
+     "shoreNormalDeg": 255.81,
+     "distanceKm": 0.74
+    },
+    {
+     "id": "L0686",
+     "lat": 33.98508,
+     "lon": -118.48503,
+     "depthM": 10,
+     "shoreNormalDeg": 241.82,
+     "distanceKm": 0.74
+    },
+    {
+     "id": "L0680",
+     "lat": 33.97868,
+     "lon": -118.47969,
+     "depthM": 10,
+     "shoreNormalDeg": 220.01,
+     "distanceKm": 0.75
+    },
+    {
+     "id": "L0679",
+     "lat": 33.97851,
+     "lon": -118.47954,
+     "depthM": 10,
+     "shoreNormalDeg": 225.27,
+     "distanceKm": 0.76
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-manhattan-beach",
+   "name": "Manhattan Beach",
+   "lat": 33.884,
+   "lon": -118.413,
+   "nearest": [
+    {
+     "id": "L0554",
+     "lat": 33.88138,
+     "lon": -118.41846,
+     "depthM": 10.01,
+     "shoreNormalDeg": 245.56,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "L0553",
+     "lat": 33.88062,
+     "lon": -118.41784,
+     "depthM": 10,
+     "shoreNormalDeg": 245.52,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "L0556",
+     "lat": 33.88306,
+     "lon": -118.41923,
+     "depthM": 10.02,
+     "shoreNormalDeg": 245.47,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "L0555",
+     "lat": 33.88218,
+     "lon": -118.41895,
+     "depthM": 10,
+     "shoreNormalDeg": 245.52,
+     "distanceKm": 0.59
+    },
+    {
+     "id": "L0552",
+     "lat": 33.87979,
+     "lon": -118.4174,
+     "depthM": 9.99,
+     "shoreNormalDeg": 245.46,
+     "distanceKm": 0.62
+    },
+    {
+     "id": "L0557",
+     "lat": 33.88384,
+     "lon": -118.4198,
+     "depthM": 10.01,
+     "shoreNormalDeg": 245.53,
+     "distanceKm": 0.63
+    },
+    {
+     "id": "L0551",
+     "lat": 33.87911,
+     "lon": -118.41699,
+     "depthM": 10.01,
+     "shoreNormalDeg": 247,
+     "distanceKm": 0.66
+    },
+    {
+     "id": "L0550",
+     "lat": 33.87855,
+     "lon": -118.41667,
+     "depthM": 10.02,
+     "shoreNormalDeg": 249.99,
+     "distanceKm": 0.69
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-redondo-breakwater",
+   "name": "Redondo Breakwater",
+   "lat": 33.851,
+   "lon": -118.401,
+   "nearest": [
+    {
+     "id": "L0513",
+     "lat": 33.85014,
+     "lon": -118.40482,
+     "depthM": 10.01,
+     "shoreNormalDeg": 287.95,
+     "distanceKm": 0.37
+    },
+    {
+     "id": "L0514",
+     "lat": 33.85221,
+     "lon": -118.40527,
+     "depthM": 10.01,
+     "shoreNormalDeg": 303.51,
+     "distanceKm": 0.42
+    },
+    {
+     "id": "L0512",
+     "lat": 33.84844,
+     "lon": -118.40475,
+     "depthM": 10.01,
+     "shoreNormalDeg": 269.49,
+     "distanceKm": 0.45
+    },
+    {
+     "id": "L0515",
+     "lat": 33.85308,
+     "lon": -118.40569,
+     "depthM": 10,
+     "shoreNormalDeg": 299.6,
+     "distanceKm": 0.49
+    },
+    {
+     "id": "L0517",
+     "lat": 33.85308,
+     "lon": -118.40569,
+     "depthM": 10,
+     "shoreNormalDeg": 280.79,
+     "distanceKm": 0.49
+    },
+    {
+     "id": "L0516",
+     "lat": 33.85308,
+     "lon": -118.40569,
+     "depthM": 10,
+     "shoreNormalDeg": 290.39,
+     "distanceKm": 0.49
+    },
+    {
+     "id": "L0519",
+     "lat": 33.85308,
+     "lon": -118.40569,
+     "depthM": 10,
+     "shoreNormalDeg": 259.95,
+     "distanceKm": 0.49
+    },
+    {
+     "id": "L0518",
+     "lat": 33.85308,
+     "lon": -118.40569,
+     "depthM": 10,
+     "shoreNormalDeg": 270.35,
+     "distanceKm": 0.49
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-bolsa-chica",
+   "name": "Bolsa Chica",
+   "lat": 33.698,
+   "lon": -118.051,
+   "nearest": [
+    {
+     "id": "OC581",
+     "lat": 33.6925,
+     "lon": -118.06236,
+     "depthM": 9.91,
+     "shoreNormalDeg": 234.02,
+     "distanceKm": 1.22
+    },
+    {
+     "id": "OC572",
+     "lat": 33.68638,
+     "lon": -118.05457,
+     "depthM": 10,
+     "shoreNormalDeg": 230.51,
+     "distanceKm": 1.33
+    },
+    {
+     "id": "OC578",
+     "lat": 33.6888,
+     "lon": -118.06213,
+     "depthM": 10,
+     "shoreNormalDeg": 232.5,
+     "distanceKm": 1.45
+    },
+    {
+     "id": "OC580",
+     "lat": 33.69016,
+     "lon": -118.0635,
+     "depthM": 10,
+     "shoreNormalDeg": 232.52,
+     "distanceKm": 1.45
+    },
+    {
+     "id": "OC579",
+     "lat": 33.68938,
+     "lon": -118.06283,
+     "depthM": 10,
+     "shoreNormalDeg": 232.31,
+     "distanceKm": 1.45
+    },
+    {
+     "id": "OC575",
+     "lat": 33.68691,
+     "lon": -118.05952,
+     "depthM": 10,
+     "shoreNormalDeg": 232.09,
+     "distanceKm": 1.46
+    },
+    {
+     "id": "OC574",
+     "lat": 33.68644,
+     "lon": -118.05873,
+     "depthM": 10,
+     "shoreNormalDeg": 232.48,
+     "distanceKm": 1.47
+    },
+    {
+     "id": "OC576",
+     "lat": 33.68722,
+     "lon": -118.06013,
+     "depthM": 10,
+     "shoreNormalDeg": 230.51,
+     "distanceKm": 1.47
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-blackies",
+   "name": "Blackies",
+   "lat": 33.607,
+   "lon": -117.93,
+   "nearest": [
+    {
+     "id": "OC427",
+     "lat": 33.6042,
+     "lon": -117.93244,
+     "depthM": 10.04,
+     "shoreNormalDeg": 221.97,
+     "distanceKm": 0.38
+    },
+    {
+     "id": "OC426",
+     "lat": 33.60236,
+     "lon": -117.93015,
+     "depthM": 10,
+     "shoreNormalDeg": 200.09,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "OC428",
+     "lat": 33.60508,
+     "lon": -117.93542,
+     "depthM": 10.01,
+     "shoreNormalDeg": 238.04,
+     "distanceKm": 0.55
+    },
+    {
+     "id": "OC425",
+     "lat": 33.60201,
+     "lon": -117.92842,
+     "depthM": 10,
+     "shoreNormalDeg": 192.48,
+     "distanceKm": 0.57
+    },
+    {
+     "id": "OC424",
+     "lat": 33.60182,
+     "lon": -117.92742,
+     "depthM": 10,
+     "shoreNormalDeg": 193.5,
+     "distanceKm": 0.62
+    },
+    {
+     "id": "OC429",
+     "lat": 33.60571,
+     "lon": -117.93677,
+     "depthM": 10.01,
+     "shoreNormalDeg": 240.98,
+     "distanceKm": 0.64
+    },
+    {
+     "id": "OC423",
+     "lat": 33.6013,
+     "lon": -117.92641,
+     "depthM": 10.01,
+     "shoreNormalDeg": 192.55,
+     "distanceKm": 0.72
+    },
+    {
+     "id": "OC422",
+     "lat": 33.60176,
+     "lon": -117.92518,
+     "depthM": 9.99,
+     "shoreNormalDeg": 193.05,
+     "distanceKm": 0.73
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-doheny",
+   "name": "Doheny",
+   "lat": 33.46,
+   "lon": -117.685,
+   "nearest": [
+    {
+     "id": "OC131",
+     "lat": 33.45168,
+     "lon": -117.691,
+     "depthM": 10,
+     "shoreNormalDeg": 170.02,
+     "distanceKm": 1.08
+    },
+    {
+     "id": "OC132",
+     "lat": 33.45234,
+     "lon": -117.69473,
+     "depthM": 10,
+     "shoreNormalDeg": 192.02,
+     "distanceKm": 1.24
+    },
+    {
+     "id": "OC133",
+     "lat": 33.45278,
+     "lon": -117.69674,
+     "depthM": 10,
+     "shoreNormalDeg": 196.03,
+     "distanceKm": 1.35
+    },
+    {
+     "id": "OC134",
+     "lat": 33.45359,
+     "lon": -117.69768,
+     "depthM": 10.13,
+     "shoreNormalDeg": 195.11,
+     "distanceKm": 1.38
+    },
+    {
+     "id": "OC135",
+     "lat": 33.45388,
+     "lon": -117.69878,
+     "depthM": 10.03,
+     "shoreNormalDeg": 195.05,
+     "distanceKm": 1.45
+    },
+    {
+     "id": "OC136",
+     "lat": 33.45411,
+     "lon": -117.69968,
+     "depthM": 10.01,
+     "shoreNormalDeg": 193.35,
+     "distanceKm": 1.51
+    },
+    {
+     "id": "OC137",
+     "lat": 33.45449,
+     "lon": -117.70084,
+     "depthM": 10.37,
+     "shoreNormalDeg": 197.59,
+     "distanceKm": 1.59
+    },
+    {
+     "id": "OC138",
+     "lat": 33.45482,
+     "lon": -117.70177,
+     "depthM": 10.01,
+     "shoreNormalDeg": 196.42,
+     "distanceKm": 1.66
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-san-clemente-pier",
+   "name": "San Clemente Pier",
+   "lat": 33.419,
+   "lon": -117.622,
+   "nearest": [
+    {
+     "id": "OC043",
+     "lat": 33.415,
+     "lon": -117.62811,
+     "depthM": 10.01,
+     "shoreNormalDeg": 235.98,
+     "distanceKm": 0.72
+    },
+    {
+     "id": "OC042",
+     "lat": 33.4143,
+     "lon": -117.62749,
+     "depthM": 10,
+     "shoreNormalDeg": 236.52,
+     "distanceKm": 0.73
+    },
+    {
+     "id": "OC044",
+     "lat": 33.41562,
+     "lon": -117.62901,
+     "depthM": 10,
+     "shoreNormalDeg": 236.5,
+     "distanceKm": 0.75
+    },
+    {
+     "id": "OC041",
+     "lat": 33.41312,
+     "lon": -117.62643,
+     "depthM": 10,
+     "shoreNormalDeg": 232,
+     "distanceKm": 0.77
+    },
+    {
+     "id": "OC040",
+     "lat": 33.41268,
+     "lon": -117.62533,
+     "depthM": 10,
+     "shoreNormalDeg": 232,
+     "distanceKm": 0.77
+    },
+    {
+     "id": "OC045",
+     "lat": 33.4162,
+     "lon": -117.62984,
+     "depthM": 10,
+     "shoreNormalDeg": 235.97,
+     "distanceKm": 0.79
+    },
+    {
+     "id": "OC046",
+     "lat": 33.41643,
+     "lon": -117.63003,
+     "depthM": 10,
+     "shoreNormalDeg": 232.01,
+     "distanceKm": 0.8
+    },
+    {
+     "id": "OC047",
+     "lat": 33.41643,
+     "lon": -117.63003,
+     "depthM": 10,
+     "shoreNormalDeg": 225.79,
+     "distanceKm": 0.8
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-t-street",
+   "name": "T-Street",
+   "lat": 33.416,
+   "lon": -117.618,
+   "nearest": [
+    {
+     "id": "OC039",
+     "lat": 33.41217,
+     "lon": -117.62495,
+     "depthM": 10,
+     "shoreNormalDeg": 234.04,
+     "distanceKm": 0.77
+    },
+    {
+     "id": "OC040",
+     "lat": 33.41268,
+     "lon": -117.62533,
+     "depthM": 10,
+     "shoreNormalDeg": 232,
+     "distanceKm": 0.77
+    },
+    {
+     "id": "OC038",
+     "lat": 33.41092,
+     "lon": -117.62393,
+     "depthM": 10,
+     "shoreNormalDeg": 230.02,
+     "distanceKm": 0.79
+    },
+    {
+     "id": "OC037",
+     "lat": 33.40998,
+     "lon": -117.6231,
+     "depthM": 10,
+     "shoreNormalDeg": 227.53,
+     "distanceKm": 0.82
+    },
+    {
+     "id": "OC036",
+     "lat": 33.40957,
+     "lon": -117.6226,
+     "depthM": 10,
+     "shoreNormalDeg": 230.02,
+     "distanceKm": 0.83
+    },
+    {
+     "id": "OC041",
+     "lat": 33.41312,
+     "lon": -117.62643,
+     "depthM": 10,
+     "shoreNormalDeg": 232,
+     "distanceKm": 0.85
+    },
+    {
+     "id": "OC042",
+     "lat": 33.4143,
+     "lon": -117.62749,
+     "depthM": 10,
+     "shoreNormalDeg": 236.52,
+     "distanceKm": 0.9
+    },
+    {
+     "id": "OC035",
+     "lat": 33.40835,
+     "lon": -117.62176,
+     "depthM": 10,
+     "shoreNormalDeg": 226.53,
+     "distanceKm": 0.92
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-san-onofre",
+   "name": "San Onofre",
+   "lat": 33.373,
+   "lon": -117.567,
+   "nearest": [
+    {
+     "id": "D1178",
+     "lat": 33.36514,
+     "lon": -117.57491,
+     "depthM": 10,
+     "shoreNormalDeg": 218.03,
+     "distanceKm": 1.14
+    },
+    {
+     "id": "D1179",
+     "lat": 33.36547,
+     "lon": -117.57585,
+     "depthM": 10,
+     "shoreNormalDeg": 217.97,
+     "distanceKm": 1.17
+    },
+    {
+     "id": "D1180",
+     "lat": 33.36666,
+     "lon": -117.57738,
+     "depthM": 10.05,
+     "shoreNormalDeg": 221.99,
+     "distanceKm": 1.19
+    },
+    {
+     "id": "D1177",
+     "lat": 33.36391,
+     "lon": -117.57413,
+     "depthM": 10,
+     "shoreNormalDeg": 216.5,
+     "distanceKm": 1.21
+    },
+    {
+     "id": "D1175",
+     "lat": 33.36261,
+     "lon": -117.57224,
+     "depthM": 10,
+     "shoreNormalDeg": 215,
+     "distanceKm": 1.25
+    },
+    {
+     "id": "D1174",
+     "lat": 33.36215,
+     "lon": -117.57044,
+     "depthM": 10,
+     "shoreNormalDeg": 211.98,
+     "distanceKm": 1.25
+    },
+    {
+     "id": "D1176",
+     "lat": 33.36298,
+     "lon": -117.57316,
+     "depthM": 10,
+     "shoreNormalDeg": 215.04,
+     "distanceKm": 1.25
+    },
+    {
+     "id": "D1173",
+     "lat": 33.36147,
+     "lon": -117.56889,
+     "depthM": 10,
+     "shoreNormalDeg": 209.5,
+     "distanceKm": 1.29
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-oceanside-harbor",
+   "name": "Oceanside Harbor",
+   "lat": 33.205,
+   "lon": -117.394,
+   "nearest": [
+    {
+     "id": "D0930",
+     "lat": 33.2055,
+     "lon": -117.4022,
+     "depthM": 10.28,
+     "shoreNormalDeg": -999.99,
+     "distanceKm": 0.76
+    },
+    {
+     "id": "D0931",
+     "lat": 33.19843,
+     "lon": -117.40331,
+     "depthM": 10,
+     "shoreNormalDeg": 181.99,
+     "distanceKm": 1.13
+    },
+    {
+     "id": "D0921",
+     "lat": 33.19553,
+     "lon": -117.40076,
+     "depthM": 10,
+     "shoreNormalDeg": 209.84,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "D0917",
+     "lat": 33.19553,
+     "lon": -117.40076,
+     "depthM": 10,
+     "shoreNormalDeg": 229.09,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "D0918",
+     "lat": 33.19553,
+     "lon": -117.40076,
+     "depthM": 10,
+     "shoreNormalDeg": 223.85,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "D0920",
+     "lat": 33.19553,
+     "lon": -117.40076,
+     "depthM": 10,
+     "shoreNormalDeg": 214.71,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "D0922",
+     "lat": 33.19553,
+     "lon": -117.40076,
+     "depthM": 10,
+     "shoreNormalDeg": 205.9,
+     "distanceKm": 1.23
+    },
+    {
+     "id": "D0919",
+     "lat": 33.19553,
+     "lon": -117.40076,
+     "depthM": 10,
+     "shoreNormalDeg": 219.18,
+     "distanceKm": 1.23
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-tamarack",
+   "name": "Tamarack",
+   "lat": 33.151,
+   "lon": -117.349,
+   "nearest": [
+    {
+     "id": "D0847",
+     "lat": 33.14734,
+     "lon": -117.35475,
+     "depthM": 10.01,
+     "shoreNormalDeg": 238.48,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "D0846",
+     "lat": 33.14643,
+     "lon": -117.35394,
+     "depthM": 10,
+     "shoreNormalDeg": 235.98,
+     "distanceKm": 0.69
+    },
+    {
+     "id": "D0845",
+     "lat": 33.14591,
+     "lon": -117.3533,
+     "depthM": 10.01,
+     "shoreNormalDeg": 238.01,
+     "distanceKm": 0.69
+    },
+    {
+     "id": "D0848",
+     "lat": 33.14838,
+     "lon": -117.35583,
+     "depthM": 10.01,
+     "shoreNormalDeg": 242.5,
+     "distanceKm": 0.7
+    },
+    {
+     "id": "D0849",
+     "lat": 33.14895,
+     "lon": -117.35625,
+     "depthM": 10,
+     "shoreNormalDeg": 240.46,
+     "distanceKm": 0.71
+    },
+    {
+     "id": "D0844",
+     "lat": 33.14524,
+     "lon": -117.35268,
+     "depthM": 10,
+     "shoreNormalDeg": 238.99,
+     "distanceKm": 0.73
+    },
+    {
+     "id": "D0850",
+     "lat": 33.14954,
+     "lon": -117.35661,
+     "depthM": 10,
+     "shoreNormalDeg": 237.99,
+     "distanceKm": 0.73
+    },
+    {
+     "id": "D0843",
+     "lat": 33.14444,
+     "lon": -117.35214,
+     "depthM": 10,
+     "shoreNormalDeg": 238,
+     "distanceKm": 0.79
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-ponto",
+   "name": "Ponto",
+   "lat": 33.089,
+   "lon": -117.315,
+   "nearest": [
+    {
+     "id": "D0770",
+     "lat": 33.08661,
+     "lon": -117.31959,
+     "depthM": 10.01,
+     "shoreNormalDeg": 250.56,
+     "distanceKm": 0.5
+    },
+    {
+     "id": "D0772",
+     "lat": 33.08783,
+     "lon": -117.32018,
+     "depthM": 10.03,
+     "shoreNormalDeg": 245.98,
+     "distanceKm": 0.5
+    },
+    {
+     "id": "D0771",
+     "lat": 33.08691,
+     "lon": -117.31972,
+     "depthM": 10,
+     "shoreNormalDeg": 245.01,
+     "distanceKm": 0.5
+    },
+    {
+     "id": "D0769",
+     "lat": 33.08601,
+     "lon": -117.31933,
+     "depthM": 10.01,
+     "shoreNormalDeg": 253.56,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "D0773",
+     "lat": 33.08893,
+     "lon": -117.32061,
+     "depthM": 10.01,
+     "shoreNormalDeg": 247.98,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "D0774",
+     "lat": 33.08966,
+     "lon": -117.32092,
+     "depthM": 10.02,
+     "shoreNormalDeg": 247.01,
+     "distanceKm": 0.56
+    },
+    {
+     "id": "D0768",
+     "lat": 33.08514,
+     "lon": -117.31908,
+     "depthM": 10,
+     "shoreNormalDeg": 253,
+     "distanceKm": 0.57
+    },
+    {
+     "id": "D0767",
+     "lat": 33.08463,
+     "lon": -117.31887,
+     "depthM": 10,
+     "shoreNormalDeg": 257.01,
+     "distanceKm": 0.61
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-beacons",
+   "name": "Beacons",
+   "lat": 33.064,
+   "lon": -117.306,
+   "nearest": [
+    {
+     "id": "D0743",
+     "lat": 33.06291,
+     "lon": -117.31182,
+     "depthM": 10.01,
+     "shoreNormalDeg": 247.54,
+     "distanceKm": 0.56
+    },
+    {
+     "id": "D0744",
+     "lat": 33.0639,
+     "lon": -117.31197,
+     "depthM": 10.02,
+     "shoreNormalDeg": 248.54,
+     "distanceKm": 0.56
+    },
+    {
+     "id": "D0742",
+     "lat": 33.06213,
+     "lon": -117.31169,
+     "depthM": 10.01,
+     "shoreNormalDeg": 248.55,
+     "distanceKm": 0.57
+    },
+    {
+     "id": "D0741",
+     "lat": 33.06124,
+     "lon": -117.31123,
+     "depthM": 10.01,
+     "shoreNormalDeg": 248.46,
+     "distanceKm": 0.58
+    },
+    {
+     "id": "D0745",
+     "lat": 33.06502,
+     "lon": -117.31229,
+     "depthM": 10.01,
+     "shoreNormalDeg": 250.48,
+     "distanceKm": 0.6
+    },
+    {
+     "id": "D0740",
+     "lat": 33.06042,
+     "lon": -117.31089,
+     "depthM": 10.01,
+     "shoreNormalDeg": 248.46,
+     "distanceKm": 0.61
+    },
+    {
+     "id": "D0739",
+     "lat": 33.0598,
+     "lon": -117.31066,
+     "depthM": 10.02,
+     "shoreNormalDeg": 251.46,
+     "distanceKm": 0.64
+    },
+    {
+     "id": "D0746",
+     "lat": 33.06585,
+     "lon": -117.31266,
+     "depthM": 10.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 0.65
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-seaside-reef",
+   "name": "Seaside Reef",
+   "lat": 33.002,
+   "lon": -117.281,
+   "nearest": [
+    {
+     "id": "D0667",
+     "lat": 33.00154,
+     "lon": -117.28516,
+     "depthM": 10.01,
+     "shoreNormalDeg": 267.45,
+     "distanceKm": 0.39
+    },
+    {
+     "id": "D0666",
+     "lat": 33.00065,
+     "lon": -117.28493,
+     "depthM": 10.01,
+     "shoreNormalDeg": 267.46,
+     "distanceKm": 0.4
+    },
+    {
+     "id": "D0668",
+     "lat": 33.00245,
+     "lon": -117.28522,
+     "depthM": 10,
+     "shoreNormalDeg": 267.53,
+     "distanceKm": 0.4
+    },
+    {
+     "id": "D0669",
+     "lat": 33.0036,
+     "lon": -117.28514,
+     "depthM": 10.01,
+     "shoreNormalDeg": 270,
+     "distanceKm": 0.43
+    },
+    {
+     "id": "D0670",
+     "lat": 33.00425,
+     "lon": -117.28532,
+     "depthM": 10.01,
+     "shoreNormalDeg": 267.57,
+     "distanceKm": 0.47
+    },
+    {
+     "id": "D0671",
+     "lat": 33.00483,
+     "lon": -117.28547,
+     "depthM": 10,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 0.52
+    },
+    {
+     "id": "D0665",
+     "lat": 32.99832,
+     "lon": -117.2851,
+     "depthM": 10.02,
+     "shoreNormalDeg": 254.03,
+     "distanceKm": 0.56
+    },
+    {
+     "id": "D0672",
+     "lat": 33.00571,
+     "lon": -117.28577,
+     "depthM": 10,
+     "shoreNormalDeg": 264.47,
+     "distanceKm": 0.61
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-torrey-pines",
+   "name": "Torrey Pines",
+   "lat": 32.931,
+   "lon": -117.26,
+   "nearest": [
+    {
+     "id": "D0586",
+     "lat": 32.93019,
+     "lon": -117.26775,
+     "depthM": 10,
+     "shoreNormalDeg": 264.5,
+     "distanceKm": 0.73
+    },
+    {
+     "id": "D0587",
+     "lat": 32.93109,
+     "lon": -117.26785,
+     "depthM": 10,
+     "shoreNormalDeg": 264.5,
+     "distanceKm": 0.73
+    },
+    {
+     "id": "D0585",
+     "lat": 32.92902,
+     "lon": -117.26756,
+     "depthM": 10,
+     "shoreNormalDeg": 262,
+     "distanceKm": 0.74
+    },
+    {
+     "id": "D0584",
+     "lat": 32.92812,
+     "lon": -117.26737,
+     "depthM": 10,
+     "shoreNormalDeg": 262.01,
+     "distanceKm": 0.76
+    },
+    {
+     "id": "D0588",
+     "lat": 32.93198,
+     "lon": -117.26807,
+     "depthM": 10,
+     "shoreNormalDeg": 264.5,
+     "distanceKm": 0.76
+    },
+    {
+     "id": "D0589",
+     "lat": 32.93258,
+     "lon": -117.2683,
+     "depthM": 10.01,
+     "shoreNormalDeg": 262,
+     "distanceKm": 0.79
+    },
+    {
+     "id": "D0583",
+     "lat": 32.92722,
+     "lon": -117.26728,
+     "depthM": 10,
+     "shoreNormalDeg": 262.02,
+     "distanceKm": 0.8
+    },
+    {
+     "id": "D0582",
+     "lat": 32.92631,
+     "lon": -117.26715,
+     "depthM": 10,
+     "shoreNormalDeg": 262.01,
+     "distanceKm": 0.85
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-scripps",
+   "name": "Scripps",
+   "lat": 32.867,
+   "lon": -117.256,
+   "nearest": [
+    {
+     "id": "D0515",
+     "lat": 32.86894,
+     "lon": -117.25761,
+     "depthM": 9.97,
+     "shoreNormalDeg": 281.03,
+     "distanceKm": 0.26
+    },
+    {
+     "id": "D0514",
+     "lat": 32.86818,
+     "lon": -117.25865,
+     "depthM": 10.02,
+     "shoreNormalDeg": 281.06,
+     "distanceKm": 0.28
+    },
+    {
+     "id": "D0516",
+     "lat": 32.86976,
+     "lon": -117.2572,
+     "depthM": 9.92,
+     "shoreNormalDeg": 281.93,
+     "distanceKm": 0.33
+    },
+    {
+     "id": "D0513",
+     "lat": 32.86741,
+     "lon": -117.25968,
+     "depthM": 10,
+     "shoreNormalDeg": 280.99,
+     "distanceKm": 0.35
+    },
+    {
+     "id": "D0517",
+     "lat": 32.87054,
+     "lon": -117.25677,
+     "depthM": 9.99,
+     "shoreNormalDeg": 280.5,
+     "distanceKm": 0.4
+    },
+    {
+     "id": "D0512",
+     "lat": 32.86682,
+     "lon": -117.26036,
+     "depthM": 10.04,
+     "shoreNormalDeg": 283.5,
+     "distanceKm": 0.41
+    },
+    {
+     "id": "D0511",
+     "lat": 32.86588,
+     "lon": -117.26069,
+     "depthM": 10.01,
+     "shoreNormalDeg": 282.99,
+     "distanceKm": 0.46
+    },
+    {
+     "id": "D0518",
+     "lat": 32.87148,
+     "lon": -117.25658,
+     "depthM": 10.1,
+     "shoreNormalDeg": 281.04,
+     "distanceKm": 0.5
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-pacific-beach",
+   "name": "Pacific Beach",
+   "lat": 32.797,
+   "lon": -117.258,
+   "nearest": [
+    {
+     "id": "D0406",
+     "lat": 32.79445,
+     "lon": -117.26716,
+     "depthM": 10,
+     "shoreNormalDeg": 250.84,
+     "distanceKm": 0.9
+    },
+    {
+     "id": "D0405",
+     "lat": 32.79358,
+     "lon": -117.26685,
+     "depthM": 10.01,
+     "shoreNormalDeg": 251.01,
+     "distanceKm": 0.91
+    },
+    {
+     "id": "D0403",
+     "lat": 32.79261,
+     "lon": -117.26632,
+     "depthM": 10,
+     "shoreNormalDeg": 255.93,
+     "distanceKm": 0.92
+    },
+    {
+     "id": "D0404",
+     "lat": 32.79261,
+     "lon": -117.26632,
+     "depthM": 10,
+     "shoreNormalDeg": 249.71,
+     "distanceKm": 0.92
+    },
+    {
+     "id": "D0402",
+     "lat": 32.79181,
+     "lon": -117.26571,
+     "depthM": 10,
+     "shoreNormalDeg": 256.02,
+     "distanceKm": 0.92
+    },
+    {
+     "id": "D0409",
+     "lat": 32.7967,
+     "lon": -117.26788,
+     "depthM": 10,
+     "shoreNormalDeg": 248.54,
+     "distanceKm": 0.92
+    },
+    {
+     "id": "D0408",
+     "lat": 32.79598,
+     "lon": -117.2679,
+     "depthM": 10,
+     "shoreNormalDeg": 249.87,
+     "distanceKm": 0.93
+    },
+    {
+     "id": "D0407",
+     "lat": 32.79521,
+     "lon": -117.26778,
+     "depthM": 10,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 0.94
+    }
+   ],
+   "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "cs-sunset-cliffs",
+   "name": "Sunset Cliffs",
+   "lat": 32.724,
+   "lon": -117.258,
+   "nearest": [
+    {
+     "id": "D0321",
+     "lat": 32.72262,
+     "lon": -117.26482,
+     "depthM": 10,
+     "shoreNormalDeg": 255.02,
+     "distanceKm": 0.66
+    },
+    {
+     "id": "D0320",
+     "lat": 32.72192,
+     "lon": -117.26469,
+     "depthM": 10,
+     "shoreNormalDeg": 257.32,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "D0319",
+     "lat": 32.72192,
+     "lon": -117.26469,
+     "depthM": 10,
+     "shoreNormalDeg": 264.67,
+     "distanceKm": 0.67
+    },
+    {
+     "id": "D0322",
+     "lat": 32.72511,
+     "lon": -117.26516,
+     "depthM": 10,
+     "shoreNormalDeg": 271.05,
+     "distanceKm": 0.68
+    },
+    {
+     "id": "D0318",
+     "lat": 32.72127,
+     "lon": -117.26478,
+     "depthM": 10,
+     "shoreNormalDeg": 267,
+     "distanceKm": 0.7
+    },
+    {
+     "id": "D0317",
+     "lat": 32.72007,
+     "lon": -117.26493,
+     "depthM": 10.01,
+     "shoreNormalDeg": 264.47,
+     "distanceKm": 0.78
+    },
+    {
+     "id": "D0325",
+     "lat": 32.72895,
+     "lon": -117.26442,
+     "depthM": 10,
+     "shoreNormalDeg": 287.47,
+     "distanceKm": 0.81
+    },
+    {
+     "id": "D0324",
+     "lat": 32.72895,
+     "lon": -117.26442,
+     "depthM": 10,
+     "shoreNormalDeg": 294.54,
+     "distanceKm": 0.81
+    }
+   ],
+   "retrievedOn": "2026-11-09"
   }
  ]
 }

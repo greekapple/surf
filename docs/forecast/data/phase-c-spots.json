@@ -1,0 +1,259 @@
+{
+ "retrievedOn": "2026-11-08",
+ "note": "Phase C spot research, Oregon and Washington (no MOP: CDIP MOP is California only). Positions are public map points rounded to 3 dp, not surveyed takeoffs. seaward = the guide facing (surfnerd \"Faces X\" to degrees); facts are in guide-facts.json. Region is the county; state is in `state`.",
+ "rows": [
+  {
+   "id": "cs-seaside-or",
+   "name": "Seaside (The Point)",
+   "region": "Clatsop",
+   "type": "Point",
+   "lat": 45.976,
+   "lon": -123.947,
+   "seaward": 0,
+   "positionSource": {
+    "text": "OSM beach relation: Seaside Cove Beach (surfnerd pin matches)",
+    "url": "https://www.openstreetmap.org/relation/21143396"
+   },
+   "facingSource": {
+    "text": "N (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/seaside-point"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-short-sands",
+   "name": "Short Sands",
+   "region": "Tillamook",
+   "type": "Beach",
+   "lat": 45.761,
+   "lon": -123.967,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach way: Short Sand Beach",
+    "url": "https://www.openstreetmap.org/way/157476309"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/short-sands-oregon"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-cannon-beach",
+   "name": "Cannon Beach",
+   "region": "Clatsop",
+   "type": "Beach",
+   "lat": 45.886,
+   "lon": -123.971,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM Cannon Beach relation is a 6 km strand; its centre is 1.2 km south)",
+    "url": "https://www.surfnerd.com/surf-forecast/cannon-beach-tolovana-beach"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/cannon-beach-tolovana-beach"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-pacific-city",
+   "name": "Pacific City (Cape Kiwanda)",
+   "region": "Tillamook",
+   "type": "Reef",
+   "lat": 45.216,
+   "lon": -123.977,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin, on the beach just south of the OSM Cape Kiwanda node (45.217, -123.980)",
+    "url": "https://www.surfnerd.com/surf-forecast/cape-kiwanda-pacific-city"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/cape-kiwanda-pacific-city"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-otter-rock",
+   "name": "Otter Rock",
+   "region": "Lincoln",
+   "type": "Beach",
+   "lat": 44.744,
+   "lon": -124.062,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (beside the OSM Devils Punchbowl State Natural Area)",
+    "url": "https://www.surfnerd.com/surf-forecast/otter-rock"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/otter-rock"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-agate-beach",
+   "name": "Agate Beach",
+   "region": "Lincoln",
+   "type": "Beach",
+   "lat": 44.662,
+   "lon": -124.06,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach relation: Agate Beach, Newport",
+    "url": "https://www.openstreetmap.org/relation/12126809"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/agate-beach-newport"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-florence",
+   "name": "Florence South Jetty",
+   "region": "Lane",
+   "type": "Beach",
+   "lat": 44.016,
+   "lon": -124.143,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin at the south jetty (OSM has only the day-use areas)",
+    "url": "https://www.surfnerd.com/surf-forecast/florence-south-jetty"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/florence-south-jetty"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-bastendorff",
+   "name": "Bastendorff Beach",
+   "region": "Coos",
+   "type": "Beach",
+   "lat": 43.347,
+   "lon": -124.347,
+   "seaward": 338,
+   "positionSource": {
+    "text": "OSM beach relation: Bastendorff Beach",
+    "url": "https://www.openstreetmap.org/relation/21433667"
+   },
+   "facingSource": {
+    "text": "NNW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/coos-bay-bastendorff-beach"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-gold-beach",
+   "name": "Gold Beach",
+   "region": "Curry",
+   "type": "Beach",
+   "lat": 42.417,
+   "lon": -124.432,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (OSM returned only the highway)",
+    "url": "https://www.surfnerd.com/surf-forecast/gold-beach"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/gold-beach"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-brookings",
+   "name": "Brookings",
+   "region": "Curry",
+   "type": "Beach",
+   "lat": 42.042,
+   "lon": -124.268,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin at the south jetty (no OSM beach feature found)",
+    "url": "https://www.surfnerd.com/surf-forecast/brookings-south-jetty"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/brookings-south-jetty"
+   },
+   "state": "OR"
+  },
+  {
+   "id": "cs-westport",
+   "name": "Westport (The Cove)",
+   "region": "Grays Harbor",
+   "type": "Beach",
+   "lat": 46.906,
+   "lon": -124.123,
+   "seaward": 315,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM Westport Light State Park point is 1 km south)",
+    "url": "https://www.surfnerd.com/surf-forecast/westport-the-cove"
+   },
+   "facingSource": {
+    "text": "NW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/westport-the-cove"
+   },
+   "state": "WA"
+  },
+  {
+   "id": "cs-long-beach-wa",
+   "name": "Long Beach (Washington)",
+   "region": "Pacific",
+   "type": "Beach",
+   "lat": 46.352,
+   "lon": -124.067,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin at Long Beach town (OSM has only the whole peninsula)",
+    "url": "https://www.surfnerd.com/surf-forecast/long-beach-peninsula-washington"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/long-beach-peninsula-washington"
+   },
+   "state": "WA"
+  },
+  {
+   "id": "cs-la-push",
+   "name": "La Push (First Beach)",
+   "region": "Clallam",
+   "type": "Beach",
+   "lat": 47.902,
+   "lon": -124.631,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM beach relation: First Beach, La Push",
+    "url": "https://www.openstreetmap.org/relation/3326593"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/la-push"
+   },
+   "state": "WA"
+  },
+  {
+   "id": "cs-neah-bay",
+   "name": "Neah Bay (Hobuck)",
+   "region": "Clallam",
+   "type": "Beach",
+   "lat": 48.336,
+   "lon": -124.664,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach relation: Hobuck Beach",
+    "url": "https://www.openstreetmap.org/relation/9068725"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/hobuck-north-coast"
+   },
+   "state": "WA"
+  }
+ ],
+ "dropped": []
+}

@@ -37,12 +37,13 @@ export const tideStations: TideStation[] = [
   {id: 'TWC0419', name: "San Clemente", lat: 33.41667, lon: -117.61667, retrievedOn: '2026-11-02', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TWC0419'},
   {id: 'TWC0445', name: "Mugu Lagoon (ocean pier)", lat: 34.10000, lon: -119.10000, retrievedOn: '2026-11-02', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TWC0445'},
   {id: 'TWC0473', name: "Point Arguello", lat: 34.58333, lon: -120.65000, retrievedOn: '2026-11-02', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TWC0473'},
+  {id: '9411340', name: "Santa Barbara", lat: 34.40459, lon: -119.69249, retrievedOn: '2026-11-08', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=9411340'},
 ];
 export const SF_STATION = '9414290';
 /** Stations whose predictions the server ingests in addition to the existing San Francisco feed. Kept in sync with services/forecast-service.mjs by a test. */
 export const extraTideStationIds = ['9414131', '9415020'];
 /** T-082: stations ingested for high/low predictions only (the nearest station of every covered spot). Kept in sync with services/forecast-service.mjs by a test. */
-export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473'];
+export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340'];
 export const tideStation = (id: string) => tideStations.find((s) => s.id === id) ?? null;
 
 /** Reviewed spot → station assignments for the NEW stations. Empty until the owner approves one; the San Francisco rule (`nearSanFrancisco` in data/coast.ts) is unchanged and not listed here. */

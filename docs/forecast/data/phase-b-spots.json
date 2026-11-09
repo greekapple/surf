@@ -1,0 +1,505 @@
+{
+ "retrievedOn": "2026-11-08",
+ "note": "Phase B spot research (spec docs/specs/2026-11-08-spot-expansion.md). Positions are public map points rounded to 3 dp, not surveyed takeoffs. seaward = the guide facing (surfnerd \"Faces X\" to degrees); facts are in guide-facts.json.",
+ "rows": [
+  {
+   "id": "cs-cayucos",
+   "name": "Cayucos",
+   "region": "San Luis Obispo",
+   "type": "Beach",
+   "lat": 35.448,
+   "lon": -120.907,
+   "seaward": 202,
+   "positionSource": {
+    "text": "OSM pier way: Cayucos Pier",
+    "url": "https://www.openstreetmap.org/way/10571040"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/cayucos-pier"
+   }
+  },
+  {
+   "id": "cs-shell-beach",
+   "name": "Shell Beach",
+   "region": "San Luis Obispo",
+   "type": "Reef",
+   "lat": 35.162,
+   "lon": -120.69,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (OSM has only the Shell Beach village point, inland)",
+    "url": "https://www.surfnerd.com/surf-forecast/shell-beach"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/shell-beach"
+   }
+  },
+  {
+   "id": "cs-campus-point",
+   "name": "Campus Point",
+   "region": "Santa Barbara",
+   "type": "Point",
+   "lat": 34.405,
+   "lon": -119.844,
+   "seaward": 158,
+   "positionSource": {
+    "text": "OSM cape node: Campus Point",
+    "url": "https://www.openstreetmap.org/node/7891273200"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/campus-point"
+   }
+  },
+  {
+   "id": "cs-sands",
+   "name": "Sands (Isla Vista)",
+   "region": "Santa Barbara",
+   "type": "Beach",
+   "lat": 34.408,
+   "lon": -119.882,
+   "seaward": 202,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM feature found for Sands Beach)",
+    "url": "https://www.surfnerd.com/surf-forecast/sands-beach"
+   },
+   "facingSource": {
+    "text": "SSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/sands-beach"
+   }
+  },
+  {
+   "id": "cs-leadbetter",
+   "name": "Leadbetter",
+   "region": "Santa Barbara",
+   "type": "Point",
+   "lat": 34.401,
+   "lon": -119.701,
+   "seaward": 158,
+   "positionSource": {
+    "text": "OSM beach way: Leadbetter Beach",
+    "url": "https://www.openstreetmap.org/way/446745489"
+   },
+   "facingSource": {
+    "text": "SSE (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/leadbetter-beach"
+   }
+  },
+  {
+   "id": "cs-hammonds",
+   "name": "Hammond's",
+   "region": "Santa Barbara",
+   "type": "Reef",
+   "lat": 34.415,
+   "lon": -119.637,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM feature found)",
+    "url": "https://www.surfnerd.com/surf-forecast/hammonds"
+   },
+   "facingSource": {
+    "text": "S (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/hammonds"
+   }
+  },
+  {
+   "id": "cs-emma-wood",
+   "name": "Emma Wood",
+   "region": "Ventura",
+   "type": "Beach",
+   "lat": 34.284,
+   "lon": -119.322,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM beach relation: Emma Wood State Beach",
+    "url": "https://www.openstreetmap.org/relation/17606635"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/emma-wood"
+   }
+  },
+  {
+   "id": "cs-mondos",
+   "name": "Mondos",
+   "region": "Ventura",
+   "type": "Point",
+   "lat": 34.32,
+   "lon": -119.377,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM feature found)",
+    "url": "https://www.surfnerd.com/surf-forecast/mondos"
+   },
+   "facingSource": {
+    "text": "S (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/mondos"
+   }
+  },
+  {
+   "id": "cs-silver-strand",
+   "name": "Silver Strand (Oxnard)",
+   "region": "Ventura",
+   "type": "Beach",
+   "lat": 34.151,
+   "lon": -119.221,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM feature found)",
+    "url": "https://www.surfnerd.com/surf-forecast/silver-strand"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/silver-strand"
+   }
+  },
+  {
+   "id": "cs-leo-carrillo",
+   "name": "Leo Carrillo",
+   "region": "Los Angeles",
+   "type": "Reef",
+   "lat": 34.044,
+   "lon": -118.939,
+   "seaward": 180,
+   "positionSource": {
+    "text": "OSM beach node: Leo Carrillo State Beach",
+    "url": "https://www.openstreetmap.org/node/358787609"
+   },
+   "facingSource": {
+    "text": "S (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/leo-carrillo-state-beach-secos-arroyo-sequit"
+   }
+  },
+  {
+   "id": "cs-sunset-point",
+   "name": "Sunset Point",
+   "region": "Los Angeles",
+   "type": "Point",
+   "lat": 34.038,
+   "lon": -118.553,
+   "seaward": 180,
+   "positionSource": {
+    "text": "OSM beach way: Will Rogers State Beach at Sunset Boulevard (matches both guide pins)",
+    "url": "https://www.openstreetmap.org/way/613168404"
+   },
+   "facingSource": {
+    "text": "S (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/sunset-boulevard"
+   }
+  },
+  {
+   "id": "cs-venice-breakwater",
+   "name": "Venice Breakwater",
+   "region": "Los Angeles",
+   "type": "Beach",
+   "lat": 33.985,
+   "lon": -118.477,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM Venice Beach relation is the whole beach)",
+    "url": "https://www.surfnerd.com/surf-forecast/venice-breakwater-and-venice-jetty"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/venice-breakwater-and-venice-jetty"
+   }
+  },
+  {
+   "id": "cs-manhattan-beach",
+   "name": "Manhattan Beach",
+   "region": "Los Angeles",
+   "type": "Beach",
+   "lat": 33.884,
+   "lon": -118.413,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM pier way: Manhattan Beach Pier",
+    "url": "https://www.openstreetmap.org/way/49605324"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/manhattan-beach-pier"
+   }
+  },
+  {
+   "id": "cs-redondo-breakwater",
+   "name": "Redondo Breakwater",
+   "region": "Los Angeles",
+   "type": "Beach",
+   "lat": 33.851,
+   "lon": -118.401,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM breakwater-break feature)",
+    "url": "https://www.surfnerd.com/surf-forecast/redondo-beach-breakwater"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/redondo-beach-breakwater"
+   }
+  },
+  {
+   "id": "cs-bolsa-chica",
+   "name": "Bolsa Chica",
+   "region": "Orange County",
+   "type": "Beach",
+   "lat": 33.698,
+   "lon": -118.051,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM beach way: Bolsa Chica State Beach",
+    "url": "https://www.openstreetmap.org/way/39970014"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surf-forecast.com/breaks/Bolsa-Chica"
+   }
+  },
+  {
+   "id": "cs-blackies",
+   "name": "Blackies",
+   "region": "Orange County",
+   "type": "Beach",
+   "lat": 33.607,
+   "lon": -117.93,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM pier way: Newport Pier (Blackies is the break beside it; surfnerd pin matches)",
+    "url": "https://www.openstreetmap.org/way/13372739"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/blackies"
+   }
+  },
+  {
+   "id": "cs-doheny",
+   "name": "Doheny",
+   "region": "Orange County",
+   "type": "Reef",
+   "lat": 33.46,
+   "lon": -117.685,
+   "seaward": 180,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM park relation point is inland)",
+    "url": "https://www.surfnerd.com/surf-forecast/doheny-state-beach"
+   },
+   "facingSource": {
+    "text": "S (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/doheny-state-beach"
+   }
+  },
+  {
+   "id": "cs-san-clemente-pier",
+   "name": "San Clemente Pier",
+   "region": "Orange County",
+   "type": "Beach",
+   "lat": 33.419,
+   "lon": -117.622,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM pier way: San Clemente Pier",
+    "url": "https://www.openstreetmap.org/way/58235337"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/san-clemente-pier"
+   }
+  },
+  {
+   "id": "cs-t-street",
+   "name": "T-Street",
+   "region": "Orange County",
+   "type": "Reef",
+   "lat": 33.416,
+   "lon": -117.618,
+   "seaward": 225,
+   "positionSource": {
+    "text": "OSM beach way: T Street Beach",
+    "url": "https://www.openstreetmap.org/way/389455902"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/t-street"
+   }
+  },
+  {
+   "id": "cs-san-onofre",
+   "name": "San Onofre",
+   "region": "San Diego",
+   "type": "Reef",
+   "lat": 33.373,
+   "lon": -117.567,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM park relations cover kilometres of coast)",
+    "url": "https://www.surfnerd.com/surf-forecast/san-onofre-state-beach"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/san-onofre-state-beach"
+   }
+  },
+  {
+   "id": "cs-oceanside-harbor",
+   "name": "Oceanside Harbor",
+   "region": "San Diego",
+   "type": "Beach",
+   "lat": 33.205,
+   "lon": -117.394,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach relation: Harbor Beach, Oceanside",
+    "url": "https://www.openstreetmap.org/relation/14332442"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/oceanside-harbor"
+   }
+  },
+  {
+   "id": "cs-tamarack",
+   "name": "Tamarack",
+   "region": "San Diego",
+   "type": "Beach",
+   "lat": 33.151,
+   "lon": -117.349,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach way: Tamarack Beach",
+    "url": "https://www.openstreetmap.org/way/463494353"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/tamarack-avenue"
+   }
+  },
+  {
+   "id": "cs-ponto",
+   "name": "Ponto",
+   "region": "San Diego",
+   "type": "Beach",
+   "lat": 33.089,
+   "lon": -117.315,
+   "seaward": 225,
+   "positionSource": {
+    "text": "surfnerd map pin (the OSM Ponto Beach relation is a long strand; its centre is 2.3 km north)",
+    "url": "https://www.surfnerd.com/surf-forecast/ponto"
+   },
+   "facingSource": {
+    "text": "SW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/ponto"
+   }
+  },
+  {
+   "id": "cs-beacons",
+   "name": "Beacons",
+   "region": "San Diego",
+   "type": "Beach",
+   "lat": 33.064,
+   "lon": -117.306,
+   "seaward": 248,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM feature found)",
+    "url": "https://www.surfnerd.com/surf-forecast/beacons-leucadia"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/beacons-leucadia"
+   }
+  },
+  {
+   "id": "cs-seaside-reef",
+   "name": "Seaside Reef",
+   "region": "San Diego",
+   "type": "Reef",
+   "lat": 33.002,
+   "lon": -117.281,
+   "seaward": 270,
+   "positionSource": {
+    "text": "surfnerd map pin (no OSM feature found)",
+    "url": "https://www.surfnerd.com/surf-forecast/seaside-reef"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/seaside-reef"
+   }
+  },
+  {
+   "id": "cs-torrey-pines",
+   "name": "Torrey Pines",
+   "region": "San Diego",
+   "type": "Reef",
+   "lat": 32.931,
+   "lon": -117.26,
+   "seaward": 270,
+   "positionSource": {
+    "text": "OSM beach relation: Torrey Pines State Beach",
+    "url": "https://www.openstreetmap.org/relation/7102568"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/torrey-pines-state-beach"
+   }
+  },
+  {
+   "id": "cs-scripps",
+   "name": "Scripps",
+   "region": "San Diego",
+   "type": "Beach",
+   "lat": 32.867,
+   "lon": -117.256,
+   "seaward": 292,
+   "positionSource": {
+    "text": "OSM pier relation: Scripps Pier (La Jolla)",
+    "url": "https://www.openstreetmap.org/relation/7102571"
+   },
+   "facingSource": {
+    "text": "WNW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/scripps-pier-la-jolla-shores"
+   }
+  },
+  {
+   "id": "cs-pacific-beach",
+   "name": "Pacific Beach",
+   "region": "San Diego",
+   "type": "Beach",
+   "lat": 32.797,
+   "lon": -117.258,
+   "seaward": 248,
+   "positionSource": {
+    "text": "OSM beach relation: Pacific Beach (at Crystal Pier)",
+    "url": "https://www.openstreetmap.org/relation/7102580"
+   },
+   "facingSource": {
+    "text": "WSW (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/pacific-beach"
+   }
+  },
+  {
+   "id": "cs-sunset-cliffs",
+   "name": "Sunset Cliffs",
+   "region": "San Diego",
+   "type": "Reef",
+   "lat": 32.724,
+   "lon": -117.258,
+   "seaward": 270,
+   "positionSource": {
+    "text": "OSM nature reserve relation: Sunset Cliffs Natural Park",
+    "url": "https://www.openstreetmap.org/relation/4112128"
+   },
+   "facingSource": {
+    "text": "W (surfnerd)",
+    "url": "https://www.surfnerd.com/surf-forecast/sunset-cliffs"
+   }
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Newport 54th St",
+   "reason": "No public guide page for 54th Street (surfnerd and surf-forecast searched; only general Newport Beach pages exist), so no facing or facts at that break."
+  }
+ ]
+}
