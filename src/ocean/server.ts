@@ -4,8 +4,11 @@ import {assignedMopIds} from './mop.ts';
 import {extraTideStationIds, hiloTideStationIds} from './tideStations.ts';
 import {contextBuoys,ndbcBuoyURL} from './buoys.ts';
 import {shoreStations,shoreFeedKey,ndbcWindURL,nwsObservationURL} from './shoreWind.ts';
+/** url -> provider key of every spot's marine, weather and spread request, built once: the old per-call scan of all spots (three URL builds each) cost ~0.4 s of Explore's main thread at 492 spots on a phone (T-091). First spot wins when two spots share a point (Acid Drop and PK's), as the scan did. */
+let spotKeyMap:Map<string,string>|null=null;
+const spotKeys=()=>{if(!spotKeyMap){spotKeyMap=new Map();const put=(u:string,k:string)=>{if(!spotKeyMap!.has(u))spotKeyMap!.set(u,k)};for(const s of evidenceSpots){put(marineURL(s),'/api/provider?key=marine-'+s.id);put(weatherURL(s),'/api/provider?key=weather-'+s.id);put(modelSpreadURL(s),'/api/provider?key=spread-'+s.id)}}return spotKeyMap};
 export function serverProviderPath(url:string):string|null {
- for(const s of evidenceSpots){if(url===marineURL(s))return '/api/provider?key=marine-'+s.id;if(url===weatherURL(s))return '/api/provider?key=weather-'+s.id;if(url===modelSpreadURL(s))return '/api/provider?key=spread-'+s.id;}
+ const spotKey=spotKeys().get(url);if(spotKey)return spotKey;
  if(url==='https://www.ndbc.noaa.gov/data/realtime2/46026.txt')return '/api/provider?key=buoy';
  for(const b of contextBuoys)if(b.provider==='NDBC'&&url===ndbcBuoyURL(b.id))return '/api/provider?key='+b.fetchKey;
  for(const st of shoreStations())if(url===(st.kind==='ndbc'?ndbcWindURL(st.id):nwsObservationURL(st.id)))return '/api/provider?key='+shoreFeedKey(st);
@@ -24,3 +27,5 @@ function rebuildStale(){staleUrls.clear();for(const m of metadata.values())if(m.
 export function forgetRetrieval(url:string){metadata.delete(url);rebuildStale()}
 
 export function staleSource(url:string){return staleUrls.has(url)}
+/** True when any request was answered from a saved copy: the delivery labelling walk over the whole bundle does nothing otherwise (~0.1 s of main thread on a phone at 492 spots, T-091). */
+export const anyStaleSource=()=>staleUrls.size>0;

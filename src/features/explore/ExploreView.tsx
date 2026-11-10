@@ -241,7 +241,9 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => () => writeMapUrl({layer: null, lat: null, lon: null, z: null, t: null}), []);
   const sel = times.indexOf(view.selectedTime ?? '');
   const ti = sel >= 0 ? sel : view.selectedTime && times.length && Date.parse(view.selectedTime) > Date.parse(times[times.length - 1]) ? times.length - 1 : 0;
-  const recAt = (id: string) => view.mapRecords.find((r) => r.spotId === id && r.timestamp === view.selectedTime);
+  // One lookup table per (records, hour): the old per-call scan of every record of every spot made each pin, label and list row O(records) (~0.3 s of main thread on a phone at 492 spots, T-091). First match wins, as find() did.
+  const recIndex = useMemo(() => { const m = new Map<string, (typeof view.mapRecords)[number]>(); for (const r of view.mapRecords) if (r.timestamp === view.selectedTime && !m.has(r.spotId)) m.set(r.spotId, r); return m; }, [view.mapRecords, view.selectedTime]);
+  const recAt = (id: string) => recIndex.get(id);
 
   useEffect(() => {
     if (!mapEl.current) return;
