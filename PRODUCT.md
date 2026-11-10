@@ -26,5 +26,8 @@ Home · Forecast · Explore · Quiver · Wave Scale · Personal (each with secti
 - Colour: fog ground, Pacific ink, one International Orange accent for navigation state and links; rating colours are semantic only. No teal-heavy palettes, glassmorphism, decorative gradients, eyebrow labels or marketing slogans.
 - Earlier SURF/SWELLO screenshots, mockups and the 9C/10C card dashboard are historical references, not visual targets.
 
+## Camera rule (amended 2026-11-10, user decision)
+Showing another owner's camera is allowed when it is public domain, when the owner's terms allow embedding, or when the owner turned embedding on for their own stream (YouTube). It must be credited to the owner, a video must load only when the visitor taps, and the live status must be stated honestly (a still older than 2 h is Offline; a stream's live status comes from its own player). AI analysis of a camera's frames (and scraping or measuring them) still needs written permission or public domain. Cameras stay out of Home and the map until decided.
+
 ## Constraints
 React 19, TypeScript, Vite 7, Leaflet; no new runtime dependencies without approval. Must work on an 8 GB Apple Silicon Mac and on phones; WCAG AA contrast, 44 px touch targets, reduced-motion support.

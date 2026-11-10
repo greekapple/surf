@@ -9360,7 +9360,12 @@
      "name": "Sharp Park",
      "km": 3.4
     }
-   ]
+   ],
+   "recheck": {
+    "date": "2026-11-10",
+    "method": "YouTube oEmbed for the stream (https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=TDcKozRHlKs) answered HTTP 200 with author_name \"Linda Mar Beach Cam\" and author_url https://www.youtube.com/@LindaMarBeachCam (oEmbed answers only for a video whose owner allows embedding); the earlier headless embed had played.",
+    "result": "Same channel as in the first check, embedding still on. The operator is still not named anywhere on the channel."
+   }
   },
   {
    "region": "Bay Area",

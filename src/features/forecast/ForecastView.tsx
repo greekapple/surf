@@ -16,6 +16,7 @@ import {boardPickFor} from '../quiver/fit';
 import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, ScalePanel, facingOf, surfOf, type CardKey} from './SpotPage';
 import {SpotBand} from './SpotBand';
 import {camsFor} from '../../data/cams';
+import {LiveCamPanel} from './LiveCam';
 import {glyphFor} from '../../services/waveGlyph';
 import {userHeight} from '../../services/heightMath';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
@@ -126,7 +127,7 @@ export function ForecastView({go}: ViewProps) {
       <NwsBanner spotId={spot.id} />
       <CallBar call={call} />
       <DaylightRow d={daylight} />
-      {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages; never embedded. */}
+      {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages. (Showing a camera in the page is the Camera panel below, under the amended camera rule in src/data/cams.ts.) */}
       {cams.length > 0 && <section className="sp-cams" aria-labelledby="sp-cams-h">
         <h2 id="sp-cams-h">Cams</h2>
         <ul>{cams.map((c) => <li key={c.url}>
@@ -134,6 +135,9 @@ export function ForecastView({go}: ViewProps) {
             <b>Live cam · {c.owner}</b><span>{c.view}</span><small>{c.operator && c.operator !== c.owner ? `Run by ${c.operator} · ` : ''}checked {c.verified} · opens their site ↗</small>
           </a></li>)}</ul>
       </section>}
+
+      {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
+      <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
 
       <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
