@@ -15430,7 +15430,8 @@
     "power": "Ordinary (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ireland-back-beach"
+    "spotId": "w-ireland-back-beach",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15803,7 +15804,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ireland-ballyheigue"
+    "spotId": "w-ireland-ballyheigue",
+    "breakTypeText": "Ballyheigue in Kerry is an exposed beach and reef break that has consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17405,6 +17407,11 @@
       "url": "https://www.surf-forecast.com/breaks/Killiney-Bay",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Ireland/North_East_and_East/Killiney_Bay/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -17421,7 +17428,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ireland-killiney-bay"
+    "spotId": "w-ireland-killiney-bay",
+    "breakTypeText": "Killiney Bay in Wexford is a sheltered sandbar break. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {

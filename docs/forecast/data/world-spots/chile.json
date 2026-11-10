@@ -11665,7 +11665,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-chile-cahuil"
+    "spotId": "w-chile-cahuil",
+    "breakTypeText": "Cahuil in Santiago is an exposed river break. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12148,7 +12149,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-chile-chigualoco"
+    "spotId": "w-chile-chigualoco",
+    "breakTypeText": "Chigualoco in Antofagasta is an exposed sandbar break that is often working. Type: Sandbar (surf-forecast, pin 0.06 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12508,7 +12510,8 @@
     "power": "Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-chile-la-marmola"
+    "spotId": "w-chile-la-marmola",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13230,7 +13233,8 @@
     "power": "Fast, Powerful, Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-chile-los-molles"
+    "spotId": "w-chile-los-molles",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13341,7 +13345,8 @@
     "power": "Ordinary (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-chile-los-pinos"
+    "spotId": "w-chile-los-pinos",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {

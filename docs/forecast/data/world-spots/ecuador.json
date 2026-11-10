@@ -9087,7 +9087,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ecuador-punta-murcielago"
+    "spotId": "w-ecuador-punta-murcielago",
+    "breakTypeText": "Punta Murcielago in Guayas is an exposed reef and point break that has fairly consistent surf. Type: Reef and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {

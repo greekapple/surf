@@ -5134,7 +5134,8 @@
     "waveQuality": "Regional Classic (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-arachania"
+    "spotId": "w-uruguay-argentina-arachania",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5253,7 +5254,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-bajada-de-los-palitos"
+    "spotId": "w-uruguay-argentina-bajada-de-los-palitos",
+    "breakTypeText": "Bajada de los Palitos in Provincia del Chubut is an exposed beach and reef break that has pretty consitent surf. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5372,7 +5374,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-barre-de-balizas"
+    "spotId": "w-uruguay-argentina-barre-de-balizas",
+    "breakTypeText": "Barre de Balizas in West Uruguay is an exposed river break that has reasonably consistent surf. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5610,7 +5613,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-bikini"
+    "spotId": "w-uruguay-argentina-bikini",
+    "breakTypeText": "Bikini in South Uruguay is an exposed beach and point break that has very reliable surf and works all around the year. Type: Beach and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6117,7 +6121,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-club-del-la-playa"
+    "spotId": "w-uruguay-argentina-club-del-la-playa",
+    "breakTypeText": "Club del la Playa in South Uruguay is an exposed beach and point break that has dependable surf and can work at any time of the year. Type: Beach and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6449,6 +6454,11 @@
       "url": "https://www.wannasurf.com/spot/South_America/Uruguay/corumb%c3%a1",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Uruguay/corumbá/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -6468,7 +6478,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-corumba"
+    "spotId": "w-uruguay-argentina-corumba",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6705,7 +6716,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-desembocadura-de-garzon"
+    "spotId": "w-uruguay-argentina-desembocadura-de-garzon",
+    "breakTypeText": "Desembocadura de Garzon in South Uruguay is an exposed river break that has pretty consitent surf. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6918,7 +6930,8 @@
     "waveQuality": "Regional Classic (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-el-barco-2"
+    "spotId": "w-uruguay-argentina-el-barco-2",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7509,7 +7522,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-el-remanso"
+    "spotId": "w-uruguay-argentina-el-remanso",
+    "breakTypeText": "El Remanso in Provincia de Buenos Aires is an exposed sandbar break that has consistent surf. Type: Sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9423,7 +9437,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-punta-medanos"
+    "spotId": "w-uruguay-argentina-punta-medanos",
+    "breakTypeText": "Punta Medanos in Provincia de Buenos Aires is an exposed sandbar break that has pretty consitent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10040,7 +10055,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-santa-lucia-del-este"
+    "spotId": "w-uruguay-argentina-santa-lucia-del-este",
+    "breakTypeText": "Santa Lucia del Este in South Uruguay is an exposed river break that has pretty consitent surf. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10527,7 +10543,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uruguay-argentina-villa-gesell"
+    "spotId": "w-uruguay-argentina-villa-gesell",
+    "breakTypeText": "Villa Gesell in Provincia de Buenos Aires is an exposed sandbar break that usually has waves. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.12 km from row pin)"
    },
    "nearestSources": [
     {

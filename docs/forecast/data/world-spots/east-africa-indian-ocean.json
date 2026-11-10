@@ -2360,7 +2360,7 @@
    "seaward": 110.1,
    "facingKind": "computed-coastline",
    "positionSource": {
-    "text": "wannasurf guide map pin (-18.859283333333334, 49.149683333333336, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "text": "wannasurf guide map pin (-18.859283333333334, 49.149683333333336, precision Approximate), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-10: 0.18 km from OSM coastline (https://www.openstreetmap.org/way/12512475)",
     "url": "https://www.wannasurf.com/spot/Africa/Madagascar/ambila_lamentsa/index.html"
    },
    "facingSource": {
@@ -2410,7 +2410,8 @@
     "power": "Hollow, Fast, Powerful (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2429,7 +2430,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
    "typeSource": null,
-   "regionSource": null
+   "regionSource": null,
+   "coastCheck": {
+    "text": "Pin is 0.18 km from OSM natural=coastline way/12512475 (OSM API map call, boxes 0.02 deg, 1 box(es), 2026-11-10); the Natural Earth 10 m coastline is 3.25 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/12512475",
+    "url": "https://www.openstreetmap.org/way/12512475",
+    "distanceKm": 0.18,
+    "naturalEarthKm": 3.25
+   }
   },
   {
    "id": "w-eafrica-corre",
@@ -2443,7 +2451,7 @@
    "seaward": 109.0,
    "facingKind": "computed-coastline",
    "positionSource": {
-    "text": "wannasurf guide map pin (-18.861233333333335, 49.1488, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "text": "wannasurf guide map pin (-18.861233333333335, 49.1488, precision Approximate), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-10: 0.15 km from OSM coastline (https://www.openstreetmap.org/way/12512475)",
     "url": "https://www.wannasurf.com/spot/Africa/Madagascar/corre/index.html"
    },
    "facingSource": {
@@ -2492,7 +2500,8 @@
     "power": "Hollow, Powerful, Fun (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2511,7 +2520,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
    "typeSource": null,
-   "regionSource": null
+   "regionSource": null,
+   "coastCheck": {
+    "text": "Pin is 0.15 km from OSM natural=coastline way/12512475 (OSM API map call, boxes 0.02 deg, 1 box(es), 2026-11-10); the Natural Earth 10 m coastline is 3.26 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/12512475",
+    "url": "https://www.openstreetmap.org/way/12512475",
+    "distanceKm": 0.15,
+    "naturalEarthKm": 3.26
+   }
   },
   {
    "id": "w-eafrica-libanono",
@@ -2871,7 +2887,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "La Batterie in Vezo Reefs is a fairly exposed reef/Rivermouth break that has inconsistent surf. Type: Reef/river (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3443,7 +3460,7 @@
    "lon": 43.59,
    "seaward": 270.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-23.62413, 43.59036), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 0.58 km away, surf-forecast 0.97 km away",
+    "text": "surfnerd guide map pin (-23.62413, 43.59036), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 0.58 km away, surf-forecast 0.97 km away; coast check 2026-11-10: 2.02 km from OSM coastline (https://www.openstreetmap.org/way/12472218)",
     "url": "https://www.surfnerd.com/surf-forecast/flame-balls.md"
    },
    "facingSource": {
@@ -3552,7 +3569,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
    "typeSource": "surfnerd states 'Reef'",
-   "regionSource": "surfnerd"
+   "regionSource": "surfnerd",
+   "coastCheck": {
+    "text": "Pin is 2.02 km from OSM natural=coastline way/12472218 (OSM API map call, boxes 0.02 deg, 9 box(es), 2026-11-10); the Natural Earth 10 m coastline is 5.51 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/12472218",
+    "url": "https://www.openstreetmap.org/way/12472218",
+    "distanceKm": 2.02,
+    "naturalEarthKm": 5.51
+   }
   },
   {
    "id": "w-eafrica-resorts",
@@ -3649,7 +3673,7 @@
    "lon": 43.602,
    "seaward": 157.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-23.66579, 43.60192), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-23.66579, 43.60192), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-10: 1.54 km from OSM coastline (https://www.openstreetmap.org/way/12472218)",
     "url": "https://www.surfnerd.com/surf-forecast/pousse-pousse.md"
    },
    "facingSource": {
@@ -3720,7 +3744,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
    "typeSource": "surfnerd states 'Reef'",
-   "regionSource": "surfnerd"
+   "regionSource": "surfnerd",
+   "coastCheck": {
+    "text": "Pin is 1.54 km from OSM natural=coastline way/12472218 (OSM API map call, boxes 0.02 deg, 9 box(es), 2026-11-10); the Natural Earth 10 m coastline is 3.6 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/12472218",
+    "url": "https://www.openstreetmap.org/way/12472218",
+    "distanceKm": 1.54,
+    "naturalEarthKm": 3.6
+   }
   },
   {
    "id": "w-eafrica-jelly-babies",
@@ -5316,7 +5347,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.05 km from row pin); Riviere de Galets in Mauritius is a quite exposed reef and point break that has pretty consitent surf and can work at any time of the year. Type: Reef and point (surf-forecast, pin 0.85 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7242,7 +7274,7 @@
    "lon": 63.296,
    "seaward": 270.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (-19.703, 63.29596), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (-19.703, 63.29596), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-10: 0.94 km from OSM coastline (https://www.openstreetmap.org/way/27803178)",
     "url": "https://www.surfnerd.com/surf-forecast/passe-jimmy.md"
    },
    "facingSource": {
@@ -7316,7 +7348,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
    "typeSource": "surfnerd states 'Reef'",
-   "regionSource": "surfnerd"
+   "regionSource": "surfnerd",
+   "coastCheck": {
+    "text": "Pin is 0.94 km from OSM natural=coastline way/27803178 (OSM API map call, boxes 0.02 deg, 1 box(es), 2026-11-10); the Natural Earth 10 m coastline is 4.43 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/27803178",
+    "url": "https://www.openstreetmap.org/way/27803178",
+    "distanceKm": 0.94,
+    "naturalEarthKm": 4.43
+   }
   },
   {
    "id": "w-eafrica-ilot-sancho",
@@ -7607,7 +7646,8 @@
     "power": "Ordinary (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10700,7 +10740,8 @@
     "waveQuality": "Normal (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {

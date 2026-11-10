@@ -50,6 +50,11 @@
       "url": "https://www.surf-forecast.com/breaks/Antalya-Lara-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Turkey/Antalya/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -69,7 +74,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-turkey-antalya-lara-beach"
+    "spotId": "w-turkey-antalya-lara-beach",
+    "breakTypeText": "Antalya (Lara Beach) in Mediterranean is an exposed sandbar break that has inconsistent surf. Type: Sandbar (surf-forecast, pin 0.03 km from row pin); Type: Sand-bar (wannasurf, GPS 1.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -277,6 +283,11 @@
       "url": "https://www.surf-forecast.com/breaks/Kumcagiz",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Turkey/Black-Sea/Kumcagiz/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -296,7 +307,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-turkey-kumcagz-kumcagiz"
+    "spotId": "w-turkey-kumcagz-kumcagiz",
+    "breakTypeText": "Kumcağız (Kumcagiz) in Black Sea is a fairly exposed sandbar break that has unreliable waves. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {

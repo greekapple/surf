@@ -6465,7 +6465,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-philippines-lanuza-rivermouth"
+    "spotId": "w-philippines-lanuza-rivermouth",
+    "breakTypeText": "Lanuza Rivermouth in Surigao Del Sur Province is a quite exposed rivermouth/sandbar break that has pretty consitent surf, although summer tends to be mostly flat. Type: River/sandbar (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6566,7 +6567,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-philippines-random-beach-break"
+    "spotId": "w-philippines-random-beach-break",
+    "breakTypeText": "Random Beach Break in Surigao Del Sur Province is a fairly exposed rivermouths break that has reasonably consistent surf, although summer tends to be mostly flat. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7183,7 +7185,8 @@
     "power": "Hollow, Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-philippines-high-5-lahar"
+    "spotId": "w-philippines-high-5-lahar",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {

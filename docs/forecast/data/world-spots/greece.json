@@ -4043,6 +4043,11 @@
       "url": "https://www.surf-forecast.com/breaks/Sarti-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Greece/Aegean_Sea/Sarti_Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4062,7 +4067,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-greece-sarti-beach"
+    "spotId": "w-greece-sarti-beach",
+    "breakTypeText": "Sarti Beach in Aegean Sea is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.02 km from row pin); Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4413,7 +4419,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-greece-small-king-skiathos"
+    "spotId": "w-greece-small-king-skiathos",
+    "breakTypeText": "Small King (Skiathos) in Aegean Sea is an exposed beach and reef break that does not work very often. Type: Beach and reef (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4975,6 +4982,11 @@
       "url": "https://www.surf-forecast.com/breaks/Sykia-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Greece/Aegean_Sea/Sykia_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4993,7 +5005,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-greece-sykia-beach"
+    "spotId": "w-greece-sykia-beach",
+    "breakTypeText": "Sykia Beach in Aegean Sea is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.05 km from row pin); Type: Sand-bar (wannasurf, GPS 0.38 km from row pin)"
    },
    "nearestSources": [
     {

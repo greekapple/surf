@@ -60952,6 +60952,11 @@
       "url": "https://www.surf-forecast.com/breaks/Baker-s-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/baker_s_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -60972,7 +60977,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-baker-s-beach"
+    "spotId": "w-us-baker-s-beach",
+    "breakTypeText": "Baker s Beach in Rhode Island is a quite exposed sandbar break that has quite reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61084,6 +61090,11 @@
       "url": "https://www.surf-forecast.com/breaks/Ballston-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/Balston_Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -61106,7 +61117,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-ballston-beach"
+    "spotId": "w-us-ballston-beach",
+    "breakTypeText": "Ballston Beach in Massachusetts is an exposed beach break that has unreliable waves with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.03 km from row pin); Type: Sand-bar (wannasurf, GPS 3.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61216,6 +61228,11 @@
       "url": "https://www.surf-forecast.com/breaks/Beach-Club",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/Beach_Club/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -61237,7 +61254,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-beach-club"
+    "spotId": "w-us-beach-club",
+    "breakTypeText": "Beach Club in North Florida is an exposed sandbar break that has very reliable surf, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61474,6 +61492,11 @@
       "url": "https://www.surf-forecast.com/breaks/Beauregard",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/Beauregard/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -61494,7 +61517,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-beauregard"
+    "spotId": "w-us-beauregard",
+    "breakTypeText": "Beauregard in North Carolina is an exposed sandbar break that only works when conditions are just right with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62126,6 +62150,11 @@
       "url": "https://www.surf-forecast.com/breaks/Chicahauk",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/chicahauk/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -62147,7 +62176,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-chicahauk"
+    "spotId": "w-us-chicahauk",
+    "breakTypeText": "Chicahauk in North Carolina is an exposed sandbar break that has quite reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62257,6 +62287,11 @@
       "url": "https://www.surf-forecast.com/breaks/Coastguards",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Long_Island_NY/Coastguards/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -62276,7 +62311,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-coastguards"
+    "spotId": "w-us-coastguards",
+    "breakTypeText": "Coastguards in Long Island New York is an exposed sandbar break that has quite reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62386,6 +62422,11 @@
       "url": "https://www.surf-forecast.com/breaks/Connecticut-Street-Jetty",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Long_Island_NY/connecticut_street_jetty/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -62405,7 +62446,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-connecticut-street-jetty"
+    "spotId": "w-us-connecticut-street-jetty",
+    "breakTypeText": "Connecticut Street Jetty in Long Island New York is an exposed breakwater break. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62515,6 +62557,11 @@
       "url": "https://www.surf-forecast.com/breaks/Crossroads-1",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/crossroads/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -62536,7 +62583,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-crossroads"
+    "spotId": "w-us-crossroads",
+    "breakTypeText": "Crossroads in North Florida is an exposed sandbar break that has inconsistent surf with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -63297,6 +63345,11 @@
       "url": "https://www.surf-forecast.com/breaks/Dunes-Motel",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/Dunes_Motel/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -63318,7 +63371,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-dunes-motel"
+    "spotId": "w-us-dunes-motel",
+    "breakTypeText": "Dunes Motel in South Florida is a quite exposed sandbar break that only works when conditions are just right with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64079,6 +64133,11 @@
       "url": "https://www.surf-forecast.com/breaks/Fifty-seventh-Street",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/57th_Street/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -64098,7 +64157,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-57th-street"
+    "spotId": "w-us-57th-street",
+    "breakTypeText": "57th Street in New Jersey is a fairly exposed sandbar break that has fairly consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64230,7 +64290,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-flagler-pier-2"
+    "spotId": "w-us-flagler-pier-2",
+    "breakTypeText": "Flagler Pier in North Florida is an exposed beach/Pier break that has fairly consistent surf and can work at any time of the year. Type: Beach/pier (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64357,7 +64418,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-fluidgroove-reef"
+    "spotId": "w-us-fluidgroove-reef",
+    "breakTypeText": "Fluidgroove Reef in North Florida is an exposed sandbar break that has very consistent surf and works all around the year. Type: Sandbar (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64596,6 +64658,11 @@
       "url": "https://www.surf-forecast.com/breaks/Forty-second-St-VA-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Virginia/42nd_st_va_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -64616,7 +64683,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-42nd-st-va-beach"
+    "spotId": "w-us-42nd-st-va-beach",
+    "breakTypeText": "42nd St VA Beach in Virginia is an exposed sandbar break that does not work very often with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64726,6 +64794,11 @@
       "url": "https://www.surf-forecast.com/breaks/Georgica-Pond",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Long_Island_NY/georgica_pond/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -64747,7 +64820,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-georgica-pond"
+    "spotId": "w-us-georgica-pond",
+    "breakTypeText": "Georgica Pond in Long Island New York is an exposed sandbar break that only works when conditions are just right with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65136,7 +65210,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-hangers"
+    "spotId": "w-us-hangers",
+    "breakTypeText": "Hangers in North Florida is a fairly exposed beach and reef break that has quite reliable surf, although summer tends to be mostly flat. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65532,7 +65607,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-horseneck-beach"
+    "spotId": "w-us-horseneck-beach",
+    "breakTypeText": "Horseneck Beach in Massachusetts is a fairly exposed sandbar break that has quite consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65923,7 +65999,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-lbi-82st"
+    "spotId": "w-us-lbi-82st",
+    "breakTypeText": "Lbi 82st in New Jersey is an exposed sandbar break that has fairly consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -66052,7 +66129,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-lbi-long-beach-island"
+    "spotId": "w-us-lbi-long-beach-island",
+    "breakTypeText": "LBI Long Beach Island in New Jersey is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -66292,6 +66370,11 @@
       "url": "https://www.surf-forecast.com/breaks/Lighthouse-7",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/lighthouse/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -66313,7 +66396,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-lighthouse"
+    "spotId": "w-us-lighthouse",
+    "breakTypeText": "Lighthouse in North Florida is a fairly exposed sandbar break that has reasonably consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -66420,6 +66504,11 @@
       "url": "https://www.surf-forecast.com/breaks/Long-Point-1",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/long_point/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -66440,7 +66529,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-long-point"
+    "spotId": "w-us-long-point",
+    "breakTypeText": "Long Point in North Florida is an exposed sandbar break that has fairly consistent surf, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -66815,6 +66905,11 @@
       "url": "https://www.surf-forecast.com/breaks/Middle-Access",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/Middle_Access/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -66834,7 +66929,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-middle-access"
+    "spotId": "w-us-middle-access",
+    "breakTypeText": "Middle Access in North Florida is an exposed sandbar break that is usually a safe bet and works all around the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -67223,7 +67319,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-myrtle-beach-pier-14"
+    "spotId": "w-us-myrtle-beach-pier-14",
+    "breakTypeText": "Myrtle Beach (The Yachtsman Pier) in South Carolina is an exposed beach/Pier break that has unreliable waves Offshore winds blow from the northwest. Type: Beach/pier (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -67598,6 +67695,11 @@
       "url": "https://www.surf-forecast.com/breaks/North-Wildwood",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/north_wildwood/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -67619,7 +67721,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-north-wildwood"
+    "spotId": "w-us-north-wildwood",
+    "breakTypeText": "North Wildwood in New Jersey is an exposed sandbar break that has reasonably consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.06 km from row pin); Type: Sand-bar (wannasurf, GPS 0.61 km from row pin)"
    },
    "nearestSources": [
     {
@@ -67727,6 +67830,11 @@
       "url": "https://www.surf-forecast.com/breaks/Ocean-Avenue",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/Ocean_Avenue/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -67747,7 +67855,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-ocean-avenue"
+    "spotId": "w-us-ocean-avenue",
+    "breakTypeText": "Ocean Avenue in North Florida is an exposed sandbar break that has fairly consistent surf, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -68007,7 +68116,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-ocean-city-14th-15th-st"
+    "spotId": "w-us-ocean-city-14th-15th-st",
+    "breakTypeText": "Ocean City - 14th 15th St in New Jersey is a fairly exposed sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -68248,6 +68358,11 @@
       "url": "https://www.surf-forecast.com/breaks/Ocean-Lane-Deal",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/ocean_lane_deal/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -68268,7 +68383,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-ocean-lane-deal"
+    "spotId": "w-us-ocean-lane-deal",
+    "breakTypeText": "Ocean Lane Deal in New Jersey is an exposed breakwater break that has very consistent waves and works all around the year. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -68398,7 +68514,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-ormond-beach-pier-2"
+    "spotId": "w-us-ormond-beach-pier-2",
+    "breakTypeText": "Ormond Beach Pier in North Florida is an exposed beach/Pier break that has quite reliable surf and can work at any time of the year. Type: Beach/pier (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -68508,6 +68625,11 @@
       "url": "https://www.surf-forecast.com/breaks/Painter-s-Hill",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/Painter_s_Hill/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -68529,7 +68651,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-painter-s-hill"
+    "spotId": "w-us-painter-s-hill",
+    "breakTypeText": "Painter s Hill in North Florida is an exposed sandbar break that has quite reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -68901,6 +69024,11 @@
       "url": "https://www.surf-forecast.com/breaks/Phillips-Pump-House",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/phillips_pump_house/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -68921,7 +69049,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-phillips-pump-house"
+    "spotId": "w-us-phillips-pump-house",
+    "breakTypeText": "Phillips Pump House in New Jersey is an exposed breakwater break that has unreliable waves with no particular seasonal pattern. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69053,7 +69182,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-ponte-vedra-2"
+    "spotId": "w-us-ponte-vedra-2",
+    "breakTypeText": "Ponte Vedra in North Florida is an exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69163,6 +69293,16 @@
       "url": "https://www.surf-forecast.com/breaks/Sachuest-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/2nd-beach-sachuest-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/2nd_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -69185,7 +69325,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-sachuest-beach-2nd-beach"
+    "spotId": "w-us-sachuest-beach-2nd-beach",
+    "breakTypeText": "Sachuest Beach(2nd Beach) in Rhode Island is a fairly exposed beach and point break that has fairly consistent surf and can work at any time of the year. Type: Beach and point (surf-forecast, pin 0.06 km from row pin); Type: Beach (surfnerd, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.2 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69424,6 +69565,11 @@
       "url": "https://www.surf-forecast.com/breaks/Sebastian-Inlet_First-Peak",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sebastian-Inlet_Third-Peak",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -69446,7 +69592,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-sebastian-inlet-first-peak"
+    "spotId": "w-us-sebastian-inlet-first-peak",
+    "breakTypeText": "Sebastian Inlet-First Peak in North Florida is an exposed beach/Jetty break that has very consistent waves, although summer tends to be mostly flat. Type: Beach/jetty (surf-forecast, pin 0.02 km from row pin); Sebastian Inlet-Third Peak in North Florida is an exposed beach/Jetty break that has consistent surf, although summer tends to be mostly flat. Type: Beach/jetty (surf-forecast, pin 1.47 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69577,7 +69724,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-sebastian-inlet-second-peak"
+    "spotId": "w-us-sebastian-inlet-second-peak",
+    "breakTypeText": "Sebastian Inlet-Second Peak in North Florida is an exposed beach/Jetty break that has consistent surf, although summer tends to be mostly flat. Type: Beach/jetty (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69687,6 +69835,11 @@
       "url": "https://www.surf-forecast.com/breaks/Seventh-Avenue",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/7th_avenue/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -69708,7 +69861,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-7th-avenue"
+    "spotId": "w-us-7th-avenue",
+    "breakTypeText": "7th Avenue in North Florida is an exposed sandbar break that has pretty consitent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69818,6 +69972,11 @@
       "url": "https://www.surf-forecast.com/breaks/Shit-Pipe",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/Southern_North_Carolina/Shit_Pipe/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -69838,7 +69997,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-shit-pipe"
+    "spotId": "w-us-shit-pipe",
+    "breakTypeText": "Shit Pipe in North Carolina is an exposed sandbar break that has quite consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -70208,6 +70368,11 @@
       "url": "https://www.surf-forecast.com/breaks/St-Marys-Rivermouth",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Florida/St__Marys_rivermouth/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -70228,7 +70393,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-st-marys-rivermouth"
+    "spotId": "w-us-st-marys-rivermouth",
+    "breakTypeText": "St Marys Rivermouth in North Florida is an exposed river break that has inconsistent surf with no particular seasonal pattern. Type: River (surf-forecast, pin 0.0 km from row pin); Type: Rivermouth (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -70360,7 +70526,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-stone-harbour-point"
+    "spotId": "w-us-stone-harbour-point",
+    "breakTypeText": "Stone Harbour in New Jersey is an exposed beach/Jetty break that has pretty consitent surf. Type: Beach/jetty (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -70470,6 +70637,11 @@
       "url": "https://www.surf-forecast.com/breaks/Stumps",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/Stumps/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -70490,7 +70662,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-stumps"
+    "spotId": "w-us-stumps",
+    "breakTypeText": "Stumps in South Florida is an exposed sandbar break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -70752,7 +70925,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-the-cove-3"
+    "spotId": "w-us-the-cove-3",
+    "breakTypeText": "The Cove in South Florida is a fairly exposed beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -70990,6 +71164,11 @@
       "url": "https://www.surf-forecast.com/breaks/The-Shoals",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/the_shoals/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -71010,7 +71189,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-the-shoals"
+    "spotId": "w-us-the-shoals",
+    "breakTypeText": "The Shoals in North Florida is an exposed sandbar break that has inconsistent surf with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -71382,6 +71562,11 @@
       "url": "https://www.surf-forecast.com/breaks/Thirty-eighth-St-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/38th_St__Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -71402,7 +71587,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-38th-st-beach"
+    "spotId": "w-us-38th-st-beach",
+    "breakTypeText": "38th St Beach in New Jersey is an exposed sandbar break that has reasonably consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -71512,6 +71698,11 @@
       "url": "https://www.surf-forecast.com/breaks/Thirty-fifth-Street-Iop",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Carolina/35th_Street__IOP/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -71531,7 +71722,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-35th-street-iop"
+    "spotId": "w-us-35th-street-iop",
+    "breakTypeText": "35th Street Iop in South Carolina is an exposed sandbar break that has very consistent surf and works all around the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -71641,6 +71833,11 @@
       "url": "https://www.surf-forecast.com/breaks/Tower-Road",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Virginia/Tower_Road/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -71661,7 +71858,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-tower-road"
+    "spotId": "w-us-tower-road",
+    "breakTypeText": "Tower Road in Delaware is an exposed sandbar break that has pretty consitent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -71771,6 +71969,11 @@
       "url": "https://www.surf-forecast.com/breaks/Vilano-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/Vilano_Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -71790,7 +71993,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-vilano-beach"
+    "spotId": "w-us-vilano-beach",
+    "breakTypeText": "Vilano Beach in North Florida is an exposed breakwater break that has very reliable surf and works all around the year. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Beach-break (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -71900,6 +72104,11 @@
       "url": "https://www.surf-forecast.com/breaks/Waverly",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/waverly/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -71920,7 +72129,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-waverly"
+    "spotId": "w-us-waverly",
+    "breakTypeText": "Waverly in New Jersey is a fairly exposed breakwater break that has very reliable surf and works all around the year. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -72030,6 +72240,11 @@
       "url": "https://www.surf-forecast.com/breaks/White-Crest-Beach-Wellfleet",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/whitecrest_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -72050,7 +72265,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-white-crest-beach-wellfleet"
+    "spotId": "w-us-white-crest-beach-wellfleet",
+    "breakTypeText": "White Crest Beach (Wellfleet) in Massachusetts is an exposed sandbar break that has pretty consitent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {

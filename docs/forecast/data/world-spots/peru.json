@@ -11547,7 +11547,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-boca-del-rio-3"
+    "spotId": "w-peru-boca-del-rio-3",
+    "breakTypeText": "Boca del Rio in La Libertad and Lambayeque is an exposed beach and point break that has very consistent surf. Type: Beach and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12037,7 +12038,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-cherrepe"
+    "spotId": "w-peru-cherrepe",
+    "breakTypeText": "Cherrepe in La Libertad and Lambayeque is an exposed beach and point break that has very reliable surf. Type: Beach and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12154,7 +12156,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-el-brujo"
+    "spotId": "w-peru-el-brujo",
+    "breakTypeText": "El Brujo in La Libertad and Lambayeque is an exposed beach and reef break that has very consistent surf. Type: Beach and reef (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12504,7 +12507,8 @@
     "power": "Hollow, Fast, Powerful, Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-inferniio"
+    "spotId": "w-peru-inferniio",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13909,7 +13913,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-pena-redonda"
+    "spotId": "w-peru-pena-redonda",
+    "breakTypeText": "Peña Redonda in Piura is a fairly exposed beach and point break that has very consistent surf. Type: Beach and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14766,7 +14771,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-rio-lurin"
+    "spotId": "w-peru-rio-lurin",
+    "breakTypeText": "Rio Lurin in Lima is an exposed river break that has inconsistent surf. Type: Beach and river (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15109,7 +15115,8 @@
     "waveQuality": "Regional Classic (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-peru-san-maloy"
+    "spotId": "w-peru-san-maloy",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {

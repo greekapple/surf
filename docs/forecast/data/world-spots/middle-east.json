@@ -1228,7 +1228,8 @@
     "power": "Ordinary (wannasurf)",
     "facing": "Southeast (surfnerd: \"Faces SE\")",
     "facingDeg": 135.0,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (surfnerd, pin 0.01 km from row pin); Type: Rivermouth (wannasurf, GPS 0.2 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1328,7 +1329,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Mangaf in Kuwait is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4495,7 +4497,8 @@
     "power": "Fast, Fun (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {

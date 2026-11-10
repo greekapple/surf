@@ -5557,6 +5557,11 @@
       "url": "https://www.surf-forecast.com/breaks/Damon-Point",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_West/Washington/damon_point/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "West-southwest (surfnerd: \"Faces WSW\")",
@@ -5574,7 +5579,8 @@
     },
     "notes": "town: Ocean Shores (surfnerd); surf-forecast pin 46.937,-124.134 is 1.3 km from the surfnerd pin",
     "minimumPeriodS": null,
-    "hazards": []
+    "hazards": [],
+    "breakTypeText": "Damon Point in Washington State is a sheltered sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 1.34 km from row pin); Type: Sand-bar (wannasurf, GPS 1.31 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9122,7 +9128,8 @@
     },
     "notes": "town: Sea Ranch (surfnerd); no surf-forecast page matched within 6 km by name",
     "minimumPeriodS": null,
-    "hazards": []
+    "hazards": [],
+    "breakTypeText": "Type: Rivermouth (surfnerd, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10482,6 +10489,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/jug-handle-state-beach",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/Mendocino/Jug_Handle_State_Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "West (surfnerd: \"Faces W\")",
@@ -10494,7 +10506,8 @@
     },
     "notes": "town: Caspar (surfnerd); no surf-forecast page matched within 6 km by name",
     "minimumPeriodS": null,
-    "hazards": []
+    "hazards": [],
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.18 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14560,7 +14573,8 @@
      "surfForecast": "Navarro Rivermouth in Mendocino County is a fairly exposed river break that has inconsistent surf Offshore winds blow from the east. Groundswells more frequent than windswells and the ideal swell angle is from the northwest. The river break provides left and right handers. It's often crowded here. Watch out for sharks, rips, rocks and locals. Navarro Rivermouth"
     },
     "notes": "town: Albion (surfnerd); surf-forecast pin 39.1881,-123.7604 is 0.2 km from the surfnerd pin",
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (surfnerd, pin 0.03 km from row pin); Navarro Rivermouth in Mendocino County is a fairly exposed river break that has inconsistent surf Offshore winds blow from the east. Type: River (surf-forecast, pin 0.21 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16112,6 +16126,11 @@
       "url": "https://www.surf-forecast.com/breaks/Ocean-Shores",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_West/Washington/ocean_shores/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "West (surfnerd: \"Faces W\")",
@@ -16130,7 +16149,8 @@
      "surfForecast": "Ocean Shores in Washington State is a sheltered breakwater break that has quite reliable surf. Spring and Summer provide the best conditions. Offshore winds blow from the east. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the west southwest. Unlikely to be too crowded, even when the surf is up. Watch out for - Rips / undertow. Ocean Shores"
     },
     "notes": "town: Ocean Shores (surfnerd); surf-forecast pin 46.973,-124.174 is 1.7 km from the surfnerd pin",
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Ocean Shores in Washington State is a sheltered breakwater break that has quite reliable surf. Type: Breakwater (surf-forecast, pin 1.78 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 1.78 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20836,6 +20856,11 @@
       "url": "https://www.surf-forecast.com/breaks/Russian-Rivermouth",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/Sonoma/Russian_Rivermouth/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "Southwest (surfnerd: \"Faces SW\")",
@@ -20872,7 +20897,8 @@
      "surfForecast": "Russian Rivermouth in Sonoma is an exposed river break that only works when conditions are just right The best wind direction is from the east with some shelter here from north winds. Groundswells more frequent than windswells and the ideal swell direction is from the southwest. The river breaks favour rights. It's sometimes crowded here. Beware of sharks, rips and rocks. Russian Rivermouth"
     },
     "notes": "town: Jenner (surfnerd); surf-forecast pin 38.4513,-123.1321 is 0.1 km from the surfnerd pin",
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (surfnerd, pin 0.05 km from row pin); Russian Rivermouth in Sonoma is an exposed river break that only works when conditions are just right The best wind direction is from the east with some shelter here from north winds. Type: River (surf-forecast, pin 0.1 km from row pin); Type: Rivermouth (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22074,7 +22100,8 @@
      "surfForecast": "Santa Ana River Jetties in Orange County is a sheltered river break that has dependable surf and can work at any time of the year. Offshore winds are from the northeast. Groundswells more frequent than windswells and the ideal swell direction is from the southwest. Waves at the river are both lefts and rights. Best around low tide. It's often crowded here. Watch out for rips, locals and pollution. Santa Ana River Jetties"
     },
     "notes": "town: Huntington Beach (surfnerd); surf-forecast pin 33.6461,-117.9908 is 3.6 km from the surfnerd pin",
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (surfnerd, pin 0.04 km from row pin); Santa Ana River Jetties in Orange County is a sheltered river break that has dependable surf and can work at any time of the year. Type: River (surf-forecast, pin 3.57 km from row pin)"
    },
    "nearestSources": [
     {
@@ -30530,6 +30557,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/tijuana-slough",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tijuana-Sloughs",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "West-southwest (surfnerd: \"Faces WSW\")",
@@ -30542,7 +30574,8 @@
     },
     "notes": "town: Imperial Beach (surfnerd); no surf-forecast page matched within 6 km by name",
     "minimumPeriodS": null,
-    "hazards": []
+    "hazards": [],
+    "breakTypeText": "Tijuana Sloughs in Baja Norte is an exposed beach break that is often working. Type: River (surf-forecast, pin 0.8 km from row pin)"
    },
    "nearestSources": [
     {
@@ -31964,7 +31997,8 @@
     },
     "notes": "town: Twin (surfnerd); surf-forecast pin 48.1738,-123.9544 is 1.0 km from the surfnerd pin",
     "minimumPeriodS": null,
-    "hazards": []
+    "hazards": [],
+    "breakTypeText": "Type: River (surf-forecast, pin 1.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -33853,6 +33887,11 @@
       "url": "https://www.surf-forecast.com/breaks/Arnold",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/Ventura/arnold/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -33870,7 +33909,8 @@
      "surfForecast": "Arnold in Ventura County is a fairly exposed sandbar break that has unreliable waves with no particular seasonal pattern. The best wind direction is from the northeast. Groundswells more frequent than windswells and the ideal swell direction is from the southwest. Best around mid tide. Relatively few surfers here, even on good days. Beware of rips and sharks. Arnold"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Arnold in Ventura County is a fairly exposed sandbar break that has unreliable waves with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -36323,6 +36363,11 @@
       "url": "https://www.surf-forecast.com/breaks/Dutches-A-Frame",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/San_Diego_County/Dutches_A-Frame/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -36339,7 +36384,8 @@
      "surfForecast": "Dutches A Frame in San Diego County is an exposed sandbar break that only works once in a while. Summer offers the optimum conditions for surfing. The best wind direction is from the northeast. Most of the surf here comes from groundswells and the ideal swell angle is from the west. Even when there are waves, it's not likley to be crowded. Beware of - Rips / undertow - Private beach - Localism. Dutches A Frame"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Dutches A Frame in San Diego County is an exposed sandbar break that only works once in a while. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37329,7 +37375,8 @@
      "surfForecast": "Gualala Rivermouth in Mendocino County is an exposed river break that only works once in a while Ideal winds are from the east with some shelter here from northwest winds. Tends to receive distant groundswells and the best swell direction is from the southwest. Waves at the river break both left and right. It very rarely gets crowded here. Beware of sharks, rips, rocks and locals. Gualala Rivermouth"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Gualala Rivermouth in Mendocino County is an exposed river break that only works once in a while Ideal winds are from the east with some shelter here from northwest winds. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37536,6 +37583,11 @@
       "url": "https://www.surf-forecast.com/breaks/Hoko-River-Kydaka",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_West/Washington/hoko_river__kydaka/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -37552,7 +37604,8 @@
      "surfForecast": "Hoko River Kydaka in Washington State is a quite exposed river break that does not work very often. Autumn and winter are the best times of year for waves. Offshore winds blow from the southeast. Windswells and groundswells in equal measure and the optimum swell angle is from the west northwest. Crowds are never a problem here. Beware of - Rocks. Hoko River Kydaka"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Hoko River Kydaka in Washington State is a quite exposed river break that does not work very often. Type: River (surf-forecast, pin 0.0 km from row pin); Type: Rivermouth (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38149,6 +38202,11 @@
       "url": "https://www.surf-forecast.com/breaks/Main-Street",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/main_street/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -38167,7 +38225,8 @@
      "surfForecast": "Main Street in Santa Barbara is an exposed sandbar break that has unreliable waves with no particular seasonal pattern. Offshore winds are from the east southeast. Most of the surf here comes from groundswells and the optimum swell angle is from the west northwest. The sandbar breaks offer lefts and rights. The quality of the surf isn't affected by the tide. Even when there are waves, it's not likley to be crowded. Surfing here means negotiating dangerous rips. Main Street"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Main Street in Santa Barbara is an exposed sandbar break that has unreliable waves with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Beach-break (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38516,6 +38575,11 @@
       "url": "https://www.surf-forecast.com/breaks/Middles-4",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/Orange_County/Middles/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -38531,7 +38595,8 @@
      "surfForecast": "Middles in Orange County is a fairly exposed sandbar break. Winter is the best time of year for surfing here. Offshore winds blow from the north northeast. Tends to receive distant groundswells and the best swell direction is from the south southwest. The location means that it never gets crowded. Beware of - Rips / undertow. Middles"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Middles in Orange County is a fairly exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38775,7 +38840,8 @@
      "surfForecast": "Newport 15th Street in Orange County is a fairly exposed sandbar break that has quite consistent surf. Summer offers the best conditions for surfing. Ideal winds are from the north northeast. Groundswells are more common than windswells and the ideal swell angle is from the south southwest. Even when there are waves, it's not likley to be crowded. Beware of - Rips / undertow. Newport 15th Street"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Newport 15th Street in Orange County is a fairly exposed sandbar break that has quite consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -40472,7 +40538,8 @@
      "surfForecast": "Taft (Siltetz River) in North Oregon is an exposed river break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the east. Tends to receive a mix of groundswells and windswells and the best swell direction is from the west. The river break offers both left and right hand waves. When the surf is up, it can get quite busy in the water. Beware of rips and sharks. Taft (Siltetz River)"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Taft (Siltetz River) in North Oregon is an exposed river break that has reasonably consistent surf and can work at any time of the year. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -41460,6 +41527,11 @@
       "url": "https://www.surf-forecast.com/breaks/Will-Rogers",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/California/LA_County/Will_Rodgers/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -41476,7 +41548,8 @@
      "surfForecast": "Will Rogers in Los Angeles County is an exposed breakwater break that does not work very often. Summer offers the best conditions for surfing. Offshore winds blow from the northeast. Most of the surf here comes from groundswells and the best swell direction is from the southwest. An uncrowded break, even when it is working. Beware of - Rips / undertow - Man-made danger (buoys etc.) - Pollution - Sharks. Will Rogers"
     },
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Will Rogers in Los Angeles County is an exposed breakwater break that does not work very often. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {

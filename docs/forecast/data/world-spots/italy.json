@@ -8595,6 +8595,11 @@
       "url": "https://www.surf-forecast.com/breaks/Albenga",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Italy/Mainland/albenga/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -8615,7 +8620,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-albenga"
+    "spotId": "w-italy-albenga",
+    "breakTypeText": "Albenga in West Coast of Italy is an exposed river break that has inconsistent surf. Type: River (surf-forecast, pin 0.04 km from row pin); Type: Rivermouth (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9509,6 +9515,11 @@
       "url": "https://www.surf-forecast.com/breaks/Capo-Vieste",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Italy/Mainland/capo_vieste/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -9530,7 +9541,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-capo-vieste"
+    "spotId": "w-italy-capo-vieste",
+    "breakTypeText": "Capo Vieste in Adriatic - Italy is an exposed sandbar break that has inconsistent surf. Type: Sandbar (surf-forecast, pin 0.04 km from row pin); Type: Sand-bar (wannasurf, GPS 2.08 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9645,7 +9657,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-cesano-piramidi"
+    "spotId": "w-italy-cesano-piramidi",
+    "breakTypeText": "Cesano Piramidi in Adriatic - Italy is an exposed beach and point break that has inconsistent surf. Type: Beach and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9775,7 +9788,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-circoletto-rome"
+    "spotId": "w-italy-circoletto-rome",
+    "breakTypeText": "Circoletto (Rome) in West Coast of Italy is an exposed beach and reef break that does not work very often. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10165,7 +10179,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-curvone"
+    "spotId": "w-italy-curvone",
+    "breakTypeText": "Curvone in West Coast of Italy is an exposed beach and reef break that has reasonably consistent surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10392,6 +10407,11 @@
       "url": "https://www.surf-forecast.com/breaks/Finale-Ligure",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Italy/Mainland/finale_ligure/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -10412,7 +10432,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-finale-ligure"
+    "spotId": "w-italy-finale-ligure",
+    "breakTypeText": "Finale Ligure in West Coast of Italy is an exposed river break that has unreliable waves. Type: River (surf-forecast, pin 0.04 km from row pin); Type: Rivermouth (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11038,6 +11059,11 @@
       "url": "https://www.surf-forecast.com/breaks/Is-Arenas",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Italy/Sicily_Sardinia/Is_Arenas/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -11059,7 +11085,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-is-arenas"
+    "spotId": "w-italy-is-arenas",
+    "breakTypeText": "Is Arenas in Sardinia is an exposed sandbar break that only works once in a while. Type: Sandbar (surf-forecast, pin 0.02 km from row pin); Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12849,6 +12876,11 @@
       "url": "https://www.surf-forecast.com/breaks/Marina-Romea",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Italy/Mainland/Marina_di_Romea/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -12869,7 +12901,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-marina-romea"
+    "spotId": "w-italy-marina-romea",
+    "breakTypeText": "Marina Romea in Adriatic is a fairly exposed river break that only works when conditions are just right. Type: River (surf-forecast, pin 0.02 km from row pin); Type: Beach-break (wannasurf, GPS 4.95 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13499,7 +13532,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-portixeddu"
+    "spotId": "w-italy-portixeddu",
+    "breakTypeText": "Portixeddu in Sardinia is an exposed beach and point break that has reasonably consistent surf Offshore winds blow from the east with some shelter here from north winds. Type: Beach and point (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14643,6 +14677,11 @@
       "url": "https://www.surf-forecast.com/breaks/Saraceno",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Italy/Mainland/Saraceno/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -14663,7 +14702,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-italy-saraceno"
+    "spotId": "w-italy-saraceno",
+    "breakTypeText": "Saraceno in Adriatic - Italy is an exposed sandbar break that has inconsistent surf. Type: Sandbar (surf-forecast, pin 0.06 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {

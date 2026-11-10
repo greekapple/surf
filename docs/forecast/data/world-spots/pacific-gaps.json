@@ -284,7 +284,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Talofofo/The Bay in - is an exposed rivermouth break that does not work very often. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1935,7 +1936,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Hopscotch in Efate is an exposed beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {

@@ -3926,7 +3926,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-netherlands-hargen"
+    "spotId": "w-netherlands-hargen",
+    "breakTypeText": "Hargen on the West Coast is an exposed beach/breakwater break that has pretty consitent surf, although summer tends to be mostly flat. Type: Beach/breakwater (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4193,7 +4194,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-netherlands-maasexpress"
+    "spotId": "w-netherlands-maasexpress",
+    "breakTypeText": "Maasexpress on the West Coast is a sheltered river/jetties break that only works once in a while. Type: River/jetties (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4589,7 +4591,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-netherlands-zud"
+    "spotId": "w-netherlands-zud",
+    "breakTypeText": "Zud on the West Coast is an exposed beach/Jetty break that only works once in a while. Type: Beach/jetty (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {

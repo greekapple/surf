@@ -38211,7 +38211,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-calita"
+    "spotId": "w-spain-calita",
+    "breakTypeText": "Calita in Andalucia is an exposed beach and reef break that does not work very often. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38539,6 +38540,11 @@
       "url": "https://www.surf-forecast.com/breaks/Conil",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Spain/Andalucia/conil/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -38561,7 +38567,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-conil"
+    "spotId": "w-spain-conil",
+    "breakTypeText": "Conil in Andalucia is an exposed river break that has fairly consistent surf. Type: River (surf-forecast, pin 0.05 km from row pin); Type: Rivermouth (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39055,7 +39062,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-el-arenal-2"
+    "spotId": "w-spain-el-arenal-2",
+    "breakTypeText": "El Arenal (Playa de Valdearenas) in Cantabria is an exposed beach break that has pretty consitent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39691,7 +39699,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-el-sardinero-segunda"
+    "spotId": "w-spain-el-sardinero-segunda",
+    "breakTypeText": "El Sardinero - Segunda in Spain - Cantabria is a fairly exposed beach and rocks break that has fairly consistent surf. Type: Beach and rocks (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -41901,7 +41910,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-las-caracolas"
+    "spotId": "w-spain-las-caracolas",
+    "breakTypeText": "Las Caracolas in Andalucia is an exposed beach and reef break that has fairly consistent surf. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42137,7 +42147,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-las-redes"
+    "spotId": "w-spain-las-redes",
+    "breakTypeText": "Las Redes in Andalucia is a reasonably exposed beach break that has pretty consitent surf. Type: Sandbar (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42384,7 +42395,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-maspalomas"
+    "spotId": "w-spain-maspalomas",
+    "breakTypeText": "Maspalomas in Gran Canaria is an exposed beach and reef break that only works once in a while. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42503,7 +42515,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-matadeiro"
+    "spotId": "w-spain-matadeiro",
+    "breakTypeText": "Playa de Riazor( Matadeiro ) in Galicia is a quite exposed beach and reef break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42767,7 +42780,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-mazagon"
+    "spotId": "w-spain-mazagon",
+    "breakTypeText": "Mazagon in Andalucia is an exposed sandbar break that does not work very often. Type: Sandbar (surf-forecast, pin 0.04 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -43121,7 +43135,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-outside-reef"
+    "spotId": "w-spain-outside-reef",
+    "breakTypeText": "Outside Reef in Lanzarote is an exposed bombora break. Type: Bombora (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -44430,7 +44445,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-playa-de-baleo"
+    "spotId": "w-spain-playa-de-baleo",
+    "breakTypeText": "Playa de Baleo in Galicia is a sheltered beach break that has consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -44562,7 +44578,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-playa-de-barona"
+    "spotId": "w-spain-playa-de-barona",
+    "breakTypeText": "Playa de Barona in Galicia is a fairly exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45519,7 +45536,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-playa-de-lastres"
+    "spotId": "w-spain-playa-de-lastres",
+    "breakTypeText": "Playa de Lastres in Asturias is a sheltered river break that has reasonably consistent surf. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45944,7 +45962,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-playa-de-navia"
+    "spotId": "w-spain-playa-de-navia",
+    "breakTypeText": "Playa de Navia in Asturias is a fairly exposed beach and point break that has consistent surf, although summer tends to be mostly flat. Type: Beach and point (surf-forecast, pin 0.05 km from row pin); Type: Rivermouth (wannasurf, GPS 0.55 km from row pin)"
    },
    "nearestSources": [
     {
@@ -47998,7 +48017,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-spain-punta-del-moral"
+    "spotId": "w-spain-punta-del-moral",
+    "breakTypeText": "Punta del Moral in Andalucia is a reasonably exposed beach and breakwater break that has fairly consistent surf. Type: Beach and breakwater (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {

@@ -14405,7 +14405,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-coastal-bend-area"
+    "spotId": "w-us-coastal-bend-area",
+    "breakTypeText": "Coastal Bend Area in Texas is an exposed beach/Jetty break that has fairly consistent surf. Type: Beach/jetty (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14646,6 +14647,11 @@
       "url": "https://www.surf-forecast.com/breaks/Corpus-Christi",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/corpus_christi/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -14668,7 +14674,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-corpus-christi"
+    "spotId": "w-us-corpus-christi",
+    "breakTypeText": "Corpus Christi in Texas is an exposed beach break that has inconsistent surf. Type: Breakwater (surf-forecast, pin 0.05 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 1.66 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14798,7 +14805,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-cove"
+    "spotId": "w-us-cove",
+    "breakTypeText": "Cove in Texas is an exposed beach/Jetty break that has inconsistent surf Ideal winds are from the west. Type: Beach/jetty (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14908,6 +14916,11 @@
       "url": "https://www.surf-forecast.com/breaks/Destin",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Florida/destin/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -14930,7 +14943,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-destin"
+    "spotId": "w-us-destin",
+    "breakTypeText": "Destin in Florida is an exposed beach/Jetty break that has reliable surf. Type: Beach/jetty (surf-forecast, pin 0.02 km from row pin); Type: Sand-bar (wannasurf, GPS 1.73 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15059,7 +15073,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-fish-pass-jetty"
+    "spotId": "w-us-fish-pass-jetty",
+    "breakTypeText": "Fish Pass Jetty in Texas is a fairly exposed beach/Jetty break that has reasonably consistent surf. Type: Beach/jetty (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15324,7 +15339,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-freeport-channel"
+    "spotId": "w-us-freeport-channel",
+    "breakTypeText": "Freeport Channel in Texas is a sheltered beach/Pier break that has inconsistent surf. Type: Beach/pier (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15456,7 +15472,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-freeport-pier"
+    "spotId": "w-us-freeport-pier",
+    "breakTypeText": "Freeport Pier in Texas is an exposed beach/Pier break that has quite reliable surf. Type: Beach/pier (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15587,7 +15604,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-galveston"
+    "spotId": "w-us-galveston",
+    "breakTypeText": "Galveston in Texas is an exposed beach break that has inconsistent surf. Type: Breakwater (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15719,7 +15737,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-galveston-61st-street-pier"
+    "spotId": "w-us-galveston-61st-street-pier",
+    "breakTypeText": "Galveston-61st Street Pier in Texas is an exposed beach/Pier break that has quite reliable surf. Type: Beach/pier (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15849,7 +15868,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-jp-luby-pier"
+    "spotId": "w-us-jp-luby-pier",
+    "breakTypeText": "JP Luby Pier in Texas is an exposed beach/Pier break that has pretty consitent surf. Type: Beach/pier (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15980,7 +16000,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-meacom-pier"
+    "spotId": "w-us-meacom-pier",
+    "breakTypeText": "Meacom Pier in Texas is an exposed beach/Pier break that has quite consistent surf. Type: Beach/pier (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16776,7 +16797,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-port-isabel"
+    "spotId": "w-us-port-isabel",
+    "breakTypeText": "Port Isabel in Texas is an exposed beach/Jetty break that usually has waves Works best in offshore winds from the west. Type: Beach/jetty (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16907,7 +16929,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-port-o-conner"
+    "spotId": "w-us-port-o-conner",
+    "breakTypeText": "Port O'Conner in Texas is an exposed beach/Jetty break that only works when conditions are just right. Type: Beach/jetty (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17037,7 +17060,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-san-jose-island-2"
+    "spotId": "w-us-san-jose-island-2",
+    "breakTypeText": "San Jose Island in Texas is an exposed beach/Jetty break that only works once in a while. Type: Beach/jetty (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17297,7 +17321,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-surfside-jetty"
+    "spotId": "w-us-surfside-jetty",
+    "breakTypeText": "Surfside Jetty in Texas is an exposed beach/Jetty break that does not work very often. Type: Beach/jetty (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17429,7 +17454,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-us-turtle-beach"
+    "spotId": "w-us-turtle-beach",
+    "breakTypeText": "Turtle Beach in Alabama is an exposed beach break that only works when conditions are just right. Type: Sandbar (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {

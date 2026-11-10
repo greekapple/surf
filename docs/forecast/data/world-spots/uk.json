@@ -55165,7 +55165,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-bellochantuy-bay"
+    "spotId": "w-uk-bellochantuy-bay",
+    "breakTypeText": "Bellochantuy Bay on the West Coast is an exposed beach and reef break that has fairly consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -55898,6 +55899,11 @@
       "url": "https://www.surf-forecast.com/breaks/Broadstairs",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/UK/South_East/broadstairs/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -55917,7 +55923,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-broadstairs"
+    "spotId": "w-uk-broadstairs",
+    "breakTypeText": "Broadstairs on the South Coast is a sheltered beach break that does not work very often. Type: Breakwater (surf-forecast, pin 0.04 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.29 km from row pin)"
    },
    "nearestSources": [
     {
@@ -56167,7 +56174,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-cambo-sands"
+    "spotId": "w-uk-cambo-sands",
+    "breakTypeText": "Cambo Sands on the East Coast is a quite exposed beach and reef break that only works once in a while. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -56540,7 +56548,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-coatham-sands"
+    "spotId": "w-uk-coatham-sands",
+    "breakTypeText": "Coatham Sands in North East England is a fairly exposed beach and reef break that has inconsistent surf. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -57792,7 +57801,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-gyllyngvase-beach"
+    "spotId": "w-uk-gyllyngvase-beach",
+    "breakTypeText": "Gyllyngvase Beach in South Cornwall is a sheltered beach and reef break that has unreliable waves. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -58172,7 +58182,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-hastings"
+    "spotId": "w-uk-hastings",
+    "breakTypeText": "Hastings on the South Coast is a fairly exposed beach break that does not work very often. Type: Sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -58297,7 +58308,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-hastings-pier"
+    "spotId": "w-uk-hastings-pier",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59033,6 +59045,11 @@
       "url": "https://www.wannasurf.com/spot/Europe/UK/East_England/Jabba_s",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jabba-s",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -59046,7 +59063,8 @@
     "waveQuality": "Normal (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-jabba-s"
+    "spotId": "w-uk-jabba-s",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin); Jabba's in Lincolnshire is an exposed sandbar break that has reasonably consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59676,7 +59694,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-montrose"
+    "spotId": "w-uk-montrose",
+    "breakTypeText": "Montrose on the East Coast is a reasonably exposed beach and reef break that has reasonably consistent surf. Type: Beach and reef (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59935,7 +59954,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-uk-newburgh"
+    "spotId": "w-uk-newburgh",
+    "breakTypeText": "Newburgh on the East Coast is an exposed point/rivermouth break that has pretty consitent surf. Type: Point/river (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {

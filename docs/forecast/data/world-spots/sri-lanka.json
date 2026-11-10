@@ -4113,7 +4113,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-sri-lanka-induruwa"
+    "spotId": "w-sri-lanka-induruwa",
+    "breakTypeText": "Induruwa in SW is an exposed beach and reef break that has fairly consistent surf, although summer tends to be mostly flat. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5003,7 +5004,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-sri-lanka-moogurama"
+    "spotId": "w-sri-lanka-moogurama",
+    "breakTypeText": "Moogurama in SW is an exposed reef/sandbar break that has quite reliable surf. Type: Reef/sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5667,7 +5669,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-sri-lanka-the-cave"
+    "spotId": "w-sri-lanka-the-cave",
+    "breakTypeText": "The Cave in SE is an exposed point/rivermouth break that does not work very often Ideal winds are from the north northwest. Type: Point/river (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {

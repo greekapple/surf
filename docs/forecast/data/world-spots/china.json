@@ -3295,7 +3295,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-china-fung-bay"
+    "spotId": "w-china-fung-bay",
+    "breakTypeText": "Fung Bay in - is a sheltered beach and point break that has pretty consitent surf Offshore winds blow from the northwest. Type: Beach and point (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3625,7 +3626,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-china-lantau-island"
+    "spotId": "w-china-lantau-island",
+    "breakTypeText": "Lantau Island in - is a reasonably exposed beach and point break that only works when conditions are just right. Type: Beach and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3716,6 +3718,11 @@
       "url": "https://www.surf-forecast.com/breaks/Mazu-Eikon",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Mazu_Eikon/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -3736,7 +3743,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-china-mazu-eikon"
+    "spotId": "w-china-mazu-eikon",
+    "breakTypeText": "Mazu-Eikon in Zhangzhou is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.02 km from row pin); Type: Sand-bar (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {

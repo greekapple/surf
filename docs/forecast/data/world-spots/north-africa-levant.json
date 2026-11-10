@@ -274,7 +274,8 @@
     "power": "Hollow, Fast, Powerful, Ordinary, Powerless (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2083,7 +2084,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Jonas Beach or Jieh beach in Lebanon is an exposed beach and reef break. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2182,7 +2184,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Awuali Rivermouth in Lebanon is an exposed sandbar break that only works when conditions are just right. Type: Sandbar (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {

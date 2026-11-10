@@ -25167,7 +25167,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-outside-corner"
+    "spotId": "w-indonesia-outside-corner",
+    "breakTypeText": "Outside Corner in Bali (The Bukit) is an exposed reef and point break that has quite consistent surf. Type: Reef and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -25489,6 +25490,11 @@
       "url": "https://www.surf-forecast.com/breaks/Pererenan",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Indonesia/Bali/pererenan/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -25510,7 +25516,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-pererenan"
+    "spotId": "w-indonesia-pererenan",
+    "breakTypeText": "Pererenan in Bali (West Coast) is an exposed beach and reef break that has dependable surf. Type: Beach and reef (surf-forecast, pin 0.07 km from row pin); Type: Beach-break (wannasurf, GPS 1.78 km from row pin)"
    },
    "nearestSources": [
     {
@@ -25623,7 +25630,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-racetrack"
+    "spotId": "w-indonesia-racetrack",
+    "breakTypeText": "Racetrack in Bali (The Bukit) is an exposed reef and point break that has very reliable surf. Type: Reef and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -25961,7 +25969,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-temples"
+    "spotId": "w-indonesia-temples",
+    "breakTypeText": "Temples in Bali (The Bukit) is an exposed reef and point break that has reasonably consistent surf. Type: Reef and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -26287,7 +26296,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-the-peak"
+    "spotId": "w-indonesia-the-peak",
+    "breakTypeText": "The Peak in Bali (The Bukit) is an exposed reef and point break that is often working. Type: Reef and point (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -27026,7 +27036,8 @@
     "power": "Hollow, Fast, Powerful, Fun, Ledgey (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-ku-de-ta"
+    "spotId": "w-indonesia-ku-de-ta",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -27135,7 +27146,8 @@
     "power": "Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-pulakan-medewi-rights"
+    "spotId": "w-indonesia-pulakan-medewi-rights",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -30300,7 +30312,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-indonesia-jambu-beach"
+    "spotId": "w-indonesia-jambu-beach",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {

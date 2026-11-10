@@ -597,7 +597,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-acre-mifalim-or-ako"
+    "spotId": "w-israel-acre-mifalim-or-ako",
+    "breakTypeText": "Acre (Mifalim) or Ako in North of Tel Aviv is an exposed river break that has consistent surf. Type: River (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -824,7 +825,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-ambatia-beach"
+    "spotId": "w-israel-ambatia-beach",
+    "breakTypeText": "Ambatia Beach in Tel Aviv and South is a sheltered beach and reef break. Type: Beach and reef (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -939,7 +941,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-antenot"
+    "spotId": "w-israel-antenot",
+    "breakTypeText": "Antenot in Tel Aviv and South is an exposed breakwater break that has unreliable waves. Type: Breakwater (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1035,6 +1038,11 @@
       "url": "https://www.surf-forecast.com/breaks/Apolonia",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Israel/apolonia/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -1052,7 +1060,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-apolonia"
+    "spotId": "w-israel-apolonia",
+    "breakTypeText": "Apolonia in Tel Aviv and South is an exposed sandbar break that does not work very often. Type: Sandbar (surf-forecast, pin 0.04 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1284,7 +1293,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-ashkelon-shimshon"
+    "spotId": "w-israel-ashkelon-shimshon",
+    "breakTypeText": "Ashkelon Shimshon in Tel Aviv and South is a quite exposed sandbar break that has unreliable waves. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1400,7 +1410,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-bagira-beach"
+    "spotId": "w-israel-bagira-beach",
+    "breakTypeText": "Bagira Beach in Tel Aviv and South is an exposed sandbar break that has inconsistent surf. Type: Sandbar (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1515,7 +1526,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-bat-yam-al-gal-or-tubego-beach"
+    "spotId": "w-israel-bat-yam-al-gal-or-tubego-beach",
+    "breakTypeText": "Bat-yam (al gal) or Tubego Beach in Tel Aviv and South is an exposed sandbar break that has pretty consitent surf. Type: Sandbar (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2558,7 +2570,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-hazuk"
+    "spotId": "w-israel-hazuk",
+    "breakTypeText": "Hazuk on the West Coast is an exposed beach and reef break that has pretty consitent surf. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2675,7 +2688,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-hilton"
+    "spotId": "w-israel-hilton",
+    "breakTypeText": "Hilton on the West Coast is an exposed reef/jetties break that has inconsistent surf. Type: Reef/jetties (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2788,7 +2802,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-hof-maravi-2"
+    "spotId": "w-israel-hof-maravi-2",
+    "breakTypeText": "Hof Maravi on the West Coast is an exposed beach/jetties break that is often working. Type: Beach/jetty (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2998,6 +3013,11 @@
       "url": "https://www.surf-forecast.com/breaks/Kadarim-Haifa",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Back-Door-Haifa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -3018,7 +3038,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-kadarim-or-dado-beach-haifa"
+    "spotId": "w-israel-kadarim-or-dado-beach-haifa",
+    "breakTypeText": "Kadarim or Dado beach (Haifa) in North of Tel Aviv is an exposed breakwater break that only works once in a while. Type: Breakwater (surf-forecast, pin 0.05 km from row pin); BackDoor (Haifa) in North of Tel Aviv is an exposed reef break that has inconsistent surf. Type: Reef (surf-forecast, pin 5.85 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3128,7 +3149,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-kontiki-herzelia"
+    "spotId": "w-israel-kontiki-herzelia",
+    "breakTypeText": "Kontiki (Herzelia) in Tel Aviv and South is an exposed breakwater break that has unreliable waves. Type: Breakwater (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4176,7 +4198,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-shonit-beach-caesarea"
+    "spotId": "w-israel-shonit-beach-caesarea",
+    "breakTypeText": "Shonit Beach Caesarea in Tel Aviv and South is a fairly exposed beach and reef break that does not work very often. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4270,6 +4293,11 @@
       "url": "https://www.surf-forecast.com/breaks/Sironit-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Israel/sironit_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4288,7 +4316,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-sironit-beach"
+    "spotId": "w-israel-sironit-beach",
+    "breakTypeText": "Sironit Beach in Tel Aviv and South is a fairly exposed beach and reef break. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin); Type: Sand-bar (wannasurf, GPS 0.26 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4382,6 +4411,11 @@
       "url": "https://www.surf-forecast.com/breaks/Te-Peak-Hifa",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Israel/te_peak/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4403,7 +4437,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-te-peak-hifa"
+    "spotId": "w-israel-te-peak-hifa",
+    "breakTypeText": "Te Peak (Hifa) in North of Tel Aviv is an exposed breakwater break that has pretty consitent surf. Type: Breakwater (surf-forecast, pin 0.02 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4499,6 +4534,11 @@
       "url": "https://www.surf-forecast.com/breaks/Tel-Baruch-North-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tel-Baruch-South-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4519,7 +4559,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-tel-baruch-north-beach"
+    "spotId": "w-israel-tel-baruch-north-beach",
+    "breakTypeText": "Tel Baruch North Beach in Tel Aviv and South is an exposed beach and point break that has fairly consistent surf. Type: Beach and point (surf-forecast, pin 0.06 km from row pin); Tel Baruch South Beach in Tel Aviv and South is a fairly exposed beach break that has reasonably consistent surf. Type: Beach (surf-forecast, pin 0.66 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4615,6 +4656,21 @@
       "url": "https://www.surf-forecast.com/breaks/The-Reef_2",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Back-Door-Haifa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kadarim-Haifa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Israel/the_reef/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4635,7 +4691,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-the-reef-haifa"
+    "spotId": "w-israel-the-reef-haifa",
+    "breakTypeText": "The Reef (Haifa) in North of Tel Aviv is an exposed beach and reef break that does not work very often. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin); BackDoor (Haifa) in North of Tel Aviv is an exposed reef break that has inconsistent surf. Type: Reef (surf-forecast, pin 4.32 km from row pin); Kadarim or Dado beach (Haifa) in North of Tel Aviv is an exposed breakwater break that only works once in a while. Type: Breakwater (surf-forecast, pin 1.75 km from row pin); Type: Reef-rocky (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4748,7 +4805,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-topsy-or-hilton-bet"
+    "spotId": "w-israel-topsy-or-hilton-bet",
+    "breakTypeText": "Topsy on the West Coast is an exposed beach and reef break that has pretty consitent surf. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4842,6 +4900,11 @@
       "url": "https://www.surf-forecast.com/breaks/Ziqim-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Israel/ziqim_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4858,7 +4921,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-israel-ziqim-zikim-beach"
+    "spotId": "w-israel-ziqim-zikim-beach",
+    "breakTypeText": "Ziqim ( Zikim) Beach in Tel Aviv and South is an exposed sandbar break that has unreliable waves. Type: Sandbar (surf-forecast, pin 0.04 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {

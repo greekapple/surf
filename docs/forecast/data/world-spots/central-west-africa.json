@@ -1699,7 +1699,8 @@
     "power": "Fast, Powerful (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2829,7 +2830,8 @@
     "power": "Ordinary (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3330,6 +3332,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/praia-de-chaves",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Cape_Verde/Praia_do_Chaves/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "swellExposure": "WSW - N. Faces NW (surfnerd)",
@@ -3342,7 +3349,8 @@
     ],
     "facing": "Northwest (surfnerd: \"Faces NW\")",
     "facingDeg": 315.0,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 4.24 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3395,7 +3403,7 @@
    "country": "Cape Verde",
    "region": "Praia",
    "timeZone": "Atlantic/Cape_Verde",
-   "type": null,
+   "type": "Point",
    "lat": 14.916,
    "lon": -23.506,
    "seaward": 180.0,
@@ -3415,6 +3423,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/cocos-beach-praia",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Cape_Verde/Coca_s_Beach_Praia/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "swellExposure": "SSE - S. Faces S (surfnerd)",
@@ -3427,7 +3440,8 @@
     ],
     "facing": "South (surfnerd: \"Faces S\")",
     "facingDeg": 180.0,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Point-break (wannasurf, GPS 0.08 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3471,7 +3485,10 @@
     }
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
-   "typeSource": null,
+   "typeSource": {
+    "text": "Type: Point-break (wannasurf, GPS 0.08 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Africa/Cape_Verde/Coca_s_Beach_Praia/"
+   },
    "regionSource": "surfnerd"
   },
   {
@@ -5411,6 +5428,11 @@
       "url": "https://www.wannasurf.com/spot/Africa/Ivory_Coast/assinie/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/assinie",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "bottom": "Sandy (wannasurf)",
@@ -5426,7 +5448,8 @@
     "power": "Fun (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin); Type: Beach (surfnerd, pin 0.28 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6123,7 +6146,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "San Pedro in - is an exposed beach and reef break that has consistent surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7397,7 +7421,7 @@
    "lon": 8.71,
    "seaward": 247.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (-0.69951, 8.70997), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.51 km away",
+    "text": "surfnerd guide map pin (-0.69951, 8.70997), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.51 km away; coast check 2026-11-10: 0.16 km from OSM coastline (https://www.openstreetmap.org/way/14373739)",
     "url": "https://www.surfnerd.com/surf-forecast/ferme-aux-cochons.md"
    },
    "facingSource": {
@@ -7490,7 +7514,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
    "typeSource": "surfnerd states 'Beach'",
-   "regionSource": "surfnerd"
+   "regionSource": "surfnerd",
+   "coastCheck": {
+    "text": "Pin is 0.16 km from OSM natural=coastline way/14373739 (OSM API map call, boxes 0.02 deg, 1 box(es), 2026-11-10); the Natural Earth 10 m coastline is 3.49 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/14373739",
+    "url": "https://www.openstreetmap.org/way/14373739",
+    "distanceKm": 0.16,
+    "naturalEarthKm": 3.49
+   }
   },
   {
    "id": "w-cwafrica-pg2",
@@ -8375,7 +8406,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Le Wharf in Mauritania - Nouakchott and North is an exposed breakwater break that has unreliable waves. Type: Breakwater (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -8491,7 +8523,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Reef-artificial (wannasurf, GPS 0.04 km from row pin); Shipwreck in Lagos and West is an exposed sandbar break that has very consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -8600,7 +8633,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin); Cote Sauvage in Pointe Noire is an exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9277,13 +9311,13 @@
    "country": "Sierra Leone",
    "region": "Sierra Leone",
    "timeZone": "Africa/Freetown",
-   "type": null,
+   "type": "Point",
    "lat": 7.61,
    "lon": -13.042,
    "seaward": 171.7,
    "facingKind": "computed-coastline",
    "positionSource": {
-    "text": "surf-forecast guide map pin (7.6097, -13.0423), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surf-forecast guide map pin (7.6097, -13.0423), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-10: 1.03 km from OSM coastline (https://www.openstreetmap.org/way/4166974)",
     "url": "https://www.surf-forecast.com/breaks/Turtle-Islands-Moot"
    },
    "facingSource": {
@@ -9318,6 +9352,11 @@
       "url": "https://www.surf-forecast.com/breaks/Turtle-Islands-Moot",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Turtle-Islands-Baki",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "idealSwell": "best swell South (surf-forecast)",
@@ -9333,7 +9372,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Baki (Turtle Islands) in Sierra-Leone is an exposed point break that has very consistent surf. Type: Point (surf-forecast, pin 2.99 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9351,8 +9391,18 @@
     }
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
-   "typeSource": null,
-   "regionSource": "surf-forecast listing"
+   "typeSource": {
+    "text": "Baki (Turtle Islands) in Sierra-Leone is an exposed point break that has very consistent surf. Type: Point (surf-forecast, pin 2.99 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Turtle-Islands-Baki"
+   },
+   "regionSource": "surf-forecast listing",
+   "coastCheck": {
+    "text": "Pin is 1.03 km from OSM natural=coastline way/4166974 (OSM API map call, boxes 0.02 deg, 1 box(es), 2026-11-10); the Natural Earth 10 m coastline is 10.67 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/4166974",
+    "url": "https://www.openstreetmap.org/way/4166974",
+    "distanceKm": 1.03,
+    "naturalEarthKm": 10.67
+   }
   },
   {
    "id": "w-cwafrica-river-number-2",
@@ -9581,7 +9631,8 @@
     "power": "Fun (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9679,7 +9730,8 @@
     "power": "Ordinary (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9775,7 +9827,8 @@
     "power": "Hollow (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9886,7 +9939,8 @@
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
     "facingDeg": 157.5,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Anecho Beach in Togo is an exposed breakwater break that has reliable surf. Type: Breakwater (surf-forecast, pin 1.99 km from row pin)"
    },
    "nearestSources": [
     {

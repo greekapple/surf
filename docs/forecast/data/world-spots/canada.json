@@ -6965,7 +6965,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-canada-jordan-river"
+    "spotId": "w-canada-jordan-river",
+    "breakTypeText": "Jordan River in Vancouver Island is a fairly exposed reef and point break that has reasonably consistent surf The best wind direction is from the north northeast. Type: Reef and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7492,7 +7493,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-canada-sombrio-beach-2"
+    "spotId": "w-canada-sombrio-beach-2",
+    "breakTypeText": "Sombrio Beach in Vancouver Island is a quite exposed beach and reef break that has pretty consitent surf Works best in offshore winds from the north northeast. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {

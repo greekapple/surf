@@ -181,7 +181,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-cyprus-helios-bay"
+    "spotId": "w-cyprus-helios-bay",
+    "breakTypeText": "Helios Bay in Cyprus is an exposed breakwater break that does not work very often. Type: Breakwater (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -622,6 +623,11 @@
       "url": "https://www.surf-forecast.com/breaks/Venus-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Cyprus/Venus_Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -642,7 +648,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-cyprus-venus-beach"
+    "spotId": "w-cyprus-venus-beach",
+    "breakTypeText": "Venus Beach in Cyprus is an exposed sandbar break that only works once in a while. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {

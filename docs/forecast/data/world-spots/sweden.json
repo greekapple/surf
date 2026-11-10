@@ -1849,6 +1849,11 @@
       "url": "https://www.surf-forecast.com/breaks/Appelviken",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/apelviken",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -1868,7 +1873,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-sweden-appelviken"
+    "spotId": "w-sweden-appelviken",
+    "breakTypeText": "Appelviken in Kattegat is an exposed beach and reef break that has quite reliable surf, although summer tends to be mostly flat. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin); Type: Beach (surfnerd, pin 1.57 km from row pin)"
    },
    "nearestSources": [
     {

@@ -78,7 +78,8 @@
     "power": "Fun (wannasurf)",
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -207,7 +208,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin); Li l J Bay in North Sea - Belgium is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1185,7 +1187,8 @@
     ],
     "facing": "North-northwest (surfnerd: \"Faces NNW\")",
     "facingDeg": 337.5,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.08 km from row pin); Blankenberge on the West Coast is a fairly exposed beach/pier break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Beach/pier (surf-forecast, pin 0.52 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2159,7 +2162,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin); Palanga in Baltic is an exposed sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2439,7 +2443,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin); Dabki in Baltic is an exposed sandbar break that has inconsistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {

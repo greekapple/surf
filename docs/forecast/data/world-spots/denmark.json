@@ -1575,7 +1575,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-denmark-alogarde"
+    "spotId": "w-denmark-alogarde",
+    "breakTypeText": "Alogarde in Sjelland is an exposed beach/jetty break that has quite consistent surf Ideal winds are from the south southwest. Type: Beach/jetty (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1693,7 +1694,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-denmark-hornhole"
+    "spotId": "w-denmark-hornhole",
+    "breakTypeText": "Hornhole in Sjelland is an exposed beach/pier break that has reasonably consistent surf Ideal winds are from the south. Type: Beach/pier (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1808,7 +1810,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-denmark-nr-voruper"
+    "spotId": "w-denmark-nr-voruper",
+    "breakTypeText": "Nr Voruper in Jylland is an exposed beach/pier break that has pretty consitent surf Offshore winds are from the east southeast. Type: Beach/pier (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {

@@ -11808,7 +11808,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-morocco-aroussa-bahe"
+    "spotId": "w-morocco-aroussa-bahe",
+    "breakTypeText": "Aroussa Bahe in Tanger to Rabat is a quite exposed beach and reef break that has fairly consistent surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12370,7 +12371,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-morocco-ifni"
+    "spotId": "w-morocco-ifni",
+    "breakTypeText": "Ifni in South Morocco is a fairly exposed point/rivermouth/jetty break that has fairly consistent surf and can work at any time of the year. Type: Point/river/jetty (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12829,7 +12831,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-morocco-plage-loukos"
+    "spotId": "w-morocco-plage-loukos",
+    "breakTypeText": "Plage Loukos in Tanger to Rabat is an exposed beach/jetty break that has pretty consitent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13182,7 +13185,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-morocco-sidi-ifni-2"
+    "spotId": "w-morocco-sidi-ifni-2",
+    "breakTypeText": "Sidi Ifni in Southern Morocco is a fairly exposed beach and reef break that has reasonably consistent surf. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {

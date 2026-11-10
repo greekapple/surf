@@ -33199,6 +33199,11 @@
       "url": "https://www.surf-forecast.com/breaks/Bananier",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Guadeloupe/bananier/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -33220,7 +33225,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-bananier"
+    "spotId": "w-carib-bananier",
+    "breakTypeText": "Bananier in Guadeloupe - Grande Terre is an exposed beach and point break that has quite reliable surf. Type: Beach and point (surf-forecast, pin 0.04 km from row pin); Type: Beach-break (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -33336,7 +33342,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-baorvco"
+    "spotId": "w-carib-baorvco",
+    "breakTypeText": "Baorvco on the South Coast is an exposed beach and reef break that has quite consistent surf Works best in offshore winds from the northwest. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -33597,7 +33604,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-barranca"
+    "spotId": "w-carib-barranca",
+    "breakTypeText": "Barranca on the South Coast is an exposed reef and point break that has fairly consistent surf. Type: Reef and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -34987,6 +34995,11 @@
       "url": "https://www.surf-forecast.com/breaks/Cattlewash",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Barbados/cattlewash/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -35009,7 +35022,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-cattlewash"
+    "spotId": "w-carib-cattlewash",
+    "breakTypeText": "Cattlewash in Barbados is an exposed sandbar break that has reasonably consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.02 km from row pin); Type: Sand-bar (wannasurf, GPS 0.61 km from row pin)"
    },
    "nearestSources": [
     {
@@ -35141,7 +35155,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-chalky-mount"
+    "spotId": "w-carib-chalky-mount",
+    "breakTypeText": "Chalky Mount on the East Coast is an exposed beach and reef break that has consistent surf Works best in offshore winds from the southwest. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -35273,7 +35288,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-chalky-point"
+    "spotId": "w-carib-chalky-point",
+    "breakTypeText": "Chalky Point on the East Coast is an exposed beach and reef break that has consistent surf Offshore winds are from the southwest. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -35795,7 +35811,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-conado-beach"
+    "spotId": "w-carib-conado-beach",
+    "breakTypeText": "Conado-Beach in Puerto Rico is a fairly exposed breakwater break that only works once in a while. Type: Breakwater (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -36301,7 +36318,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-damien-s-bay"
+    "spotId": "w-carib-damien-s-bay",
+    "breakTypeText": "Damien's Bay in - is an exposed beach and point break that has pretty consitent surf The best wind direction is from the south. Type: Beach and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37076,7 +37094,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-el-coson"
+    "spotId": "w-carib-el-coson",
+    "breakTypeText": "Elcoson on the North Coast is an exposed beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37336,7 +37355,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-embassy-beach"
+    "spotId": "w-carib-embassy-beach",
+    "breakTypeText": "Embassy Beach on the South Coast is an exposed beach and reef break that has reasonably consistent surf Offshore winds are from the north northwest. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37973,7 +37993,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-gun-point"
+    "spotId": "w-carib-gun-point",
+    "breakTypeText": "Gun Point in Amber Coast is an exposed reef and point break that has quite consistent surf. Type: Reef and point (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38899,7 +38920,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-jasmine-point"
+    "spotId": "w-carib-jasmine-point",
+    "breakTypeText": "Jasmine Point in - is an exposed reef/cement dock break that has unreliable waves. Type: Reef/cement dock (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39126,6 +39148,11 @@
       "url": "https://www.surf-forecast.com/breaks/La-Perle",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Guadeloupe/la_perle/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -39146,7 +39173,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-la-perle"
+    "spotId": "w-carib-la-perle",
+    "breakTypeText": "La Perle in Guadeloupe - Grande Terre is a sheltered sandbar break that has inconsistent surf. Type: Sandbar (surf-forecast, pin 0.05 km from row pin); Type: Sand-bar (wannasurf, GPS 0.39 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39382,7 +39410,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-los-patos"
+    "spotId": "w-carib-los-patos",
+    "breakTypeText": "Los Patos on the South Coast is an exposed reef and point break that has quite consistent surf. Type: Reef and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -41314,7 +41343,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-playa-ballena"
+    "spotId": "w-carib-playa-ballena",
+    "breakTypeText": "Playa Ballena in Puerto Rico is a fairly exposed sandbar break that has pretty consitent surf, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42702,6 +42732,11 @@
       "url": "https://www.surf-forecast.com/breaks/Sans-Sousi",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sans-souci",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -42723,7 +42758,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-sans-sousi"
+    "spotId": "w-carib-sans-sousi",
+    "breakTypeText": "Sans Sousi in - is an exposed beach and point break that has consistent surf The best wind direction is from the south southwest. Type: Beach and point (surf-forecast, pin 0.0 km from row pin); Type: Beach (surfnerd, pin 1.46 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42972,7 +43008,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-carib-seahook-s-dock"
+    "spotId": "w-carib-seahook-s-dock",
+    "breakTypeText": "Seahook's Dock in - is an exposed reef/cement dock break that has inconsistent surf. Type: Reef/cement dock (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {

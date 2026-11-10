@@ -3766,7 +3766,18 @@
      "surfForecast": null
     },
     "notes": "town: Takenokawa (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 4.1 km from the surfnerd pin; wannasurf: wave quality Normal; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty",
-    "breakTypeText": "Type: Beach-break (wannasurf, GPS 4.18 km from row pin); Type: Rivermouth (wannasurf, GPS 0.17 km from row pin)"
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 4.18 km from row pin); Type: Rivermouth (wannasurf, GPS 0.17 km from row pin)",
+    "mergedDuplicates": [
+     {
+      "id": "w-japan-nagahama-reef",
+      "name": "Nagahama Reef",
+      "lat": 30.592,
+      "lon": 130.953,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -8310,7 +8321,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-big-ben"
+    "spotId": "w-japan-big-ben",
+    "breakTypeText": "Big Ben in Kanagawa and Chiba is an exposed beach/jetty break that has inconsistent surf The best wind direction is from the northwest. Type: Beach/jetty (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9180,7 +9192,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-hanamizu-river"
+    "spotId": "w-japan-hanamizu-river",
+    "breakTypeText": "Hanamizu River in Kanagawa and Chiba is a quite exposed beach/sandbar break that has pretty consitent surf Works best in offshore winds from the northwest. Type: Beach/sandbar (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9429,7 +9442,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-izumi"
+    "spotId": "w-japan-izumi",
+    "breakTypeText": "Izumi in Kanagawa and Chiba is an exposed river break that has inconsistent surf. Type: River (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9786,7 +9800,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-kodogawa"
+    "spotId": "w-japan-kodogawa",
+    "breakTypeText": "Kodogawa in Kyu Shu is a sheltered beach/sandbar break that has unreliable waves Offshore winds blow from the northwest. Type: Beach/sandbar (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10034,7 +10049,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-kugenuma-rivermouth"
+    "spotId": "w-japan-kugenuma-rivermouth",
+    "breakTypeText": "Kugenuma Rivermouth in Kanagawa is an exposed river break that has quite consistent surf. Type: River (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10397,7 +10413,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-monabe-rivermouth"
+    "spotId": "w-japan-monabe-rivermouth",
+    "breakTypeText": "Monabe Rivermouth in Shizuoka is a very sheltered river break Offshore winds blow from the north. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10522,7 +10539,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-nichinan"
+    "spotId": "w-japan-nichinan",
+    "breakTypeText": "Nichinan in Kyu Shu is an exposed beach break that has unreliable waves. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10648,7 +10666,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-niijima-awaii"
+    "spotId": "w-japan-niijima-awaii",
+    "breakTypeText": "Niijima - Awaii in Izu Islands is an exposed beach/sandbar break that has inconsistent surf Offshore winds are from the west northwest. Type: Beach/sandbar (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10770,7 +10789,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-oiso-jetty"
+    "spotId": "w-japan-oiso-jetty",
+    "breakTypeText": "Oiso Jetty in Kanagawa and Chiba is a fairly exposed beach/sandbar/jetty break that has quite reliable surf Offshore winds blow from the northwest. Type: Beach/sandbar/jetty (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10872,6 +10892,11 @@
       "url": "https://www.surf-forecast.com/breaks/Omaezaki",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Shizuoka/omaezaki/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -10888,7 +10913,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-omaezaki"
+    "spotId": "w-japan-omaezaki",
+    "breakTypeText": "Omaezaki in Shizuoka is an exposed beach and reef break that has quite consistent surf. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin); Type: Beach-break (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11092,6 +11118,11 @@
       "url": "https://www.surf-forecast.com/breaks/Shichigahama",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kanagawa_Chiba/shichirigahama/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -11113,7 +11144,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-shichirigahama"
+    "spotId": "w-japan-shichirigahama",
+    "breakTypeText": "Shichigahama in Kanagawa and Chiba is a reasonably exposed river break that has pretty consitent surf The best wind direction is from the north northwest. Type: River (surf-forecast, pin 0.05 km from row pin); Type: Reef-rocky (wannasurf, GPS 1.11 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11234,7 +11266,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-shonan"
+    "spotId": "w-japan-shonan",
+    "breakTypeText": "Shonan in Kanagawa and Chiba is a reasonably exposed beach and reef break that has quite consistent surf Offshore winds are from the north northwest. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11484,7 +11517,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-sosanji-rivermouth"
+    "spotId": "w-japan-sosanji-rivermouth",
+    "breakTypeText": "Sosanji Rivermouth in Kyu Shu is an exposed rivermouth break that does not work very often Works best in offshore winds from the west. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11609,7 +11643,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-suruga-bay"
+    "spotId": "w-japan-suruga-bay",
+    "breakTypeText": "Suruga Bay in Shizuoka is an exposed breakwater break that has very reliable surf. Type: Breakwater (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13160,7 +13195,8 @@
     "power": "Ordinary (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-kugenuma"
+    "spotId": "w-japan-kugenuma",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13283,7 +13319,8 @@
     "power": "Hollow, Fast, Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-sakawa-rivermouth"
+    "spotId": "w-japan-sakawa-rivermouth",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13406,7 +13443,8 @@
     "power": "Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-tyoushi-river-mouth"
+    "spotId": "w-japan-tyoushi-river-mouth",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14100,7 +14138,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-ishizakigawa"
+    "spotId": "w-japan-ishizakigawa",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -14820,7 +14859,8 @@
     "power": "Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-oyodogawa"
+    "spotId": "w-japan-oyodogawa",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -15357,128 +15397,6 @@
    "nearestCatalogued": {
     "id": "w-japan-chinbotsu",
     "distanceKm": 3.68
-   }
-  },
-  {
-   "id": "w-japan-nagahama-reef",
-   "name": "Nagahama Reef",
-   "country": "Japan",
-   "region": "Kyushu",
-   "timeZone": "Asia/Tokyo",
-   "type": null,
-   "lat": 30.592,
-   "lon": 130.953,
-   "seaward": 267.2,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "wannasurf guide map pin (30.5924, 130.95276666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
-    "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/index.html"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3537/1681.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 26 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 24.8 deg (limit 45); 300 m window gives 273.7 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3537/1681.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3537/1682.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3538/1681.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3538/1682.pbf"
-    ],
-    "nearestCoastPoint": [
-     30.592314,
-     130.953021
-    ],
-    "distanceToCoastM": 26.2,
-    "meanDevDeg": 24.8,
-    "seaward300": 273.7
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "wannasurf good wind NorthEast: nearest listed direction is 42 deg from facing+180 (87); consistent (<=60)",
-     "wannasurf good swell SouthWest: nearest listed direction is 42 deg from the facing (267); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Nagahama Reef",
-    "sources": [
-     {
-      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/index.html",
-      "site": "wannasurf",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "good swell SouthWest (wannasurf)",
-    "windOffshore": "good wind NorthEast (wannasurf)",
-    "bottom": "Boulders (wannasurf)",
-    "waveTypeText": "Rivermouth (wannasurf)",
-    "waveDirectionText": "Left (wannasurf)",
-    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
-    "hazards": [
-     "Rocks (wannasurf)"
-    ],
-    "skill": "Experienced surfers (wannasurf)",
-    "frequency": "Sometimes break (wannasurf)",
-    "waveQuality": "Regional Classic (wannasurf)",
-    "power": "Powerful (wannasurf)",
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-japan-nagahama-reef"
-   },
-   "nearestSources": [
-    {
-     "kind": "wave buoy",
-     "id": "NDBC 22103",
-     "name": "",
-     "owner": "Korean Meteorological Administration",
-     "distanceKm": 498.8,
-     "live": true,
-     "liveNote": "WVHT 1.0 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
-     "lat": 34.0,
-     "lon": 127.5,
-     "registry": "NDBC activestations.xml",
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22103"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "IOC abur",
-     "name": "Aburatsu",
-     "owner": "IOC Sea Level Station Monitoring Facility (Japan)",
-     "distanceKm": 118.1,
-     "live": true,
-     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
-     "lat": 31.58,
-     "lon": 131.41,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=abur"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR RJFG",
-     "name": "Tanegashima",
-     "owner": "IEM JP__ASOS network (airport METAR)",
-     "distanceKm": 4.0,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": 30.605,
-     "lon": 130.992,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RJFG&network=JP__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "wannasurf",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Nagahama Reef",
-    "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/index.html",
-    "dropReason": "wannasurf page only (pin 30.5924,130.9528, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
-   },
-   "nearestCatalogued": {
-    "id": "w-japan-nagahama",
-    "distanceKm": 0.19
    }
   },
   {
@@ -16031,7 +15949,8 @@
     "power": "Hollow, Fast, Powerful, Fun, Ledgey (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-miyzaki-wave-dome"
+    "spotId": "w-japan-miyzaki-wave-dome",
+    "breakTypeText": "Type: Reef-artificial (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16507,7 +16426,8 @@
     "power": "Hollow, Fast, Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-monobegawakakou"
+    "spotId": "w-japan-monobegawakakou",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -16850,7 +16770,8 @@
     "power": "Hollow, Fast, Powerful, Ledgey (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-shizunami"
+    "spotId": "w-japan-shizunami",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -17068,7 +16989,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-japan-taito-2"
+    "spotId": "w-japan-taito-2",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -18155,6 +18077,15 @@
     "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
     "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest: nearest listed direction is 148 deg from facing+180 (167); CONTRADICTS (>60) | wannasurf good swell North, NorthWest: nearest listed direction is 13 deg from the facing (347); consistent (<=90)"
    }
+  },
+  {
+   "name": "Nagahama Reef",
+   "id": "w-japan-nagahama-reef",
+   "reason": "duplicate of w-japan-nagahama (\"Nagahama\"): same guide page https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/, which w-japan-nagahama already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/",
+   "mergedInto": "w-japan-nagahama",
+   "lat": 30.592,
+   "lon": 130.953
   }
  ],
  "recovery": "2026-11-09: 75 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"

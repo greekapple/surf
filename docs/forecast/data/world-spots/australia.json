@@ -40245,7 +40245,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-ann-street-peaks"
+    "spotId": "w-australia-ann-street-peaks",
+    "breakTypeText": "Ann Street Peaks on the North Coast is an exposed beach and reef break that has fairly consistent surf. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -40719,7 +40720,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-augusta-rivermouth"
+    "spotId": "w-australia-augusta-rivermouth",
+    "breakTypeText": "Augusta Rivermouth in Far South Australia is a fairly exposed river break that has unreliable waves. Type: River (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42376,7 +42378,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-bells-beach-bowl"
+    "spotId": "w-australia-bells-beach-bowl",
+    "breakTypeText": "Bells Beach - Bowl in Torquay is an exposed reef and point break that has consistent surf, although summer tends to be mostly flat. Type: Reef and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42845,7 +42848,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-binalong-beach"
+    "spotId": "w-australia-binalong-beach",
+    "breakTypeText": "Binalong Beach on the East Coast is an exposed river break that has fairly consistent surf, although summer tends to be mostly flat. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -44623,7 +44627,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-brunswick-river"
+    "spotId": "w-australia-brunswick-river",
+    "breakTypeText": "Brunswick River on the North Coast is an exposed reef/Breakwater break that has fairly consistent surf. Type: Reef/breakwater (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -44742,7 +44747,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-brunswick-river-south"
+    "spotId": "w-australia-brunswick-river-south",
+    "breakTypeText": "Brunswick River-South on the North Coast is an exposed river break that has quite reliable surf. Type: River (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -44856,7 +44862,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-bunbury-ammos"
+    "spotId": "w-australia-bunbury-ammos",
+    "breakTypeText": "Bunbury Ammos in Perth South Coast is a reasonably exposed river break that only works once in a while. Type: River (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45327,7 +45334,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-boneyards"
+    "spotId": "w-australia-boneyards",
+    "breakTypeText": "Boneyards in Margaret River is a sheltered sandbar break that has quite reliable surf, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45446,7 +45454,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-burning-palms"
+    "spotId": "w-australia-burning-palms",
+    "breakTypeText": "Burning Palms in Illawarra is an exposed beach and point break that has very reliable surf and works all around the year. Type: Beach and point (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45909,7 +45918,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-cape-paterson"
+    "spotId": "w-australia-cape-paterson",
+    "breakTypeText": "Cape Patterson on the East Coast is a sheltered reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -46258,7 +46268,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-casuarina-beach"
+    "spotId": "w-australia-casuarina-beach",
+    "breakTypeText": "Casuarina Beach in North Coast - New South Wales is an exposed sandbar break that has quite reliable surf. Type: Sandbar (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -46730,7 +46741,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-centreside"
+    "spotId": "w-australia-centreside",
+    "breakTypeText": "Centreside in Torquay is an exposed reef and point break that has reliable surf, although summer tends to be mostly flat. Type: Reef and point (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -47441,7 +47453,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-cottesloe-beach"
+    "spotId": "w-australia-cottesloe-beach",
+    "breakTypeText": "Cottesloe Beach in the Perth Area is a fairly exposed beach/groyne break that has very consistent surf and works all around the year. Type: Beach/groyne (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -47558,7 +47571,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-cozies-and-geeries"
+    "spotId": "w-australia-cozies-and-geeries",
+    "breakTypeText": "Cozies and Geeries in the Perth Area is an exposed reef and point break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Reef and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -47794,7 +47808,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-cumberland-river"
+    "spotId": "w-australia-cumberland-river",
+    "breakTypeText": "Cumberland River in Cape Otway is a fairly exposed river/point break that has inconsistent surf. Type: River/point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -48623,7 +48638,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-devonport-rivermouth"
+    "spotId": "w-australia-devonport-rivermouth",
+    "breakTypeText": "Devonport Rivermouth on the West Coast is a fairly exposed point/rivermouth break that only works once in a while. Type: Point/river (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -48742,7 +48758,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-dickys"
+    "spotId": "w-australia-dickys",
+    "breakTypeText": "Dickys on the North Coast is an exposed beach and reef break that has fairly consistent surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -49215,7 +49232,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-dredges"
+    "spotId": "w-australia-dredges",
+    "breakTypeText": "Dredges in Far West Coast is an exposed river break that has quite consistent surf and can work at any time of the year. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -49331,7 +49349,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-dump-beach"
+    "spotId": "w-australia-dump-beach",
+    "breakTypeText": "Dump Beach in South Australia - East Coast is a reasonably exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -49547,6 +49566,11 @@
       "url": "https://www.surf-forecast.com/breaks/Eaglehawk-Reef",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/eaglehawk-neck",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -49570,7 +49594,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-eaglehawk-neck-reef"
+    "spotId": "w-australia-eaglehawk-neck-reef",
+    "breakTypeText": "Eaglehawk Reef on the East Coast is an exposed beach and reef break that has unreliable waves. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin); Type: Beach (surfnerd, pin 2.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -50749,7 +50774,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-forrest-caves-phillip-island"
+    "spotId": "w-australia-forrest-caves-phillip-island",
+    "breakTypeText": "Forrest Caves (Phillip Island) in Phillip Island is a reasonably exposed beach and reef break that has fairly consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -50988,7 +51014,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-4-mile-beach-and-point"
+    "spotId": "w-australia-4-mile-beach-and-point",
+    "breakTypeText": "4 Mile Beach and Point on the East Coast is an exposed beach reef and point break that has reasonably consistent surf. Type: Beach reef and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -51463,7 +51490,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-gantheaume-point-broome"
+    "spotId": "w-australia-gantheaume-point-broome",
+    "breakTypeText": "Gantheaume Point (Broome) in North West WA is an exposed beach and point break. Type: Beach and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -52536,7 +52564,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-goolwa-rivermouth"
+    "spotId": "w-australia-goolwa-rivermouth",
+    "breakTypeText": "Goolwa Rivermouth in South Australia - East Coast is an exposed sandbar break that has quite consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -53117,7 +53146,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-guilderton-rivermouth"
+    "spotId": "w-australia-guilderton-rivermouth",
+    "breakTypeText": "Guilderton Rivermouth in Perth City Coast is a quite exposed river break The best wind direction is from the east. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -53710,7 +53740,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-howrah-beach"
+    "spotId": "w-australia-howrah-beach",
+    "breakTypeText": "Howrah Beach in East Coast of Tasmania is a sheltered sandbar break. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -54066,7 +54097,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-inskip-point"
+    "spotId": "w-australia-inskip-point",
+    "breakTypeText": "Inskip Point in Queensland North Coast is an exposed sandbar break that only works once in a while Works best in offshore winds from the west southwest. Type: Sandbar (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -54776,7 +54808,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-knights"
+    "spotId": "w-australia-knights",
+    "breakTypeText": "Knights in South Australia - East Coast is an exposed beach and reef break that has fairly consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -54893,7 +54926,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-lakes-beach"
+    "spotId": "w-australia-lakes-beach",
+    "breakTypeText": "Lakes Beach in Newcastle is an exposed beach break that has quite reliable surf Offshore winds are from the west southwest. Type: Sandbar (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -55011,7 +55045,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-lakes-entrance"
+    "spotId": "w-australia-lakes-entrance",
+    "breakTypeText": "Lakes Entrance in East Coast of Victoria is an exposed sandbar break that has consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -55366,7 +55401,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-leggy-point"
+    "spotId": "w-australia-leggy-point",
+    "breakTypeText": "Leggy Point in Newcastle is an exposed beach and reef break that has inconsistent surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -55722,7 +55758,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-little-austi-and-main-beach"
+    "spotId": "w-australia-little-austi-and-main-beach",
+    "breakTypeText": "Little Austi and Main Beach in Sydney South is an exposed beach and reef break that has quite consistent surf. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -55840,7 +55877,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-little-beach"
+    "spotId": "w-australia-little-beach",
+    "breakTypeText": "Little Beach on the East Coast is an exposed beach and reef break that has unreliable waves. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -56199,7 +56237,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-lowlands-beach"
+    "spotId": "w-australia-lowlands-beach",
+    "breakTypeText": "Lowlands Beach in Far South Australia is an exposed beach and reef break that has consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -57260,7 +57299,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-maslin-beach"
+    "spotId": "w-australia-maslin-beach",
+    "breakTypeText": "Maslin Beach in Adelaide is a fairly exposed beach and reef break that only works once in a while. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -57379,7 +57419,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-melros"
+    "spotId": "w-australia-melros",
+    "breakTypeText": "Melros in the Perth Area is an exposed beach and reef break that has fairly consistent surf, although summer tends to be mostly flat. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -58192,7 +58233,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-mooloolaba"
+    "spotId": "w-australia-mooloolaba",
+    "breakTypeText": "Mooloolaba in Sunshine Coast is a quite exposed beach and reef break that only works once in a while Works best in offshore winds from the south southwest. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59015,7 +59057,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-narrabeen-alley-rights"
+    "spotId": "w-australia-narrabeen-alley-rights",
+    "breakTypeText": "Narrabeen-Alley Rights in Sydney North is an exposed beach/Sandbar break that has very reliable surf. Type: Beach/sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59134,7 +59177,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-narrabeen-car-park-rights"
+    "spotId": "w-australia-narrabeen-car-park-rights",
+    "breakTypeText": "Narrabeen-Car Park Rights in Sydney North is an exposed beach/Sandbar break that is usually a safe bet. Type: Beach/sandbar (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59231,6 +59275,11 @@
       "url": "https://www.surf-forecast.com/breaks/Narrabeen_North",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Narrabeen_South",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -59253,7 +59302,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-narrabeen-north"
+    "spotId": "w-australia-narrabeen-north",
+    "breakTypeText": "Narrabeen-North in Sydney North is an exposed beach/Sandbar break that is usually a safe bet. Type: Beach/sandbar (surf-forecast, pin 0.02 km from row pin); Narrabeen-South in Sydney North is an exposed beach break that has very consistent surf. Type: Beach (surf-forecast, pin 2.36 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59955,7 +60005,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-the-groin-noosa"
+    "spotId": "w-australia-the-groin-noosa",
+    "breakTypeText": "The Groin (Noosa) in Sunshine Coast is a fairly exposed breakwater break that has pretty consitent surf Works best in offshore winds from the south southwest. Type: Breakwater (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -60311,7 +60362,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-north-era"
+    "spotId": "w-australia-north-era",
+    "breakTypeText": "North Era in Sydney South is an exposed beach and point break that has very reliable surf. Type: Beach and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61023,7 +61075,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-ocean-reach"
+    "spotId": "w-australia-ocean-reach",
+    "breakTypeText": "Ocean Reach in Phillip Island is a fairly exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61257,7 +61310,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-orford-rivermouth"
+    "spotId": "w-australia-orford-rivermouth",
+    "breakTypeText": "Oxford Rivermouth on the East Coast is a sheltered beach/sandbar break that has inconsistent surf. Type: Beach/sandbar (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61373,7 +61427,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-palm-beach-2"
+    "spotId": "w-australia-palm-beach-2",
+    "breakTypeText": "Palm beach on the Gold Coast is an exposed beach break that has dependable surf Works best in offshore winds from the west southwest. Type: Breakwater (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -61492,7 +61547,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-parsons-beach"
+    "spotId": "w-australia-parsons-beach",
+    "breakTypeText": "Parsons Beach in Adelaide is an exposed beach and reef break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62201,7 +62257,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-point-ronald-and-princetown"
+    "spotId": "w-australia-point-ronald-and-princetown",
+    "breakTypeText": "Point Ronald and Princetown in Far West Coast is an exposed river break that has pretty consitent surf and can work at any time of the year. Type: River (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62559,7 +62616,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-port-fairy-east-beach"
+    "spotId": "w-australia-port-fairy-east-beach",
+    "breakTypeText": "Port Fairy in Far West Coast is an exposed reef and point break that has quite reliable surf, although summer tends to be mostly flat. Type: Reef and point (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -62797,7 +62855,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-portland"
+    "spotId": "w-australia-portland",
+    "breakTypeText": "Portland in Far West Coast is a sheltered beach and point break that has pretty consitent surf. Type: Beach and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -63251,6 +63310,11 @@
       "url": "https://www.surf-forecast.com/breaks/Rapid-Creek-Bar",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rapid-Creek-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -63272,7 +63336,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-rapid-creek-bar"
+    "spotId": "w-australia-rapid-creek-bar",
+    "breakTypeText": "Rapid Creek - Bar in Darwin - Northern Territories is a reasonably exposed river break that has quite reliable surf and can work at any time of the year. Type: River (surf-forecast, pin 0.02 km from row pin); Rapid Creek - Beach in Darwin - Northern Territories is a fairly exposed beach break that has quite reliable surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.72 km from row pin)"
    },
    "nearestSources": [
     {
@@ -63864,7 +63929,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-rivoli-bay"
+    "spotId": "w-australia-rivoli-bay",
+    "breakTypeText": "Rivoli Bay on the East Coast is a fairly exposed beach/pier break that has fairly consistent surf and can work at any time of the year. Type: Beach/pier (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -63982,7 +64048,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-rye-ocean-beach"
+    "spotId": "w-australia-rye-ocean-beach",
+    "breakTypeText": "Rye Ocean Beach in Mornington Peninsula is an exposed beach and reef break that has quite consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64218,7 +64285,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-sand-patch-beach"
+    "spotId": "w-australia-sand-patch-beach",
+    "breakTypeText": "Sand Patch Beach in Far South Australia is an exposed beach and reef break that has pretty consitent surf. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64571,7 +64639,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-scamander-rivermouth"
+    "spotId": "w-australia-scamander-rivermouth",
+    "breakTypeText": "Scamander Rivermouth on the East Coast is an exposed beach break that has reliable surf, although summer tends to be mostly flat. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -64929,7 +64998,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-sceale-bay"
+    "spotId": "w-australia-sceale-bay",
+    "breakTypeText": "Sceale Bay on the West Coast is a sheltered beach and reef break that usually has waves. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65167,7 +65237,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-searcy-bay-and-point-labatt"
+    "spotId": "w-australia-searcy-bay-and-point-labatt",
+    "breakTypeText": "Searcy Bay and Point Labatt on the West Coast is an exposed beach and reef break that has consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65286,7 +65357,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-secret-harbour"
+    "spotId": "w-australia-secret-harbour",
+    "breakTypeText": "Secret Harbour in the Perth Area is an exposed beach break that usually has waves, although summer tends to be mostly flat. Type: Sandbar (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65405,7 +65477,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-sellicks-beach"
+    "spotId": "w-australia-sellicks-beach",
+    "breakTypeText": "Sellicks Beach in Adelaide is a sheltered beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -65642,7 +65715,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-sharps-beach"
+    "spotId": "w-australia-sharps-beach",
+    "breakTypeText": "Sharps Beach in North Coast - New South Wales is an exposed beach and reef break that has quite consistent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -66119,7 +66193,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-sheringa-beach"
+    "spotId": "w-australia-sheringa-beach",
+    "breakTypeText": "Sheringa Beach on the West Coast is an exposed beach and reef break that is usually a safe bet and works all around the year. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -66819,7 +66894,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-southside"
+    "spotId": "w-australia-southside",
+    "breakTypeText": "Southside in Torquay is an exposed reef and point break that has reasonably consistent surf, although summer tends to be mostly flat. Type: Reef and point (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -67415,7 +67491,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-stoney-rise"
+    "spotId": "w-australia-stoney-rise",
+    "breakTypeText": "Stoney Rise on the East Coast is an exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -69789,7 +69866,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-trigg-beach"
+    "spotId": "w-australia-trigg-beach",
+    "breakTypeText": "Trigg Beach and Point in the Perth Area is a fairly exposed beach and point break that has fairly consistent surf. Type: Beach and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -70372,7 +70450,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-turimetta-beach"
+    "spotId": "w-australia-turimetta-beach",
+    "breakTypeText": "Turimetta Beach in Sydney North Coast is an exposed beach and reef break that has quite consistent surf. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -71558,7 +71637,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-wests-and-seconds"
+    "spotId": "w-australia-wests-and-seconds",
+    "breakTypeText": "Wests and Seconds in Far South Australia is a quite exposed beach and reef break that usually has waves and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -72372,7 +72452,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-australia-woolgoolga"
+    "spotId": "w-australia-woolgoolga",
+    "breakTypeText": "Woolgoolga on the North Coast is an exposed beach and reef break that has reasonably consistent surf. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {

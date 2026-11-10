@@ -12595,6 +12595,12 @@
       "url": "https://www.wannasurf.com/spot/South_America/Brazil/Bahia_Sul/Itacarezinho_",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Itacarezinho",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10",
+      "note": "carried from merged duplicate row w-brazil-itacarezinho-2 (cleanup r3 2026-11-10); this page pin is 12.09 km from this row pin"
      }
     ],
     "facing": "ESE (surfnerd)",
@@ -12633,7 +12639,18 @@
     "access": "Getting in means a rough road down to the paid car park. Once there you have restrooms, showers, a lifeguard on hand, and a surf school if you want a lesson. (surfnerd)",
     "accessRestrictions": [],
     "notes": "No Surf-Forecast.com page matched. Wannasurf page 'Itacarezinho' matched (0.1 km; Wannasurf GPS precision: Approximate). Surfnerd says offshore is W (workable wind) but WNW (wind exposure); both kept.",
-    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-14.4769, -39.0187) is 12.1 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Itacarezinho); the guides disagree on where this spot is."
+    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-14.4769, -39.0187) is 12.1 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Itacarezinho); the guides disagree on where this spot is.",
+    "mergedDuplicates": [
+     {
+      "id": "w-brazil-itacarezinho-2",
+      "name": "Itacarezinho",
+      "lat": -14.477,
+      "lon": -39.019,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.surf-forecast.com/breaks/Itacarezinho; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -14751,6 +14768,12 @@
       "url": "https://www.surfnerd.com/surf-forecast/praia-do-morro",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Praiado-Morro",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10",
+      "note": "carried from merged duplicate row w-brazil-praia-do-morro-2 (cleanup r3 2026-11-10); this page pin is 13.51 km from this row pin"
      }
     ],
     "facing": "SSE (surfnerd)",
@@ -14787,7 +14810,18 @@
     "access": "There's plenty of support on hand, with restrooms, showers, a lifeguard, a surf school, and a surf shop close by. For parking, you'll find a car park with free spaces alongside paid and roadside options. (surfnerd)",
     "accessRestrictions": [],
     "notes": "No Surf-Forecast.com page matched. No Wannasurf page matched. Surfnerd says offshore is NW (workable wind) but NNW (wind exposure); both kept.",
-    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-20.5638, -40.3998) is 13.5 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Praiado-Morro); the guides disagree on where this spot is."
+    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-20.5638, -40.3998) is 13.5 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Praiado-Morro); the guides disagree on where this spot is.",
+    "mergedDuplicates": [
+     {
+      "id": "w-brazil-praia-do-morro-2",
+      "name": "Praia do Morro",
+      "lat": -20.564,
+      "lon": -40.4,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.surf-forecast.com/breaks/Praiado-Morro; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -26772,6 +26806,12 @@
       "url": "https://www.wannasurf.com/spot/South_America/Brazil/Sao_Paulo_South_Coast/Pier_de_Mongagua",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mongagua",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10",
+      "note": "carried from merged duplicate row w-brazil-mongagua-2 (cleanup r3 2026-11-10); this page pin is 11.54 km from this row pin"
      }
     ],
     "facing": "SSE (surfnerd)",
@@ -26804,7 +26844,18 @@
     "accessRestrictions": [],
     "notes": "Type from Wannasurf ('Beach-break'); Surfnerd and Surf-Forecast.com state none. No Surf-Forecast.com page matched. Wannasurf page 'Pier de Mongagua' matched (0.2 km; Wannasurf GPS precision: Approximate). Surfnerd says offshore is SE (workable wind) but NNW (wind exposure); both kept.",
     "windLabelCheck": "Surfnerd's 'workable wind' label (SE) is 157.5° from straight offshore for its own facing SSE; its wind-exposure offshore (NNW) agrees with the facing. Treat the workable-wind label, not the facing, as doubtful.",
-    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-24.0465, -46.5197) is 11.6 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Mongagua); the guides disagree on where this spot is."
+    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-24.0465, -46.5197) is 11.6 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Mongagua); the guides disagree on where this spot is.",
+    "mergedDuplicates": [
+     {
+      "id": "w-brazil-mongagua-2",
+      "name": "Mongagua",
+      "lat": -24.047,
+      "lon": -46.52,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.surf-forecast.com/breaks/Mongagua; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -28674,6 +28725,12 @@
       "url": "https://www.wannasurf.com/spot/South_America/Brazil/Santa_Catarina_North/Barra_Velha_Canoas",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Barra-Velha",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10",
+      "note": "carried from merged duplicate row w-brazil-barra-velha (cleanup r3 2026-11-10); this page pin is 4.1 km from this row pin"
      }
     ],
     "facing": "E (surfnerd)",
@@ -28703,7 +28760,18 @@
     "access": null,
     "accessRestrictions": [],
     "notes": "Type from Wannasurf ('Beach-break'); Surfnerd and Surf-Forecast.com state none. No Surf-Forecast.com page matched. Wannasurf page 'Barra Velha Canoas' matched (1.1 km; Wannasurf GPS precision: Approximate).",
-    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-26.6663, -48.6886) is 4.1 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Barra-Velha); the guides disagree on where this spot is."
+    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-26.6663, -48.6886) is 4.1 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Barra-Velha); the guides disagree on where this spot is.",
+    "mergedDuplicates": [
+     {
+      "id": "w-brazil-barra-velha",
+      "name": "Barra Velha",
+      "lat": -26.666,
+      "lon": -48.689,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.surf-forecast.com/breaks/Barra-Velha; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -36620,6 +36688,12 @@
       "url": "https://www.wannasurf.com/spot/South_America/Brazil/Rio_Grande_do_Sul/capao_da_canoa",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Capaoda-Canoa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10",
+      "note": "carried from merged duplicate row w-brazil-capao-da-canoa-2 (cleanup r3 2026-11-10); this page pin is 12.48 km from this row pin"
      }
     ],
     "facing": "ESE (surfnerd)",
@@ -36659,7 +36733,18 @@
     "access": "A surf school and surf shop are on hand, along with restrooms, showers, camping, and lifeguard cover. Parking is easy, with a car park offering free parking plus roadside spots. (surfnerd)",
     "accessRestrictions": [],
     "notes": "No Surf-Forecast.com page matched. Wannasurf page 'Capao da canoa' matched (1.1 km; Wannasurf GPS precision: Approximate). Surfnerd says offshore is NW (workable wind) but WNW (wind exposure); both kept.",
-    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-29.6664, -49.9596) is 12.5 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Capaoda-Canoa); the guides disagree on where this spot is."
+    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-29.6664, -49.9596) is 12.5 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Capaoda-Canoa); the guides disagree on where this spot is.",
+    "mergedDuplicates": [
+     {
+      "id": "w-brazil-capao-da-canoa-2",
+      "name": "Capao da Canoa",
+      "lat": -29.666,
+      "lon": -49.96,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.surf-forecast.com/breaks/Capaoda-Canoa; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -36829,6 +36914,12 @@
       "url": "https://www.wannasurf.com/spot/South_America/Brazil/Rio_Grande_do_Sul/Praia_do_Cassino",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Cassino",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10",
+      "note": "carried from merged duplicate row w-brazil-cassino (cleanup r3 2026-11-10); this page pin is 5.41 km from this row pin"
      }
     ],
     "facing": "SE (surfnerd)",
@@ -36868,7 +36959,18 @@
     "access": "There is free roadside parking close to the sand, along with restrooms, a lifeguard, a surf school, and a surf shop nearby. (surfnerd)",
     "accessRestrictions": [],
     "notes": "No Surf-Forecast.com page matched. Wannasurf page 'Praia do Cassino' matched (0.4 km; Wannasurf GPS precision: Approximate).",
-    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-32.2094, -52.1865) is 5.4 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Cassino); the guides disagree on where this spot is."
+    "positionCheck": "Surf-Forecast.com has a page with the same name whose pin (-32.2094, -52.1865) is 5.4 km from the Surfnerd pin (https://www.surf-forecast.com/breaks/Cassino); the guides disagree on where this spot is.",
+    "mergedDuplicates": [
+     {
+      "id": "w-brazil-cassino",
+      "name": "Cassino",
+      "lat": -32.209,
+      "lon": -52.187,
+      "facingKind": "computed-coastline",
+      "on": "2026-11-10",
+      "reason": "same guide page https://www.surf-forecast.com/breaks/Cassino; this row already names that page as the same spot"
+     }
+    ]
    },
    "nearestSources": [
     {
@@ -37254,7 +37356,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-araruna"
+    "spotId": "w-brazil-araruna",
+    "breakTypeText": "Araruna in Maranhão is a sheltered sandbar break that has unreliable waves. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37489,7 +37592,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-atlantida"
+    "spotId": "w-brazil-atlantida",
+    "breakTypeText": "Atlantida in Rio Grande Do Sul is an exposed beach/pier break that has inconsistent surf. Type: Beach/pier (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37743,7 +37847,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-balneario-novo-quintao"
+    "spotId": "w-brazil-balneario-novo-quintao",
+    "breakTypeText": "Balneario Novo Quintao in Rio Grande Do Sul is an exposed beach/pier break that only works once in a while. Type: Beach/pier (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -37859,7 +37964,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-balneario-sao-jose"
+    "spotId": "w-brazil-balneario-sao-jose",
+    "breakTypeText": "Belneario Sao Jose in Sao Paulo is an exposed beach/pier break that has fairly consistent surf. Type: Beach/pier (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38327,7 +38433,8 @@
     "power": "Fast, Powerful (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-barra-sol"
+    "spotId": "w-brazil-barra-sol",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -38375,121 +38482,6 @@
    "nearestCatalogued": {
     "id": "w-brazil-pompeia",
     "distanceKm": 3.56
-   }
-  },
-  {
-   "id": "w-brazil-barra-velha",
-   "name": "Barra Velha",
-   "country": "Brazil",
-   "region": "Santa Catarina – Norte",
-   "timeZone": "America/Sao_Paulo",
-   "type": null,
-   "lat": -26.666,
-   "lon": -48.689,
-   "seaward": 98.2,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "surf-forecast guide map pin (-26.6663, -48.6886) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
-    "url": "https://www.surf-forecast.com/breaks/Barra-Velha"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1493/2362.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 161 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.1 deg (limit 45); 300 m window gives 99.0 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1493/2362.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1493/2363.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1494/2362.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1494/2363.pbf"
-    ],
-    "nearestCoastPoint": [
-     -26.666551,
-     -48.687006
-    ],
-    "distanceToCoastM": 161.0,
-    "meanDevDeg": 2.1,
-    "seaward300": 99.0
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "surf-forecast offshore winds from the west: nearest listed direction is 8 deg from facing+180 (278); consistent (<=60)",
-     "surf-forecast best swell from the east: nearest listed direction is 8 deg from the facing (98); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Barra Velha",
-    "sources": [
-     {
-      "url": "https://www.surf-forecast.com/breaks/Barra-Velha",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "best swell from the east (surf-forecast)",
-    "windOffshore": "offshore winds from the west (surf-forecast)",
-    "tide": "Good surf at all stages of the tide. (surf-forecast)",
-    "waveTypeText": "Beach and point (surf-forecast)",
-    "waveDirectionText": "The beach breaks offer lefts and rights and there is a left hand point break too. (surf-forecast)",
-    "exposure": "exposed beach and point break (surf-forecast)",
-    "season": "best time of year for surfing here. Offshore winds are from the west. Most of the surf here comes from groundswells and the best swell direction is from the east. The beach breaks offer lefts and rights and there is a left hand point break too. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Barra Velha Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach and point 2 fairly consistent 22.9 ° C *ocean temperature recorded from satellite Surfing Barra Velha: The best conditions reported for surf at Barra Velha occur when a East swell combines with an offshore wind direction from the West . Hourly Forecast 16 Day Forecast What's the best time of year to surf Barra Velha (for consistent clean waves)? may Best Season: winter The best time of year for surfing Barra Velha with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of May (surf-forecast)",
-    "guideText": [
-     {
-      "site": "surf-forecast",
-      "text": "Barra Velha in Santa Caterina is an exposed beach and point break that has quite reliable surf. Winter is the best time of year for surfing here. Offshore winds are from the west. Most of the surf here comes from groundswells and the best swell direction is from the east. The beach breaks offer lefts and rights and there is a left hand point break too. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Barra Velha"
-     }
-    ],
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-brazil-barra-velha"
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge",
-     "id": "IOC guar",
-     "name": "Guaratuba, PR",
-     "owner": "IOC Sea Level Station Monitoring Facility (Brasil)",
-     "distanceKm": 90.8,
-     "live": false,
-     "liveNote": "no last sample in the IOC station list",
-     "lat": -25.857,
-     "lon": -48.567,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=guar"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR SBNF",
-     "name": "Navegantes",
-     "owner": "IEM BR__ASOS network (airport METAR)",
-     "distanceKm": 24.0,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": -26.88,
-     "lon": -48.651,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SBNF&network=BR__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "surf-forecast",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Barra Velha",
-    "url": "https://www.surf-forecast.com/breaks/Barra-Velha",
-    "guidePin": {
-     "lat": -26.6663,
-     "lon": -48.6886,
-     "site": "surf-forecast"
-    },
-    "type": "Beach and point",
-    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Praia Pedra Branca' 1.6 km away, different name); a kept spot has the same name (w-brazil-praia-barra-velha) but its Surfnerd pin is 4.1 km from this pin, so the two were not merged"
-   },
-   "nearestCatalogued": {
-    "id": "w-brazil-praia-barra-velha",
-    "distanceKm": 4.1
    }
   },
   {
@@ -38697,7 +38689,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-barra-do-chui"
+    "spotId": "w-brazil-barra-do-chui",
+    "breakTypeText": "Barra do Chui in Rio Grande Do Sul is an exposed beach/jetty break that has dependable surf. Type: Beach/jetty (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39156,7 +39149,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-barre-da-una"
+    "spotId": "w-brazil-barre-da-una",
+    "breakTypeText": "Barre da Una in Sao Paulo is a sheltered river break that has fairly consistent surf. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39273,7 +39267,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-barre-de-marica"
+    "spotId": "w-brazil-barre-de-marica",
+    "breakTypeText": "Barre de Marica in Rio de Janeiro is an exposed river break that has inconsistent surf. Type: River (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -39982,7 +39977,8 @@
     "power": "Hollow, Fast, Powerful, Ordinary, Fun, Powerless (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-cabo-frio"
+    "spotId": "w-brazil-cabo-frio",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -40339,7 +40335,8 @@
     "power": "Fun, Powerless (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-canal-de-camboinhas"
+    "spotId": "w-brazil-canal-de-camboinhas",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -40801,7 +40798,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-canto-de-jacone"
+    "spotId": "w-brazil-canto-de-jacone",
+    "breakTypeText": "Canto de Jacone in Rio de Janeiro Norte is a sheltered beach and point break. Type: Beach and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -41086,124 +41084,6 @@
    }
   },
   {
-   "id": "w-brazil-capao-da-canoa-2",
-   "name": "Capao da Canoa",
-   "country": "Brazil",
-   "region": "Rio Grande Do Sul",
-   "timeZone": "America/Sao_Paulo",
-   "type": null,
-   "lat": -29.666,
-   "lon": -49.96,
-   "seaward": 116.5,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "surf-forecast guide map pin (-29.6664, -49.9596) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
-    "url": "https://www.surf-forecast.com/breaks/Capaoda-Canoa"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1479/2401.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 163 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.0 deg (limit 45); 300 m window gives 116.5 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1479/2401.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1479/2402.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1480/2401.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1480/2402.pbf"
-    ],
-    "nearestCoastPoint": [
-     -29.667057,
-     -49.958092
-    ],
-    "distanceToCoastM": 162.9,
-    "meanDevDeg": 0.0,
-    "seaward300": 116.5
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "surf-forecast offshore winds from the west northwest: nearest listed direction is 4 deg from facing+180 (296); consistent (<=60)",
-     "surf-forecast best swell from the south southeast: nearest listed direction is 41 deg from the facing (116); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Capao da Canoa",
-    "sources": [
-     {
-      "url": "https://www.surf-forecast.com/breaks/Capaoda-Canoa",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "best swell from the south southeast (surf-forecast)",
-    "windOffshore": "offshore winds from the west northwest (surf-forecast)",
-    "waveTypeText": "Sandbar (surf-forecast)",
-    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
-    "exposure": "exposed beach break (surf-forecast)",
-    "hazards": [
-     "When it's working here, it can get crowded. (surf-forecast)",
-     "Beware of rocks,currents. (surf-forecast)"
-    ],
-    "season": "best time of year for surfing Capao da Canoa with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of June (surf-forecast)",
-    "guideText": [
-     {
-      "site": "surf-forecast",
-      "text": "Capao da Canoa in Rio Grande Do Sul is an exposed beach break that has pretty consitent surf. Autumn and winter are the favoured times of year for waves. Offshore winds blow from the west northwest. Groundswells more frequent than windswells and the best swell direction is from the south southeast. Waves at the beach break both left and right. When it's working here, it can get crowded. Beware of rocks,currents. Capao da Canoa"
-     }
-    ],
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-brazil-capao-da-canoa-2"
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge",
-     "id": "IOC trai",
-     "name": "Tramandaí, RS",
-     "owner": "IOC Sea Level Station Monitoring Facility (Brasil)",
-     "distanceKm": 41.0,
-     "live": true,
-     "liveNote": "last sample 2026-11-10 04:33:00.000 UTC in the IOC station list",
-     "lat": -30.005,
-     "lon": -50.129,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trai"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR SBCM",
-     "name": "Criciuma",
-     "owner": "IEM BR__ASOS network (airport METAR)",
-     "distanceKm": 116.8,
-     "live": false,
-     "liveNote": "IEM lists offline",
-     "lat": -28.726,
-     "lon": -49.425,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SBCM&network=BR__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "surf-forecast",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Capao da Canoa",
-    "url": "https://www.surf-forecast.com/breaks/Capaoda-Canoa",
-    "guidePin": {
-     "lat": -29.6664,
-     "lon": -49.9596,
-     "site": "surf-forecast"
-    },
-    "type": "Sandbar",
-    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing; a kept spot has the same name (w-brazil-capao-da-canoa) but its Surfnerd pin is 12.5 km from this pin, so the two were not merged"
-   },
-   "nearestCatalogued": {
-    "id": "w-brazil-capao-novo",
-    "distanceKm": 2.61
-   }
-  },
-  {
    "id": "w-brazil-carambore",
    "name": "Carambore",
    "country": "Brazil",
@@ -41272,7 +41152,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-carambore"
+    "spotId": "w-brazil-carambore",
+    "breakTypeText": "Carambore in Sao Paulo is an exposed river break that has consistent surf. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -41435,122 +41316,6 @@
    "nearestCatalogued": {
     "id": "w-brazil-jericoacoara",
     "distanceKm": 122.86
-   }
-  },
-  {
-   "id": "w-brazil-cassino",
-   "name": "Cassino",
-   "country": "Brazil",
-   "region": "Rio Grande Do Sul",
-   "timeZone": "America/Sao_Paulo",
-   "type": null,
-   "lat": -32.209,
-   "lon": -52.187,
-   "seaward": 135.0,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "surf-forecast guide map pin (-32.2094, -52.1865) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
-    "url": "https://www.surf-forecast.com/breaks/Cassino"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1453/2435.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 588 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.4 deg (limit 45); 300 m window gives 135.3 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1453/2435.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1454/2435.pbf"
-    ],
-    "nearestCoastPoint": [
-     -32.213019,
-     -52.181926
-    ],
-    "distanceToCoastM": 588.0,
-    "meanDevDeg": 4.4,
-    "seaward300": 135.3
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "surf-forecast offshore wind from the West: nearest listed direction is 45 deg from facing+180 (315); consistent (<=60)",
-     "surf-forecast best swell from the south: nearest listed direction is 45 deg from the facing (135); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Cassino",
-    "sources": [
-     {
-      "url": "https://www.surf-forecast.com/breaks/Cassino",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "best swell from the south (surf-forecast)",
-    "windOffshore": "offshore wind from the West (surf-forecast)",
-    "waveTypeText": "Beach/jetty (surf-forecast)",
-    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
-    "exposure": "exposed beach/jetty break (surf-forecast)",
-    "hazards": [
-     "It's sometimes crowded here. (surf-forecast)",
-     "Hazards include rips and currents. (surf-forecast)"
-    ],
-    "season": "best time of year for surfing Cassino with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of June (surf-forecast)",
-    "guideText": [
-     {
-      "site": "surf-forecast",
-      "text": "Cassino in Rio Grande Do Sul is an exposed beach/jetty break that does not work very often. Autumn and winter are the best times of year for waves. Works best in offshore winds from the west. Groundswells are more common than windswells and the best swell direction is from the south. The beach breaks offer lefts and rights. It's sometimes crowded here. Hazards include rips and currents. Cassino"
-     }
-    ],
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-brazil-cassino"
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge",
-     "id": "IOC rig2",
-     "name": "Rio Grande, RS",
-     "owner": "IOC Sea Level Station Monitoring Facility (Brasil)",
-     "distanceKm": 9.9,
-     "live": true,
-     "liveNote": "last sample 2026-11-10 04:25:00.000 UTC in the IOC station list",
-     "lat": -32.167,
-     "lon": -52.094,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rig2"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR SBRG",
-     "name": "RIO GRANDE",
-     "owner": "IEM BR__ASOS network (airport METAR)",
-     "distanceKm": 23.5,
-     "live": false,
-     "liveNote": "IEM lists offline",
-     "lat": -32.017,
-     "lon": -52.083,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SBRG&network=BR__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "surf-forecast",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Cassino",
-    "url": "https://www.surf-forecast.com/breaks/Cassino",
-    "guidePin": {
-     "lat": -32.2094,
-     "lon": -52.1865,
-     "site": "surf-forecast"
-    },
-    "type": "Beach/jetty",
-    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing; a kept spot has the same name (w-brazil-cassino-beach) but its Surfnerd pin is 5.4 km from this pin, so the two were not merged"
-   },
-   "nearestCatalogued": {
-    "id": "w-brazil-cassino-beach",
-    "distanceKm": 5.41
    }
   },
   {
@@ -41942,7 +41707,8 @@
     "power": "Ordinary, Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-ccb"
+    "spotId": "w-brazil-ccb",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -42801,7 +42567,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-curvao"
+    "spotId": "w-brazil-curvao",
+    "breakTypeText": "Curvao in Piaui is an exposed beach and point break that has pretty consitent surf Works best in offshore winds from the south southwest with some shelter here from east winds. Type: Beach and point (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -43365,6 +43132,11 @@
       "url": "https://www.wannasurf.com/spot/South_America/Brazil/Santa_Catarina_North/Foz_do_Itapoc%c3%ba",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Brazil/Santa_Catarina_North/Foz_do_Itapocú/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -43384,7 +43156,8 @@
     "power": "Fun, Slab (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-foz-do-itapocu"
+    "spotId": "w-brazil-foz-do-itapocu",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.04 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -43849,7 +43622,8 @@
     "power": "Hollow, Fast, Powerful, Ordinary (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-garrincha"
+    "spotId": "w-brazil-garrincha",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -43969,7 +43743,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-georgino-avelino"
+    "spotId": "w-brazil-georgino-avelino",
+    "breakTypeText": "Georgino Avelino in Rio Grande Do Norte is an exposed river break that only works when conditions are just right Offshore winds are from the west southwest. Type: River (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -44666,7 +44441,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-hawaiizinho-2"
+    "spotId": "w-brazil-hawaiizinho-2",
+    "breakTypeText": "Hawaiizinho in Sergipe is an exposed river break that has quite reliable surf. Type: River (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45475,7 +45251,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-imbacai"
+    "spotId": "w-brazil-imbacai",
+    "breakTypeText": "Imbacai in North Bahia is an exposed point/rivermouth break that has dependable surf. Type: Point/river (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45522,122 +45299,6 @@
    "nearestCatalogued": {
     "id": "w-brazil-busca-vida",
     "distanceKm": 41.65
-   }
-  },
-  {
-   "id": "w-brazil-itacarezinho-2",
-   "name": "Itacarezinho",
-   "country": "Brazil",
-   "region": "Bahia – Sul",
-   "timeZone": "America/Bahia",
-   "type": null,
-   "lat": -14.477,
-   "lon": -39.019,
-   "seaward": 118.3,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "surf-forecast guide map pin (-14.4769, -39.0187) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
-    "url": "https://www.surf-forecast.com/breaks/Itacarezinho"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1603/2214.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1012 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 30.7 deg (limit 45); 300 m window gives 116.2 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1603/2214.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1604/2214.pbf"
-    ],
-    "nearestCoastPoint": [
-     -14.475697,
-     -39.028008
-    ],
-    "distanceToCoastM": 1012.0,
-    "meanDevDeg": 30.7,
-    "seaward300": 116.2
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 6 deg from facing+180 (298); consistent (<=60)",
-     "surf-forecast best swell from the east southeast: nearest listed direction is 6 deg from the facing (118); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Itacarezinho",
-    "sources": [
-     {
-      "url": "https://www.surf-forecast.com/breaks/Itacarezinho",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "best swell from the east southeast (surf-forecast)",
-    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
-    "waveTypeText": "Beach and reef (surf-forecast)",
-    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
-    "exposure": "exposed beach and reef break (surf-forecast)",
-    "hazards": [
-     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
-     "Dangerous rips are a hazard of surfing here. (surf-forecast)"
-    ],
-    "season": "best time of year for surfing Itacarezinho with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of April (surf-forecast)",
-    "guideText": [
-     {
-      "site": "surf-forecast",
-      "text": "Itacarezinho in South Bahia is an exposed beach and reef break that has pretty consitent surf. Summer offers the best conditions for surfing. The best wind direction is from the west northwest. Tends to receive a mix of groundswells and windswells and the best swell direction is from the east southeast. The beach break offers both left and right hand waves. Even when there are waves, it's not likley to be crowded. Dangerous rips are a hazard of surfing here. Itacarezinho"
-     }
-    ],
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-brazil-itacarezinho-2"
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge",
-     "id": "IOC salv3",
-     "name": "Capitania dos Portos",
-     "owner": "IOC Sea Level Station Monitoring Facility (Brasil)",
-     "distanceKm": 175.7,
-     "live": false,
-     "liveNote": "last sample 2026-10-06 16:21:00.000 UTC in the IOC station list",
-     "lat": -12.974,
-     "lon": -38.517,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=salv3"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR SBIL",
-     "name": "Ilheus",
-     "owner": "IEM BR__ASOS network (airport METAR)",
-     "distanceKm": 37.7,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": -14.816,
-     "lon": -39.033,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SBIL&network=BR__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "surf-forecast",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Itacarezinho",
-    "url": "https://www.surf-forecast.com/breaks/Itacarezinho",
-    "guidePin": {
-     "lat": -14.4769,
-     "lon": -39.0187,
-     "site": "surf-forecast"
-    },
-    "type": "Beach and reef",
-    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing; a kept spot has the same name (w-brazil-itacarezinho) but its Surfnerd pin is 12.1 km from this pin, so the two were not merged"
-   },
-   "nearestCatalogued": {
-    "id": "w-brazil-itacarezinho",
-    "distanceKm": 12.09
    }
   },
   {
@@ -46639,7 +46300,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-mambucaba"
+    "spotId": "w-brazil-mambucaba",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -46759,7 +46421,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-mangue-seco"
+    "spotId": "w-brazil-mangue-seco",
+    "breakTypeText": "Mangue Seco in North Bahia is an exposed river break that has consistent surf. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -47597,7 +47260,8 @@
     "power": "Fun, Powerless (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-meia-praia"
+    "spotId": "w-brazil-meia-praia",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -47834,7 +47498,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-mihai"
+    "spotId": "w-brazil-mihai",
+    "breakTypeText": "Mihai in Alagoas is an exposed river break that has pretty consitent surf. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -48068,7 +47733,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-molhes-de-mampituba"
+    "spotId": "w-brazil-molhes-de-mampituba",
+    "breakTypeText": "Molhes de Mampituba in Rio Grande Do Sul is an exposed river/jetties break that has pretty consitent surf. Type: River/jetties (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -48115,124 +47781,6 @@
    "nearestCatalogued": {
     "id": "w-brazil-itapeva",
     "distanceKm": 2.0
-   }
-  },
-  {
-   "id": "w-brazil-mongagua-2",
-   "name": "Mongagua",
-   "country": "Brazil",
-   "region": "São Paulo",
-   "timeZone": "America/Sao_Paulo",
-   "type": null,
-   "lat": -24.047,
-   "lon": -46.52,
-   "seaward": 154.3,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "surf-forecast guide map pin (-24.0465, -46.5197) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
-    "url": "https://www.surf-forecast.com/breaks/Mongagua"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1518/2329.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 289 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.3 deg (limit 45); 300 m window gives 154.5 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1518/2329.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1518/2330.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1519/2329.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1519/2330.pbf"
-    ],
-    "nearestCoastPoint": [
-     -24.048861,
-     -46.518474
-    ],
-    "distanceToCoastM": 289.2,
-    "meanDevDeg": 0.3,
-    "seaward300": 154.5
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 3 deg from facing+180 (334); consistent (<=60)",
-     "surf-forecast best swell Southeast: nearest listed direction is 19 deg from the facing (154); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Mongagua",
-    "sources": [
-     {
-      "url": "https://www.surf-forecast.com/breaks/Mongagua",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "best swell Southeast (surf-forecast)",
-    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
-    "tide": "Good surf at all stages of the tide. (surf-forecast)",
-    "waveTypeText": "Beach/jetty (surf-forecast)",
-    "waveDirectionText": "The beach breaks favour lefts. (surf-forecast)",
-    "exposure": "exposed beach/jetty break (surf-forecast)",
-    "hazards": [
-     "Often Crowded. (surf-forecast)"
-    ],
-    "season": "best time of year for surfing here. The best wind direction is from the north northwest. Most of the surf here comes from groundswells and the optimum swell angle is from the southeast. The beach breaks favour lefts. Good surf at all stages of the tide. Often Crowded. Overcrowding can even make surfing hazardous. Mongagua Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach/jetty 3 fairly consistent 23.3 ° C *ocean temperature recorded from satellite Surfing Mongagua: The best conditions reported for surf at Mongagua occur when a Southeast swell combines with an offshore wind direction from the North-northwest . Hourly Forecast 16 Day Forecast What's the best time of year to surf Mongagua (for consistent clean waves)? june Best Season: winter The best time of year for surfing Mongagua with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of June (surf-forecast)",
-    "guideText": [
-     {
-      "site": "surf-forecast",
-      "text": "Mongagua in Sao Paulo is an exposed beach/jetty break that has pretty consitent surf. Winter is the best time of year for surfing here. The best wind direction is from the north northwest. Most of the surf here comes from groundswells and the optimum swell angle is from the southeast. The beach breaks favour lefts. Good surf at all stages of the tide. Often Crowded. Overcrowding can even make surfing hazardous. Mongagua"
-     }
-    ],
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-brazil-mongagua-2"
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge",
-     "id": "IOC ilha",
-     "name": "Ilhabela, SP",
-     "owner": "IOC Sea Level Station Monitoring Facility (Brasil)",
-     "distanceKm": 122.2,
-     "live": true,
-     "liveNote": "last sample 2026-11-10 04:32:00.000 UTC in the IOC station list",
-     "lat": -23.774,
-     "lon": -45.355,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ilha"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR SBST",
-     "name": "Santos",
-     "owner": "IEM BR__ASOS network (airport METAR)",
-     "distanceKm": 27.2,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": -23.925,
-     "lon": -46.288,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SBST&network=BR__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "surf-forecast",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Mongagua",
-    "url": "https://www.surf-forecast.com/breaks/Mongagua",
-    "guidePin": {
-     "lat": -24.0465,
-     "lon": -46.5197,
-     "site": "surf-forecast"
-    },
-    "type": "Beach/jetty",
-    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing; a kept spot has the same name (w-brazil-mongagua) but its Surfnerd pin is 11.6 km from this pin, so the two were not merged"
-   },
-   "nearestCatalogued": {
-    "id": "w-brazil-praia-grande-2-3-4-5-6-7",
-    "distanceKm": 8.56
    }
   },
   {
@@ -48537,7 +48085,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-morros-dos-conventos"
+    "spotId": "w-brazil-morros-dos-conventos",
+    "breakTypeText": "Morros dos Conventos in Santa Caterina is an exposed river break that only works once in a while. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -48882,7 +48431,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-nordestao"
+    "spotId": "w-brazil-nordestao",
+    "breakTypeText": "Nordestão in Pernambuco is an exposed sandbar break that is often working. Type: Sandbar (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -49829,7 +49379,8 @@
     "waveQuality": "Regional Classic (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-passo-de-torres"
+    "spotId": "w-brazil-passo-de-torres",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -49943,7 +49494,8 @@
     "power": "Hollow, Fast, Powerful, Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-picama"
+    "spotId": "w-brazil-picama",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -50546,7 +50098,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-ponta-de-bororo"
+    "spotId": "w-brazil-ponta-de-bororo",
+    "breakTypeText": "Ponta de Bororo in Espirito Santo is an exposed river break that has reasonably consistent surf, although summer tends to be mostly flat. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -50900,7 +50453,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-ponta-do-sauipe"
+    "spotId": "w-brazil-ponta-do-sauipe",
+    "breakTypeText": "Ponta do Sauipe in North Bahia is an exposed point/rivermouth break that usually has waves. Type: Point/river (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -51129,7 +50683,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-pontal-do-coruripe"
+    "spotId": "w-brazil-pontal-do-coruripe",
+    "breakTypeText": "Pontal do Coruripe in Alagoas is an exposed river break that has fairly consistent surf. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -51586,7 +51141,8 @@
     "power": "Ordinary, Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-posto-11-atlantico-sul"
+    "spotId": "w-brazil-posto-11-atlantico-sul",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -53495,7 +53051,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-praia-de-fora"
+    "spotId": "w-brazil-praia-de-fora",
+    "breakTypeText": "Praia de Fora in Sao Paulo is an exposed beach break that has inconsistent surf. Type: Beach and reef (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -54792,7 +54349,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-praia-do-meio"
+    "spotId": "w-brazil-praia-do-meio",
+    "breakTypeText": "Praia do Meio in Sergipe is an exposed river break that has fairly consistent surf. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -54839,125 +54397,6 @@
    "nearestCatalogued": {
     "id": "w-brazil-aracaju",
     "distanceKm": 5.46
-   }
-  },
-  {
-   "id": "w-brazil-praia-do-morro-2",
-   "name": "Praia do Morro",
-   "country": "Brazil",
-   "region": "Espírito Santo",
-   "timeZone": "America/Sao_Paulo",
-   "type": null,
-   "lat": -20.564,
-   "lon": -40.4,
-   "seaward": 112.8,
-   "facingKind": "computed-coastline",
-   "positionSource": {
-    "text": "surf-forecast guide map pin (-20.5638, -40.3998) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
-    "url": "https://www.surf-forecast.com/breaks/Praiado-Morro"
-   },
-   "facingSource": {
-    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
-    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1587/2286.pbf",
-    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 457 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.5 deg (limit 45); 300 m window gives 112.0 deg.",
-    "tiles": [
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1587/2286.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1587/2287.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1588/2286.pbf",
-     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1588/2287.pbf"
-    ],
-    "nearestCoastPoint": [
-     -20.565383,
-     -40.395745
-    ],
-    "distanceToCoastM": 457.4,
-    "meanDevDeg": 2.5,
-    "seaward300": 112.0
-   },
-   "facingCheck": {
-    "result": "consistent with every published wind/swell direction",
-    "checks": [
-     "surf-forecast offshore wind from the Northwest: nearest listed direction is 22 deg from facing+180 (293); consistent (<=60)",
-     "surf-forecast best swell South: nearest listed direction is 67 deg from the facing (113); consistent (<=90)"
-    ],
-    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
-   },
-   "facts": {
-    "name": "Praia do Morro",
-    "sources": [
-     {
-      "url": "https://www.surf-forecast.com/breaks/Praiado-Morro",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
-    "idealSwell": "best swell South (surf-forecast)",
-    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
-    "tide": "Best around high tide. (surf-forecast)",
-    "waveTypeText": "Sandbar (surf-forecast)",
-    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
-    "exposure": "exposed beach break (surf-forecast)",
-    "hazards": [
-     "When it's working here, it can get crowded. (surf-forecast)",
-     "Submerged rocks are a hazard. (surf-forecast)"
-    ],
-    "season": "best time of year for surfing Praia do Morro with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of March (surf-forecast)",
-    "guideText": [
-     {
-      "site": "surf-forecast",
-      "text": "Praia do Morro in Espirito Santo is an exposed beach break that has quite reliable surf, although summer tends to be mostly flat. The best wind direction is from the northwest. Tends to receive distant groundswells and the ideal swell direction is from the south. The beach breaks offer lefts and rights. Best around high tide. When it's working here, it can get crowded. Submerged rocks are a hazard. Praia do Morro"
-     }
-    ],
-    "facingDeg": null,
-    "minimumPeriodS": null,
-    "spotId": "w-brazil-praia-do-morro-2"
-   },
-   "nearestSources": [
-    {
-     "kind": "tide gauge",
-     "id": "IOC arrc",
-     "name": "Arraial do Cabo",
-     "owner": "IOC Sea Level Station Monitoring Facility (Brasil)",
-     "distanceKm": 315.5,
-     "live": false,
-     "liveNote": "last sample 2023-04-19 13:47:00.000 UTC in the IOC station list",
-     "lat": -22.973,
-     "lon": -42.014,
-     "registry": "IOC Sea Level Station Monitoring Facility station list",
-     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arrc"
-    },
-    {
-     "kind": "airport METAR",
-     "id": "METAR SBVT",
-     "name": "Vitoria",
-     "owner": "IEM BR__ASOS network (airport METAR)",
-     "distanceKm": 36.0,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": -20.258,
-     "lon": -40.286,
-     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SBVT&network=BR__ASOS"
-    }
-   ],
-   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
-   "regionSource": "surf-forecast",
-   "typeSource": null,
-   "recoveredFrom": {
-    "name": "Praia do Morro",
-    "url": "https://www.surf-forecast.com/breaks/Praiado-Morro",
-    "guidePin": {
-     "lat": -20.5638,
-     "lon": -40.3998,
-     "site": "surf-forecast"
-    },
-    "type": "Sandbar",
-    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Praia do Ule' 0.8 km away, different name); a kept spot has the same name (w-brazil-praia-do-morro) but its Surfnerd pin is 13.5 km from this pin, so the two were not merged"
-   },
-   "nearestCatalogued": {
-    "id": "w-brazil-bariri",
-    "distanceKm": 4.11
    }
   },
   {
@@ -55267,7 +54706,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-praia-do-rincao"
+    "spotId": "w-brazil-praia-do-rincao",
+    "breakTypeText": "Praia do Rincao in Santa Caterina is an exposed beach/pier break that does not work very often. Type: Beach/pier (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -55970,7 +55410,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-praiao"
+    "spotId": "w-brazil-praiao",
+    "breakTypeText": "Praiao in Sao Paulo is an exposed river break that has fairly consistent surf. Type: River (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -56442,7 +55883,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-querencia"
+    "spotId": "w-brazil-querencia",
+    "breakTypeText": "Querencia in Rio Grande Do Sul is an exposed beach/jetty break that has inconsistent surf. Type: Beach/jetty (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -56892,7 +56334,8 @@
     "power": "Fast, Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-riacho-doce"
+    "spotId": "w-brazil-riacho-doce",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -57125,7 +56568,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-rio-grande-jetties"
+    "spotId": "w-brazil-rio-grande-jetties",
+    "breakTypeText": "Rio Grande Jetties in Rio Grande Do Sul is an exposed beach/jetty break. Type: Beach/jetty (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -57486,7 +56930,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-salinas"
+    "spotId": "w-brazil-salinas",
+    "breakTypeText": "Salinas in Rio Grande Do Sul is an exposed beach/pier break. Type: Beach/pier (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -57715,7 +57160,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-sao-jose-do-norte"
+    "spotId": "w-brazil-sao-jose-do-norte",
+    "breakTypeText": "Sao Jose do Norte in Rio Grande Do Sul is an exposed beach/jetty break that has unreliable waves. Type: Beach/jetty (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -58172,7 +57618,8 @@
     "power": "Fast (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-secret"
+    "spotId": "w-brazil-secret",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -59516,7 +58963,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-brazil-tramandai-pier-platforma"
+    "spotId": "w-brazil-tramandai-pier-platforma",
+    "breakTypeText": "Tramandai Pier (Platforma) in Rio Grande Do Sul is an exposed beach/pier break that has inconsistent surf. Type: Beach/pier (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -63435,6 +62883,60 @@
     "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
     "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind NorthEast: nearest listed direction is 118 deg from facing+180 (287); CONTRADICTS (>60) | wannasurf good swell South: nearest listed direction is 73 deg from the facing (107); consistent (<=90)"
    }
+  },
+  {
+   "name": "Barra Velha",
+   "id": "w-brazil-barra-velha",
+   "reason": "duplicate of w-brazil-praia-barra-velha (\"Praia Barra Velha\"): same guide page https://www.surf-forecast.com/breaks/Barra-Velha, which w-brazil-praia-barra-velha already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.surf-forecast.com/breaks/Barra-Velha",
+   "mergedInto": "w-brazil-praia-barra-velha",
+   "lat": -26.666,
+   "lon": -48.689
+  },
+  {
+   "name": "Capao da Canoa",
+   "id": "w-brazil-capao-da-canoa-2",
+   "reason": "duplicate of w-brazil-capao-da-canoa (\"Capão da Canoa\"): same guide page https://www.surf-forecast.com/breaks/Capaoda-Canoa, which w-brazil-capao-da-canoa already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.surf-forecast.com/breaks/Capaoda-Canoa",
+   "mergedInto": "w-brazil-capao-da-canoa",
+   "lat": -29.666,
+   "lon": -49.96
+  },
+  {
+   "name": "Cassino",
+   "id": "w-brazil-cassino",
+   "reason": "duplicate of w-brazil-cassino-beach (\"Cassino Beach\"): same guide page https://www.surf-forecast.com/breaks/Cassino, which w-brazil-cassino-beach already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.surf-forecast.com/breaks/Cassino",
+   "mergedInto": "w-brazil-cassino-beach",
+   "lat": -32.209,
+   "lon": -52.187
+  },
+  {
+   "name": "Itacarezinho",
+   "id": "w-brazil-itacarezinho-2",
+   "reason": "duplicate of w-brazil-itacarezinho (\"Itacarezinho\"): same guide page https://www.surf-forecast.com/breaks/Itacarezinho, which w-brazil-itacarezinho already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.surf-forecast.com/breaks/Itacarezinho",
+   "mergedInto": "w-brazil-itacarezinho",
+   "lat": -14.477,
+   "lon": -39.019
+  },
+  {
+   "name": "Mongagua",
+   "id": "w-brazil-mongagua-2",
+   "reason": "duplicate of w-brazil-mongagua (\"Mongagua\"): same guide page https://www.surf-forecast.com/breaks/Mongagua, which w-brazil-mongagua already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.surf-forecast.com/breaks/Mongagua",
+   "mergedInto": "w-brazil-mongagua",
+   "lat": -24.047,
+   "lon": -46.52
+  },
+  {
+   "name": "Praia do Morro",
+   "id": "w-brazil-praia-do-morro-2",
+   "reason": "duplicate of w-brazil-praia-do-morro (\"Praia do Morro\"): same guide page https://www.surf-forecast.com/breaks/Praiado-Morro, which w-brazil-praia-do-morro already names as the same break (cleanup r3 2026-11-10). The guide-facing row is kept; this row's guide pages are carried into its facts.sources.",
+   "url": "https://www.surf-forecast.com/breaks/Praiado-Morro",
+   "mergedInto": "w-brazil-praia-do-morro",
+   "lat": -20.564,
+   "lon": -40.4
   }
  ],
  "recovery": "2026-11-09: 197 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"

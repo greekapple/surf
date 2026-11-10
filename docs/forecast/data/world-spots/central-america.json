@@ -19698,6 +19698,11 @@
       "url": "https://www.surf-forecast.com/breaks/Bejuco",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Costa_Rica/Pacific_South/bejuco/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -19719,7 +19724,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-bejuco-golfo-de-nicoya"
+    "spotId": "w-ca-bejuco-golfo-de-nicoya",
+    "breakTypeText": "Bejuco in Golfo de Nicoya is an exposed beach and reef break that has very consistent waves Offshore winds blow from the north northeast. Type: Beach and reef (surf-forecast, pin 0.0 km from row pin); Type: Beach-break (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20070,7 +20076,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-cabo-san-quintin-baja-norte"
+    "spotId": "w-ca-cabo-san-quintin-baja-norte",
+    "breakTypeText": "Cabo San Quintin in Baja Norte is an exposed reef and point break that has quite consistent surf and can work at any time of the year. Type: Reef and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20200,7 +20207,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-champerico-guatemala-pacific-coast"
+    "spotId": "w-ca-champerico-guatemala-pacific-coast",
+    "breakTypeText": "Champerico in Pacific Coast is an exposed beach/Pier break that only works when conditions are just right Offshore winds are from the northeast. Type: Beach/pier (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20317,7 +20325,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-comasagua-point-el-salvador-costa-del-balsamo"
+    "spotId": "w-ca-comasagua-point-el-salvador-costa-del-balsamo",
+    "breakTypeText": "Comasagua Point in Costa del Balsamo is an exposed beach and point break that has unreliable waves Offshore winds blow from the north. Type: Beach and point (surf-forecast, pin 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20431,7 +20440,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-damas-rivermouth-golfo-de-nicoya"
+    "spotId": "w-ca-damas-rivermouth-golfo-de-nicoya",
+    "breakTypeText": "Damas Rivermouth in Golfo de Nicoya is an exposed sandbar break that has quite consistent surf Ideal winds are from the north. Type: Sandbar (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20782,7 +20792,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-el-estero-guanacaste"
+    "spotId": "w-ca-el-estero-guanacaste",
+    "breakTypeText": "El Estero in Guanacaste is an exposed river break that has consistent surf Offshore winds blow from the east. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -21264,7 +21275,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-el-palmer-gulf-of-panama"
+    "spotId": "w-ca-el-palmer-gulf-of-panama",
+    "breakTypeText": "El Palmer in Golfo de Panama is a quite exposed beach and point break that has quite reliable surf Offshore winds are from the northwest. Type: Beach and point (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -21358,6 +21370,11 @@
       "url": "https://www.surf-forecast.com/breaks/El-Pescadero",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/pescadero",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -21380,7 +21397,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-el-pescadero-baja-sur"
+    "spotId": "w-ca-el-pescadero-baja-sur",
+    "breakTypeText": "El Pescadero in Baja Sur is an exposed beach and reef break that has reliable surf and can work at any time of the year. Type: Beach and reef (surf-forecast, pin 0.01 km from row pin); Type: Beach (surfnerd, pin 4.69 km from row pin)"
    },
    "nearestSources": [
     {
@@ -21613,7 +21631,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-fishermans-point-el-salvador-costa-del-balsamo"
+    "spotId": "w-ca-fishermans-point-el-salvador-costa-del-balsamo",
+    "breakTypeText": "Fishermans Point in Costa del Balsamo is an exposed reef and point break that has consistent surf Ideal winds are from the north northeast. Type: Reef and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22210,7 +22229,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-jiquilillo-leon-province"
+    "spotId": "w-ca-jiquilillo-leon-province",
+    "breakTypeText": "Jiquilillo in Leon Province is a reasonably exposed beach/sandbar break that has fairly consistent surf The best wind direction is from the northeast. Type: Beach/sandbar (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22576,7 +22596,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-la-esquina-del-mar-golfo-dulce"
+    "spotId": "w-ca-la-esquina-del-mar-golfo-dulce",
+    "breakTypeText": "La Esquina del Mar in Golfo Dulce is a sheltered river break that only works once in a while Offshore winds are from the east. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22923,7 +22944,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-la-china-golfo-de-nicoya"
+    "spotId": "w-ca-la-china-golfo-de-nicoya",
+    "breakTypeText": "La-China in Golfo de Nicoya is a fairly exposed breakwater break that only works once in a while Offshore winds are from the northeast and there is no shelter here from cross shore breezes. Type: Breakwater (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23640,7 +23662,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-morro-negrito-veraguas"
+    "spotId": "w-ca-morro-negrito-veraguas",
+    "breakTypeText": "Morro Negrito in Golfo de Chiriqui is an exposed reef and point break that usually has waves and can work at any time of the year. Type: Reef and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23753,7 +23776,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-morro-negrito-rivermouth-veraguas"
+    "spotId": "w-ca-morro-negrito-rivermouth-veraguas",
+    "breakTypeText": "Rivermouth-Morro Negrito in Golfo de Chiriqui is an exposed river break that has dependable surf and can work at any time of the year. Type: River (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -24218,7 +24242,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-playa-los-cerritos-baja-sur"
+    "spotId": "w-ca-playa-los-cerritos-baja-sur",
+    "breakTypeText": "Playa Los Cerritos in Baja Sur is an exposed beach and point break that has pretty consitent surf. Type: Beach and point (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -24683,7 +24708,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-playa-valor-golfo-de-nicoya"
+    "spotId": "w-ca-playa-valor-golfo-de-nicoya",
+    "breakTypeText": "Playa Valor in Golfo de Nicoya is a reasonably exposed reef/rivermouth break that has unreliable waves The best wind direction is from the northeast. Type: Reef/river (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -24800,7 +24826,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-playa-venao-gulf-of-panama"
+    "spotId": "w-ca-playa-venao-gulf-of-panama",
+    "breakTypeText": "Playa Venao in Pedasi and Vicinity is an exposed beach break that has very consistent surf . Type: Sandbar (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -25528,7 +25555,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-punta-san-diego-leon-province"
+    "spotId": "w-ca-punta-san-diego-leon-province",
+    "breakTypeText": "Punta San Diego in Leon Province is an exposed beach and point break that has pretty consitent surf Offshore winds are from the northeast. Type: Beach and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -25646,7 +25674,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-quepos-golfo-de-nicoya"
+    "spotId": "w-ca-quepos-golfo-de-nicoya",
+    "breakTypeText": "Quepos in Golfo de Nicoya is an exposed beach break that has unreliable waves Offshore winds blow from the north. Type: River (surf-forecast, pin 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -26008,7 +26037,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-rio-tulin-golfo-de-nicoya"
+    "spotId": "w-ca-rio-tulin-golfo-de-nicoya",
+    "breakTypeText": "Rio Tulin in Golfo de Nicoya is an exposed river break that has fairly consistent surf The best wind direction is from the northeast. Type: River (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -26124,7 +26154,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-ca-san-jose-rivermouth-baja-sur"
+    "spotId": "w-ca-san-jose-rivermouth-baja-sur",
+    "breakTypeText": "San Jose Rivermouth in Baja Sur is a reasonably exposed river break that has dependable surf. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {

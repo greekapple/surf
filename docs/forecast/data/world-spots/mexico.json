@@ -19866,7 +19866,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-agua-verde-sinaloa"
+    "spotId": "w-mexico-agua-verde-sinaloa",
+    "breakTypeText": "Agua Verde in Sinaloa is an exposed point/rivermouth break that has fairly consistent surf. Type: Point/river (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20580,7 +20581,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-chamela-jalisco"
+    "spotId": "w-mexico-chamela-jalisco",
+    "breakTypeText": "Chamela in Jalisco is an exposed river break that has quite reliable surf. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20695,7 +20697,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-costa-sol-guerrero"
+    "spotId": "w-mexico-costa-sol-guerrero",
+    "breakTypeText": "Costa Sol in West Guerrero is an exposed beach and point break that only works once in a while. Type: Beach and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -21549,7 +21552,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-huahua-michoacan"
+    "spotId": "w-mexico-huahua-michoacan",
+    "breakTypeText": "Huahua in Michoacan is an exposed beach,point,rivermouth break that has reasonably consistent surf. Type: Beach, point and rivermouth (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -21779,7 +21783,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-las-animas-guerrero"
+    "spotId": "w-mexico-las-animas-guerrero",
+    "breakTypeText": "Las Animas in West Guerrero is an exposed river break that has quite reliable surf. Type: River (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22038,7 +22043,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-marquella-guerrero"
+    "spotId": "w-mexico-marquella-guerrero",
+    "breakTypeText": "Marquella in West Guerrero is an exposed beach and point break that has fairly consistent surf. Type: Beach and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22924,7 +22930,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-playa-bonfil-guerrero"
+    "spotId": "w-mexico-playa-bonfil-guerrero",
+    "breakTypeText": "Playa Bonfil in West Guerrero is an exposed beach break that has very reliable surf and works all around the year. Type: Sandbar (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23431,7 +23438,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-puerto-vallarta-rivermouth-jalisco"
+    "spotId": "w-mexico-puerto-vallarta-rivermouth-jalisco",
+    "breakTypeText": "Puerto Vallarta Rivermouth in Jalisco is a sheltered river break that has inconsistent surf. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23549,7 +23557,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-punta-acamama-guerrero"
+    "spotId": "w-mexico-punta-acamama-guerrero",
+    "breakTypeText": "Punta Acamama in West Guerrero is an exposed beach and point break that has quite consistent surf. Type: Beach and point (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23680,7 +23689,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-punta-encomienda-oaxaca"
+    "spotId": "w-mexico-punta-encomienda-oaxaca",
+    "breakTypeText": "Punta Encomienda in Oaxaca is an exposed sandbar break that has very consistent surf and works all around the year. Type: Sandbar (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23809,7 +23819,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-punta-gorda-guerrero"
+    "spotId": "w-mexico-punta-gorda-guerrero",
+    "breakTypeText": "Punta Gorda in West Guerrero is an exposed beach and point break that has reasonably consistent surf and can work at any time of the year. Type: Beach and point (surf-forecast, pin 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -24317,7 +24328,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-rio-tapextla-oaxaca"
+    "spotId": "w-mexico-rio-tapextla-oaxaca",
+    "breakTypeText": "Rio Tapextla in Oaxaca is an exposed river break that has reasonably consistent surf. Type: River (surf-forecast, pin 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -24562,7 +24574,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-mexico-teacapan-sinaloa"
+    "spotId": "w-mexico-teacapan-sinaloa",
+    "breakTypeText": "Teacapan in Sinaloa is an exposed point/rivermouth break that has quite reliable surf. Type: Point/river (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {

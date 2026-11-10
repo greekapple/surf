@@ -2381,7 +2381,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-taiwan-tawu"
+    "spotId": "w-taiwan-tawu",
+    "breakTypeText": "Tawu in - is an exposed river break that has unreliable waves. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2706,7 +2707,8 @@
     "waveQuality": "Normal (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-taiwan-da-an"
+    "spotId": "w-taiwan-da-an",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3251,7 +3253,8 @@
     "power": "Fast, Powerful, Fun, Ledgey (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-taiwan-donghe-rivermouth-2"
+    "spotId": "w-taiwan-donghe-rivermouth-2",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {

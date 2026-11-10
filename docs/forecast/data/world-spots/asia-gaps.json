@@ -241,7 +241,7 @@
    "seaward": 233.5,
    "facingKind": "computed-coastline",
    "positionSource": {
-    "text": "wannasurf guide map pin (10.494733333333333, 103.5597, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.04 km away",
+    "text": "wannasurf guide map pin (10.494733333333333, 103.5597, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.04 km away; coast check 2026-11-10: 0.28 km from OSM coastline (https://www.openstreetmap.org/way/165030886)",
     "url": "https://www.wannasurf.com/spot/Asia/Cambodia/Bamboo_Island/index.html"
    },
    "facingSource": {
@@ -341,7 +341,14 @@
    ],
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
    "typeSource": "surf-forecast states 'Beach'",
-   "regionSource": null
+   "regionSource": null,
+   "coastCheck": {
+    "text": "Pin is 0.28 km from OSM natural=coastline way/165030886 (OSM API map call, boxes 0.02 deg, 1 box(es), 2026-11-10); the Natural Earth 10 m coastline is 6.56 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/165030886",
+    "url": "https://www.openstreetmap.org/way/165030886",
+    "distanceKm": 0.28,
+    "naturalEarthKm": 6.56
+   }
   },
   {
    "id": "w-asia-tioman-island-malaysia",
@@ -3297,7 +3304,8 @@
     ],
     "facing": "Northwest (surfnerd: \"Faces NW\")",
     "facingDeg": 315.0,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (surfnerd, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4578,7 +4586,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.04 km from row pin); Bang Niang Rivermouth in Andaman Sea is an exposed river break that has reasonably consistent surf. Type: River (surf-forecast, pin 2.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4986,7 +4995,8 @@
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
     "facingDeg": null,
-    "minimumPeriodS": null
+    "minimumPeriodS": null,
+    "breakTypeText": "Hinsuay Namsay in Gulf of Thailand is an exposed beach and reef break that has unreliable waves. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {

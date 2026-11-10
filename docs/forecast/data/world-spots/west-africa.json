@@ -6101,7 +6101,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-wafrica-akwaadi"
+    "spotId": "w-wafrica-akwaadi",
+    "breakTypeText": "Akwaadi on the Gold Coast is an exposed river break that has consistent surf. Type: River (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6302,6 +6303,11 @@
       "url": "https://www.surf-forecast.com/breaks/Cape-Cross",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Namibia/cape_cross/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -6322,7 +6328,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-wafrica-cape-cross"
+    "spotId": "w-wafrica-cape-cross",
+    "breakTypeText": "Cape Cross in Swakopmund is an exposed reef and point break that has pretty consitent surf. Type: Reef and point (surf-forecast, pin 0.03 km from row pin); Type: Point-break (wannasurf, GPS 2.17 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6419,6 +6426,11 @@
       "url": "https://www.surf-forecast.com/breaks/Eighth-Street",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Liberia/8th_street/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -6439,7 +6451,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-wafrica-6th-street"
+    "spotId": "w-wafrica-6th-street",
+    "breakTypeText": "6th Street in Liberia is an exposed sandbar break that has very reliable surf. Type: Sandbar (surf-forecast, pin 0.06 km from row pin); Type: Sand-bar (wannasurf, GPS 0.09 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6745,6 +6758,11 @@
       "url": "https://www.surf-forecast.com/breaks/Prampram",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Ghana/Pram_Pram/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -6764,7 +6782,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-wafrica-prampram-greater-accra"
+    "spotId": "w-wafrica-prampram-greater-accra",
+    "breakTypeText": "Prampram (Greater Accra) in Ghana - Gold Coast is an exposed beach and reef break that has quite reliable surf. Type: Beach and reef (surf-forecast, pin 0.01 km from row pin); Type: Reef-rocky (wannasurf, GPS 1.98 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6880,7 +6899,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-wafrica-princes-town"
+    "spotId": "w-wafrica-princes-town",
+    "breakTypeText": "Princes Town on the Gold Coast is an exposed beach,rivermouth and reef break that has reliable surf. Type: Beach, river and reef (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {

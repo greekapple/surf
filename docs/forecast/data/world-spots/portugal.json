@@ -27794,7 +27794,8 @@
     "power": "Fast (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-portugal-cabo-mondego"
+    "spotId": "w-portugal-cabo-mondego",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -28567,7 +28568,8 @@
     "power": "Ordinary (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-portugal-esmoriz-praia-da-barra-e-praia-velha"
+    "spotId": "w-portugal-esmoriz-praia-da-barra-e-praia-velha",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -30561,7 +30563,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-portugal-ofir"
+    "spotId": "w-portugal-ofir",
+    "breakTypeText": "Ofir in Douro and Minho is an exposed sandbar break that has reasonably consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -32337,6 +32340,16 @@
       "url": "https://www.surf-forecast.com/breaks/Praiado-Norte",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/praia-do-norte",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Portugal/Central_Ericeira/praia_do_norte/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -32358,7 +32371,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-portugal-praia-do-norte-2"
+    "spotId": "w-portugal-praia-do-norte-2",
+    "breakTypeText": "Praia do Norte in Ericeira is an exposed beach break that has very consistent waves and works all around the year. Type: Beach and reef (surf-forecast, pin 0.05 km from row pin); Type: Beach (surfnerd, pin 0.23 km from row pin); Type: Reef-rocky (wannasurf, GPS 0.29 km from row pin)"
    },
    "nearestSources": [
     {
@@ -32625,7 +32639,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-portugal-praia-do-rock"
+    "spotId": "w-portugal-praia-do-rock",
+    "breakTypeText": "Praia do Rock in Douro and Minho is an exposed sandbar break that has pretty consitent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -33114,7 +33129,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-portugal-san-jorge-faja-dos-cubres"
+    "spotId": "w-portugal-san-jorge-faja-dos-cubres",
+    "breakTypeText": "Faja dos Cubres in Azores(Ilha de San Jorge) is an exposed beach and point break that has fairly consistent surf. Type: Beach and point (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {

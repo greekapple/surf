@@ -1483,7 +1483,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-south-korea-songdojin-ni"
+    "spotId": "w-south-korea-songdojin-ni",
+    "breakTypeText": "Songdojin ni in South Korea is an exposed breakwater break that has quite reliable surf. Type: Breakwater (surf-forecast, pin 0.0 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2208,7 +2209,8 @@
     "power": "Ordinary (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-south-korea-squids"
+    "spotId": "w-south-korea-squids",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {

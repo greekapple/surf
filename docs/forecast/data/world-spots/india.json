@@ -4212,6 +4212,11 @@
       "url": "https://www.surf-forecast.com/breaks/Arambol",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Arambol/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4229,7 +4234,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-arambol"
+    "spotId": "w-india-arambol",
+    "breakTypeText": "Arambol in Goa is an exposed sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4434,6 +4440,11 @@
       "url": "https://www.surf-forecast.com/breaks/Betalbatim-Beach-Taj",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Betalbatim_Beach_-_Taj/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -4455,7 +4466,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-betalbatim-beach-taj"
+    "spotId": "w-india-betalbatim-beach-taj",
+    "breakTypeText": "Betalbatim Beach Taj in Goa is an exposed sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4675,7 +4687,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-covelong-point"
+    "spotId": "w-india-covelong-point",
+    "breakTypeText": "Covelong Point in Tamil Nadu is an exposed beach and reef break that has pretty consitent surf. Type: Beach and reef (surf-forecast, pin 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4910,7 +4923,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-konada-bar"
+    "spotId": "w-india-konada-bar",
+    "breakTypeText": "Konada Bar in Andhra Pradesh is an exposed river break that has consistent surf. Type: River (surf-forecast, pin 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5216,6 +5230,16 @@
       "url": "https://www.surf-forecast.com/breaks/Repos-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Pondichery",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/Pondichery/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
      }
     ],
     "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
@@ -5233,7 +5257,8 @@
     ],
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-repos-beach-pondicherry"
+    "spotId": "w-india-repos-beach-pondicherry",
+    "breakTypeText": "Repos Beach (Pondicherry) in Tamil Nadu is an exposed breakwater break that does not work very often. Type: Breakwater (surf-forecast, pin 0.0 km from row pin); Auroville (Pondichery) in Tamil Nadu is an exposed beach break that has fairly consistent surf. Type: Beach (surf-forecast, pin 1.65 km from row pin); Type: Beach-break (wannasurf, GPS 1.69 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5896,7 +5921,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-anjarle"
+    "spotId": "w-india-anjarle",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6000,7 +6026,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-pirawadi"
+    "spotId": "w-india-pirawadi",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6203,7 +6230,8 @@
     "power": "Fun (wannasurf)",
     "facingDeg": null,
     "minimumPeriodS": null,
-    "spotId": "w-india-near-repos-beach"
+    "spotId": "w-india-near-repos-beach",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
