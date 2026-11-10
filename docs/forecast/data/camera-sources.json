@@ -9701,7 +9701,331 @@
      "km": 6.0
     }
    ]
+  },
+  {
+   "id": "hb-city-pier-youtube",
+   "region": "SoCal",
+   "name": "View from Huntington Beach Pier",
+   "owner": "City of Huntington Beach",
+   "ownerType": "county/city",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "nearestSpots": [
+    {
+     "id": "cs-huntington",
+     "name": "Huntington Pier",
+     "km": 0.1
+    },
+    {
+     "id": "cs-bolsa-chica",
+     "name": "Bolsa Chica",
+     "km": 6.4
+    }
+   ],
+   "lat": 33.6555,
+   "lon": -118.0045,
+   "coordsSource": "approx (on Huntington Beach Pier; view looks out along the pier)",
+   "pageUrl": "https://www.youtube.com/watch?v=mhQjsLBfOoY",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Live thumbnail 2026-11-10 14:03 PST: elevated view down the pier deck to the end café with breaking waves and whitewater on both sides of the pier.",
+   "streamType": "YouTube live (video mhQjsLBfOoY); embed https://www.youtube-nocookie.com/embed/mhQjsLBfOoY",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms of Service: \"You may also show YouTube videos through the embeddable YouTube player.\" The owner has embedding enabled (oEmbed returned HTTP 200; playableInEmbed: true, checked 2026-11-10).",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms of Service, Permissions and Restrictions: you may not \"access the Service using any automated means (such as robots, botnets or scrapers)\". The owner has granted no separate analysis permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "attribution": "City of Huntington Beach (YouTube channel 'City of Huntington Beach', which links huntingtonbeachca.gov)",
+   "licence": "Standard YouTube licence",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "YouTube watch page mhQjsLBfOoY: isLive true, isLiveNow true at ~14:00 PST; live thumbnail inspected"
+   },
+   "permissionClass": "display-only",
+   "contactUrl": null,
+   "notes": "Embeddable alternative to the HDOnTap 'Huntington Beach Pier Live Cam' (hdontap-huntington-pier). Owner's own channel (channel About names the City and links its official site). See docs/forecast/ALT-FEEDS.md.",
+   "excluded": null,
+   "excludedReason": null,
+   "swelloClass": "display-only",
+   "altFor": "hdontap-huntington-pier"
+  },
+  {
+   "id": "hb-city-lifeguard-hq-youtube",
+   "region": "SoCal",
+   "name": "Lifeguard HQ (Huntington Beach)",
+   "owner": "City of Huntington Beach",
+   "ownerType": "county/city",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "nearestSpots": [
+    {
+     "id": "cs-huntington",
+     "name": "Huntington Pier",
+     "km": 0.2
+    },
+    {
+     "id": "cs-bolsa-chica",
+     "name": "Bolsa Chica",
+     "km": 6.7
+    }
+   ],
+   "lat": 33.6548,
+   "lon": -118.0012,
+   "coordsSource": "approx (Marine Safety HQ by the pier, south side)",
+   "pageUrl": "https://www.youtube.com/watch?v=RGYlFjV-dtc",
+   "viewsSurf": "partial",
+   "viewsSurfEvidence": "Live thumbnail 2026-11-10: wide beach and shoreline south of the pier with the pier in the distance; the surf line is small in frame.",
+   "streamType": "YouTube live (video RGYlFjV-dtc); embed https://www.youtube-nocookie.com/embed/RGYlFjV-dtc",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms of Service: \"You may also show YouTube videos through the embeddable YouTube player.\" The owner has embedding enabled (oEmbed returned HTTP 200; playableInEmbed: true, checked 2026-11-10).",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms of Service, Permissions and Restrictions: you may not \"access the Service using any automated means (such as robots, botnets or scrapers)\". The owner has granted no separate analysis permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "attribution": "City of Huntington Beach (YouTube channel 'City of Huntington Beach')",
+   "licence": "Standard YouTube licence",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "YouTube watch page RGYlFjV-dtc: isLive true, isLiveNow true at ~14:00 PST; live thumbnail inspected"
+   },
+   "permissionClass": "display-only",
+   "contactUrl": null,
+   "notes": "Second City of Huntington Beach stream; beach overview rather than the break. See docs/forecast/ALT-FEEDS.md.",
+   "excluded": null,
+   "excludedReason": null,
+   "swelloClass": "display-only",
+   "altFor": "hdontap-huntington-pier"
+  },
+  {
+   "id": "redondo-city-pier-south-youtube",
+   "region": "SoCal",
+   "name": "City of Redondo Beach Pier (view south of the pier)",
+   "owner": "City of Redondo Beach",
+   "ownerType": "county/city",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "nearestSpots": [
+    {
+     "id": "cs-redondo-breakwater",
+     "name": "Redondo Breakwater",
+     "km": 1.4
+    },
+    {
+     "id": "cs-hermosa",
+     "name": "Hermosa Pier",
+     "km": 2.5
+    },
+    {
+     "id": "cs-manhattan-beach",
+     "name": "Manhattan Beach",
+     "km": 5.2
+    }
+   ],
+   "lat": 33.8405,
+   "lon": -118.3925,
+   "coordsSource": "approx (camera at the base of Redondo Beach Pier)",
+   "pageUrl": "https://www.redondo.org/departments/waterfront_and_economic_development/harbor/web_cams.php",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "City page: \"Watch a LIVE view of the beach south of the Redondo Beach Pier. LIVE view is available through YouTube.\" Live thumbnail 2026-11-10 14:01 PST shows the beach, shore break and Palos Verdes to the south.",
+   "streamType": "YouTube live (video TuVOKRP7IBA); embed https://www.youtube-nocookie.com/embed/TuVOKRP7IBA",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms of Service: \"You may also show YouTube videos through the embeddable YouTube player.\" The owner has embedding enabled (oEmbed returned HTTP 200; playableInEmbed: true, checked 2026-11-10).",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms of Service, Permissions and Restrictions: you may not \"access the Service using any automated means (such as robots, botnets or scrapers)\". The owner has granted no separate analysis permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "attribution": "City of Redondo Beach (YouTube channel 'City of Redondo Beach', linked from redondo.org web cams page)",
+   "licence": "Standard YouTube licence",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "YouTube watch page TuVOKRP7IBA: isLive true, isLiveNow true at ~14:00 PST; live thumbnail inspected"
+   },
+   "permissionClass": "display-only",
+   "contactUrl": null,
+   "notes": "Nearest embeddable view for the Hermosa HDOnTap cams, but it shows Redondo south of the pier, not Hermosa (2.5 km). The city's other stream (Ni7v-aIa3bw, King Harbor) shows the harbour, not surf. See docs/forecast/ALT-FEEDS.md.",
+   "excluded": null,
+   "excludedReason": null,
+   "swelloClass": "display-only",
+   "altFor": "swellmagnet-hermosa-pier-south"
+  },
+  {
+   "id": "explore-santa-monica-beach-pier",
+   "region": "SoCal",
+   "name": "Santa Monica Beach & Pier Cam (explore.org)",
+   "owner": "explore.org (Annenberg Foundation)",
+   "ownerType": "nonprofit",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "nearestSpots": [
+    {
+     "id": "cs-venice-breakwater",
+     "name": "Venice Breakwater",
+     "km": 3.0
+    },
+    {
+     "id": "cs-topanga",
+     "name": "Topanga",
+     "km": 8.7
+    }
+   ],
+   "lat": 34.0075,
+   "lon": -118.495,
+   "coordsSource": "approx (Santa Monica State Beach south of the pier)",
+   "pageUrl": "https://www.youtube.com/watch?v=v97JpT3ZA0w",
+   "viewsSurf": "partial",
+   "viewsSurfEvidence": "Owner: 'the Santa Monica Beach and Pier cam offers a 24/7 window ... Whether you're here to check the morning surf'. Beach and pier view; not the Venice breakwater.",
+   "streamType": "YouTube live (video v97JpT3ZA0w); embed https://www.youtube-nocookie.com/embed/v97JpT3ZA0w",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "explore.org Terms: \"You may \\\"deep-link\\\" to our video content and photography and you may \\\"embed\\\" or use analogous technology to include our content in your content.\" Plus YouTube embed on (oEmbed 200, checked 2026-11-10).",
+    "url": "https://explore.org/terms-of-service"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms of Service, Permissions and Restrictions: you may not \"access the Service using any automated means (such as robots, botnets or scrapers)\". The owner has granted no separate analysis permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "attribution": "explore.org (YouTube channel 'Explore Big Surf, Beaches and Sunsets')",
+   "licence": "explore.org terms; site content for 'personal, non-commercial use'",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "YouTube watch page v97JpT3ZA0w: isLive true, isLiveNow true at ~14:00 PST; live thumbnail inspected"
+   },
+   "permissionClass": "display-only",
+   "contactUrl": null,
+   "notes": "explore.org's own camera and channel; explore.org terms also explicitly permit embedding (see hi-explore-pipeline). 3 km from Venice Breakwater, so a regional view only. See docs/forecast/ALT-FEEDS.md.",
+   "excluded": null,
+   "excludedReason": null,
+   "swelloClass": "display-only",
+   "altFor": "swellmagnet-venice-wide"
+  },
+  {
+   "id": "surfersview-el-porto-youtube",
+   "region": "SoCal",
+   "name": "Manhattan Beach Cam and Surf Report (El Porto)",
+   "owner": "The Surfers View / Coastal Camera Network LLC",
+   "ownerType": "business",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "nearestSpots": [
+    {
+     "id": "cs-el-porto",
+     "name": "El Porto",
+     "km": 0.1
+    },
+    {
+     "id": "cs-manhattan-beach",
+     "name": "Manhattan Beach",
+     "km": 2.0
+    },
+    {
+     "id": "cs-hermosa",
+     "name": "Hermosa Pier",
+     "km": 4.6
+    }
+   ],
+   "lat": 33.9005,
+   "lon": -118.4205,
+   "coordsSource": "approx (El Porto, looking north to the jetty)",
+   "pageUrl": "https://thesurfersview.com/live-cams/california/el-porto-beach-cam-and-surf-report/",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Owner: 'Manhattan Beach cam captures 24/7 footage of El Porto waves and Surfing'. Live thumbnail 2026-11-10: beach, lifeguard tower, surf and the north jetty.",
+   "streamType": "YouTube live (video tBEIYdw1HeM); embed https://www.youtube-nocookie.com/embed/tBEIYdw1HeM",
+   "embedAllowed": {
+    "value": "unknown",
+    "clause": "Conflict: YouTube embed is on (oEmbed 200) and YouTube's terms allow the embeddable player, but Coastal Camera Network's terms say: \"You may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any Content, except as follows:\" (exceptions are personal caching/printing only).",
+    "url": "https://coastalcameranetwork.com/terms-and-conditions/"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms of Service, Permissions and Restrictions: you may not \"access the Service using any automated means (such as robots, botnets or scrapers)\". The owner has granted no separate analysis permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "attribution": "The Surfers View (YouTube channel linked from thesurfersview.com)",
+   "licence": "© Coastal Camera Network",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "YouTube watch page tBEIYdw1HeM: isLive true, isLiveNow true at ~14:00 PST; live thumbnail inspected"
+   },
+   "permissionClass": "unknown",
+   "contactUrl": null,
+   "notes": "Technically meets basis (c): owner's channel, embedding on. But the owner's own terms forbid public display (see seaside-park-boardwalk-ccn) and it is a commercial surf-cam network, which the 09-AI-Surf-Cameras rule excluded. Not counted as clean; user decision. See docs/forecast/ALT-FEEDS.md.",
+   "excluded": true,
+   "excludedReason": "Commercial surf-cam network (Coastal Camera Network) whose site terms forbid public display; YouTube embedding is on, so the user decides.",
+   "swelloClass": "unknown",
+   "altFor": "swellmagnet-el-porto-overlook"
+  },
+  {
+   "id": "venice-v-hotel-teleport-youtube",
+   "region": "SoCal",
+   "name": "Los Angeles Live Cam · Venice Beach · Venice V Hotel",
+   "owner": "Venice V Hotel (streamed by Teleport.camera)",
+   "ownerType": "business",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "nearestSpots": [
+    {
+     "id": "cs-venice-breakwater",
+     "name": "Venice Breakwater",
+     "km": 0.5
+    }
+   ],
+   "lat": 33.9876,
+   "lon": -118.4728,
+   "coordsSource": "approx (Venice V Hotel, Ocean Front Walk)",
+   "pageUrl": "https://www.youtube.com/watch?v=EO_1LWqsCNE",
+   "viewsSurf": "partial",
+   "viewsSurfEvidence": "Rotating rooftop view of the Venice boardwalk and beach; the breakwater is 0.5 km south.",
+   "streamType": "YouTube live (video EO_1LWqsCNE); embed https://www.youtube-nocookie.com/embed/EO_1LWqsCNE",
+   "embedAllowed": {
+    "value": "no",
+    "clause": "Video description: \"Use of the images and videos from our live stream is not allowed without written permission.\" (YouTube embedding is technically on: oEmbed 200.)",
+    "url": "https://www.youtube.com/watch?v=EO_1LWqsCNE"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms of Service, Permissions and Restrictions: you may not \"access the Service using any automated means (such as robots, botnets or scrapers)\". The owner has granted no separate analysis permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "attribution": "Venice V Hotel / Teleport.camera",
+   "licence": "Teleport.camera / Venice V Hotel; written permission required",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "YouTube watch page EO_1LWqsCNE: isLive true, isLiveNow true at ~14:00 PST; live thumbnail inspected"
+   },
+   "permissionClass": "not-allowed",
+   "contactUrl": null,
+   "notes": "Streamed for the hotel by Teleport.camera (the hotel's contracted streamer, not an independent re-stream). The video description says: \"Use of the images and videos from our live stream is not allowed without written permission.\" Treated as not allowed until Teleport/the hotel says embedding is fine.",
+   "excluded": null,
+   "excludedReason": null,
+   "swelloClass": "not-allowed",
+   "altFor": "swellmagnet-venice-wide"
   }
  ],
- "bayAreaChecked": "2026-11-10"
+ "bayAreaChecked": "2026-11-10",
+ "altFeedsChecked": "2026-11-10 (docs/forecast/ALT-FEEDS.md)"
 }
