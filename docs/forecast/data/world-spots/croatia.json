@@ -2,15 +2,143 @@
  "region": "Croatia",
  "retrievedOn": "2026-11-09",
  "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
- "spots": [],
+ "spots": [
+  {
+   "id": "w-croatia-camp-kazela-medulin",
+   "name": "Camp Kazela Medulin",
+   "country": "Croatia",
+   "region": "Croatia",
+   "timeZone": "Europe/Zagreb",
+   "type": "Beach",
+   "lat": 44.803,
+   "lon": 13.967,
+   "seaward": 176.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (44.803, 13.967) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Camp-Kazela-Medulin"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2206/1476.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 94 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 24.0 deg (limit 45); 300 m window gives 168.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2206/1476.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2206/1477.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2207/1476.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2207/1477.pbf"
+    ],
+    "nearestCoastPoint": [
+     44.803822,
+     13.966698
+    ],
+    "distanceToCoastM": 94.0,
+    "meanDevDeg": 24.0,
+    "seaward300": 168.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 26 deg from facing+180 (356); consistent (<=60)",
+     "surf-forecast best swell from the south southeast: nearest listed direction is 19 deg from the facing (176); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Camp Kazela Medulin",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Camp-Kazela-Medulin",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "quite exposed beach break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Camp Kazela Medulin in Croatia is a quite exposed beach break that has inconsistent surf. The best wind direction is from the north northeast. The best swell direction is from the south southeast. The beach break offers both left and right hand waves. Unlikely to be too crowded, even when the surf is up. Camp Kazela Medulin"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-croatia-camp-kazela-medulin"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 61001",
+     "name": "Nice Buoy",
+     "owner": "Meteo France",
+     "distanceKm": 516.4,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 43.4,
+     "lon": 7.8,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=61001"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC baka",
+     "name": "Bakar",
+     "owner": "IOC Sea Level Station Monitoring Facility (Croatia)",
+     "distanceKm": 71.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-09 07:00:00.000 UTC in the IOC station list",
+     "lat": 45.305,
+     "lon": 14.54,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=baka"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LDPL",
+     "name": "Pula",
+     "owner": "IEM HR__ASOS network (airport METAR)",
+     "distanceKm": 10.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 44.896,
+     "lon": 13.932,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LDPL&network=HR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Camp Kazela Medulin",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Camp-Kazela-Medulin); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Camp-Kazela-Medulin"
+    ],
+    "foundByName": []
+   }
+  }
+ ],
  "dropped": [
   {
-   "name": "Camp Kazela Medulin",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Camp-Kazela-Medulin); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
    "name": "Sakarun",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sakarun); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Sakarun); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 71 deg (arccos of mean resultant length 0.33; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 1 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 1 computed-coastline); see RECOVERY-2026-11-10.md"
 }

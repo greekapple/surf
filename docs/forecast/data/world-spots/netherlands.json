@@ -3857,40 +3857,819 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHFS&network=NL__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-netherlands-hargen",
+   "name": "Hargen",
+   "country": "Netherlands",
+   "region": "Netherlands",
+   "timeZone": "Europe/Amsterdam",
+   "type": null,
+   "lat": 52.82,
+   "lon": 4.684,
+   "seaward": 283.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (52.8202, 4.684) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Hargen"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2100/1337.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 33 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.5 deg (limit 45); 300 m window gives 284.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2100/1337.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2100/1338.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2101/1337.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2101/1338.pbf"
+    ],
+    "nearestCoastPoint": [
+     52.820242,
+     4.683513
+    ],
+    "distanceToCoastM": 33.1,
+    "meanDevDeg": 7.5,
+    "seaward300": 284.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 58 deg from facing+180 (103); consistent (<=60)",
+     "surf-forecast best swell from the north northwest: nearest listed direction is 54 deg from the facing (283); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Hargen",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hargen",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the north northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "waveTypeText": "Beach/breakwater (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "exposed beach/breakwater break (surf-forecast)",
+    "hazards": [
+     "When it's working here, it can get crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Hargen with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Hargen on the West Coast is an exposed beach/breakwater break that has pretty consitent surf, although summer tends to be mostly flat. Offshore winds blow from the northeast. Windswells and groundswells in equal measure and the best swell direction is from the north northwest. Waves at the beach break both left and right. When it's working here, it can get crowded. Hargen"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-netherlands-hargen"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 254.1,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC denh",
+     "name": "Den Helder",
+     "owner": "IOC Sea Level Station Monitoring Facility (Netherlands)",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 52.964,
+     "lon": 4.743,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=denh"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EHQN",
+     "name": "Hollandse Kust Noord",
+     "owner": "IEM NL__ASOS network (airport METAR)",
+     "distanceKm": 7.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 52.758,
+     "lon": 4.637,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHQN&network=NL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Hargen",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hargen); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Hargen"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-netherlands-petten",
+    "distanceKm": 4.69
+   }
+  },
+  {
+   "id": "w-netherlands-katwijk-aan-zee",
+   "name": "Katwijk aan Zee",
+   "country": "Netherlands",
+   "region": "Netherlands",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.224,
+   "lon": 4.408,
+   "seaward": 300.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (52.2241, 4.4084) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Katwijkaan-Zee"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2097/1348.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 67 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.8 deg (limit 45); 300 m window gives 302.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2097/1348.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2097/1349.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2098/1348.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2098/1349.pbf"
+    ],
+    "nearestCoastPoint": [
+     52.223772,
+     4.40923
+    ],
+    "distanceToCoastM": 67.2,
+    "meanDevDeg": 4.8,
+    "seaward300": 302.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 14 deg from facing+180 (121); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 14 deg from the facing (301); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Katwijk aan Zee",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Katwijkaan-Zee",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Surfing here means negotiating dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Katwijk aan Zee with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Katwijk aan Zee on the West Coast is an exposed beach break that has inconsistent surf. Summer in particular tends to be flat. Ideal winds are from the southeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the northwest. The beach break offers both left and right hand waves. Good surf at all stages of the tide. Sometimes crowded. Surfing here means negotiating dangerous rips. Katwijk aan Zee"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-netherlands-katwijk-aan-zee"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 198.7,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Station Monitoring Facility (Netherlands)",
+     "distanceKm": 17.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 52.099,
+     "lon": 4.263,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EHAM",
+     "name": "Amsterdam",
+     "owner": "IEM NL__ASOS network (airport METAR)",
+     "distanceKm": 27.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 52.315,
+     "lon": 4.79,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHAM&network=NL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Katwijk aan Zee",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Katwijkaan-Zee); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Katwijkaan-Zee"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-netherlands-noordwijk",
+    "distanceKm": 3.39
+   }
+  },
+  {
+   "id": "w-netherlands-maasexpress",
+   "name": "Maasexpress",
+   "country": "Netherlands",
+   "region": "Netherlands",
+   "timeZone": "Europe/Amsterdam",
+   "type": null,
+   "lat": 51.975,
+   "lon": 4.086,
+   "seaward": 3.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (51.975, 4.0856) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Maasexpress"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1352.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1216 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.9 deg (limit 45); 300 m window gives 18.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1352.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1353.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1354.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2094/1352.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2094/1353.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2094/1354.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1352.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1353.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1354.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.985378,
+     4.091458
+    ],
+    "distanceToCoastM": 1215.8,
+    "meanDevDeg": 26.9,
+    "seaward300": 18.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 48 deg from facing+180 (184); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 26 deg from the facing (4); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Maasexpress",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Maasexpress",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveTypeText": "River/jetties (surf-forecast)",
+    "waveDirectionText": "Prevailing left breaking waves at the beach break. (surf-forecast)",
+    "exposure": "sheltered river/jetties break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Hazards include rocks, rips,. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Maasexpress with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Maasexpress on the West Coast is a sheltered river/jetties break that only works once in a while. Summer in particular tends to be flat. The best wind direction is from the southeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the north northwest. Prevailing left breaking waves at the beach break. Even when there are waves, it's not likley to be crowded. Hazards include rocks, rips,. Maasexpress"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-netherlands-maasexpress"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 165.6,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Station Monitoring Facility (Netherlands)",
+     "distanceKm": 2.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 51.977,
+     "lon": 4.119,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EHRD",
+     "name": "Rotterdam",
+     "owner": "IEM NL__ASOS network (airport METAR)",
+     "distanceKm": 24.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.954,
+     "lon": 4.444,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Maasexpress",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Maasexpress); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Maasexpress"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-netherlands-hvh-boulevard",
+    "distanceKm": 2.0
+   }
+  },
+  {
+   "id": "w-netherlands-noorderstrand",
+   "name": "Noorderstrand",
+   "country": "Netherlands",
+   "region": "Netherlands",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 52.081,
+   "lon": 4.235,
+   "seaward": 310.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (52.0811, 4.2353) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Noorderstrand"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1350.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 120 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 11.3 deg (limit 45); 300 m window gives 310.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1350.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1351.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1352.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2096/1350.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2096/1351.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2096/1352.pbf"
+    ],
+    "nearestCoastPoint": [
+     52.08188,
+     4.234071
+    ],
+    "distanceToCoastM": 120.4,
+    "meanDevDeg": 11.3,
+    "seaward300": 310.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 4 deg from facing+180 (130); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 4 deg from the facing (310); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Noorderstrand",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Noorderstrand",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks favour lefts. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Often Crowded. (surf-forecast)",
+     "Beware of rips and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Noorderstrand with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Noorderstrand on the West Coast is an exposed beach break that has quite reliable surf, although summer tends to be mostly flat. The best wind direction is from the east. Windswells and groundswells in equal measure and the ideal swell direction is from the northwest. The beach breaks favour lefts. Good surf at all stages of the tide. Often Crowded. Beware of rips and jellyfish. Noorderstrand"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-netherlands-noorderstrand"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 180.3,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Station Monitoring Facility (Netherlands)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 52.099,
+     "lon": 4.263,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EHRD",
+     "name": "Rotterdam",
+     "owner": "IEM NL__ASOS network (airport METAR)",
+     "distanceKm": 20.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.954,
+     "lon": 4.444,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Noorderstrand",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Noorderstrand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Noorderstrand"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-netherlands-scheveningen-zuid",
+    "distanceKm": 1.57
+   }
+  },
+  {
+   "id": "w-netherlands-slufter",
+   "name": "Slufter",
+   "country": "Netherlands",
+   "region": "Netherlands",
+   "timeZone": "Europe/Amsterdam",
+   "type": "Beach",
+   "lat": 51.886,
+   "lon": 4.027,
+   "seaward": 257.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (51.8863, 4.0269) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Slufter"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1354.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 61 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 23.4 deg (limit 45); 300 m window gives 255.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1354.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2093/1355.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2094/1354.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2094/1355.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.886485,
+     4.027735
+    ],
+    "distanceToCoastM": 60.9,
+    "meanDevDeg": 23.4,
+    "seaward300": 255.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 12 deg from facing+180 (78); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 57 deg from the facing (258); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Slufter",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Slufter",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the northwest. (surf-forecast)",
+     "It's sometimes crowded here. (surf-forecast)",
+     "Watch out for dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Slufter with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Slufter on the West Coast is an exposed beach break that does not work very often. Summer in particular tends to be flat. The best wind direction is from the east. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the northwest. The beach breaks offer lefts and rights. It's sometimes crowded here. Watch out for dangerous rips. Slufter"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-netherlands-slufter"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 157.5,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hoek",
+     "name": "Hoek van Holland",
+     "owner": "IOC Sea Level Station Monitoring Facility (Netherlands)",
+     "distanceKm": 11.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 51.977,
+     "lon": 4.119,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hoek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EHSC",
+     "name": "LE GOEREE",
+     "owner": "IEM NL__ASOS network (airport METAR)",
+     "distanceKm": 24.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.926,
+     "lon": 3.67,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Slufter",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Slufter); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Slufter"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-netherlands-maasvlakte-containers",
+    "distanceKm": 6.15
+   }
+  },
+  {
+   "id": "w-netherlands-zud",
+   "name": "Zud",
+   "country": "Netherlands",
+   "region": "Netherlands",
+   "timeZone": "Europe/Amsterdam",
+   "type": null,
+   "lat": 52.068,
+   "lon": 4.216,
+   "seaward": 318.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (52.0683, 4.2162) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Zud"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1351.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 94 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.6 deg (limit 45); 300 m window gives 318.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1351.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2095/1352.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2096/1351.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2096/1352.pbf"
+    ],
+    "nearestCoastPoint": [
+     52.068929,
+     4.215288
+    ],
+    "distanceToCoastM": 93.5,
+    "meanDevDeg": 5.6,
+    "seaward300": 318.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 3 deg from facing+180 (138); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 3 deg from the facing (318); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Zud",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Zud",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach breaks favour rights. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Watch out for rips and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Zud with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Zud on the West Coast is an exposed beach/Jetty break that only works once in a while. Summer in particular tends to be flat. Ideal winds are from the northeast with some shelter here from north winds. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the northwest. The beach breaks favour rights. Sometimes crowded. Watch out for rips and jellyfish. Zud"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-netherlands-zud"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 178.5,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC sche",
+     "name": "Scheveningen",
+     "owner": "IOC Sea Level Station Monitoring Facility (Netherlands)",
+     "distanceKm": 4.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 52.099,
+     "lon": 4.263,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sche"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EHRD",
+     "name": "Rotterdam",
+     "owner": "IEM NL__ASOS network (airport METAR)",
+     "distanceKm": 20.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.954,
+     "lon": 4.444,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHRD&network=NL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Zud",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Zud); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Zud"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-netherlands-kijkduin",
+    "distanceKm": 0.3
+   }
   }
  ],
  "dropped": [
   {
    "name": "Texel Paal 17",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/waddeneilanden) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/waddeneilanden) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 7.95 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Blokken",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Blokken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Hargen",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hargen); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Katwijk aan Zee",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Katwijkaan-Zee); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Maasexpress",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Maasexpress); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Noorderstrand",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Noorderstrand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Slufter",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Slufter); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Zud",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Zud); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Blokken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 6 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 6 computed-coastline); see RECOVERY-2026-11-10.md"
 }

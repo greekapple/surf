@@ -1790,11 +1790,21 @@
  "dropped": [
   {
    "name": "Garur",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Garur); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Garur); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Þorlákshöfn or Porlackshofn",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Porlackshofn); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Porlackshofn); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
  ]
 }

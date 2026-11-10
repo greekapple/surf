@@ -11738,6 +11738,1972 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMML&network=MA__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-morocco-aroussa-bahe",
+   "name": "Aroussa Bahe",
+   "country": "Morocco",
+   "region": "Tangier to Rabat",
+   "timeZone": "Africa/Casablanca",
+   "type": null,
+   "lat": 35.77,
+   "lon": -5.944,
+   "seaward": 284.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (35.77, -5.9445) taken from the guide page, rounded to 3 dp; 0.41 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Aroussa-Bahe"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1979/1611.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 803 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.1 deg (limit 45); 300 m window gives 284.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1979/1611.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1979/1612.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1980/1611.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1980/1612.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.768183,
+     -5.935888
+    ],
+    "distanceToCoastM": 803.4,
+    "meanDevDeg": 2.1,
+    "seaward300": 284.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 30 deg from facing+180 (105); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 30 deg from the facing (285); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Aroussa Bahe",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Aroussa-Bahe",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "The beach breaks peel to the right. (surf-forecast)",
+    "exposure": "quite exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Aroussa Bahe with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Aroussa Bahe in Tanger to Rabat is a quite exposed beach and reef break that has fairly consistent surf. Winter is the optimum time of year for surfing here. Works best in offshore winds from the southeast. Clean groundswells prevail and the ideal swell direction is from the northwest. The beach breaks peel to the right. Unlikely to be too crowded, even when the surf is up. Submerged rocks are a hazard. Aroussa Bahe"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-aroussa-bahe"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tari",
+     "name": "Tarifa",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 40.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:41:00.000 UTC in the IOC station list",
+     "lat": 36.006,
+     "lon": -5.604,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tari"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMTT",
+     "name": "Tanger",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 6.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.726,
+     "lon": -5.906,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMTT&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Aroussa Bahe",
+    "surfForecastRegion": "Tangier-to-Rabat",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Aroussa-Bahe, pin 35.77,-5.94); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Aroussa-Bahe"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-cap-spartel",
+    "distanceKm": 0.84
+   }
+  },
+  {
+   "id": "w-morocco-asilah",
+   "name": "Asilah",
+   "country": "Morocco",
+   "region": "Tangier to Rabat",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 35.413,
+   "lon": -6.082,
+   "seaward": 298.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (35.4128, -6.0819) taken from the guide page, rounded to 3 dp; 0.36 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Asilah"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1978/1616.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1095 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.7 deg (limit 45); 300 m window gives 299.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1978/1616.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1978/1617.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1979/1616.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1979/1617.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.406279,
+     -6.072822
+    ],
+    "distanceToCoastM": 1094.7,
+    "meanDevDeg": 9.7,
+    "seaward300": 299.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 29 deg from facing+180 (119); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 16 deg from the facing (299); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Asilah",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Asilah",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "season": "best time of year for surfing Asilah with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Asilah in Tanger to Rabat is an exposed beach break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the east. Groundswells and windswells are equally likely and the best swell direction is from the northwest. Waves at the beach break both left and right. When the surf is up, crowds are likely Take care of . Asilah"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-asilah"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tari",
+     "name": "Tarifa",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 78.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:41:00.000 UTC in the IOC station list",
+     "lat": 36.006,
+     "lon": -5.604,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tari"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMTT",
+     "name": "Tanger",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 38.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.726,
+     "lon": -5.906,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMTT&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Asilah",
+    "surfForecastRegion": "Tangier-to-Rabat",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Asilah, pin 35.41,-6.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Asilah"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-plage-mhibet",
+    "distanceKm": 2.05
+   }
+  },
+  {
+   "id": "w-morocco-bing-s-point",
+   "name": "Bing's Point",
+   "country": "Morocco",
+   "region": "Coast",
+   "timeZone": "Africa/El_Aaiun",
+   "type": "Point",
+   "lat": 23.23,
+   "lon": -16.126,
+   "seaward": 271.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (23.2303, -16.126) taken from the guide page, rounded to 3 dp; 1.3 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Bings-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1864/1775.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 996 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.7 deg (limit 45); 300 m window gives 275.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1864/1775.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1864/1776.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.226006,
+     -16.117437
+    ],
+    "distanceToCoastM": 996.4,
+    "meanDevDeg": 29.7,
+    "seaward300": 275.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell from the north northwest: nearest listed direction is 66 deg from the facing (271); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Bing's Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Bings-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the north northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast with some shelter here from east winds (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Beware of - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Bing's Point with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Bing's Point in Western-Sahara - Coast is an exposed point break that has very consistent surf. Offshore winds blow from the southeast with some shelter here from east winds. Most of the surf here comes from groundswells and the best swell direction is from the north northwest. An uncrowded break, even when it is working. Beware of - Rocks. Bing's Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-bing-s-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC noua",
+     "name": "Nouadhibou",
+     "owner": "IOC Sea Level Station Monitoring Facility (Mauritania)",
+     "distanceKm": 284.7,
+     "live": false,
+     "liveNote": "last sample 2018-08-10 21:05:00.000 UTC in the IOC station list",
+     "lat": 20.813,
+     "lon": -17.036,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=noua"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Bing's Point",
+    "surfForecastRegion": "Western-Sahara-Coast",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bings-Point, pin 23.22,-16.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Bings-Point"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-lagtoua",
+    "distanceKm": 0.68
+   }
+  },
+  {
+   "id": "w-morocco-boats-point-2",
+   "name": "Boats Point",
+   "country": "Morocco",
+   "region": "Southern Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 29.86,
+   "lon": -9.798,
+   "seaward": 305.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.8599, -9.7979) taken from the guide page, rounded to 3 dp; 0.2 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Boats-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1691.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 482 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.0 deg (limit 45); 300 m window gives 303.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1691.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1692.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.857544,
+     -9.7937
+    ],
+    "distanceToCoastM": 482.0,
+    "meanDevDeg": 7.0,
+    "seaward300": 303.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east southeast: nearest listed direction is 13 deg from facing+180 (126); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 10 deg from the facing (306); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Boats Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Boats-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east southeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks peel to the right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "season": "best time of year for surfing here. Offshore winds blow from the east southeast. Tends to receive distant groundswells and the best swell direction is from the northwest. The beach breaks peel to the right. Relatively few surfers here, even on good days. Take care of . Boats Point Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach 2 consistent 20.9 ° C *ocean temperature recorded from satellite Surfing Boats Point: The best conditions reported for surf at Boats Point occur when a Northwest swell combines with an offshore wind direction from the East-southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Boats Point (for consistent clean waves)? december Best Season: winter The best time of year for surfing Boats Point with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Boats Point in Central Morocco is an exposed beach break that has consistent surf. Winter is the best time of year for surfing here. Offshore winds blow from the east southeast. Tends to receive distant groundswells and the best swell direction is from the northwest. The beach breaks peel to the right. Relatively few surfers here, even on good days. Take care of . Boats Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-boats-point-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC arre",
+     "name": "Arrecife",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 374.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 28.972,
+     "lon": -13.53,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arre"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMAD",
+     "name": "Agadir",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 64.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.329,
+     "lon": -9.399,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMAD&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Boats Point",
+    "surfForecastRegion": "Southern-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Boats-Point, pin 29.86,-9.8); surf-forecast publishes no facing and same name as kept w-morocco-boats-point but the two guide pins are 74 km apart, so not merged, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Boats-Point"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-sidi-moussa-d-aglou",
+    "distanceKm": 6.13
+   }
+  },
+  {
+   "id": "w-morocco-desert-point",
+   "name": "Desert Point",
+   "country": "Morocco",
+   "region": "Southern Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": "Point",
+   "lat": 29.8,
+   "lon": -9.849,
+   "seaward": 315.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.8004, -9.8488) taken from the guide page, rounded to 3 dp; 0.12 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Desert-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1935/1692.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 650 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.6 deg (limit 45); 300 m window gives 317.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1935/1692.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1692.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.796117,
+     -9.844186
+    ],
+    "distanceToCoastM": 650.4,
+    "meanDevDeg": 8.6,
+    "seaward300": 317.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east southeast: nearest listed direction is 23 deg from facing+180 (136); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 1 deg from the facing (316); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Desert Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Desert-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east southeast (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "fairly exposed point break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)",
+     "Beware of . (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Desert Point with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Desert Point in Central Morocco is a fairly exposed point break that has reliable surf. Winter is the optimum time of year for surfing here. Offshore winds are from the east southeast. Tends to receive distant groundswells and the ideal swell direction is from the northwest. It's sometimes crowded here. Beware of . Desert Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-desert-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC arre",
+     "name": "Arrecife",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 368.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 28.972,
+     "lon": -13.53,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arre"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMAD",
+     "name": "Agadir",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 73.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.329,
+     "lon": -9.399,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMAD&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Desert Point",
+    "surfForecastRegion": "Southern-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Desert-Point, pin 29.8,-9.85); surf-forecast publishes no facing and same name as kept w-morocco-desert-point-2 but the two guide pins are 91 km apart, so not merged, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Desert-Point"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-amane-imodane",
+    "distanceKm": 0.78
+   }
+  },
+  {
+   "id": "w-morocco-ifni",
+   "name": "Ifni",
+   "country": "Morocco",
+   "region": "Southern Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": null,
+   "lat": 29.897,
+   "lon": -9.776,
+   "seaward": 304.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.897, -9.7761) taken from the guide page, rounded to 3 dp; 0.5 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Ifni"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1690.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 180 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.1 deg (limit 45); 300 m window gives 299.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1690.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1691.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1690.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1691.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.89611,
+     -9.774537
+    ],
+    "distanceToCoastM": 180.1,
+    "meanDevDeg": 20.1,
+    "seaward300": 299.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-southeast: nearest listed direction is 12 deg from facing+180 (124); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 80 deg from the facing (304); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Ifni",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ifni",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-southeast (surf-forecast)",
+    "waveTypeText": "Point/river/jetty (surf-forecast)",
+    "exposure": "fairly exposed point/rivermouth/jetty break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of rocks,. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Ifni with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Ifni in South Morocco is a fairly exposed point/rivermouth/jetty break that has fairly consistent surf and can work at any time of the year. Works best in offshore winds from the east southeast. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the southwest.. Rarely crowded here. Beware of rocks,. Ifni"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-ifni"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC arre",
+     "name": "Arrecife",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 377.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 28.972,
+     "lon": -13.53,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arre"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMAD",
+     "name": "Agadir",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 60.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.329,
+     "lon": -9.399,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMAD&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Ifni",
+    "surfForecastRegion": "Southern-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Ifni, pin 29.9,-9.78); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Ifni"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-boats-point-2",
+    "distanceKm": 4.63
+   }
+  },
+  {
+   "id": "w-morocco-lalafatna",
+   "name": "Lalafatna",
+   "country": "Morocco",
+   "region": "Central Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 32.57,
+   "lon": -9.264,
+   "seaward": 318.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (32.5704, -9.2641) taken from the guide page, rounded to 3 dp; 0.39 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Lalafatna"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1942/1655.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1086 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.0 deg (limit 45); 300 m window gives 317.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1942/1655.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1942/1656.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1943/1655.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1943/1656.pbf"
+    ],
+    "nearestCoastPoint": [
+     32.563432,
+     -9.255941
+    ],
+    "distanceToCoastM": 1086.0,
+    "meanDevDeg": 8.0,
+    "seaward300": 317.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 4 deg from facing+180 (139); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 4 deg from the facing (319); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Lalafatna",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lalafatna",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "hazards": [
+     "When it's working here, it can get crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Lalafatna with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Lalafatna in Central Morocco is a reasonably exposed beach break that usually has waves and can work at any time of the year. Ideal winds are from the southeast. Clean groundswells prevail and the best swell direction is from the northwest. Waves at the beach break both left and right. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Watch out for . Lalafatna"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-lalafatna"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 104.4,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMMS",
+     "name": "SAFI",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 32.1,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 32.283,
+     "lon": -9.233,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMMS&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Lalafatna",
+    "surfForecastRegion": "Central-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Lalafatna, pin 32.57,-9.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Lalafatna"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-azalai-beach",
+    "distanceKm": 2.07
+   }
+  },
+  {
+   "id": "w-morocco-25",
+   "name": "25",
+   "country": "Morocco",
+   "region": "Central Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": "Point",
+   "lat": 30.57,
+   "lon": -9.746,
+   "seaward": 251.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.57, -9.7459) taken from the guide page, rounded to 3 dp; 0.39 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Le-25"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1681.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 55 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.0 deg (limit 45); 300 m window gives 252.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1681.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1936/1682.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1681.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1682.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.570135,
+     -9.745347
+    ],
+    "distanceToCoastM": 55.1,
+    "meanDevDeg": 10.0,
+    "seaward300": 252.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 19 deg from facing+180 (71); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 64 deg from the facing (251); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "25",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Le-25",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "The point break favours right handers. (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Beware of rocks, locals and sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing 25 with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "25 in Central Morocco is a reasonably exposed point break that has consistent surf. Winter is the favoured time of year for surfing here. The best wind direction is from the east with some shelter here from north winds. Groundswells more frequent than windswells and the best swell direction is from the northwest. The point break favours right handers. Good surf at all stages of the tide. Unlikely to be too crowded, even when the surf is up. Beware of rocks, locals and sharks. 25"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-25"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 321.0,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMAD",
+     "name": "Agadir",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 42.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.329,
+     "lon": -9.399,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMAD&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "25",
+    "surfForecastRegion": "Central-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Le-25, pin 30.57,-9.75); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Le-25"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-killer-point",
+    "distanceKm": 2.32
+   }
+  },
+  {
+   "id": "w-morocco-oumlabouir",
+   "name": "Oumlabouir",
+   "country": "Morocco",
+   "region": "Coast",
+   "timeZone": "Africa/El_Aaiun",
+   "type": "Point",
+   "lat": 23.766,
+   "lon": -15.925,
+   "seaward": 255.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (23.766, -15.925) taken from the guide page, rounded to 3 dp; 0.68 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Oumlabouir"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1866/1769.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 136 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.9 deg (limit 45); 300 m window gives 237.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1866/1769.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1867/1769.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.76722,
+     -15.924811
+    ],
+    "distanceToCoastM": 136.3,
+    "meanDevDeg": 34.9,
+    "seaward300": 237.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 59 deg from facing+180 (76); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 59 deg from the facing (256); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Oumlabouir",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Oumlabouir",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Watch out for - Rocks - Localism - Pollution - Sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Oumlabouir with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Oumlabouir in Western-Sahara - Coast is an exposed point break that is usually a safe bet. Works best in offshore winds from the southeast. Groundswells more frequent than windswells and the ideal swell angle is from the northwest. Good surf at all stages of the tide. Rarely crowded here. Watch out for - Rocks - Localism - Pollution - Sharks. Oumlabouir"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-oumlabouir"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC noua",
+     "name": "Nouadhibou",
+     "owner": "IOC Sea Level Station Monitoring Facility (Mauritania)",
+     "distanceKm": 347.7,
+     "live": false,
+     "liveNote": "last sample 2018-08-10 21:05:00.000 UTC in the IOC station list",
+     "lat": 20.813,
+     "lon": -17.036,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=noua"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Oumlabouir",
+    "surfForecastRegion": "Western-Sahara-Coast",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Oumlabouir, pin 23.77,-15.93); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Oumlabouir"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-foum-labouir",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-morocco-plage-loukos",
+   "name": "Plage Loukos",
+   "country": "Morocco",
+   "region": "Tangier to Rabat",
+   "timeZone": "Africa/Casablanca",
+   "type": null,
+   "lat": 35.229,
+   "lon": -6.147,
+   "seaward": 284.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (35.229, -6.1472) taken from the guide page, rounded to 3 dp; 0.28 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Plage-Loukos"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1977/1618.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 551 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.3 deg (limit 45); 300 m window gives 281.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1977/1618.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1977/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1978/1618.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1978/1619.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.228432,
+     -6.141181
+    ],
+    "distanceToCoastM": 550.9,
+    "meanDevDeg": 8.3,
+    "seaward300": 281.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 14 deg from facing+180 (104); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 31 deg from the facing (284); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Plage Loukos",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Plage-Loukos",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "tide": "Best around mid tide when the tide is rising. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach break offers mainly left hand waves. (surf-forecast)",
+    "exposure": "exposed beach/jetty break (surf-forecast)",
+    "hazards": [
+     "Beware of rips, man-made danger (buoys etc...) and pollution. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Plage Loukos with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Plage Loukos in Tanger to Rabat is an exposed beach/jetty break that has pretty consitent surf and can work at any time of the year. Works best in offshore winds from the east. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the northwest. The beach break offers mainly left hand waves. Best around mid tide when the tide is rising. Relatively few surfers here, even on good days. Beware of rips, man-made danger (buoys etc...) and pollution. Plage Loukos"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-plage-loukos"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tari",
+     "name": "Tarifa",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 99.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:41:00.000 UTC in the IOC station list",
+     "lat": 36.006,
+     "lon": -5.604,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tari"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMTT",
+     "name": "Tanger",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 59.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.726,
+     "lon": -5.906,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMTT&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Plage Loukos",
+    "surfForecastRegion": "Tangier-to-Rabat",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Plage-Loukos, pin 35.23,-6.15); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Plage-Loukos"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-larache",
+    "distanceKm": 2.64
+   }
+  },
+  {
+   "id": "w-morocco-plage-monica",
+   "name": "Plage Monica",
+   "country": "Morocco",
+   "region": "Rabat to Casblanca",
+   "timeZone": "Africa/Casablanca",
+   "type": "Reef",
+   "lat": 33.715,
+   "lon": -7.358,
+   "seaward": 325.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (33.715, -7.358) taken from the guide page, rounded to 3 dp; 0.59 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Plage-Monica"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1963/1639.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 270 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.0 deg (limit 45); 300 m window gives 331.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1963/1639.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1963/1640.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1964/1639.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1964/1640.pbf"
+    ],
+    "nearestCoastPoint": [
+     33.713171,
+     -7.356071
+    ],
+    "distanceToCoastM": 269.8,
+    "meanDevDeg": 17.0,
+    "seaward300": 331.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Northwest: nearest listed direction is 11 deg from the facing (326); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Plage Monica",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Plage-Monica",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Best around mid tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Beware of - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Offshore winds are from the southeast and there is no shelter here from cross shore breezes. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. No reef break here. Best around mid tide. Sometimes crowded. Beware of - Rocks. Plage Monica Spot Info Type : Rating: Reliability : Todays Sea Temp*: Reef 3 very consistent 19.1 ° C *ocean temperature recorded from satellite Surfing Plage Monica: The best conditions reported for surf at Plage Monica occur when a Northwest swell combines with an offshore wind direction from the Southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Plage Monica (for consistent clean waves)? december Best Season: winter The best time of year for surfing Plage Monica with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Plage Monica in Rabat to Casblanca is an exposed reef break that has very reliable surf. Winter is the best time of year for surfing here. Offshore winds are from the southeast and there is no shelter here from cross shore breezes. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. No reef break here. Best around mid tide. Sometimes crowded. Beware of - Rocks. Plage Monica"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-plage-monica"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 117.6,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMMB",
+     "name": "Ben Slimane",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 14.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.655,
+     "lon": -7.221,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMMB&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Plage Monica",
+    "surfForecastRegion": "Rabat-to-Casblanca",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Plage-Monica, pin 33.72,-7.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Plage-Monica"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-les-sablettes-casablanca-settat",
+    "distanceKm": 1.36
+   }
+  },
+  {
+   "id": "w-morocco-ruins",
+   "name": "Ruins",
+   "country": "Morocco",
+   "region": "Central Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 32.193,
+   "lon": -9.261,
+   "seaward": 290.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (32.1925, -9.2612) taken from the guide page, rounded to 3 dp; 0.3 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Ruins"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1942/1660.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 359 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 12.1 deg (limit 45); 300 m window gives 290.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1942/1660.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1942/1661.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1943/1660.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1943/1661.pbf"
+    ],
+    "nearestCoastPoint": [
+     32.190922,
+     -9.25787
+    ],
+    "distanceToCoastM": 359.0,
+    "meanDevDeg": 12.1,
+    "seaward300": 290.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 21 deg from facing+180 (111); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 24 deg from the facing (291); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Ruins",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ruins",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks peel to the right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Ruins with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Ruins in Central Morocco is an exposed beach break that has fairly consistent surf and can work at any time of the year. The best wind direction is from the east. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the northwest. The beach breaks peel to the right. Unlikely to be too crowded, even when the surf is up. Water quality is rather poor here. Ruins"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-ruins"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 138.0,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMMS",
+     "name": "SAFI",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 10.4,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 32.283,
+     "lon": -9.233,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMMS&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Ruins",
+    "surfForecastRegion": "Central-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Ruins, pin 32.19,-9.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Ruins"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-the-money-wave",
+    "distanceKm": 4.23
+   }
+  },
+  {
+   "id": "w-morocco-sidi-ifni-2",
+   "name": "Sidi Ifni",
+   "country": "Morocco",
+   "region": "Southern Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": null,
+   "lat": 29.487,
+   "lon": -10.099,
+   "seaward": 310.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.4871, -10.0988) taken from the guide page, rounded to 3 dp; 0.34 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Sidi-Ifni"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1932/1696.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 357 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 18.7 deg (limit 45); 300 m window gives 301.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1932/1696.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1932/1697.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1933/1696.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1933/1697.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.484825,
+     -10.096183
+    ],
+    "distanceToCoastM": 357.1,
+    "meanDevDeg": 18.7,
+    "seaward300": 301.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-southeast: nearest listed direction is 18 deg from facing+180 (131); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 4 deg from the facing (311); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Sidi Ifni",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sidi-Ifni",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-southeast (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "There is a right hand reef break. (surf-forecast)",
+    "exposure": "fairly exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "When it's working here, it can get crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. The best wind direction is from the east southeast. Most of the surf here comes from groundswells and the best swell direction is from the northwest. There is a right hand reef break. When it's working here, it can get crowded. Sidi Ifni Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach and reef 2 fairly consistent 21.0 ° C *ocean temperature recorded from satellite Surfing Sidi Ifni: The best conditions reported for surf at Sidi Ifni occur when a Northwest swell combines with an offshore wind direction from the East-southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Sidi Ifni (for consistent clean waves)? december Best Season: winter The best time of year for surfing Sidi Ifni with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Sidi Ifni in Southern Morocco is a fairly exposed beach and reef break that has reasonably consistent surf. Winter is the best time of year for surfing here. The best wind direction is from the east southeast. Most of the surf here comes from groundswells and the best swell direction is from the northwest. There is a right hand reef break. When it's working here, it can get crowded. Sidi Ifni"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-sidi-ifni-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC arre",
+     "name": "Arrecife",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 337.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 28.972,
+     "lon": -13.53,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arre"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMAG",
+     "name": "Guelmime",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 52.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.017,
+     "lon": -10.061,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMAG&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Sidi Ifni",
+    "surfForecastRegion": "Southern-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sidi-Ifni, pin 29.49,-10.1); surf-forecast publishes no facing and same name as kept w-morocco-sidi-ifni but the two guide pins are 14 km apart, so not merged, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Sidi-Ifni"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-legzira",
+    "distanceKm": 4.78
+   }
+  },
+  {
+   "id": "w-morocco-tamghart",
+   "name": "Tamghart",
+   "country": "Morocco",
+   "region": "Central Morocco",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 30.533,
+   "lon": -9.699,
+   "seaward": 239.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.5327, -9.6987) taken from the guide page, rounded to 3 dp; 0.33 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Tamghart"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1682.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 84 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.1 deg (limit 45); 300 m window gives 236.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1682.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1937/1683.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1938/1682.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1938/1683.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.533121,
+     -9.697973
+    ],
+    "distanceToCoastM": 83.8,
+    "meanDevDeg": 4.1,
+    "seaward300": 236.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 8 deg from facing+180 (59); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 76 deg from the facing (239); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Tamghart",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tamghart",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Works best in offshore winds from the east northeast. Clean groundswells prevail and the best swell direction is from the northwest. The beach break provides left and right handers. Unlikely to be too crowded, even when the surf is up. Tamghart Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach 2 fairly consistent 20.4 ° C *ocean temperature recorded from satellite Surfing Tamghart: The best conditions reported for surf at Tamghart occur when a Northwest swell combines with an offshore wind direction from the East-northeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Tamghart (for consistent clean waves)? december Best Season: winter The best time of year for surfing Tamghart with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Tamghart in Central Morocco is a fairly exposed beach break that has reasonably consistent surf. Winter is the best time of year for surfing here. Works best in offshore winds from the east northeast. Clean groundswells prevail and the best swell direction is from the northwest. The beach break provides left and right handers. Unlikely to be too crowded, even when the surf is up. Tamghart"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-tamghart"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 323.3,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMAD",
+     "name": "Agadir",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 36.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.329,
+     "lon": -9.399,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMAD&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Tamghart",
+    "surfForecastRegion": "Central-Morocco",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Tamghart, pin 30.53,-9.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Tamghart"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-panoramas",
+    "distanceKm": 1.26
+   }
+  },
+  {
+   "id": "w-morocco-temara-plage",
+   "name": "Temara Plage",
+   "country": "Morocco",
+   "region": "Rabat to Casblanca",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 33.962,
+   "lon": -6.93,
+   "seaward": 312.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (33.9616, -6.9301) taken from the guide page, rounded to 3 dp; 0.18 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Temara-Plage"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1968/1636.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 705 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 35.3 deg (limit 45); 300 m window gives 313.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1968/1636.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1968/1637.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1969/1636.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1969/1637.pbf"
+    ],
+    "nearestCoastPoint": [
+     33.956748,
+     -6.925152
+    ],
+    "distanceToCoastM": 704.6,
+    "meanDevDeg": 35.3,
+    "seaward300": 313.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-southeast: nearest listed direction is 20 deg from facing+180 (133); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 2 deg from the facing (313); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Temara Plage",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Temara-Plage",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-southeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks peel to the left. (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Take care to avoid the rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Temara Plage with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Temara Plage in Rabat to Casblanca is a reasonably exposed beach break that has fairly consistent surf. Winter is the optimum time of year for surfing here. The best wind direction is from the east southeast. Tends to receive distant groundswells and the ideal swell angle is from the northwest. The beach breaks peel to the left. Unlikely to be too crowded, even when the surf is up. Take care to avoid the rocks. Temara Plage"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-temara-plage"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 165.2,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMME",
+     "name": "Rabat",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 18.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 34.046,
+     "lon": -6.758,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMME&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Temara Plage",
+    "surfForecastRegion": "Rabat-to-Casblanca",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Temara-Plage, pin 33.96,-6.93); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Temara-Plage"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-plage-de-temara",
+    "distanceKm": 3.95
+   }
+  },
+  {
+   "id": "w-morocco-23-beach",
+   "name": "23 Beach",
+   "country": "Morocco",
+   "region": "Rabat to Casblanca",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 33.59,
+   "lon": -7.696,
+   "seaward": 337.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (33.5897, -7.6964) taken from the guide page, rounded to 3 dp; 0.34 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Twentythree-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1959/1641.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 616 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.2 deg (limit 45); 300 m window gives 334.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1959/1641.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1959/1642.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1960/1641.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1960/1642.pbf"
+    ],
+    "nearestCoastPoint": [
+     33.584727,
+     -7.693397
+    ],
+    "distanceToCoastM": 616.4,
+    "meanDevDeg": 10.2,
+    "seaward300": 334.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 22 deg from facing+180 (157); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 22 deg from the facing (337); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "23 Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Twentythree-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing 23 Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "23 Beach in Rabat to Casblanca is an exposed beach break that has reliable surf and can work at any time of the year. The best wind direction is from the southeast. Groundswells more frequent than windswells and the ideal swell direction is from the northwest. Waves at the beach are both lefts and rights. Good surf at all stages of the tide. Sometimes crowded. Water quality is rather poor here. 23 Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-23-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 83.3,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMMC",
+     "name": "ANFA",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 3.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.567,
+     "lon": -7.667,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMMC&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "23 Beach",
+    "surfForecastRegion": "Rabat-to-Casblanca",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Twentythree-Beach, pin 33.59,-7.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Twentythree-Beach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-ain-diab",
+    "distanceKm": 0.9
+   }
+  },
+  {
+   "id": "w-morocco-zeneta",
+   "name": "Zeneta",
+   "country": "Morocco",
+   "region": "Rabat to Casblanca",
+   "timeZone": "Africa/Casablanca",
+   "type": "Beach",
+   "lat": 33.603,
+   "lon": -7.674,
+   "seaward": 331.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (33.6035, -7.6744) taken from the guide page, rounded to 3 dp; 0.56 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Zeneta"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1960/1641.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 645 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 12.0 deg (limit 45); 300 m window gives 326.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1960/1641.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1960/1642.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1961/1641.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1961/1642.pbf"
+    ],
+    "nearestCoastPoint": [
+     33.598962,
+     -7.670024
+    ],
+    "distanceToCoastM": 645.3,
+    "meanDevDeg": 12.0,
+    "seaward300": 326.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 17 deg from facing+180 (152); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 17 deg from the facing (332); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Zeneta",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Zeneta",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break favours right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Pollution may be a hazard at this break. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. The best wind direction is from the southeast. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. The beach break favours right handers. Sometimes crowded. Pollution may be a hazard at this break. Zeneta Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach 3 consistent 19.4 ° C *ocean temperature recorded from satellite Surfing Zeneta: The best conditions reported for surf at Zeneta occur when a Northwest swell combines with an offshore wind direction from the Southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Zeneta (for consistent clean waves)? december Best Season: winter The best time of year for surfing Zeneta with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Zeneta in Rabat to Casblanca is an exposed beach break that has consistent surf. Winter is the best time of year for surfing here. The best wind direction is from the southeast. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. The beach break favours right handers. Sometimes crowded. Pollution may be a hazard at this break. Zeneta"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-morocco-zeneta"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC elja1",
+     "name": "el jadida",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 85.8,
+     "live": false,
+     "liveNote": "last sample 2026-02-25 05:24:00.000 UTC in the IOC station list",
+     "lat": 33.256,
+     "lon": -8.5,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=elja1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GMMC",
+     "name": "ANFA",
+     "owner": "IEM MA__ASOS network (airport METAR)",
+     "distanceKm": 4.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.567,
+     "lon": -7.667,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GMMC&network=MA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Zeneta",
+    "surfForecastRegion": "Rabat-to-Casblanca",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Zeneta, pin 33.6,-7.67); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Zeneta"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-morocco-casablanca",
+    "distanceKm": 1.07
+   }
   }
  ],
  "dropped": [
@@ -11777,170 +13743,165 @@
    "url": "https://www.surfnerd.com/surf-forecast/tarfaya"
   },
   {
-   "name": "Aroussa Bahe",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Aroussa-Bahe, pin 35.77,-5.94); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Tangier-to-Rabat"
-  },
-  {
-   "name": "Asilah",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Asilah, pin 35.41,-6.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Tangier-to-Rabat"
-  },
-  {
    "name": "Azemmour Plage",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Azemmour-Plage, pin 33.35,-8.33); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
+   "surfForecastRegion": "Central-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore wind from the South: nearest listed direction is 61 deg from facing+180 (119); CONTRADICTS (>60) | surf-forecast best swell Northwest: nearest listed direction is 16 deg from the facing (299); consistent (<=90)"
+   }
   },
   {
    "name": "Banana Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Banana-Point, pin 30.5,-9.69); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
-  },
-  {
-   "name": "Bing's Point",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bings-Point, pin 23.22,-16.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Western-Sahara-Coast"
-  },
-  {
-   "name": "Boats Point",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Boats-Point, pin 29.86,-9.8); surf-forecast publishes no facing and same name as kept w-morocco-boats-point but the two guide pins are 74 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
+   "surfForecastRegion": "Central-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast best swell Northwest: nearest listed direction is 93 deg from the facing (222); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Bouznika Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bouznika, pin 33.83,-7.15); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
+   "surfForecastRegion": "Central-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bouznika Plage",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bouznika-Plage, pin 33.82,-7.18); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
+   "surfForecastRegion": "Rabat-to-Casblanca",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.20; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Contrebandiers",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Contrebandiers, pin 33.94,-6.96); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
-  },
-  {
-   "name": "Desert Point",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Desert-Point, pin 29.8,-9.85); surf-forecast publishes no facing and same name as kept w-morocco-desert-point-2 but the two guide pins are 91 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
-  },
-  {
-   "name": "Ifni",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Ifni, pin 29.9,-9.78); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
+   "surfForecastRegion": "Rabat-to-Casblanca",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.58 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Imsouane - La Cathedrale",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/La-Cathedrale, pin 30.84,-9.82); surf-forecast publishes no facing and name-matched a surfnerd spot but is a different break (manual review), so not merged, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
-  },
-  {
-   "name": "Lalafatna",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Lalafatna, pin 32.57,-9.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
-  },
-  {
-   "name": "25",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Le-25, pin 30.57,-9.75); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
+   "surfForecastRegion": "Southern-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Medihya Plage",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Medihya-Plage, pin 34.26,-6.69); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Tangier-to-Rabat"
+   "surfForecastRegion": "Tangier-to-Rabat",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 88 deg (arccos of mean resultant length 0.03; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Monica beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Monicabeach, pin 33.61,-7.66); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
+   "surfForecastRegion": "Rabat-to-Casblanca",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 55 deg (arccos of mean resultant length 0.58; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mystery Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Mystery-Point, pin 30.55,-9.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
+   "surfForecastRegion": "Central-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the northeast: nearest listed direction is 8 deg from facing+180 (37); consistent (<=60) | surf-forecast best swell Northwest: nearest listed direction is 98 deg from the facing (217); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Oued Iquem",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Oued-Iquem, pin 33.91,-7.0); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
+   "surfForecastRegion": "Rabat-to-Casblanca",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 64 deg (arccos of mean resultant length 0.44; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Oued Massa",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Oued-Massa, pin 30.17,-9.65); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
-  },
-  {
-   "name": "Oumlabouir",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Oumlabouir, pin 23.77,-15.93); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Western-Sahara-Coast"
-  },
-  {
-   "name": "Plage Loukos",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Plage-Loukos, pin 35.23,-6.15); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Tangier-to-Rabat"
-  },
-  {
-   "name": "Plage Monica",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Plage-Monica, pin 33.72,-7.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
+   "surfForecastRegion": "Southern-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore winds from the south: nearest listed direction is 78 deg from facing+180 (102); CONTRADICTS (>60) | surf-forecast best swell from the northwest: nearest listed direction is 33 deg from the facing (282); consistent (<=90)"
+   }
   },
   {
    "name": "Pointe d'Imessouane",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Pointed-Imessouane, pin 30.84,-9.82); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
+   "surfForecastRegion": "Central-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 64 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Racelafaa",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Racelafaa, pin 32.31,-9.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
-  },
-  {
-   "name": "Ruins",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Ruins, pin 32.19,-9.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
-  },
-  {
-   "name": "Sidi Ifni",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sidi-Ifni, pin 29.49,-10.1); surf-forecast publishes no facing and same name as kept w-morocco-sidi-ifni but the two guide pins are 14 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
+   "surfForecastRegion": "Central-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sidi Moussa D'Aglou Plage",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sidi-Moussa-D-Aglou-Plage, pin 30.08,-9.68); surf-forecast publishes no facing and name-matched a surfnerd spot but is a different break (manual review), so not merged, so no sourced facing",
-   "surfForecastRegion": "Southern-Morocco"
-  },
-  {
-   "name": "Tamghart",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Tamghart, pin 30.53,-9.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Central-Morocco"
+   "surfForecastRegion": "Southern-Morocco",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore wind from the Northeast: nearest listed direction is 77 deg from facing+180 (122); CONTRADICTS (>60) | surf-forecast best swell from the southwest: nearest listed direction is 77 deg from the facing (302); consistent (<=90)"
+   }
   },
   {
    "name": "Tayfor",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Tayfor, pin 33.68,-7.45); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
-  },
-  {
-   "name": "Temara Plage",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Temara-Plage, pin 33.96,-6.93); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
+   "surfForecastRegion": "Rabat-to-Casblanca",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "The Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/The-Point-1, pin 24.07,-15.58); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Western-Sahara-Coast"
-  },
-  {
-   "name": "23 Beach",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Twentythree-Beach, pin 33.59,-7.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
-  },
-  {
-   "name": "Zeneta",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Zeneta, pin 33.6,-7.67); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Rabat-to-Casblanca"
+   "surfForecastRegion": "Western-Sahara-Coast",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous [name match https://www.surfnerd.com/surf-forecast/the-point rejected: its pin is 7226.9 km from the pin quoted in the drop reason (limit 5 km); name match https://www.surf-forecast.com/breaks/The-Point rejected: its pin is 5986.8 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   }
  ],
- "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md | 2026-11-10: 17 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 17 computed-coastline); see RECOVERY-2026-11-10.md"
 }

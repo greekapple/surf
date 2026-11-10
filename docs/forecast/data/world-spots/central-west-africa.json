@@ -10029,6 +10029,263 @@
    "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
    "typeSource": "surf-forecast states 'Beach'",
    "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-cwafrica-monogaga",
+   "name": "Monogaga",
+   "country": "Côte d'Ivoire",
+   "region": "Bas-Sassandra",
+   "timeZone": "Africa/Abidjan",
+   "type": "Point",
+   "lat": 4.806,
+   "lon": -6.443,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (4.806009, -6.442961) taken from the guide page, rounded to 3 dp; other guide pins: surf-forecast 1.13 km away; surfnerd page found by name (name match; pin 1.13 km from the row pin); 1.13 km from the position given in the drop reason",
+    "url": "https://www.surfnerd.com/surf-forecast/monogaga"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: ENE - S, (Faces ESE))",
+    "url": "https://www.surfnerd.com/surf-forecast/monogaga"
+   },
+   "facingCheck": {
+    "result": "published facing consistent with every published wind/swell direction",
+    "checks": [
+     "surfnerd offshore from NW: nearest listed direction is 22 deg from facing+180 (292); consistent (<=60)",
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 22 deg from facing+180 (292); consistent (<=60)",
+     "surfnerd best swell S: nearest listed direction is 68 deg from the facing (112); consistent (<=90)",
+     "surf-forecast best swell South-southwest: nearest listed direction is 90 deg from the facing (112); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does",
+    "coastline": "OSM coastline within 500 m of the pin gives 129.1 deg, 17 deg from the published facing"
+   },
+   "facts": {
+    "name": "Monogaga",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Monogaga",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/monogaga",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "swellWorkable": {
+     "text": "SE - SW, best S (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "ENE - S, (Faces ESE) (surfnerd)",
+    "idealSwell": "best swell S (surfnerd); best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore from NW (surfnerd); offshore wind from the Northwest (surf-forecast)",
+    "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd); Reef (surf-forecast)",
+    "waveDirectionText": "Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.0
+    },
+    "sizeText": "1ft - 5ft (surfnerd)",
+    "hazards": [
+     "If you're exploring this stretch of coast, Victory Beach nearby offers a similar setup, while Niega, much closer to Sassandra, is a beautiful isolated beach with average peaks and the occasional decent right over rock. (surfnerd)",
+     "Local Tips The point suits beginners, and the lineup tends to stay fairly quiet, so there's room to find your own rhythm on the wave. (surfnerd)"
+    ],
+    "season": "best time of year for surfing Monogaga with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of May (surf-forecast)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Monogaga in Ivory Coast is a sheltered reef break. Ideal winds are from the northwest. The ideal swell direction from the south southwest. Surfable at all stages of the tide. Crowds are never a problem here. Monogaga"
+     },
+     {
+      "site": "surfnerd",
+      "text": "Monogaga is a right-hand point break in Côte d'Ivoire, peeling over a mix of boulders and sand. A jutting headland shelters the point, which shapes almost everything about how the wave behaves here. If you're exploring this stretch of coast, Victory Beach nearby offers a similar setup, while Niega, much closer to Sassandra, is a beautiful isolated beach with average peaks and the occasional decent right over rock. When It Works The point draws swell from southwest through southeast, and south swell is the best match for the way the point is angled. Monogaga is usable from 0.3 m / 1 ft to 1.5 m / 5 ft . Because of the headland shelter, the right needs plenty of size and energy before the point really switches on, so the bigger end of the swell window is where it comes into its own. Consistency is moderate, meaning the waves are worth checking regularly rather than counting on every session. Wind and Tide Look for northwest offshore wind to clean things up. The headland also gives the point some protection from west-southwest wind, which widens your options on days that would blow out less sheltered breaks. The point can work through most of the tide, with a rising tide generally the"
+     }
+    ],
+    "facingDeg": 112.5,
+    "minimumPeriodS": null,
+    "spotId": "w-cwafrica-monogaga"
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR DISP",
+     "name": "San Pedro",
+     "owner": "IEM CI__ASOS network (airport METAR)",
+     "distanceKm": 25.0,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 4.747,
+     "lon": -6.661,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DISP&network=CI__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin; matches the Surfnerd page",
+   "regionSource": "surfnerd",
+   "typeSource": "surfnerd states 'Point'",
+   "recoveredFrom": {
+    "name": "Monogaga",
+    "country": "Côte d'Ivoire",
+    "urls": [
+     "https://www.surf-forecast.com/breaks/Monogaga"
+    ],
+    "pin": [
+     4.7967,
+     -6.4388
+    ],
+    "dropReason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Monogaga"
+    ],
+    "foundByName": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/monogaga",
+      "note": "name match; pin 1.13 km from the row pin"
+     }
+    ]
+   },
+   "nearestCatalogued": {
+    "id": "w-cwafrica-san-pedro",
+    "distanceKm": 22.7
+   }
+  },
+  {
+   "id": "w-cwafrica-porto-alegre",
+   "name": "porto alegre",
+   "country": "São Tomé and Príncipe",
+   "region": "São Tomé Island",
+   "timeZone": "Africa/Sao_Tome",
+   "type": "Point",
+   "lat": 0.035,
+   "lon": 6.537,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (0.0348741, 6.53674) taken from the guide page, rounded to 3 dp; other guide pins: wannasurf 0.12 km away; surfnerd page found by name (name match; pin 0.12 km from the row pin); 0.12 km from the position given in the drop reason",
+    "url": "https://www.surfnerd.com/surf-forecast/porto-alegre"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: E - S, (Faces E))",
+    "url": "https://www.surfnerd.com/surf-forecast/porto-alegre"
+   },
+   "facingCheck": {
+    "result": "published facing consistent with every published wind/swell direction",
+    "checks": [
+     "surfnerd offshore from W: nearest listed direction is 0 deg from facing+180 (270); consistent (<=60)",
+     "surfnerd best swell S: nearest listed direction is 90 deg from the facing (90); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "porto alegre",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Sao_Tome/porto_alegre/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-10"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/porto-alegre",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "swellWorkable": {
+     "text": "S - SW, best S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "E - S, (Faces E) (surfnerd)",
+    "idealSwell": "best swell S (surfnerd); good swell Don't know (wannasurf)",
+    "windOffshore": "offshore from W (surfnerd); good wind Don't know (wannasurf)",
+    "tide": "Low, Mid, High (surfnerd); Don't know, Don't know (wannasurf)",
+    "bottom": "Boulders (surfnerd); Flat rocks (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd); Reef-rocky (wannasurf)",
+    "waveDirectionText": "Right (surfnerd); Right (wannasurf)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 6.0
+    },
+    "sizeText": "2ft - 6ft (surfnerd); Starts working at 1.0m-1.5m / 3ft-5ft and holds up to Don't know (wannasurf)",
+    "hazards": [
+     "Sharks (wannasurf)"
+    ],
+    "skill": "Intermediate (surfnerd); All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": 90.0,
+    "minimumPeriodS": null,
+    "spotId": "w-cwafrica-porto-alegre"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC saot",
+     "name": "Sao Tome",
+     "owner": "IOC Sea Level Station Monitoring Facility (São Tomé & Príncipe)",
+     "distanceKm": 41.3,
+     "live": false,
+     "liveNote": "last sample 2010-08-19 04:00:00.000 UTC in the IOC station list",
+     "lat": 0.348,
+     "lon": 6.737,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=saot"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR FPST",
+     "name": "Sao Tome",
+     "owner": "IEM ST__ASOS network (airport METAR)",
+     "distanceKm": 42.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 0.378,
+     "lon": 6.712,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FPST&network=ST__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin; matches the Surfnerd page",
+   "regionSource": "surfnerd",
+   "typeSource": "surfnerd states 'Point'",
+   "recoveredFrom": {
+    "name": "porto alegre",
+    "country": "São Tomé and Príncipe",
+    "urls": [
+     "https://www.wannasurf.com/spot/Africa/Sao_Tome/porto_alegre/index.html"
+    ],
+    "pin": [
+     0.0359,
+     6.5364
+    ],
+    "dropReason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 64 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.wannasurf.com/spot/Africa/Sao_Tome/porto_alegre/index.html"
+    ],
+    "foundByName": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/porto-alegre",
+      "note": "name match; pin 0.12 km from the row pin"
+     }
+    ]
+   },
+   "nearestCatalogued": {
+    "id": "w-cwafrica-alfonsita",
+    "distanceKm": 25.56
+   }
   }
  ],
  "dropped": [
@@ -10043,7 +10300,12 @@
    "pin": [
     8.4911,
     -13.2909
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.55; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Aneho Beach",
@@ -10055,7 +10317,12 @@
    "pin": [
     6.2289,
     1.6068
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide page https://www.surf-forecast.com/breaks/Aneho-Beach is already the source of kept spot w-cwafrica-anecho, so this row is a duplicate listing"
+   }
   },
   {
    "name": "Antenas",
@@ -10067,7 +10334,12 @@
    "pin": [
     0.2964,
     6.7605
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 49 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Assinie",
@@ -10079,7 +10351,12 @@
    "pin": [
     5.0482,
     -2.9098
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide pin is in GH (Africa/Accra), not a country of this file [name match https://www.surfnerd.com/surf-forecast/assinie not accepted: the row and its guide pages give no position to check the page pin against]"
+   }
   },
   {
    "name": "Baie des Sirènes",
@@ -10091,7 +10368,12 @@
    "pin": [
     4.6428,
     -6.9081
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Baki (Turtle Islands)",
@@ -10103,7 +10385,12 @@
    "pin": [
     7.5865,
     -13.0289
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: possible duplicate: same name as w-cwafrica-baki-turtle-islands 3.0 km away, so not added as a separate spot"
+   }
   },
   {
    "name": "Beyin Beach",
@@ -10115,7 +10402,12 @@
    "pin": [
     4.9775,
     -2.5996
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide pin is in GH (Africa/Accra), not a country of this file"
+   }
   },
   {
    "name": "Burreh Beach",
@@ -10127,7 +10419,12 @@
    "pin": [
     8.2094,
     -13.1652
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.16; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Cadjau",
@@ -10139,7 +10436,12 @@
    "pin": [
     15.2724,
     -23.7598
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 51 deg (arccos of mean resultant length 0.63; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Coca's Beach,Praia",
@@ -10151,7 +10453,12 @@
    "pin": [
     14.9167,
     -23.5061
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 62 deg (arccos of mean resultant length 0.47; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ekwata",
@@ -10163,7 +10470,12 @@
    "pin": [
     -0.2033,
     9.3054
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthWest: nearest listed direction is 96 deg from facing+180 (130); CONTRADICTS (>60) | wannasurf good swell SouthWest: nearest listed direction is 84 deg from the facing (310); consistent (<=90)"
+   }
   },
   {
    "name": "K-Bay",
@@ -10175,7 +10487,12 @@
    "pin": [
     14.9851,
     -23.445
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Laginha",
@@ -10187,7 +10504,12 @@
    "pin": [
     16.8953,
     -24.992
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 49 deg (arccos of mean resultant length 0.65; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Le piege",
@@ -10200,7 +10522,12 @@
    "pin": [
     -4.7733,
     11.8252
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.31; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lighthouse beach",
@@ -10213,7 +10540,12 @@
    "pin": [
     6.3945,
     3.3948
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.29; limit 45 deg): headland, cove or point, ambiguous [name match https://www.surf-forecast.com/breaks/Lighthouse-Beach rejected: its pin is 14584.5 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "Lomé Rivage",
@@ -10225,19 +10557,12 @@
    "pin": [
     6.1176,
     1.2131
-   ]
-  },
-  {
-   "name": "Monogaga",
-   "country": "Côte d'Ivoire",
-   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous",
-   "urls": [
-    "https://www.surf-forecast.com/breaks/Monogaga"
    ],
-   "pin": [
-    4.7967,
-    -6.4388
-   ]
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: possible duplicate: same name as w-cwafrica-lome-rivage 7.7 km away, so not added as a separate spot"
+   }
   },
   {
    "name": "PG2",
@@ -10249,7 +10574,12 @@
    "pin": [
     -0.713,
     8.7202
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: possible duplicate: same name as w-cwafrica-pg2 6.3 km away, so not added as a separate spot"
+   }
   },
   {
    "name": "Praia Negra",
@@ -10262,7 +10592,12 @@
    "pin": [
     14.916,
     -23.5054
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.48; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Praia do Chaves",
@@ -10274,7 +10609,12 @@
    "pin": [
     16.1419,
     -22.9071
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthWest: nearest listed direction is 122 deg from facing+180 (103); CONTRADICTS (>60)"
+   }
   },
   {
    "name": "Quicombo",
@@ -10287,7 +10627,12 @@
    "pin": [
     -11.317,
     13.8113
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, wannasurf wind, surf-forecast swell); surf-forecast offshore winds from the east northeast: nearest listed direction is 89 deg from facing+180 (156); CONTRADICTS (>60) | wannasurf good wind East, NorthEast: nearest listed direction is 66 deg from facing+180 (156); CONTRADICTS (>60) | surf-forecast best swell Southwest: nearest listed direction is 111 deg from the facing (336); CONTRADICTS (>90) | wannasurf good swell West, SouthWest, South: nearest listed direction is 66 deg from the facing (336); consistent (<=90)"
+   }
   },
   {
    "name": "Sandy Beach - Sao Vincente",
@@ -10299,7 +10644,12 @@
    "pin": [
     16.8634,
     -24.879
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind, wannasurf swell); wannasurf good wind North: nearest listed direction is 173 deg from facing+180 (187); CONTRADICTS (>60) | wannasurf good swell South: nearest listed direction is 173 deg from the facing (7); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Sete Ondas",
@@ -10311,7 +10661,12 @@
    "pin": [
     0.202,
     6.7066
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 45 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tarkwa Bay",
@@ -10323,7 +10678,12 @@
    "pin": [
     6.4021,
     3.3948
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tarqua Bay",
@@ -10335,7 +10695,12 @@
    "pin": [
     6.402,
     3.395
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.53; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Turtle Island",
@@ -10347,7 +10712,12 @@
    "pin": [
     7.6456,
     -13.0987
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.26 km from the pin (> 1.5 km) [name match https://www.surf-forecast.com/breaks/Turtle-Island rejected: its pin is 12198.2 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "la Méduse",
@@ -10359,7 +10729,12 @@
    "pin": [
     6.3504,
     2.4344
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "la méduse",
@@ -10372,19 +10747,13 @@
    "pin": [
     6.3504,
     2.435
-   ]
-  },
-  {
-   "name": "porto alegre",
-   "country": "São Tomé and Príncipe",
-   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 64 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous",
-   "urls": [
-    "https://www.wannasurf.com/spot/Africa/Sao_Tome/porto_alegre/index.html"
    ],
-   "pin": [
-    0.0359,
-    6.5364
-   ]
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 2 spots recovered from dropped rows that had no url field (guide page by name; 2 with a published Surfnerd facing, 0 computed-coastline); see RECOVERY-2026-11-10.md"
 }

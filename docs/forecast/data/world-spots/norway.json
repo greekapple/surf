@@ -2185,56 +2185,467 @@
      "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=treg"
     }
    ]
+  },
+  {
+   "id": "w-norway-havik",
+   "name": "Havik",
+   "country": "Norway",
+   "region": "South and West",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 58.069,
+   "lon": 6.721,
+   "seaward": 198.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (58.069, 6.7206) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Havik"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1231.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 17 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.9 deg (limit 45); 300 m window gives 201.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1231.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1232.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1231.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1232.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2125/1231.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2125/1232.pbf"
+    ],
+    "nearestCoastPoint": [
+     58.069136,
+     6.720745
+    ],
+    "distanceToCoastM": 17.3,
+    "meanDevDeg": 34.9,
+    "seaward300": 201.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north: nearest listed direction is 18 deg from facing+180 (18); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 27 deg from the facing (198); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Havik",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Havik",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the north (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "quite exposed beach break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Havik with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Havik in South and West Norway is a quite exposed beach break that has fairly consistent surf. Offshore winds blow from the north. The ideal swell angle is from the southwest. Waves at the beach break both left and right. It very rarely gets crowded here. Havik"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-norway-havik"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC treg",
+     "name": "Tregde",
+     "owner": "IOC Sea Level Station Monitoring Facility (Norway)",
+     "distanceKm": 49.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 58.006,
+     "lon": 7.555,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=treg"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ENCN",
+     "name": "Kristiansand",
+     "owner": "IEM NO__ASOS network (airport METAR)",
+     "distanceKm": 81.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 58.204,
+     "lon": 8.085,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENCN&network=NO__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Havik",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Havik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Havik"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-norway-lista",
+    "distanceKm": 4.74
+   }
+  },
+  {
+   "id": "w-norway-hoddevik",
+   "name": "Hoddevik",
+   "country": "Norway",
+   "region": "South and West",
+   "timeZone": "Europe/Oslo",
+   "type": "Beach",
+   "lat": 62.125,
+   "lon": 5.159,
+   "seaward": 287.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (62.1246, 5.1588) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Hoddevik"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2105/1138.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 143 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.2 deg (limit 45); 300 m window gives 294.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2105/1138.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2105/1139.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2105/1140.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2106/1138.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2106/1139.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2106/1140.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2107/1138.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2107/1139.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2107/1140.pbf"
+    ],
+    "nearestCoastPoint": [
+     62.124034,
+     5.161265
+    ],
+    "distanceToCoastM": 142.7,
+    "meanDevDeg": 38.2,
+    "seaward300": 294.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Northwest: nearest listed direction is 27 deg from the facing (288); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Hoddevik",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hoddevik",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast with some shelter here from north winds (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks favour lefts. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Hoddevik with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Hoddevik in South and West Norway is a fairly exposed beach break that has very consistent surf. Offshore winds blow from the southeast with some shelter here from north winds. The ideal swell direction from the northwest. The beach breaks favour lefts. Surfable at all stages of the tide. It very rarely gets crowded here. Hoddevik"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-norway-hoddevik"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 64046",
+     "name": "K7 Buoy",
+     "owner": "UK Met Office",
+     "distanceKm": 529.8,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 60.483,
+     "lon": -4.167,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=64046"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC malo",
+     "name": "Måløy",
+     "owner": "IOC Sea Level Station Monitoring Facility (Norway)",
+     "distanceKm": 21.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 61.933,
+     "lon": 5.117,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=malo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ENOV",
+     "name": "Orsta-Volda",
+     "owner": "IEM NO__ASOS network (airport METAR)",
+     "distanceKm": 47.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 62.18,
+     "lon": 6.074,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENOV&network=NO__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Hoddevik",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hoddevik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Hoddevik"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-norway-hoddevika",
+    "distanceKm": 0.28
+   }
+  },
+  {
+   "id": "w-norway-monumentet",
+   "name": "Monumentet",
+   "country": "Norway",
+   "region": "Lofoten and Arctic",
+   "timeZone": "Europe/Oslo",
+   "type": "Point",
+   "lat": 66.952,
+   "lon": 13.616,
+   "seaward": 0.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (66.9519, 13.6164) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Uredd-Monument"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2201/1010.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 23 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.8 deg (limit 45); 300 m window gives 5.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2201/1010.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2201/1011.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2201/1012.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2202/1010.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2202/1011.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2202/1012.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2203/1010.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2203/1011.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2203/1012.pbf"
+    ],
+    "nearestCoastPoint": [
+     66.951696,
+     13.616278
+    ],
+    "distanceToCoastM": 23.2,
+    "meanDevDeg": 17.8,
+    "seaward300": 5.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 45 deg from facing+180 (180); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 23 deg from the facing (0); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Monumentet",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Uredd-Monument",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Best around mid tide when the tide is rising. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "sheltered point break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Watch out for rips, shallow rocks, local inhabitants, protected military zone, high fee if get caught walking through. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Monumentet with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Monumentet in Lofoten Islands and Arctic is a sheltered point break that has reasonably consistent surf. Winter is the favoured time of year for surfing here. Ideal winds are from the southeast. Waves can be ok even in light onshore winds Windswells and groundswells in equal measure and the ideal swell angle is from the north northwest. Best around mid tide when the tide is rising. Even when there are waves, it's not likley to be crowded. Watch out for rips, shallow rocks, local inhabitants, protected military zone, high fee if get caught walking through. Monumentet"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-norway-monumentet"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC bodo",
+     "name": "Bodø",
+     "owner": "IOC Sea Level Station Monitoring Facility (Norway)",
+     "distanceKm": 50.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 67.292,
+     "lon": 14.4,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=bodo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ENBO",
+     "name": "Bodo",
+     "owner": "IEM NO__ASOS network (airport METAR)",
+     "distanceKm": 47.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 67.267,
+     "lon": 14.367,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ENBO&network=NO__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Monumentet",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Uredd-Monument); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Uredd-Monument"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-norway-kvalvika",
+    "distanceKm": 127.06
+   }
   }
  ],
  "dropped": [
   {
    "name": "Unstad Right",
-   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/unstad-right) for the same break as w-norway-unstad-beach (pins 372 m apart); the fuller page is kept."
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/unstad-right) for the same break as w-norway-unstad-beach (pins 372 m apart); the fuller page is kept.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/unstad-right) for the same break as w-norway-unstad-beach (pins 372 m apart); the fuller page is"
+   }
   },
   {
    "name": "Alnes Lighthouse",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alnes-Lighthouse); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alnes-Lighthouse); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 51 deg (arccos of mean resultant length 0.63; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ervika",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ervika); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ervika); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 54 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Farstadstranda",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Farstadstranda); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Farstadstranda); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Flo",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Flo); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Havik",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Havik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Flo); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Hellesto",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/hellesto); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Hoddevik",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hoddevik); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/hellesto); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.45; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Njerve Pipeline",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Njerve-Pipeline); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Njerve-Pipeline); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.20; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Seines",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Seines); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Seines); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 67 deg (arccos of mean resultant length 0.39; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ulla",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ulla); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Monumentet",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Uredd-Monument); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ulla); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 3 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 3 computed-coastline); see RECOVERY-2026-11-10.md"
 }

@@ -2026,36 +2026,884 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDWE&network=DE__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-germany-dazendorf",
+   "name": "Dazendorf",
+   "country": "Germany",
+   "region": "Ostsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.372,
+   "lon": 10.915,
+   "seaward": 312.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (54.372, 10.915) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Dazendorf"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2171/1307.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 12 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.3 deg (limit 45); 300 m window gives 311.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2171/1307.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2171/1308.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2172/1307.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2172/1308.pbf"
+    ],
+    "nearestCoastPoint": [
+     54.372072,
+     10.91486
+    ],
+    "distanceToCoastM": 12.1,
+    "meanDevDeg": 2.3,
+    "seaward300": 311.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 3 deg from facing+180 (132); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 25 deg from the facing (312); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Dazendorf",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dazendorf",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Dazendorf in Ostsee is an exposed beach break that has inconsistent surf. Summer in particular tends to be flat. The best wind direction is from the southeast and there is no shelter here from cross shore breezes. There is too little fetch for groundswells to form and the best wave direction is from the north northwest. The beach break offers both left and right hand waves. Good surf at all stages of the tide. Sometimes crowded. Dazendorf"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-dazendorf"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC rodb",
+     "name": "Rodby",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 42.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 54.66,
+     "lon": 11.35,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rodb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EDHK",
+     "name": "Kiel",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 49.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 54.38,
+     "lon": 10.145,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHK&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Dazendorf",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dazendorf); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Dazendorf"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-weissenhauser-strand",
+    "distanceKm": 12.38
+   }
+  },
+  {
+   "id": "w-germany-fkk-stand",
+   "name": "FKK Stand",
+   "country": "Germany",
+   "region": "Nordsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 53.621,
+   "lon": 6.734,
+   "seaward": 354.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (53.6215, 6.7337) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/F-K-K-Stand"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1321.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 886 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.2 deg (limit 45); 300 m window gives 353.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1321.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1322.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1323.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1321.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1322.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1323.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2125/1321.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2125/1322.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2125/1323.pbf"
+    ],
+    "nearestCoastPoint": [
+     53.613577,
+     6.735719
+    ],
+    "distanceToCoastM": 886.2,
+    "meanDevDeg": 7.2,
+    "seaward300": 353.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 40 deg from facing+180 (175); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 40 deg from the facing (355); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "FKK Stand",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/F-K-K-Stand",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves just as likely from local windswells as from distant groundswells The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells The beach break provides left and right handers. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of nudists. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing FKK Stand with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "FKK Stand on the West Coast is an exposed beach break that has fairly consistent surf, although summer tends to be mostly flat. Offshore winds are from the southeast. Waves just as likely from local windswells as from distant groundswells The beach break provides left and right handers. Good surf at all stages of the tide. Rarely crowded here. Beware of nudists. FKK Stand"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-fkk-stand"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 415.9,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC bork",
+     "name": "Borkum Fischerbalje",
+     "owner": "IOC Sea Level Station Monitoring Facility (Germany)",
+     "distanceKm": 7.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 53.557,
+     "lon": 6.749,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=bork"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EDWE",
+     "name": "Emden",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 41.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 53.388,
+     "lon": 7.229,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDWE&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "FKK Stand",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/F-K-K-Stand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/F-K-K-Stand"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-borkum",
+    "distanceKm": 4.63
+   }
+  },
+  {
+   "id": "w-germany-fehmarn",
+   "name": "Fehmarn",
+   "country": "Germany",
+   "region": "Ostsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.531,
+   "lon": 11.175,
+   "seaward": 17.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (54.5305, 11.1746) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Fehmarn"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2174/1304.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1068 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.7 deg (limit 45); 300 m window gives 23.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2174/1304.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2174/1305.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2175/1304.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2175/1305.pbf"
+    ],
+    "nearestCoastPoint": [
+     54.521754,
+     11.167603
+    ],
+    "distanceToCoastM": 1067.5,
+    "meanDevDeg": 17.7,
+    "seaward300": 23.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southwest: nearest listed direction is 28 deg from facing+180 (197); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 62 deg from the facing (17); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Fehmarn",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fehmarn",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Fehmarn in Eastern Sea is a fairly exposed beach break that does not work very often. Summer in particular tends to be flat. Ideal winds are from the southwest. There is too little fetch for groundswells to form and the best wave direction is from the northwest. The beach break offers both left and right hand waves. Good surf at all stages of the tide. Fehmarn"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-fehmarn"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC rodb",
+     "name": "Rodby",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 18.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 54.66,
+     "lon": 11.35,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rodb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EDHK",
+     "name": "Kiel",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 68.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 54.38,
+     "lon": 10.145,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHK&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Fehmarn",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Fehmarn); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Fehmarn"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-dazendorf",
+    "distanceKm": 24.39
+   }
+  },
+  {
+   "id": "w-germany-jugendbad",
+   "name": "Jugendbad",
+   "country": "Germany",
+   "region": "Nordsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 53.609,
+   "lon": 6.694,
+   "seaward": 345.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (53.6087, 6.6944) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Jugendbad"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1322.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 294 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.3 deg (limit 45); 300 m window gives 344.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1322.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2123/1323.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1322.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2124/1323.pbf"
+    ],
+    "nearestCoastPoint": [
+     53.611267,
+     6.693219
+    ],
+    "distanceToCoastM": 294.3,
+    "meanDevDeg": 1.3,
+    "seaward300": 344.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South-southeast: nearest listed direction is 8 deg from facing+180 (165); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 8 deg from the facing (345); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Jugendbad",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jugendbad",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the South-southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "season": "best time of year for surfing Jugendbad with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Jugendbad on the West Coast is an exposed beach break that has quite reliable surf, although summer tends to be mostly flat. The best wind direction is from the southeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the north northwest. The beach break provides left and right handers. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Jugendbad"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-jugendbad"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 413.0,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC bork",
+     "name": "Borkum Fischerbalje",
+     "owner": "IOC Sea Level Station Monitoring Facility (Germany)",
+     "distanceKm": 6.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 53.557,
+     "lon": 6.749,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=bork"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EDWE",
+     "name": "Emden",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 43.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 53.388,
+     "lon": 7.229,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDWE&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Jugendbad",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Jugendbad); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Jugendbad"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-borkum",
+    "distanceKm": 1.68
+   }
+  },
+  {
+   "id": "w-germany-nordseeklinik-westerland-sylt",
+   "name": "Nordseeklinik Westerland (Sylt)",
+   "country": "Germany",
+   "region": "Nordsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.965,
+   "lon": 8.326,
+   "seaward": 295.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (54.9651, 8.3257) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Nordseeklinik-Westerland"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2142/1295.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 414 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.0 deg (limit 45); 300 m window gives 295.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2142/1295.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2142/1296.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2143/1295.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2143/1296.pbf"
+    ],
+    "nearestCoastPoint": [
+     54.963481,
+     8.331537
+    ],
+    "distanceToCoastM": 413.7,
+    "meanDevDeg": 3.0,
+    "seaward300": 295.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 20 deg from facing+180 (115); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 25 deg from the facing (295); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Nordseeklinik Westerland (Sylt)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Nordseeklinik-Westerland",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Take special care here if it gets very crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Nordseeklinik Westerland (Sylt) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Nordseeklinik Westerland in Sylt is an exposed beach break that has fairly consistent surf, although summer tends to be mostly flat. Offshore winds blow from the southeast. Windswells are much more typical than groudswells and the ideal wave direction is from the west. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Sometimes crowded. Take special care here if it gets very crowded. Nordseeklinik Westerland (Sylt)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-nordseeklinik-westerland-sylt"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 591.1,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC horn",
+     "name": "Hörnum",
+     "owner": "IOC Sea Level Station Monitoring Facility (Germany)",
+     "distanceKm": 23.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 54.758,
+     "lon": 8.297,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=horn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EDXW",
+     "name": "Westerland",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 5.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 54.913,
+     "lon": 8.341,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDXW&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Nordseeklinik Westerland (Sylt)",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nordseeklinik-Westerland); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Nordseeklinik-Westerland"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-sturmhaube-kampen",
+    "distanceKm": 0.26
+   }
+  },
+  {
+   "id": "w-germany-pelzerhaken",
+   "name": "Pelzerhaken",
+   "country": "Germany",
+   "region": "Ostsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.173,
+   "lon": 11.063,
+   "seaward": 130.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (54.1726, 11.0634) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Pelzerhaken"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2173/1311.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1050 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.9 deg (limit 45); 300 m window gives 130.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2173/1311.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2173/1312.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2174/1311.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2174/1312.pbf"
+    ],
+    "nearestCoastPoint": [
+     54.179089,
+     11.051645
+    ],
+    "distanceToCoastM": 1049.6,
+    "meanDevDeg": 10.9,
+    "seaward300": 130.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 4 deg from facing+180 (311); consistent (<=60)",
+     "surf-forecast best swell East-northeast: nearest listed direction is 63 deg from the facing (131); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Pelzerhaken",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Pelzerhaken",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East-northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Pelzerhaken in Eastern Sea is a fairly exposed beach break that has unreliable waves. Summer in particular tends to be flat. The best wind direction is from the northwest. The location means that groundswells are unknown and the ideal wave direction is from the east northeast. Waves at the beach are both lefts and rights. The quality of the surf isn't affected by the tide. Pelzerhaken"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-pelzerhaken"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC rodb",
+     "name": "Rodby",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 57.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 54.66,
+     "lon": 11.35,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rodb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EDHL",
+     "name": "Luebeck",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 46.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 53.805,
+     "lon": 10.719,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EDHL&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Pelzerhaken",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Pelzerhaken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Pelzerhaken"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-pelzerharken",
+    "distanceKm": 15.68
+   }
+  },
+  {
+   "id": "w-germany-st-peter-ording",
+   "name": "St Peter Ording",
+   "country": "Germany",
+   "region": "Nordsee",
+   "timeZone": "Europe/Berlin",
+   "type": "Beach",
+   "lat": 54.336,
+   "lon": 8.585,
+   "seaward": 284.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (54.3364, 8.5845) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/St-Peter-Ording"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2145/1307.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 440 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.2 deg (limit 45); 300 m window gives 285.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2145/1307.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2145/1308.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2145/1309.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2146/1307.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2146/1308.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2146/1309.pbf"
+    ],
+    "nearestCoastPoint": [
+     54.33573,
+     8.591176
+    ],
+    "distanceToCoastM": 439.6,
+    "meanDevDeg": 5.2,
+    "seaward300": 285.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 14 deg from facing+180 (104); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 31 deg from the facing (284); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "St Peter Ording",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/St-Peter-Ording",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "A fairly popluar wave that can sometimes get crowded Overcrowding can even make surfing hazardous. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing St Peter Ording with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "St Peter Ording on the West Coast is an exposed beach break that has quite reliable surf, although summer tends to be mostly flat. Works best in offshore winds from the east. Windswells are much more typical than groudswells and the best wave direction is from the northwest. The beach break provides left and right handers. Good surf at all stages of the tide. A fairly popluar wave that can sometimes get crowded Overcrowding can even make surfing hazardous. St Peter Ording"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-germany-st-peter-ording"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 560.5,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC helg",
+     "name": "Helgoland Binnenhafen",
+     "owner": "IOC Sea Level Station Monitoring Facility (Germany)",
+     "distanceKm": 48.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 54.176,
+     "lon": 7.891,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=helg"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ETNH",
+     "name": "Hohn",
+     "owner": "IEM DE__ASOS network (airport METAR)",
+     "distanceKm": 62.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 54.313,
+     "lon": 9.539,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ETNH&network=DE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "St Peter Ording",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/St-Peter-Ording); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/St-Peter-Ording"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-germany-k-4-hornum",
+    "distanceKm": 50.73
+   }
   }
  ],
- "dropped": [
-  {
-   "name": "Dazendorf",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Dazendorf); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "FKK Stand",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/F-K-K-Stand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Fehmarn",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Fehmarn); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Jugendbad",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Jugendbad); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Nordseeklinik Westerland (Sylt)",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nordseeklinik-Westerland); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Pelzerhaken",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Pelzerhaken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "St Peter Ording",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/St-Peter-Ording); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  }
- ]
+ "dropped": [],
+ "recovery": "2026-11-10: 7 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 7 computed-coastline); see RECOVERY-2026-11-10.md"
 }

@@ -31444,15 +31444,30 @@
   },
   {
    "name": "Echo Beach (Canggu, Bali)",
-   "reason": "named in the research brief, but no page for it exists in the Surfnerd, Surf-Forecast.com or Wannasurf Indonesia indexes fetched on 2026-11-09 (searched by name); no sourced position or facing"
+   "reason": "named in the research brief, but no page for it exists in the Surfnerd, Surf-Forecast.com or Wannasurf Indonesia indexes fetched on 2026-11-09 (searched by name); no sourced position or facing",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no guide page found by name on Surfnerd or Surf-Forecast.com"
+   }
   },
   {
    "name": "Batu Bolong (Canggu, Bali)",
-   "reason": "named in the research brief, but no page for it exists in the Surfnerd, Surf-Forecast.com or Wannasurf Indonesia indexes fetched on 2026-11-09 (searched by name); no sourced position or facing"
+   "reason": "named in the research brief, but no page for it exists in the Surfnerd, Surf-Forecast.com or Wannasurf Indonesia indexes fetched on 2026-11-09 (searched by name); no sourced position or facing",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no guide page found by name on Surfnerd or Surf-Forecast.com"
+   }
   },
   {
    "name": "Selong Belanak (Lombok)",
-   "reason": "named in the research brief, but no page for it exists in the Surfnerd, Surf-Forecast.com or Wannasurf Indonesia indexes fetched on 2026-11-09 (searched by name); no sourced position or facing"
+   "reason": "named in the research brief, but no page for it exists in the Surfnerd, Surf-Forecast.com or Wannasurf Indonesia indexes fetched on 2026-11-09 (searched by name); no sourced position or facing",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no guide page found by name on Surfnerd or Surf-Forecast.com"
+   }
   }
  ],
  "recovery": "2026-11-09: 66 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"

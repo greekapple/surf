@@ -14337,6 +14337,3159 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ECP&network=FL_ASOS"
     }
    ]
+  },
+  {
+   "id": "w-us-coastal-bend-area",
+   "name": "Coastal Bend Area",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 28.03,
+   "lon": -96.885,
+   "seaward": 134.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (28.0305, -96.885) taken from the guide page, rounded to 3 dp; 0.49 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Coastal-Bend-Area"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/945/1715.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 145 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.0 deg (limit 45); 300 m window gives 134.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/945/1715.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/946/1715.pbf"
+    ],
+    "nearestCoastPoint": [
+     28.031425,
+     -96.886053
+    ],
+    "distanceToCoastM": 145.4,
+    "meanDevDeg": 0.0,
+    "seaward300": 134.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 0 deg from facing+180 (315); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 0 deg from the facing (135); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Coastal Bend Area",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Coastal-Bend-Area",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Watch out for rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Coastal Bend Area with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Coastal Bend Area in Texas is an exposed beach/Jetty break that has fairly consistent surf. The optimum conditions for surfing are during the hurricane season. Offshore winds are from the northwest. Windswells are much more typical than groudswells and the best wave direction is from the southeast. The beach break offers both left and right hand waves. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Watch out for rips, obstacles, sharks and jellyfish. Coastal Bend Area"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-coastal-bend-area"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 42048",
+     "name": "TABS D",
+     "owner": "TABS",
+     "distanceKm": 11.0,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.939,
+     "lon": -96.843,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=42048"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC rptx",
+     "name": "Rockport_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 15.9,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.022,
+     "lon": -97.047,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKP",
+     "name": "ROCKPORT/ARANSAS CO",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 28.084,
+     "lon": -97.046,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKP&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Coastal Bend Area",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Coastal-Bend-Area, pin 28.03,-96.89); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Coastal-Bend-Area"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-st-joes-island",
+    "distanceKm": 25.74
+   }
+  },
+  {
+   "id": "w-us-condos",
+   "name": "Condos",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 27.694,
+   "lon": -97.158,
+   "seaward": 118.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.6943, -97.1578) taken from the guide page, rounded to 3 dp; 0.52 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Condos_1"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1719.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 192 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.5 deg (limit 45); 300 m window gives 118.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1719.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1720.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.693449,
+     -97.156102
+    ],
+    "distanceToCoastM": 192.0,
+    "meanDevDeg": 0.5,
+    "seaward300": 118.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the west northwest: nearest listed direction is 6 deg from facing+180 (299); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 16 deg from the facing (119); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Condos",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Condos_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the west northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Beware of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Condos with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Condos in Texas is an exposed beach break that has quite reliable surf. The best conditions for surfing are during the hurricane season. Offshore winds are from the west northwest. Windswells are much more typical than groudswells and the ideal wave angle is from the southeast. The beach break provides left and right handers. Good surf at all stages of the tide. Sometimes crowded. Beware of rips, obstacles, sharks and jellyfish. Condos"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-condos"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pact2",
+     "name": "8775792 - Packery Channel, TX",
+     "owner": "TCOON",
+     "distanceKm": 10.3,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.634,
+     "lon": -97.237,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pact2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC cctx",
+     "name": "Corpus Christi, TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 14.0,
+     "live": false,
+     "liveNote": "last sample 2020-10-05 00:05:00.000 UTC in the IOC station list",
+     "lat": 27.58,
+     "lon": -97.217,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=cctx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NGP",
+     "name": "CORPUS CHRISTI NAS",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.693,
+     "lon": -97.291,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NGP&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Condos",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Condos_1, pin 27.69,-97.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Condos_1"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-fish-pass-jetties",
+    "distanceKm": 2.19
+   }
+  },
+  {
+   "id": "w-us-corpus-christi",
+   "name": "Corpus Christi",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 27.603,
+   "lon": -97.21,
+   "seaward": 117.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.6029, -97.2105) taken from the guide page, rounded to 3 dp; 0.33 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Corpus-Christi"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/941/1720.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 169 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.5 deg (limit 45); 300 m window gives 117.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/941/1720.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/941/1721.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1720.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1721.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.602189,
+     -97.208984
+    ],
+    "distanceToCoastM": 169.0,
+    "meanDevDeg": 0.5,
+    "seaward300": 117.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 5 deg from facing+180 (297); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 18 deg from the facing (117); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Corpus Christi",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Corpus-Christi",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveTypeText": "Breakwater (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.. (surf-forecast)",
+     "When it's working here, it can get crowded. (surf-forecast)",
+     "Beware of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Corpus Christi with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Corpus Christi in Texas is an exposed beach break that has inconsistent surf. The best conditions for surfing are during the hurricane season. Works best in offshore winds from the west northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Beware of rips, obstacles, sharks and jellyfish. Corpus Christi"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-corpus-christi"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pact2",
+     "name": "8775792 - Packery Channel, TX",
+     "owner": "TCOON",
+     "distanceKm": 4.3,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.634,
+     "lon": -97.237,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pact2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC cctx",
+     "name": "Corpus Christi, TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 2.6,
+     "live": false,
+     "liveNote": "last sample 2020-10-05 00:05:00.000 UTC in the IOC station list",
+     "lat": 27.58,
+     "lon": -97.217,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=cctx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NWL",
+     "name": "Corpus Christi - Waldron Field",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 10.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.636,
+     "lon": -97.313,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NWL&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Corpus Christi",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Corpus-Christi, pin 27.6,-97.21); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Corpus-Christi"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-north-padre-seawall",
+    "distanceKm": 0.45
+   }
+  },
+  {
+   "id": "w-us-cove",
+   "name": "Cove",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 26.095,
+   "lon": -97.163,
+   "seaward": 81.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (26.0954, -97.1635) taken from the guide page, rounded to 3 dp; 0.62 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Cove"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1739.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 186 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.5 deg (limit 45); 300 m window gives 81.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1739.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1740.pbf"
+    ],
+    "nearestCoastPoint": [
+     26.095668,
+     -97.161668
+    ],
+    "distanceToCoastM": 185.5,
+    "meanDevDeg": 0.5,
+    "seaward300": 81.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 9 deg from facing+180 (261); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 9 deg from the facing (81); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Cove",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Cove",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Beware of rips, rocks, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Cove with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Cove in Texas is an exposed beach/Jetty break that has inconsistent surf Ideal winds are from the west. Windswells are much more typical than groudswells and the best wave direction is from the east. The beach breaks offer lefts and rights. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of rips, rocks, sharks and jellyfish. Cove"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-cove"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pcgt2",
+     "name": "8779748 - South Padre Island CGS, TX ",
+     "owner": "TCOON",
+     "distanceKm": 2.6,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 26.072,
+     "lon": -97.167,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pcgt2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pitx",
+     "name": "Port_Isabel_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 6.5,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 26.06,
+     "lon": -97.215,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pitx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SPL",
+     "name": "South Padre Island",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 2.8,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 26.071,
+     "lon": -97.157,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SPL&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Cove",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Cove, pin 26.1,-97.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Cove"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-south-padre-island",
+    "distanceKm": 1.35
+   }
+  },
+  {
+   "id": "w-us-destin",
+   "name": "Destin",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 30.381,
+   "lon": -86.45,
+   "seaward": 182.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.3808, -86.4501) taken from the guide page, rounded to 3 dp; 0.09 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Destin"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1063/1684.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 261 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.2 deg (limit 45); 300 m window gives 181.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1063/1684.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1063/1685.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1064/1684.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1064/1685.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.383162,
+     -86.450063
+    ],
+    "distanceToCoastM": 261.2,
+    "meanDevDeg": 6.2,
+    "seaward300": 181.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 2 deg from facing+180 (2); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 25 deg from the facing (182); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Destin",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Destin",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Beware of rips and sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. The best wind direction is from the north. Most of the surf comes fis in the form of windswells and the best wave direction is from the south southeast. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Unlikely to be too crowded, even when the surf is up. Beware of rips and sharks. Destin Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach/jetty 1 consistent 23.2 ° C *ocean temperature recorded from satellite Surfing Destin: The best conditions reported for surf at Destin occur when a South-southeast swell combines with an offshore wind direction from the North . Hourly Forecast 16 Day Forecast What's the best time of year to surf Destin (for consistent clean waves)? february Best Season: winter The best time of year for surfing Destin with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Destin in Florida is an exposed beach/Jetty break that has reliable surf. Winter is the best time of year for surfing here. The best wind direction is from the north. Most of the surf comes fis in the form of windswells and the best wave direction is from the south southeast. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Unlikely to be too crowded, even when the surf is up. Beware of rips and sharks. Destin"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-destin"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pcbf1",
+     "name": "8729210 - Panama City Beach, FL",
+     "owner": "NOS",
+     "distanceKm": 57.8,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 30.213,
+     "lon": -85.88,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pcbf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pbfl",
+     "name": "PanamaCityBeach_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 58.0,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 30.213,
+     "lon": -85.878,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pbfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTS",
+     "name": "Destin - Fort Walton Beach",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 2.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.393,
+     "lon": -86.467,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTS&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Destin",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Destin, pin 30.38,-86.45); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Destin"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-the-back-porch",
+    "distanceKm": 0.8
+   }
+  },
+  {
+   "id": "w-us-fish-pass-jetty",
+   "name": "Fish Pass Jetty",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 27.8,
+   "lon": -97.081,
+   "seaward": 127.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.7997, -97.0813) taken from the guide page, rounded to 3 dp; 0.13 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Fish-Pass-Jetty"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/943/1718.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 257 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.3 deg (limit 45); 300 m window gives 127.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/943/1718.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.798295,
+     -97.079216
+    ],
+    "distanceToCoastM": 257.4,
+    "meanDevDeg": 0.3,
+    "seaward300": 127.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 8 deg from facing+180 (307); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 8 deg from the facing (127); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Fish Pass Jetty",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fish-Pass-Jetty",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "fairly exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast. (surf-forecast)",
+     "Watch out for rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Fish Pass Jetty with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Fish Pass Jetty in Texas is a fairly exposed beach/Jetty break that has reasonably consistent surf. The best conditions for surfing are during the hurricane season. Offshore winds blow from the northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast. The beach break provides left and right handers. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Watch out for rips, obstacles, sharks and jellyfish. Fish Pass Jetty"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-fish-pass-jetty"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC phct2",
+     "name": "Port Aransas, TX, Horace Caldwell Pier (99999291)",
+     "owner": "NOS",
+     "distanceKm": 4.2,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.826,
+     "lon": -97.051,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=phct2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC rptx",
+     "name": "Rockport_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 24.9,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.022,
+     "lon": -97.047,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RAS",
+     "name": "PORT ARANSAS/MUSTANG BEACH ARPT",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 1.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.81,
+     "lon": -97.09,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RAS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Fish Pass Jetty",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Fish-Pass-Jetty, pin 27.8,-97.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Fish-Pass-Jetty"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-horace-caldwell-pier",
+    "distanceKm": 4.05
+   }
+  },
+  {
+   "id": "w-us-fort-walton-pier",
+   "name": "Fort Walton Pier",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 30.394,
+   "lon": -86.601,
+   "seaward": 190.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.394, -86.601) taken from the guide page, rounded to 3 dp; 0.46 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Fort-Walton-Pier"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1062/1684.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 34 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 35.1 deg (limit 45); 300 m window gives 189.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1062/1684.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1062/1685.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1063/1684.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1063/1685.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.394307,
+     -86.60094
+    ],
+    "distanceToCoastM": 34.5,
+    "meanDevDeg": 35.1,
+    "seaward300": 189.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 12 deg from facing+180 (10); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 33 deg from the facing (190); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Fort Walton Pier",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fort-Walton-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the south southeast. (surf-forecast)",
+     "Sometimes crowded. (surf-forecast)",
+     "Beware of - Localism - Pollution - Sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Fort Walton Pier with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Fort Walton Pier in Gulf Coast, Florida is an exposed beach break that has fairly consistent surf. Winter is the optimum time of year for surfing here. The best wind direction is from the north northeast. Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the south southeast. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Sometimes crowded. Beware of - Localism - Pollution - Sharks. Fort Walton Pier"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-fort-walton-pier"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pclf1",
+     "name": "8729840 - Pensacola, FL",
+     "owner": "NOS",
+     "distanceKm": 58.5,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 30.404,
+     "lon": -87.211,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pclf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pnfl",
+     "name": "Pensacola_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 58.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 30.403,
+     "lon": -87.212,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pnfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HRT",
+     "name": "HURLBURT FIELD (AF)",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 9.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.428,
+     "lon": -86.689,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HRT&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Fort Walton Pier",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Fort-Walton-Pier, pin 30.39,-86.6); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Fort-Walton-Pier"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-dead-mans",
+    "distanceKm": 0.31
+   }
+  },
+  {
+   "id": "w-us-freeport-channel",
+   "name": "Freeport Channel",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 28.865,
+   "lon": -95.398,
+   "seaward": 160.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (28.8649, -95.3983) taken from the guide page, rounded to 3 dp; 0.57 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Freeport-Channel"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/962/1704.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 273 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.2 deg (limit 45); 300 m window gives 160.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/962/1704.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/962/1705.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/963/1704.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/963/1705.pbf"
+    ],
+    "nearestCoastPoint": [
+     28.86718,
+     -95.399385
+    ],
+    "distanceToCoastM": 273.4,
+    "meanDevDeg": 3.2,
+    "seaward300": 160.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 20 deg from facing+180 (340); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 70 deg from the facing (160); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Freeport Channel",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Freeport-Channel",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "sheltered beach/Pier break (surf-forecast)",
+    "hazards": [
+     "A fairly popluar wave that can sometimes get crowded Take care of rips, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Freeport Channel with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Freeport Channel in Texas is a sheltered beach/Pier break that has inconsistent surf. Spring and Summer provide the best conditions. The best wind direction is from the north. Windswells are much more typical than groudswells and the best wave direction is from the east. Waves at the beach are both lefts and rights. Good surf at all stages of the tide. A fairly popluar wave that can sometimes get crowded Take care of rips, sharks and jellyfish. Freeport Channel"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-freeport-channel"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC fpst2",
+     "name": "8772471 - Freeport SPIP, TX",
+     "owner": "NOS",
+     "distanceKm": 12.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 28.936,
+     "lon": -95.294,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=fpst2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC fptx",
+     "name": "Free_Port_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 12.8,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.95,
+     "lon": -95.31,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LBX",
+     "name": "ANGLETON/LAKE JACKS",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 27.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.109,
+     "lon": -95.462,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LBX&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Freeport Channel",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Freeport-Channel, pin 28.86,-95.4); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Freeport-Channel"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-quintana",
+    "distanceKm": 12.1
+   }
+  },
+  {
+   "id": "w-us-freeport-pier",
+   "name": "Freeport Pier",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 28.867,
+   "lon": -95.386,
+   "seaward": 157.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (28.8672, -95.3863) taken from the guide page, rounded to 3 dp; 0.48 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Freeport-Pier"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/962/1704.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 174 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 31.7 deg (limit 45); 300 m window gives 168.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/962/1704.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/962/1705.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/963/1704.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/963/1705.pbf"
+    ],
+    "nearestCoastPoint": [
+     28.868748,
+     -95.386627
+    ],
+    "distanceToCoastM": 174.1,
+    "meanDevDeg": 31.7,
+    "seaward300": 168.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 22 deg from facing+180 (337); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 22 deg from the facing (157); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Freeport Pier",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Freeport-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach/Pier break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Beware of rips, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Freeport Pier with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Freeport Pier in Texas is an exposed beach/Pier break that has quite reliable surf. The best conditions for surfing are during the hurricane season. Offshore winds are from the northwest. Windswells are much more typical than groudswells and the best wave direction is from the southeast. The beach break provides left and right handers. Good surf at all stages of the tide. Sometimes crowded. Beware of rips, sharks and jellyfish. Freeport Pier"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-freeport-pier"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC fpst2",
+     "name": "8772471 - Freeport SPIP, TX",
+     "owner": "NOS",
+     "distanceKm": 11.8,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 28.936,
+     "lon": -95.294,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=fpst2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC fptx",
+     "name": "Free_Port_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 11.8,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.95,
+     "lon": -95.31,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LBX",
+     "name": "ANGLETON/LAKE JACKS",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 27.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.109,
+     "lon": -95.462,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LBX&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Freeport Pier",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Freeport-Pier, pin 28.87,-95.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Freeport-Pier"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-freeport-channel",
+    "distanceKm": 1.19
+   }
+  },
+  {
+   "id": "w-us-galveston",
+   "name": "Galveston",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 29.306,
+   "lon": -94.771,
+   "seaward": 141.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.3056, -94.7714) taken from the guide page, rounded to 3 dp; 0.51 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Galveston"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1698.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 290 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.5 deg (limit 45); 300 m window gives 141.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1698.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1699.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/970/1698.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/970/1699.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.303549,
+     -94.769539
+    ],
+    "distanceToCoastM": 290.0,
+    "meanDevDeg": 1.5,
+    "seaward300": 141.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northwest: nearest listed direction is 16 deg from facing+180 (322); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 7 deg from the facing (142); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Galveston",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Galveston",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the north northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Breakwater (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Beware of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Galveston with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Galveston in Texas is an exposed beach break that has inconsistent surf. The best conditions for surfing are during the hurricane season. Offshore winds are from the north northwest. Windswells are much more typical than groudswells and the ideal wave angle is from the southeast. Waves at the beach are both lefts and rights. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Beware of rips, obstacles, sharks and jellyfish. Galveston"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-galveston"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC gtot2",
+     "name": "8771450 - Galveston Pier 21, TX",
+     "owner": "NOS",
+     "distanceKm": 2.1,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 29.311,
+     "lon": -94.792,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=gtot2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC gptx",
+     "name": "Galveston_Pier_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 2.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 29.31,
+     "lon": -94.793,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=gptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLS",
+     "name": "GALVESTON/SCHOLES",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 9.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.265,
+     "lon": -94.86,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Galveston",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Galveston, pin 29.31,-94.77); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Galveston"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-flagship",
+    "distanceKm": 2.95
+   }
+  },
+  {
+   "id": "w-us-galveston-61st-street-pier",
+   "name": "Galveston-61st Street Pier",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 29.302,
+   "lon": -94.775,
+   "seaward": 139.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.3019, -94.7755) taken from the guide page, rounded to 3 dp; 0.48 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Galveston_Sixtyfirst-Street"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1698.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 221 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 14.7 deg (limit 45); 300 m window gives 137.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1698.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1699.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/970/1698.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/970/1699.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.300404,
+     -94.77399
+    ],
+    "distanceToCoastM": 221.0,
+    "meanDevDeg": 14.7,
+    "seaward300": 137.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 18 deg from facing+180 (319); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 4 deg from the facing (139); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Galveston-61st Street Pier",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Galveston_Sixtyfirst-Street",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach/Pier break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Beware of rips and obstacles. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Galveston-61st Street Pier with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Galveston-61st Street Pier in Texas is an exposed beach/Pier break that has quite reliable surf. The best conditions for surfing are during the hurricane season. The best wind direction is from the north northwest. Windswells are much more common than groundswells and the best wave direction is from the southeast. Waves at the beach are both lefts and rights. Good surf at all stages of the tide. Sometimes crowded. Beware of rips and obstacles. Galveston-61st Street Pier"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-galveston-61st-street-pier"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC gtot2",
+     "name": "8771450 - Galveston Pier 21, TX",
+     "owner": "NOS",
+     "distanceKm": 1.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 29.311,
+     "lon": -94.792,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=gtot2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC gptx",
+     "name": "Galveston_Pier_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 1.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 29.31,
+     "lon": -94.793,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=gptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLS",
+     "name": "GALVESTON/SCHOLES",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 9.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.265,
+     "lon": -94.86,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Galveston-61st Street Pier",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Galveston_Sixtyfirst-Street, pin 29.3,-94.78); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Galveston_Sixtyfirst-Street"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-galveston",
+    "distanceKm": 0.59
+   }
+  },
+  {
+   "id": "w-us-jp-luby-pier",
+   "name": "JP Luby Pier",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 27.673,
+   "lon": -97.169,
+   "seaward": 126.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.6732, -97.1688) taken from the guide page, rounded to 3 dp; 0.37 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/J-P-Luby-Pier"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1719.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 27 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.8 deg (limit 45); 300 m window gives 125.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1719.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1720.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.67333,
+     -97.169027
+    ],
+    "distanceToCoastM": 26.6,
+    "meanDevDeg": 38.8,
+    "seaward300": 125.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 14 deg from facing+180 (306); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 9 deg from the facing (126); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "JP Luby Pier",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/J-P-Luby-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "exposure": "exposed beach/Pier break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the best wave direction is from the southeast.. (surf-forecast)",
+     "It's sometimes crowded here. (surf-forecast)",
+     "Beware of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing JP Luby Pier with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "JP Luby Pier in Texas is an exposed beach/Pier break that has pretty consitent surf. The favoured conditions for surfing are during the hurricane season. The best wind direction is from the west northwest. Waves more likely to be from local windswells than distant groundswells and the best wave direction is from the southeast.. Surfable at all stages of the tide. It's sometimes crowded here. Beware of rips, obstacles, sharks and jellyfish. JP Luby Pier"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-jp-luby-pier"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pact2",
+     "name": "8775792 - Packery Channel, TX",
+     "owner": "TCOON",
+     "distanceKm": 8.0,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.634,
+     "lon": -97.237,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pact2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC cctx",
+     "name": "Corpus Christi, TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 11.4,
+     "live": false,
+     "liveNote": "last sample 2020-10-05 00:05:00.000 UTC in the IOC station list",
+     "lat": 27.58,
+     "lon": -97.217,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=cctx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NGP",
+     "name": "CORPUS CHRISTI NAS",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 12.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.693,
+     "lon": -97.291,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NGP&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "JP Luby Pier",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/J-P-Luby-Pier, pin 27.67,-97.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/J-P-Luby-Pier"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-fish-pass-jetties",
+    "distanceKm": 0.54
+   }
+  },
+  {
+   "id": "w-us-meacom-pier",
+   "name": "Meacom Pier",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 29.378,
+   "lon": -94.73,
+   "seaward": 114.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.3783, -94.7297) taken from the guide page, rounded to 3 dp; 0.19 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Meacom-Pier"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1697.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 442 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.6 deg (limit 45); 300 m window gives 111.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1697.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/969/1698.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/970/1697.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/970/1698.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.377217,
+     -94.725314
+    ],
+    "distanceToCoastM": 442.0,
+    "meanDevDeg": 5.6,
+    "seaward300": 111.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 21 deg from facing+180 (294); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 21 deg from the facing (114); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Meacom Pier",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Meacom-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach/Pier break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast. (surf-forecast)",
+     "Take care of rips, rocks, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Meacom Pier with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Meacom Pier in Texas is an exposed beach/Pier break that has quite consistent surf. The best conditions for surfing are during the hurricane season. Ideal winds are from the northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast. The beach breaks offer lefts and rights. When the surf is up, it can get quite busy in the water. Take care of rips, rocks, sharks and jellyfish. Meacom Pier"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-meacom-pier"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC gnjt2",
+     "name": "8771341 - Galveston Bay Entrance (North Jetty), TX",
+     "owner": "NOS",
+     "distanceKm": 2.4,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 29.357,
+     "lon": -94.725,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=gnjt2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC gptx",
+     "name": "Galveston_Pier_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 9.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 29.31,
+     "lon": -94.793,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=gptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLS",
+     "name": "GALVESTON/SCHOLES",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 17.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.265,
+     "lon": -94.86,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Meacom Pier",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Meacom-Pier, pin 29.38,-94.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Meacom-Pier"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-galveston",
+    "distanceKm": 8.94
+   }
+  },
+  {
+   "id": "w-us-octagon-house",
+   "name": "Octagon House",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 29.095,
+   "lon": -95.104,
+   "seaward": 128.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.0945, -95.1036) taken from the guide page, rounded to 3 dp; 0.61 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Octagon"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/965/1701.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 169 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.3 deg (limit 45); 300 m window gives 126.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/965/1701.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/965/1702.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/966/1701.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/966/1702.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.093608,
+     -95.102187
+    ],
+    "distanceToCoastM": 169.2,
+    "meanDevDeg": 4.3,
+    "seaward300": 126.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 7 deg from facing+180 (308); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 7 deg from the facing (128); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Octagon House",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Octagon",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast. (surf-forecast)",
+     "When it's working here, it can get crowded. (surf-forecast)",
+     "Beware of rips, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Octagon House with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Octagon House in Texas is an exposed beach break that has fairly consistent surf. The best conditions for surfing are during the hurricane season. The best wind direction is from the northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast. The beach break provides left and right handers. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Beware of rips, sharks and jellyfish. Octagon House"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-octagon-house"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC luit2",
+     "name": "8771972 - San Luis Pass, TX",
+     "owner": "TCOON",
+     "distanceKm": 2.7,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 29.076,
+     "lon": -95.122,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=luit2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC fptx",
+     "name": "Free_Port_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 25.7,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.95,
+     "lon": -95.31,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLS",
+     "name": "GALVESTON/SCHOLES",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 30.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.265,
+     "lon": -94.86,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Octagon House",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Octagon, pin 29.09,-95.1); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Octagon"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-west-galveston",
+    "distanceKm": 7.84
+   }
+  },
+  {
+   "id": "w-us-panama-city-beach",
+   "name": "Panama City Beach",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 30.158,
+   "lon": -85.779,
+   "seaward": 216.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.158, -85.7795) taken from the guide page, rounded to 3 dp; 0.23 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Panama-City-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1071/1687.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 62 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.7 deg (limit 45); 300 m window gives 217.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1071/1687.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1071/1688.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1072/1687.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1072/1688.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.158438,
+     -85.779102
+    ],
+    "distanceToCoastM": 61.8,
+    "meanDevDeg": 2.7,
+    "seaward300": 217.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 37 deg from facing+180 (37); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 59 deg from the facing (217); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Panama City Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Panama-City-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "When it's working here, it can get crowded. (surf-forecast)",
+     "Take care of rips and sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Panama City Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Panama City Beach in Florida is an exposed beach break that has reliable surf. The optimum conditions for surfing are during the hurricane season. The best wind direction is from the north. Windswells are much more common than groundswells and the ideal wave angle is from the south southeast. The beach break provides left and right handers. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Take care of rips and sharks. Panama City Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-panama-city-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pacf1",
+     "name": "8729108 - Panama City, FL",
+     "owner": "NOS",
+     "distanceKm": 11.1,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 30.15,
+     "lon": -85.664,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pacf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pcfl",
+     "name": "Panama_City_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 10.8,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 30.152,
+     "lon": -85.667,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pcfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PFN",
+     "name": "PANAMA CITY/BAY CO.",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 11.1,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 30.212,
+     "lon": -85.683,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PFN&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Panama City Beach",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Panama-City-Beach, pin 30.16,-85.78); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Panama-City-Beach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-spinnaker",
+    "distanceKm": 1.98
+   }
+  },
+  {
+   "id": "w-us-pensacola-beach",
+   "name": "Pensacola beach",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 30.391,
+   "lon": -86.756,
+   "seaward": 175.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.3908, -86.7557) taken from the guide page, rounded to 3 dp; 0.42 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Pensacolabeach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1060/1684.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 70 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.0 deg (limit 45); 300 m window gives 176.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1060/1684.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1060/1685.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1061/1684.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1061/1685.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.391428,
+     -86.755739
+    ],
+    "distanceToCoastM": 69.5,
+    "meanDevDeg": 2.0,
+    "seaward300": 176.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north: nearest listed direction is 4 deg from facing+180 (356); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 18 deg from the facing (176); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Pensacola beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Pensacolabeach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the north (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the southeast. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Watch out for rips and sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Pensacola beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Pensacola beach in Florida is an exposed beach break that has quite consistent surf. Winter is the optimum time of year for surfing here. Offshore winds blow from the north. Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the southeast. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Rarely crowded here. Watch out for rips and sharks. Pensacola beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-pensacola-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pclf1",
+     "name": "8729840 - Pensacola, FL",
+     "owner": "NOS",
+     "distanceKm": 43.7,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 30.404,
+     "lon": -87.211,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pclf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pnfl",
+     "name": "Pensacola_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 43.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 30.403,
+     "lon": -87.212,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pnfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HRT",
+     "name": "HURLBURT FIELD (AF)",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 7.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.428,
+     "lon": -86.689,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HRT&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Pensacola beach",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Pensacolabeach, pin 30.39,-86.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Pensacolabeach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-navarre-beach",
+    "distanceKm": 9.68
+   }
+  },
+  {
+   "id": "w-us-point-o-rocks",
+   "name": "Point o Rocks",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/New_York",
+   "type": "Point",
+   "lat": 27.246,
+   "lon": -82.536,
+   "seaward": 245.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.246, -82.536) taken from the guide page, rounded to 3 dp; 0.6 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Point-o-Rocks"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1108/1725.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 10 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 19.8 deg (limit 45); 300 m window gives 250.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1108/1725.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1108/1726.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1109/1725.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1109/1726.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.246044,
+     -82.536085
+    ],
+    "distanceToCoastM": 9.7,
+    "meanDevDeg": 19.8,
+    "seaward300": 250.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 2 deg from facing+180 (66); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 21 deg from the facing (246); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Point o Rocks",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Point-o-Rocks",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Point o Rocks in Gulf Coast, Florida is an exposed point break that has inconsistent surf. (surf-forecast)",
+     "Sometimes crowded. (surf-forecast)",
+     "Point o Rocks (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Point o Rocks with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Point o Rocks in Gulf Coast, Florida is an exposed point break that has inconsistent surf. Winter is the optimum time of year for surfing here. Ideal winds are from the east northeast. Most of the surf comes fis in the form of windswells and the best wave direction is from the southwest. Sometimes crowded. Point o Rocks"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-point-o-rocks"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC venf1",
+     "name": "Venice, FL",
+     "owner": "NDBC",
+     "distanceKm": 21.0,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.072,
+     "lon": -82.453,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=venf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC spfl",
+     "name": "St_Petersburg_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 57.9,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 27.76,
+     "lon": -82.627,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=spfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SRQ",
+     "name": "SARASOTA-BRADENTON",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 17.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.401,
+     "lon": -82.559,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SRQ&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Point o Rocks",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Point-o-Rocks, pin 27.25,-82.54); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Point-o-Rocks"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-stickney-point",
+    "distanceKm": 0.2
+   }
+  },
+  {
+   "id": "w-us-port-aransas",
+   "name": "Port Aransas",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 27.833,
+   "lon": -97.05,
+   "seaward": 117.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.8331, -97.0497) taken from the guide page, rounded to 3 dp; 0.35 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Port-Aransas"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/943/1717.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 204 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 44.2 deg (limit 45); 300 m window gives 139.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/943/1717.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/943/1718.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/944/1717.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/944/1718.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.831689,
+     -97.048357
+    ],
+    "distanceToCoastM": 204.5,
+    "meanDevDeg": 44.2,
+    "seaward300": 139.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 17 deg from facing+180 (298); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 17 deg from the facing (118); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Port Aransas",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Port-Aransas",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the ideal wave angle is from the southeast.. (surf-forecast)",
+     "It's sometimes crowded here. (surf-forecast)",
+     "Take care of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Port Aransas with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Port Aransas in Texas is an exposed beach break that only works once in a while. The favoured conditions for surfing are during the hurricane season. Works best in offshore winds from the northwest. Usually gets local windswells, but groundswells do happen and the ideal wave angle is from the southeast.. Surfable at all stages of the tide. It's sometimes crowded here. Take care of rips, obstacles, sharks and jellyfish. Port Aransas"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-port-aransas"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC mist2",
+     "name": "Ship Channel, Mission-Aransas Reserve, TX",
+     "owner": "National Estuarine Research Reserve System",
+     "distanceKm": 0.5,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.838,
+     "lon": -97.05,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=mist2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC rptx",
+     "name": "Rockport_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 21.0,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.022,
+     "lon": -97.047,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RAS",
+     "name": "PORT ARANSAS/MUSTANG BEACH ARPT",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 4.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.81,
+     "lon": -97.09,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RAS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Port Aransas",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Aransas, pin 27.83,-97.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Port-Aransas"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-horace-caldwell-pier",
+    "distanceKm": 0.89
+   }
+  },
+  {
+   "id": "w-us-port-isabel",
+   "name": "Port Isabel",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 26.125,
+   "lon": -97.165,
+   "seaward": 81.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (26.1253, -97.1653) taken from the guide page, rounded to 3 dp; 0.7 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Port-Isabel"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1739.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 115 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.2 deg (limit 45); 300 m window gives 82.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1739.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/942/1740.pbf"
+    ],
+    "nearestCoastPoint": [
+     26.125154,
+     -97.166441
+    ],
+    "distanceToCoastM": 115.1,
+    "meanDevDeg": 1.2,
+    "seaward300": 82.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 8 deg from facing+180 (262); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 8 deg from the facing (82); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Port Isabel",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Port-Isabel",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Beware of rips, rocks, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Port Isabel with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Port Isabel in Texas is an exposed beach/Jetty break that usually has waves Works best in offshore winds from the west. Windswells are much more typical than groudswells and the best wave direction is from the east. The beach break offers both left and right hand waves. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of rips, rocks, sharks and jellyfish. Port Isabel"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-port-isabel"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pcgt2",
+     "name": "8779748 - South Padre Island CGS, TX ",
+     "owner": "TCOON",
+     "distanceKm": 5.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 26.072,
+     "lon": -97.167,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pcgt2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pitx",
+     "name": "Port_Isabel_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 8.8,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 26.06,
+     "lon": -97.215,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pitx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SPL",
+     "name": "South Padre Island",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 6.1,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 26.071,
+     "lon": -97.157,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SPL&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Port Isabel",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Isabel, pin 26.13,-97.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Port-Isabel"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-south-padre-island",
+    "distanceKm": 2.04
+   }
+  },
+  {
+   "id": "w-us-port-o-conner",
+   "name": "Port O'Conner",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 28.405,
+   "lon": -96.355,
+   "seaward": 135.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (28.4046, -96.355) taken from the guide page, rounded to 3 dp; 0.71 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Port-Oconner"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/951/1710.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 243 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.4 deg (limit 45); 300 m window gives 135.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/951/1710.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/951/1711.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/952/1710.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/952/1711.pbf"
+    ],
+    "nearestCoastPoint": [
+     28.406248,
+     -96.356641
+    ],
+    "distanceToCoastM": 242.9,
+    "meanDevDeg": 2.4,
+    "seaward300": 135.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 0 deg from facing+180 (316); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 0 deg from the facing (136); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Port O'Conner",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Port-Oconner",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "Port O'Conner in Texas is an exposed beach/Jetty break that only works when conditions are just right. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Port O'Conner with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Port O'Conner in Texas is an exposed beach/Jetty break that only works when conditions are just right. The best conditions for surfing are during the hurricane season. Offshore winds blow from the northwest. Most of the surf comes fis in the form of windswells and the best wave direction is from the southeast. The beach break provides left and right handers. Rarely crowded here. Beware of rips, obstacles, sharks and jellyfish. Port O'Conner"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-port-o-conner"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC mbet2",
+     "name": "8773767 - Matagorda Bay Entrance Channel, TX",
+     "owner": "NOS",
+     "distanceKm": 3.4,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 28.422,
+     "lon": -96.327,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=mbet2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC rptx",
+     "name": "Rockport_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 80.0,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.022,
+     "lon": -97.047,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PSX",
+     "name": "PALACIOS MUNICIPAL",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 37.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 28.73,
+     "lon": -96.25,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSX&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Port O'Conner",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Oconner, pin 28.4,-96.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Port-Oconner"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-port-o-connor-jetties",
+    "distanceKm": 3.45
+   }
+  },
+  {
+   "id": "w-us-san-jose-island-2",
+   "name": "San Jose Island",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 27.926,
+   "lon": -96.992,
+   "seaward": 127.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.926, -96.9921) taken from the guide page, rounded to 3 dp; 0.49 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/San-Jose-Island"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/944/1716.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 301 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.0 deg (limit 45); 300 m window gives 127.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/944/1716.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/944/1717.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.924349,
+     -96.989669
+    ],
+    "distanceToCoastM": 300.8,
+    "meanDevDeg": 0.0,
+    "seaward300": 127.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 8 deg from facing+180 (307); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 8 deg from the facing (127); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "San Jose Island",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/San-Jose-Island",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of rips, obstacles, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing San Jose Island with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "San Jose Island in Texas is an exposed beach/Jetty break that only works once in a while. The optimum conditions for surfing are during the hurricane season. Offshore winds are from the northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.. Good surf at all stages of the tide. Rarely crowded here. Beware of rips, obstacles, sharks and jellyfish. San Jose Island"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-san-jose-island-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC maqt2",
+     "name": "Aransas Bay, Mission-Aransas Reserve, TX",
+     "owner": "National Estuarine Research Reserve System",
+     "distanceKm": 7.0,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.98,
+     "lon": -97.029,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=maqt2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC rptx",
+     "name": "Rockport_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 12.0,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.022,
+     "lon": -97.047,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=rptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RAS",
+     "name": "PORT ARANSAS/MUSTANG BEACH ARPT",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 16.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.81,
+     "lon": -97.09,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RAS&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "San Jose Island",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/San-Jose-Island, pin 27.93,-96.99); surf-forecast publishes no facing and same name as kept w-us-san-jose-island but the two guide pins are 11 km apart, so not merged, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/San-Jose-Island"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-st-joes-island",
+    "distanceKm": 10.26
+   }
+  },
+  {
+   "id": "w-us-17th-ave",
+   "name": "17th Ave",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/Chicago",
+   "type": "Beach",
+   "lat": 30.335,
+   "lon": -87.115,
+   "seaward": 168.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (30.335, -87.115) taken from the guide page, rounded to 3 dp; 0.73 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Seventeenth-Ave"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1056/1685.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 16 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.5 deg (limit 45); 300 m window gives 168.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1056/1685.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1057/1685.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.33514,
+     -87.115033
+    ],
+    "distanceToCoastM": 15.8,
+    "meanDevDeg": 0.5,
+    "seaward300": 168.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 34 deg from facing+180 (348); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 11 deg from the facing (168); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "17th Ave",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Seventeenth-Ave",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "sheltered beach break (surf-forecast)",
+    "hazards": [
+     "Beware of - Rips / undertow. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing 17th Ave with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "17th Ave in Gulf Coast, Florida is a sheltered beach break that has reasonably consistent surf. The best conditions for surfing are during the hurricane season. The best wind direction is from the north northeast. Most of the surf comes fis in the form of windswells and the best wave direction is from the south southeast. The beach break provides left and right handers. When the surf is up, it can get quite busy in the water. Beware of - Rips / undertow. 17th Ave"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-17th-ave"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pclf1",
+     "name": "8729840 - Pensacola, FL",
+     "owner": "NOS",
+     "distanceKm": 12.0,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 30.404,
+     "lon": -87.211,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pclf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pnfl",
+     "name": "Pensacola_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 12.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 30.403,
+     "lon": -87.212,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pnfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PNS",
+     "name": "PENSACOLA REGIONAL",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 17.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.478,
+     "lon": -87.187,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PNS&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "17th Ave",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Seventeenth-Ave, pin 30.34,-87.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Seventeenth-Ave"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-pensacola-pier",
+    "distanceKm": 2.74
+   }
+  },
+  {
+   "id": "w-us-surfside-jetty",
+   "name": "Surfside Jetty",
+   "country": "United States",
+   "region": "Texas",
+   "timeZone": "America/Chicago",
+   "type": null,
+   "lat": 29.068,
+   "lon": -95.123,
+   "seaward": 116.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (29.0678, -95.1228) taken from the guide page, rounded to 3 dp; 0.37 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Surfside-Jetty_1"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/965/1701.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 262 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.7 deg (limit 45); 300 m window gives 123.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/965/1701.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/965/1702.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/966/1701.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/966/1702.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.070105,
+     -95.123405
+    ],
+    "distanceToCoastM": 261.6,
+    "meanDevDeg": 40.7,
+    "seaward300": 123.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northwest: nearest listed direction is 41 deg from facing+180 (296); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 64 deg from the facing (116); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Surfside Jetty",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Surfside-Jetty_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore winds from the north northwest (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach/Jetty break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the south. (surf-forecast)",
+     "A fairly popluar wave that can sometimes get crowded Beware of rips, sharks and jellyfish. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Surfside Jetty with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Surfside Jetty in Texas is an exposed beach/Jetty break that does not work very often. The best conditions for surfing are during the hurricane season. Offshore winds are from the north northwest. Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the south. The beach break provides left and right handers. A fairly popluar wave that can sometimes get crowded Beware of rips, sharks and jellyfish. Surfside Jetty"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-surfside-jetty"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC luit2",
+     "name": "8771972 - San Luis Pass, TX",
+     "owner": "TCOON",
+     "distanceKm": 0.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 29.076,
+     "lon": -95.122,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=luit2"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC fptx",
+     "name": "Free_Port_TX",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 22.4,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 28.95,
+     "lon": -95.31,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fptx"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LBX",
+     "name": "ANGLETON/LAKE JACKS",
+     "owner": "IEM TX_ASOS network (airport METAR)",
+     "distanceKm": 33.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 29.109,
+     "lon": -95.462,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LBX&network=TX_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Surfside Jetty",
+    "surfForecastRegion": "Texas",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Surfside-Jetty_1, pin 29.07,-95.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Surfside-Jetty_1"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-octagon-house",
+    "distanceKm": 3.52
+   }
+  },
+  {
+   "id": "w-us-turtle-beach",
+   "name": "Turtle Beach",
+   "country": "United States",
+   "region": "Florida – Gulf",
+   "timeZone": "America/New_York",
+   "type": null,
+   "lat": 27.354,
+   "lon": -82.62,
+   "seaward": 232.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (27.3541, -82.6196) taken from the guide page, rounded to 3 dp; 0.46 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Turtle-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1107/1723.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 258 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.3 deg (limit 45); 300 m window gives 232.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1107/1723.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1107/1724.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1108/1723.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1108/1724.pbf"
+    ],
+    "nearestCoastPoint": [
+     27.355498,
+     -82.617512
+    ],
+    "distanceToCoastM": 257.9,
+    "meanDevDeg": 2.3,
+    "seaward300": 232.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 15 deg from facing+180 (52); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 83 deg from the facing (232); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Turtle Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Turtle-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "Turtle Beach in Alabama is an exposed beach break that only works when conditions are just right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Watch out for dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Offshore winds blow from the east northeast. Windswells are much more typical than groudswells and the best wave direction is from the northwest. The beach breaks offer lefts and rights. The quality of the surf isn't affected by the tide. Even when there are waves, it's not likley to be crowded. Watch out for dangerous rips. Turtle Beach Spot Info Type : Rating: Reliability : Todays Sea Temp*: Sandbar 3 inconsistent 25.1 ° C *ocean temperature recorded from satellite Surfing Turtle Beach: The best conditions reported for surf at Turtle Beach occur when a Northwest swell combines with an offshore wind direction from the East-northeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Turtle Beach (for consistent clean waves)? january Best Season: winter The best time of year for surfing Turtle Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Turtle Beach in Alabama is an exposed beach break that only works when conditions are just right. Winter is the best time of year for surfing here. Offshore winds blow from the east northeast. Windswells are much more typical than groudswells and the best wave direction is from the northwest. The beach breaks offer lefts and rights. The quality of the surf isn't affected by the tide. Even when there are waves, it's not likley to be crowded. Watch out for dangerous rips. Turtle Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-us-turtle-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pmaf1",
+     "name": "8726384 - Port Manatee, FL",
+     "owner": "NOAA NOS PORTS",
+     "distanceKm": 32.1,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 27.638,
+     "lon": -82.562,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pmaf1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC spfl",
+     "name": "St_Petersburg_FL",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 45.1,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 27.76,
+     "lon": -82.627,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=spfl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SRQ",
+     "name": "SARASOTA-BRADENTON",
+     "owner": "IEM FL_ASOS network (airport METAR)",
+     "distanceKm": 8.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 27.401,
+     "lon": -82.559,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SRQ&network=FL_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Turtle Beach",
+    "surfForecastRegion": "Gulf-Coast-Florida",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Turtle-Beach, pin 27.35,-82.62); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Turtle-Beach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-us-lido-beach-2-3",
+    "distanceKm": 5.67
+   }
   }
  ],
  "dropped": [
@@ -14403,233 +17556,223 @@
   {
    "name": "The Pass",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Amazons, pin 30.12,-85.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.11; limit 45 deg): headland, cove or point, ambiguous [name match https://www.surfnerd.com/surf-forecast/the-pass rejected: its pin is 11130.6 km from the pin quoted in the drop reason (limit 5 km); name match https://www.surf-forecast.com/breaks/The-Pass rejected: its pin is 14328.6 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Anclote Island",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Anclote-Island, pin 28.19,-82.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.19; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Anna Maria Island",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Anna-Maria-Island, pin 27.54,-82.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Anna Maria Key",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Anna-Maria-Key, pin 27.53,-82.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.42; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bellair Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Belleair-Beach, pin 27.91,-82.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.25; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bolivar",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bolivar, pin 29.52,-94.47); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Texas",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 75 deg (arccos of mean resultant length 0.26; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bradenton Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bradenton-Beach, pin 27.49,-82.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 64 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Calle Hermosa",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Calle-Hermosa, pin 30.34,-87.09); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.21; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Clearwater Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Clearwater-Beach, pin 27.95,-82.84); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.11; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Clearwater Pass",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Clearwater-Pass, pin 27.97,-82.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Coastal Bend Area",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Coastal-Bend-Area, pin 28.03,-96.89); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Condos",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Condos_1, pin 27.69,-97.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Corpus Christi",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Corpus-Christi, pin 27.6,-97.21); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Cove",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Cove, pin 26.1,-97.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Dauphin Island Pier",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Dauphin-Island-Pier, pin 30.25,-88.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Alabama"
-  },
-  {
-   "name": "Destin",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Destin, pin 30.38,-86.45); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Fish Pass Jetty",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Fish-Pass-Jetty, pin 27.8,-97.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Alabama",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.31; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fort Walton Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Fort-Walton-Beach, pin 30.38,-86.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Fort Walton Pier",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Fort-Walton-Pier, pin 30.39,-86.6); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Freeport Channel",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Freeport-Channel, pin 28.86,-95.4); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Freeport Pier",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Freeport-Pier, pin 28.87,-95.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Galveston",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Galveston, pin 29.31,-94.77); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Galveston - Flagship Pier",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Galveston-Flagship, pin 29.31,-94.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Galveston-61st Street Pier",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Galveston_Sixtyfirst-Street, pin 29.3,-94.78); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "JP Luby Pier",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/J-P-Luby-Pier, pin 27.67,-97.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Meacom Pier",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Meacom-Pier, pin 29.38,-94.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Octagon House",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Octagon, pin 29.09,-95.1); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Panama City Beach",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Panama-City-Beach, pin 30.16,-85.78); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Texas",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide page https://www.surf-forecast.com/breaks/Galveston-Flagship is already the source of kept spot w-us-flagship, so this row is a duplicate listing"
+   }
   },
   {
    "name": "Pensacola Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Pensacola-Beach, pin 30.33,-87.14); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Pensacola beach",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Pensacolabeach, pin 30.39,-86.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Point o Rocks",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Point-o-Rocks, pin 27.25,-82.54); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Port Aransas",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Aransas, pin 27.83,-97.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Port Isabel",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Isabel, pin 26.13,-97.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Port Mansfield Jetty",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Mansfield-Jetty, pin 26.58,-97.28); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Port O'Conner",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Oconner, pin 28.4,-96.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Texas",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide page https://www.surf-forecast.com/breaks/Port-Mansfield-Jetty is already the source of kept spot w-us-port-mansfield-jetties, so this row is a duplicate listing"
+   }
   },
   {
    "name": "Quintana Jetty",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Quintana-Jetty, pin 29.01,-95.2); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "San Jose Island",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/San-Jose-Island, pin 27.93,-96.99); surf-forecast publishes no facing and same name as kept w-us-san-jose-island but the two guide pins are 11 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Texas",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.34; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sand Key Jetty",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sand-Key-Jetty, pin 27.93,-82.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "17th Ave",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Seventeenth-Ave, pin 30.34,-87.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Shell Island",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Shell-Island_1, pin 30.1,-85.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.16; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Siesta",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Siesta, pin 27.37,-82.63); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.19; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "South Padre Island",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/South-Padre-Island, pin 26.67,-97.29); surf-forecast publishes no facing and same name as kept w-us-south-padre-island but the two guide pins are 64 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Texas"
+   "surfForecastRegion": "Texas",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.98 km from the pin (> 1.5 km) [name match https://www.surfnerd.com/surf-forecast/south-padre-island rejected: its pin is 63.9 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Sunset Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sunset-Beach, pin 27.74,-82.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
-  },
-  {
-   "name": "Surfside Jetty",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Surfside-Jetty_1, pin 29.07,-95.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Texas"
-  },
-  {
-   "name": "Turtle Beach",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Turtle-Beach, pin 27.35,-82.62); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous [name match https://www.surfnerd.com/surf-forecast/sunset-beach rejected: its pin is 18310.6 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Wiggins Pass",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Wiggins-Pass, pin 26.29,-81.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Gulf-Coast-Florida"
+   "surfForecastRegion": "Gulf-Coast-Florida",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
  ],
- "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md | 2026-11-10: 24 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 24 computed-coastline); see RECOVERY-2026-11-10.md"
 }

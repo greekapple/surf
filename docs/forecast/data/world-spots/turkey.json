@@ -2,31 +2,480 @@
  "region": "Turkey",
  "retrievedOn": "2026-11-09",
  "note": "Guides read on 2026-11-09: surfnerd (every page on its country list) and surf-forecast (its country break list), paired only by matching break name within 2.5 km. Position: an OSM beach/cape/bay within 1 km of the guide pin, else the surfnerd pin. Facing: surfnerd \"Faces X\"; a page with no stated facing (every surf-forecast-only page) is dropped. nearestSources: Copernicus Marine in-situ fixed platforms (index_platform.txt of INSITU_GLO_PHYBGCWAV_DISCRETE_MYNRT_013_030; VHM0/VAVH = wave station, SLEV = tide gauge; live = last observation within 48 h of the index update 2026-11-09T04:29Z), NDBC partner buoys (live = realtime2 file), IOC sea-level stations (live = data in the last 24 h) and the nearest METAR via IEM; radii 150/250/80/60 km.",
- "spots": [],
+ "spots": [
+  {
+   "id": "w-turkey-antalya-lara-beach",
+   "name": "Antalya (Lara Beach)",
+   "country": "Turkey",
+   "region": "Mediterranean",
+   "timeZone": "Europe/Istanbul",
+   "type": null,
+   "lat": 36.838,
+   "lon": 30.809,
+   "seaward": 183.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (36.8382, 30.8087) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Antalya-Lara-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2398/1596.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 901 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 35.8 deg (limit 45); 300 m window gives 184.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2398/1596.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2398/1597.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2399/1596.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2399/1597.pbf"
+    ],
+    "nearestCoastPoint": [
+     36.846229,
+     30.806973
+    ],
+    "distanceToCoastM": 901.1,
+    "meanDevDeg": 35.8,
+    "seaward300": 184.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell South-southwest: nearest listed direction is 19 deg from the facing (184); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Antalya (Lara Beach)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Antalya-Lara-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the north and there is no shelter here from cross shore breezes (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "The sandbar breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the south southwest. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Antalya (Lara Beach) in Mediterranean is an exposed sandbar break that has inconsistent surf. Winter is the optimum time of year for surfing here. Offshore winds blow from the north and there is no shelter here from cross shore breezes. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the south southwest. The sandbar breaks offer lefts and rights. Even when the surf is up, crowds are unknown. Antalya (Lara Beach)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-turkey-antalya-lara-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC anta",
+     "name": "Antalya",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 17.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:30.000 UTC in the IOC station list",
+     "lat": 36.836,
+     "lon": 30.613,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=anta"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LTAI",
+     "name": "Antalya",
+     "owner": "IEM TR__ASOS network (airport METAR)",
+     "distanceKm": 7.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.867,
+     "lon": 30.733,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LTAI&network=TR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Antalya (Lara Beach)",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Antalya-Lara-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Antalya-Lara-Beach"
+    ],
+    "foundByName": []
+   }
+  },
+  {
+   "id": "w-turkey-karasu",
+   "name": "Karasu",
+   "country": "Turkey",
+   "region": "Black Sea",
+   "timeZone": "Europe/Istanbul",
+   "type": "Beach",
+   "lat": 41.099,
+   "lon": 30.727,
+   "seaward": 27.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (41.0988, 30.7274) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Karasu"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2397/1533.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 29 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.0 deg (limit 45); 300 m window gives 27.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2397/1533.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2397/1534.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2398/1533.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2398/1534.pbf"
+    ],
+    "nearestCoastPoint": [
+     41.098573,
+     30.727216
+    ],
+    "distanceToCoastM": 29.4,
+    "meanDevDeg": 7.0,
+    "seaward300": 27.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southwest: nearest listed direction is 18 deg from facing+180 (207); consistent (<=60)",
+     "surf-forecast best swell from the northeast: nearest listed direction is 18 deg from the facing (27); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Karasu",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Karasu",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Karasu in Black Sea is a fairly exposed beach break that has unreliable waves. Offshore winds blow from the southwest. The best swell direction is from the northeast. Waves at the beach break both left and right. It's sometimes crowded here. Karasu"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-turkey-karasu"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC sile",
+     "name": "Sile",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 94.5,
+     "live": false,
+     "liveNote": "last sample 2026-10-30 01:31:30.000 UTC in the IOC station list",
+     "lat": 41.18,
+     "lon": 29.604,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sile"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LTBQ",
+     "name": "Topel",
+     "owner": "IEM TR__ASOS network (airport METAR)",
+     "distanceKm": 67.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 40.735,
+     "lon": 30.083,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LTBQ&network=TR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Karasu",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Karasu); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Karasu"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-turkey-antalya-lara-beach",
+    "distanceKm": 473.85
+   }
+  },
+  {
+   "id": "w-turkey-kumcagz-kumcagiz",
+   "name": "Kumcağız (Kumcagiz)",
+   "country": "Turkey",
+   "region": "Black Sea",
+   "timeZone": "Europe/Istanbul",
+   "type": null,
+   "lat": 41.159,
+   "lon": 30.22,
+   "seaward": 350.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (41.159, 30.22) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Kumcagiz"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2391/1532.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 37 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 41.8 deg (limit 45); 300 m window gives 354.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2391/1532.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2391/1533.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2392/1532.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2392/1533.pbf"
+    ],
+    "nearestCoastPoint": [
+     41.158688,
+     30.220158
+    ],
+    "distanceToCoastM": 37.0,
+    "meanDevDeg": 41.8,
+    "seaward300": 354.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 35 deg from facing+180 (170); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 35 deg from the facing (350); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kumcağız (Kumcagiz)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kumcagiz",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "The sandbar breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "fairly exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "When it's working here, it can get crowded. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kumcağız (Kumcagiz) in Black Sea is a fairly exposed sandbar break that has unreliable waves. Works best in offshore winds from the southeast. The best swell direction is from the northwest. The sandbar breaks offer lefts and rights. When it's working here, it can get crowded. Kumcağız (Kumcagiz)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-turkey-kumcagz-kumcagiz"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC sile",
+     "name": "Sile",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 51.6,
+     "live": false,
+     "liveNote": "last sample 2026-10-30 01:31:30.000 UTC in the IOC station list",
+     "lat": 41.18,
+     "lon": 29.604,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sile"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LTBQ",
+     "name": "Topel",
+     "owner": "IEM TR__ASOS network (airport METAR)",
+     "distanceKm": 48.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 40.735,
+     "lon": 30.083,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LTBQ&network=TR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Kumcağız (Kumcagiz)",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kumcagiz); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Kumcagiz"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-turkey-karasu",
+    "distanceKm": 42.98
+   }
+  },
+  {
+   "id": "w-turkey-stone-tombs",
+   "name": "Stone-Tombs",
+   "country": "Turkey",
+   "region": "Mediterranean",
+   "timeZone": "Europe/Istanbul",
+   "type": "Beach",
+   "lat": 36.47,
+   "lon": 34.169,
+   "seaward": 117.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (36.47, 34.1695) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Stone-Tombs"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2436/1601.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 48 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.8 deg (limit 45); 300 m window gives 103.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2436/1601.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2436/1602.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2437/1601.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2437/1602.pbf"
+    ],
+    "nearestCoastPoint": [
+     36.470061,
+     34.168972
+    ],
+    "distanceToCoastM": 47.8,
+    "meanDevDeg": 38.8,
+    "seaward300": 103.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Southeast: nearest listed direction is 17 deg from the facing (118); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Stone-Tombs",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Stone-Tombs",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Stone-Tombs in Mediterranean is an exposed beach break. Winter is the best time of year for surfing here. Offshore winds are from the northwest and there is no shelter here from cross shore breezes. There is too little fetch for groundswells to form and the optimum wave angle is from the southeast. Waves at the beach break both left and right. Good surf at all stages of the tide. An uncrowded break, even when it is working. Stone-Tombs"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-turkey-stone-tombs"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC erdem",
+     "name": "Erdemli",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 12.9,
+     "live": false,
+     "liveNote": "last sample 2026-04-19 13:45:00.000 UTC in the IOC station list",
+     "lat": 36.564,
+     "lon": 34.255,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=erdem"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LTDB",
+     "name": "Cukurova",
+     "owner": "IEM TR__ASOS network (airport METAR)",
+     "distanceKm": 93.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.897,
+     "lon": 35.068,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LTDB&network=TR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Stone-Tombs",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stone-Tombs); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Stone-Tombs"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-turkey-antalya-lara-beach",
+    "distanceKm": 302.5
+   }
+  }
+ ],
  "dropped": [
   {
    "name": "Ağlayankaya Plajı (Aglayankaya)",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Aglayankaya); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Antalya (Lara Beach)",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Antalya-Lara-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Karasu",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Karasu); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Kumcağız (Kumcagiz)",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Kumcagiz); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Aglayankaya); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.50; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Side West Beach",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Side-West-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Stone-Tombs",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Stone-Tombs); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Side-West-Beach); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 77 deg (arccos of mean resultant length 0.23; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 4 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 4 computed-coastline); see RECOVERY-2026-11-10.md"
 }

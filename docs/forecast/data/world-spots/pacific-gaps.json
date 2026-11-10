@@ -2087,7 +2087,12 @@
    "pin": [
     -3.1348,
     142.3555
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-aitape (same guide page)"
+   }
   },
   {
    "name": "Aruh",
@@ -2099,7 +2104,12 @@
    "pin": [
     6.9408,
     158.332
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-aruh (same guide page)"
+   }
   },
   {
    "name": "Black Sand Beach",
@@ -2111,7 +2121,12 @@
    "pin": [
     -17.7098,
     168.2864
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-black-sand-beach (same guide page)"
+   }
   },
   {
    "name": "Breakas",
@@ -2124,7 +2139,12 @@
    "pin": [
     -17.7788,
     168.2952
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-breakas (same guide page)"
+   }
   },
   {
    "name": "Bridge",
@@ -2136,7 +2156,12 @@
    "pin": [
     7.0819,
     171.355
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.06; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "British Beach",
@@ -2149,7 +2174,12 @@
    "pin": [
     -17.7848,
     168.2819
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-british-beach (same guide page)"
+   }
   },
   {
    "name": "Calalin Pass",
@@ -2161,7 +2191,12 @@
    "pin": [
     7.1617,
     171.206
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-calalin-pass (same guide page)"
+   }
   },
   {
    "name": "Cape Barabar",
@@ -2174,7 +2209,12 @@
    "pin": [
     -3.4155,
     143.6388
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-cape-barabar (same guide page)"
+   }
   },
   {
    "name": "Coves",
@@ -2187,7 +2227,12 @@
    "pin": [
     -8.6205,
     157.2361
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-coves (same guide page)"
+   }
   },
   {
    "name": "Delap",
@@ -2199,7 +2244,12 @@
    "pin": [
     7.0896,
     171.386
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-delap (same guide page)"
+   }
   },
   {
    "name": "Despretes",
@@ -2212,7 +2262,12 @@
    "pin": [
     -8.3254,
     157.1065
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-despretes (same guide page)"
+   }
   },
   {
    "name": "Devil's Point",
@@ -2225,7 +2280,12 @@
    "pin": [
     -17.7443,
     168.18
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-devil-s-point (same guide page)"
+   }
   },
   {
    "name": "Dumbea Left",
@@ -2238,7 +2298,12 @@
    "pin": [
     -22.3638,
     166.2575
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 7.43 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Dumbéa Right",
@@ -2252,7 +2317,12 @@
    "pin": [
     -22.3513,
     166.2464
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Edmago",
@@ -2265,7 +2335,12 @@
    "pin": [
     -2.6121,
     150.7365
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Epao",
@@ -2277,7 +2352,12 @@
    "pin": [
     -17.6254,
     168.5071
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-epao (same guide page)"
+   }
   },
   {
    "name": "Erakor Island",
@@ -2290,7 +2370,12 @@
    "pin": [
     -17.7787,
     168.3054
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.05; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fakanakafo Bay",
@@ -2302,7 +2387,12 @@
    "pin": [
     -8.7135,
     160.948
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-fakanakafo-bay (same guide page)"
+   }
   },
   {
    "name": "Forari Bay",
@@ -2315,7 +2405,12 @@
    "pin": [
     -17.6794,
     168.5492
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-forari-bay (same guide page)"
+   }
   },
   {
    "name": "Forok Point",
@@ -2328,7 +2423,12 @@
    "pin": [
     -3.6165,
     143.7624
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-forok-point (same guide page)"
+   }
   },
   {
    "name": "Gouaro",
@@ -2341,7 +2441,12 @@
    "pin": [
     -21.6251,
     165.4412
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-gouaro (same guide page)"
+   }
   },
   {
    "name": "Green Island Left",
@@ -2354,7 +2459,12 @@
    "pin": [
     -21.658,
     165.4474
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-green-island-left (same guide page)"
+   }
   },
   {
    "name": "Jailbreak",
@@ -2367,7 +2477,12 @@
    "pin": [
     -2.6755,
     141.3134
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-jailbreak (same guide page)"
+   }
   },
   {
    "name": "Karawop",
@@ -2380,7 +2495,12 @@
    "pin": [
     -3.4119,
     143.4199
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-karawop (same guide page)"
+   }
   },
   {
    "name": "Kirakira",
@@ -2392,7 +2512,12 @@
    "pin": [
     -10.4568,
     161.916
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-kirakira (same guide page)"
+   }
   },
   {
    "name": "Kundu Kundu",
@@ -2405,7 +2530,12 @@
    "pin": [
     -8.3734,
     157.2293
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-kundu-kundu (same guide page)"
+   }
   },
   {
    "name": "Laura",
@@ -2417,7 +2547,12 @@
    "pin": [
     7.144,
     171.027
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-laura (same guide page)"
+   }
   },
   {
    "name": "Lavata",
@@ -2430,7 +2565,12 @@
    "pin": [
     -8.3521,
     157.2135
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-lavata (same guide page)"
+   }
   },
   {
    "name": "Leli Island",
@@ -2442,7 +2582,12 @@
    "pin": [
     -8.7612,
     161.052
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-leli-island (same guide page)"
+   }
   },
   {
    "name": "Lido's Left",
@@ -2454,7 +2599,12 @@
    "pin": [
     -2.663,
     141.2802
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-lido-s-left (same guide page)"
+   }
   },
   {
    "name": "Lido's Right",
@@ -2467,7 +2617,12 @@
    "pin": [
     -2.6591,
     141.2712
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-lido-s-right (same guide page)"
+   }
   },
   {
    "name": "Lighthouse",
@@ -2479,7 +2634,12 @@
    "pin": [
     7.0131,
     158.207
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.94 km from the pin (> 1.5 km) [name match https://www.surfnerd.com/surf-forecast/lighthouse rejected: its pin is 3568.2 km from the row pin (limit 5 km); name match https://www.surf-forecast.com/breaks/Lighthouse rejected: its pin is 3574.0 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "Logs",
@@ -2492,7 +2652,12 @@
    "pin": [
     -2.6684,
     141.2972
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-logs (same guide page)"
+   }
   },
   {
    "name": "Long Long",
@@ -2505,7 +2670,12 @@
    "pin": [
     -2.5878,
     150.7707
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-long-long (same guide page)"
+   }
   },
   {
    "name": "Makuti",
@@ -2518,7 +2688,12 @@
    "pin": [
     -8.1383,
     156.9586
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Malaupaina",
@@ -2530,7 +2705,12 @@
    "pin": [
     -10.2252,
     161.967
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-malaupaina (same guide page)"
+   }
   },
   {
    "name": "Malu’u",
@@ -2542,7 +2722,12 @@
    "pin": [
     -8.3447,
     160.6352
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-maluu (same guide page)"
+   }
   },
   {
    "name": "Mangea Reefs",
@@ -2555,7 +2740,12 @@
    "pin": [
     -17.5378,
     168.4741
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-mangea-reefs (same guide page)"
+   }
   },
   {
    "name": "Manu",
@@ -2567,7 +2757,12 @@
    "pin": [
     -8.608,
     160.978
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-manu (same guide page)"
+   }
   },
   {
    "name": "Mbirimbiri",
@@ -2580,7 +2775,12 @@
    "pin": [
     -8.3339,
     157.182
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-mbirimbiri (same guide page)"
+   }
   },
   {
    "name": "Moem Point",
@@ -2593,7 +2793,12 @@
    "pin": [
     -3.5699,
     143.6869
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-moem-point (same guide page)"
+   }
   },
   {
    "name": "Mwahnd Lefts",
@@ -2605,7 +2810,12 @@
    "pin": [
     7.0202,
     158.292
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.20 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Mwahnd Rights",
@@ -2617,7 +2827,12 @@
    "pin": [
     7.0195,
     158.295
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.07 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Nago",
@@ -2631,7 +2846,12 @@
    "pin": [
     -2.5953,
     150.7694
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Nahlap",
@@ -2643,7 +2863,12 @@
    "pin": [
     6.7812,
     158.156
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-nahlap (same guide page)"
+   }
   },
   {
    "name": "Nahpali",
@@ -2655,7 +2880,12 @@
    "pin": [
     6.8655,
     158.361
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.16; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Nan Madol",
@@ -2667,7 +2897,12 @@
    "pin": [
     6.8385,
     158.34
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-nan-madol (same guide page)"
+   }
   },
   {
    "name": "Nusa Lefts",
@@ -2681,7 +2916,12 @@
    "pin": [
     -2.5654,
     150.7833
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-nusa-lefts (same guide page)"
+   }
   },
   {
    "name": "Ouano",
@@ -2694,7 +2934,12 @@
    "pin": [
     -21.8629,
     165.7229
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: ambiguous: more than one guide page matches the name on surf-forecast (https://www.surf-forecast.com/breaks/Ouano)"
+   }
   },
   {
    "name": "Outside Naru",
@@ -2706,7 +2951,12 @@
    "pin": [
     -8.1274,
     156.8707
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 69 deg (arccos of mean resultant length 0.35; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "P-Pass",
@@ -2718,7 +2968,12 @@
    "pin": [
     6.982,
     158.128
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.42 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Pailongge",
@@ -2731,7 +2986,12 @@
    "pin": [
     -8.0996,
     156.7911
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-pailongge (same guide page)"
+   }
   },
   {
    "name": "Pango Point",
@@ -2745,7 +3005,12 @@
    "pin": [
     -17.7845,
     168.283
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-pango-point (same guide page)"
+   }
   },
   {
    "name": "Passe de Boulari - Lighthouse",
@@ -2757,7 +3022,12 @@
    "pin": [
     -22.4937,
     166.4399
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.21 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Passe de Boulari - Skatepark",
@@ -2769,7 +3039,12 @@
    "pin": [
     -22.5081,
     166.4443
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 4.01 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Pikinini",
@@ -2781,7 +3056,12 @@
    "pin": [
     -2.5704,
     150.7886
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-pikinini (same guide page)"
+   }
   },
   {
    "name": "Ral",
@@ -2794,7 +3074,12 @@
    "pin": [
     -2.6092,
     150.711
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Rita Pass",
@@ -2806,7 +3091,12 @@
    "pin": [
     7.1276,
     171.355
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.15; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Roche Percée",
@@ -2819,7 +3109,12 @@
    "pin": [
     -21.6218,
     165.4639
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-roche-percee (same guide page)"
+   }
   },
   {
    "name": "Secrets",
@@ -2832,7 +3127,12 @@
    "pin": [
     -21.6942,
     165.4598
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.79 km from the pin (> 1.5 km) [name match https://www.surfnerd.com/surf-forecast/secrets rejected: its pin is 9984.2 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "Sinalangu",
@@ -2844,7 +3144,12 @@
    "pin": [
     -8.8941,
     161.072
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-sinalangu (same guide page)"
+   }
   },
   {
    "name": "Sissano Lagoon",
@@ -2857,7 +3162,12 @@
    "pin": [
     -3.0196,
     142.0871
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-sissano-lagoon (same guide page)"
+   }
   },
   {
    "name": "Skull Island",
@@ -2870,7 +3180,12 @@
    "pin": [
     -8.3316,
     157.1615
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-skull-island (same guide page)"
+   }
   },
   {
    "name": "Sokehs Pass",
@@ -2882,7 +3197,12 @@
    "pin": [
     7.0019,
     158.181
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-sokehs-pass (same guide page)"
+   }
   },
   {
    "name": "Soumabal Point",
@@ -2895,7 +3215,12 @@
    "pin": [
     -17.8181,
     168.4821
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-soumabal-point (same guide page)"
+   }
   },
   {
    "name": "Su’uholo",
@@ -2907,7 +3232,12 @@
    "pin": [
     -9.814,
     161.997
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-suuholo (same guide page)"
+   }
   },
   {
    "name": "Su’ulausi Harbour",
@@ -2919,7 +3249,12 @@
    "pin": [
     -9.7413,
     161.989
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-suulausi-harbour (same guide page)"
+   }
   },
   {
    "name": "Tapi Point",
@@ -2932,7 +3267,12 @@
    "pin": [
     -17.8066,
     168.3502
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-tapi-point (same guide page)"
+   }
   },
   {
    "name": "Tarawai",
@@ -2945,7 +3285,12 @@
    "pin": [
     -3.1998,
     143.2563
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-tarawai (same guide page)"
+   }
   },
   {
    "name": "Tawarogha",
@@ -2957,7 +3302,12 @@
    "pin": [
     -10.7491,
     162.284
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-tawarogha (same guide page)"
+   }
   },
   {
    "name": "Teouma Bay",
@@ -2971,7 +3321,12 @@
    "pin": [
     -17.79,
     168.375
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-teouma-bay (same guide page)"
+   }
   },
   {
    "name": "The Wharf",
@@ -2984,7 +3339,12 @@
    "pin": [
     -3.5624,
     143.6475
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-the-wharf (same guide page)"
+   }
   },
   {
    "name": "Titiana",
@@ -2997,7 +3357,12 @@
    "pin": [
     -8.1111,
     156.8117
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-titiana (same guide page)"
+   }
   },
   {
    "name": "Ténia",
@@ -3010,7 +3375,12 @@
    "pin": [
     -22.0333,
     165.9603
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.04 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Uruilangi",
@@ -3022,7 +3392,12 @@
    "pin": [
     -8.8375,
     160.9713
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-uruilangi (same guide page)"
+   }
   },
   {
    "name": "Wewak Point",
@@ -3035,7 +3410,12 @@
    "pin": [
     -3.5538,
     143.6338
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-wewak-point (same guide page)"
+   }
   },
   {
    "name": "Bird Island (Saipan)",
@@ -3048,7 +3428,12 @@
    "pin": [
     15.2582,
     145.8136
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.48; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Boat Basin Lefts",
@@ -3061,7 +3446,12 @@
    "pin": [
     13.483,
     144.7517
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Boat Basin Rights",
@@ -3074,7 +3464,12 @@
    "pin": [
     13.4827,
     144.7529
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Boats",
@@ -3086,7 +3481,12 @@
    "pin": [
     -17.8022,
     168.3176
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bobs",
@@ -3098,7 +3498,12 @@
    "pin": [
     -17.8159,
     168.5229
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "British Beach",
@@ -3110,7 +3515,12 @@
    "pin": [
     -17.7841,
     168.2491
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-british-beach (same guide page)"
+   }
   },
   {
    "name": "Corvette",
@@ -3122,7 +3532,12 @@
    "pin": [
     -22.4808,
     166.4532
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Dari Rights",
@@ -3134,7 +3549,12 @@
    "pin": [
     -7.4312,
     158.3191
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Doggies",
@@ -3146,7 +3566,12 @@
    "pin": [
     -17.7873,
     168.2773
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.48; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Duke of York",
@@ -3158,7 +3583,12 @@
    "pin": [
     -4.2455,
     152.4617
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Erakor Point",
@@ -3170,7 +3600,12 @@
    "pin": [
     -17.8082,
     168.313
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fast Lefts",
@@ -3182,7 +3617,12 @@
    "pin": [
     -17.8064,
     168.3014
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.54 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Fausse Passe",
@@ -3194,7 +3634,12 @@
    "pin": [
     -22.5767,
     166.4651
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Gab Gab Beach",
@@ -3206,7 +3651,12 @@
    "pin": [
     13.4444,
     144.6458
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West: nearest listed direction is 100 deg from facing+180 (170); CONTRADICTS (>60) | wannasurf good swell NorthWest, West: nearest listed direction is 35 deg from the facing (350); consistent (<=90)"
+   }
   },
   {
    "name": "Go Go's",
@@ -3218,7 +3668,12 @@
    "pin": [
     -2.6149,
     150.7392
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Graveyards",
@@ -3230,7 +3685,12 @@
    "pin": [
     13.3922,
     144.6464
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous [name match https://www.surfnerd.com/surf-forecast/graveyards rejected: its pin is 11864.0 km from the row pin (limit 5 km); name match https://www.surf-forecast.com/breaks/Graveyards rejected: its pin is 7914.5 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "High Doggies",
@@ -3242,7 +3702,12 @@
    "pin": [
     -17.796,
     168.2739
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.76 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Ifira Island",
@@ -3254,7 +3719,12 @@
    "pin": [
     -17.7531,
     168.2853
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore winds from the northeast: nearest listed direction is 99 deg from facing+180 (144); CONTRADICTS (>60) | surf-forecast best swell South: nearest listed direction is 144 deg from the facing (324); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Kavieng Rights",
@@ -3267,7 +3737,12 @@
    "pin": [
     -2.5605,
     150.7904
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the south southeast: nearest listed direction is 40 deg from facing+180 (118); consistent (<=60) | surf-forecast best swell Northeast: nearest listed direction is 108 deg from the facing (298); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Kragur Village, Kairiru Island",
@@ -3280,7 +3755,12 @@
    "pin": [
     -3.3455,
     143.559
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 2.25 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Kumars",
@@ -3292,7 +3772,12 @@
    "pin": [
     -7.5716,
     158.7821
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 67 deg (arccos of mean resultant length 0.39; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lava Rock",
@@ -3304,7 +3789,12 @@
    "pin": [
     -17.7477,
     168.1601
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.96 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Lidos Right",
@@ -3316,7 +3806,12 @@
    "pin": [
     -2.6474,
     141.2217
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: already catalogued as w-pac-lido-s-right (same guide page)"
+   }
   },
   {
    "name": "Lighthouse Right",
@@ -3328,7 +3823,12 @@
    "pin": [
     -22.4901,
     166.4689
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lulu,s Left",
@@ -3340,7 +3840,12 @@
    "pin": [
     -7.4279,
     158.3153
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Magandas Reef",
@@ -3352,7 +3857,12 @@
    "pin": [
     13.4675,
     144.6409
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.02; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Magoos",
@@ -3364,7 +3874,12 @@
    "pin": [
     13.4765,
     144.6832
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.20; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mangandas",
@@ -3376,7 +3891,12 @@
    "pin": [
     13.4623,
     144.6175
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 88 deg (arccos of mean resultant length 0.03; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Maria Reef left",
@@ -3388,7 +3908,12 @@
    "pin": [
     -22.0419,
     165.9539
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.69 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Menen",
@@ -3400,7 +3925,12 @@
    "pin": [
     -0.544,
     166.9526
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind, wannasurf swell); wannasurf good wind East, NorthEast: nearest listed direction is 118 deg from facing+180 (288); CONTRADICTS (>60) | wannasurf good swell SouthWest: nearest listed direction is 118 deg from the facing (108); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Mushrooms",
@@ -3412,7 +3942,12 @@
    "pin": [
     -21.9378,
     165.7633
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 7.76 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Mutungs",
@@ -3424,7 +3959,12 @@
    "pin": [
     13.3837,
     144.6418
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Nagar",
@@ -3436,7 +3976,12 @@
    "pin": [
     -17.5231,
     168.4034
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.37; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Narimu and Buro Reefs",
@@ -3448,7 +3993,12 @@
    "pin": [
     -2.6886,
     141.3314
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ngardmau  Channel",
@@ -3460,7 +4010,12 @@
    "pin": [
     7.6458,
     134.544
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 4.42 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "No Boats",
@@ -3472,7 +4027,12 @@
    "pin": [
     -17.8054,
     168.3384
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.05; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Nusa Lik Peaks",
@@ -3484,7 +4044,12 @@
    "pin": [
     -2.5949,
     150.768
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Néra Rivermouth",
@@ -3497,7 +4062,12 @@
    "pin": [
     -21.622,
     165.4625
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: possible duplicate of w-pac-roche-percee (pacific-islands.json, \"Roche Percée\"), a catalogued spot 0.16 km away under another name"
+   }
   },
   {
    "name": "Obyan",
@@ -3509,7 +4079,12 @@
    "pin": [
     15.1049,
     145.7389
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind East: nearest listed direction is 69 deg from facing+180 (21); CONTRADICTS (>60) | wannasurf good swell South: nearest listed direction is 21 deg from the facing (201); consistent (<=90)"
+   }
   },
   {
    "name": "Ouano",
@@ -3521,7 +4096,12 @@
    "pin": [
     -21.9084,
     165.7542
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 5.07 km from the pin (> 1.5 km) [name match https://www.surfnerd.com/surf-forecast/ouano rejected: its pin is 6.0 km from the row pin (limit 5 km); name match https://www.surf-forecast.com/breaks/Ouano rejected: its pin is 6.5 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "Ouano Lefts",
@@ -3533,7 +4113,12 @@
    "pin": [
     -21.8648,
     165.712
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 2.16 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "P-Pass",
@@ -3545,7 +4130,12 @@
    "pin": [
     7.0137,
     158.2072
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.95 km from the pin (> 1.5 km) [name match https://www.surfnerd.com/surf-forecast/p-pass rejected: its pin is 9.4 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "Piccinniny",
@@ -3557,7 +4147,12 @@
    "pin": [
     -2.5799,
     150.7815
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pickop's Point",
@@ -3570,7 +4165,12 @@
    "pin": [
     13.3405,
     144.773
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Point Perfection",
@@ -3582,7 +4182,12 @@
    "pin": [
     13.3406,
     144.63
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 75 deg (arccos of mean resultant length 0.26; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pounders",
@@ -3594,7 +4199,12 @@
    "pin": [
     -17.7913,
     168.2646
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 45 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Resorts",
@@ -3606,7 +4216,12 @@
    "pin": [
     -17.7789,
     168.292
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: possible duplicate of w-pac-breakas (pacific-islands.json, \"Breakas\"), a catalogued spot 0.31 km away under another name"
+   }
   },
   {
    "name": "Rick's Reef",
@@ -3619,7 +4234,12 @@
    "pin": [
     13.4977,
     144.7689
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore wind from the Southeast: nearest listed direction is 62 deg from facing+180 (73); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 107 deg from the facing (253); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Saffas",
@@ -3631,7 +4251,12 @@
    "pin": [
     -4.2415,
     152.4235
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 71 deg (arccos of mean resultant length 0.33; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Santa Maria Anguar",
@@ -3644,7 +4269,12 @@
    "pin": [
     6.9218,
     134.1236
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sea River",
@@ -3656,7 +4286,12 @@
    "pin": [
     -17.8385,
     168.4153
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.55 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Shark Bay Rivermouth (and Reef)",
@@ -3668,7 +4303,12 @@
    "pin": [
     -17.813,
     168.3549
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Shipwrecks",
@@ -3680,7 +4320,12 @@
    "pin": [
     -21.9122,
     165.7448
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 5.53 km from the pin (> 1.5 km) [name match https://www.surfnerd.com/surf-forecast/shipwrecks rejected: its pin is 10442.0 km from the row pin (limit 5 km); name match https://www.surf-forecast.com/breaks/Shipwrecks rejected: its pin is 5566.9 km from the row pin (limit 5 km)]"
+   }
   },
   {
    "name": "Skateparks",
@@ -3692,7 +4337,12 @@
    "pin": [
     -22.5117,
     166.4352
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 4.89 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "St Vincent Left",
@@ -3704,7 +4354,12 @@
    "pin": [
     -22.0439,
     165.957
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.99 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "St Vincent Right",
@@ -3716,7 +4371,12 @@
    "pin": [
     -22.0245,
     165.947
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.66 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Takara",
@@ -3728,7 +4388,12 @@
    "pin": [
     -17.5256,
     168.4261
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore wind from the South-southwest: nearest listed direction is 19 deg from facing+180 (184); consistent (<=60) | surf-forecast best swell Southeast: nearest listed direction is 131 deg from the facing (4); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Talafofo Bay",
@@ -3740,7 +4405,12 @@
    "pin": [
     13.337,
     144.762
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tank Beach",
@@ -3752,7 +4422,12 @@
    "pin": [
     15.2853,
     145.7935
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore winds from the southwest: nearest listed direction is 89 deg from facing+180 (136); CONTRADICTS (>60) | surf-forecast best swell from the northeast: nearest listed direction is 89 deg from the facing (316); consistent (<=90)"
+   }
   },
   {
    "name": "Tanna - Lenakel",
@@ -3764,7 +4439,12 @@
    "pin": [
     -19.5366,
     169.2645
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "The Sequel",
@@ -3776,7 +4456,12 @@
    "pin": [
     -17.5124,
     168.4748
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 1.94 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Triplets",
@@ -3788,7 +4473,12 @@
    "pin": [
     -17.796,
     168.2843
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tupira Right",
@@ -3800,7 +4490,12 @@
    "pin": [
     -4.4426,
     145.4341
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 3.26 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Umatac Bay",
@@ -3813,7 +4508,12 @@
    "pin": [
     13.2972,
     144.6589
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.46; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Vanimo Village Reef",
@@ -3825,7 +4525,12 @@
    "pin": [
     -2.66,
     141.2794
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: possible duplicate of w-pac-lido-s-left (pacific-islands.json, \"Lido's Left\"), a catalogued spot 0.34 km away under another name"
+   }
   },
   {
    "name": "Vanimo, Twin Rocks Reef",
@@ -3837,7 +4542,12 @@
    "pin": [
     -2.6967,
     141.3282
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "West Passage (Babelthuap)",
@@ -3849,7 +4559,12 @@
    "pin": [
     7.5449,
     134.4627
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 4.09 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "White Cows",
@@ -3861,7 +4576,12 @@
    "pin": [
     -17.6467,
     168.5059
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the southwest: nearest listed direction is 20 deg from facing+180 (206); consistent (<=60) | surf-forecast best swell Southeast: nearest listed direction is 110 deg from the facing (26); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Wutung Village Reef",
@@ -3874,7 +4594,12 @@
    "pin": [
     -2.6095,
     141.0136
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.68; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ylig",
@@ -3887,7 +4612,12 @@
    "pin": [
     13.4191,
     144.7908
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "kwajalein atoll",
@@ -3899,7 +4629,12 @@
    "pin": [
     9.3002,
     167.2631
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "simberi island",
@@ -3912,7 +4647,12 @@
    "pin": [
     -2.6204,
     151.9758
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 2.35 km from the pin (> 1.5 km)"
+   }
   }
  ]
 }

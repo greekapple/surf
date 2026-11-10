@@ -6031,118 +6031,1335 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GOOY&network=SN__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-wafrica-akwaadi",
+   "name": "Akwaadi",
+   "country": "Ghana",
+   "region": "Gold Coast",
+   "timeZone": "Africa/Accra",
+   "type": null,
+   "lat": 4.75,
+   "lon": -2.009,
+   "seaward": 172.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (4.7502, -2.0093) taken from the guide page, rounded to 3 dp; 1.09 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Akwaadi"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2024/1993.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 871 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.5 deg (limit 45); 300 m window gives 171.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2024/1993.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2024/1994.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2025/1993.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2025/1994.pbf"
+    ],
+    "nearestCoastPoint": [
+     4.757805,
+     -2.011339
+    ],
+    "distanceToCoastM": 870.8,
+    "meanDevDeg": 8.5,
+    "seaward300": 171.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northeast: nearest listed direction is 30 deg from facing+180 (353); consistent (<=60)",
+     "surf-forecast best swell South-southwest: nearest listed direction is 30 deg from the facing (173); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Akwaadi",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Akwaadi",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the north northeast (surf-forecast)",
+    "waveTypeText": "River (surf-forecast)",
+    "waveDirectionText": "The river breaks offers right-handers. (surf-forecast)",
+    "exposure": "exposed river break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Akwaadi with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Akwaadi on the Gold Coast is an exposed river break that has consistent surf. The surf tends to be favoured in the spring. Offshore winds blow from the north northeast. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the south southwest. The river breaks offers right-handers. Rarely crowded here. Take care of the strong rips here. Akwaadi"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-akwaadi"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tkdi",
+     "name": "Takoradi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ghana)",
+     "distanceKm": 32.7,
+     "live": false,
+     "liveNote": "last sample 2025-05-13 12:53:00.000 UTC in the IOC station list",
+     "lat": 4.882,
+     "lon": -1.745,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tkdi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DGTK",
+     "name": "Takoradi",
+     "owner": "IEM GH__ASOS network (airport METAR)",
+     "distanceKm": 30.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.896,
+     "lon": -1.775,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DGTK&network=GH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Akwaadi",
+    "surfForecastRegion": "Ghana-Gold-Coast",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Akwaadi, pin 4.76,-2.01); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Akwaadi"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-l-ps",
+    "distanceKm": 4.1
+   }
+  },
+  {
+   "id": "w-wafrica-kendeja-resort",
+   "name": "Kendeja Resort",
+   "country": "Liberia",
+   "region": "Liberia",
+   "timeZone": "Africa/Monrovia",
+   "type": "Beach",
+   "lat": 6.231,
+   "lon": -10.683,
+   "seaward": 195.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.2307, -10.6833) taken from the guide page, rounded to 3 dp; 0.37 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Barn-s-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1926/1976.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 96 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.3 deg (limit 45); 300 m window gives 193.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1926/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1926/1977.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.23154,
+     -10.683067
+    ],
+    "distanceToCoastM": 96.4,
+    "meanDevDeg": 5.3,
+    "seaward300": 193.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 29 deg from facing+180 (16); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 29 deg from the facing (196); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kendeja Resort",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Barn-s-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Kendeja Resort with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kendeja Resort in Liberia is an exposed beach break that has very consistent surf and works all around the year. Ideal winds are from the northeast. Clean groundswells prevail and the optimum swell angle is from the southwest. The beach breaks offer lefts and rights. Even when there are waves, it's not likley to be crowded. Take care of the strong rips here. Kendeja Resort"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-kendeja-resort"
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLRB",
+     "name": "Monrovia",
+     "owner": "IEM LR__ASOS network (airport METAR)",
+     "distanceKm": 35.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.234,
+     "lon": -10.362,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLRB&network=LR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Kendeja Resort",
+    "surfForecastRegion": "Liberia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Barn-s-Beach, pin 6.23,-10.68); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Barn-s-Beach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-coopers-beach-2",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-wafrica-cape-cross",
+   "name": "Cape Cross",
+   "country": "Namibia",
+   "region": "Swakopmund",
+   "timeZone": "Africa/Windhoek",
+   "type": null,
+   "lat": -21.768,
+   "lon": 13.949,
+   "seaward": 300.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-21.768, 13.9487) taken from the guide page, rounded to 3 dp; 0.26 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Cape-Cross"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2206/2301.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 375 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 44.6 deg (limit 45); 300 m window gives 313.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2206/2301.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2206/2302.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2207/2301.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2207/2302.pbf"
+    ],
+    "nearestCoastPoint": [
+     -21.770002,
+     13.951628
+    ],
+    "distanceToCoastM": 375.0,
+    "meanDevDeg": 44.6,
+    "seaward300": 313.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 15 deg from facing+180 (120); consistent (<=60)",
+     "surf-forecast best swell from the west southwest: nearest listed direction is 53 deg from the facing (300); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Cape Cross",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Cape-Cross",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the west southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveTypeText": "Reef and point (surf-forecast)",
+    "waveDirectionText": "There is no beach break and in addition, there is also a left hand point break. (surf-forecast)",
+    "exposure": "exposed reef and point break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Watch out for seals,rocks and sharks. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Cape Cross in Swakopmund is an exposed reef and point break that has pretty consitent surf. Winter is the optimum time of year for surfing here. The best wind direction is from the southeast with some shelter here from southwest winds. Most of the surf here comes from groundswells and the best swell direction is from the west southwest. There is no beach break and in addition, there is also a left hand point break. Even when there are waves, it's not likley to be crowded. Watch out for seals,rocks and sharks. Cape Cross"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-cape-cross"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC walvi",
+     "name": "Walvis Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Namibia)",
+     "distanceKm": 143.0,
+     "live": false,
+     "liveNote": "last sample 2016-04-07 05:29:00.000 UTC in the IOC station list",
+     "lat": -22.949,
+     "lon": 14.499,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=walvi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR FYHN",
+     "name": "Henties Bay",
+     "owner": "IEM NA__ASOS network (airport METAR)",
+     "distanceKm": 52.0,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": -22.12,
+     "lon": 14.28,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FYHN&network=NA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Cape Cross",
+    "surfForecastRegion": "Swakopmund-Namibia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Cape-Cross, pin -21.77,13.95); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Cape-Cross"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-main-break",
+    "distanceKm": 0.52
+   }
+  },
+  {
+   "id": "w-wafrica-6th-street",
+   "name": "6th Street",
+   "country": "Liberia",
+   "region": "Liberia",
+   "timeZone": "Africa/Monrovia",
+   "type": null,
+   "lat": 6.291,
+   "lon": -10.788,
+   "seaward": 202.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.2906, -10.7883) taken from the guide page, rounded to 3 dp; 0.2 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Eighth-Street"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1924/1975.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 51 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.0 deg (limit 45); 300 m window gives 202.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1924/1975.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1924/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1925/1975.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1925/1976.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.291028,
+     -10.788118
+    ],
+    "distanceToCoastM": 51.4,
+    "meanDevDeg": 1.0,
+    "seaward300": 202.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northeast: nearest listed direction is 0 deg from facing+180 (22); consistent (<=60)",
+     "surf-forecast best swell from the west: nearest listed direction is 68 deg from the facing (202); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "6th Street",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Eighth-Street",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the west (surf-forecast)",
+    "windOffshore": "offshore winds from the north northeast (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "Take care of - Rips / undertow - Pollution. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing 6th Street with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "6th Street in Liberia is an exposed sandbar break that has very reliable surf. Offshore winds blow from the north northeast. The best swell direction is from the west. Surfable at all stages of the tide. Crowds are never a problem here. Take care of - Rips / undertow - Pollution. 6th Street"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-6th-street"
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLRB",
+     "name": "Monrovia",
+     "owner": "IEM LR__ASOS network (airport METAR)",
+     "distanceKm": 47.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.234,
+     "lon": -10.362,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLRB&network=LR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "6th Street",
+    "surfForecastRegion": "Liberia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Eighth-Street, pin 6.29,-10.79); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Eighth-Street"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-mamba-beach",
+    "distanceKm": 3.69
+   }
+  },
+  {
+   "id": "w-wafrica-malika-sur-mer",
+   "name": "Malika Sur Mer",
+   "country": "Senegal",
+   "region": "Senegal",
+   "timeZone": "Africa/Dakar",
+   "type": "Beach",
+   "lat": 14.78,
+   "lon": -17.418,
+   "seaward": 338.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (14.78, -17.418) taken from the guide page, rounded to 3 dp; 0.22 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Malika-Sur-Mer"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1849/1877.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 383 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.5 deg (limit 45); 300 m window gives 338.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1849/1877.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1849/1878.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1850/1877.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1850/1878.pbf"
+    ],
+    "nearestCoastPoint": [
+     14.776895,
+     -17.41642
+    ],
+    "distanceToCoastM": 383.1,
+    "meanDevDeg": 2.5,
+    "seaward300": 338.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South-southeast: nearest listed direction is 1 deg from facing+180 (159); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 24 deg from the facing (339); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Malika Sur Mer",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Malika-Sur-Mer",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the South-southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Malika Sur Mer with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Malika Sur Mer in Senegal is a fairly exposed beach break that has very consistent surf. Winter and spring are the best times of year to visit. Works best in offshore winds from the south southeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the best swell direction is from the northwest. The beach breaks offer lefts and rights. Good surf at all stages of the tide. The location means that it never gets crowded. Malika Sur Mer"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-malika-sur-mer"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC dakar",
+     "name": "Dakar",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sénégal)",
+     "distanceKm": 11.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:31:00.000 UTC in the IOC station list",
+     "lat": 14.676,
+     "lon": -17.42,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=dakar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR GOOY",
+     "name": "Dakar",
+     "owner": "IEM SN__ASOS network (airport METAR)",
+     "distanceKm": 9.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 14.74,
+     "lon": -17.49,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GOOY&network=SN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Malika Sur Mer",
+    "surfForecastRegion": "Senegal",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Malika-Sur-Mer, pin 14.78,-17.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Malika-Sur-Mer"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-yoff-beach",
+    "distanceKm": 5.53
+   }
+  },
+  {
+   "id": "w-wafrica-outer-cotton",
+   "name": "Outer Cotton",
+   "country": "Liberia",
+   "region": "Liberia",
+   "timeZone": "Africa/Monrovia",
+   "type": "Reef",
+   "lat": 6.738,
+   "lon": -11.393,
+   "seaward": 241.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.7379, -11.3927) taken from the guide page, rounded to 3 dp; 0.38 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Outer-Cotton"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1917/1970.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 944 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.3 deg (limit 45); 300 m window gives 246.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1917/1970.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1917/1971.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1918/1970.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1918/1971.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.738877,
+     -11.384218
+    ],
+    "distanceToCoastM": 943.9,
+    "meanDevDeg": 20.3,
+    "seaward300": 246.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 17 deg from facing+180 (62); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 17 deg from the facing (242); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Outer Cotton",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Outer-Cotton",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "tide": "Best around high tide when the tide is falling. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Beware of - Rips / undertow - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Outer Cotton with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Outer Cotton in Liberia is an exposed reef break that has very reliable surf and works all around the year. Offshore winds are from the northeast. Clean groundswells prevail and the best swell direction is from the southwest. Best around high tide when the tide is falling. Even when the surf is up, crowds are unknown. Beware of - Rips / undertow - Rocks. Outer Cotton"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-outer-cotton"
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLRB",
+     "name": "Monrovia",
+     "owner": "IEM LR__ASOS network (airport METAR)",
+     "distanceKm": 126.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.234,
+     "lon": -10.362,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLRB&network=LR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Outer Cotton",
+    "surfForecastRegion": "Liberia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Outer-Cotton, pin 6.74,-11.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Outer-Cotton"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-loco",
+    "distanceKm": 0.89
+   }
+  },
+  {
+   "id": "w-wafrica-prampram-greater-accra",
+   "name": "Prampram (Greater Accra)",
+   "country": "Ghana",
+   "region": "Gold Coast",
+   "timeZone": "Africa/Accra",
+   "type": null,
+   "lat": 5.697,
+   "lon": 0.123,
+   "seaward": 166.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.6969, 0.123) taken from the guide page, rounded to 3 dp; 1.49 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Prampram"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2049/1982.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1045 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.7 deg (limit 45); 300 m window gives 167.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2049/1982.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2049/1983.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.706094,
+     0.120812
+    ],
+    "distanceToCoastM": 1045.1,
+    "meanDevDeg": 6.7,
+    "seaward300": 167.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 8 deg from facing+180 (346); consistent (<=60)",
+     "surf-forecast best swell from the south southwest: nearest listed direction is 36 deg from the facing (166); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Prampram (Greater Accra)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Prampram",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "exposure": "exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "Hazards include - Rocks - Man-made danger (buoys etc.). (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Prampram (Greater Accra) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Prampram (Greater Accra) in Ghana - Gold Coast is an exposed beach and reef break that has quite reliable surf. The surf tends to be best in the spring. Works best in offshore winds from the north northwest. Windswells and groundswells in equal measure and the best swell direction is from the south southwest. Even when the surf is up, crowds are unknown. Hazards include - Rocks - Man-made danger (buoys etc.). Prampram (Greater Accra)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-prampram-greater-accra"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tema",
+     "name": "Tema",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ghana)",
+     "distanceKm": 14.1,
+     "live": false,
+     "liveNote": "last sample 2025-05-13 12:53:00.000 UTC in the IOC station list",
+     "lat": 5.635,
+     "lon": 0.012,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tema"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DGAA",
+     "name": "Accra",
+     "owner": "IEM GH__ASOS network (airport METAR)",
+     "distanceKm": 33.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 5.605,
+     "lon": -0.167,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DGAA&network=GH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Prampram (Greater Accra)",
+    "surfForecastRegion": "Ghana-Gold-Coast",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Prampram, pin 5.71,0.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Prampram"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-labadi-beach",
+    "distanceKm": 32.95
+   }
+  },
+  {
+   "id": "w-wafrica-princes-town",
+   "name": "Princes Town",
+   "country": "Ghana",
+   "region": "Gold Coast",
+   "timeZone": "Africa/Accra",
+   "type": null,
+   "lat": 4.782,
+   "lon": -2.112,
+   "seaward": 220.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (4.7815, -2.1117) taken from the guide page, rounded to 3 dp; 0.25 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Princes-Town"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2023/1993.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 185 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 23.6 deg (limit 45); 300 m window gives 219.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2023/1993.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2024/1993.pbf"
+    ],
+    "nearestCoastPoint": [
+     4.783015,
+     -2.110984
+    ],
+    "distanceToCoastM": 185.4,
+    "meanDevDeg": 23.6,
+    "seaward300": 219.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 5 deg from facing+180 (40); consistent (<=60)",
+     "surf-forecast best swell from the south southwest: nearest listed direction is 18 deg from the facing (220); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Princes Town",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Princes-Town",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveTypeText": "Beach, river and reef (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right as well as a left hand reef break.. (surf-forecast)",
+    "exposure": "exposed beach,rivermouth and reef break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Princes Town with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Princes Town on the Gold Coast is an exposed beach,rivermouth and reef break that has reliable surf. The surf tends to be best in the spring. The best wind direction is from the northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south southwest. Waves at the beach break both left and right as well as a left hand reef break.. Even when there are waves, it's not likley to be crowded. Take care of rocks in the line up. Princes Town"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-princes-town"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tkdi",
+     "name": "Takoradi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ghana)",
+     "distanceKm": 42.1,
+     "live": false,
+     "liveNote": "last sample 2025-05-13 12:53:00.000 UTC in the IOC station list",
+     "lat": 4.882,
+     "lon": -1.745,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tkdi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DGTK",
+     "name": "Takoradi",
+     "owner": "IEM GH__ASOS network (airport METAR)",
+     "distanceKm": 39.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.896,
+     "lon": -1.775,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DGTK&network=GH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Princes Town",
+    "surfForecastRegion": "Ghana-Gold-Coast",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Princes-Town, pin 4.78,-2.11); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Princes-Town"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-cape-three-points",
+    "distanceKm": 5.11
+   }
+  },
+  {
+   "id": "w-wafrica-shipwreck",
+   "name": "Shipwreck",
+   "country": "Liberia",
+   "region": "Liberia",
+   "timeZone": "Africa/Monrovia",
+   "type": "Reef",
+   "lat": 6.74,
+   "lon": -11.384,
+   "seaward": 242.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.74, -11.384) taken from the guide page, rounded to 3 dp; 0.44 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Robertsport"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1918/1970.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 10 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.4 deg (limit 45); 300 m window gives 249.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1918/1970.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1918/1971.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.740022,
+     -11.383908
+    ],
+    "distanceToCoastM": 10.4,
+    "meanDevDeg": 21.4,
+    "seaward300": 249.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 18 deg from facing+180 (63); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 18 deg from the facing (243); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Shipwreck",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Robertsport",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "tide": "Best around high tide when the tide is falling. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Watch out for - Rips / undertow - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Shipwreck with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Shipwreck in Liberia is an exposed reef break that has very consistent waves and works all around the year. Offshore winds are from the northeast. Groundswells more frequent than windswells and the ideal swell angle is from the southwest. Best around high tide when the tide is falling. Even when the surf is up, crowds are unknown. Watch out for - Rips / undertow - Rocks. Shipwreck"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-shipwreck"
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLRB",
+     "name": "Monrovia",
+     "owner": "IEM LR__ASOS network (airport METAR)",
+     "distanceKm": 126.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.234,
+     "lon": -10.362,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLRB&network=LR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Shipwreck",
+    "surfForecastRegion": "Liberia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Robertsport, pin 6.74,-11.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Robertsport"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-loco",
+    "distanceKm": 0.16
+   }
+  },
+  {
+   "id": "w-wafrica-silver-beach",
+   "name": "Silver Beach",
+   "country": "Liberia",
+   "region": "Liberia",
+   "timeZone": "Africa/Monrovia",
+   "type": "Beach",
+   "lat": 6.214,
+   "lon": -10.613,
+   "seaward": 195.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.2137, -10.6132) taken from the guide page, rounded to 3 dp; 0.54 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Silver-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1926/1976.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 48 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.8 deg (limit 45); 300 m window gives 194.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1926/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1926/1977.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1927/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1927/1977.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.214122,
+     -10.613084
+    ],
+    "distanceToCoastM": 48.4,
+    "meanDevDeg": 0.8,
+    "seaward300": 194.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 8 deg from facing+180 (15); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 30 deg from the facing (195); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Silver Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Silver-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Beware of - Rips / undertow. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Silver Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Silver Beach in Liberia is an exposed beach break. The best wind direction is from the north northeast. The ideal swell direction from the southwest. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of - Rips / undertow. Silver Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-silver-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR GLRB",
+     "name": "Monrovia",
+     "owner": "IEM LR__ASOS network (airport METAR)",
+     "distanceKm": 27.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.234,
+     "lon": -10.362,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GLRB&network=LR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Silver Beach",
+    "surfForecastRegion": "Liberia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Silver-Beach, pin 6.21,-10.61); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Silver-Beach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-tropicana-2-3",
+    "distanceKm": 6.81
+   }
+  },
+  {
+   "id": "w-wafrica-skeleton-bay-2",
+   "name": "Skeleton Bay",
+   "country": "Namibia",
+   "region": "Swakopmund",
+   "timeZone": "Africa/Windhoek",
+   "type": "Point",
+   "lat": -25.916,
+   "lon": 14.904,
+   "seaward": 257.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-25.9155, 14.9037) taken from the guide page, rounded to 3 dp; 0.62 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Skeleton-Bay"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2217/2353.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 353 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.5 deg (limit 45); 300 m window gives 259.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2217/2353.pbf"
+    ],
+    "nearestCoastPoint": [
+     -25.914584,
+     14.907075
+    ],
+    "distanceToCoastM": 352.7,
+    "meanDevDeg": 9.5,
+    "seaward300": 259.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Southwest: nearest listed direction is 33 deg from the facing (258); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Skeleton Bay",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Skeleton-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "season": "best time of year for surfing Skeleton Bay with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of June (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Skeleton Bay in Swakopmund is an exposed point break that only works once in a while. Winter is the optimum time of year for surfing here. Offshore winds are from the northeast and there is no shelter here from cross shore breezes. Easily blown out by onshore winds Tends to receive distant groundswells and the ideal swell angle is from the southwest. There is no point break. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Skeleton Bay"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-wafrica-skeleton-bay-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC walvi",
+     "name": "Walvis Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Namibia)",
+     "distanceKm": 332.4,
+     "live": false,
+     "liveNote": "last sample 2016-04-07 05:29:00.000 UTC in the IOC station list",
+     "lat": -22.949,
+     "lon": 14.499,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=walvi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR FYLZ",
+     "name": "Luderitz",
+     "owner": "IEM NA__ASOS network (airport METAR)",
+     "distanceKm": 92.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -26.687,
+     "lon": 15.243,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FYLZ&network=NA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Skeleton Bay",
+    "surfForecastRegion": "Swakopmund-Namibia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Skeleton-Bay, pin -25.92,14.9); surf-forecast publishes no facing and same name as kept w-wafrica-skeleton-bay but the two guide pins are 336 km apart, so not merged, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Skeleton-Bay"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-wafrica-skeleton-bay",
+    "distanceKm": 335.23
+   }
   }
  ],
  "dropped": [
   {
-   "name": "Akwaadi",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Akwaadi, pin 4.76,-2.01); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
-  },
-  {
    "name": "Baobab (Somone)",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Baobab-Somone, pin 14.47,-17.07); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Senegal"
-  },
-  {
-   "name": "Kendeja Resort",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Barn-s-Beach, pin 6.23,-10.68); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Liberia"
+   "surfForecastRegion": "Senegal",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide page https://www.surfnerd.com/surf-forecast/somone is already the source of kept spot w-wafrica-somone, so this row is a duplicate listing"
+   }
   },
   {
    "name": "Bocock's Bay",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bococks-Bay, pin -21.52,13.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Swakopmund-Namibia"
-  },
-  {
-   "name": "Cape Cross",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Cape-Cross, pin -21.77,13.95); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Swakopmund-Namibia"
-  },
-  {
-   "name": "6th Street",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Eighth-Street, pin 6.29,-10.79); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Liberia"
+   "surfForecastRegion": "Swakopmund-Namibia",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore wind from the South-southeast: nearest listed direction is 104 deg from facing+180 (53); CONTRADICTS (>60) | surf-forecast best swell West-southwest: nearest listed direction is 14 deg from the facing (233); consistent (<=90)"
+   }
   },
   {
    "name": "Katakor",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Katakor, pin 4.75,-2.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
+   "surfForecastRegion": "Ghana-Gold-Coast",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: possible duplicate: w-wafrica-l-ps is 0.00 km away (same name within 10 km, or any spot within 50 m)"
+   }
   },
   {
    "name": "La Gauche de Loic",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/La-Gauche-de-Loic, pin 14.75,-17.53); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Senegal"
-  },
-  {
-   "name": "Malika Sur Mer",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Malika-Sur-Mer, pin 14.78,-17.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Senegal"
+   "surfForecastRegion": "Senegal",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 62 deg (arccos of mean resultant length 0.47; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Miemia",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Miemia, pin 4.8,-2.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
+   "surfForecastRegion": "Ghana-Gold-Coast",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 88 deg (arccos of mean resultant length 0.04; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mumba Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Mumba-Point, pin 6.32,-10.82); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Liberia"
+   "surfForecastRegion": "Liberia",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore wind from the Southeast: nearest listed direction is 11 deg from facing+180 (146); consistent (<=60) | surf-forecast best swell from the southwest: nearest listed direction is 101 deg from the facing (326); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Mumford",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Mumford, pin 5.26,-0.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
+   "surfForecastRegion": "Ghana-Gold-Coast",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast best swell South-southwest: nearest listed direction is 96 deg from the facing (107); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "New Ningo Reef",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/New-Ningo-Reef, pin 5.74,0.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
-  },
-  {
-   "name": "Outer Cotton",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Outer-Cotton, pin 6.74,-11.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Liberia"
+   "surfForecastRegion": "Ghana-Gold-Coast",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Philippes",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Philippes, pin 14.76,-17.52); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Senegal"
+   "surfForecastRegion": "Senegal",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Piere de Lisse",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Piere-de-Lisse, pin 14.56,-17.14); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Senegal"
-  },
-  {
-   "name": "Prampram (Greater Accra)",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Prampram, pin 5.71,0.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
-  },
-  {
-   "name": "Princes Town",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Princes-Town, pin 4.78,-2.11); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
-  },
-  {
-   "name": "Shipwreck",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Robertsport, pin 6.74,-11.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Liberia"
-  },
-  {
-   "name": "Silver Beach",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Silver-Beach, pin 6.21,-10.61); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Liberia"
-  },
-  {
-   "name": "Skeleton Bay",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Skeleton-Bay, pin -25.92,14.9); surf-forecast publishes no facing and same name as kept w-wafrica-skeleton-bay but the two guide pins are 336 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Swakopmund-Namibia"
+   "surfForecastRegion": "Senegal",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide page https://www.surf-forecast.com/breaks/Piere-de-Lisse is already the source of kept spot w-wafrica-pierre-de-lisse, so this row is a duplicate listing"
+   }
   },
   {
    "name": "Turtle Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Turtle-Beach-1, pin 4.85,-2.23); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Ghana-Gold-Coast"
+   "surfForecastRegion": "Ghana-Gold-Coast",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.60; limit 45 deg): headland, cove or point, ambiguous [name match https://www.surf-forecast.com/breaks/Turtle-Beach rejected: its pin is 8811.7 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 11 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 11 computed-coastline); see RECOVERY-2026-11-10.md"
 }

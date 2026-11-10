@@ -1505,24 +1505,368 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKVJ&network=DK__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-denmark-alogarde",
+   "name": "Alogarde",
+   "country": "Denmark",
+   "region": "Sjelland",
+   "timeZone": "Europe/Copenhagen",
+   "type": null,
+   "lat": 56.092,
+   "lon": 12.491,
+   "seaward": 11.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (56.0923, 12.4905) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Alogarde"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1272.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 77 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 11.1 deg (limit 45); 300 m window gives 6.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1272.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1273.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1274.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2190/1272.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2190/1273.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2190/1274.pbf"
+    ],
+    "nearestCoastPoint": [
+     56.09161,
+     12.490389
+    ],
+    "distanceToCoastM": 76.6,
+    "meanDevDeg": 11.1,
+    "seaward300": 6.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South-southwest: nearest listed direction is 11 deg from facing+180 (191); consistent (<=60)",
+     "surf-forecast best swell West-northwest: nearest listed direction is 79 deg from the facing (11); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Alogarde",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Alogarde",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell West-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the South-southwest (surf-forecast)",
+    "waveTypeText": "Beach/jetty (surf-forecast)",
+    "waveDirectionText": "The beach breaks are all lefts. (surf-forecast)",
+    "exposure": "exposed beach/jetty break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Alogarde in Sjelland is an exposed beach/jetty break that has quite consistent surf Ideal winds are from the south southwest. There is too little fetch for groundswells to form and the ideal wave direction is from the west northwest. The beach breaks are all lefts. It very rarely gets crowded here. Alogarde"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-denmark-alogarde"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 1.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 56.09,
+     "lon": 12.46,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EKCH",
+     "name": "Copenhagen",
+     "owner": "IEM DK__ASOS network (airport METAR)",
+     "distanceKm": 54.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 55.614,
+     "lon": 12.645,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKCH&network=DK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Alogarde",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alogarde); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Alogarde"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-denmark-hornbaek-plantage",
+    "distanceKm": 1.38
+   }
+  },
+  {
+   "id": "w-denmark-hornhole",
+   "name": "Hornhole",
+   "country": "Denmark",
+   "region": "Sjelland",
+   "timeZone": "Europe/Copenhagen",
+   "type": null,
+   "lat": 56.099,
+   "lon": 12.402,
+   "seaward": 6.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (56.0994, 12.4025) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Hornhole"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2188/1272.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 50 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.9 deg (limit 45); 300 m window gives 3.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2188/1272.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2188/1273.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2188/1274.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1272.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1273.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2189/1274.pbf"
+    ],
+    "nearestCoastPoint": [
+     56.099854,
+     12.402514
+    ],
+    "distanceToCoastM": 50.2,
+    "meanDevDeg": 5.9,
+    "seaward300": 3.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South: nearest listed direction is 6 deg from facing+180 (186); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 29 deg from the facing (6); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Hornhole",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hornhole",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the South (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach/pier break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Hornhole in Sjelland is an exposed beach/pier break that has reasonably consistent surf Ideal winds are from the south. There is too little fetch for groundswells to form and the optimum wave angle is from the north northwest. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Unlikely to be too crowded, even when the surf is up. Hornhole"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-denmark-hornhole"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hornb",
+     "name": "Hornbaek",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 3.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 56.09,
+     "lon": 12.46,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hornb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EKCH",
+     "name": "Copenhagen",
+     "owner": "IEM DK__ASOS network (airport METAR)",
+     "distanceKm": 56.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 55.614,
+     "lon": 12.645,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKCH&network=DK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Hornhole",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hornhole); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Hornhole"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-denmark-hornbaek-pier",
+    "distanceKm": 3.69
+   }
+  },
+  {
+   "id": "w-denmark-nr-voruper",
+   "name": "Nr Voruper",
+   "country": "Denmark",
+   "region": "Jylland",
+   "timeZone": "Europe/Copenhagen",
+   "type": null,
+   "lat": 57.026,
+   "lon": 8.436,
+   "seaward": 298.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (57.0259, 8.4358) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Nr-Voruper"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2143/1253.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1086 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.4 deg (limit 45); 300 m window gives 298.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2143/1253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2143/1254.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2143/1255.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2144/1253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2144/1254.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2144/1255.pbf"
+    ],
+    "nearestCoastPoint": [
+     57.021085,
+     8.451422
+    ],
+    "distanceToCoastM": 1086.0,
+    "meanDevDeg": 1.4,
+    "seaward300": 298.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east southeast: nearest listed direction is 6 deg from facing+180 (118); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 28 deg from the facing (298); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Nr Voruper",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Nr-Voruper",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore winds from the east southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach/pier (surf-forecast)",
+    "exposure": "exposed beach/pier break (surf-forecast)",
+    "season": "best time of year for surfing Nr Voruper with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Nr Voruper in Jylland is an exposed beach/pier break that has pretty consitent surf Offshore winds are from the east southeast. Windswells are much more typical than groudswells and the ideal wave angle is from the west. There is no beach break. Good surf at all stages of the tide. Nr Voruper"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-denmark-nr-voruper"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hanst",
+     "name": "Hanstholm",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 14.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 57.12,
+     "lon": 8.6,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hanst"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EKYT",
+     "name": "Aalborg",
+     "owner": "IEM DK__ASOS network (airport METAR)",
+     "distanceKm": 85.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.096,
+     "lon": 9.851,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EKYT&network=DK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Nr Voruper",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nr-Voruper); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Nr-Voruper"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-denmark-bunkers",
+    "distanceKm": 1.26
+   }
   }
  ],
  "dropped": [
   {
-   "name": "Alogarde",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Alogarde); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Hornhole",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Hornhole); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
    "name": "Klitmoller",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Klitmoller); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Nr Voruper",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Nr-Voruper); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Klitmoller); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: the guide page https://www.surfnerd.com/surf-forecast/klitmoller is already the source of kept spot w-denmark-klitmoller, so this row is a duplicate listing"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 3 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 3 computed-coastline); see RECOVERY-2026-11-10.md"
 }

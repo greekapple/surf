@@ -26046,43 +26046,93 @@
  "dropped": [
   {
    "name": "Le Dossen",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/le-dossen) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/le-dossen) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "La Flotte",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/la-flotte) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/la-flotte) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.68; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Le Mascaret - Gironde",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/le-mascaret-gironde) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/le-mascaret-gironde) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Cannes",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/cannes) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/cannes) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.21; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Belharra Perdun",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/belharra-perdun) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/belharra-perdun) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 2.43 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Bandol",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/bandol) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/bandol) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.15; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Moliets Plage",
-   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/moliets-plage) for the same break as w-france-moliets-plage-nouvelle-aquitaine (pins 0 m apart); the fuller page is kept."
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/moliets-plage) for the same break as w-france-moliets-plage-nouvelle-aquitaine (pins 0 m apart); the fuller page is kept.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/moliets-plage) for the same break as w-france-moliets-plage-nouvelle-aquitaine (pins 0 m apart);"
+   }
   },
   {
    "name": "Les Cul Nuls",
-   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/les-cul-nuls) for the same break as w-france-les-culs-nuls (pins 236 m apart); the fuller page is kept."
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/les-cul-nuls) for the same break as w-france-les-culs-nuls (pins 236 m apart); the fuller page is kept.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/les-cul-nuls) for the same break as w-france-les-culs-nuls (pins 236 m apart); the fuller page i"
+   }
   },
   {
    "name": "La Graviere",
-   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/la-graviere-nouvelle-aquitaine) for the same break as w-france-la-graviere (pins 222 m apart); the fuller page is kept."
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/la-graviere-nouvelle-aquitaine) for the same break as w-france-la-graviere (pins 222 m apart); the fuller page is kept.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/la-graviere-nouvelle-aquitaine) for the same break as w-france-la-graviere (pins 222 m apart); t"
+   }
   },
   {
    "name": "La Cote des Basques",
-   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/la-cote-des-basques) for the same break as w-france-cote-des-basques (pins 0 m apart); the fuller page is kept."
+   "reason": "Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/la-cote-des-basques) for the same break as w-france-cote-des-basques (pins 0 m apart); the fuller page is kept.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "not attempted: drop reason is not a missing facing/page: Duplicate surfnerd page (https://www.surfnerd.com/surf-forecast/la-cote-des-basques) for the same break as w-france-cote-des-basques (pins 0 m apart); the fulle"
+   }
   }
  ]
 }

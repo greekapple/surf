@@ -4505,7 +4505,12 @@
    "pin": [
     36.9649,
     8.7559
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Agami",
@@ -4518,7 +4523,12 @@
    "pin": [
     31.1279,
     29.7733
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West: nearest listed direction is 132 deg from facing+180 (132); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 48 deg from the facing (312); consistent (<=90)"
+   }
   },
   {
    "name": "Annaba - Seraidi beach",
@@ -4530,7 +4540,12 @@
    "pin": [
     36.9583,
     7.7083
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Batroun",
@@ -4543,7 +4558,12 @@
    "pin": [
     34.2436,
     35.6587
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Casino",
@@ -4555,7 +4575,12 @@
    "pin": [
     34.0118,
     35.6424
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf swell); wannasurf good swell East: nearest listed direction is 128 deg from the facing (218); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Cleopatra beach",
@@ -4567,7 +4592,12 @@
    "pin": [
     31.2234,
     29.9326
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind NorthWest: nearest listed direction is 176 deg from facing+180 (138); CONTRADICTS (>60) | wannasurf good swell NorthWest: nearest listed direction is 4 deg from the facing (318); consistent (<=90)"
+   }
   },
   {
    "name": "El Corniche",
@@ -4580,7 +4610,12 @@
    "pin": [
     31.262,
     29.9814
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.42; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Hamamet",
@@ -4593,7 +4628,12 @@
    "pin": [
     36.3702,
     10.5459
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kelibya",
@@ -4606,7 +4646,12 @@
    "pin": [
     36.8341,
     11.1174
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "La Marsa dream land",
@@ -4618,7 +4663,12 @@
    "pin": [
     37.1121,
     10.2612
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 4.13 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Leptis Magna",
@@ -4630,7 +4680,12 @@
    "pin": [
     32.6403,
     14.3016
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Les Grottes Bizerte",
@@ -4643,7 +4698,12 @@
    "pin": [
     37.3456,
     9.8596
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mandara",
@@ -4656,7 +4716,12 @@
    "pin": [
     31.2802,
     30.0087
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West, NorthEast: nearest listed direction is 84 deg from facing+180 (129); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 51 deg from the facing (309); consistent (<=90) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 6 deg from the facing (309); consistent (<=90)"
+   }
   },
   {
    "name": "Meloula",
@@ -4668,7 +4733,12 @@
    "pin": [
     36.9658,
     8.7141
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 55 deg (arccos of mean resultant length 0.57; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mosque point",
@@ -4680,7 +4750,12 @@
    "pin": [
     35.5659,
     35.7353
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mostafa Spot",
@@ -4692,7 +4767,12 @@
    "pin": [
     33.6664,
     35.4164
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 69 deg (arccos of mean resultant length 0.36; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Nahr brahim",
@@ -4705,7 +4785,12 @@
    "pin": [
     34.0605,
     35.6418
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Phil and Did (Akif's reef)",
@@ -4717,7 +4802,12 @@
    "pin": [
     33.6664,
     35.407
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.29; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Plage Mordjane",
@@ -4730,7 +4820,12 @@
    "pin": [
     36.8984,
     8.4302
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.49; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ramadas",
@@ -4743,7 +4838,12 @@
    "pin": [
     31.2491,
     29.9681
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.49; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sandy Beach - Chekka",
@@ -4756,7 +4856,12 @@
    "pin": [
     34.3106,
     35.715
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Shatby",
@@ -4769,7 +4874,12 @@
    "pin": [
     31.2122,
     29.9154
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest: nearest listed direction is 150 deg from facing+180 (150); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 30 deg from the facing (330); consistent (<=90) | wannasurf good swell North, NorthWest: nearest listed direction is 16 deg from the facing (330); consistent (<=90)"
+   }
   },
   {
    "name": "Shatby beach",
@@ -4781,7 +4891,12 @@
    "pin": [
     31.2105,
     29.911
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tam tam",
@@ -4794,7 +4909,12 @@
    "pin": [
     34.1152,
     35.6475
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Unnamed5",
@@ -4806,7 +4926,12 @@
    "pin": [
     32.5213,
     23.111
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Unnamed6",
@@ -4818,7 +4943,12 @@
    "pin": [
     32.5557,
     23.1093
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the south southwest: nearest listed direction is 47 deg from facing+180 (250); consistent (<=60) | surf-forecast best swell from the north northwest: nearest listed direction is 92 deg from the facing (70); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "banzart",
@@ -4831,7 +4961,12 @@
    "pin": [
     37.3172,
     9.8722
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell, wannasurf swell); wannasurf good wind West: nearest listed direction is 11 deg from facing+180 (259); consistent (<=60) | surf-forecast best swell Northwest: nearest listed direction is 124 deg from the facing (79); CONTRADICTS (>90) | wannasurf good swell NorthWest: nearest listed direction is 124 deg from the facing (79); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "carthage neptune",
@@ -4844,7 +4979,12 @@
    "pin": [
     36.8505,
     10.3339
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell, wannasurf swell); wannasurf good wind West: nearest listed direction is 44 deg from facing+180 (314); consistent (<=60) | surf-forecast best swell North: nearest listed direction is 134 deg from the facing (134); CONTRADICTS (>90) | wannasurf good swell North: nearest listed direction is 134 deg from the facing (134); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "cherchell tizirine",
@@ -4857,7 +4997,12 @@
    "pin": [
     36.6114,
     2.2041
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "tabarka les aiguilles",
@@ -4870,7 +5015,12 @@
    "pin": [
     36.9599,
     8.7662
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "AlMina Spot",
@@ -4878,7 +5028,12 @@
    "reason": "guide pin is not a valid coordinate (60.2787, -396.19303333333335)",
    "urls": [
     "https://www.wannasurf.com/spot/Middle_East/Lebanon/almina_spot/index.html"
-   ]
+   ],
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no map pin on the guide page(s)"
+   }
   }
  ]
 }

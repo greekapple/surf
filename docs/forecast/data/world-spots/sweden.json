@@ -1800,36 +1800,397 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMS&network=SE__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-sweden-appelviken",
+   "name": "Appelviken",
+   "country": "Sweden",
+   "region": "Kattegat and Skagerrack",
+   "timeZone": "Europe/Stockholm",
+   "type": null,
+   "lat": 57.094,
+   "lon": 12.24,
+   "seaward": 266.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (57.0943, 12.2404) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Appelviken"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2186/1252.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 2 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 43.2 deg (limit 45); 300 m window gives 283.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2186/1252.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2186/1253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2187/1252.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2187/1253.pbf"
+    ],
+    "nearestCoastPoint": [
+     57.09431,
+     12.240365
+    ],
+    "distanceToCoastM": 2.4,
+    "meanDevDeg": 43.2,
+    "seaward300": 283.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 42 deg from facing+180 (86); consistent (<=60)",
+     "surf-forecast best swell West-northwest: nearest listed direction is 26 deg from the facing (266); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Appelviken",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Appelviken",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell West-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "exposure": "exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Appelviken in Kattegat is an exposed beach and reef break that has quite reliable surf, although summer tends to be mostly flat. The best wind direction is from the northeast. Windswells are much more typical than groudswells and the ideal wave direction is from the west northwest.. Surfable at all stages of the tide. It's sometimes crowded here. Overcrowding can even make surfing hazardous. Appelviken"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sweden-appelviken"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC varb",
+     "name": "Varberg2",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 1.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:58:00.000 UTC in the IOC station list",
+     "lat": 57.111,
+     "lon": 12.239,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=varb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ESMT",
+     "name": "Halmstad",
+     "owner": "IEM SE__ASOS network (airport METAR)",
+     "distanceKm": 57.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 56.691,
+     "lon": 12.82,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMT&network=SE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Appelviken",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Appelviken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Appelviken"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-sweden-apelviken",
+    "distanceKm": 1.58
+   }
+  },
+  {
+   "id": "w-sweden-ireviken",
+   "name": "Ireviken",
+   "country": "Sweden",
+   "region": "Baltic",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 57.84,
+   "lon": 18.604,
+   "seaward": 329.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (57.8399, 18.6044) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Ireviken"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2258/1236.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 321 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.0 deg (limit 45); 300 m window gives 328.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2258/1236.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2258/1237.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2259/1236.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2259/1237.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2260/1236.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2260/1237.pbf"
+    ],
+    "nearestCoastPoint": [
+     57.842339,
+     18.601454
+    ],
+    "distanceToCoastM": 321.2,
+    "meanDevDeg": 6.0,
+    "seaward300": 328.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 14 deg from facing+180 (149); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 14 deg from the facing (329); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Ireviken",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ireviken",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Ireviken in Baltic is a fairly exposed beach break that has reasonably consistent surf, although summer tends to be mostly flat. Offshore winds are from the southeast. The short fetch makes for windswells rather than groundswells and the ideal wave angle is from the northwest.. Good surf at all stages of the tide. Rarely crowded here. Ireviken"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sweden-ireviken"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC slit",
+     "name": "Slite",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 19.2,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 57.706,
+     "lon": 18.81,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=slit"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ESSV",
+     "name": "Visby",
+     "owner": "IEM SE__ASOS network (airport METAR)",
+     "distanceKm": 24.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.663,
+     "lon": 18.346,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESSV&network=SE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Ireviken",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ireviken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Ireviken"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-sweden-kappelhamnsviken",
+    "distanceKm": 12.8
+   }
+  },
+  {
+   "id": "w-sweden-mellbystrand",
+   "name": "Mellbystrand",
+   "country": "Sweden",
+   "region": "Kattegat and Skagerrack",
+   "timeZone": "Europe/Stockholm",
+   "type": "Beach",
+   "lat": 56.583,
+   "lon": 12.935,
+   "seaward": 256.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (56.5833, 12.9354) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Mellbystrand"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2194/1262.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 172 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.2 deg (limit 45); 300 m window gives 256.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2194/1262.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2194/1263.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2194/1264.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2195/1262.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2195/1263.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2195/1264.pbf"
+    ],
+    "nearestCoastPoint": [
+     56.583644,
+     12.93814
+    ],
+    "distanceToCoastM": 172.2,
+    "meanDevDeg": 3.2,
+    "seaward300": 256.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 14 deg from facing+180 (76); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 59 deg from the facing (256); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Mellbystrand",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mellbystrand",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "sheltered beach break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the northwest.. (surf-forecast)",
+     "When it's working here, it can get crowded. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Mellbystrand in Kattegat is a sheltered beach break that has fairly consistent surf and can work at any time of the year. The best wind direction is from the east. Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the northwest.. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Overcrowding can even make surfing hazardous. Mellbystrand"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sweden-mellbystrand"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC halm",
+     "name": "Halmstad",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 9.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:58:00.000 UTC in the IOC station list",
+     "lat": 56.65,
+     "lon": 12.842,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=halm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ESMT",
+     "name": "Halmstad",
+     "owner": "IEM SE__ASOS network (airport METAR)",
+     "distanceKm": 13.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 56.691,
+     "lon": 12.82,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ESMT&network=SE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Mellbystrand",
+    "dropReason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Mellbystrand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Mellbystrand"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-sweden-molle",
+    "distanceKm": 43.02
+   }
   }
  ],
  "dropped": [
   {
    "name": "Faro Island",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/faro-island) gives no \"Faces\" direction, and no other guide states one."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/faro-island) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 2.08 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Melbystrand",
-   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/melbystrand) gives no \"Faces\" direction, and no other guide states one."
-  },
-  {
-   "name": "Appelviken",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Appelviken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "No sourced facing: the surfnerd page (https://www.surfnerd.com/surf-forecast/melbystrand) gives no \"Faces\" direction, and no other guide states one.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: nearest OSM coastline is 2.71 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Faro",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Faro); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Ireviken",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Ireviken); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
-  },
-  {
-   "name": "Mellbystrand",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Mellbystrand); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Faro); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore wind from the West: nearest listed direction is 81 deg from facing+180 (351); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 171 deg from the facing (171); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Valnäs - Nord Koster",
-   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Valnas-Nord-Koster); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced."
+   "reason": "Surf-forecast page only (https://www.surf-forecast.com/breaks/Valnas-Nord-Koster); it states no facing and no surfnerd page matches by name within 2.5 km, so the facing is unsourced.",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.37; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-10: 3 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 3 computed-coastline); see RECOVERY-2026-11-10.md"
 }

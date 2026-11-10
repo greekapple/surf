@@ -6895,6 +6895,664 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CYAZ&network=CA_BC_ASOS"
     }
    ]
+  },
+  {
+   "id": "w-canada-jordan-river",
+   "name": "Jordan River",
+   "country": "Canada",
+   "region": "Vancouver Island",
+   "timeZone": "America/Vancouver",
+   "type": null,
+   "lat": 48.396,
+   "lon": -123.953,
+   "seaward": 190.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (48.3961, -123.9527) taken from the guide page, rounded to 3 dp; 0.48 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Jordan-River"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/637/1416.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 29 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.7 deg (limit 45); 300 m window gives 188.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/637/1416.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/637/1417.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/638/1416.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/638/1417.pbf"
+    ],
+    "nearestCoastPoint": [
+     48.395839,
+     -123.95277
+    ],
+    "distanceToCoastM": 29.3,
+    "meanDevDeg": 26.7,
+    "seaward300": 188.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 12 deg from facing+180 (10); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 80 deg from the facing (190); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Jordan River",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jordan-River",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Reef and point (surf-forecast)",
+    "exposure": "fairly exposed reef and point break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Take special care here if it gets very crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Jordan River with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Jordan River in Vancouver Island is a fairly exposed reef and point break that has reasonably consistent surf The best wind direction is from the north northeast. Windswells and groundswells in equal measure and the ideal swell direction is from the west. Good surf at all stages of the tide. Sometimes crowded. Take special care here if it gets very crowded. Jordan River"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-canada-jordan-river"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46267",
+     "name": "Angeles Point, WA (248)",
+     "owner": "SCRIPPS",
+     "distanceKm": 36.2,
+     "live": true,
+     "liveNote": "WVHT 0.3 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 48.171,
+     "lon": -123.6,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46267"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pbbc",
+     "name": "Patricia_Bay_BC",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 40.8,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 48.4,
+     "lon": -123.4,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pbbc"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR CWSP",
+     "name": "SHERINGHAM POINT  BC",
+     "owner": "IEM CA_BC_ASOS network (airport METAR)",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 48.377,
+     "lon": -123.921,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CWSP&network=CA_BC_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Jordan River",
+    "surfForecastRegion": "Vancouver-Island",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Jordan-River, pin 48.4,-123.95); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Jordan-River"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-canada-sewers-vancouver-island",
+    "distanceKm": 7.5
+   }
+  },
+  {
+   "id": "w-canada-kennington-cove",
+   "name": "Kennington Cove",
+   "country": "Canada",
+   "region": "Cape Breton Island",
+   "timeZone": "America/Glace_Bay",
+   "type": "Beach",
+   "lat": 45.874,
+   "lon": -60.06,
+   "seaward": 129.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (45.8743, -60.0596) taken from the guide page, rounded to 3 dp; 0.48 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Kennington-Cove"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1364/1458.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 123 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.4 deg (limit 45); 300 m window gives 113.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1364/1458.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1364/1459.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1365/1458.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1365/1459.pbf"
+    ],
+    "nearestCoastPoint": [
+     45.873666,
+     -60.060904
+    ],
+    "distanceToCoastM": 123.0,
+    "meanDevDeg": 40.4,
+    "seaward300": 113.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 28 deg from facing+180 (310); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 40 deg from the facing (130); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kennington Cove",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kennington-Cove",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the east. (surf-forecast)",
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Surfing here means negotiating dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Kennington Cove with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kennington Cove in Cape Breton Island is an exposed beach break that has consistent surf and can work at any time of the year. The best wind direction is from the north northwest. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the east. The beach break offers both left and right hand waves. Surfable at all stages of the tide. It very rarely gets crowded here. Surfing here means negotiating dangerous rips. Kennington Cove"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-canada-kennington-cove"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 44488",
+     "name": "East of Chedabucto Bay",
+     "owner": "Environment and Climate Change Canada",
+     "distanceKm": 84.4,
+     "live": true,
+     "liveNote": "WVHT 1.1 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 45.44,
+     "lon": -60.95,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=44488"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hali",
+     "name": "Halifax",
+     "owner": "IOC Sea Level Station Monitoring Facility (Canada)",
+     "distanceKm": 306.3,
+     "live": false,
+     "liveNote": "last sample 2015-01-13 16:38:00.000 UTC in the IOC station list",
+     "lat": 44.67,
+     "lon": -63.58,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR CYQY",
+     "name": "SYDNEY A",
+     "owner": "IEM CA_NS_ASOS network (airport METAR)",
+     "distanceKm": 31.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 46.161,
+     "lon": -60.048,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CYQY&network=CA_NS_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Kennington Cove",
+    "surfForecastRegion": "Cape-Breton-Island",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Kennington-Cove, pin 45.87,-60.06); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Kennington-Cove"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-canada-point-michaud",
+    "distanceKm": 58.19
+   }
+  },
+  {
+   "id": "w-canada-lawrencetown-reef",
+   "name": "Lawrencetown Reef",
+   "country": "Canada",
+   "region": "Nova Scotia",
+   "timeZone": "America/Halifax",
+   "type": "Reef",
+   "lat": 44.633,
+   "lon": -63.339,
+   "seaward": 184.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (44.6332, -63.3392) taken from the guide page, rounded to 3 dp; 0.76 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Lawrencetown-Reef"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1326/1478.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1142 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.7 deg (limit 45); 300 m window gives 181.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1326/1478.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1326/1479.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1327/1478.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1327/1479.pbf"
+    ],
+    "nearestCoastPoint": [
+     44.643529,
+     -63.33895
+    ],
+    "distanceToCoastM": 1142.3,
+    "meanDevDeg": 34.7,
+    "seaward300": 181.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 4 deg from facing+180 (4); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 49 deg from the facing (184); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Lawrencetown Reef",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lawrencetown-Reef",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Both left and right reef breaks. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Take care of rips and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Lawrencetown Reef with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Lawrencetown Reef in East Shore is an exposed reef break that has pretty consitent surf and can work at any time of the year. Works best in offshore winds from the northwest. Most of the surf here comes from groundswells and the ideal swell angle is from the southeast. Both left and right reef breaks. Good surf at all stages of the tide. Sometimes crowded. Take care of rips and rocks. Lawrencetown Reef"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-canada-lawrencetown-reef"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 44258",
+     "name": "Halifax Harbour",
+     "owner": "Environment and Climate Change Canada",
+     "distanceKm": 15.6,
+     "live": true,
+     "liveNote": "WVHT 1.1 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 44.5,
+     "lon": -63.4,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=44258"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC hali",
+     "name": "Halifax",
+     "owner": "IOC Sea Level Station Monitoring Facility (Canada)",
+     "distanceKm": 19.5,
+     "live": false,
+     "liveNote": "last sample 2015-01-13 16:38:00.000 UTC in the IOC station list",
+     "lat": 44.67,
+     "lon": -63.58,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR CYAW",
+     "name": "SHEARWATER",
+     "owner": "IEM CA_NS_ASOS network (airport METAR)",
+     "distanceKm": 12.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 44.64,
+     "lon": -63.499,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CYAW&network=CA_NS_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Lawrencetown Reef",
+    "surfForecastRegion": "Nova-Scotia",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Lawrencetown-Reef, pin 44.64,-63.34); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Lawrencetown-Reef"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-canada-the-reef",
+    "distanceKm": 1.21
+   }
+  },
+  {
+   "id": "w-canada-nootka-island-calvin-bay",
+   "name": "Nootka Island (Calvin Bay)",
+   "country": "Canada",
+   "region": "Vancouver Island",
+   "timeZone": "America/Vancouver",
+   "type": "Beach",
+   "lat": 49.658,
+   "lon": -126.84,
+   "seaward": 230.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (49.6584, -126.8395) taken from the guide page, rounded to 3 dp; 0.18 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Nootka-Island"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/604/1394.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 76 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.7 deg (limit 45); 300 m window gives 229.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/604/1394.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/604/1395.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/605/1394.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/605/1395.pbf"
+    ],
+    "nearestCoastPoint": [
+     49.657878,
+     -126.840184
+    ],
+    "distanceToCoastM": 75.9,
+    "meanDevDeg": 29.7,
+    "seaward300": 229.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 5 deg from facing+180 (50); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 5 deg from the facing (230); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Nootka Island (Calvin Bay)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Nootka-Island",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "season": "best time of year for surfing Nootka Island (Calvin Bay) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Nootka Island in Vancouver Island is a fairly exposed beach break that does not work very often Works best in offshore winds from the northeast. Windswells and groundswells in equal measure and the ideal swell angle is from the southwest. Waves at the beach are both lefts and rights. Relatively few surfers here, even on good days. Watch out for . Nootka Island (Calvin Bay)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-canada-nootka-island-calvin-bay"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46132",
+     "name": "South Brooks",
+     "owner": "Environment and Climate Change Canada",
+     "distanceKm": 76.7,
+     "live": true,
+     "liveNote": "WVHT 4.7 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 49.78,
+     "lon": -127.89,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46132"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC tfbc",
+     "name": "Tofino_BC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Canada)",
+     "distanceKm": 87.9,
+     "live": false,
+     "liveNote": "last sample 2026-11-05 22:28:00.000 UTC in the IOC station list",
+     "lat": 49.15,
+     "lon": -125.91,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tfbc"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR CWEB",
+     "name": "ESTEVAN POINT CS  BC",
+     "owner": "IEM CA_BC_ASOS network (airport METAR)",
+     "distanceKm": 37.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 49.383,
+     "lon": -126.543,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CWEB&network=CA_BC_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Nootka Island (Calvin Bay)",
+    "surfForecastRegion": "Vancouver-Island",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Nootka-Island, pin 49.66,-126.84); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Nootka-Island"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-canada-rosie-bay",
+    "distanceKm": 89.84
+   }
+  },
+  {
+   "id": "w-canada-sombrio-beach-2",
+   "name": "Sombrio Beach",
+   "country": "Canada",
+   "region": "Vancouver Island",
+   "timeZone": "America/Vancouver",
+   "type": null,
+   "lat": 48.451,
+   "lon": -124.171,
+   "seaward": 192.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (48.4507, -124.1715) taken from the guide page, rounded to 3 dp; 0.14 km from the position given in the drop reason",
+    "url": "https://www.surf-forecast.com/breaks/Sombrio-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-10)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/634/1415.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 139 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.7 deg (limit 45); 300 m window gives 192.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/634/1415.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/634/1416.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/635/1415.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/635/1416.pbf"
+    ],
+    "nearestCoastPoint": [
+     48.451925,
+     -124.17108
+    ],
+    "distanceToCoastM": 139.0,
+    "meanDevDeg": 7.7,
+    "seaward300": 192.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 10 deg from facing+180 (13); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 77 deg from the facing (193); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Sombrio Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sombrio-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-10"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "quite exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)",
+     "Hazards include rocks and locals. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Sombrio Beach with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Sombrio Beach in Vancouver Island is a quite exposed beach and reef break that has pretty consitent surf Works best in offshore winds from the north northeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the west. Waves at the beach are both lefts and rights. Surfable at all stages of the tide. It's sometimes crowded here. Hazards include rocks and locals. Sombrio Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-canada-sombrio-beach-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC neaw1",
+     "name": "9443090 - Neah Bay, WA",
+     "owner": "NOS",
+     "distanceKm": 34.0,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 48.367,
+     "lon": -124.614,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=neaw1"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC neah",
+     "name": "Neah_Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 34.1,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 48.368,
+     "lon": -124.617,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=neah"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR CWSP",
+     "name": "SHERINGHAM POINT  BC",
+     "owner": "IEM CA_BC_ASOS network (airport METAR)",
+     "distanceKm": 20.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 48.377,
+     "lon": -123.921,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CWSP&network=CA_BC_ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Sombrio Beach",
+    "surfForecastRegion": "Vancouver-Island",
+    "dropReason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sombrio-Beach, pin 48.45,-124.17); surf-forecast publishes no facing and same name as kept w-canada-sombrio-beach but the two guide pins are 11 km apart, so not merged, so no sourced facing"
+   },
+   "guideMatch": {
+    "namedInDropReason": [
+     "https://www.surf-forecast.com/breaks/Sombrio-Beach"
+    ],
+    "foundByName": []
+   },
+   "nearestCatalogued": {
+    "id": "w-canada-china-beach-vancouver-island",
+    "distanceKm": 5.99
+   }
   }
  ],
  "dropped": [
@@ -7461,173 +8119,293 @@
   {
    "name": "Alona Bay",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Alona-Bay, pin 47.16,-84.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Superior-Canada"
+   "surfForecastRegion": "Lake-Superior-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Ambleside Park",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Ambleside-Park, pin 49.32,-123.15); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
+   "surfForecastRegion": "Vancouver-Island",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore winds from the southeast: nearest listed direction is 99 deg from facing+180 (36); CONTRADICTS (>60) | surf-forecast best swell Northwest: nearest listed direction is 99 deg from the facing (216); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Bayfield",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bayfield, pin 45.36,-80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Huron-Canada"
+   "surfForecastRegion": "Lake-Huron-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Bluffers",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Bluffers, pin 43.7,-79.24); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Cow Bay",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Cow-Bay, pin 44.61,-63.43); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Nova-Scotia"
+   "surfForecastRegion": "Nova-Scotia",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Crystal Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Crystal-Beach, pin 42.84,-79.1); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin [name match https://www.surfnerd.com/surf-forecast/crystal-beach rejected: its pin is 2033.7 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Erie Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Erie-Beach, pin 42.2,-82.2); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Hamilton",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Hamilton, pin 43.28,-79.77); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin [name match https://www.surfnerd.com/surf-forecast/hamilton rejected: its pin is 1790.1 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Ingonish Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Ingonish-Beach, pin 46.64,-60.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Cape-Breton-Island"
-  },
-  {
-   "name": "Jordan River",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Jordan-River, pin 48.4,-123.95); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
-  },
-  {
-   "name": "Kennington Cove",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Kennington-Cove, pin 45.87,-60.06); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Cape-Breton-Island"
-  },
-  {
-   "name": "Lawrencetown Reef",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Lawrencetown-Reef, pin 44.64,-63.34); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Nova-Scotia"
+   "surfForecastRegion": "Cape-Breton-Island",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.01; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lepus Beach (Haida-Gwaii)",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Lepus-Beach-Haida-Gwaii, pin 54.17,-133.04); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
+   "surfForecastRegion": "Vancouver-Island",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 86 deg (arccos of mean resultant length 0.07; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Long Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Long-Point2, pin 42.58,-80.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin [name match https://www.surfnerd.com/surf-forecast/long-point rejected: its pin is 14639.2 km from the pin quoted in the drop reason (limit 5 km); name match https://www.surf-forecast.com/breaks/Long-Point rejected: its pin is 14638.8 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Manitoulin Island",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Manitoulin-Island, pin 45.74,-82.55); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Huron-Canada"
+   "surfForecastRegion": "Lake-Huron-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Marathon",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Marathon, pin 48.73,-86.55); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Superior-Canada"
-  },
-  {
-   "name": "Nootka Island (Calvin Bay)",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Nootka-Island, pin 49.66,-126.84); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
+   "surfForecastRegion": "Lake-Superior-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Oshawa",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Oshawa, pin 43.64,-79.47); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Pelee Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Pelee-Point, pin 41.93,-82.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Point Aux Pins",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Point-Aux-Pins, pin 42.25,-81.87); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Point Burwell",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Point-Burwell, pin 42.61,-80.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Port Bruce",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Bruce, pin 42.66,-81.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin [name match https://www.surfnerd.com/surf-forecast/port-bruce rejected: its pin is 25.4 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Port Colborne",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Colborne, pin 42.86,-79.6); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Port Stanley",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Port-Stanley, pin 42.62,-81.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Erie-Canada"
+   "surfForecastRegion": "Lake-Erie-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Presquile Point",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Presquile-Point, pin 44.0,-77.75); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin [name match https://www.surfnerd.com/surf-forecast/presquile-point rejected: its pin is 5.8 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   },
   {
    "name": "Richardson Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Richardson-Beach, pin 44.22,-76.59); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Sandbanks Provincial Park",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sandbanks-Provincial-Park, pin 43.94,-77.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Sauble Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sauble-Beach, pin 44.63,-81.27); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Huron-Canada"
-  },
-  {
-   "name": "Sombrio Beach",
-   "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Sombrio-Beach, pin 48.45,-124.17); surf-forecast publishes no facing and same name as kept w-canada-sombrio-beach but the two guide pins are 11 km apart, so not merged, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
+   "surfForecastRegion": "Lake-Huron-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "St Catharines",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/St-Catharines, pin 43.27,-79.12); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Tofino (North Chestermans Beach)",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Tofino, pin 49.12,-125.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
+   "surfForecastRegion": "Vancouver-Island",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: possible duplicate: w-canada-chesterman-beach is 0.00 km away (same name within 10 km, or any spot within 50 m)"
+   }
   },
   {
    "name": "Toronto Breaks",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Toronto-Breaks, pin 43.58,-79.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Tow Hill Beach",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Tow-Hill-Beach, pin 54.08,-131.79); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Vancouver-Island"
+   "surfForecastRegion": "Vancouver-Island",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Wolfe Island",
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Wolfe-Island, pin 44.15,-76.5); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "surfForecastRegion": "Lake-Ontario-Canada"
+   "surfForecastRegion": "Lake-Ontario-Canada",
+   "recoveryAttempt": {
+    "on": "2026-11-10",
+    "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin [name match https://www.surfnerd.com/surf-forecast/wolfe-island rejected: its pin is 5.9 km from the pin quoted in the drop reason (limit 5 km)]"
+   }
   }
  ],
- "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md | 2026-11-10: 5 spots recovered from dropped rows that had no url field (guide page by name; 0 with a published Surfnerd facing, 5 computed-coastline); see RECOVERY-2026-11-10.md"
 }
