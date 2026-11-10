@@ -1,0 +1,3918 @@
+{
+ "region": "Pacific gaps (Melanesia, Micronesia)",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list from surfnerd, Surf-Forecast.com and Wannasurf country listings; pages for one break are merged by name within 5 km. Position: surfnerd pin, else Wannasurf, else Surf-Forecast.com, rounded to 3 dp. Facing: surfnerd \"Faces X\" where published; otherwise the OSM coastline facing of RECOVERY-2026-11-09.md (facingKind computed-coastline, facts.facingDeg null), kept only when it does not contradict any published offshore wind or ideal swell. nearestSources: NDBC activestations (600 km), IOC sea-level list (400 km), IEM country ASOS network (200 km), great-circle km; registries read 2026-11-09. Time zone: timezonefinder at the pin, which must fall in the listing country.",
+ "counts": {
+  "kept": 20,
+  "guideFacing": 0,
+  "computedFacing": 20,
+  "dropped": 148
+ },
+ "spots": [
+  {
+   "id": "w-pacific-right-and-left-side",
+   "name": "Right and Left Side",
+   "country": "Guam",
+   "region": "Guam",
+   "timeZone": "Pacific/Guam",
+   "type": "Reef",
+   "lat": 13.484,
+   "lon": 144.739,
+   "seaward": 8.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (13.4842, 144.7388), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Right-and-Left-Side"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1892.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 563 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 14.7 deg (limit 45); 300 m window gives 7.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1892.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1893.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3695/1892.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3695/1893.pbf"
+    ],
+    "nearestCoastPoint": [
+     13.479112,
+     144.73865
+    ],
+    "distanceToCoastM": 562.8,
+    "meanDevDeg": 14.7,
+    "seaward300": 7.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 53 deg from facing+180 (188); consistent (<=60)",
+     "surf-forecast best swell North: nearest listed direction is 8 deg from the facing (8); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-right-and-left-side",
+    "name": "Right and Left Side",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Right-and-Left-Side",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Best around high tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Right and Left Side in - is an exposed reef break that only works once in a while. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "A fairly popluar wave that can sometimes get crowded Take care of rocks,shallow reef. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Offshore winds blow from the southeast. Windswells are much more common than groundswells and the ideal wave angle is from the north. There are left and right breaking reefs. Best around high tide. A fairly popluar wave that can sometimes get crowded Take care of rocks,shallow reef. Right and Left Side Spot Info Type : Rating: Reliability : Todays Sea Temp*: Reef 2 inconsistent 29.0 ° C *ocean temperature recorded from satellite Surfing Right and Left Side: The best conditions reported for surf at Right and Left Side occur when a North swell combines with an offshore wind direction from the Southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Right and Left Side (for consistent clean waves)? october Best Season: autumn The best time of year for surfing Right and Left Side with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Right and Left Side in - is an exposed reef break that only works once in a while. Winter is the best time of year for surfing here. Offshore winds blow from the southeast. Windswells are much more common than groundswells and the ideal wave angle is from the north. There are left and right breaking reefs. Best around high tide. A fairly popluar wave that can sometimes get crowded Take care of rocks,shallow reef. Right and Left Side"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC pgbp7",
+     "name": "1631428 - Pago Bay, Guam",
+     "owner": "NOS",
+     "distanceKm": 8.8,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 13.428,
+     "lon": 144.796,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=pgbp7"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pagb",
+     "name": "Pago Bay, Guam",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 8.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 13.428,
+     "lon": 144.797,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pagb"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-leftovers",
+   "name": "Leftovers",
+   "country": "Guam",
+   "region": "Guam",
+   "timeZone": "Pacific/Guam",
+   "type": "Reef",
+   "lat": 13.483,
+   "lon": 144.715,
+   "seaward": 334.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (13.4831, 144.7151), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Leftovers_1"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1892.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1021 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 25.1 deg (limit 45); 300 m window gives 329.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1892.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1893.pbf"
+    ],
+    "nearestCoastPoint": [
+     13.474834,
+     144.719294
+    ],
+    "distanceToCoastM": 1020.6,
+    "meanDevDeg": 25.1,
+    "seaward300": 329.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 19 deg from facing+180 (154); consistent (<=60)",
+     "surf-forecast best swell North: nearest listed direction is 26 deg from the facing (334); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-leftovers",
+    "name": "Leftovers",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Leftovers_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Best around high tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "A choice of left and right reefs. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)",
+     "Beware of rocks,shallow reef. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Leftovers with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Leftovers in - is an exposed reef break that only works once in a while. Winter is the optimum time of year for surfing here. Offshore winds blow from the southeast. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the north. A choice of left and right reefs. Best around high tide. It's sometimes crowded here. Beware of rocks,shallow reef. Leftovers"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC aprp7",
+     "name": "1630000 - Apra Harbor, Guam",
+     "owner": "NOS",
+     "distanceKm": 7.6,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 13.444,
+     "lon": 144.657,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=aprp7"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC guam",
+     "name": "Guam (Apra Harbor)",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 8.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 13.438,
+     "lon": 144.652,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=guam"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-talofofo-the-bay",
+   "name": "Talofofo/The Bay",
+   "country": "Guam",
+   "region": "Guam",
+   "timeZone": "Pacific/Guam",
+   "type": null,
+   "lat": 13.329,
+   "lon": 144.781,
+   "seaward": 78.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (13.3289, 144.7807), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Talofofo"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1894.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 864 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.2 deg (limit 45); 300 m window gives 74.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1894.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1895.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3695/1894.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3695/1895.pbf"
+    ],
+    "nearestCoastPoint": [
+     13.328283,
+     144.772747
+    ],
+    "distanceToCoastM": 864.2,
+    "meanDevDeg": 16.2,
+    "seaward300": 74.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 34 deg from facing+180 (259); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 56 deg from the facing (79); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-talofofo-the-bay",
+    "name": "Talofofo/The Bay",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Talofofo",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "waveTypeText": "River (surf-forecast)",
+    "exposure": "exposed rivermouth break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Be wary of rips - they make surfing here dangerous. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Talofofo/The Bay with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Talofofo/The Bay in - is an exposed rivermouth break that does not work very often. Autumn and winter are the best times of year for waves. The best wind direction is from the west northwest. Windswells are much more typical than groudswells and the ideal wave direction is from the southeast.. Unlikely to be too crowded, even when the surf is up. Be wary of rips - they make surfing here dangerous. Talofofo/The Bay"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52200",
+     "name": "Ipan, Guam (121)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 2.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 13.354,
+     "lon": 144.788,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52200"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC pagb",
+     "name": "Pago Bay, Guam",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 13.428,
+     "lon": 144.797,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pagb"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-tubeys-point-death",
+   "name": "Tubeys/Point Death",
+   "country": "Guam",
+   "region": "Guam",
+   "timeZone": "Pacific/Guam",
+   "type": "Reef",
+   "lat": 13.274,
+   "lon": 144.653,
+   "seaward": 267.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (13.2739, 144.6525), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Tubeys"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3693/1895.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1079 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.1 deg (limit 45); 300 m window gives 280.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3693/1895.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1895.pbf"
+    ],
+    "nearestCoastPoint": [
+     13.273196,
+     144.662433
+    ],
+    "distanceToCoastM": 1079.0,
+    "meanDevDeg": 29.1,
+    "seaward300": 280.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east southeast: nearest listed direction is 25 deg from facing+180 (88); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 47 deg from the facing (268); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-tubeys-point-death",
+    "name": "Tubeys/Point Death",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tubeys",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east southeast (surf-forecast)",
+    "tide": "Best around high tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "There is a right hand reef break. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of rocks,shallow reef,. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Works best in offshore winds from the east southeast. Windswells are much more typical than groudswells and the ideal wave angle is from the northwest. There is a right hand reef break. Best around high tide. Rarely crowded here. Beware of rocks,shallow reef,. Tubeys/Point Death Spot Info Type : Rating: Reliability : Todays Sea Temp*: Reef 2 inconsistent 29.1 ° C *ocean temperature recorded from satellite Surfing Tubeys/Point Death: The best conditions reported for surf at Tubeys/Point Death occur when a Northwest swell combines with an offshore wind direction from the East-southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Tubeys/Point Death (for consistent clean waves)? september Best Season: autumn The best time of year for surfing Tubeys/Point Death with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Tubeys/Point Death in - is an exposed reef break that has unreliable waves. Winter is the best time of year for surfing here. Works best in offshore winds from the east southeast. Windswells are much more typical than groudswells and the ideal wave angle is from the northwest. There is a right hand reef break. Best around high tide. Rarely crowded here. Beware of rocks,shallow reef,. Tubeys/Point Death"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52200",
+     "name": "Ipan, Guam (121)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 17.2,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 13.354,
+     "lon": 144.788,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52200"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC guam",
+     "name": "Guam (Apra Harbor)",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 18.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 13.438,
+     "lon": 144.652,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=guam"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-threes",
+   "name": "Threes",
+   "country": "Guam",
+   "region": "Guam",
+   "timeZone": "Pacific/Guam",
+   "type": "Reef",
+   "lat": 13.265,
+   "lon": 144.655,
+   "seaward": 260.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (13.2651, 144.6554), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Threes"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3693/1895.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 994 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 33.3 deg (limit 45); 300 m window gives 256.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3693/1895.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3693/1896.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1895.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3694/1896.pbf"
+    ],
+    "nearestCoastPoint": [
+     13.271024,
+     144.662304
+    ],
+    "distanceToCoastM": 994.3,
+    "meanDevDeg": 33.3,
+    "seaward300": 256.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east southeast: nearest listed direction is 32 deg from facing+180 (80); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 55 deg from the facing (260); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-threes",
+    "name": "Threes",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Threes",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east southeast (surf-forecast)",
+    "tide": "Best around high tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Both left and right reef breaks. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Hazards include rocks,very shallow reef,. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Threes with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Threes in - is an exposed reef break that has pretty consitent surf. Winter is the optimum time of year for surfing here. Offshore winds are from the east southeast. Windswells are much more typical than groudswells and the ideal wave angle is from the northwest. Both left and right reef breaks. Best around high tide. Unlikely to be too crowded, even when the surf is up. Hazards include rocks,very shallow reef,. Threes"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52200",
+     "name": "Ipan, Guam (121)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 17.4,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 13.354,
+     "lon": 144.788,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52200"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC guam",
+     "name": "Guam (Apra Harbor)",
+     "owner": "IOC Sea Level Station Monitoring Facility (USA)",
+     "distanceKm": 19.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 13.438,
+     "lon": 144.652,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=guam"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-sidedish",
+   "name": "Sidedish",
+   "country": "Micronesia",
+   "region": "Federated States of Micronesia",
+   "timeZone": "Pacific/Kosrae",
+   "type": "Reef",
+   "lat": 5.33,
+   "lon": 162.939,
+   "seaward": 297.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.329716666666667, 162.93926666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.04 km away",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Federated_States_of_Micronesia/Kosrae/Sidedish/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3901/1986.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 694 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 36.7 deg (limit 45); 300 m window gives 284.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3901/1986.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3901/1987.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3902/1986.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3902/1987.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.327606,
+     162.945163
+    ],
+    "distanceToCoastM": 694.0,
+    "meanDevDeg": 36.7,
+    "seaward300": 284.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 18 deg from facing+180 (117); consistent (<=60)",
+     "wannasurf good wind South, SouthEast, East: nearest listed direction is 18 deg from facing+180 (117); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 40 deg from the facing (297); consistent (<=90)",
+     "wannasurf good swell North, NorthWest: nearest listed direction is 18 deg from the facing (297); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-sidedish",
+    "name": "Sidedish",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Federated_States_of_Micronesia/Kosrae/Sidedish/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sidedish",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North-northwest (surf-forecast); good swell North, NorthWest (wannasurf)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast); good wind South, SouthEast, East (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast); Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "season": "best time of year for surfing Sidedish with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Totally Epic (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Sidedish in Micronesia - Kosrae is an exposed reef break that has pretty consitent surf. Offshore winds are from the southeast. The ideal swell direction from the north northwest. Crowds are never a problem here. Sidedish"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52215",
+     "name": "UTWE, KOSRAE, MICRONESIA (276)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 12.0,
+     "live": true,
+     "liveNote": "WVHT 0.9 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 5.241,
+     "lon": 163.001,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52215"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PTSA",
+     "name": "Kosrae",
+     "owner": "IEM FM__ASOS network (airport METAR)",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 5.352,
+     "lon": 162.956,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PTSA&network=FM__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-pacific-walung",
+   "name": "Walung",
+   "country": "Micronesia",
+   "region": "Federated States of Micronesia",
+   "timeZone": "Pacific/Kosrae",
+   "type": "Reef",
+   "lat": 5.32,
+   "lon": 162.917,
+   "seaward": 344.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.319933333333333, 162.91703333333334, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.01 km away",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Federated_States_of_Micronesia/Kosrae/Walung/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3901/1987.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 908 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.3 deg (limit 45); 300 m window gives 90.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3901/1987.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3902/1987.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.311881,
+     162.915423
+    ],
+    "distanceToCoastM": 908.1,
+    "meanDevDeg": 40.3,
+    "seaward300": 90.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 30 deg from facing+180 (165); consistent (<=60)",
+     "wannasurf good wind South, SouthEast, East: nearest listed direction is 15 deg from facing+180 (165); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 75 deg from the facing (345); consistent (<=90)",
+     "wannasurf good swell West: nearest listed direction is 75 deg from the facing (345); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-walung",
+    "name": "Walung",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Federated_States_of_Micronesia/Kosrae/Walung/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Walung",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West (surf-forecast); good swell West (wannasurf)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast); good wind South, SouthEast, East (wannasurf)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast); Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Don't know and holds up to Don't know (wannasurf)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Watch out for - Rips / undertow. (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "best time of year for surfing Walung with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "skill": "Pros or kamikaze only... (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "World Class (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Walung in Micronesia - Kosrae is an exposed reef break that is usually a safe bet. Offshore winds are from the southeast. The best swell direction is from the west. The location means that it never gets crowded. Watch out for - Rips / undertow. Walung"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52215",
+     "name": "UTWE, KOSRAE, MICRONESIA (276)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 12.8,
+     "live": true,
+     "liveNote": "WVHT 0.9 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 5.241,
+     "lon": 163.001,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52215"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PTSA",
+     "name": "Kosrae",
+     "owner": "IEM FM__ASOS network (airport METAR)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 5.352,
+     "lon": 162.956,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PTSA&network=FM__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-pacific-sugar-dock",
+   "name": "Sugar Dock",
+   "country": "Northern Mariana Islands",
+   "region": null,
+   "timeZone": "Pacific/Saipan",
+   "type": "Beach",
+   "lat": 15.149,
+   "lon": 145.699,
+   "seaward": 280.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (15.1487, 145.69948333333335, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Mariana_Islands/Sugar_Dock/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3705/1873.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 84 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.7 deg (limit 45); 300 m window gives 271.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3705/1873.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3706/1873.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.148715,
+     145.700269
+    ],
+    "distanceToCoastM": 84.5,
+    "meanDevDeg": 20.7,
+    "seaward300": 271.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South, SouthEast, East, NorthEast: nearest listed direction is 10 deg from facing+180 (100); consistent (<=60)",
+     "wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 10 deg from the facing (280); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-sugar-dock",
+    "name": "Sugar Dock",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Mariana_Islands/Sugar_Dock/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthWest, West, SouthWest (wannasurf)",
+    "windOffshore": "good wind South, SouthEast, East, NorthEast (wannasurf)",
+    "tide": "Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 1m+ / 3ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52211",
+     "name": "Tanapag, Saipan, NMI (197)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 13.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 15.269,
+     "lon": 145.664,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52211"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC saip",
+     "name": "Saipan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Mariana Islands)",
+     "distanceKm": 9.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.227,
+     "lon": 145.742,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=saip"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PGSN",
+     "name": "Saipan",
+     "owner": "IEM MP__ASOS network (airport METAR)",
+     "distanceKm": 4.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.119,
+     "lon": 145.729,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PGSN&network=MP__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-unknowns",
+   "name": "Unknowns",
+   "country": "Northern Mariana Islands",
+   "region": null,
+   "timeZone": "Pacific/Saipan",
+   "type": "Reef",
+   "lat": 15.132,
+   "lon": 145.685,
+   "seaward": 279.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (15.132116666666667, 145.68498333333332, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Mariana_Islands/Unknowns/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3705/1873.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 803 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 22.1 deg (limit 45); 300 m window gives 279.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3705/1873.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3705/1874.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.130938,
+     145.692358
+    ],
+    "distanceToCoastM": 803.1,
+    "meanDevDeg": 22.1,
+    "seaward300": 279.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthEast, East: nearest listed direction is 10 deg from facing+180 (100); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, West: nearest listed direction is 10 deg from the facing (280); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-unknowns",
+    "name": "Unknowns",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Mariana_Islands/Unknowns/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, West (wannasurf)",
+    "windOffshore": "good wind SouthEast, East (wannasurf)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at Don't know and holds up to Don't know (wannasurf)",
+    "hazards": [
+     "Urchins - Rips / undertow (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast, Powerful, Ledgey, Slab (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52211",
+     "name": "Tanapag, Saipan, NMI (197)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 15.4,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 15.269,
+     "lon": 145.664,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52211"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC saip",
+     "name": "Saipan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Mariana Islands)",
+     "distanceKm": 12.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.227,
+     "lon": 145.742,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=saip"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR PGSN",
+     "name": "Saipan",
+     "owner": "IEM MP__ASOS network (airport METAR)",
+     "distanceKm": 5.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.119,
+     "lon": 145.729,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PGSN&network=MP__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-melekeok",
+   "name": "melekeok",
+   "country": "Palau",
+   "region": null,
+   "timeZone": "Pacific/Palau",
+   "type": "Reef",
+   "lat": 7.491,
+   "lon": 134.642,
+   "seaward": 126.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (7.491016666666667, 134.64156666666668, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.05 km away",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Palau/melekeok/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3579/1962.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 535 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 33.3 deg (limit 45); 300 m window gives 122.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3579/1962.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3580/1962.pbf"
+    ],
+    "nearestCoastPoint": [
+     7.492218,
+     134.636872
+    ],
+    "distanceToCoastM": 534.9,
+    "meanDevDeg": 33.3,
+    "seaward300": 122.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the west: nearest listed direction is 37 deg from facing+180 (307); consistent (<=60)",
+     "wannasurf good wind West: nearest listed direction is 37 deg from facing+180 (307); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 37 deg from the facing (127); consistent (<=90)",
+     "wannasurf good swell East: nearest listed direction is 37 deg from the facing (127); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-melekeok",
+    "name": "melekeok",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Palau/melekeok/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Melekeok",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell East (surf-forecast); good swell East (wannasurf)",
+    "windOffshore": "offshore winds from the west (surf-forecast); good wind West (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast); Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Beware of - Rips / undertow - Rocks. (surf-forecast)",
+     "Rips / undertow - Rocks (wannasurf)"
+    ],
+    "season": "best time of year for surfing Melekeok (Babelthuap) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Powerful, Fun (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Melekeok (Babelthuap) in Palau is an exposed reef break that has inconsistent surf. Offshore winds are from the west. Groundswells are more common than windswells and the ideal swell angle is from the east. Even when the surf is up, crowds are unknown. Beware of - Rips / undertow - Rocks. Melekeok (Babelthuap)"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 52212",
+     "name": "Ngaraard, Babeldaob, Palau (219)",
+     "owner": "Pacific Islands Ocean Observing System",
+     "distanceKm": 15.8,
+     "live": true,
+     "liveNote": "WVHT 1.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 7.63,
+     "lon": 134.671,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=52212"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC imek",
+     "name": "Imekang",
+     "owner": "IOC Sea Level Station Monitoring Facility (Palau Islands)",
+     "distanceKm": 5.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.537,
+     "lon": 134.625,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=imek"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-vanimo-reef",
+   "name": "Vanimo Reef",
+   "country": "Papua New Guinea",
+   "region": null,
+   "timeZone": "Pacific/Port_Moresby",
+   "type": "Reef",
+   "lat": -2.668,
+   "lon": 141.307,
+   "seaward": 20.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-2.6675166666666668, 141.30666666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.07 km away",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Vanimo_Reef/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3655/2077.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 132 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.2 deg (limit 45); 300 m window gives 20.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3655/2077.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3655/2078.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3656/2077.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3656/2078.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.668567,
+     141.306103
+    ],
+    "distanceToCoastM": 132.0,
+    "meanDevDeg": 21.2,
+    "seaward300": 20.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell North-northwest: nearest listed direction is 43 deg from the facing (20); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-vanimo-reef",
+    "name": "Vanimo Reef",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Vanimo_Reef/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Vanimo-Reef",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the south and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast); All tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast); Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "A remote wave spot that never gets crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Vanimo Reef with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Vanimo Reef in Sandaun is a reasonably exposed reef break that has reasonably consistent surf Offshore winds blow from the south and there is no shelter here from cross shore breezes. Usually gets local windswells, but groundswells do happen and the ideal wave angle is from the north northwest. There is no reef break. Good surf at all stages of the tide. A remote wave spot that never gets crowded. Vanimo Reef"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC SRMPI",
+     "name": "Port of Sarmi, Papua",
+     "owner": "IOC Sea Level Station Monitoring Facility (Indonesia)",
+     "distanceKm": 297.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:23.000 UTC in the IOC station list",
+     "lat": -1.858,
+     "lon": 138.753,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=SRMPI"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR AYVN",
+     "name": "Vanimo",
+     "owner": "IEM PG__ASOS network (airport METAR)",
+     "distanceKm": 3.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.7,
+     "lon": 141.317,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=AYVN&network=PG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-tupira-mira",
+   "name": "Tupira Mira",
+   "country": "Papua New Guinea",
+   "region": null,
+   "timeZone": "Pacific/Port_Moresby",
+   "type": "Reef",
+   "lat": -4.486,
+   "lon": 145.448,
+   "seaward": 13.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-4.486483333333333, 145.44773333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Tupira_Mira/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3702/2098.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 310 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.3 deg (limit 45); 300 m window gives 13.5 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3702/2098.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3702/2099.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3703/2098.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3703/2099.pbf"
+    ],
+    "nearestCoastPoint": [
+     -4.489087,
+     145.446711
+    ],
+    "distanceToCoastM": 309.5,
+    "meanDevDeg": 21.3,
+    "seaward300": 13.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthWest: nearest listed direction is 32 deg from facing+180 (193); consistent (<=60)",
+     "wannasurf good swell NorthEast: nearest listed direction is 32 deg from the facing (13); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-tupira-mira",
+    "name": "Tupira Mira",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Tupira_Mira/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthEast (wannasurf)",
+    "windOffshore": "good wind SouthWest (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Ordinary, Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lomb",
+     "name": "Lombrum_Manus_Is_PG",
+     "owner": "IOC Sea Level Station Monitoring Facility (Papua New Guinea)",
+     "distanceKm": 345.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -2.042,
+     "lon": 147.374,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lomb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR AYMH",
+     "name": "Mount Hagen",
+     "owner": "IEM PG__ASOS network (airport METAR)",
+     "distanceKm": 196.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -5.827,
+     "lon": 144.296,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=AYMH&network=PG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-toro-s",
+   "name": "Toro's",
+   "country": "Papua New Guinea",
+   "region": null,
+   "timeZone": "Pacific/Bougainville",
+   "type": "Reef",
+   "lat": -5.003,
+   "lon": 154.627,
+   "seaward": 26.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-5.002933333333333, 154.62721666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Toro_s/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3806/2104.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 54 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.2 deg (limit 45); 300 m window gives 27.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3806/2104.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3806/2105.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3807/2104.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3807/2105.pbf"
+    ],
+    "nearestCoastPoint": [
+     -5.003416,
+     154.62729
+    ],
+    "distanceToCoastM": 54.0,
+    "meanDevDeg": 20.2,
+    "seaward300": 27.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthWest, South, SouthEast: nearest listed direction is 18 deg from facing+180 (207); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 18 deg from the facing (27); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-toro-s",
+    "name": "Toro's",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Toro_s/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "good wind SouthWest, South, SouthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to Don't know (wannasurf)",
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "World Class (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tare",
+     "name": "Tarekukure_Wharf_SB",
+     "owner": "IOC Sea Level Station Monitoring Facility (Solomon Islands)",
+     "distanceKm": 272.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -6.693,
+     "lon": 156.409,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tare"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-tunkahi",
+   "name": "Tunkahi",
+   "country": "Papua New Guinea",
+   "region": null,
+   "timeZone": "Pacific/Bougainville",
+   "type": "Reef",
+   "lat": -5.005,
+   "lon": 154.606,
+   "seaward": 331.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-5.005416666666667, 154.6061, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Tunkahi/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3806/2104.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 31 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.5 deg (limit 45); 300 m window gives 330.7 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3806/2104.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3806/2105.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3807/2104.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3807/2105.pbf"
+    ],
+    "nearestCoastPoint": [
+     -5.005439,
+     154.606382
+    ],
+    "distanceToCoastM": 31.4,
+    "meanDevDeg": 16.5,
+    "seaward300": 330.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthWest, South, SouthEast: nearest listed direction is 16 deg from facing+180 (151); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 16 deg from the facing (331); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-tunkahi",
+    "name": "Tunkahi",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Tunkahi/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "good wind SouthWest, South, SouthEast (wannasurf)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to Don't know (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "World Class (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tare",
+     "name": "Tarekukure_Wharf_SB",
+     "owner": "IOC Sea Level Station Monitoring Facility (Solomon Islands)",
+     "distanceKm": 273.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -6.693,
+     "lon": 156.409,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tare"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "regionSource": null
+  },
+  {
+   "id": "w-pacific-raiven",
+   "name": "Raiven",
+   "country": "Papua New Guinea",
+   "region": "New Britain Duke of York",
+   "timeZone": "Pacific/Port_Moresby",
+   "type": "Point",
+   "lat": -4.416,
+   "lon": 152.378,
+   "seaward": 164.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-4.4163, 152.3779), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Raiven"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3781/2097.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1211 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 43.8 deg (limit 45); 300 m window gives 170.3 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3781/2097.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3781/2098.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3782/2097.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3782/2098.pbf"
+    ],
+    "nearestCoastPoint": [
+     -4.407195,
+     152.371831
+    ],
+    "distanceToCoastM": 1211.4,
+    "meanDevDeg": 43.8,
+    "seaward300": 170.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northwest: nearest listed direction is 7 deg from facing+180 (345); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 15 deg from the facing (165); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-raiven",
+    "name": "Raiven",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Raiven",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore winds from the north northwest (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "quite exposed point break (surf-forecast)",
+    "season": "best time of year for surfing Raiven with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of July (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Raiven in New Britain and Duke of York is a quite exposed point break that has fairly consistent surf Offshore winds blow from the north northwest. Most of the surf here comes from groundswells and the ideal swell angle is from the south. There is no point break. The quality of the surf isn't affected by the tide. Even when the surf is up, crowds are unknown. Take care of coral. Raiven"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC raba",
+     "name": "Rabaul_PG",
+     "owner": "IOC Sea Level Station Monitoring Facility (Papua New Guinea)",
+     "distanceKm": 32.9,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": -4.2,
+     "lon": 152.175,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=raba"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Point'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-rubio",
+   "name": "Rubio",
+   "country": "Papua New Guinea",
+   "region": "New Ireland",
+   "timeZone": "Pacific/Port_Moresby",
+   "type": "Reef",
+   "lat": -3.444,
+   "lon": 152.209,
+   "seaward": 19.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-3.444, 152.2088), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Rubio"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3779/2086.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1130 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 18.7 deg (limit 45); 300 m window gives 11.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3779/2086.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3779/2087.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3780/2086.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3780/2087.pbf"
+    ],
+    "nearestCoastPoint": [
+     -3.453986,
+     152.20665
+    ],
+    "distanceToCoastM": 1129.8,
+    "meanDevDeg": 18.7,
+    "seaward300": 11.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southwest: nearest listed direction is 25 deg from facing+180 (200); consistent (<=60)",
+     "surf-forecast best swell East-northeast: nearest listed direction is 48 deg from the facing (20); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-rubio",
+    "name": "Rubio",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rubio",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell East-northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "season": "best time of year for surfing Rubio with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Rubio in New Ireland is an exposed reef break that has fairly consistent surf Works best in offshore winds from the southwest. Tends to receive a mix of groundswells and windswells and the best swell direction is from the east northeast. No reef break here. Surfable at all stages of the tide. Crowds are never a problem here. Hazards include coral. Rubio"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC raba",
+     "name": "Rabaul_PG",
+     "owner": "IOC Sea Level Station Monitoring Facility (Papua New Guinea)",
+     "distanceKm": 84.1,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": -4.2,
+     "lon": 152.175,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=raba"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-black-sands-beach",
+   "name": "Black Sands Beach",
+   "country": "Vanuatu",
+   "region": "Efate",
+   "timeZone": "Pacific/Efate",
+   "type": "Beach",
+   "lat": -17.714,
+   "lon": 168.216,
+   "seaward": 137.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-17.7137, 168.2156), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Black-Sands-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3961/2252.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 40 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 12.2 deg (limit 45); 300 m window gives 135.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3961/2252.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3961/2253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3962/2252.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3962/2253.pbf"
+    ],
+    "nearestCoastPoint": [
+     -17.713463,
+     168.215317
+    ],
+    "distanceToCoastM": 39.8,
+    "meanDevDeg": 12.2,
+    "seaward300": 135.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 3 deg from facing+180 (318); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 42 deg from the facing (138); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-black-sands-beach",
+    "name": "Black Sands Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Black-Sands-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Be wary of rips - they make surfing here dangerous. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Black Sands Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Black Sands Beach in Efate is a quite exposed beach break. Winter is the optimum time of year for surfing here. Offshore winds blow from the northwest. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the south. The beach breaks offer lefts and rights. Rarely crowded here. Be wary of rips - they make surfing here dangerous. Black Sands Beach"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vanu",
+     "name": "Port Vila",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vanuatu)",
+     "distanceKm": 10.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -17.755,
+     "lon": 168.308,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vanu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NVVV",
+     "name": "Port-vila",
+     "owner": "IEM VU__ASOS network (airport METAR)",
+     "distanceKm": 9.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -17.7,
+     "lon": 168.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NVVV&network=VU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-crazy-tree",
+   "name": "Crazy Tree",
+   "country": "Vanuatu",
+   "region": "Efate",
+   "timeZone": "Pacific/Efate",
+   "type": "Point",
+   "lat": -17.787,
+   "lon": 168.25,
+   "seaward": 240.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-17.7865, 168.2505), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Crazy-Tree"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3961/2253.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 978 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 39.6 deg (limit 45); 300 m window gives 246.1 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3961/2253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3961/2254.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3962/2253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3962/2254.pbf"
+    ],
+    "nearestCoastPoint": [
+     -17.78081,
+     168.257568
+    ],
+    "distanceToCoastM": 978.4,
+    "meanDevDeg": 39.6,
+    "seaward300": 246.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell South: nearest listed direction is 60 deg from the facing (240); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-crazy-tree",
+    "name": "Crazy Tree",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Crazy-Tree",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore winds from the north northeast with some shelter here from east southeast winds (surf-forecast)",
+    "tide": "Best around low tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Groundswells and windswells are equally likely and the best swell direction is from the south.The break here is a left hand point. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Beware of rips and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Works best in offshore winds from the north northeast with some shelter here from east southeast winds. Groundswells and windswells are equally likely and the best swell direction is from the south.The break here is a left hand point. Best around low tide. When the surf is up, it can get quite busy in the water. Beware of rips and rocks. Crazy Tree Spot Info Type : Rating: Reliability : Todays Sea Temp*: Point 5 consistent 26.5 ° C *ocean temperature recorded from satellite Surfing Crazy Tree: The best conditions reported for surf at Crazy Tree occur when a South swell combines with an offshore wind direction from the North-northeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Crazy Tree (for consistent clean waves)? february Best Season: autumn The best time of year for surfing Crazy Tree with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Crazy Tree in Efate is an exposed point break that has reliable surf. Winter is the best time of year for surfing here. Works best in offshore winds from the north northeast with some shelter here from east southeast winds. Groundswells and windswells are equally likely and the best swell direction is from the south.The break here is a left hand point. Best around low tide. When the surf is up, it can get quite busy in the water. Beware of rips and rocks. Crazy Tree"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vanu",
+     "name": "Port Vila",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vanuatu)",
+     "distanceKm": 7.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -17.755,
+     "lon": 168.308,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vanu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NVVV",
+     "name": "Port-vila",
+     "owner": "IEM VU__ASOS network (airport METAR)",
+     "distanceKm": 11.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -17.7,
+     "lon": 168.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NVVV&network=VU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Point'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-hopscotch",
+   "name": "Hopscotch",
+   "country": "Vanuatu",
+   "region": "Efate",
+   "timeZone": "Pacific/Efate",
+   "type": null,
+   "lat": -17.805,
+   "lon": 168.531,
+   "seaward": 157.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-17.8054, 168.5308), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Hopscotch"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3965/2253.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 422 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 28.1 deg (limit 45); 300 m window gives 151.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3965/2253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3965/2254.pbf"
+    ],
+    "nearestCoastPoint": [
+     -17.802528,
+     168.528171
+    ],
+    "distanceToCoastM": 422.5,
+    "meanDevDeg": 28.1,
+    "seaward300": 151.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northwest: nearest listed direction is 0 deg from facing+180 (338); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 22 deg from the facing (158); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-hopscotch",
+    "name": "Hopscotch",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hopscotch",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore winds from the north northwest (surf-forecast)",
+    "tide": "Best around mid tide when the tide is rising. (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "A left hand reef break. (surf-forecast)",
+    "exposure": "exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Works best in offshore winds from the north northwest. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the south. A left hand reef break. Best around mid tide when the tide is rising. Relatively few surfers here, even on good days. Submerged rocks are a hazard. Hopscotch Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach and reef 5 fairly consistent 26.4 ° C *ocean temperature recorded from satellite Surfing Hopscotch: The best conditions reported for surf at Hopscotch occur when a South swell combines with an offshore wind direction from the North-northwest . Hourly Forecast 16 Day Forecast What's the best time of year to surf Hopscotch (for consistent clean waves)? february Best Season: summer The best time of year for surfing Hopscotch with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Hopscotch in Efate is an exposed beach and reef break that has quite reliable surf. Winter is the best time of year for surfing here. Works best in offshore winds from the north northwest. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the south. A left hand reef break. Best around mid tide when the tide is rising. Relatively few surfers here, even on good days. Submerged rocks are a hazard. Hopscotch"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vanu",
+     "name": "Port Vila",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vanuatu)",
+     "distanceKm": 24.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -17.755,
+     "lon": 168.308,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vanu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NVVV",
+     "name": "Port-vila",
+     "owner": "IEM VU__ASOS network (airport METAR)",
+     "distanceKm": 27.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -17.7,
+     "lon": 168.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NVVV&network=VU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-pacific-rusty-barrel",
+   "name": "Rusty Barrel",
+   "country": "Vanuatu",
+   "region": "Efate",
+   "timeZone": "Pacific/Efate",
+   "type": "Reef",
+   "lat": -17.84,
+   "lon": 168.396,
+   "seaward": 176.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-17.8395, 168.3959), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Rusty-Barrel"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3963/2253.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1494 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.9 deg (limit 45); 300 m window gives 179.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3963/2253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3963/2254.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3964/2253.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3964/2254.pbf"
+    ],
+    "nearestCoastPoint": [
+     -17.826029,
+     168.397052
+    ],
+    "distanceToCoastM": 1494.5,
+    "meanDevDeg": 10.9,
+    "seaward300": 179.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 3 deg from facing+180 (357); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 3 deg from the facing (177); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-pacific-rusty-barrel",
+    "name": "Rusty Barrel",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rusty-Barrel",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "There are left and right breaking reefs. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Beware of rips and coral. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing here. Ideal winds are from the north. Windswells and groundswells in equal measure and the best swell direction is from the south. There are left and right breaking reefs. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of rips and coral. Rusty Barrel Spot Info Type : Rating: Reliability : Todays Sea Temp*: Reef 5 fairly consistent 26.4 ° C *ocean temperature recorded from satellite Surfing Rusty Barrel: The best conditions reported for surf at Rusty Barrel occur when a South swell combines with an offshore wind direction from the North . Hourly Forecast 16 Day Forecast What's the best time of year to surf Rusty Barrel (for consistent clean waves)? february Best Season: summer The best time of year for surfing Rusty Barrel with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Rusty Barrel in Efate is an exposed reef break that has quite consistent surf. Winter is the best time of year for surfing here. Ideal winds are from the north. Windswells and groundswells in equal measure and the best swell direction is from the south. There are left and right breaking reefs. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of rips and coral. Rusty Barrel"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vanu",
+     "name": "Port Vila",
+     "owner": "IOC Sea Level Station Monitoring Facility (Vanuatu)",
+     "distanceKm": 13.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:00.000 UTC in the IOC station list",
+     "lat": -17.755,
+     "lon": 168.308,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vanu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR NVVV",
+     "name": "Port-vila",
+     "owner": "IEM VU__ASOS network (airport METAR)",
+     "distanceKm": 18.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -17.7,
+     "lon": 168.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NVVV&network=VU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Aitape",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-aitape (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/aitape",
+    "https://www.surf-forecast.com/breaks/Aitape"
+   ],
+   "pin": [
+    -3.1348,
+    142.3555
+   ]
+  },
+  {
+   "name": "Aruh",
+   "country": "Micronesia",
+   "reason": "already catalogued as w-pac-aruh (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/aruh"
+   ],
+   "pin": [
+    6.9408,
+    158.332
+   ]
+  },
+  {
+   "name": "Black Sand Beach",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-black-sand-beach (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/black-sand-beach"
+   ],
+   "pin": [
+    -17.7098,
+    168.2864
+   ]
+  },
+  {
+   "name": "Breakas",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-breakas (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/breakas",
+    "https://www.wannasurf.com/spot/Australia_Pacific/Vanuatu/efate_-_breakas/index.html"
+   ],
+   "pin": [
+    -17.7788,
+    168.2952
+   ]
+  },
+  {
+   "name": "Bridge",
+   "country": "Marshall Islands",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.06; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/bridge"
+   ],
+   "pin": [
+    7.0819,
+    171.355
+   ]
+  },
+  {
+   "name": "British Beach",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-british-beach (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/british-beach",
+    "https://www.surf-forecast.com/breaks/British-Beach"
+   ],
+   "pin": [
+    -17.7848,
+    168.2819
+   ]
+  },
+  {
+   "name": "Calalin Pass",
+   "country": "Marshall Islands",
+   "reason": "already catalogued as w-pac-calalin-pass (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/calalin-pass"
+   ],
+   "pin": [
+    7.1617,
+    171.206
+   ]
+  },
+  {
+   "name": "Cape Barabar",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-cape-barabar (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/cape-barabar",
+    "https://www.surf-forecast.com/breaks/Cape-Barabar"
+   ],
+   "pin": [
+    -3.4155,
+    143.6388
+   ]
+  },
+  {
+   "name": "Coves",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-coves (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/coves",
+    "https://www.surf-forecast.com/breaks/Coves"
+   ],
+   "pin": [
+    -8.6205,
+    157.2361
+   ]
+  },
+  {
+   "name": "Delap",
+   "country": "Marshall Islands",
+   "reason": "already catalogued as w-pac-delap (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/delap"
+   ],
+   "pin": [
+    7.0896,
+    171.386
+   ]
+  },
+  {
+   "name": "Despretes",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-despretes (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/despretes",
+    "https://www.surf-forecast.com/breaks/Despretes"
+   ],
+   "pin": [
+    -8.3254,
+    157.1065
+   ]
+  },
+  {
+   "name": "Devil's Point",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-devil-s-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/devils-point",
+    "https://www.surf-forecast.com/breaks/Devils-Point"
+   ],
+   "pin": [
+    -17.7443,
+    168.18
+   ]
+  },
+  {
+   "name": "Dumbea Left",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 7.43 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/dumbea-left",
+    "https://www.surf-forecast.com/breaks/Dumbea"
+   ],
+   "pin": [
+    -22.3638,
+    166.2575
+   ]
+  },
+  {
+   "name": "Dumbéa Right",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: no OSM coastline within 1.5 km of the pin",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/dumbea-right",
+    "https://www.wannasurf.com/spot/Australia_Pacific/New_Caledonia/dumbea/index.html",
+    "https://www.surf-forecast.com/breaks/Dumbea-right"
+   ],
+   "pin": [
+    -22.3513,
+    166.2464
+   ]
+  },
+  {
+   "name": "Edmago",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/edmago",
+    "https://www.surf-forecast.com/breaks/Edmago"
+   ],
+   "pin": [
+    -2.6121,
+    150.7365
+   ]
+  },
+  {
+   "name": "Epao",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-epao (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/epao"
+   ],
+   "pin": [
+    -17.6254,
+    168.5071
+   ]
+  },
+  {
+   "name": "Erakor Island",
+   "country": "Vanuatu",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.05; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/erakor-island",
+    "https://www.surf-forecast.com/breaks/Erakor-Island"
+   ],
+   "pin": [
+    -17.7787,
+    168.3054
+   ]
+  },
+  {
+   "name": "Fakanakafo Bay",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-fakanakafo-bay (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/fakanakafo-bay"
+   ],
+   "pin": [
+    -8.7135,
+    160.948
+   ]
+  },
+  {
+   "name": "Forari Bay",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-forari-bay (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/forari-bay",
+    "https://www.surf-forecast.com/breaks/Forari-Mine-Lefts-and-Rights"
+   ],
+   "pin": [
+    -17.6794,
+    168.5492
+   ]
+  },
+  {
+   "name": "Forok Point",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-forok-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/forok-point",
+    "https://www.surf-forecast.com/breaks/Forok-Point"
+   ],
+   "pin": [
+    -3.6165,
+    143.7624
+   ]
+  },
+  {
+   "name": "Gouaro",
+   "country": "New Caledonia",
+   "reason": "already catalogued as w-pac-gouaro (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/gouaro",
+    "https://www.surf-forecast.com/breaks/Guaro"
+   ],
+   "pin": [
+    -21.6251,
+    165.4412
+   ]
+  },
+  {
+   "name": "Green Island Left",
+   "country": "New Caledonia",
+   "reason": "already catalogued as w-pac-green-island-left (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/green-island-left",
+    "https://www.surf-forecast.com/breaks/Green-Island-Left"
+   ],
+   "pin": [
+    -21.658,
+    165.4474
+   ]
+  },
+  {
+   "name": "Jailbreak",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-jailbreak (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/jailbreak",
+    "https://www.surf-forecast.com/breaks/Jailbreak"
+   ],
+   "pin": [
+    -2.6755,
+    141.3134
+   ]
+  },
+  {
+   "name": "Karawop",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-karawop (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/karawop",
+    "https://www.surf-forecast.com/breaks/Karawop"
+   ],
+   "pin": [
+    -3.4119,
+    143.4199
+   ]
+  },
+  {
+   "name": "Kirakira",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-kirakira (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/kirakira"
+   ],
+   "pin": [
+    -10.4568,
+    161.916
+   ]
+  },
+  {
+   "name": "Kundu Kundu",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-kundu-kundu (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/kundu-kundu",
+    "https://www.surf-forecast.com/breaks/Kundu-Kundu"
+   ],
+   "pin": [
+    -8.3734,
+    157.2293
+   ]
+  },
+  {
+   "name": "Laura",
+   "country": "Marshall Islands",
+   "reason": "already catalogued as w-pac-laura (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/laura"
+   ],
+   "pin": [
+    7.144,
+    171.027
+   ]
+  },
+  {
+   "name": "Lavata",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-lavata (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/lavata",
+    "https://www.surf-forecast.com/breaks/Lavata"
+   ],
+   "pin": [
+    -8.3521,
+    157.2135
+   ]
+  },
+  {
+   "name": "Leli Island",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-leli-island (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/leli-island"
+   ],
+   "pin": [
+    -8.7612,
+    161.052
+   ]
+  },
+  {
+   "name": "Lido's Left",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-lido-s-left (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/lidos-left"
+   ],
+   "pin": [
+    -2.663,
+    141.2802
+   ]
+  },
+  {
+   "name": "Lido's Right",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-lido-s-right (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/lidos-right",
+    "https://www.surf-forecast.com/breaks/Lidos-Left"
+   ],
+   "pin": [
+    -2.6591,
+    141.2712
+   ]
+  },
+  {
+   "name": "Lighthouse",
+   "country": "Micronesia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.94 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/lighthouse-pohnpei"
+   ],
+   "pin": [
+    7.0131,
+    158.207
+   ]
+  },
+  {
+   "name": "Logs",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-logs (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/logs",
+    "https://www.surf-forecast.com/breaks/Logs"
+   ],
+   "pin": [
+    -2.6684,
+    141.2972
+   ]
+  },
+  {
+   "name": "Long Long",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-long-long (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/long-long",
+    "https://www.surf-forecast.com/breaks/Long-Long"
+   ],
+   "pin": [
+    -2.5878,
+    150.7707
+   ]
+  },
+  {
+   "name": "Makuti",
+   "country": "Solomon Islands",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/makuti",
+    "https://www.surf-forecast.com/breaks/Makuti"
+   ],
+   "pin": [
+    -8.1383,
+    156.9586
+   ]
+  },
+  {
+   "name": "Malaupaina",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-malaupaina (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/malaupaina"
+   ],
+   "pin": [
+    -10.2252,
+    161.967
+   ]
+  },
+  {
+   "name": "Malu’u",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-maluu (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/maluu"
+   ],
+   "pin": [
+    -8.3447,
+    160.6352
+   ]
+  },
+  {
+   "name": "Mangea Reefs",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-mangea-reefs (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/mangea-reefs",
+    "https://www.surf-forecast.com/breaks/Mangea-Reefs-The-Channel-Island"
+   ],
+   "pin": [
+    -17.5378,
+    168.4741
+   ]
+  },
+  {
+   "name": "Manu",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-manu (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/manu"
+   ],
+   "pin": [
+    -8.608,
+    160.978
+   ]
+  },
+  {
+   "name": "Mbirimbiri",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-mbirimbiri (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/mbirimbiri",
+    "https://www.surf-forecast.com/breaks/Mbirimbiri"
+   ],
+   "pin": [
+    -8.3339,
+    157.182
+   ]
+  },
+  {
+   "name": "Moem Point",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-moem-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/moem-point",
+    "https://www.surf-forecast.com/breaks/Moem-Point"
+   ],
+   "pin": [
+    -3.5699,
+    143.6869
+   ]
+  },
+  {
+   "name": "Mwahnd Lefts",
+   "country": "Micronesia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.20 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/mwahnd-lefts"
+   ],
+   "pin": [
+    7.0202,
+    158.292
+   ]
+  },
+  {
+   "name": "Mwahnd Rights",
+   "country": "Micronesia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.07 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/mwahnd-rights"
+   ],
+   "pin": [
+    7.0195,
+    158.295
+   ]
+  },
+  {
+   "name": "Nago",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/nago",
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Nago_s/index.html",
+    "https://www.surf-forecast.com/breaks/Nago"
+   ],
+   "pin": [
+    -2.5953,
+    150.7694
+   ]
+  },
+  {
+   "name": "Nahlap",
+   "country": "Micronesia",
+   "reason": "already catalogued as w-pac-nahlap (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/nahlap"
+   ],
+   "pin": [
+    6.7812,
+    158.156
+   ]
+  },
+  {
+   "name": "Nahpali",
+   "country": "Micronesia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.16; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/nahpali"
+   ],
+   "pin": [
+    6.8655,
+    158.361
+   ]
+  },
+  {
+   "name": "Nan Madol",
+   "country": "Micronesia",
+   "reason": "already catalogued as w-pac-nan-madol (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/nan-madol"
+   ],
+   "pin": [
+    6.8385,
+    158.34
+   ]
+  },
+  {
+   "name": "Nusa Lefts",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-nusa-lefts (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/nusa-lefts",
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Nusa_Island_Left/index.html",
+    "https://www.surf-forecast.com/breaks/Nusa"
+   ],
+   "pin": [
+    -2.5654,
+    150.7833
+   ]
+  },
+  {
+   "name": "Ouano",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/ouano",
+    "https://www.surf-forecast.com/breaks/Ouano-rights"
+   ],
+   "pin": [
+    -21.8629,
+    165.7229
+   ]
+  },
+  {
+   "name": "Outside Naru",
+   "country": "Solomon Islands",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 69 deg (arccos of mean resultant length 0.35; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/outside-naru"
+   ],
+   "pin": [
+    -8.1274,
+    156.8707
+   ]
+  },
+  {
+   "name": "P-Pass",
+   "country": "Micronesia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.42 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/p-pass"
+   ],
+   "pin": [
+    6.982,
+    158.128
+   ]
+  },
+  {
+   "name": "Pailongge",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-pailongge (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/pailongge",
+    "https://www.surf-forecast.com/breaks/Pailongge"
+   ],
+   "pin": [
+    -8.0996,
+    156.7911
+   ]
+  },
+  {
+   "name": "Pango Point",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-pango-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/pango-point",
+    "https://www.wannasurf.com/spot/Australia_Pacific/Vanuatu/pango_point/index.html",
+    "https://www.surf-forecast.com/breaks/Pango-Point"
+   ],
+   "pin": [
+    -17.7845,
+    168.283
+   ]
+  },
+  {
+   "name": "Passe de Boulari - Lighthouse",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.21 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/passe-de-boulari-lighthouse"
+   ],
+   "pin": [
+    -22.4937,
+    166.4399
+   ]
+  },
+  {
+   "name": "Passe de Boulari - Skatepark",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 4.01 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/passe-de-boulari-skatepark"
+   ],
+   "pin": [
+    -22.5081,
+    166.4443
+   ]
+  },
+  {
+   "name": "Pikinini",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-pikinini (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/pikinini"
+   ],
+   "pin": [
+    -2.5704,
+    150.7886
+   ]
+  },
+  {
+   "name": "Ral",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/ral",
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Ral/index.html"
+   ],
+   "pin": [
+    -2.6092,
+    150.711
+   ]
+  },
+  {
+   "name": "Rita Pass",
+   "country": "Marshall Islands",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.15; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/rita-pass"
+   ],
+   "pin": [
+    7.1276,
+    171.355
+   ]
+  },
+  {
+   "name": "Roche Percée",
+   "country": "New Caledonia",
+   "reason": "already catalogued as w-pac-roche-percee (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/roche-percee",
+    "https://www.surf-forecast.com/breaks/Roche-Percee"
+   ],
+   "pin": [
+    -21.6218,
+    165.4639
+   ]
+  },
+  {
+   "name": "Secrets",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.79 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/secrets-south-province",
+    "https://www.surf-forecast.com/breaks/Secrets-NC"
+   ],
+   "pin": [
+    -21.6942,
+    165.4598
+   ]
+  },
+  {
+   "name": "Sinalangu",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-sinalangu (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/sinalangu"
+   ],
+   "pin": [
+    -8.8941,
+    161.072
+   ]
+  },
+  {
+   "name": "Sissano Lagoon",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-sissano-lagoon (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/sissano-lagoon",
+    "https://www.surf-forecast.com/breaks/Sissano-Lagoon"
+   ],
+   "pin": [
+    -3.0196,
+    142.0871
+   ]
+  },
+  {
+   "name": "Skull Island",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-skull-island (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/skull-island",
+    "https://www.surf-forecast.com/breaks/Skull-Island"
+   ],
+   "pin": [
+    -8.3316,
+    157.1615
+   ]
+  },
+  {
+   "name": "Sokehs Pass",
+   "country": "Micronesia",
+   "reason": "already catalogued as w-pac-sokehs-pass (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/sokehs-pass"
+   ],
+   "pin": [
+    7.0019,
+    158.181
+   ]
+  },
+  {
+   "name": "Soumabal Point",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-soumabal-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/soumabal-point",
+    "https://www.surf-forecast.com/breaks/Soumabal-Point"
+   ],
+   "pin": [
+    -17.8181,
+    168.4821
+   ]
+  },
+  {
+   "name": "Su’uholo",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-suuholo (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/suuholo"
+   ],
+   "pin": [
+    -9.814,
+    161.997
+   ]
+  },
+  {
+   "name": "Su’ulausi Harbour",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-suulausi-harbour (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/suulausi-harbour"
+   ],
+   "pin": [
+    -9.7413,
+    161.989
+   ]
+  },
+  {
+   "name": "Tapi Point",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-tapi-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/tapi-point",
+    "https://www.surf-forecast.com/breaks/Tapi-Point"
+   ],
+   "pin": [
+    -17.8066,
+    168.3502
+   ]
+  },
+  {
+   "name": "Tarawai",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-tarawai (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/tarawai",
+    "https://www.surf-forecast.com/breaks/Tarawai"
+   ],
+   "pin": [
+    -3.1998,
+    143.2563
+   ]
+  },
+  {
+   "name": "Tawarogha",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-tawarogha (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/tawarogha"
+   ],
+   "pin": [
+    -10.7491,
+    162.284
+   ]
+  },
+  {
+   "name": "Teouma Bay",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-teouma-bay (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/teouma-bay",
+    "https://www.wannasurf.com/spot/Australia_Pacific/Vanuatu/efate_-_teouma_bay/index.html",
+    "https://www.surf-forecast.com/breaks/Teouma-Bay"
+   ],
+   "pin": [
+    -17.79,
+    168.375
+   ]
+  },
+  {
+   "name": "The Wharf",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-the-wharf (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/the-wharf",
+    "https://www.surf-forecast.com/breaks/The-Wharf_1"
+   ],
+   "pin": [
+    -3.5624,
+    143.6475
+   ]
+  },
+  {
+   "name": "Titiana",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-titiana (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/titiana",
+    "https://www.surf-forecast.com/breaks/Titiana"
+   ],
+   "pin": [
+    -8.1111,
+    156.8117
+   ]
+  },
+  {
+   "name": "Ténia",
+   "country": "New Caledonia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.04 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/tenia",
+    "https://www.surf-forecast.com/breaks/Tenia"
+   ],
+   "pin": [
+    -22.0333,
+    165.9603
+   ]
+  },
+  {
+   "name": "Uruilangi",
+   "country": "Solomon Islands",
+   "reason": "already catalogued as w-pac-uruilangi (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/uruilangi"
+   ],
+   "pin": [
+    -8.8375,
+    160.9713
+   ]
+  },
+  {
+   "name": "Wewak Point",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-wewak-point (same guide page)",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/wewak-point",
+    "https://www.surf-forecast.com/breaks/Wewak-Point"
+   ],
+   "pin": [
+    -3.5538,
+    143.6338
+   ]
+  },
+  {
+   "name": "Bird Island (Saipan)",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.48; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Mariana_Islands/Bird_Island__Saipan_/index.html",
+    "https://www.surf-forecast.com/breaks/Bird-Island-Saipan"
+   ],
+   "pin": [
+    15.2582,
+    145.8136
+   ]
+  },
+  {
+   "name": "Boat Basin Lefts",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/boat_basin_lefts/index.html",
+    "https://www.surf-forecast.com/breaks/Boat-Basin-Lefts"
+   ],
+   "pin": [
+    13.483,
+    144.7517
+   ]
+  },
+  {
+   "name": "Boat Basin Rights",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/boat_basin_rights/index.html",
+    "https://www.surf-forecast.com/breaks/Boat-Basin-Rights"
+   ],
+   "pin": [
+    13.4827,
+    144.7529
+   ]
+  },
+  {
+   "name": "Boats",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Boats"
+   ],
+   "pin": [
+    -17.8022,
+    168.3176
+   ]
+  },
+  {
+   "name": "Bobs",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Bobs"
+   ],
+   "pin": [
+    -17.8159,
+    168.5229
+   ]
+  },
+  {
+   "name": "British Beach",
+   "country": "Vanuatu",
+   "reason": "already catalogued as w-pac-british-beach (same guide page)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/British-Beach_1"
+   ],
+   "pin": [
+    -17.7841,
+    168.2491
+   ]
+  },
+  {
+   "name": "Corvette",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Corvette"
+   ],
+   "pin": [
+    -22.4808,
+    166.4532
+   ]
+  },
+  {
+   "name": "Dari Rights",
+   "country": "Solomon Islands",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Solomon/Dari_Rights/index.html"
+   ],
+   "pin": [
+    -7.4312,
+    158.3191
+   ]
+  },
+  {
+   "name": "Doggies",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.48; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Doggies"
+   ],
+   "pin": [
+    -17.7873,
+    168.2773
+   ]
+  },
+  {
+   "name": "Duke of York",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Duke-of-York"
+   ],
+   "pin": [
+    -4.2455,
+    152.4617
+   ]
+  },
+  {
+   "name": "Erakor Point",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Erakor-Point"
+   ],
+   "pin": [
+    -17.8082,
+    168.313
+   ]
+  },
+  {
+   "name": "Fast Lefts",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.54 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Fast-Lefts"
+   ],
+   "pin": [
+    -17.8064,
+    168.3014
+   ]
+  },
+  {
+   "name": "Fausse Passe",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: no OSM coastline within 1.5 km of the pin",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Fausse-Passe"
+   ],
+   "pin": [
+    -22.5767,
+    166.4651
+   ]
+  },
+  {
+   "name": "Gab Gab Beach",
+   "country": "Micronesia",
+   "reason": "no published facing; computed coastline facing 350.2 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West: nearest listed direction is 100 deg from facing+180 (170); CONTRADICTS (>60) | wannasurf good swell NorthWest, West: nearest listed direction is 35 deg from the facing (350); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/gab_gab_beach/index.html"
+   ],
+   "pin": [
+    13.4444,
+    144.6458
+   ]
+  },
+  {
+   "name": "Go Go's",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Go_Go_s/index.html"
+   ],
+   "pin": [
+    -2.6149,
+    150.7392
+   ]
+  },
+  {
+   "name": "Graveyards",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Graveyards_6"
+   ],
+   "pin": [
+    13.3922,
+    144.6464
+   ]
+  },
+  {
+   "name": "High Doggies",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.76 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/High-Doggies"
+   ],
+   "pin": [
+    -17.796,
+    168.2739
+   ]
+  },
+  {
+   "name": "Ifira Island",
+   "country": "Vanuatu",
+   "reason": "no published facing; computed coastline facing 324.1 contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore winds from the northeast: nearest listed direction is 99 deg from facing+180 (144); CONTRADICTS (>60) | surf-forecast best swell South: nearest listed direction is 144 deg from the facing (324); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Ifira-Island"
+   ],
+   "pin": [
+    -17.7531,
+    168.2853
+   ]
+  },
+  {
+   "name": "Kavieng Rights",
+   "country": "Papua New Guinea",
+   "reason": "no published facing; computed coastline facing 297.5 contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the south southeast: nearest listed direction is 40 deg from facing+180 (118); consistent (<=60) | surf-forecast best swell Northeast: nearest listed direction is 108 deg from the facing (298); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Kavieng_Rights/index.html",
+    "https://www.surf-forecast.com/breaks/Kavieng-Rights"
+   ],
+   "pin": [
+    -2.5605,
+    150.7904
+   ]
+  },
+  {
+   "name": "Kragur Village, Kairiru Island",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 2.25 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Kragur_Village__Kairiru_Island/index.html",
+    "https://www.surf-forecast.com/breaks/Kragur-Village-Kairiru-Island"
+   ],
+   "pin": [
+    -3.3455,
+    143.559
+   ]
+  },
+  {
+   "name": "Kumars",
+   "country": "Solomon Islands",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 67 deg (arccos of mean resultant length 0.39; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Solomon/Kumars/index.html"
+   ],
+   "pin": [
+    -7.5716,
+    158.7821
+   ]
+  },
+  {
+   "name": "Lava Rock",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.96 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Lava-Rock"
+   ],
+   "pin": [
+    -17.7477,
+    168.1601
+   ]
+  },
+  {
+   "name": "Lidos Right",
+   "country": "Papua New Guinea",
+   "reason": "already catalogued as w-pac-lido-s-right (same guide page)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Lidos-Right"
+   ],
+   "pin": [
+    -2.6474,
+    141.2217
+   ]
+  },
+  {
+   "name": "Lighthouse Right",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Noumea-Pass"
+   ],
+   "pin": [
+    -22.4901,
+    166.4689
+   ]
+  },
+  {
+   "name": "Lulu,s Left",
+   "country": "Solomon Islands",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Solomon/Lulu_s_Left/index.html"
+   ],
+   "pin": [
+    -7.4279,
+    158.3153
+   ]
+  },
+  {
+   "name": "Magandas Reef",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.02; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/Mugandas_Bay/index.html"
+   ],
+   "pin": [
+    13.4675,
+    144.6409
+   ]
+  },
+  {
+   "name": "Magoos",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.20; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Magoos"
+   ],
+   "pin": [
+    13.4765,
+    144.6832
+   ]
+  },
+  {
+   "name": "Mangandas",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 88 deg (arccos of mean resultant length 0.03; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Mangandas"
+   ],
+   "pin": [
+    13.4623,
+    144.6175
+   ]
+  },
+  {
+   "name": "Maria Reef left",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.69 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Maria-Reef-left"
+   ],
+   "pin": [
+    -22.0419,
+    165.9539
+   ]
+  },
+  {
+   "name": "Menen",
+   "country": "Nauru",
+   "reason": "no published facing; computed coastline facing 107.5 contradicts published offshore wind/swell (wannasurf wind, wannasurf swell); wannasurf good wind East, NorthEast: nearest listed direction is 118 deg from facing+180 (288); CONTRADICTS (>60) | wannasurf good swell SouthWest: nearest listed direction is 118 deg from the facing (108); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Nauru/Archer_s_Spot/index.html"
+   ],
+   "pin": [
+    -0.544,
+    166.9526
+   ]
+  },
+  {
+   "name": "Mushrooms",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 7.76 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Mushrooms-NC"
+   ],
+   "pin": [
+    -21.9378,
+    165.7633
+   ]
+  },
+  {
+   "name": "Mutungs",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Mutungs"
+   ],
+   "pin": [
+    13.3837,
+    144.6418
+   ]
+  },
+  {
+   "name": "Nagar",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.37; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Nagar"
+   ],
+   "pin": [
+    -17.5231,
+    168.4034
+   ]
+  },
+  {
+   "name": "Narimu and Buro Reefs",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Vanimo-Narimu-and-Buro"
+   ],
+   "pin": [
+    -2.6886,
+    141.3314
+   ]
+  },
+  {
+   "name": "Ngardmau  Channel",
+   "country": "Palau",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 4.42 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Palau/Ngardmau__Channel/index.html"
+   ],
+   "pin": [
+    7.6458,
+    134.544
+   ]
+  },
+  {
+   "name": "No Boats",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.05; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/No-Boats"
+   ],
+   "pin": [
+    -17.8054,
+    168.3384
+   ]
+  },
+  {
+   "name": "Nusa Lik Peaks",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Nusa_Lik_Peaks/index.html"
+   ],
+   "pin": [
+    -2.5949,
+    150.768
+   ]
+  },
+  {
+   "name": "Néra Rivermouth",
+   "country": "New Caledonia",
+   "reason": "possible duplicate of w-pac-roche-percee (pacific-islands.json, \"Roche Percée\"), a catalogued spot 0.16 km away under another name",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/New_Caledonia/Nera_Rivermouth/index.html",
+    "https://www.surf-forecast.com/breaks/Nera-Rivermouth"
+   ],
+   "pin": [
+    -21.622,
+    165.4625
+   ]
+  },
+  {
+   "name": "Obyan",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing; computed coastline facing 200.7 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind East: nearest listed direction is 69 deg from facing+180 (21); CONTRADICTS (>60) | wannasurf good swell South: nearest listed direction is 21 deg from the facing (201); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Mariana_Islands/obyan/index.html"
+   ],
+   "pin": [
+    15.1049,
+    145.7389
+   ]
+  },
+  {
+   "name": "Ouano",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 5.07 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/New_Caledonia/ouano/index.html"
+   ],
+   "pin": [
+    -21.9084,
+    165.7542
+   ]
+  },
+  {
+   "name": "Ouano Lefts",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 2.16 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Ouano"
+   ],
+   "pin": [
+    -21.8648,
+    165.712
+   ]
+  },
+  {
+   "name": "P-Pass",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.95 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Federated_States_of_Micronesia/Pohnpei/P-Pass/index.html"
+   ],
+   "pin": [
+    7.0137,
+    158.2072
+   ]
+  },
+  {
+   "name": "Piccinniny",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Piccinniny"
+   ],
+   "pin": [
+    -2.5799,
+    150.7815
+   ]
+  },
+  {
+   "name": "Pickop's Point",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/Pickop_s_Point/index.html",
+    "https://www.surf-forecast.com/breaks/Pickop-s-Point"
+   ],
+   "pin": [
+    13.3405,
+    144.773
+   ]
+  },
+  {
+   "name": "Point Perfection",
+   "country": "Northern Mariana Islands / Guam",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 75 deg (arccos of mean resultant length 0.26; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Point-Perfection"
+   ],
+   "pin": [
+    13.3406,
+    144.63
+   ]
+  },
+  {
+   "name": "Pounders",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 45 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Pounders"
+   ],
+   "pin": [
+    -17.7913,
+    168.2646
+   ]
+  },
+  {
+   "name": "Resorts",
+   "country": "Vanuatu",
+   "reason": "possible duplicate of w-pac-breakas (pacific-islands.json, \"Breakas\"), a catalogued spot 0.31 km away under another name",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Vanuatu/Resorts/index.html"
+   ],
+   "pin": [
+    -17.7789,
+    168.292
+   ]
+  },
+  {
+   "name": "Rick's Reef",
+   "country": "Micronesia",
+   "reason": "no published facing; computed coastline facing 253.4 contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore winds from the southeast: nearest listed direction is 62 deg from facing+180 (73); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 107 deg from the facing (253); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/rick_s_reef/index.html",
+    "https://www.surf-forecast.com/breaks/Ricks-Reef"
+   ],
+   "pin": [
+    13.4977,
+    144.7689
+   ]
+  },
+  {
+   "name": "Saffas",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 71 deg (arccos of mean resultant length 0.33; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Saffas/index.html"
+   ],
+   "pin": [
+    -4.2415,
+    152.4235
+   ]
+  },
+  {
+   "name": "Santa Maria Anguar",
+   "country": "Palau",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Palau/Santa_Maria_Anguar/index.html",
+    "https://www.surf-forecast.com/breaks/Santa-Maria-Anguar"
+   ],
+   "pin": [
+    6.9218,
+    134.1236
+   ]
+  },
+  {
+   "name": "Sea River",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.55 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Sea-River"
+   ],
+   "pin": [
+    -17.8385,
+    168.4153
+   ]
+  },
+  {
+   "name": "Shark Bay Rivermouth (and Reef)",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Shark-Bay-Rivermouth-and-Reef"
+   ],
+   "pin": [
+    -17.813,
+    168.3549
+   ]
+  },
+  {
+   "name": "Shipwrecks",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 5.53 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Shipwrecks-NC"
+   ],
+   "pin": [
+    -21.9122,
+    165.7448
+   ]
+  },
+  {
+   "name": "Skateparks",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 4.89 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Skateparks-NC"
+   ],
+   "pin": [
+    -22.5117,
+    166.4352
+   ]
+  },
+  {
+   "name": "St Vincent Left",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.99 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Saint-Vincents"
+   ],
+   "pin": [
+    -22.0439,
+    165.957
+   ]
+  },
+  {
+   "name": "St Vincent Right",
+   "country": "New Caledonia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.66 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/St-Vincent-Right"
+   ],
+   "pin": [
+    -22.0245,
+    165.947
+   ]
+  },
+  {
+   "name": "Takara",
+   "country": "Vanuatu",
+   "reason": "no published facing; computed coastline facing 3.7 contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore wind from the South-southwest: nearest listed direction is 19 deg from facing+180 (184); consistent (<=60) | surf-forecast best swell from the southeast: nearest listed direction is 131 deg from the facing (4); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Takara"
+   ],
+   "pin": [
+    -17.5256,
+    168.4261
+   ]
+  },
+  {
+   "name": "Talafofo Bay",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/talafofo_bay/index.html"
+   ],
+   "pin": [
+    13.337,
+    144.762
+   ]
+  },
+  {
+   "name": "Tank Beach",
+   "country": "Northern Mariana Islands",
+   "reason": "no published facing; computed coastline facing 316.1 contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore winds from the southwest: nearest listed direction is 89 deg from facing+180 (136); CONTRADICTS (>60) | surf-forecast best swell Northeast: nearest listed direction is 89 deg from the facing (316); consistent (<=90)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Tank-Beach"
+   ],
+   "pin": [
+    15.2853,
+    145.7935
+   ]
+  },
+  {
+   "name": "Tanna - Lenakel",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Vanuatu/tanna_-_lenakil/index.html"
+   ],
+   "pin": [
+    -19.5366,
+    169.2645
+   ]
+  },
+  {
+   "name": "The Sequel",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 1.94 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/The-Sequel"
+   ],
+   "pin": [
+    -17.5124,
+    168.4748
+   ]
+  },
+  {
+   "name": "Triplets",
+   "country": "Vanuatu",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Triplets"
+   ],
+   "pin": [
+    -17.796,
+    168.2843
+   ]
+  },
+  {
+   "name": "Tupira Right",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 3.26 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Tupira-Right"
+   ],
+   "pin": [
+    -4.4426,
+    145.4341
+   ]
+  },
+  {
+   "name": "Umatac Bay",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.46; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/umatac_bay/index.html",
+    "https://www.surf-forecast.com/breaks/Umatac"
+   ],
+   "pin": [
+    13.2972,
+    144.6589
+   ]
+  },
+  {
+   "name": "Vanimo Village Reef",
+   "country": "Papua New Guinea",
+   "reason": "possible duplicate of w-pac-lido-s-left (pacific-islands.json, \"Lido's Left\"), a catalogued spot 0.34 km away under another name",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Vanimo_Village_Reef/index.html"
+   ],
+   "pin": [
+    -2.66,
+    141.2794
+   ]
+  },
+  {
+   "name": "Vanimo, Twin Rocks Reef",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Vanimo__Twin_Rocks_Reef/index.html"
+   ],
+   "pin": [
+    -2.6967,
+    141.3282
+   ]
+  },
+  {
+   "name": "West Passage (Babelthuap)",
+   "country": "Palau",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 4.09 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/West-Passage-Palau"
+   ],
+   "pin": [
+    7.5449,
+    134.4627
+   ]
+  },
+  {
+   "name": "White Cows",
+   "country": "Vanuatu",
+   "reason": "no published facing; computed coastline facing 25.5 contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the southwest: nearest listed direction is 20 deg from facing+180 (206); consistent (<=60) | surf-forecast best swell from the southeast: nearest listed direction is 110 deg from the facing (26); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/White-Cows"
+   ],
+   "pin": [
+    -17.6467,
+    168.5059
+   ]
+  },
+  {
+   "name": "Wutung Village Reef",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.68; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/Wutung_Village_Reef/index.html",
+    "https://www.surf-forecast.com/breaks/Wutung-Village-Reef"
+   ],
+   "pin": [
+    -2.6095,
+    141.0136
+   ]
+  },
+  {
+   "name": "Ylig",
+   "country": "Micronesia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Micronesia/Guam/Ylig/index.html",
+    "https://www.surf-forecast.com/breaks/Ylig"
+   ],
+   "pin": [
+    13.4191,
+    144.7908
+   ]
+  },
+  {
+   "name": "kwajalein atoll",
+   "country": "Marshall Islands",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Marshall_Islands/kwajalein_atoll/index.html"
+   ],
+   "pin": [
+    9.3002,
+    167.2631
+   ]
+  },
+  {
+   "name": "simberi island",
+   "country": "Papua New Guinea",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 2.35 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Australia_Pacific/Papua_New_Guinea/simberi_island/index.html",
+    "https://www.surf-forecast.com/breaks/Simberi-Island"
+   ],
+   "pin": [
+    -2.6204,
+    151.9758
+   ]
+  }
+ ]
+}

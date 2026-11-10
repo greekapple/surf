@@ -1,0 +1,4093 @@
+{
+ "region": "Europe gaps (Belgium, Baltic, Black Sea, eastern Adriatic)",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list from surfnerd, Surf-Forecast.com and Wannasurf country listings; pages for one break are merged by name within 5 km. Position: surfnerd pin, else Wannasurf, else Surf-Forecast.com, rounded to 3 dp. Facing: surfnerd \"Faces X\" where published; otherwise the OSM coastline facing of RECOVERY-2026-11-09.md (facingKind computed-coastline, facts.facingDeg null), kept only when it does not contradict any published offshore wind or ideal swell. nearestSources: NDBC activestations (600 km), IOC sea-level list (400 km), IEM country ASOS network (200 km), great-circle km; registries read 2026-11-09. Time zone: timezonefinder at the pin, which must fall in the listing country.",
+ "counts": {
+  "kept": 32,
+  "guideFacing": 7,
+  "computedFacing": 25,
+  "dropped": 43
+ },
+ "spots": [
+  {
+   "id": "w-europe-t-zwin",
+   "name": "'t Zwin",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": null,
+   "lat": 51.371,
+   "lon": 3.363,
+   "seaward": 328.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.370916666666666, 3.36285, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/_t_zwin/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1363.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 208 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.9 deg (limit 45); 300 m window gives 335.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1363.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2086/1363.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2086/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2086/1365.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.369141,
+     3.363833
+    ],
+    "distanceToCoastM": 207.9,
+    "meanDevDeg": 20.9,
+    "seaward300": 335.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South, SouthEast, East: nearest listed direction is 13 deg from facing+180 (148); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, West: nearest listed direction is 13 deg from the facing (328); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-t-zwin",
+    "name": "'t Zwin",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/_t_zwin/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, West (wannasurf)",
+    "windOffshore": "good wind South, SouthEast, East (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveTypeText": "Rivermouth (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Rarely break (5day/year) (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 95.8,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC mpsw",
+     "name": "Scheur Wielingen",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.418,
+     "lon": 3.299,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mpsw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 39.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-li-l-j-bay",
+   "name": "Li'l J-Bay",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": null,
+   "lat": 51.345,
+   "lon": 3.244,
+   "seaward": 352.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.3454, 3.2436, precision Exact), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.05 km away",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/lil_jbay/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1364.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 238 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.2 deg (limit 45); 300 m window gives 349.3 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1365.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.343379,
+     3.244757
+    ],
+    "distanceToCoastM": 237.5,
+    "meanDevDeg": 9.2,
+    "seaward300": 349.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 37 deg from facing+180 (172); consistent (<=60)",
+     "wannasurf good wind North, NorthWest, SouthWest, NorthEast: nearest listed direction is 53 deg from facing+180 (172); consistent (<=60)",
+     "surf-forecast best swell from the north northwest: nearest listed direction is 15 deg from the facing (352); consistent (<=90)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 8 deg from the facing (352); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-li-l-j-bay",
+    "name": "Li'l J-Bay",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/lil_jbay/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Li-l-J-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell from the north northwest (surf-forecast); good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast); good wind North, NorthWest, SouthWest, NorthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Sandbar (surf-forecast); Sand-bar (wannasurf)",
+    "waveDirectionText": "The sandbar breaks offer lefts and rights. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at 2m-2.5m / 6ft-8ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Beware of - Rips / undertow. (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "best time of year for surfing Li l J Bay with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of October (surf-forecast)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun, Powerless (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Li l J Bay in North Sea - Belgium is an exposed sandbar break. Summer in particular tends to be flat. Works best in offshore winds from the southeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the north northwest. The sandbar breaks offer lefts and rights. Crowds are never a problem here. Beware of - Rips / undertow. Li l J Bay"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 87.3,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC zldw",
+     "name": "Zeebrugge Leopold II dam",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 3.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.346,
+     "lon": 3.2,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=zldw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 31.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-bay-of-heist",
+   "name": "Bay of Heist",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.344,
+   "lon": 3.231,
+   "seaward": 24.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.3445, 3.2314166666666666, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/bay_of_heist/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1364.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 98 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 28.2 deg (limit 45); 300 m window gives 12.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1365.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.343647,
+     3.231006
+    ],
+    "distanceToCoastM": 98.5,
+    "meanDevDeg": 28.2,
+    "seaward300": 12.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West, SouthWest: nearest listed direction is 21 deg from facing+180 (204); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, West: nearest listed direction is 24 deg from the facing (24); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-bay-of-heist",
+    "name": "Bay of Heist",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/bay_of_heist/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, West (wannasurf)",
+    "windOffshore": "good wind West, SouthWest (wannasurf)",
+    "tide": "High tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 86.4,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC zldw",
+     "name": "Zeebrugge Leopold II dam",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 2.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.346,
+     "lon": 3.2,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=zldw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 30.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-zeebrugge",
+   "name": "Zeebrugge",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.332,
+   "lon": 3.166,
+   "seaward": 323.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.33213333333333, 3.16575, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 4.74 km away",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/zeebrugge/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2083/1364.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 351 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.7 deg (limit 45); 300 m window gives 325.5 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2083/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2083/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1364.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2084/1365.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.329816,
+     3.169203
+    ],
+    "distanceToCoastM": 351.2,
+    "meanDevDeg": 9.7,
+    "seaward300": 325.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South-southeast: nearest listed direction is 14 deg from facing+180 (144); consistent (<=60)",
+     "wannasurf good wind North, NorthWest, SouthEast, NorthEast: nearest listed direction is 9 deg from facing+180 (144); consistent (<=60)",
+     "surf-forecast best swell North: nearest listed direction is 36 deg from the facing (324); consistent (<=90)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 9 deg from the facing (324); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-zeebrugge",
+    "name": "Zeebrugge",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/zeebrugge/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Zeebrugge-1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast); good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore wind from the South-southeast (surf-forecast); good wind North, NorthWest, SouthEast, NorthEast (wannasurf)",
+    "tide": "Mid and high tide, Falling tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "quite exposed beach break (surf-forecast)",
+    "hazards": [
+     "Watch out for - Rips / undertow. (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "best time of year for surfing Zeebrugge with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Powerless (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Zeebrugge in North Sea - Belgium is a quite exposed beach break that has inconsistent surf. Summer in particular tends to be flat. The best wind direction is from the south southeast with some shelter here from west winds. Most of the surf here comes from groundswells and the best swell direction is from the north. The beach break provides left and right handers. An uncrowded break, even when it is working. Watch out for - Rips / undertow. Zeebrugge"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 81.7,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC zwdw",
+     "name": "Zeebrugge Wielingendok",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.355,
+     "lon": 3.178,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=zwdw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 25.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-de-haan",
+   "name": "De Haan",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.28,
+   "lon": 3.033,
+   "seaward": 324.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.2797, 3.0332, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.04 km away",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/den_haan/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1365.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 76 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.6 deg (limit 45); 300 m window gives 324.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2082/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2082/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2083/1365.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2083/1366.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.280302,
+     3.032679
+    ],
+    "distanceToCoastM": 75.8,
+    "meanDevDeg": 5.6,
+    "seaward300": 324.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 10 deg from facing+180 (145); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 13 deg from the facing (325); consistent (<=90)",
+     "wannasurf good swell North, NorthWest, West: nearest listed direction is 10 deg from the facing (325); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-de-haan",
+    "name": "De Haan",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/den_haan/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Den-Haan-1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North-northwest (surf-forecast); good swell North, NorthWest, West (wannasurf)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "High tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Take care of - Rips / undertow. (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "best time of year for surfing Den Haan with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Den Haan in North Sea - Belgium is an exposed beach break that only works once in a while. Summer in particular tends to be flat. The best wind direction is from the southeast. Windswells and groundswells in equal measure and the best swell direction is from the north northwest. The beach break offers both left and right hand waves. Rarely crowded here. Take care of - Rips / undertow. Den Haan"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 72.0,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC blkw",
+     "name": "Blankenberge",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 6.7,
+     "live": false,
+     "liveNote": "last sample 2026-10-20 11:40:00.000 UTC in the IOC station list",
+     "lat": 51.311,
+     "lon": 3.116,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=blkw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 14.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-oostende-t-ooster",
+   "name": "Oostende 't Ooster",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.239,
+   "lon": 2.929,
+   "seaward": 6.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.23935, 2.9288833333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/oosterstaketsel/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1366.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 99 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.4 deg (limit 45); 300 m window gives 2.3 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1367.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1367.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.23852,
+     2.929399
+    ],
+    "distanceToCoastM": 98.6,
+    "meanDevDeg": 38.4,
+    "seaward300": 2.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West, SouthWest, South, SouthEast, East: nearest listed direction is 7 deg from facing+180 (187); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, West, NorthEast: nearest listed direction is 7 deg from the facing (7); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-oostende-t-ooster",
+    "name": "Oostende 't Ooster",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/oosterstaketsel/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, West, NorthEast (wannasurf)",
+    "windOffshore": "good wind West, SouthWest, South, SouthEast, East (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks - Man-made danger (buoys etc..) - Localism (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Ordinary, Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 64.7,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC oste",
+     "name": "Ostend",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 0.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.234,
+     "lon": 2.927,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=oste"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 6.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-oostende-centrum",
+   "name": "Oostende centrum",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.235,
+   "lon": 2.913,
+   "seaward": 296.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.235, 2.91305, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/klein_strand_oostende_/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1366.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 21 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.0 deg (limit 45); 300 m window gives 305.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1367.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1367.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.234873,
+     2.913273
+    ],
+    "distanceToCoastM": 20.9,
+    "meanDevDeg": 29.0,
+    "seaward300": 305.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, South, SouthEast, East, NorthEast: nearest listed direction is 19 deg from facing+180 (116); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 19 deg from the facing (296); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-oostende-centrum",
+    "name": "Oostende centrum",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/klein_strand_oostende_/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "good wind North, South, SouthEast, East, NorthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 1m+ / 3ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 63.6,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC oste",
+     "name": "Ostend",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 1.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.234,
+     "lon": 2.927,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=oste"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 5.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-oostende-roje-meur",
+   "name": "Oostende Roje meur",
+   "country": "Belgium",
+   "region": null,
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.224,
+   "lon": 2.893,
+   "seaward": 325.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (51.2242, 2.8932, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Belgium/roje_meur/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1366.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 18 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.0 deg (limit 45); 300 m window gives 322.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2080/1367.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1366.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2081/1367.pbf"
+    ],
+    "nearestCoastPoint": [
+     51.224073,
+     2.893354
+    ],
+    "distanceToCoastM": 17.7,
+    "meanDevDeg": 5.0,
+    "seaward300": 322.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, South, NorthEast: nearest listed direction is 35 deg from facing+180 (145); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 10 deg from the facing (325); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-oostende-roje-meur",
+    "name": "Oostende Roje meur",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/roje_meur/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, South, NorthEast (wannasurf)",
+    "tide": "High tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fun, Powerless (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 62.2,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC oste",
+     "name": "Ostend",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 2.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.234,
+     "lon": 2.927,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=oste"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 3.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-surfers-paradise",
+   "name": "Surfers Paradise",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.353,
+   "lon": 3.255,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.3527, 3.25453), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 1.55 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/surfers-paradise.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WNW - NNE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/surfers-paradise.md"
+   },
+   "facingCheck": {
+    "result": "consistent with the other guides' wind/swell directions",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 22 deg from facing+180 (158); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 0 deg from the facing (338); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-surfers-paradise",
+    "name": "Surfers Paradise",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/surfers-paradise",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Surfers-Paradise",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best N (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WNW - NNE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore from SE (surfnerd); offshore wind from the Southeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It works through most of the tide, with a rising tide the better call.\" (surfnerd guide); Best around low tide. (surf-forecast)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Beach and reef (surf-forecast)",
+    "waveDirectionText": "Left, Right (surfnerd); Waves at the beach break both left and right. (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "exposure": "fairly exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Surfer's Paradise with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Surfer's Paradise on the West Coast is a fairly exposed beach and reef break that has very consistent waves, although summer tends to be mostly flat. The best wind direction is from the southeast. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the north northwest. Waves at the beach break both left and right. Best around low tide. Even when there are waves, it's not likley to be crowded. Take care of the strong rips here. Surfer's Paradise"
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 88.1,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC zldw",
+     "name": "Zeebrugge Leopold II dam",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 3.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.346,
+     "lon": 3.2,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=zldw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 32.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-blankenberge",
+   "name": "Blankenberge",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": null,
+   "lat": 51.322,
+   "lon": 3.136,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.3223, 3.1357), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 0.12 km away, surf-forecast 0.53 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/blankenberge.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WSW - NNE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/blankenberge.md"
+   },
+   "facingCheck": {
+    "result": "consistent with the other guides' wind/swell directions",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 22 deg from facing+180 (158); consistent (<=60)",
+     "wannasurf good wind SouthWest, South: nearest listed direction is 22 deg from facing+180 (158); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 0 deg from the facing (338); consistent (<=90)",
+     "wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 22 deg from the facing (338); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-blankenberge",
+    "name": "Blankenberge",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/blankenberge",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/blankenberge_pier/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Blankenberge",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best N (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NNE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); best swell North-northwest (surf-forecast); good swell NorthWest, West, SouthWest (wannasurf)",
+    "windOffshore": "offshore from SE (surfnerd); offshore winds from the southeast (surf-forecast); good wind SouthWest, South (wannasurf)",
+    "tide": "Works at Mid, High (surfnerd); \"The bank works through mid and high tide, with a rising tide the better call.\" (surfnerd guide); Good surf at all stages of the tide. (surf-forecast); High tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveTypeText": "Beach/pier (surf-forecast); Breakwater/jetty (wannasurf)",
+    "waveDirectionText": "Left, Right (surfnerd); The beach break offers both left and right hand waves. (surf-forecast); Right and left (wannasurf)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd); Starts working at 2.5m-3m / 8ft-10ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "fairly exposed beach/pier break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)",
+     "Rips / undertow (wannasurf)"
+    ],
+    "season": "best time of year for surfing Blankenberge with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "skill": "Beginner (surfnerd); All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Blankenberge on the West Coast is a fairly exposed beach/pier break that has reasonably consistent surf, although summer tends to be mostly flat. Offshore winds are from the southeast. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the north northwest. The beach break offers both left and right hand waves. Good surf at all stages of the tide. Rarely crowded here. Take care of the strong rips here. Blankenberge"
+     },
+     {
+      "site": "surfnerd",
+      "text": "Blankenberge is Belgium's most consistent surf spot, breaking over sand next to a large pier. The pier props up stable sandbanks and cuts the howling onshores, leaving some decent rights on its east side. Nearby, there's a rare right up at the Zeebrugge harbour wall and busier peaks down at Blankenberge-Oosterstaketsel."
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 79.5,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC blkw",
+     "name": "Blankenberge",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 1.9,
+     "live": false,
+     "liveNote": "last sample 2026-10-20 11:40:00.000 UTC in the IOC station list",
+     "lat": 51.311,
+     "lon": 3.116,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=blkw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 23.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": null,
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-bredene",
+   "name": "Bredene",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.254,
+   "lon": 2.961,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.25359, 2.96142), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 1.05 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/bredene.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WSW - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/bredene.md"
+   },
+   "facingCheck": {
+    "result": "other guides disagree: wannasurf wind",
+    "checks": [
+     "wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 112 deg from facing+180 (158); CONTRADICTS (>60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 22 deg from the facing (338); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-bredene",
+    "name": "Bredene",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/bredene",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/twins/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best N (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore from SE (surfnerd); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The beach can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); Mid and high tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Left, Right (surfnerd); Right and left (wannasurf)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd); Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Localism (wannasurf)"
+    ],
+    "skill": "Beginner (surfnerd); Beginners wave (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Bredene is a sandy-bottomed beach break just east of Oostende, with the waves lining up in front of Beachclub Twins at strandpost 1. It peels both left and right, and the surf here tends to be average rather than standout."
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 66.9,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC oste",
+     "name": "Ostend",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.234,
+     "lon": 2.927,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=oste"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 9.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-oostende",
+   "name": "Oostende",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.231,
+   "lon": 2.901,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.23097, 2.90125), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 0.57 km away, surf-forecast 2.46 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/oostende.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: WSW - NNE. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/oostende.md"
+   },
+   "facingCheck": {
+    "result": "other guides disagree: wannasurf wind",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 0 deg from facing+180 (135); consistent (<=60)",
+     "wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 90 deg from facing+180 (135); CONTRADICTS (>60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 22 deg from the facing (315); consistent (<=90)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 0 deg from the facing (315); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-oostende",
+    "name": "Oostende",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/oostende",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/Oostende/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Oostende",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best N (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NNE. Faces NW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); best swell North-northwest (surf-forecast); good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore from SE (surfnerd); offshore winds from the southeast (surf-forecast); good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid (surfnerd); \"Aim for low and mid tide, with a rising tide generally the better call.\" (surfnerd guide); Good surf at all stages of the tide. (surf-forecast); High tide only, Falling tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "Left, Right (surfnerd); The beach breaks offer lefts and rights. (surf-forecast); Right and left (wannasurf)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd); Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Beware of obstacles,. (surf-forecast)",
+     "Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "accessNotes": [
+     "\"In summer, surfing is restricted to the Outside surfclub west of the Thermae Palace Hotel, which runs lessons and board rental.\" (surfnerd)"
+    ],
+    "season": "best time of year for surfing Oostende with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "skill": "Beginner (surfnerd); All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Oostende on the West Coast is a fairly exposed beach break that has inconsistent surf. Summer in particular tends to be flat. Offshore winds blow from the southeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the north northwest. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Unlikely to be too crowded, even when the surf is up. Beware of obstacles,. Oostende"
+     },
+     {
+      "site": "surfnerd",
+      "text": "Oostende is the biggest coastal city in Belgium and offers some of the best surf in the country, with the peaks on either side of the harbour pier the ones to look for. It breaks over sand and peels both left and right. Close-outs are often mushy, but when it lines up there are a few faster walls to be had."
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 62.8,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC oste",
+     "name": "Ostend",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 1.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.234,
+     "lon": 2.927,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=oste"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 4.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-mariakerke",
+   "name": "Mariakerke",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.221,
+   "lon": 2.876,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.22075, 2.87636), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 0.41 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/mariakerke.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: WSW - NE. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/mariakerke.md"
+   },
+   "facingCheck": {
+    "result": "consistent with the other guides' wind/swell directions",
+    "checks": [
+     "wannasurf good wind North, NorthWest, East, NorthEast: nearest listed direction is 45 deg from facing+180 (135); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 0 deg from the facing (315); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-mariakerke",
+    "name": "Mariakerke",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mariakerke",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/mariakerke/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best N (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NE. Faces NW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore from SE (surfnerd); good wind North, NorthWest, East, NorthEast (wannasurf)",
+    "tide": "Works at Mid, High (surfnerd); \"The beach works on mid and high tide, with a rising tide generally the better call.\" (surfnerd guide); Mid and high tide, Falling tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Left, Right (surfnerd); Right and left (wannasurf)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd); Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "Beginner (surfnerd); All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fun, Powerless (wannasurf)",
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 61.1,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC oste",
+     "name": "Ostend",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 3.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.234,
+     "lon": 2.927,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=oste"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 2.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-westende",
+   "name": "Westende",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.174,
+   "lon": 2.77,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.17404, 2.77049), rounded to 3 dp; not a surveyed takeoff; other guide pins: wannasurf 0.99 km away, surf-forecast 1.00 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/westende.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WSW - NNW. NNW - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/westende.md"
+   },
+   "facingCheck": {
+    "result": "other guides disagree: wannasurf wind",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 22 deg from facing+180 (158); consistent (<=60)",
+     "wannasurf good wind North, NorthWest, West, NorthEast: nearest listed direction is 112 deg from facing+180 (158); CONTRADICTS (>60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 22 deg from the facing (338); consistent (<=90)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 22 deg from the facing (338); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-westende",
+    "name": "Westende",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/westende",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Belgium/westende/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Westende-1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best N (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NNW. NNW - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); best swell Northwest (surf-forecast); good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore from SE (surfnerd); offshore wind from the Southeast (surf-forecast); good wind North, NorthWest, West, NorthEast (wannasurf)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The break can work through low, mid, and high tide, though a rising tide is generally the better call.\" (surfnerd guide); High tide only, Falling tide (wannasurf)",
+    "bottom": "Sand (surfnerd); Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "Left, Right (surfnerd); The beach break offers both left and right hand waves. (surf-forecast); Right and left (wannasurf)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd); Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Beware of - Rips / undertow - Man-made danger (buoys etc.). (surf-forecast)",
+     "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "season": "best time of year for surfing Westende with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of April (surf-forecast)",
+    "skill": "Beginner (surfnerd); All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Powerless (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Westende in North Sea - Belgium is an exposed beach break. Summer in particular tends to be flat. The best wind direction is from the southeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the northwest. The beach break offers both left and right hand waves. Unlikely to be too crowded, even when the surf is up. Beware of - Rips / undertow - Man-made danger (buoys etc.). Westende"
+     },
+     {
+      "site": "surfnerd",
+      "text": "Westende is a mellow beach break over sand, made up of the more average jetty breaks that front the Westende surfclub. It suits beginners looking for a relaxed session. The club itself is a removable modular container setup, so you won't find hot showers, but board rental, surf lessons, and an easygoing little bar for aftersurf sessions give it a friendly, sociable feel."
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 54.2,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC nieu",
+     "name": "Nieuwpoort",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 3.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.151,
+     "lon": 2.728,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=nieu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBOS",
+     "name": "Ostend",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 7.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.199,
+     "lon": 2.862,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBOS&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-oostduinkerke",
+   "name": "Oostduinkerke",
+   "country": "Belgium",
+   "region": "West-Vlaanderen",
+   "timeZone": "Europe/Brussels",
+   "type": "Beach",
+   "lat": 51.137,
+   "lon": 2.667,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (51.13735, 2.66736), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 2.81 km away",
+    "url": "https://www.surfnerd.com/surf-forecast/oostduinkerke.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WSW - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/oostduinkerke.md"
+   },
+   "facingCheck": {
+    "result": "consistent with the other guides' wind/swell directions",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 22 deg from facing+180 (158); consistent (<=60)",
+     "surf-forecast best swell from the north northwest: nearest listed direction is 0 deg from the facing (338); consistent (<=90)"
+    ]
+   },
+   "facts": {
+    "spotId": "w-europe-oostduinkerke",
+    "name": "Oostduinkerke",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/oostduinkerke",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Oostduinkerke",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best N (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell N (surfnerd); best swell from the north northwest (surf-forecast)",
+    "windOffshore": "offshore from SE (surfnerd); offshore winds from the southeast (surf-forecast)",
+    "tide": "Works at Mid, High (surfnerd); \"The beach breaks on mid and high tide, with a rising tide generally the better call.\" (surfnerd guide); Best around high tide when the tide is falling. (surf-forecast)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Beach/jetty (surf-forecast)",
+    "waveDirectionText": "Left, Right (surfnerd); The beach breaks offer lefts and rights. (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "exposure": "fairly exposed beach/jetties break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Beware of rips and obstacles. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Oostduinkerke with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of May (surf-forecast)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Oostduinkerke on the West Coast is a fairly exposed beach/jetties break that has quite reliable surf, although summer tends to be mostly flat. Works best in offshore winds from the southeast. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the north northwest. The beach breaks offer lefts and rights. Best around high tide when the tide is falling. Even when there are waves, it's not likley to be crowded. Beware of rips and obstacles. Oostduinkerke"
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "NDBC fixed station",
+     "id": "NDBC 62170",
+     "name": "F3 Light Vessel",
+     "owner": "UK Met Office",
+     "distanceKm": 47.9,
+     "live": true,
+     "liveNote": "WVHT 0.2 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 51.24,
+     "lon": 2.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=62170"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC nieu",
+     "name": "Nieuwpoort",
+     "owner": "IOC Sea Level Station Monitoring Facility (Belgium)",
+     "distanceKm": 4.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 51.151,
+     "lon": 2.728,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=nieu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EBFN",
+     "name": "Koksijde",
+     "owner": "IEM BE__ASOS network (airport METAR)",
+     "distanceKm": 5.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 51.09,
+     "lon": 2.653,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EBFN&network=BE__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-europe-poliisinlahti",
+   "name": "Poliisinlahti",
+   "country": "Finland",
+   "region": "Finland Baltic Sea",
+   "timeZone": "Europe/Helsinki",
+   "type": "Beach",
+   "lat": 61.578,
+   "lon": 21.49,
+   "seaward": 262.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (61.5779, 21.4898), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Poliisinlahti"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2291/1151.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 2 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.9 deg (limit 45); 300 m window gives 270.5 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2291/1151.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2291/1152.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2291/1153.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2292/1151.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2292/1152.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2292/1153.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2293/1151.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2293/1152.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2293/1153.pbf"
+    ],
+    "nearestCoastPoint": [
+     61.577896,
+     21.489764
+    ],
+    "distanceToCoastM": 1.9,
+    "meanDevDeg": 34.9,
+    "seaward300": 270.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 15 deg from facing+180 (82); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 8 deg from the facing (262); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-poliisinlahti",
+    "name": "Poliisinlahti",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Poliisinlahti",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Poliisinlahti in Baltic Sea is a fairly exposed beach break that only works once in a while The best wind direction is from the east northeast. The short fetch makes for windswells rather than groundswells and the best wave direction is from the west. The beach break offers both left and right hand waves. Good surf at all stages of the tide. Rarely crowded here. Poliisinlahti"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC fors",
+     "name": "Forsmark",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 219.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:48:00.000 UTC in the IOC station list",
+     "lat": 60.409,
+     "lon": 18.211,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=fors"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EFPO",
+     "name": "Pori",
+     "owner": "IEM FI__ASOS network (airport METAR)",
+     "distanceKm": 20.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 61.462,
+     "lon": 21.8,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EFPO&network=FI__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-europe-palmu-licis",
+   "name": "Palmu Licis",
+   "country": "Latvia",
+   "region": null,
+   "timeZone": "Europe/Riga",
+   "type": "Beach",
+   "lat": 56.56,
+   "lon": 21.0,
+   "seaward": 284.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (56.56005, 21.000366666666668, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.02 km away",
+    "url": "https://www.wannasurf.com/spot/Europe/Latvia/Palmu_Licis/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2286/1263.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 36 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 42.1 deg (limit 45); 300 m window gives 287.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2286/1263.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2286/1264.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2287/1263.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2287/1264.pbf"
+    ],
+    "nearestCoastPoint": [
+     56.559996,
+     21.000944
+    ],
+    "distanceToCoastM": 35.9,
+    "meanDevDeg": 42.1,
+    "seaward300": 287.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-southeast: nearest listed direction is 8 deg from facing+180 (105); consistent (<=60)",
+     "surf-forecast best swell West-southwest: nearest listed direction is 37 deg from the facing (285); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-palmu-licis",
+    "name": "Palmu Licis",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Latvia/Palmu_Licis/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Palmu-Licis",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West-southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-southeast (surf-forecast)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Palmu Licis in Latvia is an exposed beach break that has inconsistent surf. The best wind direction is from the east southeast. Short period wind swells are the rule and the best wave direction is from the west southwest. The beach break offers both left and right hand waves. Relatively few surfers here, even on good days. Palmu Licis"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC slit",
+     "name": "Slite",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 183.6,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 57.706,
+     "lon": 18.81,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=slit"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EVLA",
+     "name": "Liepaja",
+     "owner": "IEM LV__ASOS network (airport METAR)",
+     "distanceKm": 7.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 56.517,
+     "lon": 21.097,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EVLA&network=LV__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-palanga",
+   "name": "Palanga",
+   "country": "Lithuania",
+   "region": null,
+   "timeZone": "Europe/Vilnius",
+   "type": null,
+   "lat": 55.928,
+   "lon": 21.055,
+   "seaward": 283.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (55.92785, 21.05535, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.03 km away",
+    "url": "https://www.wannasurf.com/spot/Europe/Lithuania/Palanga/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2286/1276.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 4 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.9 deg (limit 45); 300 m window gives 279.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2286/1276.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2286/1277.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2287/1276.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2287/1277.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2288/1276.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2288/1277.pbf"
+    ],
+    "nearestCoastPoint": [
+     55.927845,
+     21.055411
+    ],
+    "distanceToCoastM": 3.9,
+    "meanDevDeg": 7.9,
+    "seaward300": 279.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east: nearest listed direction is 14 deg from facing+180 (104); consistent (<=60)",
+     "wannasurf good wind NorthWest, NorthEast: nearest listed direction is 59 deg from facing+180 (104); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 31 deg from the facing (284); consistent (<=90)",
+     "wannasurf good swell NorthWest, NorthEast: nearest listed direction is 31 deg from the facing (284); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-palanga",
+    "name": "Palanga",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Lithuania/Palanga/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Palanga",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell Northwest (surf-forecast); good swell NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "offshore winds from the east (surf-forecast); good wind NorthWest, NorthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Sandbar (surf-forecast); Sand-bar (wannasurf)",
+    "waveDirectionText": "The sandbar break offers both left and right hand waves. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "Hazards include - Rocks. (surf-forecast)",
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Palanga in Baltic is an exposed sandbar break that has fairly consistent surf. Offshore winds blow from the east. The best swell direction is from the northwest. The sandbar break offers both left and right hand waves. A popular wave that can get growded. Hazards include - Rocks. Palanga"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC slit",
+     "name": "Slite",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 240.3,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 57.706,
+     "lon": 18.81,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=slit"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EYPA",
+     "name": "Palanga",
+     "owner": "IEM LT__ASOS network (airport METAR)",
+     "distanceKm": 5.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 55.973,
+     "lon": 21.092,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EYPA&network=LT__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-bar",
+   "name": "Bar",
+   "country": "Montenegro",
+   "region": null,
+   "timeZone": "Europe/Podgorica",
+   "type": "Beach",
+   "lat": 42.106,
+   "lon": 19.085,
+   "seaward": 250.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (42.10573333333333, 19.08535, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Montenegro/Bar/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2264/1518.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 187 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 27.0 deg (limit 45); 300 m window gives 252.1 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2264/1518.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2264/1519.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2265/1518.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2265/1519.pbf"
+    ],
+    "nearestCoastPoint": [
+     42.106151,
+     19.087543
+    ],
+    "distanceToCoastM": 186.9,
+    "meanDevDeg": 27.0,
+    "seaward300": 252.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell NorthWest, West: nearest listed direction is 19 deg from the facing (251); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-bar",
+    "name": "Bar",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Montenegro/Bar/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthWest, West (wannasurf)",
+    "tide": "All tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC sobr",
+     "name": "Sobra",
+     "owner": "IOC Sea Level Station Monitoring Facility (Croatia)",
+     "distanceKm": 142.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 42.793,
+     "lon": 17.62,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sobr"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-kruce",
+   "name": "Kruce",
+   "country": "Montenegro",
+   "region": null,
+   "timeZone": "Europe/Podgorica",
+   "type": "Beach",
+   "lat": 41.986,
+   "lon": 19.149,
+   "seaward": 252.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (41.98583333333333, 19.148833333333332, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Europe/Montenegro/Kruce/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2265/1520.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 192 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 42.6 deg (limit 45); 300 m window gives 247.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2265/1520.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2265/1521.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2266/1520.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2266/1521.pbf"
+    ],
+    "nearestCoastPoint": [
+     41.986127,
+     19.151119
+    ],
+    "distanceToCoastM": 191.9,
+    "meanDevDeg": 42.6,
+    "seaward300": 247.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell West: nearest listed direction is 18 deg from the facing (252); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-kruce",
+    "name": "Kruce",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Montenegro/Kruce/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell West (wannasurf)",
+    "tide": "All tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC sobr",
+     "name": "Sobra",
+     "owner": "IOC Sea Level Station Monitoring Facility (Croatia)",
+     "distanceKm": 154.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 42.793,
+     "lon": 17.62,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=sobr"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-dabki",
+   "name": "Dabki",
+   "country": "Poland",
+   "region": null,
+   "timeZone": "Europe/Warsaw",
+   "type": null,
+   "lat": 54.38,
+   "lon": 16.317,
+   "seaward": 309.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (54.37955, 16.3171, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.05 km away",
+    "url": "https://www.wannasurf.com/spot/Europe/Poland/Dabki/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2233/1307.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 469 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.6 deg (limit 45); 300 m window gives 309.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2233/1307.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2233/1308.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2234/1307.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2234/1308.pbf"
+    ],
+    "nearestCoastPoint": [
+     54.382471,
+     16.311849
+    ],
+    "distanceToCoastM": 469.3,
+    "meanDevDeg": 3.6,
+    "seaward300": 309.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 6 deg from facing+180 (129); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 39 deg from the facing (309); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-dabki",
+    "name": "Dabki",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Europe/Poland/Dabki/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dabki",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Sandbar (surf-forecast); Sand-bar (wannasurf)",
+    "waveDirectionText": "The sandbar breaks offer lefts and rights. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Dabki in Baltic is an exposed sandbar break that has inconsistent surf. Works best in offshore winds from the southeast. The location means that groundswells are unknown and the ideal wave angle is from the west. The sandbar breaks offer lefts and rights. The location means that it never gets crowded. Dabki"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tejn",
+     "name": "Tejn",
+     "owner": "IOC Sea Level Station Monitoring Facility (Denmark)",
+     "distanceKm": 135.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:30:00.000 UTC in the IOC station list",
+     "lat": 55.25,
+     "lon": 14.84,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tejn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR EPLB",
+     "name": "Lublin",
+     "owner": "IEM PL__ASOS network (airport METAR)",
+     "distanceKm": 94.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 54.42,
+     "lon": 17.77,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EPLB&network=PL__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-mangalia",
+   "name": "Mangalia",
+   "country": "Romania",
+   "region": null,
+   "timeZone": "Europe/Bucharest",
+   "type": "Beach",
+   "lat": 43.836,
+   "lon": 28.591,
+   "seaward": 95.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (43.8364, 28.591), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Mangalia"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2372/1491.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 18 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.7 deg (limit 45); 300 m window gives 93.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2372/1491.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2372/1492.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2373/1491.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2373/1492.pbf"
+    ],
+    "nearestCoastPoint": [
+     43.836404,
+     28.590779
+    ],
+    "distanceToCoastM": 17.7,
+    "meanDevDeg": 10.7,
+    "seaward300": 93.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 6 deg from facing+180 (276); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 6 deg from the facing (96); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-mangalia",
+    "name": "Mangalia",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mangalia",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Mangalia in Bulgaria - Black Sea is an exposed beach break. The best wind direction is from the west and there is no shelter here from cross shore breezes. The location means that groundswells are unknown and the optimum wave angle is from the east. Waves at the beach break both left and right. Good surf at all stages of the tide. Rarely crowded here. Mangalia"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mang",
+     "name": "Mangalia",
+     "owner": "IOC Sea Level Station Monitoring Facility (Romania)",
+     "distanceKm": 3.9,
+     "live": false,
+     "liveNote": "last sample 2026-08-25 04:22:00.000 UTC in the IOC station list",
+     "lat": 43.801,
+     "lon": 28.595,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mang"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LRCK",
+     "name": "Constanta",
+     "owner": "IEM RO__ASOS network (airport METAR)",
+     "distanceKm": 56.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 44.333,
+     "lon": 28.433,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LRCK&network=RO__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-vama-veche",
+   "name": "Vama Veche",
+   "country": "Romania",
+   "region": "Bulgaria Black Sea",
+   "timeZone": "Europe/Bucharest",
+   "type": "Beach",
+   "lat": 43.751,
+   "lon": 28.577,
+   "seaward": 71.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (43.7512, 28.5767), rounded to 3 dp; not a surveyed takeoff; the guide lists it under Bulgaria, the pin lies in Romania (Europe/Bucharest)",
+    "url": "https://www.surf-forecast.com/breaks/Vama-Veche"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2372/1492.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 26 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.9 deg (limit 45); 300 m window gives 70.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2372/1492.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2372/1493.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2373/1492.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2373/1493.pbf"
+    ],
+    "nearestCoastPoint": [
+     43.751295,
+     28.576994
+    ],
+    "distanceToCoastM": 25.9,
+    "meanDevDeg": 6.9,
+    "seaward300": 70.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell East: nearest listed direction is 19 deg from the facing (71); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-vama-veche",
+    "name": "Vama Veche",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Vama-Veche",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore winds from the west and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Vama Veche in Bulgaria - Black Sea is an exposed beach break that has inconsistent surf. Autumn and winter are the optimum times of year for waves. Works best in offshore winds from the west and there is no shelter here from cross shore breezes. Still reasonable in light onshore winds Short period wind swells are the rule and the ideal wave direction is from the east. Waves at the beach are both lefts and rights. Good surf at all stages of the tide. Rarely crowded here. Vama Veche"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mang",
+     "name": "Mangalia",
+     "owner": "IOC Sea Level Station Monitoring Facility (Romania)",
+     "distanceKm": 5.7,
+     "live": false,
+     "liveNote": "last sample 2026-08-25 04:22:00.000 UTC in the IOC station list",
+     "lat": 43.801,
+     "lon": 28.595,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mang"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR LRCK",
+     "name": "Constanta",
+     "owner": "IEM RO__ASOS network (airport METAR)",
+     "distanceKm": 65.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 44.333,
+     "lon": 28.433,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LRCK&network=RO__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-europe-wef",
+   "name": "Wef",
+   "country": "Russia",
+   "region": null,
+   "timeZone": "Europe/Kaliningrad",
+   "type": "Beach",
+   "lat": 55.189,
+   "lon": 20.848,
+   "seaward": 305.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (55.18931666666667, 20.84815, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Asia/Russia/Wef/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2284/1291.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 24 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 18.5 deg (limit 45); 300 m window gives 309.1 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2284/1291.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2284/1292.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2285/1291.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2285/1292.pbf"
+    ],
+    "nearestCoastPoint": [
+     55.189414,
+     20.847816
+    ],
+    "distanceToCoastM": 23.8,
+    "meanDevDeg": 18.5,
+    "seaward300": 309.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South, SouthEast, East: nearest listed direction is 9 deg from facing+180 (126); consistent (<=60)",
+     "wannasurf good swell West: nearest listed direction is 36 deg from the facing (306); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-wef",
+    "name": "Wef",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Russia/Wef/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell West (wannasurf)",
+    "windOffshore": "good wind South, SouthEast, East (wannasurf)",
+    "tide": "Mid and high tide, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Don't know and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fast (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC slit",
+     "name": "Slite",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sweden)",
+     "distanceKm": 306.6,
+     "live": false,
+     "liveNote": "no last sample in the IOC station list",
+     "lat": 57.706,
+     "lon": 18.81,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=slit"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR UMKK",
+     "name": "Kaliningrad",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 56.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 54.7,
+     "lon": 20.617,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UMKK&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-europe-southern-cape",
+   "name": "Southern Cape",
+   "country": "Russia",
+   "region": "Black Sea",
+   "timeZone": "Europe/Moscow",
+   "type": "Point",
+   "lat": 44.892,
+   "lon": 37.295,
+   "seaward": 270.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (44.8921, 37.29516666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Southern_Cape/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2471/1474.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 72 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 45.0 deg (limit 45); 300 m window gives 282.3 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2471/1474.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2471/1475.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2472/1474.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2472/1475.pbf"
+    ],
+    "nearestCoastPoint": [
+     44.892166,
+     37.296073
+    ],
+    "distanceToCoastM": 71.9,
+    "meanDevDeg": 45.0,
+    "seaward300": 282.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 45 deg from facing+180 (90); consistent (<=60)",
+     "wannasurf good swell West, SouthWest, South: nearest listed direction is 0 deg from the facing (270); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-southern-cape",
+    "name": "Southern Cape",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Southern_Cape/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell West, SouthWest, South (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "All tides, Don't know (wannasurf)",
+    "bottom": "Boulders (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC kaci",
+     "name": "Kaciveli",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ukraina)",
+     "distanceKm": 262.1,
+     "live": false,
+     "liveNote": "last sample 2012-03-27 08:20:00.000 UTC in the IOC station list",
+     "lat": 44.416,
+     "lon": 34.05,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kaci"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR URKA",
+     "name": "Anapa",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 1.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 44.883,
+     "lon": 37.283,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=URKA&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Point-break'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-europe-kudepsta",
+   "name": "Kudepsta",
+   "country": "Russia",
+   "region": "Black Sea",
+   "timeZone": "Europe/Moscow",
+   "type": "Beach",
+   "lat": 43.495,
+   "lon": 39.883,
+   "seaward": 243.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (43.49451666666667, 39.88301666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 1.05 km away",
+    "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Cudepsta/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1496.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 8 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.0 deg (limit 45); 300 m window gives 245.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1496.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1497.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2502/1496.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2502/1497.pbf"
+    ],
+    "nearestCoastPoint": [
+     43.494482,
+     39.882927
+    ],
+    "distanceToCoastM": 8.2,
+    "meanDevDeg": 29.0,
+    "seaward300": 245.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 4 deg from facing+180 (64); consistent (<=60)",
+     "surf-forecast best swell West-southwest: nearest listed direction is 4 deg from the facing (244); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-kudepsta",
+    "name": "Kudepsta",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Cudepsta/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kudepsta-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West-southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "tide": "Don't know, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft (wannasurf)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Beware of - Man-made danger (buoys etc.). (surf-forecast)",
+     "Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kudepsta Beach in Russia - Black Sea is an exposed beach break that has inconsistent surf. The best wind direction is from the east northeast. The best swell direction is from the west southwest. The beach break offers both left and right hand waves. The location means that it never gets crowded. Beware of - Man-made danger (buoys etc.). Kudepsta Beach"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC trab",
+     "name": "Trabzon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 277.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:30.000 UTC in the IOC station list",
+     "lat": 41.002,
+     "lon": 39.744,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trab"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR URSS",
+     "name": "Sochi",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 43.433,
+     "lon": 39.9,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=URSS&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-europe-chaika",
+   "name": "Chaika",
+   "country": "Russia",
+   "region": "Black Sea",
+   "timeZone": "Europe/Moscow",
+   "type": "Beach",
+   "lat": 43.418,
+   "lon": 39.921,
+   "seaward": 234.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (43.41811666666667, 39.920833333333334, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Chaika/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1498.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 4 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 43.8 deg (limit 45); 300 m window gives 222.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1498.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1499.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2502/1498.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2502/1499.pbf"
+    ],
+    "nearestCoastPoint": [
+     43.41809,
+     39.920865
+    ],
+    "distanceToCoastM": 3.9,
+    "meanDevDeg": 43.8,
+    "seaward300": 222.0
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-chaika",
+    "name": "Chaika",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Chaika/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell Don't know (wannasurf)",
+    "windOffshore": "good wind Don't know (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft (wannasurf)",
+    "hazards": [
+     "Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Powerful (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC trab",
+     "name": "Trabzon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 269.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:30.000 UTC in the IOC station list",
+     "lat": 41.002,
+     "lon": 39.744,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trab"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR URSS",
+     "name": "Sochi",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 2.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 43.433,
+     "lon": 39.9,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=URSS&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-europe-mys-flotskiy",
+   "name": "Mys Flotskiy",
+   "country": "Russia",
+   "region": "Finnish Bay",
+   "timeZone": "Europe/Moscow",
+   "type": "Reef",
+   "lat": 60.162,
+   "lon": 29.142,
+   "seaward": 201.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (60.16191666666667, 29.142433333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Asia/Russia/Finnish_Bay/Mis_Flotskiy/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2378/1185.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 17 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 44.4 deg (limit 45); 300 m window gives 225.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2378/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2378/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2379/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2379/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2380/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2380/1186.pbf"
+    ],
+    "nearestCoastPoint": [
+     60.162013,
+     29.142672
+    ],
+    "distanceToCoastM": 17.0,
+    "meanDevDeg": 44.4,
+    "seaward300": 225.2
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-mys-flotskiy",
+    "name": "Mys Flotskiy",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Russia/Finnish_Bay/Mis_Flotskiy/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR ULLI",
+     "name": "St. Petersburg",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 67.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.967,
+     "lon": 30.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ULLI&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-europe-flotskiy-lighthouse",
+   "name": "Мыс Флотский (Flotskiy lighthouse)",
+   "country": "Russia",
+   "region": "Gulf of Finland Russia",
+   "timeZone": "Europe/Moscow",
+   "type": "Reef",
+   "lat": 60.155,
+   "lon": 29.13,
+   "seaward": 200.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (60.1554, 29.1297), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Flotskiy-lighthouse"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2378/1185.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1024 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 44.6 deg (limit 45); 300 m window gives 224.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2378/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2378/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2379/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2379/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2380/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2380/1186.pbf"
+    ],
+    "nearestCoastPoint": [
+     60.161945,
+     29.14278
+    ],
+    "distanceToCoastM": 1024.2,
+    "meanDevDeg": 44.6,
+    "seaward300": 224.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 24 deg from facing+180 (21); consistent (<=60)",
+     "surf-forecast best swell West-southwest: nearest listed direction is 47 deg from the facing (201); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-flotskiy-lighthouse",
+    "name": "Мыс Флотский (Flotskiy lighthouse)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Flotskiy-lighthouse",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Мыс Флотский (Flotskiy lighthouse) in Gulf of Finland is a fairly exposed reef break that only works when conditions are just right. (surf-forecast)",
+    "exposure": "fairly exposed reef break (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Мыс Флотский (Flotskiy lighthouse) in Gulf of Finland is a fairly exposed reef break that only works when conditions are just right. Offshore winds blow from the northeast. There is too little fetch for groundswells to form and the ideal wave angle is from the west southwest. Surfable at all stages of the tide. Crowds are never a problem here. Мыс Флотский (Flotskiy lighthouse)"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR ULLI",
+     "name": "St. Petersburg",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 68.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.967,
+     "lon": 30.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ULLI&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-europe-laskovyy-plyazh",
+   "name": "Пляж Ласковый (Laskovyy Plyazh)",
+   "country": "Russia",
+   "region": "Gulf of Finland Russia",
+   "timeZone": "Europe/Moscow",
+   "type": "Beach",
+   "lat": 60.136,
+   "lon": 29.914,
+   "seaward": 248.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (60.1364, 29.9138), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Laskovyy-Plyazh"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2387/1185.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 979 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.5 deg (limit 45); 300 m window gives 248.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2387/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2387/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2387/1187.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2388/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2388/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2388/1187.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2389/1185.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2389/1186.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2389/1187.pbf"
+    ],
+    "nearestCoastPoint": [
+     60.139117,
+     29.93061
+    ],
+    "distanceToCoastM": 979.0,
+    "meanDevDeg": 7.5,
+    "seaward300": 248.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 1 deg from facing+180 (69); consistent (<=60)",
+     "surf-forecast best swell West-southwest: nearest listed direction is 1 deg from the facing (249); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-laskovyy-plyazh",
+    "name": "Пляж Ласковый (Laskovyy Plyazh)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Laskovyy-Plyazh",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Пляж Ласковый (Laskovyy Plyazh) in Gulf of Finland is a fairly exposed beach break that does not work very often. Offshore winds blow from the east northeast. There is too little fetch for groundswells to form and the best wave direction is from the west southwest. Good surf at all stages of the tide. An uncrowded break, even when it is working. Пляж Ласковый (Laskovyy Plyazh)"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR ULLI",
+     "name": "St. Petersburg",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 28.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.967,
+     "lon": 30.3,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ULLI&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-europe-adler-mzymta-river",
+   "name": "Adler - Mzymta River",
+   "country": "Russia",
+   "region": "Russia Black Sea",
+   "timeZone": "Europe/Moscow",
+   "type": "Beach",
+   "lat": 43.409,
+   "lon": 39.914,
+   "seaward": 232.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (43.4094, 39.9137), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Adler-Mzymta-River"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1498.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1020 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 42.9 deg (limit 45); 300 m window gives 234.7 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1498.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2501/1499.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2502/1498.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2502/1499.pbf"
+    ],
+    "nearestCoastPoint": [
+     43.416318,
+     39.922042
+    ],
+    "distanceToCoastM": 1019.9,
+    "meanDevDeg": 42.9,
+    "seaward300": 234.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 7 deg from facing+180 (52); consistent (<=60)",
+     "surf-forecast best swell West-southwest: nearest listed direction is 15 deg from the facing (232); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-adler-mzymta-river",
+    "name": "Adler - Mzymta River",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Adler-Mzymta-River",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Beware of - Man-made danger (buoys etc.). (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Adler - Mzymta River in Russia - Black Sea is an exposed beach break that has unreliable waves. Winter is the optimum time of year for surfing here. Offshore winds blow from the northeast. Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the west southwest. The beach breaks offer lefts and rights. The quality of the surf isn't affected by the tide. Even when the surf is up, crowds are unknown. Beware of - Man-made danger (buoys etc.). Adler - Mzymta River"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC trab",
+     "name": "Trabzon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 268.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:30.000 UTC in the IOC station list",
+     "lat": 41.002,
+     "lon": 39.744,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=trab"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR URSS",
+     "name": "Sochi",
+     "owner": "IEM RU__ASOS network (airport METAR)",
+     "distanceKm": 2.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 43.433,
+     "lon": 39.9,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=URSS&network=RU__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-europe-radostniy",
+   "name": "Radostniy",
+   "country": "Ukraine",
+   "region": "Black Sea",
+   "timeZone": "Europe/Simferopol",
+   "type": null,
+   "lat": 44.821,
+   "lon": 34.869,
+   "seaward": 173.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (44.82136666666667, 34.86881666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff; the guide lists it under Russia, the pin lies in Ukraine (Europe/Simferopol)",
+    "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Radostniy/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2444/1475.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 27 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 13.8 deg (limit 45); 300 m window gives 176.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2444/1475.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2444/1476.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2445/1475.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2445/1476.pbf"
+    ],
+    "nearestCoastPoint": [
+     44.821612,
+     34.868779
+    ],
+    "distanceToCoastM": 27.3,
+    "meanDevDeg": 13.8,
+    "seaward300": 176.8
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-europe-radostniy",
+    "name": "Radostniy",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Radostniy/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC kaci",
+     "name": "Kaciveli",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ukraina)",
+     "distanceKm": 78.9,
+     "live": false,
+     "liveNote": "last sample 2012-03-27 08:20:00.000 UTC in the IOC station list",
+     "lat": 44.416,
+     "lon": 34.05,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=kaci"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR UKFF",
+     "name": "Simferopol",
+     "owner": "IEM UA__ASOS network (airport METAR)",
+     "distanceKm": 73.6,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 45.033,
+     "lon": 33.983,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UKFF&network=UA__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": "wannasurf listing"
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Ahtony/Ahtopol",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.34; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/ahtony/index.html",
+    "https://www.surf-forecast.com/breaks/Ahtopol"
+   ],
+   "pin": [
+    42.1009,
+    27.9431
+   ]
+  },
+  {
+   "name": "Arcadia",
+   "country": "Ukraine",
+   "reason": "no published facing; computed coastline facing 97.5 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore winds from the northwest: nearest listed direction is 38 deg from facing+180 (278); consistent (<=60) | wannasurf good wind South, SouthEast: nearest listed direction is 98 deg from facing+180 (278); CONTRADICTS (>60) | surf-forecast best swell South-southeast: nearest listed direction is 60 deg from the facing (98); consistent (<=90) | wannasurf good swell South, SouthEast: nearest listed direction is 38 deg from the facing (98); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Ukraine/Arcadia/index.html",
+    "https://www.surf-forecast.com/breaks/Arcadia"
+   ],
+   "pin": [
+    46.4283,
+    30.7685
+   ]
+  },
+  {
+   "name": "Arkutino",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.60; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/Arkutino/index.html"
+   ],
+   "pin": [
+    42.3364,
+    27.7326
+   ]
+  },
+  {
+   "name": "Ashe",
+   "country": "Russia",
+   "reason": "no published facing; computed coastline facing 222.3 contradicts published offshore wind/swell (wannasurf swell); wannasurf good wind NorthEast: nearest listed direction is 3 deg from facing+180 (42); consistent (<=60) | wannasurf good swell NorthEast: nearest listed direction is 177 deg from the facing (222); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Ashe/index.html"
+   ],
+   "pin": [
+    43.9566,
+    39.2637
+   ]
+  },
+  {
+   "name": "Atlantis",
+   "country": "Russia",
+   "reason": "no published facing; computed coastline facing 238.5 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind West: nearest listed direction is 148 deg from facing+180 (58); CONTRADICTS (>60) | wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 14 deg from the facing (238); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Finnish_Bay/ATLANTIS/index.html"
+   ],
+   "pin": [
+    60.1438,
+    29.9263
+   ]
+  },
+  {
+   "name": "Bishtpala Out",
+   "country": "Albania",
+   "reason": "no published facing; computed coastline facing 235.1 contradicts published offshore wind/swell (surf-forecast wind, wannasurf wind); surf-forecast offshore winds from the northwest: nearest listed direction is 100 deg from facing+180 (55); CONTRADICTS (>60) | wannasurf good wind NorthWest: nearest listed direction is 100 deg from facing+180 (55); CONTRADICTS (>60) | surf-forecast best swell West: nearest listed direction is 35 deg from the facing (235); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Albania/Bishtpala_Out/index.html",
+    "https://www.surf-forecast.com/breaks/Bishtpala-Outer-Reef"
+   ],
+   "pin": [
+    41.3884,
+    19.3955
+   ]
+  },
+  {
+   "name": "Blankenberge Oosterstaketsel",
+   "country": "Belgium",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.55; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/blankenberge_oost/index.html"
+   ],
+   "pin": [
+    51.3153,
+    3.1105
+   ]
+  },
+  {
+   "name": "Chalupy",
+   "country": "Poland",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 82 deg (arccos of mean resultant length 0.14; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Poland/Chalupy/index.html",
+    "https://www.surf-forecast.com/breaks/Chalupy"
+   ],
+   "pin": [
+    54.769,
+    18.4845
+   ]
+  },
+  {
+   "name": "Donuzlove",
+   "country": "Russia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 87 deg (arccos of mean resultant length 0.05; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Donuzlove/index.html"
+   ],
+   "pin": [
+    45.3288,
+    32.9829
+   ]
+  },
+  {
+   "name": "Dunes, Sestrorezk",
+   "country": "Russia",
+   "reason": "no published facing; computed coastline facing 256.5 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore winds from the east northeast: nearest listed direction is 9 deg from facing+180 (76); consistent (<=60) | wannasurf good wind NorthWest, West, SouthWest: nearest listed direction is 122 deg from facing+180 (76); CONTRADICTS (>60) | surf-forecast best swell West-southwest: nearest listed direction is 9 deg from the facing (256); consistent (<=90) | wannasurf good swell West: nearest listed direction is 14 deg from the facing (256); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Finnish_Bay/Dunes__Sestrorezk/index.html",
+    "https://www.surf-forecast.com/breaks/Sestrorezk-Dunes"
+   ],
+   "pin": [
+    60.1195,
+    29.9417
+   ]
+  },
+  {
+   "name": "Harmani",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.42; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/harmani/index.html",
+    "https://www.surf-forecast.com/breaks/Harmani"
+   ],
+   "pin": [
+    42.4158,
+    27.7015
+   ]
+  },
+  {
+   "name": "Juodkrante",
+   "country": "Lithuania",
+   "reason": "no published facing; computed coastline facing 276.8 contradicts published offshore wind/swell (wannasurf swell); surf-forecast offshore wind from the East: nearest listed direction is 7 deg from facing+180 (97); consistent (<=60) | wannasurf good wind NorthEast: nearest listed direction is 52 deg from facing+180 (97); consistent (<=60) | surf-forecast best swell Northwest: nearest listed direction is 38 deg from the facing (277); consistent (<=90) | wannasurf good swell NorthEast: nearest listed direction is 128 deg from the facing (277); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Lithuania/Lithuania_Juodkrante/index.html",
+    "https://www.surf-forecast.com/breaks/Juodkrante"
+   ],
+   "pin": [
+    55.5318,
+    21.0965
+   ]
+  },
+  {
+   "name": "Khosta-Rica",
+   "country": "Russia",
+   "reason": "no published facing; computed coastline facing 230.2 contradicts published offshore wind/swell (wannasurf swell); wannasurf good swell East, NorthEast: nearest listed direction is 140 deg from the facing (230); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Khosta-Rica/index.html"
+   ],
+   "pin": [
+    43.5063,
+    39.8686
+   ]
+  },
+  {
+   "name": "Knokke Casino break",
+   "country": "Belgium",
+   "reason": "no published facing; computed coastline facing 330.1 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the South-southeast: nearest listed direction is 7 deg from facing+180 (150); consistent (<=60) | wannasurf good wind North, NorthWest, West, East, NorthEast: nearest listed direction is 60 deg from facing+180 (150); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 30 deg from the facing (330); consistent (<=90) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 15 deg from the facing (330); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/casino_break/index.html",
+    "https://www.surf-forecast.com/breaks/Casino-Break"
+   ],
+   "pin": [
+    51.3497,
+    3.2784
+   ]
+  },
+  {
+   "name": "Knokke Surfers Paradise",
+   "country": "Belgium",
+   "reason": "no published facing; computed coastline facing 344.4 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West, SouthWest: nearest listed direction is 61 deg from facing+180 (164); CONTRADICTS (>60) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 16 deg from the facing (344); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/surfers_paradise/index.html"
+   ],
+   "pin": [
+    51.3609,
+    3.3245
+   ]
+  },
+  {
+   "name": "Kometa",
+   "country": "Ukraine",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.45; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Ukraine/Kometa/index.html",
+    "https://www.surf-forecast.com/breaks/Kometa"
+   ],
+   "pin": [
+    46.2878,
+    30.6625
+   ]
+  },
+  {
+   "name": "Leba",
+   "country": "Poland",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 69 deg (arccos of mean resultant length 0.36; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Poland/Leba/index.html"
+   ],
+   "pin": [
+    54.767,
+    17.5441
+   ]
+  },
+  {
+   "name": "Lozenets Beach",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.34; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Lozenets"
+   ],
+   "pin": [
+    42.2207,
+    27.8096
+   ]
+  },
+  {
+   "name": "Mariakerke",
+   "country": "Belgium",
+   "reason": "possible duplicate: same name as w-europe-mariakerke 5.4 km away, so not added as a separate spot",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Mariakerke"
+   ],
+   "pin": [
+    51.1906,
+    2.8164
+   ]
+  },
+  {
+   "name": "Melnitza",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 54 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/Melnitza/index.html",
+    "https://www.surf-forecast.com/breaks/Melnitza"
+   ],
+   "pin": [
+    42.1654,
+    27.8581
+   ]
+  },
+  {
+   "name": "Melnrage",
+   "country": "Lithuania",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Melnrage"
+   ],
+   "pin": [
+    55.7327,
+    21.0832
+   ]
+  },
+  {
+   "name": "Middelkerke",
+   "country": "Belgium",
+   "reason": "no published facing; computed coastline facing 326.2 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the Southeast: nearest listed direction is 11 deg from facing+180 (146); consistent (<=60) | wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 101 deg from facing+180 (146); CONTRADICTS (>60) | surf-forecast best swell from the north northwest: nearest listed direction is 11 deg from the facing (326); consistent (<=90) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 11 deg from the facing (326); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/middelkerke/index.html",
+    "https://www.surf-forecast.com/breaks/Middelkerke"
+   ],
+   "pin": [
+    51.1856,
+    2.8211
+   ]
+  },
+  {
+   "name": "Molas",
+   "country": "Lithuania",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Lithuania/Molas/index.html"
+   ],
+   "pin": [
+    55.7316,
+    21.0834
+   ]
+  },
+  {
+   "name": "Navodari",
+   "country": "Romania",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 2.82 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Navodari"
+   ],
+   "pin": [
+    44.2967,
+    28.6626
+   ]
+  },
+  {
+   "name": "Nida",
+   "country": "Lithuania",
+   "reason": "no published facing; computed coastline facing 294.4 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore winds from the southeast: nearest listed direction is 21 deg from facing+180 (114); consistent (<=60) | wannasurf good wind NorthWest, NorthEast: nearest listed direction is 69 deg from facing+180 (114); CONTRADICTS (>60) | surf-forecast best swell Northwest: nearest listed direction is 21 deg from the facing (294); consistent (<=90) | wannasurf good swell NorthWest, NorthEast: nearest listed direction is 21 deg from the facing (294); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Lithuania/Nida/index.html",
+    "https://www.surf-forecast.com/breaks/Nida"
+   ],
+   "pin": [
+    55.307,
+    20.9767
+   ]
+  },
+  {
+   "name": "Nieuwpoort",
+   "country": "Belgium",
+   "reason": "no published facing; computed coastline facing 332.7 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the Southeast: nearest listed direction is 18 deg from facing+180 (153); consistent (<=60) | wannasurf good wind North, NorthEast: nearest listed direction is 108 deg from facing+180 (153); CONTRADICTS (>60) | surf-forecast best swell North-northwest: nearest listed direction is 5 deg from the facing (333); consistent (<=90) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 18 deg from the facing (333); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/nieuwpoort/index.html",
+    "https://www.surf-forecast.com/breaks/Nieuwpoort"
+   ],
+   "pin": [
+    51.1403,
+    2.6854
+   ]
+  },
+  {
+   "name": "Olimp",
+   "country": "Romania",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 54 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Olimp"
+   ],
+   "pin": [
+    43.882,
+    28.608
+   ]
+  },
+  {
+   "name": "Ollies point",
+   "country": "Belgium",
+   "reason": "no published facing; computed coastline facing 321.7 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore winds from the southeast: nearest listed direction is 7 deg from facing+180 (142); consistent (<=60) | wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 97 deg from facing+180 (142); CONTRADICTS (>60) | surf-forecast best swell from the north: nearest listed direction is 38 deg from the facing (322); consistent (<=90) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 7 deg from the facing (322); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/ollies_point/index.html",
+    "https://www.surf-forecast.com/breaks/Ollies-Point-1"
+   ],
+   "pin": [
+    51.2186,
+    2.8746
+   ]
+  },
+  {
+   "name": "Park Pobedy",
+   "country": "Russia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Park_Pobedy/index.html"
+   ],
+   "pin": [
+    44.6104,
+    33.4571
+   ]
+  },
+  {
+   "name": "Pavilosta",
+   "country": "Latvia",
+   "reason": "no published facing; computed coastline facing 336.7 contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore wind from the Southeast: nearest listed direction is 22 deg from facing+180 (157); consistent (<=60) | wannasurf good wind West, SouthWest, South: nearest listed direction is 23 deg from facing+180 (157); consistent (<=60) | surf-forecast best swell Southwest: nearest listed direction is 112 deg from the facing (337); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Latvia/Pavilosta/index.html",
+    "https://www.surf-forecast.com/breaks/Pavilosta"
+   ],
+   "pin": [
+    56.893,
+    21.1774
+   ]
+  },
+  {
+   "name": "Rabochiy",
+   "country": "Russia",
+   "reason": "no published facing; computed coastline facing 111.6 contradicts published offshore wind/swell (wannasurf swell); wannasurf good wind West, SouthWest: nearest listed direction is 22 deg from facing+180 (292); consistent (<=60) | wannasurf good swell West, SouthWest: nearest listed direction is 113 deg from the facing (112); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Asia/Russia/Black_Sea/Rabochiy/index.html"
+   ],
+   "pin": [
+    44.6538,
+    34.4049
+   ]
+  },
+  {
+   "name": "Raversijde",
+   "country": "Belgium",
+   "reason": "no published facing; computed coastline facing 325.0 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 100 deg from facing+180 (145); CONTRADICTS (>60) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 10 deg from the facing (325); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Belgium/raversijde/index.html"
+   ],
+   "pin": [
+    51.211,
+    2.8625
+   ]
+  },
+  {
+   "name": "Ristna, Hiiumaa Island",
+   "country": "Estonia",
+   "reason": "no published facing; computed coastline facing 303.3 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the East-southeast: nearest listed direction is 11 deg from facing+180 (123); consistent (<=60) | wannasurf good wind West, SouthWest: nearest listed direction is 102 deg from facing+180 (123); CONTRADICTS (>60) | surf-forecast best swell West: nearest listed direction is 33 deg from the facing (303); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Estonia/Ristna__Hiiumaa_Island/index.html",
+    "https://www.surf-forecast.com/breaks/Ristna-Hiiumaa-Island"
+   ],
+   "pin": [
+    58.9312,
+    22.0509
+   ]
+  },
+  {
+   "name": "Rurociag",
+   "country": "Poland",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Poland/Rurociag/index.html",
+    "https://www.surf-forecast.com/breaks/Rurociag"
+   ],
+   "pin": [
+    54.7935,
+    18.4243
+   ]
+  },
+  {
+   "name": "Shabla",
+   "country": "Bulgaria",
+   "reason": "no published facing; computed coastline facing 70.3 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the West-southwest: nearest listed direction is 3 deg from facing+180 (250); consistent (<=60) | wannasurf good wind North, East, NorthEast: nearest listed direction is 110 deg from facing+180 (250); CONTRADICTS (>60) | surf-forecast best swell East: nearest listed direction is 20 deg from the facing (70); consistent (<=90) | wannasurf good swell North, NorthWest, East: nearest listed direction is 20 deg from the facing (70); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/shabla/index.html",
+    "https://www.surf-forecast.com/breaks/Shabla"
+   ],
+   "pin": [
+    43.5452,
+    28.6051
+   ]
+  },
+  {
+   "name": "Silistar",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.34; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/silistar/index.html",
+    "https://www.surf-forecast.com/breaks/Silistar"
+   ],
+   "pin": [
+    42.0226,
+    28.0126
+   ]
+  },
+  {
+   "name": "Tulliniemi",
+   "country": "Finland",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.34; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Finland/Tulliniemi/index.html",
+    "https://www.surf-forecast.com/breaks/Tulliniemi"
+   ],
+   "pin": [
+    59.8207,
+    22.9216
+   ]
+  },
+  {
+   "name": "Užava",
+   "country": "Latvia",
+   "reason": "no published facing; computed coastline facing 275.5 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the East-southeast: nearest listed direction is 17 deg from facing+180 (96); consistent (<=60) | wannasurf good wind South: nearest listed direction is 84 deg from facing+180 (96); CONTRADICTS (>60) | surf-forecast best swell West-southwest: nearest listed direction is 28 deg from the facing (276); consistent (<=90) | wannasurf good swell SouthWest: nearest listed direction is 50 deg from the facing (276); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Latvia/Užava/index.html",
+    "https://www.surf-forecast.com/breaks/Uzava"
+   ],
+   "pin": [
+    57.2476,
+    21.4121
+   ]
+  },
+  {
+   "name": "Vaana",
+   "country": "Estonia",
+   "reason": "no published facing; computed coastline facing 291.2 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthWest: nearest listed direction is 114 deg from facing+180 (111); CONTRADICTS (>60) | wannasurf good swell NorthWest: nearest listed direction is 24 deg from the facing (291); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Estonia/vaana/index.html"
+   ],
+   "pin": [
+    59.4323,
+    24.3457
+   ]
+  },
+  {
+   "name": "Varvara",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/Pomorie/index.html",
+    "https://www.surf-forecast.com/breaks/Varvara"
+   ],
+   "pin": [
+    42.1193,
+    27.9079
+   ]
+  },
+  {
+   "name": "Yyteri",
+   "country": "Finland",
+   "reason": "no published facing; computed coastline facing 252.2 contradicts published offshore wind/swell (wannasurf wind); surf-forecast offshore wind from the East: nearest listed direction is 18 deg from facing+180 (72); consistent (<=60) | wannasurf good wind NorthWest, West, SouthWest, South: nearest listed direction is 108 deg from facing+180 (72); CONTRADICTS (>60) | surf-forecast best swell West: nearest listed direction is 18 deg from the facing (252); consistent (<=90) | wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 18 deg from the facing (252); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Finland/yyteri/index.html",
+    "https://www.surf-forecast.com/breaks/Yyteri-Bay"
+   ],
+   "pin": [
+    61.5625,
+    21.5224
+   ]
+  },
+  {
+   "name": "iliria",
+   "country": "Albania",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Albania/iliria/index.html",
+    "https://www.surf-forecast.com/breaks/Iliria"
+   ],
+   "pin": [
+    41.3005,
+    19.4919
+   ]
+  },
+  {
+   "name": "kabakum beach",
+   "country": "Bulgaria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Europe/Bulgaria/kabakum_beach/index.html"
+   ],
+   "pin": [
+    43.2527,
+    28.03
+   ]
+  }
+ ]
+}

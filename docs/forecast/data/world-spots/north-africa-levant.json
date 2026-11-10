@@ -1,0 +1,4884 @@
+{
+ "region": "North Africa and the Levant",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); not in the app. Spot list from surfnerd, Surf-Forecast.com and Wannasurf country listings; pages for one break are merged by name within 5 km. Position: surfnerd pin, else Wannasurf, else Surf-Forecast.com, rounded to 3 dp. Facing: surfnerd \"Faces X\" where published; otherwise the OSM coastline facing of RECOVERY-2026-11-09.md (facingKind computed-coastline, facts.facingDeg null), kept only when it does not contradict any published offshore wind or ideal swell. nearestSources: NDBC activestations (600 km), IOC sea-level list (400 km), IEM country ASOS network (200 km), great-circle km; registries read 2026-11-09. Time zone: timezonefinder at the pin, which must fall in the listing country.",
+ "counts": {
+  "kept": 49,
+  "guideFacing": 28,
+  "computedFacing": 21,
+  "dropped": 31
+ },
+ "spots": [
+  {
+   "id": "w-nafrica-ain-barbar",
+   "name": "Ain Barbar",
+   "country": "Algeria",
+   "region": null,
+   "timeZone": "Africa/Algiers",
+   "type": "Point",
+   "lat": 36.995,
+   "lon": 7.558,
+   "seaward": 68.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (36.99531666666667, 7.557783333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Africa/Algeria/AinBarbar/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2133/1593.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 20 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 33.5 deg (limit 45); 300 m window gives 85.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2133/1593.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2133/1594.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2134/1593.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2134/1594.pbf"
+    ],
+    "nearestCoastPoint": [
+     36.995368,
+     7.557569
+    ],
+    "distanceToCoastM": 19.8,
+    "meanDevDeg": 33.5,
+    "seaward300": 85.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West, SouthWest: nearest listed direction is 21 deg from facing+180 (249); consistent (<=60)",
+     "wannasurf good swell North, NorthWest: nearest listed direction is 69 deg from the facing (69); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-ain-barbar",
+    "name": "Ain Barbar",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Algeria/AinBarbar/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest (wannasurf)",
+    "windOffshore": "good wind West, SouthWest (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Boulders (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 4m+ / 12ft (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 237.8,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DABB",
+     "name": "Annaba",
+     "owner": "IEM DZ__ASOS network (airport METAR)",
+     "distanceKm": 29.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.822,
+     "lon": 7.809,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DABB&network=DZ__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Point-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-sidi-salem",
+   "name": "Sidi Salem",
+   "country": "Algeria",
+   "region": null,
+   "timeZone": "Africa/Algiers",
+   "type": "Beach",
+   "lat": 36.863,
+   "lon": 7.782,
+   "seaward": 32.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (36.86313333333333, 7.7824333333333335, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Africa/Algeria/Annaba/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2136/1595.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 111 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.3 deg (limit 45); 300 m window gives 33.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2136/1595.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2136/1596.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2137/1595.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2137/1596.pbf"
+    ],
+    "nearestCoastPoint": [
+     36.86216,
+     7.782133
+    ],
+    "distanceToCoastM": 110.9,
+    "meanDevDeg": 9.3,
+    "seaward300": 33.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthWest: nearest listed direction is 13 deg from facing+180 (212); consistent (<=60)",
+     "wannasurf good swell NorthEast: nearest listed direction is 13 deg from the facing (32); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-sidi-salem",
+    "name": "Sidi Salem",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Algeria/Annaba/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthEast (wannasurf)",
+    "windOffshore": "good wind SouthWest (wannasurf)",
+    "tide": "All tides, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to Don't know (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 243.9,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DABB",
+     "name": "Annaba",
+     "owner": "IEM DZ__ASOS network (airport METAR)",
+     "distanceKm": 5.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.822,
+     "lon": 7.809,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DABB&network=DZ__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-decaplage",
+   "name": "Decaplage",
+   "country": "Algeria",
+   "region": null,
+   "timeZone": "Africa/Algiers",
+   "type": null,
+   "lat": 36.787,
+   "lon": 3.324,
+   "seaward": 12.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (36.78681666666667, 3.3235, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Africa/Algeria/Decaplage/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1596.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 21 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.0 deg (limit 45); 300 m window gives 12.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1596.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2085/1597.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2086/1596.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2086/1597.pbf"
+    ],
+    "nearestCoastPoint": [
+     36.786637,
+     3.323418
+    ],
+    "distanceToCoastM": 21.2,
+    "meanDevDeg": 6.0,
+    "seaward300": 12.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West, South, East, NorthEast: nearest listed direction is 13 deg from facing+180 (193); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 13 deg from the facing (13); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-decaplage",
+    "name": "Decaplage",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Algeria/Decaplage/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell North, NorthWest, NorthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest, West, South, East, NorthEast (wannasurf)",
+    "tide": "Mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Sand-bar (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 3m+ / 10ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast, Powerful, Ordinary, Powerless (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC form",
+     "name": "Formentera",
+     "owner": "IOC Sea Level Station Monitoring Facility (Spain)",
+     "distanceKm": 273.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 38.735,
+     "lon": 1.419,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=form"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DAAG",
+     "name": "Algier",
+     "owner": "IEM DZ__ASOS network (airport METAR)",
+     "distanceKm": 14.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.691,
+     "lon": 3.215,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DAAG&network=DZ__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-ain-el-turk",
+   "name": "Ain El Turk",
+   "country": "Algeria",
+   "region": null,
+   "timeZone": "Africa/Algiers",
+   "type": null,
+   "lat": 35.738,
+   "lon": -0.736,
+   "seaward": 15.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (35.737766666666666, -0.7359000000000001, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Africa/Algeria/Ain_El_Turk/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2039/1611.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 6 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.2 deg (limit 45); 300 m window gives 14.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2039/1611.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2039/1612.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2040/1611.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2040/1612.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.737712,
+     -0.73592
+    ],
+    "distanceToCoastM": 6.3,
+    "meanDevDeg": 10.2,
+    "seaward300": 14.8
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-ain-el-turk",
+    "name": "Ain El Turk",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Algeria/Ain_El_Turk/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Don't know (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC said",
+     "name": "Saidia Marina",
+     "owner": "IOC Sea Level Station Monitoring Facility (Morocco)",
+     "distanceKm": 157.3,
+     "live": false,
+     "liveNote": "last sample 2022-04-02 14:35:00.000 UTC in the IOC station list",
+     "lat": 35.112,
+     "lon": -2.293,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=said"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DAOO",
+     "name": "Oran",
+     "owner": "IEM DZ__ASOS network (airport METAR)",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.633,
+     "lon": -0.6,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DAOO&network=DZ__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-rowad-resort-north-coast",
+   "name": "Rowad Resort, North coast",
+   "country": "Egypt",
+   "region": null,
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 30.873,
+   "lon": 29.328,
+   "seaward": 337.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (30.873316666666668, 29.327766666666665, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.00 km away",
+    "url": "https://www.wannasurf.com/spot/Africa/Egypt/Rowad_Resort__North_coast/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2381/1677.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 2 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.5 deg (limit 45); 300 m window gives 338.6 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2381/1677.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2381/1678.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2382/1677.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2382/1678.pbf"
+    ],
+    "nearestCoastPoint": [
+     30.873332,
+     29.32776
+    ],
+    "distanceToCoastM": 1.8,
+    "meanDevDeg": 3.5,
+    "seaward300": 338.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell North: nearest listed direction is 22 deg from the facing (338); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-rowad-resort-north-coast",
+    "name": "Rowad Resort, North coast",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Egypt/Rowad_Resort__North_coast/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rowad-Resort",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast)",
+    "windOffshore": "offshore winds from the south southeast and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast); All tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Rowad Resort in Mediterranean Coast -Egypt is an exposed beach break. Winter is the best time of year for surfing here. Offshore winds are from the south southeast and there is no shelter here from cross shore breezes. Able to handle light onshore wind Windswells are much more common than groundswells and the best wave direction is from the north. Waves at the beach are both lefts and rights. Surfable at all stages of the tide. It very rarely gets crowded here. Rowad Resort"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marn1",
+     "name": "Marina El Alamein",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 33.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 30.844,
+     "lon": 28.977,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marn1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEBA",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 35.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.918,
+     "lon": 29.696,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEBA&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-marsa-alaam",
+   "name": "Marsa Alaam",
+   "country": "Egypt",
+   "region": null,
+   "timeZone": "Africa/Cairo",
+   "type": "Reef",
+   "lat": 25.108,
+   "lon": 34.882,
+   "seaward": 62.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (25.108133333333335, 34.8822, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.00 km away",
+    "url": "https://www.wannasurf.com/spot/Africa/Egypt/Marsa_Alaam/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2444/1752.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 450 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 23.0 deg (limit 45); 300 m window gives 70.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2444/1752.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2444/1753.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2445/1752.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2445/1753.pbf"
+    ],
+    "nearestCoastPoint": [
+     25.106229,
+     34.878257
+    ],
+    "distanceToCoastM": 449.8,
+    "meanDevDeg": 23.0,
+    "seaward300": 70.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell North: nearest listed direction is 62 deg from the facing (62); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-marsa-alaam",
+    "name": "Marsa Alaam",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Egypt/Marsa_Alaam/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Marsa-Alaam",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast); High tide only (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast); Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rocks are a hazard. (surf-forecast)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Marsa Alaam in Red Sea is an exposed reef break. Winter is the optimum time of year for surfing here. Offshore winds blow from the southwest and there is no shelter here from cross shore breezes. Able to handle light onshore wind The location means that groundswells are unknown and the ideal wave direction is from the north. There is no reef break. Good surf at all stages of the tide. An uncrowded break, even when it is working. Rocks are a hazard. Marsa Alaam"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEMA",
+     "name": "Marsa Alam",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 58.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.557,
+     "lon": 34.584,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEMA&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Reef'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-el-farasa",
+   "name": "El Farasa",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.294,
+   "lon": 30.034,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.2942, 30.0337), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/el-farasa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: W - N. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/el-farasa.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-el-farasa",
+    "name": "El Farasa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/el-farasa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NW, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "W - N. Faces NW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The bank can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "hazards": [
+     "The peaks tend to move around, and strong, vicious currents run through the lineup. (surfnerd)"
+    ],
+    "skill": "Intermediate (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "El Farasa is a shifty beachbreak at the east end of the Maamoura resort town, breaking over sand and throwing up both lefts and rights. The peaks tend to move around, and strong, vicious currents run through the lineup."
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 13.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 31.211,
+     "lon": 29.924,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 15.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-cleopatra-beach-alexandria",
+   "name": "Cleopatra Beach - Alexandria",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Point",
+   "lat": 31.285,
+   "lon": 30.009,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.2855, 30.0086), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/cleopatra-beach-alexandria.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WNW\" (surfnerd swell exposure: WSW - N. Faces WNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/cleopatra-beach-alexandria.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-cleopatra-beach-alexandria",
+    "name": "Cleopatra Beach - Alexandria",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cleopatra-beach-alexandria",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WSW - N. Faces WNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The point can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirectionText": "Right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 11.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 31.211,
+     "lon": 29.924,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 13.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Point'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-sidi-bishr",
+   "name": "Sidi Bishr",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.256,
+   "lon": 29.976,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.2555, 29.9756), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-bishr.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: Sheltered: land in every direction. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-bishr.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-sidi-bishr",
+    "name": "Sidi Bishr",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sidi-bishr",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "Sheltered: land in every direction. Faces NW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "accessNotes": [
+     "\"Parking can be tricky here, with paid, metered, and restricted spots to sort out before you surf.\" (surfnerd)"
+    ],
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Sidi Bishr is a sand-bottomed beachbreak in Alexandria, peeling both left and right in front of the Ramada hotel. It is the most reliable beach in Alex, and it holds up as a friendly, beginner-friendly spot to paddle out."
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 7.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 31.211,
+     "lon": 29.924,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 8.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-stanley-bridge",
+   "name": "Stanley Bridge",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.235,
+   "lon": 29.947,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.235, 29.9469), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/stanley-bridge.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: W - NE. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/stanley-bridge.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-stanley-bridge",
+    "name": "Stanley Bridge",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/stanley-bridge",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "W - NE. Faces NW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 5.9
+    },
+    "sizeText": "0.9 m (3 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "accessNotes": [
+     "\"Parking nearby is paid and metered, with some restricted areas, so check the signs before leaving your car.\" (surfnerd)"
+    ],
+    "skill": "Intermediate (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Stanley Bridge is a tourist highlight with a surprisingly decent setup, offering both lefts and rights that peel over an uneven reef. It is worth knowing up front that concrete in the water and a police presence make actually surfing here unlikely, so treat it more as a spot to read about than one to plan a session around."
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 3.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 31.211,
+     "lon": 29.924,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 5.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-library",
+   "name": "Library",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.211,
+   "lon": 29.91,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.2109, 29.9104), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/library.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WNW - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/library.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-library",
+    "name": "Library",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/library",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WNW - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "sizeText": "0.3 m (1 ft) to 2.4 m (7.9 ft) (surfnerd)",
+    "accessNotes": [
+     "\"Alexandria's coastal road gives good access to a number of waves, though finding the way down to the beach itself is harder, and some spots charge a small fee.\" (surfnerd)",
+     "\"For parking, expect a mix of metered, roadside, and restricted spaces.\" (surfnerd)"
+    ],
+    "skill": "Intermediate (surfnerd)",
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 1.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:42:00.000 UTC in the IOC station list",
+     "lat": 31.211,
+     "lon": 29.924,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 4.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-el-agamy",
+   "name": "El Agamy",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.136,
+   "lon": 29.78,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.1358, 29.7796), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/el-agamy.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WNW\" (surfnerd swell exposure: SW - N. Faces WNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/el-agamy.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-el-agamy",
+    "name": "El Agamy",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/el-agamy",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "SW - N. Faces WNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"El Agamy can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex1",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 13.1,
+     "live": false,
+     "liveNote": "last sample 2023-11-26 02:43:00.000 UTC in the IOC station list",
+     "lat": 31.212,
+     "lon": 29.885,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 16.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-sidi-krier",
+   "name": "Sidi Krier",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.107,
+   "lon": 29.745,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.1066, 29.7454), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-krier.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: WSW - NE. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-krier.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-sidi-krier",
+    "name": "Sidi Krier",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sidi-krier",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WSW - NE. Faces NW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The beach can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Sidi Krier is a sandy beachbreak on Egypt's Mediterranean coast, throwing up both lefts and rights. The stretch between Marakha and Sidi Krier is lined with large hotel complexes fronting bright Mediterranean blue water, and a fair few of the peaks here close out."
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC alex1",
+     "name": "Alexandria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 17.7,
+     "live": false,
+     "liveNote": "last sample 2023-11-26 02:43:00.000 UTC in the IOC station list",
+     "lat": 31.212,
+     "lon": 29.885,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=alex1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAX",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 20.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.182,
+     "lon": 29.946,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAX&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-marakha",
+   "name": "Marakha",
+   "country": "Egypt",
+   "region": "Alexandria",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 30.937,
+   "lon": 29.477,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (30.9371, 29.4774), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/marakha.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: W - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/marakha.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-marakha",
+    "name": "Marakha",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/marakha",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "W - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"Marakha can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marn1",
+     "name": "Marina El Alamein",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 48.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 30.844,
+     "lon": 28.977,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marn1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEBA",
+     "name": "Alexandria",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 21.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.918,
+     "lon": 29.696,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEBA&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-agiba-cove",
+   "name": "Agiba Cove",
+   "country": "Egypt",
+   "region": "Matrouh",
+   "timeZone": "Africa/Cairo",
+   "type": "Point",
+   "lat": 31.416,
+   "lon": 27.008,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.4161, 27.0075), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/agiba-cove.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNW - E. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/agiba-cove.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-agiba-cove",
+    "name": "Agiba Cove",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/agiba-cove",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NW, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "NNW - E. Faces NE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The point can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirectionText": "Left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "hazards": [
+     "The rock is shallow and sharp, so this is a wave that rewards a confident, deliberate approach. (surfnerd)"
+    ],
+    "skill": "Intermediate (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Agiba Cove is a left-hand point tucked into a fjord-like bay past Marsa Matruh, with Obbayad Beach just to the east. On its day it produces a clean, well-shaped left that peels over an uneven reef. The rock is shallow and sharp, so this is a wave that rewards a confident, deliberate approach."
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matr",
+     "name": "Marsa Matruh",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 19.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 31.37,
+     "lon": 27.204,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEMM",
+     "name": "Mersa-matruh",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 22.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.325,
+     "lon": 27.222,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEMM&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Point'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-agiba-beach",
+   "name": "Agiba Beach",
+   "country": "Egypt",
+   "region": "Matrouh",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.413,
+   "lon": 27.012,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.413, 27.0121), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/agiba-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NNW - E. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/agiba-beach.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-agiba-beach",
+    "name": "Agiba Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/agiba-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "NNW - E. Faces NNE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"Agiba works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "sizeText": "0.3 m (1 ft) to 2.4 m (7.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Agiba Beach is a beautiful, turquoise-blue beachbreak that picks up just about all the available swell and holds some of the biggest waves in Egypt. Peaks break over sand and peel both left and right, leaving room to find your own space along the sand."
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matr",
+     "name": "Marsa Matruh",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 18.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 31.37,
+     "lon": 27.204,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEMM",
+     "name": "Mersa-matruh",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 22.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.325,
+     "lon": 27.222,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEMM&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-cleopatra-beach",
+   "name": "Cleopatra Beach",
+   "country": "Egypt",
+   "region": "Matrouh",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.373,
+   "lon": 27.21,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.3728, 27.2099), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/cleopatra-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: WNW - E. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/cleopatra-beach.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-cleopatra-beach",
+    "name": "Cleopatra Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cleopatra-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best N (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WNW - E. Faces NNE (surfnerd)",
+    "idealSwell": "best swell N (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "hazards": [
+     "Cleopatra Beach is a mix of rocky beachbreaks and a left point sitting near the famous rock formation known as Cleopatra's Bath. (surfnerd)"
+    ],
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Cleopatra Beach is a mix of rocky beachbreaks and a left point sitting near the famous rock formation known as Cleopatra's Bath. Waves break over a combination of uneven reef and sand, and the beach serves up both lefts and rights."
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matr",
+     "name": "Marsa Matruh",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 0.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 31.37,
+     "lon": 27.204,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEMM",
+     "name": "Mersa-matruh",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 5.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.325,
+     "lon": 27.222,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEMM&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-mersa-baghush",
+   "name": "Mersa Baghush",
+   "country": "Egypt",
+   "region": "Matrouh",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.201,
+   "lon": 27.767,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.2006, 27.7669), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/mersa-baghush.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WNW - ENE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/mersa-baghush.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-mersa-baghush",
+    "name": "Mersa Baghush",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mersa-baghush",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WNW - ENE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matr",
+     "name": "Marsa Matruh",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 56.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 31.37,
+     "lon": 27.204,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEMM",
+     "name": "Mersa-matruh",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 53.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.325,
+     "lon": 27.222,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEMM&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-ghazala-bay",
+   "name": "Ghazala Bay",
+   "country": "Egypt",
+   "region": "Matrouh",
+   "timeZone": "Africa/Cairo",
+   "type": "Beach",
+   "lat": 31.052,
+   "lon": 28.558,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (31.0524, 28.5578), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/ghazala-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: WNW - ESE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/ghazala-bay.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-ghazala-bay",
+    "name": "Ghazala Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ghazala-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best N (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WNW - ESE. Faces NNE (surfnerd)",
+    "idealSwell": "best swell N (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The break can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marn1",
+     "name": "Marina El Alamein",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 46.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 30.844,
+     "lon": 28.977,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marn1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAL",
+     "name": "Dabaa City",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.924,
+     "lon": 28.461,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAL&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-ras-gibeisa",
+   "name": "Ras Gibeisa",
+   "country": "Egypt",
+   "region": "Matrouh",
+   "timeZone": "Africa/Cairo",
+   "type": "Point",
+   "lat": 30.953,
+   "lon": 28.831,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (30.953, 28.8309), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/ras-gibeisa.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: WNW - E. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/ras-gibeisa.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-ras-gibeisa",
+    "name": "Ras Gibeisa",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ras-gibeisa",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "WNW - E. Faces NE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The point works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirectionText": "Left (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marn1",
+     "name": "Marina El Alamein",
+     "owner": "IOC Sea Level Station Monitoring Facility (Egypt)",
+     "distanceKm": 18.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:00.000 UTC in the IOC station list",
+     "lat": 30.844,
+     "lon": 28.977,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marn1"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HEAL",
+     "name": "Dabaa City",
+     "owner": "IEM EG__ASOS network (airport METAR)",
+     "distanceKm": 35.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 30.924,
+     "lon": 28.461,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HEAL&network=EG__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Point'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-pierre-and-friends",
+   "name": "pierre and friends",
+   "country": "Lebanon",
+   "region": null,
+   "timeZone": "Asia/Beirut",
+   "type": "Reef",
+   "lat": 34.213,
+   "lon": 35.649,
+   "seaward": 303.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (34.212516666666666, 35.6486, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Lebanon/pierre_and_friends/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2453/1632.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 28 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 33.6 deg (limit 45); 300 m window gives 289.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2453/1632.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2453/1633.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1632.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1633.pbf"
+    ],
+    "nearestCoastPoint": [
+     34.212433,
+     35.648888
+    ],
+    "distanceToCoastM": 28.0,
+    "meanDevDeg": 33.6,
+    "seaward300": 289.8
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-pierre-and-friends",
+    "name": "pierre and friends",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Lebanon/pierre_and_friends/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "bottom": "Flat rocks (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "sizeText": "Starts working at 2m-2.5m / 6ft-8ft and holds up to 4m+ / 12ft (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fast (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC batr",
+     "name": "Batroun",
+     "owner": "IOC Sea Level Station Monitoring Facility (Lebanon)",
+     "distanceKm": 4.4,
+     "live": false,
+     "liveNote": "last sample 2023-03-20 10:28:00.000 UTC in the IOC station list",
+     "lat": 34.252,
+     "lon": 35.656,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=batr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR OLBA",
+     "name": "Beirut",
+     "owner": "IEM LB__ASOS network (airport METAR)",
+     "distanceKm": 46.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.821,
+     "lon": 35.488,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OLBA&network=LB__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-board-n-surf",
+   "name": "Board n Surf",
+   "country": "Lebanon",
+   "region": null,
+   "timeZone": "Asia/Beirut",
+   "type": "Beach",
+   "lat": 34.107,
+   "lon": 35.65,
+   "seaward": 262.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (34.10705, 35.65018333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Lebanon/Board_n_Surf/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2453/1634.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 11 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 41.4 deg (limit 45); 300 m window gives 261.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2453/1634.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2453/1635.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1634.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1635.pbf"
+    ],
+    "nearestCoastPoint": [
+     34.107038,
+     35.650062
+    ],
+    "distanceToCoastM": 11.2,
+    "meanDevDeg": 41.4,
+    "seaward300": 261.4
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-board-n-surf",
+    "name": "Board n Surf",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Lebanon/Board_n_Surf/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC batr",
+     "name": "Batroun",
+     "owner": "IOC Sea Level Station Monitoring Facility (Lebanon)",
+     "distanceKm": 16.1,
+     "live": false,
+     "liveNote": "last sample 2023-03-20 10:28:00.000 UTC in the IOC station list",
+     "lat": 34.252,
+     "lon": 35.656,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=batr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR OLBA",
+     "name": "Beirut",
+     "owner": "IEM LB__ASOS network (airport METAR)",
+     "distanceKm": 35.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.821,
+     "lon": 35.488,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OLBA&network=LB__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-jonas-beach-or-jieh-beach",
+   "name": "Jonas Beach or Jieh beach",
+   "country": "Lebanon",
+   "region": "Lebanon",
+   "timeZone": "Asia/Beirut",
+   "type": null,
+   "lat": 33.658,
+   "lon": 35.417,
+   "seaward": 283.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (33.658, 35.417), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Jonas-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2450/1640.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 45 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 39.8 deg (limit 45); 300 m window gives 282.3 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2450/1640.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2450/1641.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2451/1640.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2451/1641.pbf"
+    ],
+    "nearestCoastPoint": [
+     33.6581,
+     35.416525
+    ],
+    "distanceToCoastM": 45.3,
+    "meanDevDeg": 39.8,
+    "seaward300": 282.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 13 deg from facing+180 (103); consistent (<=60)",
+     "surf-forecast best swell West: nearest listed direction is 13 deg from the facing (283); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-jonas-beach-or-jieh-beach",
+    "name": "Jonas Beach or Jieh beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jonas-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Jonas Beach or Jieh beach in Lebanon is an exposed beach and reef break. Autumn and winter are the best times of year for waves. The best wind direction is from the east with some shelter here from south winds. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the west. The beach breaks offer lefts and rights. Good surf at all stages of the tide. Rarely crowded here. Jonas Beach or Jieh beach"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC batr",
+     "name": "Batroun",
+     "owner": "IOC Sea Level Station Monitoring Facility (Lebanon)",
+     "distanceKm": 69.6,
+     "live": false,
+     "liveNote": "last sample 2023-03-20 10:28:00.000 UTC in the IOC station list",
+     "lat": 34.252,
+     "lon": 35.656,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=batr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR OLBA",
+     "name": "Beirut",
+     "owner": "IEM LB__ASOS network (airport METAR)",
+     "distanceKm": 19.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.821,
+     "lon": 35.488,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OLBA&network=LB__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-nafrica-awuali-rivermouth",
+   "name": "Awuali Rivermouth",
+   "country": "Lebanon",
+   "region": "Lebanon",
+   "timeZone": "Asia/Beirut",
+   "type": null,
+   "lat": 33.584,
+   "lon": 35.375,
+   "seaward": 286.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (33.5845, 35.375), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Awuali-Rivermouth"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2450/1641.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 687 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.4 deg (limit 45); 300 m window gives 278.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2450/1641.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2450/1642.pbf"
+    ],
+    "nearestCoastPoint": [
+     33.584951,
+     35.382392
+    ],
+    "distanceToCoastM": 687.4,
+    "meanDevDeg": 38.4,
+    "seaward300": 278.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 39 deg from facing+180 (106); consistent (<=60)",
+     "surf-forecast best swell West-southwest: nearest listed direction is 39 deg from the facing (286); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-awuali-rivermouth",
+    "name": "Awuali Rivermouth",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Awuali-Rivermouth",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell West-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "Awuali Rivermouth in Lebanon is an exposed sandbar break that only works when conditions are just right. (surf-forecast)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "Beware of Pollution. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Awuali Rivermouth in Lebanon is an exposed sandbar break that only works when conditions are just right. Autumn and winter are the best times of year for waves. Offshore winds are from the east northeast. The best swell direction is from the west southwest. The sandbar breaks peel to the left. Even when the surf is up, crowds are unknown. Beware of Pollution. Awuali Rivermouth"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC batr",
+     "name": "Batroun",
+     "owner": "IOC Sea Level Station Monitoring Facility (Lebanon)",
+     "distanceKm": 78.6,
+     "live": false,
+     "liveNote": "last sample 2023-03-20 10:28:00.000 UTC in the IOC station list",
+     "lat": 34.252,
+     "lon": 35.656,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=batr"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR OLBA",
+     "name": "Beirut",
+     "owner": "IEM LB__ASOS network (airport METAR)",
+     "distanceKm": 28.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 33.821,
+     "lon": 35.488,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OLBA&network=LB__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": null,
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-nafrica-unnamed",
+   "name": "Unnamed",
+   "country": "Libya",
+   "region": "Cyrenaic Coast Libya",
+   "timeZone": "Africa/Tripoli",
+   "type": "Point",
+   "lat": 32.469,
+   "lon": 23.166,
+   "seaward": 58.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (32.4688, 23.1664), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Unnamed_3"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2311/1656.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1057 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 43.4 deg (limit 45); 300 m window gives 68.1 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2311/1656.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2311/1657.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2312/1656.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2312/1657.pbf"
+    ],
+    "nearestCoastPoint": [
+     32.465834,
+     23.155704
+    ],
+    "distanceToCoastM": 1056.8,
+    "meanDevDeg": 43.4,
+    "seaward300": 68.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-southwest: nearest listed direction is 9 deg from facing+180 (239); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 81 deg from the facing (59); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-unnamed",
+    "name": "Unnamed",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Unnamed_3",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North-northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the West-southwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Unnamed in Cyrenaic Coast - Libya is an exposed point break. Winter is the best time of year for surfing here. The best wind direction is from the west southwest. Tends to receive a mix of groundswells and windswells and the best swell direction is from the north northwest. There is no point break. Good surf at all stages of the tide. An uncrowded break, even when it is working. Unnamed"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC gvd9",
+     "name": "Gavdos",
+     "owner": "IOC Sea Level Station Monitoring Facility (Greece)",
+     "distanceKm": 278.9,
+     "live": false,
+     "liveNote": "last sample 2016-03-03 02:24:01.000 UTC in the IOC station list",
+     "lat": 34.848,
+     "lon": 24.12,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=gvd9"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HLTQ",
+     "name": "Tobruk",
+     "owner": "IEM LY__ASOS network (airport METAR)",
+     "distanceKm": 97.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 31.86,
+     "lon": 23.906,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HLTQ&network=LY__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Point'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-nafrica-janzour",
+   "name": "Janzour",
+   "country": "Libya",
+   "region": "Tripoli Libya",
+   "timeZone": "Africa/Tripoli",
+   "type": "Beach",
+   "lat": 32.849,
+   "lon": 13.009,
+   "seaward": 335.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (32.8486, 13.0095), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Janzour"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2195/1651.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1062 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 19.1 deg (limit 45); 300 m window gives 337.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2195/1651.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2195/1652.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2196/1651.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2196/1652.pbf"
+    ],
+    "nearestCoastPoint": [
+     32.840258,
+     13.01513
+    ],
+    "distanceToCoastM": 1062.1,
+    "meanDevDeg": 19.1,
+    "seaward300": 337.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South-southeast: nearest listed direction is 2 deg from facing+180 (156); consistent (<=60)",
+     "surf-forecast best swell North: nearest listed direction is 24 deg from the facing (336); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-janzour",
+    "name": "Janzour",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Janzour",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast)",
+    "windOffshore": "offshore wind from the South-southeast (surf-forecast)",
+    "tide": "The beach break offers both left and right hand waves Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves Good surf at all stages of the tide. (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Janzour in Tripoli - Libya is an exposed beach break. Winter is the optimum time of year for surfing here. The best wind direction is from the south southeast. Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the north. The beach break offers both left and right hand waves Good surf at all stages of the tide. The location means that it never gets crowded. Janzour"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC LA23",
+     "name": "Lampedusa",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 297.2,
+     "live": false,
+     "liveNote": "last sample 2026-11-09 02:46:15.000 UTC in the IOC station list",
+     "lat": 35.5,
+     "lon": 12.604,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=LA23"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR HLLT",
+     "name": "Tripoli",
+     "owner": "IEM LY__ASOS network (airport METAR)",
+     "distanceKm": 24.9,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 32.663,
+     "lon": 13.159,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HLLT&network=LY__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-nafrica-gaza",
+   "name": "Gaza",
+   "country": "Palestine",
+   "region": "Gaza Strip",
+   "timeZone": "Asia/Gaza",
+   "type": "Beach",
+   "lat": 31.553,
+   "lon": 34.459,
+   "seaward": 303.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (31.553083333333333, 34.459066666666665, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Gaza_Strip/Gaza/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2439/1668.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 20 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.5 deg (limit 45); 300 m window gives 302.3 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2439/1668.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2439/1669.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2440/1668.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2440/1669.pbf"
+    ],
+    "nearestCoastPoint": [
+     31.552984,
+     34.459239
+    ],
+    "distanceToCoastM": 19.7,
+    "meanDevDeg": 26.5,
+    "seaward300": 302.3
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-gaza",
+    "name": "Gaza",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Gaza_Strip/Gaza/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "tide": "All tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC askl",
+     "name": "Ashkelon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Israel)",
+     "distanceKm": 9.7,
+     "live": false,
+     "liveNote": "last sample 2016-11-29 09:24:00.000 UTC in the IOC station list",
+     "lat": 31.635,
+     "lon": 34.494,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=askl"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-nafrica-deir-al-balah",
+   "name": "Deir al Balah",
+   "country": "Palestine",
+   "region": "Gaza Strip",
+   "timeZone": "Asia/Gaza",
+   "type": "Beach",
+   "lat": 31.425,
+   "lon": 34.338,
+   "seaward": 311.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (31.4253, 34.33768333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Gaza_Strip/Deir_al_Balah/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2438/1670.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 17 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.1 deg (limit 45); 300 m window gives 311.9 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2438/1670.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2438/1671.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2439/1670.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2439/1671.pbf"
+    ],
+    "nearestCoastPoint": [
+     31.425402,
+     34.337549
+    ],
+    "distanceToCoastM": 17.0,
+    "meanDevDeg": 4.1,
+    "seaward300": 311.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthEast, East: nearest listed direction is 3 deg from facing+180 (132); consistent (<=60)",
+     "wannasurf good swell NorthWest, West: nearest listed direction is 3 deg from the facing (312); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-deir-al-balah",
+    "name": "Deir al Balah",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Gaza_Strip/Deir_al_Balah/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthWest, West (wannasurf)",
+    "windOffshore": "good wind SouthEast, East (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC askl",
+     "name": "Ashkelon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Israel)",
+     "distanceKm": 27.6,
+     "live": false,
+     "liveNote": "last sample 2016-11-29 09:24:00.000 UTC in the IOC station list",
+     "lat": 31.635,
+     "lon": 34.494,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=askl"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-nafrica-al-mawasi",
+   "name": "Al Mawasi",
+   "country": "Palestine",
+   "region": "Gaza Strip",
+   "timeZone": "Asia/Gaza",
+   "type": "Beach",
+   "lat": 31.353,
+   "lon": 34.255,
+   "seaward": 315.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (31.353316666666668, 34.25488333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Gaza_Strip/Al_Mawasi/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2437/1671.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 45 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.1 deg (limit 45); 300 m window gives 315.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2437/1671.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2437/1672.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2438/1671.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2438/1672.pbf"
+    ],
+    "nearestCoastPoint": [
+     31.353604,
+     34.254549
+    ],
+    "distanceToCoastM": 45.0,
+    "meanDevDeg": 0.1,
+    "seaward300": 315.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind East: nearest listed direction is 45 deg from facing+180 (135); consistent (<=60)",
+     "wannasurf good swell NorthWest, West: nearest listed direction is 0 deg from the facing (315); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-al-mawasi",
+    "name": "Al Mawasi",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Gaza_Strip/Al_Mawasi/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthWest, West (wannasurf)",
+    "windOffshore": "good wind East (wannasurf)",
+    "tide": "All tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC askl",
+     "name": "Ashkelon",
+     "owner": "IOC Sea Level Station Monitoring Facility (Israel)",
+     "distanceKm": 38.7,
+     "live": false,
+     "liveNote": "last sample 2016-11-29 09:24:00.000 UTC in the IOC station list",
+     "lat": 31.635,
+     "lon": 34.494,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=askl"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": "wannasurf listing"
+  },
+  {
+   "id": "w-nafrica-ras-al-basit",
+   "name": "Ras al basit",
+   "country": "Syria",
+   "region": null,
+   "timeZone": "Asia/Damascus",
+   "type": "Reef",
+   "lat": 35.853,
+   "lon": 35.827,
+   "seaward": 15.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (35.85328333333333, 35.82738333333333, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Syria/Ras_al_basit/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2455/1610.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 156 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 44.3 deg (limit 45); 300 m window gives 21.8 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2455/1610.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2456/1610.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.851927,
+     35.82691
+    ],
+    "distanceToCoastM": 156.0,
+    "meanDevDeg": 44.3,
+    "seaward300": 21.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthWest: nearest listed direction is 29 deg from facing+180 (196); consistent (<=60)",
+     "wannasurf good swell NorthEast: nearest listed direction is 29 deg from the facing (16); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-ras-al-basit",
+    "name": "Ras al basit",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Syria/Ras_al_basit/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell NorthEast (wannasurf)",
+    "windOffshore": "good wind SouthWest (wannasurf)",
+    "bottom": "Flat rocks with sand (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC arsu",
+     "name": "Arsuz (Hatay)",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 62.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:30.000 UTC in the IOC station list",
+     "lat": 36.416,
+     "lon": 35.885,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arsu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR OSLK",
+     "name": "Latakia",
+     "owner": "IEM SY__ASOS network (airport METAR)",
+     "distanceKm": 36.0,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 35.533,
+     "lon": 35.767,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OSLK&network=SY__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-latakia-corniche",
+   "name": "Latakia corniche",
+   "country": "Syria",
+   "region": null,
+   "timeZone": "Asia/Damascus",
+   "type": "Beach",
+   "lat": 35.504,
+   "lon": 35.768,
+   "seaward": 209.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (35.503816666666665, 35.7684, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Middle_East/Syria/Latakia_corniche/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1614.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 85 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.0 deg (limit 45); 300 m window gives 205.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1614.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2454/1615.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2455/1614.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2455/1615.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.504492,
+     35.767944
+    ],
+    "distanceToCoastM": 85.3,
+    "meanDevDeg": 38.0,
+    "seaward300": 205.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthEast: nearest listed direction is 15 deg from facing+180 (30); consistent (<=60)",
+     "wannasurf good swell SouthWest: nearest listed direction is 15 deg from the facing (210); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-latakia-corniche",
+    "name": "Latakia corniche",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Middle_East/Syria/Latakia_corniche/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell SouthWest (wannasurf)",
+    "windOffshore": "good wind North, NorthEast (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC arsu",
+     "name": "Arsuz (Hatay)",
+     "owner": "IOC Sea Level Station Monitoring Facility (Turkey)",
+     "distanceKm": 102.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:44:30.000 UTC in the IOC station list",
+     "lat": 36.416,
+     "lon": 35.885,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=arsu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR OSLK",
+     "name": "Latakia",
+     "owner": "IEM SY__ASOS network (airport METAR)",
+     "distanceKm": 3.3,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 35.533,
+     "lon": 35.767,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OSLK&network=SY__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-ras-enjela",
+   "name": "ras enjela",
+   "country": "Tunisia",
+   "region": null,
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 37.335,
+   "lon": 9.761,
+   "seaward": 46.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (37.33538333333333, 9.761266666666666, precision Approximate), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.wannasurf.com/spot/Africa/Tunisia/ras_enjela/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2158/1589.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 3 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.1 deg (limit 45); 300 m window gives 41.4 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2158/1589.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2159/1589.pbf"
+    ],
+    "nearestCoastPoint": [
+     37.335408,
+     9.761289
+    ],
+    "distanceToCoastM": 3.3,
+    "meanDevDeg": 16.1,
+    "seaward300": 41.4
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-ras-enjela",
+    "name": "ras enjela",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Tunisia/ras_enjela/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "good swell Don't know (wannasurf)",
+    "windOffshore": "good wind Don't know (wannasurf)",
+    "tide": "Don't know (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Don't know (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 4m+ / 12ft (wannasurf)",
+    "skill": "Beginners wave (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fast, Fun (wannasurf)",
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 199.1,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTB",
+     "name": "Bizerte",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 10.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 37.245,
+     "lon": 9.791,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTB&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-zouira",
+   "name": "Zouira",
+   "country": "Tunisia",
+   "region": null,
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 37.03,
+   "lon": 8.909,
+   "seaward": 317.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (37.030316666666664, 8.908616666666667, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.00 km away",
+    "url": "https://www.wannasurf.com/spot/Africa/Tunisia/Zouira/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2148/1593.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 321 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.4 deg (limit 45); 300 m window gives 318.0 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2148/1593.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2148/1594.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2149/1593.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2149/1594.pbf"
+    ],
+    "nearestCoastPoint": [
+     37.028361,
+     8.911281
+    ],
+    "distanceToCoastM": 320.7,
+    "meanDevDeg": 9.4,
+    "seaward300": 318.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South, SouthEast: nearest listed direction is 3 deg from facing+180 (138); consistent (<=60)",
+     "surf-forecast best swell North-northwest: nearest listed direction is 20 deg from the facing (318); consistent (<=90)",
+     "wannasurf good swell North, NorthWest: nearest listed direction is 3 deg from the facing (318); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-zouira",
+    "name": "Zouira",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Tunisia/Zouira/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Zouira",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North-northwest (surf-forecast); good swell North, NorthWest (wannasurf)",
+    "windOffshore": "offshore winds from the southeast and there is no shelter here from cross shore breezes (surf-forecast); good wind South, SouthEast (wannasurf)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast); All tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast); Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "skill": "Beginners wave (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Powerless (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Zouira in Tunis and North Coast is an exposed beach break that has inconsistent surf. Winter is the favoured time of year for surfing here. Works best in offshore winds from the southeast and there is no shelter here from cross shore breezes. Easily blown out by an onshore breeze Usually gets local windswells, but groundswells do happen and the ideal wave angle is from the north northwest. The beach break provides left and right handers. Good surf at all stages of the tide. An uncrowded break, even when it is working. Zouira"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 211.7,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTKA",
+     "name": "Tabarka",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 16.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.95,
+     "lon": 8.75,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTKA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-la-coupole-la-marsa",
+   "name": "la coupole la marsa",
+   "country": "Tunisia",
+   "region": null,
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 36.893,
+   "lon": 10.327,
+   "seaward": 46.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (36.8928, 10.32715, precision Approximate), rounded to 3 dp; not a surveyed takeoff; other guide pins: surf-forecast 0.99 km away",
+    "url": "https://www.wannasurf.com/spot/Africa/Tunisia/tunis/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2165/1595.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 271 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.6 deg (limit 45); 300 m window gives 39.5 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2165/1595.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2165/1596.pbf"
+    ],
+    "nearestCoastPoint": [
+     36.890999,
+     10.325089
+    ],
+    "distanceToCoastM": 270.8,
+    "meanDevDeg": 17.6,
+    "seaward300": 39.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South: nearest listed direction is 46 deg from facing+180 (226); consistent (<=60)",
+     "surf-forecast best swell North: nearest listed direction is 46 deg from the facing (46); consistent (<=90)",
+     "wannasurf good swell North, NorthWest: nearest listed direction is 46 deg from the facing (46); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-la-coupole-la-marsa",
+    "name": "la coupole la marsa",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Africa/Tunisia/tunis/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/La-Marsa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell North (surf-forecast); good swell North, NorthWest (wannasurf)",
+    "windOffshore": "offshore winds from the southwest with some shelter here from west winds (surf-forecast); good wind South (wannasurf)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast); Don't know, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast); Beach-break (wannasurf)",
+    "waveDirectionText": "The beach breaks favour lefts. (surf-forecast); Right (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Pollution (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "La Marsa (La Coupole) Tunis in Tunis and North Coast is a fairly exposed beach break. Winter is the optimum time of year for surfing here. Offshore winds are from the southwest with some shelter here from west winds. Able to handle light onshore wind Usually gets local windswells, but groundswells do happen and the best wave direction is from the north. The beach breaks favour lefts. Surfable at all stages of the tide. Crowds are never a problem here. La Marsa (La Coupole) Tunis"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 143.4,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTA",
+     "name": "Tunis",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 10.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.844,
+     "lon": 10.228,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": null
+  },
+  {
+   "id": "w-nafrica-la-grotte",
+   "name": "La Grotte",
+   "country": "Tunisia",
+   "region": "Bizerte",
+   "timeZone": "Africa/Tunis",
+   "type": "Reef",
+   "lat": 37.335,
+   "lon": 9.849,
+   "seaward": 0.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.3348, 9.84898), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/la-grotte.md"
+   },
+   "facingSource": {
+    "text": "\"Faces N\" (surfnerd swell exposure: WNW - E. Faces N)",
+    "url": "https://www.surfnerd.com/surf-forecast/la-grotte.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-la-grotte",
+    "name": "La Grotte",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/la-grotte",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WNW - E. Faces N (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirectionText": "Left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "sizeText": "0.6 m (2 ft) to 2.4 m (7.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "facing": "North (surfnerd: \"Faces N\")",
+    "facingDeg": 0.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 193.4,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTB",
+     "name": "Bizerte",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 11.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 37.245,
+     "lon": 9.791,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTB&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Reef'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-la-corniche-tunisia",
+   "name": "La Corniche - Tunisia",
+   "country": "Tunisia",
+   "region": "Bizerte",
+   "timeZone": "Africa/Tunis",
+   "type": "Reef",
+   "lat": 37.318,
+   "lon": 9.87,
+   "seaward": 67.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.3175, 9.87004), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/la-corniche-tunisia.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ENE\" (surfnerd swell exposure: E - ESE. NNW - E. Faces ENE)",
+    "url": "https://www.surfnerd.com/surf-forecast/la-corniche-tunisia.md"
+   },
+   "facingSelfCheck": "surfnerd's own facing (ENE) lies outside its swell exposure range E - ESE; kept as published, flagged",
+   "facts": {
+    "spotId": "w-nafrica-la-corniche-tunisia",
+    "name": "La Corniche - Tunisia",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/la-corniche-tunisia",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best NW (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "E - ESE. NNW - E. Faces ENE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from W (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The reef can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirectionText": "Left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Expert (surfnerd)",
+    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+    "facingDeg": 67.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 191.1,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTB",
+     "name": "Bizerte",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 10.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 37.245,
+     "lon": 9.791,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTB&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Reef'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-metline-port",
+   "name": "Metline Port",
+   "country": "Tunisia",
+   "region": "Bizerte",
+   "timeZone": "Africa/Tunis",
+   "type": "Reef",
+   "lat": 37.269,
+   "lon": 10.07,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.269, 10.0699), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/metline-port.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NNE - ESE. WNW - NNE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/metline-port.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-metline-port",
+    "name": "Metline Port",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/metline-port",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best NW (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NNE - ESE. WNW - NNE. Faces NE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 3.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 172.6,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTB",
+     "name": "Bizerte",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 24.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 37.245,
+     "lon": 9.791,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTB&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Reef'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-plage-remel",
+   "name": "Plage Remel",
+   "country": "Tunisia",
+   "region": "Bizerte",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 37.252,
+   "lon": 9.951,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.2522, 9.95131), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/plage-remel.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NE - E. NW - NE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/plage-remel.md"
+   },
+   "facingSelfCheck": "surfnerd's own facing (NNE) lies outside its swell exposure range NE - E; kept as published, flagged",
+   "facts": {
+    "spotId": "w-nafrica-plage-remel",
+    "name": "Plage Remel",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/plage-remel",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - E. NW - NE. Faces NNE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The beach can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 182.2,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTB",
+     "name": "Bizerte",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 14.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 37.245,
+     "lon": 9.791,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTB&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-raf-raf-plage",
+   "name": "Raf Raf Plage",
+   "country": "Tunisia",
+   "region": "Bizerte",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 37.186,
+   "lon": 10.217,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.1859, 10.2171), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/raf-raf-plage.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NE - E. NNW - NE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/raf-raf-plage.md"
+   },
+   "facingSelfCheck": "surfnerd's own facing (NNE) lies outside its swell exposure range NE - E; kept as published, flagged",
+   "facts": {
+    "spotId": "w-nafrica-raf-raf-plage",
+    "name": "Raf Raf Plage",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/raf-raf-plage",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best NW (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NE - E. NNW - NE. Faces NNE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The break works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Raf Raf Plage is a beach break tucked beside an attractive resort village on the Tunisian coast, with a coastal range and an offshore island framing the setting. It breaks both left and right over a mix of boulders and sand, and it's the powerful rights that stand out here."
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 157.6,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTA",
+     "name": "Tunis",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 38.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.844,
+     "lon": 10.228,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-sidi-mechrig",
+   "name": "Sidi Mechrig",
+   "country": "Tunisia",
+   "region": "Béja",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 37.15,
+   "lon": 9.053,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.1498, 9.05301), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-mechrig.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WSW - NNW. N - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-mechrig.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-sidi-mechrig",
+    "name": "Sidi Mechrig",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sidi-mechrig",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - NNW. N - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "accessNotes": [
+     "\"Heading west toward Bizerte, a 4WD helps on the coastal tracks that lead to scenic bays like Cap Mérou, home to a long, hollow left-hand pointbreak that ranks among the best rides in Tunisia.\" (surfnerd)"
+    ],
+    "skill": "Beginner (surfnerd)",
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 199.9,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTKA",
+     "name": "Tabarka",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 34.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.95,
+     "lon": 8.75,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTKA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-sousse-beach-sousse",
+   "name": "Sousse Beach Sousse",
+   "country": "Tunisia",
+   "region": "East Coast of Tunisia",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 35.843,
+   "lon": 10.646,
+   "seaward": 39.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (35.8431, 10.6459), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surf-forecast.com/breaks/Sousse-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2168/1610.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12; sea lies right of each ring as in OSM coastline ways). Nearest coastline point 1043 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 19.8 deg (limit 45); 300 m window gives 42.2 deg. Method: RECOVERY-2026-11-09.md.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2168/1610.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2168/1611.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2169/1610.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2169/1611.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.836376,
+     10.637791
+    ],
+    "distanceToCoastM": 1043.1,
+    "meanDevDeg": 19.8,
+    "seaward300": 42.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southwest: nearest listed direction is 6 deg from facing+180 (220); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 50 deg from the facing (40); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-nafrica-sousse-beach-sousse",
+    "name": "Sousse Beach Sousse",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sousse-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the Southwest (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "hazards": [
+     "Pollution may be a hazard at this break. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Sousse Beach Sousse on the East Coast is an exposed beach break. The best wind direction is from the southwest. Windswells are much more common than groundswells and the best wave direction is from the east. Waves at the beach break both left and right. Surfable at all stages of the tide. Crowds are never a problem here. Pollution may be a hazard at this break. Sousse Beach Sousse"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC PSCA",
+     "name": "Pantelleria (Scauri)",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 156.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:15.000 UTC in the IOC station list",
+     "lat": 36.769,
+     "lon": 11.964,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=PSCA"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTMB",
+     "name": "Monastir",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 13.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.758,
+     "lon": 10.755,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTMB&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin",
+   "typeSource": "surf-forecast states 'Beach'",
+   "regionSource": "surf-forecast listing"
+  },
+  {
+   "id": "w-nafrica-barboukech",
+   "name": "Barboukech",
+   "country": "Tunisia",
+   "region": "Jendouba",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 36.967,
+   "lon": 8.814,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.9671, 8.81412), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/barboukech.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: W - NE. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/barboukech.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-barboukech",
+    "name": "Barboukech",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/barboukech",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "W - NE. Faces NW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The break works through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Barboukech is a sand-bottomed beachbreak that throws up both lefts and rights. It sits on an open stretch of coast exposed to northwest swell and wind, so it comes alive when a good pulse arrives from that direction."
+     }
+    ],
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 218.2,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTKA",
+     "name": "Tabarka",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 6.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.95,
+     "lon": 8.75,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTKA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-amphitheatre",
+   "name": "Amphitheatre",
+   "country": "Tunisia",
+   "region": "Jendouba",
+   "timeZone": "Africa/Tunis",
+   "type": "Point",
+   "lat": 36.966,
+   "lon": 8.747,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.9662, 8.74693), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/amphitheatre.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: NW - NE. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/amphitheatre.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-amphitheatre",
+    "name": "Amphitheatre",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/amphitheatre",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NW - NE. Faces NE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It works through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirectionText": "Left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Amphitheatre is a left-hand point in the Tabarka area, peeling over an uneven reef on the Cite Larmel side of the Amphithéâtre de la Mer."
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 218.2,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTKA",
+     "name": "Tabarka",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 1.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.95,
+     "lon": 8.75,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTKA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Point'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-route-touristique",
+   "name": "Route Touristique",
+   "country": "Tunisia",
+   "region": "Jendouba",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 36.959,
+   "lon": 8.795,
+   "seaward": 337.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.9586, 8.79504), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/route-touristique.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNW\" (surfnerd swell exposure: WNW - NE. Faces NNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/route-touristique.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-route-touristique",
+    "name": "Route Touristique",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/route-touristique",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best NW (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WNW - NE. Faces NNW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "sizeText": "0.3 m (1 ft) to 2.4 m (7.9 ft) (surfnerd)",
+    "hazards": [
+     "The waves break over sand and peel both left and right, with consistent beachbreak peaks and a few coffee-rock reef options mixed in along the way. (surfnerd)"
+    ],
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "Route Touristique is a beginner-friendly beachbreak that runs along a strip of hotels and a golf course in Tunisia. The waves break over sand and peel both left and right, with consistent beachbreak peaks and a few coffee-rock reef options mixed in along the way."
+     }
+    ],
+    "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+    "facingDeg": 337.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC matel",
+     "name": "Marina di Teulada",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 219.1,
+     "live": false,
+     "liveNote": "last sample 2022-11-04 16:17:00.000 UTC in the IOC station list",
+     "lat": 38.928,
+     "lon": 8.72,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=matel"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTKA",
+     "name": "Tabarka",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 4.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.95,
+     "lon": 8.75,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTKA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-sidi-daoud",
+   "name": "Sidi Daoud",
+   "country": "Tunisia",
+   "region": "Nabeul",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 37.006,
+   "lon": 10.896,
+   "seaward": 315.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (37.0059, 10.8962), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-daoud.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NW\" (surfnerd swell exposure: WSW - WNW. Faces NW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sidi-daoud.md"
+   },
+   "facingSelfCheck": "surfnerd's own facing (NW) lies outside its swell exposure range WSW - WNW; kept as published, flagged",
+   "facts": {
+    "spotId": "w-nafrica-sidi-daoud",
+    "name": "Sidi Daoud",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sidi-daoud",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - NE, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "WSW - WNW. Faces NW (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It can break through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "Northwest (surfnerd: \"Faces NW\")",
+    "facingDeg": 315.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 94.5,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTL",
+     "name": "KELIBIA",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 24.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.85,
+     "lon": 11.083,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTL&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-el-mansourah",
+   "name": "El Mansourah",
+   "country": "Tunisia",
+   "region": "Nabeul",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 36.852,
+   "lon": 11.128,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.8525, 11.1284), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/el-mansourah.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: NE - S. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/el-mansourah.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-el-mansourah",
+    "name": "El Mansourah",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/el-mansourah",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "N - E, best NE (surfnerd)",
+     "fromDeg": 0.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NE - S. Faces ESE (surfnerd)",
+    "idealSwell": "best swell NE (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"The beach can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "guideText": [
+     {
+      "site": "surfnerd",
+      "text": "El Mansourah is a sandy beachbreak near Kelibia, tucked below an impressive fortress that overlooks long stretches of open beach. The waves break over sand and peel both left and right, so there's room to spread out and pick a peak."
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 72.0,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTL",
+     "name": "KELIBIA",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 4.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.85,
+     "lon": 11.083,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTL&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-cap-meduse",
+   "name": "Cap Meduse",
+   "country": "Tunisia",
+   "region": "Nabeul",
+   "timeZone": "Africa/Tunis",
+   "type": "Point",
+   "lat": 36.824,
+   "lon": 10.565,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.8241, 10.5654), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/cap-meduse.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: NNW - N. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/cap-meduse.md"
+   },
+   "facingSelfCheck": "surfnerd's own facing (W) lies outside its swell exposure range NNW - N; kept as published, flagged",
+   "facts": {
+    "spotId": "w-nafrica-cap-meduse",
+    "name": "Cap Meduse",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cap-meduse",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NW - NE, best N (surfnerd)",
+     "fromDeg": 315.0,
+     "toDeg": 45.0
+    },
+    "swellExposure": "NNW - N. Faces W (surfnerd)",
+    "idealSwell": "best swell N (surfnerd)",
+    "windOffshore": "offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"It breaks across low, mid, and high tide, though a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Rock Ledge (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirectionText": "Right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 5.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.8 m (5.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 122.1,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTA",
+     "name": "Tunis",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 30.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.844,
+     "lon": 10.228,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Point'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-medina",
+   "name": "Medina",
+   "country": "Tunisia",
+   "region": "Nabeul",
+   "timeZone": "Africa/Tunis",
+   "type": "Point",
+   "lat": 36.392,
+   "lon": 10.616,
+   "seaward": 180.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.3919, 10.6163), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/medina.md"
+   },
+   "facingSource": {
+    "text": "\"Faces S\" (surfnerd swell exposure: ENE - S. Faces S)",
+    "url": "https://www.surfnerd.com/surf-forecast/medina.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-medina",
+    "name": "Medina",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/medina",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "NE - SE, best E (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 135.0
+    },
+    "swellExposure": "ENE - S. Faces S (surfnerd)",
+    "idealSwell": "best swell E (surfnerd)",
+    "windOffshore": "offshore from NW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"Medina can break across low, mid, and high tide, but a rising tide is generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirectionText": "Left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 3.9
+    },
+    "sizeText": "0.6 m (2 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "skill": "Intermediate (surfnerd)",
+    "facing": "South (surfnerd: \"Faces S\")",
+    "facingDeg": 180.0,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC PSCA",
+     "name": "Pantelleria (Scauri)",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 127.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:47:15.000 UTC in the IOC station list",
+     "lat": 36.769,
+     "lon": 11.964,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=PSCA"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTNZ",
+     "name": "ZINE EL ABIDINE",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 38.6,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 36.076,
+     "lon": 10.439,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTNZ&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Point'",
+   "regionSource": "surfnerd"
+  },
+  {
+   "id": "w-nafrica-gammart",
+   "name": "Gammart",
+   "country": "Tunisia",
+   "region": "Tunis",
+   "timeZone": "Africa/Tunis",
+   "type": "Beach",
+   "lat": 36.928,
+   "lon": 10.281,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (36.9276, 10.2809), rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/gammart.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: N - E. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/gammart.md"
+   },
+   "facts": {
+    "spotId": "w-nafrica-gammart",
+    "name": "Gammart",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/gammart",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "swellWorkable": {
+     "text": "W - N, best NW (surfnerd)",
+     "fromDeg": 270.0,
+     "toDeg": 0.0
+    },
+    "swellExposure": "N - E. Faces NNE (surfnerd)",
+    "idealSwell": "best swell NW (surfnerd)",
+    "windOffshore": "offshore from SW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd); \"Gammart can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirectionText": "Left, Right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 3.9
+    },
+    "sizeText": "0.3 m (1 ft) to 1.2 m (3.9 ft) (surfnerd)",
+    "skill": "Beginner (surfnerd)",
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC pant",
+     "name": "Pantelleria",
+     "owner": "IOC Sea Level Station Monitoring Facility (Italy)",
+     "distanceKm": 147.7,
+     "live": false,
+     "liveNote": "last sample 2022-07-19 07:36:00.000 UTC in the IOC station list",
+     "lat": 36.835,
+     "lon": 11.937,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=pant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR DTTA",
+     "name": "Tunis",
+     "owner": "IEM TN__ASOS network (airport METAR)",
+     "distanceKm": 10.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 36.844,
+     "lon": 10.228,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DTTA&network=TN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons) at the pin; matches the surfnerd page",
+   "typeSource": "surfnerd states 'Beach'",
+   "regionSource": "surfnerd"
+  }
+ ],
+ "dropped": [
+  {
+   "name": "Fort Genois",
+   "country": "Tunisia",
+   "reason": "no published facing (surfnerd page has no Faces line; surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surfnerd.com/surf-forecast/fort-genois",
+    "https://www.wannasurf.com/spot/Africa/Tunisia/La_Droite_du_Fort/index.html",
+    "https://www.surf-forecast.com/breaks/La-Droite-du-Fort"
+   ],
+   "pin": [
+    36.9649,
+    8.7559
+   ]
+  },
+  {
+   "name": "Agami",
+   "country": "Egypt",
+   "reason": "no published facing; computed coastline facing 311.9 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West: nearest listed direction is 132 deg from facing+180 (132); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 48 deg from the facing (312); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/Agami/index.html",
+    "https://www.surf-forecast.com/breaks/Agami"
+   ],
+   "pin": [
+    31.1279,
+    29.7733
+   ]
+  },
+  {
+   "name": "Annaba - Seraidi beach",
+   "country": "Algeria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Annaba"
+   ],
+   "pin": [
+    36.9583,
+    7.7083
+   ]
+  },
+  {
+   "name": "Batroun",
+   "country": "Lebanon",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/batroun/index.html",
+    "https://www.surf-forecast.com/breaks/Batroun"
+   ],
+   "pin": [
+    34.2436,
+    35.6587
+   ]
+  },
+  {
+   "name": "Casino",
+   "country": "Lebanon",
+   "reason": "no published facing; computed coastline facing 217.9 contradicts published offshore wind/swell (wannasurf swell); wannasurf good swell East: nearest listed direction is 128 deg from the facing (218); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/Casino/index.html"
+   ],
+   "pin": [
+    34.0118,
+    35.6424
+   ]
+  },
+  {
+   "name": "Cleopatra beach",
+   "country": "Egypt",
+   "reason": "no published facing; computed coastline facing 318.5 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind NorthWest: nearest listed direction is 176 deg from facing+180 (138); CONTRADICTS (>60) | wannasurf good swell NorthWest: nearest listed direction is 4 deg from the facing (318); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/Cleopatra_beach/index.html"
+   ],
+   "pin": [
+    31.2234,
+    29.9326
+   ]
+  },
+  {
+   "name": "El Corniche",
+   "country": "Egypt",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.42; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/El_Corniche/index.html",
+    "https://www.surf-forecast.com/breaks/El-Corniche"
+   ],
+   "pin": [
+    31.262,
+    29.9814
+   ]
+  },
+  {
+   "name": "Hamamet",
+   "country": "Tunisia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/hamamet/index.html",
+    "https://www.surf-forecast.com/breaks/Hamamet"
+   ],
+   "pin": [
+    36.3702,
+    10.5459
+   ]
+  },
+  {
+   "name": "Kelibya",
+   "country": "Tunisia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/kelibya/index.html",
+    "https://www.surf-forecast.com/breaks/Kelibya"
+   ],
+   "pin": [
+    36.8341,
+    11.1174
+   ]
+  },
+  {
+   "name": "La Marsa dream land",
+   "country": "Tunisia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: nearest OSM coastline is 4.13 km from the pin (> 1.5 km)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/La_Marsa/index.html"
+   ],
+   "pin": [
+    37.1121,
+    10.2612
+   ]
+  },
+  {
+   "name": "Leptis Magna",
+   "country": "Libya",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Libya/Leptis_Magna/index.html"
+   ],
+   "pin": [
+    32.6403,
+    14.3016
+   ]
+  },
+  {
+   "name": "Les Grottes Bizerte",
+   "country": "Tunisia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/Les_Grottes_Bizerte/index.html",
+    "https://www.surf-forecast.com/breaks/Les-Grottes-Bizerte"
+   ],
+   "pin": [
+    37.3456,
+    9.8596
+   ]
+  },
+  {
+   "name": "Mandara",
+   "country": "Egypt",
+   "reason": "no published facing; computed coastline facing 309.4 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West, NorthEast: nearest listed direction is 84 deg from facing+180 (129); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 51 deg from the facing (309); consistent (<=90) | wannasurf good swell North, NorthWest, NorthEast: nearest listed direction is 6 deg from the facing (309); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/Mandara/index.html",
+    "https://www.surf-forecast.com/breaks/Mandara"
+   ],
+   "pin": [
+    31.2802,
+    30.0087
+   ]
+  },
+  {
+   "name": "Meloula",
+   "country": "Tunisia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 55 deg (arccos of mean resultant length 0.57; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/Meloula/index.html"
+   ],
+   "pin": [
+    36.9658,
+    8.7141
+   ]
+  },
+  {
+   "name": "Mosque point",
+   "country": "Syria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.54; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Syria/Mosque_point/index.html"
+   ],
+   "pin": [
+    35.5659,
+    35.7353
+   ]
+  },
+  {
+   "name": "Mostafa Spot",
+   "country": "Lebanon",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 69 deg (arccos of mean resultant length 0.36; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/phil_and_did/index.html"
+   ],
+   "pin": [
+    33.6664,
+    35.4164
+   ]
+  },
+  {
+   "name": "Nahr brahim",
+   "country": "Lebanon",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/nahr_brahim/index.html",
+    "https://www.surf-forecast.com/breaks/Nahr_Brahim"
+   ],
+   "pin": [
+    34.0605,
+    35.6418
+   ]
+  },
+  {
+   "name": "Phil and Did (Akif's reef)",
+   "country": "Lebanon",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.29; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Phil-and-Did"
+   ],
+   "pin": [
+    33.6664,
+    35.407
+   ]
+  },
+  {
+   "name": "Plage Mordjane",
+   "country": "Algeria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.49; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Algeria/Plage_Mordjane/index.html",
+    "https://www.surf-forecast.com/breaks/Plage-Mordjane"
+   ],
+   "pin": [
+    36.8984,
+    8.4302
+   ]
+  },
+  {
+   "name": "Ramadas",
+   "country": "Egypt",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.49; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/Ramadas/index.html",
+    "https://www.surf-forecast.com/breaks/Ramadas"
+   ],
+   "pin": [
+    31.2491,
+    29.9681
+   ]
+  },
+  {
+   "name": "Sandy Beach - Chekka",
+   "country": "Lebanon",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/chekka/index.html",
+    "https://www.surf-forecast.com/breaks/Sandy-Beach-Chekka"
+   ],
+   "pin": [
+    34.3106,
+    35.715
+   ]
+  },
+  {
+   "name": "Shatby",
+   "country": "Egypt",
+   "reason": "no published facing; computed coastline facing 330.5 contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest: nearest listed direction is 150 deg from facing+180 (150); CONTRADICTS (>60) | surf-forecast best swell North: nearest listed direction is 30 deg from the facing (330); consistent (<=90) | wannasurf good swell North, NorthWest: nearest listed direction is 16 deg from the facing (330); consistent (<=90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/Shatby/index.html",
+    "https://www.surf-forecast.com/breaks/Shatby"
+   ],
+   "pin": [
+    31.2122,
+    29.9154
+   ]
+  },
+  {
+   "name": "Shatby beach",
+   "country": "Egypt",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.61; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Egypt/Shatby_beach/index.html"
+   ],
+   "pin": [
+    31.2105,
+    29.911
+   ]
+  },
+  {
+   "name": "Tam tam",
+   "country": "Lebanon",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/tam_tam/index.html",
+    "https://www.surf-forecast.com/breaks/Tam-Tam"
+   ],
+   "pin": [
+    34.1152,
+    35.6475
+   ]
+  },
+  {
+   "name": "Unnamed5",
+   "country": "Libya",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Unnamed_5"
+   ],
+   "pin": [
+    32.5213,
+    23.111
+   ]
+  },
+  {
+   "name": "Unnamed6",
+   "country": "Libya",
+   "reason": "no published facing; computed coastline facing 69.8 contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the south southwest: nearest listed direction is 47 deg from facing+180 (250); consistent (<=60) | surf-forecast best swell North-northwest: nearest listed direction is 92 deg from the facing (70); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.surf-forecast.com/breaks/Unnamed_6"
+   ],
+   "pin": [
+    32.5557,
+    23.1093
+   ]
+  },
+  {
+   "name": "banzart",
+   "country": "Tunisia",
+   "reason": "no published facing; computed coastline facing 79.0 contradicts published offshore wind/swell (surf-forecast swell, wannasurf swell); wannasurf good wind West: nearest listed direction is 11 deg from facing+180 (259); consistent (<=60) | surf-forecast best swell Northwest: nearest listed direction is 124 deg from the facing (79); CONTRADICTS (>90) | wannasurf good swell NorthWest: nearest listed direction is 124 deg from the facing (79); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/banzart/index.html",
+    "https://www.surf-forecast.com/breaks/Banzart"
+   ],
+   "pin": [
+    37.3172,
+    9.8722
+   ]
+  },
+  {
+   "name": "carthage neptune",
+   "country": "Tunisia",
+   "reason": "no published facing; computed coastline facing 134.0 contradicts published offshore wind/swell (surf-forecast swell, wannasurf swell); wannasurf good wind West: nearest listed direction is 44 deg from facing+180 (314); consistent (<=60) | surf-forecast best swell North: nearest listed direction is 134 deg from the facing (134); CONTRADICTS (>90) | wannasurf good swell North: nearest listed direction is 134 deg from the facing (134); CONTRADICTS (>90)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/carthage_neptune/index.html",
+    "https://www.surf-forecast.com/breaks/Carthage-Neptune"
+   ],
+   "pin": [
+    36.8505,
+    10.3339
+   ]
+  },
+  {
+   "name": "cherchell tizirine",
+   "country": "Algeria",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Algeria/cherchell_tizirine/index.html",
+    "https://www.surf-forecast.com/breaks/Cherchell_tizirine"
+   ],
+   "pin": [
+    36.6114,
+    2.2041
+   ]
+  },
+  {
+   "name": "tabarka les aiguilles",
+   "country": "Tunisia",
+   "reason": "no published facing (surf-forecast and wannasurf publish none); coastline facing rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.27; limit 45 deg): headland, cove or point, ambiguous",
+   "urls": [
+    "https://www.wannasurf.com/spot/Africa/Tunisia/tabarka_les_aiguilles/index.html",
+    "https://www.surf-forecast.com/breaks/Tabarka-Les-Aiguilles"
+   ],
+   "pin": [
+    36.9599,
+    8.7662
+   ]
+  },
+  {
+   "name": "AlMina Spot",
+   "country": "Lebanon",
+   "reason": "guide pin is not a valid coordinate (60.2787, -396.19303333333335)",
+   "urls": [
+    "https://www.wannasurf.com/spot/Middle_East/Lebanon/almina_spot/index.html"
+   ]
+  }
+ ]
+}
