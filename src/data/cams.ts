@@ -5,6 +5,10 @@
  *  what it shows and when it was checked. The log of checked and skipped candidates is docs/forecast/CAMS.md. */
 export interface Cam {
   spotId: string;
+  /** 'surfline' = a link to Surfline's own page for the spot (never embedded, framed, previewed or analysed; it may need a Surfline subscription). The map and the Callout do not use these: `camsFor` leaves them out, `surflineFor` returns them. */
+  provider?: 'surfline';
+  /** The camera or spot page's name on its owner's site (Surfline). */
+  camName?: string;
   /** Who publishes the page (the link label names them, never SWELLO). */
   owner: string;
   /** Who runs the camera, when it is someone else. */
@@ -36,13 +40,46 @@ export const CAMS: readonly Cam[] = [
   {spotId: 'spot-8', owner: 'Santa Cruz Port District', operator: 'Santa Cruz Port District (HDRelay player)', url: 'https://www.santacruzharbor.org/webcams',
     view: 'Santa Cruz Harbor entrance channel and nearby beaches, about 3 km west of Pleasure Point; not the Pleasure Point break', verified: '2026-11-02',
     how: 'HTTP 200; the district\'s own page embeds a live player (HDRelay) that showed the harbor entrance light at night with "Tap to play live".'},
+  // surfline-links (2026-11-10, user: "only link for now"): Surfline's public spot pages for the Bay Area spots where Surfline lists a cam. Links only: no iframe, no embed, no thumbnail, no preview.
+  {spotId: 'spot-7', provider: 'surfline', camName: 'Cowells', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/cowells/5842041f4e65fad6a7708806',
+    view: "Surfline's Cowells page (its title says Surf Cams)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'spot-6', provider: 'surfline', camName: 'Steamer Lane', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/steamer-lane/5842041f4e65fad6a7708805',
+    view: "Surfline's Steamer Lane page (its title says Surf Cams; a separate Steamer Lane Overview page shows the HD cam)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'spot-8', provider: 'surfline', camName: 'Pleasure Point', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/pleasure-point/5842041f4e65fad6a7708807',
+    view: "Surfline's Pleasure Point page (its title says Surf Cams)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'cs-capitola', provider: 'surfline', camName: 'Capitola', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/capitola/5842041f4e65fad6a7708ddf',
+    view: "Surfline's Capitola page (its title says Surf Cams)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'spot-2', provider: 'surfline', camName: 'Ocean Beach Overview', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/ocean-beach-overview/5842041f4e65fad6a77087f8',
+    view: "Surfline's Ocean Beach Overview page (its title says Live Surf Cam; Surfline marks it a premium-only high-resolution cam)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'spot-5', provider: 'surfline', camName: "Maverick's", owner: 'Surfline', url: 'https://www.surfline.com/surf-report/maverick-s/5842041f4e65fad6a7708801',
+    view: "Surfline's Maverick's page (its title says Surf Cams)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'cs-half-moon-bay', provider: 'surfline', camName: 'Half Moon Bay', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/half-moon-bay/5842041f4e65fad6a770896f',
+    view: "Surfline's Half Moon Bay page (its title says Surf Cam)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'cs-sharp-park', provider: 'surfline', camName: 'Sharp Park', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/sharp-park/5842041f4e65fad6a770897c',
+    view: "Surfline's Sharp Park page (its title says Surf Cam)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'spot-3', provider: 'surfline', camName: 'Linda Mar', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/linda-mar/5842041f4e65fad6a7708976',
+    view: "Surfline's Linda Mar page (its title says Surf Cams)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
+  {spotId: 'spot-1', provider: 'surfline', camName: 'Stinson Beach', owner: 'Surfline', url: 'https://www.surfline.com/surf-report/stinson-beach/5842041f4e65fad6a77089c1',
+    view: "Surfline's Stinson Beach page (its title says Surf Cams)", verified: '2026-11-10',
+    how: 'Surfline\'s own pages block automated reads (a Cloudflare challenge, HTTP 403), so the page was NOT opened. The URL, the page name and the cam listing were read from public web-search results (several results for the same id; the title of the page says Surf Cam / Surf Cams / Live Surf Cam). Link only.'},
 ];
 
-export const camFor = (spotId: string): Cam | null => CAMS.find((c) => c.spotId === spotId) ?? null;
+export const camFor = (spotId: string): Cam | null => CAMS.find((c) => c.spotId === spotId && c.provider !== 'surfline') ?? null;
 
 /** T-106 SWELLO's OWN live cams (docs/product/CAMS-PLAN.md), the only cams the Home hero may play: none exist yet. The public cams above are
  *  other owners' pages: links, unless a camera qualifies for the Camera panel under the rule at the top of this file. An entry is added only once our camera streams. */
 export interface OwnCam {spotId: string; /** A stream the browser plays directly (HLS for Safari, or an MP4/WebM loop). */ src: string; label: 'Live cam · SWELLO'; since: string}
 export const OWN_CAMS: readonly OwnCam[] = [];
 /** T-111: every verified public cam for a spot (the spot page lists them as links). */
-export const camsFor = (spotId: string): readonly Cam[] => CAMS.filter((c) => c.spotId === spotId);
+export const camsFor = (spotId: string): readonly Cam[] => CAMS.filter((c) => c.spotId === spotId && c.provider !== 'surfline');
+/** Surfline's page for a spot (link only), where Surfline lists a cam. */
+export const surflineFor = (spotId: string): Cam | null => CAMS.find((c) => c.spotId === spotId && c.provider === 'surfline') ?? null;

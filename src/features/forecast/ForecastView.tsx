@@ -17,6 +17,7 @@ import {BoardLine, BuoyNow, CardDetail, ConditionsGrid, DayStrip, HourTable, Sca
 import {SpotBand} from './SpotBand';
 import {camsFor} from '../../data/cams';
 import {LiveCamPanel} from './LiveCam';
+import {SurflineLink} from './SurflineLink';
 import {glyphFor} from '../../services/waveGlyph';
 import {userHeight} from '../../services/heightMath';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
@@ -138,6 +139,8 @@ export function ForecastView({go}: ViewProps) {
 
       {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
       <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
+      {/* surfline-links: Surfline's own page for the spot (link only, never embedded), under our Camera panel where there is one. */}
+      <SurflineLink spotId={spot.id} />
 
       <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
