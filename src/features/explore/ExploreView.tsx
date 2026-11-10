@@ -36,6 +36,7 @@ import {createEngine, engineKind, type MapEngine, type MarkerHandle} from '../..
 import {currentTheme} from '../../map/basemap';
 import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
+import {COAST_MAX_ZOOM, TIER, buildNodes, layoutPills, levelOf, nameOf, overlaps, pillText, summarise, type NodeId, type Rect, type SpotState} from './coastGroups';
 import {headlineSurf} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
 import {SpotCallout, type HourBar} from './Callout';
@@ -57,6 +58,15 @@ const surfSpot = (id: string) => spots.find((s) => s.id === id)!;
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 const PHONE = '(max-width: 860px)';
 const isPhone = () => typeof matchMedia === 'function' && matchMedia(PHONE).matches;
+
+/** 4E coast groups: the nodes (regions, zones, coasts, seaboards) with their spots, the regions the layout starts from, and one pill's DOM. */
+const COAST_NODES = buildNodes(evidenceSpots), COAST_LEAVES = [...COAST_NODES.keys()].filter((id) => levelOf(id) === 0);
+const SPOT_BY_ID = new Map(evidenceSpots.map((e) => [e.id, e] as const));
+const centroid = (ids: string[]) => { let lat = 0, lon = 0; for (const id of ids) { const e = SPOT_BY_ID.get(id)!; lat += e.latitude; lon += e.longitude; } return {lat: lat / ids.length, lon: lon / ids.length}; };
+/** A pill's size before it can be measured (container 0 wide, fonts not loaded yet): close to the real one, so the layout never goes empty. */
+const PILL_NOMINAL = {phone: [120, 44], wide: [180, 62]} as const;
+/** The pills' DOM order: north to south, so keyboard order follows the coast. */
+const COAST_ORDER = [...COAST_NODES.keys()].sort((a, b) => centroid(COAST_NODES.get(b)!).lat - centroid(COAST_NODES.get(a)!).lat || levelOf(a) - levelOf(b));
 type Detent = 'peek' | 'half' | 'full';
 const DETENTS: Detent[] = ['peek', 'half', 'full'];
 
@@ -157,6 +167,9 @@ function OceanMap({section, go}: ViewProps) {
   hoverRef.current = hover;
   const markers = useRef(new Map<string, MarkerHandle>());
   const rank = useRef(new Map<string, number>());
+  /** 4E coast pills: one marker per group node (regions, zones, coasts, seaboards), its spot states at the selected hour and its measured box around the anchor. */
+  const pills = useRef(new Map<NodeId, {mk: MarkerHandle; inner: HTMLElement; g: [number, number, number, number] | null; prio: number}>());
+  const pillsDirty = useRef(true);   // re-measure the pills before the next layout (content, size or breakpoint changed)
   // map-maplibre: each pin's dot and label box relative to its anchor point, measured once per rebuild; the declutter then places them from
   // project() alone, so a pan or zoom reads no element layout (it used to force a layout of all 45 pins on every move: the phone's long tasks).
   const geom = useRef(new Map<string, {d: [number, number, number, number]; l: [number, number, number, number] | null; c: [number, number, number, number] | null}>());
@@ -299,6 +312,24 @@ function OceanMap({section, go}: ViewProps) {
     return schedulePrefetch(def.layer, def.variable, view.selectedTime, times);
   }, [live, spatial.loading, globe.loading, view.selectedTime, def.layer, def.variable]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 4E: the coast pills, created once per map, north to south, before the pins (so the pins that stay draw above them); their content follows the hour in the pins' effect.
+  useEffect(() => {
+    const x = map.current; if (!x) return;
+    for (const id of COAST_ORDER) {
+      const ids = COAST_NODES.get(id)!, c = centroid(ids), el = document.createElement('div'), inner = document.createElement('div');
+      el.className = 'xcoastm xhide'; el.setAttribute('role', 'button'); el.dataset.spots = ids.join(',');   // which spots this pill summarises (tests compare it with their pins)
+      inner.className = 'xcoast'; el.appendChild(inner);
+      const mk = x.addMarker({lat: c.lat, lon: c.lon, element: el, size: [0, 0], anchor: 'center', keyboard: true, onClick: () => frameRef.current(id)});
+      pills.current.set(id, {mk, inner, g: null, prio: -1});
+    }
+    pillsDirty.current = true;
+    // re-measure when the size can change: the window (and the 860 px breakpoint, which switches the compact pill) and late web fonts
+    const mq = matchMedia(PHONE), dirty = () => { pillsDirty.current = true; declutterRef.current(); };
+    mq.addEventListener('change', dirty); const offResize = x.on('resize', () => { pillsDirty.current = true; });
+    document.fonts?.ready.then(dirty).catch(() => {});
+    return () => { mq.removeEventListener('change', dirty); offResize(); pills.current.forEach((pl) => pl.mk.remove()); pills.current.clear(); };
+  }, [eng]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Spot markers: a rating-coloured dot in a white ring; a name label (with the rating word, no unlabelled number) where room allows.
   useEffect(() => {
     const x = map.current;
@@ -306,11 +337,21 @@ function OceanMap({section, go}: ViewProps) {
     markers.current.forEach((mk) => mk.remove());
     markers.current.clear();
     rank.current.clear();
+    const rated = new Map(evidenceSpots.map((e) => { const f = recAt(e.id), rating = f ? rateForecast(surfSpot(e.id), f, now) : null; return [e.id, {f, rating, rank: (data.state.favorites.includes(e.id) ? 3000 : POPULAR_SPOTS.includes(e.id) ? 2000 : spotTier(e.id) ? 1000 : 0) + (rating?.baseScore ?? -1)}] as const; }));
+    // 4E: the coast pills (built once per map, see below) take this hour's summary in place: same records and ratings as the pins, keyboard focus kept.
+    for (const [id, pl] of pills.current) {
+      const ids = COAST_NODES.get(id)!;
+      const states: SpotState[] = ids.map((sid) => { const r = rated.get(sid)!; return {id: sid, name: SPOT_BY_ID.get(sid)!.name, loaded: !!r.f || view.ocean.isSpotLoaded(sid), score: r.rating?.score ?? null, category: r.rating?.category ?? null, band: r.rating ? bandOf(r.rating.category) : 'none', dark: !!r.rating?.dark, rank: r.rank}; });
+      const sum = summarise(states), t = pillText(nameOf(id).replace(/^Hawaii · /, ''), sum, conditionWord, BAND_COLOR);   // the island zones read as islands ("Oahu") on the map
+      if (pl.inner.innerHTML !== t.html) { pl.inner.innerHTML = t.html; pillsDirty.current = true; }
+      pl.inner.style.setProperty('--c', t.color); pl.mk.element.setAttribute('aria-label', t.label); pl.mk.element.title = t.title;
+      pl.prio = (focused && ids.includes(focused) ? 2 * TIER : 0) + (ids.some((sid) => data.state.favorites.includes(sid)) ? TIER : 0) + (sum.best?.score ?? -1);
+    }
     for (const e of evidenceSpots) {
-      const f = recAt(e.id), rating = f ? rateForecast(surfSpot(e.id), f, now) : null;
+      const {f, rating} = rated.get(e.id)!;
       // Stage 6 label priority: selected > favourites > popular spots > the original spots > spots added in the expansion > rating (sel is handled by the declutter sort).
       // spots-map: the same order decides which pin stays when dots crowd (declutter).
-      rank.current.set(e.id, (data.state.favorites.includes(e.id) ? 3000 : POPULAR_SPOTS.includes(e.id) ? 2000 : spotTier(e.id) ? 1000 : 0) + (rating?.baseScore ?? -1));
+      rank.current.set(e.id, rated.get(e.id)!.rank);
       const color = rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)';
       // T-116: name · height · rating word. After dark the word stays (user, 2026-11-08); one quiet mark in the bottom strip says it is dark.
       const hs = f ? headlineSurf(e.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null;
@@ -324,6 +365,7 @@ function OceanMap({section, go}: ViewProps) {
       const el = document.createElement('div');
       el.className = `xpin${e.id === focused ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
       const cam = camsFor(e.id).length > 0;
+      el.dataset.spot = e.id; if (rating?.score != null) el.dataset.score = String(rating.score); if (rating?.dark) el.dataset.dark = '1';
       el.style.setProperty('--c', color); el.innerHTML = `<i></i>${cam ? `<em class="xcam" aria-hidden="true"><svg viewBox="0 0 24 24" width="9" height="9"><path d="${CAMERA_D}"/></svg></em>` : ''}${label}${chip}`;
       const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: (cam ? `${e.name} · has a public live cam` : e.name) + (view.ocean.isSpotLoaded(e.id) ? '' : ' · forecast loading (grey pin: not loaded yet, not flat)'), keyboard: true, riseOnHover: true,
         onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
@@ -354,8 +396,52 @@ function OceanMap({section, go}: ViewProps) {
     const els = evidenceSpots.map((e) => ({id: e.id, el: markers.current.get(e.id)?.element})).filter((x): x is {id: string; el: HTMLElement} => !!x.el);
     els.sort((a, b) => Number(b.el.classList.contains('sel')) - Number(a.el.classList.contains('sel')) || (rank.current.get(b.id) ?? -1) - (rank.current.get(a.id) ?? -1));
     els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot', 'xthin', 'xchipon', 'clft'));
+    // 4E: below COAST_MAX_ZOOM the coast pills stand in for the pins; the focused spot and favourites keep theirs, and a pin is only hidden under a pill that is drawn.
+    const coast = m.getView().zoom < COAST_MAX_ZOOM, favs = data.state.favorites;
+    const pillRects: DOMRect[] = [];
+    if (coast && pillsDirty.current) {   // measure each pill's box around its anchor (shown, un-nudged); a 0-wide read (hidden container, fonts pending) keeps the nominal size and retries later
+      const nominal = isPhone() ? PILL_NOMINAL.phone : PILL_NOMINAL.wide; let all = true;
+      for (const pl of pills.current.values()) { pl.mk.element.classList.remove('xhide'); pl.mk.element.style.setProperty('--dx', '0px'); pl.mk.element.style.setProperty('--dy', '0px'); }
+      for (const pl of pills.current.values()) {
+        const rr = pl.inner.getBoundingClientRect(), o = pl.mk.element.getBoundingClientRect();
+        if (rr.width && rr.height) pl.g = [rr.left - o.left, rr.top - o.top, rr.width, rr.height]; else { pl.g = [-nominal[0] / 2, -nominal[1] / 2, nominal[0], nominal[1]]; all = false; }
+      }
+      pillsDirty.current = !all;
+    }
+    {
+      const boxOf = (id: NodeId): Rect | null => {
+        const pl = pills.current.get(id); if (!pl) return null;
+        if (!pl.g) { const n = isPhone() ? PILL_NOMINAL.phone : PILL_NOMINAL.wide; pl.g = [-n[0] / 2, -n[1] / 2, n[0], n[1]]; }
+        const ll = pl.mk.getLatLon(), q = m.project(ll.lat, ll.lon), r = {left: edge.left + q.x + pl.g[0], top: edge.top + q.y + pl.g[1], right: edge.left + q.x + pl.g[0] + pl.g[2], bottom: edge.top + q.y + pl.g[1] + pl.g[3]};
+        return r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom ? r : null;   // off the map: not drawn, and it never forces a merge
+      };
+      // the pins that stay (focused, favourites): their dot and the label to its right, for the pills to keep clear of where they can
+      const keep = coast ? els.filter(({el, id}) => el.classList.contains('sel') || favs.includes(id)).map(({id}) => {
+        const e = SPOT_BY_ID.get(id)!, q = m.project(e.latitude, e.longitude), g = geom.current.get(id), cx = edge.left + q.x, cy = edge.top + q.y;
+        const l = g?.l ? {left: cx + g.l[0], top: cy + g.l[1], right: cx + g.l[0] + g.l[2], bottom: cy + g.l[1] + g.l[3]} : null;
+        return {left: cx - 12, top: Math.min(cy - 12, l?.top ?? cy), right: Math.max(cx + 12, l?.right ?? cx), bottom: Math.max(cy + 12, l?.bottom ?? cy)};
+      }) : [];
+      // the floating controls too (search, chips, buttons, the time bar): a pill nudges clear of them, and one that still sits under a control is not drawn (it could not be read)
+      // the search box's container is larger than what it shows (its empty part lets taps through): for the pills, its visible parts only
+      const root = m.container.parentElement, top = Array.from(root?.querySelectorAll<HTMLElement>('.xtopbar > *') ?? []).flatMap((el) => (el.tagName === 'DIV' && el.children.length ? Array.from(el.children) : [el]));
+      const ctlR = [...top, ...Array.from(root?.querySelectorAll<HTMLElement>('.xsearchbox .xsheet, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? [])]
+        .map((el) => el.getBoundingClientRect()).filter((r) => r.width).map((c) => ({left: c.left, top: c.top, right: c.right, bottom: c.bottom}));
+      const show = coast ? layoutPills(COAST_LEAVES, boxOf, (id) => pills.current.get(id)?.prio ?? -1, [...keep, ...ctlR]) : new Map<NodeId, [number, number]>();
+      for (const [id, o] of show) { const r = boxOf(id)!; if (ctlR.some((c) => overlaps({left: r.left + o[0], right: r.right + o[0], top: r.top + o[1], bottom: r.bottom + o[1]}, c, 0))) show.delete(id); }
+      const covered = new Set<string>();
+      for (const [id, pl] of pills.current) {
+        const o = show.get(id), el = pl.mk.element; el.classList.toggle('xhide', !o);
+        if (!o) continue;
+        el.style.setProperty('--dx', `${o[0]}px`); el.style.setProperty('--dy', `${o[1]}px`);   // nudged off the region's centre to clear a neighbour
+        const r = boxOf(id)!; pillRects.push(new DOMRect(r.left + o[0], r.top + o[1], r.right - r.left, r.bottom - r.top));
+        for (const sid of COAST_NODES.get(id)!) covered.add(sid);
+      }
+      // a spot whose group has no drawn pill (off the map, or under a control) keeps its pin, so nothing on screen goes missing
+      if (coast) els.forEach(({el, id}) => { if (!el.classList.contains('sel') && !favs.includes(id) && covered.has(id)) el.classList.add('xthin'); });
+    }
     // Stage 6: thin at low zoom: below z6 only the selected spot, favourites, popular spots and the 5 best-rated keep a pin (the rest return on zoom-in).
-    if (m.getView().zoom < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
+    // (below COAST_MAX_ZOOM the pills replace this: a pin is hidden only under a drawn pill, so a spot whose pill cannot be drawn keeps its pin)
+    if (!coast && m.getView().zoom < 6) els.forEach(({el, id}, i) => { if (!el.classList.contains('sel') && (rank.current.get(id) ?? -1) < 2000 && i > 5) el.classList.add('xthin'); });
     const at = new Map(evidenceSpots.map((e) => [e.id, e] as const));
     // spots-map: a pin whose dot centre falls within pinGap px of a higher-priority pin is not drawn at this zoom (it returns on zoom-in);
     // search, the list, Find Spots and Compare still reach it. Same order as the labels: selected, favourites, popular, original, added, rating.
@@ -371,7 +457,7 @@ function OceanMap({section, go}: ViewProps) {
       const dot = g ? new DOMRect(cx + g.d[0], cy + g.d[1], g.d[2], g.d[3]) : new DOMRect(cx - 11, cy - 11, 22, 22);
       return {id, el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined, chip: g?.c ? new DOMRect(cx + g.c[0], cy + g.c[1], g.c[2], g.c[3]) : undefined};
     });
-    const taken: DOMRect[] = [...boxes.filter((x) => x.dot.width).map((x) => x.dot), ...ctl];
+    const taken: DOMRect[] = [...boxes.filter((x) => x.dot.width).map((x) => x.dot), ...ctl, ...pillRects];
     const inView = (r: DOMRect) => !edge || (r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom);
     const free = (r: DOMRect, own: DOMRect) => (!edge || (r.left >= edge.left + 4 && r.right <= edge.right - 4 && r.top >= edge.top && r.bottom <= edge.bottom)) && !taken.some((t) => t !== own && r.left < t.right + 2 && t.left < r.right + 2 && r.top < t.bottom + 2 && t.top < r.bottom + 2);
     let budget = labelBudget(m.getView().zoom, isPhone());
@@ -535,6 +621,16 @@ function OceanMap({section, go}: ViewProps) {
     if (reduced()) m.setView({lat: to.lat, lon: to.lon, zoom: z}, {animate: false}); else m.flyTo({lat: to.lat, lon: to.lon, zoom: z}, {durationMs: 1100});
   };
   const flyRef = useRef(flyToSpot);
+  /** 4E: tapping a coast pill frames its spots (the region chips' fit); below COAST_MAX_ZOOM a merged pill shows its parts, from there on the pins. */
+  const frameGroup = (id: NodeId) => {
+    const m = map.current, ids = COAST_NODES.get(id); if (!m || !ids?.length) return;
+    const z0 = m.getView().zoom, animate = !reduced();
+    m.fitPoints(ids.map((sid) => { const e = SPOT_BY_ID.get(sid)!; return {lat: e.latitude, lon: e.longitude}; }), {padRatio: 0.15, maxZoom: 11, animate, padding: {top: phone ? 120 : 80, left: phone ? 16 : 24, right: phone ? 64 : 200, bottom: phone ? 120 : 80}});
+    // already at its fit zoom (the tap would do nothing visible): zoom in one step on it. Then keyboard focus goes to the map, as the pill may now be gone.
+    let done = false; const off = m.on('moveend', () => settle()), timer = window.setTimeout(() => settle(), animate ? 1500 : 60);
+    function settle() { if (done) return; done = true; off(); window.clearTimeout(timer); if (Math.abs(m!.getView().zoom - z0) < 0.25) m!.zoomBy(1); (m!.container.querySelector<HTMLElement>('canvas, .leaflet-container') ?? m!.container).focus({preventScroll: true}); }
+  };
+  const frameRef = useRef(frameGroup); frameRef.current = frameGroup;
   flyRef.current = flyToSpot;
   /** Choose a spot: select it, open its callout (popup or the phone sheet's peek) and bring it into view. */
   const pickSpot = (id: string, fromList = false) => {
