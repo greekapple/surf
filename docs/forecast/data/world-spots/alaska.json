@@ -1,0 +1,2042 @@
+{
+ "region": "Alaska",
+ "retrievedOn": "2026-11-09",
+ "note": "World catalogue (spec docs/specs/2026-11-09-global-spots.md); none of these rows is in the app (rows whose name matches an app spot within 25 km, or whose pin is within 1 km of one, are in dropped). Positions are surfnerd guide map pins (surf-forecast pins where no surfnerd page exists), 3 dp. seaward = surfnerd \"Faces X\" in degrees; rows with facingKind \"computed-coastline\" use the approved OSM coastline method of RECOVERY-2026-11-09.md (reject rules and guide cross-check applied; facts.facingDeg null). Facts quote surfnerd and surf-forecast with attribution. nearestSources: great-circle km to NDBC activestations (live = WVHT in latest_obs within 6 h of 07:37 UTC 10 Nov; SCRIPPS-owned stations are CDIP buoys), NOAA CO-OPS water-level gauges (latest value read with datagetter) and tide-prediction stations (mdapi), IEM CA/OR/WA/AK ASOS. appCandidate = facing from a guide (not computed) AND a CO-OPS tide station within 30 km AND a wave-reporting NDBC/CDIP buoy within 100 km.",
+ "spots": [
+  {
+   "id": "w-ak-akbar",
+   "name": "Akbar",
+   "country": "United States",
+   "region": "Alaska, Chiniak",
+   "timeZone": "America/Anchorage",
+   "type": null,
+   "lat": 57.602,
+   "lon": -152.165,
+   "seaward": 90.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.6021, -152.1645) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/akbar.md"
+   },
+   "facingSource": {
+    "text": "\"Faces E\" (surfnerd swell exposure: NNE - SSE. Faces E)",
+    "url": "https://www.surfnerd.com/surf-forecast/akbar.md"
+   },
+   "facts": {
+    "spotId": "w-ak-akbar",
+    "name": "Akbar",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/akbar",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East (surfnerd: \"Faces E\")",
+    "facingDeg": 90.0,
+    "swellExposure": "NNE - SSE. Faces E (surfnerd)",
+    "windOffshore": "wind exposure SW - NW. Offshore from W (surfnerd)",
+    "guideSummary": {
+     "surfnerd": "Akbar is a surf spot.",
+     "surfForecast": null
+    },
+    "notes": "town: Chiniak (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46077",
+     "name": "SHELIKOF STRAIT, AK",
+     "owner": "NDBC",
+     "distanceKm": 125.0,
+     "live": true,
+     "liveNote": "WVHT 1.9 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 57.869,
+     "lon": -154.211,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46077"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9457292",
+     "name": "Kodiak Island",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 25.2,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 57.732,
+     "lon": -152.512,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9457292"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9457283",
+     "name": "Kodiak, St. Paul Harbor",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 24.7,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.745,
+     "lon": -152.483,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9457283"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PADQ",
+     "name": "KODIAK (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 25.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.75,
+     "lon": -152.494,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PADQ&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Anchorage",
+   "typeSource": "not published as Beach, Point or Reef",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 24.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 125.0 km (>100)"
+  },
+  {
+   "id": "w-ak-cannon-beach",
+   "name": "Cannon Beach",
+   "country": "United States",
+   "region": "Alaska, Yakutat",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 59.491,
+   "lon": -139.73,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (59.49065, -139.7299) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 59.4973,-139.7759 (2.7 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/cannon-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SE - WNW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/cannon-beach.md"
+   },
+   "facts": {
+    "spotId": "w-ak-cannon-beach",
+    "name": "Cannon Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/cannon-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Cannon-Beach_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SE (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SE - WNW. Faces SW (surfnerd)",
+    "idealSwell": "best swell from SE (surfnerd); best swell from the west southwest (surf-forecast)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd); offshore/best wind from the northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call, and the lower stages tend to be the more reliable window.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+    "waveDirection": "left, right (surfnerd); \"Waves at the beach break both left and right.\" (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "\"Watch out for dangerous rips.\" (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Cannon Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"There's camping nearby, along with free parking on the roadside.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Cannon Beach is a long, exposed beachbreak sitting south of Ocean Cape, breaking over sand with both lefts and rights on offer. It tends to be the last resort around here, the spot that still has something to ride when the rest of the ocean goes flat. The wave is easygoing and well suited to beginners.",
+     "surfForecast": "Cannon Beach in Mainland is an exposed beach break that has inconsistent surf. Summer offers the best conditions for surfing. Offshore winds are from the northeast. Windswells and groundswells in equal measure and the best swell direction is from the west southwest. Waves at the beach break both left and right. The location means that it never gets crowded. Watch out for dangerous rips. Cannon Beach"
+    },
+    "notes": "town: Yakutat (surfnerd); surf-forecast pin 59.4973,-139.7759 is 2.7 km from the surfnerd pin",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46083",
+     "name": "FAIRWEATHER GROUND - 105 NM West  of Juneau, AK",
+     "owner": "NDBC",
+     "distanceKm": 166.9,
+     "live": true,
+     "liveNote": "WVHT 7.4 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 58.276,
+     "lon": -138.024,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46083"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9453220",
+     "name": "Yakutat, Yakutat Bay",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 6.4,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 59.548,
+     "lon": -139.733,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9453220"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PAYA",
+     "name": "Yakutat",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 4.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.512,
+     "lon": -139.671,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PAYA&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Yakutat (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Beach'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 166.9 km (>100)"
+  },
+  {
+   "id": "w-ak-fossil-beach",
+   "name": "Fossil Beach",
+   "country": "United States",
+   "region": "Alaska, Chiniak",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 57.427,
+   "lon": -152.354,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.4269, -152.35424) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 57.427,-152.353 (0.1 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/fossil-beach.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SSE - SW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/fossil-beach.md"
+   },
+   "facts": {
+    "spotId": "w-ak-fossil-beach",
+    "name": "Fossil Beach",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fossil-beach",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fossil-Beach-Kodiak",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "SE - W. Best from W (surfnerd)",
+     "fromDeg": 135.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - SW. Faces SW (surfnerd)",
+    "idealSwell": "best swell from W (surfnerd); best swell from the south southwest (surf-forecast)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd); offshore/best wind from the northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Reef (surf-forecast)",
+    "waveDirection": "left, right (surfnerd); \"The reef break offers both left and right hand waves.\" (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 9.8
+    },
+    "exposure": "exposed reef break (surf-forecast)",
+    "season": "best time of year for surfing Fossil Beach Kodiak with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"There is a car park with free parking and camping close by.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Fossil Beach is a black sand beachbreak and the most consistent swell catcher on the island. It breaks over a mix of boulders and sand, peeling both left and right. The peak can feel a touch sucky, but it usually backs off quickly and then cruises, which is why the longboard crew like it here.",
+     "surfForecast": "Fossil Beach Kodiak in Kodiak Island is an exposed reef break that is usually a safe bet The best wind direction is from the northeast. Groundswells and windswells are equally likely and the ideal swell direction is from the south southwest. The reef break offers both left and right hand waves. Good surf at all stages of the tide. Rarely crowded here. Fossil Beach Kodiak"
+    },
+    "notes": "town: Chiniak (surfnerd); surf-forecast pin 57.427,-152.353 is 0.1 km from the surfnerd pin",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46077",
+     "name": "SHELIKOF STRAIT, AK",
+     "owner": "NDBC",
+     "distanceKm": 120.9,
+     "live": true,
+     "liveNote": "WVHT 1.9 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 57.869,
+     "lon": -154.211,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46077"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9457292",
+     "name": "Kodiak Island",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 35.2,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 57.732,
+     "lon": -152.512,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9457292"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9457351",
+     "name": "Ugak Bay (Saltery Cove)",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 22.6,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.482,
+     "lon": -152.718,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9457351"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PADQ",
+     "name": "KODIAK (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 36.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.75,
+     "lon": -152.494,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PADQ&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Anchorage",
+   "typeSource": "surfnerd wave types 'Beach'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 22.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 120.9 km (>100)"
+  },
+  {
+   "id": "w-ak-good-rats",
+   "name": "Good Rats",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.373,
+   "lon": -135.767,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.3734, -135.767) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/good-rats.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SW - WNW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/good-rats.md"
+   },
+   "facts": {
+    "spotId": "w-ak-good-rats",
+    "name": "Good Rats",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/good-rats",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "SW - W. Best from W (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SW - WNW. Faces SW (surfnerd)",
+    "idealSwell": "best swell from W (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Mid (Best at Mid, Better on rising) (surfnerd characteristics); \"The reef is best on mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "skillLevel": "Intermediate (surfnerd)",
+    "guideSummary": {
+     "surfnerd": "Good Rats is a right-hand reef break that peels over uneven reef. It sits well off on its own, a long way from anywhere, so it rewards surfers willing to make the trip out.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 86.0,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 44.0,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451802",
+     "name": "Scraggy Point",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 4.9,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.337,
+     "lon": -135.723,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451802"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 43.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 86.0 km (<=100)"
+  },
+  {
+   "id": "w-ak-graveyard",
+   "name": "Graveyard",
+   "country": "United States",
+   "region": "Alaska, Yakutat",
+   "timeZone": "America/Anchorage",
+   "type": "Point",
+   "lat": 59.556,
+   "lon": -139.806,
+   "seaward": 45.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (59.55644, -139.80646) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 59.5573,-139.8006 (0.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/graveyard.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NE\" (surfnerd swell exposure: Sheltered: land in every direction. Faces NE)",
+    "url": "https://www.surfnerd.com/surf-forecast/graveyard.md"
+   },
+   "facts": {
+    "spotId": "w-ak-graveyard",
+    "name": "Graveyard",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/graveyard",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Graveyards",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Northeast (surfnerd: \"Faces NE\")",
+    "facingDeg": 45.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "Sheltered: land in every direction. Faces NE (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd); best swell from the west southwest (surf-forecast)",
+    "windOffshore": "SW. Offshore from SW (surfnerd workable wind); wind exposure S - W. Offshore from SW (surfnerd); offshore/best wind from the east northeast (surf-forecast)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The break works on low and mid tide, with a rising tide generally the better call, and it prefers less water overall, especially on small swells.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd); Beach and point (surf-forecast)",
+    "waveDirection": "left (surfnerd); \"Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the west southwest.The waves is a point break that peels left.\" (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "very sheltered beach and point break (surf-forecast)",
+    "hazards": [
+     "\"Strong rips and a few rocky patches sit out on Point Carrew, so treat the outer stretch with respect.\" (surfnerd)",
+     "\"Watch out for Extreme rips and rocks.\" (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Graveyards with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"There's camping nearby, along with free roadside parking.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Graveyard is a sand-bottom left point tucked inside the estuary at Yakutat, the best-known surf zone in Southeast Alaska and nicknamed \"The Far North Shore\". Swells wrap around Point Carrew and clean up along shifting sandbars before reaching the break, and since the sand is in constant flux the setup keeps changing. It favours lefts with real power and the occasional barrel, plus a short, steep right on smaller days.",
+     "surfForecast": "Graveyards in Mainland is a very sheltered beach and point break that does not work very often The best wind direction is from the east northeast. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the west southwest.The waves is a point break that peels left. The location means that it never gets crowded. Watch out for Extreme rips and rocks. Graveyards"
+    },
+    "notes": "town: Yakutat (surfnerd); surf-forecast pin 59.5573,-139.8006 is 0.3 km from the surfnerd pin",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46083",
+     "name": "FAIRWEATHER GROUND - 105 NM West  of Juneau, AK",
+     "owner": "NDBC",
+     "distanceKm": 175.3,
+     "live": true,
+     "liveNote": "WVHT 7.4 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 58.276,
+     "lon": -138.024,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46083"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9453220",
+     "name": "Yakutat, Yakutat Bay",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 4.2,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 59.548,
+     "lon": -139.733,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9453220"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PAYA",
+     "name": "Yakutat",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 9.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.512,
+     "lon": -139.671,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PAYA&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Yakutat (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Point'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 175.3 km (>100)"
+  },
+  {
+   "id": "w-ak-kais-place",
+   "name": "Kai's Place",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.062,
+   "lon": -135.844,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0624, -135.844) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/kais-place.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: SSW - NNW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/kais-place.md"
+   },
+   "facts": {
+    "spotId": "w-ak-kais-place",
+    "name": "Kai's Place",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/kais-place",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "SW - W. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "hazards": [
+     "\"Kai's Place is a rocky left-hand reef break out near Sitka, sitting under the shadow of Mt Edgecumbe, a snow-covered extinct volcano.\" (surfnerd)"
+    ],
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"Access is by boat, about a one-hour ride from Sitka.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Kai's Place is a rocky left-hand reef break out near Sitka, sitting under the shadow of Mt Edgecumbe, a snow-covered extinct volcano. It's one of the more west-facing setups in the area, peeling left over an uneven reef.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 51.3,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 30.3,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451725",
+     "name": "Olga Point, Olga Strait",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 26.1,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.228,
+     "lon": -135.537,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451725"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 29.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 26.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.3 km (<=100)"
+  },
+  {
+   "id": "w-ak-low-island",
+   "name": "Low Island",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.008,
+   "lon": -135.612,
+   "seaward": 112.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0085, -135.612) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/low-island.md"
+   },
+   "facingSource": {
+    "text": "\"Faces ESE\" (surfnerd swell exposure: SSE - SW. Faces ESE)",
+    "url": "https://www.surfnerd.com/surf-forecast/low-island.md"
+   },
+   "facts": {
+    "spotId": "w-ak-low-island",
+    "name": "Low Island",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/low-island",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+    "facingDeg": 112.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SSE - SW. Faces ESE (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "left, right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "skillLevel": "Intermediate (surfnerd)",
+    "guideSummary": {
+     "surfnerd": "Low Island is a reef break that peels over uneven lava rock, offering both lefts and rights across three separate peaks. It suits intermediate surfers.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 51.0,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 15.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 16.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.0 km (<=100)"
+  },
+  {
+   "id": "w-ak-mill-bay",
+   "name": "Mill Bay",
+   "country": "United States",
+   "region": "Alaska, Kodiak",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 57.821,
+   "lon": -152.349,
+   "seaward": 22.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.82058, -152.34888) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 57.8225,-152.351 (0.2 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/mill-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces NNE\" (surfnerd swell exposure: NE - ENE. Faces NNE)",
+    "url": "https://www.surfnerd.com/surf-forecast/mill-bay.md"
+   },
+   "facts": {
+    "spotId": "w-ak-mill-bay",
+    "name": "Mill Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/mill-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mill-Bay_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North-northeast (surfnerd: \"Faces NNE\")",
+    "facingDeg": 22.5,
+    "swellWorkable": {
+     "text": "NE - E. Best from NE (surfnerd)",
+     "fromDeg": 45.0,
+     "toDeg": 90.0
+    },
+    "swellExposure": "NE - ENE. Faces NNE (surfnerd)",
+    "idealSwell": "best swell from NE (surfnerd); best swell from the east northeast (surf-forecast)",
+    "windOffshore": "SW. Offshore from SW (surfnerd workable wind); wind exposure SSE - WSW. Offshore from SSW (surfnerd); offshore/best wind from the southwest (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+    "waveDirection": "left, right (surfnerd); \"Waves at the beach break both left and right.\" (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "sheltered beach break (surf-forecast)",
+    "hazards": [
+     "\"Take care of the strong rips here.\" (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Mill Bay with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"There's a car park with free parking, plus roadside parking nearby.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Mill Bay is a town break in Kodiak City, with a reef in the middle of the beach that can hold sandbars, though the wave is pretty average. For something better, the headland off Spruce Cape holds more consistent rights. Much of Kodiak City sits in the swell shadow of Woody and Long Island, which do have spots along their north and east-facing coasts, and Fort Abercrombie State Historic Park hides Boneyard, a testing reefbreak.",
+     "surfForecast": "Mill Bay in Kodiak Island is a sheltered beach break that has fairly consistent surf Offshore winds are from the southwest. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the east northeast. Waves at the beach break both left and right. Rarely crowded here. Take care of the strong rips here. Mill Bay"
+    },
+    "notes": "town: Kodiak (surfnerd); surf-forecast pin 57.8225,-152.351 is 0.2 km from the surfnerd pin",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46077",
+     "name": "SHELIKOF STRAIT, AK",
+     "owner": "NDBC",
+     "distanceKm": 110.3,
+     "live": true,
+     "liveNote": "WVHT 1.9 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 57.869,
+     "lon": -154.211,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46077"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9457292",
+     "name": "Kodiak Island",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 13.8,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 57.732,
+     "lon": -152.512,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9457292"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9457261",
+     "name": "Kodiak, Port of Kodiak",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 6.3,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.783,
+     "lon": -152.428,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9457261"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PADQ",
+     "name": "KODIAK (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 11.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.75,
+     "lon": -152.494,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PADQ&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Anchorage",
+   "typeSource": "surfnerd wave types 'Beach'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 110.3 km (>100)"
+  },
+  {
+   "id": "w-ak-neva-bay",
+   "name": "Neva Bay",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.04,
+   "lon": -135.849,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0399, -135.849) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/neva-bay.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: SSW - NNW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/neva-bay.md"
+   },
+   "facts": {
+    "spotId": "w-ak-neva-bay",
+    "name": "Neva Bay",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/neva-bay",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "SW - W. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"Neva Bay sits about a one-hour boat ride from Sitka.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Neva Bay is a right-hand reef that breaks in the shadow of Mt Edgecumbe, a snow-covered extinct volcano. It's one of a handful of west-facing reefs along this stretch, sitting alongside Kai's Place and Red Tree Reef, and the wave peels right over an uneven reef bottom.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 48.8,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 30.6,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451725",
+     "name": "Olga Point, Olga Strait",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 28.2,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.228,
+     "lon": -135.537,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451725"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 29.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 28.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 48.8 km (<=100)"
+  },
+  {
+   "id": "w-ak-ocean-cape",
+   "name": "Ocean Cape",
+   "country": "United States",
+   "region": "Alaska, Yakutat",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 59.546,
+   "lon": -139.868,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (59.54564, -139.86806) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 59.5361,-139.8801 (1.3 km away)",
+    "url": "https://www.surfnerd.com/surf-forecast/ocean-cape.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: S - WNW. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/ocean-cape.md"
+   },
+   "facts": {
+    "spotId": "w-ak-ocean-cape",
+    "name": "Ocean Cape",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/ocean-cape",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ocean-Cape",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "S - WNW. Faces W (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd); best swell from the west southwest (surf-forecast)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the northeast (surf-forecast)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The bars work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd); Reef and point (surf-forecast)",
+    "waveDirection": "left, right (surfnerd); \"Reef breaks provide lefts and rights and in addition, there is also a left hand point break.\" (surf-forecast)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 7.9
+    },
+    "exposure": "exposed reef and point break (surf-forecast)",
+    "hazards": [
+     "\"Ocean Cape sits on the western tip of the peninsula, where lefts and the odd sneaky right peel off rocky bars.\" (surfnerd)",
+     "\"Your best sessions come when both swell and wind ease off enough for the rocky bars to organise into clean lefts and rights.\" (surfnerd)",
+     "\"The boulders, rips, and generally powerful surf make it a poor choice for beginners.\" (surfnerd)",
+     "\"Hazards include Extreme rips and rocks.\" (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Ocean Cape with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"There is camping nearby, plus free roadside parking.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Ocean Cape sits on the western tip of the peninsula, where lefts and the odd sneaky right peel off rocky bars. It is often blown out and messy, but when the swell and wind settle down the bars clean up and start to work. The waves break over a mix of boulders and sand.",
+     "surfForecast": "Ocean Cape in Mainland is an exposed reef and point break that only works once in a while. Summer offers the best conditions for surfing. Offshore winds are from the northeast. Groundswells and windswells are equally likely and the best swell direction is from the west southwest. Reef breaks provide lefts and rights and in addition, there is also a left hand point break. Crowds are never a problem here. Hazards include Extreme rips and rocks. Ocean Cape"
+    },
+    "notes": "town: Yakutat (surfnerd); surf-forecast pin 59.5361,-139.8801 is 1.3 km from the surfnerd pin",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46083",
+     "name": "FAIRWEATHER GROUND - 105 NM West  of Juneau, AK",
+     "owner": "NDBC",
+     "distanceKm": 176.5,
+     "live": true,
+     "liveNote": "WVHT 7.4 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 58.276,
+     "lon": -138.024,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46083"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9453220",
+     "name": "Yakutat, Yakutat Bay",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 7.6,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 59.548,
+     "lon": -139.733,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9453220"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PAYA",
+     "name": "Yakutat",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 11.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.512,
+     "lon": -139.671,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PAYA&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Yakutat (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Beach'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 176.5 km (>100)"
+  },
+  {
+   "id": "w-ak-point-carrew",
+   "name": "Point Carrew",
+   "country": "United States",
+   "region": "Alaska, Yakutat",
+   "timeZone": "America/Anchorage",
+   "type": "Point",
+   "lat": 59.562,
+   "lon": -139.84,
+   "seaward": 0.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (59.56157, -139.84) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/point-carrew.md"
+   },
+   "facingSource": {
+    "text": "\"Faces N\" (surfnerd swell exposure: WSW - WNW. Faces N)",
+    "url": "https://www.surfnerd.com/surf-forecast/point-carrew.md"
+   },
+   "facts": {
+    "spotId": "w-ak-point-carrew",
+    "name": "Point Carrew",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/point-carrew",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "North (surfnerd: \"Faces N\")",
+    "facingDeg": 0.0,
+    "swellWorkable": {
+     "text": "S - W. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "WSW - WNW. Faces N (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd)",
+    "windOffshore": "S. Offshore from S (surfnerd workable wind); wind exposure SE - SW. Offshore from S (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call. A smaller day on a pushing tide is the safest window to time it.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirection": "left (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 18.0
+    },
+    "hazards": [
+     "\"Conditions are often messy and blown-out, and strong current sweeping out of the bay adds to the difficulty, so it suits confident surfers.\" (surfnerd)",
+     "\"This is intermediate-level terrain, best approached by surfers who are comfortable dealing with current.\" (surfnerd)"
+    ],
+    "skillLevel": "Intermediate (surfnerd)",
+    "accessNotes": [
+     "\"There's camping nearby along with free roadside parking.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Point Carrew is a left-hand point on an exposed outer headland, looking across Yakutat Bay toward the Malaspina Glacier and Mt St Elias. It picks up plenty of swell and throws it over sand and scattered boulder banks. Conditions are often messy and blown-out, and strong current sweeping out of the bay adds to the difficulty, so it suits confident surfers.",
+     "surfForecast": null
+    },
+    "notes": "town: Yakutat (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46083",
+     "name": "FAIRWEATHER GROUND - 105 NM West  of Juneau, AK",
+     "owner": "NDBC",
+     "distanceKm": 176.9,
+     "live": true,
+     "liveNote": "WVHT 7.4 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 58.276,
+     "lon": -138.024,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46083"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9453220",
+     "name": "Yakutat, Yakutat Bay",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 6.2,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 59.548,
+     "lon": -139.733,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9453220"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PAYA",
+     "name": "Yakutat",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 11.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 59.512,
+     "lon": -139.671,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PAYA&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Yakutat (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Point'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 176.9 km (>100)"
+  },
+  {
+   "id": "w-ak-port-mary",
+   "name": "Port Mary",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 57.167,
+   "lon": -135.755,
+   "seaward": 225.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.1672, -135.755) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/port-mary.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SW\" (surfnerd swell exposure: SSW - WSW. Faces SW)",
+    "url": "https://www.surfnerd.com/surf-forecast/port-mary.md"
+   },
+   "facts": {
+    "spotId": "w-ak-port-mary",
+    "name": "Port Mary",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/port-mary",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "Southwest (surfnerd: \"Faces SW\")",
+    "facingDeg": 225.0,
+    "swellWorkable": {
+     "text": "SW - W. Best from W (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSW - WSW. Faces SW (surfnerd)",
+    "idealSwell": "best swell from W (surfnerd)",
+    "windOffshore": "NE. Offshore from NE (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works across low, mid, and high tide, with a rising tide the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirection": "left, right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 5.9
+    },
+    "skillLevel": "Beginner (surfnerd)",
+    "guideSummary": {
+     "surfnerd": "Port Mary is a sandy beachbreak, also known as Shelikof Bay, with waves peeling both left and right over sand. Rights tend to be the pick here. Keep an eye on the Iris Meadow behind the beach, where bears are often feeding.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 63.9,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 28.0,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451741",
+     "name": "Whitestone Narrows, Neva Strait",
+     "owner": "NOAA CO-OPS (harmonic prediction station)",
+     "distanceKm": 14.6,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.25,
+     "lon": -135.567,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451741"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 27.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Beach'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 14.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 63.9 km (<=100)"
+  },
+  {
+   "id": "w-ak-red-tree-reef",
+   "name": "Red Tree Reef",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.049,
+   "lon": -135.854,
+   "seaward": 270.0,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0492, -135.854) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/red-tree-reef.md"
+   },
+   "facingSource": {
+    "text": "\"Faces W\" (surfnerd swell exposure: S - N. Faces W)",
+    "url": "https://www.surfnerd.com/surf-forecast/red-tree-reef.md"
+   },
+   "facts": {
+    "spotId": "w-ak-red-tree-reef",
+    "name": "Red Tree Reef",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/red-tree-reef",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West (surfnerd: \"Faces W\")",
+    "facingDeg": 270.0,
+    "swellWorkable": {
+     "text": "SW - W. Best from SW (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "S - N. Faces W (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "left, right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "hazards": [
+     "\"It sits under the shadow of Mt Edgecumbe, a snow-covered extinct volcano, and shares the zone with Kai's Place, a rocky left, and Neva Bay, another right-hand reef.\" (surfnerd)"
+    ],
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"Reaching Red Tree Reef means about a one-hour boat ride from Sitka.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Red Tree Reef is a left and right peak that breaks over uneven reef, one of the further west-facing setups out past Sitka. It sits under the shadow of Mt Edgecumbe, a snow-covered extinct volcano, and shares the zone with Kai's Place, a rocky left, and Neva Bay, another right-hand reef.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 49.7,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 30.8,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451725",
+     "name": "Olga Point, Olga Strait",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 27.6,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.228,
+     "lon": -135.537,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451725"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 29.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 27.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 49.7 km (<=100)"
+  },
+  {
+   "id": "w-ak-sandy-beach-sitka-alaska",
+   "name": "Sandy Beach - Sitka, Alaska",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.075,
+   "lon": -135.373,
+   "seaward": 247.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0754, -135.373) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-sitka-alaska.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WSW\" (surfnerd swell exposure: SSW - SW. Faces WSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-sitka-alaska.md"
+   },
+   "facts": {
+    "spotId": "w-ak-sandy-beach-sitka-alaska",
+    "name": "Sandy Beach - Sitka, Alaska",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-sitka-alaska",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+    "facingDeg": 247.5,
+    "swellWorkable": {
+     "text": "S - SW. Best from SW (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 225.0
+    },
+    "swellExposure": "SSW - SW. Faces WSW (surfnerd)",
+    "idealSwell": "best swell from SW (surfnerd)",
+    "windOffshore": "SE. Offshore from SE (surfnerd workable wind); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The break works on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Boulders, Sand (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "left, right (surfnerd)",
+    "sizeFt": {
+     "min": 1.0,
+     "max": 4.9
+    },
+    "skillLevel": "Beginner (surfnerd)",
+    "accessNotes": [
+     "\"There's a car park with free parking plus roadside parking, and you'll find camping and a surf shop nearby.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Sandy Beach sits on Baranof Island, part of the barrier that shelters Alaska's Inside Passage. Yakutat and Kodiak get more attention, but this is one of the most accessible places to paddle out in the region and the only Sitka break you can reach by road. It never gets truly world-class, yet its easy access and gentle nature make it a good place to learn.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 65.4,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 3.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 65.4 km (<=100)"
+  },
+  {
+   "id": "w-ak-sealion-cove",
+   "name": "Sealion Cove",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 57.301,
+   "lon": -135.831,
+   "seaward": 292.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.3013, -135.831) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/sealion-cove.md"
+   },
+   "facingSource": {
+    "text": "\"Faces WNW\" (surfnerd swell exposure: WSW - NW. Faces WNW)",
+    "url": "https://www.surfnerd.com/surf-forecast/sealion-cove.md"
+   },
+   "facts": {
+    "spotId": "w-ak-sealion-cove",
+    "name": "Sealion Cove",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/sealion-cove",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+    "facingDeg": 292.5,
+    "swellWorkable": {
+     "text": "SW - NW. Best from W (surfnerd)",
+     "fromDeg": 225.0,
+     "toDeg": 315.0
+    },
+    "swellExposure": "WSW - NW. Faces WNW (surfnerd)",
+    "idealSwell": "best swell from W (surfnerd)",
+    "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure ENE - SSE. Offshore from ESE (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beachbreak can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+    "bottom": "Sand (surfnerd)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surfnerd)",
+    "waveDirection": "left, right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "skillLevel": "Beginner (surfnerd)",
+    "guideSummary": {
+     "surfnerd": "Sealion Cove is a beginner-friendly beachbreak that peels both left and right over a sand bottom. It favours the rights, making it an approachable spot to find a wave.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 77.5,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 40.4,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451802",
+     "name": "Scraggy Point",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 7.6,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.337,
+     "lon": -135.723,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451802"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 40.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Beach'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 77.5 km (<=100)"
+  },
+  {
+   "id": "w-ak-shoals-point",
+   "name": "Shoals Point",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Point",
+   "lat": 57.01,
+   "lon": -135.634,
+   "seaward": 157.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0099, -135.634) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-point.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSE\" (surfnerd swell exposure: SSE - SW. WSW. Faces SSE)",
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-point.md"
+   },
+   "facts": {
+    "spotId": "w-ak-shoals-point",
+    "name": "Shoals Point",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/shoals-point",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+    "facingDeg": 157.5,
+    "swellWorkable": {
+     "text": "S - W. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - SW. WSW. Faces SSE (surfnerd)",
+    "idealSwell": "best swell from S (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid, and high tide, with a rising tide generally the better window.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "point",
+    "waveTypeText": "Point (surfnerd)",
+    "waveDirection": "right (surfnerd)",
+    "sizeFt": {
+     "min": 2.0,
+     "max": 7.9
+    },
+    "hazards": [
+     "\"In bigger swells the wave gets treacherous, and the nearby Wall tends to be the better call when the size jumps up.\" (surfnerd)"
+    ],
+    "skillLevel": "Expert (surfnerd)",
+    "guideSummary": {
+     "surfnerd": "Shoals Point is a right-hand point that breaks over uneven reef. The waves at Shoals Reef and Point run over grizzled lava rock, so there is real power on tap and the setup turns sketchy once it gets overhead. This is a spot for experienced surfers only.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 50.5,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 18.1,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 17.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Point'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 18.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.5 km (<=100)"
+  },
+  {
+   "id": "w-ak-shoals-reef-wall",
+   "name": "Shoals Reef/Wall",
+   "country": "United States",
+   "region": "Alaska, Sitka",
+   "timeZone": "America/Anchorage",
+   "type": "Reef",
+   "lat": 57.01,
+   "lon": -135.65,
+   "seaward": 202.5,
+   "positionSource": {
+    "text": "surfnerd guide map pin (57.0101, -135.65) from the spot page front matter, rounded to 3 dp; not a surveyed takeoff",
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-reef-wall.md"
+   },
+   "facingSource": {
+    "text": "\"Faces SSW\" (surfnerd swell exposure: SSE - SW. WSW. Faces SSW)",
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-reef-wall.md"
+   },
+   "facts": {
+    "spotId": "w-ak-shoals-reef-wall",
+    "name": "Shoals Reef/Wall",
+    "sources": [
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/shoals-reef-wall",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+    "facingDeg": 202.5,
+    "swellWorkable": {
+     "text": "S - W. Best from S (surfnerd)",
+     "fromDeg": 180.0,
+     "toDeg": 270.0
+    },
+    "swellExposure": "SSE - SW. WSW. Faces SSW (surfnerd)",
+    "idealSwell": "best swell from S (surfnerd)",
+    "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+    "tide": "Works at Low, Mid (surfnerd characteristics); \"The wave works on low and mid tide, with mid tide the best of the two and a rising tide generally the better window.\" (surfnerd guide)",
+    "bottom": "Uneven Reef (surfnerd)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surfnerd)",
+    "waveDirection": "left, right (surfnerd)",
+    "sizeFt": {
+     "min": 3.0,
+     "max": 15.1
+    },
+    "skillLevel": "Expert (surfnerd)",
+    "accessNotes": [
+     "\"Getting out here means joining the surf shop's boat trips, which handle the crossing to the island.\" (surfnerd)"
+    ],
+    "guideSummary": {
+     "surfnerd": "Shoals Reef/Wall is the premier wave among the southern reefbreaks off South Kruzof Island, reached by boat about 30 minutes from town. It's an offshore lava reef, primarily a right-hander that breaks over uneven rock.",
+     "surfForecast": null
+    },
+    "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+    "minimumPeriodS": null,
+    "hazards": []
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46084",
+     "name": "CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK",
+     "owner": "NDBC",
+     "distanceKm": 50.0,
+     "live": true,
+     "liveNote": "WVHT 6.3 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 56.614,
+     "lon": -136.04,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46084"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9451600",
+     "name": "Sitka",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 19.1,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:42 UTC (CO-OPS datagetter)",
+     "lat": 57.051,
+     "lon": -135.344,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9451600"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9451468",
+     "name": "Symonds Bay, Biorka Island",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 18.8,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 56.857,
+     "lon": -135.52,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9451468"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PASI",
+     "name": "SITKA/JAPONSKI ARPT (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 17.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.047,
+     "lon": -135.362,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PASI&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "surfnerd page zone America/Sitka (same UTC offset and DST rules as America/Anchorage since 1983; stated as America/Anchorage)",
+   "typeSource": "surfnerd wave types 'Reef'",
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 18.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.0 km (<=100)"
+  },
+  {
+   "id": "w-ak-monashka-bay",
+   "name": "Monashka Bay",
+   "country": "United States",
+   "region": "Alaska, Kodiak Island",
+   "timeZone": "America/Anchorage",
+   "type": "Beach",
+   "lat": 57.827,
+   "lon": -152.432,
+   "seaward": 68.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (57.8268, -152.432) from the page's location data, rounded to 3 dp; not a surveyed takeoff; no surfnerd page for this break",
+    "url": "https://www.surf-forecast.com/breaks/Monashka-Bay"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/312/1236.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways), per docs/forecast/data/world-spots/RECOVERY-2026-11-09.md. Nearest coastline point 215 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.7 deg (limit 45); 300 m window gives 69.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/312/1236.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/312/1237.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/312/1238.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/313/1236.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/313/1237.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/313/1238.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/314/1236.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/314/1237.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/314/1238.pbf"
+    ],
+    "nearestCoastPoint": [
+     57.826314,
+     -152.435517
+    ],
+    "distanceToCoastM": 215.3,
+    "meanDevDeg": 20.7,
+    "seaward300": 69.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore/best wind from the southwest: nearest listed direction is 23 deg from facing+180 (248); consistent (<=60)",
+     "surf-forecast best swell from the northeast: nearest listed direction is 23 deg from the facing (68); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "spotId": "w-ak-monashka-bay",
+    "name": "Monashka Bay",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Monashka-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northeast (surf-forecast)",
+    "windOffshore": "offshore/best wind from the southwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirection": "\"The beach break provides left and right handers.\" (surf-forecast)",
+    "exposure": "sheltered beach break (surf-forecast)",
+    "hazards": [
+     "\"Take care of the strong rips here.\" (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Monashka Bay with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideSummary": {
+     "surfnerd": null,
+     "surfForecast": "Monashka Bay in Kodiak Island is a sheltered beach break that only works once in a while The best wind direction is from the southwest. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the northeast. The beach break provides left and right handers. Even when there are waves, it's not likley to be crowded. Take care of the strong rips here. Monashka Bay"
+    },
+    "facingDeg": null,
+    "minimumPeriodS": null
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 46077",
+     "name": "SHELIKOF STRAIT, AK",
+     "owner": "NDBC",
+     "distanceKm": 105.4,
+     "live": true,
+     "liveNote": "WVHT 1.9 m at 2026-11-10 06:50 UTC in NDBC latest_obs",
+     "lat": 57.869,
+     "lon": -154.211,
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=46077"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "CO-OPS 9457292",
+     "name": "Kodiak Island",
+     "owner": "NOAA CO-OPS",
+     "distanceKm": 11.6,
+     "live": true,
+     "liveNote": "latest water level 2026-11-10 07:48 UTC (CO-OPS datagetter)",
+     "lat": 57.732,
+     "lon": -152.512,
+     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9457292"
+    },
+    {
+     "kind": "tide prediction",
+     "id": "CO-OPS 9457261",
+     "name": "Kodiak, Port of Kodiak",
+     "owner": "NOAA CO-OPS (subordinate prediction station)",
+     "distanceKm": 4.8,
+     "live": null,
+     "liveNote": "predictions only, no live gauge",
+     "lat": 57.783,
+     "lon": -152.428,
+     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9457261"
+    },
+    {
+     "kind": "METAR airport",
+     "id": "METAR PADQ",
+     "name": "KODIAK (ASOS)",
+     "owner": "IEM AK_ASOS network",
+     "distanceKm": 9.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 57.75,
+     "lon": -152.494,
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PADQ&network=AK_ASOS"
+    }
+   ],
+   "timeZoneSource": "state zone (Alaska); surf-forecast page gives no zone",
+   "typeSource": "surf-forecast type 'Beach'",
+   "appCandidate": false,
+   "appCandidateBasis": "facing computed from the coastline, not a guide; nearest CO-OPS tide station 4.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 105.4 km (>100)"
+  }
+ ],
+ "dropped": [
+  {
+   "state": "Alaska",
+   "name": "The Wall",
+   "url": "https://www.surfnerd.com/surf-forecast/the-wall-2-3",
+   "guidePin": {
+    "lat": 57.066,
+    "lon": -135.393,
+    "site": "surfnerd"
+   },
+   "reason": "surfnerd page has no Faces line; computed-coastline recovery rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.10; limit 45 deg): headland, cove or point, ambiguous"
+  },
+  {
+   "state": "Alaska",
+   "name": "Bird Point (Tidal Bore)",
+   "url": "https://www.surf-forecast.com/breaks/Bird-Point",
+   "reason": "a tidal bore in Turnagain Arm (Cook Inlet), not an ocean swell break; a coastline facing and an ocean swell forecast do not apply"
+  },
+  {
+   "state": "Alaska",
+   "name": "Termination Point",
+   "url": "https://www.surf-forecast.com/breaks/Termination-Point",
+   "guidePin": {
+    "lat": 57.8622,
+    "lon": -152.3924,
+    "site": "surf-forecast"
+   },
+   "reason": "surf-forecast publishes no facing (no surfnerd page matched); computed-coastline recovery rejected: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 62 deg (arccos of mean resultant length 0.47; limit 45 deg): headland, cove or point, ambiguous"
+  }
+ ]
+}
