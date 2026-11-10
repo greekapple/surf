@@ -58,9 +58,9 @@ The user's bar: **"exponentially better than Surfline"**. Their focus order:
   - surf-photo framing (fov 32, rider about 0.27 of the frame height);
   - the arm carriage;
   - the 12 ft board-clip fix.
-- **Paused since 2026-11-06:** motion work, until the user films a surfskate session (vault `10-Projects/SWELLO/Surfskate-Capture-Shotlist.md`).
+- **Motion work** was paused on 2026-11-06 until the user films a surfskate session (vault `10-Projects/SWELLO/Surfskate-Capture-Shotlist.md`). The user will send it before Wednesday, so it is unpaused for step 7.
 
-You may do everything below that doesn't need the capture.
+Steps 1–6 need no capture; step 7 uses it.
 - **Before you start:** read `docs/specs/2026-11-06-3d-barrel-camera-arms.md`, `docs/specs/2026-11-06-wave-kink-at-curl.md`, the "3D: paused" section of `docs/specs/2026-11-06-beyond-surfline-plan.md`, and the vault notes `08-3D-Wave-Scale.md` and `3D-Rounds.base`.
 - **Private wave atlases:** if they're missing in your worktree, copy them from the main checkout and compare md5s (see the memory note on worktree local assets).
 
@@ -87,7 +87,22 @@ You may do everything below that doesn't need the capture.
    - **Arms through the snap:** swing through the turn, not snap between keyed poses.
 5. **Fix the faint reflections inside the tube.** Remove the artefact, and keep the water shading elsewhere unchanged (compare stills).
 6. **Phone performance.** iPhone-size emulation with 4× CPU throttling: average fps, the 1% low and the worst frame, before and after every step. No step may make them worse. If you can make the 390 frame rate better, do.
-7. **Stretch, only if 1–6 are done and the user OKs it in chat: T-140.** Paddle out, sets and the lineup. This replaces the empty-wave gap, about 25% of each loop after the kick-out. **Not this session:** motion retargeting from the surfskate capture, and T-141 wipeouts, both of which need the capture.
+7. **Real motion from the user's surfskate capture.** The user said they'll film it before Wednesday, so motion work is unpaused for this step.
+   - **Footage:** `~/Development/swello-design-references/21-user-recordings/3d/`. The shot list is the vault note `10-Projects/SWELLO/Surfskate-Capture-Shotlist.md`: trim, bottom turn, snap, cutback, barrel crouch and pig-dog, frontside and backside, 3–5 reps each. If the folder is empty, skip this step and say so.
+   - **Pipeline:** the `motion-real` branch and `?motion=real`: RTMPose trace → MotionBERT 3D lift → retarget onto the rider. MotionBERT weights are fine while the app is private; never commit them. Read FINDINGS §20 and the shot list's "What the pipeline showed it needs" first.
+   - **Do:**
+     - trace every clip and report which reps traced cleanly (no dropped frames, knees in a human range);
+     - build one clip per move per side;
+     - drive the rider's moves in the ride plan with them, replacing the keyed poses for those moves. The arms come from the capture too, which should settle the backside and snap arms in step 4.
+   - **Acceptance:**
+     - side by side with the user's own footage and the pro frames;
+     - a 0.05 s frame-step strip per move;
+     - knee and elbow angles within the captured range;
+     - no new bodyclip, head-wet, arm or wrist gate events;
+     - the 18-cell matrix no worse;
+     - phone fps no worse.
+   - **Don't** commit the user's footage, the traces or anything derived from MotionBERT to the public repo. Keep them git-ignored, the same as the wave atlases.
+8. **Stretch, only if 1–7 are done and the user OKs it in chat: T-140.** Paddle out, sets and the lineup. This replaces the empty-wave gap, about 25% of each loop after the kick-out. T-141 (wipeouts) waits for a later round.
 
 **Gates for the track:**
 - tsc, tests and build;
