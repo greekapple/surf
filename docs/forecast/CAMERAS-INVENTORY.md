@@ -2,6 +2,11 @@
 
 **Research only.** Nothing is wired, embedded or analysed. This is a list of public cameras near SWELLO's 492 spots and what each owner's own terms allow. Checked 2026-11-09 (US evening, so many beach views were dark). Data: `docs/forecast/data/camera-sources.json` (161 `CameraSource` rows plus the host terms quoted verbatim). Plan and rules: vault `10-Projects/SWELLO/09-AI-Surf-Cameras.md`.
 
+**Bay Area update (2026-11-10):** see `BAYAREA-CAMERAS.md`.
+- The JSON now has 172 rows: 11 new rows, and 8 earlier rows re-tagged `region: "Bay Area"`. The counts below are still the Phase A counts.
+- The USGS Dream Inn CoastCam is now **confirmed live**: public domain, with a 9:00 PST frame of Cowell's.
+- Five owner-run YouTube streams in Pacifica (Sharp Park and Linda Mar) can be embedded (display-only).
+
 **Rules applied.**
 - Only a camera whose owner permits display, and separately frame analysis, counts.
 - Surfline, Surf-Forecast/Magicseaweed, Swell Magnet, SurfChex and other commercial surf-cam networks are **excluded** whatever their terms say. That includes WebCOOS cameras that list Surfline as a partner, until WebCOOS confirms in writing that Surfline places no restriction on them.

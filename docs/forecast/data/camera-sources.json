@@ -1340,7 +1340,7 @@
   },
   {
    "id": "webcoos-stinson",
-   "region": "NorCal",
+   "region": "Bay Area",
    "name": "Stinson Beach (northwest view) (WebCOOS)",
    "owner": "WebCOOS (US IOOS / SECOORA, NOAA-funded); partners: CeNCOOS, National Park Service, Surfline",
    "ownerType": "federal",
@@ -1390,7 +1390,7 @@
    },
    "permissionClass": "unknown",
    "contactUrl": "mailto:webcoos@secoora.org (https://webcoos.org/about)",
-   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people.",
+   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people. Region re-tagged \"Bay Area\" in the 2026-11-10 Bay Area pass; uptime not re-checked then (see docs/forecast/BAYAREA-CAMERAS.md).",
    "excluded": true,
    "excludedReason": "Surfline is a listed partner of this camera. Excluded from candidates under the 09-AI-Surf-Cameras rule (no Surfline feeds) until WebCOOS confirms in writing that Surfline places no restriction on this camera.",
    "swelloClass": "excluded (SWELLO rule)"
@@ -1454,7 +1454,7 @@
   },
   {
    "id": "smchd-surfers-beach",
-   "region": "NorCal",
+   "region": "Bay Area",
    "name": "Live Camera Feed - Surfers Beach",
    "owner": "San Mateo County Harbor District",
    "ownerType": "county/city",
@@ -1480,12 +1480,12 @@
    "licence": "Copyright © 2026 San Mateo County Harbor District",
    "refresh": "live video (Verkada embed)",
    "uptime": {
-    "checked": "2026-11-09",
+    "checked": "2026-11-10",
     "status": "unverified",
-    "evidence": "HTTP 200; Verkada embed iframe present; video not played"
+    "evidence": "HTTP 200; page still embeds the Verkada player vauth.command.verkada.com/__v/smchd/embed/html/a1ca3d02-...; video not played"
    },
    "contactUrl": "https://www.smharbor.com/harbor-district-contacts",
-   "notes": "Strong ask: public agency, science framing, view of a surf beach next to Princeton Jetty / Half Moon Bay spots.",
+   "notes": "Strong ask: public agency, science framing, view of a surf beach next to Princeton Jetty / Half Moon Bay spots. Re-checked 2026-11-10: still no terms on the page; not usable until the District says yes.",
    "attribution": null,
    "nearestSpots": [
     {
@@ -1674,7 +1674,7 @@
   },
   {
    "id": "ndbc-buoycam-46026",
-   "region": "NorCal",
+   "region": "Bay Area",
    "name": "NDBC BuoyCAM 46026 - SAN FRANCISCO - 18NM West of San Francisco, CA",
    "owner": "NOAA National Data Buoy Center (NWS)",
    "ownerType": "federal",
@@ -1724,7 +1724,7 @@
    },
    "permissionClass": "display+analysis",
    "contactUrl": "https://www.ndbc.noaa.gov/contact_us.shtml",
-   "notes": "Offshore sea-state reference only; useful for Phase D calibration (whitecaps/sea state), never a surf view.",
+   "notes": "Offshore sea-state reference only; useful for Phase D calibration (whitecaps/sea state), never a surf view. Region re-tagged \"Bay Area\" in the 2026-11-10 Bay Area pass; uptime not re-checked then (see docs/forecast/BAYAREA-CAMERAS.md).",
    "swelloClass": "display+analysis (no surf view)"
   },
   {
@@ -1949,7 +1949,7 @@
   },
   {
    "id": "webcoos-capitola-wharf",
-   "region": "Central CA",
+   "region": "Bay Area",
    "name": "Capitola Wharf (WebCOOS)",
    "owner": "WebCOOS (US IOOS / SECOORA, NOAA-funded); partners: CeNCOOS, City of Capitola",
    "ownerType": "federal",
@@ -1999,12 +1999,12 @@
    },
    "permissionClass": "guidelines-permit-confirm",
    "contactUrl": "mailto:webcoos@secoora.org (https://webcoos.org/about)",
-   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people.",
+   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people. Region re-tagged \"Bay Area\" in the 2026-11-10 Bay Area pass; uptime not re-checked then (see docs/forecast/BAYAREA-CAMERAS.md).",
    "swelloClass": "guidelines-permit-confirm"
   },
   {
    "id": "usgs-coastcam-santa-cruz-dream-inn",
-   "region": "Central CA",
+   "region": "Bay Area",
    "name": "USGS CoastCam Santa Cruz (Dream Inn): Cowells Beach (south) and Main Beach (east)",
    "owner": "U.S. Geological Survey, Pacific Coastal and Marine Science Center",
    "ownerType": "federal",
@@ -2032,30 +2032,32 @@
    "coordsSource": "approx (named landmark)",
    "pageUrl": "https://www.usgs.gov/centers/pcmsc/science/using-video-imagery-study-coastal-change-santa-cruz-beaches",
    "viewsSurf": "yes",
-   "viewsSurfEvidence": "USGS: two cameras atop the Dream Inn; one looks south over Cowells Beach, one east over Main Beach and the Boardwalk; 10-minute video every half hour in daylight (USGS project page via search).",
-   "streamType": "snapshot JPEG (snap/timex/variance products)",
+   "viewsSurfEvidence": "USGS page: \"Main Beach Snapshot, looking eastward\" (c1) and \"Cowells Beach Snapshot, looking southward\" (c2). Frames 2026-11-10 9:00 PST: c2 shows the Cowell’s cove with swell lines wrapping in and the West Cliff point beyond (Steamer Lane itself is around that point and only partly in view); c1 shows Main Beach, the wharf and shorebreak.",
+   "streamType": "snapshot JPEG (c1 = Main Beach east, c2 = Cowells south; snap/timex/var/bright/dark products under /cameras/dreaminn/latest/)",
    "embedAllowed": {
     "value": "yes",
     "clause": "USGS-authored or produced data and information are in the public domain from the U.S. Government and are freely redistributable with proper metadata and source attribution. These data are marked with a Creative Commons CC0 1.0 Universal License.",
-    "url": "https://cmgds.marine.usgs.gov/data-services/rscc/coastcam/coastcam_metadata.txt"
+    "url": "https://cmgds.marine.usgs.gov/data-services/rscc/coastcam/coastcam_metadata.txt",
+    "pageClause": "Each image on the USGS project page is captioned \"Media Sources/Usage: Public Domain.\""
    },
    "analysisAllowed": {
     "value": "yes",
     "clause": "USGS-authored or produced data and information are in the public domain from the U.S. Government and are freely redistributable with proper metadata and source attribution. These data are marked with a Creative Commons CC0 1.0 Universal License.",
     "url": "https://cmgds.marine.usgs.gov/data-services/rscc/coastcam/coastcam_metadata.txt"
    },
-   "attribution": "U.S. Geological Survey (originator); CC0",
+   "attribution": "U.S. Geological Survey, Pacific Coastal and Marine Science Center (public domain)",
    "licence": "US public domain / CC0 1.0",
-   "refresh": "every 30 min in daylight (snapshots); daily sync to the RSCC data service",
+   "refresh": "every 30 min in daylight (snapshot = first frame of a 10-min collection; posted ~10 min later)",
    "uptime": {
-    "checked": "2026-11-09",
-    "status": "unverified",
-    "evidence": "usgs.gov returned 504/timeouts from this machine on 2026-11-09; latest-image page not opened"
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "c1_snap/c2_snap/c1_timex HTTP 200, Last-Modified Tue, 10 Nov 2026 17:13 GMT (8 min before check); burned-in stamp \"Tue 11/10/2026 9:00 PST\""
    },
    "permissionClass": "display+analysis",
    "contactUrl": "https://www.usgs.gov/centers/pcmsc/connect",
-   "notes": "Calibrated (intrinsic/extrinsic geometry published) — the best possible input for Phase C/D wave-height estimation once a live image URL is confirmed.",
-   "swelloClass": "display+analysis"
+   "notes": "LIVE CONFIRMED 2026-11-10 (Phase A could not reach usgs.gov). Image URLs are on the USGS page itself. The page warns \"if old images are displayed, the camera system might be temporarily offline\": SWELLO must show the image time and hide stale frames. Calibrated geometry is published, so this is the best Phase C/D input. The S3 bucket is not listable; only the /latest/ files linked from the page were used.",
+   "swelloClass": "display+analysis",
+   "embedUrl": "https://cmgp-coastcam.s3-us-west-2.amazonaws.com/cameras/dreaminn/latest/c2_snap.jpg"
   },
   {
    "id": "805-cayucos-pier",
@@ -2226,7 +2228,7 @@
   },
   {
    "id": "webcoos-santacruzwharf",
-   "region": "Central CA",
+   "region": "Bay Area",
    "name": "Santa Cruz Wharf at Santa Cruz, CA (WebCOOS)",
    "owner": "WebCOOS (US IOOS / SECOORA, NOAA-funded); partners: CeNCOOS, City of Santa Cruz, Surfline",
    "ownerType": "federal",
@@ -2276,7 +2278,7 @@
    },
    "permissionClass": "unknown",
    "contactUrl": "mailto:webcoos@secoora.org (https://webcoos.org/about)",
-   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people.",
+   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people. Region re-tagged \"Bay Area\" in the 2026-11-10 Bay Area pass; uptime not re-checked then (see docs/forecast/BAYAREA-CAMERAS.md).",
    "excluded": true,
    "excludedReason": "Surfline is a listed partner of this camera. Excluded from candidates under the 09-AI-Surf-Cameras rule (no Surfline feeds) until WebCOOS confirms in writing that Surfline places no restriction on this camera.",
    "swelloClass": "excluded (SWELLO rule)"
@@ -2503,7 +2505,7 @@
   },
   {
    "id": "webcoos-walton-lighthouse",
-   "region": "Central CA",
+   "region": "Bay Area",
    "name": "Walton Lighthouse, Santa Cruz, CA (WebCOOS)",
    "owner": "WebCOOS (US IOOS / SECOORA, NOAA-funded); partners: University of California, Santa Cruz, Santa Cruz Harbor, O'Neill Sea Odyssey",
    "ownerType": "federal",
@@ -2553,12 +2555,12 @@
    },
    "permissionClass": "guidelines-permit-confirm",
    "contactUrl": "mailto:webcoos@secoora.org (https://webcoos.org/about)",
-   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people.",
+   "notes": "Terms permit use of imagery and API for lawful purposes with credit; they do not name embedding of the live HLS player or commercial use, and the API needs a registered token (not obtained). Confirm the SWELLO use case with webcoos@secoora.org before Phase C. WebCOOS itself runs people/rip-current detection; SWELLO must still never identify or track people. Region re-tagged \"Bay Area\" in the 2026-11-10 Bay Area pass; uptime not re-checked then (see docs/forecast/BAYAREA-CAMERAS.md).",
    "swelloClass": "guidelines-permit-confirm"
   },
   {
    "id": "santa-cruz-harbor-port-district",
-   "region": "Central CA",
+   "region": "Bay Area",
    "name": "Santa Cruz Harbor Webcam",
    "owner": "Santa Cruz Port District",
    "ownerType": "county/city",
@@ -2589,7 +2591,7 @@
     "evidence": "HTTP 200; page embeds a current signed HDRelay player (re-verifies T-063 2026-11-02 check)"
    },
    "contactUrl": "https://www.santacruzharbor.org/contact-us",
-   "notes": "Public agency; good permission ask (harbor entrance + beaches). Already linked in src/data/cams.ts for spot-8 as a link only.",
+   "notes": "Public agency; good permission ask (harbor entrance + beaches). Already linked in src/data/cams.ts for spot-8 as a link only. Region re-tagged \"Bay Area\" in the 2026-11-10 Bay Area pass; uptime not re-checked then (see docs/forecast/BAYAREA-CAMERAS.md).",
    "attribution": null,
    "nearestSpots": [
     {
@@ -9081,6 +9083,620 @@
    "contactUrl": "https://www.ndbc.noaa.gov/contact_us.shtml",
    "notes": "Offshore sea-state reference only; useful for Phase D calibration (whitecaps/sea state), never a surf view.",
    "swelloClass": "display+analysis (no surf view)"
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "chamberlin-pacifica-pier-north",
+   "name": "Pacifica Pier and Beach, Pacifica CA 4k Live (Pacifica Pier view, north)",
+   "owner": "Chamberlin Nature (private operator; YouTube channel UC029bcZGqxOsRkvWrZLhgKQ, site pacificaview.net)",
+   "ownerType": "individual",
+   "lat": 37.6316,
+   "lon": -122.496,
+   "coordsSource": "approx (OpenWebcamDB listing for this stream; mast at the Sharp Park beach area per the owner)",
+   "pageUrl": "https://www.youtube.com/watch?v=3vqiXAw1Km4",
+   "embedUrl": "https://www.youtube.com/embed/3vqiXAw1Km4",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Owner: \"Live views of the ocean from the Sharp Park beach area of Pacifica ... Pacifica Pier View (view to the North)\". Embed frame 2026-11-10 09:30 PST: beach break and shorebreak at Sharp Park with Pacifica Municipal Pier on the right.",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "watch page isLiveNow=true (stream started 2026-11-08T19:28Z); headless iframe embed on a local page played (videoWidth 1280) with the burned-in clock reading 2026-11-10 09:30:36 AM"
+   },
+   "contactUrl": "https://pacificaview.net/livecam/ (owner page; behind a bot captcha, not read)",
+   "attribution": "Live cam: Chamberlin Nature (pacificaview.net) via YouTube",
+   "notes": "One of four owner streams from the same mast (pier north, pier close-up BrUaOjjXgZM, Mori Point south, Sharp Park west). Static thumbnails are a 2020 storm frame; use the embed, not the thumbnail, as proof of current conditions.",
+   "nearestSpots": [
+    {
+     "id": "cs-sharp-park",
+     "name": "Sharp Park",
+     "km": 0.4
+    },
+    {
+     "id": "cs-rockaway",
+     "name": "Rockaway Beach",
+     "km": 2.4
+    },
+    {
+     "id": "spot-3",
+     "name": "Linda Mar",
+     "km": 3.5
+    }
+   ]
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "chamberlin-pacifica-pier-closeup",
+   "name": "Pacifica Pier Closeup, Pacifica, CA 4k Live",
+   "owner": "Chamberlin Nature (private operator; YouTube channel UC029bcZGqxOsRkvWrZLhgKQ)",
+   "ownerType": "individual",
+   "lat": 37.6316,
+   "lon": -122.496,
+   "coordsSource": "approx (same mast as chamberlin-pacifica-pier-north)",
+   "pageUrl": "https://www.youtube.com/watch?v=BrUaOjjXgZM",
+   "embedUrl": "https://www.youtube.com/embed/BrUaOjjXgZM",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Owner: \"Pacifica Pier Closeup (view to the North, zoomed in more)\".",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "watch page isLiveNow=true, playableInEmbed=true, status OK"
+   },
+   "contactUrl": "https://pacificaview.net/livecam/",
+   "attribution": "Live cam: Chamberlin Nature (pacificaview.net) via YouTube",
+   "notes": "Frame not screenshotted; same owner and permission basis as the pier north view.",
+   "nearestSpots": [
+    {
+     "id": "cs-sharp-park",
+     "name": "Sharp Park",
+     "km": 0.4
+    },
+    {
+     "id": "cs-rockaway",
+     "name": "Rockaway Beach",
+     "km": 2.4
+    },
+    {
+     "id": "spot-3",
+     "name": "Linda Mar",
+     "km": 3.5
+    }
+   ]
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "chamberlin-mori-point-south",
+   "name": "Mori Point, Pacifica CA 4K Live (view south)",
+   "owner": "Chamberlin Nature (private operator; YouTube channel UC029bcZGqxOsRkvWrZLhgKQ)",
+   "ownerType": "individual",
+   "lat": 37.6316,
+   "lon": -122.496,
+   "coordsSource": "approx (same mast)",
+   "pageUrl": "https://www.youtube.com/watch?v=iQ7XJDXYSMo",
+   "embedUrl": "https://www.youtube.com/embed/iQ7XJDXYSMo",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Owner: \"Mori Pt View (view to the South)\". Embed frame 2026-11-10 09:30 PST: Sharp Park beach and shorebreak running south to Mori Point, with Pedro Point beyond. Rockaway and Linda Mar are hidden behind Mori Point.",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "isLiveNow=true; embed played with burned-in clock 2026-11-10 09:30:57 AM"
+   },
+   "contactUrl": "https://pacificaview.net/livecam/",
+   "attribution": "Live cam: Chamberlin Nature (pacificaview.net) via YouTube",
+   "nearestSpots": [
+    {
+     "id": "cs-sharp-park",
+     "name": "Sharp Park",
+     "km": 0.4
+    },
+    {
+     "id": "cs-rockaway",
+     "name": "Rockaway Beach",
+     "km": 2.4
+    },
+    {
+     "id": "spot-3",
+     "name": "Linda Mar",
+     "km": 3.5
+    }
+   ]
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "chamberlin-sharp-park-west",
+   "name": "Sharp Park Beach, Pacifica CA 4K Live (view west)",
+   "owner": "Chamberlin Nature (private operator; YouTube channel UC029bcZGqxOsRkvWrZLhgKQ)",
+   "ownerType": "individual",
+   "lat": 37.6316,
+   "lon": -122.496,
+   "coordsSource": "approx (same mast)",
+   "pageUrl": "https://www.youtube.com/watch?v=lmec_rcEIL4",
+   "embedUrl": "https://www.youtube.com/embed/lmec_rcEIL4",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Owner: \"Sharp Park Beach View (view to the West)\". Embed frame 2026-11-10 09:31 PST: straight out over the Sharp Park beach break, sets and whitewater filling the frame; the clearest wave view in the Bay Area.",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "isLiveNow=true; embed played with burned-in clock 2026-11-10 09:31:13 AM"
+   },
+   "contactUrl": "https://pacificaview.net/livecam/",
+   "attribution": "Live cam: Chamberlin Nature (pacificaview.net) via YouTube",
+   "nearestSpots": [
+    {
+     "id": "cs-sharp-park",
+     "name": "Sharp Park",
+     "km": 0.4
+    },
+    {
+     "id": "cs-rockaway",
+     "name": "Rockaway Beach",
+     "km": 2.4
+    },
+    {
+     "id": "spot-3",
+     "name": "Linda Mar",
+     "km": 3.5
+    }
+   ]
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "linda-mar-beach-cam-youtube",
+   "name": "Linda Mar Beach Cam — Live Pacifica, California",
+   "owner": "\"Linda Mar Beach Cam\" YouTube channel (UCfE8Al-UWpwUFwa78mrYPVQ, joined 2026-08-25; operator not named)",
+   "ownerType": "unknown",
+   "lat": 37.598,
+   "lon": -122.502,
+   "coordsSource": "approx (spot; camera is on a hillside above houses, exact mount unknown)",
+   "pageUrl": "https://www.youtube.com/watch?v=TDcKozRHlKs",
+   "embedUrl": "https://www.youtube.com/embed/TDcKozRHlKs",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "Channel: \"Live view of Linda Mar Beach (Pacifica State Beach) ... This camera streams continuously\". Embed frame 2026-11-10 09:31 PST (overlay \"Linda Mar Beach Cam\"): the whole Linda Mar crescent from an elevated hillside, lines and whitewater along the beach; small at this distance.",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "isLiveNow=true (started 2026-08-30T20:06Z); embed played with burned-in clock 2026-11-10 09:31:34 AM"
+   },
+   "contactUrl": "https://www.youtube.com/@LindaMarBeachCam/about (no contact link published)",
+   "attribution": "Live cam: Linda Mar Beach Cam via YouTube",
+   "notes": "Usable on the YouTube basis, but the operator is anonymous and the channel is new (Aug 2026). Its overlay and description present it as its own camera; there is no sign it restreams another provider. Lowest-confidence of the usable rows: re-check before wiring. The channel thumbnail is AI artwork, not a frame.",
+   "nearestSpots": [
+    {
+     "id": "spot-3",
+     "name": "Linda Mar",
+     "km": 0.3
+    },
+    {
+     "id": "cs-rockaway",
+     "name": "Rockaway Beach",
+     "km": 1.4
+    },
+    {
+     "id": "cs-sharp-park",
+     "name": "Sharp Park",
+     "km": 3.4
+    }
+   ]
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "flyfunston-fort-funston",
+   "name": "Fort Funston 4k (Fly Funston)",
+   "owner": "Fellow Feathers of Fort Funston (hang-gliding club; YouTube channel \"Fly Funston\" UCZ_a4if3xoN4_BYtWdrUoRg)",
+   "ownerType": "club",
+   "lat": 37.714,
+   "lon": -122.502,
+   "coordsSource": "approx (Fort Funston launch area)",
+   "pageUrl": "https://flyfunston.org/webcams-only/",
+   "embedUrl": "https://www.youtube.com/embed/eLt-QEwVnxc",
+   "viewsSurf": "no",
+   "viewsSurfEvidence": "Video frame 2026-11-10 09:22 PST: clifftop scrub, the parking area and the ocean horizon; the beach and surf below the bluff are out of view. Useful for fog and wind (wind readout overlaid), not surf.",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "isLiveNow=true; embed played; live thumbnail stamped 2026-11-10 09:22:15; still panolarge.jpg Last-Modified 2026-11-10 17:25 GMT"
+   },
+   "contactUrl": "https://flyfunston.org/",
+   "attribution": "Live cam: Fly Funston (Fellow Feathers) via YouTube",
+   "notes": "The separate still (flyfunston.org/old-website/newwebcam/panolarge.jpg) is stamped \"©2026 flyfunston.org. Use By Permission Only\": not usable without asking. Listed on the NPS GGNRA webcams page.",
+   "nearestSpots": [
+    {
+     "id": "cs-sloat",
+     "name": "Sloat (Ocean Beach south)",
+     "km": 2.4
+    },
+    {
+     "id": "spot-2",
+     "name": "Ocean Beach",
+     "km": 5.1
+    },
+    {
+     "id": "cs-kellys-cove",
+     "name": "Kelly's Cove",
+     "km": 7.1
+    }
+   ]
+  },
+  {
+   "region": "Bay Area",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "yes",
+    "clause": "YouTube Terms: \"You may also show YouTube videos through the embeddable YouTube player.\" The channel leaves playableInEmbed=true on this live video (checked 2026-11-10); YouTube embedding left on by the owner is the display permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video, 5 AM-9 PM PT (owner)",
+   "permissionClass": "display-only",
+   "swelloClass": "display-only",
+   "id": "mussel-rock-park-daly-city",
+   "name": "Mussel Rock Park (Daly City) live cam",
+   "owner": "Private operator (YouTube channel UCTIuhsbotXQGmhLgmcRYVCQ; crowd-funded paragliding cam)",
+   "ownerType": "individual",
+   "lat": 37.666,
+   "lon": -122.494,
+   "coordsSource": "approx (Mussel Rock Park)",
+   "pageUrl": "https://www.youtube.com/watch?v=vZEINdmawdc",
+   "embedUrl": "https://www.youtube.com/embed/vZEINdmawdc",
+   "viewsSurf": "partial",
+   "viewsSurfEvidence": "Live thumbnail 2026-11-10 09:27: looks north up the Daly City bluffs toward Fort Funston and Marin; shorebreak visible far below and distant. Not a named SWELLO break.",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "isLiveNow=true; embed played; maxresdefault_live thumbnail with weather overlay reading 9:27"
+   },
+   "contactUrl": "https://www.youtube.com/channel/UCTIuhsbotXQGmhLgmcRYVCQ",
+   "attribution": "Live cam: Mussel Rock Park cam via YouTube",
+   "nearestSpots": [
+    {
+     "id": "cs-sharp-park",
+     "name": "Sharp Park",
+     "km": 4.2
+    },
+    {
+     "id": "cs-rockaway",
+     "name": "Rockaway Beach",
+     "km": 6.2
+    },
+    {
+     "id": "spot-3",
+     "name": "Linda Mar",
+     "km": 7.4
+    }
+   ]
+  },
+  {
+   "id": "capitola-city-surfline",
+   "region": "Bay Area",
+   "name": "City of Capitola Beach Web Cam / Surf Camera",
+   "owner": "City of Capitola (cameras installed and streamed by Surfline under a City agreement)",
+   "ownerType": "county/city",
+   "host": "Surfline",
+   "hostTermsRef": "surfline",
+   "lat": 36.972,
+   "lon": -121.951,
+   "coordsSource": "approx (Capitola Wharf / Esplanade)",
+   "pageUrl": "https://www.cityofcapitola.org/ (nav: \"Beach Web Cam\" / \"Surf Camera\")",
+   "viewsSurf": "yes",
+   "viewsSurfEvidence": "City Council staff report (Sept 2023 attachment, seen via search excerpt): Surfline cameras stream Capitola Beach and the Wharf to the City website.",
+   "streamType": "iframe",
+   "embedAllowed": {
+    "value": "no",
+    "clause": "Excluded by SWELLO rule: Surfline-operated stream.",
+    "url": "~/Knowledge/AI-Knowledge/10-Projects/SWELLO/09-AI-Surf-Cameras.md"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "Excluded by SWELLO rule (Surfline).",
+    "url": null
+   },
+   "licence": "Surfline",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "unverified",
+    "evidence": "cityofcapitola.org home 200; the old /node/18966 cam URL now 404s on cityofcapitola.gov; player not loaded"
+   },
+   "contactUrl": "https://www.cityofcapitola.org/",
+   "attribution": null,
+   "notes": "Recorded so nobody re-checks it. The City-partnered WebCOOS Capitola Wharf cam (webcoos-capitola-wharf) is the separate, non-Surfline option.",
+   "permissionClass": "not-allowed",
+   "excluded": true,
+   "excludedReason": "Surfline-operated stream; excluded under the 09-AI-Surf-Cameras rule.",
+   "swelloClass": "excluded (SWELLO rule)",
+   "nearestSpots": [
+    {
+     "id": "cs-capitola",
+     "name": "Capitola",
+     "km": 0.1
+    },
+    {
+     "id": "spot-8",
+     "name": "Pleasure Point",
+     "km": 2.6
+    },
+    {
+     "id": "spot-7",
+     "name": "Cowell’s",
+     "km": 6.5
+    }
+   ]
+  },
+  {
+   "id": "santa-cruz-city-surfcam-surfline",
+   "region": "Bay Area",
+   "name": "City of Santa Cruz \"Surf Cam, Tides, Weather\" page",
+   "owner": "City of Santa Cruz (links to Surfline cams)",
+   "ownerType": "county/city",
+   "host": "Surfline",
+   "hostTermsRef": "surfline",
+   "lat": 36.962,
+   "lon": -122.023,
+   "coordsSource": "approx (Cowell’s / wharf)",
+   "pageUrl": "https://www.santacruzca.gov/Services/Public-and-Environmental-Safety/Surf-Cam-Tides-Weather",
+   "viewsSurf": "unknown",
+   "viewsSurfEvidence": "Search excerpt of the page: a Surfline surf report link plus \"View more HD surf cams at Surfline.com\". No City-owned camera found.",
+   "streamType": "link only",
+   "embedAllowed": {
+    "value": "no",
+    "clause": "Excluded by SWELLO rule: the page points to Surfline.",
+    "url": null
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "Excluded by SWELLO rule (Surfline).",
+    "url": null
+   },
+   "licence": "Surfline",
+   "refresh": null,
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "unverified",
+    "evidence": "HTTP 403 to a scripted request; not retried"
+   },
+   "contactUrl": null,
+   "attribution": null,
+   "notes": "No City of Santa Cruz wharf camera of its own was found; the wharf cam on WebCOOS lists Surfline as a partner.",
+   "permissionClass": "not-allowed",
+   "excluded": true,
+   "excludedReason": "Points to Surfline cams; excluded under the 09-AI-Surf-Cameras rule.",
+   "swelloClass": "excluded (SWELLO rule)",
+   "nearestSpots": [
+    {
+     "id": "spot-7",
+     "name": "Cowell’s",
+     "km": 0.0
+    },
+    {
+     "id": "spot-6",
+     "name": "Steamer Lane",
+     "km": 1.3
+    },
+    {
+     "id": "cs-natural-bridges",
+     "name": "Natural Bridges",
+     "km": 3.3
+    }
+   ]
+  },
+  {
+   "id": "ggnpc-crissy-east-beach",
+   "region": "Bay Area",
+   "name": "Golden Gate Bridge Live Webcams (East Beach and Crissy Beach PTZ)",
+   "owner": "Golden Gate National Parks Conservancy (with the San Francisco Boardsailing Association)",
+   "ownerType": "nonprofit",
+   "host": "siteproxy.net (Axis PTZ control pages)",
+   "hostTermsRef": null,
+   "lat": 37.805,
+   "lon": -122.455,
+   "coordsSource": "approx (Crissy Field East Beach)",
+   "pageUrl": "https://www.parksconservancy.org/parks/golden-gate-bridge-live-webcams",
+   "viewsSurf": "no",
+   "viewsSurfEvidence": "Owner: views of \"the Golden Gate Bridge and Crissy Field\" from inside the Bay; Fort Point’s left is ~2.5 km west under the south tower and not described as in view.",
+   "streamType": "PTZ control page (viewer-operated)",
+   "embedAllowed": {
+    "value": "unknown",
+    "clause": "No webcam terms; site footer \"© 2026 Golden Gate National Parks Conservancy. All rights reserved.\"",
+    "url": "https://www.parksconservancy.org/about/terms-use"
+   },
+   "analysisAllowed": {
+    "value": "unknown",
+    "clause": "Terms silent.",
+    "url": null
+   },
+   "licence": "© Golden Gate National Parks Conservancy",
+   "refresh": "live (PTZ)",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "unverified",
+    "evidence": "Conservancy page HTTP 200 with two siteproxy.net camera links; camera pages not opened"
+   },
+   "contactUrl": "https://www.parksconservancy.org/contact-us",
+   "attribution": null,
+   "notes": "Bay-side wind/boardsailing cams. Not a surf view; recorded for Fort Point completeness.",
+   "permissionClass": "unknown",
+   "swelloClass": "unknown",
+   "nearestSpots": [
+    {
+     "id": "cs-kellys-cove",
+     "name": "Kelly's Cove",
+     "km": 6.1
+    },
+    {
+     "id": "spot-2",
+     "name": "Ocean Beach",
+     "km": 7.0
+    },
+    {
+     "id": "cs-rodeo-beach",
+     "name": "Rodeo Beach",
+     "km": 7.7
+    }
+   ]
+  },
+  {
+   "id": "rio-sands-aptos-youtube",
+   "region": "Bay Area",
+   "name": "Rio Sands Beachcam (Aptos)",
+   "owner": "Rio Sands Hotel",
+   "ownerType": "business",
+   "host": "YouTube",
+   "hostTermsRef": "youtube",
+   "lat": 36.968,
+   "lon": -121.906,
+   "coordsSource": "approx (Rio Del Mar, Aptos)",
+   "pageUrl": "https://www.youtube.com/watch?v=hXtYKDio1rQ",
+   "viewsSurf": "unknown",
+   "viewsSurfEvidence": "Title only; no frame seen (embed blocked).",
+   "streamType": "YouTube live",
+   "embedAllowed": {
+    "value": "no",
+    "clause": "The owner has turned embedding off: playableInEmbed=false; an iframe embed returned \"Video unavailable\" (2026-11-10).",
+    "url": "https://www.youtube.com/watch?v=hXtYKDio1rQ"
+   },
+   "analysisAllowed": {
+    "value": "no",
+    "clause": "YouTube Terms forbid accessing the Service \"using any automated means (such as robots, botnets or scrapers)\" without YouTube's prior written permission; frame analysis would need the camera owner's own feed and permission.",
+    "url": "https://www.youtube.com/t/terms"
+   },
+   "licence": "Standard YouTube licence (channel owner)",
+   "refresh": "live video",
+   "uptime": {
+    "checked": "2026-11-10",
+    "status": "live",
+    "evidence": "isLiveNow=true (since 2019-01-24)"
+   },
+   "contactUrl": null,
+   "attribution": null,
+   "notes": "Between Capitola and Manresa; link-out only unless the hotel enables embedding.",
+   "permissionClass": "not-allowed",
+   "swelloClass": "not-allowed (embedding disabled by owner)",
+   "nearestSpots": [
+    {
+     "id": "cs-capitola",
+     "name": "Capitola",
+     "km": 4.1
+    },
+    {
+     "id": "cs-manresa",
+     "name": "Manresa",
+     "km": 5.6
+    },
+    {
+     "id": "spot-8",
+     "name": "Pleasure Point",
+     "km": 6.0
+    }
+   ]
   }
- ]
+ ],
+ "bayAreaChecked": "2026-11-10"
 }
