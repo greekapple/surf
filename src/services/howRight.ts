@@ -165,7 +165,7 @@ export async function runHowRight(o: {get: (url: string) => Promise<string | nul
 /** A size difference in the person's units: "0.6 ft" or "0.2 m" (one decimal). */
 export const diffText = (ft: number, unit: 'ft' | 'm' = 'ft') => (unit === 'm' ? `${(Math.round(Math.abs(ft) * 0.3048 * 10) / 10).toFixed(1)} m` : `${(Math.round(Math.abs(ft) * 10) / 10).toFixed(1)} ft`);
 /** "ran 0.2 ft high" / "ran 0.3 ft low" / "no lean high or low" (|bias| under 0.1 ft). Bias = ours − measured. */
-export const leanText = (biasFt: number, unit: 'ft' | 'm' = 'ft') => (Math.abs(biasFt) < 0.1 ? 'no lean high or low' : `ran ${diffText(biasFt, unit)} ${biasFt > 0 ? 'high' : 'low'}`);
+export const leanText = (biasFt: number, unit: 'ft' | 'm' = 'ft') => (diffText(biasFt, unit).startsWith('0.0') ? 'no lean high or low' : `ran ${diffText(biasFt, unit)} ${biasFt > 0 ? 'high' : 'low'}`);
 const dayFmt = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', month: 'short', day: 'numeric'});
 /** "Nov 7" for an instant. */
 export const shortDay = (iso: string) => dayFmt.format(new Date(iso));
@@ -175,5 +175,5 @@ export function howRightLine(s: HowRightSpot, shownSince: string | null, unit: '
   if (s.status === 'collecting') return {text: `How right we've been: starts once we've kept 3 days of our own forecasts (${shownSince ? `kept since ${shortDay(shownSince)}` : 'we start keeping them tonight'}).`, source: null, hasNumber: false};
   const w = s.d7, source = `Buoy height carried to our point ${s.mopId} by CDIP's model.`;
   if (!w) return {text: `Our forecast from the day before vs the ${s.buoy.name} buoy: too few hours this week to say.`, source, hasNumber: false};
-  return {text: `Our forecast from the day before vs the ${s.buoy.name} buoy: typically within ${diffText(w.typicalFt, unit)}, ${leanText(w.biasFt, unit)}.`, source, hasNumber: true};
+  return {text: `Our forecast from the day before vs the ${s.buoy.name} buoy: typical difference ${diffText(w.typicalFt, unit)}, ${leanText(w.biasFt, unit)}.`, source, hasNumber: true};
 }

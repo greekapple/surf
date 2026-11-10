@@ -42,3 +42,5 @@ main#main :is(.hr, .tuned) .hr-more { min-height: 0; }
   .hr-ws div, .hr-what div { grid-template-columns: 96px minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { .hr-more:active { transform: none; } }
+.hr-all { margin-top: 8px; }
+.hr-line-2 { margin-top: 2px; }

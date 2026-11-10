@@ -44,3 +44,5 @@ After 8 reports at a spot that match a forecast hour (body-word sessions; "felt 
 - **No compounding with the buoy correction**: v1 pairs are put on today's corrected scale before fitting (`v1CentralOnCurrentScale`), so a person who sees 1.3× the corrected height gets 1.3× (shrunk), never 1.3 × 1.48 (`buoy-transfer.test.ts`).
 - The method line carries no unit-bound numbers; the model's band beside it is formatted in the person's units.
 - Everything stays on the device (localStorage); nothing is uploaded.
+
+See also [HOW-RIGHT-ALL.md](HOW-RIGHT-ALL.md): every spot's offshore forecast and rating checked against a buoy (round 4C).

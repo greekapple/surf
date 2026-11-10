@@ -2,6 +2,8 @@
 import {useEffect, useId, useState} from 'react';
 import type {UserProfile} from '../../models/index';
 import {diffText, howRightLine, leanText, type HowRightCard, type HowRightSpot, type HowRightWindow} from '../../services/howRight';
+import {offshoreLine, ratingLine, ratingBasis, compassWord, collectingText, comparedText, leanOf, TYPICAL_DIFF, TYPICAL_DIFF_NOTE, type HowRightAllCard, type HowRightAllSpot, type OffshoreWindow, type ErrStat} from '../../services/howRightAll';
+import {assignmentFor} from '../../ocean/mop';
 import {timeLabelPT, weekdayPT} from './format';
 import {useSwello} from '../../app/store';
 import './howright.css';
@@ -32,10 +34,15 @@ const md = new Intl.DateTimeFormat('en-US', {timeZone: 'America/Los_Angeles', mo
 const day = (d: string) => md.format(new Date(d.length === 10 ? `${d}T20:00:00Z` : d));
 const stamp = (iso: string) => `${weekdayPT(iso)} ${day(iso)}, ${timeLabelPT(iso)} PT`;
 
+/** The spot page's line: the California MOP check where the spot has a MOP point, and for every spot the offshore check against a buoy (round 4C). */
 export function HowRightLine({spotId, p}: {spotId: string; p: UserProfile}) {
-  const {live} = useSwello(), load = useHowRight(spotId), late = useLate(), [open, setOpen] = useState(false), id = useId(), unit = p.heightUnit === 'm' ? 'm' : 'ft';
-  useEffect(() => setOpen(false), [spotId]);
+  const {live} = useSwello();
   if (!live) return null; // the demonstration week is not checked against anything
+  return <>{assignmentFor(spotId) ? <HowRightMop spotId={spotId} p={p} /> : null}<HowRightOffshore spotId={spotId} p={p} /></>;
+}
+function HowRightMop({spotId, p}: {spotId: string; p: UserProfile}) {
+  const load = useHowRight(spotId), late = useLate(), [open, setOpen] = useState(false), id = useId(), unit = p.heightUnit === 'm' ? 'm' : 'ft';
+  useEffect(() => setOpen(false), [spotId]);
   if (load.state === 'loading') return late ? <p className="hr hr-skel" role="status" aria-label="Loading how right we have been"><i /></p> : <p className="hr hr-skel" aria-hidden="true" />;
   if (load.state !== 'ok') return <p className="hr hr-quiet">How right we've been: {load.state === 'pending' ? 'not computed yet (it runs once a day).' : 'not available right now.'}</p>;
   const s = load.card.spots[spotId];
@@ -64,7 +71,7 @@ function BuoyRows({s, card, unit}: {s: Extract<HowRightSpot, {status: 'ok' | 'co
 
 function WindowRow({w, unit}: {w: HowRightWindow | null; unit: 'ft' | 'm'}) {
   if (!w) return <span className="hr-w-none">too few hours to say</span>;
-  return <><b>typically within {diffText(w.typicalFt, unit)}</b>, {leanText(w.biasFt, unit)}<span className="hr-w-n"> · average miss {diffText(w.maeFt, unit)} · {w.n} hours, {day(w.from)} to {day(w.to)}</span></>;
+  return <><b>typical difference {diffText(w.typicalFt, unit)}</b>, {leanText(w.biasFt, unit)}<span className="hr-w-n"> · average miss {diffText(w.maeFt, unit)} · {w.n} hours, {day(w.from)} to {day(w.to)}</span></>;
 }
 
 function HowRightDetail({id, s, card, unit}: {id: string; s: Extract<HowRightSpot, {status: 'ok'}>; card: HowRightCard; unit: 'ft' | 'm'}) {
@@ -74,7 +81,7 @@ function HowRightDetail({id, s, card, unit}: {id: string; s: Extract<HowRightSpo
         <div><dt>Last 7 days</dt><dd><WindowRow w={s.d7} unit={unit} /></dd></div>
         <div><dt>{s.scoredFrom ? `Since ${day(s.scoredFrom)}` : 'Last 30 days'}</dt><dd><WindowRow w={s.d30} unit={unit} /></dd></div>
       </dl>
-      <p className="hr-src">Typically within: half the hours were closer than this.</p>
+      <p className="hr-src">Typical difference = the median absolute difference: half the hours were closer than this. Lean = our forecast minus the buoy.</p>
       <DayChart s={s} unit={unit} />
       <dl className="hr-what">
         <div><dt>Our forecast</dt><dd>The surf height behind our band in the forecast we showed{s.leadH !== null ? ` about ${s.leadH} h ahead` : ' the day before'} (CDIP's nearshore forecast at {s.mopId}, before your own tuning).</dd></div>
@@ -103,5 +110,73 @@ function DayChart({s, unit}: {s: Extract<HowRightSpot, {status: 'ok'}>; unit: 'f
         <text x={W - R} y={H - 4} textAnchor="end" className="hr-ax">{day(last.date)}</text>
       </svg>
     </figure>
+  );
+}
+
+
+/* ---------- every spot: the offshore forecast and the rating against a buoy (round 4C; /api/how-right-all, services/how-right-all.mjs) ---------- */
+type LoadAll = {state: 'loading'} | {state: 'ok'; card: HowRightAllCard} | {state: 'pending' | 'error'};
+let sharedAll: Promise<LoadAll> | null = null;
+function loadAll(): Promise<LoadAll> {
+  if (!sharedAll) sharedAll = fetch('/api/how-right-all').then(async (r) => {
+    const v = r.ok ? await r.json() : null;
+    return v?.schema === 2 && v.spots ? {state: 'ok', card: v as HowRightAllCard} as LoadAll : {state: v?.pending ? 'pending' : 'error'} as LoadAll;
+  }).catch(() => ({state: 'error'} as LoadAll)).then((x) => { if (x.state === 'error') sharedAll = null; return x; });
+  return sharedAll;
+}
+function useHowRightAll(spotId: string): LoadAll {
+  const [s, set] = useState<LoadAll>({state: 'loading'});
+  useEffect(() => { let live = true; loadAll().then((x) => { if (live) set(x); }); return () => { live = false; }; }, [spotId]);
+  return s;
+}
+function HowRightOffshore({spotId, p}: {spotId: string; p: UserProfile}) {
+  const load = useHowRightAll(spotId), late = useLate(), [open, setOpen] = useState(false), id = useId(), unit = p.heightUnit === 'm' ? 'm' : 'ft', hasMop = !!assignmentFor(spotId);
+  useEffect(() => setOpen(false), [spotId]);
+  if (load.state === 'loading') return hasMop ? null : late ? <p className="hr hr-skel" role="status" aria-label="Loading how right we have been"><i /></p> : <p className="hr hr-skel" aria-hidden="true" />;
+  if (load.state !== 'ok') return hasMop ? null : <p className="hr hr-quiet">How right we've been: {load.state === 'pending' ? 'not computed yet (it runs once a day).' : 'not available right now.'}</p>;
+  const s = load.card.spots[spotId];
+  if (!s) return hasMop ? null : <p className="hr hr-quiet">How right we've been: this spot is not in today's check.</p>;
+  const off = offshoreLine(s, unit), rat = ratingLine(s), detail = s.status === 'ok' || s.status === 'collecting' ? s : null;
+  return (
+    <div className="hr hr-all">
+      <p className="hr-line">
+        <span>{off.text}</span>{' '}
+        {detail && <button type="button" className="hr-more" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>{open ? 'Less' : 'Details'}</button>}
+      </p>
+      {rat && <p className="hr-line hr-line-2"><span>{rat.text}</span></p>}
+      {open && detail && <HowRightAllDetail id={id} s={detail} card={load.card} unit={unit} />}
+    </div>
+  );
+}
+/** UTC, always said: the captures and the card are UTC days ("Nov 10" in Pacific time is a different day from the capture's). */
+const utcDay = (iso: string) => new Date(iso).toLocaleDateString('en-US', {timeZone: 'UTC', month: 'short', day: 'numeric'});
+const utcStamp = (iso: string) => `${new Date(iso).toISOString().slice(0, 10)} ${new Date(iso).toISOString().slice(11, 16)} UTC`;
+const win = (w: OffshoreWindow | null, need: number, have: number, unit: 'ft' | 'm') => {
+  if (!w?.hs) return <span className="hr-w-none">{collectingText(have, need)}</span>;
+  return <><b>{TYPICAL_DIFF} {diffText(w.hs.typical / 0.3048, unit)}</b>, {leanOf(w.hs.bias, unit)}<span className="hr-w-n"> · {w.n} hours over {w.daysWithData} days, {utcDay(w.from)} to {utcDay(w.to)} UTC</span></>;
+};
+const TOO_FEW = <span className="hr-w-none">too few hours</span>;
+const stat = (e: ErrStat | null, f: (e: ErrStat) => string) => (e ? f(e) : null);
+function HowRightAllDetail({id, s, card, unit}: {id: string; s: Extract<HowRightAllSpot, {status: 'ok' | 'collecting'}>; card: HowRightAllCard; unit: 'ft' | 'm'}) {
+  const b = s.buoy, ok = s.status === 'ok' ? s : null, sw = ok?.d7?.swell ?? ok?.d30?.swell ?? null, swDays = ok?.d7?.swell ? 7 : 30;
+  return (
+    <div id={id} className="hr-d">
+      <dl className="hr-ws">
+        <div><dt>Last 7 days</dt><dd>{ok ? win(ok.d7, card.rule.minDays7, s.haveDays, unit) : <span className="hr-w-none">{collectingText(s.haveDays, card.rule.minDays7)}</span>}</dd></div>
+        <div><dt>Last 30 days</dt><dd>{ok ? win(ok.d30, card.rule.minDays30, s.haveDays, unit) : <span className="hr-w-none">{collectingText(s.haveDays, card.rule.minDays30)}</span>}</dd></div>
+        {ok && sw && <div><dt>Buoy's swell</dt><dd>
+          height: {stat(sw.height, (e) => `${TYPICAL_DIFF} ${diffText(e.typical / 0.3048, unit)}, ${leanOf(e.bias, unit)}`) ?? TOO_FEW}
+          <span className="hr-w-n"> · last {swDays} days</span><br />
+          period: {stat(sw.periodS, (e) => `${TYPICAL_DIFF} ${e.typical.toFixed(1)} s`) ?? TOO_FEW}; direction: {stat(sw.directionDeg, (e) => `${TYPICAL_DIFF} ${Math.round(e.typical)}° (the buoy reports 16 compass points)`) ?? TOO_FEW}
+          <span className="hr-w-n"> · period and direction only for hours with swell above 0.5 m</span></dd></div>}
+      </dl>
+      <p className="hr-src">{TYPICAL_DIFF_NOTE}</p>
+      <dl className="hr-what">
+        <div><dt>What was compared</dt><dd>{comparedText(b)}. The forecast is Open-Meteo's marine model as our forecast stood at least {card.rule.shownMinLeadH} h ahead{b.gridKm !== null && b.gridKm !== undefined ? `, from its nearest model cell (${b.gridKm} km from the buoy)` : ''}; the buoy's side is its measured wave height{b.split ? " and NDBC's published swell split" : ' (this buoy publishes no swell split)'}.</dd></div>
+        <div><dt>Why this buoy</dt><dd>The nearest buoy within {card.rule.maxKm} km that is not sheltered (not inside a bay, sound or harbour) and whose direction from the spot ({compassWord(b.bearing)}, {b.bearing}°) is inside this spot's swell window ({Math.round(b.window[0])}°–{Math.round(b.window[1])}°).{b.note ? ` ${b.note[0].toUpperCase()}${b.note.slice(1)}.` : ''} Not a measurement at the break.</dd></div>
+        {ok && <div><dt>Rating</dt><dd>{ratingBasis(ok)}{ok.rating.d7 ? '' : ` ${ok.rating.daysScored7} of the last 7 days scored so far.`}</dd></div>}
+      </dl>
+      <p className="hr-src">Checked once a day · last {utcStamp(card.computedAt)} · {card.captureDays} {card.captureDays === 1 ? 'day' : 'days'} of captures kept{card.firstCapture ? `, since ${utcDay(card.firstCapture)} UTC` : ''}</p>
+    </div>
   );
 }

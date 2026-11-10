@@ -49,7 +49,7 @@ test('what we showed: captured from the cached forecast (the next 48 h), and eac
   assert.equal(shownSeries([tooLate], 'SF023').size, 0, 'a value retrieved under 12 h before the hour is not "what we showed the day before"');
 });
 
-test('a window needs 24 paired hours; bias is ours − measured; "typically within" is the median absolute difference', () => {
+test('a window needs 24 paired hours; bias is ours − measured; "typical difference" is the median absolute difference', () => {
   const p = Array.from({length: 23}, (_, i) => ({t: NOW - i * H, obs: 4, model: 4.5}));
   assert.equal(windowScore(p, NOW - D * 7, NOW, 7), null);
   const w = windowScore([...p, {t: NOW - 30 * H, obs: 4, model: 1}], NOW - D * 7, NOW, 7)!;
@@ -80,7 +80,7 @@ test('Ocean Beach: NO number until we have kept 3 days of our own forecasts; the
   assert.equal(s.status, 'ok'); if (s.status !== 'ok') return;
   assert.equal(s.leadH, 20); assert.equal(s.d7!.n, 24); assert.equal(s.d7!.biasFt, 0.5); assert.equal(s.d7!.typicalFt, 0.5);
   const line = howRightLine(s, null);
-  assert.equal(line.text, 'Our forecast from the day before vs the San Francisco Bar buoy: typically within 0.5 ft, ran 0.5 ft high.'); assert.equal(line.source, 'Buoy height carried to our point SF023 by CDIP\'s model.'); assert.equal(line.hasNumber, true);
+  assert.equal(line.text, 'Our forecast from the day before vs the San Francisco Bar buoy: typical difference 0.5 ft, ran 0.5 ft high.'); assert.equal(line.source, 'Buoy height carried to our point SF023 by CDIP\'s model.'); assert.equal(line.hasNumber, true);
   assert.ok(s.days.length >= 3 && s.days.every((d) => d.oursFt > d.measuredFt));
   // shown hours from BEFORE the check's cut (the hours that picked the buoy) are never scored
   const old = new Map([...shown, ...hours(NOW - 29 * D, NOW - 25 * D, 3 * H).map((t) => [t, {hs: 99, leadH: 20}] as [number, {hs: number; leadH: number}])]);

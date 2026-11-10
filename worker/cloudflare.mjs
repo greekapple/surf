@@ -18,9 +18,12 @@ export const isHowRightTick = (scheduledTime) => Math.floor(scheduledTime / CRON
 // ARCHIVE_CRON runs once a day (06:17 UTC, after the UTC day closed); BACKFILL_CRON are hourly ticks that continue the 45-day backfill after a deploy and are a one-read no-op once it is done.
 export const ARCHIVE_CRON = '17 6 * * *';
 export const BACKFILL_CRON = '47 * * * *';
+// "How right we've been" for every spot (services/how-right-all.mjs, round 4C): hourly 00:20-06:20 UTC, its own invocations: capture what we show (resumable), then score once.
+export const HRA_CRON = '20 0-6 * * *';
 export default {
   fetch: (request, env, ctx) => handle(request, env, ctx),
   scheduled: (event, env, ctx) => {
+    if (event.cron === HRA_CRON) { ctx.waitUntil(handle.howRightAll(env)); return; }
     if (event.cron === ARCHIVE_CRON || event.cron === BACKFILL_CRON) { ctx.waitUntil(archive.run(env, {backfillOnly: event.cron === BACKFILL_CRON})); return; }
     if (isHowRightTick(event.scheduledTime)) { ctx.waitUntil(handle.howRight(env)); return; }
     ctx.waitUntil(handle.refresh(env, {perRun: CRON.perRun, tick: Math.floor(event.scheduledTime / CRON.everyMs), ahead: CRON.aheadMs, budget: CRON.budget, minAgeMs: CRON.minAgeMs, hotHours: CRON.hotHours}));
