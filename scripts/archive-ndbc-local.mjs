@@ -15,8 +15,8 @@ const bucket = {
   put: async (k, v) => { mkdirSync(dirname(path(k)), {recursive: true}); writeFileSync(path(k), v); },
 };
 const archive = createNdbcArchive({buoys: buoys ?? undefined});
-const rep = await archive.run({BUCKET: bucket});
-console.log(JSON.stringify(rep));
+let rep, runs = 0;   // a backfill needs several invocations (about 8 buoys each): keep going until the cursor says done
+do { rep = await archive.run({BUCKET: bucket}, runs ? {backfillOnly: true} : {}); runs++; console.log(JSON.stringify(rep)); } while (rep.ok && rep.mode === 'backfill' && rep.backfill !== 'done' && runs < 15);
 const walk = (d) => readdirSync(d).flatMap((n) => { const p = join(d, n); return statSync(p).isDirectory() ? walk(p) : [p]; });
 const files = walk(out);
 console.log(`${files.length} objects, ${(files.reduce((a, f) => a + statSync(f).size, 0) / 1024).toFixed(0)} KB`);

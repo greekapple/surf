@@ -1,0 +1,50 @@
+[
+ {
+  "id": "w-usw-bay-st",
+  "name": "Bay St.",
+  "keptId": "w-usw-bay-street",
+  "keptName": "Bay Street",
+  "km": 0.14,
+  "reason": "the same break as \"Bay Street\" (0.14 km apart, same name once \"state\", \"beach\", \"the\" and street/st are ignored): one row is kept, the one with more guide facts"
+ },
+ {
+  "id": "w-usw-fort-point-2",
+  "name": "Fort Point",
+  "keptId": "w-usw-fort-point",
+  "keptName": "Fort Point",
+  "km": 0.14,
+  "reason": "the same break as \"Fort Point\" (0.14 km apart, same name once \"state\", \"beach\", \"the\" and street/st are ignored): one row is kept, the one with more guide facts"
+ },
+ {
+  "id": "w-usw-moonlight-state-beach",
+  "name": "Moonlight State Beach",
+  "keptId": "w-usw-moonlight-beach",
+  "keptName": "Moonlight Beach",
+  "km": 0.15,
+  "reason": "the same break as \"Moonlight Beach\" (0.15 km apart, same name once \"state\", \"beach\", \"the\" and street/st are ignored): one row is kept, the one with more guide facts"
+ },
+ {
+  "id": "w-usw-surf-beach-2",
+  "name": "Surf Beach",
+  "keptId": "w-usw-surf-beach",
+  "keptName": "Surf Beach",
+  "km": 0.45,
+  "reason": "the same break as \"Surf Beach\" (0.45 km apart, same name once \"state\", \"beach\", \"the\" and street/st are ignored): one row is kept, the one with more guide facts"
+ },
+ {
+  "id": "w-usw-hermosa-beach",
+  "name": "Hermosa Beach",
+  "keptId": "cs-hermosa",
+  "keptName": "Hermosa Pier",
+  "km": 1.2,
+  "reason": "the same beach as the app spot \"Hermosa Pier\" (1.2 km apart; the catalogue's rule drops only within 1 km)"
+ },
+ {
+  "id": "w-usw-zuma-beach-county-park",
+  "name": "Zuma Beach County Park",
+  "keptId": "cs-zuma",
+  "keptName": "Zuma",
+  "km": 1.4,
+  "reason": "the same beach as the app spot \"Zuma\" (1.4 km apart; the catalogue's rule drops only within 1 km)"
+ }
+]

@@ -499,6 +499,240 @@ export const NWS_ZONE: Record<string, string | null> = {
   'w-hawaii-kaalualu-point': "HIZ052",
   'w-hawaii-kahuku-ranch': "HIZ052", // resolved 0.8 km inland: the beach point is in marine zone PHZ123
   'w-hawaii-south-point': "HIZ052", // resolved 0.8 km inland: the beach point is in marine zone PHZ123
+  'w-usw-pelican-state-beach': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-point-st-george': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-garths-reef': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-south-beach': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-enderts-beach': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-wilson-creek': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-kalamath-rivermouth': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-the-lagoons': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-patricks-point': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-sue-meg': "CAZ103",
+  'w-usw-trinidad-state-beach': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-little-river-state-beach': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-mad-river-beach': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-samoa-peninsula': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-bunkers-humbolt-county': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-centerville-beach': "CAZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ450
+  'w-usw-cape-mendocino': "CAZ104", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-deadmans-humbolt-county': "CAZ104", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-third-reef': "CAZ104", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-no-pass': "CAZ104", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-needle-rock': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-usal-beach': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-dehaven-creek-howard-creek': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-wages-creek-beach': "CAZ109",
+  'w-usw-westport': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-chadbourne-gulch-blues-beach': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-seaside-creek': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-ten-mile-beach': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-ward-avenue': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-mackerricher': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-virgin-creek': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-glass-beach': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-jug-handle-state-beach': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-caspar-creek': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-big-rivermouth': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-navarro-rivermouth': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-manchester-state-beach-alder-creek': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ455
+  'w-usw-schooner-gulch-moat-creek': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-gualala-rivermouth': "CAZ109", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-black-point-beach-sea-ranch': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-secrets': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-timber-cove': "CAZ505",
+  'w-usw-the-fort': "CAZ505",
+  'w-usw-mystos': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-russian-rivermouth': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-goat-rock': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-doran-beach': null, // marine zone PZZ540: no land beach-hazard zone resolved
+  'w-usw-shark-pit-marin': null, // marine zone PZZ540: no land beach-hazard zone resolved
+  'w-usw-point-reyes-beach-north-side': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ540
+  'w-usw-point-reyes-north': "CAZ505",
+  'w-usw-drakes-estero': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-the-patch': "CAZ505", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-fort-point': "CAZ006", // resolved 0.8 km inland: the beach point is in marine zone PZZ530
+  'w-usw-deadmans': "CAZ006",
+  'w-usw-pedro-point': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-tunitas-creek': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-san-gregorio-state-beach': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-pomponio-state-beach': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-bean-hollow-state-beach': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ545
+  'w-usw-gazos-creek': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ560
+  'w-usw-ano-nuevo-state-reserve': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ560
+  'w-usw-davenport-landing': "CAZ509", // resolved 0.8 km inland: the beach point is in marine zone PZZ560
+  'w-usw-laguna-creek': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ560
+  'w-usw-four-mile': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ560
+  'w-usw-the-rivermouth': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-three-mile': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ560
+  'w-usw-santa-cruz-harbor': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-mitchells-cove': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-sunset-state-beach': "CAZ529", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-zmudowski-state-beach': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-boneyard': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-lovers-point': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-spanish-bay': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-spanish-bay-south-moss': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-spanish-bay-cobblestones': "CAZ530",
+  'w-usw-mole-point': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-monterey-bay': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-del-monte-beach': "CAZ530",
+  'w-usw-monterey-wall': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ535
+  'w-usw-ghost-tree': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-willow-creek': "CAZ530", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-san-carpoforo-creek': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-lighthouse-cadis': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-piedras-blancas': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ565
+  'w-usw-arroyo-laguna': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-pico-creek': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-san-simeon': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-san-simeon-creek': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-exotics': "CAZ340",
+  'w-usw-leffingwell-landing': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-santa-rosa-creek-moonstone': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-morro-strand': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-cable-landing': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-hazard-canyon': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-spooners-cove': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-avila-beach': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-saint-annes': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-grover-beach': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-oceano': "CAZ340", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-santa-maria-rivermouth-guadalupe-beach': "CAZ346", // resolved 0.8 km inland: the beach point is in marine zone PZZ645
+  'w-usw-surf-beach': "CAZ346", // resolved 0.8 km inland: the beach point is in marine zone PZZ673
+  'w-usw-molino-canyon': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-drakes-point': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-razor-blades': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-upper-drakes': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-little-drakes': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-tajiguas': "CAZ349",
+  'w-usw-beavers-hazards': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-refugio-state-beach': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-ranch-house-point': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-el-capitan-state-beach': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-rennys': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-rights-and-lefts': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-utah': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-lefts-and-rights': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-san-augustine-reef': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-san-augustine-point': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-cojo-reef': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-cojo-point': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-cat-canyon': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-ranch-perkos': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ673
+  'w-usw-the-ranch-government-point': "CAZ349", // resolved 0.8 km inland: the beach point is in marine zone PZZ673
+  'w-usw-haskells-beach': "CAZ350",
+  'w-usw-santa-claus-padaro-beach': "CAZ350",
+  'w-usw-sandspit': "CAZ350", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-the-pit': "CAZ350", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-mesa-lane': "CAZ350", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-tarpits-carpinteria-state-beach': "CAZ350", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-tarpits': "CAZ350", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-la-conchita-beach': "CAZ356", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-little-rincon-mussel-shoals': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-oil-piers': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-stanleys': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-hobson-county-park': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-faria-beach': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-solimar-reef-and-beach': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-gold-coast-beachbreaks': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-summer-beach': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-ventura-overhead': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-san-buenaventura-state-beach': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-santa-clara-rivermouth': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-mcgrath-state-beach-mandalay-county-park-oxnard-shores': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-port-hueneme-beach-park': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-ormond-beach': "CAZ354", // resolved 0.8 km inland: the beach point is in marine zone PZZ650
+  'w-usw-zero-nicholas-canyon-county-beach': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-big-rock': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-trancas-point': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-latigo-canyon': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-point-dume': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-santa-monica-municipal-pier': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-point-dume-state-beach-westward-beach-drainpipes': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-bay-street': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-point-dume-2': "CAZ362", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-rose-avenue': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-ballona-creek-the-jetty': "CAZ366", // resolved 2 km inland: the beach point is in marine zone PZZ655
+  'w-usw-toes-over': "CAZ366", // resolved 2 km inland: the beach point is in marine zone PZZ655
+  'w-usw-d-and-w': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-shitpipe': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-new-jetty': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-topaz-street': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-sapphire-street': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-burn-out-torrance-beach-rat-beach': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-haggertys-2': "CAZ366",
+  'w-usw-lower-haggertys': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-rat-shit': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-haggertys': "CAZ367", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-upper-haggertys': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-palos-verdes-cove-ski-jump': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-palos-verdes-cove-north-reef-little-queens': "CAZ367", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-palos-verdes-cove-middles-the-channel': "CAZ367", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-pv-cove': "CAZ366",
+  'w-usw-palos-verdes-cove-boneyards': "CAZ367", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-indicator': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-lunada-bay': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-seal-beach-jetty': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-abalone-cove-beach': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-7th-street': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-seal-beach-pier': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-13th-street': "CAZ552",
+  'w-usw-dolphin-avenue': "CAZ552",
+  'w-usw-surfside-jetty': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-anderson-street': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-palm-point': "CAZ366",
+  'w-usw-royal-palms-the-jetty': "CAZ366",
+  'w-usw-cabrillo-point': "CAZ366", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-hb-cliffs': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-huntington-cliffs': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-north-hb-streets': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-santa-ana-river-jetties': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-newport-upper-jetties': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-newport-beach': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-newport-lower-jetties': "CAZ552",
+  'w-usw-crystal-cove': "CAZ552",
+  'w-usw-morro-beach': "CAZ552",
+  'w-usw-crescent-bay': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-rockpile-heisler-park': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-thalia-street': "CAZ552",
+  'w-usw-laguna-beach': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-brooks-street': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-agate-pearl-street': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-aliso-creek': "CAZ552",
+  'w-usw-strands': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-poche-beach': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-san-clemente-state-park': "CAZ552", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-cottons-point': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ655
+  'w-usw-trails-2': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-trails': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-south-carlsbad-state-beach': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-grandview': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-stone-steps': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-moonlight-beach': "CAZ043",
+  'w-usw-d-street': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-pipes': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-pipes-campgrounds': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-pillbox-fletcher-cove-park': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-del-mar-rivermouth': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-del-mar-beach': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-15th-street': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-south-del-mar': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-la-jolla-cove': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-horseshoe': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-south-bird-rock': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-rockpile': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-pb-point': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-tourmaline': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-mission-beach': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-ab-abalone': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-south-ab': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-new-break': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-chasm': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-coronado-city-beach-corondo-shores-beach': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
+  'w-usw-coronado-beach': null, // marine zone PZZ740: no land beach-hazard zone resolved
+  'w-usw-tijuana-slough': "CAZ043", // resolved 0.8 km inland: the beach point is in marine zone PZZ740
 };
 
 /** Spots whose own point falls in a marine zone borrow the coastal zone of the nearest zoned spot, only when it is within 15 km (the same stretch of coast). Marked approximate in the UI text; farther spots have no zone. */
@@ -558,6 +792,7 @@ export const NWS_ZONE_APPROX: Record<string, {zone: string; viaSpot: string; km:
   'w-us-walton-rocks-2': {zone: 'FLZ159', viaSpot: 'w-us-blind-creek-park', km: 3.2}, // Walton Rocks -> Blind Creek Park
   'w-us-walton-rocks': {zone: 'FLZ159', viaSpot: 'w-us-blind-creek-park', km: 3.3}, // Walton Rocks -> Blind Creek Park
   'w-us-stuart-rocks': {zone: 'FLZ164', viaSpot: 'w-us-fletchers', km: 1.8}, // Stuart Rocks -> Fletcher's
+  'w-usw-coronado-beach': {zone: 'CAZ043', viaSpot: 'w-usw-coronado-city-beach-corondo-shores-beach', km: 2.4}, // Coronado Beach -> Coronado City Beach/Corondo Shores Beach
 };
 export interface ZoneInfo {zone: string; approx: boolean; viaSpot?: string}
 export function zoneFor(spotId: string): ZoneInfo | null {

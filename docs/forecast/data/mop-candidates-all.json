@@ -510,7 +510,7 @@
   },
   {
    "id": "spot-7",
-   "name": "Cowell’s",
+   "name": "Cowell\u2019s",
    "lat": 36.962,
    "lon": -122.023,
    "nearest": [
@@ -2814,7 +2814,7 @@
   },
   {
    "id": "cs-swamis",
-   "name": "Swami’s",
+   "name": "Swami\u2019s",
    "lat": 33.035,
    "lon": -117.293,
    "nearest": [
@@ -2958,7 +2958,7 @@
   },
   {
    "id": "cs-blacks",
-   "name": "Black’s Beach",
+   "name": "Black\u2019s Beach",
    "lat": 32.889,
    "lon": -117.253,
    "nearest": [
@@ -7404,6 +7404,1878 @@
     }
    ],
    "retrievedOn": "2026-11-09"
+  },
+  {
+   "id": "w-usw-13th-street",
+   "name": "13th Street",
+   "lat": 33.737,
+   "lon": -118.103,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-15th-street",
+   "name": "15th Street",
+   "lat": 32.959,
+   "lon": -117.27,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-7th-street",
+   "name": "7th Street",
+   "lat": 33.738,
+   "lon": -118.109,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ab-abalone",
+   "name": "Ab (Abalone)",
+   "lat": 32.714,
+   "lon": -117.259,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-abalone-cove-beach",
+   "name": "Abalone Cove Beach",
+   "lat": 33.739,
+   "lon": -118.403,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-agate-pearl-street",
+   "name": "Agate/Pearl Street",
+   "lat": 33.528,
+   "lon": -117.773,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-aliso-creek",
+   "name": "Aliso Creek",
+   "lat": 33.509,
+   "lon": -117.752,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-anderson-street",
+   "name": "Anderson Street",
+   "lat": 33.723,
+   "lon": -118.081,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ano-nuevo-state-reserve",
+   "name": "Ano Nuevo State Reserve",
+   "lat": 37.117,
+   "lon": -122.314,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-arroyo-laguna",
+   "name": "Arroyo Laguna",
+   "lat": 35.651,
+   "lon": -121.221,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-avila-beach",
+   "name": "Avila Beach",
+   "lat": 35.178,
+   "lon": -120.734,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ballona-creek-the-jetty",
+   "name": "Ballona Creek/The Jetty",
+   "lat": 33.96,
+   "lon": -118.458,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-bay-street",
+   "name": "Bay Street",
+   "lat": 34.004,
+   "lon": -118.493,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-bean-hollow-state-beach",
+   "name": "Bean Hollow State Beach",
+   "lat": 37.225,
+   "lon": -122.41,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-beavers-hazards",
+   "name": "Beavers/Hazards",
+   "lat": 34.461,
+   "lon": -120.054,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-big-rivermouth",
+   "name": "Big Rivermouth",
+   "lat": 39.302,
+   "lon": -123.798,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-big-rock",
+   "name": "Big Rock",
+   "lat": 34.036,
+   "lon": -118.609,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-black-point-beach-sea-ranch",
+   "name": "Black Point Beach (Sea Ranch)",
+   "lat": 38.686,
+   "lon": -123.434,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-boneyard",
+   "name": "Boneyard",
+   "lat": 36.638,
+   "lon": -121.931,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-brooks-street",
+   "name": "Brooks Street",
+   "lat": 33.533,
+   "lon": -117.778,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-bunkers-humbolt-county",
+   "name": "Bunkers (Humbolt County)",
+   "lat": 40.817,
+   "lon": -124.198,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-burn-out-torrance-beach-rat-beach",
+   "name": "Burn Out/Torrance Beach/RAT Beach",
+   "lat": 33.812,
+   "lon": -118.393,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-cable-landing",
+   "name": "Cable Landing",
+   "lat": 35.301,
+   "lon": -120.878,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-cabrillo-point",
+   "name": "Cabrillo Point",
+   "lat": 33.706,
+   "lon": -118.285,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-cape-mendocino",
+   "name": "Cape Mendocino",
+   "lat": 40.429,
+   "lon": -124.41,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-caspar-creek",
+   "name": "Caspar Creek",
+   "lat": 39.361,
+   "lon": -123.819,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-cat-canyon",
+   "name": "Cat Canyon",
+   "lat": 34.449,
+   "lon": -119.987,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-centerville-beach",
+   "name": "Centerville Beach",
+   "lat": 40.577,
+   "lon": -124.354,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-chadbourne-gulch-blues-beach",
+   "name": "Chadbourne Gulch/Blues Beach",
+   "lat": 39.617,
+   "lon": -123.786,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-chasm",
+   "name": "Chasm",
+   "lat": 32.708,
+   "lon": -117.258,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-coronado-beach",
+   "name": "Coronado Beach",
+   "lat": 32.674,
+   "lon": -117.174,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-coronado-city-beach-corondo-shores-beach",
+   "name": "Coronado City Beach/Corondo Shores Beach",
+   "lat": 32.684,
+   "lon": -117.197,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-cottons-point",
+   "name": "Cottons Point",
+   "lat": 33.389,
+   "lon": -117.598,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-crescent-bay",
+   "name": "Crescent Bay",
+   "lat": 33.546,
+   "lon": -117.802,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-crystal-cove",
+   "name": "Crystal Cove",
+   "lat": 33.559,
+   "lon": -117.821,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-d-street",
+   "name": "D Street",
+   "lat": 33.045,
+   "lon": -117.299,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-d-and-w",
+   "name": "D & W",
+   "lat": 33.94,
+   "lon": -118.443,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-davenport-landing",
+   "name": "Davenport Landing",
+   "lat": 37.023,
+   "lon": -122.216,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-dehaven-creek-howard-creek",
+   "name": "DeHaven Creek/Howard Creek",
+   "lat": 39.662,
+   "lon": -123.788,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-deadmans",
+   "name": "Deadmans",
+   "lat": 37.788,
+   "lon": -122.494,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-deadmans-humbolt-county",
+   "name": "Deadmans (Humbolt County)",
+   "lat": 40.023,
+   "lon": -124.058,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-del-mar-beach",
+   "name": "Del Mar Beach",
+   "lat": 32.969,
+   "lon": -117.27,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-del-mar-rivermouth",
+   "name": "Del Mar Rivermouth",
+   "lat": 32.976,
+   "lon": -117.273,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-del-monte-beach",
+   "name": "Del Monte Beach",
+   "lat": 36.605,
+   "lon": -121.87,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-dolphin-avenue",
+   "name": "Dolphin Avenue",
+   "lat": 33.736,
+   "lon": -118.102,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-doran-beach",
+   "name": "Doran Beach",
+   "lat": 38.312,
+   "lon": -123.044,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-drakes-estero",
+   "name": "Drakes Estero",
+   "lat": 38.029,
+   "lon": -122.935,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-el-capitan-state-beach",
+   "name": "El Capitan State Beach",
+   "lat": 34.458,
+   "lon": -120.021,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-enderts-beach",
+   "name": "Enderts Beach",
+   "lat": 41.709,
+   "lon": -124.145,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-exotics",
+   "name": "Exotics",
+   "lat": 35.585,
+   "lon": -121.123,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-faria-beach",
+   "name": "Faria Beach",
+   "lat": 34.33,
+   "lon": -119.401,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-fort-point",
+   "name": "Fort Point",
+   "lat": 37.811,
+   "lon": -122.476,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-four-mile",
+   "name": "Four Mile",
+   "lat": 36.965,
+   "lon": -122.125,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-garths-reef",
+   "name": "Garth's Reef",
+   "lat": 41.771,
+   "lon": -124.244,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-gazos-creek",
+   "name": "Gazos Creek",
+   "lat": 37.166,
+   "lon": -122.364,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ghost-tree",
+   "name": "Ghost Tree",
+   "lat": 36.56,
+   "lon": -121.952,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-glass-beach",
+   "name": "Glass Beach",
+   "lat": 39.453,
+   "lon": -123.814,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-goat-rock",
+   "name": "Goat Rock",
+   "lat": 38.439,
+   "lon": -123.125,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-gold-coast-beachbreaks",
+   "name": "Gold Coast Beachbreaks",
+   "lat": 34.3,
+   "lon": -119.349,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-grandview",
+   "name": "Grandview",
+   "lat": 33.075,
+   "lon": -117.311,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-grover-beach",
+   "name": "Grover Beach",
+   "lat": 35.12,
+   "lon": -120.636,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-gualala-rivermouth",
+   "name": "Gualala Rivermouth",
+   "lat": 38.768,
+   "lon": -123.535,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-haggertys",
+   "name": "Haggertys",
+   "lat": 33.802,
+   "lon": -118.401,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-haggertys-2",
+   "name": "Haggerty's",
+   "lat": 33.809,
+   "lon": -118.393,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-haskells-beach",
+   "name": "Haskell's Beach",
+   "lat": 34.431,
+   "lon": -119.916,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-hazard-canyon",
+   "name": "Hazard Canyon",
+   "lat": 35.29,
+   "lon": -120.886,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-hb-cliffs",
+   "name": "HB Cliffs",
+   "lat": 33.676,
+   "lon": -118.031,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-hobson-county-park",
+   "name": "Hobson County Park",
+   "lat": 34.337,
+   "lon": -119.412,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-horseshoe",
+   "name": "Horseshoe",
+   "lat": 32.84,
+   "lon": -117.284,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-huntington-cliffs",
+   "name": "Huntington Cliffs",
+   "lat": 33.668,
+   "lon": -118.021,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-indicator",
+   "name": "Indicator",
+   "lat": 33.789,
+   "lon": -118.417,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-jug-handle-state-beach",
+   "name": "Jug Handle State Beach",
+   "lat": 39.377,
+   "lon": -123.818,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-kalamath-rivermouth",
+   "name": "Kalamath Rivermouth",
+   "lat": 41.546,
+   "lon": -124.085,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-la-conchita-beach",
+   "name": "La Conchita Beach",
+   "lat": 34.363,
+   "lon": -119.45,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-la-jolla-cove",
+   "name": "La Jolla Cove",
+   "lat": 32.851,
+   "lon": -117.272,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-laguna-beach",
+   "name": "Laguna Beach",
+   "lat": 33.534,
+   "lon": -117.779,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-laguna-creek",
+   "name": "Laguna Creek",
+   "lat": 36.982,
+   "lon": -122.158,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-latigo-canyon",
+   "name": "Latigo Canyon",
+   "lat": 34.026,
+   "lon": -118.755,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-leffingwell-landing",
+   "name": "Leffingwell Landing",
+   "lat": 35.58,
+   "lon": -121.121,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-lighthouse-cadis",
+   "name": "Lighthouse/Cadis",
+   "lat": 35.673,
+   "lon": -121.287,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-little-rincon-mussel-shoals",
+   "name": "Little Rincon/Mussel Shoals",
+   "lat": 34.355,
+   "lon": -119.442,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-little-river-state-beach",
+   "name": "Little River State Beach",
+   "lat": 41.008,
+   "lon": -124.12,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-lovers-point",
+   "name": "Lovers Point",
+   "lat": 36.626,
+   "lon": -121.915,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-lower-haggertys",
+   "name": "Lower Haggertys",
+   "lat": 33.804,
+   "lon": -118.397,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-lunada-bay",
+   "name": "Lunada Bay",
+   "lat": 33.771,
+   "lon": -118.427,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mackerricher",
+   "name": "MacKerricher",
+   "lat": 39.473,
+   "lon": -123.805,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mad-river-beach",
+   "name": "Mad River Beach",
+   "lat": 40.955,
+   "lon": -124.131,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-manchester-state-beach-alder-creek",
+   "name": "Manchester State Beach/Alder Creek",
+   "lat": 38.986,
+   "lon": -123.71,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mcgrath-state-beach-mandalay-county-park-oxnard-shores",
+   "name": "McGrath State Beach/Mandalay County Park/Oxnard Shores",
+   "lat": 34.197,
+   "lon": -119.255,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mesa-lane",
+   "name": "Mesa Lane",
+   "lat": 34.396,
+   "lon": -119.731,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mission-beach",
+   "name": "Mission Beach",
+   "lat": 32.776,
+   "lon": -117.255,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mitchells-cove",
+   "name": "Mitchell's Cove",
+   "lat": 36.952,
+   "lon": -122.041,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mole-point",
+   "name": "Mole Point",
+   "lat": 36.609,
+   "lon": -121.96,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-molino-canyon",
+   "name": "Molino Canyon",
+   "lat": 34.469,
+   "lon": -120.168,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-monterey-bay",
+   "name": "Monterey Bay",
+   "lat": 36.607,
+   "lon": -121.891,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-monterey-wall",
+   "name": "Monterey Wall",
+   "lat": 36.602,
+   "lon": -121.889,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-moonlight-beach",
+   "name": "Moonlight Beach",
+   "lat": 33.048,
+   "lon": -117.299,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-morro-beach",
+   "name": "Morro Beach",
+   "lat": 33.557,
+   "lon": -117.82,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-morro-strand",
+   "name": "Morro Strand",
+   "lat": 35.391,
+   "lon": -120.869,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-mystos",
+   "name": "Mystos",
+   "lat": 38.509,
+   "lon": -123.24,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-navarro-rivermouth",
+   "name": "Navarro Rivermouth",
+   "lat": 39.19,
+   "lon": -123.76,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-needle-rock",
+   "name": "Needle Rock",
+   "lat": 39.944,
+   "lon": -123.969,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-new-break",
+   "name": "New Break",
+   "lat": 32.711,
+   "lon": -117.258,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-new-jetty",
+   "name": "New Jetty",
+   "lat": 33.91,
+   "lon": -118.428,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-newport-beach",
+   "name": "Newport Beach",
+   "lat": 33.619,
+   "lon": -117.943,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-newport-lower-jetties",
+   "name": "Newport Lower Jetties",
+   "lat": 33.616,
+   "lon": -117.937,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-newport-upper-jetties",
+   "name": "Newport Upper Jetties",
+   "lat": 33.623,
+   "lon": -117.947,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-no-pass",
+   "name": "No Pass",
+   "lat": 40.02,
+   "lon": -124.049,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-north-hb-streets",
+   "name": "North HB Streets",
+   "lat": 33.667,
+   "lon": -118.019,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-oceano",
+   "name": "Oceano",
+   "lat": 35.105,
+   "lon": -120.634,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-oil-piers",
+   "name": "Oil Piers",
+   "lat": 34.351,
+   "lon": -119.427,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ormond-beach",
+   "name": "Ormond Beach",
+   "lat": 34.136,
+   "lon": -119.186,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-palm-point",
+   "name": "Palm Point",
+   "lat": 33.718,
+   "lon": -118.325,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-boneyards",
+   "name": "Palos Verdes Cove - Boneyards",
+   "lat": 33.791,
+   "lon": -118.41,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-middles-the-channel",
+   "name": "Palos Verdes Cove - Middles/The Channel",
+   "lat": 33.793,
+   "lon": -118.408,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-north-reef-little-queens",
+   "name": "Palos Verdes Cove - North Reef/Little Queens",
+   "lat": 33.794,
+   "lon": -118.409,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-ski-jump",
+   "name": "Palos Verdes Cove - Ski Jump",
+   "lat": 33.797,
+   "lon": -118.411,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-patricks-point",
+   "name": "Patrick's Point",
+   "lat": 41.142,
+   "lon": -124.152,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pb-point",
+   "name": "PB Point",
+   "lat": 32.807,
+   "lon": -117.269,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pedro-point",
+   "name": "Pedro Point",
+   "lat": 37.596,
+   "lon": -122.519,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pelican-state-beach",
+   "name": "Pelican State Beach",
+   "lat": 41.992,
+   "lon": -124.212,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pico-creek",
+   "name": "Pico Creek",
+   "lat": 35.615,
+   "lon": -121.15,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-piedras-blancas",
+   "name": "Piedras Blancas",
+   "lat": 35.668,
+   "lon": -121.285,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pillbox-fletcher-cove-park",
+   "name": "Pillbox/Fletcher Cove Park",
+   "lat": 32.991,
+   "lon": -117.275,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pipes",
+   "name": "Pipes",
+   "lat": 33.025,
+   "lon": -117.289,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pipes-campgrounds",
+   "name": "Pipes/Campgrounds",
+   "lat": 33.024,
+   "lon": -117.288,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-poche-beach",
+   "name": "Poche Beach",
+   "lat": 33.44,
+   "lon": -117.646,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-point-dume",
+   "name": "Point Dume",
+   "lat": 34.008,
+   "lon": -118.793,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-point-dume-2",
+   "name": "Point Dume",
+   "lat": 34.002,
+   "lon": -118.805,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-point-dume-state-beach-westward-beach-drainpipes",
+   "name": "Point Dume State Beach/Westward Beach/Drainpipes",
+   "lat": 34.005,
+   "lon": -118.813,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-point-reyes-beach-north-side",
+   "name": "Point Reyes Beach (North Side)",
+   "lat": 38.078,
+   "lon": -122.979,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-point-reyes-north",
+   "name": "Point Reyes (north)",
+   "lat": 38.049,
+   "lon": -122.989,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-point-st-george",
+   "name": "Point St George",
+   "lat": 41.786,
+   "lon": -124.255,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pomponio-state-beach",
+   "name": "Pomponio State Beach",
+   "lat": 37.298,
+   "lon": -122.408,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-port-hueneme-beach-park",
+   "name": "Port Hueneme Beach Park",
+   "lat": 34.142,
+   "lon": -119.198,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-pv-cove",
+   "name": "PV Cove",
+   "lat": 33.793,
+   "lon": -118.407,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-rat-shit",
+   "name": "Rat Shit",
+   "lat": 33.804,
+   "lon": -118.395,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-refugio-state-beach",
+   "name": "Refugio State Beach",
+   "lat": 34.461,
+   "lon": -120.073,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-rockpile",
+   "name": "Rockpile",
+   "lat": 32.812,
+   "lon": -117.271,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-rockpile-heisler-park",
+   "name": "Rockpile/Heisler Park",
+   "lat": 33.541,
+   "lon": -117.789,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-rose-avenue",
+   "name": "Rose Avenue",
+   "lat": 33.993,
+   "lon": -118.483,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-royal-palms-the-jetty",
+   "name": "Royal Palms \u2013 The Jetty",
+   "lat": 33.718,
+   "lon": -118.323,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-russian-rivermouth",
+   "name": "Russian Rivermouth",
+   "lat": 38.451,
+   "lon": -123.131,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-saint-annes",
+   "name": "Saint Anne's",
+   "lat": 35.171,
+   "lon": -120.704,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-samoa-peninsula",
+   "name": "Samoa Peninsula",
+   "lat": 40.864,
+   "lon": -124.17,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-san-buenaventura-state-beach",
+   "name": "San Buenaventura State Beach",
+   "lat": 34.263,
+   "lon": -119.276,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-san-carpoforo-creek",
+   "name": "San Carpoforo Creek",
+   "lat": 35.766,
+   "lon": -121.326,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-san-clemente-state-park",
+   "name": "San Clemente State Park",
+   "lat": 33.405,
+   "lon": -117.608,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-san-gregorio-state-beach",
+   "name": "San Gregorio State Beach",
+   "lat": 37.324,
+   "lon": -122.407,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-san-simeon",
+   "name": "San Simeon",
+   "lat": 35.613,
+   "lon": -121.148,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-san-simeon-creek",
+   "name": "San Simeon Creek",
+   "lat": 35.595,
+   "lon": -121.128,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-sandspit",
+   "name": "Sandspit",
+   "lat": 34.405,
+   "lon": -119.687,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-ana-river-jetties",
+   "name": "Santa Ana River Jetties",
+   "lat": 33.628,
+   "lon": -117.959,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-clara-rivermouth",
+   "name": "Santa Clara Rivermouth",
+   "lat": 34.229,
+   "lon": -119.266,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-claus-padaro-beach",
+   "name": "Santa Claus (Padaro Beach)",
+   "lat": 34.407,
+   "lon": -119.55,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-cruz-harbor",
+   "name": "Santa Cruz Harbor",
+   "lat": 36.96,
+   "lon": -122.001,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-maria-rivermouth-guadalupe-beach",
+   "name": "Santa Maria Rivermouth/ Guadalupe Beach",
+   "lat": 34.971,
+   "lon": -120.654,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-monica-municipal-pier",
+   "name": "Santa Monica Municipal Pier",
+   "lat": 34.007,
+   "lon": -118.497,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-santa-rosa-creek-moonstone",
+   "name": "Santa Rosa Creek/Moonstone",
+   "lat": 35.569,
+   "lon": -121.112,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-sapphire-street",
+   "name": "Sapphire Street",
+   "lat": 33.831,
+   "lon": -118.392,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-schooner-gulch-moat-creek",
+   "name": "Schooner Gulch-Moat Creek",
+   "lat": 38.88,
+   "lon": -123.676,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-seal-beach-jetty",
+   "name": "Seal Beach Jetty",
+   "lat": 33.74,
+   "lon": -118.114,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-seal-beach-pier",
+   "name": "Seal Beach Pier",
+   "lat": 33.738,
+   "lon": -118.107,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-seaside-creek",
+   "name": "Seaside Creek",
+   "lat": 39.559,
+   "lon": -123.771,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-secrets",
+   "name": "Secrets",
+   "lat": 38.609,
+   "lon": -123.368,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-shark-pit-marin",
+   "name": "Shark Pit - Marin",
+   "lat": 38.244,
+   "lon": -122.982,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-shitpipe",
+   "name": "Shitpipe",
+   "lat": 33.923,
+   "lon": -118.434,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-solimar-reef-and-beach",
+   "name": "Solimar Reef and Beach",
+   "lat": 34.309,
+   "lon": -119.359,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-south-ab",
+   "name": "South Ab",
+   "lat": 32.713,
+   "lon": -117.259,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-south-beach",
+   "name": "South Beach",
+   "lat": 41.743,
+   "lon": -124.176,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-south-bird-rock",
+   "name": "South Bird Rock",
+   "lat": 32.813,
+   "lon": -117.274,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-south-carlsbad-state-beach",
+   "name": "South Carlsbad State Beach",
+   "lat": 33.103,
+   "lon": -117.321,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-south-del-mar",
+   "name": "South Del Mar",
+   "lat": 32.948,
+   "lon": -117.267,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-spanish-bay",
+   "name": "Spanish Bay",
+   "lat": 36.612,
+   "lon": -121.948,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-spanish-bay-cobblestones",
+   "name": "Spanish Bay \u2013 Cobblestones",
+   "lat": 36.61,
+   "lon": -121.949,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-spanish-bay-south-moss",
+   "name": "Spanish Bay \u2013 South Moss",
+   "lat": 36.611,
+   "lon": -121.956,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-spooners-cove",
+   "name": "Spooners Cove",
+   "lat": 35.274,
+   "lon": -120.89,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-stanleys",
+   "name": "Stanley's",
+   "lat": 34.341,
+   "lon": -119.417,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-stone-steps",
+   "name": "Stone Steps",
+   "lat": 33.055,
+   "lon": -117.302,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-strands",
+   "name": "Strands",
+   "lat": 33.466,
+   "lon": -117.717,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-sue-meg",
+   "name": "Sue-meg",
+   "lat": 41.13,
+   "lon": -124.165,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-summer-beach",
+   "name": "Summer Beach",
+   "lat": 34.29,
+   "lon": -119.337,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-sunset-state-beach",
+   "name": "Sunset State Beach",
+   "lat": 36.881,
+   "lon": -121.831,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-surf-beach",
+   "name": "Surf Beach",
+   "lat": 34.683,
+   "lon": -120.61,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-surfside-jetty",
+   "name": "Surfside Jetty",
+   "lat": 33.729,
+   "lon": -118.09,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-tajiguas",
+   "name": "Tajiguas",
+   "lat": 34.463,
+   "lon": -120.099,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-tarpits",
+   "name": "Tarpits",
+   "lat": 34.387,
+   "lon": -119.514,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-tarpits-carpinteria-state-beach",
+   "name": "Tarpits/Carpinteria State Beach",
+   "lat": 34.392,
+   "lon": -119.524,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ten-mile-beach",
+   "name": "Ten Mile Beach",
+   "lat": 39.525,
+   "lon": -123.778,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-thalia-street",
+   "name": "Thalia Street",
+   "lat": 33.536,
+   "lon": -117.78,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-fort",
+   "name": "The Fort",
+   "lat": 38.511,
+   "lon": -123.243,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-lagoons",
+   "name": "The Lagoons",
+   "lat": 41.266,
+   "lon": -124.103,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-patch",
+   "name": "The Patch",
+   "lat": 37.9,
+   "lon": -122.69,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-pit",
+   "name": "The Pit",
+   "lat": 34.401,
+   "lon": -119.745,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch",
+   "name": "The Ranch",
+   "lat": 34.457,
+   "lon": -120.342,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-cojo-point",
+   "name": "The Ranch \u2013 Cojo Point",
+   "lat": 34.45,
+   "lon": -120.418,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-cojo-reef",
+   "name": "The Ranch \u2013 Cojo Reef",
+   "lat": 34.452,
+   "lon": -120.414,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-drakes-point",
+   "name": "The Ranch \u2013 Drake's Point",
+   "lat": 34.467,
+   "lon": -120.3,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-government-point",
+   "name": "The Ranch \u2013 Government Point",
+   "lat": 34.443,
+   "lon": -120.451,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-lefts-and-rights",
+   "name": "The Ranch \u2013 Lefts and Rights",
+   "lat": 34.455,
+   "lon": -120.368,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-little-drakes",
+   "name": "The Ranch \u2013 Little Drake's",
+   "lat": 34.465,
+   "lon": -120.31,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-perkos",
+   "name": "The Ranch \u2013 Perkos",
+   "lat": 34.449,
+   "lon": -120.445,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-ranch-house-point",
+   "name": "The Ranch \u2013 Ranch House Point",
+   "lat": 34.459,
+   "lon": -120.336,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-razor-blades",
+   "name": "The Ranch \u2013 Razor Blades",
+   "lat": 34.467,
+   "lon": -120.276,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-rennys",
+   "name": "The Ranch \u2013 Renny's",
+   "lat": 34.458,
+   "lon": -120.341,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-rights-and-lefts",
+   "name": "The Ranch \u2013 Rights and Lefts",
+   "lat": 34.458,
+   "lon": -120.35,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-san-augustine-point",
+   "name": "The Ranch \u2013 San Augustine Point",
+   "lat": 34.454,
+   "lon": -120.357,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-san-augustine-reef",
+   "name": "The Ranch \u2013 San Augustine Reef",
+   "lat": 34.455,
+   "lon": -120.353,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-upper-drakes",
+   "name": "The Ranch \u2013 Upper Drake's",
+   "lat": 34.466,
+   "lon": -120.304,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-ranch-utah",
+   "name": "The Ranch \u2013 Utah",
+   "lat": 34.457,
+   "lon": -120.346,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-the-rivermouth",
+   "name": "The Rivermouth",
+   "lat": 36.963,
+   "lon": -122.012,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-third-reef",
+   "name": "Third Reef",
+   "lat": 40.021,
+   "lon": -124.053,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-three-mile",
+   "name": "Three Mile",
+   "lat": 36.961,
+   "lon": -122.114,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-tijuana-slough",
+   "name": "Tijuana Slough",
+   "lat": 32.557,
+   "lon": -117.133,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-timber-cove",
+   "name": "Timber Cove",
+   "lat": 38.532,
+   "lon": -123.275,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-toes-over",
+   "name": "Toes Over",
+   "lat": 33.96,
+   "lon": -118.46,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-topaz-street",
+   "name": "Topaz Street",
+   "lat": 33.832,
+   "lon": -118.392,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-tourmaline",
+   "name": "Tourmaline",
+   "lat": 32.805,
+   "lon": -117.264,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-trails",
+   "name": "Trails",
+   "lat": 33.347,
+   "lon": -117.526,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-trails-2",
+   "name": "Trails",
+   "lat": 33.359,
+   "lon": -117.542,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-trancas-point",
+   "name": "Trancas Point",
+   "lat": 34.034,
+   "lon": -118.861,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-trinidad-state-beach",
+   "name": "Trinidad State Beach",
+   "lat": 41.059,
+   "lon": -124.151,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-tunitas-creek",
+   "name": "Tunitas Creek",
+   "lat": 37.357,
+   "lon": -122.407,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-upper-haggertys",
+   "name": "Upper Haggertys",
+   "lat": 33.801,
+   "lon": -118.404,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-usal-beach",
+   "name": "Usal Beach",
+   "lat": 39.831,
+   "lon": -123.852,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ventura-overhead",
+   "name": "Ventura Overhead",
+   "lat": 34.275,
+   "lon": -119.313,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-virgin-creek",
+   "name": "Virgin Creek",
+   "lat": 39.463,
+   "lon": -123.81,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-wages-creek-beach",
+   "name": "Wages Creek Beach",
+   "lat": 39.651,
+   "lon": -123.785,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-ward-avenue",
+   "name": "Ward Avenue",
+   "lat": 39.504,
+   "lon": -123.791,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-westport",
+   "name": "Westport",
+   "lat": 39.635,
+   "lon": -123.786,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-willow-creek",
+   "name": "Willow Creek",
+   "lat": 35.894,
+   "lon": -121.463,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-wilson-creek",
+   "name": "Wilson Creek",
+   "lat": 41.597,
+   "lon": -124.103,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-zero-nicholas-canyon-county-beach",
+   "name": "Zero/Nicholas Canyon County Beach",
+   "lat": 34.042,
+   "lon": -118.917,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-zmudowski-state-beach",
+   "name": "Zmudowski State Beach",
+   "lat": 36.835,
+   "lon": -121.805,
+   "nearest": [],
+   "retrievedOn": "2026-11-10"
   }
  ]
 }

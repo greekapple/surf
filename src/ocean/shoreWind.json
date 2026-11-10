@@ -1,12 +1,12 @@
 {
- "builtAt": "2026-11-10T03:30:39.211Z",
+ "builtAt": "2026-11-10T08:05:50.914Z",
  "maxKm": 4,
  "windowDays": 7,
  "rule": "The nearest fixed NDBC/NOS met station or West Coast airport ASOS (the CA, OR, WA networks; no Hawaii or East Coast airports, because the enclosed-water mask is West Coast only) within 4 km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last 7 days at build time (an entry already in the registry is kept while its station is still listed and within the radius, and for up to 30 days after it last reported). No latitude band. A spot with no such station shows no measured wind.",
- "spotsChecked": 492,
+ "spotsChecked": 728,
  "assignments": [
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "spot-4",
    "spotName": "Montara",
    "stationId": "HAF",
@@ -19,7 +19,7 @@
    "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "spot-5",
    "spotName": "Mavericks",
    "stationId": "HAF",
@@ -32,7 +32,7 @@
    "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-gold-beach",
    "spotName": "Gold Beach",
    "stationId": "4S1",
@@ -45,7 +45,59 @@
    "url": "https://api.weather.gov/stations/K4S1/observations?limit=6"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-point-st-george",
+   "spotName": "Point St George",
+   "stationId": "CEC",
+   "stationName": "Crescent City",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 41.7837,
+   "lon": -124.238,
+   "distanceKm": 1.4,
+   "url": "https://api.weather.gov/stations/KCEC/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-garths-reef",
+   "spotName": "Garth's Reef",
+   "stationId": "CEC",
+   "stationName": "Crescent City",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 41.7837,
+   "lon": -124.238,
+   "distanceKm": 1.5,
+   "url": "https://api.weather.gov/stations/KCEC/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-little-river-state-beach",
+   "spotName": "Little River State Beach",
+   "stationId": "ACV",
+   "stationName": "ARCATA/EUREKA ARPT",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 40.9781,
+   "lon": -124.1086,
+   "distanceKm": 3.5,
+   "url": "https://api.weather.gov/stations/KACV/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-mad-river-beach",
+   "spotName": "Mad River Beach",
+   "stationId": "ACV",
+   "stationName": "ARCATA/EUREKA ARPT",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 40.9781,
+   "lon": -124.1086,
+   "distanceKm": 3.2,
+   "url": "https://api.weather.gov/stations/KACV/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-point-arena",
    "spotName": "Point Arena",
    "stationId": "ANVC1",
@@ -58,7 +110,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=ANVC1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-princeton-jetty",
    "spotName": "Princeton Jetty",
    "stationId": "HAF",
@@ -71,7 +123,33 @@
    "url": "https://api.weather.gov/stations/KHAF/observations?limit=6"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-del-monte-beach",
+   "spotName": "Del Monte Beach",
+   "stationId": "MRY",
+   "stationName": "Monterey Peninsula",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 36.5904,
+   "lon": -121.8488,
+   "distanceKm": 2.5,
+   "url": "https://api.weather.gov/stations/KMRY/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-monterey-wall",
+   "spotName": "Monterey Wall",
+   "stationId": "MRY",
+   "stationName": "Monterey Peninsula",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 36.5904,
+   "lon": -121.8488,
+   "distanceKm": 3.8,
+   "url": "https://api.weather.gov/stations/KMRY/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-duck-pier",
    "spotName": "Duck Pier",
    "stationId": "DUKN7",
@@ -84,7 +162,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=DUKN7"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-southern-duck",
    "spotName": "Southern Duck",
    "stationId": "DUKN7",
@@ -97,7 +175,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=DUKN7"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-campus-point",
    "spotName": "Campus Point",
    "stationId": "SBA",
@@ -110,7 +188,7 @@
    "url": "https://api.weather.gov/stations/KSBA/observations?limit=6"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-blacks",
    "spotName": "Black’s Beach",
    "stationId": "LJAC1",
@@ -123,7 +201,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-scripps",
    "spotName": "Scripps",
    "stationId": "LJAC1",
@@ -136,7 +214,33 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-la-jolla-cove",
+   "spotName": "La Jolla Cove",
+   "stationId": "LJAC1",
+   "stationName": "9410230 - La Jolla, CA",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 32.867,
+   "lon": -117.257,
+   "distanceKm": 2.3,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-horseshoe",
+   "spotName": "Horseshoe",
+   "stationId": "LJAC1",
+   "stationName": "9410230 - La Jolla, CA",
+   "kind": "ndbc",
+   "exposure": "pier",
+   "lat": 32.867,
+   "lon": -117.257,
+   "distanceKm": 3.9,
+   "url": "https://www.ndbc.noaa.gov/station_page.php?station=LJAC1"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "cs-imperial",
    "spotName": "Imperial Beach",
    "stationId": "NRS",
@@ -149,7 +253,20 @@
    "url": "https://api.weather.gov/stations/KNRS/observations?limit=6"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
+   "spotId": "w-usw-tijuana-slough",
+   "spotName": "Tijuana Slough",
+   "stationId": "NRS",
+   "stationName": "IMPERIAL BEACH/REAM",
+   "kind": "asos",
+   "exposure": "airfield",
+   "lat": 32.5631,
+   "lon": -117.11,
+   "distanceKm": 2.3,
+   "url": "https://api.weather.gov/stations/KNRS/observations?limit=6"
+  },
+  {
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-jetty-park",
    "spotName": "Jetty Park",
    "stationId": "TRDF1",
@@ -162,7 +279,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=TRDF1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-spanish-house",
    "spotName": "Spanish House",
    "stationId": "SIPF1",
@@ -175,7 +292,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-chernobyl",
    "spotName": "Chernobyl",
    "stationId": "SIPF1",
@@ -188,7 +305,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-sebastian-inlet",
    "spotName": "Sebastian Inlet",
    "stationId": "SIPF1",
@@ -201,7 +318,7 @@
    "url": "https://www.ndbc.noaa.gov/station_page.php?station=SIPF1"
   },
   {
-   "lastSeen": "2026-11-10T03:30:39.211Z",
+   "lastSeen": "2026-11-10T08:05:50.914Z",
    "spotId": "w-us-monster-hole",
    "spotName": "Monster Hole",
    "stationId": "SIPF1",

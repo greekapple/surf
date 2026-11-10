@@ -5,8 +5,8 @@ import {spotPicks, marineBatchURL, windBatchURL} from '../../../services/how-rig
 import {HOT_MAX} from '../../../services/forecast-service.mjs';
 
 export interface CaptureBudget {spots: number; hot: number; cold: number; buoys: number; coldMarine: number; coldWind: number; buoyMarine: number; captureCalls: number; refreshCalls: number; total: number; headroom: number; requests: number}
-export function captureBudget(hot = 150, spots = 492): CaptureBudget {
-  const picks = spotPicks(), buoys = new Set(picks.filter((p: any) => p.choice.ok).map((p: any) => p.choice.pick.buoy.id)).size, hh = Math.min(hot, HOT_MAX), cold = spots - hh;
+export function captureBudget(hot = 150, spots?: number): CaptureBudget {
+  const picks = spotPicks(); spots ??= picks.length; const buoys = new Set(picks.filter((p: any) => p.choice.ok).map((p: any) => p.choice.pick.buoy.id)).size, hh = Math.min(hot, HOT_MAX), cold = spots - hh;
   const pts = (n: number) => Array.from({length: n}, () => ({lat: 21.6, lon: -158.1})), per = (url: (p: any[]) => string) => callWeight(url(pts(10))) / 10;   // weight of one location in a 10-location request
   const coldMarine = Math.round(cold * per(marineBatchURL)), coldWind = Math.round(cold * per(windBatchURL)), buoyMarine = Math.round(buoys * per(marineBatchURL));
   const captureCalls = coldMarine + coldWind + buoyMarine, refreshCalls = hotBudget(spots, hh).cron;

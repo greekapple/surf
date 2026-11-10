@@ -3,7 +3,7 @@
 NDBC deletes realtime2 files after 45 days. From the first run on, every UTC day of each buoy's `.spec` (NDBC's own swell / wind-sea split: SwH, SwP, SwD, WWH, WWP, WWD) and `.data_spec` (the spectrum and NDBC's Sep_Freq) is kept in R2, so a later audit has the published split for any window. Design and sizes: `docs/specs/DRAFT-spec-archive.md` (branch `spec-archive-draft`); code: `services/ndbc-archive.mjs`; tests: `src/tests/ndbc-archive.test.ts`.
 
 ## What it does
-- **54 buoys** (`ARCHIVE_BUOYS`): the NDBC-hosted union of the split audit, the HI/East audit (minus 46656) and the app's context buoys. A test fails if an NDBC context buoy is missing. 41065's `.data_spec` is a 404 (recorded, not retried); its `.spec` has MM for every swell field (kept, the manifest says "no swell values").
+- **73 buoys** (`ARCHIVE_BUOYS`): the NDBC-hosted union of the split audit, the HI/East audit (minus 46656) and the app's context buoys, plus the 19 California buoys of the west-ca batch (2026-11-10). A test fails if an NDBC context buoy is missing. 41065's `.data_spec` is a 404 (recorded, not retried); its `.spec` has MM for every swell field (kept, the manifest says "no swell values").
 - **Layout** (R2 bucket `swello-forecast-cache`, no lifecycle rule; about 110 MB a year gzip):
   ```
   archive/ndbc/spec/<buoy>/<YYYY>/<YYYY-MM-DD>.spec.gz
@@ -15,7 +15,7 @@ NDBC deletes realtime2 files after 45 days. From the first run on, every UTC day
   Objects are gzip (`Content-Encoding: gzip`, `Content-Type: text/plain`). Rows are NDBC's lines byte for byte with the two header lines; a day is the lines whose `YY MM DD` columns match (UTC). Writes are idempotent (same key, same bytes).
 - **Cron triggers** (`wrangler.jsonc`, `worker/cloudflare.mjs`): `17 6 * * *` is the daily run (the previous 3 complete UTC days, covers 2 missed runs; today is left out as partial). `47 * * * *` (hourly) only continues the one-time 45-day backfill and is a one-read no-op once `_cursor.json` says `done`. The archive has its own invocation and its own 800-subrequest budget; the 5-minute refresh is untouched.
 - **Backfill:** the first run creates the cursor and slices every day NDBC still holds (45 days, the oldest partial). The cursor is a buoy index, so an invocation takes as many whole buoys as fit the budget (about 8: 2 GETs + 90 PUTs each) and resumes at the next tick: 7 invocations, so the backfill is done about 6 hours after the deploy.
-- **Budget (tested with 54 simulated buoys):** backfill invocations use 757 operations (fetches + R2) at most (the room check keeps 94 + 6 in hand per buoy); a daily run uses 437 (108 GETs, 324 PUTs, 5 for cursor, manifest and status).
+- **Budget (tested with 73 simulated buoys):** backfill invocations use 757 operations (fetches + R2) at most (the room check keeps 94 + 6 in hand per buoy), 10 invocations for 73 buoys; a daily run is 589 operations (146 GETs); a daily run uses 437 (108 GETs, 324 PUTs, 5 for cursor, manifest and status).
 - **Politeness:** one GET per second, generic User-Agent, a 404 or empty file is recorded and not retried, a network or HTTP error retries twice.
 - **Header change** (NDBC has changed these before): the slicer matches only the date columns and stores lines raw, so a changed header is archived and the manifest entry gets `headerChanged: true`.
 

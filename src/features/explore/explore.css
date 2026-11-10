@@ -415,7 +415,8 @@ button.xstatus { cursor: pointer; font: inherit; }
   .cmpx-head { display: none; }
   .cx-a { grid-template-columns: 22px minmax(0, 1fr) auto auto; grid-template-areas: 'r n t h' 'r s w w'; column-gap: 10px; row-gap: 2px; min-height: 64px; padding: 8px 12px; }
   .cx-rank { grid-area: r; } .cx-name { grid-area: n; } .cx-rate { grid-area: t; justify-self: end; } .cx-hs { grid-area: h; justify-self: end; } .cx-sw { grid-area: s; } .cx-wd { grid-area: w; justify-self: end; } .cx-best { display: none; }
-  .cx-name { display: flex; align-items: baseline; gap: 6px; min-width: 0; } .cx-name b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .cx-name small { white-space: nowrap; }
+  .cx-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; min-width: 0; } .cx-name b { min-width: 0; overflow-wrap: anywhere; }   /* long catalogue names ("Santa Maria Rivermouth/Guadalupe-Nipomo Dunes") wrap, and the region drops below, instead of a clipped line running past the 16 px gutter */
+  .cx-name small { white-space: nowrap; }
   .cx-sw, .cx-wd { font-size: 13px; }
   .cmpx-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter, 16px)); padding-inline: var(--gutter, 16px); gap: 12px; }
   .cmpx-chips::-webkit-scrollbar { display: none; }

@@ -57,7 +57,7 @@ test('every covered spot has its nearest prediction station within 40 km, and th
     if (!near) { (e.id.startsWith('w-us-') ? eastNone : none).push(e.name); continue; }
     assert.ok(ingested.has(near.station.id), `${e.name}: nearest station ${near.station.id} (${near.distanceKm} km) is not ingested`);
   }
-  assert.deepEqual(none, [], 'spots with no station within 40 km');
+  assert.deepEqual(none, ['Cape Mendocino'], 'spots with no station within 40 km: only Cape Mendocino (the nearest open-coast gauge, Humboldt Bay North Spit, is 40.9 km away, just past the 40 km limit; Shelter Cove is 54 km), it honestly has no tide card');
   // US East: a spot has a tide station only where a reviewed OPEN-coast station is within 40 km (most East stations sit in bays, harbours and the Intracoastal Waterway); the rest honestly have none
   assert.ok(eastNone.length > 0 && eastNone.length < evidenceSpots.filter((e) => e.id.startsWith('w-us-')).length / 2, `East spots without a tide station: ${eastNone.length}`);
   assert.ok(evidenceSpots.length >= 45, 'the check above covers every spot, however many there are');
@@ -79,8 +79,8 @@ test('open-coast rule: the stations the OR/WA and California reviews rejected ar
   const st = [{name: 'Cathcart Landing, Youngs River', lat: 46.15, lon: -123.88}, {name: 'Point Adams, Oreg.', lat: 46.2, lon: -123.98}, {name: 'Hammond, Oregon', lat: 46.2, lon: -123.95}];
   assert.equal(pickTideStation(45.976, -123.947, st)!.station.name, 'Hammond, Oregon'); assert.equal(pickTideStation(45.976, -123.947, [st[0]]), null); assert.equal(pickTideStation(45.976, -123.947, st, 10), null, 'beyond 40 km / the given range');
   // the Phase B review cases, on the real registry: Blackies, Pacific Beach, Sunset Cliffs and Bolinas leave their river/basin/lagoon stations
-  assert.equal(tideStationForSpot(33.598, -117.9)!.station.id, '9410580', 'Blackies: Newport Bay Entrance, not the Santa Ana River (inside)');
-  assert.equal(tideStationForSpot(32.794, -117.256)!.station.id, '9410230', 'Pacific Beach: La Jolla, not Quivira Basin'); assert.equal(tideStationForSpot(32.72, -117.26)!.station.id, '9410230', 'Sunset Cliffs/OB San Diego: La Jolla');
+  assert.equal(tideStationForSpot(33.598, -117.9)!.station.id, '9410583', 'Blackies: Balboa Pier (2.9 km, added by the West Coast import, 7 min from Santa Monica), not the Santa Ana River (inside); Newport Bay Entrance was 4.4 km');
+  assert.equal(tideStationForSpot(32.794, -117.256)!.station.id, '9410230', 'Pacific Beach: La Jolla, not Quivira Basin'); assert.equal(tideStationForSpot(32.72, -117.26)!.station.id, '9410166', 'Sunset Cliffs/OB San Diego: San Diego Quarantine Station (3.2 km, 2 min from La Jolla over 7 days), not Quivira Basin');
   assert.equal(tideStationForSpot(37.908, -122.682)!.station.id, '9414275', 'Bolinas: the outer coast Ocean Beach station, not Bolinas Lagoon');
 });
 test('OR/WA review: reviewed overrides beat the words, one station per spot near San Francisco, and the map point uses the same open-coast pick', async () => {

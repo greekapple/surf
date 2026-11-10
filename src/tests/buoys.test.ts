@@ -12,7 +12,8 @@ const ndbc = (cols: string) => ['#YY  MM DD hh mm WDIR WSPD GST  WVHT   DPD   AP
 
 test('registry: five Pacific context buoys (three Bay Area, two Oahu) plus 24 Atlantic NDBC buoys; 46214 and CDIP 029 are flagged as the same instrument', () => {
   assert.deepEqual(contextBuoys.slice(0, 5).map((b) => b.label), ['NDBC 46012', 'NDBC 46214', 'CDIP 029', 'CDIP 098', 'CDIP 106']);
-  const east = contextBuoys.slice(5); assert.equal(east.length, 24); assert.ok(east.every((b) => b.provider === 'NDBC' && b.lon > -83 && b.lon < -65 && b.lat > 24 && b.lat < 46), 'every extra buoy floats in the Atlantic');
+  const east = contextBuoys.slice(5, 29), west = contextBuoys.slice(29); assert.equal(east.length, 24); assert.ok(east.every((b) => b.provider === 'NDBC' && b.lon > -83 && b.lon < -65 && b.lat > 24 && b.lat < 46), 'every extra buoy floats in the Atlantic');
+  assert.equal(west.length, 25); assert.ok(west.every((b) => b.provider === 'NDBC' && !b.sheltered && b.lon > -125 && b.lon < -117 && b.lat > 32 && b.lat < 41 && b.fetchKey === 'ndbc-' + b.id), 'the US West buoys float off California, none inside a bay'); assert.equal(new Set(contextBuoys.map((b) => b.id)).size, contextBuoys.length);
   assert.match(contextBuoys[1].note!, /Same buoy as CDIP 029/); assert.match(contextBuoys[2].note!, /second feed, not an independent/);
 });
 test('CDIP buoy CSV: comma in the station name is handled, each value keeps its own time, a blank Hs is not filled', () => {
@@ -51,6 +52,13 @@ test('buoysNear: the Hawaii spots get the two Oahu buoys and never the Point Rey
   const {buoysNear} = await import('../ocean/buoys.ts');
   assert.deepEqual(buoysNear(21.665, -158.053).map((b) => b.id).sort(), ['098p1', '106p1']); assert.equal(buoysNear(21.665, -158.053)[0].id, '106p1', 'Pipeline: Waimea Bay buoy is nearest');
   assert.deepEqual(buoysNear(21.28, -157.84).map((b) => b.id)[0], '098p1', 'Waikiki: Mokapu Point is nearest');
-  assert.ok(buoysNear(37.759, -122.51).every((b) => ['46012', '46214', '029p1'].includes(b.id)) && buoysNear(37.759, -122.51).length === 3);
-  assert.equal(buoysNear(45.976, -123.947).length, 3, 'Seaside (860 km) and San Diego (1,000 km) keep the Bay Area context buoys, as before'); assert.equal(buoysNear(32.7, -117.2).length, 3); assert.deepEqual(buoysNear(-33.9, 151.2), [], 'Sydney: none registered'); const {nearSfBuoy} = await import('../ocean/buoys.ts'); assert.equal(nearSfBuoy(37.76, -122.51), true); assert.equal(nearSfBuoy(21.28, -157.84), false, 'Hawaii does not read the San Francisco buoy');
+  assert.deepEqual(buoysNear(37.759, -122.51).map((b) => b.id), ['46237', '46026', '46012', '46214'], 'Ocean Beach: the San Francisco Bar buoy (12 km) and 46026 come first; Point Reyes is one buoy, shown once (the NDBC feed, not also the CDIP 029 second feed)');
+  assert.equal(buoysNear(45.976, -123.947).length, 4, 'Seaside (OR) keeps California context buoys (the 1,500 km rule), the four nearest'); assert.deepEqual(buoysNear(32.7, -117.2).map((b) => b.id), ['46254', '46232', '46266', '46274'], 'San Diego now sees its own buoys, not the Bay Area ones; the La Jolla pier gauge LJPC1 gives way to the Scripps Nearshore buoy 1 km away'); assert.deepEqual(buoysNear(-33.9, 151.2), [], 'Sydney: none registered'); const {nearSfBuoy} = await import('../ocean/buoys.ts'); assert.equal(nearSfBuoy(37.76, -122.51), true); assert.equal(nearSfBuoy(21.28, -157.84), false, 'Hawaii does not read the San Francisco buoy');
+});
+
+test('buoysNear shows one of a twin pair: Point Reyes is one buoy (46214 or CDIP 029, never both), and the La Jolla pier gauge gives way to the Scripps buoy', async () => {
+  const {buoysNear, contextBuoys} = await import('../ocean/buoys.ts');
+  for (const [la, lo] of [[40.44, -124.41], [37.76, -122.51], [45.98, -123.95], [34.03, -118.68], [32.87, -117.26]] as const) { const ids = buoysNear(la, lo).map((b) => b.id); assert.ok(!(ids.includes('46214') && ids.includes('029p1')), `${la},${lo}: ${ids}`); assert.ok(!(ids.includes('LJPC1') && ids.includes('46254')), ids.join()); }
+  assert.ok(!buoysNear(32.87, -117.26).some((b) => b.id === 'LJPC1')); assert.match(contextBuoys.find((b) => b.id === 'LJPC1')!.note!, /no wave direction/);
+  assert.equal(contextBuoys.filter((b) => b.twinOf).length, 2); for (const b of contextBuoys.filter((b) => b.twinOf)) assert.ok(contextBuoys.some((x) => x.id === b.twinOf), b.id);
 });

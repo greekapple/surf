@@ -62,9 +62,13 @@ const eastRegion = (r: any, region: string): string => {
   if (region === 'New Jersey') return r.lat >= 39.6 ? 'Northern New Jersey' : 'Southern New Jersey';
   return region;
 };
+/** US West (round 4): the catalogue's region is "California, <town>" (a census place); the app groups California by county (as the first 86 spots do), so a row's region is the county of its latitude on the coast
+ *  (county lines at the coast, north to south; a navigation grouping only, the spot facts are unchanged). The Big Sur coast (Monterey county south of Point Sur's bay, 36.30 N to the SLO line) keeps the app's "Big Sur" name. */
+const CA_COUNTIES: [number, string][] = [[41.54, 'Del Norte'], [40.0, 'Humboldt'], [38.77, 'Mendocino'], [38.31, 'Sonoma'], [37.83, 'Marin'], [37.708, 'San Francisco'], [37.107, 'San Mateo'], [36.85, 'Santa Cruz'], [36.3, 'Monterey'], [35.79, 'Big Sur'], [34.97, 'San Luis Obispo'], [34.37, 'Santa Barbara'], [34.045, 'Ventura'], [33.745, 'Los Angeles'], [33.388, 'Orange County'], [-90, 'San Diego']];
+const westRegion = (r: any, region: string): string => (r.timeZone === 'America/Los_Angeles' && String(r.region).startsWith('California,') ? CA_COUNTIES.find(([min]) => r.lat >= min)![1] : region);
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
 const {pointInUs} = await import('../../../src/ocean/coverage.ts');
-const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, world ? eastRegion(r, String(r.region).replace(/^[^,]+,\s*/, '')) : r.region, r.type ?? worldType(r), r.lat ?? r.latitude, r.lon ?? r.longitude, r.seaward ?? r.facing, r.timeZone, r.country ? countryCode(r.country) : undefined]).map((r: any[], i: number) => {
+const rows: Row[] = list.map((r) => Array.isArray(r) ? r : [r.id, r.name, world ? westRegion(r, eastRegion(r, String(r.region).replace(/^[^,]+,\s*/, ''))) : r.region, r.type ?? worldType(r), r.lat ?? r.latitude, r.lon ?? r.longitude, r.seaward ?? r.facing, r.timeZone, r.country ? countryCode(r.country) : undefined]).map((r: any[], i: number) => {
   const [id, name, region, type, lat, lon, seaward, timeZone, country] = r;
   if (!/^[a-z0-9-]+$/.test(String(id))) throw new Error(`row ${i}: bad id ${id}`);
   if (!name || !region) throw new Error(`${id}: name and region are required`);
@@ -97,7 +101,11 @@ if (want('rows')) {
   // coastServiceSpots = the evidence rows of coast.ts (UPGRADED_ROWS then COAST_ROWS), marine point 0.08 degrees seaward (coast.ts marinePoint)
   const all = [...arrayOf(t, 'export const UPGRADED_ROWS').rows, ...arrayOf(t, 'export const COAST_ROWS').rows];
   const mp = (lat: number, lon: number, sea: number) => { const th = (sea * Math.PI) / 180, d = 0.08; return {lat: r3(lat + d * Math.cos(th)), lon: r3(lon + (d * Math.sin(th)) / Math.cos((lat * Math.PI) / 180))}; };
-  const lit = '[' + all.map(([id, , , , lat, lon, sea]) => { const m = mp(lat, lon, sea); return `{id:'${id}',lat:${lat},lon:${lon},mlat:${m.lat},mlon:${m.lon}}`; }).join(',') + ']';
+  // a marine point on LAND returns no wave data: every point (default or the explicit one of src/data/marinePoints.ts) is checked against the Natural Earth land polygons, and the import fails on a land point
+  const {MARINE_POINT_OVERRIDES} = await import('../../../src/data/marinePoints.ts'), {pointOnLand} = await import('../../../src/map/landCheck.ts');
+  const landPoints = all.filter(([id, , , , lat, lon, sea]) => { const m = MARINE_POINT_OVERRIDES[id] ?? mp(lat, lon, sea); return pointOnLand(m.lat, m.lon); }).map((r) => r[0]);
+  if (landPoints.length) throw new Error(`marine query point on land for ${landPoints.slice(0, 12).join(', ')}${landPoints.length > 12 ? ` (+${landPoints.length - 12})` : ''}: add an explicit sea point with a reason to src/data/marinePoints.ts`);
+  const lit = '[' + all.map(([id, , , , lat, lon, sea]) => { const m = MARINE_POINT_OVERRIDES[id] ?? mp(lat, lon, sea); return `{id:'${id}',lat:${lat},lon:${lon},mlat:${m.lat},mlon:${m.lon}}`; }).join(',') + ']';
   let s = read(SERVICE); const a = s.indexOf('export const coastServiceSpots='), b = s.indexOf(';', a); s = s.slice(0, a) + 'export const coastServiceSpots=' + lit + s.slice(b);
   write(SERVICE, s);
   console.log(`rows: ${added.length} added, ${rows.length - added.length} already present${changed && !added.length ? ' (some updated)' : ''}`);

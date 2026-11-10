@@ -20,7 +20,7 @@ export interface GuideFacts {
   swellWindow: {text: string; fromDeg: number; toDeg: number; basis: 'exposure' | 'workable'} | null;
   /** T-073: the guide's workable range (the swell that makes surf), kept even when the exposure range is the window. */
   workable?: {text: string; fromDeg: number; toDeg: number} | null;
-  idealSwell: string | null; windOffshore: string | null; tide: string | null; bottom: string | null; waveType: 'beach' | 'point' | 'reef' | 'jetty' | null;
+  idealSwell: string | null; /** surfnerd's "workable wind" text (wind directions the guide says work, with its own offshore note): a guide quote, never rendered as the spot's offshore direction */ surfnerdWorkableWind: string | null; tide: string | null; bottom: string | null; waveType: 'beach' | 'point' | 'reef' | 'jetty' | null;
   sizeFt: {min: number; max: number} | null; exposure: 'exposed' | 'somewhat protected' | 'sheltered' | 'not stated'; hazards: string[]; notes: string;
 }
 export const GENERIC_MIN_PERIOD_S = 8;

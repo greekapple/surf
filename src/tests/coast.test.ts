@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {coastEvidence, COAST_ROWS, UPGRADED_ROWS, nearSanFrancisco} from '../data/coast.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {allSpots} from '../data/catalog.ts';
+import {MARINE_POINT_OVERRIDES} from '../data/marinePoints.ts';
 import {coastServiceSpots, serviceSpots} from '../../services/forecast-service.mjs';
 
 test('service spot list matches the app coast spots exactly (ids and coordinates)', () => {
@@ -20,6 +21,7 @@ test('marine query points lie seaward of the beach point', () => {
   // seaward = the direction the beach faces: the marine point must lie on that side of the beach point (west for the Pacific coast, east for the Atlantic, south for Oahu's south shore)
   const seaward = new Map<string, number>([...COAST_ROWS, ...UPGRADED_ROWS].map((r) => [r[0], r[6]]));
   for (const e of coastEvidence) {
+    if (MARINE_POINT_OVERRIDES[e.id]) continue;   // an explicit sea point (marinePoints.ts) is chosen by hand, with its reason
     const d = seaward.get(e.id)! * Math.PI / 180, dx = (e.marineLongitude - e.longitude) * Math.cos(e.latitude * Math.PI / 180), dy = e.marineLatitude - e.latitude;
     assert.ok(dx * Math.sin(d) + dy * Math.cos(d) > -1e-9, `${e.id} marine point not on the seaward side`);
   }
@@ -36,4 +38,11 @@ test('every spot region belongs to a browsing zone (no spot sits under "Other"),
   assert.deepEqual(lost, [], 'spots whose county is in no zone: ' + lost.join(', '));
   assert.equal(stateOfZone(zoneOf('Clatsop')), 'Oregon'); assert.equal(stateOfZone(zoneOf('Grays Harbor')), 'Washington'); assert.equal(stateOfZone(zoneOf('Curry')), 'Oregon'); assert.equal(stateOfZone(zoneOf('San Diego')), 'California'); assert.equal(stateOfZone(zoneOf('Marin')), 'California');
   assert.deepEqual(ZONES.map(([z]) => z).slice(0, 3), ['Washington Coast', 'Oregon North Coast', 'Oregon South Coast'], 'north to south');
+});
+
+test('no spot asks the marine model for a point on land: every marine point is sea (Natural Earth land polygons), and the explicit ones carry a reason', async () => {
+  const {pointOnLand} = await import('../map/landCheck.ts'), {MARINE_POINT_OVERRIDES} = await import('../data/marinePoints.ts'), {evidenceSpots} = await import('../ocean/spots.ts');
+  assert.equal(pointOnLand(37.85, -122.5), true, 'the Marin Headlands are land'); assert.equal(pointOnLand(37.75, -122.6), false, 'off Ocean Beach is sea'); assert.equal(pointOnLand(45.976, -123.947), true, 'Seaside beach point'); assert.equal(pointOnLand(21.5, -158.0), true, 'Oahu (Wahiawa)'); assert.equal(pointOnLand(21.3, -157.5 - 5), false);
+  const land = evidenceSpots.filter((s) => pointOnLand(s.marineLatitude, s.marineLongitude)).map((s) => s.id); assert.deepEqual(land, [], 'spots whose marine query point is on land');
+  for (const [id, o] of Object.entries(MARINE_POINT_OVERRIDES)) { assert.ok(o.reason.length > 40, id); const s = evidenceSpots.find((x) => x.id === id)!; assert.ok(s, id + ' exists'); assert.equal(s.marineLatitude, o.lat); assert.equal(s.marineLongitude, o.lon); }
 });

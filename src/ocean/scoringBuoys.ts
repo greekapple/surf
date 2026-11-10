@@ -36,13 +36,35 @@ const EXTRA: ScoringBuoy[] = [
   {id: '44065', name: 'New York Harbor Entrance', lat: 40.368, lon: -73.701, sheltered: false},
   {id: '44069', name: 'Great South Bay', lat: 40.699, lon: -73.087, sheltered: true, why: 'inside Great South Bay'},
   {id: '44100', name: 'Duck FRF 26 m', lat: 36.257, lon: -75.593, sheltered: false},
+  // US West round 4 (2026-11-10): the live wave buoys within 50 km of the west-ca spots; each has a realtime2 `.spec` file (checked)
+  {id: '46244', name: 'Humboldt Bay, North Spit, CA', lat: 40.896, lon: -124.358, sheltered: false},
+  {id: '46014', name: 'PT ARENA - 19NM North of Point Arena, CA', lat: 39.225, lon: -123.98, sheltered: false},
+  {id: '46042', name: 'MONTEREY - 27NM WNW of Monterey, CA', lat: 36.787, lon: -122.408, sheltered: false},
+  {id: '46028', name: 'CAPE SAN MARTIN - 55NM West NW of Morro Bay, CA', lat: 35.763, lon: -121.9, sheltered: false},
+  {id: '46215', name: 'Diablo Canyon, CA', lat: 35.204, lon: -120.859, sheltered: false},
+  {id: '46286', name: 'Avila Beach Nearshore, CA', lat: 35.164, lon: -120.737, sheltered: false},
+  {id: '46218', name: 'Harvest, CA', lat: 34.452, lon: -120.78, sheltered: false},
+  {id: '46053', name: 'EAST SANTA BARBARA - 12NM Southwest of Santa Barbara, CA', lat: 34.246, lon: -119.842, sheltered: false},
+  {id: '46268', name: 'Topanga Nearshore, CA', lat: 34.022, lon: -118.578, sheltered: false},
+  {id: '46025', name: 'Santa Monica Basin - 33NM WSW of Santa Monica, CA', lat: 33.765, lon: -119.077, sheltered: false},
+  {id: '46256', name: 'Long Beach Channel, CA', lat: 33.7, lon: -118.201, sheltered: false},
+  {id: '46222', name: 'San Pedro, CA', lat: 33.614, lon: -118.314, sheltered: false},
+  {id: '46253', name: 'San Pedro South, CA', lat: 33.576, lon: -118.182, sheltered: false},
+  {id: '46285', name: 'Capistrano Beach Nearshore, CA', lat: 33.445, lon: -117.68, sheltered: false},
+  {id: '46277', name: 'Green Beach Offshore, CA', lat: 33.336, lon: -117.659, sheltered: false},
+  {id: '46274', name: 'Leucadia Nearshore, CA', lat: 33.062, lon: -117.314, sheltered: false},
+  {id: '46266', name: 'Del Mar Nearshore, CA', lat: 32.957, lon: -117.279, sheltered: false},
+  {id: 'LJPC1', name: 'La Jolla, CA', lat: 32.867, lon: -117.257, sheltered: false},
+  {id: '46232', name: 'Point Loma South, CA', lat: 32.517, lon: -117.425, sheltered: false},
 ];
 /** The CDIP ids of context buoys that are the same instrument as an NDBC buoy in the list: scored through the NDBC feed (it has the swell split). */
 const TWINS = new Set(['029p1', '098p1', '106p1']);
 const fromContext = (b: ContextBuoy): ScoringBuoy => ({id: b.id, name: b.place.replace(/ \(\d+\)$/, ''), lat: b.lat, lon: b.lon, sheltered: !!b.sheltered, ...(b.sheltered ? {why: 'a bay buoy: inside a bay, not the open ocean'} : {})});
 /** Buoys whose realtime2 `.spec` file does not exist (404 on 2026-11-10; the realtime archive records the same): they publish no wave file we can score against, so they are not offered to any spot (the spot's next buoy, or "no buoy"). */
 export const NO_SPEC_FILE = new Set(['41029', '41033', '46235']);
-export const scoringBuoys: ScoringBuoy[] = [...contextBuoys.filter((b) => b.provider === 'NDBC' && !TWINS.has(b.id)).map(fromContext), ...EXTRA.filter((e) => !contextBuoys.some((b) => b.id === e.id))].filter((b) => !NO_SPEC_FILE.has(b.id));
+/** NDBC ids that are not wave BUOYS (the La Jolla pier gauge LJPC1 hangs under Scripps Pier, no direction): never offered as "the buoy" for a spot. */
+export const NOT_A_BUOY = new Set(['LJPC1']);
+export const scoringBuoys: ScoringBuoy[] = [...contextBuoys.filter((b) => b.provider === 'NDBC' && !TWINS.has(b.id)).map(fromContext), ...EXTRA.filter((e) => !contextBuoys.some((b) => b.id === e.id))].filter((b) => !NO_SPEC_FILE.has(b.id) && !NOT_A_BUOY.has(b.id));
 export const scoringBuoy = (id: string) => scoringBuoys.find((b) => b.id === id) ?? null;
 
 export const SCORING_RULE = {maxKm: 100, /** the same limit as the Worker captures a buoy-position forecast for */ buoyListedAt: '2026-11-10'} as const;

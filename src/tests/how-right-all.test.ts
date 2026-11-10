@@ -8,6 +8,7 @@ import {createHowRightAll, spotPicks, HRA_KEYS, HRA_BUDGET, marineBatchURL} from
 import {normalizeOpenMeteo} from '../ocean/openMeteo.ts';
 import {callWeight} from '../../docs/forecast/data/open-meteo-budget.ts';
 
+const N = evidenceSpots.length;   // every catalogued spot is captured: the tests follow the catalogue
 const HOUR = 3600000, DAY = 86400000, T0 = Date.UTC(2026, 10, 10, 0, 20);
 const B = (id: string, lat: number, lon: number, sheltered = false): ScoringBuoy => ({id, name: 'Buoy ' + id, lat, lon, sheltered});
 
@@ -29,17 +30,17 @@ test('arcs wrap through north and the bearing is a compass bearing', () => {
   assert.ok(Math.abs(bearingDeg(0, 0, 1, 0) - 0) < 0.01); assert.ok(Math.abs(bearingDeg(0, 0, 0, 1) - 90) < 0.01); assert.ok(Math.abs(bearingDeg(0, 0, -1, 0) - 180) < 0.01);
 });
 test('the real catalogue: every pick is open-ocean, within 100 km and inside the spot\'s own window; the buoy universe has no CDIP twins; the rest say why', () => {
-  const picks = spotPicks(); assert.equal(picks.length, 492);
+  const picks = spotPicks(); assert.equal(picks.length, N);
   let ok = 0; const reasons = new Set<string>();
   for (const p of picks) {
     if (p.choice.ok) { ok++; const b = scoringBuoy(p.choice.pick.buoy.id)!; assert.ok(!b.sheltered); assert.ok(p.choice.pick.km <= 100); const w = windowOf(p.id)!; assert.ok(inArc(p.choice.pick.bearing, w.fromDeg, w.toDeg) || Math.abs(p.choice.pick.bearing - bearingDeg(p.lat, p.lon, b.lat, b.lon)) < 1); }
     else { assert.ok(p.choice.reason.length > 20); reasons.add(p.choice.reason.replace(/[\d.]+/g, '#').slice(0, 30)); }
   }
-  assert.ok(ok > 120 && ok < 300, `${ok} spots have a buoy`);
+  assert.ok(ok > 120 && ok < N, `${ok} spots have a buoy`);
   for (const id of ['029p1', '098p1', '106p1']) assert.equal(scoringBuoy(id), null);
   assert.ok(scoringBuoys.length >= 50 && new Set(scoringBuoys.map((b) => b.id)).size === scoringBuoys.length);
   for (const id of ['51207', '51210', '44022', '44064']) assert.equal(scoringBuoy(id)!.sheltered, true);
-  if (process.env.SHOW) console.log(`${ok} of 492 spots have an eligible buoy`);
+  if (process.env.SHOW) console.log(`${ok} of ${N} spots have an eligible buoy`);
 });
 
 /* ---------- what the buoy says ---------- */
@@ -177,23 +178,23 @@ const makeJob = (clock: {t: number}, r2: ReturnType<typeof fakeR2>, log: string[
 test('capture: the hot spots come from the cached copy (no fetch), the cold ones from batched Open-Meteo requests; one tick stays under the budget; the day object holds all 492 spots and every buoy', async () => {
   const clock = {t: T0}, r2 = fakeR2(), log: string[] = [], job = makeJob(clock, r2, log);
   const rep = await job.capture({BUCKET: r2.bucket}) as any;
-  assert.equal(rep.ok, true); assert.equal(rep.complete, true, JSON.stringify(rep)); assert.equal(rep.spots, 492); assert.equal(rep.cached, 150); assert.equal(rep.fetched, 342);
+  assert.equal(rep.ok, true); assert.equal(rep.complete, true, JSON.stringify(rep)); assert.equal(rep.spots, N); assert.equal(rep.cached, 150); assert.equal(rep.fetched, N - 150);
   assert.ok(rep.used <= HRA_BUDGET, `${rep.used} subrequests`);
-  const om = log.filter((u) => /open-meteo/.test(u)); const cold = 342, buoys = new Set(picks.filter((p) => p.choice.ok).map((p) => (p.choice as any).pick.buoy.id)).size;
+  const om = log.filter((u) => /open-meteo/.test(u)); const cold = N - 150, buoys = new Set(picks.filter((p) => p.choice.ok).map((p) => (p.choice as any).pick.buoy.id)).size;
   assert.equal(om.length, 2 * Math.ceil(cold / 10) + Math.ceil(buoys / 10), 'marine + wind per 10 cold spots, marine per 10 buoys'); assert.ok(om.every((u) => /forecast_days=3/.test(u)));
-  const day = JSON.parse(r2.store.get(HRA_KEYS.shown('2026-11-10'))!); assert.equal(Object.keys(day.spots).length, 492); assert.equal(Object.keys(day.buoys).length, buoys);
+  const day = JSON.parse(r2.store.get(HRA_KEYS.shown('2026-11-10'))!); assert.equal(Object.keys(day.spots).length, N); assert.equal(Object.keys(day.buoys).length, buoys);
   const sources = Object.values(day.spots).map((s: any) => s.source); assert.equal(sources.filter((s) => s === 'cache').length, 150);
   for (const s of Object.values(day.spots) as any[]) { assert.equal(s.rating.length, 48); assert.ok(s.rating.every((x: number | null) => x !== null)); }
-  const st = JSON.parse(r2.store.get(HRA_KEYS.status)!); assert.equal(st.captureComplete, true); assert.equal(st.captureSpots, 492);
+  const st = JSON.parse(r2.store.get(HRA_KEYS.status)!); assert.equal(st.captureComplete, true); assert.equal(st.captureSpots, N);
   if (process.env.SHOW) console.log(`capture: ${rep.used} subrequests (${om.length} Open-Meteo requests, ${log.length} fetches), object ${(r2.store.get(HRA_KEYS.shown('2026-11-10'))!.length / 1024 / 1024).toFixed(1)} MB`);
 });
 test('capture is resumable and idempotent: a tick that runs out of budget stops at a chunk, the next tick fills only what is missing, and a finished day changes nothing', async () => {
   const clock = {t: T0}, r2 = fakeR2(), log: string[] = [];
   const small = makeJob(clock, r2, log, {budget: 330}), r1 = await small.capture({BUCKET: r2.bucket}) as any;
-  assert.equal(r1.complete, false); assert.ok(r1.spots > 0 && r1.spots < 492); assert.ok(r1.used <= 330); assert.equal(r1.stopped, 'budget');
+  assert.equal(r1.complete, false); assert.ok(r1.spots > 0 && r1.spots < N); assert.ok(r1.used <= 330); assert.equal(r1.stopped, 'budget');
   const before = Object.keys(JSON.parse(r2.store.get(HRA_KEYS.shown('2026-11-10'))!).spots).length;
   let last = r1, n = 1; while (!last.complete && n < 8) { last = await small.capture({BUCKET: r2.bucket}); n++; }
-  assert.equal(last.complete, true); assert.ok(n >= 2 && n <= 6, `${n} ticks`); assert.equal(Object.keys(JSON.parse(r2.store.get(HRA_KEYS.shown('2026-11-10'))!).spots).length, 492); assert.ok(before < 492);
+  assert.equal(last.complete, true); assert.ok(n >= 2 && n <= 6, `${n} ticks`); assert.equal(Object.keys(JSON.parse(r2.store.get(HRA_KEYS.shown('2026-11-10'))!).spots).length, N); assert.ok(before < 492);
   const snapshot = r2.store.get(HRA_KEYS.shown('2026-11-10')); log.length = 0; const again = await small.capture({BUCKET: r2.bucket}) as any;
   assert.equal(again.complete, true); assert.equal(log.length, 0, 'nothing left to fetch'); assert.equal(r2.store.get(HRA_KEYS.shown('2026-11-10')), snapshot);
 });
@@ -212,7 +213,7 @@ test('over 5 daily captures the card goes from collecting to numbers: offshore f
   }
   card = cards.at(-1);
   const all = Object.values(card.spots) as any[], ok = all.filter((s) => s.status === 'ok'), col = all.filter((s) => s.status === 'collecting'), nb = all.filter((s) => s.status === 'no-buoy');
-  assert.equal(all.length, 492); assert.ok(ok.length > 100, `${ok.length} scored`); assert.equal(ok.length + col.length + nb.length, 492);
+  assert.equal(all.length, N); assert.ok(ok.length > 100, `${ok.length} scored`); assert.equal(ok.length + col.length + nb.length, N);
   assert.ok(nb.every((s) => s.reason.length > 10 && s.nearest !== undefined));
   const s = ok[0]; assert.ok(s.d7.hs.n > 24); assert.ok(Math.abs(s.d7.hs.bias + 0.3) < 0.02, `bias ${s.d7.hs.bias}`); assert.ok(Math.abs(s.d7.hs.typical - 0.3) < 0.02);
   assert.ok(Math.abs(s.d7.swell.height.bias + 0.2) < 0.02, 'buoy SwH 1.4 vs forecast 1.2'); assert.ok(Math.abs(s.d7.swell.periodS.typical - 2) < 0.01); assert.ok(s.d7.swell.directionDeg.typical > 0);
@@ -234,7 +235,7 @@ test('service: /api/how-right-all is pending until the daily job has scored; a p
   const pending = await (await svc(new Request('https://x/api/how-right-all'), env)).json(); assert.equal(pending.pending, true); assert.equal(log.length, 0);
   let rep: any, n = 0; do { rep = await svc.howRightAll(env); n++; } while (rep.step !== 'idle' && n < 12);
   assert.equal(rep.step, 'idle'); assert.ok(r2.store.has(HRA_KEYS.card));
-  const card = await (await svc(new Request('https://x/api/how-right-all'), env)).json(); assert.equal(card.schema, 2); assert.equal(Object.keys(card.spots).length, 492);
+  const card = await (await svc(new Request('https://x/api/how-right-all'), env)).json(); assert.equal(card.schema, 2); assert.equal(Object.keys(card.spots).length, N);
   const noBucket = await (await svc(new Request('https://x/api/how-right-all'), {})).json(); assert.equal(noBucket.pending, true);
 });
 test('the worker: its own cron expression, hourly 00:20-06:20 UTC, in wrangler.jsonc; it never takes a refresh tick', async () => {
@@ -244,7 +245,7 @@ test('the worker: its own cron expression, hourly 00:20-06:20 UTC, in wrangler.j
 test('Open-Meteo budget: the capture (cold spots + buoy points) plus the hot refresh stays under the 10,000 free calls a day at every hot-set size up to the cap', async () => {
   const {captureBudget} = await import('../../docs/forecast/data/how-right-all-budget.ts');
   for (const h of [0, 100, 150, 180, 500]) { const b = captureBudget(h); assert.ok(b.total < 9000, `hot ${h}: ${b.total}`); assert.equal(b.refreshCalls + b.captureCalls, b.total); }
-  const b = captureBudget(150); assert.equal(b.cold, 342); assert.equal(b.coldMarine, 342); assert.equal(b.coldWind, 342); assert.equal(b.requests, 74, 'the same 74 Open-Meteo requests the capture test counts');
+  const b = captureBudget(150); assert.equal(b.cold, N - 150); assert.equal(b.coldMarine, N - 150); assert.equal(b.coldWind, N - 150); assert.equal(b.requests, 2 * Math.ceil((N - 150) / 10) + Math.ceil(b.buoys / 10), 'the same Open-Meteo requests the capture test counts');
   assert.equal(callWeight(marineBatchURL(Array.from({length: 10}, () => ({lat: 1, lon: 1})))), 10, 'weighted: a 10-location request counts 10, batching saves requests not quota');
   if (process.env.SHOW) console.log(JSON.stringify(captureBudget(150)));
 });
@@ -294,7 +295,7 @@ test('batch isolation: when a batch fails its members are retried singly; a poin
   const clock = {t: T0}, r2 = fakeR2(), log: string[] = [], poisonSpot = picks.find((p) => !HOT.has(p.id))!, ev = evidenceSpot(poisonSpot.id);
   const job = makeJob(clock, r2, log, {}, {poison: {lat: ev.marineLatitude, lon: ev.marineLongitude}});
   const r1 = await job.capture({BUCKET: r2.bucket}) as any;
-  assert.equal(r1.complete, false); assert.equal(r1.spots, 491, 'only the poisoned spot is missing: its batch-mates were retried one by one'); assert.ok(log.some((u) => /open-meteo/.test(u) && !new URL(u).searchParams.get('latitude')!.includes(',')), 'single-location retries happened');
+  assert.equal(r1.complete, false); assert.equal(r1.spots, N - 1, 'only the poisoned spot is missing: its batch-mates were retried one by one'); assert.ok(log.some((u) => /open-meteo/.test(u) && !new URL(u).searchParams.get('latitude')!.includes(',')), 'single-location retries happened');
   assert.deepEqual(JSON.parse(r2.store.get(HRA_KEYS.status)!).fails, {[poisonSpot.id]: 1});
   await job.capture({BUCKET: r2.bucket}); const r3 = await job.capture({BUCKET: r2.bucket}) as any;
   assert.equal(r3.complete, true, 'set aside after 3 ticks'); assert.deepEqual(r3.excluded, [poisonSpot.id]);
@@ -337,5 +338,5 @@ test('buoys with no realtime `.spec` file are not offered to any spot; a score r
   const clock = {t: T0}, r2 = fakeR2(), job = makeJob(clock, r2, []); let rep: any, n = 0;
   do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12);
   const again = await job.score({BUCKET: r2.bucket}) as any; for (let i = 0; i < 5 && again.step === 'score-stage'; i++) Object.assign(again, await job.score({BUCKET: r2.bucket}));
-  assert.equal(again.ok, true); assert.equal(again.spots, 492);
+  assert.equal(again.ok, true); assert.equal(again.spots, N);
 }, {timeout: 120000});

@@ -31,9 +31,14 @@ const exposureOf = (t: string): string => {
 /** Guide sizes are often converted from metres (12.1 ft = 3.7 m): round to the nearest half foot so a conversion artefact is not shown as precision. */
 const half = (n: number) => Math.round(n * 2) / 2;
 const LONG: Record<string, string> = {NORTH: 'N', NORTHEAST: 'NE', EAST: 'E', SOUTHEAST: 'SE', SOUTH: 'S', SOUTHWEST: 'SW', WEST: 'W', NORTHWEST: 'NW'};
-/** Compass tokens in a free-text facing statement ("SW (text); characteristics list S" has two). One distinct token = a stated facing; several = the sources disagree, so no facing is recorded. */
+/** The sixteen-point names that are written as two hyphenated words ("South-southwest"): read whole, never as the two words S and SW. */
+const HYPHEN16: Record<string, string> = {'NORTH-NORTHEAST': 'NNE', 'EAST-NORTHEAST': 'ENE', 'EAST-SOUTHEAST': 'ESE', 'SOUTH-SOUTHEAST': 'SSE', 'SOUTH-SOUTHWEST': 'SSW', 'WEST-SOUTHWEST': 'WSW', 'WEST-NORTHWEST': 'WNW', 'NORTH-NORTHWEST': 'NNW'};
+/** Compass tokens in a free-text facing statement. The guide's own "Faces X" token is read first (the surfnerd facing: 'South-southwest (surfnerd: "Faces SSW")' is ONE statement, SSW); otherwise whole hyphenated words are read as one point,
+ *  then single words and letters. ("SW (text); characteristics list S" still has two tokens.) One distinct token = a stated facing; several = the sources disagree, so no facing is recorded. */
 const facingOf = (t: string | null | undefined): {text: string; deg: number} | {conflict: string[]} | null => {
-  const toks = [...new Set((String(t ?? '').toUpperCase().match(/\b(?:NORTH|SOUTH|EAST|WEST)(?:EAST|WEST)?\b|\b[NESW]{1,3}\b/g) ?? []).map((x) => LONG[x] ?? x).filter((x) => x in WORD))];
+  const raw = String(t ?? ''), norm = (x: string) => LONG[x] ?? x;
+  const faces = [...new Set([...raw.toUpperCase().matchAll(/\bFACES\s+([NESW]{1,3})\b/g)].map((m) => m[1]).filter((x) => x in WORD))];
+  const toks = faces.length ? faces : [...new Set((raw.toUpperCase().replace(/\b(?:NORTH|SOUTH|EAST|WEST)-(?:NORTH|SOUTH|EAST|WEST)(?:EAST|WEST)\b/g, (m) => HYPHEN16[m] ?? m).match(/\b(?:NORTH|SOUTH|EAST|WEST)(?:EAST|WEST)?\b|\b[NESW]{1,3}\b/g) ?? []).map(norm).filter((x) => x in WORD))];
   return toks.length === 1 ? {text: toks[0], deg: WORD[toks[0]]} : toks.length > 1 ? {conflict: toks} : null;
 };
 /** T-073 facing derived from coastline geometry: the CDIP MOP shore normals (agency data, each point's own metadata) of the nearest valid points within 1.5 km, at most 5, at least 3.
@@ -62,7 +67,7 @@ for (const r of input) {
   const facing = stated && 'deg' in stated ? {...stated, basis: 'guide'} : derived;
   const sources = [...(r.sources ?? []).map((s: any) => ({url: s.url, site: s.site, title: s.title ?? `${SITE[s.site] ?? s.site} spot guide: ${r.name}`, retrievedOn: s.retrievedOn})), ...(derived ? derived.sources : [])];
   out.push({spotId: r.spotId, sources,
-    facing, swellWindow: win, workable: w ? {text: r.swellWorkable.text, fromDeg: w[0], toDeg: w[1]} : null, idealSwell: r.idealSwell ?? null, windOffshore: r.windOffshore ?? null, tide: r.tide ?? null, bottom: r.bottom ?? null, waveType: type,
+    facing, swellWindow: win, workable: w ? {text: r.swellWorkable.text, fromDeg: w[0], toDeg: w[1]} : null, idealSwell: r.idealSwell ?? null, surfnerdWorkableWind: r.windOffshore ?? null, tide: r.tide ?? null, bottom: r.bottom ?? null, waveType: type,
     sizeFt: r.sizeFt && Number.isFinite(r.sizeFt.min) && Number.isFinite(r.sizeFt.max) ? {min: half(r.sizeFt.min), max: half(r.sizeFt.max)} : null, exposure: exposureOf(r.exposure), hazards: Array.isArray(r.hazards) ? r.hazards.map(String) : [],
     notes: [String(r.notes ?? ''), stated && 'conflict' in stated ? `Sources give different facings (${stated.conflict.join(', ')}); ${derived ? `the facing is derived from coastline geometry instead (${derived.deg}°)` : 'none is recorded'}.` : ''].filter(Boolean).join(' ').slice(0, 800)});
 }
