@@ -12281,7 +12281,12 @@
   {
    "name": "Vetch's Reef",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/vetchs-reef"
+   "url": "https://www.surfnerd.com/surf-forecast/vetchs-reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.16; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Addington (South Beach)",
@@ -13233,5 +13238,6 @@
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Zinkwazi, pin -29.23,31.49); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
    "surfForecastRegion": "KwaZulu-Natal-North-Coast"
   }
- ]
+ ],
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

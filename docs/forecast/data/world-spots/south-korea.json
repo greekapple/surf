@@ -1289,93 +1289,1073 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPC&network=KR__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-south-korea-busan-haeundae-beach",
+   "name": "Busan (Haeundae Beach)",
+   "country": "South Korea",
+   "region": "South Korea",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 35.159,
+   "lon": 129.162,
+   "seaward": 166.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (35.1587, 129.1619) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Busan-Haeundae"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 46 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.9 deg (limit 45); 300 m window gives 167.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1620.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1620.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.158293,
+     129.162019
+    ],
+    "distanceToCoastM": 46.3,
+    "meanDevDeg": 6.9,
+    "seaward300": 167.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 9 deg from facing+180 (347); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 32 deg from the facing (167); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Busan (Haeundae Beach)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Busan-Haeundae",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of Rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Busan (Haeundae Beach) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Busan (Haeundae Beach) in South Korea is a fairly exposed beach break that has unreliable waves. The optimum conditions for surfing are during the cyclone season. The best wind direction is from the north northwest. The ideal swell angle is from the southeast. Rarely crowded here. Beware of Rips. Busan (Haeundae Beach)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-busan-haeundae-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22104",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 49.4,
+     "live": true,
+     "liveNote": "WVHT 1.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 34.77,
+     "lon": 128.9,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22104"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 13.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPK",
+     "name": "Busan",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 20.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.179,
+     "lon": 128.938,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPK&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Busan (Haeundae Beach)",
+    "url": "https://www.surf-forecast.com/breaks/Busan-Haeundae",
+    "dropReason": "surf-forecast page only (pin 35.16,129.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-woljeung",
+    "distanceKm": 280.81
+   }
+  },
+  {
+   "id": "w-south-korea-songdojin-ni",
+   "name": "Songdojin ni",
+   "country": "South Korea",
+   "region": "South Korea",
+   "timeZone": "Asia/Seoul",
+   "type": null,
+   "lat": 38.599,
+   "lon": 128.37,
+   "seaward": 70.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (38.599, 128.37) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Songdojin-ni"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3508/1570.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 178 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.6 deg (limit 45); 300 m window gives 62.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3508/1570.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3508/1571.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3509/1570.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3509/1571.pbf"
+    ],
+    "nearestCoastPoint": [
+     38.598392,
+     128.368105
+    ],
+    "distanceToCoastM": 178.0,
+    "meanDevDeg": 26.6,
+    "seaward300": 62.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southwest: nearest listed direction is 26 deg from facing+180 (251); consistent (<=60)",
+     "surf-forecast best swell East-northeast: nearest listed direction is 3 deg from the facing (71); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Songdojin ni",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Songdojin-ni",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East-northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest (surf-forecast)",
+    "waveTypeText": "Breakwater (surf-forecast)",
+    "exposure": "exposed breakwater break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Beware of - Rips / undertow. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Songdojin ni with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Songdojin ni in South Korea is an exposed breakwater break that has quite reliable surf. Offshore winds are from the southwest. The ideal swell angle is from the east northeast. The location means that it never gets crowded. Beware of - Rips / undertow. Songdojin ni"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-songdojin-ni"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22105",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 185.7,
+     "live": true,
+     "liveNote": "WVHT 1.0 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 37.53,
+     "lon": 130.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22105"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 394.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKNO",
+     "name": "Keo Jin",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 38.467,
+     "lon": 128.467,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKNO&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Songdojin ni",
+    "url": "https://www.surf-forecast.com/breaks/Songdojin-ni",
+    "dropReason": "surf-forecast page only (pin 38.6,128.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-busan-haeundae-beach",
+    "distanceKm": 388.94
+   }
+  },
+  {
+   "id": "w-south-korea-namyeol",
+   "name": "NamYeol",
+   "country": "South Korea",
+   "region": "NamYeol",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 34.58,
+   "lon": 127.489,
+   "seaward": 120.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (34.57965, 127.4888, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/NamYeol/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3498/1627.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 143 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.6 deg (limit 45); 300 m window gives 120.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3498/1627.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3498/1628.pbf"
+    ],
+    "nearestCoastPoint": [
+     34.580276,
+     127.487433
+    ],
+    "distanceToCoastM": 143.1,
+    "meanDevDeg": 34.6,
+    "seaward300": 120.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest: nearest listed direction is 15 deg from facing+180 (300); consistent (<=60)",
+     "wannasurf good swell South: nearest listed direction is 60 deg from the facing (120); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "NamYeol",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/NamYeol/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell South (wannasurf)",
+    "windOffshore": "good wind NorthWest (wannasurf)",
+    "tide": "Low tide only, Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-namyeol"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22103",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 64.5,
+     "live": true,
+     "liveNote": "WVHT 1.0 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 34.0,
+     "lon": 127.5,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22103"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 152.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKJY",
+     "name": "Yeosu",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 31.5,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 34.842,
+     "lon": 127.617,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKJY&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "NamYeol",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/NamYeol/index.html",
+    "dropReason": "wannasurf page only (pin 34.5797,127.4888, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-woljeung",
+    "distanceKm": 130.44
+   }
+  },
+  {
+   "id": "w-south-korea-surfyybeach-front",
+   "name": "SurfyyBeach front",
+   "country": "South Korea",
+   "region": "SurfyyBeach front",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 38.029,
+   "lon": 128.719,
+   "seaward": 42.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (38.02871666666667, 128.71868333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/SurfyyBeach_front/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3512/1579.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 42 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 9.6 deg (limit 45); 300 m window gives 41.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3512/1579.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3512/1580.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3513/1579.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3513/1580.pbf"
+    ],
+    "nearestCoastPoint": [
+     38.028489,
+     128.718298
+    ],
+    "distanceToCoastM": 42.1,
+    "meanDevDeg": 9.6,
+    "seaward300": 41.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West, SouthWest: nearest listed direction is 2 deg from facing+180 (223); consistent (<=60)",
+     "wannasurf good swell North, SouthEast, East, NorthEast: nearest listed direction is 2 deg from the facing (43); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "SurfyyBeach front",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/SurfyyBeach_front/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind West, SouthWest (wannasurf)",
+    "tide": "All tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-surfyybeach-front"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22105",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 125.5,
+     "live": true,
+     "liveNote": "WVHT 1.0 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 37.53,
+     "lon": 130.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22105"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 327.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKNY",
+     "name": "Sokcho / Gangneung",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 5.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 38.061,
+     "lon": 128.669,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKNY&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "SurfyyBeach front",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/SurfyyBeach_front/index.html",
+    "dropReason": "wannasurf page only (pin 38.0287,128.7187, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-songdojin-ni",
+    "distanceKm": 70.32
+   }
+  },
+  {
+   "id": "w-south-korea-busan",
+   "name": "Busan",
+   "country": "South Korea",
+   "region": "busan",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 35.158,
+   "lon": 129.161,
+   "seaward": 163.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (35.15815, 129.16065, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/busan/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 16 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.1 deg (limit 45); 300 m window gives 164.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1620.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1620.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.158014,
+     129.160699
+    ],
+    "distanceToCoastM": 15.7,
+    "meanDevDeg": 7.1,
+    "seaward300": 164.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West, SouthWest: nearest listed direction is 29 deg from facing+180 (344); consistent (<=60)",
+     "wannasurf good swell NorthWest, SouthWest, South: nearest listed direction is 16 deg from the facing (164); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Busan",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/busan/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell NorthWest, SouthWest, South (wannasurf)",
+    "windOffshore": "good wind NorthWest, West, SouthWest (wannasurf)",
+    "tide": "Low and mid tide, Rising tide (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks - Man-made danger (buoys etc..) - Shark protected (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fast, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-busan"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22104",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 49.3,
+     "live": true,
+     "liveNote": "WVHT 1.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 34.77,
+     "lon": 128.9,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22104"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 13.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPK",
+     "name": "Busan",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 20.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.179,
+     "lon": 128.938,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPK&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Busan",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/busan/index.html",
+    "dropReason": "wannasurf page only (pin 35.1581,129.1607, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-busan-haeundae-beach",
+    "distanceKm": 0.14
+   }
+  },
+  {
+   "id": "w-south-korea-hae-un-dae",
+   "name": "Hae un dae",
+   "country": "South Korea",
+   "region": "hae un dae",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 35.157,
+   "lon": 129.161,
+   "seaward": 162.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (35.15683333333333, 129.16051666666667, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/hae_un_dae/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 120 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.4 deg (limit 45); 300 m window gives 162.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1620.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1620.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.157877,
+     129.16014
+    ],
+    "distanceToCoastM": 120.4,
+    "meanDevDeg": 8.4,
+    "seaward300": 162.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North: nearest listed direction is 18 deg from facing+180 (342); consistent (<=60)",
+     "wannasurf good swell SouthEast: nearest listed direction is 27 deg from the facing (162); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Hae un dae",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/hae_un_dae/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast (wannasurf)",
+    "windOffshore": "good wind North (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-hae-un-dae"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22104",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 49.1,
+     "live": true,
+     "liveNote": "WVHT 1.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 34.77,
+     "lon": 128.9,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22104"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 13.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPK",
+     "name": "Busan",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 20.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.179,
+     "lon": 128.938,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPK&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Hae un dae",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/hae_un_dae/index.html",
+    "dropReason": "wannasurf page only (pin 35.1568,129.1605, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-busan",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-south-korea-song-jung-beach",
+   "name": "Song jung beach",
+   "country": "South Korea",
+   "region": "song jung beach",
+   "timeZone": "Asia/Seoul",
+   "type": "Beach",
+   "lat": 35.178,
+   "lon": 129.2,
+   "seaward": 127.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (35.1778, 129.1999, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/song_jung_beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 58 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.9 deg (limit 45); 300 m window gives 127.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3517/1620.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1619.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3518/1620.pbf"
+    ],
+    "nearestCoastPoint": [
+     35.178105,
+     129.199384
+    ],
+    "distanceToCoastM": 57.8,
+    "meanDevDeg": 34.9,
+    "seaward300": 127.9
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Song jung beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/song_jung_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "Beginners wave (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-song-jung-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22104",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 52.9,
+     "live": true,
+     "liveNote": "WVHT 1.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 34.77,
+     "lon": 128.9,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22104"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 17.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKPK",
+     "name": "Busan",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 23.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 35.179,
+     "lon": 128.938,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKPK&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Song jung beach",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/song_jung_beach/index.html",
+    "dropReason": "wannasurf page only (pin 35.1778,129.1999, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-busan-haeundae-beach",
+    "distanceKm": 4.05
+   }
+  },
+  {
+   "id": "w-south-korea-squids",
+   "name": "Squids",
+   "country": "South Korea",
+   "region": "squids",
+   "timeZone": "Asia/Seoul",
+   "type": null,
+   "lat": 38.599,
+   "lon": 128.37,
+   "seaward": 63.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (38.5993, 128.36975, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/squids/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3508/1570.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 170 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.6 deg (limit 45); 300 m window gives 64.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3508/1570.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3508/1571.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3509/1570.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3509/1571.pbf"
+    ],
+    "nearestCoastPoint": [
+     38.598694,
+     128.367949
+    ],
+    "distanceToCoastM": 170.4,
+    "meanDevDeg": 34.6,
+    "seaward300": 64.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West: nearest listed direction is 26 deg from facing+180 (244); consistent (<=60)",
+     "wannasurf good swell East, NorthEast: nearest listed direction is 19 deg from the facing (64); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Squids",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/South_Korea/squids/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell East, NorthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest, West (wannasurf)",
+    "tide": "Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Breakwater/jetty (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 4m+ / 12ft (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-south-korea-squids"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22105",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 185.8,
+     "live": true,
+     "liveNote": "WVHT 1.0 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 37.53,
+     "lon": 130.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22105"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC busa",
+     "name": "Busan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Korea, Southern [Han Kook])",
+     "distanceKm": 394.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:39:00.000 UTC in the IOC station list",
+     "lat": 35.093,
+     "lon": 129.037,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=busa"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RKNO",
+     "name": "Keo Jin",
+     "owner": "IEM KR__ASOS network (airport METAR)",
+     "distanceKm": 17.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 38.467,
+     "lon": 128.467,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RKNO&network=KR__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Squids",
+    "url": "https://www.wannasurf.com/spot/Asia/South_Korea/squids/index.html",
+    "dropReason": "wannasurf page only (pin 38.5993,128.3698, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-south-korea-songdojin-ni",
+    "distanceKm": 0.0
+   }
   }
  ],
  "dropped": [
   {
-   "name": "Busan (Haeundae Beach)",
-   "reason": "surf-forecast page only (pin 35.16,129.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Busan-Haeundae"
-  },
-  {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Gyongpo Beach",
    "reason": "surf-forecast page only (pin 37.81,128.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Gyongpo-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Gyongpo-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ingu Beach",
    "reason": "surf-forecast page only (pin 37.99,128.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Ingu-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Ingu-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 51 deg (arccos of mean resultant length 0.63; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Jumunjin",
    "reason": "surf-forecast page only (pin 37.88,128.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jumunjin"
+   "url": "https://www.surf-forecast.com/breaks/Jumunjin",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 77 deg (arccos of mean resultant length 0.23; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kangjeong (Jejudo Island)",
    "reason": "surf-forecast page only (pin 33.23,126.46); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kangjeong"
-  },
-  {
-   "name": "Songdojin ni",
-   "reason": "surf-forecast page only (pin 38.6,128.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Songdojin-ni"
+   "url": "https://www.surf-forecast.com/breaks/Kangjeong",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "38 Line",
    "reason": "surf-forecast page only (pin 38.0,128.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Thirty-eight-line"
+   "url": "https://www.surf-forecast.com/breaks/Thirty-eight-line",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "38th Parallel",
    "reason": "wannasurf page only (pin 38.0061,128.7327, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/38th_Parallel/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/38th_Parallel/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.45; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Gyongpo Beach",
    "reason": "wannasurf page only (pin 37.8050,128.9098, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/Gyongpo_Beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/Gyongpo_Beach/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind East: nearest listed direction is 136 deg from facing+180 (226); CONTRADICTS (>60) | wannasurf good swell North, South, East, NorthEast: nearest listed direction is 1 deg from the facing (46); consistent (<=90)"
+   }
   },
   {
    "name": "Jukdo",
    "reason": "wannasurf page only (pin 37.9770,128.7599, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/Jukdo/index.html"
-  },
-  {
-   "name": "NamYeol",
-   "reason": "wannasurf page only (pin 34.5797,127.4888, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/NamYeol/index.html"
-  },
-  {
-   "name": "SurfyyBeach front",
-   "reason": "wannasurf page only (pin 38.0287,128.7187, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/SurfyyBeach_front/index.html"
-  },
-  {
-   "name": "Busan",
-   "reason": "wannasurf page only (pin 35.1581,129.1607, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/busan/index.html"
-  },
-  {
-   "name": "Hae un dae",
-   "reason": "wannasurf page only (pin 35.1568,129.1605, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/hae_un_dae/index.html"
-  },
-  {
-   "name": "Song jung beach",
-   "reason": "wannasurf page only (pin 35.1778,129.1999, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/song_jung_beach/index.html"
-  },
-  {
-   "name": "Squids",
-   "reason": "wannasurf page only (pin 38.5993,128.3698, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/squids/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/South_Korea/Jukdo/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.37; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 8 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

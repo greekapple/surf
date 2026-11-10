@@ -3711,253 +3711,3593 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-sri-lanka-bennys-hikkaduwa",
+   "name": "Bennys (Hikkaduwa)",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.222,
+   "lon": 80.042,
+   "seaward": 251.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.2217, 80.0417) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Bennys_Hikkaduwa"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1976.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1367 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 31.9 deg (limit 45); 300 m window gives 259.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1977.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1977.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.226846,
+     80.052931
+    ],
+    "distanceToCoastM": 1367.0,
+    "meanDevDeg": 31.9,
+    "seaward300": 259.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 4 deg from facing+180 (72); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 26 deg from the facing (252); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Bennys (Hikkaduwa)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Bennys_Hikkaduwa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "A reef breaks left. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)",
+     "Hazards include coral and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Bennys (Hikkaduwa) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Bennys (Hikkaduwa) in SW is an exposed reef break that has reasonably consistent surf. Summer offers the optimum conditions for surfing. Offshore winds blow from the east northeast. Windswells and groundswells in equal measure and the ideal swell direction is from the southwest. A reef breaks left. It's sometimes crowded here. Hazards include coral and rocks. Bennys (Hikkaduwa)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-bennys-hikkaduwa"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 82.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 68.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Bennys (Hikkaduwa)",
+    "url": "https://www.surf-forecast.com/breaks/Bennys_Hikkaduwa",
+    "dropReason": "surf-forecast page only (pin 6.23,80.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-north-jetty-hikkaduwa",
+    "distanceKm": 10.59
+   }
+  },
+  {
+   "id": "w-sri-lanka-beruwela",
+   "name": "Beruwela",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.533,
+   "lon": 79.966,
+   "seaward": 249.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.533, 79.9663) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Beruwela"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1973.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 699 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 31.4 deg (limit 45); 300 m window gives 248.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1973.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1973.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.536651,
+     79.971457
+    ],
+    "distanceToCoastM": 698.7,
+    "meanDevDeg": 31.4,
+    "seaward300": 248.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 2 deg from facing+180 (70); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 25 deg from the facing (250); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Beruwela",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Beruwela",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Beruwela with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Beruwela in SW is an exposed beach break that has fairly consistent surf, although summer tends to be mostly flat. Works best in offshore winds from the east northeast. Tends to receive distant groundswells and the best swell direction is from the southwest. Waves at the beach break both left and right. It's sometimes crowded here. Beruwela"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-beruwela"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 47.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 33.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Beruwela",
+    "url": "https://www.surf-forecast.com/breaks/Beruwela",
+    "dropReason": "surf-forecast page only (pin 6.53,79.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-bentota",
+    "distanceKm": 13.29
+   }
+  },
+  {
+   "id": "w-sri-lanka-coconuts",
+   "name": "Coconuts",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.951,
+   "lon": 80.398,
+   "seaward": 198.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9509, 80.3984) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Coconuts-Sri-Lanka"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1057 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 15.7 deg (limit 45); 300 m window gives 197.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.960461,
+     80.398486
+    ],
+    "distanceToCoastM": 1057.2,
+    "meanDevDeg": 15.7,
+    "seaward300": 197.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell South-southwest: nearest listed direction is 4 deg from the facing (198); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Coconuts",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Coconuts-Sri-Lanka",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the north northeast and there is no shelter here from cross shore breezes (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Take care of - Rocks. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Coconuts in West Sri Lanka is an exposed reef break that has reasonably consistent surf. Summer offers the best conditions for surfing. Offshore winds blow from the north northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the south southwest. There is no reef break. Unlikely to be too crowded, even when the surf is up. Take care of - Rocks. Coconuts"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-coconuts"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 82.8,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 88.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Coconuts",
+    "url": "https://www.surf-forecast.com/breaks/Coconuts-Sri-Lanka",
+    "dropReason": "surf-forecast page only (pin 5.96,80.4); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-plantations",
+    "distanceKm": 1.01
+   }
+  },
+  {
+   "id": "w-sri-lanka-induruwa",
+   "name": "Induruwa",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 6.484,
+   "lon": 79.973,
+   "seaward": 265.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.4844, 79.9732) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Induruwa"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1973.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1084 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.7 deg (limit 45); 300 m window gives 267.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1973.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1974.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1973.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1974.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.485068,
+     79.982977
+    ],
+    "distanceToCoastM": 1083.9,
+    "meanDevDeg": 6.7,
+    "seaward300": 267.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 18 deg from facing+180 (86); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 41 deg from the facing (266); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Induruwa",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Induruwa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "A choice of left and right reefs. (surf-forecast)",
+    "exposure": "exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Induruwa with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Induruwa in SW is an exposed beach and reef break that has fairly consistent surf, although summer tends to be mostly flat. Offshore winds blow from the east northeast. Most of the surf here comes from groundswells and the ideal swell angle is from the southwest. A choice of left and right reefs. Sometimes crowded. Hazards include coral. Induruwa"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-induruwa"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 52.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 38.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Induruwa",
+    "url": "https://www.surf-forecast.com/breaks/Induruwa",
+    "dropReason": "surf-forecast page only (pin 6.48,79.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-beruwela",
+    "distanceKm": 5.5
+   }
+  },
+  {
+   "id": "w-sri-lanka-kaffi-left",
+   "name": "Kaffi Left",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.961,
+   "lon": 80.363,
+   "seaward": 202.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9612, 80.3633) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Kaffi-Left"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1028 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 41.1 deg (limit 45); 300 m window gives 206.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.967504,
+     80.370119
+    ],
+    "distanceToCoastM": 1027.5,
+    "meanDevDeg": 41.1,
+    "seaward300": 206.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell from the south southwest: nearest listed direction is 0 deg from the facing (203); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kaffi Left",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kaffi-Left",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast and there is no shelter here from cross shore breezes (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Kaffi Left in West Sri Lanka is an exposed reef break that has fairly consistent surf. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kaffi Left in West Sri Lanka is an exposed reef break that has fairly consistent surf. Summer offers the optimum conditions for surfing. Offshore winds are from the northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south southwest. No reef break here. Rarely crowded here. Submerged rocks are a hazard. Kaffi Left"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-kaffi-left"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 86.4,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 91.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Kaffi Left",
+    "url": "https://www.surf-forecast.com/breaks/Kaffi-Left",
+    "dropReason": "surf-forecast page only (pin 5.97,80.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-the-rock-kabalana",
+    "distanceKm": 0.94
+   }
+  },
+  {
+   "id": "w-sri-lanka-kaffi-right",
+   "name": "Kaffi Right",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.962,
+   "lon": 80.363,
+   "seaward": 201.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9615, 80.3626) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Kaffi-Right"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1063 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.6 deg (limit 45); 300 m window gives 210.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.96776,
+     80.369883
+    ],
+    "distanceToCoastM": 1062.7,
+    "meanDevDeg": 40.6,
+    "seaward300": 210.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 23 deg from facing+180 (22); consistent (<=60)",
+     "surf-forecast best swell South-southwest: nearest listed direction is 1 deg from the facing (202); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kaffi Right",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kaffi-Right",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Kaffi Right in West Sri Lanka is an exposed reef break that has fairly consistent surf. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the south southwest. (surf-forecast)",
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Watch out for rocks. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kaffi Right in West Sri Lanka is an exposed reef break that has fairly consistent surf. Summer offers the favoured conditions for surfing. The best wind direction is from the northeast and there is no shelter here from cross shore breezes. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the south southwest. There is no reef break. It very rarely gets crowded here. Watch out for rocks. Kaffi Right"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-kaffi-right"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 86.4,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 91.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Kaffi Right",
+    "url": "https://www.surf-forecast.com/breaks/Kaffi-Right",
+    "dropReason": "surf-forecast page only (pin 5.97,80.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-kaffi-left",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-sri-lanka-koggala-lefts",
+   "name": "Koggala Lefts",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.988,
+   "lon": 80.324,
+   "seaward": 204.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.988, 80.324) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Koggala-Lefts"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 100 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.8 deg (limit 45); 300 m window gives 203.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.987203,
+     80.32358
+    ],
+    "distanceToCoastM": 99.6,
+    "meanDevDeg": 10.8,
+    "seaward300": 203.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell from the southwest: nearest listed direction is 21 deg from the facing (204); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Koggala Lefts",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Koggala-Lefts",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the north and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Koggala Lefts in West Sri Lanka is an exposed reef break that has quite reliable surf. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Beware of - Urchins - Rocks - Man-made danger (buoys etc.). (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Koggala Lefts with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Koggala Lefts in West Sri Lanka is an exposed reef break that has quite reliable surf. Summer offers the best conditions for surfing. Offshore winds are from the north and there is no shelter here from cross shore breezes. Able to handle light onshore wind Tends to receive a mix of groundswells and windswells and the best swell direction is from the southwest. There is no reef break. Good surf at all stages of the tide. The location means that it never gets crowded. Beware of - Urchins - Rocks - Man-made danger (buoys etc.). Koggala Lefts"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-koggala-lefts"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 90.1,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 94.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Koggala Lefts",
+    "url": "https://www.surf-forecast.com/breaks/Koggala-Lefts",
+    "dropReason": "surf-forecast page only (pin 5.99,80.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-kogalla",
+    "distanceKm": 0.22
+   }
+  },
+  {
+   "id": "w-sri-lanka-madiha-left",
+   "name": "Madiha Left",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.928,
+   "lon": 80.507,
+   "seaward": 189.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9277, 80.5071) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Madiha-Left"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1035 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.3 deg (limit 45); 300 m window gives 185.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2964/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.937057,
+     80.50739
+    ],
+    "distanceToCoastM": 1035.2,
+    "meanDevDeg": 17.3,
+    "seaward300": 185.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 13 deg from facing+180 (10); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 35 deg from the facing (190); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Madiha Left",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Madiha-Left",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Madiha Left in West Sri Lanka is an exposed reef break that has fairly consistent surf, although summer tends to be mostly flat. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Madiha Left in West Sri Lanka is an exposed reef break that has fairly consistent surf, although summer tends to be mostly flat. Works best in offshore winds from the north northeast. Groundswells more frequent than windswells and the ideal swell direction is from the southwest. No reef break here. Sometimes crowded. Submerged rocks are a hazard. Madiha Left"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-madiha-left"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 71.9,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 78.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Madiha Left",
+    "url": "https://www.surf-forecast.com/breaks/Madiha-Left",
+    "dropReason": "surf-forecast page only (pin 5.94,80.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-matara-reef",
+    "distanceKm": 2.0
+   }
+  },
+  {
+   "id": "w-sri-lanka-madiha-right",
+   "name": "Madiha Right",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.928,
+   "lon": 80.506,
+   "seaward": 194.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9279, 80.5056) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Madiha-Right"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1023 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 19.2 deg (limit 45); 300 m window gives 191.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2964/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.93712,
+     80.506384
+    ],
+    "distanceToCoastM": 1023.2,
+    "meanDevDeg": 19.2,
+    "seaward300": 191.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northeast: nearest listed direction is 8 deg from facing+180 (15); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 30 deg from the facing (195); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Madiha Right",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Madiha-Right",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Madiha Right in West Sri Lanka is an exposed reef break that has fairly consistent surf, although summer tends to be mostly flat. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)",
+     "Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Madiha Right in West Sri Lanka is an exposed reef break that has fairly consistent surf, although summer tends to be mostly flat. Works best in offshore winds from the north northeast. Tends to receive distant groundswells and the ideal swell direction is from the southwest. There is no reef break. It's sometimes crowded here. Take care of rocks in the line up. Madiha Right"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-madiha-right"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 72.1,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 79.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Madiha Right",
+    "url": "https://www.surf-forecast.com/breaks/Madiha-Right",
+    "dropReason": "surf-forecast page only (pin 5.94,80.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-madiha-left",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-sri-lanka-midigama-left",
+   "name": "Midigama Left",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 5.963,
+   "lon": 80.391,
+   "seaward": 195.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.963, 80.391) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Midigama-Left"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 63 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.1 deg (limit 45); 300 m window gives 206.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.96347,
+     80.391319
+    ],
+    "distanceToCoastM": 62.8,
+    "meanDevDeg": 29.1,
+    "seaward300": 206.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 15 deg from facing+180 (15); consistent (<=60)",
+     "surf-forecast best swell from the south southwest: nearest listed direction is 7 deg from the facing (195); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Midigama Left",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Midigama-Left",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Midigama Left in West Sri Lanka is an exposed point break that has fairly consistent surf. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the south southwest. (surf-forecast)",
+     "When it's working here, it can get crowded. (surf-forecast)",
+     "Watch out for rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Midigama Left with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Midigama Left in West Sri Lanka is an exposed point break that has fairly consistent surf. Summer offers the optimum conditions for surfing. The best wind direction is from the north and there is no shelter here from cross shore breezes. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the south southwest. There is no point break. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Watch out for rocks. Midigama Left"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-midigama-left"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 83.3,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 88.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Midigama Left",
+    "url": "https://www.surf-forecast.com/breaks/Midigama-Left",
+    "dropReason": "surf-forecast page only (pin 5.96,80.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-lazy-lefts-midigama",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-sri-lanka-midigama-right",
+   "name": "Midigama Right",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.964,
+   "lon": 80.384,
+   "seaward": 181.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.964, 80.384) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Midigama-Right"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 77 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.4 deg (limit 45); 300 m window gives 187.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.964665,
+     80.383787
+    ],
+    "distanceToCoastM": 77.2,
+    "meanDevDeg": 38.4,
+    "seaward300": 187.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 1 deg from facing+180 (1); consistent (<=60)",
+     "surf-forecast best swell South-southwest: nearest listed direction is 21 deg from the facing (181); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Midigama Right",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Midigama-Right",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Midigama Right in West Sri Lanka is an exposed reef break. (surf-forecast)",
+    "hazards": [
+     "Watch out for rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Midigama Right with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Midigama Right in West Sri Lanka is an exposed reef break. Summer offers the optimum conditions for surfing. The best wind direction is from the north and there is no shelter here from cross shore breezes. Windswells and groundswells in equal measure and the ideal swell direction is from the south southwest. There is no reef break. An uncrowded break, even when it is working. Watch out for rocks. Midigama Right"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-midigama-right"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 84.1,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 89.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Midigama Right",
+    "url": "https://www.surf-forecast.com/breaks/Midigama-Right",
+    "dropReason": "surf-forecast page only (pin 5.96,80.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-rams-right-midigama",
+    "distanceKm": 0.25
+   }
+  },
+  {
+   "id": "w-sri-lanka-moogurama",
+   "name": "Moogurama",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 6.711,
+   "lon": 79.899,
+   "seaward": 245.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.7109, 79.8993) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Moogurama"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1971.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 207 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.8 deg (limit 45); 300 m window gives 246.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1971.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1971.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.711664,
+     79.901011
+    ],
+    "distanceToCoastM": 207.2,
+    "meanDevDeg": 16.8,
+    "seaward300": 246.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 2 deg from facing+180 (65); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 20 deg from the facing (245); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Moogurama",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Moogurama",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "waveTypeText": "Reef/sandbar (surf-forecast)",
+    "waveDirectionText": "The left hand reef break is better than the right.. (surf-forecast)",
+    "exposure": "exposed reef/sandbar break (surf-forecast)",
+    "hazards": [
+     "Rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Moogurama with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Moogurama in SW is an exposed reef/sandbar break that has quite reliable surf. The optimum time of year for waves is autumn. Offshore winds are from the east northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the southwest. The left hand reef break is better than the right.. When the surf is up, it can get quite busy in the water. Rocks are a hazard. Moogurama"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-moogurama"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 26.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 12.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Moogurama",
+    "url": "https://www.surf-forecast.com/breaks/Moogurama",
+    "dropReason": "surf-forecast page only (pin 6.71,79.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-beruwela",
+    "distanceKm": 21.13
+   }
+  },
+  {
+   "id": "w-sri-lanka-north-jetty-hikkaduwa-2",
+   "name": "North Jetty (Hikkaduwa)",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.251,
+   "lon": 80.036,
+   "seaward": 238.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.2512, 80.0362) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/North-Jetty_Hikkaduwa"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1976.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 458 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 27.0 deg (limit 45); 300 m window gives 237.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1977.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1977.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.254001,
+     80.039244
+    ],
+    "distanceToCoastM": 457.6,
+    "meanDevDeg": 27.0,
+    "seaward300": 237.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 9 deg from facing+180 (59); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 14 deg from the facing (239); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "North Jetty (Hikkaduwa)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/North-Jetty_Hikkaduwa",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Tends to receive a mix of groundswells and windswells and the best swell direction is from the southwest.Surfers ride left hand point. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "A fairly popluar wave that can sometimes get crowded Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing North Jetty (Hikkaduwa) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "North Jetty (Hikkaduwa) in SW is an exposed point break that has pretty consitent surf. Summer offers the optimum conditions for surfing. The best wind direction is from the east northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the southwest.Surfers ride left hand point. A fairly popluar wave that can sometimes get crowded Take care of rocks in the line up. North Jetty (Hikkaduwa)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-north-jetty-hikkaduwa-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 79.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 65.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "North Jetty (Hikkaduwa)",
+    "url": "https://www.surf-forecast.com/breaks/North-Jetty_Hikkaduwa",
+    "dropReason": "surf-forecast page only (pin 6.25,80.04); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-bennys-hikkaduwa",
+    "distanceKm": 3.29
+   }
+  },
+  {
+   "id": "w-sri-lanka-okanda-2",
+   "name": "Okanda",
+   "country": "Sri Lanka",
+   "region": "East",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.412,
+   "lon": 81.62,
+   "seaward": 142.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.4118, 81.6196) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Okanda"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2976/1974.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 463 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 15.8 deg (limit 45); 300 m window gives 143.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2976/1974.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2976/1975.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2977/1974.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2977/1975.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.413886,
+     81.615973
+    ],
+    "distanceToCoastM": 462.8,
+    "meanDevDeg": 15.8,
+    "seaward300": 143.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 52 deg from facing+180 (322); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 83 deg from the facing (142); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Okanda",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Okanda",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "fairly exposed point break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Okanda with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Okanda in SE is a fairly exposed point break that has unreliable waves. The surf tends to be best in the spring. Works best in offshore winds from the north northwest. Most of the surf here comes from groundswells and the best swell direction is from the southwest. It very rarely gets crowded here. Take care of the strong rips here. Okanda"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-okanda-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 40.8,
+     "live": false,
+     "liveNote": "last sample 2012-05-25 11:36:00.000 UTC in the IOC station list",
+     "lat": 6.197,
+     "lon": 81.32,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 56.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Okanda",
+    "url": "https://www.surf-forecast.com/breaks/Okanda",
+    "dropReason": "surf-forecast page only (pin 6.41,81.62); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-yala-rights",
+    "distanceKm": 7.22
+   }
+  },
+  {
+   "id": "w-sri-lanka-peanut-farm-point",
+   "name": "Peanut Farm Point",
+   "country": "Sri Lanka",
+   "region": "East",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.883,
+   "lon": 81.854,
+   "seaward": 76.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.883, 81.854) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Peanut-Farm-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1969.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 936 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 30.8 deg (limit 45); 300 m window gives 74.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1969.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2979/1969.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.881224,
+     81.84572
+    ],
+    "distanceToCoastM": 935.9,
+    "meanDevDeg": 30.8,
+    "seaward300": 74.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 14 deg from facing+180 (256); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 58 deg from the facing (76); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Peanut Farm Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Peanut-Farm-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the ideal swell angle is from the southeast. (surf-forecast)",
+     "The location means that it never gets crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Peanut Farm Point with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Peanut Farm Point in East Sri Lanka is a reasonably exposed point break that has fairly consistent surf The best wind direction is from the west with some shelter here from south winds. Waves just as likely from local windswells as from distant groundswells and the ideal swell angle is from the southeast. There is no point break. The location means that it never gets crowded. Peanut Farm Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-peanut-farm-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 96.4,
+     "live": false,
+     "liveNote": "last sample 2012-05-25 11:36:00.000 UTC in the IOC station list",
+     "lat": 6.197,
+     "lon": 81.32,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 104.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Peanut Farm Point",
+    "url": "https://www.surf-forecast.com/breaks/Peanut-Farm-Point",
+    "dropReason": "surf-forecast page only (pin 6.88,81.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-pottuvil-beach",
+    "distanceKm": 1.54
+   }
+  },
+  {
+   "id": "w-sri-lanka-rams-left",
+   "name": "Rams Left",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.955,
+   "lon": 80.386,
+   "seaward": 186.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9555, 80.3865) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Rams-Left"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 978 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 36.9 deg (limit 45); 300 m window gives 179.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.964345,
+     80.38662
+    ],
+    "distanceToCoastM": 978.1,
+    "meanDevDeg": 36.9,
+    "seaward300": 179.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell South-southwest: nearest listed direction is 16 deg from the facing (186); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Rams Left",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rams-Left",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast and there is no shelter here from cross shore breezes (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Rams Left in West Sri Lanka is an exposed reef break that has quite consistent surf. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Watch out for rocks. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Rams Left in West Sri Lanka is an exposed reef break that has quite consistent surf. Summer offers the optimum conditions for surfing. Offshore winds blow from the northeast and there is no shelter here from cross shore breezes. Most of the surf here comes from groundswells and the ideal swell angle is from the south southwest. There is no reef break. Rarely crowded here. Watch out for rocks. Rams Left"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-rams-left"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 84.0,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 89.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Rams Left",
+    "url": "https://www.surf-forecast.com/breaks/Rams-Left",
+    "dropReason": "surf-forecast page only (pin 5.96,80.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-rams-right-midigama",
+    "distanceKm": 0.89
+   }
+  },
+  {
+   "id": "w-sri-lanka-sunils-left",
+   "name": "Sunils Left",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.959,
+   "lon": 80.369,
+   "seaward": 204.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9593, 80.369) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Sunils-Left"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 895 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 41.5 deg (limit 45); 300 m window gives 202.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.967226,
+     80.370634
+    ],
+    "distanceToCoastM": 894.9,
+    "meanDevDeg": 41.5,
+    "seaward300": 202.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 20 deg from facing+180 (24); consistent (<=60)",
+     "surf-forecast best swell from the south southwest: nearest listed direction is 2 deg from the facing (204); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Sunils Left",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sunils-Left",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Sunils Left in West Sri Lanka is an exposed reef break that has pretty consitent surf. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the south southwest. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Sunils Left in West Sri Lanka is an exposed reef break that has pretty consitent surf. Summer offers the best conditions for surfing. Works best in offshore winds from the northeast and there is no shelter here from cross shore breezes. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the south southwest. There is no reef break. Rarely crowded here. Submerged rocks are a hazard. Sunils Left"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-sunils-left"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 85.8,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 91.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Sunils Left",
+    "url": "https://www.surf-forecast.com/breaks/Sunils-Left",
+    "dropReason": "surf-forecast page only (pin 5.97,80.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-kaffi-left",
+    "distanceKm": 0.7
+   }
+  },
+  {
+   "id": "w-sri-lanka-the-cave",
+   "name": "The Cave",
+   "country": "Sri Lanka",
+   "region": "East",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 6.515,
+   "lon": 81.712,
+   "seaward": 118.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.5148, 81.7122) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/The-Cave"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2977/1973.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 301 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.1 deg (limit 45); 300 m window gives 120.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2977/1973.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2977/1974.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1973.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1974.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.516161,
+     81.709846
+    ],
+    "distanceToCoastM": 300.7,
+    "meanDevDeg": 4.1,
+    "seaward300": 120.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 39 deg from facing+180 (299); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 61 deg from the facing (119); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "The Cave",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/The-Cave",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "waveTypeText": "Point/river (surf-forecast)",
+    "exposure": "exposed point/rivermouth break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing The Cave with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "The Cave in SE is an exposed point/rivermouth break that does not work very often Ideal winds are from the north northwest. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the south. Unlikely to be too crowded, even when the surf is up. Take care of the strong rips here. The Cave"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-the-cave"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 55.9,
+     "live": false,
+     "liveNote": "last sample 2012-05-25 11:36:00.000 UTC in the IOC station list",
+     "lat": 6.197,
+     "lon": 81.32,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 69.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "The Cave",
+    "url": "https://www.surf-forecast.com/breaks/The-Cave",
+    "dropReason": "surf-forecast page only (pin 6.51,81.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-okanda-2",
+    "distanceKm": 15.31
+   }
+  },
+  {
+   "id": "w-sri-lanka-whiskey-point",
+   "name": "Whiskey Point",
+   "country": "Sri Lanka",
+   "region": "East",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.905,
+   "lon": 81.845,
+   "seaward": 91.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.9055, 81.8453) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Whiskey-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1968.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 58 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 27.6 deg (limit 45); 300 m window gives 86.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1968.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1969.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2979/1968.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2979/1969.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.905033,
+     81.845068
+    ],
+    "distanceToCoastM": 57.6,
+    "meanDevDeg": 27.6,
+    "seaward300": 86.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell East-southeast: nearest listed direction is 21 deg from the facing (92); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Whiskey Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Whiskey-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East-southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the west southwest and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "fairly exposed point break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Whiskey Point with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Whiskey Point in East Sri Lanka is a fairly exposed point break that has reasonably consistent surf. Offshore winds are from the west southwest and there is no shelter here from cross shore breezes. Most of the surf here comes from groundswells and the ideal swell angle is from the east southeast. No point break here. Good surf at all stages of the tide. Rarely crowded here. Whiskey Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-whiskey-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 97.8,
+     "live": false,
+     "liveNote": "last sample 2012-05-25 11:36:00.000 UTC in the IOC station list",
+     "lat": 6.197,
+     "lon": 81.32,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 105.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Whiskey Point",
+    "url": "https://www.surf-forecast.com/breaks/Whiskey-Point",
+    "dropReason": "surf-forecast page only (pin 6.91,81.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-pottuvil-point",
+    "distanceKm": 0.89
+   }
+  },
+  {
+   "id": "w-sri-lanka-wijiya-beach-dalawella",
+   "name": "Wijiya Beach (Dalawella)",
+   "country": "Sri Lanka",
+   "region": "West",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.992,
+   "lon": 80.257,
+   "seaward": 202.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (5.9924, 80.2568) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Wijiya-Beach-Dalawella"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 998 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 25.0 deg (limit 45); 300 m window gives 206.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.000262,
+     80.261221
+    ],
+    "distanceToCoastM": 997.6,
+    "meanDevDeg": 25.0,
+    "seaward300": 206.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 23 deg from facing+180 (22); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 23 deg from the facing (202); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Wijiya Beach (Dalawella)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Wijiya-Beach-Dalawella",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "fairly exposed reef break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Wijiya Beach (Dalawella) with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Wijiya Beach (Dalawella) in West Sri Lanka is a fairly exposed reef break that is often working. Nov-April (Wet Season) provides favoured time of year for waves. Works best in offshore winds from the northeast. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the southwest. There is no reef break. Surfable at all stages of the tide. It very rarely gets crowded here. Take care of rocks in the line up. Wijiya Beach (Dalawella)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-wijiya-beach-dalawella"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 97.3,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 100.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Wijiya Beach (Dalawella)",
+    "url": "https://www.surf-forecast.com/breaks/Wijiya-Beach-Dalawella",
+    "dropReason": "surf-forecast page only (pin 6.0,80.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-unawatuna",
+    "distanceKm": 2.05
+   }
+  },
+  {
+   "id": "w-sri-lanka-yala",
+   "name": "Yala",
+   "country": "Sri Lanka",
+   "region": "East",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.304,
+   "lon": 81.48,
+   "seaward": 161.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (6.3041, 81.4795) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Yala"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2974/1975.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 634 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 13.4 deg (limit 45); 300 m window gives 167.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2974/1975.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2974/1976.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2975/1975.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2975/1976.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.309412,
+     81.477334
+    ],
+    "distanceToCoastM": 634.4,
+    "meanDevDeg": 13.4,
+    "seaward300": 167.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 4 deg from facing+180 (341); consistent (<=60)",
+     "surf-forecast best swell from the south: nearest listed direction is 19 deg from the facing (161); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Yala",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Yala",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Take care of rips and isolation. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Yala with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Yala in SE is an exposed beach break that has inconsistent surf. Summer in particular tends to be flat. Ideal winds are from the north northwest. Clean groundswells prevail and the best swell direction is from the south. The beach breaks offer lefts and rights. It very rarely gets crowded here. Take care of rips and isolation. Yala"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-yala"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 21.3,
+     "live": false,
+     "liveNote": "last sample 2012-05-25 11:36:00.000 UTC in the IOC station list",
+     "lat": 6.197,
+     "lon": 81.32,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 39.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Yala",
+    "url": "https://www.surf-forecast.com/breaks/Yala",
+    "dropReason": "surf-forecast page only (pin 6.3,81.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-palatupana",
+    "distanceKm": 7.53
+   }
+  },
+  {
+   "id": "w-sri-lanka-lamana-point",
+   "name": "LAMANA POINT",
+   "country": "Sri Lanka",
+   "region": "LAMANA POINT",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.971,
+   "lon": 80.366,
+   "seaward": 201.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.9709666666666665, 80.36583333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/LAMANA_POINT/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 35 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.5 deg (limit 45); 300 m window gives 206.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.970669,
+     80.365729
+    ],
+    "distanceToCoastM": 34.9,
+    "meanDevDeg": 20.5,
+    "seaward300": 206.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, East, NorthEast: nearest listed direction is 21 deg from facing+180 (21); consistent (<=60)",
+     "wannasurf good swell SouthWest, South, SouthEast: nearest listed direction is 21 deg from the facing (201); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "LAMANA POINT",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/LAMANA_POINT/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, East, NorthEast (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 3m+ / 10ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-lamana-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 85.9,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 90.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "LAMANA POINT",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/LAMANA_POINT/index.html",
+    "dropReason": "wannasurf page only (pin 5.9710,80.3658, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-animals",
+    "distanceKm": 0.46
+   }
+  },
+  {
+   "id": "w-sri-lanka-madiha",
+   "name": "Madiha",
+   "country": "Sri Lanka",
+   "region": "Madiha ",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.936,
+   "lon": 80.511,
+   "seaward": 184.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.936466666666667, 80.51078333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Madiha_/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 30 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 14.7 deg (limit 45); 300 m window gives 187.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2964/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2964/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.936732,
+     80.510831
+    ],
+    "distanceToCoastM": 29.8,
+    "meanDevDeg": 14.7,
+    "seaward300": 187.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North: nearest listed direction is 4 deg from facing+180 (4); consistent (<=60)",
+     "wannasurf good swell SouthWest: nearest listed direction is 41 deg from the facing (184); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Madiha",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Madiha_/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest (wannasurf)",
+    "windOffshore": "good wind North (wannasurf)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to Don't know (wannasurf)",
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-madiha"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 71.3,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 78.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Madiha",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Madiha_/index.html",
+    "dropReason": "wannasurf page only (pin 5.9365,80.5108, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-madiha-left",
+    "distanceKm": 0.99
+   }
+  },
+  {
+   "id": "w-sri-lanka-rockside-induruwa",
+   "name": "Rockside Induruwa",
+   "country": "Sri Lanka",
+   "region": "Rockside Induruwa",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.396,
+   "lon": 80.005,
+   "seaward": 259.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (6.396216666666667, 80.00451666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Rockside_Induruwa/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1974.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 37 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 33.6 deg (limit 45); 300 m window gives 264.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1974.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2957/1975.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1974.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2958/1975.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.396227,
+     80.004853
+    ],
+    "distanceToCoastM": 37.2,
+    "meanDevDeg": 33.6,
+    "seaward300": 264.9
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Rockside Induruwa",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Rockside_Induruwa/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell Don't know (wannasurf)",
+    "windOffshore": "good wind Don't know (wannasurf)",
+    "tide": "Low tide only (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to Don't know (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-rockside-induruwa"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 62.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 49.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "recoveredFrom": {
+    "name": "Rockside Induruwa",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Rockside_Induruwa/index.html",
+    "dropReason": "wannasurf page only (pin 6.3962,80.0045, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-bentota",
+    "distanceKm": 2.58
+   }
+  },
+  {
+   "id": "w-sri-lanka-turtle-eco-beach",
+   "name": "Turtle eco beach",
+   "country": "Sri Lanka",
+   "region": "Turtle eco beach",
+   "timeZone": "Asia/Colombo",
+   "type": null,
+   "lat": 5.937,
+   "lon": 80.509,
+   "seaward": 188.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.9371, 80.5086, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Turtle_eco_beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 7 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.4 deg (limit 45); 300 m window gives 184.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2963/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2964/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2964/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.937164,
+     80.508609
+    ],
+    "distanceToCoastM": 7.2,
+    "meanDevDeg": 16.4,
+    "seaward300": 184.5
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Turtle eco beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Turtle_eco_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "waveTypeText": "Don't know (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-turtle-eco-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 71.5,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 78.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Turtle eco beach",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Turtle_eco_beach/index.html",
+    "dropReason": "wannasurf page only (pin 5.9371,80.5086, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-madiha",
+    "distanceKm": 0.25
+   }
+  },
+  {
+   "id": "w-sri-lanka-kingfisher",
+   "name": "Kingfisher",
+   "country": "Sri Lanka",
+   "region": "kingfisher",
+   "timeZone": "Asia/Colombo",
+   "type": "Beach",
+   "lat": 6.034,
+   "lon": 80.802,
+   "seaward": 138.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (6.034316666666666, 80.80205, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/kingfisher/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2966/1978.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 41 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.2 deg (limit 45); 300 m window gives 140.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2966/1978.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2966/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2967/1978.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2967/1979.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.034189,
+     80.802395
+    ],
+    "distanceToCoastM": 40.8,
+    "meanDevDeg": 17.2,
+    "seaward300": 140.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest: nearest listed direction is 4 deg from facing+180 (319); consistent (<=60)",
+     "wannasurf good swell SouthEast: nearest listed direction is 4 deg from the facing (139); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kingfisher",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/kingfisher/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest (wannasurf)",
+    "tide": "Low and mid tide, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Pollution (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fast, Ordinary, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-kingfisher"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 37.3,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 45.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Kingfisher",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/kingfisher/index.html",
+    "dropReason": "wannasurf page only (pin 6.0343,80.8020, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-dondra",
+    "distanceKm": 25.12
+   }
+  },
+  {
+   "id": "w-sri-lanka-main-point",
+   "name": "Main point",
+   "country": "Sri Lanka",
+   "region": "main point",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.12,
+   "lon": 80.111,
+   "seaward": 217.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (6.119533333333333, 80.11068333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/main_point/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1977.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 295 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.6 deg (limit 45); 300 m window gives 218.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1977.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1978.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.121709,
+     80.112225
+    ],
+    "distanceToCoastM": 294.9,
+    "meanDevDeg": 8.6,
+    "seaward300": 218.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, SouthEast, East, NorthEast: nearest listed direction is 8 deg from facing+180 (38); consistent (<=60)",
+     "wannasurf good swell NorthWest, West, SouthWest, South: nearest listed direction is 8 deg from the facing (218); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Main point",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/main_point/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell NorthWest, West, SouthWest, South (wannasurf)",
+    "windOffshore": "good wind North, SouthEast, East, NorthEast (wannasurf)",
+    "tide": "Low and mid tide, Falling tide (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 3m+ / 10ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rips / undertow (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-main-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 95.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 82.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Main point",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/main_point/index.html",
+    "dropReason": "wannasurf page only (pin 6.1195,80.1107, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-inside-reef-hikkaduwa",
+    "distanceKm": 0.63
+   }
+  },
+  {
+   "id": "w-sri-lanka-owerkanda",
+   "name": "Owerkanda",
+   "country": "Sri Lanka",
+   "region": "owerkanda",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.091,
+   "lon": 80.134,
+   "seaward": 213.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (6.0907, 80.1344, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/owerkanda/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1978.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 332 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.8 deg (limit 45); 300 m window gives 214.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2959/1978.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1978.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.093216,
+     80.13604
+    ],
+    "distanceToCoastM": 332.1,
+    "meanDevDeg": 4.8,
+    "seaward300": 214.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell West, SouthWest: nearest listed direction is 11 deg from the facing (214); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Owerkanda",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/owerkanda/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell West, SouthWest (wannasurf)",
+    "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun, Powerless (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-owerkanda"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC colo",
+     "name": "Colombo",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 99.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:45:00.000 UTC in the IOC station list",
+     "lat": 6.941,
+     "lon": 79.85,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=colo"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCCC",
+     "name": "Colombo",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 85.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.822,
+     "lon": 79.886,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCCC&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Owerkanda",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/owerkanda/index.html",
+    "dropReason": "wannasurf page only (pin 6.0907,80.1344, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-rivermouth-hikkaduwa",
+    "distanceKm": 2.38
+   }
+  },
+  {
+   "id": "w-sri-lanka-south-beach",
+   "name": "South beach",
+   "country": "Sri Lanka",
+   "region": "south beach",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 5.982,
+   "lon": 80.337,
+   "seaward": 198.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.981833333333333, 80.33671666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/south_beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 3 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 32.5 deg (limit 45); 300 m window gives 203.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1980.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2962/1980.pbf"
+    ],
+    "nearestCoastPoint": [
+     5.981858,
+     80.336723
+    ],
+    "distanceToCoastM": 2.8,
+    "meanDevDeg": 32.5,
+    "seaward300": 203.9
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "South beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/south_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-south-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 88.8,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 93.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "recoveredFrom": {
+    "name": "South beach",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/south_beach/index.html",
+    "dropReason": "wannasurf page only (pin 5.9818,80.3367, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-kabalana",
+    "distanceKm": 1.14
+   }
+  },
+  {
+   "id": "w-sri-lanka-visky-point",
+   "name": "Visky point",
+   "country": "Sri Lanka",
+   "region": "visky point",
+   "timeZone": "Asia/Colombo",
+   "type": "Point",
+   "lat": 6.905,
+   "lon": 81.845,
+   "seaward": 91.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (6.9054, 81.84498333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/visky_point/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1968.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 33 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 27.6 deg (limit 45); 300 m window gives 86.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1968.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2978/1969.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2979/1968.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2979/1969.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.905104,
+     81.844926
+    ],
+    "distanceToCoastM": 33.3,
+    "meanDevDeg": 27.6,
+    "seaward300": 86.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West: nearest listed direction is 2 deg from facing+180 (272); consistent (<=60)",
+     "wannasurf good swell SouthEast, East: nearest listed direction is 2 deg from the facing (92); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Visky point",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/visky_point/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East (wannasurf)",
+    "windOffshore": "good wind West (wannasurf)",
+    "tide": "All tides, Don't know (wannasurf)",
+    "bottom": "Flat rocks with sand (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-visky-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC krna",
+     "name": "Kirinda",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 97.8,
+     "live": false,
+     "liveNote": "last sample 2012-05-25 11:36:00.000 UTC in the IOC station list",
+     "lat": 6.197,
+     "lon": 81.32,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=krna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 105.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Point-break'",
+   "recoveredFrom": {
+    "name": "Visky point",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/visky_point/index.html",
+    "dropReason": "wannasurf page only (pin 6.9054,81.8450, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-whiskey-point",
+    "distanceKm": 0.0
+   }
+  },
+  {
+   "id": "w-sri-lanka-wijiya-beach",
+   "name": "Wijiya beach",
+   "country": "Sri Lanka",
+   "region": "wijiya beach",
+   "timeZone": "Asia/Colombo",
+   "type": "Reef",
+   "lat": 6.0,
+   "lon": 80.262,
+   "seaward": 202.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (5.999583333333334, 80.26208333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/wijiya_beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1979.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 51 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 24.8 deg (limit 45); 300 m window gives 204.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1979.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1979.pbf"
+    ],
+    "nearestCoastPoint": [
+     6.000027,
+     80.261972
+    ],
+    "distanceToCoastM": 50.6,
+    "meanDevDeg": 24.8,
+    "seaward300": 204.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, East, NorthEast: nearest listed direction is 22 deg from facing+180 (23); consistent (<=60)",
+     "wannasurf good swell West, SouthWest, South: nearest listed direction is 22 deg from the facing (203); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Wijiya beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/wijiya_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell West, SouthWest, South (wannasurf)",
+    "windOffshore": "good wind North, East, NorthEast (wannasurf)",
+    "tide": "All tides (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-sri-lanka-wijiya-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC hamb",
+     "name": "Hambantota",
+     "owner": "IOC Sea Level Station Monitoring Facility (Sri Lanka)",
+     "distanceKm": 96.6,
+     "live": false,
+     "liveNote": "last sample 2011-12-02 07:40:00.000 UTC in the IOC station list",
+     "lat": 6.124,
+     "lon": 81.127,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=hamb"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VCRI",
+     "name": "Mattala",
+     "owner": "IEM LK__ASOS network (airport METAR)",
+     "distanceKm": 100.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 6.285,
+     "lon": 81.124,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Wijiya beach",
+    "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/wijiya_beach/index.html",
+    "dropReason": "wannasurf page only (pin 5.9996,80.2621, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-sri-lanka-wijiya-beach-dalawella",
+    "distanceKm": 1.05
+   }
   }
  ],
  "dropped": [
   {
    "name": "Balapitiya",
    "reason": "surf-forecast page only (pin 6.44,79.98); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Balapitiya"
-  },
-  {
-   "name": "Bennys (Hikkaduwa)",
-   "reason": "surf-forecast page only (pin 6.23,80.05); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Bennys_Hikkaduwa"
-  },
-  {
-   "name": "Beruwela",
-   "reason": "surf-forecast page only (pin 6.53,79.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Beruwela"
-  },
-  {
-   "name": "Coconuts",
-   "reason": "surf-forecast page only (pin 5.96,80.4); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Coconuts-Sri-Lanka"
+   "url": "https://www.surf-forecast.com/breaks/Balapitiya",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 74 deg (arccos of mean resultant length 0.28; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Dewata",
    "reason": "surf-forecast page only (pin 6.03,80.24); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Dewata"
+   "url": "https://www.surf-forecast.com/breaks/Dewata",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 71 deg (arccos of mean resultant length 0.33; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fishermans",
    "reason": "surf-forecast page only (pin 5.96,80.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fishermans-Sri-Lanka"
+   "url": "https://www.surf-forecast.com/breaks/Fishermans-Sri-Lanka",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.45; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Green Room",
    "reason": "surf-forecast page only (pin 6.61,81.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Green-Room"
+   "url": "https://www.surf-forecast.com/breaks/Green-Room",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore wind from the North-northwest: nearest listed direction is 87 deg from facing+180 (251); CONTRADICTS (>60) | surf-forecast best swell from the south: nearest listed direction is 109 deg from the facing (71); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Hiriketya Beach",
    "reason": "surf-forecast page only (pin 5.96,80.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Hiriketya-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Hiriketya-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 62 deg (arccos of mean resultant length 0.47; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Hiriketya Left",
    "reason": "surf-forecast page only (pin 5.96,80.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Hiriketya-Left"
-  },
-  {
-   "name": "Induruwa",
-   "reason": "surf-forecast page only (pin 6.48,79.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Induruwa"
+   "url": "https://www.surf-forecast.com/breaks/Hiriketya-Left",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Jungle Beach Left",
    "reason": "surf-forecast page only (pin 5.96,80.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jungle-Beach-Left"
+   "url": "https://www.surf-forecast.com/breaks/Jungle-Beach-Left",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.68; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Jungle Beach Right",
    "reason": "surf-forecast page only (pin 5.96,80.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jungle-Beach-Right"
-  },
-  {
-   "name": "Kaffi Left",
-   "reason": "surf-forecast page only (pin 5.97,80.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kaffi-Left"
-  },
-  {
-   "name": "Kaffi Right",
-   "reason": "surf-forecast page only (pin 5.97,80.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kaffi-Right"
+   "url": "https://www.surf-forecast.com/breaks/Jungle-Beach-Right",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.68; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kalutara South",
    "reason": "surf-forecast page only (pin 6.57,79.96); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kalutara-South"
-  },
-  {
-   "name": "Koggala Lefts",
-   "reason": "surf-forecast page only (pin 5.99,80.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Koggala-Lefts"
-  },
-  {
-   "name": "Madiha Left",
-   "reason": "surf-forecast page only (pin 5.94,80.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Madiha-Left"
-  },
-  {
-   "name": "Madiha Right",
-   "reason": "surf-forecast page only (pin 5.94,80.51); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Madiha-Right"
+   "url": "https://www.surf-forecast.com/breaks/Kalutara-South",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.57; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Main Point (Weligama)",
    "reason": "surf-forecast page only (pin 5.97,80.44); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Main-Point-Weligama"
+   "url": "https://www.surf-forecast.com/breaks/Main-Point-Weligama",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Main Reef (Hikkaduwa)",
    "reason": "surf-forecast page only (pin 6.19,80.06); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Main-Reef_Hikkaduwa"
+   "url": "https://www.surf-forecast.com/breaks/Main-Reef_Hikkaduwa",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-sri-lanka-main-reef-hikkaduwa, kept) is 8.6 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Metigama Right",
    "reason": "surf-forecast page only (pin 5.94,80.45); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Metigama-Right"
-  },
-  {
-   "name": "Midigama Left",
-   "reason": "surf-forecast page only (pin 5.96,80.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Midigama-Left"
-  },
-  {
-   "name": "Midigama Right",
-   "reason": "surf-forecast page only (pin 5.96,80.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Midigama-Right"
-  },
-  {
-   "name": "Moogurama",
-   "reason": "surf-forecast page only (pin 6.71,79.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Moogurama"
-  },
-  {
-   "name": "North Jetty (Hikkaduwa)",
-   "reason": "surf-forecast page only (pin 6.25,80.04); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/North-Jetty_Hikkaduwa"
-  },
-  {
-   "name": "Okanda",
-   "reason": "surf-forecast page only (pin 6.41,81.62); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Okanda"
-  },
-  {
-   "name": "Peanut Farm Point",
-   "reason": "surf-forecast page only (pin 6.88,81.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Peanut-Farm-Point"
-  },
-  {
-   "name": "Rams Left",
-   "reason": "surf-forecast page only (pin 5.96,80.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Rams-Left"
-  },
-  {
-   "name": "Sunils Left",
-   "reason": "surf-forecast page only (pin 5.97,80.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Sunils-Left"
-  },
-  {
-   "name": "The Cave",
-   "reason": "surf-forecast page only (pin 6.51,81.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/The-Cave"
+   "url": "https://www.surf-forecast.com/breaks/Metigama-Right",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 75 deg (arccos of mean resultant length 0.26; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Trincomalee",
    "reason": "surf-forecast page only (pin 8.54,81.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Trincomalee"
-  },
-  {
-   "name": "Whiskey Point",
-   "reason": "surf-forecast page only (pin 6.91,81.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Whiskey-Point"
-  },
-  {
-   "name": "Wijiya Beach (Dalawella)",
-   "reason": "surf-forecast page only (pin 6.0,80.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Wijiya-Beach-Dalawella"
-  },
-  {
-   "name": "Yala",
-   "reason": "surf-forecast page only (pin 6.3,81.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Yala"
+   "url": "https://www.surf-forecast.com/breaks/Trincomalee",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 66 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Devils rock",
    "reason": "wannasurf page only (pin 5.9554,80.4171, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Devils_rock/index.html"
-  },
-  {
-   "name": "LAMANA POINT",
-   "reason": "wannasurf page only (pin 5.9710,80.3658, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/LAMANA_POINT/index.html"
-  },
-  {
-   "name": "Madiha",
-   "reason": "wannasurf page only (pin 5.9365,80.5108, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Madiha_/index.html"
-  },
-  {
-   "name": "Rockside Induruwa",
-   "reason": "wannasurf page only (pin 6.3962,80.0045, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Rockside_Induruwa/index.html"
-  },
-  {
-   "name": "Turtle eco beach",
-   "reason": "wannasurf page only (pin 5.9371,80.5086, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Turtle_eco_beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Devils_rock/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 62 deg (arccos of mean resultant length 0.47; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Deveta",
    "reason": "wannasurf page only (pin 6.0315,80.2375, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/deveta/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/deveta/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 49 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Hiriketiya",
    "reason": "wannasurf page only (pin 5.9625,80.7087, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/hiriketiya/index.html"
-  },
-  {
-   "name": "Kingfisher",
-   "reason": "wannasurf page only (pin 6.0343,80.8020, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/kingfisher/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/hiriketiya/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.50; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Koggala lefts",
    "reason": "wannasurf page only (pin 5.9878,80.3238, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/koggala_lefts/index.html"
-  },
-  {
-   "name": "Main point",
-   "reason": "wannasurf page only (pin 6.1195,80.1107, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/main_point/index.html"
-  },
-  {
-   "name": "Owerkanda",
-   "reason": "wannasurf page only (pin 6.0907,80.1344, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/owerkanda/index.html"
-  },
-  {
-   "name": "South beach",
-   "reason": "wannasurf page only (pin 5.9818,80.3367, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/south_beach/index.html"
-  },
-  {
-   "name": "Visky point",
-   "reason": "wannasurf page only (pin 6.9054,81.8450, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/visky_point/index.html"
-  },
-  {
-   "name": "Wijiya beach",
-   "reason": "wannasurf page only (pin 5.9996,80.2621, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/wijiya_beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/koggala_lefts/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-sri-lanka-koggala-lefts, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 31 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

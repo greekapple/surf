@@ -7272,6 +7272,1869 @@
      "url": "https://www.ndbc.noaa.gov/station_page.php?station=32068"
     }
    ]
+  },
+  {
+   "id": "w-ecuador-anconcito",
+   "name": "Anconcito",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Point",
+   "lat": -2.328,
+   "lon": -80.9,
+   "seaward": 282.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.3277, -80.8995) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Anconcito"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2074.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 14 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 24.1 deg (limit 45); 300 m window gives 292.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2074.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.327785,
+     -80.899403
+    ],
+    "distanceToCoastM": 14.3,
+    "meanDevDeg": 24.1,
+    "seaward300": 292.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 57 deg from facing+180 (102); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 57 deg from the facing (282); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Anconcito",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Anconcito",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Tends to receive distant groundswells and the optimum swell angle is from the southwest.Surfers ride left hand point. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Anconcito with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of March (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Anconcito in Guayas is an exposed point break that only works once in a while. Autumn and winter are the best times of year for waves. Offshore winds are from the northeast. Tends to receive distant groundswells and the optimum swell angle is from the southwest.Surfers ride left hand point. Even when there are waves, it's not likley to be crowded. Submerged rocks are a hazard. Anconcito"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-anconcito"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 12.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 16.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Anconcito",
+    "url": "https://www.surf-forecast.com/breaks/Anconcito",
+    "guidePin": {
+     "lat": -2.3277,
+     "lon": -80.8995,
+     "site": "surf-forecast"
+    },
+    "type": "Point",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'La Diablica' 0.7 km away, different name)"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-la-diablica",
+    "distanceKm": 0.68
+   }
+  },
+  {
+   "id": "w-ecuador-bocana-del-cojimies",
+   "name": "Bocana del Cojimies",
+   "country": "Ecuador",
+   "region": "Manabi",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": 0.346,
+   "lon": -80.05,
+   "seaward": 258.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (0.3463, -80.0502) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Bocanadel-Cojimies"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1136/2043.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1010 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.6 deg (limit 45); 300 m window gives 256.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1136/2043.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1136/2044.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1137/2043.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1137/2044.pbf"
+    ],
+    "nearestCoastPoint": [
+     0.348362,
+     -80.041359
+    ],
+    "distanceToCoastM": 1010.2,
+    "meanDevDeg": 3.6,
+    "seaward300": 256.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East: nearest listed direction is 12 deg from facing+180 (78); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 57 deg from the facing (258); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Bocana del Cojimies",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Bocanadel-Cojimies",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Hazards include sharks and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Bocana del Cojimies with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Bocana del Cojimies in Manabi is an exposed beach break that has fairly consistent surf and can work at any time of the year. The best wind direction is from the east. Tends to receive distant groundswells and the best swell direction is from the northwest. Waves at the beach break both left and right. Surfable at all stages of the tide. It very rarely gets crowded here. Hazards include sharks and rocks. Bocana del Cojimies"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-bocana-del-cojimies"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC esme",
+     "name": "Esmeraldas",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 84.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": 0.991,
+     "lon": -79.647,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=esme"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SETN",
+     "name": "Esmeraldas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 84.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 0.979,
+     "lon": -79.627,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SETN&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Bocana del Cojimies",
+    "url": "https://www.surf-forecast.com/breaks/Bocanadel-Cojimies",
+    "guidePin": {
+     "lat": 0.3463,
+     "lon": -80.0502,
+     "site": "surf-forecast"
+    },
+    "type": "Beach",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-portete",
+    "distanceKm": 16.35
+   }
+  },
+  {
+   "id": "w-ecuador-dead-point",
+   "name": "Dead Point",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Reef",
+   "lat": -2.176,
+   "lon": -81.001,
+   "seaward": 350.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.1764, -81.001) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Dead-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2072.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 880 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.5 deg (limit 45); 300 m window gives 354.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2073.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.184098,
+     -80.998979
+    ],
+    "distanceToCoastM": 880.4,
+    "meanDevDeg": 16.5,
+    "seaward300": 354.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east southeast: nearest listed direction is 58 deg from facing+180 (171); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 36 deg from the facing (351); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Dead Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Dead-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east southeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "A reef breaks left. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Hazards include private, rips and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Dead Point with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Dead Point in Guayas is an exposed reef break that has inconsistent surf. Spring and Summer provide the best conditions. Offshore winds blow from the east southeast. Tends to receive distant groundswells and the ideal swell direction is from the northwest. A reef breaks left. Unlikely to be too crowded, even when the surf is up. Hazards include private, rips and rocks. Dead Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-dead-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 11.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 3.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Dead Point",
+    "url": "https://www.surf-forecast.com/breaks/Dead-Point",
+    "guidePin": {
+     "lat": -2.1764,
+     "lon": -81.001,
+     "site": "surf-forecast"
+    },
+    "type": "Reef",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Shit Bay' 1.8 km away, different name)"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-shit-bay",
+    "distanceKm": 1.85
+   }
+  },
+  {
+   "id": "w-ecuador-km5",
+   "name": "Km5",
+   "country": "Ecuador",
+   "region": "km5",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": -2.731,
+   "lon": -80.247,
+   "seaward": 112.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-2.7312, -80.2469) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/km5"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1134/2078.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 12 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.2 deg (limit 45); 300 m window gives 109.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1134/2078.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1134/2079.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1135/2078.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1135/2079.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.73119,
+     -80.247008
+    ],
+    "distanceToCoastM": 12.1,
+    "meanDevDeg": 16.2,
+    "seaward300": 109.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell SouthWest, South: nearest listed direction is 67 deg from the facing (113); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Km5",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/km5",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fast (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-km5"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC puna",
+     "name": "Puná",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 37.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": -2.735,
+     "lon": -79.912,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=puna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SEGU",
+     "name": "Guayaquil",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 75.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.158,
+     "lon": -79.884,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SEGU&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Km5",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/km5",
+    "guidePin": {
+     "lat": -2.7312,
+     "lon": -80.2469,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Beach-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-los-patios",
+    "distanceKm": 13.63
+   }
+  },
+  {
+   "id": "w-ecuador-la-fae",
+   "name": "La FAE",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Point",
+   "lat": -2.239,
+   "lon": -80.954,
+   "seaward": 225.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.2393, -80.9539) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/La-Fiveandahalfandeightandahalfkm"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2073.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 257 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.0 deg (limit 45); 300 m window gives 225.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2073.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2073.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.240928,
+     -80.955551
+    ],
+    "distanceToCoastM": 257.2,
+    "meanDevDeg": 0.0,
+    "seaward300": 225.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 1 deg from facing+180 (46); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 1 deg from the facing (226); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "La FAE",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/La-Fiveandahalfandeightandahalfkm",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Tends to receive distant groundswells and the optimum swell angle is from the southwest.There is a left hand point break here. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Hazards include private, rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing La FAE with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of March (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "La FAE in Guayas is an exposed point break that is often working. Autumn and winter are the best times of year for waves. Offshore winds blow from the northeast. Tends to receive distant groundswells and the optimum swell angle is from the southwest.There is a left hand point break here. It very rarely gets crowded here. Hazards include private, rips. La FAE"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-la-fae"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 5.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 5.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "La FAE",
+    "url": "https://www.surf-forecast.com/breaks/La-Fiveandahalfandeightandahalfkm",
+    "guidePin": {
+     "lat": -2.2393,
+     "lon": -80.9539,
+     "site": "surf-forecast"
+    },
+    "type": "Point",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'La Chueca' 2.5 km away, different name); a kept spot has the same name (w-ecuador-fae) but its Surfnerd pin is 6.4 km from this pin, so the two were not merged"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-playero-de-miramar",
+    "distanceKm": 4.21
+   }
+  },
+  {
+   "id": "w-ecuador-la-puntilla",
+   "name": "La Puntilla",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": -2.665,
+   "lon": -80.365,
+   "seaward": 227.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.6652, -80.3647) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/La-Puntilla_4"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1133/2077.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 713 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.3 deg (limit 45); 300 m window gives 229.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1133/2077.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1133/2078.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1134/2077.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1134/2078.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.669217,
+     -80.36972
+    ],
+    "distanceToCoastM": 713.3,
+    "meanDevDeg": 6.3,
+    "seaward300": 229.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 3 deg from facing+180 (48); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 87 deg from the facing (228); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "La Puntilla",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/La-Puntilla_4",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach tend to peel to the right and a right hand reef break too.. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing La Puntilla with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "La Puntilla in Guayas is a fairly exposed beach break that has inconsistent surf. Spring and Summer provide the best conditions. Works best in offshore winds from the northeast. Tends to receive distant groundswells and the best swell direction is from the northwest. Waves at the beach tend to peel to the right and a right hand reef break too.. Rarely crowded here. Rocks are a hazard. La Puntilla"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-la-puntilla"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC puna",
+     "name": "Puná",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 50.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": -2.735,
+     "lon": -79.912,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=puna"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SEGU",
+     "name": "Guayaquil",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 77.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.158,
+     "lon": -79.884,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SEGU&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "La Puntilla",
+    "url": "https://www.surf-forecast.com/breaks/La-Puntilla_4",
+    "guidePin": {
+     "lat": -2.6652,
+     "lon": -80.3647,
+     "site": "surf-forecast"
+    },
+    "type": "Beach",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Los Patios' 1.9 km away, different name)"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-los-patios",
+    "distanceKm": 1.9
+   }
+  },
+  {
+   "id": "w-ecuador-la-entrada",
+   "name": "La entrada",
+   "country": "Ecuador",
+   "region": "la entrada",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": -1.732,
+   "lon": -80.784,
+   "seaward": 231.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-1.7322, -80.784) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp; other guide pins: wannasurf 0.01 km away",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/la_entrada"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2067.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 4 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.1 deg (limit 45); 300 m window gives 230.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2067.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2068.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2067.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2068.pbf"
+    ],
+    "nearestCoastPoint": [
+     -1.732223,
+     -80.784024
+    ],
+    "distanceToCoastM": 3.7,
+    "meanDevDeg": 4.1,
+    "seaward300": 230.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind East: nearest listed direction is 38 deg from facing+180 (52); consistent (<=60)",
+     "wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 7 deg from the facing (232); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "La entrada",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/la_entrada",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell NorthWest, West, SouthWest (wannasurf)",
+    "windOffshore": "good wind East (wannasurf)",
+    "tide": "High tide only, Rising tide (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-la-entrada"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC plop",
+     "name": "Puerto López",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 19.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": -1.561,
+     "lon": -80.817,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=plop"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 57.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "La entrada",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/la_entrada",
+    "guidePin": {
+     "lat": -1.7322,
+     "lon": -80.784,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Beach-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-la-rinconada-2-3",
+    "distanceKm": 2.28
+   }
+  },
+  {
+   "id": "w-ecuador-manta",
+   "name": "Manta",
+   "country": "Ecuador",
+   "region": "manta - el escondido",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": -0.938,
+   "lon": -80.73,
+   "seaward": 337.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-0.9383, -80.7304) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp; other guide pins: wannasurf 0.01 km away",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/manta_-_el_escondido"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2058.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 36 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 25.6 deg (limit 45); 300 m window gives 334.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2058.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2059.pbf"
+    ],
+    "nearestCoastPoint": [
+     -0.938591,
+     -80.730261
+    ],
+    "distanceToCoastM": 35.7,
+    "meanDevDeg": 25.6,
+    "seaward300": 334.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell North, NorthWest, SouthWest, South: nearest listed direction is 22 deg from the facing (337); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Manta",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/manta_-_el_escondido",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest, SouthWest, South (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rocks - Localism (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-manta"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mant",
+     "name": "Manta",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 1.2,
+     "live": false,
+     "liveNote": "last sample 2024-09-19 12:49:00.000 UTC in the IOC station list",
+     "lat": -0.931,
+     "lon": -80.722,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mant"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SEMT",
+     "name": "Manta",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 5.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.946,
+     "lon": -80.679,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SEMT&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Manta",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/manta_-_el_escondido",
+    "guidePin": {
+     "lat": -0.9383,
+     "lon": -80.7304,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Beach-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-murcielago",
+    "distanceKm": 1.2
+   }
+  },
+  {
+   "id": "w-ecuador-olon",
+   "name": "Olon",
+   "country": "Ecuador",
+   "region": "olon",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": -1.796,
+   "lon": -80.764,
+   "seaward": 255.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-1.7959, -80.7641) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/olon"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2068.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 352 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.5 deg (limit 45); 300 m window gives 254.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2068.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2068.pbf"
+    ],
+    "nearestCoastPoint": [
+     -1.795026,
+     -80.761057
+    ],
+    "distanceToCoastM": 352.1,
+    "meanDevDeg": 1.5,
+    "seaward300": 254.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell North, NorthWest, SouthWest, South: nearest listed direction is 31 deg from the facing (256); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Olon",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/olon",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest, SouthWest, South (wannasurf)",
+    "tide": "Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-olon"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC plop",
+     "name": "Puerto López",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 26.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": -1.561,
+     "lon": -80.817,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=plop"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 52.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Olon",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/olon",
+    "guidePin": {
+     "lat": -1.7959,
+     "lon": -80.7641,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Beach-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-montanita",
+    "distanceKm": 2.71
+   }
+  },
+  {
+   "id": "w-ecuador-paco-illescas",
+   "name": "Paco illescas",
+   "country": "Ecuador",
+   "region": "paco illescas",
+   "timeZone": "America/Guayaquil",
+   "type": "Point",
+   "lat": -2.2,
+   "lon": -80.957,
+   "seaward": 1.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-2.1998, -80.957) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp; other guide pins: wannasurf 0.01 km away",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/paco_illescas"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2072.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 228 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 35.5 deg (limit 45); 300 m window gives 350.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1126/2073.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2073.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.201702,
+     -80.956213
+    ],
+    "distanceToCoastM": 227.8,
+    "meanDevDeg": 35.5,
+    "seaward300": 350.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South, SouthEast: nearest listed direction is 1 deg from facing+180 (181); consistent (<=60)",
+     "wannasurf good swell North, NorthWest: nearest listed direction is 1 deg from the facing (1); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Paco illescas",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/paco_illescas",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest (wannasurf)",
+    "windOffshore": "good wind South, SouthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Flat rocks (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fast (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-paco-illescas"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 6.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 3.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Point-break'",
+   "recoveredFrom": {
+    "name": "Paco illescas",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/paco_illescas",
+    "guidePin": {
+     "lat": -2.1998,
+     "lon": -80.957,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Point-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-el-barco-salinas",
+    "distanceKm": 0.0
+   }
+  },
+  {
+   "id": "w-ecuador-piqueros",
+   "name": "Piqueros",
+   "country": "Ecuador",
+   "region": "Piqueros",
+   "timeZone": "America/Guayaquil",
+   "type": "Point",
+   "lat": -1.598,
+   "lon": -80.846,
+   "seaward": 319.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-1.5978, -80.8457) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp; other guide pins: wannasurf 0.01 km away",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/Piqueros"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2065.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 246 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 13.7 deg (limit 45); 300 m window gives 320.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2065.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2066.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2065.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2066.pbf"
+    ],
+    "nearestCoastPoint": [
+     -1.596136,
+     -80.84717
+    ],
+    "distanceToCoastM": 246.2,
+    "meanDevDeg": 13.7,
+    "seaward300": 320.0
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Piqueros",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/Piqueros",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to (wannasurf)",
+    "hazards": [
+     "Rocks - Private beach (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-piqueros"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC plop",
+     "name": "Puerto López",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 5.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": -1.561,
+     "lon": -80.817,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=plop"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 69.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Point-break'",
+   "recoveredFrom": {
+    "name": "Piqueros",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/Piqueros",
+    "guidePin": {
+     "lat": -1.5978,
+     "lon": -80.8457,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Point-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-rio-chico",
+    "distanceKm": 2.0
+   }
+  },
+  {
+   "id": "w-ecuador-playa-bruja",
+   "name": "Playa Bruja",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Reef",
+   "lat": -1.944,
+   "lon": -80.736,
+   "seaward": 281.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-1.9444, -80.7363) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Playa-Bruja_1"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2069.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 939 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.4 deg (limit 45); 300 m window gives 282.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2069.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2070.pbf"
+    ],
+    "nearestCoastPoint": [
+     -1.946284,
+     -80.72807
+    ],
+    "distanceToCoastM": 939.1,
+    "meanDevDeg": 4.4,
+    "seaward300": 282.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 34 deg from facing+180 (101); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 34 deg from the facing (281); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Playa Bruja",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Playa-Bruja_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "tide": "Best around low tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "Reef breaks provide lefts and rights. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "It's sometimes crowded here. (surf-forecast)",
+     "Hazards include rips and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Playa Bruja with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Playa Bruja in Guayas is an exposed reef break that has pretty consitent surf and can work at any time of the year. The best wind direction is from the southeast. Groundswells are more common than windswells and the ideal swell direction is from the northwest. Reef breaks provide lefts and rights. Best around low tide. It's sometimes crowded here. Hazards include rips and rocks. Playa Bruja"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-playa-bruja"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 35.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 40.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Playa Bruja",
+    "url": "https://www.surf-forecast.com/breaks/Playa-Bruja_1",
+    "guidePin": {
+     "lat": -1.9444,
+     "lon": -80.7363,
+     "site": "surf-forecast"
+    },
+    "type": "Reef",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-montanita-beachbreak",
+    "distanceKm": 12.96
+   }
+  },
+  {
+   "id": "w-ecuador-puerto-rico",
+   "name": "Puerto rico",
+   "country": "Ecuador",
+   "region": "puerto rico",
+   "timeZone": "America/Guayaquil",
+   "type": "Beach",
+   "lat": -1.631,
+   "lon": -80.826,
+   "seaward": 238.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-1.6309, -80.8257) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/puerto_rico"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2066.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1025 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.8 deg (limit 45); 300 m window gives 238.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2066.pbf"
+    ],
+    "nearestCoastPoint": [
+     -1.635744,
+     -80.833552
+    ],
+    "distanceToCoastM": 1024.8,
+    "meanDevDeg": 0.8,
+    "seaward300": 238.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell North, NorthWest, West, SouthWest, South: nearest listed direction is 14 deg from the facing (238); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Puerto rico",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/South_America/Ecuador/puerto_rico",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest, West, SouthWest, South (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rips / undertow (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-puerto-rico"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC plop",
+     "name": "Puerto López",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 7.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:29:00.000 UTC in the IOC station list",
+     "lat": -1.561,
+     "lon": -80.817,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=plop"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 66.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Puerto rico",
+    "url": "https://www.wannasurf.com/spot/South_America/Ecuador/puerto_rico",
+    "guidePin": {
+     "lat": -1.6309,
+     "lon": -80.8257,
+     "site": "wannasurf",
+     "precision": "Approximate"
+    },
+    "type": "Beach-break",
+    "dropReason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-viejamar",
+    "distanceKm": 1.34
+   }
+  },
+  {
+   "id": "w-ecuador-punta-barandua",
+   "name": "Punta Barandua",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Reef",
+   "lat": -2.167,
+   "lon": -80.839,
+   "seaward": 299.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.1671, -80.8394) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Barandua"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2072.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1115 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 11.6 deg (limit 45); 300 m window gives 296.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2073.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2073.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.171229,
+     -80.830259
+    ],
+    "distanceToCoastM": 1114.7,
+    "meanDevDeg": 11.6,
+    "seaward300": 296.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 16 deg from facing+180 (119); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 74 deg from the facing (299); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Punta Barandua",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Punta-Barandua",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Best around mid tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "There are left and right breaking reefs. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Surfing here means negotiating dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Punta Barandua with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of March (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Punta Barandua in Guayas is an exposed reef break that has consistent surf. Autumn and winter are the best times of year for waves. Offshore winds are from the southeast. Tends to receive distant groundswells and the best swell direction is from the southwest. There are left and right breaking reefs. Best around mid tide. Rarely crowded here. Surfing here means negotiating dangerous rips. Punta Barandua"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-punta-barandua"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 9.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Punta Barandua",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Barandua",
+    "guidePin": {
+     "lat": -2.1671,
+     "lon": -80.8394,
+     "site": "surf-forecast"
+    },
+    "type": "Reef",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Coito' 1.9 km away, different name)"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-coito",
+    "distanceKm": 1.83
+   }
+  },
+  {
+   "id": "w-ecuador-punta-blanca",
+   "name": "Punta Blanca",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": "Reef",
+   "lat": -2.113,
+   "lon": -80.766,
+   "seaward": 306.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.113, -80.7665) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Blanca_2"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2071.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1268 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.8 deg (limit 45); 300 m window gives 305.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2071.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2071.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1129/2072.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.119658,
+     -80.75722
+    ],
+    "distanceToCoastM": 1267.9,
+    "meanDevDeg": 2.8,
+    "seaward300": 305.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 9 deg from facing+180 (126); consistent (<=60)",
+     "surf-forecast best swell Northwest: nearest listed direction is 9 deg from the facing (306); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Punta Blanca",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Punta-Blanca_2",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "tide": "Best around low tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "The reef provides both left and right breaks. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "A fairly popluar wave that can sometimes get crowded Hazards include rips and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Punta Blanca with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Punta Blanca in Guayas is an exposed reef break that has quite reliable surf. Spring and Summer provide the best conditions. Offshore winds blow from the southeast. Groundswells more frequent than windswells and the ideal swell direction is from the northwest. The reef provides both left and right breaks. Best around low tide. A fairly popluar wave that can sometimes get crowded Hazards include rips and rocks. Punta Blanca"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-punta-blanca"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 19.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 26.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Punta Blanca",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Blanca_2",
+    "guidePin": {
+     "lat": -2.113,
+     "lon": -80.7665,
+     "site": "surf-forecast"
+    },
+    "type": "Reef",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-coito",
+    "distanceKm": 8.43
+   }
+  },
+  {
+   "id": "w-ecuador-punta-murcielago",
+   "name": "Punta Murcielago",
+   "country": "Ecuador",
+   "region": "Guayas",
+   "timeZone": "America/Guayaquil",
+   "type": null,
+   "lat": -2.195,
+   "lon": -80.868,
+   "seaward": 344.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (-2.1953, -80.8683) taken from the dropped row (guidePin), as published on the page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Murcielago"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2072.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 336 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.4 deg (limit 45); 300 m window gives 346.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1127/2073.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2072.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/1128/2073.pbf"
+    ],
+    "nearestCoastPoint": [
+     -2.198314,
+     -80.867937
+    ],
+    "distanceToCoastM": 335.7,
+    "meanDevDeg": 20.4,
+    "seaward300": 346.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southeast: nearest listed direction is 30 deg from facing+180 (164); consistent (<=60)",
+     "surf-forecast best swell from the northwest: nearest listed direction is 30 deg from the facing (344); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Punta Murcielago",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Punta-Murcielago",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the northwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Southeast (surf-forecast)",
+    "waveTypeText": "Reef and point (surf-forecast)",
+    "waveDirectionText": "There is a left breaking reef and there is a left hand point break too. (surf-forecast)",
+    "exposure": "exposed reef and point break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Hazards include rips and rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Punta Murcielago with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of February (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Punta Murcielago in Guayas is an exposed reef and point break that has fairly consistent surf. Spring and Summer provide the favoured conditions. The best wind direction is from the southeast. Clean groundswells prevail and the best swell direction is from the northwest. There is a left breaking reef and there is a left hand point break too. Rarely crowded here. Hazards include rips and rocks. Punta Murcielago"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-ecuador-punta-murcielago"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lali",
+     "name": "La_Libertad_EC",
+     "owner": "IOC Sea Level Station Monitoring Facility (Ecuador)",
+     "distanceKm": 4.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:43:00.000 UTC in the IOC station list",
+     "lat": -2.218,
+     "lon": -80.906,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lali"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR SESA",
+     "name": "Salinas",
+     "owner": "IEM EC__ASOS network (airport METAR)",
+     "distanceKm": 13.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -2.208,
+     "lon": -80.986,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SESA&network=EC__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Punta Murcielago",
+    "url": "https://www.surf-forecast.com/breaks/Punta-Murcielago",
+    "guidePin": {
+     "lat": -2.1953,
+     "lon": -80.8683,
+     "site": "surf-forecast"
+    },
+    "type": "Reef and point",
+    "dropReason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Capaes' 0.7 km away, different name)"
+   },
+   "nearestCatalogued": {
+    "id": "w-ecuador-capaes",
+    "distanceKm": 0.7
+   }
   }
  ],
  "dropped": [
@@ -7281,17 +9144,6 @@
    "url": "https://www.surfnerd.com/surf-forecast/512-km-812-km"
   },
   {
-   "name": "Anconcito",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'La Diablica' 0.7 km away, different name)",
-   "url": "https://www.surf-forecast.com/breaks/Anconcito",
-   "guidePin": {
-    "lat": -2.3277,
-    "lon": -80.8995,
-    "site": "surf-forecast"
-   },
-   "type": "Point"
-  },
-  {
    "name": "Barahona",
    "reason": "No published break type on Surfnerd, Surf-Forecast.com or Wannasurf; an app row needs a type. The facing is published (Surfnerd: ESE)",
    "url": "https://www.surfnerd.com/surf-forecast/barahona"
@@ -7299,18 +9151,12 @@
   {
    "name": "Bocana del Cojimies",
    "reason": "No published facing: the Surfnerd page has no \"Faces\" value and no Surf-Forecast.com page was matched",
-   "url": "https://www.surfnerd.com/surf-forecast/bocana-del-cojimies"
-  },
-  {
-   "name": "Bocana del Cojimies",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Bocanadel-Cojimies",
-   "guidePin": {
-    "lat": 0.3463,
-    "lon": -80.0502,
-    "site": "surf-forecast"
-   },
-   "type": "Beach"
+   "url": "https://www.surfnerd.com/surf-forecast/bocana-del-cojimies",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 3.86 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Canoa",
@@ -7321,7 +9167,12 @@
     "lon": -80.4496,
     "site": "surf-forecast"
    },
-   "type": "Beach"
+   "type": "Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-ecuador-canoa, kept) is 8.7 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Cerro Gallina",
@@ -7332,7 +9183,12 @@
     "lon": -90.5085,
     "site": "surf-forecast"
    },
-   "type": "Reef"
+   "type": "Reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-ecuador-cerro-gallina, kept) is 7.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Chulluipe",
@@ -7344,18 +9200,12 @@
     "site": "wannasurf",
     "precision": "Approximate"
    },
-   "type": "Point-break"
-  },
-  {
-   "name": "Dead Point",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Shit Bay' 1.8 km away, different name)",
-   "url": "https://www.surf-forecast.com/breaks/Dead-Point",
-   "guidePin": {
-    "lat": -2.1764,
-    "lon": -81.001,
-    "site": "surf-forecast"
-   },
-   "type": "Reef"
+   "type": "Point-break",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthWest, West: nearest listed direction is 127 deg from facing+180 (143); CONTRADICTS (>60) | wannasurf good swell North, NorthWest, West: nearest listed direction is 8 deg from the facing (323); consistent (<=90)"
+   }
   },
   {
    "name": "El Bajo",
@@ -7372,7 +9222,12 @@
     "site": "wannasurf",
     "precision": "Approximate"
    },
-   "type": "Reef-rocky"
+   "type": "Reef-rocky",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "El Mansito",
@@ -7383,7 +9238,12 @@
     "lon": -80.8133,
     "site": "surf-forecast"
    },
-   "type": "Reef and point"
+   "type": "Reef and point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore winds from the southeast: nearest listed direction is 62 deg from facing+180 (197); CONTRADICTS (>60) | surf-forecast best swell from the northwest: nearest listed direction is 62 deg from the facing (17); consistent (<=90)"
+   }
   },
   {
    "name": "El Miramar",
@@ -7394,7 +9254,12 @@
     "lon": -80.9354,
     "site": "surf-forecast"
    },
-   "type": "Reef"
+   "type": "Reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the south: nearest listed direction is 60 deg from facing+180 (240); consistent (<=60) | surf-forecast best swell Northwest: nearest listed direction is 105 deg from the facing (60); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "El Pelado",
@@ -7405,7 +9270,12 @@
     "lon": -80.4678,
     "site": "surf-forecast"
    },
-   "type": "Beach and reef"
+   "type": "Beach and reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-ecuador-el-pelado, kept) is 3.5 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Escondido",
@@ -7416,7 +9286,12 @@
     "lon": -80.8513,
     "site": "surf-forecast"
    },
-   "type": "Reef and point"
+   "type": "Reef and point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the east southeast: nearest listed direction is 23 deg from facing+180 (135); consistent (<=60) | surf-forecast best swell Southwest: nearest listed direction is 90 deg from the facing (315); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Frente A Bahia",
@@ -7427,19 +9302,12 @@
     "lon": -80.4433,
     "site": "surf-forecast"
    },
-   "type": "Beach"
-  },
-  {
-   "name": "Km5",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/km5",
-   "guidePin": {
-    "lat": -2.7312,
-    "lon": -80.2469,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Beach-break"
+   "type": "Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore wind from the East-southeast: nearest listed direction is 59 deg from facing+180 (172); consistent (<=60) | surf-forecast best swell Southwest: nearest listed direction is 127 deg from the facing (352); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "La Cabuya",
@@ -7452,17 +9320,6 @@
    "url": "https://www.surfnerd.com/surf-forecast/la-chueca"
   },
   {
-   "name": "La FAE",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'La Chueca' 2.5 km away, different name); a kept spot has the same name (w-ecuador-fae) but its Surfnerd pin is 6.4 km from this pin, so the two were not merged",
-   "url": "https://www.surf-forecast.com/breaks/La-Fiveandahalfandeightandahalfkm",
-   "guidePin": {
-    "lat": -2.2393,
-    "lon": -80.9539,
-    "site": "surf-forecast"
-   },
-   "type": "Point"
-  },
-  {
    "name": "La Mesita",
    "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing; a kept spot has the same name (w-ecuador-la-mesita) but its Surfnerd pin is 5.4 km from this pin, so the two were not merged",
    "url": "https://www.surf-forecast.com/breaks/La-Mesita",
@@ -7471,7 +9328,12 @@
     "lon": -80.4867,
     "site": "surf-forecast"
    },
-   "type": "Point"
+   "type": "Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-ecuador-la-mesita, kept) is 5.4 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "La Punta - La Bellaca",
@@ -7482,18 +9344,12 @@
     "lon": -80.7636,
     "site": "surf-forecast"
    },
-   "type": "Point"
-  },
-  {
-   "name": "La Puntilla",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Los Patios' 1.9 km away, different name)",
-   "url": "https://www.surf-forecast.com/breaks/La-Puntilla_4",
-   "guidePin": {
-    "lat": -2.6652,
-    "lon": -80.3647,
-    "site": "surf-forecast"
-   },
-   "type": "Beach"
+   "type": "Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore wind from the Southeast: nearest listed direction is 23 deg from facing+180 (158); consistent (<=60) | surf-forecast best swell Southwest: nearest listed direction is 113 deg from the facing (338); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "La Puntilla",
@@ -7504,19 +9360,12 @@
     "lon": -80.9739,
     "site": "surf-forecast"
    },
-   "type": "Reef"
-  },
-  {
-   "name": "La entrada",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/la_entrada",
-   "guidePin": {
-    "lat": -1.7322,
-    "lon": -80.784,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Beach-break"
+   "type": "Reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.60; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Las Tunas",
@@ -7527,7 +9376,12 @@
     "lon": -80.8436,
     "site": "surf-forecast"
    },
-   "type": "Beach and reef"
+   "type": "Beach and reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-ecuador-las-tunas-2-3, kept) is 5.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Las pinas/La Antena",
@@ -7540,18 +9394,6 @@
    "url": "https://www.surfnerd.com/surf-forecast/mal-paso"
   },
   {
-   "name": "Manta",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/manta_-_el_escondido",
-   "guidePin": {
-    "lat": -0.9383,
-    "lon": -80.7304,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Beach-break"
-  },
-  {
    "name": "Montanita",
    "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'La Rinconada' 0.5 km away, different name); a kept spot has the same name (w-ecuador-montanita) but its Surfnerd pin is 12.6 km from this pin, so the two were not merged",
    "url": "https://www.surf-forecast.com/breaks/Montanita",
@@ -7560,7 +9402,12 @@
     "lon": -80.7981,
     "site": "surf-forecast"
    },
-   "type": "Reef and point"
+   "type": "Reef and point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Muisne",
@@ -7573,30 +9420,6 @@
    "url": "https://www.surfnerd.com/surf-forecast/olon"
   },
   {
-   "name": "Olon",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/olon",
-   "guidePin": {
-    "lat": -1.7959,
-    "lon": -80.7641,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Beach-break"
-  },
-  {
-   "name": "Paco illescas",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/paco_illescas",
-   "guidePin": {
-    "lat": -2.1998,
-    "lon": -80.957,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Point-break"
-  },
-  {
    "name": "Perdernales",
    "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing",
    "url": "https://www.surf-forecast.com/breaks/Perdernales",
@@ -7605,7 +9428,12 @@
     "lon": -80.0994,
     "site": "surf-forecast"
    },
-   "type": "Beach"
+   "type": "Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 53 deg (arccos of mean resultant length 0.60; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pico hambre",
@@ -7617,30 +9445,12 @@
     "site": "wannasurf",
     "precision": "Approximate"
    },
-   "type": "Point-break"
-  },
-  {
-   "name": "Piqueros",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/Piqueros",
-   "guidePin": {
-    "lat": -1.5978,
-    "lon": -80.8457,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Point-break"
-  },
-  {
-   "name": "Playa Bruja",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Playa-Bruja_1",
-   "guidePin": {
-    "lat": -1.9444,
-    "lon": -80.7363,
-    "site": "surf-forecast"
-   },
-   "type": "Reef"
+   "type": "Point-break",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthEast, East: nearest listed direction is 66 deg from facing+180 (24); CONTRADICTS (>60) | wannasurf good swell SouthWest, South: nearest listed direction is 21 deg from the facing (204); consistent (<=90)"
+   }
   },
   {
    "name": "Playas",
@@ -7652,57 +9462,17 @@
     "site": "wannasurf",
     "precision": "Approximate"
    },
-   "type": "Point-break"
+   "type": "Point-break",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind East, NorthEast: nearest listed direction is 64 deg from facing+180 (341); CONTRADICTS (>60) | wannasurf good swell North, NorthWest, West, SouthWest, South: nearest listed direction is 19 deg from the facing (161); consistent (<=90)"
+   }
   },
   {
    "name": "Puerto Lopez",
    "reason": "No published break type on Surfnerd, Surf-Forecast.com or Wannasurf; an app row needs a type. The facing is published (Surfnerd: NW)",
    "url": "https://www.surfnerd.com/surf-forecast/puerto-lopez"
-  },
-  {
-   "name": "Puerto rico",
-   "reason": "Wannasurf page only (no Surfnerd page matched by name within 4 km); Wannasurf publishes no facing, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/South_America/Ecuador/puerto_rico",
-   "guidePin": {
-    "lat": -1.6309,
-    "lon": -80.8257,
-    "site": "wannasurf",
-    "precision": "Approximate"
-   },
-   "type": "Beach-break"
-  },
-  {
-   "name": "Punta Barandua",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Coito' 1.9 km away, different name)",
-   "url": "https://www.surf-forecast.com/breaks/Punta-Barandua",
-   "guidePin": {
-    "lat": -2.1671,
-    "lon": -80.8394,
-    "site": "surf-forecast"
-   },
-   "type": "Reef"
-  },
-  {
-   "name": "Punta Blanca",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Punta-Blanca_2",
-   "guidePin": {
-    "lat": -2.113,
-    "lon": -80.7665,
-    "site": "surf-forecast"
-   },
-   "type": "Reef"
-  },
-  {
-   "name": "Punta Murcielago",
-   "reason": "Surf-Forecast.com page only (no Surfnerd page matched by name within 4 km); Surf-Forecast.com publishes no facing, so no sourced facing (nearest Surfnerd spot 'Capaes' 0.7 km away, different name)",
-   "url": "https://www.surf-forecast.com/breaks/Punta-Murcielago",
-   "guidePin": {
-    "lat": -2.1953,
-    "lon": -80.8683,
-    "site": "surf-forecast"
-   },
-   "type": "Reef and point"
   },
   {
    "name": "Punta Pitt",
@@ -7713,7 +9483,12 @@
     "lon": -89.2442,
     "site": "surf-forecast"
    },
-   "type": "Reef"
+   "type": "Reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Punta San Lorenzo",
@@ -7724,7 +9499,12 @@
     "lon": -80.9088,
     "site": "surf-forecast"
    },
-   "type": "Reef and point"
+   "type": "Reef and point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.53; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Punta la Viejita",
@@ -7735,7 +9515,12 @@
     "lon": -80.9857,
     "site": "surf-forecast"
    },
-   "type": "Point"
+   "type": "Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore winds from the east southeast: nearest listed direction is 102 deg from facing+180 (215); CONTRADICTS (>60) | surf-forecast best swell Northwest: nearest listed direction is 80 deg from the facing (35); consistent (<=90)"
+   }
   },
   {
    "name": "Rio Chico",
@@ -7746,7 +9531,12 @@
     "lon": -80.8184,
     "site": "surf-forecast"
    },
-   "type": "Point"
+   "type": "Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-ecuador-rio-chico, kept) is 6.1 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "San Lorenzo",
@@ -7763,5 +9553,6 @@
    "reason": "No published break type on Surfnerd, Surf-Forecast.com or Wannasurf; an app row needs a type. The facing is published (Surfnerd: NNW)",
    "url": "https://www.surfnerd.com/surf-forecast/tonsupa"
   }
- ]
+ ],
+ "recovery": "2026-11-09: 16 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

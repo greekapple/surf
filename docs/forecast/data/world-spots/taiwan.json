@@ -1522,123 +1522,2043 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-taiwan-barrels",
+   "name": "Barrels",
+   "country": "Taiwan",
+   "region": "North",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 24.811,
+   "lon": 121.815,
+   "seaward": 98.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (24.811, 121.8153) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Barrels"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1756.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 574 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.2 deg (limit 45); 300 m window gives 98.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1756.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1756.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.810376,
+     121.820938
+    ],
+    "distanceToCoastM": 573.8,
+    "meanDevDeg": 2.2,
+    "seaward300": 98.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southwest: nearest listed direction is 53 deg from facing+180 (278); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 53 deg from the facing (98); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Barrels",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Barrels",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Most of the surf comes fis in the form of windswells and the ideal wave angle is from the northeast.The break here is a left hand point. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Watch out for rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Barrels with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Barrels in - is an exposed point break that usually has waves Offshore winds are from the southwest. Most of the surf comes fis in the form of windswells and the ideal wave angle is from the northeast.The break here is a left hand point. Rarely crowded here. Watch out for rocks. Barrels"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-barrels"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC twus",
+     "name": "Wushih",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.869,
+     "lon": 121.84,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=twus"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 39.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Barrels",
+    "url": "https://www.surf-forecast.com/breaks/Barrels",
+    "dropReason": "surf-forecast page only (pin 24.81,121.82); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-wushi",
+    "distanceKm": 7.35
+   }
+  },
+  {
+   "id": "w-taiwan-chengkung",
+   "name": "Chengkung",
+   "country": "Taiwan",
+   "region": "South",
+   "timeZone": "Asia/Taipei",
+   "type": "Reef",
+   "lat": 23.161,
+   "lon": 121.403,
+   "seaward": 104.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (23.1612, 121.403) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Chengkung"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3428/1776.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 261 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 34.4 deg (limit 45); 300 m window gives 98.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3428/1776.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3428/1777.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1776.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1777.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.160603,
+     121.40547
+    ],
+    "distanceToCoastM": 261.3,
+    "meanDevDeg": 34.4,
+    "seaward300": 98.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the west southwest: nearest listed direction is 37 deg from facing+180 (284); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 59 deg from the facing (104); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Chengkung",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Chengkung",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the west southwest (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "There is a left breaking reef. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Chengkung with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Chengkung in - is an exposed reef break that has quite consistent surf. Winter is the favoured time of year for surfing here. Offshore winds are from the west southwest. Windswells are much more typical than groudswells and the ideal wave direction is from the northeast. There is a left breaking reef. Unlikely to be too crowded, even when the surf is up. Submerged rocks are a hazard. Chengkung"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-chengkung"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC txig",
+     "name": "Xiaogang",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 0.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 23.159,
+     "lon": 121.404,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=txig"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 54.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Chengkung",
+    "url": "https://www.surf-forecast.com/breaks/Chengkung",
+    "dropReason": "surf-forecast page only (pin 23.16,121.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-cheng-gong",
+    "distanceKm": 5.13
+   }
+  },
+  {
+   "id": "w-taiwan-chialoshui",
+   "name": "Chialoshui",
+   "country": "Taiwan",
+   "region": "South",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 22.025,
+   "lon": 120.88,
+   "seaward": 111.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (22.0252, 120.8801) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Chialoshui"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1790.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 728 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.9 deg (limit 45); 300 m window gives 105.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1790.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1791.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3423/1790.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3423/1791.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.024565,
+     120.887117
+    ],
+    "distanceToCoastM": 727.6,
+    "meanDevDeg": 21.9,
+    "seaward300": 105.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-southwest: nearest listed direction is 44 deg from facing+180 (291); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 24 deg from the facing (111); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Chialoshui",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Chialoshui",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-southwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. (surf-forecast)",
+     "It very rarely gets crowded here. (surf-forecast)",
+     "Surfing here means negotiating dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Chialoshui with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Chialoshui in - is an exposed beach break that has unreliable waves. Summer offers the best conditions for surfing. Ideal winds are from the west southwest. Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. Waves at the beach are both lefts and rights. It very rarely gets crowded here. Surfing here means negotiating dangerous rips. Chialoshui"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-chialoshui"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC thou",
+     "name": "Houbihu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 16.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 21.946,
+     "lon": 120.745,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=thou"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCKH",
+     "name": "Kaohsiung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 82.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.577,
+     "lon": 120.35,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCKH&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Chialoshui",
+    "url": "https://www.surf-forecast.com/breaks/Chialoshui",
+    "dropReason": "surf-forecast page only (pin 22.03,120.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-jialeshui",
+    "distanceKm": 5.51
+   }
+  },
+  {
+   "id": "w-taiwan-green-island",
+   "name": "Green island",
+   "country": "Taiwan",
+   "region": "South",
+   "timeZone": "Asia/Taipei",
+   "type": "Reef",
+   "lat": 22.017,
+   "lon": 121.526,
+   "seaward": 220.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (22.0165, 121.5259) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Green-Island"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1790.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1366 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 25.8 deg (limit 45); 300 m window gives 221.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1790.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1791.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1790.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1791.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.026415,
+     121.533787
+    ],
+    "distanceToCoastM": 1365.5,
+    "meanDevDeg": 25.8,
+    "seaward300": 221.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North: nearest listed direction is 40 deg from facing+180 (40); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 85 deg from the facing (220); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Green island",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Green-Island",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the North (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "There is a left breaking reef. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. (surf-forecast)",
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Beware of isolation. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Green island with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Green island in - is an exposed reef break that has inconsistent surf. Summer offers the best conditions for surfing. Works best in offshore winds from the north. Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. There is a left breaking reef. Even when there are waves, it's not likley to be crowded. Beware of isolation. Green island"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-green-island"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tlan",
+     "name": "Lanyu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 5.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 22.058,
+     "lon": 121.508,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tlan"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 93.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Green island",
+    "url": "https://www.surf-forecast.com/breaks/Green-Island",
+    "dropReason": "surf-forecast page only (pin 22.03,121.53); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-chialoshui",
+    "distanceKm": 66.6
+   }
+  },
+  {
+   "id": "w-taiwan-kenting",
+   "name": "Kenting",
+   "country": "Taiwan",
+   "region": "South",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 21.949,
+   "lon": 120.743,
+   "seaward": 114.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (21.9486, 120.7435) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Kenting"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3421/1791.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 395 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 18.2 deg (limit 45); 300 m window gives 115.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3421/1791.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3421/1792.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1791.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1792.pbf"
+    ],
+    "nearestCoastPoint": [
+     21.947613,
+     120.747174
+    ],
+    "distanceToCoastM": 394.7,
+    "meanDevDeg": 18.2,
+    "seaward300": 115.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 21 deg from facing+180 (294); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 21 deg from the facing (114); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kenting",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kenting",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Watch out for dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Kenting with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kenting in - is an exposed point break that has inconsistent surf. Summer offers the optimum conditions for surfing. Offshore winds are from the northwest. Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. Rarely crowded here. Watch out for dangerous rips. Kenting"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-kenting"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC thou",
+     "name": "Houbihu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 0.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 21.946,
+     "lon": 120.745,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=thou"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCKH",
+     "name": "Kaohsiung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 80.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.577,
+     "lon": 120.35,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCKH&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Kenting",
+    "url": "https://www.surf-forecast.com/breaks/Kenting",
+    "dropReason": "surf-forecast page only (pin 21.95,120.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-nanwan",
+    "distanceKm": 2.11
+   }
+  },
+  {
+   "id": "w-taiwan-lightning-bolt",
+   "name": "Lightning Bolt",
+   "country": "Taiwan",
+   "region": "North",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 24.92,
+   "lon": 121.88,
+   "seaward": 105.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (24.9196, 121.8801) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Lightning-Bolt"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1754.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 430 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 36.8 deg (limit 45); 300 m window gives 91.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1754.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1755.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3435/1754.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3435/1755.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.9196,
+     121.884363
+    ],
+    "distanceToCoastM": 430.3,
+    "meanDevDeg": 36.8,
+    "seaward300": 91.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 30 deg from facing+180 (285); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 30 deg from the facing (105); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Lightning Bolt",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lightning-Bolt",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.Surfers ride left hand point. (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.Surfers ride left hand point. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Lightning Bolt with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of June (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Lightning Bolt in - is an exposed point break that has dependable surf. Summer offers the optimum conditions for surfing. Ideal winds are from the northwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the southeast.Surfers ride left hand point. Rarely crowded here. Lightning Bolt"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-lightning-bolt"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC twus",
+     "name": "Wushih",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.869,
+     "lon": 121.84,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=twus"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 37.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Lightning Bolt",
+    "url": "https://www.surf-forecast.com/breaks/Lightning-Bolt",
+    "dropReason": "surf-forecast page only (pin 24.92,121.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-dashi",
+    "distanceKm": 1.71
+   }
+  },
+  {
+   "id": "w-taiwan-sunrise",
+   "name": "Sunrise",
+   "country": "Taiwan",
+   "region": "North",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 24.617,
+   "lon": 121.85,
+   "seaward": 59.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (24.6168, 121.85) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Sunrise_1"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1758.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 736 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.4 deg (limit 45); 300 m window gives 60.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1758.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1759.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1758.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1759.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.620224,
+     121.856235
+    ],
+    "distanceToCoastM": 735.8,
+    "meanDevDeg": 3.4,
+    "seaward300": 60.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southwest: nearest listed direction is 15 deg from facing+180 (240); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 15 deg from the facing (60); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Sunrise",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sunrise_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Southwest (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the northeast. (surf-forecast)",
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Sunrise with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Sunrise in - is an exposed point break that has fairly consistent surf The best wind direction is from the southwest. Waves more likely to be from local windswells than distant groundswells and the ideal wave angle is from the northeast. Even when there are waves, it's not likley to be crowded. Take care of rocks in the line up. Sunrise"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-sunrise"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tsua",
+     "name": "Su-ao",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 3.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.593,
+     "lon": 121.866,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tsua"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 58.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Sunrise",
+    "url": "https://www.surf-forecast.com/breaks/Sunrise_1",
+    "dropReason": "surf-forecast page only (pin 24.62,121.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-barrels",
+    "distanceKm": 21.86
+   }
+  },
+  {
+   "id": "w-taiwan-tawu",
+   "name": "Tawu",
+   "country": "Taiwan",
+   "region": "South",
+   "timeZone": "Asia/Taipei",
+   "type": null,
+   "lat": 22.315,
+   "lon": 120.891,
+   "seaward": 93.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (22.3152, 120.8913) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Tawu"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3423/1787.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 38 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.0 deg (limit 45); 300 m window gives 94.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3423/1787.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.3152,
+     120.891666
+    ],
+    "distanceToCoastM": 37.7,
+    "meanDevDeg": 4.0,
+    "seaward300": 94.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 19 deg from facing+180 (274); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 41 deg from the facing (94); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Tawu",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tawu",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "waveTypeText": "River (surf-forecast)",
+    "waveDirectionText": "The river break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed river break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Be wary of rips - they make surfing here dangerous. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Tawu with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Tawu in - is an exposed river break that has unreliable waves. Summer offers the best conditions for surfing. Ideal winds are from the west northwest. Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. The river break provides left and right handers. Rarely crowded here. Be wary of rips - they make surfing here dangerous. Tawu"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-tawu"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tdaw",
+     "name": "Dawn",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 2.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 22.337,
+     "lon": 120.897,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tdaw"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 53.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Tawu",
+    "url": "https://www.surf-forecast.com/breaks/Tawu",
+    "dropReason": "surf-forecast page only (pin 22.32,120.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-chialoshui",
+    "distanceKm": 32.27
+   }
+  },
+  {
+   "id": "w-taiwan-the-core",
+   "name": "The Core",
+   "country": "Taiwan",
+   "region": "North",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.755,
+   "lon": 121.812,
+   "seaward": 81.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (24.7551, 121.8118) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/The-Core"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1756.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 782 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.9 deg (limit 45); 300 m window gives 81.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1756.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1757.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1756.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1757.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.756154,
+     121.819454
+    ],
+    "distanceToCoastM": 782.5,
+    "meanDevDeg": 0.9,
+    "seaward300": 81.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southwest: nearest listed direction is 37 deg from facing+180 (262); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 37 deg from the facing (82); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "The Core",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/The-Core",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Southwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the best wave direction is from the northeast. (surf-forecast)",
+     "A fairly popluar wave that can sometimes get crowded Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing The Core with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "The Core in - is an exposed beach break that has inconsistent surf The best wind direction is from the southwest. Waves more likely to be from local windswells than distant groundswells and the best wave direction is from the northeast. The beach breaks offer lefts and rights. A fairly popluar wave that can sometimes get crowded Take care of rocks in the line up. The Core"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-the-core"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC twus",
+     "name": "Wushih",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 13.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.869,
+     "lon": 121.84,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=twus"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 43.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "The Core",
+    "url": "https://www.surf-forecast.com/breaks/The-Core",
+    "dropReason": "surf-forecast page only (pin 24.76,121.81); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-barrels",
+    "distanceKm": 6.23
+   }
+  },
+  {
+   "id": "w-taiwan-chingshuei",
+   "name": "Chingshuei",
+   "country": "Taiwan",
+   "region": "Chingshuei",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.685,
+   "lon": 121.838,
+   "seaward": 86.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (24.684633333333334, 121.8379, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Chingshuei/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1757.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 94 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.5 deg (limit 45); 300 m window gives 87.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1757.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1758.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1757.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1758.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.684576,
+     121.836976
+    ],
+    "distanceToCoastM": 93.6,
+    "meanDevDeg": 1.5,
+    "seaward300": 87.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West: nearest listed direction is 3 deg from facing+180 (267); consistent (<=60)",
+     "wannasurf good swell SouthEast, East, NorthEast: nearest listed direction is 3 deg from the facing (87); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Chingshuei",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Chingshuei/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind West (wannasurf)",
+    "tide": "Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks - Pollution (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary, Fun, Powerless (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-chingshuei"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tsua",
+     "name": "Su-ao",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 10.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.593,
+     "lon": 121.866,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tsua"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 51.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Chingshuei",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Chingshuei/index.html",
+    "dropReason": "wannasurf page only (pin 24.6846,121.8379, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-sunrise",
+    "distanceKm": 7.66
+   }
+  },
+  {
+   "id": "w-taiwan-da-an",
+   "name": "Da an",
+   "country": "Taiwan",
+   "region": "Da an",
+   "timeZone": "Asia/Taipei",
+   "type": null,
+   "lat": 24.388,
+   "lon": 120.584,
+   "seaward": 293.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (24.387866666666667, 120.58405, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Da_an/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3419/1761.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 264 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 15.8 deg (limit 45); 300 m window gives 301.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3419/1761.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3419/1762.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3420/1761.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3420/1762.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.3866,
+     120.586255
+    ],
+    "distanceToCoastM": 263.8,
+    "meanDevDeg": 15.8,
+    "seaward300": 301.7
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Da an",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Da_an/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "tide": "All tides, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Sand-bar (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-da-an"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ttai",
+     "name": "Taichung Port",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 12.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.288,
+     "lon": 120.533,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ttai"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCMQ",
+     "name": "Taichung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 14.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 24.265,
+     "lon": 120.621,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCMQ&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Da an",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Da_an/index.html",
+    "dropReason": "wannasurf page only (pin 24.3879,120.5841, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-chu-nan",
+    "distanceKm": 44.04
+   }
+  },
+  {
+   "id": "w-taiwan-mimi-s-reef",
+   "name": "Mimi s Reef",
+   "country": "Taiwan",
+   "region": "Mimi s Reef",
+   "timeZone": "Asia/Taipei",
+   "type": "Reef",
+   "lat": 23.542,
+   "lon": 121.51,
+   "seaward": 104.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (23.541883333333335, 121.50998333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Mimi_s_Reef/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1771.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 137 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 7.7 deg (limit 45); 300 m window gives 100.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1771.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1772.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.542108,
+     121.508664
+    ],
+    "distanceToCoastM": 136.9,
+    "meanDevDeg": 7.7,
+    "seaward300": 100.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West, SouthWest: nearest listed direction is 14 deg from facing+180 (284); consistent (<=60)",
+     "wannasurf good swell SouthEast, East, NorthEast: nearest listed direction is 14 deg from the facing (104); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Mimi s Reef",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Mimi_s_Reef/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest, West, SouthWest (wannasurf)",
+    "tide": "Low and mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 5m / 16 ft and over (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fast, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-mimi-s-reef"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tshi",
+     "name": "Shihti",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 5.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 23.495,
+     "lon": 121.506,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tshi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 96.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "recoveredFrom": {
+    "name": "Mimi s Reef",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Mimi_s_Reef/index.html",
+    "dropReason": "wannasurf page only (pin 23.5419,121.5100, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-fongbin",
+    "distanceKm": 6.45
+   }
+  },
+  {
+   "id": "w-taiwan-shalun",
+   "name": "ShaLun",
+   "country": "Taiwan",
+   "region": "ShaLun",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 25.191,
+   "lon": 121.414,
+   "seaward": 335.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (25.191083333333335, 121.41398333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/ShaLun/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1751.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 257 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.6 deg (limit 45); 300 m window gives 334.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1751.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1752.pbf"
+    ],
+    "nearestCoastPoint": [
+     25.188957,
+     121.415005
+    ],
+    "distanceToCoastM": 256.7,
+    "meanDevDeg": 16.6,
+    "seaward300": 334.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South, SouthEast, East, NorthEast: nearest listed direction is 20 deg from facing+180 (155); consistent (<=60)",
+     "wannasurf good swell North, NorthWest, West, Don't know: nearest listed direction is 20 deg from the facing (335); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "ShaLun",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/ShaLun/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest, West, Don't know (wannasurf)",
+    "windOffshore": "good wind South, SouthEast, East, NorthEast (wannasurf)",
+    "tide": "Low and mid tide, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to Don't know (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Powerful, Ordinary, Fun, Powerless (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-shalun"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tdan",
+     "name": "Danhai",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 1.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 25.184,
+     "lon": 121.407,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tdan"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 19.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "ShaLun",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/ShaLun/index.html",
+    "dropReason": "wannasurf page only (pin 25.1911,121.4140, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-baishawan",
+    "distanceKm": 14.79
+   }
+  },
+  {
+   "id": "w-taiwan-the-barracks",
+   "name": "The Barracks",
+   "country": "Taiwan",
+   "region": "The Barracks",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.61,
+   "lon": 121.865,
+   "seaward": 31.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (24.61015, 121.8653, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/The_Barracks/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1758.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 54 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 19.3 deg (limit 45); 300 m window gives 28.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1758.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1759.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.609757,
+     121.864976
+    ],
+    "distanceToCoastM": 54.5,
+    "meanDevDeg": 19.3,
+    "seaward300": 28.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West: nearest listed direction is 58 deg from facing+180 (212); consistent (<=60)",
+     "wannasurf good swell SouthEast, East, NorthEast: nearest listed direction is 14 deg from the facing (32); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "The Barracks",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/The_Barracks/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind West (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) - Pollution (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary, Fun, Powerless (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-the-barracks"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tsua",
+     "name": "Su-ao",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 1.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.593,
+     "lon": 121.866,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tsua"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 60.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "The Barracks",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/The_Barracks/index.html",
+    "dropReason": "wannasurf page only (pin 24.6102,121.8653, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-sunrise",
+    "distanceKm": 1.7
+   }
+  },
+  {
+   "id": "w-taiwan-wu-shih-pi-canyon",
+   "name": "Wu Shih Pi Canyon",
+   "country": "Taiwan",
+   "region": "Wu Shih Pi Canyon",
+   "timeZone": "Asia/Taipei",
+   "type": "Point",
+   "lat": 23.236,
+   "lon": 121.416,
+   "seaward": 108.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (23.23645, 121.41626666666667, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Wu_Shih_Pi_Canyon/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1775.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 34 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 12.5 deg (limit 45); 300 m window gives 110.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1775.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3429/1776.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.236652,
+     121.416011
+    ],
+    "distanceToCoastM": 34.4,
+    "meanDevDeg": 12.5,
+    "seaward300": 110.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, West: nearest listed direction is 18 deg from facing+180 (288); consistent (<=60)",
+     "wannasurf good swell SouthEast, East, NorthEast: nearest listed direction is 18 deg from the facing (108); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Wu Shih Pi Canyon",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Wu_Shih_Pi_Canyon/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, West (wannasurf)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Flat rocks (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rocks - Man-made danger (buoys etc..) (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-wu-shih-pi-canyon"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC txig",
+     "name": "Xiaogang",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 8.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 23.159,
+     "lon": 121.404,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=txig"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 62.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Point-break'",
+   "recoveredFrom": {
+    "name": "Wu Shih Pi Canyon",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Wu_Shih_Pi_Canyon/index.html",
+    "dropReason": "wannasurf page only (pin 23.2365,121.4163, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-chengkung",
+    "distanceKm": 8.44
+   }
+  },
+  {
+   "id": "w-taiwan-donghe-rivermouth-2",
+   "name": "Donghe rivermouth",
+   "country": "Taiwan",
+   "region": "donghe rivermouth",
+   "timeZone": "Asia/Taipei",
+   "type": null,
+   "lat": 22.899,
+   "lon": 121.259,
+   "seaward": 117.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (22.89855, 121.259, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/donghe_rivermouth/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3427/1779.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 2 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.7 deg (limit 45); 300 m window gives 122.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3427/1779.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3427/1780.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3428/1779.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3428/1780.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.898537,
+     121.259008
+    ],
+    "distanceToCoastM": 1.6,
+    "meanDevDeg": 26.7,
+    "seaward300": 122.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West: nearest listed direction is 28 deg from facing+180 (298); consistent (<=60)",
+     "wannasurf good swell SouthEast, East, NorthEast: nearest listed direction is 17 deg from the facing (118); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Donghe rivermouth",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/donghe_rivermouth/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind West (wannasurf)",
+    "bottom": "Boulders (wannasurf)",
+    "waveTypeText": "Rivermouth (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fast, Powerful, Fun, Ledgey (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-donghe-rivermouth-2"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tfug",
+     "name": "Fugang",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 13.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 22.791,
+     "lon": 121.193,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tfug"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCFN",
+     "name": "Fengnin",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 22.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.755,
+     "lon": 121.102,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCFN&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Donghe rivermouth",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/donghe_rivermouth/index.html",
+    "dropReason": "wannasurf page only (pin 22.8986,121.2590, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-donghe-rivermouth",
+    "distanceKm": 10.21
+   }
+  },
+  {
+   "id": "w-taiwan-houbihu",
+   "name": "Houbihu",
+   "country": "Taiwan",
+   "region": "houbihu",
+   "timeZone": "Asia/Taipei",
+   "type": "Reef",
+   "lat": 21.943,
+   "lon": 120.746,
+   "seaward": 101.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (21.943233333333332, 120.74566666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/houbihu/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3421/1791.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 6 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.4 deg (limit 45); 300 m window gives 100.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3421/1791.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3421/1792.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1791.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3422/1792.pbf"
+    ],
+    "nearestCoastPoint": [
+     21.943279,
+     120.74564
+    ],
+    "distanceToCoastM": 5.7,
+    "meanDevDeg": 21.4,
+    "seaward300": 100.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthWest, South: nearest listed direction is 56 deg from facing+180 (281); consistent (<=60)",
+     "wannasurf good swell SouthWest, South: nearest listed direction is 79 deg from the facing (101); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Houbihu",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/houbihu/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South (wannasurf)",
+    "windOffshore": "good wind SouthWest, South (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "Pros or kamikaze only... (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-houbihu"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC thou",
+     "name": "Houbihu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 0.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 21.946,
+     "lon": 120.745,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=thou"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCKH",
+     "name": "Kaohsiung",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 81.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.577,
+     "lon": 120.35,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCKH&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Houbihu",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/houbihu/index.html",
+    "dropReason": "wannasurf page only (pin 21.9432,120.7457, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-kenting",
+    "distanceKm": 0.74
+   }
+  },
+  {
+   "id": "w-taiwan-wai-ao",
+   "name": "Wai-ao",
+   "country": "Taiwan",
+   "region": "wai-ao",
+   "timeZone": "Asia/Taipei",
+   "type": "Beach",
+   "lat": 24.717,
+   "lon": 121.844,
+   "seaward": 72.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (24.7169, 121.84386666666667, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/wai-ao/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1757.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 805 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 12.0 deg (limit 45); 300 m window gives 72.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1757.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3433/1758.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1757.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3434/1758.pbf"
+    ],
+    "nearestCoastPoint": [
+     24.713796,
+     121.836662
+    ],
+    "distanceToCoastM": 805.3,
+    "meanDevDeg": 12.0,
+    "seaward300": 72.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell SouthWest, NorthEast: nearest listed direction is 28 deg from the facing (73); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Wai-ao",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/wai-ao/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, NorthEast (wannasurf)",
+    "tide": "Low and mid tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Very consistent (150 day/year) (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Powerful, Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-taiwan-wai-ao"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tsua",
+     "name": "Su-ao",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 14.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.593,
+     "lon": 121.866,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tsua"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RCSS",
+     "name": "Taipei",
+     "owner": "IEM TW__ASOS network (airport METAR)",
+     "distanceKm": 49.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 25.069,
+     "lon": 121.552,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RCSS&network=TW__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Wai-ao",
+    "url": "https://www.wannasurf.com/spot/Asia/Taiwan/wai-ao/index.html",
+    "dropReason": "wannasurf page only (pin 24.7169,121.8439, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-taiwan-chingshuei",
+    "distanceKm": 3.61
+   }
   }
  ],
  "dropped": [
   {
-   "name": "Barrels",
-   "reason": "surf-forecast page only (pin 24.81,121.82); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Barrels"
-  },
-  {
-   "name": "Chengkung",
-   "reason": "surf-forecast page only (pin 23.16,121.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Chengkung"
-  },
-  {
-   "name": "Chialoshui",
-   "reason": "surf-forecast page only (pin 22.03,120.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Chialoshui"
-  },
-  {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Green Bay",
    "reason": "surf-forecast page only (pin 25.23,121.64); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Green-Bay"
-  },
-  {
-   "name": "Green island",
-   "reason": "surf-forecast page only (pin 22.03,121.53); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Green-Island"
-  },
-  {
-   "name": "Kenting",
-   "reason": "surf-forecast page only (pin 21.95,120.74); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kenting"
-  },
-  {
-   "name": "Lightning Bolt",
-   "reason": "surf-forecast page only (pin 24.92,121.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Lightning-Bolt"
-  },
-  {
-   "name": "Sunrise",
-   "reason": "surf-forecast page only (pin 24.62,121.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Sunrise_1"
-  },
-  {
-   "name": "Tawu",
-   "reason": "surf-forecast page only (pin 22.32,120.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Tawu"
-  },
-  {
-   "name": "The Core",
-   "reason": "surf-forecast page only (pin 24.76,121.81); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/The-Core"
-  },
-  {
-   "name": "Chingshuei",
-   "reason": "wannasurf page only (pin 24.6846,121.8379, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Chingshuei/index.html"
-  },
-  {
-   "name": "Da an",
-   "reason": "wannasurf page only (pin 24.3879,120.5841, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Da_an/index.html"
+   "url": "https://www.surf-forecast.com/breaks/Green-Bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 60 deg (arccos of mean resultant length 0.50; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Jinzun Harbour",
    "reason": "wannasurf page only (pin 22.9544,121.2961, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Jinzun_Harbour/index.html"
-  },
-  {
-   "name": "Mimi s Reef",
-   "reason": "wannasurf page only (pin 23.5419,121.5100, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Mimi_s_Reef/index.html"
-  },
-  {
-   "name": "ShaLun",
-   "reason": "wannasurf page only (pin 25.1911,121.4140, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/ShaLun/index.html"
-  },
-  {
-   "name": "The Barracks",
-   "reason": "wannasurf page only (pin 24.6102,121.8653, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/The_Barracks/index.html"
-  },
-  {
-   "name": "Wu Shih Pi Canyon",
-   "reason": "wannasurf page only (pin 23.2365,121.4163, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Wu_Shih_Pi_Canyon/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/Jinzun_Harbour/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.34; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "An pin",
    "reason": "wannasurf page only (pin 22.9918,120.1431, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/an_pin/index.html"
-  },
-  {
-   "name": "Donghe rivermouth",
-   "reason": "wannasurf page only (pin 22.8986,121.2590, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/donghe_rivermouth/index.html"
-  },
-  {
-   "name": "Houbihu",
-   "reason": "wannasurf page only (pin 21.9432,120.7457, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/houbihu/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/an_pin/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.55; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sun yat sen",
    "reason": "wannasurf page only (pin 22.6260,120.2628, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/sun_yat_sen/index.html"
-  },
-  {
-   "name": "Wai-ao",
-   "reason": "wannasurf page only (pin 24.7169,121.8439, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/wai-ao/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Taiwan/sun_yat_sen/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 54 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 18 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

@@ -11749,12 +11749,22 @@
   {
    "name": "Bouznika Plage",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/bouznika-plage"
+   "url": "https://www.surfnerd.com/surf-forecast/bouznika-plage",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.20; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Doura",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/doura-rabat-sale-kenitra"
+   "url": "https://www.surfnerd.com/surf-forecast/doura-rabat-sale-kenitra",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mysteries",
@@ -11931,5 +11941,6 @@
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Zeneta, pin 33.6,-7.67); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
    "surfForecastRegion": "Rabat-to-Casblanca"
   }
- ]
+ ],
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

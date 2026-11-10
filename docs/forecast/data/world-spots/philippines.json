@@ -5564,238 +5564,2407 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVM&network=PH__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-philippines-aparri",
+   "name": "Aparri",
+   "country": "Philippines",
+   "region": "West Luzon",
+   "timeZone": "Asia/Manila",
+   "type": "Beach",
+   "lat": 18.361,
+   "lon": 121.627,
+   "seaward": 18.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (18.361, 121.627) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Aparri"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1835.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 254 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 14.7 deg (limit 45); 300 m window gives 19.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1835.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3432/1835.pbf"
+    ],
+    "nearestCoastPoint": [
+     18.363123,
+     121.627927
+    ],
+    "distanceToCoastM": 254.4,
+    "meanDevDeg": 14.7,
+    "seaward300": 19.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Northeast: nearest listed direction is 27 deg from the facing (18); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Aparri",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Aparri",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest with some shelter here from east winds (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Watch out for dangerous rips. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Aparri in West Luzon is an exposed beach break that has very reliable surf. Nov-April (Wet Season) provides best time of year for waves. Offshore winds blow from the southwest with some shelter here from east winds. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the northeast. The beach break offers both left and right hand waves. Even when the surf is up, crowds are unknown. Watch out for dangerous rips. Aparri"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-aparri"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC curri",
+     "name": "Currimao",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 126.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:33:00.000 UTC in the IOC station list",
+     "lat": 18.017,
+     "lon": 120.483,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=curri"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPLI",
+     "name": "Laoag",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 117.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.178,
+     "lon": 120.531,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPLI&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Aparri",
+    "url": "https://www.surf-forecast.com/breaks/Aparri",
+    "dropReason": "surf-forecast page only (pin 18.36,121.63); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-star-tubes",
+    "distanceKm": 134.81
+   }
+  },
+  {
+   "id": "w-philippines-ayoke-tinago",
+   "name": "Ayoke - Tinago",
+   "country": "Philippines",
+   "region": "Surigao Del Sur",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.422,
+   "lon": 126.036,
+   "seaward": 83.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (9.4224, 126.0364) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Ayoke"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1939.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1261 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 28.5 deg (limit 45); 300 m window gives 86.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1939.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1940.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1939.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1940.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.418327,
+     126.025672
+    ],
+    "distanceToCoastM": 1261.3,
+    "meanDevDeg": 28.5,
+    "seaward300": 86.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-southwest: nearest listed direction is 16 deg from facing+180 (263); consistent (<=60)",
+     "surf-forecast best swell East-northeast: nearest listed direction is 16 deg from the facing (83); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Ayoke - Tinago",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ayoke",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East-northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-southwest (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "fairly exposed reef break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of rocks and rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Ayoke - Tinago with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Ayoke - Tinago in Surigao Del Sur is a fairly exposed reef break that has quite reliable surf, although summer tends to be mostly flat. The best wind direction is from the west southwest and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the east northeast. There is no reef break. Rarely crowded here. Beware of rocks and rips. Ayoke - Tinago"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-ayoke-tinago"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 255.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Ayoke - Tinago",
+    "url": "https://www.surf-forecast.com/breaks/Ayoke",
+    "dropReason": "surf-forecast page only (pin 9.42,126.03); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-auqui-left",
+    "distanceKm": 3.59
+   }
+  },
+  {
+   "id": "w-philippines-bagasbas-beach",
+   "name": "Bagasbas Beach",
+   "country": "Philippines",
+   "region": "West Luzon",
+   "timeZone": "Asia/Manila",
+   "type": "Beach",
+   "lat": 14.138,
+   "lon": 122.984,
+   "seaward": 66.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (14.138, 122.984) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Bagasbas-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3446/1885.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 127 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 8.0 deg (limit 45); 300 m window gives 65.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3446/1885.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3447/1885.pbf"
+    ],
+    "nearestCoastPoint": [
+     14.137522,
+     122.98293
+    ],
+    "distanceToCoastM": 127.0,
+    "meanDevDeg": 8.0,
+    "seaward300": 65.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Northeast: nearest listed direction is 21 deg from the facing (66); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Bagasbas Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Bagasbas-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "It very rarely gets crowded here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Bagasbas Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Bagasbas Beach in West Luzon is an exposed beach break that has pretty consitent surf. The best conditions for surfing are during the cyclone season. Offshore winds are from the southwest and there is no shelter here from cross shore breezes. Windswells and groundswells in equal measure and the optimum swell angle is from the northeast. The beach break provides left and right handers. Surfable at all stages of the tide. It very rarely gets crowded here. Bagasbas Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-bagasbas-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lega",
+     "name": "Legaspi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 138.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:25:00.000 UTC in the IOC station list",
+     "lat": 13.146,
+     "lon": 123.758,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lega"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Bagasbas Beach",
+    "url": "https://www.surf-forecast.com/breaks/Bagasbas-Beach",
+    "dropReason": "surf-forecast page only (pin 14.14,122.98); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-virac-harbour",
+    "distanceKm": 148.58
+   }
+  },
+  {
+   "id": "w-philippines-malaking-gasang-baler",
+   "name": "Malaking Gasang (Baler)",
+   "country": "Philippines",
+   "region": "West Luzon",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 15.933,
+   "lon": 121.598,
+   "seaward": 159.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (15.9334, 121.5983) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Baler-Malaking-Gasang"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1863.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 110 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 17.7 deg (limit 45); 300 m window gives 161.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1863.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1864.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.934366,
+     121.598076
+    ],
+    "distanceToCoastM": 109.5,
+    "meanDevDeg": 17.7,
+    "seaward300": 161.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell East: nearest listed direction is 70 deg from the facing (160); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Malaking Gasang (Baler)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Baler-Malaking-Gasang",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore winds from the west southwest with some shelter here from north winds (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Sometimes crowded. (surf-forecast)",
+     "Watch out for - Rips / undertow - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Malaking Gasang (Baler) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of May (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Malaking Gasang (Baler) in West Luzon is an exposed reef break that has fairly consistent surf. Nov-April (Wet Season) provides best time of year for waves. Offshore winds blow from the west southwest with some shelter here from north winds. Groundswells more frequent than windswells and the ideal swell angle is from the east. No reef break here. Sometimes crowded. Watch out for - Rips / undertow - Rocks. Malaking Gasang (Baler)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-malaking-gasang-baler"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mani",
+     "name": "Manila",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 164.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 14.582,
+     "lon": 120.972,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mani"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPLV",
+     "name": "Fort Magsaysay",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 77.6,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 15.435,
+     "lon": 121.091,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPLV&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Malaking Gasang (Baler)",
+    "url": "https://www.surf-forecast.com/breaks/Baler-Malaking-Gasang",
+    "dropReason": "surf-forecast page only (pin 15.93,121.59); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-dalugen-reef",
+    "distanceKm": 8.9
+   }
+  },
+  {
+   "id": "w-philippines-big-star",
+   "name": "Big Star",
+   "country": "Philippines",
+   "region": "Surigao Del Sur",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.262,
+   "lon": 126.101,
+   "seaward": 324.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (9.2621, 126.1006) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Big-Star"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1941.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1400 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 11.6 deg (limit 45); 300 m window gives 321.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1941.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1942.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1941.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1942.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.252094,
+     126.108413
+    ],
+    "distanceToCoastM": 1400.4,
+    "meanDevDeg": 11.6,
+    "seaward300": 321.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the south southeast: nearest listed direction is 13 deg from facing+180 (144); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 80 deg from the facing (324); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Big Star",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Big-Star",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the south southeast (surf-forecast)",
+    "tide": "Best around high tide when the tide is rising. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "There is a right breaking reef. (surf-forecast)",
+    "exposure": "fairly exposed reef break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Beware of rocks and rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Big Star with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Big Star in Surigao Del Sur Province is a fairly exposed reef break that has fairly consistent surf, although summer tends to be mostly flat. Offshore winds are from the south southeast. Windswells are much more typical than groudswells and the best wave direction is from the northeast. There is a right breaking reef. Best around high tide when the tide is rising. Even when there are waves, it's not likley to be crowded. Beware of rocks and rips. Big Star"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-big-star"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 239.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Big Star",
+    "url": "https://www.surf-forecast.com/breaks/Big-Star",
+    "dropReason": "surf-forecast page only (pin 9.25,126.1); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-moshi-moshi",
+    "distanceKm": 1.35
+   }
+  },
+  {
+   "id": "w-philippines-burgos",
+   "name": "Burgos",
+   "country": "Philippines",
+   "region": "Siargao Islands",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 10.028,
+   "lon": 126.084,
+   "seaward": 50.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (10.028, 126.0841) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Burgos"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1932.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1385 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 16.3 deg (limit 45); 300 m window gives 49.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1932.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1933.pbf"
+    ],
+    "nearestCoastPoint": [
+     10.018849,
+     126.075475
+    ],
+    "distanceToCoastM": 1384.8,
+    "meanDevDeg": 16.3,
+    "seaward300": 49.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Northeast: nearest listed direction is 6 deg from the facing (51); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Burgos",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Burgos",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the southwest and there is no shelter here from cross shore breezes (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the best wave direction is from the northeast. (surf-forecast)",
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Take care to avoid the rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Burgos with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Burgos in Siargao Islands is an exposed reef break that usually has waves. Autumn and winter are the best times of year for waves. Offshore winds blow from the southwest and there is no shelter here from cross shore breezes. Usually gets local windswells, but groundswells do happen and the best wave direction is from the northeast. There is no reef break. Unlikely to be too crowded, even when the surf is up. Take care to avoid the rocks. Burgos"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-burgos"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 322.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Burgos",
+    "url": "https://www.surf-forecast.com/breaks/Burgos",
+    "dropReason": "surf-forecast page only (pin 10.02,126.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-pacifico",
+    "distanceKm": 9.73
+   }
+  },
+  {
+   "id": "w-philippines-calicoan-island-abcd-beach",
+   "name": "Calicoan Island ABCD Beach",
+   "country": "Philippines",
+   "region": "Samar",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 10.947,
+   "lon": 125.84,
+   "seaward": 69.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (10.947, 125.8401) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Calicoan-Island-ABCD-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3479/1922.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 413 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.1 deg (limit 45); 300 m window gives 69.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3479/1922.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3479/1923.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3480/1922.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3480/1923.pbf"
+    ],
+    "nearestCoastPoint": [
+     10.945739,
+     125.836547
+    ],
+    "distanceToCoastM": 412.6,
+    "meanDevDeg": 2.1,
+    "seaward300": 69.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 20 deg from facing+180 (250); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 20 deg from the facing (70); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Calicoan Island ABCD Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Calicoan-Island-ABCD-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Beware of - Urchins - Rips / undertow - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Calicoan Island ABCD Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of September (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Calicoan Island ABCD Beach in Samar is an exposed reef break. Summer in particular tends to be flat. Ideal winds are from the west. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the east. Unlikely to be too crowded, even when the surf is up. Beware of - Urchins - Rips / undertow - Rocks. Calicoan Island ABCD Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-calicoan-island-abcd-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lega",
+     "name": "Legaspi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 333.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:25:00.000 UTC in the IOC station list",
+     "lat": 13.146,
+     "lon": 123.758,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lega"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPVO",
+     "name": "Ormoc City",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 139.7,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 11.058,
+     "lon": 124.565,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVO&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Calicoan Island ABCD Beach",
+    "url": "https://www.surf-forecast.com/breaks/Calicoan-Island-ABCD-Beach",
+    "dropReason": "surf-forecast page only (pin 10.95,125.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-sulingan-beach",
+    "distanceKm": 2.08
+   }
+  },
+  {
+   "id": "w-philippines-guitagican-beach",
+   "name": "Guitagican Beach",
+   "country": "Philippines",
+   "region": "Samar",
+   "timeZone": "Asia/Manila",
+   "type": "Beach",
+   "lat": 11.569,
+   "lon": 125.467,
+   "seaward": 89.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (11.5694, 125.4668) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Guitagican-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3475/1915.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 47 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 15.5 deg (limit 45); 300 m window gives 88.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3475/1915.pbf"
+    ],
+    "nearestCoastPoint": [
+     11.569435,
+     125.467228
+    ],
+    "distanceToCoastM": 46.8,
+    "meanDevDeg": 15.5,
+    "seaward300": 88.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southwest: nearest listed direction is 45 deg from facing+180 (270); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 45 deg from the facing (90); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Guitagican Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Guitagican-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Southwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Guitagican Beach with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Guitagican Beach in Eastern Samar is a fairly exposed beach break that has inconsistent surf. Summer in particular tends to be flat. The best wind direction is from the southwest. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the northeast. The beach break provides left and right handers. Rarely crowded here. Take care of the strong rips here. Guitagican Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-guitagican-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lega",
+     "name": "Legaspi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 255.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:25:00.000 UTC in the IOC station list",
+     "lat": 13.146,
+     "lon": 123.758,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lega"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPVO",
+     "name": "Ormoc City",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 113.6,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 11.058,
+     "lon": 124.565,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVO&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Guitagican Beach",
+    "url": "https://www.surf-forecast.com/breaks/Guitagican-Beach",
+    "dropReason": "surf-forecast page only (pin 11.57,125.47); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-lalawigan-beach",
+    "distanceKm": 1.37
+   }
+  },
+  {
+   "id": "w-philippines-lanuza-rivermouth",
+   "name": "Lanuza Rivermouth",
+   "country": "Philippines",
+   "region": "Surigao Del Sur",
+   "timeZone": "Asia/Manila",
+   "type": null,
+   "lat": 9.237,
+   "lon": 126.055,
+   "seaward": 17.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (9.2374, 126.0555) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Lanuza-Rivermouth"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1942.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 269 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.7 deg (limit 45); 300 m window gives 36.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1942.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1942.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.235117,
+     126.054644
+    ],
+    "distanceToCoastM": 269.4,
+    "meanDevDeg": 40.7,
+    "seaward300": 36.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South: nearest listed direction is 18 deg from facing+180 (198); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 27 deg from the facing (18); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Lanuza Rivermouth",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lanuza-Rivermouth",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the South (surf-forecast)",
+    "tide": "Best around low tide when the tide is rising. (surf-forecast)",
+    "waveTypeText": "River/sandbar (surf-forecast)",
+    "waveDirectionText": "The beach breaks peel to the right. (surf-forecast)",
+    "exposure": "quite exposed rivermouth/sandbar break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Take care of rips and sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Lanuza Rivermouth with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Lanuza Rivermouth in Surigao Del Sur Province is a quite exposed rivermouth/sandbar break that has pretty consitent surf, although summer tends to be mostly flat. The best wind direction is from the south. Most of the surf comes fis in the form of windswells and the ideal wave angle is from the northeast. The beach breaks peel to the right. Best around low tide when the tide is rising. Unlikely to be too crowded, even when the surf is up. Take care of rips and sharks. Lanuza Rivermouth"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-lanuza-rivermouth"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 235.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Lanuza Rivermouth",
+    "url": "https://www.surf-forecast.com/breaks/Lanuza-Rivermouth",
+    "dropReason": "surf-forecast page only (pin 9.24,126.06); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-doot-poktoy",
+    "distanceKm": 0.35
+   }
+  },
+  {
+   "id": "w-philippines-random-beach-break",
+   "name": "Random Beach Break",
+   "country": "Philippines",
+   "region": "Surigao Del Sur",
+   "timeZone": "Asia/Manila",
+   "type": null,
+   "lat": 9.296,
+   "lon": 126.01,
+   "seaward": 54.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (9.296, 126.0104) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Random-Beach-Break"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1941.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 988 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.1 deg (limit 45); 300 m window gives 54.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1941.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3481/1942.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1941.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1942.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.290822,
+     126.003066
+    ],
+    "distanceToCoastM": 988.5,
+    "meanDevDeg": 1.1,
+    "seaward300": 54.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Southwest: nearest listed direction is 10 deg from facing+180 (235); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 10 deg from the facing (55); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Random Beach Break",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Random-Beach-Break",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Southwest (surf-forecast)",
+    "tide": "Best around low tide when the tide is rising. (surf-forecast)",
+    "waveTypeText": "River (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "fairly exposed rivermouths break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the northeast. (surf-forecast)",
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of rips and sharks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Random Beach Break with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Random Beach Break in Surigao Del Sur Province is a fairly exposed rivermouths break that has reasonably consistent surf, although summer tends to be mostly flat. Works best in offshore winds from the southwest. Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the northeast. Waves at the beach break both left and right. Best around low tide when the tide is rising. Rarely crowded here. Beware of rips and sharks. Random Beach Break"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-random-beach-break"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 241.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Random Beach Break",
+    "url": "https://www.surf-forecast.com/breaks/Random-Beach-Break",
+    "dropReason": "surf-forecast page only (pin 9.29,126.0); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-union",
+    "distanceKm": 3.09
+   }
+  },
+  {
+   "id": "w-philippines-san-juan",
+   "name": "San Juan",
+   "country": "Philippines",
+   "region": "West Luzon",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 16.666,
+   "lon": 120.316,
+   "seaward": 309.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (16.6663, 120.3164) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/San-Juan-Luzon"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3416/1855.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 796 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.3 deg (limit 45); 300 m window gives 307.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3416/1855.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3416/1856.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3417/1855.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3417/1856.pbf"
+    ],
+    "nearestCoastPoint": [
+     16.661848,
+     120.322266
+    ],
+    "distanceToCoastM": 796.0,
+    "meanDevDeg": 21.3,
+    "seaward300": 307.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the South-southeast: nearest listed direction is 28 deg from facing+180 (130); consistent (<=60)",
+     "surf-forecast best swell North: nearest listed direction is 50 deg from the facing (310); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "San Juan",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/San-Juan-Luzon",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell North (surf-forecast)",
+    "windOffshore": "offshore wind from the South-southeast (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "fairly exposed reef break (surf-forecast)",
+    "hazards": [
+     "Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the north. (surf-forecast)",
+     "When it's working here, it can get crowded. (surf-forecast)",
+     "Take care of rocks in the line up. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing San Juan with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "San Juan in West Luzon is a fairly exposed reef break that does not work very often. Nov-April (Wet Season) provides best time of year for waves. Works best in offshore winds from the south southeast and there is no shelter here from cross shore breezes. Waves more likely to be from local windswells than distant groundswells and the ideal wave direction is from the north. No reef break here. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Take care of rocks in the line up. San Juan"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-san-juan"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC curri",
+     "name": "Currimao",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 151.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:33:00.000 UTC in the IOC station list",
+     "lat": 18.017,
+     "lon": 120.483,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=curri"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPLV",
+     "name": "Fort Magsaysay",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 160.0,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 15.435,
+     "lon": 121.091,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPLV&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "San Juan",
+    "url": "https://www.surf-forecast.com/breaks/San-Juan-Luzon",
+    "dropReason": "surf-forecast page only (pin 16.66,120.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-mona-liza-point",
+    "distanceKm": 0.69
+   }
+  },
+  {
+   "id": "w-philippines-calicoan-island",
+   "name": "Calicoan Island",
+   "country": "Philippines",
+   "region": "Center Islands",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 10.947,
+   "lon": 125.831,
+   "seaward": 70.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (10.946583333333333, 125.83053333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/Calicoan_Island/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3479/1922.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 585 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.2 deg (limit 45); 300 m window gives 70.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3479/1922.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3479/1923.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3480/1922.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3480/1923.pbf"
+    ],
+    "nearestCoastPoint": [
+     10.94864,
+     125.835467
+    ],
+    "distanceToCoastM": 585.2,
+    "meanDevDeg": 2.2,
+    "seaward300": 70.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West: nearest listed direction is 20 deg from facing+180 (250); consistent (<=60)",
+     "wannasurf good swell SouthEast, East, NorthEast: nearest listed direction is 20 deg from the facing (70); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Calicoan Island",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/Calicoan_Island/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, East, NorthEast (wannasurf)",
+    "windOffshore": "good wind West (wannasurf)",
+    "tide": "Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "waveQuality": "World Class (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-calicoan-island"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lega",
+     "name": "Legaspi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 332.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:25:00.000 UTC in the IOC station list",
+     "lat": 13.146,
+     "lon": 123.758,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lega"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPVO",
+     "name": "Ormoc City",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 138.7,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 11.058,
+     "lon": 124.565,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVO&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Calicoan Island",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/Calicoan_Island/index.html",
+    "dropReason": "wannasurf page only (pin 10.9466,125.8305, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-calicoan-island-abcd-beach",
+    "distanceKm": 0.98
+   }
+  },
+  {
+   "id": "w-philippines-geron",
+   "name": "Geron",
+   "country": "Philippines",
+   "region": "Center Islands",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 12.677,
+   "lon": 124.369,
+   "seaward": 263.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (12.676516666666666, 124.36935, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/geron/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3462/1902.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 796 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 10.2 deg (limit 45); 300 m window gives 259.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3462/1902.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3463/1902.pbf"
+    ],
+    "nearestCoastPoint": [
+     12.674903,
+     124.36221
+    ],
+    "distanceToCoastM": 795.7,
+    "meanDevDeg": 10.2,
+    "seaward300": 259.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell North, NorthWest, West: nearest listed direction is 7 deg from the facing (263); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Geron",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/geron/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest, West (wannasurf)",
+    "tide": "Low and mid tide, Rising tide (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to Don't know (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fast, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-geron"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC lega",
+     "name": "Legaspi",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 84.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:25:00.000 UTC in the IOC station list",
+     "lat": 13.146,
+     "lon": 123.758,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=lega"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPVO",
+     "name": "Ormoc City",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 181.2,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 11.058,
+     "lon": 124.565,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVO&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Geron",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/geron/index.html",
+    "dropReason": "wannasurf page only (pin 12.6765,124.3693, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-twin-rocks",
+    "distanceKm": 94.99
+   }
+  },
+  {
+   "id": "w-philippines-jovees",
+   "name": "Jovees",
+   "country": "Philippines",
+   "region": "Jovees",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.11,
+   "lon": 126.162,
+   "seaward": 131.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (9.10955, 126.16218333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Jovees/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1943.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 442 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 18.3 deg (limit 45); 300 m window gives 145.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1943.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1944.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.11332,
+     126.16086
+    ],
+    "distanceToCoastM": 441.5,
+    "meanDevDeg": 18.3,
+    "seaward300": 145.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind West: nearest listed direction is 42 deg from facing+180 (312); consistent (<=60)",
+     "wannasurf good swell East: nearest listed direction is 42 deg from the facing (132); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Jovees",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Jovees/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell East (wannasurf)",
+    "windOffshore": "good wind West (wannasurf)",
+    "tide": "Mid tide, Rising tide (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft (wannasurf)",
+    "hazards": [
+     "Urchins - Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "World Class (wannasurf)",
+    "power": "Powerful, Ordinary, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-jovees"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 224.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "recoveredFrom": {
+    "name": "Jovees",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Jovees/index.html",
+    "dropReason": "wannasurf page only (pin 9.1096,126.1622, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-marami",
+    "distanceKm": 2.7
+   }
+  },
+  {
+   "id": "w-philippines-baler",
+   "name": "Baler",
+   "country": "Philippines",
+   "region": "Luzon",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 15.754,
+   "lon": 121.568,
+   "seaward": 45.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (15.753933333333332, 121.56783333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/baler/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1866.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 547 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 15.4 deg (limit 45); 300 m window gives 50.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3430/1866.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3431/1866.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.757003,
+     121.571839
+    ],
+    "distanceToCoastM": 547.2,
+    "meanDevDeg": 15.4,
+    "seaward300": 50.2
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Baler",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/baler/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Powerful, Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-baler"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mani",
+     "name": "Manila",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 145.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 14.582,
+     "lon": 120.972,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mani"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPLV",
+     "name": "Fort Magsaysay",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 62.2,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 15.435,
+     "lon": 121.091,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPLV&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Baler",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/baler/index.html",
+    "dropReason": "wannasurf page only (pin 15.7539,121.5678, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-sabang-beach",
+    "distanceKm": 0.81
+   }
+  },
+  {
+   "id": "w-philippines-high-5-lahar",
+   "name": "High 5 lahar",
+   "country": "Philippines",
+   "region": "Luzon",
+   "timeZone": "Asia/Manila",
+   "type": null,
+   "lat": 15.06,
+   "lon": 120.055,
+   "seaward": 270.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (15.060183333333333, 120.05533333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/high_5_lahar/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1874.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 369 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 4.4 deg (limit 45); 300 m window gives 268.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1874.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1875.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3414/1874.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3414/1875.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.060261,
+     120.058767
+    ],
+    "distanceToCoastM": 369.2,
+    "meanDevDeg": 4.4,
+    "seaward300": 268.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 0 deg from the facing (270); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "High 5 lahar",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/high_5_lahar/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell NorthWest, West, SouthWest (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Rivermouth (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 3m+ / 10ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-high-5-lahar"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC subi",
+     "name": "Subic_Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 36.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:31:00.000 UTC in the IOC station list",
+     "lat": 14.817,
+     "lon": 120.283,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=subi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPLB",
+     "name": "Olongapo City",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 37.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 14.794,
+     "lon": 120.271,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPLB&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "High 5 lahar",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/high_5_lahar/index.html",
+    "dropReason": "wannasurf page only (pin 15.0602,120.0553, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-dingalan",
+    "distanceKm": 148.61
+   }
+  },
+  {
+   "id": "w-philippines-pundakit",
+   "name": "Pundakit",
+   "country": "Philippines",
+   "region": "Luzon",
+   "timeZone": "Asia/Manila",
+   "type": "Beach",
+   "lat": 14.916,
+   "lon": 120.061,
+   "seaward": 294.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (14.915816666666666, 120.06115, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/pundakit/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1875.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 45 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 42.9 deg (limit 45); 300 m window gives 319.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1875.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1876.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3414/1875.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3414/1876.pbf"
+    ],
+    "nearestCoastPoint": [
+     14.915629,
+     120.061519
+    ],
+    "distanceToCoastM": 44.8,
+    "meanDevDeg": 42.9,
+    "seaward300": 319.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell North, NorthWest, SouthWest: nearest listed direction is 21 deg from the facing (294); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Pundakit",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/pundakit/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North, NorthWest, SouthWest (wannasurf)",
+    "tide": "All tides, Rising and falling tides (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Man-made danger (buoys etc..) - Private beach (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-pundakit"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC subi",
+     "name": "Subic_Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 26.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:31:00.000 UTC in the IOC station list",
+     "lat": 14.817,
+     "lon": 120.283,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=subi"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR RPLB",
+     "name": "Olongapo City",
+     "owner": "IEM PH__ASOS network (airport METAR)",
+     "distanceKm": 26.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 14.794,
+     "lon": 120.271,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPLB&network=PH__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Pundakit",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/pundakit/index.html",
+    "dropReason": "wannasurf page only (pin 14.9158,120.0611, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-high-5-lahar",
+    "distanceKm": 16.03
+   }
+  },
+  {
+   "id": "w-philippines-7-rocks",
+   "name": "7 rocks",
+   "country": "Philippines",
+   "region": "Mindanao",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.244,
+   "lon": 126.091,
+   "seaward": 333.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (9.244283333333334, 126.09146666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/7_rocks/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1941.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 13 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 24.7 deg (limit 45); 300 m window gives 327.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1941.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1942.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1941.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1942.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.244184,
+     126.091537
+    ],
+    "distanceToCoastM": 13.4,
+    "meanDevDeg": 24.7,
+    "seaward300": 327.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthEast: nearest listed direction is 19 deg from facing+180 (154); consistent (<=60)",
+     "wannasurf good swell North: nearest listed direction is 26 deg from the facing (334); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "7 rocks",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/7_rocks/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North (wannasurf)",
+    "windOffshore": "good wind SouthEast (wannasurf)",
+    "tide": "High tide only, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-7-rocks"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 237.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "7 rocks",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/7_rocks/index.html",
+    "dropReason": "wannasurf page only (pin 9.2443,126.0915, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-punta-left",
+    "distanceKm": 1.48
+   }
+  },
+  {
+   "id": "w-philippines-cemeteries",
+   "name": "Cemeteries",
+   "country": "Philippines",
+   "region": "Siargao Islands",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.79,
+   "lon": 126.172,
+   "seaward": 98.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (9.78975, 126.17203333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/cemeteries/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1935.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 915 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 27.7 deg (limit 45); 300 m window gives 93.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1935.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1936.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.788546,
+     126.163781
+    ],
+    "distanceToCoastM": 915.0,
+    "meanDevDeg": 27.7,
+    "seaward300": 93.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West, SouthWest, South: nearest listed direction is 8 deg from facing+180 (278); consistent (<=60)",
+     "wannasurf good swell SouthEast, NorthEast: nearest listed direction is 36 deg from the facing (98); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Cemeteries",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/cemeteries/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast, NorthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest, West, SouthWest, South (wannasurf)",
+    "tide": "Mid tide, Rising tide (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.5m-2m /5ft-6ft and holds up to 3m+ / 10ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-cemeteries"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 298.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Cemeteries",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/cemeteries/index.html",
+    "dropReason": "wannasurf page only (pin 9.7897,126.1720, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-horseshoe",
+    "distanceKm": 1.4
+   }
+  },
+  {
+   "id": "w-philippines-paradise",
+   "name": "Paradise",
+   "country": "Philippines",
+   "region": "Siargao Islands",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.747,
+   "lon": 126.099,
+   "seaward": 177.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (9.74725, 126.09893333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/paradise/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1936.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 126 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 11.7 deg (limit 45); 300 m window gives 179.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3482/1936.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1936.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.748361,
+     126.09868
+    ],
+    "distanceToCoastM": 125.9,
+    "meanDevDeg": 11.7,
+    "seaward300": 179.0
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Paradise",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/paradise/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "tide": "Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-paradise"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 292.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Paradise",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/paradise/index.html",
+    "dropReason": "wannasurf page only (pin 9.7472,126.0989, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-pansukian",
+    "distanceKm": 4.76
+   }
+  },
+  {
+   "id": "w-philippines-rock-island",
+   "name": "Rock island",
+   "country": "Philippines",
+   "region": "Siargao Islands",
+   "timeZone": "Asia/Manila",
+   "type": "Reef",
+   "lat": 9.792,
+   "lon": 126.171,
+   "seaward": 90.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (9.791783333333333, 126.17051666666667, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/rock_island/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1935.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 791 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 24.7 deg (limit 45); 300 m window gives 80.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1935.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3483/1936.pbf"
+    ],
+    "nearestCoastPoint": [
+     9.789757,
+     126.163602
+    ],
+    "distanceToCoastM": 790.9,
+    "meanDevDeg": 24.7,
+    "seaward300": 80.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell NorthEast: nearest listed direction is 45 deg from the facing (90); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Rock island",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/rock_island/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell NorthEast (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-rocky (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 3m+ / 10ft+ (wannasurf)",
+    "hazards": [
+     "Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Totally Epic (wannasurf)",
+    "power": "Hollow, Fast, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-philippines-rock-island"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC davo",
+     "name": "Davao_PH",
+     "owner": "IOC Sea Level Station Monitoring Facility (Philippines)",
+     "distanceKm": 298.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 7.154,
+     "lon": 125.663,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=davo"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-rocky'",
+   "recoveredFrom": {
+    "name": "Rock island",
+    "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/rock_island/index.html",
+    "dropReason": "wannasurf page only (pin 9.7918,126.1705, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-philippines-cemeteries",
+    "distanceKm": 0.25
+   }
   }
  ],
  "dropped": [
   {
    "name": "Pilar",
    "reason": "surfnerd page gives no facing (swell exposure: 'ENE - ESE'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/pilar"
+   "url": "https://www.surfnerd.com/surf-forecast/pilar",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 86 deg (arccos of mean resultant length 0.08; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tuesday Rock",
    "reason": "surfnerd page gives no facing (swell exposure: 'NNW - SSE'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/tuesday-rock"
-  },
-  {
-   "name": "Aparri",
-   "reason": "surf-forecast page only (pin 18.36,121.63); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Aparri"
-  },
-  {
-   "name": "Ayoke - Tinago",
-   "reason": "surf-forecast page only (pin 9.42,126.03); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Ayoke"
-  },
-  {
-   "name": "Bagasbas Beach",
-   "reason": "surf-forecast page only (pin 14.14,122.98); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Bagasbas-Beach"
-  },
-  {
-   "name": "Malaking Gasang (Baler)",
-   "reason": "surf-forecast page only (pin 15.93,121.59); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Baler-Malaking-Gasang"
-  },
-  {
-   "name": "Big Star",
-   "reason": "surf-forecast page only (pin 9.25,126.1); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Big-Star"
-  },
-  {
-   "name": "Burgos",
-   "reason": "surf-forecast page only (pin 10.02,126.08); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Burgos"
-  },
-  {
-   "name": "Calicoan Island ABCD Beach",
-   "reason": "surf-forecast page only (pin 10.95,125.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Calicoan-Island-ABCD-Beach"
+   "url": "https://www.surfnerd.com/surf-forecast/tuesday-rock",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
-  },
-  {
-   "name": "Guitagican Beach",
-   "reason": "surf-forecast page only (pin 11.57,125.47); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Guitagican-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Jelly's Point",
    "reason": "surf-forecast page only (pin 9.31,126.17); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jellys-Point"
-  },
-  {
-   "name": "Lanuza Rivermouth",
-   "reason": "surf-forecast page only (pin 9.24,126.06); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Lanuza-Rivermouth"
+   "url": "https://www.surf-forecast.com/breaks/Jellys-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 55 deg (arccos of mean resultant length 0.58; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Baler - Lindy's Point",
    "reason": "surf-forecast page only (pin 15.77,121.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Lindys-Point"
+   "url": "https://www.surf-forecast.com/breaks/Lindys-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast swell); surf-forecast offshore winds from the west southwest: nearest listed direction is 5 deg from facing+180 (243); consistent (<=60) | surf-forecast best swell from the northwest: nearest listed direction is 108 deg from the facing (63); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Pancit Reef",
    "reason": "surf-forecast page only (pin 9.84,126.16); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Pancit-Reef"
+   "url": "https://www.surf-forecast.com/breaks/Pancit-Reef",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pirates Cove",
    "reason": "surf-forecast page only (pin 11.61,125.45); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Pirates-Cove"
-  },
-  {
-   "name": "Random Beach Break",
-   "reason": "surf-forecast page only (pin 9.29,126.0); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Random-Beach-Break"
-  },
-  {
-   "name": "San Juan",
-   "reason": "surf-forecast page only (pin 16.66,120.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/San-Juan-Luzon"
+   "url": "https://www.surf-forecast.com/breaks/Pirates-Cove",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore wind from the North-northeast: nearest listed direction is 127 deg from facing+180 (256); CONTRADICTS (>60) | surf-forecast best swell Northeast: nearest listed direction is 31 deg from the facing (76); consistent (<=90)"
+   }
   },
   {
    "name": "Santa Monica",
    "reason": "surf-forecast page only (pin 11.59,125.5); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Santa-Monica"
-  },
-  {
-   "name": "Calicoan Island",
-   "reason": "wannasurf page only (pin 10.9466,125.8305, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/Calicoan_Island/index.html"
+   "url": "https://www.surf-forecast.com/breaks/Santa-Monica",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.53; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Magasang",
    "reason": "wannasurf page only (pin 12.6792,124.3652, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/Magasang/index.html"
-  },
-  {
-   "name": "Geron",
-   "reason": "wannasurf page only (pin 12.6765,124.3693, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/geron/index.html"
-  },
-  {
-   "name": "Jovees",
-   "reason": "wannasurf page only (pin 9.1096,126.1622, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Jovees/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Center_Islands/Magasang/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf swell); wannasurf good wind South, East: nearest listed direction is 18 deg from facing+180 (72); consistent (<=60) | wannasurf good swell NorthEast: nearest listed direction is 153 deg from the facing (252); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Aparri",
    "reason": "wannasurf page only (pin 18.3607,121.6269, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/Aparri/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/Aparri/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-philippines-aparri, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Chelsea s Point",
    "reason": "wannasurf page only (pin 15.2362,120.0109, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/Chelsea_s_Point/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/Chelsea_s_Point/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind NorthWest, SouthWest: nearest listed direction is 134 deg from facing+180 (91); CONTRADICTS (>60) | wannasurf good swell NorthWest, SouthWest: nearest listed direction is 44 deg from the facing (271); consistent (<=90)"
+   }
   },
   {
    "name": "Bagasbas beach",
    "reason": "wannasurf page only (pin 14.1376,122.9842, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/bagasbas_beach/index.html"
-  },
-  {
-   "name": "Baler",
-   "reason": "wannasurf page only (pin 15.7539,121.5678, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/baler/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/bagasbas_beach/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-philippines-bagasbas-beach, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Crystal beach break",
    "reason": "wannasurf page only (pin 15.0148,120.0638, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/crystal_beach_break/index.html"
-  },
-  {
-   "name": "High 5 lahar",
-   "reason": "wannasurf page only (pin 15.0602,120.0553, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/high_5_lahar/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/crystal_beach_break/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind NorthWest, West, SouthWest: nearest listed direction is 128 deg from facing+180 (83); CONTRADICTS (>60) | wannasurf good swell NorthWest, West, SouthWest: nearest listed direction is 7 deg from the facing (263); consistent (<=90)"
+   }
   },
   {
    "name": "Pagudpud",
    "reason": "wannasurf page only (pin 18.3394,120.6046, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/pagudpud/index.html"
-  },
-  {
-   "name": "Pundakit",
-   "reason": "wannasurf page only (pin 14.9158,120.0611, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/pundakit/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/pagudpud/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthWest: nearest listed direction is 128 deg from facing+180 (97); CONTRADICTS (>60)"
+   }
   },
   {
    "name": "San juan",
    "reason": "wannasurf page only (pin 16.6579,120.3205, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/san_juan/index.html"
-  },
-  {
-   "name": "7 rocks",
-   "reason": "wannasurf page only (pin 9.2443,126.0915, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/7_rocks/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Luzon/san_juan/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-philippines-san-juan, recovered in this pass) is 1.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Bobon",
    "reason": "wannasurf page only (pin 6.8527,126.3471, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Bobon/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Bobon/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind East: nearest listed direction is 174 deg from facing+180 (264); CONTRADICTS (>60) | wannasurf good swell SouthEast: nearest listed direction is 51 deg from the facing (84); consistent (<=90)"
+   }
   },
   {
    "name": "Che Che s",
    "reason": "wannasurf page only (pin 9.5791,125.7626, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Che_Che_s/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Che_Che_s/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 52 deg (arccos of mean resultant length 0.62; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Habag",
    "reason": "wannasurf page only (pin 9.2443,126.0779, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Habag/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Habag/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind East: nearest listed direction is 70 deg from facing+180 (160); CONTRADICTS (>60) | wannasurf good swell North, NorthWest: nearest listed direction is 20 deg from the facing (340); consistent (<=90)"
+   }
   },
   {
    "name": "Hewies Ayuki  Island",
    "reason": "wannasurf page only (pin 9.3944,126.0547, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Hewies_Ayuki__Island/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Hewies_Ayuki__Island/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 85 deg (arccos of mean resultant length 0.09; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lanuza",
    "reason": "wannasurf page only (pin 9.2648,126.0901, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Lanuza/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Lanuza/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 2.01 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Tandag",
    "reason": "wannasurf page only (pin 9.0716,126.1910, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Tandag/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Tandag/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 50 deg (arccos of mean resultant length 0.65; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tomasitos",
    "reason": "wannasurf page only (pin 9.2987,126.1972, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Tomasitos/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Mindanao/Tomasitos/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind, wannasurf swell); wannasurf good wind SouthEast, East: nearest listed direction is 132 deg from facing+180 (318); CONTRADICTS (>60) | wannasurf good swell North, NorthWest: nearest listed direction is 138 deg from the facing (138); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Badjang",
    "reason": "wannasurf page only (pin 9.2311,126.0583, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/Badjang/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/Badjang/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Rainbows Left",
    "reason": "wannasurf page only (pin 9.5627,125.9331, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/Rainbows_Left/index.html"
-  },
-  {
-   "name": "Cemeteries",
-   "reason": "wannasurf page only (pin 9.7897,126.1720, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/cemeteries/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/Rainbows_Left/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Daku island",
    "reason": "wannasurf page only (pin 9.7456,126.1664, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/daku_island/index.html"
-  },
-  {
-   "name": "Paradise",
-   "reason": "wannasurf page only (pin 9.7472,126.0989, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/paradise/index.html"
-  },
-  {
-   "name": "Rock island",
-   "reason": "wannasurf page only (pin 9.7918,126.1705, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/rock_island/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Philippines/Siargao_Islands/daku_island/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind, wannasurf swell); wannasurf good wind North, NorthWest, West: nearest listed direction is 106 deg from facing+180 (164); CONTRADICTS (>60) | wannasurf good swell South: nearest listed direction is 164 deg from the facing (344); CONTRADICTS (>90)"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 21 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

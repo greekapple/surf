@@ -6901,282 +6901,562 @@
   {
    "name": "50 Road Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/50-road-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/50-road-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Ashbridges Bay",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/ashbridges-bay"
+   "url": "https://www.surfnerd.com/surf-forecast/ashbridges-bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Bluffers Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/bluffers-park"
+   "url": "https://www.surfnerd.com/surf-forecast/bluffers-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Canatara Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/canatara-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/canatara-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Cathedral Bluffs",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/cathedral-bluffs"
+   "url": "https://www.surfnerd.com/surf-forecast/cathedral-bluffs",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Cherry Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/cherry-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/cherry-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Clam Harbour Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/clam-harbour-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/clam-harbour-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.19; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Consecon North Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/consecon-north-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/consecon-north-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Darlington Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/darlington-park"
+   "url": "https://www.surfnerd.com/surf-forecast/darlington-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Duttona  Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/duttona-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/duttona-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Frenchman's Bay",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/frenchmans-bay"
+   "url": "https://www.surfnerd.com/surf-forecast/frenchmans-bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Goderich Salt Mines",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/goderich-salt-mines"
+   "url": "https://www.surfnerd.com/surf-forecast/goderich-salt-mines",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Grand Bend",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/grand-bend"
+   "url": "https://www.surfnerd.com/surf-forecast/grand-bend",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Hanlans Point Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/hanlans-point-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/hanlans-point-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Harbor Jetty – Great Lakes",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/harbor-jetty-great-lakes"
+   "url": "https://www.surfnerd.com/surf-forecast/harbor-jetty-great-lakes",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Ipperwash",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/ipperwash"
+   "url": "https://www.surfnerd.com/surf-forecast/ipperwash",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Jack Darling Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/jack-darling-park"
+   "url": "https://www.surfnerd.com/surf-forecast/jack-darling-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Kettle Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/kettle-point"
+   "url": "https://www.surfnerd.com/surf-forecast/kettle-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Kincardine",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/kincardine"
+   "url": "https://www.surfnerd.com/surf-forecast/kincardine",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Lake Erie Beach, Port Dover",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/lake-erie-beach-port-dover"
+   "url": "https://www.surfnerd.com/surf-forecast/lake-erie-beach-port-dover",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Lake Superior Park/Gargantua",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/lake-superior-parkgargantua"
+   "url": "https://www.surfnerd.com/surf-forecast/lake-superior-parkgargantua",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Long Point (southwest beach)",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/long-point-southwest-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/long-point-southwest-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "MacDonald Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/macdonald-park"
+   "url": "https://www.surfnerd.com/surf-forecast/macdonald-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "MacGregor Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/macgregor-point"
+   "url": "https://www.surfnerd.com/surf-forecast/macgregor-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Neys Provincial Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/neys-provincial-park"
+   "url": "https://www.surfnerd.com/surf-forecast/neys-provincial-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Nickel Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/nickel-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/nickel-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Palmwood Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/palmwood-point"
+   "url": "https://www.surfnerd.com/surf-forecast/palmwood-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Patterson Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/patterson-park"
+   "url": "https://www.surfnerd.com/surf-forecast/patterson-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Pleasant Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/pleasant-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/pleasant-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Point Abino",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/point-abino"
+   "url": "https://www.surfnerd.com/surf-forecast/point-abino",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Point Pelee",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/point-pelee"
+   "url": "https://www.surfnerd.com/surf-forecast/point-pelee",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Port Bruce",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/port-bruce"
+   "url": "https://www.surfnerd.com/surf-forecast/port-bruce",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Port Burwell",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/port-burwell"
+   "url": "https://www.surfnerd.com/surf-forecast/port-burwell",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Port Dalhousie",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/port-dalhousie"
+   "url": "https://www.surfnerd.com/surf-forecast/port-dalhousie",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Port Maitland",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/port-maitland"
+   "url": "https://www.surfnerd.com/surf-forecast/port-maitland",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Presqu'ile Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/presquile-point"
+   "url": "https://www.surfnerd.com/surf-forecast/presquile-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Pukaskwa National Park",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/pukaskwa-national-park"
+   "url": "https://www.surfnerd.com/surf-forecast/pukaskwa-national-park",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Red Sucker Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/red-sucker-point"
+   "url": "https://www.surfnerd.com/surf-forecast/red-sucker-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Reebs Bay",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/reebs-bay"
+   "url": "https://www.surfnerd.com/surf-forecast/reebs-bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Rock Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/rock-point"
+   "url": "https://www.surfnerd.com/surf-forecast/rock-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Rogue Rivermouth",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/rogue-rivermouth"
+   "url": "https://www.surfnerd.com/surf-forecast/rogue-rivermouth",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Rondeau",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/rondeau"
+   "url": "https://www.surfnerd.com/surf-forecast/rondeau",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Sandbanks",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/sandbanks"
+   "url": "https://www.surfnerd.com/surf-forecast/sandbanks",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Sauble Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/sauble-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/sauble-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Seacliffe Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/seacliffe-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/seacliffe-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Selkirk",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/selkirk"
+   "url": "https://www.surfnerd.com/surf-forecast/selkirk",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "South Cayuga",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/south-cayuga"
+   "url": "https://www.surfnerd.com/surf-forecast/south-cayuga",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "South Shore- Manitoulin Island",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/south-shore-manitoulin-island"
+   "url": "https://www.surfnerd.com/surf-forecast/south-shore-manitoulin-island",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "St. Catherine's Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/st-catherines-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/st-catherines-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "The Bridge - Great Lakes",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/the-bridge-great-lakes"
+   "url": "https://www.surfnerd.com/surf-forecast/the-bridge-great-lakes",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "The Pinery",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/the-pinery"
+   "url": "https://www.surfnerd.com/surf-forecast/the-pinery",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Van Wagners Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/van-wagners-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/van-wagners-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Wasaga Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/wasaga-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/wasaga-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Wheatley",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/wheatley"
+   "url": "https://www.surfnerd.com/surf-forecast/wheatley",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Wolfe Island",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/wolfe-island"
+   "url": "https://www.surfnerd.com/surf-forecast/wolfe-island",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Wyldewood Beach",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/wyldewood-beach"
+   "url": "https://www.surfnerd.com/surf-forecast/wyldewood-beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Alona Bay",
@@ -7348,5 +7628,6 @@
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Wolfe-Island, pin 44.15,-76.5); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
    "surfForecastRegion": "Lake-Ontario-Canada"
   }
- ]
+ ],
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

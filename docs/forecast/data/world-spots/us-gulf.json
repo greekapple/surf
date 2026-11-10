@@ -14343,32 +14343,62 @@
   {
    "name": "Doctor's Pass (South Jetty)",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/doctors-pass-south-jetty"
+   "url": "https://www.surfnerd.com/surf-forecast/doctors-pass-south-jetty",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.17; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Grande Isle",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/grande-isle"
+   "url": "https://www.surfnerd.com/surf-forecast/grande-isle",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.17; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pass-A-Grille Jetty",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/pass-a-grille-jetty"
+   "url": "https://www.surfnerd.com/surf-forecast/pass-a-grille-jetty",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.17; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Redfish Pass",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/redfish-pass"
+   "url": "https://www.surfnerd.com/surf-forecast/redfish-pass",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 58 deg (arccos of mean resultant length 0.53; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Shell Island",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/shell-island"
+   "url": "https://www.surfnerd.com/surf-forecast/shell-island",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.16; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sunshine Skyway Bridge",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/sunshine-skyway-bridge"
+   "url": "https://www.surfnerd.com/surf-forecast/sunshine-skyway-bridge",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 2.06 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "The Pass",
@@ -14600,5 +14630,6 @@
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/Wiggins-Pass, pin 26.29,-81.83); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
    "surfForecastRegion": "Gulf-Coast-Florida"
   }
- ]
+ ],
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

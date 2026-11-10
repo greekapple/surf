@@ -3225,208 +3225,1589 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSNB&network=CN__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-china-fung-bay",
+   "name": "Fung Bay",
+   "country": "China",
+   "region": "Hong Kong",
+   "timeZone": "Asia/Hong_Kong",
+   "type": null,
+   "lat": 22.416,
+   "lon": 114.379,
+   "seaward": 115.8,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (22.4156, 114.3785) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Fung-Bay"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3348/1785.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 154 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 43.2 deg (limit 45); 300 m window gives 129.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3348/1785.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3348/1786.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3349/1785.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3349/1786.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.415151,
+     114.379916
+    ],
+    "distanceToCoastM": 153.9,
+    "meanDevDeg": 43.2,
+    "seaward300": 129.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 19 deg from facing+180 (296); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 71 deg from the facing (116); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Fung Bay",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fung-Bay",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "waveTypeText": "Beach and point (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights Rarely crowded here. (surf-forecast)",
+    "exposure": "sheltered beach and point break (surf-forecast)",
+    "hazards": [
+     "The beach breaks offer lefts and rights Rarely crowded here. (surf-forecast)",
+     "Watch out for dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Fung Bay with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Fung Bay in - is a sheltered beach and point break that has pretty consitent surf Offshore winds blow from the northwest. Most of the surf comes fis in the form of windswells and the best wave direction is from the northeast. The beach breaks offer lefts and rights Rarely crowded here. Watch out for dangerous rips. Fung Bay"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-fung-bay"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Hong Kong - China)",
+     "distanceKm": 21.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:35:00.000 UTC in the IOC station list",
+     "lat": 22.291,
+     "lon": 114.213,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VHHH",
+     "name": "Hong Kong",
+     "owner": "IEM HK__ASOS network (airport METAR)",
+     "distanceKm": 48.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.309,
+     "lon": 113.922,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VHHH&network=HK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Fung Bay",
+    "url": "https://www.surf-forecast.com/breaks/Fung-Bay",
+    "dropReason": "surf-forecast page only (pin 22.42,114.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-xi-chong-dongshong",
+    "distanceKm": 17.18
+   }
+  },
+  {
+   "id": "w-china-funingwan",
+   "name": "Funingwan",
+   "country": "China",
+   "region": "Fujian",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 26.753,
+   "lon": 120.095,
+   "seaward": 83.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (26.7535, 120.0948) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Funingwan"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1731.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 11 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.7 deg (limit 45); 300 m window gives 84.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1731.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3413/1732.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3414/1731.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3414/1732.pbf"
+    ],
+    "nearestCoastPoint": [
+     26.753508,
+     120.094913
+    ],
+    "distanceToCoastM": 11.3,
+    "meanDevDeg": 5.7,
+    "seaward300": 84.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell East-southeast: nearest listed direction is 29 deg from the facing (84); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Funingwan",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Funingwan",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East-southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the west with some shelter here from north winds (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "fairly exposed beach break (surf-forecast)",
+    "hazards": [
+     "A remote wave spot that never gets crowded. (surf-forecast)",
+     "Be aware that the sea here is polluted. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Funingwan with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Funingwan in Fujian is a fairly exposed beach break that has inconsistent surf with no particular seasonal pattern. Offshore winds blow from the west with some shelter here from north winds. The location means that groundswells are unknown and the ideal wave direction is from the east southeast. Waves at the beach break both left and right. A remote wave spot that never gets crowded. Be aware that the sea here is polluted. Funingwan"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-funingwan"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tmat",
+     "name": "Matsu",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 67.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 26.162,
+     "lon": 119.943,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tmat"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSFZ",
+     "name": "Fuzhou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 109.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 26.083,
+     "lon": 119.283,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSFZ&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Funingwan",
+    "url": "https://www.surf-forecast.com/breaks/Funingwan",
+    "dropReason": "surf-forecast page only (pin 26.75,120.09); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-airport-lefts-fuzhou",
+    "distanceKm": 96.99
+   }
+  },
+  {
+   "id": "w-china-jinzonglu",
+   "name": "Jinzonglu",
+   "country": "China",
+   "region": "Hainan",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 18.233,
+   "lon": 109.646,
+   "seaward": 166.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (18.233, 109.646) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Jinzonglu"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3295/1836.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 113 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.0 deg (limit 45); 300 m window gives 166.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3295/1836.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3295/1837.pbf"
+    ],
+    "nearestCoastPoint": [
+     18.232005,
+     109.646252
+    ],
+    "distanceToCoastM": 113.2,
+    "meanDevDeg": 5.0,
+    "seaward300": 166.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 9 deg from facing+180 (347); consistent (<=60)",
+     "surf-forecast best swell South: nearest listed direction is 13 deg from the facing (167); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Jinzonglu",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jinzonglu",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "season": "best time of year for surfing Jinzonglu with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Jinzonglu in Hainan is an exposed beach break that has very consistent waves. Ideal winds are from the north northwest. The optimum well angle is from the south. Crowds are never a problem here. Jinzonglu"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-jinzonglu"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility (China)",
+     "distanceKm": 193.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 19.57,
+     "lon": 110.82,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 25.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Jinzonglu",
+    "url": "https://www.surf-forecast.com/breaks/Jinzonglu",
+    "dropReason": "surf-forecast page only (pin 18.23,109.65); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-houhai",
+    "distanceKm": 9.16
+   }
+  },
+  {
+   "id": "w-china-lantau-island",
+   "name": "Lantau Island",
+   "country": "China",
+   "region": "Hong Kong",
+   "timeZone": "Asia/Hong_Kong",
+   "type": null,
+   "lat": 22.235,
+   "lon": 113.967,
+   "seaward": 142.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (22.2354, 113.9666) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Lantau-Island"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3344/1787.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 132 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 28.8 deg (limit 45); 300 m window gives 154.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3344/1787.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3344/1788.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3345/1787.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3345/1788.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.236592,
+     113.966546
+    ],
+    "distanceToCoastM": 131.9,
+    "meanDevDeg": 28.8,
+    "seaward300": 154.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the north northwest: nearest listed direction is 15 deg from facing+180 (322); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 8 deg from the facing (142); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Lantau Island",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lantau-Island",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the north northwest (surf-forecast)",
+    "waveTypeText": "Beach and point (surf-forecast)",
+    "waveDirectionText": "Lantau Island in - is a reasonably exposed beach and point break that only works when conditions are just right. (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. (surf-forecast)",
+     "The beach break provides left and right handers Rarely crowded here. (surf-forecast)",
+     "Submerged rocks are a hazard. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Lantau Island with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Lantau Island in - is a reasonably exposed beach and point break that only works when conditions are just right. Summer offers the best conditions for surfing. Offshore winds blow from the north northwest. Usually gets local windswells, but groundswells do happen and the best wave direction is from the southeast. The beach break provides left and right handers Rarely crowded here. Submerged rocks are a hazard. Lantau Island"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-lantau-island"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC shek",
+     "name": "Shek Pik",
+     "owner": "IOC Sea Level Station Monitoring Facility (Hong Kong - China)",
+     "distanceKm": 7.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:35:00.000 UTC in the IOC station list",
+     "lat": 22.22,
+     "lon": 113.894,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=shek"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VHHH",
+     "name": "Hong Kong",
+     "owner": "IEM HK__ASOS network (airport METAR)",
+     "distanceKm": 9.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.309,
+     "lon": 113.922,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VHHH&network=HK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Lantau Island",
+    "url": "https://www.surf-forecast.com/breaks/Lantau-Island",
+    "dropReason": "surf-forecast page only (pin 22.24,113.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-fung-bay",
+    "distanceKm": 46.91
+   }
+  },
+  {
+   "id": "w-china-mazu-eikon",
+   "name": "Mazu-Eikon",
+   "country": "China",
+   "region": "Zhangzhou",
+   "timeZone": "Asia/Shanghai",
+   "type": null,
+   "lat": 23.226,
+   "lon": 116.685,
+   "seaward": 138.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (23.2261, 116.6849) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Mazu-Eikon"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3375/1775.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 52 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.7 deg (limit 45); 300 m window gives 137.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3375/1775.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3375/1776.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3376/1775.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3376/1776.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.225757,
+     116.685249
+    ],
+    "distanceToCoastM": 52.0,
+    "meanDevDeg": 1.7,
+    "seaward300": 137.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 3 deg from facing+180 (318); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 20 deg from the facing (138); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Mazu-Eikon",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Mazu-Eikon",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "The sandbar breaks peel to the right. (surf-forecast)",
+    "hazards": [
+     "Beware of buoys. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Mazu-Eikon with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Mazu-Eikon in Zhangzhou is an exposed sandbar break. The favoured conditions for surfing are during the cyclone season. The best wind direction is from the northwest. There is too little fetch for groundswells to form and the best wave direction is from the south southeast. The sandbar breaks peel to the right. Good surf at all stages of the tide. An uncrowded break, even when it is working. Beware of buoys. Mazu-Eikon"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-mazu-eikon"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tshu",
+     "name": "Shueitou",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 210.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.421,
+     "lon": 118.289,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tshu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 19.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Mazu-Eikon",
+    "url": "https://www.surf-forecast.com/breaks/Mazu-Eikon",
+    "dropReason": "surf-forecast page only (pin 23.23,116.68); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-wujiao-bay-dongshan-island",
+    "distanceKm": 89.45
+   }
+  },
+  {
+   "id": "w-china-ocean-bay-golf-club",
+   "name": "Ocean Bay Golf Club",
+   "country": "China",
+   "region": "Hainan",
+   "timeZone": "Asia/Shanghai",
+   "type": "Point",
+   "lat": 18.407,
+   "lon": 109.959,
+   "seaward": 186.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (18.407, 109.959) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Ocean-Bay-Golf-Club"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3298/1834.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 529 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 21.5 deg (limit 45); 300 m window gives 179.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3298/1834.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3298/1835.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3299/1834.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3299/1835.pbf"
+    ],
+    "nearestCoastPoint": [
+     18.411737,
+     109.959704
+    ],
+    "distanceToCoastM": 529.0,
+    "meanDevDeg": 21.5,
+    "seaward300": 179.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the North-northwest: nearest listed direction is 29 deg from facing+180 (6); consistent (<=60)",
+     "surf-forecast best swell from the south: nearest listed direction is 6 deg from the facing (186); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Ocean Bay Golf Club",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Ocean-Bay-Golf-Club",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the south (surf-forecast)",
+    "windOffshore": "offshore wind from the North-northwest (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the south. (surf-forecast)",
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Beware of - Urchins - Rips / undertow - Rocks. (surf-forecast)"
+    ],
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Ocean Bay Golf Club in Hainan is an exposed point break that has fairly consistent surf and can work at any time of the year. Works best in offshore winds from the north northwest. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the south. Good surf at all stages of the tide. The location means that it never gets crowded. Beware of - Urchins - Rips / undertow - Rocks. Ocean Bay Golf Club"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-ocean-bay-golf-club"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC qing",
+     "name": "Qinglan",
+     "owner": "IOC Sea Level Station Monitoring Facility (China)",
+     "distanceKm": 157.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 19.57,
+     "lon": 110.82,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=qing"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZJSY",
+     "name": "Sanya",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 58.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.303,
+     "lon": 109.412,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZJSY&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Ocean Bay Golf Club",
+    "url": "https://www.surf-forecast.com/breaks/Ocean-Bay-Golf-Club",
+    "dropReason": "surf-forecast page only (pin 18.41,109.96); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-sandalwood",
+    "distanceKm": 19.25
+   }
+  },
+  {
+   "id": "w-china-tat-mun-island",
+   "name": "Tat Mun Island",
+   "country": "China",
+   "region": "Hong Kong",
+   "timeZone": "Asia/Hong_Kong",
+   "type": "Point",
+   "lat": 22.469,
+   "lon": 114.364,
+   "seaward": 122.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (22.4691, 114.3638) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Tat-Mun-Island"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3348/1785.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 32 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 29.9 deg (limit 45); 300 m window gives 107.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3348/1785.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3349/1785.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.469203,
+     114.364087
+    ],
+    "distanceToCoastM": 31.7,
+    "meanDevDeg": 29.9,
+    "seaward300": 107.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northwest: nearest listed direction is 13 deg from facing+180 (302); consistent (<=60)",
+     "surf-forecast best swell Northeast: nearest listed direction is 77 deg from the facing (122); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Tat Mun Island",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tat-Mun-Island",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Northeast (surf-forecast)",
+    "windOffshore": "offshore wind from the Northwest (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "waveDirectionText": "Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the northeast.The break here is a left hand point. (surf-forecast)",
+    "exposure": "very sheltered point break (surf-forecast)",
+    "hazards": [
+     "Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the northeast.The break here is a left hand point. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Tat Mun Island with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Tat Mun Island in - is a very sheltered point break that does not work very often Works best in offshore winds from the northwest. Usually gets local windswells, but groundswells do happen and the ideal wave direction is from the northeast.The break here is a left hand point. Relatively few surfers here, even on good days. Tat Mun Island"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-tat-mun-island"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Hong Kong - China)",
+     "distanceKm": 25.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:35:00.000 UTC in the IOC station list",
+     "lat": 22.291,
+     "lon": 114.213,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VHHH",
+     "name": "Hong Kong",
+     "owner": "IEM HK__ASOS network (airport METAR)",
+     "distanceKm": 48.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.309,
+     "lon": 113.922,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VHHH&network=HK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Tat Mun Island",
+    "url": "https://www.surf-forecast.com/breaks/Tat-Mun-Island",
+    "dropReason": "surf-forecast page only (pin 22.47,114.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-fung-bay",
+    "distanceKm": 6.09
+   }
+  },
+  {
+   "id": "w-china-wujiao-bay-dongshan-dao",
+   "name": "Wujiao Bay (Dongshan Dao)",
+   "country": "China",
+   "region": "Zhangzhou",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 23.623,
+   "lon": 117.428,
+   "seaward": 92.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (23.6228, 117.428) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3383/1770.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1311 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.8 deg (limit 45); 300 m window gives 92.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3383/1770.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3383/1771.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3384/1770.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3384/1771.pbf"
+    ],
+    "nearestCoastPoint": [
+     23.623372,
+     117.415159
+    ],
+    "distanceToCoastM": 1311.2,
+    "meanDevDeg": 1.8,
+    "seaward300": 92.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 2 deg from facing+180 (272); consistent (<=60)",
+     "surf-forecast best swell East: nearest listed direction is 2 deg from the facing (92); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Wujiao Bay (Dongshan Dao)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Watch out for - Rips / undertow. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Wujiao Bay (Dongshan Dao) with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Wujiao Bay (Dongshan Dao) in Zhangzhou is an exposed beach break that does not work very often. The optimum conditions for surfing are during the cyclone season. The best wind direction is from the west. Windswells are much more typical than groudswells and the best wave direction is from the east. The location means that it never gets crowded. Watch out for - Rips / undertow. Wujiao Bay (Dongshan Dao)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-wujiao-bay-dongshan-dao"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC tshu",
+     "name": "Shueitou",
+     "owner": "IOC Sea Level Station Monitoring Facility (Taiwan (Province of China))",
+     "distanceKm": 124.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 03:00:00.000 UTC in the IOC station list",
+     "lat": 24.421,
+     "lon": 118.289,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=tshu"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZGOW",
+     "name": "Shantou",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 79.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 23.4,
+     "lon": 116.683,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Wujiao Bay (Dongshan Dao)",
+    "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao",
+    "dropReason": "surf-forecast page only (pin 23.62,117.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-wujiao-bay-dongshan-island",
+    "distanceKm": 3.68
+   }
+  },
+  {
+   "id": "w-china-macau-hacsa-beach",
+   "name": "Macau HacSa Beach",
+   "country": "China",
+   "region": "South China Sea",
+   "timeZone": "Asia/Macau",
+   "type": "Beach",
+   "lat": 22.123,
+   "lon": 113.571,
+   "seaward": 132.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (22.122933333333332, 113.57133333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Macau_HacSa_Beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3339/1789.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 80 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 32.6 deg (limit 45); 300 m window gives 125.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3339/1789.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3339/1790.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3340/1789.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3340/1790.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.122513,
+     113.571967
+    ],
+    "distanceToCoastM": 80.2,
+    "meanDevDeg": 32.6,
+    "seaward300": 125.1
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Macau HacSa Beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Macau_HacSa_Beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "tide": "Mid tide, Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Rarely break (5day/year) (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-macau-hacsa-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC shek",
+     "name": "Shek Pik",
+     "owner": "IOC Sea Level Station Monitoring Facility (Hong Kong - China)",
+     "distanceKm": 34.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:35:00.000 UTC in the IOC station list",
+     "lat": 22.22,
+     "lon": 113.894,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=shek"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Macau HacSa Beach",
+    "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Macau_HacSa_Beach/index.html",
+    "dropReason": "wannasurf page only (pin 22.1229,113.5713, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-lantau-island",
+    "distanceKm": 42.63
+   }
+  },
+  {
+   "id": "w-china-dong-sha",
+   "name": "Dong Sha",
+   "country": "China",
+   "region": "Yellow Sea",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 29.882,
+   "lon": 122.415,
+   "seaward": 92.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (29.88205, 122.41453333333334, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Dong_Sha/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3440/1691.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 96 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.7 deg (limit 45); 300 m window gives 103.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3440/1691.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3441/1691.pbf"
+    ],
+    "nearestCoastPoint": [
+     29.882319,
+     122.413589
+    ],
+    "distanceToCoastM": 95.9,
+    "meanDevDeg": 38.7,
+    "seaward300": 103.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 43 deg from facing+180 (272); consistent (<=60)",
+     "wannasurf good swell SouthWest, South, SouthEast: nearest listed direction is 43 deg from the facing (92); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Dong Sha",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Dong_Sha/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 2.5m-3m / 8ft-10ft and holds up to 1m+ / 3ft+ (wannasurf)",
+    "hazards": [
+     "Pollution (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary, Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-dong-sha"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22107",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 493.9,
+     "live": true,
+     "liveNote": "WVHT 1.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 33.08,
+     "lon": 126.03,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22107"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSZS",
+     "name": "Zhoushan",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 7.7,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 29.934,
+     "lon": 122.362,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSZS&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Dong Sha",
+    "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Dong_Sha/index.html",
+    "dropReason": "wannasurf page only (pin 29.8820,122.4145, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-nansha-beach-zhujia-island",
+    "distanceKm": 0.98
+   }
+  },
+  {
+   "id": "w-china-seal-tub-beach",
+   "name": "Seal tub beach",
+   "country": "China",
+   "region": "Yellow Sea",
+   "timeZone": "Asia/Shanghai",
+   "type": "Beach",
+   "lat": 37.542,
+   "lon": 122.1,
+   "seaward": 357.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (37.54173333333333, 122.10048333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/seal_tub_beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3436/1586.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 0 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 28.3 deg (limit 45); 300 m window gives 3.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3436/1586.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3436/1587.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3437/1586.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3437/1587.pbf"
+    ],
+    "nearestCoastPoint": [
+     37.541731,
+     122.100483
+    ],
+    "distanceToCoastM": 0.2,
+    "meanDevDeg": 28.3,
+    "seaward300": 3.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind South: nearest listed direction is 3 deg from facing+180 (177); consistent (<=60)",
+     "wannasurf good swell North: nearest listed direction is 3 deg from the facing (357); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Seal tub beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/seal_tub_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell North (wannasurf)",
+    "windOffshore": "good wind South (wannasurf)",
+    "tide": "Mid and high tide, Rising tide (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to (wannasurf)",
+    "hazards": [
+     "Pollution (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-seal-tub-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 22101",
+     "name": "",
+     "owner": "Korean Meteorological Administration",
+     "distanceKm": 348.0,
+     "live": true,
+     "liveNote": "WVHT 0.5 m at 2026-11-10 04:00 UTC in NDBC latest_obs",
+     "lat": 37.23,
+     "lon": 126.02,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=22101"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR ZSWH",
+     "name": "Weihai",
+     "owner": "IEM CN__ASOS network (airport METAR)",
+     "distanceKm": 41.0,
+     "live": false,
+     "liveNote": "IEM lists offline",
+     "lat": 37.187,
+     "lon": 122.229,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZSWH&network=CN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Seal tub beach",
+    "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/seal_tub_beach/index.html",
+    "dropReason": "wannasurf page only (pin 37.5417,122.1005, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-shilaoren-beach-qingdao-shandong-province",
+    "distanceKm": 216.98
+   }
+  },
+  {
+   "id": "w-china-tai-long-wan-sai-kung",
+   "name": "Tai Long Wan Sai Kung",
+   "country": "Hong Kong",
+   "region": "Tai Long Wan Sai Kung",
+   "timeZone": "Asia/Hong_Kong",
+   "type": "Beach",
+   "lat": 22.416,
+   "lon": 114.382,
+   "seaward": 131.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (22.416333333333334, 114.38205, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Tai_Long_Wan_Sai_Kung/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3349/1785.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 50 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 37.9 deg (limit 45); 300 m window gives 133.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3349/1785.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3349/1786.pbf"
+    ],
+    "nearestCoastPoint": [
+     22.416781,
+     114.38205
+    ],
+    "distanceToCoastM": 49.5,
+    "meanDevDeg": 37.9,
+    "seaward300": 133.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good swell East, NorthEast: nearest listed direction is 42 deg from the facing (132); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Tai Long Wan Sai Kung",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Tai_Long_Wan_Sai_Kung/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell East, NorthEast (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Right and left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Sloppy (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-china-tai-long-wan-sai-kung"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC quar",
+     "name": "Quarry Bay",
+     "owner": "IOC Sea Level Station Monitoring Facility (Hong Kong - China)",
+     "distanceKm": 22.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:35:00.000 UTC in the IOC station list",
+     "lat": 22.291,
+     "lon": 114.213,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=quar"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VHHH",
+     "name": "Hong Kong",
+     "owner": "IEM HK__ASOS network (airport METAR)",
+     "distanceKm": 48.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 22.309,
+     "lon": 113.922,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VHHH&network=HK__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Tai Long Wan Sai Kung",
+    "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Tai_Long_Wan_Sai_Kung/index.html",
+    "dropReason": "wannasurf page only (pin 22.4163,114.3821, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-china-fung-bay",
+    "distanceKm": 0.31
+   }
   }
  ],
  "dropped": [
   {
    "name": "Silver Dragon, Qiantang",
    "reason": "surfnerd page gives no facing (swell exposure: 'NE - ENE'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/silver-dragon-qiantang"
+   "url": "https://www.surfnerd.com/surf-forecast/silver-dragon-qiantang",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 3.83 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Big Wave Bay",
    "reason": "surf-forecast page only (pin 22.25,114.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Big-Wave-Bay"
+   "url": "https://www.surf-forecast.com/breaks/Big-Wave-Bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 54 deg (arccos of mean resultant length 0.59; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Clubhouse Point",
    "reason": "surf-forecast page only (pin 22.26,114.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Clubhouse-Point"
+   "url": "https://www.surf-forecast.com/breaks/Clubhouse-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Da Mei Sha Beach",
    "reason": "surf-forecast page only (pin 22.6,114.31); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Da-Mei-Sha-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Da-Mei-Sha-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 46 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Dongchong",
    "reason": "surf-forecast page only (pin 22.49,114.58); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Dongchong"
+   "url": "https://www.surf-forecast.com/breaks/Dongchong",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
-  },
-  {
-   "name": "Fung Bay",
-   "reason": "surf-forecast page only (pin 22.42,114.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fung-Bay"
-  },
-  {
-   "name": "Funingwan",
-   "reason": "surf-forecast page only (pin 26.75,120.09); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Funingwan"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Macau Hacs Sa Beach",
    "reason": "surf-forecast page only (pin 22.12,113.57); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Hac-sa-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Hac-sa-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind); surf-forecast offshore wind from the West-northwest: nearest listed direction is 61 deg from facing+180 (353); CONTRADICTS (>60) | surf-forecast best swell South: nearest listed direction is 7 deg from the facing (173); consistent (<=90)"
+   }
   },
   {
    "name": "Jieshi Bay",
    "reason": "surf-forecast page only (pin 22.87,115.66); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jieshi-Bay"
-  },
-  {
-   "name": "Jinzonglu",
-   "reason": "surf-forecast page only (pin 18.23,109.65); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jinzonglu"
-  },
-  {
-   "name": "Lantau Island",
-   "reason": "surf-forecast page only (pin 22.24,113.97); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Lantau-Island"
-  },
-  {
-   "name": "Mazu-Eikon",
-   "reason": "surf-forecast page only (pin 23.23,116.68); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Mazu-Eikon"
-  },
-  {
-   "name": "Ocean Bay Golf Club",
-   "reason": "surf-forecast page only (pin 18.41,109.96); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Ocean-Bay-Golf-Club"
+   "url": "https://www.surf-forecast.com/breaks/Jieshi-Bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 49 deg (arccos of mean resultant length 0.66; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Qingshan Bay",
    "reason": "surf-forecast page only (pin 24.89,118.87); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Qingshan-Bay"
+   "url": "https://www.surf-forecast.com/breaks/Qingshan-Bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Repulse Bay",
    "reason": "surf-forecast page only (pin 22.24,114.19); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Repulse-Bay"
+   "url": "https://www.surf-forecast.com/breaks/Repulse-Bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.38; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sai Wan Beach",
    "reason": "surf-forecast page only (pin 22.41,114.37); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Sai-Wan-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Sai-Wan-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.51; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Shek O",
    "reason": "surf-forecast page only (pin 22.22,114.26); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Shek-O_1"
+   "url": "https://www.surf-forecast.com/breaks/Shek-O_1",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 45 deg (arccos of mean resultant length 0.70; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Shelter Island",
    "reason": "surf-forecast page only (pin 22.32,114.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Shelter-Island_1"
-  },
-  {
-   "name": "Tat Mun Island",
-   "reason": "surf-forecast page only (pin 22.47,114.36); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Tat-Mun-Island"
-  },
-  {
-   "name": "Wujiao Bay (Dongshan Dao)",
-   "reason": "surf-forecast page only (pin 23.62,117.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao"
+   "url": "https://www.surf-forecast.com/breaks/Shelter-Island_1",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.31; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Funingwan",
    "reason": "wannasurf page only (pin 26.7535,120.0948, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Funingwan/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Funingwan/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-china-funingwan, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Mazu Eikon",
    "reason": "wannasurf page only (pin 23.2261,116.6849, precision GPS History (); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Mazu_Eikon/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Mazu_Eikon/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-china-mazu-eikon, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Qingshan Wan  Fujian",
    "reason": "wannasurf page only (pin 24.8917,118.8736, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Qingshan_Wan__Fujian/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/Qingshan_Wan__Fujian/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.32; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "The silver dragon",
    "reason": "wannasurf page only (pin 30.2885,120.2794, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/The_silver_dragon/index.html"
-  },
-  {
-   "name": "Macau HacSa Beach",
-   "reason": "wannasurf page only (pin 22.1229,113.5713, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/Macau_HacSa_Beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/East_China_Sea/The_silver_dragon/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Dongshan dao",
    "reason": "wannasurf page only (pin 23.6690,117.4562, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/dongshan_dao/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/dongshan_dao/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 67 deg (arccos of mean resultant length 0.38; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Jinzonglu",
    "reason": "wannasurf page only (pin 18.2333,109.6464, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/jinzonglu/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/jinzonglu/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthWest, South, SouthEast: nearest listed direction is 123 deg from facing+180 (348); CONTRADICTS (>60) | wannasurf good swell SouthWest, South, SouthEast: nearest listed direction is 12 deg from the facing (168); consistent (<=90)"
+   }
   },
   {
    "name": "Ocean bay golf club",
    "reason": "wannasurf page only (pin 18.4070,109.9592, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/ocean_bay_golf_club/index.html"
-  },
-  {
-   "name": "Dong Sha",
-   "reason": "wannasurf page only (pin 29.8820,122.4145, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Dong_Sha/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/South_China_Sea/ocean_bay_golf_club/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf swell); wannasurf good wind North, NorthWest: nearest listed direction is 6 deg from facing+180 (6); consistent (<=60) | wannasurf good swell North, NorthWest, East, NorthEast: nearest listed direction is 96 deg from the facing (186); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Gwen s Mouth",
    "reason": "wannasurf page only (pin 36.2709,120.6876, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Gwen_s_Mouth/index.html"
-  },
-  {
-   "name": "Seal tub beach",
-   "reason": "wannasurf page only (pin 37.5417,122.1005, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/seal_tub_beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/China/Yellow_Sea/Gwen_s_Mouth/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.38; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Breaker Reef",
    "reason": "wannasurf page only (pin 22.4612,114.4204, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Breaker_Reef/index.html"
-  },
-  {
-   "name": "Tai Long Wan Sai Kung",
-   "reason": "wannasurf page only (pin 22.4163,114.3821, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Tai_Long_Wan_Sai_Kung/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/Breaker_Reef/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Cheung sha beach lantau",
    "reason": "wannasurf page only (pin 22.2329,113.9572, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/cheung_sha_beach_lantau/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/cheung_sha_beach_lantau/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: the pin is on enclosed water (lagoon, estuary or harbour): every ray from the shore within +-90 deg of the computed seaward hits land within 2 km (max 181 m)"
+   }
   },
   {
    "name": "Ham tin",
    "reason": "wannasurf page only (pin 22.4076,114.3767, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/ham_tin/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/ham_tin/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 59 deg (arccos of mean resultant length 0.52; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Nw reef - shelter island sai kung",
    "reason": "wannasurf page only (pin 22.3324,114.2939, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/nw_reef_-_shelter_island_sai_kung/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/nw_reef_-_shelter_island_sai_kung/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.46; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tai long wan",
    "reason": "wannasurf page only (pin 22.4120,114.3794, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.69; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tai long wan  lantau",
    "reason": "wannasurf page only (pin 22.2204,113.8851, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan__lantau/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan__lantau/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind West, SouthWest, South: nearest listed direction is 70 deg from facing+180 (340); CONTRADICTS (>60) | wannasurf good swell SouthWest, South: nearest listed direction is 20 deg from the facing (160); consistent (<=90)"
+   }
   },
   {
    "name": "Tai long wan hk",
    "reason": "wannasurf page only (pin 22.2460,114.2477, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan_hk/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Hong_Kong/tai_long_wan_hk/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 61 deg (arccos of mean resultant length 0.48; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 12 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

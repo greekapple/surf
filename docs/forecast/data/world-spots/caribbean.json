@@ -32511,72 +32511,142 @@
   {
    "name": "Point des Chateaux",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/point-des-chateaux"
+   "url": "https://www.surfnerd.com/surf-forecast/point-des-chateaux",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 82 deg (arccos of mean resultant length 0.14; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Caracol",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/caracol"
+   "url": "https://www.surfnerd.com/surf-forecast/caracol",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 3.29 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Limbe Island",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/limbe-island"
+   "url": "https://www.surfnerd.com/surf-forecast/limbe-island",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 86 deg (arccos of mean resultant length 0.07; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pigeon Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/pigeon-point-2-3"
+   "url": "https://www.surfnerd.com/surf-forecast/pigeon-point-2-3",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 85 deg (arccos of mean resultant length 0.09; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Mullet Bay",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/mullet-bay"
+   "url": "https://www.surfnerd.com/surf-forecast/mullet-bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 81 deg (arccos of mean resultant length 0.15; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "The Bowl",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/the-bowl"
+   "url": "https://www.surfnerd.com/surf-forecast/the-bowl",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.10; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Drownies",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/drownies"
+   "url": "https://www.surfnerd.com/surf-forecast/drownies",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 2.94 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Egg Island",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/egg-island"
+   "url": "https://www.surfnerd.com/surf-forecast/egg-island",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Frenzies",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/frenzies"
+   "url": "https://www.surfnerd.com/surf-forecast/frenzies",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 3.23 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Harbour Island/Whale Point Cut",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/harbour-island-whale-point-cut"
+   "url": "https://www.surfnerd.com/surf-forecast/harbour-island-whale-point-cut",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.17; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "North Palmetto Point",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/north-palmetto-point"
+   "url": "https://www.surfnerd.com/surf-forecast/north-palmetto-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Northeast Walkers",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/northeast-walkers"
+   "url": "https://www.surfnerd.com/surf-forecast/northeast-walkers",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 3.30 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Rushin Rights",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/rushin-rights"
+   "url": "https://www.surfnerd.com/surf-forecast/rushin-rights",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 2.15 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Tilloo Cut",
    "reason": "no published facing (surfnerd page has no Faces line)",
-   "url": "https://www.surfnerd.com/surf-forecast/tilloo-cut"
+   "url": "https://www.surfnerd.com/surf-forecast/tilloo-cut",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 78 deg (arccos of mean resultant length 0.20; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Accra Beach - Rockley Beach",
@@ -33543,5 +33613,6 @@
    "reason": "surf-forecast page only (https://www.surf-forecast.com/breaks/le-Bec-a-Cheri, pin 17.92,-62.86); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
    "surfForecastRegion": "Saint-Barthelemy"
   }
- ]
+ ],
+ "recovery": "2026-11-09: 0 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

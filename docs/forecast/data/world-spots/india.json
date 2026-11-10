@@ -3944,208 +3944,2500 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-india-agonda",
+   "name": "Agonda",
+   "country": "India",
+   "region": "Goa",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 15.044,
+   "lon": 73.985,
+   "seaward": 246.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (15.0442, 73.985) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Agonda"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1874.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 67 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.9 deg (limit 45); 300 m window gives 246.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1874.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1875.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2890/1874.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2890/1875.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.044435,
+     73.985578
+    ],
+    "distanceToCoastM": 67.4,
+    "meanDevDeg": 1.9,
+    "seaward300": 246.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the East-northeast: nearest listed direction is 1 deg from facing+180 (66); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 21 deg from the facing (246); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Agonda",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Agonda",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the East-northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Agonda in Goa is an exposed beach break that has pretty consitent surf. Works best in offshore winds from the east northeast. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the southwest. The beach break offers both left and right hand waves. Crowds are never a problem here. Agonda"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-agonda"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 45.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGO",
+     "name": "Goa/dabolim",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 41.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.381,
+     "lon": 73.827,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGO&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Agonda",
+    "url": "https://www.surf-forecast.com/breaks/Agonda",
+    "dropReason": "surf-forecast page only (pin 15.04,73.99); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-baga-and-calungute",
+    "distanceKm": 60.52
+   }
+  },
+  {
+   "id": "w-india-akkarai-beach",
+   "name": "Akkarai Beach",
+   "country": "India",
+   "region": "Tamil Nadu",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 12.897,
+   "lon": 80.263,
+   "seaward": 97.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (12.8969, 80.2631) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Akkarai-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1899.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 962 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 0.2 deg (limit 45); 300 m window gives 97.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1899.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1900.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1899.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1900.pbf"
+    ],
+    "nearestCoastPoint": [
+     12.898009,
+     80.254302
+    ],
+    "distanceToCoastM": 962.5,
+    "meanDevDeg": 0.2,
+    "seaward300": 97.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 15 deg from facing+180 (277); consistent (<=60)",
+     "surf-forecast best swell East-southeast: nearest listed direction is 15 deg from the facing (97); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Akkarai Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Akkarai-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell East-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "tide": "The quality of the surf isn't affected by the tide. (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach break both left and right. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Watch out for dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Akkarai Beach with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Akkarai Beach in Tamil Nadu is an exposed beach break that has fairly consistent surf. Autumn and winter are the best times of year for waves. Works best in offshore winds from the west northwest. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the east southeast. Waves at the beach break both left and right. The quality of the surf isn't affected by the tide. Even when the surf is up, crowds are unknown. Watch out for dangerous rips. Akkarai Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-akkarai-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 22.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:37:00.000 UTC in the IOC station list",
+     "lat": 13.1,
+     "lon": 80.3,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOMM",
+     "name": "Madras",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 14.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.994,
+     "lon": 80.18,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOMM&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Akkarai Beach",
+    "url": "https://www.surf-forecast.com/breaks/Akkarai-Beach",
+    "dropReason": "surf-forecast page only (pin 12.9,80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-big-rock-fishermans-cove",
+    "distanceKm": 11.93
+   }
+  },
+  {
+   "id": "w-india-arambol",
+   "name": "Arambol",
+   "country": "India",
+   "region": "Goa",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 15.687,
+   "lon": 73.703,
+   "seaward": 252.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (15.687, 73.703) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Arambol"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1866.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 29 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 5.3 deg (limit 45); 300 m window gives 254.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1866.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1867.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.686947,
+     73.702736
+    ],
+    "distanceToCoastM": 28.9,
+    "meanDevDeg": 5.3,
+    "seaward300": 254.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 28 deg from facing+180 (73); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 28 deg from the facing (253); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Arambol",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Arambol",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "The sandbar breaks offer lefts and rights. (surf-forecast)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "season": "best time of year for surfing Arambol with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Arambol in Goa is an exposed sandbar break that has fairly consistent surf. The best wind direction is from the northeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the southwest. The sandbar breaks offer lefts and rights. Crowds are never a problem here. Arambol"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-arambol"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 32.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGA",
+     "name": "Mopa",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 17.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.73,
+     "lon": 73.863,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGA&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Arambol",
+    "url": "https://www.surf-forecast.com/breaks/Arambol",
+    "dropReason": "surf-forecast page only (pin 15.69,73.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-baga-and-calungute",
+    "distanceKm": 17.16
+   }
+  },
+  {
+   "id": "w-india-benaulim-beach",
+   "name": "Benaulim Beach",
+   "country": "India",
+   "region": "Goa",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 15.257,
+   "lon": 73.919,
+   "seaward": 254.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (15.257, 73.919) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Benaulim-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2888/1871.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 31 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.3 deg (limit 45); 300 m window gives 253.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2888/1871.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2888/1872.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1871.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1872.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.256922,
+     73.918722
+    ],
+    "distanceToCoastM": 31.0,
+    "meanDevDeg": 1.3,
+    "seaward300": 253.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the east northeast: nearest listed direction is 7 deg from facing+180 (74); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 29 deg from the facing (254); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Benaulim Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Benaulim-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the east northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "Waves at the beach are both lefts and rights. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the southwest. (surf-forecast)",
+     "The location means that it never gets crowded. (surf-forecast)",
+     "Hazards include - Rips / undertow. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Benaulim Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Benaulim Beach in Goa is an exposed beach break that does not work very often. Offshore winds are from the east northeast. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the southwest. Waves at the beach are both lefts and rights. The location means that it never gets crowded. Hazards include - Rips / undertow. Benaulim Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-benaulim-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 21.3,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGO",
+     "name": "Goa/dabolim",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 16.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.381,
+     "lon": 73.827,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGO&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Benaulim Beach",
+    "url": "https://www.surf-forecast.com/breaks/Benaulim-Beach",
+    "dropReason": "surf-forecast page only (pin 15.26,73.92); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-agonda",
+    "distanceKm": 24.72
+   }
+  },
+  {
+   "id": "w-india-betalbatim-beach-taj",
+   "name": "Betalbatim Beach Taj",
+   "country": "India",
+   "region": "Goa",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 15.293,
+   "lon": 73.902,
+   "seaward": 251.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (15.293, 73.902) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Betalbatim-Beach-Taj"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2888/1871.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 575 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 1.9 deg (limit 45); 300 m window gives 252.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2888/1871.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2888/1872.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1871.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2889/1872.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.294527,
+     73.907119
+    ],
+    "distanceToCoastM": 575.0,
+    "meanDevDeg": 1.9,
+    "seaward300": 252.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 27 deg from facing+180 (72); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 27 deg from the facing (252); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Betalbatim Beach Taj",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Betalbatim-Beach-Taj",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveTypeText": "Sandbar (surf-forecast)",
+    "waveDirectionText": "The sandbar break offers both left and right hand waves. (surf-forecast)",
+    "exposure": "exposed sandbar break (surf-forecast)",
+    "hazards": [
+     "A remote wave spot that never gets crowded. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Betalbatim Beach Taj with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of November (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Betalbatim Beach Taj in Goa is an exposed sandbar break that has fairly consistent surf. The best wind direction is from the northeast. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the southwest. The sandbar break offers both left and right hand waves. Good surf at all stages of the tide. A remote wave spot that never gets crowded. Betalbatim Beach Taj"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-betalbatim-beach-taj"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 17.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGO",
+     "name": "Goa/dabolim",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 12.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.381,
+     "lon": 73.827,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGO&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Betalbatim Beach Taj",
+    "url": "https://www.surf-forecast.com/breaks/Betalbatim-Beach-Taj",
+    "dropReason": "surf-forecast page only (pin 15.29,73.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-benaulim-beach",
+    "distanceKm": 4.4
+   }
+  },
+  {
+   "id": "w-india-boar-rice",
+   "name": "Boar Rice",
+   "country": "India",
+   "region": "Kerala",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 8.718,
+   "lon": 76.707,
+   "seaward": 229.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (8.718, 76.707) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Boar-Rice"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2920/1948.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 894 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 2.5 deg (limit 45); 300 m window gives 229.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2920/1948.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2921/1948.pbf"
+    ],
+    "nearestCoastPoint": [
+     8.723407,
+     76.713042
+    ],
+    "distanceToCoastM": 894.0,
+    "meanDevDeg": 2.5,
+    "seaward300": 229.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the Northeast: nearest listed direction is 5 deg from facing+180 (50); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 5 deg from the facing (230); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Boar Rice",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Boar-Rice",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore wind from the Northeast (surf-forecast)",
+    "waveTypeText": "- (surf-forecast)",
+    "waveDirectionText": "The beach breaks offer lefts and rights. (surf-forecast)",
+    "hazards": [
+     "Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the southwest. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Boar Rice with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Boar Rice in Kerala is an exposed break. that has inconsistent surf. The best wind direction is from the northeast. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the southwest. The beach breaks offer lefts and rights. Boar Rice"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-boar-rice"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC coch",
+     "name": "Cochin",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 146.6,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:10:00.000 UTC in the IOC station list",
+     "lat": 9.96,
+     "lon": 76.26,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=coch"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOTV",
+     "name": "Trivandrum",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 38.7,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 8.467,
+     "lon": 76.95,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOTV&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Boar Rice",
+    "url": "https://www.surf-forecast.com/breaks/Boar-Rice",
+    "dropReason": "surf-forecast page only (pin 8.72,76.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-varkala",
+    "distanceKm": 2.29
+   }
+  },
+  {
+   "id": "w-india-covelong-point",
+   "name": "Covelong Point",
+   "country": "India",
+   "region": "Tamil Nadu",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 12.79,
+   "lon": 80.254,
+   "seaward": 62.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (12.7903, 80.2539) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Covelong-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1900.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 33.8 deg (limit 45); 300 m window gives 52.8 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1900.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2960/1901.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1900.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2961/1901.pbf"
+    ],
+    "nearestCoastPoint": [
+     12.790311,
+     80.253906
+    ],
+    "distanceToCoastM": 1.4,
+    "meanDevDeg": 33.8,
+    "seaward300": 52.8
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 50 deg from facing+180 (243); consistent (<=60)",
+     "surf-forecast best swell from the east southeast: nearest listed direction is 50 deg from the facing (63); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Covelong Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Covelong-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the east southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "tide": "Best around low tide. (surf-forecast)",
+    "waveTypeText": "Beach and reef (surf-forecast)",
+    "waveDirectionText": "The beach break offers both left and right hand waves and there is also a right hand reef break. (surf-forecast)",
+    "exposure": "exposed beach and reef break (surf-forecast)",
+    "hazards": [
+     "A fairly popluar wave that can sometimes get crowded Surfing here means negotiating dangerous rips. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Covelong Point with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Covelong Point in Tamil Nadu is an exposed beach and reef break that has pretty consitent surf. Autumn and winter are the best times of year for waves. Works best in offshore winds from the west northwest with some shelter here from south southwest winds. Most of the surf here comes from groundswells and the best swell direction is from the east southeast. The beach break offers both left and right hand waves and there is also a right hand reef break. Best around low tide. A fairly popluar wave that can sometimes get crowded Surfing here means negotiating dangerous rips. Covelong Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-covelong-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 34.8,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:37:00.000 UTC in the IOC station list",
+     "lat": 13.1,
+     "lon": 80.3,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOMM",
+     "name": "Madras",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 24.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 12.994,
+     "lon": 80.18,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOMM&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Covelong Point",
+    "url": "https://www.surf-forecast.com/breaks/Covelong-Point",
+    "dropReason": "surf-forecast page only (pin 12.79,80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-big-rock-fishermans-cove",
+    "distanceKm": 0.11
+   }
+  },
+  {
+   "id": "w-india-jackson-creek-little-andaman",
+   "name": "Jackson creek (Little Andaman)",
+   "country": "India",
+   "region": "Andaman Islands",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.804,
+   "lon": 92.407,
+   "seaward": 302.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (10.8038, 92.4075) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Jackson-Creek"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3099/1923.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1464 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.9 deg (limit 45); 300 m window gives 302.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3099/1923.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3099/1924.pbf"
+    ],
+    "nearestCoastPoint": [
+     10.796748,
+     92.418833
+    ],
+    "distanceToCoastM": 1464.2,
+    "meanDevDeg": 3.9,
+    "seaward300": 302.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 12 deg from facing+180 (122); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 78 deg from the facing (302); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Jackson creek (Little Andaman)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jackson-Creek",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "A reef breaks left. (surf-forecast)",
+    "exposure": "very sheltered reef break (surf-forecast)",
+    "hazards": [
+     "Even when there are waves, it's not likley to be crowded. (surf-forecast)",
+     "Take care of coral, sharks,sea crocs. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Jackson creek (Little Andaman) with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Jackson creek in Little Andaman is a very sheltered reef break that has pretty consitent surf. The surf tends to be best in the spring. Offshore winds are from the southeast. Windswells and groundswells in equal measure and the ideal swell direction is from the southwest. A reef breaks left. Even when there are waves, it's not likley to be crowded. Take care of coral, sharks,sea crocs. Jackson creek (Little Andaman)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-jackson-creek-little-andaman"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 23008",
+     "name": "",
+     "owner": "Research Moored Array for African-Asian-Australian Monsoon Analysis and Prediction",
+     "distanceKm": 294.2,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 12.0,
+     "lon": 90.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=23008"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 104.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 11.68,
+     "lon": 92.76,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 99.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Jackson creek (Little Andaman)",
+    "url": "https://www.surf-forecast.com/breaks/Jackson-Creek",
+    "dropReason": "surf-forecast page only (pin 10.8,92.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-jackson-creek-andamans",
+    "distanceKm": 2.89
+   }
+  },
+  {
+   "id": "w-india-konada-bar",
+   "name": "Konada Bar",
+   "country": "India",
+   "region": "Andhra Pradesh",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 18.006,
+   "lon": 83.578,
+   "seaward": 142.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (18.0055, 83.5783) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Konada-Bar"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2998/1839.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1018 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.0 deg (limit 45); 300 m window gives 141.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2998/1839.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2998/1840.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2999/1839.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2999/1840.pbf"
+    ],
+    "nearestCoastPoint": [
+     18.013427,
+     83.573406
+    ],
+    "distanceToCoastM": 1018.2,
+    "meanDevDeg": 6.0,
+    "seaward300": 141.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 7 deg from facing+180 (322); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 7 deg from the facing (142); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Konada Bar",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Konada-Bar",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "waveTypeText": "River (surf-forecast)",
+    "waveDirectionText": "The river break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed river break (surf-forecast)",
+    "hazards": [
+     "Take care of the strong rips here. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Konada Bar with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Konada Bar in Andhra Pradesh is an exposed river break that has consistent surf. Offshore winds are from the northwest. Most of the surf here comes from groundswells and the ideal swell direction is from the southeast. The river break provides left and right handers. An uncrowded break, even when it is working. Take care of the strong rips here. Konada Bar"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-konada-bar"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 48.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 01:36:00.000 UTC in the IOC station list",
+     "lat": 17.68,
+     "lon": 83.28,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 8.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Konada Bar",
+    "url": "https://www.surf-forecast.com/breaks/Konada-Bar",
+    "dropReason": "surf-forecast page only (pin 18.01,83.57); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-mukkam",
+    "distanceKm": 5.46
+   }
+  },
+  {
+   "id": "w-india-miracle-point",
+   "name": "Miracle Point",
+   "country": "India",
+   "region": "Andhra Pradesh",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.983,
+   "lon": 83.569,
+   "seaward": 94.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (17.983, 83.5687) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Miracle-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2998/1839.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 991 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.8 deg (limit 45); 300 m window gives 91.4 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2998/1839.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2998/1840.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2999/1839.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2999/1840.pbf"
+    ],
+    "nearestCoastPoint": [
+     17.988249,
+     83.561111
+    ],
+    "distanceToCoastM": 991.3,
+    "meanDevDeg": 26.8,
+    "seaward300": 91.4
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northwest: nearest listed direction is 41 deg from facing+180 (274); consistent (<=60)",
+     "surf-forecast best swell Southeast: nearest listed direction is 41 deg from the facing (94); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Miracle Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Miracle-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the northwest (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "season": "best time of year for surfing Miracle Point with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Miracle Point in Andhra Pradesh is an exposed point break that has consistent surf. Offshore winds are from the northwest. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the southeast. There is no point break. Surfable at all stages of the tide. Crowds are never a problem here. Miracle Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-miracle-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 45.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 01:36:00.000 UTC in the IOC station list",
+     "lat": 17.68,
+     "lon": 83.28,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 6.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Miracle Point",
+    "url": "https://www.surf-forecast.com/breaks/Miracle-Point",
+    "dropReason": "surf-forecast page only (pin 17.99,83.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-konada-bar",
+    "distanceKm": 2.73
+   }
+  },
+  {
+   "id": "w-india-morjim-beach",
+   "name": "Morjim Beach",
+   "country": "India",
+   "region": "Goa",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 15.62,
+   "lon": 73.721,
+   "seaward": 245.7,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (15.6201, 73.7206) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Morjim-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1867.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 950 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 3.6 deg (limit 45); 300 m window gives 245.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1867.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1868.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2887/1867.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2887/1868.pbf"
+    ],
+    "nearestCoastPoint": [
+     15.623938,
+     73.728532
+    ],
+    "distanceToCoastM": 950.4,
+    "meanDevDeg": 3.6,
+    "seaward300": 245.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the northeast: nearest listed direction is 21 deg from facing+180 (66); consistent (<=60)",
+     "surf-forecast best swell from the southwest: nearest listed direction is 21 deg from the facing (246); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Morjim Beach",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Morjim-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the northeast (surf-forecast)",
+    "waveType": "beach",
+    "waveTypeText": "Beach (surf-forecast)",
+    "waveDirectionText": "The beach break provides left and right handers. (surf-forecast)",
+    "exposure": "exposed beach break (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Morjim Beach in Goa is an exposed beach break that has reasonably consistent surf. Offshore winds are from the northeast. Groundswells and windswells are equally likely and the best swell direction is from the southwest. The beach break provides left and right handers. An uncrowded break, even when it is working. Morjim Beach"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-morjim-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 24.9,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOGA",
+     "name": "Mopa",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 19.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 15.73,
+     "lon": 73.863,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOGA&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Beach'",
+   "recoveredFrom": {
+    "name": "Morjim Beach",
+    "url": "https://www.surf-forecast.com/breaks/Morjim-Beach",
+    "dropReason": "surf-forecast page only (pin 15.63,73.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-arambol",
+    "distanceKm": 7.7
+   }
+  },
+  {
+   "id": "w-india-repos-beach-pondicherry",
+   "name": "Repos Beach (Pondicherry)",
+   "country": "India",
+   "region": "Tamil Nadu",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 11.973,
+   "lon": 79.845,
+   "seaward": 105.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (11.973, 79.845) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Repos-Beach"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1910.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 2 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 27.1 deg (limit 45); 300 m window gives 97.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1910.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1911.pbf"
+    ],
+    "nearestCoastPoint": [
+     11.973,
+     79.844985
+    ],
+    "distanceToCoastM": 1.6,
+    "meanDevDeg": 27.1,
+    "seaward300": 97.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West-northwest: nearest listed direction is 7 deg from facing+180 (285); consistent (<=60)",
+     "surf-forecast best swell South-southeast: nearest listed direction is 52 deg from the facing (105); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Repos Beach (Pondicherry)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Repos-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West-northwest (surf-forecast)",
+    "waveTypeText": "Breakwater (surf-forecast)",
+    "waveDirectionText": "The breakwater break favours left handers. (surf-forecast)",
+    "exposure": "exposed breakwater break (surf-forecast)",
+    "season": "best time of year for surfing Repos Beach (Pondicherry) with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of July (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Repos Beach (Pondicherry) in Tamil Nadu is an exposed breakwater break that does not work very often. The best wind direction is from the west northwest. Most of the surf here comes from groundswells and the optimum swell angle is from the south southeast. The breakwater break favours left handers. Relatively few surfers here, even on good days. Repos Beach (Pondicherry)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-repos-beach-pondicherry"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 134.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:37:00.000 UTC in the IOC station list",
+     "lat": 13.1,
+     "lon": 80.3,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPC",
+     "name": "Pendicherry",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 3.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.969,
+     "lon": 79.81,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPC&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Repos Beach (Pondicherry)",
+    "url": "https://www.surf-forecast.com/breaks/Repos-Beach",
+    "dropReason": "surf-forecast page only (pin 11.97,79.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-auroville",
+    "distanceKm": 1.3
+   }
+  },
+  {
+   "id": "w-india-thotlakonda-point",
+   "name": "Thotlakonda Point",
+   "country": "India",
+   "region": "Andhra Pradesh",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 17.835,
+   "lon": 83.425,
+   "seaward": 64.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (17.8349, 83.4249) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Thotlakonda-Point"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2996/1841.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 889 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 41.8 deg (limit 45); 300 m window gives 60.7 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2996/1841.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2996/1842.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2997/1841.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2997/1842.pbf"
+    ],
+    "nearestCoastPoint": [
+     17.833906,
+     83.416572
+    ],
+    "distanceToCoastM": 889.4,
+    "meanDevDeg": 41.8,
+    "seaward300": 60.7
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore wind from the West: nearest listed direction is 26 deg from facing+180 (244); consistent (<=60)",
+     "surf-forecast best swell from the southeast: nearest listed direction is 70 deg from the facing (64); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Thotlakonda Point",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Thotlakonda-Point",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell from the southeast (surf-forecast)",
+    "windOffshore": "offshore wind from the West (surf-forecast)",
+    "tide": "Good surf at all stages of the tide. (surf-forecast)",
+    "waveType": "point",
+    "waveTypeText": "Point (surf-forecast)",
+    "exposure": "exposed point break (surf-forecast)",
+    "season": "best time of year for surfing Thotlakonda Point with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of June (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Thotlakonda Point in Andhra Pradesh is an exposed point break that usually has waves. Works best in offshore winds from the west. Windswells and groundswells in equal measure and the best swell direction is from the southeast. There is no point break. Good surf at all stages of the tide. An uncrowded break, even when it is working. Thotlakonda Point"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-thotlakonda-point"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC vish",
+     "name": "Visakhapatnam",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 23.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 01:36:00.000 UTC in the IOC station list",
+     "lat": 17.68,
+     "lon": 83.28,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=vish"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOVI",
+     "name": "Bhogapuram",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 17.8,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 17.976,
+     "lon": 83.504,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOVI&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Point'",
+   "recoveredFrom": {
+    "name": "Thotlakonda Point",
+    "url": "https://www.surf-forecast.com/breaks/Thotlakonda-Point",
+    "dropReason": "surf-forecast page only (pin 17.83,83.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-mangamari",
+    "distanceKm": 0.75
+   }
+  },
+  {
+   "id": "w-india-tochangeou-little-andaman",
+   "name": "Tochangeou (Little Andaman)",
+   "country": "India",
+   "region": "Andaman Islands",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.741,
+   "lon": 92.376,
+   "seaward": 265.4,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (10.7406, 92.3763) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Tochangeou"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3098/1924.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 154 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 6.8 deg (limit 45); 300 m window gives 263.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3098/1924.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3098/1925.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3099/1924.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3099/1925.pbf"
+    ],
+    "nearestCoastPoint": [
+     10.74091,
+     92.37767
+    ],
+    "distanceToCoastM": 153.7,
+    "meanDevDeg": 6.8,
+    "seaward300": 263.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast offshore winds from the southeast: nearest listed direction is 50 deg from facing+180 (85); consistent (<=60)",
+     "surf-forecast best swell Southwest: nearest listed direction is 40 deg from the facing (265); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Tochangeou (Little Andaman)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Tochangeou",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the southeast (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "waveDirectionText": "A choice of left and right reefs. (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Rarely crowded here. (surf-forecast)",
+     "Beware of coral, sharks,sea crocs. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Tochangeou (Little Andaman) with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Tochangeou in Little Andaman is an exposed reef break that has quite consistent surf. The surf tends to be best in the spring. Offshore winds blow from the southeast. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the southwest. A choice of left and right reefs. Rarely crowded here. Beware of coral, sharks,sea crocs. Tochangeou (Little Andaman)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-tochangeou-little-andaman"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 23008",
+     "name": "",
+     "owner": "Research Moored Array for African-Asian-Australian Monsoon Analysis and Prediction",
+     "distanceKm": 294.5,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 12.0,
+     "lon": 90.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=23008"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 112.5,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 11.68,
+     "lon": 92.76,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 107.3,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Tochangeou (Little Andaman)",
+    "url": "https://www.surf-forecast.com/breaks/Tochangeou",
+    "dropReason": "surf-forecast page only (pin 10.73,92.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-jackson-creek-andamans",
+    "distanceKm": 5.83
+   }
+  },
+  {
+   "id": "w-india-west-twin",
+   "name": "West Twin",
+   "country": "India",
+   "region": "Andaman Islands",
+   "timeZone": "Asia/Kolkata",
+   "type": "Point",
+   "lat": 11.344,
+   "lon": 92.624,
+   "seaward": 174.3,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (11.3438, 92.62408333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Andaman_Islands/West_Twin/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3101/1917.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 427 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 26.4 deg (limit 45); 300 m window gives 176.0 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3101/1917.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3101/1918.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3102/1917.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/3102/1918.pbf"
+    ],
+    "nearestCoastPoint": [
+     11.347431,
+     92.62275
+    ],
+    "distanceToCoastM": 427.0,
+    "meanDevDeg": 26.4,
+    "seaward300": 176.0
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North: nearest listed direction is 6 deg from facing+180 (354); consistent (<=60)",
+     "wannasurf good swell SouthWest: nearest listed direction is 51 deg from the facing (174); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "West Twin",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Andaman_Islands/West_Twin/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest (wannasurf)",
+    "windOffshore": "good wind North (wannasurf)",
+    "tide": "Mid tide, Rising and falling tides (wannasurf)",
+    "bottom": "Flat rocks with sand (wannasurf)",
+    "waveType": "point",
+    "waveTypeText": "Point-break (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-west-twin"
+   },
+   "nearestSources": [
+    {
+     "kind": "wave buoy",
+     "id": "NDBC 23008",
+     "name": "",
+     "owner": "Research Moored Array for African-Asian-Australian Monsoon Analysis and Prediction",
+     "distanceKm": 294.9,
+     "live": false,
+     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+     "lat": 12.0,
+     "lon": 90.0,
+     "registry": "NDBC activestations.xml",
+     "url": "https://www.ndbc.noaa.gov/station_page.php?station=23008"
+    },
+    {
+     "kind": "tide gauge",
+     "id": "IOC ptbl",
+     "name": "Port Blair",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 40.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:36:00.000 UTC in the IOC station list",
+     "lat": 11.68,
+     "lon": 92.76,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ptbl"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPB",
+     "name": "Port Blair",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 35.0,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.641,
+     "lon": 92.73,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPB&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Point-break'",
+   "recoveredFrom": {
+    "name": "West Twin",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Andaman_Islands/West_Twin/index.html",
+    "dropReason": "wannasurf page only (pin 11.3438,92.6241, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-corbyns-bay",
+    "distanceKm": 35.93
+   }
+  },
+  {
+   "id": "w-india-kalpeni-left",
+   "name": "Kalpeni left",
+   "country": "India",
+   "region": "Kerala",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 10.058,
+   "lon": 73.639,
+   "seaward": 231.2,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (10.057883333333333, 73.6388, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kalpeni_left/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2885/1932.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 164 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 39.2 deg (limit 45); 300 m window gives 243.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2885/1932.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2885/1933.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1932.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2886/1933.pbf"
+    ],
+    "nearestCoastPoint": [
+     10.058898,
+     73.639897
+    ],
+    "distanceToCoastM": 164.4,
+    "meanDevDeg": 39.2,
+    "seaward300": 243.5
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 6 deg from facing+180 (51); consistent (<=60)",
+     "wannasurf good swell SouthWest, South, SouthEast: nearest listed direction is 6 deg from the facing (231); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kalpeni left",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kalpeni_left/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, NorthEast (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "hazards": [
+     "Rocks (wannasurf)"
+    ],
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-kalpeni-left"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mini",
+     "name": "Minicoy",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 208.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 8.28,
+     "lon": 73.05,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mini"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOAT",
+     "name": "Agatti Island",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 181.2,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 10.824,
+     "lon": 72.176,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOAT&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Kalpeni left",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kalpeni_left/index.html",
+    "dropReason": "wannasurf page only (pin 10.0579,73.6388, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-mahe",
+    "distanceKm": 275.65
+   }
+  },
+  {
+   "id": "w-india-minicoy-pier",
+   "name": "Minicoy pier",
+   "country": "India",
+   "region": "Kerala",
+   "timeZone": "Asia/Kolkata",
+   "type": "Reef",
+   "lat": 8.289,
+   "lon": 73.068,
+   "seaward": 96.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (8.288566666666666, 73.06791666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Minicoy_pier/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2878/1952.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 140 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 19.7 deg (limit 45); 300 m window gives 89.1 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2878/1952.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2878/1953.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2879/1952.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2879/1953.pbf"
+    ],
+    "nearestCoastPoint": [
+     8.28867,
+     73.066647
+    ],
+    "distanceToCoastM": 140.3,
+    "meanDevDeg": 19.7,
+    "seaward300": 89.1
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West: nearest listed direction is 7 deg from facing+180 (277); consistent (<=60)",
+     "wannasurf good swell South, SouthEast: nearest listed direction is 38 deg from the facing (97); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Minicoy pier",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Minicoy_pier/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell South, SouthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest, West (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast, Powerful, Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-minicoy-pier"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC mini",
+     "name": "Minicoy",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 2.2,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 8.28,
+     "lon": 73.05,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=mini"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Minicoy pier",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Minicoy_pier/index.html",
+    "dropReason": "wannasurf page only (pin 8.2886,73.0679, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-kalpeni-left",
+    "distanceKm": 206.45
+   }
+  },
+  {
+   "id": "w-india-anjarle",
+   "name": "Anjarle",
+   "country": "India",
+   "region": "North-West",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 17.844,
+   "lon": 73.087,
+   "seaward": 248.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (17.843983333333334, 73.08745, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Anjarle/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2879/1841.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 230 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.1 deg (limit 45); 300 m window gives 233.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2879/1841.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2879/1842.pbf"
+    ],
+    "nearestCoastPoint": [
+     17.845424,
+     73.089018
+    ],
+    "distanceToCoastM": 230.2,
+    "meanDevDeg": 40.1,
+    "seaward300": 233.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind SouthEast, East, NorthEast: nearest listed direction is 22 deg from facing+180 (68); consistent (<=60)",
+     "wannasurf good swell West, SouthWest, South: nearest listed direction is 22 deg from the facing (248); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Anjarle",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Anjarle/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell West, SouthWest, South (wannasurf)",
+    "windOffshore": "good wind SouthEast, East, NorthEast (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Rivermouth (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-anjarle"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 281.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VAPO",
+     "name": "Pune",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 119.1,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 18.581,
+     "lon": 73.905,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VAPO&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Anjarle",
+    "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Anjarle/index.html",
+    "dropReason": "wannasurf page only (pin 17.8440,73.0875, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-arambol",
+    "distanceKm": 248.65
+   }
+  },
+  {
+   "id": "w-india-pirawadi",
+   "name": "Pirawadi",
+   "country": "India",
+   "region": "North-West",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 16.199,
+   "lon": 73.434,
+   "seaward": 208.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (16.199383333333333, 73.4345, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Pirawadi/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2883/1860.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 72 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 38.9 deg (limit 45); 300 m window gives 218.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2883/1860.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2883/1861.pbf"
+    ],
+    "nearestCoastPoint": [
+     16.199666,
+     73.435106
+    ],
+    "distanceToCoastM": 71.9,
+    "meanDevDeg": 38.9,
+    "seaward300": 218.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, East, NorthEast: nearest listed direction is 16 deg from facing+180 (28); consistent (<=60)",
+     "wannasurf good swell SouthWest, South: nearest listed direction is 16 deg from the facing (208); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Pirawadi",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Pirawadi/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South (wannasurf)",
+    "windOffshore": "good wind North, East, NorthEast (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveTypeText": "Rivermouth (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at and holds up to (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Sometimes break (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-pirawadi"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC marm",
+     "name": "Marmagao",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 96.1,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 15.41,
+     "lon": 73.8,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=marm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOSR",
+     "name": "Sindhudurg",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 24.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 16,
+     "lon": 73.533,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOSR&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Pirawadi",
+    "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Pirawadi/index.html",
+    "dropReason": "wannasurf page only (pin 16.1994,73.4345, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-arambol",
+    "distanceKm": 63.78
+   }
+  },
+  {
+   "id": "w-india-pondichery",
+   "name": "Pondichery",
+   "country": "India",
+   "region": "Tamil Nadu",
+   "timeZone": "Asia/Kolkata",
+   "type": "Beach",
+   "lat": 11.959,
+   "lon": 79.84,
+   "seaward": 105.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (11.958716666666668, 79.8397, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/Pondichery/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1910.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 130 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 28.0 deg (limit 45); 300 m window gives 103.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1910.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1911.pbf"
+    ],
+    "nearestCoastPoint": [
+     11.958377,
+     79.840838
+    ],
+    "distanceToCoastM": 129.5,
+    "meanDevDeg": 28.0,
+    "seaward300": 103.5
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Pondichery",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/Pondichery/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Sandy (wannasurf)",
+    "waveType": "beach",
+    "waveTypeText": "Beach-break (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to Don't know (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Ordinary (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-pondichery"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 136.4,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:37:00.000 UTC in the IOC station list",
+     "lat": 13.1,
+     "lon": 80.3,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPC",
+     "name": "Pendicherry",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 3.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.969,
+     "lon": 79.81,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPC&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Beach-break'",
+   "recoveredFrom": {
+    "name": "Pondichery",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/Pondichery/index.html",
+    "dropReason": "wannasurf page only (pin 11.9587,79.8397, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-repos-beach-pondicherry",
+    "distanceKm": 1.65
+   }
+  },
+  {
+   "id": "w-india-near-repos-beach",
+   "name": "Near repos beach",
+   "country": "India",
+   "region": "Tamil Nadu",
+   "timeZone": "Asia/Kolkata",
+   "type": null,
+   "lat": 11.973,
+   "lon": 79.845,
+   "seaward": 102.1,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (11.9725, 79.84528333333333, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/near_repos_beach/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1910.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 30 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 20.4 deg (limit 45); 300 m window gives 97.5 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1910.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2956/1911.pbf"
+    ],
+    "nearestCoastPoint": [
+     11.972249,
+     79.845188
+    ],
+    "distanceToCoastM": 29.7,
+    "meanDevDeg": 20.4,
+    "seaward300": 97.5
+   },
+   "facingCheck": {
+    "result": "no published wind or swell direction on the pages to cross-check",
+    "checks": [],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Near repos beach",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/near_repos_beach/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell Don't know (wannasurf)",
+    "windOffshore": "good wind Don't know (wannasurf)",
+    "tide": "Don't know, Don't know (wannasurf)",
+    "bottom": "Sandy with rock (wannasurf)",
+    "waveTypeText": "Breakwater/jetty (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at Don't know and holds up to Don't know (wannasurf)",
+    "skill": "All surfers (wannasurf)",
+    "frequency": "Don't know (wannasurf)",
+    "waveQuality": "Normal (wannasurf)",
+    "power": "Fun (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-india-near-repos-beach"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC chenn",
+     "name": "Chennai",
+     "owner": "IOC Sea Level Station Monitoring Facility (India)",
+     "distanceKm": 134.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:37:00.000 UTC in the IOC station list",
+     "lat": 13.1,
+     "lon": 80.3,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=chenn"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VOPC",
+     "name": "Pendicherry",
+     "owner": "IEM IN__ASOS network (airport METAR)",
+     "distanceKm": 3.9,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 11.969,
+     "lon": 79.81,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VOPC&network=IN__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": null,
+   "recoveredFrom": {
+    "name": "Near repos beach",
+    "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/near_repos_beach/index.html",
+    "dropReason": "wannasurf page only (pin 11.9725,79.8453, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-india-repos-beach-pondicherry",
+    "distanceKm": 0.0
+   }
   }
  ],
  "dropped": [
   {
-   "name": "Agonda",
-   "reason": "surf-forecast page only (pin 15.04,73.99); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Agonda"
-  },
-  {
-   "name": "Akkarai Beach",
-   "reason": "surf-forecast page only (pin 12.9,80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Akkarai-Beach"
-  },
-  {
-   "name": "Arambol",
-   "reason": "surf-forecast page only (pin 15.69,73.7); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Arambol"
-  },
-  {
-   "name": "Benaulim Beach",
-   "reason": "surf-forecast page only (pin 15.26,73.92); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Benaulim-Beach"
-  },
-  {
-   "name": "Betalbatim Beach Taj",
-   "reason": "surf-forecast page only (pin 15.29,73.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Betalbatim-Beach-Taj"
-  },
-  {
-   "name": "Boar Rice",
-   "reason": "surf-forecast page only (pin 8.72,76.71); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Boar-Rice"
-  },
-  {
    "name": "Butlers Bay (South Andaman)",
    "reason": "surf-forecast page only (pin 11.7,92.76); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Butlers-Bay"
-  },
-  {
-   "name": "Covelong Point",
-   "reason": "surf-forecast page only (pin 12.79,80.25); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Covelong-Point"
+   "url": "https://www.surf-forecast.com/breaks/Butlers-Bay",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 63 deg (arccos of mean resultant length 0.45; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Godavari River Bar",
    "reason": "surf-forecast page only (pin 16.63,82.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Godavari-River-Bar"
-  },
-  {
-   "name": "Jackson creek (Little Andaman)",
-   "reason": "surf-forecast page only (pin 10.8,92.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jackson-Creek"
+   "url": "https://www.surf-forecast.com/breaks/Godavari-River-Bar",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 1.76 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Jarawa Point (Totems Reef)",
    "reason": "surf-forecast page only (pin 11.33,92.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Jarawa-Point"
-  },
-  {
-   "name": "Konada Bar",
-   "reason": "surf-forecast page only (pin 18.01,83.57); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Konada-Bar"
+   "url": "https://www.surf-forecast.com/breaks/Jarawa-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 62 deg (arccos of mean resultant length 0.47; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kovalam",
    "reason": "surf-forecast page only (pin 8.39,76.98); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kovalam"
+   "url": "https://www.surf-forecast.com/breaks/Kovalam",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.55; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Krishna River",
    "reason": "surf-forecast page only (pin 15.7,80.88); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Krishna-River"
+   "url": "https://www.surf-forecast.com/breaks/Krishna-River",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 2.65 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Kudle -Beach (Gokarna)",
    "reason": "surf-forecast page only (pin 14.53,74.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kudle-Beach"
-  },
-  {
-   "name": "Miracle Point",
-   "reason": "surf-forecast page only (pin 17.99,83.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Miracle-Point"
-  },
-  {
-   "name": "Morjim Beach",
-   "reason": "surf-forecast page only (pin 15.63,73.73); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Morjim-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Kudle-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.35; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Om Beach (Gokarna)",
    "reason": "surf-forecast page only (pin 14.52,74.32); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Om-Beach"
-  },
-  {
-   "name": "Repos Beach (Pondicherry)",
-   "reason": "surf-forecast page only (pin 11.97,79.85); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Repos-Beach"
+   "url": "https://www.surf-forecast.com/breaks/Om-Beach",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 65 deg (arccos of mean resultant length 0.43; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sentinel (South Andaman)",
    "reason": "surf-forecast page only (pin 11.59,92.22); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Sentinel"
-  },
-  {
-   "name": "Thotlakonda Point",
-   "reason": "surf-forecast page only (pin 17.83,83.42); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Thotlakonda-Point"
-  },
-  {
-   "name": "Tochangeou (Little Andaman)",
-   "reason": "surf-forecast page only (pin 10.73,92.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Tochangeou"
+   "url": "https://www.surf-forecast.com/breaks/Sentinel",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Twin Islands (South Andaman)",
    "reason": "surf-forecast page only (pin 11.39,92.56); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Twin-Islands"
+   "url": "https://www.surf-forecast.com/breaks/Twin-Islands",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Vizag (Visakapatanam) - East Point",
    "reason": "surf-forecast page only (pin 17.73,83.35); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Vizag-East-Point"
-  },
-  {
-   "name": "West Twin",
-   "reason": "wannasurf page only (pin 11.3438,92.6241, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Andaman_Islands/West_Twin/index.html"
+   "url": "https://www.surf-forecast.com/breaks/Vizag-East-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 47 deg (arccos of mean resultant length 0.68; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Boar rice",
    "reason": "wannasurf page only (pin 8.7168,76.7065, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Boar_rice/index.html"
-  },
-  {
-   "name": "Kalpeni left",
-   "reason": "wannasurf page only (pin 10.0579,73.6388, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kalpeni_left/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Boar_rice/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-india-boar-rice, recovered in this pass) is 0.1 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Kannur",
    "reason": "wannasurf page only (pin 11.8760,75.3474, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kannur/index.html"
-  },
-  {
-   "name": "Minicoy pier",
-   "reason": "wannasurf page only (pin 8.2886,73.0679, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Minicoy_pier/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Kannur/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf swell); wannasurf good wind East: nearest listed direction is 36 deg from facing+180 (54); consistent (<=60) | wannasurf good swell East: nearest listed direction is 144 deg from the facing (234); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Shipwreck",
    "reason": "wannasurf page only (pin 10.5415,72.6193, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Shipwreck/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/Shipwreck/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.11; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kovalam",
    "reason": "wannasurf page only (pin 8.3853,76.9784, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/kovalam/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/Kerala/kovalam/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 57 deg (arccos of mean resultant length 0.55; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "The Baan",
    "reason": "wannasurf page only (pin 22.5862,88.3472, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/North-East/The_Baan/index.html"
-  },
-  {
-   "name": "Anjarle",
-   "reason": "wannasurf page only (pin 17.8440,73.0875, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Anjarle/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-East/The_Baan/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
   },
   {
    "name": "Arambol",
    "reason": "wannasurf page only (pin 15.6872,73.7028, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Arambol/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Arambol/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind SouthEast: nearest listed direction is 63 deg from facing+180 (72); CONTRADICTS (>60) | wannasurf good swell SouthWest: nearest listed direction is 27 deg from the facing (252); consistent (<=90)"
+   }
   },
   {
    "name": "Benaulim Beach",
    "reason": "wannasurf page only (pin 15.2569,73.9188, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Benaulim_Beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Benaulim_Beach/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-india-benaulim-beach, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   },
   {
    "name": "Betalbatim Beach - Taj",
    "reason": "wannasurf page only (pin 15.2930,73.9023, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Betalbatim_Beach_-_Taj/index.html"
-  },
-  {
-   "name": "Pirawadi",
-   "reason": "wannasurf page only (pin 16.1994,73.4345, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Pirawadi/index.html"
-  },
-  {
-   "name": "Pondichery",
-   "reason": "wannasurf page only (pin 11.9587,79.8397, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/Pondichery/index.html"
-  },
-  {
-   "name": "Near repos beach",
-   "reason": "wannasurf page only (pin 11.9725,79.8453, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/India/Tamil_Nadu/near_repos_beach/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/India/North-West/Betalbatim_Beach_-_Taj/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: possible duplicate: a spot with the same name (w-india-betalbatim-beach-taj, recovered in this pass) is 0.0 km away, so this guide listing is not added as a separate spot"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 21 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }

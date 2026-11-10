@@ -3312,223 +3312,834 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
     }
    ]
+  },
+  {
+   "id": "w-maldives-gurus-gulhi",
+   "name": "Gurus (Gulhi)",
+   "country": "Maldives",
+   "region": "North Male Atoll",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 3.99,
+   "lon": 73.518,
+   "seaward": 183.5,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (3.9897, 73.5179) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Gurus"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2884/2002.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 121 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 42.3 deg (limit 45); 300 m window gives 184.9 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2884/2002.pbf"
+    ],
+    "nearestCoastPoint": [
+     3.99079,
+     73.517963
+    ],
+    "distanceToCoastM": 120.7,
+    "meanDevDeg": 42.3,
+    "seaward300": 184.9
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell Southeast: nearest listed direction is 48 deg from the facing (184); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Gurus (Gulhi)",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Gurus",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell Southeast (surf-forecast)",
+    "windOffshore": "offshore winds from the north northwest and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Best around mid tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Unlikely to be too crowded, even when the surf is up. (surf-forecast)",
+     "Watch out for rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Gurus (Gulhi) with consistent clean waves (rideable swell with light / offshore winds) is during Spring and most often the month of April (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Gurus (Gulhi) in North Male Atoll is an exposed reef break that has pretty consitent surf. May-Oct (Dry Season) is the optimum time of year for waves. Offshore winds blow from the north northwest and there is no shelter here from cross shore breezes. Tends to receive distant groundswells and the ideal swell angle is from the southeast. There is no reef break. Best around mid tide. Unlikely to be too crowded, even when the surf is up. Watch out for rocks. Gurus (Gulhi)"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-maldives-gurus-gulhi"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldive Islands)",
+     "distanceKm": 22.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 4.187,
+     "lon": 73.525,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 22.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Gurus (Gulhi)",
+    "url": "https://www.surf-forecast.com/breaks/Gurus",
+    "dropReason": "surf-forecast page only (pin 3.99,73.52); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-maldives-male",
+    "distanceKm": 20.13
+   }
+  },
+  {
+   "id": "w-maldives-kudahuvadhoo",
+   "name": "Kudahuvadhoo",
+   "country": "Maldives",
+   "region": "North Male Atoll",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 2.655,
+   "lon": 72.904,
+   "seaward": 159.6,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "surf-forecast guide map pin (2.6554, 72.9037) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.surf-forecast.com/breaks/Kudahuvadhoo"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2877/2017.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 1392 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 39.1 deg (limit 45); 300 m window gives 148.3 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2877/2017.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2877/2018.pbf"
+    ],
+    "nearestCoastPoint": [
+     2.664704,
+     72.895274
+    ],
+    "distanceToCoastM": 1391.5,
+    "meanDevDeg": 39.1,
+    "seaward300": 148.3
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "surf-forecast best swell South-southwest: nearest listed direction is 43 deg from the facing (160); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Kudahuvadhoo",
+    "sources": [
+     {
+      "url": "https://www.surf-forecast.com/breaks/Kudahuvadhoo",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "best swell South-southwest (surf-forecast)",
+    "windOffshore": "offshore winds from the north and there is no shelter here from cross shore breezes (surf-forecast)",
+    "tide": "Surfable at all stages of the tide. (surf-forecast)",
+    "waveType": "reef",
+    "waveTypeText": "Reef (surf-forecast)",
+    "exposure": "exposed reef break (surf-forecast)",
+    "hazards": [
+     "Watch out for - Rips / undertow - Rocks. (surf-forecast)"
+    ],
+    "season": "best time of year for surfing Kudahuvadhoo with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March (surf-forecast)",
+    "guideText": [
+     {
+      "site": "surf-forecast",
+      "text": "Kudahuvadhoo in North Male Atoll is an exposed reef break that has consistent surf. Offshore winds blow from the north and there is no shelter here from cross shore breezes. Tends to receive distant groundswells and the ideal swell angle is from the south southwest. No reef break here. Surfable at all stages of the tide. Crowds are never a problem here. Watch out for - Rips / undertow - Rocks. Kudahuvadhoo"
+     }
+    ],
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-maldives-kudahuvadhoo"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldive Islands)",
+     "distanceKm": 183.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 4.187,
+     "lon": 73.525,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 184.4,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "surf-forecast",
+   "typeSource": "surf-forecast states 'Reef'",
+   "recoveredFrom": {
+    "name": "Kudahuvadhoo",
+    "url": "https://www.surf-forecast.com/breaks/Kudahuvadhoo",
+    "dropReason": "surf-forecast page only (pin 2.66,72.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-maldives-kasabu",
+    "distanceKm": 1.12
+   }
+  },
+  {
+   "id": "w-maldives-airport-right",
+   "name": "Airport right",
+   "country": "Maldives",
+   "region": "Airport right ",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": -0.703,
+   "lon": 73.172,
+   "seaward": 133.9,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (-0.7029, 73.17156666666666, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Maldives/Airport_right_/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2880/2055.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 724 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 23.3 deg (limit 45); 300 m window gives 132.6 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2880/2055.pbf",
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2880/2056.pbf"
+    ],
+    "nearestCoastPoint": [
+     -0.698773,
+     73.166521
+    ],
+    "distanceToCoastM": 723.7,
+    "meanDevDeg": 23.3,
+    "seaward300": 132.6
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind North, NorthWest, NorthEast: nearest listed direction is 1 deg from facing+180 (314); consistent (<=60)",
+     "wannasurf good swell SouthWest, South, SouthEast: nearest listed direction is 1 deg from the facing (134); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Airport right",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/Airport_right_/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthWest, South, SouthEast (wannasurf)",
+    "windOffshore": "good wind North, NorthWest, NorthEast (wannasurf)",
+    "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Right (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to (wannasurf)",
+    "hazards": [
+     "Urchins - Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Fast, Powerful (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-maldives-airport-right"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC ganm",
+     "name": "Gan",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldive Islands)",
+     "distanceKm": 2.7,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": -0.688,
+     "lon": 73.152,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=ganm"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMG",
+     "name": "Gan Island",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 2.6,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": -0.693,
+     "lon": 73.15,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Airport right",
+    "url": "https://www.wannasurf.com/spot/Asia/Maldives/Airport_right_/index.html",
+    "dropReason": "wannasurf page only (pin -0.7029,73.1716, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-maldives-approach-lights",
+    "distanceKm": 0.0
+   }
+  },
+  {
+   "id": "w-maldives-gurus",
+   "name": "Gurus",
+   "country": "Maldives",
+   "region": "gurus",
+   "timeZone": "Indian/Maldives",
+   "type": "Reef",
+   "lat": 3.99,
+   "lon": 73.52,
+   "seaward": 171.0,
+   "facingKind": "computed-coastline",
+   "positionSource": {
+    "text": "wannasurf guide map pin (3.989516666666667, 73.51975, precision Approximate) taken from the guide page, rounded to 3 dp",
+    "url": "https://www.wannasurf.com/spot/Asia/Maldives/gurus/index.html"
+   },
+   "facingSource": {
+    "text": "Seaward normal of the OSM coastline within 500 m of the pin (computed 2026-11-09)",
+    "url": "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2884/2002.pbf",
+    "method": "OSM natural=coastline as assembled into the ocean polygons of the OpenFreeMap planet vector tiles (OpenMapTiles water layer, class=ocean, z12, snapshot 20261101; sea lies right of each ring as in OSM coastline ways). Overpass (main server and the kumi, private.coffee and mail.ru mirrors) timed out on 2026-11-09. Nearest coastline point 192 m from the pin; length-weighted mean direction of the coastline within 500 m of that point, rotated 90 deg toward the sea. Mean deviation of those segments 40.0 deg (limit 45); 300 m window gives 163.2 deg.",
+    "tiles": [
+     "https://tiles.openfreemap.org/planet/20261101_080013_pt/12/2884/2002.pbf"
+    ],
+    "nearestCoastPoint": [
+     3.991113,
+     73.519061
+    ],
+    "distanceToCoastM": 192.4,
+    "meanDevDeg": 40.0,
+    "seaward300": 163.2
+   },
+   "facingCheck": {
+    "result": "consistent with every published wind/swell direction",
+    "checks": [
+     "wannasurf good wind NorthWest, West: nearest listed direction is 36 deg from facing+180 (351); consistent (<=60)",
+     "wannasurf good swell SouthEast: nearest listed direction is 36 deg from the facing (171); consistent (<=90)"
+    ],
+    "rule": "offshore wind within 60 deg of facing+180; ideal swell within 90 deg of facing; a source passes if any listed direction does"
+   },
+   "facts": {
+    "name": "Gurus",
+    "sources": [
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Maldives/gurus/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     }
+    ],
+    "facing": "not published by the guides; seaward computed from the OSM coastline (see the row facingSource)",
+    "idealSwell": "good swell SouthEast (wannasurf)",
+    "windOffshore": "good wind NorthWest, West (wannasurf)",
+    "tide": "Mid tide (wannasurf)",
+    "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+    "waveType": "reef",
+    "waveTypeText": "Reef-coral (wannasurf)",
+    "waveDirectionText": "Left (wannasurf)",
+    "sizeText": "Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2m+ / 6ft+ (wannasurf)",
+    "hazards": [
+     "Urchins - Rips / undertow - Rocks (wannasurf)"
+    ],
+    "skill": "Experienced surfers (wannasurf)",
+    "frequency": "Regular (wannasurf)",
+    "waveQuality": "Regional Classic (wannasurf)",
+    "power": "Hollow, Fast (wannasurf)",
+    "facingDeg": null,
+    "minimumPeriodS": null,
+    "spotId": "w-maldives-gurus"
+   },
+   "nearestSources": [
+    {
+     "kind": "tide gauge",
+     "id": "IOC Male2",
+     "name": "Maldive Islands",
+     "owner": "IOC Sea Level Station Monitoring Facility (Maldive Islands)",
+     "distanceKm": 22.0,
+     "live": true,
+     "liveNote": "last sample 2026-11-10 04:40:00.000 UTC in the IOC station list",
+     "lat": 4.187,
+     "lon": 73.525,
+     "registry": "IOC Sea Level Station Monitoring Facility station list",
+     "url": "https://www.ioc-sealevelmonitoring.org/station.php?code=Male2"
+    },
+    {
+     "kind": "airport METAR",
+     "id": "METAR VRMM",
+     "name": "Male",
+     "owner": "IEM MV__ASOS network (airport METAR)",
+     "distanceKm": 22.5,
+     "live": true,
+     "liveNote": "IEM lists online",
+     "lat": 4.192,
+     "lon": 73.529,
+     "registry": "Iowa Environmental Mesonet ASOS/METAR network",
+     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
+    }
+   ],
+   "timeZoneSource": "timezonefinder (timezone-boundary-builder polygons, from OSM) at the pin",
+   "regionSource": "wannasurf",
+   "typeSource": "wannasurf states 'Reef-coral'",
+   "recoveredFrom": {
+    "name": "Gurus",
+    "url": "https://www.wannasurf.com/spot/Asia/Maldives/gurus/index.html",
+    "dropReason": "wannasurf page only (pin 3.9895,73.5198, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing"
+   },
+   "nearestCatalogued": {
+    "id": "w-maldives-gurus-gulhi",
+    "distanceKm": 0.22
+   }
   }
  ],
  "dropped": [
   {
    "name": "Gaukendi Bridge",
    "reason": "surfnerd page gives no facing (swell exposure: 'SSE - NNW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/gaukendi-bridge"
+   "url": "https://www.surfnerd.com/surf-forecast/gaukendi-bridge",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.10; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Madihera",
    "reason": "surfnerd page gives no facing (swell exposure: 'NE - WSW. NW - NNW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/madihera"
+   "url": "https://www.surfnerd.com/surf-forecast/madihera",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.11; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Antiques",
    "reason": "surfnerd page gives no facing (swell exposure: 'E - SW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/antiques"
+   "url": "https://www.surfnerd.com/surf-forecast/antiques",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 77 deg (arccos of mean resultant length 0.22; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Five Islands",
    "reason": "surfnerd page gives no facing (swell exposure: 'E - S'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/five-islands"
+   "url": "https://www.surfnerd.com/surf-forecast/five-islands",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 83 deg (arccos of mean resultant length 0.11; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Chickens",
    "reason": "surfnerd page gives no facing (swell exposure: 'NE - SSW. WNW - NW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/chickens"
+   "url": "https://www.surfnerd.com/surf-forecast/chickens",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 82 deg (arccos of mean resultant length 0.14; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Honky's",
    "reason": "surfnerd page gives no facing (swell exposure: 'ENE - S. WNW. NNW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/honkys"
+   "url": "https://www.surfnerd.com/surf-forecast/honkys",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.01; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lohi's",
    "reason": "surfnerd page gives no facing (swell exposure: 'ENE - SSW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/lohis"
+   "url": "https://www.surfnerd.com/surf-forecast/lohis",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.17; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Ninja's",
    "reason": "surfnerd page gives no facing (swell exposure: 'NNE. ENE - SSW. N'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/ninjas"
+   "url": "https://www.surfnerd.com/surf-forecast/ninjas",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Pasta Point",
    "reason": "surfnerd page gives no facing (swell exposure: 'NE - S. NW - NNW'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/pasta-point"
+   "url": "https://www.surfnerd.com/surf-forecast/pasta-point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 88 deg (arccos of mean resultant length 0.04; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Sultan's",
    "reason": "surfnerd page gives no facing (swell exposure: 'N - NNE. ENE - S'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/sultans"
+   "url": "https://www.surfnerd.com/surf-forecast/sultans",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.01; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bedhuge",
    "reason": "surfnerd page gives no facing (swell exposure: 'NNE - S'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/bedhuge"
+   "url": "https://www.surfnerd.com/surf-forecast/bedhuge",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 83 deg (arccos of mean resultant length 0.13; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Refugee's Lefts",
    "reason": "surfnerd page gives no facing (swell exposure: 'NNE - S. WSW - W'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/refugees-lefts"
+   "url": "https://www.surfnerd.com/surf-forecast/refugees-lefts",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 68 deg (arccos of mean resultant length 0.38; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kadu",
    "reason": "surfnerd page gives no facing (swell exposure: 'NE - SE. NNW. NNW - N'); no sourced facing",
-   "url": "https://www.surfnerd.com/surf-forecast/kadu"
+   "url": "https://www.surfnerd.com/surf-forecast/kadu",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Airports",
    "reason": "surf-forecast page only (pin 0.47,72.94); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Airports"
+   "url": "https://www.surf-forecast.com/breaks/Airports",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 6.41 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Antiques",
    "reason": "surf-forecast page only (pin 0.29,73.39); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Antiques"
+   "url": "https://www.surf-forecast.com/breaks/Antiques",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 1.99 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Blue Bowls",
    "reason": "surf-forecast page only (pin 0.24,73.23); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Blue-Bowls"
+   "url": "https://www.surf-forecast.com/breaks/Blue-Bowls",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 2.01 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Five Islands",
    "reason": "surf-forecast page only (pin 0.26,73.28); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Five-Islands"
+   "url": "https://www.surf-forecast.com/breaks/Five-Islands",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (surf-forecast wind, surf-forecast swell); surf-forecast offshore winds from the north northwest: nearest listed direction is 142 deg from facing+180 (196); CONTRADICTS (>60) | surf-forecast best swell Southeast: nearest listed direction is 119 deg from the facing (16); CONTRADICTS (>90)"
+   }
   },
   {
    "name": "Fort Point",
    "reason": "surf-forecast page only (pin 37.81,-122.48); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Fort-Point"
-  },
-  {
-   "name": "Gurus (Gulhi)",
-   "reason": "surf-forecast page only (pin 3.99,73.52); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Gurus"
+   "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 56 deg (arccos of mean resultant length 0.56; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Honkeys",
    "reason": "surf-forecast page only (pin 4.33,73.58); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Honkeys"
+   "url": "https://www.surf-forecast.com/breaks/Honkeys",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 90 deg (arccos of mean resultant length 0.00; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Koodhoo",
    "reason": "surf-forecast page only (pin 0.73,73.38); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Koodhoo"
-  },
-  {
-   "name": "Kudahuvadhoo",
-   "reason": "surf-forecast page only (pin 2.66,72.9); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Kudahuvadhoo"
+   "url": "https://www.surf-forecast.com/breaks/Koodhoo",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: nearest OSM coastline is 4.25 km from the pin (> 1.5 km)"
+   }
   },
   {
    "name": "Love Charms",
    "reason": "surf-forecast page only (pin 0.26,73.3); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Love-Charms"
+   "url": "https://www.surf-forecast.com/breaks/Love-Charms",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 77 deg (arccos of mean resultant length 0.23; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Maabaidhoo left",
    "reason": "surf-forecast page only (pin 2.02,73.54); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Maabaidhoo-left"
+   "url": "https://www.surf-forecast.com/breaks/Maabaidhoo-left",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 86 deg (arccos of mean resultant length 0.07; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Maabaidhoo Right",
    "reason": "surf-forecast page only (pin 2.04,73.53); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Maabaidhoo-right"
+   "url": "https://www.surf-forecast.com/breaks/Maabaidhoo-right",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 72 deg (arccos of mean resultant length 0.30; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Six Senses Laamu",
    "reason": "surf-forecast page only (pin 1.81,73.41); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Six-senses-Laamu"
+   "url": "https://www.surf-forecast.com/breaks/Six-senses-Laamu",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 79 deg (arccos of mean resultant length 0.19; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Two Ways",
    "reason": "surf-forecast page only (pin 0.26,73.28); surf-forecast publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.surf-forecast.com/breaks/Two-Ways"
-  },
-  {
-   "name": "Airport right",
-   "reason": "wannasurf page only (pin -0.7029,73.1716, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Airport_right_/index.html"
+   "url": "https://www.surf-forecast.com/breaks/Two-Ways",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 82 deg (arccos of mean resultant length 0.14; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kandooma Right",
    "reason": "wannasurf page only (pin 3.9043,73.4756, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Kandooma_Right/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Kandooma_Right/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.02; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Kudas",
    "reason": "wannasurf page only (pin 2.6667,72.9033, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Kudas/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Kudas/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: computed facing contradicts published offshore wind/swell (wannasurf wind); wannasurf good wind North, NorthEast: nearest listed direction is 64 deg from facing+180 (296); CONTRADICTS (>60) | wannasurf good swell SouthWest, South: nearest listed direction is 64 deg from the facing (116); consistent (<=90)"
+   }
   },
   {
    "name": "Madis",
    "reason": "wannasurf page only (pin -0.6950,73.1837, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Madis/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Madis/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 84 deg (arccos of mean resultant length 0.11; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Muli s right",
    "reason": "wannasurf page only (pin 2.9275,73.5871, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Muli_s_right/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Muli_s_right/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 69 deg (arccos of mean resultant length 0.36; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Six senses",
    "reason": "wannasurf page only (pin 1.8121,73.4143, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Six_senses/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Six_senses/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 80 deg (arccos of mean resultant length 0.18; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Thaa s secret",
    "reason": "wannasurf page only (pin 2.1942,73.1279, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Thaa_s_secret/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/Thaa_s_secret/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 67 deg (arccos of mean resultant length 0.40; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Bodu kanmathi",
    "reason": "wannasurf page only (pin 5.3308,73.4649, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/bodu_kanmathi/index.html"
-  },
-  {
-   "name": "Gurus",
-   "reason": "wannasurf page only (pin 3.9895,73.5198, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/gurus/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/bodu_kanmathi/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.25; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Honkeys",
    "reason": "wannasurf page only (pin 4.3128,73.5838, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/honkeys/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/honkeys/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 89 deg (arccos of mean resultant length 0.01; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Lonuziyaarai",
    "reason": "wannasurf page only (pin 4.1712,73.5197, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/lonuziyaarai/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/lonuziyaarai/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 48 deg (arccos of mean resultant length 0.67; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Maabaidhoo",
    "reason": "wannasurf page only (pin 2.0375,73.5358, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/maabaidhoo/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/maabaidhoo/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 76 deg (arccos of mean resultant length 0.24; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Meeru reef",
    "reason": "wannasurf page only (pin 4.4537,73.7172, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/meeru_reef/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/meeru_reef/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 82 deg (arccos of mean resultant length 0.14; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Riptides",
    "reason": "wannasurf page only (pin 3.8940,73.4659, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/riptides/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/riptides/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 73 deg (arccos of mean resultant length 0.29; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Tombstones",
    "reason": "wannasurf page only (pin 4.2521,73.5481, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/tombstones/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/tombstones/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 86 deg (arccos of mean resultant length 0.08; limit 45 deg): headland, cove or point, ambiguous"
+   }
   },
   {
    "name": "Villingili",
    "reason": "wannasurf page only (pin 4.1704,73.4885, precision Approximate); wannasurf publishes no facing and no surfnerd page matched within 6 km by name, so no sourced facing",
-   "url": "https://www.wannasurf.com/spot/Asia/Maldives/villingili/index.html"
+   "url": "https://www.wannasurf.com/spot/Asia/Maldives/villingili/index.html",
+   "recoveryAttempt": {
+    "on": "2026-11-09",
+    "method": "facing from the OSM coastline (RECOVERY-2026-11-09.md)",
+    "result": "still dropped: coastline segments within 500 m of the nearest point disagree: their length-weighted mean deviation from the mean direction is 70 deg (arccos of mean resultant length 0.35; limit 45 deg): headland, cove or point, ambiguous"
+   }
   }
- ]
+ ],
+ "recovery": "2026-11-09: 4 spots recovered from dropped with a facing computed from the OSM coastline (facingKind computed-coastline); see RECOVERY-2026-11-09.md"
 }
