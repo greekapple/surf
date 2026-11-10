@@ -71,3 +71,25 @@ product-term (it built the coast pills). Level 2–3: map UI, summary wording.
   - Enter works the same as a click;
   - keyboard focus is sensible;
   - t043 and the coast-pills scripts still pass.
+
+## 6. Autofill in search (user, 2026-11-10: "also autofill when you're searching")
+- **As you type,** a suggestion list appears under the search box after 1 character. It holds the top matches, each with the spot name, its region, and the current rating word if loaded.
+- **Inline completion:** the top match's remaining letters appear as a light grey completion in the box ("Pip" + "eline"). Tab or → accepts it, Enter picks the top match and flies to it (§5), and Esc clears it.
+- **Matching:**
+  - prefix match first, then word starts ("first point" → "Malibu - First Point");
+  - ignores case, accents and apostrophes ("hookipa" → "Ho'okipa");
+  - forgives one typo for names of 5 letters or more;
+  - region names too ("oahu" lists the Oahu spots).
+
+  The ranking is deterministic, with favourites and recent picks first among equal matches.
+- **Recent searches:** the last 5 picks show when the box is focused and empty. They're stored locally, never uploaded.
+- **Accessibility:** combobox semantics (`role=combobox`, `aria-expanded`, `aria-activedescendant`), with ↑/↓ to move through the list.
+- **Scope:** wherever the search box appears (the map, and the header spot search). It searches every spot in the app, and must stay fast at 1,032 spots: under 16 ms per keystroke at 4× CPU.
+- **Acceptance:**
+  - "pip" completes to Pipeline;
+  - "hookipa" finds Ho'okipa;
+  - "malibu" lists the Malibu spots;
+  - "pipelin" with a typo still finds it;
+  - the keyboard works fully;
+  - 1440 and 390 screenshots;
+  - t034 density passes (the list doesn't crowd at 390).
