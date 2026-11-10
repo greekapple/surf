@@ -1152,7 +1152,7 @@
    "country": "Sri Lanka",
    "region": "Galle, Ahangama",
    "timeZone": "Asia/Colombo",
-   "type": null,
+   "type": "Reef",
    "lat": 5.972,
    "lon": 80.362,
    "seaward": 202.5,
@@ -1209,7 +1209,8 @@
      "surfnerd": "Animals is a south-southwest (SSW) swell spot that works from 0.3 m / 1 ft to 1.3 m / 4 ft. Time your session around the tide: high tide is the pick here, and a rising tide is generally the better call as the water fills in.",
      "surfForecast": "Animals in West Sri Lanka is an exposed reef break that has pretty consitent surf. Summer offers the best conditions for surfing. Ideal winds are from the northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the south southwest. There is no reef break. Unlikely to be too crowded, even when the surf is up. Take care of rocks in the line up."
     },
-    "notes": "town: Ahangama (surfnerd); surf-forecast pin 5.97,80.36 is 0.3 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+    "notes": "town: Ahangama (surfnerd); surf-forecast pin 5.97,80.36 is 0.3 km from the surfnerd pin; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Animals in West Sri Lanka is an exposed reef break that has quite consistent surf. Type: Reef (surf-forecast, pin 1.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1248,7 +1249,11 @@
      "lon": 81.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Animals in West Sri Lanka is an exposed reef break that has quite consistent surf. Type: Reef (surf-forecast, pin 1.02 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Animals"
+   }
   },
   {
    "id": "w-sri-lanka-beachbreak-hikkaduwa",
@@ -3365,7 +3370,7 @@
    "country": "Sri Lanka",
    "region": "Matara, Kumbalgama",
    "timeZone": "Asia/Colombo",
-   "type": null,
+   "type": "Reef",
    "lat": 5.96,
    "lon": 80.399,
    "seaward": 202.5,
@@ -3393,6 +3398,11 @@
      },
      {
       "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Plantations/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Sri_Lanka/Plantations/",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
@@ -3430,7 +3440,8 @@
      "surfnerd": "Plantations picks up swell from east-northeast through north, so it needs the wind and weather to be lining up from that side of the compass to switch on. It works from 0.3 m / 1 ft to 1.8 m / 6 ft, which gives it a decent working window from small and mellow all the way up to solid. Tide is forgiving here.",
      "surfForecast": "Plantations in West Sri Lanka is an exposed reef break that has quite reliable surf. Summer offers the favoured conditions for surfing. The best wind direction is from the north northeast and there is no shelter here from cross shore breezes. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the south southwest. There is no reef break. Rarely crowded here. Hazards include - Rocks."
     },
-    "notes": "town: Kumbalgama (surfnerd); surf-forecast pin 5.96,80.4 is 0.1 km from the surfnerd pin; wannasurf pin (Approximate) is 0.4 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Reef-rocky; direction Right and left; swell size Starts working at Don't know and holds up to Don't know; week crowd Empty"
+    "notes": "town: Kumbalgama (surfnerd); surf-forecast pin 5.96,80.4 is 0.1 km from the surfnerd pin; wannasurf pin (Approximate) is 0.4 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Reef-rocky; direction Right and left; swell size Starts working at Don't know and holds up to Don't know; week crowd Empty",
+    "breakTypeText": "Plantations in West Sri Lanka is an exposed reef break that has quite reliable surf. Type: Reef (surf-forecast, pin 1.0 km from row pin); Type: Reef-rocky (wannasurf, GPS 0.32 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3469,7 +3480,11 @@
      "lon": 81.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VCRI&network=LK__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Plantations in West Sri Lanka is an exposed reef break that has quite reliable surf. Type: Reef (surf-forecast, pin 1.0 km from row pin); Type: Reef-rocky (wannasurf, GPS 0.32 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Plantations"
+   }
   },
   {
    "id": "w-sri-lanka-rams-right-midigama",

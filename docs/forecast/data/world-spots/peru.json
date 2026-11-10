@@ -1089,7 +1089,7 @@
    "lon": -81.262,
    "seaward": 270,
    "positionSource": {
-    "text": "Surfnerd spot map pin (-4.30795, -81.26220, from the page's front matter), rounded to 3 dp",
+    "text": "Surfnerd spot map pin (-4.30795, -81.26220, from the page's front matter), rounded to 3 dp; coast check 2026-11-09: 0.16 km from OSM coastline (https://www.openstreetmap.org/way/147149052)",
     "url": "https://www.surfnerd.com/surf-forecast/punta-restin"
    },
    "osmCrossCheck": {
@@ -1201,7 +1201,14 @@
      "registry": "NOAA NDBC activestations.xml (listed active; no wave measurements)",
      "url": "https://www.ndbc.noaa.gov/station_page.php?station=32068"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.16 km from OSM natural=coastline way/147149052 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 3.17 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/147149052",
+    "url": "https://www.openstreetmap.org/way/147149052",
+    "distanceKm": 0.16,
+    "naturalEarthKm": 3.17
+   }
   },
   {
    "id": "w-peru-piscina",

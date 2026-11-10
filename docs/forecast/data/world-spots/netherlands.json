@@ -3074,7 +3074,7 @@
    "lon": 3.968,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km); coast check 2026-11-09: 0.06 km from OSM coastline (https://www.openstreetmap.org/way/1049620701)",
     "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p6"
    },
    "facingSource": {
@@ -3176,7 +3176,14 @@
      "liveBasis": "IEM network online flag",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.06 km from OSM natural=coastline way/1049620701 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 13.9 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1049620701",
+    "url": "https://www.openstreetmap.org/way/1049620701",
+    "distanceKm": 0.06,
+    "naturalEarthKm": 13.9
+   }
   },
   {
    "id": "w-netherlands-maasvlakte-p5",
@@ -3189,7 +3196,7 @@
    "lon": 3.964,
    "seaward": 247.5,
    "positionSource": {
-    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km); coast check 2026-11-09: 0.02 km from OSM coastline (https://www.openstreetmap.org/way/1049620701)",
     "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-p5"
    },
    "facingSource": {
@@ -3291,7 +3298,14 @@
      "liveBasis": "IEM network online flag",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.02 km from OSM natural=coastline way/1049620701 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 11.48 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1049620701",
+    "url": "https://www.openstreetmap.org/way/1049620701",
+    "distanceKm": 0.02,
+    "naturalEarthKm": 11.48
+   }
   },
   {
    "id": "w-netherlands-maasvlakte-containers",
@@ -3304,7 +3318,7 @@
    "lon": 3.975,
    "seaward": 247.5,
    "positionSource": {
-    "text": "surfnerd map pin (no matching OSM feature within 1.5 km)",
+    "text": "surfnerd map pin (no matching OSM feature within 1.5 km); coast check 2026-11-09: 0.1 km from OSM coastline (https://www.openstreetmap.org/way/1049620701)",
     "url": "https://www.surfnerd.com/surf-forecast/maasvlakte-containers"
    },
    "facingSource": {
@@ -3406,7 +3420,14 @@
      "liveBasis": "IEM network online flag",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EHSC&network=NL__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.1 km from OSM natural=coastline way/1049620701 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM natural=beach 'Naaktstrand', 0.1 km (https://www.openstreetmap.org/way/297314211); the Natural Earth 10 m coastline is 9.21 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1049620701",
+    "url": "https://www.openstreetmap.org/way/1049620701",
+    "distanceKm": 0.1,
+    "naturalEarthKm": 9.21
+   }
   },
   {
    "id": "w-netherlands-ouddorp",

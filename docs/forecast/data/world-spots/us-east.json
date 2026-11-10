@@ -283,6 +283,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/12-th-street-jetty",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Twelvth-Street-Jetty",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -313,7 +318,8 @@
      "surfnerd": "12th Street Jetty is a fun, rippable left that breaks over sand. The beach fills in a bit to the south, which helps give this spot its more playful, workable shape. When the swell and wind line up, it holds up as a reliable, consistent option.",
      "surfForecast": null
     },
-    "notes": "town: Ocean City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Ocean City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "12th Street Jetty in New Jersey is a fairly exposed beach/Jetty break that has reliable surf. Type: Beach/jetty (surf-forecast, pin 5.68 km from row pin)"
    },
    "nearestSources": [
     {
@@ -392,6 +398,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/120th-street",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Onehundredandtwentyth-Street",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -424,7 +435,8 @@
      "surfnerd": "120th Street is a sand-bottom break that holds a big swell and ranks among the best spots for hurricane swells. It breaks way out with steep drops and gets hollow, serving up mainly long rights. On a northeast swell it also throws big but short, open lefts.",
      "surfForecast": null
     },
-    "notes": "town: Ocean City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Ocean City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "120th Street in Delaware is an exposed beach/Jetty break that has consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 1.55 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1004,7 +1016,8 @@
      "surfnerd": "18th St. Jetty is a sand-bottomed beach and jetty break that offers both rights and lefts. On a strong east-northeast swell, the groin can throw up a decent left, a soft wave that runs a touch longer than the typical beachbreak in the area.",
      "surfForecast": null
     },
-    "notes": "town: Tybee Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Tybee Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -1295,6 +1308,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/1st-parking-lot",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/First-Parking-Lot",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -1328,7 +1346,8 @@
      "surfnerd": "1st Parking Lot is a sand-bottomed right that tends to run smaller than the more famous breaks just to the south. When everything lines up, though, it can turn picture perfect.",
      "surfForecast": null
     },
-    "notes": "town: Middletown (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Middletown (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "1st Parking Lot in New Jersey is a reasonably exposed beach and point(Jetty) break that has dependable surf and can work at any time of the year. Type: Beach and jetty (surf-forecast, pin 3.23 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1540,6 +1559,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/1st-street-jetty",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/First-Street-Jetty",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Virginia/1st_street_jetty/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -1570,7 +1599,8 @@
      "surfnerd": "1st Street Jetty is the designated surfing area for Virginia Beach and the home of East Coast surfing competitions. Sitting on the north side of Rudee Inlet, the jetty traps sand and focuses swell that barely registers at other breaks, so it tends to be the most consistent setup around. Expect a right-hander peeling over a sand bottom.",
      "surfForecast": null
     },
-    "notes": "town: Virginia Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Virginia Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "1st Street Jetty in Virginia is an exposed beach/Jetty break that has reliable surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 3.58 km from row pin); Type: Sand-bar (wannasurf, GPS 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1821,7 +1851,8 @@
      "surfnerd": "26th to 30th Street Pier serves up fun rights and lefts over a sand bottom, mixing beach, pier, and jetty setups that pick up a range of swells. It is a decent spot to have in your back pocket, fun on its day even if it is not usually the standout in the area. On a big northeast swell, powerful lefts peel down from the north end of the beach, and the north side of the 30th Street Pier keeps working all day through the summer.",
      "surfForecast": null
     },
-    "notes": "town: Avalon (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Avalon (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -2145,7 +2176,7 @@
    "country": "United States",
    "region": "Florida",
    "timeZone": "America/New_York",
-   "type": null,
+   "type": "Beach",
    "lat": 28.253,
    "lon": -80.603,
    "seaward": 90.0,
@@ -2164,6 +2195,16 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/2nd-light",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Secondnd-Light",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/2nd_light/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -2192,7 +2233,8 @@
      "surfnerd": "2nd Light is at its best when the wind blows offshore from the east (E), grooming the faces into cleaner, better-organized shape. Time your session for that easterly and you will get the most out of the break.",
      "surfForecast": null
     },
-    "notes": "town: Patrick AFB (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Patrick AFB (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "2nd Light in North Florida is a fairly exposed beach break that has very consistent surf, although summer tends to be mostly flat. Type: Beach (surf-forecast, pin 5.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2243,7 +2285,11 @@
      "lon": -80.61,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=COF&network=FL_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "2nd Light in North Florida is a fairly exposed beach break that has very consistent surf, although summer tends to be mostly flat. Type: Beach (surf-forecast, pin 5.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.04 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Secondnd-Light"
+   }
   },
   {
    "id": "w-us-2nd-st-to-10th-st",
@@ -2936,7 +2982,8 @@
      "surfnerd": "32nd Street is a jetty break on the south end of Absecon Island, where a rock jetty spawns decent rights and lefts over a sandy bottom. It isn't the standout spot in the area, but it can get genuinely fun when the setup lines up.",
      "surfForecast": null
     },
-    "notes": "town: Longport (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Longport (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -3520,6 +3567,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/48th-street",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fortyeighth-Street",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Virginia/48th_street__ocean_city_/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -3552,7 +3609,8 @@
      "surfnerd": "48th Street usually serves up the biggest waves in Ocean City, breaking over sand into bowly barrels that peel both left and right and can get absolutely perfect.",
      "surfForecast": null
     },
-    "notes": "town: Ocean City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Ocean City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "48th Street in Delaware is an exposed beach/Jetty break that usually has waves and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 2.95 km from row pin); Type: Beach-break (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3643,6 +3701,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/52nd-street",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Fiftysecond-Street",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -3673,7 +3736,8 @@
      "surfnerd": "52nd Street is a beginner-friendly beach break that peels over sand and offers both lefts and rights. A nearby buried pier has reshaped things over the years, so the waves tend to break straighter now, and it stays smaller than the surrounding spots.",
      "surfForecast": null
     },
-    "notes": "town: Sea Isle City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Sea Isle City (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "52nd Street in New Jersey is an exposed beach/Jetty break that has inconsistent surf with no particular seasonal pattern. Type: Beach/jetty (surf-forecast, pin 2.02 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5550,7 +5614,8 @@
      "surfnerd": "Alabama Ave. is a sand-bottom beach and pier break in Kure Beach, sitting right at the border with Carolina Beach just to the north. Surfers spread out along the pier and the various beach accesses here, and the standout is the fun right that peels off the outflow pipe when the swell lines up.",
      "surfForecast": null
     },
-    "notes": "town: Carolina Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Carolina Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -6931,6 +6996,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Avalon-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
@@ -6961,7 +7031,8 @@
      "surfnerd": "Avalon Pier is a sand-bottomed beachbreak on North Carolina's Northern Outer Banks that peels both left and right around the pilings. The south side is usually the pick, though the north side has produced its share of memorable days. It can flip overnight from a closed-out, wishy-washy mushburger to a sand-sucking run of barrels, yet through all of that it stays remarkably consistent, both consistently rideable and consistently packed.",
      "surfForecast": null
     },
-    "notes": "town: Kill Devil Hills (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Kill Devil Hills (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Avalon Pier in North Carolina is an exposed beach/Jetty break that has consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 0.33 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -7636,6 +7707,11 @@
       "url": "https://www.surf-forecast.com/breaks/Lbi-5th-Street-Beach-Haven",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/lbi_-_5th_street_beach_haven/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -7665,7 +7741,8 @@
      "surfnerd": "Beach Haven is a surf spot in the United States. Detailed conditions for this break aren't available yet, so check the live Surfnerd forecast for swell, wind, and tide before you decide whether to paddle out.",
      "surfForecast": "Lbi 5th Street Beach Haven in New Jersey is a reasonably exposed sandbar break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the northwest. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the southeast. An uncrowded break, even when it is working. Beware of - Rips / undertow - Localism."
     },
-    "notes": "town: Beach Haven (surfnerd); surf-forecast pin 39.56,-74.23 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Beach Haven (surfnerd); surf-forecast pin 39.56,-74.23 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Lbi 5th Street Beach Haven in New Jersey is a fairly exposed sandbar break that has fairly consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.87 km from row pin); Type: Sand-bar (wannasurf, GPS 0.39 km from row pin)"
    },
    "nearestSources": [
     {
@@ -8890,7 +8967,8 @@
      "surfnerd": "Blind Creek Park is a sometimes spot on South Hutchinson Island, and it holds the area's only high-tide sandbar. When a big north swell is running, sets break way out the back over a sand-filled reef, throwing both rights and lefts off a bottom of reef and sand. It doesn't turn on often and the swell needs real size, but it's always worth a check on your way to nearby breaks like the Fort Pierce North Jetty, Fletcher's, or Stuart Rocks.",
      "surfForecast": null
     },
-    "notes": "town: Hutchinson Island South (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef"
+    "notes": "town: Hutchinson Island South (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef (surfnerd)"
    },
    "nearestSources": [
     {
@@ -12020,6 +12098,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/cape-hatteras-lighthouse",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hatteras-Light-House",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/hatteras_light_house/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -12050,7 +12138,8 @@
      "surfnerd": "Cape Hatteras Lighthouse is a jetty-and-beachbreak setup built around three groins, and when the sand and swell line up it is the best wave on the Outer Banks, especially if you ride goofy-foot. The southernmost groin is the First and the northernmost is the Third, with a run of peaks in between. The bottom is a mix of sand, rock, and pieces of the old groins.",
      "surfForecast": null
     },
-    "notes": "town: Buxton (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Buxton (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Hatteras Light House in North Carolina is an exposed beach break that has very consistent surf and works all around the year. Type: Beach (surf-forecast, pin 3.07 km from row pin); Type: Beach-break (wannasurf, GPS 3.01 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -12354,6 +12443,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/carolina-beach-pier",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/Southern_North_Carolina/carolina_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -12388,7 +12482,8 @@
      "surfnerd": "Carolina Beach Pier is a beach and pier break that throws both rights and lefts over a shifting sand bottom. It sits in a quieter, more rugged stretch of the Cape Fear coast, a crusty fishing-village setting rather than a polished resort town. The same swells that hit nearby Wrightsville tend to come through here hollower and more powerful, which is a big part of the draw.",
      "surfForecast": null
     },
-    "notes": "town: Carolina Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Carolina Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 2.05 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -13047,7 +13142,7 @@
    "country": "United States",
    "region": "Massachusetts",
    "timeZone": "America/New_York",
-   "type": null,
+   "type": "Beach",
    "lat": 41.252,
    "lon": -70.154,
    "seaward": 202.5,
@@ -13066,6 +13161,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/cisco",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/cisco_beach__nantucket_island_/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -13094,7 +13194,8 @@
      "surfnerd": "Cisco is a surf spot tracked on Surfnerd. There aren't detailed notes on the wave, wind, or tide setup here yet, so lean on the live forecast to judge the swell, wind, and tide and work out when it's worth paddling out.",
      "surfForecast": null
     },
-    "notes": "town: Nantucket (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Nantucket (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.23 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13145,7 +13246,11 @@
      "lon": -70.06,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACK&network=MA_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 0.23 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/cisco_beach__nantucket_island_/"
+   }
   },
   {
    "id": "w-us-civic-center",
@@ -13493,7 +13598,7 @@
    "country": "United States",
    "region": "Florida",
    "timeZone": "America/New_York",
-   "type": null,
+   "type": "Beach",
    "lat": 28.368,
    "lon": -80.601,
    "seaward": 90.0,
@@ -13512,6 +13617,16 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/cocoa-beach",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Cocoa-Beach-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/cocoa_beach_pier/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -13543,7 +13658,8 @@
      "surfnerd": "Cocoa Beach is the cradle of East Coast professional surfing, home to Kelly Slater and the biggest surf shop in the world. Cocoa Beach Pier, once known as Canaveral Pier, is the standout: a longboard haven with long, crumbly lines and a regular crew, hosting surf contests throughout the year. Don't come expecting barrels.",
      "surfForecast": null
     },
-    "notes": "town: Cocoa Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Cocoa Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Cocoa Beach Pier in North Florida is a fairly exposed beach break that has quite consistent surf Works best in offshore winds from the west. Type: Beach (surf-forecast, pin 5.7 km from row pin); Type: Beach-break (wannasurf, GPS 0.05 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13594,7 +13710,11 @@
      "lon": -80.686,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=COI&network=FL_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Cocoa Beach Pier in North Florida is a fairly exposed beach break that has quite consistent surf Works best in offshore winds from the west. Type: Beach (surf-forecast, pin 5.7 km from row pin); Type: Beach-break (wannasurf, GPS 0.05 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Cocoa-Beach-Pier"
+   }
   },
   {
    "id": "w-us-coconut-point-park",
@@ -15924,6 +16044,11 @@
       "url": "https://www.surf-forecast.com/breaks/Daytona-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/daytona_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
@@ -15956,7 +16081,8 @@
      "surfnerd": "Daytona Beach is a sand-bottomed stretch of beach and pier breaks, with the Main Street Pier as the go-to spot. The north side, known as Pier Bowls, and the south side each pick up their own conditions, serving up both rights and lefts. It rates as below average overall, but the sandy bottom and forgiving setup make it a great place for newer and beginning surfers to rack up reps.",
      "surfForecast": "Daytona Beach in North Florida is an exposed sandbar break that has fairly consistent surf and can work at any time of the year. Works best in offshore winds from the southwest. Tends to receive a mix of groundswells and windswells and the best swell direction is from the east. Sometimes crowded. Watch out for Urchin and locals."
     },
-    "notes": "town: Daytona Beach (surfnerd); surf-forecast pin 29.17,-80.98 is 5.8 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Daytona Beach (surfnerd); surf-forecast pin 29.17,-80.98 is 5.8 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Daytona Beach in North Florida is an exposed sandbar break that has quite reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 5.68 km from row pin); Type: Sand-bar (wannasurf, GPS 5.65 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -16158,6 +16284,11 @@
       "url": "https://www.surf-forecast.com/breaks/Deerfield-Beach-Pier",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/deerfield_beach_pier/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -16190,7 +16321,8 @@
      "surfnerd": "Deerfield Beach Pier is a beach and pier break in one of Broward County's smaller coastal towns, just south of Fort Lauderdale. It breaks over sand with a few patches of reef further out, and the wave sets up fairly close to shore. It's a popular, well-known spot, though overall it's a decent break rather than a standout.",
      "surfForecast": "Deerfield Beach Pier in South Florida is a sheltered sandbar break that has unreliable waves. Summer offers the best conditions for surfing. Works best in offshore winds from the west northwest. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the east. Surfable at all stages of the tide. It's often crowded here. Beware of - Rips / undertow - Man-made danger (buoys etc.) - Localism - Pollution - Sharks."
     },
-    "notes": "town: Deerfield Beach (surfnerd); surf-forecast pin 26.32,-80.07 is 0.5 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Deerfield Beach (surfnerd); surf-forecast pin 26.32,-80.07 is 0.5 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Deerfield Beach Pier in South Florida is a sheltered sandbar break that only works once in a while. Type: Sandbar (surf-forecast, pin 0.1 km from row pin); Type: Sand-bar (wannasurf, GPS 0.1 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -17171,7 +17303,8 @@
      "surfnerd": "Duck Pier is a sand-bottom beach and pier break on the Dare County coast. Like most beachbreaks around here, the sandbars are constantly reworked and shift up and down the beach, but the peak next to the Duck Research Pier is the reliable one that comes and goes with the sand. It throws both rights and lefts and still earns a decent reputation, holding onto its better days.",
      "surfForecast": null
     },
-    "notes": "town: Duck (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Duck (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -17413,7 +17546,8 @@
      "surfnerd": "Dunes Cove is probably the best break in Myrtle Beach, sitting just out front of the Dunes Country Club. It's a river mouth wave that breaks both ways over a sandbar, with a hollow, top-to-bottom, punchy shape when it's firing.",
      "surfForecast": "Dunes Cove in South Carolina is an exposed river break that has consistent surf. Summer offers the best conditions for surfing. The best wind direction is from the northwest. Tends to receive a mix of groundswells and windswells and the best swell direction is from the southeast. Waves at the river tend to peel to the right. Best around low tide when the tide is rising. Even when there are waves, it's not likley to be crowded. Beware of rips, sharks and pollution."
     },
-    "notes": "town: Myrtle Beach (surfnerd); surf-forecast pin 33.76,-78.79 is 0.9 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Myrtle Beach (surfnerd); surf-forecast pin 33.76,-78.79 is 0.9 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Dunes Cove in South Carolina is an exposed river break that has consistent surf. Type: River (surf-forecast, pin 1.48 km from row pin); Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -20185,7 +20319,7 @@
    "country": "United States",
    "region": "Florida",
    "timeZone": "America/New_York",
-   "type": null,
+   "type": "Beach",
    "lat": 29.48,
    "lon": -81.124,
    "seaward": 67.5,
@@ -20204,6 +20338,16 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/flagler-pier",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Flagler",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/flagler/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -20235,7 +20379,8 @@
      "surfnerd": "Flagler Pier is an above-average pier break over sand that can wedge up and even barrel. On bigger swells it breaks through to high tide, but the rest of the time it behaves more like a shorebreak. Both lefts and rights peel off the sandbars around the pilings.",
      "surfForecast": null
     },
-    "notes": "town: Flagler Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Flagler Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.08 km from row pin)"
    },
    "nearestSources": [
     {
@@ -20310,7 +20455,11 @@
      "lon": -81.209,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FIN&network=FL_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.08 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Flagler"
+   }
   },
   {
    "id": "w-us-flagpole",
@@ -21726,7 +21875,8 @@
      "surfnerd": "Franklin Street is essentially a beachbreak that works best on wind swells, with a reef off Mead Street that comes to life on larger groundswells. It breaks over sand and throws up both rights and lefts across beach and reef peaks, and it doesn't ask for much of a paddle. The water is surprisingly clean for somewhere this close to a populated area.",
      "surfForecast": null
     },
-    "notes": "town: Hollywood (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef"
+    "notes": "town: Hollywood (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef (surfnerd)"
    },
    "nearestSources": [
     {
@@ -21928,6 +22078,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/frisco",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Frisco-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/frisco_pier/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -21962,7 +22122,8 @@
      "surfnerd": "Frisco is a south-side beach and pier break on the lower stretch of Hatteras. The pier itself, once Cape Hatteras Pier, is long gone, but the parking lot and the wave are still there. It sits as the most popular spot on the south side, tucked out of angry north and northeast energy behind a south-facing \"catcher's mitt\" with a wide swell window.",
      "surfForecast": null
     },
-    "notes": "town: Frisco (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Frisco (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Frisco Pier/Cape Hatteras in North Carolina is a quite exposed beach/Jetty break that has pretty consitent surf Offshore winds blow from the north northwest. Type: Beach/jetty (surf-forecast, pin 1.85 km from row pin); Type: Sand-bar (wannasurf, GPS 0.12 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -22510,6 +22671,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/georgia-east-hampton",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Georgia_East-Hampton",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -22540,7 +22706,8 @@
      "surfnerd": "Georgia (East Hampton) is a sand-bottomed jetty break that peels both left and right. When sand builds up on the east side of the jetties, it can serve up hollow rights, which is when it shows its best form.",
      "surfForecast": null
     },
-    "notes": "town: East Hampton (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: East Hampton (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Georgia (East Hampton) in Long Island NY is an exposed beach/Jetties break that has fairly consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 4.16 km from row pin)"
    },
    "nearestSources": [
     {
@@ -23290,7 +23457,8 @@
      "surfnerd": "Grant Street Beach is a sand-bottom beach and jetty break that offers a calmer refuge from the neighboring chaos of Broadway Beach. It doesn't really come alive until it's head-high or bigger. On smaller days it's a friendly longboard wave, but once there's some size it serves up long lefts and shorter, punchier rights.",
      "surfForecast": null
     },
-    "notes": "town: Cape May (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Cape May (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -24626,7 +24794,8 @@
      "surfnerd": "Hightower Beach is one of Central Florida's most consistent waves, tucked between the more popular Perkins and RC's along Satellite Beach. How well it breaks depends on how the sand settles around a broken coquina shelf offshore, and when a real swell lines up it can throw long, fast, occasionally hollow lefts. Depending on the wind, swell, tide, and sand, the peak can come in peaky or wally.",
      "surfForecast": null
     },
-    "notes": "town: Satellite Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef"
+    "notes": "town: Satellite Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef (surfnerd)"
    },
    "nearestSources": [
     {
@@ -24848,7 +25017,8 @@
      "surfnerd": "Hillsboro Inlet is a left that breaks over sand and reef off the south side of the inlet. Sandbars set up here much like they do at Reef Road, though the surf never comes close to matching it. On a big north swell the wave breaks point-style off the south side and runs super long, and it can even turn hollow, but only when a genuinely big swell shows up.",
      "surfForecast": null
     },
-    "notes": "town: Hillsboro Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef, Point; not published as Beach/Point/Reef"
+    "notes": "town: Hillsboro Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef, Point; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef, Point (surfnerd)"
    },
    "nearestSources": [
     {
@@ -25529,7 +25699,8 @@
      "surfnerd": "Hobe Sound Public Beach is one of South Florida's better options when the surf gets big. Sand settles between an outside reef and the shore, so the waves reform across a series of sandbars as they push in. On good days that setup delivers long walls made for high-speed turns, while smaller swells wedge playfully over one section of reef.",
      "surfForecast": null
     },
-    "notes": "town: Jupiter Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef, Offshore; not published as Beach/Point/Reef"
+    "notes": "town: Jupiter Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef, Offshore; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef, Offshore (surfnerd)"
    },
    "nearestSources": [
     {
@@ -25843,6 +26014,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/holyoke",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Hollyoake",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -25873,7 +26049,8 @@
      "surfnerd": "Holyoke is a winding left in Beach Haven that breaks off a long jetty. The sandbar is always shifting, so you never quite know what you're going to get from one session to the next. A smaller left and right peel off further down the beach and are actually the better call when the surf is small.",
      "surfForecast": null
     },
-    "notes": "town: Beach Haven (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Beach Haven (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Hollyoake in New Jersey is a fairly exposed beach/Jetty break that has fairly consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 2.32 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -26198,6 +26375,21 @@
       "url": "https://www.surfnerd.com/surf-forecast/indian-river-inlet",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Indian-River-Northside",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Indian-River-Southside",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Virginia/indian_river_inlet/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -26228,7 +26420,8 @@
      "surfnerd": "Indian River Inlet is a sand-bottomed beach and jetty setup that breaks both left and right, peeling off either side of the inlet. On its day it produces genuinely high-performance surf, even barreling tube rides, and it often turns on when other spots are closing out on bigger swells. When that happens it becomes an intense shorebreak: any hint of swell jacks up off the rock wall into a steep, sudden drop, frequently over water that is barely more than ankle-deep.",
      "surfForecast": null
     },
-    "notes": "town: Indian Harbor Villa (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Indian Harbor Villa (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Indian River(Northside) in Delaware is an exposed beach/Jetty break that has consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 1.52 km from row pin); Indian River (Southside) in Delaware is an exposed beach/Jetty break that has pretty consitent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 0.63 km from row pin); Type: Beach-break (wannasurf, GPS 0.59 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -26620,7 +26813,8 @@
      "surfnerd": "Iron Steamer sits almost exactly between Emerald Isle and Atlantic Beach, breaking over sand with an old shipwreck on the bottom. It tends to break with a bit more punch than the nearby pier, though it gives up some consistency in the trade. On its day it's a fairly average zone that can turn on under the right conditions, running as both a right and a left.",
      "surfForecast": null
     },
-    "notes": "town: Pine Knoll Shores (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Pine Knoll Shores (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -27091,7 +27285,8 @@
      "surfnerd": "Jacksonville Beach Pier, known to locals as Jax Pier, sits a few blocks north of Beach Blvd and is the area's dependable high-tide break. A spread of peaks around the pier gives everyone room, and it holds both lefts and rights across a wide range of swells and conditions. The water often looks murky, but much of that tint is natural tannins washing down from the St.",
      "surfForecast": null
     },
-    "notes": "town: Jacksonville Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Jacksonville Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -27637,6 +27832,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/jenkinsons-point-pleasant",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jenkinsons_Point-Pleasant",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -27669,7 +27869,8 @@
      "surfnerd": "Jenkinsons is a powerful left that breaks over sand on the south side of Manasquan Inlet at Point Pleasant. Deep water just offshore focuses incoming swell into a punchy wedge that barrels for a short distance before folding into the shoredump. Expect a short, intense ride rather than a long wall.",
      "surfForecast": null
     },
-    "notes": "town: Point Pleasant Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Point Pleasant Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Jenkinsons (Point Pleasant) in New Jersey is an exposed beach/Jetty break that has reasonably consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 0.82 km from row pin)"
    },
    "nearestSources": [
     {
@@ -28162,7 +28363,8 @@
      "surfnerd": "Jetty Park is a sand-bottom left tucked beside the jetty at Port Canaveral, and it only comes alive a handful of times a year. When bigger, blown-out surf is running elsewhere, the long jetty can knock down the mess and groom windblown chop into more sculpted lines, making it one of the area's few options on those rough days. Consistency is on the low side and the overall quality is modest, so it is a spot you check when the better breaks are out of control rather than an everyday go-to.",
      "surfForecast": "Jetty Park in North Florida is a reasonably exposed beach/Jetty break that only works when conditions are just right Works best in offshore winds from the west. Usually gets local windswells, but groundswells do happen and the best wave direction is from the south southeast. The beach breaks offer lefts and rights. Good surf at all stages of the tide. When the surf is up, crowds are likely Beware of sharks,aligators,spaceships."
     },
-    "notes": "town: Cape Canaveral (surfnerd); surf-forecast pin 28.41,-80.59 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Cape Canaveral (surfnerd); surf-forecast pin 28.41,-80.59 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Jetty Park in North Florida is a reasonably exposed beach/Jetty break that only works when conditions are just right Works best in offshore winds from the west. Type: Beach/jetty (surf-forecast, pin 0.15 km from row pin)"
    },
    "nearestSources": [
     {
@@ -28702,6 +28904,11 @@
       "url": "https://www.surf-forecast.com/breaks/Jupiter-Inlet-South-Jetty",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Jupiter-Inlet-North-Jetty",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
@@ -28734,7 +28941,8 @@
      "surfnerd": "Jupiter Inlet South Jetty is one of the benchmark breaks in Palm Beach County and a dependable pick when there's swell in the water. It breaks over sand and throws up a left, with mellow, approachable surf that suits all ability levels. Being a consistent spot, it delivers rideable waves more often than not.",
      "surfForecast": "Jupiter Inlet South Jetty in South Florida is a reasonably exposed beach/Jetty break that has fairly consistent surf, although summer tends to be mostly flat. The best wind direction is from the west with some shelter here from north winds. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the northeast. The beach breaks offer lefts and rights. Best around low tide. A popular wave that can get growded. Hazards include rocks, private, locals and sharks."
     },
-    "notes": "town: Jupiter Inlet Colony (surfnerd); surf-forecast pin 26.94,-80.07 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Jupiter Inlet Colony (surfnerd); surf-forecast pin 26.94,-80.07 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Jupiter Inlet South Jetty in South Florida is a reasonably exposed beach/Jetty break that has fairly consistent surf, although summer tends to be mostly flat. Type: Beach/jetty (surf-forecast, pin 0.19 km from row pin); Jupiter Inlet North Jetty in South Florida is a sheltered beach/Jetty break that has unreliable waves. Type: Beach/jetty (surf-forecast, pin 0.62 km from row pin)"
    },
    "nearestSources": [
     {
@@ -29080,7 +29288,8 @@
      "surfnerd": "K Road comes into its own when the wind blows offshore from the south. That southerly offshore is really the main thing to watch here when you're weighing up whether to paddle out.",
      "surfForecast": "Road K in Long Island New York is an exposed sandbar break that has very reliable surf and works all around the year. The best wind direction is from the north northwest. Groundswells and windswells are equally likely and the ideal swell direction is from the south southeast. Good surf at all stages of the tide. Often Crowded."
     },
-    "notes": "town: Hampton Bays (surfnerd); surf-forecast pin 40.83,-72.51 is 0.6 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Hampton Bays (surfnerd); surf-forecast pin 40.83,-72.51 is 0.6 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Road K in Long Island New York is an exposed sandbar break that is usually a safe bet and works all around the year. Type: Sandbar (surf-forecast, pin 0.6 km from row pin)"
    },
    "nearestSources": [
     {
@@ -30263,7 +30472,8 @@
      "surfnerd": "Lake Worth Pier is a sand-bottom pier break that peels both lefts and rights around the pilings, and it ranks among the more consistent setups in the area once the sandbars settle in. It's a decent-quality wave, with the pier itself shaping the peaks on either side.",
      "surfForecast": "Lake Worth Pier in South Florida is a reasonably exposed beach/Pier break that has fairly consistent surf and can work at any time of the year. Ideal winds are from the west. Windswells and groundswells in equal measure and the best swell direction is from the northeast. The beach break offers both left and right hand waves. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Beware of sharks,."
     },
-    "notes": "town: Palm Beach (surfnerd); surf-forecast pin 26.62,-80.04 is 0.8 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Palm Beach (surfnerd); surf-forecast pin 26.62,-80.04 is 0.8 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Lake Worth Pier in South Florida is a reasonably exposed beach/Pier break that has fairly consistent surf and can work at any time of the year. Type: Beach/pier (surf-forecast, pin 1.15 km from row pin)"
    },
    "nearestSources": [
     {
@@ -30801,6 +31011,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/lavallette-new-jersey",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Lavallette",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/lavallette/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -30833,7 +31053,8 @@
      "surfnerd": "Lavallette is a sand-bottomed beachbreak on the New Jersey shore, with a few jetties helping shape both lefts and rights. It makes a quieter alternative to the big-name, big-crowd spots just to the north, so there's usually plenty of room to find your own peak. It's not normally the standout break in the area, but it can certainly turn fun when everything lines up.",
      "surfForecast": null
     },
-    "notes": "town: Dover Beaches North (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Dover Beaches North (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Lavallette in New Jersey is an exposed beach/Jetty break that has quite reliable surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 1.44 km from row pin); Type: Sand-bar (wannasurf, GPS 1.64 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -31411,6 +31632,11 @@
       "url": "https://www.surf-forecast.com/breaks/Lincoln",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Long_Island_NY/lincoln/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -31443,7 +31669,8 @@
      "surfnerd": "Lincoln Blvd is an average beachbreak on Long Beach, one of the most densely populated stretches of the Long Island coast, where high-rise apartments, a boardwalk, and jetties poking into the Atlantic every quarter-mile define the shoreline. It's the most happening spot in town, with slightly better lefts than rights. Shifting sandbars mean the best peak moves around regularly, and while Lincoln isn't always as hollow as neighboring breaks, it can turn on with pushy, roping lefts peeling off the jetty.",
      "surfForecast": "Lincoln (Long Beach) in Long Island New York is an exposed breakwater break. Works best in offshore winds from the north. Windswells and groundswells in equal measure and the best swell direction is from the south. Likely to be crowded if working."
     },
-    "notes": "town: Long Beach (surfnerd); surf-forecast pin 40.58,-73.65 is 0.4 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Long Beach (surfnerd); surf-forecast pin 40.58,-73.65 is 0.4 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Lincoln (Long Beach) in Long Island New York is an exposed breakwater break. Type: Breakwater (surf-forecast, pin 0.14 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.17 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -32279,7 +32506,8 @@
      "surfnerd": "Loch Arbour and Deal covers a stretch of New Jersey jetty and beach breaks, with the Long Jetty at Loch Arbour sitting right in front of the high-rise apartments. It can hold the biggest swells that reach New Jersey. The L-shaped jetty points south and throws a steep right straight off the takeoff, and it can stay fairly clean when everywhere else is choppy.",
      "surfForecast": "Loch Arbor in New Jersey is an exposed sandbar break that has fairly consistent surf and can work at any time of the year. Offshore winds blow from the west northwest. Windswells and groundswells in equal measure and the ideal swell direction is from the southeast. It's sometimes crowded here. Beware of - Rocks - Man-made danger (buoys etc.) - Localism."
     },
-    "notes": "town: Asbury Park (surfnerd); surf-forecast pin 40.23,-74.0 is 0.3 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Asbury Park (surfnerd); surf-forecast pin 40.23,-74.0 is 0.3 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Loch Arbor in New Jersey is an exposed sandbar break that has quite reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.14 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -32821,7 +33049,7 @@
    "country": "United States",
    "region": "New Jersey",
    "timeZone": "America/New_York",
-   "type": null,
+   "type": "Beach",
    "lat": 40.305,
    "lon": -73.977,
    "seaward": 90.0,
@@ -32840,6 +33068,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/long-branch",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/Pavilion_Ave__Long_Branch/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -32868,7 +33101,8 @@
      "surfnerd": "Long Branch is a surf spot in the United States. Detailed swell, wind, and tide data isn't available for it yet, so lean on the live forecast to judge the size, direction, and conditions before you decide whether it's worth paddling out.",
      "surfForecast": null
     },
-    "notes": "town: Long Branch (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Long Branch (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.88 km from row pin)"
    },
    "nearestSources": [
     {
@@ -32931,7 +33165,11 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 0.88 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/Pavilion_Ave__Long_Branch/"
+   }
   },
   {
    "id": "w-us-long-point-2",
@@ -33912,6 +34150,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/madaquecham",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/madaquecham/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -33939,7 +34182,8 @@
      "surfnerd": "Madaquecham is a surf spot in the United States. There aren't detailed condition notes for this break yet, so lean on the live Surfnerd forecast for the latest swell, wind, and tide before you paddle out.",
      "surfForecast": null
     },
-    "notes": "town: Nantucket (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Nantucket (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 1.84 km from row pin)"
    },
    "nearestSources": [
     {
@@ -34358,6 +34602,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/manasquan",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Manasquan-Inlet",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/manasquan_inlet/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -34391,7 +34645,8 @@
      "surfnerd": "Manasquan is the most famous wave in New Jersey, and it regularly gets as good as the photos. Deep water leading into the inlet, a beefy jetty, and good sandbars combine to throw up long, barreling righthanders and the odd left over sand. Widely regarded as the best wave in the state, this grinding board-snapper is the real deal, and there are also good waves off the shorter jetties further up the beach.",
      "surfForecast": null
     },
-    "notes": "town: Manasquan (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Manasquan (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Manasquan Inlet in New Jersey is an exposed beach/Jetty break that is often working and works all around the year. Type: Beach/jetty (surf-forecast, pin 0.45 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.15 km from row pin)"
    },
    "nearestSources": [
     {
@@ -40244,6 +40499,11 @@
       "url": "https://www.surf-forecast.com/breaks/Nuns-Beach-1",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/nuns_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -40279,7 +40539,8 @@
      "surfnerd": "Nun's Beach is a sand-bottomed beach and jetty break that serves up decent, lined-up walls peeling both left and right. It won't top the list of standout spots nearby, but when everything lines up it can get genuinely fun.",
      "surfForecast": "Nuns Beach in New Jersey is an exposed sandbar break that has fairly consistent surf. Summer offers the optimum conditions for surfing. The best wind direction is from the northwest. Tends to receive a mix of groundswells and windswells and the ideal swell angle is from the southeast. When the surf is up, crowds are likely Hazards include - Rips / undertow - Rocks."
     },
-    "notes": "town: Stone Harbor (surfnerd); surf-forecast pin 39.03,-74.77 is 1.2 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Stone Harbor (surfnerd); surf-forecast pin 39.03,-74.77 is 1.2 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Nuns Beach in New Jersey is an exposed sandbar break that has quite consistent surf. Type: Sandbar (surf-forecast, pin 1.54 km from row pin); Type: Sand-bar (wannasurf, GPS 0.33 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -41332,6 +41593,11 @@
       "url": "https://www.surf-forecast.com/breaks/Ogunquit-Rivermouth",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/ogunquit_rivermouth/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
@@ -41368,7 +41634,8 @@
      "surfnerd": "Ogunquit Rivermouth is Maine's best-known break, a rivermouth right that peels off Lobster Point over a sand bottom and has drawn surfers for decades. When it's on, the wave starts in front of the rocks and races fast across the rivermouth onto the inside banks, where you'll find zippery walls and the occasional barrel section. A shorter left reforms into the river flow and stays consistent on smaller swells.",
      "surfForecast": "Ogunquit Rivermouth in Maine is an exposed river break that has quite reliable surf and can work at any time of the year. The best wind direction is from the west northwest. Windswells and groundswells in equal measure and the ideal swell angle is from the southeast. The river breaks peel to the right. When the surf is up, it can get quite busy in the water. Take care of rips, rocks and pollution."
     },
-    "notes": "town: Ogunquit (surfnerd); surf-forecast pin 43.25,-70.59 is 0.5 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Ogunquit (surfnerd); surf-forecast pin 43.25,-70.59 is 0.5 km from the surfnerd pin; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Ogunquit Rivermouth in Maine is an exposed river break that has quite reliable surf and can work at any time of the year. Type: River (surf-forecast, pin 0.74 km from row pin); Type: Rivermouth (wannasurf, GPS 0.72 km from row pin); Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -41569,7 +41836,7 @@
    "country": "United States",
    "region": "North Carolina",
    "timeZone": "America/New_York",
-   "type": null,
+   "type": "Beach",
    "lat": 34.57,
    "lon": -77.269,
    "seaward": 135.0,
@@ -41588,6 +41855,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/onslow-beach",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/Southern_North_Carolina/onslow_beach/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -41616,7 +41888,8 @@
      "surfnerd": "Onslow Beach is a surf spot on the coast of the United States. There isn't detailed condition data for this break yet, so lean on the live Surfnerd forecast to see how swell, wind, and tide are lining up before you head out.",
      "surfForecast": null
     },
-    "notes": "town: Duck Creek (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Duck Creek (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 1.73 km from row pin)"
    },
    "nearestSources": [
     {
@@ -41667,7 +41940,11 @@
      "lon": -77.44,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NCA&network=NC_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 1.73 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/Southern_North_Carolina/onslow_beach/"
+   }
   },
   {
    "id": "w-us-ormond-beach-pier",
@@ -44270,6 +44547,11 @@
       "url": "https://www.surf-forecast.com/breaks/Point-o-Woods",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Long_Island_NY/point_o__woods/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -44299,7 +44581,8 @@
      "surfnerd": "Point O’ Woods is a surf spot in the United States. There isn’t much detail on how it breaks yet, so check the live forecast for swell, wind, and tide before you make the trip.",
      "surfForecast": "Point o Woods in Long Island New York is an exposed sandbar break that has fairly consistent surf and can work at any time of the year. Offshore winds blow from the north northwest. Groundswells and windswells are equally likely and the best swell direction is from the south southeast. Good surf at all stages of the tide. An uncrowded break, even when it is working. Beware of - Private beach - Localism."
     },
-    "notes": "town: Fire Island (surfnerd); surf-forecast pin 40.65,-73.13 is 0.2 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Fire Island (surfnerd); surf-forecast pin 40.65,-73.13 is 0.2 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Point o Woods in Long Island New York is an exposed sandbar break that has quite consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.11 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45365,6 +45648,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/pumphouse",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/Pump_House/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -45392,7 +45680,8 @@
      "surfnerd": "Pumphouse is at its best when the wind blows offshore from the east (E). Look for those easterly winds when you're deciding whether it's worth the paddle out.",
      "surfForecast": null
     },
-    "notes": "town: Palm Beach Shores (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Palm Beach Shores (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.2 km from row pin)"
    },
    "nearestSources": [
     {
@@ -45643,7 +45932,8 @@
      "surfnerd": "Rambler Road is a left that can line up and freight-train when a proper northeast swell hits. It breaks over sand as a beach and jetty setup, and it isn't ridden all that often, so scoring it well feels like a real find. The overall rating is modest, but on the right swell it is genuinely fun.",
      "surfForecast": null
     },
-    "notes": "town: Wildwood Crest (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Wildwood Crest (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -47068,6 +47358,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/rockaways",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Rockaway_1",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -47101,7 +47396,8 @@
      "surfnerd": "Rockaways is the closest consistently surfable spot to New York City, and the most popular day trip for city surfers. A long jetty sets up a hollow takeoff that peels into fast, grinding left walls over a sand bottom, and good lefts turn up often enough to make it genuinely fun. It is easy to reach on the subway, and the west-end towns of Breezy Point and Bell Harbor are pleasant areas with excellent surf.",
      "surfForecast": null
     },
-    "notes": "town: New York (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: New York (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Rockaway _1 in Long Island NY is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 3.78 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -47665,6 +47961,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/sakonnet",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Sakonnet-River-Break",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/sakonnet_river_break/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "West-southwest (surfnerd: \"Faces WSW\")",
@@ -47692,7 +47998,8 @@
      "surfnerd": "Sakonnet is a surf spot in the United States. There aren't detailed condition notes for it yet, so check the latest Surfnerd forecast for swell, wind, and tide before you decide to paddle out.",
      "surfForecast": null
     },
-    "notes": "town: Little Compton (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Little Compton (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Sakonnet River Break in Rhode Island is a reasonably exposed river break The best wind direction is from the north northeast. Type: River (surf-forecast, pin 4.37 km from row pin); Type: Rivermouth (wannasurf, GPS 4.38 km from row pin)"
    },
    "nearestSources": [
     {
@@ -50583,7 +50890,8 @@
      "surfnerd": "South Carolina Avenue serves up rights and lefts that peel off a wooden groin in the middle of the spot. It's a beach and jetty setup breaking over sand, and while it's usually about average for the region, it can turn genuinely fun when everything lines up.",
      "surfForecast": null
     },
-    "notes": "town: Atlantic City (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Atlantic City (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -50810,7 +51118,8 @@
      "surfnerd": "South End sits beside a pier in Virginia, a sand-bottomed setup that switches sides depending on the swell. Southeast swells light up the north side, while northeast swells favor the south side. The north-side shorebreak is known as The Box, named for the boxy base of the pier that juts out into the water.",
      "surfForecast": null
     },
-    "notes": "town: Virginia Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Virginia Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -51048,7 +51357,8 @@
      "surfnerd": "South Jetty sits beside a jetty near Pawley's Island, with scattered peaks breaking to the north and south of the structure over a sandy bottom. It suits all types of surfers most days and can be better than the surrounding beachbreaks.",
      "surfForecast": null
     },
-    "notes": "town: Pawleys Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Pawleys Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -51300,7 +51610,8 @@
      "surfnerd": "South Tybee Sandbars is a string of offshore sandbar breaks between Tybee and Little Tybee islands, and it's a longboarder's playground. On the right day it peels a little like Canoes at Waikiki, serving up long, mellow rides over a sand bottom. Both rights and lefts show up here, across a mix of beach and jetty peaks.",
      "surfForecast": "Tybee South End Sand Bar in Georgia is an exposed sandbar break that has unreliable waves with no particular seasonal pattern. The best wind direction is from the west northwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the east. Unlikely to be too crowded, even when the surf is up. Watch out for - Man-made danger (buoys etc.) - Pollution - Sharks."
     },
-    "notes": "town: Tybee Island (surfnerd); surf-forecast pin 31.99,-80.85 is 1.0 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Tybee Island (surfnerd); surf-forecast pin 31.99,-80.85 is 1.0 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Tybee South End Sand Bar in Georgia is an exposed sandbar break that does not work very often with no particular seasonal pattern. Type: Sandbar (surf-forecast, pin 0.67 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -51732,6 +52043,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/spoils",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/spoils/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -51759,7 +52075,8 @@
      "surfnerd": "Spoils is best on an east (E) offshore wind, so that's the direction to watch when you're weighing up a session here.",
      "surfForecast": null
     },
-    "notes": "town: Fort Lauderdale (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Fort Lauderdale (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Breakwater/jetty (wannasurf, GPS 0.29 km from row pin)"
    },
    "nearestSources": [
     {
@@ -51876,7 +52193,8 @@
      "surfnerd": "Spring Lake is a sand-bottom beach and jetty setup with several distinct peaks spread along its length. The north end holds Mambo Beach, a hollow beachbreak, and Washington, a longboard-friendly wave. Down at the very south end, a series of jetties comes into play, with the longer South End Jetty sitting off a sandbar that reaches farther outside.",
      "surfForecast": "Spring Lake in New Jersey is an exposed sandbar break that has reliable surf and can work at any time of the year. Offshore winds blow from the west northwest and there is no shelter here from cross shore breezes. Windswells and groundswells in equal measure and the best swell direction is from the east northeast. The sandbar break provides left and right handers. Sometimes crowded. Hazards include rips and rocks."
     },
-    "notes": "town: Spring Lake (surfnerd); surf-forecast pin 40.15,-74.02 is 0.3 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Spring Lake (surfnerd); surf-forecast pin 40.15,-74.02 is 0.3 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Spring Lake in New Jersey is an exposed sandbar break that has reliable surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.11 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -52802,6 +53120,11 @@
       "url": "https://www.surf-forecast.com/breaks/Stone-Harbor-110",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/stone_harbor_110/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -52834,7 +53157,8 @@
      "surfnerd": "Stone Harbor is a sandy stretch of Seven Mile Beach, which runs from Townsends Inlet down to Hereford Inlet. There are more jetties than usual here but no real stand-out waves, so the appeal is more about mellow, forgiving surf than any single peak. The pick is Nuns Beach, a gentle longboard wave right in front of the convent, where the waves don't usually break off the jetty.",
      "surfForecast": "Stone Harbor 110th Street in New Jersey is an exposed breakwater break that has pretty consitent surf. Summer offers the optimum conditions for surfing. Ideal winds are from the northwest. Groundswells and windswells are equally likely and the ideal swell direction is from the southeast. A fairly popluar wave that can sometimes get crowded Beware of - Rocks - Localism."
     },
-    "notes": "town: Stone Harbor (surfnerd); surf-forecast pin 39.04,-74.76 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Stone Harbor (surfnerd); surf-forecast pin 39.04,-74.76 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Stone Harbor 110th Street in New Jersey is an exposed breakwater break that has reasonably consistent surf. Type: Breakwater (surf-forecast, pin 0.14 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.15 km from row pin)"
    },
    "nearestSources": [
     {
@@ -53447,7 +53771,8 @@
      "surfnerd": "Sumner Avenue is a mellow beach and jetty break over sand, best known as a fun summer longboarding spot. It sits out of the way and the waves lean gentle rather than powerful, so sessions here are about relaxed, playful surf more than punchy performance. On the right day it's a genuinely fun wave.",
      "surfForecast": null
     },
-    "notes": "town: Margate City (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Margate City (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -54006,6 +54331,11 @@
       "url": "https://www.surf-forecast.com/breaks/Surf-City-Pier",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/Southern_North_Carolina/Surf_City_Pier/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -54039,7 +54369,8 @@
      "surfnerd": "Surf City Pier sits on the north side of Topsail Island, part of the Onslow County beaches in North Carolina. It's a sand-bottomed beach and pier break that throws both rights and lefts, with decent waves on either side of the pier depending on the swell and how the sand is banked. The wave tends to be a soft reform rather than anything powerful, and it rates below average overall, so treat it as a spot to check when you're passing through rather than a destination in its own right.",
      "surfForecast": "Surf City Pier in North Carolina is an exposed sandbar break that has very consistent waves and works all around the year. Offshore winds blow from the northwest. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the southeast. When the surf is up, it can get quite busy in the water. Hazards include - Localism - Sharks."
     },
-    "notes": "town: Surf City (surfnerd); surf-forecast pin 34.43,-77.55 is 0.8 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Surf City (surfnerd); surf-forecast pin 34.43,-77.55 is 0.8 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Surf City Pier in North Carolina is an exposed sandbar break that is often working and works all around the year. Type: Sandbar (surf-forecast, pin 0.11 km from row pin); Type: Sand-bar (wannasurf, GPS 0.06 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -55622,7 +55953,8 @@
      "surfnerd": "The Pier is a sand-bottomed beachbreak at Pawleys Island in South Carolina, peeling both left and right off the pier. It is a low-quality but reasonably consistent wave in an otherwise wave-starved stretch of coast, and it rarely turns epic, since the continental shelf tends to have its way with these beaches. On the right combination of swell, wind, and tide, though, it can get pretty good.",
      "surfForecast": null
     },
-    "notes": "town: Pawleys Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Pawleys Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -55981,7 +56313,8 @@
      "surfnerd": "The Rocks is a jetty break that peels over a sand bottom, offering up both rights and lefts. It's a below-average wave that only comes good on the right swell, but when everything lines up it can be a genuinely fun session.",
      "surfForecast": null
     },
-    "notes": "town: Lower (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Lower (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -56817,6 +57150,11 @@
       "url": "https://www.surf-forecast.com/breaks/Tobay-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Long_Island_NY/tobay_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -56844,7 +57182,8 @@
      "surfnerd": "Tobay Beach is a surf spot in the United States. There isn't much detailed information on how it breaks yet, so it's worth checking the live Surfnerd forecast for swell, wind, and tide before you paddle out.",
      "surfForecast": "Tobay beach in Long Island New York is an exposed sandbar break that has quite consistent surf and can work at any time of the year. Works best in offshore winds from the north northwest. Most of the surf here comes from groundswells and the best swell direction is from the south southeast. The quality of the surf isn't affected by the tide. Even when the surf is up, crowds are unknown."
     },
-    "notes": "town: Oyster Bay (surfnerd); surf-forecast pin 40.61,-73.43 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Oyster Bay (surfnerd); surf-forecast pin 40.61,-73.43 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Tobay beach in Long Island New York is an exposed sandbar break that has quite consistent surf and can work at any time of the year. Type: Sandbar (surf-forecast, pin 0.44 km from row pin); Type: Beach-break (wannasurf, GPS 0.49 km from row pin)"
    },
    "nearestSources": [
     {
@@ -56965,7 +57304,8 @@
      "surfnerd": "Topsail Beach sits at the southern end of Topsail Island, a sand-bottom stretch with beach and pier peaks that break both left and right. The standout is the Jolly Roger Pier, but this is a below-average spot overall and notoriously inconsistent, so it tends to have its moments rather than a steady run of them.",
      "surfForecast": null
     },
-    "notes": "town: North Topsail Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: North Topsail Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -57904,7 +58244,8 @@
      "surfnerd": "Vero Pier is a sand-bottomed pier break in Florida that peels both rights and lefts off the sandbars on either side of the structure. Hurricane Irene stripped most of the pier away in 1999, but it has since returned, and so have the sandbars, leaving a decent option that breaks closer to shore without turning into shorepound. It is not really a destination spot, more a convenient place to grab a quick surf.",
      "surfForecast": null
     },
-    "notes": "town: Vero Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Vero Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -59227,7 +59568,8 @@
      "surfnerd": "West End sits at the far tip of Jones Beach on Long Island, a sand-bottom jetty wave that peels right. It has been insanely fickle since the jetty was rebuilt, turning off for years at a time before reemerging for one shining season, so timing matters more here than at most spots. When it lines up it throws occasional right wedges and can get really fun on the right swell.",
      "surfForecast": null
     },
-    "notes": "town: Hempstead (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Hempstead (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -59940,7 +60282,7 @@
    "lon": -81.284,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (31.3355,-81.28383), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (31.3355,-81.28383), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.16 km from OSM coastline (https://www.openstreetmap.org/way/231445355)",
     "url": "https://www.surfnerd.com/surf-forecast/wolf-island.md"
    },
    "facingSource": {
@@ -60054,7 +60396,14 @@
      "lon": -81.466,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BQK&network=GA_ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.16 km from OSM natural=coastline way/231445355 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Wolf Island', 0.16 km (https://www.openstreetmap.org/relation/3106425); the Natural Earth 10 m coastline is 4.25 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/231445355",
+    "url": "https://www.openstreetmap.org/way/231445355",
+    "distanceKm": 0.16,
+    "naturalEarthKm": 4.25
+   }
   },
   {
    "id": "w-us-wooden-jetties",

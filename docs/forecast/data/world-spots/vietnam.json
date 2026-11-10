@@ -101,7 +101,7 @@
    "country": "Vietnam",
    "region": "Da Nang, My Thi",
    "timeZone": "Asia/Ho_Chi_Minh",
-   "type": null,
+   "type": "Beach",
    "lat": 16.049,
    "lon": 108.251,
    "seaward": 67.5,
@@ -120,6 +120,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/my-khe-da-nẵng",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/My-Khe",
+      "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -151,7 +156,8 @@
      "surfnerd": "My Khe sits on the coast at Đà Nẵng and needs a decent pulse of swell before it comes to life. It works from 1.8 m / 6 ft to 2.5 m / 8 ft, so keep an eye on the forecast and time your session for when the swell fills into that window.",
      "surfForecast": null
     },
-    "notes": "town: My Thi (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+    "notes": "town: My Thi (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "My Khe in Da Nang is an exposed beach break that has reasonably consistent surf. Type: Beach (surf-forecast, pin 2.55 km from row pin)"
    },
    "nearestSources": [
     {
@@ -178,7 +184,11 @@
      "lon": 108.199,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVDN&network=VN__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "My Khe in Da Nang is an exposed beach break that has reasonably consistent surf. Type: Beach (surf-forecast, pin 2.55 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/My-Khe"
+   }
   },
   {
    "id": "w-vietnam-nam-o-point",
@@ -392,7 +402,7 @@
    "lon": 107.837,
    "seaward": 45.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (16.42409,107.83667), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (16.42409,107.83667), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.25 km from OSM coastline (https://www.openstreetmap.org/way/1575707675)",
     "url": "https://www.surfnerd.com/surf-forecast/binh-an.md"
    },
    "facingSource": {
@@ -464,7 +474,14 @@
      "lon": 107.583,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VVPB&network=VN__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.25 km from OSM natural=coastline way/1575707675 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 3.73 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1575707675",
+    "url": "https://www.openstreetmap.org/way/1575707675",
+    "distanceKm": 0.25,
+    "naturalEarthKm": 3.73
+   }
   },
   {
    "id": "w-vietnam-lang-co",

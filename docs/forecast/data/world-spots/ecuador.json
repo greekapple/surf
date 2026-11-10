@@ -1519,7 +1519,7 @@
    "lon": -90.291,
    "seaward": 315,
    "positionSource": {
-    "text": "Surfnerd spot map pin (-0.39027, -90.29135, from the page's front matter), rounded to 3 dp; Surf-Forecast.com pin -0.3872, -90.2915 is 0.3 km away (Surf-Forecast says some pins are approximate)",
+    "text": "Surfnerd spot map pin (-0.39027, -90.29135, from the page's front matter), rounded to 3 dp; Surf-Forecast.com pin -0.3872, -90.2915 is 0.3 km away (Surf-Forecast says some pins are approximate); coast check 2026-11-09: 0.04 km from OSM coastline (https://www.openstreetmap.org/way/1489884857)",
     "url": "https://www.surfnerd.com/surf-forecast/seymour-norte"
    },
    "osmCrossCheck": {
@@ -1630,7 +1630,14 @@
      "registry": "Iowa Environmental Mesonet ASOS/METAR network",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SEGS&network=EC__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.04 km from OSM natural=coastline way/1489884857 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Isla Seymour Norte', 0.04 km (https://www.openstreetmap.org/relation/20343771); the Natural Earth 10 m coastline is 10.77 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1489884857",
+    "url": "https://www.openstreetmap.org/way/1489884857",
+    "distanceKm": 0.04,
+    "naturalEarthKm": 10.77
+   }
   },
   {
    "id": "w-ecuador-aeolian-cove",
@@ -1644,7 +1651,7 @@
    "lon": -90.283,
    "seaward": 292.5,
    "positionSource": {
-    "text": "Surfnerd spot map pin (-0.44239, -90.28269, from the page's front matter), rounded to 3 dp",
+    "text": "Surfnerd spot map pin (-0.44239, -90.28269, from the page's front matter), rounded to 3 dp; coast check 2026-11-09: 0.17 km from OSM coastline (https://www.openstreetmap.org/way/1490250201)",
     "url": "https://www.surfnerd.com/surf-forecast/aeolian-cove"
    },
    "osmCrossCheck": {
@@ -1746,7 +1753,14 @@
      "registry": "Iowa Environmental Mesonet ASOS/METAR network",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SEGS&network=EC__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.17 km from OSM natural=coastline way/1490250201 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Isla Baltra', 0.17 km (https://www.openstreetmap.org/relation/2129829); the Natural Earth 10 m coastline is 5.03 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1490250201",
+    "url": "https://www.openstreetmap.org/way/1490250201",
+    "distanceKm": 0.17,
+    "naturalEarthKm": 5.03
+   }
   },
   {
    "id": "w-ecuador-las-salinas-baltra",
@@ -1760,7 +1774,7 @@
    "lon": -90.299,
    "seaward": 270,
    "positionSource": {
-    "text": "Surfnerd spot map pin (-0.46245, -90.29883, from the page's front matter), rounded to 3 dp",
+    "text": "Surfnerd spot map pin (-0.46245, -90.29883, from the page's front matter), rounded to 3 dp; coast check 2026-11-09: 0.11 km from OSM coastline (https://www.openstreetmap.org/way/1489884865)",
     "url": "https://www.surfnerd.com/surf-forecast/las-salinas-baltra"
    },
    "osmCrossCheck": {
@@ -1860,7 +1874,14 @@
      "registry": "Iowa Environmental Mesonet ASOS/METAR network",
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SEGS&network=EC__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.11 km from OSM natural=coastline way/1489884865 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Isla Baltra', 0.11 km (https://www.openstreetmap.org/relation/2129829); the Natural Earth 10 m coastline is 3.69 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1489884865",
+    "url": "https://www.openstreetmap.org/way/1489884865",
+    "distanceKm": 0.11,
+    "naturalEarthKm": 3.69
+   }
   },
   {
    "id": "w-ecuador-canoa",

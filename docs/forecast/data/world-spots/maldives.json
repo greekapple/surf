@@ -456,7 +456,7 @@
    "lon": 72.969,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (2.69583,72.96857), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (2.69583,72.96857), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.09 km from OSM coastline (https://www.openstreetmap.org/way/602745205)",
     "url": "https://www.surfnerd.com/surf-forecast/hocus-pocus.md"
    },
    "facingSource": {
@@ -531,7 +531,14 @@
      "lon": 73.529,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.09 km from OSM natural=coastline way/602745205 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'މާއެނބޫދޫ', 0.13 km (https://www.openstreetmap.org/way/19882844); the Natural Earth 10 m coastline is 7.18 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/602745205",
+    "url": "https://www.openstreetmap.org/way/602745205",
+    "distanceKm": 0.09,
+    "naturalEarthKm": 7.18
+   }
   },
   {
    "id": "w-maldives-kasabu",
@@ -719,7 +726,7 @@
    "lon": 73.536,
    "seaward": 202.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.34478,73.53646), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.35,73.49 (5.2 km away); wannasurf pin 0.3447,73.5363 (0.0 km away)",
+    "text": "surfnerd guide map pin (0.34478,73.53646), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.35,73.49 (5.2 km away); wannasurf pin 0.3447,73.5363 (0.0 km away); coast check 2026-11-09: 0.31 km from OSM coastline (https://www.openstreetmap.org/way/19932545)",
     "url": "https://www.surfnerd.com/surf-forecast/kh.md"
    },
    "facingSource": {
@@ -805,7 +812,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.31 km from OSM natural=coastline way/19932545 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'ކަނޑުހުޅުދޫ', 0.31 km (https://www.openstreetmap.org/way/19932545); the Natural Earth 10 m coastline is 4.99 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/19932545",
+    "url": "https://www.openstreetmap.org/way/19932545",
+    "distanceKm": 0.31,
+    "naturalEarthKm": 4.99
+   }
   },
   {
    "id": "w-maldives-koodhoo",
@@ -818,7 +832,7 @@
    "lon": 73.439,
    "seaward": 112.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.72668,73.43902), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (0.72668,73.43902), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.1 km from OSM coastline (https://www.openstreetmap.org/way/274218294)",
     "url": "https://www.surfnerd.com/surf-forecast/koodhoo.md"
    },
    "facingSource": {
@@ -892,7 +906,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.1 km from OSM natural=coastline way/274218294 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'ކޫއްޑޫ އެއަރޕޯޓް', 0.1 km (https://www.openstreetmap.org/way/274218294); the Natural Earth 10 m coastline is 8.16 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/274218294",
+    "url": "https://www.openstreetmap.org/way/274218294",
+    "distanceKm": 0.1,
+    "naturalEarthKm": 8.16
+   }
   },
   {
    "id": "w-maldives-viligili",
@@ -905,7 +926,7 @@
    "lon": 73.438,
    "seaward": 45.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.74166,73.43815), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.75,73.39 (5.4 km away)",
+    "text": "surfnerd guide map pin (0.74166,73.43815), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.75,73.39 (5.4 km away); coast check 2026-11-09: 0.4 km from OSM coastline (https://www.openstreetmap.org/way/274218294)",
     "url": "https://www.surfnerd.com/surf-forecast/viligili.md"
    },
    "facingSource": {
@@ -986,7 +1007,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.4 km from OSM natural=coastline way/274218294 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'ކޫއްޑޫ އެއަރޕޯޓް', 0.4 km (https://www.openstreetmap.org/way/274218294); the Natural Earth 10 m coastline is 7.51 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/274218294",
+    "url": "https://www.openstreetmap.org/way/274218294",
+    "distanceKm": 0.4,
+    "naturalEarthKm": 7.51
+   }
   },
   {
    "id": "w-maldives-airports",
@@ -999,7 +1027,7 @@
    "lon": 72.995,
    "seaward": 292.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.46272,72.99459), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (0.46272,72.99459), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.13 km from OSM coastline (https://www.openstreetmap.org/way/19932554)",
     "url": "https://www.surfnerd.com/surf-forecast/airports.md"
    },
    "facingSource": {
@@ -1073,7 +1101,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.13 km from OSM natural=coastline way/19932554 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'މަޑަވެލި', 0.13 km (https://www.openstreetmap.org/way/19932554); the Natural Earth 10 m coastline is 6.62 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/19932554",
+    "url": "https://www.openstreetmap.org/way/19932554",
+    "distanceKm": 0.13,
+    "naturalEarthKm": 6.62
+   }
   },
   {
    "id": "w-maldives-beacons",
@@ -1086,7 +1121,7 @@
    "lon": 73.142,
    "seaward": 157.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.21082,73.14206), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.22,73.09 (5.9 km away); wannasurf pin 0.2117,73.1414 (0.1 km away)",
+    "text": "surfnerd guide map pin (0.21082,73.14206), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.22,73.09 (5.9 km away); wannasurf pin 0.2117,73.1414 (0.1 km away); coast check 2026-11-09: 0.31 km from OSM coastline (https://www.openstreetmap.org/way/19932249)",
     "url": "https://www.surfnerd.com/surf-forecast/beacons.md"
    },
    "facingSource": {
@@ -1175,7 +1210,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.31 km from OSM natural=coastline way/19932249 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'ފިޔޯރީ', 0.31 km (https://www.openstreetmap.org/way/19932249); the Natural Earth 10 m coastline is 4.3 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/19932249",
+    "url": "https://www.openstreetmap.org/way/19932249",
+    "distanceKm": 0.31,
+    "naturalEarthKm": 4.3
+   }
   },
   {
    "id": "w-maldives-blue-bowls",
@@ -1188,7 +1230,7 @@
    "lon": 73.287,
    "seaward": 67.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.23207,73.28708), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 0.2331,73.2868 (0.1 km away)",
+    "text": "surfnerd guide map pin (0.23207,73.28708), rounded to 3 dp; not a surveyed takeoff; wannasurf pin 0.2331,73.2868 (0.1 km away); coast check 2026-11-09: 0.07 km from OSM coastline (https://www.openstreetmap.org/way/159544640)",
     "url": "https://www.surfnerd.com/surf-forecast/blue-bowls.md"
    },
    "facingSource": {
@@ -1267,7 +1309,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.07 km from OSM natural=coastline way/159544640 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'ވާދޫ', 0.42 km (https://www.openstreetmap.org/way/19932304); the Natural Earth 10 m coastline is 7.76 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/159544640",
+    "url": "https://www.openstreetmap.org/way/159544640",
+    "distanceKm": 0.07,
+    "naturalEarthKm": 7.76
+   }
   },
   {
    "id": "w-maldives-castaways",
@@ -1280,7 +1329,7 @@
    "lon": 73.234,
    "seaward": 225.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.19243,73.23419), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.2,73.15 (9.4 km away)",
+    "text": "surfnerd guide map pin (0.19243,73.23419), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.2,73.15 (9.4 km away); coast check 2026-11-09: 0.7 km from OSM coastline (https://www.openstreetmap.org/way/159544640)",
     "url": "https://www.surfnerd.com/surf-forecast/castaways.md"
    },
    "facingSource": {
@@ -1362,7 +1411,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.7 km from OSM natural=coastline way/159544640 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 5.05 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/159544640",
+    "url": "https://www.openstreetmap.org/way/159544640",
+    "distanceKm": 0.7,
+    "naturalEarthKm": 5.05
+   }
   },
   {
    "id": "w-maldives-love-charms",
@@ -1467,7 +1523,7 @@
    "lon": 73.452,
    "seaward": 202.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (0.28305,73.45207), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.29,73.4 (5.8 km away); wannasurf pin 0.2831,73.4525 (0.1 km away)",
+    "text": "surfnerd guide map pin (0.28305,73.45207), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 0.29,73.4 (5.8 km away); wannasurf pin 0.2831,73.4525 (0.1 km away); coast check 2026-11-09: 0.21 km from OSM coastline (https://www.openstreetmap.org/way/19932432)",
     "url": "https://www.surfnerd.com/surf-forecast/tiger-stripes.md"
    },
    "facingSource": {
@@ -1554,7 +1610,14 @@
      "lon": 73.15,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMG&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.21 km from OSM natural=coastline way/19932432 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'ގައްދޫ', 0.21 km (https://www.openstreetmap.org/way/19932432); the Natural Earth 10 m coastline is 8.1 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/19932432",
+    "url": "https://www.openstreetmap.org/way/19932432",
+    "distanceKm": 0.21,
+    "naturalEarthKm": 8.1
+   }
   },
   {
    "id": "w-maldives-two-ways",
@@ -1952,7 +2015,7 @@
    "lon": 73.578,
    "seaward": 90.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (4.30773,73.57812), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 4.32,73.58 (1.4 km away); wannasurf pin 4.3076,73.5768 (0.2 km away)",
+    "text": "surfnerd guide map pin (4.30773,73.57812), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 4.32,73.58 (1.4 km away); wannasurf pin 4.3076,73.5768 (0.2 km away); coast check 2026-11-09: 0.18 km from OSM coastline (https://www.openstreetmap.org/way/19881975)",
     "url": "https://www.surfnerd.com/surf-forecast/jailbreaks.md"
    },
    "facingSource": {
@@ -2052,7 +2115,14 @@
      "lon": 73.529,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=VRMM&network=MV__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.18 km from OSM natural=coastline way/19881975 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'ހިއްމަފުށި', 0.18 km (https://www.openstreetmap.org/way/19881975); the Natural Earth 10 m coastline is 3.82 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/19881975",
+    "url": "https://www.openstreetmap.org/way/19881975",
+    "distanceKm": 0.18,
+    "naturalEarthKm": 3.82
+   }
   },
   {
    "id": "w-maldives-isdhoo-bank",

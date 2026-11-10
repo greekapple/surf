@@ -1609,7 +1609,7 @@
    "lon": -147.711,
    "seaward": 337.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -14.937429, -147.710737)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -14.937429, -147.710737); coast check 2026-11-09: 0.15 km from OSM coastline (https://www.openstreetmap.org/way/753164282)",
     "url": "https://www.surfnerd.com/surf-forecast/avatoru"
    },
    "facingSource": {
@@ -1694,7 +1694,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PF__ASOS&station=NTAA",
      "distanceKm": 354.7
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.15 km from OSM natural=coastline way/753164282 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island, 0.46 km (https://www.openstreetmap.org/way/733141963); the Natural Earth 10 m coastline is 24.29 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/753164282",
+    "url": "https://www.openstreetmap.org/way/753164282",
+    "distanceKm": 0.15,
+    "naturalEarthKm": 24.29
+   }
   },
   {
    "id": "w-pac-beachouse",
@@ -2208,7 +2215,7 @@
    "lon": -157.479,
    "seaward": 225,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 1.98065, -157.479)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 1.98065, -157.479); coast check 2026-11-09: 0.05 km from OSM coastline (https://www.openstreetmap.org/way/717028629)",
     "url": "https://www.surfnerd.com/surf-forecast/bridges-point"
    },
    "facingSource": {
@@ -2290,7 +2297,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=NF__ASOS&station=PLCH",
      "distanceKm": 0.5
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.05 km from OSM natural=coastline way/717028629 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Kiritimati', 0.05 km (https://www.openstreetmap.org/relation/1850526); the Natural Earth 10 m coastline is 3.57 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/717028629",
+    "url": "https://www.openstreetmap.org/way/717028629",
+    "distanceKm": 0.05,
+    "naturalEarthKm": 3.57
+   }
   },
   {
    "id": "w-pac-british-beach",
@@ -2398,7 +2412,7 @@
    "lon": 171.206,
    "seaward": 337.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 7.16168, 171.206)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 7.16168, 171.206); coast check 2026-11-09: 0.36 km from OSM coastline (https://www.openstreetmap.org/way/23716156)",
     "url": "https://www.surfnerd.com/surf-forecast/calalin-pass"
    },
    "facingSource": {
@@ -2502,7 +2516,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=MH__ASOS&station=PKMR",
      "distanceKm": 13.0
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.36 km from OSM natural=coastline way/23716156 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 8.05 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/23716156",
+    "url": "https://www.openstreetmap.org/way/23716156",
+    "distanceKm": 0.36,
+    "naturalEarthKm": 8.05
+   }
   },
   {
    "id": "w-pac-cape-barabar",
@@ -2515,7 +2536,7 @@
    "lon": 143.639,
    "seaward": 67.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -3.415537, 143.63885)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -3.415537, 143.63885); coast check 2026-11-09: 0.34 km from OSM coastline (https://www.openstreetmap.org/way/22295682)",
     "url": "https://www.surfnerd.com/surf-forecast/cape-barabar"
    },
    "facingSource": {
@@ -2582,7 +2603,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PG__ASOS&station=AYWK",
      "distanceKm": 18.9
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.34 km from OSM natural=coastline way/22295682 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Muschu Island', 0.34 km (https://www.openstreetmap.org/way/22295682); the Natural Earth 10 m coastline is 6.89 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22295682",
+    "url": "https://www.openstreetmap.org/way/22295682",
+    "distanceKm": 0.34,
+    "naturalEarthKm": 6.89
+   }
   },
   {
    "id": "w-pac-club-raro",
@@ -2705,7 +2733,7 @@
    "lon": -157.481,
    "seaward": 0,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 1.96846, -157.481)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 1.96846, -157.481); coast check 2026-11-09: 0.49 km from OSM coastline (https://www.openstreetmap.org/way/159094368)",
     "url": "https://www.surfnerd.com/surf-forecast/cockranes-reef"
    },
    "facingSource": {
@@ -2787,7 +2815,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=NF__ASOS&station=PLCH",
      "distanceKm": 1.7
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.49 km from OSM natural=coastline way/159094368 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Kiritimati', 1.46 km (https://www.openstreetmap.org/relation/1850526); the Natural Earth 10 m coastline is 4.66 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/159094368",
+    "url": "https://www.openstreetmap.org/way/159094368",
+    "distanceKm": 0.49,
+    "naturalEarthKm": 4.66
+   }
   },
   {
    "id": "w-pac-coconuts",
@@ -3015,7 +3050,7 @@
    "lon": -157.483,
    "seaward": 315,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 1.96426, -157.483)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 1.96426, -157.483); coast check 2026-11-09: 0.08 km from OSM coastline (https://www.openstreetmap.org/way/159094368)",
     "url": "https://www.surfnerd.com/surf-forecast/coral-head"
    },
    "facingSource": {
@@ -3097,7 +3132,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=NF__ASOS&station=PLCH",
      "distanceKm": 2.1
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.08 km from OSM natural=coastline way/159094368 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Kiritimati', 1.95 km (https://www.openstreetmap.org/relation/1850526); the Natural Earth 10 m coastline is 5.13 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/159094368",
+    "url": "https://www.openstreetmap.org/way/159094368",
+    "distanceKm": 0.08,
+    "naturalEarthKm": 5.13
+   }
   },
   {
    "id": "w-pac-corners",
@@ -4002,7 +4044,7 @@
    "lon": -172.354,
    "seaward": 0,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -13.435183, -172.354071)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -13.435183, -172.354071); coast check 2026-11-09: 0.43 km from OSM coastline (https://www.openstreetmap.org/way/285244700)",
     "url": "https://www.surfnerd.com/surf-forecast/fagamalo"
    },
    "facingSource": {
@@ -4104,7 +4146,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=WS__ASOS&station=NSFA",
      "distanceKm": 58.5
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.43 km from OSM natural=coastline way/285244700 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=village 'Fagamalo', 0.42 km (https://www.openstreetmap.org/way/1089973140); the Natural Earth 10 m coastline is 3.1 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/285244700",
+    "url": "https://www.openstreetmap.org/way/285244700",
+    "distanceKm": 0.43,
+    "naturalEarthKm": 3.1
+   }
   },
   {
    "id": "w-pac-faganeanea",
@@ -6148,7 +6197,7 @@
    "lon": 157.229,
    "seaward": 315,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.373349, 157.229303)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.373349, 157.229303); coast check 2026-11-09: 0.11 km from OSM coastline (https://www.openstreetmap.org/way/49184496)",
     "url": "https://www.surfnerd.com/surf-forecast/kundu-kundu"
    },
    "facingSource": {
@@ -6217,7 +6266,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=SB__ASOS&station=AGGH",
      "distanceKm": 331.9
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.11 km from OSM natural=coastline way/49184496 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 6.26 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/49184496",
+    "url": "https://www.openstreetmap.org/way/49184496",
+    "distanceKm": 0.11,
+    "naturalEarthKm": 6.26
+   }
   },
   {
    "id": "w-pac-laulii",
@@ -6590,7 +6646,7 @@
    "lon": 157.214,
    "seaward": 315,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.352108, 157.213524)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.352108, 157.213524); coast check 2026-11-09: 0.58 km from OSM coastline (https://www.openstreetmap.org/way/49184495)",
     "url": "https://www.surfnerd.com/surf-forecast/lavata"
    },
    "facingSource": {
@@ -6659,7 +6715,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=SB__ASOS&station=AGGH",
      "distanceKm": 334.2
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.58 km from OSM natural=coastline way/49184495 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'Lavata Island', 0.58 km (https://www.openstreetmap.org/relation/18657480); the Natural Earth 10 m coastline is 4.23 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/49184495",
+    "url": "https://www.openstreetmap.org/way/49184495",
+    "distanceKm": 0.58,
+    "naturalEarthKm": 4.23
+   }
   },
   {
    "id": "w-pac-leli-island",
@@ -6672,7 +6735,7 @@
    "lon": 161.052,
    "seaward": 90,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.76117, 161.052)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.76117, 161.052); coast check 2026-11-09: 0.33 km from OSM coastline (https://www.openstreetmap.org/way/50312481)",
     "url": "https://www.surfnerd.com/surf-forecast/leli-island"
    },
    "facingSource": {
@@ -6730,7 +6793,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=SB__ASOS&station=AGGH",
      "distanceKm": 132.2
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.33 km from OSM natural=coastline way/50312481 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Leili', 0.33 km (https://www.openstreetmap.org/relation/18421363); the Natural Earth 10 m coastline is 9.4 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/50312481",
+    "url": "https://www.openstreetmap.org/way/50312481",
+    "distanceKm": 0.33,
+    "naturalEarthKm": 9.4
+   }
   },
   {
    "id": "w-pac-lido-s-left",
@@ -7086,7 +7156,7 @@
    "lon": 150.771,
    "seaward": 247.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -2.587782, 150.7707)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -2.587782, 150.7707); coast check 2026-11-09: 0.59 km from OSM coastline (https://www.openstreetmap.org/way/360556380)",
     "url": "https://www.surfnerd.com/surf-forecast/long-long"
    },
    "facingSource": {
@@ -7155,7 +7225,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PG__ASOS&station=AYNZ",
      "distanceKm": 630.0
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.59 km from OSM natural=coastline way/360556380 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Nusalik Island', 0.59 km (https://www.openstreetmap.org/way/360556380); the Natural Earth 10 m coastline is 3.57 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/360556380",
+    "url": "https://www.openstreetmap.org/way/360556380",
+    "distanceKm": 0.59,
+    "naturalEarthKm": 3.57
+   }
   },
   {
    "id": "w-pac-luatuanuu",
@@ -7701,12 +7778,12 @@
    "country": "Fiji",
    "region": "Fiji, Northern",
    "timeZone": "Pacific/Fiji",
-   "type": null,
+   "type": "Reef",
    "lat": -16.817,
    "lon": -179.783,
    "seaward": 157.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -16.8171, -179.7834)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -16.8171, -179.7834); coast check 2026-11-09: 0.05 km from OSM coastline (https://www.openstreetmap.org/way/1160434167)",
     "url": "https://www.surfnerd.com/surf-forecast/maqai"
    },
    "facingSource": {
@@ -7720,6 +7797,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/maqai",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/Fiji/Maqai/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -7738,7 +7820,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Maqai is a surf spot in Fiji. Check the live forecast for the latest swell, wind, and tide before you paddle out."
+    "notes": "Surfnerd overview: Maqai is a surf spot in Fiji. Check the live forecast for the latest swell, wind, and tide before you paddle out.",
+    "breakTypeText": "Type: Reef-rocky (wannasurf, GPS 0.25 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7781,7 +7864,18 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FJ__ASOS&station=NFNM",
      "distanceKm": 17.3
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-rocky (wannasurf, GPS 0.25 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Australia_Pacific/Fiji/Maqai/"
+   },
+   "coastCheck": {
+    "text": "Pin is 0.05 km from OSM natural=coastline way/1160434167 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet, 0.05 km (https://www.openstreetmap.org/way/1160434167); the Natural Earth 10 m coastline is 5.77 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1160434167",
+    "url": "https://www.openstreetmap.org/way/1160434167",
+    "distanceKm": 0.05,
+    "naturalEarthKm": 5.77
+   }
   },
   {
    "id": "w-pac-maraa",
@@ -8133,7 +8227,7 @@
    "lon": 157.182,
    "seaward": 247.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.333899, 157.181963)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -8.333899, 157.181963); coast check 2026-11-09: 0.26 km from OSM coastline (https://www.openstreetmap.org/way/1357058003)",
     "url": "https://www.surfnerd.com/surf-forecast/mbirimbiri"
    },
    "facingSource": {
@@ -8202,7 +8296,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=SB__ASOS&station=AGGH",
      "distanceKm": 338.2
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.26 km from OSM natural=coastline way/1357058003 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'Mbirimbiri Island', 1.79 km (https://www.openstreetmap.org/way/49184494); the Natural Earth 10 m coastline is 3.24 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1357058003",
+    "url": "https://www.openstreetmap.org/way/1357058003",
+    "distanceKm": 0.26,
+    "naturalEarthKm": 3.24
+   }
   },
   {
    "id": "w-pac-miri-miri",
@@ -8498,7 +8599,7 @@
    "lon": 158.156,
    "seaward": 135,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 6.78116, 158.156)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude 6.78116, 158.156); coast check 2026-11-09: 0.17 km from OSM coastline (https://www.openstreetmap.org/way/23708434)",
     "url": "https://www.surfnerd.com/surf-forecast/nahlap"
    },
    "facingSource": {
@@ -8580,7 +8681,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FM__ASOS&station=PTPN",
      "distanceKm": 20.9
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.17 km from OSM natural=coastline way/23708434 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'Nahlap', 0.17 km (https://www.openstreetmap.org/way/23708434); the Natural Earth 10 m coastline is 3.58 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/23708434",
+    "url": "https://www.openstreetmap.org/way/23708434",
+    "distanceKm": 0.17,
+    "naturalEarthKm": 3.58
+   }
   },
   {
    "id": "w-pac-namotu-lefts",
@@ -8593,7 +8701,7 @@
    "lon": 177.177,
    "seaward": 247.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.845221, 177.176676)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.845221, 177.176676); coast check 2026-11-09: 0.65 km from OSM coastline (https://www.openstreetmap.org/way/22574543)",
     "url": "https://www.surfnerd.com/surf-forecast/namotu-lefts"
    },
    "facingSource": {
@@ -8692,7 +8800,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FJ__ASOS&station=NFFN",
      "distanceKm": 29.9
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.65 km from OSM natural=coastline way/22574543 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM natural=beach 'Mamanuca Islands', 0.65 km (https://www.openstreetmap.org/relation/2535488); the Natural Earth 10 m coastline is 9.43 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22574543",
+    "url": "https://www.openstreetmap.org/way/22574543",
+    "distanceKm": 0.65,
+    "naturalEarthKm": 9.43
+   }
   },
   {
    "id": "w-pac-nan-madol",
@@ -8902,7 +9017,7 @@
    "lon": 177.306,
    "seaward": 270,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -18.116247, 177.305756)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -18.116247, 177.305756); coast check 2026-11-09: 1.3 km from OSM coastline (https://www.openstreetmap.org/way/23386464)",
     "url": "https://www.surfnerd.com/surf-forecast/natadola"
    },
    "facingSource": {
@@ -8989,7 +9104,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FJ__ASOS&station=NFFN",
      "distanceKm": 42.7
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.3 km from OSM natural=coastline way/23386464 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM natural=beach 'Natadola Beach', 1.66 km (https://www.openstreetmap.org/way/1188539083); the Natural Earth 10 m coastline is 3.28 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/23386464",
+    "url": "https://www.openstreetmap.org/way/23386464",
+    "distanceKm": 1.3,
+    "naturalEarthKm": 3.28
+   }
   },
   {
    "id": "w-pac-norrie-park",
@@ -9246,7 +9368,7 @@
    "lon": 150.783,
    "seaward": 22.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -2.56538, 150.783328)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -2.56538, 150.783328); coast check 2026-11-09: 0.21 km from OSM coastline (https://www.openstreetmap.org/way/360556381)",
     "url": "https://www.surfnerd.com/surf-forecast/nusa-lefts"
    },
    "facingSource": {
@@ -9313,7 +9435,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PG__ASOS&station=AYNZ",
      "distanceKm": 632.8
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.21 km from OSM natural=coastline way/360556381 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Nusa Island', 0.21 km (https://www.openstreetmap.org/way/360556381); the Natural Earth 10 m coastline is 3.06 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/360556381",
+    "url": "https://www.openstreetmap.org/way/360556381",
+    "distanceKm": 0.21,
+    "naturalEarthKm": 3.06
+   }
   },
   {
    "id": "w-pac-nu-usafee-island",
@@ -9573,7 +9702,7 @@
    "country": "French Polynesia",
    "region": "French Polynesia, Windward Islands",
    "timeZone": "Pacific/Tahiti",
-   "type": null,
+   "type": "Point",
    "lat": -17.508,
    "lon": -149.461,
    "seaward": 0,
@@ -9593,6 +9722,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/orofara",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Orofara-Beach",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Australia_Pacific/French_Polynesia/Tahiti/Orofara/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "N (surfnerd: \"Faces N\")",
@@ -9610,7 +9749,8 @@
     "hazards": [],
     "season": null,
     "minimumPeriodS": null,
-    "notes": "Surfnerd overview: Orofara comes into its own when the wind blows offshore from the north (N) , which is the direction that grooms the wave face clean here. Time your sessions for a north wind and you'll find the tidiest conditions this spot has to offer."
+    "notes": "Surfnerd overview: Orofara comes into its own when the wind blows offshore from the north (N) , which is the direction that grooms the wave face clean here. Time your sessions for a north wind and you'll find the tidiest conditions this spot has to offer.",
+    "breakTypeText": "Orofara Beach in Tahiti is an exposed point break that has quite consistent surf. Type: Point (surf-forecast, pin 3.2 km from row pin); Type: Point-break (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9653,7 +9793,11 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PF__ASOS&station=NTAA",
      "distanceKm": 17.2
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Orofara Beach in Tahiti is an exposed point break that has quite consistent surf. Type: Point (surf-forecast, pin 3.2 km from row pin); Type: Point-break (wannasurf, GPS 0.06 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Orofara-Beach"
+   }
   },
   {
    "id": "w-pac-pai-pai",
@@ -11354,7 +11498,7 @@
    "lon": 177.2,
    "seaward": 337.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.852621, 177.199952)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.852621, 177.199952); coast check 2026-11-09: 0.37 km from OSM coastline (https://www.openstreetmap.org/way/22573452)",
     "url": "https://www.surfnerd.com/surf-forecast/restaurants"
    },
    "facingSource": {
@@ -11453,7 +11597,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FJ__ASOS&station=NFFN",
      "distanceKm": 28.0
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.37 km from OSM natural=coastline way/22573452 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM natural=beach 'Mamanuca Islands', 0.37 km (https://www.openstreetmap.org/relation/2535488); the Natural Earth 10 m coastline is 6.84 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22573452",
+    "url": "https://www.openstreetmap.org/way/22573452",
+    "distanceKm": 0.37,
+    "naturalEarthKm": 6.84
+   }
   },
   {
    "id": "w-pac-roche-percee",
@@ -13800,7 +13951,7 @@
    "lon": 143.256,
    "seaward": 22.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -3.199757, 143.256289)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -3.199757, 143.256289); coast check 2026-11-09: 0.57 km from OSM coastline (https://www.openstreetmap.org/way/31555127)",
     "url": "https://www.surfnerd.com/surf-forecast/tarawai"
    },
    "facingSource": {
@@ -13867,7 +14018,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PG__ASOS&station=AYWK",
      "distanceKm": 62.4
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.57 km from OSM natural=coastline way/31555127 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Tarawai Island', 0.57 km (https://www.openstreetmap.org/way/31555127); the Natural Earth 10 m coastline is 3.03 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/31555127",
+    "url": "https://www.openstreetmap.org/way/31555127",
+    "distanceKm": 0.57,
+    "naturalEarthKm": 3.03
+   }
   },
   {
    "id": "w-pac-tawarogha",
@@ -14057,7 +14215,7 @@
    "lon": -149.752,
    "seaward": 67.5,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.492086, -149.752041)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.492086, -149.752041); coast check 2026-11-09: 0.12 km from OSM coastline (https://www.openstreetmap.org/way/725190933)",
     "url": "https://www.surfnerd.com/surf-forecast/temae"
    },
    "facingSource": {
@@ -14144,7 +14302,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=PF__ASOS&station=NTAA",
      "distanceKm": 15.7
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.12 km from OSM natural=coastline way/725190933 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Mo’orea', 0.12 km (https://www.openstreetmap.org/relation/10045248); the Natural Earth 10 m coastline is 3.84 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/725190933",
+    "url": "https://www.openstreetmap.org/way/725190933",
+    "distanceKm": 0.12,
+    "naturalEarthKm": 3.84
+   }
   },
   {
    "id": "w-pac-teouma-bay",
@@ -15413,7 +15578,7 @@
    "lon": 178.114,
    "seaward": 135,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -19.181073, 178.114309)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -19.181073, 178.114309); coast check 2026-11-09: 0.57 km from OSM coastline (https://www.openstreetmap.org/way/22570317)",
     "url": "https://www.surfnerd.com/surf-forecast/uatotoka"
    },
    "facingSource": {
@@ -15495,7 +15660,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FJ__ASOS&station=NFKD",
      "distanceKm": 14.4
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.57 km from OSM natural=coastline way/22570317 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Matanuku Island', 0.57 km (https://www.openstreetmap.org/way/22570317); the Natural Earth 10 m coastline is 3.04 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22570317",
+    "url": "https://www.openstreetmap.org/way/22570317",
+    "distanceKm": 0.57,
+    "naturalEarthKm": 3.04
+   }
   },
   {
    "id": "w-pac-uruilangi",
@@ -16381,7 +16553,7 @@
    "lon": 177.172,
    "seaward": 270,
    "positionSource": {
-    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.841479, 177.172484)",
+    "text": "Surfnerd guide map pin (spot page JSON latitude/longitude -17.841479, 177.172484); coast check 2026-11-09: 1.18 km from OSM coastline (https://www.openstreetmap.org/way/22574543)",
     "url": "https://www.surfnerd.com/surf-forecast/wilkes-pass"
    },
    "facingSource": {
@@ -16480,7 +16652,14 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?network=FJ__ASOS&station=NFFN",
      "distanceKm": 30.3
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.18 km from OSM natural=coastline way/22574543 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM natural=beach 'Mamanuca Islands', 1.18 km (https://www.openstreetmap.org/relation/2535488); the Natural Earth 10 m coastline is 10.07 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22574543",
+    "url": "https://www.openstreetmap.org/way/22574543",
+    "distanceKm": 1.18,
+    "naturalEarthKm": 10.07
+   }
   }
  ],
  "dropped": [

@@ -1067,7 +1067,7 @@
    "country": "Japan",
    "region": "Chiba Prefecture, Higashiinodaki",
    "timeZone": "Asia/Tokyo",
-   "type": null,
+   "type": "Beach",
    "lat": 35.263,
    "lon": 140.402,
    "seaward": 90.0,
@@ -1124,7 +1124,8 @@
      "surfnerd": "O'Hara Beach Park is a run of sandy peaks breaking in the gaps between the tetrapods that parallel the coast. From the Izumi River down to the park you'll find several of them, including Jinjya Shita, HasegawaSou Mae and Panya Shita, all shifting over sand and throwing up both lefts and rights.",
      "surfForecast": "Ohara in Kanagawa and Chiba is an exposed beach break that only works once in a while. Autumn and winter are the best times of year for waves. Works best in offshore winds from the south. Most of the surf comes fis in the form of windswells and the ideal wave angle is from the southeast. The beach break offers both left and right hand waves. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded."
     },
-    "notes": "town: Higashiinodaki (surfnerd); surf-forecast pin 35.25,140.4 is 1.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+    "notes": "town: Higashiinodaki (surfnerd); surf-forecast pin 35.25,140.4 is 1.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Ohara in Kanagawa and Chiba is an exposed beach break that only works once in a while. Type: Beach (surf-forecast, pin 0.91 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1151,7 +1152,11 @@
      "lon": 139.91,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RJTK&network=JP__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Ohara in Kanagawa and Chiba is an exposed beach break that only works once in a while. Type: Beach (surf-forecast, pin 0.91 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Ohara"
+   }
   },
   {
    "id": "w-japan-onjuku-beach",
@@ -1349,7 +1354,7 @@
    "country": "Japan",
    "region": "Chiba Prefecture, Taito",
    "timeZone": "Asia/Tokyo",
-   "type": null,
+   "type": "Beach",
    "lat": 35.33,
    "lon": 140.399,
    "seaward": 45.0,
@@ -1372,6 +1377,11 @@
      },
      {
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Kanagawa_Chiba/Taito/index.html",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kanagawa_Chiba/Taito/",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
@@ -1408,7 +1418,8 @@
      "surfnerd": "Taito is a right-hand jetty break that peels over sand, and its slow, predictable nature makes it a longboarding favourite. There is an easy, forgiving quality to the wave that suits riders looking for a mellow, cruisy session.",
      "surfForecast": null
     },
-    "notes": "town: Taito (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; type Beach-break; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Empty"
+    "notes": "town: Taito (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; type Beach-break; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Empty",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.13 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1435,7 +1446,11 @@
      "lon": 139.91,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RJTK&network=JP__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Beach-break (wannasurf, GPS 0.13 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Asia/Japan/Kanagawa_Chiba/Taito/"
+   }
   },
   {
    "id": "w-japan-torami",
@@ -1443,7 +1458,7 @@
    "country": "Japan",
    "region": "Chiba Prefecture, Torami",
    "timeZone": "Asia/Tokyo",
-   "type": null,
+   "type": "Beach",
    "lat": 35.34,
    "lon": 140.396,
    "seaward": 90.0,
@@ -1500,7 +1515,8 @@
      "surfnerd": "Torami is a sand-bottomed beach break sitting at the heart of Japanese surf culture, one of the main Taito beaches with a well-earned reputation for reliable sandbars. It peels both left and right and holds up as a consistent option across a wide range of sizes, which makes it a dependable place to score when much of the coast is quiet.",
      "surfForecast": "Torami in Kanagawa and Chiba is an exposed beach break that has inconsistent surf Offshore winds blow from the west. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the southeast. The beach break offers both left and right hand waves. Best around high tide. It very rarely gets crowded here. Water quality is rather poor here."
     },
-    "notes": "town: Torami (surfnerd); surf-forecast pin 35.39,140.39 is 5.6 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+    "notes": "town: Torami (surfnerd); surf-forecast pin 35.39,140.39 is 5.6 km from the surfnerd pin; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Torami in Kanagawa and Chiba is an exposed beach break that has inconsistent surf Offshore winds blow from the west. Type: Beach (surf-forecast, pin 5.15 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1527,7 +1543,11 @@
      "lon": 139.91,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RJTK&network=JP__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Torami in Kanagawa and Chiba is an exposed beach break that has inconsistent surf Offshore winds blow from the west. Type: Beach (surf-forecast, pin 5.15 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Torami"
+   }
   },
   {
    "id": "w-japan-wada",
@@ -3041,6 +3061,11 @@
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Azako/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Azako/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -3073,7 +3098,8 @@
      "surfnerd": "Azakou is a right-hand river mouth that wraps back toward the harbour wall over a boulder bottom. Take-offs come fast, and it throws the occasional tube when it's on.",
      "surfForecast": null
     },
-    "notes": "town: Azako (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; frequency Sometimes break; type Rivermouth; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty"
+    "notes": "town: Azako (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Normal; experience Experienced surfers; frequency Sometimes break; type Rivermouth; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.2 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3597,6 +3623,11 @@
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Kazamoto/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Kazamoto/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -3631,7 +3662,8 @@
      "surfnerd": "Kazamoto is a fun right-hand rivermouth break that can still deliver when the rest of the Pacific coast is closed out. The wave peels over a mix of boulders and sand, and when it's overhead the rides stretch out long.",
      "surfForecast": null
     },
-    "notes": "town: Azako (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.3 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Sometimes break; type Rivermouth; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers"
+    "notes": "town: Azako (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.3 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Sometimes break; type Rivermouth; direction Right; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.3 km from row pin)"
    },
    "nearestSources": [
     {
@@ -3691,6 +3723,16 @@
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Tanegashima-Island/Nagahama_Reef/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "West (surfnerd: \"Faces W\")",
@@ -3723,7 +3765,8 @@
      "surfnerd": "Nagahama is a long, flat beach on the west coast of Tanegashima, with a scattering of low-quality peaks that tend to gather around the rivermouths. The pick of the bunch sits at the northern end, where a fickle rivermouth peak breaks over boulders and sand. The lefts are the draw here, and on the right day they throw out long walls and the occasional tube.",
      "surfForecast": null
     },
-    "notes": "town: Takenokawa (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 4.1 km from the surfnerd pin; wannasurf: wave quality Normal; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty"
+    "notes": "town: Takenokawa (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 4.1 km from the surfnerd pin; wannasurf: wave quality Normal; type Beach-break; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / 6ft+; week crowd Empty",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 4.18 km from row pin); Type: Rivermouth (wannasurf, GPS 0.17 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4829,6 +4872,11 @@
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Shikoku/yasudawakakou/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Shikoku/yasudawakakou/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southwest (surfnerd: \"Faces SW\")",
@@ -4865,7 +4913,8 @@
      "surfnerd": "Yasuda is a river mouth break that peels over boulders and offers both lefts and rights. On its day, with some south to southwest energy in a moderate to large typhoon swell, it turns on picture perfect reeling left barrels. Smaller days trade the tube for performance walls, and that is when the lineup fills up.",
      "surfForecast": "Yasuda Rivermouth in Shikoku is an exposed reef/rivermouth break The best wind direction is from the northeast. Windswells are much more typical than groudswells and the ideal wave direction is from the south. A left hand reef. It's sometimes crowded here. Watch out for rocks."
     },
-    "notes": "town: Kitagawa (surfnerd); surf-forecast pin 33.44,133.98 is 0.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Sometimes break; type Rivermouth; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+; week crowd Crowded"
+    "notes": "town: Kitagawa (surfnerd); surf-forecast pin 33.44,133.98 is 0.7 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience All surfers; frequency Sometimes break; type Rivermouth; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 2.5m+ / 8ft+; week crowd Crowded",
+    "breakTypeText": "Yasuda Rivermouth in Shikoku is an exposed reef/rivermouth break The best wind direction is from the northeast. Type: Reef/river (surf-forecast, pin 1.12 km from row pin); Type: Rivermouth (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5432,6 +5481,11 @@
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Ishinamigawa/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Kyushu/Ishinamigawa/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -5466,7 +5520,8 @@
      "surfnerd": "Ishinamigawa is a river-mouth break (gawa means river) that spins off a breakwall running parallel to the shore. The bottom is boulders and cobblestone the river has deposited, and when the swell lines up the wave can get hollow, breaking as both a left and a right.",
      "surfForecast": null
     },
-    "notes": "town: Mimitsu (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Rivermouth; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers"
+    "notes": "town: Mimitsu (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Regular; type Rivermouth; direction Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; week crowd Few surfers",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.22 km from row pin)"
    },
    "nearestSources": [
     {
@@ -6802,7 +6857,7 @@
    "lon": 128.004,
    "seaward": 135.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (26.38488,128.00369), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 26.4,128.0 (1.7 km away); wannasurf pin 26.3863,128.0030 (0.2 km away)",
+    "text": "surfnerd guide map pin (26.38488,128.00369), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 26.4,128.0 (1.7 km away); wannasurf pin 26.3863,128.0030 (0.2 km away); coast check 2026-11-09: 0.51 km from OSM coastline (https://www.openstreetmap.org/way/130969401)",
     "url": "https://www.surfnerd.com/surf-forecast/ikei.md"
    },
    "facingSource": {
@@ -6890,7 +6945,14 @@
      "lon": 127.768,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RODN&network=JP__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.51 km from OSM natural=coastline way/130969401 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island '伊計島', 0.51 km (https://www.openstreetmap.org/relation/5063232); the Natural Earth 10 m coastline is 10.58 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/130969401",
+    "url": "https://www.openstreetmap.org/way/130969401",
+    "distanceKm": 0.51,
+    "naturalEarthKm": 10.58
+   }
   },
   {
    "id": "w-japan-ko-chan",
@@ -6996,7 +7058,7 @@
    "lon": 127.888,
    "seaward": 180.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (26.1507,127.88782), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 26.15,127.89 (0.2 km away); wannasurf pin 26.1505,127.8866 (0.1 km away)",
+    "text": "surfnerd guide map pin (26.1507,127.88782), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 26.15,127.89 (0.2 km away); wannasurf pin 26.1505,127.8866 (0.1 km away); coast check 2026-11-09: 0.3 km from OSM coastline (https://www.openstreetmap.org/way/476616154)",
     "url": "https://www.surfnerd.com/surf-forecast/kudaka.md"
    },
    "facingSource": {
@@ -7084,7 +7146,14 @@
      "lon": 127.757,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ROTM&network=JP__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.3 km from OSM natural=coastline way/476616154 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'エラブ岩', 0.3 km (https://www.openstreetmap.org/way/476616154); the Natural Earth 10 m coastline is 7.45 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/476616154",
+    "url": "https://www.openstreetmap.org/way/476616154",
+    "distanceKm": 0.3,
+    "naturalEarthKm": 7.45
+   }
   },
   {
    "id": "w-japan-maeda",
@@ -7604,6 +7673,11 @@
       "url": "https://www.wannasurf.com/spot/Asia/Japan/Shikoku/kaifu_rivermouth/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Japan/Shikoku/kaifu_rivermouth/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -7640,7 +7714,8 @@
      "surfnerd": "Kaifu River is one of the best quality rivermouth waves in Japan, tucked into Tokushima about 45 minutes from Cape Muroto in the scenic Ana Quasi national coastal park. On the handful of days a season it truly fires, the right-hand river mouth peak throws up seriously hollow, powerful walls over a boulder bottom. There's a short left off the peak as well, and the neighbouring beach can get good at the same time.",
      "surfForecast": "Kaifu Rivermouth in Shikoku is a reasonably exposed river break that has inconsistent surf Offshore winds are from the northwest. Windswells are much more common than groundswells and the best wave direction is from the southeast. The river breaks are all rights. Sometimes crowded. The crowds in the water make a gath helmet a good idea."
     },
-    "notes": "town: Tomoura (surfnerd); surf-forecast pin 33.59,134.36 is 0.6 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality World Class; experience Experienced surfers; frequency Regular; type Rivermouth; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft; week crowd Few surfers"
+    "notes": "town: Tomoura (surfnerd); surf-forecast pin 33.59,134.36 is 0.6 km from the surfnerd pin; wannasurf pin (Approximate) is 0.1 km from the surfnerd pin; wannasurf: wave quality World Class; experience Experienced surfers; frequency Regular; type Rivermouth; direction Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 4m+ / 12ft; week crowd Few surfers",
+    "breakTypeText": "Kaifu Rivermouth in Shikoku is a reasonably exposed river break that has inconsistent surf Offshore winds are from the northwest. Type: River (surf-forecast, pin 1.34 km from row pin); Type: Rivermouth (wannasurf, GPS 0.09 km from row pin)"
    },
    "nearestSources": [
     {

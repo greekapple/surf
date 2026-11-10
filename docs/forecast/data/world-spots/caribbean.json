@@ -5804,7 +5804,8 @@
      "surfnerd": "Baracoa Coast is a stretch of Cuba's far eastern shoreline, where the town of Baracoa sits in a north-facing bay and no fewer than six major rivers empty into the Atlantic. This is the portion of the island most open to the North Atlantic, so the possibilities here are very real, even if the surf doesn't rate as a standout. Waves break over sand and lava, producing both beach and reef setups with rights and lefts.",
      "surfForecast": null
     },
-    "notes": "town: Mata (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef"
+    "notes": "town: Mata (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef (surfnerd)"
    },
    "nearestSources": [
     {
@@ -6176,7 +6177,8 @@
      "surfnerd": "Cajo Babo is a left-hand point breaking off a rivermouth on the south coast of Guantanamo province, due south of Baracoa. The village itself is little more than a dozen homes, so simply getting here is most of the adventure. The wave peels over sand in nice Caribbean water, and while little is known about it, the setup is a decent one that could be all time when it lines up.",
      "surfForecast": null
     },
-    "notes": "town: Maron (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Point; not published as Beach/Point/Reef"
+    "notes": "town: Maron (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Point; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Point (surfnerd)"
    },
    "nearestSources": [
     {
@@ -7891,7 +7893,8 @@
      "surfnerd": "Bahoruco is a cobblestone point on the far southwest coast of the Dominican Republic, and one of the best little setups around. It's a left that breaks over rock with a reef-point character, and the water is clean. Sitting well away from any major population centre, in a region that's only recently seeing an influx of tourism, it's the most likely place you'll surf alone in the country.",
      "surfForecast": null
     },
-    "notes": "town: Paraíso (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Reef, Point; not published as Beach/Point/Reef"
+    "notes": "town: Paraíso (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Reef, Point; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Reef, Point (surfnerd)"
    },
    "nearestSources": [
     {
@@ -10384,7 +10387,7 @@
    "country": "Dominican Republic",
    "region": "La Altagracia",
    "timeZone": "America/Santo_Domingo",
-   "type": null,
+   "type": "Beach",
    "lat": 18.773,
    "lon": -68.536,
    "seaward": 0.0,
@@ -10403,6 +10406,16 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/playa-macao",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Playadel-Macao",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Dominican_Republic/macao/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -10431,7 +10444,8 @@
      "surfnerd": "Playa Macao is a surf spot on the coast of the Dominican Republic.",
      "surfForecast": null
     },
-    "notes": "town: El Manglecito (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: El Manglecito (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Playa del Macao on the North Coast is an exposed beach break that has pretty consitent surf. Type: Beach (surf-forecast, pin 1.39 km from row pin); Type: Beach-break (wannasurf, GPS 0.1 km from row pin)"
    },
    "nearestSources": [
     {
@@ -10470,7 +10484,11 @@
      "lon": -68.363,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MDPC&network=DO__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Playa del Macao on the North Coast is an exposed beach break that has pretty consitent surf. Type: Beach (surf-forecast, pin 1.39 km from row pin); Type: Beach-break (wannasurf, GPS 0.1 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Playadel-Macao"
+   }
   },
   {
    "id": "w-carib-police-station",
@@ -13160,7 +13178,7 @@
    "country": "France",
    "region": "Guadeloupe",
    "timeZone": "America/Guadeloupe",
-   "type": null,
+   "type": "Reef",
    "lat": 16.241,
    "lon": -61.338,
    "seaward": 157.5,
@@ -13179,6 +13197,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/le-helleux",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Guadeloupe/le_helleux/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -13207,7 +13230,8 @@
      "surfnerd": "Le Helleux is a surf spot on the coast of France. Specific swell, wind, and tide details aren't documented for it yet, so check the live forecast and, if you can, scope the lineup in person before you paddle out.",
      "surfForecast": null
     },
-    "notes": "town: Le Helleux (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Le Helleux (surfnerd); no surf-forecast page matched within 6 km by name; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Reef-rocky (wannasurf, GPS 0.12 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13258,7 +13282,11 @@
      "lon": -61.516,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TFFR&network=DM__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-rocky (wannasurf, GPS 0.12 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Guadeloupe/le_helleux/"
+   }
   },
   {
    "id": "w-carib-le-lorrain",
@@ -14554,7 +14582,8 @@
      "surfnerd": "Anse A Foleur is a fun rivermouth peak breaking over boulders, throwing both a left and a right. The left runs peaky, while the right sets up a good bowl with open carving sections in the morning offshores. It suits intermediate surfers, and it takes shorter period northeast windswell as happily as it takes the afternoon onshores.",
      "surfForecast": null
     },
-    "notes": "town: Anse-a-Foleur (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Anse-a-Foleur (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -14606,7 +14635,7 @@
    "lon": -73.432,
    "seaward": 225.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (18.20963,-73.43186), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (18.20963,-73.43186), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.24 km from OSM coastline (https://www.openstreetmap.org/way/48430668)",
     "url": "https://www.surfnerd.com/surf-forecast/aquin-islands-aquin-sandbar.md"
    },
    "facingSource": {
@@ -14706,7 +14735,14 @@
      "lon": -72.356,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTAR&network=HT__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.24 km from OSM natural=coastline way/48430668 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet, 1.65 km (https://www.openstreetmap.org/way/48430577); the Natural Earth 10 m coastline is 5.31 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/48430668",
+    "url": "https://www.openstreetmap.org/way/48430668",
+    "distanceKm": 0.24,
+    "naturalEarthKm": 5.31
+   }
   },
   {
    "id": "w-carib-aquin-islands-grande-cay-aquin",
@@ -14719,7 +14755,7 @@
    "lon": -73.411,
    "seaward": 180.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (18.22111,-73.41083), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (18.22111,-73.41083), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.05 km from OSM coastline (https://www.openstreetmap.org/way/22982223)",
     "url": "https://www.surfnerd.com/surf-forecast/aquin-islands-grande-cay-aquin.md"
    },
    "facingSource": {
@@ -14817,7 +14853,14 @@
      "lon": -72.356,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTAR&network=HT__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.05 km from OSM natural=coastline way/22982223 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Grosse Caye', 0.05 km (https://www.openstreetmap.org/way/22982223); the Natural Earth 10 m coastline is 4.1 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22982223",
+    "url": "https://www.openstreetmap.org/way/22982223",
+    "distanceKm": 0.05,
+    "naturalEarthKm": 4.1
+   }
   },
   {
    "id": "w-carib-aquin-islands-mosquito-island",
@@ -14830,7 +14873,7 @@
    "lon": -73.472,
    "seaward": 225.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (18.21568,-73.47217), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (18.21568,-73.47217), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.42 km from OSM coastline (https://www.openstreetmap.org/way/48430575)",
     "url": "https://www.surfnerd.com/surf-forecast/aquin-islands-mosquito-island.md"
    },
    "facingSource": {
@@ -14928,7 +14971,14 @@
      "lon": -72.356,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTAR&network=HT__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.42 km from OSM natural=coastline way/48430575 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'Caye Ramier', 0.42 km (https://www.openstreetmap.org/way/48430575); the Natural Earth 10 m coastline is 3.9 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/48430575",
+    "url": "https://www.openstreetmap.org/way/48430575",
+    "distanceKm": 0.42,
+    "naturalEarthKm": 3.9
+   }
   },
   {
    "id": "w-carib-baie-du-mesle",
@@ -15104,7 +15154,8 @@
      "surfnerd": "Brasiliene is a reeling rivermouth lefthander that snaps over large cobblestones and boulders, with morning offshores sending spray into the air. Its offshore bathymetry makes it a genuine swell magnet, and the payoff is a high-quality wall when everything lines up.",
      "surfForecast": null
     },
-    "notes": "town: Terre Noire (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Terre Noire (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -15429,7 +15480,8 @@
      "surfnerd": "Chevalier is a river mouth setup east of Roche a Bateau, where tight-to-shore lefts and rights wedge together and meet in a silty shoredump. It looks unimpressive on Google Earth, but the offshore bathymetry and the angle of the sand bars make it more reliable than it appears, especially on small southeast pulses. The waves break over a mix of boulders and sand.",
      "surfForecast": null
     },
-    "notes": "town: Lan Beurre (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Lan Beurre (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -16180,7 +16232,8 @@
      "surfnerd": "Jean Rabel is the first and only notable spot to the west that sits outside the giant swell shadow of Île de la Tortuga. You get a right-hand pointbreak alongside a sprawling rivermouth, with various rideable sections breaking over shallow cobbles. On the right day you can link the shallow spots together with sharp turns, float over long feathering lips, and tuck into tight pockets for a fun ride.",
      "surfForecast": null
     },
-    "notes": "town: Bord-de-Mer de Jean-Rabel (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Bord-de-Mer de Jean-Rabel (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -16612,7 +16665,8 @@
      "surfnerd": "Les Anglais is a sprawling river mouth left point and the longest wave in Haiti. It reels over boulders, and when it turns on the long peelers run all the way past the town. On its best days it delivers a leg-burning, Pavones-like ride from top to bottom.",
      "surfForecast": null
     },
-    "notes": "town: Les Anglais (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Les Anglais (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -17507,7 +17561,8 @@
      "surfnerd": "Torbek is a long right-hand rivermouth wave that peels over boulders and sand for an easy, open ride, making it a natural fit for longboarding. It sits on the coast southwest of Les Cayes, the main port in southern Haiti.",
      "surfForecast": null
     },
-    "notes": "town: Briller (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Briller (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -19609,7 +19664,8 @@
      "surfnerd": "Antonio's is mainly a right-hand wall with a shorter left, breaking over a mix of sand and rock along the northern part of Rincon. Two main takeoff areas spread people out, and when it's really going you're dropping in right in front of The Landing restaurant and running a string of carveable sections built for off-the-lips and airs. It isn't a heavy or dangerous wave.",
      "surfForecast": null
     },
-    "notes": "town: Río Grande (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef"
+    "notes": "town: Río Grande (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Reef; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Reef (surfnerd)"
    },
    "nearestSources": [
     {
@@ -21517,7 +21573,7 @@
    "country": "Puerto Rico",
    "region": "Puerto Rico",
    "timeZone": "America/Puerto_Rico",
-   "type": null,
+   "type": "Reef",
    "lat": 18.491,
    "lon": -66.611,
    "seaward": 0.0,
@@ -21536,6 +21592,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/hallows",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/hollows/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -21564,7 +21625,8 @@
      "surfnerd": "Hallows is a surf spot in Puerto Rico. Detailed condition notes for this break aren't available yet, so check the live forecast for swell, wind, and tide before you paddle out.",
      "surfForecast": null
     },
-    "notes": "town: Islote (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Islote (surfnerd); no surf-forecast page matched within 6 km by name; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 0.01 km from row pin)"
    },
    "nearestSources": [
     {
@@ -21627,7 +21689,11 @@
      "lon": -66.563,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJPS&network=PR_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 0.01 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/hollows/"
+   }
   },
   {
    "id": "w-carib-inches",
@@ -21935,6 +22001,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/indicators-rincon",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/indicators/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "West (surfnerd: \"Faces W\")",
@@ -21965,7 +22036,8 @@
      "surfnerd": "Indicators is a right-hand reef and point break just down the beach from Domes, around the corner and nearly in front of the Lighthouse. The name comes from the exposed rock sitting in the middle of the lineup, which doubles as a reliable read on sets approaching The Point and Maria's. When it's on, it's a serious proposition: the takeoff sits nearly in front of that rock, and the truly bold can tempt fate at the Deadman's peak right in front of it.",
      "surfForecast": null
     },
-    "notes": "town: Puntas (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Reef, Point; not published as Beach/Point/Reef"
+    "notes": "town: Puntas (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Reef, Point; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Reef-rocky (wannasurf, GPS 0.23 km from row pin); Type: Reef, Point (surfnerd)"
    },
    "nearestSources": [
     {
@@ -22772,7 +22844,7 @@
    "country": "Puerto Rico",
    "region": "Puerto Rico",
    "timeZone": "America/Puerto_Rico",
-   "type": null,
+   "type": "Reef",
    "lat": 18.482,
    "lon": -66.342,
    "seaward": 0.0,
@@ -22791,6 +22863,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/las-pasas",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/las_pasas/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -22819,7 +22896,8 @@
      "surfnerd": "Las Pasas is a surf spot in Puerto Rico. There isn't detailed condition data available for this break yet, so lean on the live forecast to see how the swell, wind, and tide are shaping up before you head out.",
      "surfForecast": null
     },
-    "notes": "town: Breñas (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Breñas (surfnerd); no surf-forecast page matched within 6 km by name; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 0.58 km from row pin)"
    },
    "nearestSources": [
     {
@@ -22882,7 +22960,11 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 0.58 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/las_pasas/"
+   }
   },
   {
    "id": "w-carib-little-malibu",
@@ -23815,6 +23897,11 @@
       "url": "https://www.surf-forecast.com/breaks/Pine-Grove",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/pine_grove/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "North (surfnerd: \"Faces N\")",
@@ -23842,7 +23929,8 @@
      "surfnerd": "Pine Grove is a surf spot in Puerto Rico that's at its cleanest with a north (N) offshore wind. That's the condition to time your session around: when the wind swings offshore from the north, you can expect the tidiest faces here.",
      "surfForecast": "Pine Grove in Puerto Rico is a sheltered sandbar break that has quite consistent surf. Works best in offshore winds from the south southeast and there is no shelter here from cross shore breezes. The best swell direction is from the north. The sandbar break provides left and right handers. When it's working here, it can get crowded."
     },
-    "notes": "town: Carolina (surfnerd); surf-forecast pin 18.45,-66.01 is 0.7 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Carolina (surfnerd); surf-forecast pin 18.45,-66.01 is 0.7 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Pine Grove in Puerto Rico is a sheltered sandbar break that has reasonably consistent surf. Type: Sandbar (surf-forecast, pin 0.11 km from row pin); Type: Sand-bar (wannasurf, GPS 0.2 km from row pin)"
    },
    "nearestSources": [
     {
@@ -24932,7 +25020,8 @@
      "surfnerd": "The Point is a right-hand reef point that breaks over rock, and technically it's the top section of Maria's rather than a break of its own. It sets up right in front of an exposed chunk of reef, and the wave is mostly a high-line wall, so you need down-the-line speed straight off the takeoff. A strong northwest swell changes that character completely: it bowls, jacks and tubes.",
      "surfForecast": null
     },
-    "notes": "town: Puntas (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Reef, Point; not published as Beach/Point/Reef"
+    "notes": "town: Puntas (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Reef, Point; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Reef, Point (surfnerd)"
    },
    "nearestSources": [
     {
@@ -25756,7 +25845,7 @@
    "country": "Saint Lucia",
    "region": "Gros Islet",
    "timeZone": "America/St_Lucia",
-   "type": null,
+   "type": "Reef",
    "lat": 14.058,
    "lon": -60.976,
    "seaward": 270.0,
@@ -25775,6 +25864,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/winjammer",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/St_Lucia/Winjammer/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -25803,7 +25897,8 @@
      "surfnerd": "Winjammer is a surf spot in Saint Lucia. There's limited detail on how it breaks, so check the live forecast to see how the swell, wind, and tide are shaping up before heading out.",
      "surfForecast": null
     },
-    "notes": "town: Bois d'Orange (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Bois d'Orange (surfnerd); no surf-forecast page matched within 6 km by name; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 0.03 km from row pin)"
    },
    "nearestSources": [
     {
@@ -25854,7 +25949,11 @@
      "lon": -60.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TLPC&network=LC__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 0.03 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/St_Lucia/Winjammer/"
+   }
   },
   {
    "id": "w-carib-friars-bay",
@@ -26691,7 +26790,7 @@
    "country": "Saint Vincent and the Grenadines",
    "region": "Saint George",
    "timeZone": "America/St_Vincent",
-   "type": null,
+   "type": "Point",
    "lat": 13.188,
    "lon": -61.139,
    "seaward": 112.5,
@@ -26710,6 +26809,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/ship-in-bay",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/St_Vincent_Grenadines/Ship_In_Bay/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -26740,7 +26844,8 @@
      "surfnerd": "Ship In Bay is a surf spot in Saint Vincent and the Grenadines. Check the current forecast for swell, wind, and tide to see when it's worth paddling out.",
      "surfForecast": null
     },
-    "notes": "town: Adelphi (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Adelphi (surfnerd); no surf-forecast page matched within 6 km by name; type: Point per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Point-break (wannasurf, GPS 0.07 km from row pin)"
    },
    "nearestSources": [
     {
@@ -26791,7 +26896,11 @@
      "lon": -61.16,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TVSA&network=VC__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Point-break (wannasurf, GPS 0.07 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/St_Vincent_Grenadines/Ship_In_Bay/"
+   }
   },
   {
    "id": "w-carib-cupecoy",
@@ -28749,7 +28858,7 @@
    "lon": -77.193,
    "seaward": 157.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (25.0868,-77.193), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (25.0868,-77.193), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.04 km from OSM coastline (https://www.openstreetmap.org/way/546243185)",
     "url": "https://www.surfnerd.com/surf-forecast/rose-island.md"
    },
    "facingSource": {
@@ -28830,7 +28939,14 @@
      "lon": -77.466,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYNN&network=BS__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.04 km from OSM natural=coastline way/546243185 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Rose Island', 0.04 km (https://www.openstreetmap.org/relation/7802090); the Natural Earth 10 m coastline is 7.82 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/546243185",
+    "url": "https://www.openstreetmap.org/way/546243185",
+    "distanceKm": 0.04,
+    "naturalEarthKm": 7.82
+   }
   },
   {
    "id": "w-carib-rush-reef",
@@ -29208,7 +29324,7 @@
    "lon": -77.106,
    "seaward": 0.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (26.66901,-77.10579), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 26.69,-77.14 (4.1 km away)",
+    "text": "surfnerd guide map pin (26.66901,-77.10579), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 26.69,-77.14 (4.1 km away); coast check 2026-11-09: 0.13 km from OSM coastline (https://www.openstreetmap.org/way/22581830)",
     "url": "https://www.surfnerd.com/surf-forecast/willawahs.md"
    },
    "facingSource": {
@@ -29311,7 +29427,14 @@
      "lon": -78.696,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYGF&network=BS__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.13 km from OSM natural=coastline way/22581830 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Great Guana Cay', 0.13 km (https://www.openstreetmap.org/relation/10117246); the Natural Earth 10 m coastline is 10.24 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/22581830",
+    "url": "https://www.openstreetmap.org/way/22581830",
+    "distanceKm": 0.13,
+    "naturalEarthKm": 10.24
+   }
   },
   {
    "id": "w-carib-airports-tobago",
@@ -29823,6 +29946,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/grande-riviere",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Grand-Rivere",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "North-northwest (surfnerd: \"Faces NNW\")",
@@ -29855,7 +29983,8 @@
      "surfnerd": "Grande Rivière is a swell- and trade-wind-protected bay and rivermouth that comes into its own when the rest of the north coast is maxed out on huge swells. The wave is a left breaking over an uneven reef, with nice peaks forming over the rocks on the eastern side of the bay. It is often on the small side, and the adjacent beachbreak usually carries more size.",
      "surfForecast": null
     },
-    "notes": "town: Grande Riviere (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Grande Riviere (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Grand Rivere in - is a very sheltered river break that has unreliable waves Offshore winds blow from the south southwest with some shelter here from northeast winds. Type: River (surf-forecast, pin 0.97 km from row pin)"
    },
    "nearestSources": [
     {
@@ -31511,7 +31640,7 @@
    "country": "U.S. Virgin Islands",
    "region": "Saint Thomas",
    "timeZone": "America/St_Thomas",
-   "type": null,
+   "type": "Reef",
    "lat": 18.371,
    "lon": -64.955,
    "seaward": 0.0,
@@ -31535,6 +31664,11 @@
      {
       "url": "https://www.surf-forecast.com/breaks/Hull-Bay",
       "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/hull_bay/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -31565,7 +31699,8 @@
      "surfnerd": "Hull Bay is at its best when the wind blows offshore from the northwest, cleaning up the surface and helping the waves hold their shape as you paddle out.",
      "surfForecast": "Hull Bay in Saint Thomas is a reasonably exposed reef break. Offshore winds blow from the south southeast with some shelter here from east winds. The best swell direction is from the north. Good surf at all stages of the tide. An uncrowded break, even when it is working. Watch out for - Urchins - Rips / undertow - Rocks."
     },
-    "notes": "town: Ensomned (surfnerd); surf-forecast pin 18.37,-64.96 is 0.5 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Ensomned (surfnerd); surf-forecast pin 18.37,-64.96 is 0.5 km from the surfnerd pin; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Hull Bay in Saint Thomas is a fairly exposed reef break. Type: Reef (surf-forecast, pin 1.13 km from row pin); Type: Reef-coral (wannasurf, GPS 4.45 km from row pin)"
    },
    "nearestSources": [
     {
@@ -31628,7 +31763,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Hull Bay in Saint Thomas is a fairly exposed reef break. Type: Reef (surf-forecast, pin 1.13 km from row pin); Type: Reef-coral (wannasurf, GPS 4.45 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Hull-Bay"
+   }
   },
   {
    "id": "w-carib-johns-folly",
@@ -31754,7 +31893,7 @@
    "country": "U.S. Virgin Islands",
    "region": "Saint Croix",
    "timeZone": "America/St_Thomas",
-   "type": null,
+   "type": "Reef",
    "lat": 17.777,
    "lon": -64.741,
    "seaward": 45.0,
@@ -31773,6 +31912,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/judiths-fancy-beach",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/Judiths_Fancy/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -31801,7 +31945,8 @@
      "surfnerd": "Judith's Fancy Beach picks up clean conditions when the wind comes from the northeast (NE), which blows offshore here and grooms the surface. Time your session for a northeast breeze to get the best shape out of it.",
      "surfForecast": null
     },
-    "notes": "town: Saint John (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Saint John (surfnerd); no surf-forecast page matched within 6 km by name; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 0.51 km from row pin)"
    },
    "nearestSources": [
     {
@@ -31864,7 +32009,11 @@
      "lon": -64.805,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TISX&network=VI_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 0.51 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/Judiths_Fancy/"
+   }
   },
   {
    "id": "w-carib-reef-bay-beach",
@@ -32117,7 +32266,7 @@
    "country": "U.S. Virgin Islands",
    "region": "Saint John Island",
    "timeZone": "America/St_Thomas",
-   "type": null,
+   "type": "Reef",
    "lat": 18.326,
    "lon": -64.797,
    "seaward": 247.5,
@@ -32136,6 +32285,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/turner-bay",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/Turner_Bay/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -32164,7 +32318,8 @@
      "surfnerd": "Turner Bay comes into its own when the wind blows south-southwest, the offshore direction that cleans up the surface here. That offshore wind is the main thing to keep an eye on when you're weighing up whether it's worth paddling out.",
      "surfForecast": null
     },
-    "notes": "town: Contant (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Contant (surfnerd); no surf-forecast page matched within 6 km by name; type: Reef per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Type: Reef-coral (wannasurf, GPS 0.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -32227,7 +32382,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Type: Reef-coral (wannasurf, GPS 0.06 km from row pin)",
+    "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/Turner_Bay/"
+   }
   },
   {
    "id": "w-carib-vacuums",

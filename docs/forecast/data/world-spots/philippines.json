@@ -653,7 +653,7 @@
    "lon": 126.059,
    "seaward": 67.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (9.39858,126.059), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (9.39858,126.059), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.19 km from OSM coastline (https://www.openstreetmap.org/way/68533804)",
     "url": "https://www.surfnerd.com/surf-forecast/auqui-left.md"
    },
    "facingSource": {
@@ -743,7 +743,14 @@
      "lon": 123.978,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVM&network=PH__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.19 km from OSM natural=coastline way/68533804 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'Ayoke', 0.19 km (https://www.openstreetmap.org/way/68533804); the Natural Earth 10 m coastline is 10.73 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/68533804",
+    "url": "https://www.openstreetmap.org/way/68533804",
+    "distanceKm": 0.19,
+    "naturalEarthKm": 10.73
+   }
   },
   {
    "id": "w-philippines-badjang",
@@ -1349,7 +1356,8 @@
      "surfnerd": "Moshi Moshi is a river mouth peak that breaks over boulders, throwing longer rights and shorter lefts off the same takeoff. Big rocks mark the takeoff and pop up along the line at low tide.",
      "surfForecast": "Moshi-Moshi in Surigao Del Sur Province is a fairly exposed rivermouth break that has reasonably consistent surf, although summer tends to be mostly flat. Offshore winds are from the south southeast. Usually gets local windswells, but groundswells do happen and the best wave direction is from the northeast. The beach break offers both left and right hand waves. It very rarely gets crowded here. Watch out for rocks and rips."
     },
-    "notes": "town: Sibahay (surfnerd); surf-forecast pin 9.27,126.13 is 2.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces NNW\" lies outside its own swell-exposure range(s) (N - NE. Faces NNW); kept as published, verify before use"
+    "notes": "town: Sibahay (surfnerd); surf-forecast pin 9.27,126.13 is 2.7 km from the surfnerd pin; no wannasurf page matched within 6 km by name; facing check: surfnerd's \"Faces NNW\" lies outside its own swell-exposure range(s) (N - NE. Faces NNW); kept as published, verify before use",
+    "breakTypeText": "Moshi-Moshi in Surigao Del Sur Province is a fairly exposed rivermouth break that has reasonably consistent surf, although summer tends to be mostly flat. Type: River (surf-forecast, pin 2.51 km from row pin)"
    },
    "nearestSources": [
     {
@@ -1529,7 +1537,8 @@
      "surfnerd": "Tago is a sand-bottomed river mouth break that comes alive when typhoon pulses push through. It serves up long, walled-up lefts alongside heavier, hollower rights, and plays as an emptier version of the Lanuza rivermouth when the swell arrives.",
      "surfForecast": "Tago River in Surigao Del Sur Province is an exposed rivermouth break that has fairly consistent surf, although summer tends to be mostly flat. Works best in offshore winds from the southwest. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the northeast. The beach break provides left and right handers. Surfable at all stages of the tide. It very rarely gets crowded here. Take care of the strong rips here."
     },
-    "notes": "town: Tago (surfnerd); surf-forecast pin 9.01,126.25 is 1.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+    "notes": "town: Tago (surfnerd); surf-forecast pin 9.01,126.25 is 1.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Tago River in Surigao Del Sur Province is an exposed rivermouth break that has fairly consistent surf, although summer tends to be mostly flat. Type: River (surf-forecast, pin 2.06 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2786,7 +2795,7 @@
    "lon": 125.832,
    "seaward": 67.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (10.96352,125.8321), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 10.97,125.82 (1.5 km away)",
+    "text": "surfnerd guide map pin (10.96352,125.8321), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 10.97,125.82 (1.5 km away); coast check 2026-11-09: 0.27 km from OSM coastline (https://www.openstreetmap.org/way/61015159)",
     "url": "https://www.surfnerd.com/surf-forecast/sulingan-beach.md"
    },
    "facingSource": {
@@ -2879,7 +2888,14 @@
      "lon": 123.978,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVM&network=PH__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.27 km from OSM natural=coastline way/61015159 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Calicoan Island', 0.27 km (https://www.openstreetmap.org/way/61015159); the Natural Earth 10 m coastline is 19.76 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/61015159",
+    "url": "https://www.openstreetmap.org/way/61015159",
+    "distanceKm": 0.27,
+    "naturalEarthKm": 19.76
+   }
   },
   {
    "id": "w-philippines-badoc-island-lefts",
@@ -3510,7 +3526,8 @@
      "surfnerd": "Parada Santa is a left-hander that peels off a huge seawall just north of Santa. It breaks over a mix of boulders and sand, and it makes the most of weak southwest swells.",
      "surfForecast": "Parada Santa in NW Luzon is an exposed beach/seawall break that has pretty consitent surf. Summer offers the best conditions for surfing. Works best in offshore winds from the northeast. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the southwest. The beach breaks offer left-handers. Rarely crowded here. Beware of rocks,seaweed."
     },
-    "notes": "town: Tabucolan (surfnerd); surf-forecast pin 17.5,120.4 is 2.9 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+    "notes": "town: Tabucolan (surfnerd); surf-forecast pin 17.5,120.4 is 2.9 km from the surfnerd pin; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Parada Santa in NW Luzon is an exposed beach/seawall break that has pretty consitent surf. Type: Beach/seawall (surf-forecast, pin 2.42 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4364,7 +4381,7 @@
    "lon": 126.162,
    "seaward": 337.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (9.74707,126.16156), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.75,126.17 (1.0 km away)",
+    "text": "surfnerd guide map pin (9.74707,126.16156), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.75,126.17 (1.0 km away); coast check 2026-11-09: 0.37 km from OSM coastline (https://www.openstreetmap.org/way/25625309)",
     "url": "https://www.surfnerd.com/surf-forecast/barrio.md"
    },
    "facingSource": {
@@ -4458,7 +4475,14 @@
      "lon": 123.978,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVM&network=PH__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.37 km from OSM natural=coastline way/25625309 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Daco Island', 0.37 km (https://www.openstreetmap.org/relation/11204342); the Natural Earth 10 m coastline is 3.21 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/25625309",
+    "url": "https://www.openstreetmap.org/way/25625309",
+    "distanceKm": 0.37,
+    "naturalEarthKm": 3.21
+   }
   },
   {
    "id": "w-philippines-caridad",
@@ -4901,7 +4925,7 @@
    "lon": 126.176,
    "seaward": 180.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (9.6045,126.17603), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.61,126.17 (0.9 km away)",
+    "text": "surfnerd guide map pin (9.6045,126.17603), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.61,126.17 (0.9 km away); coast check 2026-11-09: 0.16 km from OSM coastline (https://www.openstreetmap.org/way/154267703)",
     "url": "https://www.surfnerd.com/surf-forecast/mabuntok.md"
    },
    "facingSource": {
@@ -4992,7 +5016,14 @@
      "lon": 123.978,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVM&network=PH__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.16 km from OSM natural=coastline way/154267703 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=islet 'Antokan Island', 0.16 km (https://www.openstreetmap.org/way/154267703); the Natural Earth 10 m coastline is 18.15 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/154267703",
+    "url": "https://www.openstreetmap.org/way/154267703",
+    "distanceKm": 0.16,
+    "naturalEarthKm": 18.15
+   }
   },
   {
    "id": "w-philippines-pacifico",
@@ -5111,7 +5142,7 @@
    "lon": 126.14,
    "seaward": 247.5,
    "positionSource": {
-    "text": "surfnerd guide map pin (9.73278,126.13994), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.74,126.14 (0.8 km away)",
+    "text": "surfnerd guide map pin (9.73278,126.13994), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 9.74,126.14 (0.8 km away); coast check 2026-11-09: 1.49 km from OSM coastline (https://www.openstreetmap.org/way/215184517)",
     "url": "https://www.surfnerd.com/surf-forecast/pansukian.md"
    },
    "facingSource": {
@@ -5206,7 +5237,14 @@
      "lon": 123.978,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=RPVM&network=PH__ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 1.49 km from OSM natural=coastline way/215184517 (OSM API map call, 2026-11-09); nearest Nominatim outline: OSM place=island 'Daco Island', 1.57 km (https://www.openstreetmap.org/relation/11204342); the Natural Earth 10 m coastline is 3.28 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/215184517",
+    "url": "https://www.openstreetmap.org/way/215184517",
+    "distanceKm": 1.49,
+    "naturalEarthKm": 3.28
+   }
   },
   {
    "id": "w-philippines-quicksilver",

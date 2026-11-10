@@ -1079,6 +1079,11 @@
       "url": "https://www.wannasurf.com/spot/Asia/Taiwan/jia_le_shui/index.html",
       "site": "wannasurf",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/Asia/Taiwan/jia_le_shui/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -1115,7 +1120,8 @@
      "surfnerd": "Jialeshui, also written Jia le Shui, is one of the main spots in south Taiwan and one of the most dependable. Its bankability means there's usually something to ride in most swells. Lefthanders skirt a rocky reef in the shadow of the long headland, peeling lazily for a fair distance, while a rivermouth peak in the middle of the beach works a shifting sandbar.",
      "surfForecast": null
     },
-    "notes": "town: Jialeshui (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Very consistent (150 day/year); type Rivermouth; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over; week crowd Empty"
+    "notes": "town: Jialeshui (surfnerd); no surf-forecast page matched within 6 km by name; wannasurf pin (Approximate) is 0.2 km from the surfnerd pin; wannasurf: wave quality Regional Classic; experience Experienced surfers; frequency Very consistent (150 day/year); type Rivermouth; direction Right and left; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over; week crowd Empty",
+    "breakTypeText": "Type: Rivermouth (wannasurf, GPS 0.19 km from row pin)"
    },
    "nearestSources": [
     {

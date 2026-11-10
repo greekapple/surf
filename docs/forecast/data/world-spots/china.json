@@ -455,7 +455,7 @@
    "country": "China",
    "region": "Fujian, Baicheng",
    "timeZone": "Asia/Shanghai",
-   "type": null,
+   "type": "Beach",
    "lat": 23.656,
    "lon": 117.426,
    "seaward": 135.0,
@@ -474,6 +474,11 @@
      {
       "url": "https://www.surfnerd.com/surf-forecast/wujiao-bay-dongshan-island",
       "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao",
+      "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -507,7 +512,8 @@
      "surfnerd": "Wujiao Bay sits 4 km south of Dongshan town, just south of the main harbour, where several good-quality peaks break either side of a short jetty. The waves form over sand and peel both left and right.",
      "surfForecast": null
     },
-    "notes": "town: Baicheng (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name"
+    "notes": "town: Baicheng (surfnerd); no surf-forecast page matched within 6 km by name; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Wujiao Bay (Dongshan Dao) in Zhangzhou is an exposed beach break that does not work very often. Type: Beach (surf-forecast, pin 3.7 km from row pin)"
    },
    "nearestSources": [
     {
@@ -534,7 +540,11 @@
      "lon": 116.683,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Wujiao Bay (Dongshan Dao) in Zhangzhou is an exposed beach break that does not work very often. Type: Beach (surf-forecast, pin 3.7 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Wujiao-Bay-Dongshan-Dao"
+   }
   },
   {
    "id": "w-china-88",
@@ -542,7 +552,7 @@
    "country": "China",
    "region": "Guangdong, Changgou",
    "timeZone": "Asia/Shanghai",
-   "type": null,
+   "type": "Beach",
    "lat": 22.709,
    "lon": 115.565,
    "seaward": 90.0,
@@ -600,7 +610,8 @@
      "surfnerd": "88 is a powerful left that peels over sand near a series of jetties in the Zhelang and Hong Hoi Wan area, generally the best bet around here. The jetties have shaped some excellent sand banks, with a left breaking off the northern jetty and clean A-frames setting up on the inside. There's history here too: the 2003 720 contest crowned Japan's Shinichi Yoshida as China's first surfing champion.",
      "surfForecast": "Hong Hai Bay (88) in Guangdong is an exposed beach break that has quite reliable surf and can work at any time of the year. Offshore winds blow from the northwest and there is no shelter here from cross shore breezes. Usually gets local windswells, but groundswells do happen and the best wave direction is from the south. Waves at the beach break both left and right. An uncrowded break, even when it is working. Be wary of rips - they make surfing here dangerous."
     },
-    "notes": "town: Changgou (surfnerd); surf-forecast pin 22.71,115.56 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name"
+    "notes": "town: Changgou (surfnerd); surf-forecast pin 22.71,115.56 is 0.5 km from the surfnerd pin; no wannasurf page matched within 6 km by name",
+    "breakTypeText": "Hong Hai Bay (88) in Guangdong is an exposed beach break that has fairly consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.76 km from row pin)"
    },
    "nearestSources": [
     {
@@ -627,7 +638,11 @@
      "lon": 116.683,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ZGOW&network=CN__ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Hong Hai Bay (88) in Guangdong is an exposed beach break that has fairly consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.76 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Hong_Hai_Bay_surf_break_88"
+   }
   },
   {
    "id": "w-china-cherry-point",

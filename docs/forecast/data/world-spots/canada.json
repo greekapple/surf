@@ -345,6 +345,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/banc-de-pabos",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/Canada/East_Coast/Banc_de_Pabos/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -372,7 +377,8 @@
      "surfnerd": "Banc de Pabos is a surf spot in Canada. There is no detailed information available for this break yet, so check the live forecast before you make the drive.",
      "surfForecast": null
     },
-    "notes": "town: Chandler (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Chandler (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.38 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2585,7 +2591,7 @@
    "country": "Canada",
    "region": "Nova Scotia",
    "timeZone": "America/Halifax",
-   "type": null,
+   "type": "Beach",
    "lat": 44.261,
    "lon": -64.272,
    "seaward": 157.5,
@@ -2609,6 +2615,11 @@
      {
       "url": "https://www.surf-forecast.com/breaks/Hirdles",
       "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/Canada/East_Coast/hirtles/",
+      "site": "wannasurf",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -2637,7 +2648,8 @@
      "surfnerd": "",
      "surfForecast": "Hirdles on the South Coast is a reasonably exposed beach break that has quite reliable surf and can work at any time of the year. Ideal winds are from the north northwest with some shelter here from north winds. Windswells and groundswells in equal measure and the optimum swell angle is from the east northeast. The beach break offers both left and right hand waves. Even when there are waves, it's not likley to be crowded."
     },
-    "notes": "town: Upper Kingsburg (surfnerd); surf-forecast pin 44.26,-64.27 is 0.2 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Upper Kingsburg (surfnerd); surf-forecast pin 44.26,-64.27 is 0.2 km from the surfnerd pin; type: Beach per second guide (cleanup r2 2026-11-09)",
+    "breakTypeText": "Hirdles on the South Coast is a reasonably exposed beach break that has quite reliable surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.42 km from row pin); Type: Beach-break (wannasurf, GPS 0.27 km from row pin)"
    },
    "nearestSources": [
     {
@@ -2700,7 +2712,11 @@
      "lon": -64.296,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CXLB&network=CA_NS_ASOS"
     }
-   ]
+   ],
+   "typeSource": {
+    "text": "Hirdles on the South Coast is a reasonably exposed beach break that has quite reliable surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.42 km from row pin); Type: Beach-break (wannasurf, GPS 0.27 km from row pin)",
+    "url": "https://www.surf-forecast.com/breaks/Hirdles"
+   }
   },
   {
    "id": "w-canada-lawrencetown-left-point",

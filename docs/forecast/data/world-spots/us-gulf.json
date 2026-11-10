@@ -62,7 +62,8 @@
      "surfnerd": "28th St sits at the first groin south of Flagship, a sand-bottomed beach and jetty setup that can break both right and left. The groin is short, so on its own it usually isn't much of a surfing wave. Its real value is as a launch point: when a strong south-to-north current is running, it's a handy place to paddle out and work your way up to the south peak at Flagship.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -186,7 +187,8 @@
      "surfnerd": "33rd St is a short-groin beach and jetty break on the Galveston seawall, sitting right in front of the Holiday Inn Express and the well-known local eatery, The Spot. It's an easy check on a drive down the seawall, though you can usually find better peaks elsewhere. Waves peel both left and right over a sand bottom, and it's a modest setup overall.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -310,7 +312,8 @@
      "surfnerd": "37th Street is a sand-bottomed break built around a jetty that stabilizes the sand and pulls in shortboarders. It broke better in years past, and recent beach renourishment has moved the peak outside the jetties, so it rates below average these days. When it's on, though, waves dump comparatively hard on either side of the jetty, and the spot still has its days.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -433,7 +436,8 @@
      "surfnerd": "43rd St is one of the many groin setups along Galveston Island, where a jetty helps shape peaks that break both left and right over a sand bottom. It tends to draw a lighter crowd than several of the other spots on the island, so it can be a good call when you want a bit more room.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -557,7 +561,8 @@
      "surfnerd": "51st Street is a chunky beach and jetty break in Galveston, breaking both left and right over a sand bottom. It's an above-average groin for the area, with a grinding, hollow feel that draws a competitive shortboard crowd.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -759,7 +764,7 @@
    "lon": -82.829,
    "seaward": 270.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (27.99627,-82.82942), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (27.99627,-82.82942), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.01 km from OSM coastline (https://www.openstreetmap.org/way/315209529)",
     "url": "https://www.surfnerd.com/surf-forecast/880.md"
    },
    "facingSource": {
@@ -806,7 +811,8 @@
      "surfnerd": "880 is a double-sandbar beachbreak at the north end of Clearwater Beach, breaking over sand. Surfing isn't allowed on the patrolled stretch, so surfers head up to this northern end to find the banks. It's a modest spot that rarely turns on, but it's an easy option when there's swell about.",
      "surfForecast": null
     },
-    "notes": "town: Clearwater (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Clearwater (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -845,7 +851,14 @@
      "lon": -82.756,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CLW&network=FL_ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.01 km from OSM natural=coastline way/315209529 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 3.25 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/315209529",
+    "url": "https://www.openstreetmap.org/way/315209529",
+    "distanceKm": 0.01,
+    "naturalEarthKm": 3.25
+   }
   },
   {
    "id": "w-us-91st-st-pier",
@@ -907,7 +920,8 @@
      "surfnerd": "91st St Pier is a sand-bottom beach and pier break in Galveston, where a pier reaching more than 1,000 feet into the gulf shapes some of the best sandbars on the island. Those banks throw up fun bowls beside the pier, but the spot sits open to the region's steady onshore winds and longshore current, so much of a session is spent working to hold your position. On most days with swell, it's the best shortboard wave in Galveston.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -1745,7 +1759,8 @@
      "surfnerd": "Blue Horizon Motel sits on Okaloosa Island in Fort Walton Beach, about an hour's drive east of Pensacola between Navarre and Destin. Named after the motel it sits next to, it's been a popular summer spot for years in an area better known for its military bases and tourism. The break is a fun, snappy inside wave breaking over sand, and the surrounding coast is known as the Emerald Coast for its green-tinted water.",
      "surfForecast": null
     },
-    "notes": "town: Fort Walton Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Offshore; not published as Beach/Point/Reef"
+    "notes": "town: Fort Walton Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Offshore; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Offshore (surfnerd)"
    },
    "nearestSources": [
     {
@@ -2219,6 +2234,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/boca-chica-texas",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Boca-Chica",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East (surfnerd: \"Faces E\")",
@@ -2251,7 +2271,8 @@
      "surfnerd": "Boca Chica is a sand-bottom jetty setup at Boca Chica State Park, where the jetties guarding the Brazos Santiago Pass shape the peaks. It sits across the pass from South Padre Island and breaks left. It can get really good when the right conditions come together, and it rewards the effort of getting there.",
      "surfForecast": null
     },
-    "notes": "town: South Padre Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef"
+    "notes": "town: South Padre Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Boca Chica in Texas is an exposed beach/Jetty break that has reasonably consistent surf Offshore winds blow from the west. Type: Beach/jetty (surf-forecast, pin 2.02 km from row pin); Type: Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -2986,7 +3007,8 @@
      "surfnerd": "Cape San Blas is a right-hand pointbreak tucked at the southern tip of a sand spit southeast of Mexico Beach, along Florida's emerald coast. The point breaks over sand and, depending on the day, can throw both rights and lefts. Overall it behaves like an average beachbreak, but when the right swell hits, a few sandbars line up and light up.",
      "surfForecast": null
     },
-    "notes": "town: Indian Pass (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Point; not published as Beach/Point/Reef"
+    "notes": "town: Indian Pass (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Point; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Point (surfnerd)"
    },
    "nearestSources": [
     {
@@ -4214,7 +4236,8 @@
      "surfnerd": "First Parking Lot is a big-wave break that peaks well out in the Gulf, along Florida's Emerald Coast, where the green water gives the coastline its name. It's an average wave overall, not the kind of spot you'd travel for, but it can deliver when a real swell lines up over the sand bottom.",
      "surfForecast": null
     },
-    "notes": "town: Perdido Key (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Offshore; not published as Beach/Point/Reef"
+    "notes": "town: Perdido Key (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Offshore; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Offshore (surfnerd)"
    },
    "nearestSources": [
     {
@@ -4305,6 +4328,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/fish-pass-jetties",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/Fish_Pass_Jetties/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -4337,7 +4365,8 @@
      "surfnerd": "Fish Pass Jetties is a river-mouth spot near Corpus Christi and a longtime longboarder favorite. The pass has silted up and no longer flows, leaving mostly mushy, workable waves that peel both left and right over a sandy bottom. The jetties shelter the lineup from heavy north or south winds, so it often holds shape when nearby beaches are blown out.",
      "surfForecast": null
     },
-    "notes": "town: Corpus Christi (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef"
+    "notes": "town: Corpus Christi (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Rivermouth; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.16 km from row pin); Type: Rivermouth (surfnerd)"
    },
    "nearestSources": [
     {
@@ -4416,6 +4445,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/flagship",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Galveston-Flagship",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/galveston_-_flagship/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -4448,7 +4487,8 @@
      "surfnerd": "Flagship breaks around the pier at 25th Street on Galveston Island, named for the old Flagship Hotel that once stood there and has since been replaced by the Galveston Island Historic Pleasure Pier amusement park. It's a sand-bottom setup with bowl sections on both sides of the pier: a right that bowls back toward the pilings and softer left runners peeling down the beach, depending on the swell angle. The surf ranges from mediocre to good and tends to run a little mushy, though it holds bigger swell better than most spots in Galveston.",
      "surfForecast": null
     },
-    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Galveston (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Galveston - FlagshipPier in Texas is an exposed beach/Pier break that has fairly consistent surf. Type: Beach/pier (surf-forecast, pin 4.3 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.12 km from row pin)"
    },
    "nearestSources": [
     {
@@ -4539,6 +4579,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/fourchon",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Louisiana/fourchon/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -4566,7 +4611,8 @@
      "surfnerd": "Fourchon is at its cleanest when the wind blows offshore from the south-southeast, so time your sessions around that direction for the tidiest conditions.",
      "surfForecast": null
     },
-    "notes": "town: Port Fourchon (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Port Fourchon (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.08 km from row pin)"
    },
    "nearestSources": [
     {
@@ -5055,7 +5101,8 @@
      "surfnerd": "HMO's, short for \"half-mile out,\" is the mysto cloudbreak of Destin. It's a right-hander that breaks on a shallow sandbar well outside the east jetty of Destin Pass, so you're surfing a long way from the beach. It earns a decent rating for anyone with the paddle power to reach it.",
      "surfForecast": null
     },
-    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Offshore; not published as Beach/Point/Reef"
+    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Offshore; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Offshore (surfnerd)"
    },
    "nearestSources": [
     {
@@ -5372,7 +5419,7 @@
    "lon": -82.83,
    "seaward": 225.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (28.06077,-82.83015), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 28.12,-82.85 (6.9 km away)",
+    "text": "surfnerd guide map pin (28.06077,-82.83015), rounded to 3 dp; not a surveyed takeoff; surf-forecast pin 28.12,-82.85 (6.9 km away); coast check 2026-11-09: 0.03 km from OSM coastline (https://www.openstreetmap.org/way/1505608123)",
     "url": "https://www.surfnerd.com/surf-forecast/honeymoon-island.md"
    },
    "facingSource": {
@@ -5472,7 +5519,14 @@
      "lon": -82.756,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CLW&network=FL_ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.03 km from OSM natural=coastline way/1505608123 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 4.83 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/1505608123",
+    "url": "https://www.openstreetmap.org/way/1505608123",
+    "distanceKm": 0.03,
+    "naturalEarthKm": 4.83
+   }
   },
   {
    "id": "w-us-horace-caldwell-pier",
@@ -5764,7 +5818,8 @@
      "surfnerd": "Inlet Beach Pier is a beach and pier break on Florida's Emerald Coast, named for the green cast of the water here. It sits at a coastal lake outflow, and that drainage helps shape a solid sandbar around the pier. It's an average spot overall, so it's more of a stop when you're already nearby than a break you'd make a dedicated trip for.",
      "surfForecast": null
     },
-    "notes": "town: Laguna Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Laguna Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -5877,7 +5932,8 @@
      "surfnerd": "Isla Blanca State Park sits at the tip of South Padre and marks the epicenter of consistent, quality surf in Texas. The peaks on the north side of the jetty break over sand and can throw powerful, hollow walls you don't usually associate with Texas surf. Between the two jetties, a couple of quality waves only show on the biggest swells, when the open beaches are closed out.",
      "surfForecast": null
     },
-    "notes": "town: South Padre Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: South Padre Island (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -6002,7 +6058,8 @@
      "surfnerd": "J.P. Luby Surf Park sits on the Texas coast just south of Fish Pass, near the border between Port Aransas and Corpus Christi. It was once a bigger draw for Texas surfers, but a hurricane took out the pier and turned it into more of a secondary stop.",
      "surfForecast": null
     },
-    "notes": "town: Corpus Christi (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Corpus Christi (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -6238,7 +6295,8 @@
      "surfnerd": "Jetty East, also known as Jetty East Condos, is the Destin area's premier big-wave spot. It breaks over a sandy bottom along the Emerald Coast, so named for the color of the water, with rights and lefts peeling off the jetty. It's a decent spot that can get genuinely good and handles real size.",
      "surfForecast": null
     },
-    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -6565,6 +6623,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/lido-beach-2-3",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Florida/Lido_Beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southwest (surfnerd: \"Faces SW\")",
@@ -6592,7 +6655,8 @@
      "surfnerd": "Lido Beach comes into its own when the wind turns offshore from the southwest (SW), smoothing the surface for cleaner waves.",
      "surfForecast": null
     },
-    "notes": "town: Sarasota (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Sarasota (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.89 km from row pin)"
    },
    "nearestSources": [
     {
@@ -7206,7 +7270,8 @@
      "surfnerd": "Mexico Beach is a pier break in a small, unspoiled fishing town on Florida's Emerald Coast, named for the color of its water. The pier is the main event, and when it turns on it delivers hollow, powerful right-hand tubes over a sand bottom. Both sides of the pier break, along with the beaches just to the east.",
      "surfForecast": null
     },
-    "notes": "town: Mexico Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Mexico Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -7635,6 +7700,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/navarre-beach",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Navarre-Beach-Pier",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Florida/Navarre_Beach_Pier/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -7665,7 +7740,8 @@
      "surfnerd": "Navarre Beach is a mushy midbreak on Florida's Panhandle, tucked between the park and the pier so the crowd tends to spread out along the stretch. The sandy bottom serves up both rights and lefts, and on a decent mid-size swell it can turn into a fun, long beachbreak. It's average surf overall, and plenty of surfers on this coast make for the nearby piers and jetties.",
      "surfForecast": null
     },
-    "notes": "town: Navarre Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Navarre Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Navarre Beach Pier in Gulf Coast, Florida is an exposed sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 0.59 km from row pin); Type: Sand-bar (wannasurf, GPS 0.56 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -7795,7 +7871,8 @@
      "surfnerd": "Navarre Pier is a well-known pier break on the Emerald Coast, a stretch of the Gulf Coast named for its green water. Both sides of the pier break on the inside, and which side comes to life depends on the swell's size and direction. The bottom is sand, and the setup serves up both rights and lefts.",
      "surfForecast": "Navarre Beach Pier in Gulf Coast, Florida is an exposed sandbar break that has fairly consistent surf. Winter is the best time of year for surfing here. Offshore winds blow from the north northwest. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the south southeast. Good surf at all stages of the tide. The location means that it never gets crowded. Beware of - Rips / undertow."
     },
-    "notes": "town: Navarre Beach (surfnerd); surf-forecast pin 30.38,-86.86 is 0.5 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Navarre Beach (surfnerd); surf-forecast pin 30.38,-86.86 is 0.5 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Navarre Beach Pier in Gulf Coast, Florida is an exposed sandbar break that has fairly consistent surf. Type: Sandbar (surf-forecast, pin 0.19 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -7916,7 +7993,8 @@
      "surfnerd": "NCO Club is the most popular and reliably consistent spot in the Fort Walton area, and it often holds a rideable wave when everywhere else is flat. Sitting only about a mile from Destin's west jetty, it picks up swell with little of the drift that softens other nearby beaches, so you'll find waves all the way from the jetty down to the beach club. The peak nearest the jetty is a shifty, twisting and unpredictable one; midway along there's a long, fast wall that comes alive on summer days; and straight out front a longer, slower wall occasionally turns hollow on the inside.",
      "surfForecast": null
     },
-    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -8611,6 +8689,11 @@
       "url": "https://www.surf-forecast.com/breaks/Packery-Channel",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/packery_channel/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -8648,7 +8731,8 @@
      "surfnerd": "Packery Channel is a sand-bottomed right-hander that breaks along a shallow channel running from the Laguna Madre out to the Gulf of Mexico, on the southern edge of J.P. Luby park. A long jetty, which replaced the old broken J.P.",
      "surfForecast": "Packery Channel in Texas is an exposed breakwater break that has quite reliable surf. The optimum conditions for surfing are during the hurricane season. Offshore winds are from the west northwest. Waves more likely to be from local windswells than distant groundswells and the best wave direction is from the southeast. Waves at the breakwater break both left and right. Hazards include - Rips / undertow - Localism - Sharks."
     },
-    "notes": "town: Corpus Christi (surfnerd); surf-forecast pin 27.62,-97.2 is 0.6 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Corpus Christi (surfnerd); surf-forecast pin 27.62,-97.2 is 0.6 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Packery Channel in Texas is an exposed breakwater break that has quite consistent surf. Type: Breakwater (surf-forecast, pin 0.23 km from row pin); Type: Beach-break (wannasurf, GPS 0.25 km from row pin)"
    },
    "nearestSources": [
     {
@@ -8998,7 +9082,8 @@
      "surfnerd": "Pensacola Pier is a pier break on the Emerald Coast, named for the green tint of the water. It picks up both rights and lefts, with sand on the inside and a rock reef further out. It's a decent spot overall, and the pier itself offers some welcome wind protection.",
      "surfForecast": "Pensacola Beach Pier in Gulf Coast, Florida is a sheltered sandbar break that has quite reliable surf. The best conditions for surfing are during the hurricane season. The best wind direction is from the north northwest. Most of the surf comes fis in the form of windswells and the ideal wave direction is from the south southeast. The sandbar break offers both left and right hand waves. Beware of - Rips / undertow - Rocks - Man-made danger (buoys etc.) - Localism - Sharks."
     },
-    "notes": "town: Pensacola Beach (surfnerd); surf-forecast pin 30.33,-87.14 is 0.4 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Pensacola Beach (surfnerd); surf-forecast pin 30.33,-87.14 is 0.4 km from the surfnerd pin; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Pensacola Beach Pier in Gulf Coast, Florida is a sheltered sandbar break that has reasonably consistent surf. Type: Sandbar (surf-forecast, pin 0.46 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -9317,7 +9402,7 @@
    "lon": -82.832,
    "seaward": 270.0,
    "positionSource": {
-    "text": "surfnerd guide map pin (27.9778,-82.83247), rounded to 3 dp; not a surveyed takeoff",
+    "text": "surfnerd guide map pin (27.9778,-82.83247), rounded to 3 dp; not a surveyed takeoff; coast check 2026-11-09: 0.18 km from OSM coastline (https://www.openstreetmap.org/way/315209529)",
     "url": "https://www.surfnerd.com/surf-forecast/pier-60.md"
    },
    "facingSource": {
@@ -9398,7 +9483,14 @@
      "lon": -82.756,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CLW&network=FL_ASOS"
     }
-   ]
+   ],
+   "coastCheck": {
+    "text": "Pin is 0.18 km from OSM natural=coastline way/315209529 (OSM API map call, 2026-11-09); the Natural Earth 10 m coastline is 3.12 km away because it omits or simplifies this shore. Pin kept as published; not moved.",
+    "osm": "way/315209529",
+    "url": "https://www.openstreetmap.org/way/315209529",
+    "distanceKm": 0.18,
+    "naturalEarthKm": 3.12
+   }
   },
   {
    "id": "w-us-pompano-joes",
@@ -9547,6 +9639,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/port-mansfield-jetties",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Port-Mansfield-Jetty",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
@@ -9582,7 +9679,8 @@
      "surfnerd": "Port Mansfield Jetties is one of Texas' most isolated setups, sitting on a narrow barrier island where inlet jetties focus almost any swell into some of the longest, most lined-up waves in the state. Waves peel both left and right over a sand bottom, and a sandbar often forms between the jetties to add shape. There's more power here than at most Texas beachbreaks, along with noticeable rips.",
      "surfForecast": null
     },
-    "notes": "town: Port Mansfield (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Port Mansfield (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Port Mansfield Jetty in Texas is an exposed beach/Jetty break that has dependable surf Works best in offshore winds from the northwest. Type: Beach/jetty (surf-forecast, pin 2.67 km from row pin)"
    },
    "nearestSources": [
     {
@@ -9718,7 +9816,8 @@
      "surfnerd": "Port O'Connor Jetties sits on the Central Texas coast, where a pair of long jetties slices through the Matagorda Peninsula. The town is quiet during the week and fills with fishermen on weekends, and the break itself is a 20-plus minute boat ride out. Once you cross the island you'll find well-groomed sandbars over a sand bottom, and depending on the swell and wind either side of the jetties can turn on, so it pays to take a visual from the channel first.",
      "surfForecast": null
     },
-    "notes": "town: Port O'connor (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Port O'connor (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -9797,6 +9896,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/quintana",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/quintanas/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -9829,7 +9933,8 @@
      "surfnerd": "Quintana is a sandy-bottomed left that sits across the jetties from Surfside, backed by an industrial stretch of the Freeport harbor and Brazos River delta. It usually serves up soft, mushy waves, but it finds real power when a strong swell fills in, so it is a break worth keeping an eye on rather than counting on. The forgiving sand bottom and mellow nature make it approachable for beginners.",
      "surfForecast": null
     },
-    "notes": "town: Quintana (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Quintana (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Sand-bar (wannasurf, GPS 0.24 km from row pin)"
    },
    "nearestSources": [
     {
@@ -11500,7 +11605,8 @@
      "surfnerd": "St. Andrew's Park sits inside St. Andrews State Recreation Area on Panama City Beach, and it ranks among the area's better setups.",
      "surfForecast": "St. Andrews State Park in Alabama is an exposed beach/Jetty break that has consistent surf. The best conditions for surfing are during the hurricane season. Offshore winds blow from the northeast. Most of the surf comes fis in the form of windswells and the ideal wave angle is from the southeast. The beach break provides left and right handers. When it's working here, it can get crowded. Hazards include rips and sharks."
     },
-    "notes": "town: Lower Grand Lagoon (surfnerd); surf-forecast pin 30.13,-85.75 is 1.5 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Lower Grand Lagoon (surfnerd); surf-forecast pin 30.13,-85.75 is 1.5 km from the surfnerd pin; type: surfnerd: Beach, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "St. Andrews State Park in Alabama is an exposed beach/Jetty break that has consistent surf. Type: Beach/jetty (surf-forecast, pin 1.38 km from row pin); Type: Beach, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -11737,6 +11843,11 @@
       "url": "https://www.surf-forecast.com/breaks/St-Joe-s-Island",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/St__Joe_s_Island/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "East-southeast (surfnerd: \"Faces ESE\")",
@@ -11771,7 +11882,8 @@
      "surfnerd": "St. Joe's Island, also known as San Jose Island, is an uninhabited jetty setup across the Port Aransas Ship Channel from the Port Aransas Jetties, running north from Port Aransas toward Matagorda Island. Its main draw comes on large, out-of-control, wind-driven south swells, when clean walls can break on the sandbars just north of the north jetty.",
      "surfForecast": "St Joe s Island in Texas is a fairly exposed breakwater break that has unreliable waves. The favoured conditions for surfing are during the hurricane season. The best wind direction is from the west northwest. Windswells are much more typical than groudswells and the best wave direction is from the southeast. An uncrowded break, even when it is working."
     },
-    "notes": "town: Corpus Christi (surfnerd); surf-forecast pin 27.84,-97.04 is 0.8 km from the surfnerd pin; type: surfnerd: Jetty; not published as Beach/Point/Reef"
+    "notes": "town: Corpus Christi (surfnerd); surf-forecast pin 27.84,-97.04 is 0.8 km from the surfnerd pin; type: surfnerd: Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "St Joe s Island in Texas is a fairly exposed breakwater break that has inconsistent surf. Type: Breakwater (surf-forecast, pin 0.63 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.62 km from row pin); Type: Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -11961,6 +12073,11 @@
       "url": "https://www.surf-forecast.com/breaks/Surfside",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/surfside/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southeast (surfnerd: \"Faces SE\")",
@@ -11994,7 +12111,8 @@
      "surfnerd": "Surfside Jetty is a sand-bottom right-hander that peels next to the jetty on the Texas coast. When it lines up, you can jump off the end of the jetty and drop straight into the longer, cleaner walls as they wrap in.",
      "surfForecast": "Surfside in Texas is an exposed sandbar break. The optimum conditions for surfing are during the hurricane season. Offshore winds are from the northwest. Windswells are much more typical than groudswells and the ideal wave angle is from the southeast. Sometimes crowded. Take care of - Rips / undertow."
     },
-    "notes": "town: Surfside Beach (surfnerd); surf-forecast pin 28.94,-95.29 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Surfside Beach (surfnerd); surf-forecast pin 28.94,-95.29 is 0.4 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Surfside in Texas is an exposed sandbar break. Type: Sandbar (surf-forecast, pin 0.44 km from row pin); Type: Sand-bar (wannasurf, GPS 0.45 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12073,6 +12191,16 @@
       "url": "https://www.surfnerd.com/surf-forecast/terrys-cove",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surf-forecast.com/breaks/Terry-s-Cove",
+      "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Alabama/Terry_s_Cove/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South-southeast (surfnerd: \"Faces SSE\")",
@@ -12100,7 +12228,8 @@
      "surfnerd": "Terry's Cove is a surf spot in the United States. There aren't detailed condition notes for it yet, so check the live Surfnerd forecast for the latest swell, wind, and tide before you head out.",
      "surfForecast": null
     },
-    "notes": "town: Orange Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+    "notes": "town: Orange Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef",
+    "breakTypeText": "Terry s Cove in Alabama is an exposed sandbar break that has quite reliable surf. Type: Sandbar (surf-forecast, pin 0.0 km from row pin); Type: Sand-bar (wannasurf, GPS 0.04 km from row pin)"
    },
    "nearestSources": [
     {
@@ -12897,6 +13026,11 @@
       "url": "https://www.surfnerd.com/surf-forecast/twin-piers",
       "site": "surfnerd",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Florida/bradenton-_twin_piers/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "West-southwest (surfnerd: \"Faces WSW\")",
@@ -12929,7 +13063,8 @@
      "surfnerd": "Twin Piers is Bradenton's best break for surfers after a little punch. The name is a bit of a misnomer, though: there are actually three piers, so keep that in mind as you head south on the beach road. The best wave sets up between the center and northernmost pier, and sometimes on the north side of that northern pier.",
      "surfForecast": null
     },
-    "notes": "town: Bradenton Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+    "notes": "town: Bradenton Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach-break (wannasurf, GPS 0.23 km from row pin); Type: Beach, Pier (surfnerd)"
    },
    "nearestSources": [
     {
@@ -13040,7 +13175,8 @@
      "surfnerd": "Two By Fours is an outside sandbar peak on the Emerald Coast, sitting farther east along the same stretch as Jetty East. It breaks over sand and offers up both rights and lefts, and on a medium-sized outside day it can turn into a great offshore peak. That said, it's a decent wave rather than a destination; no one is driving here solely to surf it.",
      "surfForecast": null
     },
-    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty, Offshore; not published as Beach/Point/Reef"
+    "notes": "town: Destin (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Jetty, Offshore; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Jetty, Offshore (surfnerd)"
    },
    "nearestSources": [
     {
@@ -13136,6 +13272,11 @@
       "url": "https://www.surf-forecast.com/breaks/Upham-Beach",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Florida/upham_beach/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "Southwest (surfnerd: \"Faces SW\")",
@@ -13170,7 +13311,8 @@
      "surfnerd": "Upham Beach Park is a classic right-hand pointbreak and one of West Florida's best points, sitting as the final surf option north of Champa Bay. The wave peels slowly and holds its power all the way to the beach, stringing together rides up to 100 yards on the right day. It breaks over a mix of sand and rock and works as both a point and a jetty setup.",
      "surfForecast": "Upham Beach in Gulf Coast, Florida is an exposed breakwater break that has unreliable waves. Winter is the best time of year for surfing here. The best wind direction is from the northeast. Windswells provide any waves and the ideal wave angle is from the southwest. Likely to be crowded if working. Hazards include rocks and sharks."
     },
-    "notes": "town: St. Pete Beach (surfnerd); surf-forecast pin 27.74,-82.75 is 0.6 km from the surfnerd pin; type: surfnerd: Point, Jetty; not published as Beach/Point/Reef"
+    "notes": "town: St. Pete Beach (surfnerd); surf-forecast pin 27.74,-82.75 is 0.6 km from the surfnerd pin; type: surfnerd: Point, Jetty; not published as Beach/Point/Reef",
+    "breakTypeText": "Upham Beach in Gulf Coast, Florida is an exposed breakwater break that does not work very often. Type: Breakwater (surf-forecast, pin 0.23 km from row pin); Type: Breakwater/jetty (wannasurf, GPS 0.19 km from row pin); Type: Point, Jetty (surfnerd)"
    },
    "nearestSources": [
     {
@@ -13747,6 +13889,11 @@
       "url": "https://www.surf-forecast.com/breaks/West-Pass",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Alabama/West_Pass/",
+      "site": "wannasurf",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -13774,7 +13921,8 @@
      "surfnerd": "West Pass is a surf spot in the United States. Detailed condition data for this break isn't available yet, so check the live forecast for swell, wind, and tide before you head out.",
      "surfForecast": "West Pass in Alabama is an exposed sandbar break that has reasonably consistent surf. The best conditions for surfing are during the hurricane season. Offshore winds are from the north northwest. Most of the surf comes fis in the form of windswells and the ideal wave angle is from the south southeast. Surfable at all stages of the tide. It very rarely gets crowded here."
     },
-    "notes": "town: Gulf Shores (surfnerd); surf-forecast pin 30.24,-87.74 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef"
+    "notes": "town: Gulf Shores (surfnerd); surf-forecast pin 30.24,-87.74 is 0.3 km from the surfnerd pin; type: not published as Beach/Point/Reef",
+    "breakTypeText": "West Pass in Alabama is an exposed sandbar break that has quite reliable surf. Type: Sandbar (surf-forecast, pin 0.15 km from row pin); Type: Sand-bar (wannasurf, GPS 0.12 km from row pin)"
    },
    "nearestSources": [
     {
@@ -13897,7 +14045,8 @@
      "surfnerd": "Whale's Tail is a beachbreak on the Emerald Coast, the stretch named for its green water. The wave breaks over sand beside a small, circular restaurant, and in summer the beach turns into as much of a hangout as a surf spot. It's an average break overall, and few people make the trip purely to surf here, but it can serve up fun waves when the setup lines up.",
      "surfForecast": null
     },
-    "notes": "town: Miramar Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Offshore; not published as Beach/Point/Reef"
+    "notes": "town: Miramar Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Offshore; not published as Beach/Point/Reef",
+    "breakTypeText": "Type: Beach, Offshore (surfnerd)"
    },
    "nearestSources": [
     {
