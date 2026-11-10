@@ -82,7 +82,7 @@ export function rowFor(spotId, cap, tz = timeZoneOf(spotId)) {
   };
 }
 const rowText = (r) => `| ${r.date} | ${r.captured} | ${r.window} | ${r.hs} | ${r.wind} | ${r.age} |`;
-const HEADER = ['| Capture day (UTC) | Captured | Best daylit window, next 48 h (rated now) | Offshore Hs at the model point | Wind at the model point | Model run age |', '|---|---|---|---|---|---|'];
+const HEADER = ['| Capture day (UTC) | Captured | Best daylit window, next 48 h (current rules, as of the run) | Offshore Hs at the model point | Wind at the model point | Model run age |', '|---|---|---|---|---|---|'];
 /** Rows already in a block, by date (older days are read back, never recomputed). */
 export function existingRows(text) {
   const a = text.indexOf(START), b = text.indexOf(END); if (a < 0 || b < a) return new Map();
@@ -100,7 +100,7 @@ export function blockFor(spotId, cap, scorecard, prevText = '', keep = KEEP_DAYS
   const lines = [...rows.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1)).slice(0, keep).map(([, l]) => l);
   const sc = scorecard?.spots?.[spotId] ?? null;
   return [START, ...(lines.length ? [...HEADER, ...lines] : ['No capture row for this spot yet.']), '', ...howRightLines(sc), '',
-    `Source: SWELLO daily forecast capture (Open-Meteo marine and wind at the app's model point, fetched by the Worker; capture ${cap.capturedAt}), re-rated with the current rating engine${scorecard ? `; scorecard computed ${scorecard.computedAt}` : ''}. Offshore model values, not surf at the spot. Written by scripts/vault-forecast-log.mjs: edits inside this block are overwritten.`, END].join('\n');
+    `Source: SWELLO daily forecast capture (Open-Meteo marine and wind at the app's model point, fetched by the Worker; capture ${cap.capturedAt}), rated with the current rules, as of the model run${scorecard ? `; scorecard computed ${scorecard.computedAt}` : ''}. Offshore model values, not surf at the spot. Written by scripts/vault-forecast-log.mjs: edits inside this block are overwritten.`, END].join('\n');
 }
 /** The note text with the block written or replaced; only the block (and, for a note without one, the heading and block at its end) changes. */
 export function applyBlock(text, block) {

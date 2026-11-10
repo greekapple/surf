@@ -63,7 +63,7 @@ test('the How-right lines are the scorecard\'s own words verbatim when it has nu
   const sc = JSON.parse(fs.readFileSync(path.join(r2, 'howright/v2/scorecard.json'), 'utf8')).spots, ob = fs.readFileSync(files.byId, 'utf8'), ml = fs.readFileSync(files.byName, 'utf8'), cr = fs.readFileSync(files.headingOnly, 'utf8');
   assert.equal(sc['spot-2'].status, 'ok'); assert.ok(ob.includes(`- ${offshoreLine(sc['spot-2']).text}`)); assert.match(ob, /Offshore wave height at the buoy \(not surf at the spot\): .*typical difference/); if (ratingLine(sc['spot-2'])) assert.ok(ob.includes(`- ${ratingLine(sc['spot-2'])!.text}`));
   assert.equal(sc['cs-malibu'].status, 'collecting'); assert.match(ml, /- How right we've been: collecting: 1 day so far \(we need 3 before showing a number\)/); assert.doesNotMatch(ml, /typical difference/);
-  assert.match(cr, /- How right we've been: no scorecard yet|collecting|No offshore check/); assert.match(ob, /Source: SWELLO daily forecast capture .*capture 2026-11-10T07:40:44\.464Z\), re-rated with the current rating engine; scorecard computed 2026-11-10T07:44:28\.925Z\. Offshore model values, not surf at the spot\./);
+  assert.match(cr, /- How right we've been: no scorecard yet|collecting|No offshore check/); assert.match(ob, /Source: SWELLO daily forecast capture .*capture 2026-11-10T07:40:44\.464Z\), rated with the current rules, as of the model run; scorecard computed 2026-11-10T07:44:28\.925Z\. Offshore model values, not surf at the spot\./);
 });
 test('the table keeps the last 14 capture days and drops older rows; an older day\'s row is read back unchanged, and today\'s row replaces the same date', () => {
   const old = Array.from({length: 15}, (_, i) => `| 2026-10-${String(30 - i).padStart(2, '0')} | x | window ${i} | hs | wind | run |`);
@@ -76,4 +76,29 @@ test('no complete capture: nothing is written; and the script never writes into 
   const {vault, root, files} = fixture(); const before = snapshotOf(vault), empty = path.join(root, 'empty'); fs.mkdirSync(empty);
   const r = await run({vault, dir: empty, now: NOW, spots: SPOTS, log: quiet}); assert.equal(r.wrote, false); assert.deepEqual(snapshotOf(vault), before);
   await run({vault, dir: path.join(root, 'r2'), now: NOW, spots: SPOTS, log: quiet}); assert.equal(fs.readFileSync(files.private, 'utf8'), before[files.private]); assert.equal(fs.readFileSync(files.obsidian, 'utf8'), before[files.obsidian]);
+});
+
+/* ---------- vault-spot-notes: the notes of app spots that have none ---------- */
+import {noteFor, noteName, run as createNotes} from '../../scripts/vault-spot-notes.mjs';
+test('the header says "current rules, as of the run", not "rated now"', () => {
+  const b = blockFor('spot-2', CAP, null); assert.match(b, /Best daylit window, next 48 h \(current rules, as of the run\)/); assert.doesNotMatch(b, /rated now|re-rated/);
+});
+test('a note for an app spot with none: the existing notes\' frontmatter and sections, spot_id set, only sourced text (the guide facts as their own strings, their links, the tide station, NWS zone and buoys the app uses)', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vault-notes-')), vault = path.join(root, 'Spots'); fs.mkdirSync(vault);
+  fs.writeFileSync(path.join(vault, 'Spot-Marin-Existing.md'), '---\ntype: reference\ncounty: "Marin"\ncoast_region: "Sonoma and Marin"\nregion_note: "[[Region-Sonoma-and-Marin]]"\nspot_id: spot-1\n---\n# Existing\n');
+  const n = noteFor('cs-rodeo-beach', vault)!; assert.equal(n.file, 'Spot-Rodeo-Beach.md'); const t = n.text;
+  assert.match(t, /^---\ntype: reference\nproject: SWELLO\nstatus: active\nupdated: 2026-11-10\n/); assert.match(t, /\nspot_id: cs-rodeo-beach\n/); assert.match(t, /\ncoverage: v2\nmop: "MA048"\nfacing: "SW"\n/); assert.match(t, /\ncoast_region: "Sonoma and Marin"\nregion_note: "\[\[Region-Sonoma-and-Marin\]\]"\n/, 'the county\'s region fields are copied from the existing notes');
+  for (const h of ['## Coverage', '## Published facts', '## Tide', '## Weather zone and buoys', '## Sources']) assert.ok(t.includes(h), h);
+  assert.match(t, /Published guides say the beach faces SW \(225°\); MA048's CDIP shore normal is 223\.72°/); assert.match(t, /\*\*Facing:\*\* SW \(225°\), basis: guide\./); assert.match(t, /Workable swell:\*\* S to NW, best S \(surfnerd\)/); assert.match(t, /Hazards \(not complete\):\*\* rips \/ undertow \(surf-forecast\), rocks \(surf-forecast\), sharks \(surf-forecast\)/);
+  assert.match(t, /https:\/\/www\.surfnerd\.com\/surf-forecast\/fort-cronkhite-rodeo-beach \(retrieved 2026-11-08\)/); assert.match(t, /Spot-page tide: CO-OPS 9414275 Ocean Beach, outer coast, 6\.5 km/); assert.match(t, /NWS alerts zone: CAZ505/); assert.match(t, /Buoys shown as context: .*NDBC 46012/);
+  assert.match(noteFor('cs-pigeon-point', vault)!.text, /\*\*Refused\*\* \(labelled offshore height only\): a reef break needs a source that says it is exposed\./); assert.match(noteFor('cs-princeton-jetty', vault)!.text, /\*\*v1\*\* \(offshore swell carried to the beach; no CDIP point within the facing tolerance\)/);
+  assert.equal(noteFor('not-a-spot', vault), null); assert.equal(noteName("Kelly's Cove"), 'Spot-Kellys-Cove.md');
+});
+test('creating notes is create-only: an existing note (by spot_id or file name) is never overwritten, a dry run writes nothing, and 99-Private and .obsidian are not touched', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'vault-notes-')), vault = path.join(root, 'Spots'); fs.mkdirSync(path.join(vault, '99-Private'), {recursive: true}); fs.mkdirSync(path.join(vault, '.obsidian'));
+  fs.writeFileSync(path.join(vault, 'Spot-Mine.md'), '---\nspot_id: cs-sloat\n---\n# Mine\nHand-written.\n'); const marinaFile = noteFor('cs-marina', vault)!.file; fs.writeFileSync(path.join(vault, marinaFile), 'my own file with the target name'); fs.writeFileSync(path.join(vault, '99-Private/x.md'), 'private'); fs.writeFileSync(path.join(vault, '.obsidian/y.md'), 'cfg');
+  const before = snapshotOf(vault), d = createNotes({vault, ids: ['cs-rodeo-beach', 'cs-sloat', 'cs-marina'], dryRun: true, log: quiet}); assert.deepEqual(snapshotOf(vault), before, 'a dry run writes nothing'); assert.equal(d.created.length, 1);
+  const r = createNotes({vault, ids: ['cs-rodeo-beach', 'cs-sloat', 'cs-marina'], log: quiet}); assert.equal(r.created.length, 1); assert.deepEqual(r.skipped.map((x: string[]) => x[0]), ['cs-sloat', 'cs-marina']);
+  const after = snapshotOf(vault); assert.equal(after[path.join(vault, 'Spot-Mine.md')], before[path.join(vault, 'Spot-Mine.md')]); assert.equal(after[path.join(vault, marinaFile)], 'my own file with the target name'); assert.equal(after[path.join(vault, '99-Private/x.md')], 'private'); assert.equal(after[path.join(vault, '.obsidian/y.md')], 'cfg');
+  assert.equal(createNotes({vault, ids: ['cs-rodeo-beach'], log: quiet}).created.length, 0, 'a second run creates nothing');
 });
