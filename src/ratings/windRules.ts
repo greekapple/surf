@@ -19,13 +19,19 @@ export function capOnshore(score: number, relation: string, speedMph: number): n
  *  - Cross-shore wind above CROSS_FRESH_MPH (8 mph = Beaufort force 3, "crests begin to break", NWS): stops at NOT BAD (64).
  *  - A breaking estimate whose range is WIDE_RANGE_FT or more wide is too uncertain to support a high rating: stops at SOLID (69).
  *  Nothing here raises a score, and nothing here uses the estimate to score. */
+/** 4B (round 4, user-approved 2026-11-10): onshore wind above ONSHORE_BAD_MPH, the Call's Skip line (services/call.ts), caps the rating at ONSHORE_STRONG_CEILING, the top of
+ *  the "poor" band (WEAK, below 40). Our own threshold, not a fitted one: 12 mph is the top of Beaufort force 3 (8–12 mph, "crests begin to break"; NWS Beaufort Wind Scale,
+ *  https://www.weather.gov/mfl/beaufort), so onshore wind above it is force 4 or more. It only lowers a score. */
+export const ONSHORE_BAD_SOURCE = 'our own line: the top of Beaufort force 3 (8–12 mph, "crests begin to break", NWS Beaufort Wind Scale)';
+export const ONSHORE_BAD_MPH = 12;
+export const ONSHORE_STRONG_CEILING = 39;
 export const CALM_MPH = 5;
 export const CROSS_FRESH_MPH = 8;
 export const WIND_CEILING = 64;
 export const WIDE_RANGE_FT = 4;
 export const WIDE_RANGE_CEILING = 69;
 import {WIDE_HALF_WIDTH} from '../services/uncertainty.ts';
-export interface Ceiling {id: 'wind-unknown' | 'cross-shore' | 'wide-range'; limit: number; reason: string}
+export interface Ceiling {id: 'wind-unknown' | 'cross-shore' | 'onshore-strong' | 'wide-range'; limit: number; reason: string}
 /** T-081: ceiling from the headline's forecast uncertainty (half-width in ln units from services/uncertainty.ts), replacing the width of the legacy breaking range. */
 export function uncertaintyCeiling(halfWidth: number | null | undefined, threshold = WIDE_HALF_WIDTH): Ceiling | null {
   if (!enabled || typeof halfWidth !== 'number' || !Number.isFinite(halfWidth) || halfWidth < threshold) return null;
@@ -35,6 +41,7 @@ export function windCeilings(relation: string, speedMph: number): Ceiling[] {
   const rel = String(relation).toLowerCase(), out: Ceiling[] = [];
   if (!Number.isFinite(speedMph) || !enabled) return out;
   if (rel === 'unknown' && speedMph > CALM_MPH) out.push({id: 'wind-unknown', limit: WIND_CEILING, reason: `Wind is ${speedMph.toFixed(1)} mph but this spot's shore direction is not surveyed, so we cannot tell offshore from onshore: the rating stops at NOT BAD.`});
+  if (rel === 'onshore' && speedMph > ONSHORE_BAD_MPH) out.push({id: 'onshore-strong', limit: ONSHORE_STRONG_CEILING, reason: `Onshore ${(Math.ceil(speedMph * 10) / 10).toFixed(1)} mph is over ${ONSHORE_BAD_MPH} mph: the rating stops at ${ONSHORE_STRONG_CEILING}, the top of poor. ${ONSHORE_BAD_MPH} mph is ${ONSHORE_BAD_SOURCE}.`});
   if (rel === 'cross-shore' && speedMph > CROSS_FRESH_MPH) out.push({id: 'cross-shore', limit: WIND_CEILING, reason: `Cross-shore ${speedMph.toFixed(1)} mph (above ${CROSS_FRESH_MPH} mph) chops the face: the rating stops at NOT BAD.`});
   return out;
 }

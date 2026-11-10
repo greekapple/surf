@@ -53,7 +53,7 @@ test('skill-aware: the same big hour (surf height above 4 ft) is Skip for a begi
 });
 test('wind: strong onshore is a Skip for everyone, with a plain reason first', () => {
   const r = recs(1.5, 16, 270), c = callFor(spot, at(r, noonNov2), prof('Expert'), ctxFor(r, noonNov2));
-  assert.equal(c.verdict, 'Skip'); assert.match(c.why[0], /Onshore wind at 16 mph will chop it up\./);
+  assert.equal(c.verdict, 'Skip'); assert.match(c.why[0], /Onshore wind at 16\.0 mph will chop it up\./);
 });
 test('a good daylight hour: the call has a window inside daylight, labelled, and a plain first sentence', () => {
   const r = recs(1.2), now = '2026-11-02T15:00:00Z', c = callFor(spot, at(r, '2026-11-02T16:00:00.000Z'), prof('Expert'), ctxFor(r, now));

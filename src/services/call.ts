@@ -3,6 +3,8 @@ import type {OceanBundle} from '../ocean/types.ts';
 import {dateIn, addDaysKey, fmtIn} from '../ocean/time.ts';
 import {timeZoneOf} from '../ocean/spotZone.ts';
 import {explainRating} from '../ratings/explain.ts';
+import {ONSHORE_BAD_MPH} from '../ratings/windRules.ts';
+import {wind as windText} from '../utils/units.ts';
 import {daylightFor, isDark, clampToLight} from './daylight.ts';
 import {spotHourOf, type SpotHour} from './spotHour.ts';
 import {windowLabel} from './homeDash.ts';
@@ -22,7 +24,8 @@ export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'n
  *  we use 4 ft as the ceiling, which is about "head high" in the body-word convention (OceanFit). The other bounds are our judgement, adjustable in one place. */
 export const SKILL_RANGE_FT: Record<Skill, {min: number; max: number}> = {Beginner: {min: 1, max: 4}, Intermediate: {min: 1.5, max: 8}, Expert: {min: 2, max: 20}};
 /** Wind that spoils the face regardless of size (mph). Onshore above ONSHORE_BAD or cross-shore above CROSS_BAD is a Skip; lighter onshore/cross is at most "Worth a look". Our own choices, in line with the rating's 3 and 8 mph rules. */
-export const ONSHORE_BAD_MPH = 12, CROSS_BAD_MPH = 18;
+export {ONSHORE_BAD_MPH};   // lives in ratings/windRules.ts since 4B: the same line caps the rating at poor
+export const CROSS_BAD_MPH = 18;
 export const GO_MIN_SCORE = 65, WORTH_MIN_SCORE = 50; // rating bands: SOLID starts at 65, NOT BAD at 55 (our own cut at 50 for "worth a look")
 
 const fmt = (lo: number, hi: number, p: UserProfile) => formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text;
@@ -73,7 +76,7 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   let windNote = '';
   if (w) {
     const mph = w.mph;
-    if (w.relation === 'onshore' && mph > ONSHORE_BAD_MPH) { verdict = 'Skip'; windNote = `Onshore wind at ${mph.toFixed(0)} mph will chop it up.`; }
+    if (w.relation === 'onshore' && mph > ONSHORE_BAD_MPH) { verdict = 'Skip'; windNote = `Onshore wind at ${windText(mph, profile)} will chop it up.`; /* one decimal: 12.3 mph is over the 12 mph line; "12 mph" would not read so */ }
     else if (w.relation === 'cross-shore' && mph > CROSS_BAD_MPH) { verdict = 'Skip'; windNote = `Cross-shore wind at ${mph.toFixed(0)} mph will chop it up.`; }
     else if ((w.relation === 'onshore' && mph > 3) || (w.relation === 'cross-shore' && mph > 8)) { if (verdict === 'Go') verdict = 'Worth a look'; windNote = `${w.relation === 'onshore' ? 'Onshore' : 'Cross-shore'} wind at ${mph.toFixed(0)} mph will roughen the face.`; }
     else if (w.relation === 'offshore' && mph <= 15) windNote = `${mph < 5 ? 'Light offshore' : 'Offshore'} wind: clean face.`;
@@ -86,7 +89,7 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   // the first sentence is the deciding reason in plain English
   const lead = verdict === 'Skip' ? (breakerNote && /experts only/.test(breakerNote) ? breakerNote : windNote && /chop/.test(windNote) ? windNote : sizeNote && !/within/.test(sizeNote) ? sizeNote : null)
     : verdict === 'Worth a look' ? (sizeNote && !/within/.test(sizeNote) ? sizeNote : windNote && /roughen/.test(windNote) ? windNote : null) : null;
-  const ex = explainRating(hr.rating, {spotId: spot.id, wind: w ? {mph: w.mph, relation: w.relation} : null}), items = ex.items.filter((i) => i.inScore);
+  const ex = explainRating(hr.rating, {spotId: spot.id, wind: w ? {mph: w.mph, relation: w.relation} : null, fmtWind: (n) => windText(n, profile)}), items = ex.items.filter((i) => i.inScore);
   const down = items.find((i) => i.effect === '-' || (i.effect === '~' && i.factor !== 'Rating ceiling')), ceiling = items.find((i) => i.factor === 'Rating ceiling'), up = items.find((i) => i.effect === '+');
   // T-093: the first plain reason is plain language; the rating engine's own wording (numbers, 'Heuristic', 'combined Hs') goes to the detail lines after it.
   const ratingSentence = ceiling ? ceiling.reason : verdict === 'Go' ? (up ? `${plainFactor(up.factor, '+')} is a plus.` : 'The rating is good for this hour.') : down ? plainReasonFor(down) : 'The rating is only middling for this hour.';

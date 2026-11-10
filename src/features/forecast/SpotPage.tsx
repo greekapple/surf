@@ -16,6 +16,7 @@ import {dayText} from '../../services/weekCell';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
+import {wind as windText} from '../../utils/units';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, monotonePath, windVal, spotLatLon, type Day} from './helpers';
@@ -135,7 +136,7 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
         <RatingBar score={r.score} category={r.category} />
         {scored.length ? <ul className="sp-why" aria-label="Why">{/* T-108: with no surf estimate there is no "swell size" to rate: the engine's wave-potential factor is OFFSHORE swell energy, so it is named that, and the list says plainly that size has no estimate here. */}
           {hs.kind !== 'estimate' && <li className="sp-why-none" title="No surf-size estimate for this spot, so surf size is not part of the call"><i aria-hidden="true" />Swell size: no estimate</li>}
-          {scored.map((x) => <li key={x.factor} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><i aria-hidden="true" />{hs.kind !== 'estimate' && shortFactor(x.factor) === 'Swell size' ? 'Offshore swell energy' : shortFactor(x.factor)} <span className="w">{MARK[x.effect].m}</span></li>)}</ul>
+          {scored.map((x) => <li key={`${x.factor}|${x.reason}`} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><i aria-hidden="true" />{hs.kind !== 'estimate' && shortFactor(x.factor) === 'Swell size' ? 'Offshore swell energy' : shortFactor(x.factor)} <span className="w">{MARK[x.effect].m}</span></li>)}</ul>
           : <p className="sp-s">{r.explanation}</p>}
         <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
       </Card>
@@ -378,6 +379,7 @@ export function ratingWhy(spot: SurfSpot, h: HourSample, p: UserProfile) {
     spotId: spot.id,
     wind: windOk ? {mph: f.wind.speed, relation: windRelationship(spot, f)} : null,
     tide: tideOk ? {trend: f.tide.trend === 'Rising' ? 'rising' : f.tide.trend === 'Falling' ? 'falling' : 'unknown', heightLabel: `${ht(f.tide.height, p)} ${p.heightUnit}`} : null,
+    fmtWind: (mph) => windText(mph, p),
   });
 }
 
@@ -419,9 +421,9 @@ export function CardDetail({k, spot, h, p, dayHours, onSelect, onClose, Tide, Po
     <section className="card sp-detail" id="sp-detail" aria-label={title}>
       <div className="card-h"><h2>{title}</h2><button className="btn" onClick={onClose}>Close</button></div>
       {k === 'rating' && ex && <>
-        <ul className="sp-explain">{ex.items.filter((x) => x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><i aria-hidden="true" /><span><strong>{x.factor} <span className="w">{MARK[x.effect].m}</span></strong>{x.reason}</span></li>)}</ul>
+        <ul className="sp-explain">{ex.items.filter((x) => x.inScore).map((x) => <li key={`${x.factor}|${x.reason}`} className={MARK[x.effect].c}><i aria-hidden="true" /><span><strong>{x.factor} <span className="w">{MARK[x.effect].m}</span></strong>{x.reason}</span></li>)}</ul>
         {ex.items.some((x) => !x.inScore) && <><p className="sp-explain-h">Context, not part of the score</p>
-          <ul className="sp-explain ctx">{ex.items.filter((x) => !x.inScore).map((x) => <li key={x.factor} className={MARK[x.effect].c}><i aria-hidden="true" /><span><strong>{x.factor} <span className="w">{MARK[x.effect].m}</span></strong>{x.reason}</span></li>)}</ul></>}
+          <ul className="sp-explain ctx">{ex.items.filter((x) => !x.inScore).map((x) => <li key={`${x.factor}|${x.reason}`} className={MARK[x.effect].c}><i aria-hidden="true" /><span><strong>{x.factor} <span className="w">{MARK[x.effect].m}</span></strong>{x.reason}</span></li>)}</ul></>}
         <p className="sp-explain-h">Reliability: {ex.reliability.category.toLowerCase()}</p>
         <ul className="sp-explain ctx">{ex.reliability.reasons.map((r) => <li key={r} className="u"><b aria-hidden="true">·</b><span>{r}</span></li>)}</ul>
       </>}

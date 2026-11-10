@@ -1,5 +1,5 @@
 import type {SurfRating} from './types.ts';
-import {ONSHORE_LIGHT_MPH, ONSHORE_SOURCE} from './windRules.ts';
+import {ONSHORE_LIGHT_MPH, ONSHORE_SOURCE, ONSHORE_BAD_MPH, ONSHORE_STRONG_CEILING} from './windRules.ts';
 import {spotProfile} from '../ocean/spotProfiles.ts';
 import {PROFILE_FIELDS, FIELD_LABEL, type ProfileField} from '../ocean/spotProfile.ts';
 import {angleDiffDeg} from './geometry.ts';
@@ -15,6 +15,8 @@ export interface ExplainContext {
   wind?: {mph: number | null; relation: string | null} | null;
   mop?: {id: string; hsFt: number | null; tpS: number | null; dpDeg: number | null; shoreNormalDeg: number | null; product: 'nowcast' | 'forecast'} | null;
   tide?: {trend: 'rising' | 'falling' | 'unknown'; heightLabel: string | null} | null;
+  /** Wind speed in the person's unit (utils/units wind); without it, mph. */
+  fmtWind?: (mph: number) => string;
 }
 export const effectOf = (score: number | null | undefined): Effect => (typeof score !== 'number' || !Number.isFinite(score) ? '?' : score >= 70 ? '+' : score >= 40 ? '~' : '-');
 const r1 = (n: number) => (Math.round(n * 10) / 10).toString();
@@ -27,9 +29,12 @@ export function explainRating(rating: SurfRating, ctx: ExplainContext): RatingEx
     if (/wind/i.test(f.name)) {
       const rel = (ctx.wind?.relation ?? 'unknown').toLowerCase(), mph = ctx.wind?.mph ?? null;
       if (mph === null || rel === 'unknown') { items.push({...base, effect: '?', reason: 'Wind speed or the shore relation is unknown here, so wind is not scored.', inScore: false}); continue; }
-      const why = rel === 'onshore' ? (mph > ONSHORE_LIGHT_MPH ? `Onshore ${r1(mph)} mph: held below "good" because onshore above ${ONSHORE_LIGHT_MPH} mph roughens the face (${ONSHORE_SOURCE}).` : `Light onshore ${r1(mph)} mph (up to ${ONSHORE_LIGHT_MPH} mph): small penalty only.`)
-        : rel === 'offshore' ? `Offshore ${r1(mph)} mph: grooms the face; strong offshore is penalised.` : `Cross-shore ${r1(mph)} mph: a moderate penalty.`;
-      items.push({...base, reason: why + (prof?.orientation.provenance === 'published guide' ? ' Shore direction comes from a published guide (approximate, not surveyed).' : prof?.orientation.provenance === 'derived from coastline geometry' ? ' Shore direction is derived from coastline geometry (CDIP MOP shore normals; approximate, not surveyed).' : '')}); continue;
+      const w = ctx.fmtWind ?? ((n: number) => `${r1(n)} mph`);
+      // 4B: the capped wording only where the cap holds this rating (a demonstration rating from rateQuality has no wind ceilings).
+      const strong = rel === 'onshore' && mph > ONSHORE_BAD_MPH, capped = strong && (!!rating.ceilings?.some((c) => c.id === 'onshore-strong') || (rating.score ?? 99) <= ONSHORE_STRONG_CEILING);
+      const why = rel === 'onshore' ? (capped ? `Onshore ${w(mph)}: over ${w(ONSHORE_BAD_MPH)}, so the rating is capped at poor (see Rating ceiling).` : mph > ONSHORE_LIGHT_MPH ? `Onshore ${w(mph)}: held below "good" because onshore above ${w(ONSHORE_LIGHT_MPH)} roughens the face (${ONSHORE_SOURCE}).` : `Light onshore ${w(mph)} (up to ${w(ONSHORE_LIGHT_MPH)}): small penalty only.`)
+        : rel === 'offshore' ? `Offshore ${w(mph)}: grooms the face; strong offshore is penalised.` : `Cross-shore ${w(mph)}: a moderate penalty.`;
+      items.push({...base, effect: strong ? '-' : base.effect, reason: why + (prof?.orientation.provenance === 'published guide' ? ' Shore direction comes from a published guide (approximate, not surveyed).' : prof?.orientation.provenance === 'derived from coastline geometry' ? ' Shore direction is derived from coastline geometry (CDIP MOP shore normals; approximate, not surveyed).' : '')}); continue;
     }
     items.push(base);
   }

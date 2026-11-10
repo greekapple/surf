@@ -46,8 +46,9 @@ export function provisionalRating(s:SpotEvidence,r:OceanRecord,now=Date.now()):S
  score=Math.min(score,provisionalRules.unvalidatedCap);
  // T-055 ceilings: wind relation unknown / fresh cross-shore / a wide estimate range. Each only lowers the score and is reported when it did.
  const fe=r.faceEstimate,sr=fe?recordSurfRange({spotId:s.id,timestamp:r.timestamp,faceEstimate:fe},now):null,wide=sr?uncertaintyCeiling(sr.halfWidth):null;
- const ceilings=[...windCeilings(relation,ws),...(wide?[wide]:[])].filter(c=>score>c.limit);
- for(const c of ceilings){score=Math.min(score,c.limit);constraints.push(c.reason);}
+ // Lowest limit first, and only a ceiling that actually lowers the score is recorded, so a 39 hour does not also claim "stops at SOLID"; the explanation ends with the binding one.
+ const ceilings:NonNullable<typeof wide>[]=[];
+ for(const c of [...windCeilings(relation,ws),...(wide?[wide]:[])].sort((a,b)=>a.limit-b.limit))if(score>c.limit){score=c.limit;ceilings.push(c);constraints.push(c.reason);}
  const category=categoryForScore(score);
  return {...common,score,baseScore,label:category,category,constraints,ceilings,positive:factors.filter(f=>f.weight>0&&f.score!==null&&f.score>=65).map(f=>f.name),negative:factors.filter(f=>f.weight>0&&f.score!==null&&f.score<50).map(f=>f.name),explanation:`${s.name}: provisional offshore surf potential from supplied swell and wind forecasts. Local breaking conditions remain uncalibrated. ${constraints.at(-1)}`};
 }
