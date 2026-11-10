@@ -10,7 +10,8 @@
   },
   // T-129: every forecast source that is due is refreshed into R2 every 5 minutes (worker/cloudflare.mjs `scheduled`), so the first visit after a quiet spell reads a warm cache.
   // T-129b: re-enabled after the Codex P1 fixes (relative refresh-ahead with an hourly floor for Open-Meteo and CDIP; an 800-subrequest budget per run).
-  "triggers": {"crons": ["*/5 * * * *"]},
+  "triggers": {"crons": ["*/5 * * * *", "17 6 * * *", "47 * * * *"]},
+  // Round 4A: the NDBC realtime2 archive (services/ndbc-archive.mjs). "17 6 * * *" archives the previous 3 UTC days of .spec and .data_spec for 54 buoys; "47 * * * *" (hourly) only continues the one-time 45-day backfill (a one-read no-op afterwards). Objects under archive/ndbc/, no lifecycle rule (about 110 MB a year).
   // T-129: the persistent forecast cache (forecast-service.mjs reads and writes forecast/v8/latest/*.json through env.BUCKET). The bucket must exist before `wrangler deploy`:
   //   npx wrangler r2 bucket create swello-forecast-cache
   //   npx wrangler r2 bucket lifecycle add swello-forecast-cache expire-archive forecast/v10/ --expire-days 5   (and the same for forecast/v8/history/)
