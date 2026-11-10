@@ -71,7 +71,15 @@ Steps 1–6 need no capture; step 7 uses it.
    - The rider is the user's saved height (default 1.75 m) and the board is the selected quiver board's real length.
    - The caption reads "3D illustration · approximate scale".
    - Write a test that measures the rendered face height against the band, to within 5%, for 2, 4, 6, 8, 12 and 15+ ft. If any band is off, fix that first.
-2. **A tube that feels enclosed.**
+2. **A tube that feels enclosed: the surfer must be DEEP in the barrel.**
+   - **User, 2026-11-10:** "turns look pretty good … most immediate problem was just that the surfer wasn't actually deep in the barrel."
+   - **Target:**
+     - the rider sits inside the tube, behind the curtain, not on the open face beside it;
+     - from the default camera, the lip is in front of and above the rider, with the rider partly hidden by the falling curtain for the middle of the barrel section;
+     - the exit is visible.
+   - **Check:** do the stills match the barrel references frame by frame?
+
+   The earlier wording follows:
    - **The problem today:** the lip passes well overhead, and the foam lands about 7 m behind the rider.
    - **Target, at 6 and 8 ft frontside and backside:**
      - the lip lands no more than 2 m behind the rider while they're in the barrel;
