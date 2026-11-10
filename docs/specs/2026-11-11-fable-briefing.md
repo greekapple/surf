@@ -141,6 +141,7 @@ After a few "felt right?" taps or logged sessions at a spot, the headline shows 
   - re-critique once.
 
 ### Track 5: Australia (only if the groundwork says go)
+**Update, 2026-11-10:** the source readers already exist, unwired and tested: `src/ocean/aodn.ts` (AODN/IMOS buoys) and `src/ocean/tmrTides.ts` (Queensland tides), described in `docs/forecast/AUSTRALIA-SOURCES.md`. Ireland's readers exist too (`src/ocean/marineInstitute.ts`, `docs/forecast/IRELAND-SOURCES.md`). Wire them; don't rebuild them. BoM tides are not permitted, so outside Queensland tides say "not available in this region" unless the user gets BoM permission.
 **Precondition:** `docs/forecast/AUSTRALIA-DATA.md` and `docs/specs/DRAFT-australia-wiring.md` say the buoys and tides are allowed to be displayed.
 
 **Then build in this order:**
