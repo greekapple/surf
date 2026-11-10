@@ -110,3 +110,42 @@ test('a pill that cannot be placed and overlaps nothing where it stands merges w
   assert.ok(out.has(W), `the far pill is untouched: ${[...out.keys()].join(' | ')}`);
   assert.ok(out.has(nodeId(1, 'Florida')) && !out.has(D), [...out.keys()].join(' | '));
 });
+
+/* ---------- pills-snapshot: spots with no live record take the daily forecast, and the pill says so ---------- */
+const sn = (id: string, score: number | null, band: SpotState['band'], dark = false, rank = 0, retrieved = RUN): SpotState => ({...st(id, score, band, false, dark, rank), snap: true, retrieved});
+const NOWMS = Date.parse('2026-11-10T17:00:00Z'), RUN = Date.parse('2026-11-10T07:40:00Z');   // the run is 9 h 20 min old
+const SNAP = {nowMs: NOWMS, fmt: (ms: number) => new Date(ms).toISOString().slice(5, 16).replace('T', ' ') + ' UTC'};
+test('far coasts: Hawaii seen from Ocean Beach (nothing loaded) reads from the daily forecast with its AGE in the visible key, not "Not loaded yet"; with no snapshot it still says "Not loaded yet"', () => {
+  const hawaii = summarise([sn('a', 70, 'good'), sn('b', 40, 'fair'), sn('c', 10, 'poor'), sn('d', null, 'none')]);
+  assert.deepEqual([hawaii.total, hawaii.loaded, hawaii.snap], [4, 0, 4]); assert.equal(hawaii.best!.id, 'a'); assert.equal(hawaii.best!.snap, true); assert.deepEqual([hawaii.snapFrom, hawaii.snapTo], [RUN, RUN]);
+  const t = pillText('Hawaii', hawaii, word, COLOR, SNAP);
+  assert.match(t.html, /<span class="xc-k">Best<span class="xc-kl">, forecast 9 h old<\/span>:<\/span> Solid/, 'the age is in the key on a wide screen'); assert.match(t.html, /<small class="xc-age">striped = forecast 9 h old<\/small>/, 'and on its own line on the phone, with what the stripes mean (the counts line is hidden there)'); assert.doesNotMatch(t.html, /Not loaded yet/); assert.match(t.html, /4 spots · 4 forecast, striped/);
+  assert.match(t.label, /best, from the daily forecast \(model run 9 h old\): solid at a/); assert.match(t.label, /1 from the daily forecast, in the good band \(green\)/);
+  assert.match(t.label, /Daily forecast: the model run retrieved 11-10 07:40 UTC \(9 h old\), rated with the current rules as of that run; not live\. A pin loads the newest run, so the two can differ\./); assert.doesNotMatch(t.label, /re-rated now|captured/); assert.equal((t.label.match(/not live/g) ?? []).length, 1, 'one source line');
+  assert.match(t.title, /striped segments are from the daily forecast, not live/); assert.match(t.html, /class="xc-snap"[^>]*background:G/); assert.doesNotMatch(t.html, /class="xc-unl"/);
+  assert.match(pillText('Hawaii', summarise([sn('a', 70, 'good')].map((x) => ({...x, snap: false}))), word, COLOR).html, /Not loaded yet/, 'a spot with no snapshot value and no live record is not loaded');
+  assert.match(pillText('Hawaii', hawaii, word, COLOR).html, /Not loaded yet/, 'no snapshot (hour outside the 48 h, no capture, request failed): the pill does not use the spots\' daily-forecast values');
+});
+test('the age is the BEST spot\'s own model run; a range of runs is said in the label; the age reads in minutes, hours and days', () => {
+  const OLD = Date.parse('2026-11-08T17:00:00Z'), g = summarise([sn('best', 80, 'good', false, 0, OLD), sn('other', 30, 'poor', false, 0, RUN)]);
+  const t = pillText('X', g, word, COLOR, SNAP); assert.match(t.html, /Best<span class="xc-kl">, forecast 2 d old<\/span>:/); assert.match(t.label, /the model run retrieved 11-08 17:00 UTC to 11-10 07:40 UTC \(2 d old\)/);
+  assert.match(pillText('X', summarise([sn('a', 50, 'fair', false, 0, NOWMS - 40 * 60000)]), word, COLOR, SNAP).html, /, forecast 40 min old/);
+});
+test('"Best of covered/total" whenever spots stay uncovered, the snapshot variant included; "Loading forecast…" while the snapshot is fetched, never "Not loaded yet" then', () => {
+  const part = pillText('X', summarise([sn('a', 70, 'good'), st('b', 30, 'poor'), st('c', null, 'none', false)]), word, COLOR, SNAP); assert.match(part.html, /Best of 2\/3<span class="xc-kl">, forecast 9 h old<\/span>:/); assert.match(part.label, /best of the 2 covered of 3, from the daily forecast/); assert.match(part.label, /1 not loaded/);
+  const liveBest = pillText('X', summarise([st('a', 80, 'good'), sn('b', 40, 'fair'), st('c', null, 'none', false)]), word, COLOR, SNAP); assert.match(liveBest.html, /Best of 2\/3:<\/span> Solid/); assert.match(liveBest.label, /best of the 2 covered of 3: solid at a/);
+  const none = summarise([st('a', null, 'none', false)]); assert.match(pillText('X', none, word, COLOR, SNAP, true).html, /Loading forecast…/); assert.doesNotMatch(pillText('X', none, word, COLOR, SNAP, true).html, /Not loaded yet/); assert.match(pillText('X', none, word, COLOR, SNAP, false).html, /Not loaded yet/);
+});
+test('live values stay live: a live record wins a tie, the live and the snapshot spots are counted apart, the bar marks the snapshot segments, the pill names both counts', () => {
+  const g = summarise([st('live-fair', 55, 'fair'), sn('snap-fair', 55, 'fair'), sn('snap-good', 70, 'good'), st('live-poor', 20, 'poor'), st('cold', null, 'none', false)]);
+  assert.deepEqual([g.loaded, g.snap, g.counts.fair, g.counts.poor, g.snapCounts.fair, g.snapCounts.good], [2, 2, 1, 1, 1, 1]);
+  assert.equal(g.best!.id, 'snap-good', 'the best spot is the highest rating, and the pill says it is from the daily forecast');
+  const tie = summarise([sn('a', 60, 'fair', false, 999), st('b', 60, 'fair', true, false, 1)]); assert.equal(tie.best!.id, 'b', 'a live value beats a daily-forecast value of the same score whatever the rank');
+  const t = pillText('Northern California', g, word, COLOR, SNAP);
+  assert.match(t.html, /5 spots · 2 live · 2 forecast, striped/); assert.match(t.label, /1 live, in the fair band/); assert.match(t.label, /1 from the daily forecast, in the fair band/); assert.match(t.label, /1 not loaded/); assert.match(t.html, /xc-unl/);
+  assert.doesNotMatch(t.html + t.label, /average|mean/i);
+});
+test('after dark from the daily forecast says so (with the age), and a snapshot spot in the dark is never the best while a daylit one is rated', () => {
+  const dark = pillText('Hawaii', summarise([sn('a', 90, 'good', true), sn('b', 50, 'fair', true)]), word, COLOR, SNAP); assert.match(dark.html, /After dark<span class="xc-kl">, forecast 9 h old<\/span> ·<\/span> Solid/);
+  const mixed = summarise([sn('night', 90, 'good', true), sn('day', 50, 'fair')]); assert.equal(mixed.best!.id, 'day');
+});

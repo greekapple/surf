@@ -50,10 +50,13 @@ export function buildNodes(spots: {id: string; region: string}[]): Map<NodeId, s
 
 export type Band = 'good' | 'fair' | 'poor' | 'none';
 /** One spot at the selected hour, from the same rating its pin shows. `rank` is the pins' own priority (favourites, popular, original spots), used only to break a tie. */
-export interface SpotState {id: string; name: string; loaded: boolean; score: number | null; category: string | null; band: Band; dark: boolean; rank: number}
+export interface SpotState {id: string; name: string; loaded: boolean; score: number | null; category: string | null; band: Band; dark: boolean; rank: number;
+  /** the value comes from the daily forecast (the day's capture, re-rated with the current engine), not from a live record: `loaded` is then false and the pill says so */ snap?: boolean; /** for a daily-forecast value: when its model run was retrieved (ms) */ retrieved?: number}
 export interface GroupSummary {
   total: number; loaded: number;
-  /** spots per band among the loaded ones; `none` = loaded but not rated at this hour */
+  /** spots whose value is from the daily forecast (not live), and their bands */
+  snap: number; snapCounts: Record<Band, number>; /** the oldest and newest model-run retrieval (ms) among the daily-forecast spots, null with none */ snapFrom: number | null; snapTo: number | null;
+  /** spots per band among the LIVE loaded ones; `none` = loaded but not rated at this hour */
   counts: Record<Band, number>;
   /** the highest-scoring rated DAYLIT spot at this hour; only when every rated spot is in the dark, the highest of those (and `allDark`) */
   best: SpotState | null; allDark: boolean;
@@ -61,35 +64,49 @@ export interface GroupSummary {
 /** Best and spread from the same per-spot ratings the pins show. A dark spot is never the best while a daylit one is rated (after dark is never a surf window).
  *  Ties on score go to the higher pin rank, then the earlier spot. Nothing is averaged. */
 export function summarise(states: SpotState[]): GroupSummary {
-  const counts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}; let day: SpotState | null = null, dark: SpotState | null = null, loaded = 0;
-  const better = (a: SpotState, b: SpotState | null) => !b || a.score! > b.score! || (a.score === b.score && a.rank > b.rank);
+  const counts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}, snapCounts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}; let day: SpotState | null = null, dark: SpotState | null = null, loaded = 0, snap = 0, snapFrom: number | null = null, snapTo: number | null = null;
+  // a live value beats a daily-forecast value of the same score (live is what the pins show); then the pins' own rank, then the earlier spot
+  const better = (a: SpotState, b: SpotState | null) => !b || a.score! > b.score! || (a.score === b.score && (!!b.snap > !!a.snap || (!!a.snap === !!b.snap && a.rank > b.rank)));
   for (const s of states) {
-    if (!s.loaded) continue; loaded++;
-    counts[s.score === null ? 'none' : s.band]++;
+    if (s.loaded) { loaded++; counts[s.score === null ? 'none' : s.band]++; } else if (s.snap) { snap++; snapCounts[s.score === null ? 'none' : s.band]++; if (typeof s.retrieved === 'number') { snapFrom = snapFrom === null ? s.retrieved : Math.min(snapFrom, s.retrieved); snapTo = snapTo === null ? s.retrieved : Math.max(snapTo, s.retrieved); } } else continue;
     if (s.score === null) continue;
     if (s.dark) { if (better(s, dark)) dark = s; } else if (better(s, day)) day = s;
   }
-  return {total: states.length, loaded, counts, best: day ?? dark, allDark: !day && !!dark};
+  return {total: states.length, loaded, snap, snapCounts, snapFrom, snapTo, counts, best: day ?? dark, allDark: !day && !!dark};
 }
 const BAND_WORD = {good: 'good', fair: 'fair', poor: 'poor', none: 'not rated'} as const;
 const BAND_INK = {good: 'green', fair: 'amber', poor: 'red', none: 'grey'} as const;
 /** The bar's key, for the pill's tooltip. */
-export const BAR_KEY = 'Bar: spots per band, green good, amber fair, red poor, grey not rated, dashed not loaded.';
+export const BAR_KEY = 'Bar: spots per band, green good, amber fair, red poor, grey not rated; striped segments are from the daily forecast, not live; dashed not loaded.';
 /** What one pill says. `word` is the pins' rating word (ui/Condition conditionWord); colours are the bands' CSS colours. The aria label spells out each band with its
  *  colour so "2 good" cannot be heard as a count of GOOD-rated spots only ("in the good band"). */
-export function pillText(name: string, s: GroupSummary, word: (category: string) => string, color: Record<Band, string>): {html: string; label: string; title: string; color: string} {
+export interface SnapInfo {/** the clock now (ms), for the age of the model run */ nowMs: number; /** a retrieval time in words ("Mon, Nov 9 · 11:40 PM PST") */ fmt: (ms: number) => string}
+/** "9 h", "40 min", "2 d": how old a model run is. */
+export const ageWords = (nowMs: number, ms: number) => { const h = Math.max(0, nowMs - ms) / 3600000; return h < 1 ? `${Math.max(1, Math.round(h * 60))} min` : h < 48 ? `${Math.round(h)} h` : `${Math.round(h / 24)} d`; };
+export function pillText(name: string, s: GroupSummary, word: (category: string) => string, color: Record<Band, string>, snapshot?: SnapInfo, loadingSnapshot = false): {html: string; label: string; title: string; color: string} {
   const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]!);
-  const unloaded = s.total - s.loaded, partial = s.loaded > 0 && unloaded > 0, w = s.best ? word(s.best.category!) : '';
-  const head = s.loaded === 0 ? 'Not loaded yet' : !s.best ? (unloaded ? 'No ratings yet · loading' : 'No ratings this hour') : null;
-  const key = s.allDark ? 'After dark ·' : partial ? `Best of ${s.loaded}/${s.total}:` : 'Best:';
-  const spread = (['good', 'fair', 'poor', 'none'] as const).filter((b) => s.counts[b]).map((b) => (b === 'none' ? `${s.counts[b]} not rated (${BAND_INK[b]})` : `${s.counts[b]} in the ${BAND_WORD[b]} band (${BAND_INK[b]})`)).concat(unloaded ? [`${unloaded} not loaded`] : []).join(', ');
-  const lead = head ? head.toLowerCase() : `${s.allDark ? 'after dark, the highest is' : partial ? `best of the ${s.loaded} loaded of ${s.total}:` : 'best:'} ${w.toLowerCase()} at ${s.best!.name}`;
-  const label = `${name}: ${lead}; ${spread}; ${s.total} spot${s.total === 1 ? '' : 's'}. Show this coast.`;
+  const snap = snapshot ? s.snap : 0, unloaded = s.total - s.loaded - snap, covered = s.loaded + snap, partial = covered > 0 && unloaded > 0, w = s.best ? word(s.best.category!) : '';
+  const head = covered === 0 ? (loadingSnapshot ? 'Loading forecast…' : 'Not loaded yet') : !s.best ? (unloaded ? 'No ratings yet · loading' : 'No ratings this hour') : null;
+  const fromSnap = !!s.best?.snap && !!snapshot, ageOfBest = fromSnap && typeof s.best!.retrieved === 'number' ? ageWords(snapshot!.nowMs, s.best!.retrieved) : snapshot && s.snapFrom !== null ? ageWords(snapshot.nowMs, s.snapFrom) : '';
+  // the age of the best spot's model run is in the visible key, so it is read on the phone too (the counts line is hidden there)
+  const runAgeFor = () => (snapshot && s.snapFrom !== null ? ageWords(snapshot.nowMs, s.snapFrom) : '');
+  const base = partial ? `Best of ${covered}/${s.total}` : 'Best', fc = ageOfBest ? `forecast ${ageOfBest} old` : 'daily forecast';
+  // the key's forecast part is its own span: the phone hides it (the pill is too narrow for "Best, forecast 9 h old: Surfable") and shows the age on a line of its own instead (`xc-age`)
+  const kl = (t: string) => `<span class="xc-kl">, ${t}</span>`, keyHtml = s.allDark ? (fromSnap ? `After dark${kl(fc)} ·` : 'After dark ·') : fromSnap ? `${base}${kl(fc)}:` : `${base}:`;
+  const ageLine = snap ? `<small class="xc-age">striped = forecast${ageOfBest || runAgeFor() ? ` ${ageOfBest || runAgeFor()} old` : ''}</small>` : '';
+  const part = (c: Record<Band, number>, kind: string) => (['good', 'fair', 'poor', 'none'] as const).filter((b) => c[b]).map((b) => (b === 'none' ? `${c[b]} not rated (${BAND_INK[b]})` : `${c[b]} ${kind}in the ${BAND_WORD[b]} band (${BAND_INK[b]})`));
+  const spread = [...part(s.counts, snap ? 'live, ' : ''), ...(snap ? part(s.snapCounts, 'from the daily forecast, ') : []), ...(unloaded ? [`${unloaded} not loaded`] : [])].join(', ');
+  // one source line: which model run, how old, rated with the current rules as of that run, not live, and why it can differ from a pin
+  const run = snapshot && s.snapFrom !== null && s.snapTo !== null ? `${snapshot.fmt(s.snapFrom)}${s.snapTo - s.snapFrom >= 60000 ? ` to ${snapshot.fmt(s.snapTo)}` : ''}` : '', runAge = snapshot && s.snapFrom !== null ? ageWords(snapshot.nowMs, s.snapFrom) : '';
+  const src = snap && run ? ` Daily forecast: the model run retrieved ${run} (${runAge} old), rated with the current rules as of that run; not live. A pin loads the newest run, so the two can differ.` : '';
+  const lead = head ? head.toLowerCase() : `${s.allDark ? 'after dark, the highest is' : fromSnap ? `${partial ? `best of the ${covered} covered of ${s.total}` : 'best'}, from the daily forecast (model run ${ageOfBest} old):` : partial ? `best of the ${covered} ${snap ? 'covered' : 'loaded'} of ${s.total}:` : 'best:'} ${w.toLowerCase()} at ${s.best!.name}`;
+  const label = `${name}: ${lead}; ${spread}; ${s.total} spot${s.total === 1 ? '' : 's'}.${src} Show this coast.`;
   const seg = (n: number, c: string, cls = '') => (n ? `<i class="${cls}" style="flex-grow:${n};background:${c}"></i>` : '');
   const html = `<b class="xc-name">${esc(name)}</b>`
-    + `<span class="xc-best">${head ? `<span class="xc-none">${head}</span>` : `<i class="xc-dot" aria-hidden="true"></i><span class="xc-k">${key}</span> ${esc(w)}<span class="xc-spot"> · ${esc(s.best!.name)}</span>`}</span>`
-    + `<span class="xc-bar" aria-hidden="true">${seg(s.counts.good, color.good)}${seg(s.counts.fair, color.fair)}${seg(s.counts.poor, color.poor)}${seg(s.counts.none, color.none)}${seg(unloaded, 'transparent', 'xc-unl')}</span>`
-    + `<small class="xc-n">${s.total} spot${s.total === 1 ? '' : 's'}${partial ? ` · ${s.loaded} loaded` : ''}</small>`;
+    + `<span class="xc-best">${head ? `<span class="xc-none">${head}</span>` : `<i class="xc-dot" aria-hidden="true"></i><span class="xc-k">${keyHtml}</span> ${esc(w)}<span class="xc-spot"> · ${esc(s.best!.name)}</span>`}</span>`
+    + `<span class="xc-bar" aria-hidden="true">${seg(s.counts.good, color.good)}${seg(s.counts.fair, color.fair)}${seg(s.counts.poor, color.poor)}${seg(s.counts.none, color.none)}${snap ? seg(s.snapCounts.good, color.good, 'xc-snap') + seg(s.snapCounts.fair, color.fair, 'xc-snap') + seg(s.snapCounts.poor, color.poor, 'xc-snap') + seg(s.snapCounts.none, color.none, 'xc-snap') : ''}${seg(unloaded, 'transparent', 'xc-unl')}</span>`
+    + ageLine
+    + `<small class="xc-n">${s.total} spot${s.total === 1 ? '' : 's'}${s.loaded && s.loaded < s.total ? ` · ${s.loaded} live` : ''}${snap ? ` · ${snap} forecast, striped` : ''}</small>`;
   return {html, label, title: `${label}\n${BAR_KEY}`, color: s.best ? color[s.best.band] : color.none};
 }
 

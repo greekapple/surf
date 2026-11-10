@@ -1,5 +1,6 @@
 import {mapZone} from '../../ocean/spotZone';
-import {mapZoneAbbr} from './mapTime';
+import {mapZoneAbbr, stampLabel} from './mapTime';
+import {loadSnapshot, snapshotHour, type ClientSnapshot} from './coastSnapshot';
 import {spotTier} from '../../data/spotTiers';
 import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {ENCLOSED_NOTE} from '../../map/enclosed';
@@ -257,6 +258,16 @@ function OceanMap({section, go}: ViewProps) {
   // One lookup table per (records, hour): the old per-call scan of every record of every spot made each pin, label and list row O(records) (~0.3 s of main thread on a phone at 492 spots, T-091). First match wins, as find() did.
   const recIndex = useMemo(() => { const m = new Map<string, (typeof view.mapRecords)[number]>(); for (const r of view.mapRecords) if (r.timestamp === view.selectedTime && !m.has(r.spotId)) m.set(r.spotId, r); return m; }, [view.mapRecords, view.selectedTime]);
   const recAt = (id: string) => recIndex.get(id);
+  // pills-snapshot: for the selected hour, the daily forecast of every spot (Worker `/api/coast-ratings`, the newest complete daily capture re-rated with the current engine). Only spots with no live record at the hour use it,
+  // and the pills say so. An hour outside the capture's 48 hours, no capture or a failed request leaves `snap` null: those spots read "Not loaded yet". Asked once per hour.
+  const [snap, setSnap] = useState<ClientSnapshot | null>(null), [snapLoading, setSnapLoading] = useState(false);
+  useEffect(() => {
+    const t = snapshotHour(view.selectedTime); setSnap((cur) => (cur && cur.t === t ? cur : null));
+    if (!t) { setSnapLoading(false); return; }
+    let live = true; setSnapLoading(true);
+    const timer = setTimeout(() => { loadSnapshot(t).then((v) => { if (live) { setSnap(v); setSnapLoading(false); } }); }, 150);   // scrubbing the time strip asks once, for the hour it stops on; the pill says "Loading forecast…", never "Not loaded yet", meanwhile
+    return () => { live = false; clearTimeout(timer); };
+  }, [view.selectedTime]);
 
   useEffect(() => {
     if (!mapEl.current) return;
@@ -341,8 +352,14 @@ function OceanMap({section, go}: ViewProps) {
     // 4E: the coast pills (built once per map, see below) take this hour's summary in place: same records and ratings as the pins, keyboard focus kept.
     for (const [id, pl] of pills.current) {
       const ids = COAST_NODES.get(id)!;
-      const states: SpotState[] = ids.map((sid) => { const r = rated.get(sid)!; return {id: sid, name: SPOT_BY_ID.get(sid)!.name, loaded: !!r.f || view.ocean.isSpotLoaded(sid), score: r.rating?.score ?? null, category: r.rating?.category ?? null, band: r.rating ? bandOf(r.rating.category) : 'none', dark: !!r.rating?.dark, rank: r.rank}; });
-      const sum = summarise(states), t = pillText(nameOf(id).replace(/^Hawaii · /, ''), sum, conditionWord, BAND_COLOR);   // the island zones read as islands ("Oahu") on the map
+      const states: SpotState[] = ids.map((sid) => {
+        // a spot with a live record at this hour keeps it; a spot whose live load FINISHED with no record at the hour (a failed load) keeps its pin's "not rated" so the pill cannot contradict its pin;
+        // only a spot that is not loaded (or still loading) takes the daily forecast
+        const r = rated.get(sid)!, live = !!r.f || view.ocean.isSpotLoaded(sid), loadedForReal = !!view.ocean.bundle && view.ocean.isSpotLoaded(sid), sn = !r.f && !loadedForReal ? snap?.byId.get(sid) : undefined;
+        if (sn) return {id: sid, name: SPOT_BY_ID.get(sid)!.name, loaded: false, snap: true, retrieved: sn[3] * 60000, score: sn[0], category: sn[1], band: sn[1] ? bandOf(sn[1]) : 'none', dark: sn[2] === 1, rank: r.rank};
+        return {id: sid, name: SPOT_BY_ID.get(sid)!.name, loaded: live, score: r.rating?.score ?? null, category: r.rating?.category ?? null, band: r.rating ? bandOf(r.rating.category) : 'none', dark: !!r.rating?.dark, rank: r.rank};
+      });
+      const sum = summarise(states), t = pillText(nameOf(id).replace(/^Hawaii · /, ''), sum, conditionWord, BAND_COLOR, snap ? {nowMs: now, fmt: (ms) => `${stampLabel(new Date(ms).toISOString())} ${mapZoneAbbr(ms)}`} : undefined, snapLoading);   // the island zones read as islands ("Oahu") on the map
       if (pl.inner.innerHTML !== t.html) { pl.inner.innerHTML = t.html; pillsDirty.current = true; }
       pl.inner.style.setProperty('--c', t.color); pl.mk.element.setAttribute('aria-label', t.label); pl.mk.element.title = t.title;
       pl.prio = (focused && ids.includes(focused) ? 2 * TIER : 0) + (ids.some((sid) => data.state.favorites.includes(sid)) ? TIER : 0) + (sum.best?.score ?? -1);
@@ -382,7 +399,7 @@ function OceanMap({section, go}: ViewProps) {
       geom.current.set(e.id, {d: [d.left - cx, d.top - cy, d.width, d.height], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] : null, c});
     }
     declutterRef.current();
-  }, [eng, view.mapRecords, view.selectedTime, focused, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [eng, view.mapRecords, view.selectedTime, snap, snapLoading, focused, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /** Sparse labels that never collide: the selected spot first, then the best-rated; a zoom-dependent budget; the rest are dots.
    *  Each label tries right of its pin, then left, else stays a dot until zoomed in. Labels keep clear of the floating controls. */

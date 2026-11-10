@@ -824,12 +824,15 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xc-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
 .xc-bar { display: flex; gap: 1px; height: 4px; border-radius: 2px; overflow: hidden; background: color-mix(in srgb, var(--muted) 18%, transparent); }
 .xc-bar i { display: block; min-width: 3px; }
+.xc-bar i.xc-snap { background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.55) 0 2px, transparent 2px 4px) !important; }   /* the daily forecast (not live): the band's colour, striped */
 .xc-bar i.xc-unl { background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--muted) 45%, transparent) 0 2px, transparent 2px 4px) !important; }
 .xc-n { font-size: 11px; color: var(--muted); }
+.xc-age { display: none; font-size: 10px; color: var(--muted); }   /* phones only: what the stripes mean and how old the forecast is */
 @media (max-width: 860px) {
   /* phones: compact (name and best band, the spread bar under them); the spot name and the count stay in the pill's label for screen readers */
   .xcoast { min-width: 64px; max-width: 150px; padding: 4px 8px 5px; gap: 2px; border-radius: 8px; }
   .xc-name { font-size: 12px; }
   .xc-best { font-size: 11px; }
   .xc-spot, .xc-n { display: none; }
+  .xc-kl { display: none; } .xc-age { display: block; }
 }
