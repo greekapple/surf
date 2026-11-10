@@ -150,6 +150,22 @@ After a few "felt right?" taps or logged sessions at a spot, the headline shows 
 
 If the groundwork isn't merged, skip this track.
 
+### Track 6: surf cameras, AI reading (only if the inventory found cameras that allow analysis)
+**Input:** `docs/forecast/CAMERAS-INVENTORY.md` and `docs/forecast/data/camera-sources.json` (the Phase A inventory, 2026-11-10). The rules in vault `10-Projects/SWELLO/09-AI-Surf-Cameras.md` are non-negotiable:
+- written permission for display, and separately for analysis;
+- no Surfline or other restricted feeds;
+- no scraping;
+- never identify or track anyone.
+
+**Steps:**
+1. **Display first.** Show attributed embeds on the spot page, only for cameras with `embedAllowed: yes`.
+2. **Then Phase C, only for cameras with `analysisAllowed: yes`.**
+   - Process daylight stills every 5–10 min on the server.
+   - Output aggregates only: breaking or not, the set interval, and relative height against calibrated markers, with uncertainty.
+   - Delete each frame after inference.
+   - Calibrate against the nearest buoy and the How-right archive.
+   - Show the result as "Observed · AI estimate", with confidence, only after the lead and the user review it.
+
 ## What to hand back
 - **The branch:** `fable-wed`, gated, not deployed.
 - **A report** at `docs/agents/handoffs/2026-11-11-fable-report.md`:
