@@ -81,3 +81,32 @@ Store it as `howright/v2/shown/<date>.json`. Spots without a fresh cached copy g
 ## Level
 - 4A and 4C: production infrastructure plus new stored data, within free tiers. Level 3.
 - 4B: a rating change, approved by the user. Level 3.
+
+## 4E. Coast groups on the map (product-term, after 4B)
+The user: "I like how Surfline groups together a coast and gives an average rating. We should change that feature up a little with an idea of yours, but prevent overcrowding."
+
+**The idea:** show the best spot and the spread, not an average. An average hides the one spot that's working: a coast of nine flat beaches and one firing point averages to "poor". So when zoomed out, each coast region (the existing browsing regions, e.g. Santa Cruz, San Mateo, Oahu North Shore, Outer Banks) shows one **coast pill**:
+- the region name;
+- the **best rating** at the selected hour, and which spot it is ("Best: Good · Steamer Lane");
+- a thin **spread bar**: one coloured segment per rating band, sized by how many of the region's spots are in it, so "1 good, 3 fair, 8 poor" reads at a glance;
+- the spot count.
+
+**Behaviour:**
+- **Tapping a pill** frames that region (the same fit as the region chips) and the pins return.
+- **Below about z7, pills replace pins** (favourites and the focused spot keep their pin). Above it, pins only.
+- **At very low zoom,** neighbouring regions merge into a parent (e.g. "Central California") until labels fit. **No two pills overlap,** and the declutter order is: focused, favourites, best rating.
+- **The time scrubber** updates the pills live, using the same records as the pins (no new fetch).
+- **On phones,** the pill is compact (name plus best band, with the spread bar under it). Check at 390.
+
+**Honesty:**
+- The best rating and the spread come from the same per-spot ratings the pins show, at the same hour.
+- A region where every spot lacks a rating says "no ratings this hour".
+- No averaged number is shown.
+
+**Acceptance:**
+- **No overlap:** Playwright at 1440 and 390, at z4, z5, z6 and z7, over California, Hawaii and the East Coast, checks bounding boxes for overlap.
+- **Tap test:** tapping a pill frames the region.
+- **Scrubbing:** scrubbing changes pill colours, and matches the pins at the same hour.
+- **No regressions:** t043, clock-deselect, point-panel-390, landscape-tap and t034 still pass.
+- **Visual check:** screenshots looked at.
+- **Reviews:** a code review, plus a data-honesty review (the pills summarise ratings).
