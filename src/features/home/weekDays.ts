@@ -8,3 +8,9 @@ export function weekDays(nowMs: number, records: {spotId: string; timestamp: str
   while (keys.length > 1 && !have.has(keys[keys.length - 1])) keys.pop();
   return keys;
 }
+/** Round 3 (data-honesty P1): the records of one spot that belong in each column. Every row is bucketed by the COLUMN's date keys, read in the row's
+ *  own zone, so a column headed "Tue 10" holds Tue 10 at that spot (never its k-th local day, which put an East spot's Wednesday under Tue after
+ *  9 PM Pacific). Pure, for tests. */
+export function bucketByColumn<T extends {spotId: string; timestamp: string}>(records: T[], spotId: string, tz: string, keys: string[]): T[][] {
+  return keys.map((key) => records.filter((r) => r.spotId === spotId && dateInMs(tz, Date.parse(r.timestamp)) === key));
+}

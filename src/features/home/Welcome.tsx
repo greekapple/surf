@@ -1,6 +1,6 @@
 import {useMemo, useState} from 'react';
 import {dateInMs, hourInMs, fmtIn, addDaysKey} from '../../ocean/time';
-import {timeZoneOf, viewerTag} from '../../ocean/spotZone';
+import {differsFromViewer, timeZoneOf, viewerTag, viewerZone} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
 import {callFor, hourCall, windowHour, type CallWindow, type Verdict} from '../../services/call';
@@ -34,7 +34,8 @@ const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide refe
 type Bundle = Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined;
 interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean; confidence: BetConfidence}
 const clock = (iso: string, tz: string) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // in the zone of the spot shown
-const dayWord = (iso: string, nowMs: number, tz: string) => { const d = dateInMs(tz, Date.parse(iso)), today = dateInMs(tz, nowMs); if (d === today) return 'today'; if (d === addDaysKey(today, 1)) return 'tomorrow'; return fmtIn(tz, {weekday: 'long'}).format(new Date(iso)); };
+// 'today'/'tomorrow' are the spot's days; where its clock is not the viewer's they could be a different day for the reader, so the weekday is named (round 3 data-honesty)
+const dayWord = (iso: string, nowMs: number, tz: string) => { if (differsFromViewer(tz, iso)) return fmtIn(tz, {weekday: 'long'}).format(new Date(iso)); const d = dateInMs(tz, Date.parse(iso)), today = dateInMs(tz, nowMs); if (d === today) return 'today'; if (d === addDaysKey(today, 1)) return 'tomorrow'; return fmtIn(tz, {weekday: 'long'}).format(new Date(iso)); };
 
 /** The best bet: across the candidate spots, the next daylight window (today's if still ahead, else the next one), Go or Worth a look at its first hour.
  *  T-075: only a spot with a SURF ESTIMATE at that hour can be "your best bet" (we can't recommend a size we don't have), so sized spots rank first,
@@ -75,7 +76,8 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
 }) {
   const hourKey = Math.floor(nowMs / 36e5);
   const {bet, alt, withData, total} = useMemo(() => bestBet(spots, records, profile, bundle, nowMs), [spots, records, profile, bundle, hourKey]); // eslint-disable-line react-hooks/exhaustive-deps
-  const spot = bet?.spot ?? refSpot, greeting = greetingLine(hourInMs(timeZoneOf(spot), nowMs), name?.trim() ? name.trim().split(/\s+/)[0] : null);
+  const spot = bet?.spot ?? refSpot, greeting = greetingLine(hourInMs(viewerZone(), nowMs),   // the viewer's own clock: it greets the person, not the spot
+     name?.trim() ? name.trim().split(/\s+/)[0] : null);
   // The sentence: the window, the surf estimate at its first hour and the wind there. Offshore-only height is never stated as surf.
   const at = bet ? spotHourOf(bet.spot, bet.rec, nowMs, profile, {bundle}) : null, wind = bet ? windOf(bet.spot, bet.rec, profile, nowMs) : null;
   const surf0 = at ? (at.surf.headline.kind === 'estimate' ? at.surf.value : at.surf.headline.kind === 'demonstration' ? `${at.surf.value} (demonstration)` : null) : null;
@@ -113,7 +115,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
   const glyph = heroRec && heroHour ? glyphFor(heroHour.surf.headline, me.feet, heroRec.primary?.period, breakerType(spot, heroRec).type) : null;
   const heroBand = heroRec ? BAND_COLOR[bandOf(rateForecast(spot, heroRec, nowMs).category)] : undefined;
-  const heroWhen = heroRec ? `${dayWord(heroRec.timestamp, nowMs, tz) === 'today' ? '' : dayWord(heroRec.timestamp, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroRec.timestamp, tz)}` : '';
+  const heroWhen = heroRec ? `${dayWord(heroRec.timestamp, nowMs, tz) === 'today' ? '' : dayWord(heroRec.timestamp, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroRec.timestamp, tz)}${viewerTag(tz, heroRec.timestamp)}` : '';
   return (
     <section className={`wel wel-${tintOf(nowMs, spot.id)}`} aria-labelledby="wel-h">
       <div className={`wel-hero is-${media.kind}`}>
@@ -135,9 +137,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
       </div>
       <NwsBanner spotId={spot.id} />
       <dl className="wel-glance" aria-label={`Today at ${spot.name}`}>
-        <div><dt>Sunrise</dt><dd>{clock(today.sunrise, tz)}</dd></div>
-        <div><dt>Sunset</dt><dd>{clock(today.sunset, tz)}</dd></div>
-        <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach` : station ? 'No prediction loaded for the nearest station' : 'No tide station within range'}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t, tz)} <small>{station.station.name} station, {station.distanceKm} km{(station as {fallback?: boolean}).fallback ? ` · ${((station as {fallbackLabel?: string}).fallbackLabel ?? 'inlet or bay-side station').toLowerCase()}: times and range differ from the open beach` : ''}</small></> : (regionNote(spot, 'tide') ?? '—')}</dd></div>
+        <div><dt>Sunrise</dt><dd>{clock(today.sunrise, tz)}{viewerTag(tz, today.sunrise)}</dd></div>
+        <div><dt>Sunset</dt><dd>{clock(today.sunset, tz)}{viewerTag(tz, today.sunset)}</dd></div>
+        <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach` : station ? 'No prediction loaded for the nearest station' : 'No tide station within range'}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t, tz)}{viewerTag(tz, nextTide.t)} <small>{station.station.name} station, {station.distanceKm} km{(station as {fallback?: boolean}).fallback ? ` · ${((station as {fallbackLabel?: string}).fallbackLabel ?? 'inlet or bay-side station').toLowerCase()}: times and range differ from the open beach` : ''}</small></> : (regionNote(spot, 'tide') ?? '—')}</dd></div>
         <div><dt>Water</dt><dd>{water !== null ? `${water}°F` : '—'}</dd></div>
         <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && pick.size.state !== 'none' ? <>{pick.board.name} <small>suits {pick.size.board[0]}–{pick.size.board[1]} ft{choice?.mode === 'size' ? ', wave shape unknown' : ''}</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
       </dl>

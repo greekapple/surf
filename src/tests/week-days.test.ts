@@ -16,3 +16,21 @@ test('all 8 days when the records reach the 8th day; only rows shown count', () 
   assert.equal(weekDays(now, recs('2026-11-02T20:00:00Z', 8 * 24), ['spot-2']).length, 8);
   assert.equal(weekDays(now, recs('2026-11-02T20:00:00Z', 8 * 24, 'spot-9'), ['spot-2']).length, 1, 'records of a spot not in the grid do not count');
 });
+test('round 3 data-honesty: every row is bucketed by the COLUMN dates in its own zone (a CA row and an EST row around midnight)', async () => {
+  const {bucketByColumn, weekDays: wd} = await import('../features/home/weekDays.ts');
+  const now = Date.parse('2026-11-10T05:30:00Z');   // Mon 9:30 PM PST = Tue 12:30 AM EST
+  const recs = [
+    {spotId: 'ca', timestamp: '2026-11-10T07:00:00Z'},   // Mon 11 PM PST
+    {spotId: 'ca', timestamp: '2026-11-10T08:00:00Z'},   // Tue 12 AM PST
+    {spotId: 'ca', timestamp: '2026-11-11T20:00:00Z'},   // Wed 12 PM PST
+    {spotId: 'east', timestamp: '2026-11-10T04:00:00Z'}, // Mon 11 PM EST
+    {spotId: 'east', timestamp: '2026-11-10T05:00:00Z'}, // Tue 12 AM EST
+    {spotId: 'east', timestamp: '2026-11-11T05:00:00Z'}, // Wed 12 AM EST
+  ];
+  const keys = wd(now, recs, ['ca', 'east'], 3, 'America/Los_Angeles');
+  assert.deepEqual(keys, ['2026-11-09', '2026-11-10', '2026-11-11']);
+  const ca = bucketByColumn(recs, 'ca', 'America/Los_Angeles', keys), east = bucketByColumn(recs, 'east', 'America/New_York', keys);
+  assert.deepEqual(ca.map((c) => c.map((r) => r.timestamp)), [['2026-11-10T07:00:00Z'], ['2026-11-10T08:00:00Z'], ['2026-11-11T20:00:00Z']]);
+  // the column headed Mon 9 holds the East spot's Monday (11 PM EST), Tue 10 its Tuesday, Wed 11 its Wednesday: never its "k-th local day"
+  assert.deepEqual(east.map((c) => c.map((r) => r.timestamp)), [['2026-11-10T04:00:00Z'], ['2026-11-10T05:00:00Z'], ['2026-11-11T05:00:00Z']]);
+});

@@ -797,3 +797,13 @@ button.xstatus { cursor: pointer; font: inherit; }
   .xpanel-go { grid-column: 2; grid-row: 1; }
   .xpanel-x { grid-column: 3; }
 }
+
+/* round3 3B-1: on a landscape phone the point label's expand button sat under the loading/error pill and under the search box's empty container.
+   The pill is a status line: only its Retry takes taps.
+   On short screens it moves off the top strip (search, focus chip, labels) to just above the time bar, right-aligned. */
+.xload { pointer-events: none; } .xload button { pointer-events: auto; }
+/* the search box's container is wider and taller than what it shows (the chip row): its empty part lets taps reach the map and its labels */
+.xsearchbox, .xtopbar { pointer-events: none; } .xsearchbox > *, .xtopbar > * { pointer-events: auto; } .xsearchbox > .xtopbar { pointer-events: none; }
+@media (max-width: 860px) and (max-height: 500px) {
+  .xload { top: auto; bottom: calc(var(--peek, 0px) + var(--xbot-h, 82px) + 6px); left: auto; right: 64px; translate: none; max-width: calc(100% - 140px); }
+}

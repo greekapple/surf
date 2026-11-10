@@ -1,6 +1,6 @@
 import {regionNote} from '../../ocean/coverage';
 import {fmtIn, dateIn, dateInMs, addDaysKey} from '../../ocean/time';
-import {activeZone, viewerTag} from '../../ocean/spotZone';
+import {activeZone, differsFromViewer, timeZoneOf, viewerTag} from '../../ocean/spotZone';
 import {Icon} from '../../ui/Icon';
 import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
@@ -12,7 +12,8 @@ import {alertsFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAl
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
 
 const clock = (iso: string) => fmtIn(activeZone(), {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // the zone of the spot on screen
-const when = (iso: string) => fmtIn(activeZone(), {weekday: 'short', hour: 'numeric', minute: '2-digit'}).format(new Date(iso));
+// an alert's times in the zone of the spot it is shown for (Home may show a spot other than the open one), named where that clock is not the viewer's
+const when = (iso: string, tz: string = activeZone()) => fmtIn(tz, {weekday: 'short', hour: 'numeric', minute: '2-digit'}).format(new Date(iso)) + viewerTag(tz, iso);
 const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look', Skip: 'skip', Dark: 'dark'};
 
 /** The Call: one answer you can act on (verdict, best window, the first reason); tap for every reason and what it is computed from. */
@@ -43,8 +44,9 @@ export function CallBar({call, compact = false, tz}: {call: Call; compact?: bool
     </section>
   );
 }
-const sameDay = (iso: string, z: string = activeZone()) => dateIn(z, iso) === dateInMs(z, Date.now());
-const dayWord = (iso: string, z: string = activeZone()) => dateIn(z, iso) === addDaysKey(dateInMs(z, Date.now()), 1) ? 'tomorrow' : fmtIn(z, {weekday: 'short'}).format(new Date(iso));
+// where the spot's clock is not the viewer's, 'today'/'tomorrow' are not said: the weekday is (round 3 data-honesty)
+const sameDay = (iso: string, z: string = activeZone()) => !differsFromViewer(z, iso) && dateIn(z, iso) === dateInMs(z, Date.now());
+const dayWord = (iso: string, z: string = activeZone()) => !differsFromViewer(z, iso) && dateIn(z, iso) === addDaysKey(dateInMs(z, Date.now()), 1) ? 'tomorrow' : fmtIn(z, {weekday: 'short'}).format(new Date(iso));
 
 /** First light, sunrise, sunset and last light for the selected day. */
 export function DaylightRow({d}: {d: Daylight}) {
@@ -80,7 +82,7 @@ export function NwsBanner({spotId}: {spotId: string}) {
         <a key={a.url + a.event} className="nws-a" href={a.url} target="_blank" rel="noopener noreferrer">
           <Icon name="alert" size={18} className="nws-i" aria-hidden="true" />
           <span className="nws-t"><b>{a.event}</b>{a.approxZone && <span> for the nearby coast</span>}
-            <span className="nws-w"> · {a.onset ? `from ${when(a.onset)} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!)}` : ''}</span>
+            <span className="nws-w"> · {a.onset ? `from ${when(a.onset, timeZoneOf(spotId))} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!, timeZoneOf(spotId))}` : ''}</span>
             <small className="nws-s"> · {a.sender || 'National Weather Service'} ↗</small></span>
         </a>
       ))}

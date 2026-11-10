@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
-import {dateInMs, hourIn, fmtIn} from '../../ocean/time';
-import {timeZoneOf} from '../../ocean/spotZone';
+import {hourIn, fmtIn} from '../../ocean/time';
+import {timeZoneOf, differsFromViewer, viewerTag} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {OceanBundle} from '../../ocean/types';
 import {dayRange, type DayRange} from '../../services/spotHour';
@@ -9,7 +9,7 @@ import {rateForecast} from '../../ratings/adapters';
 import {isDark} from '../forecast/trustApi';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
-import {weekDays} from './weekDays';
+import {weekDays, bucketByColumn} from './weekDays';
 import {monotonePath} from '../forecast/helpers';
 import {dayCertainty, certainLabel, type CertaintyView} from '../../services/certainty';
 
@@ -30,12 +30,12 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
   // T-088b: no column for a trailing day beyond the forecast horizon (after midnight the 8th day has no records at all).
   const colTz = timeZoneOf(spots[0]), keys = useMemo(() => weekDays(nowMs, records, spots.map((x) => x.id), DAYS, colTz), [Math.floor(nowMs / 36e5), records, spots]); // eslint-disable-line react-hooks/exhaustive-deps
   const rows: Row[] = useMemo(() => spots.map((spot) => {
-    const mine = records.filter((f) => f.spotId === spot.id), tz = timeZoneOf(spot), rowKeys = tz === colTz ? keys : weekDays(nowMs, records, [spot.id], keys.length, tz);   // the column heads are in colTz; a row in another zone is bucketed in ITS zone, column by column (k-th local day), and its name says which zone
+    const mine = records.filter((f) => f.spotId === spot.id), tz = timeZoneOf(spot), byCol = bucketByColumn(mine, spot.id, tz, keys);   // every row uses the COLUMN's dates, each read in the row's own zone: the head's date is the cell's date (round 3 data-honesty)
     return {spot, tz, cells: keys.map((_, ki) => {
-      const key = rowKeys[ki] ?? keys[ki];
+      const key = keys[ki];
       const dr = dayRange(spot, mine, key, nowMs, profile, {bundle});
       const segs = BLOCKS.map((h, i): Seg => {
-        const f = mine.find((r) => dateInMs(tz, Date.parse(r.timestamp)) === key && hourOf(tz, r.timestamp) === h);
+        const f = byCol[ki].find((r) => hourOf(tz, r.timestamp) === h);
         if (!f) return {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} no data`};
         const r = rateForecast(spot, f, nowMs), dark = isDark(spot.id, f.timestamp); // after dark the conditions keep their colour, dimmed (user, 2026-11-08)
         return r.score === null ? {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} not rated`} : {state: dark ? 'dark' : 'rated', color: BAND_COLOR[bandOf(r.category)], word: `${BLOCK_WORD[i]} ${conditionWord(r.category).toLowerCase()}${dark ? ', after dark' : ''}`};
@@ -48,7 +48,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
   return (
     <div className="wk" role="region" aria-label="Your spots this week" tabIndex={0}>
       <table className="wk-t">
-        <thead><tr><th scope="col" className="wk-spot">Spot</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
+        <thead><tr><th scope="col" className="wk-spot">Spot{differsFromViewer(colTz, nowMs) ? <small> · days in {zoneAbbr(colTz, nowMs)}</small> : null}</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
         <tbody>{rows.map(({spot, cells, tz}) => {
           // T-119 (Surfline-style, the user's "lines that undulate"): a smooth monotone curve through the days' midday sizes (wc.centralFt, the cell's own
           // number) on the row's own scale (its lowest to highest day, padded), so the week's shape reads; the numbers above carry the values.
@@ -70,8 +70,9 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
                 const st = wc.stale ? `, ${wc.stale === 'saved' ? 'saved' : 'stale'} source` : '';
                 const fullText = dayText(c.dr.typical)?.full ?? `${label} ${unit}`; // T-112: unit and Hawaiian qualifier, as the spot page says it
                 const word = cv && !far ? `, ${cv.word}` : wc.confidence ? `, ${wc.confidence} confidence` : '', differ = shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''; // the confidence word once (data-honesty cycle 1)
-                const aria = `${spot.name}, ${dayHead(keys[i], i)}: ${far ? `too far out to call (${cv!.why}); ${shown.detail} at ${wc.midday}${st}` : est ? `surf estimate ${fullText}${word}${differ} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${wc.midday}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
-                const tip = [cv ? `${cv.word}: ${cv.why}` : null, shown.detail, wc.spread ? `${wc.midday}${st}; ${wc.spread}` : null].filter(Boolean).join('. ') || undefined;
+                const day = tz === colTz ? dayHead(keys[i], i) : dayHead(keys[i], 1), at = c.dr.typical?.atIso, mid = `${wc.midday}${at ? viewerTag(tz, at) : ''}`;   // another zone's row: the date, not 'Today'; the midday hour names the spot's zone where it is not the viewer's
+                const aria = `${spot.name}, ${day}: ${far ? `too far out to call (${cv!.why}); ${shown.detail} at ${mid}${st}` : est ? `surf estimate ${fullText}${word}${differ} at ${mid}${st}${wc.spread ? `; ${wc.spread}` : ''}` : off ? `surf estimate unavailable, offshore ${fullText} at ${mid}${st}${wc.spread ? `; ${wc.spread}` : ''}` : 'no forecast height for this day'}; ${c.segs.map((s) => s.word).join(', ')}. Open forecast`;
+                const tip = [cv ? `${cv.word}: ${cv.why}` : null, shown.detail, wc.spread ? `${mid}${st}; ${wc.spread}` : null].filter(Boolean).join('. ') || undefined;
                 return (
                   <td key={c.key} className={`wk-c${i === 0 ? ' wk-first' : ''}${cv ? ` is-${cv.level}` : ''}`}>
                     {line}
