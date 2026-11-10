@@ -29,5 +29,7 @@ Home · Forecast · Explore · Quiver · Wave Scale · Personal (each with secti
 ## Camera rule (amended 2026-11-10, user decision)
 Showing another owner's camera is allowed when it is public domain, when the owner's terms allow embedding, or when the owner turned embedding on for their own stream (YouTube). It must be credited to the owner, a video must load only when the visitor taps, and the live status must be stated honestly (a still older than 2 h is Offline; a stream's live status comes from its own player). AI analysis of a camera's frames (and scraping or measuring them) still needs written permission or public domain. Cameras stay out of Home and the map until decided.
 
+**Second amendment (2026-11-10, user decision; accepted risk while they email the host):** a camera with UNKNOWN terms may be embedded when its host offers an embeddable player. Requirements: credit the host and the owner, load on tap, removal on request, and a per-camera kill switch (`enabled` in the camera data). A host that forbids embedding (Surfline; HDOnTap's player while it only allows sites it approves) stays link-only: SWELLO never uses a raw stream, a proxy or a stripped header to get around a host's control.
+
 ## Constraints
 React 19, TypeScript, Vite 7, Leaflet; no new runtime dependencies without approval. Must work on an 8 GB Apple Silicon Mac and on phones; WCAG AA contrast, 44 px touch targets, reduced-motion support.

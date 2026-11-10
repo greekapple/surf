@@ -14,14 +14,14 @@ test('the committed camera data is exactly what the generator builds from camera
   assert.equal(fs.readFileSync(new URL('../data/liveCamsSourced.ts', import.meta.url), 'utf8'), built + (built.endsWith('\n') ? '' : '\n'));
 });
 test('only spots with a usable-now camera row have a camera: Cowell\'s, Steamer Lane (partial), Sharp Park (four streams, west first), Linda Mar; nobody else', () => {
-  assert.deepEqual([...new Set(LIVE_CAMS.map((c) => c.spotId))].sort(), ['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7']);
+  assert.deepEqual([...new Set(LIVE_CAMS.filter((c) => c.enabled).map((c) => c.spotId))].sort(), ['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'], 'only enabled cameras count (the HDOnTap embeds are switched off)');
   for (const s of evidenceSpots) if (!['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'].includes(s.id)) assert.equal(liveCamsFor(s.id).length, 0, s.id + ' has no camera row');
   for (const id of ['spot-2', 'cs-kellys-cove', 'cs-sloat', 'cs-rockaway', 'spot-1', 'spot-0', 'spot-4', 'spot-5', 'cs-half-moon-bay', 'cs-princeton-jetty', 'spot-8', 'cs-capitola', 'cs-natural-bridges', 'cs-rodeo-beach']) assert.deepEqual(liveCamsFor(id), [], id);
   assert.deepEqual(liveCamsFor('cs-sharp-park').map((c) => c.rowId), ['chamberlin-sharp-park-west', 'chamberlin-pacifica-pier-north', 'chamberlin-pacifica-pier-closeup', 'chamberlin-mori-point-south']);
   assert.deepEqual(liveCamsFor('spot-3').map((c) => c.rowId), ['linda-mar-beach-cam-youtube']); assert.deepEqual(liveCamsFor('spot-7').map((c) => c.rowId), ['usgs-coastcam-santa-cruz-dream-inn']); assert.deepEqual(liveCamsFor('spot-6').map((c) => c.rowId), ['usgs-coastcam-santa-cruz-dream-inn']);
 });
 test('every camera comes from a row that is usable now (display permission, live on its check date, not an excluded host) and carries the row\'s own distance, URLs and refresh note', () => {
-  for (const c of LIVE_CAMS) {
+  for (const c of LIVE_CAMS.filter((c) => c.kind !== 'hdontap')) {   // the HDOnTap embeds are a different case: unknown terms, switched off (hdontap-cams.test.ts)
     const r = row(c.rowId); assert.ok(r, c.rowId); assert.ok(['display-only', 'display+analysis'].includes(r.permissionClass)); assert.equal(r.embedAllowed.value, 'yes'); assert.equal(r.uptime.status, 'live'); assert.doesNotMatch(`${r.host} ${r.owner}`, /surfline|swell ?magnet|magicseaweed/i);
     assert.equal(c.km, r.nearestSpots.find((n: any) => n.id === c.spotId).km, 'the distance is the row\'s'); assert.equal(c.pageUrl, r.pageUrl); assert.equal(c.refresh, r.refresh); assert.equal(c.checked, r.uptime.checked); assert.equal(c.licence, r.licence);
     if (c.kind === 'youtube') { assert.equal(r.embedUrl, `https://www.youtube.com/embed/${c.videoId}`); assert.equal(r.analysisAllowed.value, 'no', 'YouTube rows are display-only: no analysis'); } else assert.equal(c.stillUrl, r.embedUrl);
@@ -76,7 +76,7 @@ test('/api/cam-meta: one HEAD request to the owner\'s own fixed URL with the pro
 });
 test('display only, and out of Home and the map: the panel loads nothing from YouTube before a click (no iframe, no thumbnail host, the API script only inside the click), stores no frame, and is used on the spot page only', () => {
   const src = fs.readFileSync(new URL('../features/forecast/LiveCam.tsx', import.meta.url), 'utf8');
-  assert.doesNotMatch(src, /<iframe|ytimg\.com|i\.ytimg|youtube-nocookie|autoplay=1&|localStorage|indexedDB|canvas|toDataURL|createImageBitmap|getImageData/); assert.match(src, /https:\/\/www\.youtube\.com\/iframe_api/);
+  assert.doesNotMatch(src, /ytimg\.com|i\.ytimg|youtube-nocookie|autoplay=1&|localStorage|indexedDB|canvas|toDataURL|createImageBitmap|getImageData/); assert.equal((src.match(/<iframe/g) ?? []).length, 1, 'the only iframe is HDOnTap\'s player, created on a tap (switched off for now)'); assert.ok(src.indexOf('<iframe') > src.indexOf('function HdontapCam'), 'no iframe in the YouTube or still components'); assert.match(src, /https:\/\/www\.youtube\.com\/iframe_api/);
   assert.ok(src.indexOf('loadYouTubeApi()') > src.indexOf('const load = () =>'), 'the API is requested only from the click handler'); assert.match(src, /onClick=\{load\}/);
   for (const f of ['../features/home/Welcome.tsx', '../features/explore/ExploreView.tsx', '../features/explore/Callout.tsx']) assert.doesNotMatch(fs.readFileSync(new URL(f, import.meta.url), 'utf8'), /LiveCam|liveCamsSourced/, f);
   assert.match(fs.readFileSync(new URL('../features/forecast/ForecastView.tsx', import.meta.url), 'utf8'), /<LiveCamPanel spotId=\{spot\.id\}/);

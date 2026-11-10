@@ -1,6 +1,8 @@
 /** T-063 "Live cam" links (the owner's page, opened in a new tab). The camera rule (amended 2026-11-10, user decision): SHOWING a camera is allowed when it is public domain, when the owner's terms allow embedding, or when the owner turned
  *  embedding on for their own YouTube stream; it must be credited, load only when the visitor taps (a video) and say honestly whether it is live (src/data/liveCamsSourced.ts, the Camera panel on the spot page). Analysing a camera's frames
- *  (AI, scraping, measuring) still needs written permission or public domain. The entries below are links only.
+ *  (AI, scraping, measuring) still needs written permission or public domain. SECOND AMENDMENT (2026-11-10, user decision and accepted risk while they email the host): a camera with UNKNOWN terms may also be embedded when its host
+ *  offers an embeddable player; it must credit the host and the owner, load only on a tap, be removable on request and have a per-camera kill switch (`enabled` in src/data/liveCamsSourced.ts, scripts/build-live-cams.mjs). A host that forbids embedding
+ *  (Surfline, and HDOnTap's player while it only allows sites it approves) stays link-only: never the raw stream, never a proxy, never a stripped header. The entries below are links only.
  *  A spot gets a link only when its owner's page was opened in a real browser and showed a working live camera. Every entry records who runs it,
  *  what it shows and when it was checked. The log of checked and skipped candidates is docs/forecast/CAMS.md. */
 export interface Cam {

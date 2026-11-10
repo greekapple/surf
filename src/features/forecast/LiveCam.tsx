@@ -16,7 +16,7 @@ const loadYouTubeApi = () => (apiPromise ??= new Promise<void>((resolve, reject)
 }));
 
 function Credit({cam}: {cam: Cam}) {
-  return <p className="lc-credit"><span>{cam.credit}</span>{' · '}<a href={cam.pageUrl} target="_blank" rel="noopener noreferrer">{cam.kind === 'still' ? 'USGS page' : 'Open on YouTube'} ↗</a>
+  return <p className="lc-credit"><span>{cam.credit}</span>{' · '}<a href={cam.pageUrl} target="_blank" rel="noopener noreferrer">{cam.kind === 'still' ? 'USGS page' : cam.kind === 'hdontap' ? 'Open on HDOnTap' : 'Open on YouTube'} ↗</a>
     {cam.channelUrl && <>{' · '}<a href={cam.channelUrl} target="_blank" rel="noopener noreferrer">Channel ↗</a></>}</p>;
 }
 
@@ -65,6 +65,16 @@ function StreamCam({cam}: {cam: Cam}) {
   </div>;
 }
 
+/** An HDOnTap stream: a lite poster; HDOnTap's own player page (an iframe, as HDOnTap's help gives to its customers) is created only on a tap. Never the raw HLS, never a proxy. HDOnTap's player says by itself whether the stream is live, so SWELLO says nothing about it. Only rendered for an ENABLED camera (the kill switch): all are disabled until HDOnTap approves our site. */
+function HdontapCam({cam}: {cam: Cam}) {
+  const [open, setOpen] = useState(false);
+  return <div className="lc-body" data-state={open ? 'loading' : 'idle'}>
+    {!open && <button type="button" className="lc-poster" onClick={() => setOpen(true)} aria-label={`Load the video stream: ${cam.view}. This loads HDOnTap's player.`}>
+      <span className="lc-play" aria-hidden="true">▶</span><b>Video stream · HDOnTap / {cam.credit.replace(/^HDOnTap \/ /, '')}</b><small>Tap to load HDOnTap's player; it shows whether the stream is live now. Nothing is loaded from HDOnTap before you tap.</small></button>}
+    {open && <div className="lc-player"><iframe src={cam.embedUrl} title={`${cam.title}, video stream from HDOnTap`} allow="autoplay; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /></div>}
+  </div>;
+}
+
 /** The panel: one card per camera of the spot (the first one open; Chamberlin's west view is first), each with its distance, what it shows and its credit. */
 export function LiveCamPanel({spotId, zone}: {spotId: string; zone: string}) {
   const cams = liveCamsFor(spotId), [sel, setSel] = useState(0); if (!cams.length) return null;
@@ -73,7 +83,7 @@ export function LiveCamPanel({spotId, zone}: {spotId: string; zone: string}) {
     <h2 id="lc-h">Camera</h2>
     {cams.length > 1 && <div className="seg lc-tabs" role="tablist" aria-label="Camera views">{cams.map((c, i) => <button key={c.id} role="tab" aria-selected={i === sel} onClick={() => setSel(i)}>{c.tab ?? c.view}</button>)}</div>}
     <p className="lc-view"><b>{cam.view}</b><small>{distanceWords(cam)}{cam.kind === 'still' ? ' · a still picture, not video' : ' · video stream (live status shown after you tap)'}{cam.ownerDescribed ? ' · view described by the owner, not checked by SWELLO' : ''}</small></p>
-    {cam.kind === 'still' ? <StillCam key={cam.id} cam={cam} zone={zone} spotId={spotId} /> : <StreamCam key={cam.id} cam={cam} />}
+    {cam.kind === 'still' ? <StillCam key={cam.id} cam={cam} zone={zone} spotId={spotId} /> : cam.kind === 'hdontap' ? <HdontapCam key={cam.id} cam={cam} /> : <StreamCam key={cam.id} cam={cam} />}
     <Credit cam={cam} />
     {cam.operatorNote && <p className="lc-note">{cam.operatorNote}</p>}
   </section>;
