@@ -58,3 +58,16 @@ Deploy is approved for this change once it passes review and the gates.
 
 ## Owner
 product-term (it built the coast pills). Level 2–3: map UI, summary wording.
+
+## 5. Search on the map flies to the spot (user, 2026-11-10)
+"If you're on the map and want to search up a spot, click or enter that spot: it zooms into that part of the map. The search feature is great and correctly opens the spot, but it should also zoom in to that spot automatically."
+
+- On the Explore map, picking a spot from the search (by click or Enter) focuses it as now **and flies the map to it**. The zoom lands at the pins level (z ≥ the pin threshold), so the spot's own pin shows, centred in the clear area: above the phone sheet and time bar, and not under the search box.
+- **Keep:** the callout or peek opens as today; the URL updates (lat/lon/z/spot); the time and hour stay as selected.
+- **Reduced motion:** a jump instead of a fly.
+- **Also on the map:** the same applies when a spot is picked from the "N spots in view" list.
+- **Acceptance (1440 and 390):**
+  - search "Pipeline" from a California view: the map ends centred on Pipeline at the pin level, with its pin visible and not covered;
+  - Enter works the same as a click;
+  - keyboard focus is sensible;
+  - t043 and the coast-pills scripts still pass.
