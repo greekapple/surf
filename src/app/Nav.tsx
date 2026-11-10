@@ -35,7 +35,7 @@ function AreaMenu({def, current, section, go, children, className = ''}: {def: (
   useEffect(() => setOpen(false), [current, section]);
   const items = () => Array.from(ref.current?.querySelectorAll<HTMLElement>('.menu a, .menu button') ?? []);
   const onKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') { setOpen(false); ref.current?.querySelector<HTMLElement>('.area-link')?.focus(); return; }
+    if (e.key === 'Escape') { if (open) e.preventDefault(); setOpen(false); ref.current?.querySelector<HTMLElement>('.area-link')?.focus(); return; }   // handled: the map keeps its spot (1B)
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       if (!open) { setOpen(true); requestAnimationFrame(() => items()[0]?.focus()); return; }
@@ -148,7 +148,7 @@ export function SpotPicker() {
   useEffect(() => {
     if (!open) return;
     const close = (e: PointerEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
-    const esc = (e: globalThis.KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    const esc = (e: globalThis.KeyboardEvent) => { if (e.key === 'Escape') { e.preventDefault(); setOpen(false); } };
     addEventListener('pointerdown', close); addEventListener('keydown', esc);
     return () => { removeEventListener('pointerdown', close); removeEventListener('keydown', esc); };
   }, [open]);
@@ -256,7 +256,7 @@ function Search({go}: {go: Go}) {
   const close = () => { setOpen(false); setQ(''); setAt(0); };
   const pick = (id: string) => { setSpot(id); go('forecast'); close(); };
   const onKey = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
     if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && hits.length) { e.preventDefault(); setAt((i) => (i + (e.key === 'ArrowDown' ? 1 : -1) + hits.length) % hits.length); }
     if (e.key === 'Enter' && hits[at]) { e.preventDefault(); pick(hits[at].id); }
   };

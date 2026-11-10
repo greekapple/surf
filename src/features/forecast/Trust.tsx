@@ -1,6 +1,6 @@
 import {regionNote} from '../../ocean/coverage';
 import {fmtIn, dateIn, dateInMs, addDaysKey} from '../../ocean/time';
-import {activeZone} from '../../ocean/spotZone';
+import {activeZone, viewerTag} from '../../ocean/spotZone';
 import {Icon} from '../../ui/Icon';
 import {useEffect, useId, useState} from 'react';
 import {useObservations} from './Observe';
@@ -16,10 +16,12 @@ const when = (iso: string) => fmtIn(activeZone(), {weekday: 'short', hour: 'nume
 const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look', Skip: 'skip', Dark: 'dark'};
 
 /** The Call: one answer you can act on (verdict, best window, the first reason); tap for every reason and what it is computed from. */
-export function CallBar({call, compact = false}: {call: Call; compact?: boolean}) {
+/** `tz`: the zone of the spot the call is for (default: the page's spot); its window says the zone where that clock is not the viewer's. */
+export function CallBar({call, compact = false, tz}: {call: Call; compact?: boolean; tz?: string}) {
   const [open, setOpen] = useState(false), id = useId();
   const w = call.verdict === 'Dark' || !call.window ? call.nextWindow : call.window;
-  const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${w.label}${sameDay(w.start) ? '' : ` ${dayWord(w.start)}`}` : w.label) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
+  const z = tz ?? activeZone(), wTag = w ? viewerTag(z, w.start) : '';
+  const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${w.label}${wTag}${sameDay(w.start, z) ? '' : ` ${dayWord(w.start, z)}`}` : `${w.label}${wTag}`) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
   // T-069: the line under the verdict is the first reason that ADDS something; one that only restates the verdict and window is left to the tap-open list.
   const why = firstNewReason(call.why, `${call.verdict} ${wText ?? ''}`);
   // after dark the rating stays visible: "After dark · fair conditions · next window 7–10 AM" (user, 2026-11-08)
@@ -41,8 +43,8 @@ export function CallBar({call, compact = false}: {call: Call; compact?: boolean}
     </section>
   );
 }
-const sameDay = (iso: string) => dateIn(activeZone(), iso) === dateInMs(activeZone(), Date.now());
-const dayWord = (iso: string) => dateIn(activeZone(), iso) === addDaysKey(dateInMs(activeZone(), Date.now()), 1) ? 'tomorrow' : fmtIn(activeZone(), {weekday: 'short'}).format(new Date(iso));
+const sameDay = (iso: string, z: string = activeZone()) => dateIn(z, iso) === dateInMs(z, Date.now());
+const dayWord = (iso: string, z: string = activeZone()) => dateIn(z, iso) === addDaysKey(dateInMs(z, Date.now()), 1) ? 'tomorrow' : fmtIn(z, {weekday: 'short'}).format(new Date(iso));
 
 /** First light, sunrise, sunset and last light for the selected day. */
 export function DaylightRow({d}: {d: Daylight}) {

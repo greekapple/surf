@@ -1,4 +1,4 @@
-import {mapZone} from '../../ocean/spotZone';
+import {mapZone, timeZoneOf} from '../../ocean/spotZone';
 import {conditionWord} from '../../ui/Condition';
 import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {isDark} from '../forecast/trustApi';
@@ -35,7 +35,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
     if (decided.current || !t) return;
     decided.current = true;
     if (!isDark(view.selected, t)) return;
-    const m = nextMorningHour(times, now, (iso) => isDark(view.selected, iso)); if (m) view.selectTime(m);
+    const m = nextMorningHour(times, now, (iso) => isDark(view.selected, iso), timeZoneOf(view.selected)); if (m) view.selectTime(m);   // the morning cutoff in the zone of the spot whose dark hours decide it (not LA)
   }, [t]); // eslint-disable-line react-hooks/exhaustive-deps -- first available hour only
   // subset loading: the table asks for every spot it lists when it opens or the zone changes; a spot that has not loaded yet shows "loading" and is never ranked
   useEffect(() => { requestSpots(spotOptions.filter((s) => zone === 'All' || zoneOf(s.region) === zone).map((s) => s.id)); }, [zone]); // eslint-disable-line react-hooks/exhaustive-deps

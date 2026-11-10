@@ -390,8 +390,8 @@ export function PersonalView({section, go}: ViewProps) {
               {obsLog.length > 0 && (
                 <ul className="pzl-obslist" aria-label="Recent forecast-check observations">
                   {obsLog.slice(0, 5).map((o) => (
-                    <li key={o.id}><span>{spots.find((s) => s.id === o.spotId)?.name ?? o.spotId} · {entryDate(o.observedAt)} · {p.heightUnit === 'm' ? `${(o.rangeFt[0] * 0.3048).toFixed(1)}–${(o.rangeFt[1] * 0.3048).toFixed(1)} m` : `${o.rangeFt[0]}–${o.rangeFt[1]} ft`} face · quality {o.quality}/5</span>
-                      <button className="btn" aria-label={`Remove observation from ${entryDate(o.observedAt)}`} onClick={() => { const n = removeObservation(obsLog, o.id); setObsLog(n); saveLog(n); }}>Remove</button></li>
+                    <li key={o.id}><span>{spots.find((s) => s.id === o.spotId)?.name ?? o.spotId} · {entryDate(o.observedAt, o.spotId)} · {p.heightUnit === 'm' ? `${(o.rangeFt[0] * 0.3048).toFixed(1)}–${(o.rangeFt[1] * 0.3048).toFixed(1)} m` : `${o.rangeFt[0]}–${o.rangeFt[1]} ft`} face · quality {o.quality}/5</span>
+                      <button className="btn" aria-label={`Remove observation from ${entryDate(o.observedAt, o.spotId)}`} onClick={() => { const n = removeObservation(obsLog, o.id); setObsLog(n); saveLog(n); }}>Remove</button></li>
                   ))}
                 </ul>
               )}

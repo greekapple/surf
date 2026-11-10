@@ -1,6 +1,6 @@
 import {useMemo, useState} from 'react';
 import {dateInMs, hourInMs, fmtIn, addDaysKey} from '../../ocean/time';
-import {timeZoneOf} from '../../ocean/spotZone';
+import {timeZoneOf, viewerTag} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
 import {callFor, hourCall, windowHour, type CallWindow, type Verdict} from '../../services/call';
@@ -84,8 +84,8 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const surf = surf0 && cv ? (cv.level === 'too-far' ? 'too far out to size yet' : cv.disagree ? `${surf0} (models differ${cv.wide ? `; could be ${wideText(cv.wide, profile).full}` : ''})` : surf0) : surf0; // the band stays the number (T-118), as in the hero caption below; the confidence word is in that caption
   const windWords = wind ? `${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}${wind.stale ? (wind.stale.reason === 'saved' ? ' (saved data)' : ' (stale data)') : ''}` : null;
   const answer = bet && bet.sized && surf
-    ? `${bet.spot.name} is your best bet ${bet.when}, ${bet.window.label}, ${surf}${windWords ? ` and ${windWords}` : ''}.`
-    : bet ? `No sized forecast nearby ${bet.when}; ${bet.spot.name} looks best on wind alone, ${bet.window.label}${windWords ? `, ${windWords}` : ''}.`
+    ? `${bet.spot.name} is your best bet ${bet.when}, ${bet.window.label}${viewerTag(timeZoneOf(bet.spot), bet.window.start)}, ${surf}${windWords ? ` and ${windWords}` : ''}.`
+    : bet ? `No sized forecast nearby ${bet.when}; ${bet.spot.name} looks best on wind alone, ${bet.window.label}${viewerTag(timeZoneOf(bet.spot), bet.window.start)}${windWords ? `, ${windWords}` : ''}.`
     : withData === 0 ? `There is no forecast for your spots right now, so there is no answer yet.`
     : withData < total ? `Nothing worth it in the next few days at the ${withData} of ${total} spots with a forecast; the others have none right now.`
     : `Nothing at your spots looks worth it in the next few days. The forecast below shows why.`;
@@ -105,7 +105,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const pick = choice?.pick ? choice.ranked.find((x) => x.board.id === choice.pick!.id) ?? null : null;
   // "Go, when, on what": the board and how sure we are sit right under the answer (first screen on a phone); the second choice only when we are not sure.
   const altAt = alt && cv?.level === 'low' ? spotHourOf(alt.spot, alt.rec, nowMs, profile, {bundle}) : null, altCv = alt && altAt ? certaintyOf(alt.spot.id, altAt.surf.headline, alt.rec.timestamp, nowMs) : null;
-  const altText = alt && altAt?.surf.headline.kind === 'estimate' ? `${alt.spot.name}, ${alt.when === bet?.when ? '' : `${alt.when} `}${alt.window.label}, ${altAt.surf.value}${altCv?.disagree ? ' (models differ)' : ''}${altCv && altCv.level !== 'too-far' ? `, ${altCv.word}` : ''}` : null;
+  const altText = alt && altAt?.surf.headline.kind === 'estimate' ? `${alt.spot.name}, ${alt.when === bet?.when ? '' : `${alt.when} `}${alt.window.label}${viewerTag(timeZoneOf(alt.spot), alt.window.start)}, ${altAt.surf.value}${altCv?.disagree ? ' (models differ)' : ''}${altCv && altCv.level !== 'too-far' ? `, ${altCv.word}` : ''}` : null;
   // only a board the surf is inside (or at the edge of) its range; in size-only mode the wave shape is unknown and the line says so
   const boardText = bet?.sized && pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? `${pick.board.name}` : null, boardNote = boardText && choice?.mode === 'size' ? ' (by size; wave shape unknown)' : '';
   // T-106: the hero draws the hour the sentence talks about (the bet's first hour), else the spot's current hour; same headline as the number.
@@ -124,7 +124,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
             {[boardText && <>Take your <b>{boardText}</b>{boardNote}</>, cv && cv.level !== 'too-far' && <span title={`${cap(cv.word)}: ${cv.why}`}>{cap(cv.word)}</span>].filter(Boolean).map((x, k) => <span key={k}>{k ? ' · ' : ''}{x}</span>)}
           </p>}
           {altText && <p className="wel-sub">Second choice: {altText}</p>}
-          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start, timeZoneOf(bet.spot))}</button>}
+          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start, timeZoneOf(bet.spot))}{viewerTag(timeZoneOf(bet.spot), bet.window.start)}</button>}
         </div>
         {media.kind === 'cam'
           ? <figure className="wel-media"><CamPlayer cam={media.cam} onFail={() => setCamFailed(true)} /><figcaption>{media.cam.label} · {spot.name}</figcaption></figure>

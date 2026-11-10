@@ -5,8 +5,8 @@ import {PIcon, type PName} from './icons';
 import {Toggle, hourText, weekdayShort} from './parts';
 import {describeRule, type AlertRule, type RuleResult} from './alerts';
 
-export const resultText = (r: RuleResult) =>
-  r.kind === 'match' ? `Matches ${weekdayShort(r.at)} ${hourText(r.at)}` : r.kind === 'none' ? 'No match in 7 days' : 'No forecast loaded';
+export const resultText = (r: RuleResult, spotId?: string) =>
+  r.kind === 'match' ? `Matches ${weekdayShort(r.at, spotId)} ${hourText(r.at, spotId)}` : r.kind === 'none' ? 'No match in 7 days' : 'No forecast loaded';
 
 export const describe = (rule: AlertRule, p: UserProfile) =>
   describeRule(rule, (ft) => `${+heightValue(ft, p, false).toFixed(1)}`, p.heightUnit, (mph) => windText(mph, p).replace('.0 ', ' '));
@@ -61,7 +61,7 @@ export function AlertsManager({rules, results, spotName, p, toggle, spots, add, 
               <li key={r.id}>
                 <PIcon name={ICONS[i % 3]} size={22} />
                 <div><b>{spotName(r.spotId)}</b><span>{describe(r, p)}</span>
-                  <em className={results[i].kind === 'match' && r.enabled ? 'hit' : ''}>{r.enabled ? resultText(results[i]) : 'Off'}</em></div>
+                  <em className={results[i].kind === 'match' && r.enabled ? 'hit' : ''}>{r.enabled ? resultText(results[i], r.spotId) : 'Off'}</em></div>
                 <button className="btn pz-icon-btn" aria-label={`Delete ${spotName(r.spotId)} alert`} onClick={() => remove(r.id)}><PIcon name="trash" size={16} /></button>
                 <Toggle on={r.enabled} label={`${spotName(r.spotId)} alert`} onChange={(v) => toggle(r.id, v)} />
               </li>

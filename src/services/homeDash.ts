@@ -110,12 +110,13 @@ export function nextMorningHour(times: string[], now: number, dark: (iso: string
   return first && hourIn(tz, first) <= 11 ? first : null;
 }
 /** The hour a spot is judged at for a ranking: now, three hours on (both exact hours), or the best-rated hour between 6 and 11 AM Pacific on the next morning (nextMorningKey). Null when that spot has no such hour. */
-export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when: RankWhen): number | null {
+/** `tz`: the zone of the morning (the ranking's reference spot, so the tab's "This morning"/"Tomorrow AM" and the hours judged agree); default the spot's own. */
+export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when: RankWhen, tz: string = timeZoneOf(spot)): number | null {
   const top = Math.floor(now / 3600000) * 3600000;
   const mine = records.filter((f) => f.spotId === spot.id);
   if (when === 'now') return mine.some((f) => Date.parse(f.timestamp) === top) ? top : null;
   if (when === '3h') return mine.some((f) => Date.parse(f.timestamp) === top + 3 * 3600000) ? top + 3 * 3600000 : null;
-  const tz = timeZoneOf(spot), key = nextMorningKey(now, tz);
+  const key = nextMorningKey(now, tz);
   let best: number | null = null, bs = -Infinity;
   for (const f of mine) { if (dateIn(tz, f.timestamp) !== key) continue; const h = hourIn(tz, f.timestamp); if (h < 6 || h > 11 || isDark(spot.id, f.timestamp)) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
   return best;
@@ -128,7 +129,7 @@ export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number
     if (exclude.includes(s.id)) continue;
     const ev = evidenceSpots.find((e) => e.id === s.id); if (!ev) continue;
     const km = distanceKm(ref.latitude, ref.longitude, ev.latitude, ev.longitude); if (km > radiusKm) continue;
-    const t = rankHour(s, records, now, when); if (t === null) continue;
+    const t = rankHour(s, records, now, when, timeZoneOf(refId)); if (t === null) continue;
     const card = dashCard(s, records, t, profile, ctx, now);
     if (card.demo || card.rating.score === null || card.validTime === null) continue;
     out.push({card, km: Math.round(km), at: card.validTime});

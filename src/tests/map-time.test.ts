@@ -67,3 +67,11 @@ test('multi-spot surfaces never fall back to the zone of the last spot opened: e
   }
   assert.deepEqual(bad, [], 'calls without an explicit zone: ' + bad.join(' | '));
 });
+test('correction: viewerTag names a spot clock only where it differs from the viewer; the viewer zone is read once', async () => {
+  const {viewerTag, viewerZone} = await import('../ocean/spotZone.ts');
+  const v = viewerZone(), iso = '2026-11-10T07:30:00Z';
+  assert.equal(viewerZone(), v, 'stable across calls');
+  assert.equal(viewerTag(v, iso), '', 'the viewer\'s own zone carries no tag');
+  const other = v === 'Pacific/Honolulu' ? 'America/New_York' : 'Pacific/Honolulu';
+  assert.match(viewerTag(other, iso), /^ (HST|EST)$/);
+});

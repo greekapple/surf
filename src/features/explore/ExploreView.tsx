@@ -140,6 +140,7 @@ function OceanMap({section, go}: ViewProps) {
   // 1B: the map's focus (the app's selected spot stays when it is cleared). `focused` = the spot the map highlights, or null.
   const focused = mapFocused ? spot.id : null;
   useEffect(() => { writeMapUrl({focus: mapFocused ? null : 'none'}); }, [mapFocused]);
+  useEffect(() => () => writeMapUrl({focus: null}), []);   // the key is the map's: other pages never carry ?focus=none (the store keeps the state)
   const reportVisibleRef = useRef(reportVisible); reportVisibleRef.current = reportVisible;
   const p = data.state.profile;
   // Map-seamless Stage 1: the view in the URL (?layer, lat, lon, z, t) is read once on load, so a reload or a shared link restores it.
@@ -451,9 +452,18 @@ function OceanMap({section, go}: ViewProps) {
   const clearFocus = () => { setCallout(null); setMapFocused(false); };
   useEffect(() => {
     if (!focused && !callout) return;
+    // An Esc that closes something else (a menu, popover, the layers sheet, the spot picker) is theirs: they mark it handled (preventDefault),
+    // and an Esc from inside an open dialog, menu or popover is skipped too. Checked after the other listeners ran (whatever order they were added in).
+    const OPEN = '[role="dialog"], [role="menu"], [role="listbox"], .xpop, .menu, [aria-modal="true"]';
     const key = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || e.defaultPrevented || (e.target as HTMLElement | null)?.closest?.('input, textarea, select')) return;
-      const pin = markers.current.get(spot.id)?.element; setCallout(null); setMapFocused(false); if (pin && document.activeElement === pin) pin.blur();
+      if (e.key !== 'Escape') return;
+      const t = e.target as HTMLElement | null;
+      if (t?.closest?.('input, textarea, select') || t?.closest?.(OPEN)) return;
+      const overlayOpen = !!document.querySelector('[aria-expanded="true"]:not(.xtb-search input):not(.xcredit):not(.leaflet-control-attribution)');
+      window.setTimeout(() => {
+        if (e.defaultPrevented || overlayOpen) return;
+        const pin = markers.current.get(spot.id)?.element; setCallout(null); setMapFocused(false); if (pin && document.activeElement === pin) pin.blur();
+      }, 0);
     };
     addEventListener('keydown', key); return () => removeEventListener('keydown', key);
   }, [callout, focused, spot.id]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -517,8 +527,9 @@ function OceanMap({section, go}: ViewProps) {
   const f = recAt(spot.id);
   const rating = f ? rateForecast(spot, f, now) : null;
   const here = evidenceSpots.find((e) => e.id === spot.id) ?? evidenceSpots[0];
-  // Your area first: regions ordered by their nearest spot to the selected spot, spots north to south within a region.
-  const dist = (e: {latitude: number; longitude: number}) => Math.hypot(e.latitude - here.latitude, (e.longitude - here.longitude) * 0.8);
+  // Your area first: regions ordered by their nearest spot to the focused spot (with nothing focused, to the map's centre), spots north to south within a region.
+  const c0 = !focused ? map.current?.getView() : null, ref0 = c0 ? {latitude: c0.lat, longitude: c0.lon} : here;
+  const dist = (e: {latitude: number; longitude: number}) => Math.hypot(e.latitude - ref0.latitude, (e.longitude - ref0.longitude) * 0.8);
   const regionRank = new Map<string, number>();
   for (const e of evidenceSpots) regionRank.set(e.region, Math.min(regionRank.get(e.region) ?? Infinity, dist(e)));
   const needle = q.trim().toLowerCase();
@@ -542,7 +553,7 @@ function OceanMap({section, go}: ViewProps) {
     else if (focused) flyRef.current(spot.id);
   };
   // after dark the spots keep their rating; the map says once, quietly, that the hour is dark.
-  const darkNow = !!view.selectedTime && isDark(spot.id, view.selectedTime);
+  const darkNow = !!focused && !!view.selectedTime && isDark(spot.id, view.selectedTime);   // the dark mark is about the focused spot; none when nothing is focused
   // T-128: a frame drawn from this device's cache says so, with its own valid time, until the fresh frame replaces it.
   const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, mapZone())} ${hourLabel(iso, mapZone())} ${mapZoneAbbr(iso)}`);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'

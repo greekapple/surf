@@ -1,5 +1,5 @@
 import {fmtIn} from '../../ocean/time';
-import {timeZoneOf} from '../../ocean/spotZone';
+import {timeZoneOf, viewerTag} from '../../ocean/spotZone';
 import {useEffect, useMemo} from 'react';
 import {nearIds, SCOPE_NEAR_KM, SCOPE_NEAR_N} from '../../ocean/spotScope';
 import {isFlat, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
@@ -42,7 +42,7 @@ function Ribbon({hours, name, tz}: {hours: RibbonHour[]; name: string; tz: strin
   return (
     <div className="dc-ribbon" role="img" aria-label={have.length ? `${name}: rating for the next 12 hours, ${hourShort(hours[0].iso)} to ${hourShort(hours[11].iso)}. ${have.map((h) => `${hourShort(h.iso)} ${conditionWord(h.category!)}${(h as {dark?: boolean}).dark ? ', after dark' : ''}`).join(', ')}` : `${name}: no rating hours available`}>
       <span className="dc-rb-bars">{hours.map((h) => <i key={h.iso} title={h.score === null ? `${hourShort(h.iso)}: no data` : `${hourShort(h.iso)}: ${conditionWord(h.category!)} (${Math.round(h.score)})${(h as {dark?: boolean}).dark ? ', after dark' : ''}`} style={{'--b': h.score === null ? 'var(--line-2)' : BAND_COLOR[bandOf(h.category!)], height: h.score === null ? '4px' : `${6 + Math.round((h.score / 100) * 22)}px`} as React.CSSProperties} />)}</span>
-      <span className="dc-rb-axis" aria-hidden="true"><span>Now</span><span>{hourShort(hours[4].iso)}</span><span>{hourShort(hours[8].iso)}</span><span>{hourShort(hours[11].iso)}</span></span>
+      <span className="dc-rb-axis" aria-hidden="true"><span>Now</span><span>{hourShort(hours[4].iso)}</span><span>{hourShort(hours[8].iso)}</span><span>{hourShort(hours[11].iso)}{viewerTag(tz, hours[11].iso)}</span></span>
     </div>
   );
 }
@@ -78,7 +78,7 @@ export function HomeView({go}: ViewProps) {
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
   const onWhenKey = (e: React.KeyboardEvent) => { const i = WHENS.indexOf(when), d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); const n = WHENS[(i + d + WHENS.length) % WHENS.length]; setWhen(n); (e.currentTarget.children[WHENS.indexOf(n)] as HTMLElement | undefined)?.focus(); };
-  const at = (iso: string, id: string) => fmtIn(timeZoneOf(id), {weekday: 'short', hour: 'numeric'}).format(new Date(iso));
+  const at = (iso: string, id: string) => fmtIn(timeZoneOf(id), {weekday: 'short', hour: 'numeric'}).format(new Date(iso)) + viewerTag(timeZoneOf(id), iso);   // the spot's clock, named where it is not the viewer's
   // T-106: the card's drawing, from the SAME headline as its number (period and est. breaker type from that hour's record).
   // T-119: each card's small undulating 7-day surf-height line (the user's "lines that undulate"), in place of T-106's wave-beside-a-person drawing.
   const sparkOf = (c: DashCard) => sparkPoints(c.id, view.mapRecords, now, bundle);
@@ -119,7 +119,7 @@ export function HomeView({go}: ViewProps) {
                     <span className="dc-surf">{surfOf(c, true)}{c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && <span className="dc-sub">{c.surf.headline.label}</span>}</span>
                   </span>
                   <span className="dc-line">{c.wind ? `Wind ${c.wind.label} · ${c.wind.relation}` : 'Wind —'} · {c.tide ? `Tide ${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}` : 'Tide —'}</span>
-                  {k ? <CallBar call={k} compact /> : <span className="dc-line">{c.window ? `Best today ${c.window.label}` : 'No good daylight window left'}</span>}
+                  {k ? <CallBar call={k} compact tz={timeZoneOf(c.id)} /> : <span className="dc-line">{c.window ? `Best today ${c.window.label}${viewerTag(timeZoneOf(c.id), c.window.start)}` : 'No good daylight window left'}</span>}
                 </span>
               </a>
               <div className="dc-more">
@@ -133,9 +133,9 @@ export function HomeView({go}: ViewProps) {
 
       <section className="hd" aria-labelledby="nb-h">
         <header className="hd-head">
-          <h2 id="nb-h">{rankLabel(when, now).title}</h2>
+          <h2 id="nb-h">{rankLabel(when, now, timeZoneOf(refId)).title}</h2>
           <div className="nb-when" role="radiogroup" aria-label="Rank spots for" onKeyDown={onWhenKey}>
-            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{rankLabel(w, now).tab}</button>)}
+            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{rankLabel(w, now, timeZoneOf(refId)).tab}</button>)}
           </div>
           {refName && <p className="hd-note">{nearAll > SCOPE_NEAR_N ? `The ${SCOPE_NEAR_N} nearest spots within 100 km of ${refName}` : `Within 100 km of ${refName}`}, ranked by the rating at that time</p>}
         </header>
@@ -147,7 +147,7 @@ export function HomeView({go}: ViewProps) {
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
                   <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_, c.id)}` : ''}. Open forecast`}>
                     <span className="nb-rank" aria-hidden="true">{i + 1}</span>
-                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_, c.id)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact /> : null; })()}</span>
+                    <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_, c.id)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact tz={timeZoneOf(c.id)} /> : null; })()}</span>
                     <span className="nb-surf">{surfOf(c, true)}</span>
                     <RatingBar c={c.rating} />
                   </a>

@@ -1,5 +1,5 @@
 import {fmtIn} from '../../ocean/time';
-import {activeZone} from '../../ocean/spotZone';
+import {activeZone, timeZoneOf, viewerTag} from '../../ocean/spotZone';
 import type {ReactNode} from 'react';
 import {GENERIC_PHOTOS, PHOTOS, SPOT_PHOTOS} from '../../ui/photos';
 import type {JournalExtra} from './journal';
@@ -46,7 +46,8 @@ export const creditText = (id: string) => {
   return ph ? `${ph.generic ? 'Generic photo, ' : ''}${ph.photographer}, ${ph.license}` : 'Wikimedia Commons';
 };
 
-const dFmt = {format: (d: Date) => fmtIn(activeZone(), {weekday: 'short', month: 'short', day: 'numeric'}).format(d)}; // the zone of the spot on screen
-export const entryDate = (iso: string) => dFmt.format(new Date(iso));
-export const hourText = (iso: string) => fmtIn(activeZone(), {hour: 'numeric'}).format(new Date(iso));
-export const weekdayShort = (iso: string) => fmtIn(activeZone(), {weekday: 'short'}).format(new Date(iso));
+// Each entry is dated and timed in the zone of ITS spot (not the last spot opened); an hour says its zone where that clock is not the viewer's.
+const zoneFor = (spotId?: string) => (spotId ? timeZoneOf(spotId) : activeZone());
+export const entryDate = (iso: string, spotId?: string) => fmtIn(zoneFor(spotId), {weekday: 'short', month: 'short', day: 'numeric'}).format(new Date(iso));
+export const hourText = (iso: string, spotId?: string) => fmtIn(zoneFor(spotId), {hour: 'numeric'}).format(new Date(iso)) + (spotId ? viewerTag(zoneFor(spotId), iso) : '');
+export const weekdayShort = (iso: string, spotId?: string) => fmtIn(zoneFor(spotId), {weekday: 'short'}).format(new Date(iso));

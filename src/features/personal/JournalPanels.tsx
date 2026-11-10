@@ -33,7 +33,7 @@ export function Featured({s, x, spotName}: {s: SurfSession; x: JournalExtra | un
         {!img.own && img.id && <small className="pz-credit">{creditText(img.id)}</small>}
       </div>
       <div className="pz-feat-b">
-        <span className="pz-date">{entryDate(s.timestamp)} · {spotName(s.spotId)}</span>
+        <span className="pz-date">{entryDate(s.timestamp, s.spotId)} · {spotName(s.spotId)}</span>
         <h3>{titleOf(s, x, spotName)}</h3>
         {notesOf(s) && <p>{notesOf(s)}</p>}
         <Tags x={x} />
@@ -50,7 +50,7 @@ function Row({s, x, spotName, i, onRemove}: {s: SurfSession; x: JournalExtra | u
     <li className="pz-row">
       <div className="pz-thumb" style={{backgroundImage: `url(${img.src})`}} role="img" aria-label={img.own ? 'Your photo' : `Photo of ${spotName(s.spotId)}`} title={img.id ? creditText(img.id) : undefined} />
       <div>
-        <span className="pz-date">{entryDate(s.timestamp)} · {spotName(s.spotId)}</span>
+        <span className="pz-date">{entryDate(s.timestamp, s.spotId)} · {spotName(s.spotId)}</span>
         <b>{titleOf(s, x, spotName)}</b>
         {meta && <span className="pz-date">{meta}</span>}
         {notesOf(s) && !meta && <span className="pz-date pz-clip">{notesOf(s)}</span>}

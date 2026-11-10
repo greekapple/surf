@@ -22,7 +22,7 @@ export function useDismiss(open: boolean, close: () => void, box: React.RefObjec
   const cb = useRef(close); cb.current = close;
   useEffect(() => {
     if (!open) return;
-    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') { cb.current(); opener?.current?.focus(); } };
+    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.preventDefault(); cb.current(); opener?.current?.focus(); } };   // handled: the map's Esc leaves its spot focused (1B)
     const down = (e: PointerEvent) => { const t = e.target as Node; if (!box.current?.contains(t) && !opener?.current?.contains(t)) cb.current(); };
     addEventListener('keydown', key); addEventListener('pointerdown', down, true);
     return () => { removeEventListener('keydown', key); removeEventListener('pointerdown', down, true); };
