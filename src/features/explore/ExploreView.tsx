@@ -489,6 +489,22 @@ function OceanMap({section, go}: ViewProps) {
   const sheetPx = () => sheetRef.current?.getBoundingClientRect().height ?? 0;
   const at0 = livePt ?? pt, callEv0 = !phone && callout ? evidenceSpots.find((x) => x.id === callout) : undefined;
   useAnchored(eng, popupBox, at0 ? {lat: at0.lat, lon: at0.lon} : null, -16, phone ? {top: 16, left: 16, right: 64, bottom: sheetPx() + 70} : {top: 80, left: open ? 380 : 16, right: 76, bottom: 90}, !!pt && !livePt, () => pickMk.current?.element);
+  // point-panel-390: on phones the panel now stands on the time bar, higher up; when it opens, the map pans just enough to keep the point's label and
+  // picker above it (only where the space above the panel can hold them: a landscape phone leaves the panel the map).
+  useEffect(() => {
+    if (!phone || !panel || !pt) return;
+    let r1 = 0, r2 = 0;
+    r1 = requestAnimationFrame(() => { r2 = requestAnimationFrame(() => {
+      const m = map.current, pan = rootRef.current?.querySelector('.xpanel')?.getBoundingClientRect(); if (!m || !pan) return;
+      const boxes = [popupEl.getBoundingClientRect(), pickEl.getBoundingClientRect()].filter((r) => r.width);
+      if (!boxes.length) return;
+      const top = Math.min(...boxes.map((r) => r.top)), bottom = Math.max(...boxes.map((r) => r.bottom)), c = m.container.getBoundingClientRect();
+      const head = rootRef.current?.querySelector('.xsearchbox')?.getBoundingClientRect().bottom ?? c.top + 72;   // under the search box and its focus chip
+      const room = pan.top - 8 - (head + 8), need = bottom - (pan.top - 8);
+      if (need > 0 && bottom - top <= room) m.panBy(0, Math.round(need), {animate: !reduced()});
+    }); });
+    return () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); };
+  }, [phone, panel, pt?.lat, pt?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
   useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true, () => (callEv0 ? markers.current.get(callEv0.id)?.element : null));
   // The phone peek sizes itself to the spot card; the time bar, legend and attribution sit just above it.
   const rootRef = useRef<HTMLDivElement>(null);
@@ -499,6 +515,13 @@ function OceanMap({section, go}: ViewProps) {
     const ro = new ResizeObserver(() => { if (detent === 'peek') root.style.setProperty('--peek', `${Math.round(el.getBoundingClientRect().height)}px`); });
     ro.observe(el); return () => ro.disconnect();
   }, [phone, detent, sheetOn]);
+  // Phones: the point panel sits ON the time bar (not under it), so the bar's live height is a CSS variable (--xbot-h); it wraps to two rows and grows with the dark/cache notes.
+  useEffect(() => {
+    const root = rootRef.current, bar = root?.querySelector<HTMLElement>('.xbottom');
+    if (!root || !bar || typeof ResizeObserver !== 'function') return;
+    const set = () => root.style.setProperty('--xbot-h', `${Math.ceil(bar.getBoundingClientRect().height)}px`);
+    const ro = new ResizeObserver(set); ro.observe(bar); set(); return () => ro.disconnect();
+  }, [eng]);
   /** Glide to a spot; the target sits in the free part of the map, clear of the list sheet or the phone sheet. */
   const flyToSpot = (id: string, sheetOpen = open) => {
     const m = map.current, e = evidenceSpots.find((x) => x.id === id);
