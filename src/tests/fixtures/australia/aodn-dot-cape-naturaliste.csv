@@ -1,0 +1,2 @@
+time,latitude[unit="degrees_north"],longitude[unit="degrees_east"],WHTH[unit="m"],WPPE[unit="s"],WPDI[unit="degree"],WPDS[unit="degree"],WMXH[unit="m"],WAVE_quality_control
+2026-11-09T06:00:00Z,-33.530,114.770,2.9,14.4,244.0,13.0,5.2,2

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2">
+  <service name="regGriddedServices" serviceType="compound" base="">
+    <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/" />
+    <service name="dap4" serviceType="DAP4" base="/thredds/dap4/" />
+    <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/" />
+    <service name="wcs" serviceType="WCS" base="/thredds/wcs/" />
+    <service name="wms" serviceType="WMS" base="/thredds/wms/" />
+    <service name="ncssGrid" serviceType="NetcdfSubset" base="/thredds/ncss/grid/" />
+    <service name="ncssPoint" serviceType="NetcdfSubset" base="/thredds/ncss/point/" />
+    <service name="cdmremote" serviceType="CdmRemote" base="/thredds/cdmremote/" />
+  </service>
+  <dataset name="WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/">
+    <property name="DatasetScan" value="true" />
+    <metadata inherited="true">
+      <serviceName>regGriddedServices</serviceName>
+      <dataType>Grid</dataType>
+    </metadata>
+    <dataset name="DOT-WA_20260101_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260101_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260101_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">51.74</dataSize>
+      <date type="modified">2026-01-31T22:11:12Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260201_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260201_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260201_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">52.49</dataSize>
+      <date type="modified">2026-02-28T22:19:13Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260301_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260301_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260301_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">60.26</dataSize>
+      <date type="modified">2026-03-31T22:11:28Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260401_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260401_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260401_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">51.74</dataSize>
+      <date type="modified">2026-04-30T16:11:32Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260502_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260502_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260502_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">48.10</dataSize>
+      <date type="modified">2026-05-31T10:11:16Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260601_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260601_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260601_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">51.74</dataSize>
+      <date type="modified">2026-06-30T22:11:03Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260701_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260701_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260701_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">60.26</dataSize>
+      <date type="modified">2026-07-31T22:11:38Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260801_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260801_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260801_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">48.06</dataSize>
+      <date type="modified">2026-08-31T22:11:08Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20260901_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260901_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20260901_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">46.16</dataSize>
+      <date type="modified">2026-09-30T13:11:04Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20261001_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20261001_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20261001_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">48.10</dataSize>
+      <date type="modified">2026-10-31T22:11:15Z</date>
+    </dataset>
+    <dataset name="DOT-WA_20261102_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" ID="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20261102_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc" urlPath="Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAMETERS/ROTTNEST-ISLAND/2026/DOT-WA_20261102_ROTTNEST-ISLAND_RT_WAVE-PARAMETERS_monthly.nc">
+      <dataSize units="Kbytes">44.06</dataSize>
+      <date type="modified">2026-11-10T07:11:20Z</date>
+    </dataset>
+  </dataset>
+</catalog>

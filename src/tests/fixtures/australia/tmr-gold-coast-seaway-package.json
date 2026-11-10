@@ -1,0 +1,21 @@
+{
+ "success": true,
+ "result": {
+  "title": "Gold Coast Seaway tide gauge\u2014predicted high/low data",
+  "license_id": "CC-BY-4.0",
+  "license_title": "Creative Commons Attribution 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "maintainer_email": "opendata@tmr.qld.gov.au",
+  "notes": "Predicted high and low water level heights at Gold Coast Seaway.\r\n",
+  "resources": [
+   {
+    "name": "2027 \u2014 Gold Coast Seaway tide gauge predicted high/low data",
+    "id": "784e567b-e780-490d-acea-919c52bbf274"
+   },
+   {
+    "name": "2026 \u2014 Gold Coast Seaway tide gauge predicted high/low data",
+    "id": "94a28942-b589-4c41-849c-619bae60f2ba"
+   }
+  ]
+ }
+}
