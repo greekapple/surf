@@ -22,7 +22,7 @@ export function Legal({page, go}: {page: 'privacy' | 'terms'; go: Go}) {
       <h2>Services the app contacts</h2>
       <p>These public data services are contacted to show forecasts. None of them receives anything you entered; as with any website, a service your browser contacts directly sees your IP address.</p>
       <ul>
-        <li>Forecast models: Open-Meteo (marine and weather), NOAA CO-OPS (tides), NOAA NDBC (buoys), NOAA ERDDAP (map layers) and CDIP (nearshore points), fetched through SWELLO's own server.</li>
+        <li>Forecast models: Open-Meteo (marine and weather), NOAA CO-OPS (tides), NOAA NDBC (buoys), NOAA GFS-Wave; PacIOOS / University of Hawaiʻi WaveWatch III and NOAA/NCEP GFS, via PacIOOS ERDDAP (map layers) and CDIP (nearshore points), fetched through SWELLO's own server.</li>
         <li>Hazard alerts: the National Weather Service alerts API (api.weather.gov), loaded directly by your browser for the spot you open.</li>
         <li>Map tiles: Esri basemaps (light, dark or satellite, server.arcgisonline.com), loaded directly by your browser.</li>
         <li>Live cam links open the camera owner's own page in a new tab; nothing is embedded here.</li>

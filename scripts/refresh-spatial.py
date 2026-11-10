@@ -13,15 +13,16 @@ allowed={'Thgt','Tper','Tdir','shgt','sper','sdir','ugrd10m','vgrd10m'}
 fields=args.fields.split(',')
 if not set(fields)<=allowed:parser.error('unsupported fields')
 def download(field):
- wind=field in {'ugrd10m','vgrd10m'};dataset='NCEP_Global_Best' if wind else 'NWW3_Global_Best'
+ # NOAA moved these datasets from upwell to PacIOOS (2026-11): same variables and grids, new ids. The saved files keep the old names, which the app looks up (src/map/spatial.ts LEGACY_ID).
+ wind=field in {'ugrd10m','vgrd10m'};dataset='ncep_global' if wind else 'ww3_global';legacy='NCEP_Global_Best' if wind else 'NWW3_Global_Best'
  # These datasets already use their native hourly / 3-hourly time axes. A stride of 1 retains actual records.
  query=f'{field}[({iso(start)}):1:({iso(end)})]'+('' if wind else '[(0)]')+'[(36):1:(40)][(234):1:(238)]'
- url='https://upwell.pfeg.noaa.gov/erddap/griddap/'+dataset+'.json?'+query.replace('[','%5B').replace(']','%5D')
+ url='https://pae-paha.pacioos.hawaii.edu/erddap/griddap/'+dataset+'.json?'+query.replace('[','%5B').replace(']','%5D')
  try:
   with urllib.request.urlopen(url,timeout=45) as r:data=json.load(r)
   table=data['table'];names=table['columnNames'];rows=table['rows'];ti=names.index('time');vi=names.index(field)
   if not rows or len(rows)>12000 or not any(isinstance(row[vi],(float,int)) for row in rows):raise ValueError('No usable bounded grid rows')
-  times=sorted(set(row[ti] for row in rows));retrieved=iso(dt.datetime.now(dt.timezone.utc));filename=dataset+'-'+field+'.json'
+  times=sorted(set(row[ti] for row in rows));retrieved=iso(dt.datetime.now(dt.timezone.utc));filename=legacy+'-'+field+'.json'
   payload={'table':table,'snapshot':{'retrievedAt':retrieved,'url':url,'dataset':dataset,'field':field,'delivery':'saved'}}
   temp=out/(filename+'.tmp');temp.write_text(json.dumps(payload,separators=(',',':')));temp.replace(out/filename)
   print(field,len(rows),'rows',len(times),'actual timestamps',flush=True)

@@ -29,8 +29,8 @@ test('/api/ocean serves one packed native frame, bounded to 3-hourly times in ra
   const instant = Date.parse('2026-11-04T03:00:00Z'); let calls = 0, lastUrl = '';
   const h = createForecastService({now: () => instant, fetcher: async (u: string) => { calls++; lastUrl = String(u); return new Response(dods(2, 3, [1, 2, 3, 4, 5, 6], [10, 10.5], [0, 0.5, 1]), {status: 200}); }});
   const r = await h(new Request('https://surf.test/api/ocean?field=Thgt&time=2026-11-04T06:00:00Z')); assert.equal(r.status, 200); const b = await r.json();
-  assert.equal(b.nlat, 2); assert.equal(b.dataset, 'NWW3_Global_Best'); assert.match(lastUrl, /\.dods\?Thgt/); assert.match(lastUrl, /311|%5B0:1:310%5D/); assert.match(r.headers.get('cache-control') ?? '', /max-age/);
+  assert.equal(b.nlat, 2); assert.equal(b.dataset, 'ww3_global'); assert.match(lastUrl, /^https:\/\/pae-paha\.pacioos\.hawaii\.edu\/erddap\/griddap\//); assert.match(lastUrl, /\.dods\?Thgt/); assert.match(lastUrl, /311|%5B0:1:310%5D/); assert.match(r.headers.get('cache-control') ?? '', /max-age/);
   await h(new Request('https://surf.test/api/ocean?field=Thgt&time=2026-11-04T06:00:00Z')); assert.equal(calls, 1, 'cached');
   assert.equal((await h(new Request('https://surf.test/api/ocean?field=evil&time=2026-11-04T06:00:00Z'))).status, 400); assert.equal((await h(new Request('https://surf.test/api/ocean?field=Thgt&time=2026-11-04T06:30:00Z'))).status, 400); assert.equal((await h(new Request('https://surf.test/api/ocean?field=Thgt&time=2030-01-01T00:00:00Z'))).status, 400);
-  const w = await h(new Request('https://surf.test/api/ocean?field=ugrd10m&time=2026-11-04T06:00:00Z')); assert.equal(w.status, 200); assert.match(lastUrl, /NCEP_Global_Best/);
+  const w = await h(new Request('https://surf.test/api/ocean?field=ugrd10m&time=2026-11-04T06:00:00Z')); assert.equal(w.status, 200); assert.match(lastUrl, /pacioos\.hawaii\.edu\/erddap\/griddap\/ncep_global\.dods/);
 });

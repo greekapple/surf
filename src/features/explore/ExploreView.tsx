@@ -22,7 +22,7 @@ import {cacheLabel} from './cacheLabel';
 import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
 import {buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
-import {schedulePrefetch} from '../../map/spatial';
+import {erddapHosts, schedulePrefetch, viaHosts} from '../../map/spatial';
 import {attachDebugOverlay, debugEnabled, type DebugInfo} from '../../map/debugOverlay';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
@@ -580,12 +580,14 @@ function OceanMap({section, go}: ViewProps) {
   // after dark the spots keep their rating; the map says once, quietly, that the hour is dark.
   const darkNow = !!focused && !!view.selectedTime && isDark(spot.id, view.selectedTime);   // the dark mark is about the focused spot; none when nothing is focused
   // T-128: a frame drawn from this device's cache says so, with its own valid time, until the fresh frame replaces it.
+  // the ERDDAP frames drawn (the global one and the California subset), each with its components: one server named, or both if they differ
+  const shownUrls = [gframe, frame].flatMap((x) => (x ? x.sources ?? [x.url] : []));
   const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, mapZone())} ${hourLabel(iso, mapZone())} ${mapZoneAbbr(iso)}`);
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : cache && opts.heat ? cache.line
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
-    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} via NOAA ERDDAP`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, mapZone())} ${hourLabel((frame ?? gframe)!.validAt, mapZone())} ${mapZoneAbbr((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
+    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${viaHosts(shownUrls)}`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, mapZone())} ${hourLabel((frame ?? gframe)!.validAt, mapZone())} ${mapZoneAbbr((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
   const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
   const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
@@ -713,7 +715,7 @@ function OceanMap({section, go}: ViewProps) {
   const line = pointLine(pv, perS, p, fieldId, windSea, extras);
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
-  const modelName = packedGlobal ? 'GFS-Wave 0.25° · NOAA' : `${def.layer === 'WIND' ? 'GFS' : 'WW3'} · NOAA ERDDAP`;
+  const modelName = packedGlobal ? `GFS-Wave ${gframe!.resolution}° · NOAA` : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${erddapHosts(shownUrls) ? ` · ${erddapHosts(shownUrls)}` : ''}`;   // the server(s) the drawn frames came from (PacIOOS since NOAA's move)
   // Debug overlay (?debug=1, dev only): what the map is painting, from the same frames the field uses.
   const debugInfo = useRef<DebugInfo | null>(null);
   { const f = gframe ?? frame; debugInfo.current = f && opts.heat ? {model: modelName, source: f.provider, run: packedGlobal ? (/run ([^)]*)\)/.exec(f.provider)?.[1] ?? '?') : 'n/a (ERDDAP best series, no run id)', validAt: f.validAt, retrievedAt: f.retrievedAt, layer: (paintedDef.label ?? def.label), held: paintedDef.id !== def.id} : null; }
